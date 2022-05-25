@@ -88,14 +88,14 @@ if (!class_exists('Default_Panel_Template')) {
                     $(".sidebar").toggleClass(sidebarState);
 
                     $("#sidebarToggle, #sidebarToggleTop").on("click", function(e) {
-                          $("body").toggleClass("sidebar-toggled");
-                          $(".sidebar").toggleClass("toggled");
-                          if ($(".sidebar").hasClass("toggled")) {
+                        $("body").toggleClass("sidebar-toggled");
+                        $(".sidebar").toggleClass("toggled");
+                        if ($(".sidebar").hasClass("toggled")) {
                             sessionStorage.setItem("sidebar", "toggled");
                             $(".sidebar .collapse").collapse("hide");
-                          } else {
+                        } else {
                             sessionStorage.setItem("sidebar", "");
-                          };
+                        };
                     });
 
                     if ($(window).width() < 768) {
@@ -109,18 +109,18 @@ if (!class_exists('Default_Panel_Template')) {
                 });
                 $(document).ready(function(){
                     $(\'[data-toggle="popover"]\').popover({trigger:\'manual\',html:true}).on("mouseenter", function() {
-                      var _this = this;
-                      $(this).popover("show");
-                      $(".popover").on("mouseleave", function() {
+                        var _this = this;
+                        $(this).popover("show");
+                        $(".popover").on("mouseleave", function() {
                         $(_this).popover(\'hide\');
-                      });
+                    });
                     }).on("mouseleave", function() {
-                      var _this = this;
-                      setTimeout(function() {
-                        if (!$(".popover:hover").length) {
-                          $(_this).popover("hide")
-                        }
-                      }, 100);
+                        var _this = this;
+                        setTimeout(function() {
+                            if (!$(".popover:hover").length) {
+                                $(_this).popover("hide")
+                            }
+                        }, 250);
                     });
                 });
 

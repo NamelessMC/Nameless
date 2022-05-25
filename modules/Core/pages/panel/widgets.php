@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -168,7 +168,7 @@ if (!isset($_GET['action'])) {
                         $location = 'right';
                     }
 
-                    $queries->update('widgets', $widget->id, ['pages' => $active_pages_string, '`order`' => $order, '`location`' => $location]);
+                    $queries->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
                     Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));

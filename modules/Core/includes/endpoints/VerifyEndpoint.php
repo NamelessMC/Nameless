@@ -19,11 +19,11 @@ class VerifyEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['code']);
 
         if ($user->data()->active || $user->data()->reset_code == '') {
-            $api->throwError(32, $api->getLanguage()->get('api', 'user_already_active'));
+            $api->throwError(CoreApiErrors::ERROR_USER_ALREADY_ACTIVE);
         }
 
         if ($user->data()->reset_code != $_POST['code']) {
-            $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
+            $api->throwError(CoreApiErrors::ERROR_INVALID_CODE);
         }
 
         $user->update([

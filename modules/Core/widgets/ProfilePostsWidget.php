@@ -27,7 +27,7 @@ class ProfilePostsWidget extends WidgetBase {
         // Get widget
         $widget_query = self::getData('Latest Profile Posts');
 
-        parent::__construct(self::parsePages($widget_query->pages));
+        parent::__construct(self::parsePages($widget_query));
 
         // Set widget variables
         $this->_module = 'Core';

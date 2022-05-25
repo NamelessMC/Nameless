@@ -153,6 +153,10 @@ final class GroupSyncManager extends Instanceable {
             return [];
         }
 
+        if (count($group_ids) === 0) {
+            return [];
+        }
+
         $logs = [];
 
         $modified = [];

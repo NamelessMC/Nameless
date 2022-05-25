@@ -221,11 +221,9 @@ if ($page != 'install') {
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Attempt to get the requested language from the browser if it exists
         // and if the user has enabled auto language detection
-        $automatic_locale = Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        if (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true') {
-            if (array_key_exists($automatic_locale, Language::LANGUAGES)) {
-                $default_language = $automatic_locale;
-            }
+        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
+        if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
+            $default_language = $automatic_locale;
         }
 
         // Default language for guests
@@ -500,6 +498,38 @@ if ($page != 'install') {
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
         }
     }
+
+    // Webhooks
+    $cache->setCache('hooks');
+    if ($cache->isCached('hooks')) {
+        $hook_array = $cache->retrieve('hooks');
+    } else {
+        $hook_array = [];
+        if (Util::isModuleEnabled('Discord Integration')) {
+            $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
+            if (count($hooks)) {
+                foreach ($hooks as $hook) {
+                    if ($hook->action != 2) {
+                        continue;
+                    }
+
+                    // TODO: more extendable webhook system, #2676
+                    if (!class_exists(DiscordHook::class)) {
+                        continue;
+                    }
+
+                    $hook_array[] = [
+                        'id' => $hook->id,
+                        'url' => Output::getClean($hook->url),
+                        'action' => 'DiscordHook::execute',
+                        'events' => json_decode($hook->events, true)
+                    ];
+                }
+                $cache->store('hooks', $hook_array);
+            }
+        }
+    }
+    EventHandler::registerWebhooks($hook_array);
 
     // Get IP
     $ip = $user->getIP();

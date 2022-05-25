@@ -181,6 +181,13 @@ class User {
             $this->_groups[$group_id] = new Group($group_data);
         }
 
+        EventHandler::executeEvent('userGroupAdded', [
+            'username' => $this->data()->username,
+            'user_id' => $this->data()->id,
+            'group_id' => $group_id,
+            'group_name' => $this->_groups[$group_id]->name,
+        ]);
+
         return true;
     }
 
@@ -718,6 +725,13 @@ class User {
             ]
         );
 
+        EventHandler::executeEvent('userGroupRemoved', [
+            'username' => $this->data()->username,
+            'user_id' => $this->data()->id,
+            'group_id' => $group_id,
+            'group_name' => $this->_groups[$group_id]->name,
+        ]);
+
         unset($this->_groups[$group_id]);
 
         return true;
@@ -733,20 +747,20 @@ class User {
     }
 
     /**
-     * Get a comma separated string of all users.
+     * Get a comma separated string of all other users.
      * For the new private message dropdown.
      *
-     * @return string CSV list of user's usernames.
+     * @return array Array of usernames.
      */
-    public function listAllUsers(): string {
-        $data = $this->_db->get('users', ['id', '<>', '0'])->results();
-        $return = '';
+    public function listAllOtherUsers(): array {
+        $data = $this->_db->query("SELECT `username` FROM `nl2_users` WHERE `id` <> ?", [$this->data()->id])->results();
+        $return = [];
 
         foreach ($data as $item) {
-            $return .= '"' . $item->username . '",';
+            $return[] = $item->username;
         }
 
-        return rtrim($return, ',');
+        return $return;
     }
 
     /**

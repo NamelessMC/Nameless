@@ -1220,5 +1220,22 @@
     "admin/updated": "Aktualisiert",
     "admin/home_custom_content": "Startseite Benutzerdefinierter Inhalt",
     "admin/custom_content": "Benutzerdefinierter Inhalt",
-    "admin/homepage_news": "Neuigkeiten"
+    "admin/homepage_news": "Neuigkeiten",
+    "general/auto_language": "Automatische Sprache",
+    "general/default": "Standard",
+    "general/red": "Rot",
+    "general/orange": "Orange",
+    "general/yellow": "Gelb",
+    "general/olive": "Oliv",
+    "general/green": "Grün",
+    "general/teal": "Türkisblau",
+    "general/blue": "Blau",
+    "general/violet": "Violett",
+    "general/purple": "Lila",
+    "general/pink": "Rosa",
+    "general/brown": "Braun",
+    "general/grey": "Grau",
+    "admin/user_group_removed_hook_info": "Benutzergruppe entfernt",
+    "admin/user_group_added_hook_info": "Benutzergruppe hinzugefügt",
+    "admin/group_name": "Gruppe Name"
 }

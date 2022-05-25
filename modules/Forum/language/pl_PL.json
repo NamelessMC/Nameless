@@ -54,7 +54,7 @@
     "forum/guests": "Goście",
     "forum/has_no_parent": "Bez forum nadrzędnego",
     "forum/in": "w",
-    "forum/include_in_hook": "Include new topics from this forum in webhooks?",
+    "forum/include_in_hook": "Include events from this forum in webhooks?",
     "forum/input_forum_description": "Wpisz opis forum.",
     "forum/input_forum_title": "Wpisz nazwę forum.",
     "forum/insert_quotes": "Wstaw cytaty",
