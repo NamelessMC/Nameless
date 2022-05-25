@@ -14,7 +14,7 @@ class CoreApiErrors {
     public const ERROR_BANNED_FROM_WEBSITE = 'core:banned_from_website';
 
     public const ERROR_REPORT_CONTENT_TOO_LONG = 'core:report_content_too_long';
-    public const ERROR_CANNOT_REPORT_YOURSEF = 'core:cannot_report_yourself';
+    public const ERROR_CANNOT_REPORT_YOURSELF = 'core:cannot_report_yourself';
     public const ERROR_OPEN_REPORT_ALREADY = 'core:open_report_already';
 
     public const ERROR_UNABLE_TO_UPDATE_SERVER_INFO = 'core:unable_to_update_server_info';

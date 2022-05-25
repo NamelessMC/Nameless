@@ -48,7 +48,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         if ($user_reporting_data->id == $user_reported_id) {
-            $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSEF);
+            $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
         }
 
         // Ensure user has not already reported the same player, and the report is open
