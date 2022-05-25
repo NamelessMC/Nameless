@@ -253,7 +253,7 @@
     "admin/hook_edited": "Вебхук оновлено",
     "admin/hook_events": "Події для надсилання",
     "admin/hook_name": "Назва вебхука",
-    "admin/hook_select_info": "Only Hooks with 'New topic' selected as an event are shown.",
+    "admin\/hook_select_info": "Only Hooks with 'New topic' or 'Topic reply' selected as events are shown.",
     "admin/hook_type": "Тип вебхука",
     "admin/hook_url": "URL вебхука",
     "admin/hooks": "Вебхукі",

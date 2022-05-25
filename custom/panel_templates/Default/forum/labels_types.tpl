@@ -52,60 +52,63 @@
                                 <div class="col-md-3">
                                     <div class="float-md-right">
                                         <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
-                                        <button onclick="showDeleteModal('{$label_type.delete_link}')"
-                                            class="btn btn-danger btn-sm">{$DELETE}</button>
+                                        <button {if $label_type.usages <
+                                            1}onclick="showDeleteModal('{$label_type.delete_link}')" {/if}
+                                            class="btn btn-danger btn-sm" {if $label_type.usages <
+                                            1}disabled{/if}>{$DELETE}</button>
                                     </div>
                                 </div>
                             </div>
-                            {if !$smarty.foreach.label_list.last}
-                            <hr />
-                            {/if}
-                            {/foreach}
-                            {else}
-                            <p>{$NO_LABEL_TYPES}</p>
-                            {/if}
-
                         </div>
-                    </div>
+                        {if !$smarty.foreach.label_list.last}
+                        <hr />
+                        {/if}
+                        {/foreach}
+                        {else}
+                        <p>{$NO_LABEL_TYPES}</p>
+                        {/if}
 
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
-                    <!-- End Page Content -->
-                </div>
-
-                <!-- End Main Content -->
-            </div>
-
-            {include file='footer.tpl'}
-
-            <!-- End Content Wrapper -->
-        </div>
-
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {$CONFIRM_DELETE}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <form action="" id="deleteForm" method="post" style="display: inline">
-                            <input type="hidden" name="token" value="{$TOKEN}" />
-                            <input type="submit" class="btn btn-primary" value="{$YES}" />
-                        </form>
                     </div>
                 </div>
+
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+                <!-- End Page Content -->
             </div>
+
+            <!-- End Main Content -->
         </div>
 
-        <!-- End Wrapper -->
+        {include file='footer.tpl'}
+
+        <!-- End Content Wrapper -->
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {$CONFIRM_DELETE}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                    <form action="" id="deleteForm" method="post" style="display: inline">
+                        <input type="hidden" name="token" value="{$TOKEN}" />
+                        <input type="submit" class="btn btn-primary" value="{$YES}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Wrapper -->
     </div>
 
     {include file='scripts.tpl'}

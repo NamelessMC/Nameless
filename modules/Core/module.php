@@ -443,37 +443,20 @@ class Core_Module extends Module {
             ]
         );
 
-        // Webhooks
-        $cache->setCache('hooks');
-        if ($cache->isCached('hooks')) {
-            $hook_array = $cache->retrieve('hooks');
-        } else {
-            $hook_array = [];
-            if (Util::isModuleEnabled('Discord Integration')) {
-                $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
-                if (count($hooks)) {
-                    foreach ($hooks as $hook) {
-                        if ($hook->action != 2) {
-                            continue;
-                        }
+        // TODO: should this be in the Discord Integration module?
+        OAuth::getInstance()->registerProvider('discord', [
+            'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
+            'user_id_name' => 'id',
+            'scope_id_name' => 'identify',
+            'icon' => 'fab fa-discord',
+        ]);
 
-                        // TODO: more extendable webhook system, #2676
-                        if (!class_exists(DiscordHook::class)) {
-                            continue;
-                        }
-
-                        $hook_array[] = [
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
-                            'action' => 'DiscordHook::execute',
-                            'events' => json_decode($hook->events, true)
-                        ];
-                    }
-                    $cache->store('hooks', $hook_array);
-                }
-            }
-        }
-        EventHandler::registerWebhooks($hook_array);
+        OAuth::getInstance()->registerProvider('google', [
+            'class' => \League\OAuth2\Client\Provider\Google::class,
+            'user_id_name' => 'sub',
+            'scope_id_name' => 'openid',
+            'icon' => 'fab fa-google',
+        ]);
 
         // Captcha
         $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
@@ -517,7 +500,7 @@ class Core_Module extends Module {
                 } else if ($lookup_type === 'username') {
                     $column = 'username';
                 } else {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid native lookup type: $value");
+                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid native lookup type: $value");
                 }
 
                 $user = new User($lookup_value, $column);
@@ -536,23 +519,23 @@ class Core_Module extends Module {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else if ($integration_lookup_type === 'integration_name') {
                         $integrationUser = new IntegrationUser($integration, $lookup_value, 'username');
                         if ($integrationUser->exists()) {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else {
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     }
                 } else {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
+                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup type: $value");
                 }
             }
 
-            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
+            $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, $value);
         });
 
         // Minecraft Integration
@@ -733,17 +716,7 @@ class Core_Module extends Module {
 
             // Statistics
             require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-            $widgets->add(new StatsWidget($smarty, [
-                'statistics' => $language->get('general', 'statistics'),
-                'users_registered' => $language->get('general', 'users_registered'),
-                'latest_member' => $language->get('general', 'latest_member'),
-                'forum_stats' => $language->get('general', 'forum_statistics'),
-                'total_threads' => $language->get('general', 'total_threads'),
-                'total_posts' => $language->get('general', 'total_posts'),
-                'users_online' => $language->get('general', 'online_users'),
-                'guests_online' => $language->get('general', 'online_guests'),
-                'total_online' => $language->get('general', 'total_online'),
-            ], $cache));
+            $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
         // Queries
@@ -1657,8 +1630,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
-    public static function addNotice($url, $text): void
-    {
+    public static function addNotice($url, $text): void {
         self::$_notices[$url] = $text;
     }
 
@@ -1671,8 +1643,7 @@ class Core_Module extends Module {
         }
     }
 
-    public static function addUserAction($title, $link): void
-    {
+    public static function addUserAction($title, $link): void {
         self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 

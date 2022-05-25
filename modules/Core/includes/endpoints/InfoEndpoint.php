@@ -23,7 +23,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
 
         $site_id = Util::getSetting($api->getDb(), 'unique_id');
         if ($site_id == null) {
-            $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
+            $api->throwError(Nameless2API::ERROR_NO_SITE_UID);
         }
 
         $ret = [];
