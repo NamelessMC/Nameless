@@ -677,6 +677,7 @@
     "admin\/widgets": "Widgets",
     "admin\/x_directory_not_writable": "The {{directory}} directory is not writable!",
     "admin\/youtube_url": "Youtube URL",
+    "admin\/api_disabled": "API is disabled",
     "api\/account_validated": "Account validated successfully",
     "api\/finish_registration_email": "Please check your emails to complete registration.",
     "api\/finish_registration_link": "Please click on the following link to complete registration:",
