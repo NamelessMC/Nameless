@@ -596,7 +596,6 @@
     "api/finish_registration_email": "Bitte überprüfen Sie Ihre E-Mails, um die Registrierung abzuschließen.",
     "api/finish_registration_link": "Bitte klicken Sie auf den folgenden Link, um die Registrierung abzuschließen:",
     "api/group_updated": "Gruppe erfolgreich aktualisiert",
-    "api/invalid_username": "Ungültiger Benutzername",
     "api/report_created": "Bericht erfolgreich erstellt",
     "api/server_info_updated": "Serverinformationen erfolgreich aktualisiert",
     "api/unable_to_update_server_info": "Serverinformationen können nicht aktualisiert werden",
