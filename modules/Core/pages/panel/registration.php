@@ -38,11 +38,17 @@ if (Input::exists()) {
 
             if (Input::get('action') == 'oauth') {
 
-                OAuth::getInstance()->setEnabled('discord', Input::get('enable-discord') == 'on' ? 1 : 0);
-                OAuth::getInstance()->setCredentials('discord', Input::get('client-id-discord'), Input::get('client-secret-discord'));
+                foreach (array_keys(OAuth::getInstance()->getProviders()) as $provider_name) {
+                    $client_id = Input::get("client-id-{$provider_name}");
+                    $client_secret = Input::get("client-secret-{$provider_name}");
+                    if ($client_id && $client_secret) {
+                        OAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
+                    } else {
+                        OAuth::getInstance()->setEnabled($provider_name, 0);
+                    }
 
-                OAuth::getInstance()->setEnabled('google', Input::get('enable-google') == 'on' ? 1 : 0);
-                OAuth::getInstance()->setCredentials('google', Input::get('client-id-google'), Input::get('client-secret-google'));
+                    OAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
+                }
 
             } else {
                 // Email verification
@@ -215,6 +221,18 @@ foreach ($all_captcha_options as $option) {
     ];
 }
 
+$oauth_provider_data = [];
+foreach (OAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
+    [$client_id, $client_secret] = OAuth::getInstance()->getCredentials($provider_name);
+    $oauth_provider_data[$provider_name] = [
+        'enabled' => OAuth::getInstance()->isEnabled($provider_name),
+        'setup' => OAuth::getInstance()->isSetup($provider_name),
+        'icon' => $provider_data['icon'],
+        'client_id' => $client_id,
+        'client_secret' => $client_secret,
+    ];
+}
+
 $smarty->assign([
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
     'EMAIL_VERIFICATION_VALUE' => $emails,
@@ -241,26 +259,6 @@ $smarty->assign([
         'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
         'docLinkEnd' => '</a>'
     ]),
-]);
-
-[$discord_client_id, $discord_client_secret] = OAuth::getInstance()->getCredentials(OAuth::DISCORD);
-[$google_client_id, $google_client_secret] = OAuth::getInstance()->getCredentials(OAuth::GOOGLE);
-
-$smarty->assign([
-    'DISCORD_OAUTH_ENABLED' => OAuth::getInstance()->isEnabled(OAuth::DISCORD),
-    'GOOGLE_OAUTH_ENABLED' => OAuth::getInstance()->isEnabled(OAuth::GOOGLE),
-
-    'DISCORD_OAUTH_SETUP' => OAuth::getInstance()->isSetup(OAuth::DISCORD),
-    'GOOGLE_OAUTH_SETUP' => OAuth::getInstance()->isSetup(OAuth::GOOGLE),
-
-    'DISCORD_CLIENT_ID' => $discord_client_id,
-    'DISCORD_CLIENT_SECRET' => $discord_client_secret,
-
-    'GOOGLE_CLIENT_ID' => $google_client_id,
-    'GOOGLE_CLIENT_SECRET' => $google_client_secret,
-]);
-
-$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -269,7 +267,8 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_REGISTRATION' => $language->get('admin', 'enable_registration'),
-    'REGISTRATION_ENABLED' => $registration_enabled
+    'REGISTRATION_ENABLED' => $registration_enabled,
+    'OAUTH_PROVIDER_DATA' => $oauth_provider_data,
 ]);
 
 $template->onPageLoad();

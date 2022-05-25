@@ -293,7 +293,10 @@ if (Input::exists()) {
                 'topic_reply_date' => date('U')
             ]);
 
-            // Fire event
+            // Execute hooks and pass $available_hooks
+            // TODO: This gets hooks only for this specific forum, not any of its parents...
+            $available_hooks = $queries->getWhere('forums', ['id', $topic->forum_id]);
+            $available_hooks = json_decode($available_hooks[0]->hooks);
             EventHandler::executeEvent('topicReply', [
                 'user_id' => $user->data()->id,
                 'username' => $user->data()->username,
@@ -311,6 +314,7 @@ if (Input::exists()) {
                 'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
                 'post_id' => $last_post_id,
+                'available_hooks' => $available_hooks == null ? [] : $available_hooks
             ]);
 
             // Alerts + Emails
