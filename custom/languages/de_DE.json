@@ -1214,5 +1214,6 @@
     "general/grey": "Grau",
     "admin/user_group_removed_hook_info": "Benutzergruppe entfernt",
     "admin/user_group_added_hook_info": "Benutzergruppe hinzugefügt",
-    "admin/group_name": "Gruppen Name"
+    "admin/group_name": "Gruppen Name",
+    "admin/api_disabled": "API ist deaktiviert"
 }
