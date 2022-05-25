@@ -19,7 +19,7 @@ class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['user']);
 
         if (!Discord::isBotSetup()) {
-            $api->throwError(34, Discord::getLanguageTerm('discord_integration_disabled'));
+            $api->throwError(DiscordApiErrors::ERROR_DISCORD_INTEGRATION_DISABLED);
         }
 
         $user = $api->getUser('id', $_POST['user']);

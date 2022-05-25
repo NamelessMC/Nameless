@@ -24,18 +24,18 @@ class UpdateDiscordUsernames extends KeyAuthEndpoint {
                 $integrationUser = new IntegrationUser($integration, $row['id'], 'identifier');
                 if ($integrationUser->exists()) {
                     $discord_username = Output::getClean($row['name']);
-                    
+
                     if ($integrationUser->data()->username != $discord_username) {
                         $integrationUser->update([
                             'username' => $discord_username
                         ]);
-                        
+
                         $updated++;
                     }
                 }
             }
         } catch (Exception $e) {
-            $api->throwError(24, Discord::getLanguageTerm('unable_to_update_discord_username'), $e->getMessage(), 500);
+            $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), 500);
         }
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_usernames_updated'), 'updated_users' => $updated]);

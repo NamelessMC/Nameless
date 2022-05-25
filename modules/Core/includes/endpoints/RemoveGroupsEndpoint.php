@@ -20,7 +20,7 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
 
         $groups = $_POST['groups'];
         if (!count($groups)) {
-            $api->throwError(6, $api->getLanguage()->get('api', 'invalid_post_contents'));
+            $api->throwError(Nameless2API::ERROR_INVALID_POST_CONTENTS);
         }
 
         $removed_groups = [];

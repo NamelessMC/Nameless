@@ -22,23 +22,23 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
 
         $integration = Integrations::getInstance()->getIntegration($_POST['integration']);
         if ($integration == null) {
-            $api->throwError(37, $api->getLanguage()->get('api', 'invalid_integration'));
+            $api->throwError(CoreApiErrors::ERROR_INVALID_INTEGRATION);
         }
 
         // Get integration user by code
         $integrationUser = new IntegrationUser($integration, $_POST['code'], 'code');
         if (!$integrationUser->exists() || $integrationUser->isVerified()) {
-            $api->throwError(28, $api->getLanguage()->get('api', 'invalid_code'));
+            $api->throwError(CoreApiErrors::ERROR_INVALID_CODE);
         }
 
         // Validate username and make sure username is unique
         if (!$integration->validateUsername($_POST['username'], $integrationUser->data()->id)) {
-            $api->throwError(38, $integration->getErrors()[0]);
+            $api->throwError($integration->getErrors()[0]);
         }
 
         // Validate identifier and make sure identifier is unique
         if (!$integration->validateIdentifier($_POST['identifier'], $integrationUser->data()->id)) {
-            $api->throwError(39, $integration->getErrors()[0]);
+            $api->throwError($integration->getErrors()[0]);
         }
 
         $integrationUser->update([

@@ -500,7 +500,7 @@ class Core_Module extends Module {
                 } else if ($lookup_type === 'username') {
                     $column = 'username';
                 } else {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid native lookup type: $value");
+                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid native lookup type: $value");
                 }
 
                 $user = new User($lookup_value, $column);
@@ -519,23 +519,23 @@ class Core_Module extends Module {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else if ($integration_lookup_type === 'integration_name') {
                         $integrationUser = new IntegrationUser($integration, $lookup_value, 'username');
                         if ($integrationUser->exists()) {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else {
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     }
                 } else {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
+                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup type: $value");
                 }
             }
 
-            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
+            $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, $value);
         });
 
         // Minecraft Integration

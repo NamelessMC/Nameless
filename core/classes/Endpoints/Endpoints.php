@@ -44,7 +44,12 @@ class Endpoints {
 
                 if ($endpoint->getMethod() === $method) {
                     if (!$endpoint->isAuthorised($api)) {
-                        $api->throwError(36, 'Not authorized', $endpoint->getAuthType(), 403);
+                        $api->throwError(
+                            $endpoint->getAuthType() === EndpointBase::AUTH_TYPE_API_KEY
+                                ? Nameless2API::ERROR_INVALID_API_KEY
+                                : Nameless2API::ERROR_NOT_AUTHORIZED,
+                            null,
+                            403);
                     }
 
                     if (!method_exists($endpoint, 'execute')) {
@@ -68,10 +73,10 @@ class Endpoints {
         }
 
         if ($matched_endpoint !== null) {
-            $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
+            $api->throwError(Nameless2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
         }
 
-        $api->throwError(3, $api->getLanguage()->get('api', 'invalid_api_method'), 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
+        $api->throwError(Nameless2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
     }
 
     /**
