@@ -49,7 +49,8 @@ class Endpoints {
                                 ? Nameless2API::ERROR_INVALID_API_KEY
                                 : Nameless2API::ERROR_NOT_AUTHORIZED,
                             null,
-                            403);
+                            403
+                        );
                     }
 
                     if (!method_exists($endpoint, 'execute')) {
