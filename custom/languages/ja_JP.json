@@ -643,7 +643,6 @@
     "api/finish_registration_email": "登録を完了するにはメールを確認して処理を完了してください。",
     "api/finish_registration_link": "登録を完了するには次のリンクをクリックしてください:",
     "api/group_updated": "グループを正常に更新しました。",
-    "api/invalid_username": "無効なユーザー名",
     "api/report_created": "レポートが正常に送信されました。",
     "api/server_info_updated": "サーバー情報が更新されました。",
     "api/unable_to_update_server_info": "サーバー情報を更新できませんでした。",

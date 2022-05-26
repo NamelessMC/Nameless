@@ -610,7 +610,6 @@
     "api/finish_registration_email": "Sprawdź swoją skrzynkę email, aby ukończyć rejestrację.",
     "api/finish_registration_link": "Kliknij poniższy link, aby ukończyć rejestrację:",
     "api/group_updated": "Grupa została zaktualizowana pomyślnie.",
-    "api/invalid_username": "Niepoprawna nazwa użytkownika",
     "api/report_created": "Zgłoszenie zostało stworzone pomyślnie.",
     "api/server_info_updated": "Informacje o serwerze zostały zaktualizowane pomyślnie.",
     "api/unable_to_update_server_info": "Nie można zaktualizować informacji o serwerze",

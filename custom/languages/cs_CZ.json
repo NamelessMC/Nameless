@@ -626,7 +626,6 @@
     "api/finish_registration_email": "Podívejte se do vaší e-mailové schránky pro dokončení registrace.",
     "api/finish_registration_link": "Klikněte na následující odkaz pro dokončení registrace:",
     "api/group_updated": "Skupina úspěšně aktualizována",
-    "api/invalid_username": "Neplatné uživatelské jméno",
     "api/report_created": "Nahlášení úspěšně vytvořeno",
     "api/server_info_updated": "Informace o serveru úspěšně aktualizovány",
     "api/unable_to_update_server_info": "Nepodařilo se aktualizovat informace o serveru",

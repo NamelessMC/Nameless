@@ -629,7 +629,6 @@
     "api/finish_registration_email": "Por favor, verifique seus emails para completar o registro.",
     "api/finish_registration_link": "Por favor, clique no seguinte link para concluir o registro:",
     "api/group_updated": "Grupo atualizado com êxito.",
-    "api/invalid_username": "Nome de usuário inválido.",
     "api/report_created": "Relatório criado com êxito.",
     "api/server_info_updated": "Informações do servidor atualizadas com sucesso.",
     "api/unable_to_update_server_info": "Não foi possível atualizar informações do servidor.",

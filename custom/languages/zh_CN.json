@@ -623,7 +623,6 @@
     "api/finish_registration_email": "请检查电子邮箱地址以完成注册.",
     "api/finish_registration_link": "请点击该链接以完成注册:",
     "api/group_updated": "权限组更新成功",
-    "api/invalid_username": "用户名无效",
     "api/report_created": "反馈成功",
     "api/server_info_updated": "服务器信息更新成功",
     "api/unable_to_update_server_info": "未能更新服务器信息",

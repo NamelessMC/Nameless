@@ -557,7 +557,6 @@
     "api/finish_registration_email": "Veuillez vérifier vos emails pour compléter l'inscription.",
     "api/finish_registration_link": "Veuillez cliquer sur le lien suivant pour compléter l'inscription :",
     "api/group_updated": "Groupe mis à jour avec succès",
-    "api/invalid_username": "Nom d'utilisateur invalide",
     "api/report_created": "Rapport créé avec succès",
     "api/server_info_updated": "Les informations sur le serveur ont été mises à jour avec succès",
     "api/unable_to_update_server_info": "Impossible de mettre à jour les informations sur le serveur",
