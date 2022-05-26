@@ -104,7 +104,7 @@ foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $ru
 }
 
 $webhooks = [];
-foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
+foreach (DB::getInstance()->query('SELECT `id`, `name`, `action`, `events` FROM nl2_hooks')->results() as $webhook) {
     $webhooks[$webhook->id] = [
         'id' => (int)$webhook->id,
         'name' => $webhook->name,
@@ -114,7 +114,7 @@ foreach (DB::getInstance()->selectQuery('SELECT `id`, `name`, `action`, `events`
 }
 
 $forum_hooks = [];
-foreach (DB::getInstance()->selectQuery('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
+foreach (DB::getInstance()->query('SELECT `id`, `forum_title`, `hooks` FROM nl2_forums WHERE `hooks` IS NOT NULL')->results() as $forum) {
     $forum_hooks[] = [
         'forum_id' => (int)$forum->id,
         'title' => $forum->forum_title,
@@ -152,7 +152,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
 
 $namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
 
-$uuid = DB::getInstance()->selectQuery('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
+$uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
     $uuid = $uuid->first()->identifier;
 } else {

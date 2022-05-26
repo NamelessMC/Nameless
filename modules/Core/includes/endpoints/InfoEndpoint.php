@@ -16,14 +16,14 @@ class InfoEndpoint extends KeyAuthEndpoint {
 
     public function execute(Nameless2API $api): void {
         // Get version, update info and modules from database
-        $version_query = $api->getDb()->selectQuery('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', ['nameless_version', 'version_checked', 'version_update', 'new_version']);
+        $version_query = $api->getDb()->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', ['nameless_version', 'version_checked', 'version_update', 'new_version']);
         if ($version_query->count()) {
             $version_query = $version_query->results();
         }
 
         $site_id = Util::getSetting($api->getDb(), 'unique_id');
         if ($site_id == null) {
-            $api->throwError(4, $api->getLanguage()->get('api', 'no_unique_site_id'));
+            $api->throwError(Nameless2API::ERROR_NO_SITE_UID);
         }
 
         $ret = [];
@@ -51,7 +51,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
         // Return default language
         $ret['locale'] = LANGUAGE;
 
-        $modules_query = $api->getDb()->get('modules', ['enabled', '=', 1]);
+        $modules_query = $api->getDb()->get('modules', ['enabled', true]);
         $ret_modules = [];
         if ($modules_query->count()) {
             $modules_query = $modules_query->results();

@@ -10,7 +10,7 @@
 class IntegrationUser {
 
     private DB $_db;
-    private $_data;
+    private IntegrationUserData $_data;
     private User $_user;
     private IntegrationBase $_integration;
 
@@ -21,13 +21,13 @@ class IntegrationUser {
         if (!$query_data && $value) {
             $field = preg_replace('/[^A-Za-z_]+/', '', $field);
 
-            $data = $this->_db->selectQuery("SELECT * FROM nl2_users_integrations WHERE $field = ? AND integration_id = ?", [$value, $integration->data()->id]);
+            $data = $this->_db->query("SELECT * FROM nl2_users_integrations WHERE $field = ? AND integration_id = ?", [$value, $integration->data()->id]);
             if ($data->count()) {
-                $this->_data = $data->first();
+                $this->_data = new IntegrationUserData($data->first());
             }
         } else if ($query_data) {
             // Load data from existing query.
-            $this->_data = $query_data;
+            $this->_data = new IntegrationUserData($query_data);
         }
     }
 
@@ -54,9 +54,9 @@ class IntegrationUser {
     /**
      * Get the integration user data.
      *
-     * @return object This integration user data.
+     * @return IntegrationUserData This integration user data.
      */
-    public function data(): ?object {
+    public function data(): IntegrationUserData {
         return $this->_data;
     }
 
@@ -100,7 +100,7 @@ class IntegrationUser {
      * @param string|null $code (optional) The verification code to verify the ownership
      */
     public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, string $code = null): void {
-        $this->_db->createQuery(
+        $this->_db->query(
             'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                 $user->data()->id,
                 $this->_integration->data()->id,
@@ -164,7 +164,7 @@ class IntegrationUser {
      * Delete integration user data.
      */
     public function unlinkIntegration(): void {
-        $this->_db->createQuery(
+        $this->_db->query(
             'DELETE FROM nl2_users_integrations WHERE user_id = ? AND integration_id = ?', [
                 $this->data()->user_id,
                 $this->_integration->data()->id

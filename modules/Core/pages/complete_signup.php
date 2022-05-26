@@ -24,9 +24,9 @@ if (!isset($_GET['c'])) {
 }
 
 // Ensure API is enabled
-$is_api_enabled = $queries->getWhere('settings', ['name', '=', 'use_api']);
+$is_api_enabled = $queries->getWhere('settings', ['name', 'use_api']);
 if ($is_api_enabled[0]->value != '1') {
-    $is_legacy_enabled = $queries->getWhere('settings', ['name', '=', 'use_legacy_api']);
+    $is_legacy_enabled = $queries->getWhere('settings', ['name', 'use_legacy_api']);
     if ($is_legacy_enabled[0]->value != '1') {
         die('Legacy API is disabled');
     }

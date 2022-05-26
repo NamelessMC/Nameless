@@ -128,7 +128,7 @@ class Discord {
     public static function getDiscordRoleId(DB $db, int $nameless_group_id): ?int {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
-        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), '=', $nameless_group_id]);
+        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), $nameless_group_id]);
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
         }

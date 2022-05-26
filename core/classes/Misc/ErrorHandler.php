@@ -92,7 +92,7 @@ class ErrorHandler {
 
             foreach ($exception->getTrace() as $frame) {
 
-                // Check if previous frame had same file and line number (ie: DB->selectQuery() reports same file and line twice in a row)
+                // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
                 if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
                     ++$skip_frames;
                     continue;
@@ -110,7 +110,17 @@ class ErrorHandler {
             $language = new Language('core', 'en_UK');
         }
 
-        $user = new User();
+        $detailed_error = defined('DEBUGGING');
+        $can_generate_debug = defined('DEBUGGING');
+
+        try {
+            $user = new User();
+            $detailed_error |= $user->isLoggedIn() && $user->hasPermission('admincp.errors');
+            $can_generate_debug |= $user->hasPermission('admincp.core.debugging');
+        } catch (Error $ignored) {
+            // Getting user info might fail, for example if the website isn't
+            // installed yet. Assume the user does not have permission.
+        }
 
         if (defined('CONFIG_PATH')) {
             $path = CONFIG_PATH . '/core/assets/';
@@ -135,14 +145,14 @@ class ErrorHandler {
             'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
             'PRISM_CSS' => $path . 'plugins/prism/prism_light_coy.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
-            'DETAILED_ERROR' => defined('DEBUGGING') || ($user->isLoggedIn() && $user->hasPermission('admincp.errors')),
+            'DETAILED_ERROR' => $detailed_error,
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
             'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
             'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
             'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
-            'CAN_GENERATE_DEBUG' => defined('DEBUGGING') || $user->hasPermission('admincp.core.debugging'),
+            'CAN_GENERATE_DEBUG' => $can_generate_debug,
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),

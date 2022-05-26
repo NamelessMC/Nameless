@@ -211,7 +211,7 @@ if (isset($_GET['do'])) {
                 if ($validation->passed()) {
                     try {
                         // Update language, template and timezone
-                        $new_language = $queries->getWhere('languages', ['name', '=', Input::get('language')]);
+                        $new_language = $queries->getWhere('languages', ['name', Input::get('language')]);
 
                         if (count($new_language)) {
                             $new_language = $new_language[0]->id;
@@ -219,7 +219,7 @@ if (isset($_GET['do'])) {
                             $new_language = $user->data()->language_id;
                         }
 
-                        $new_template = $queries->getWhere('templates', ['id', '=', Input::get('template')]);
+                        $new_template = $queries->getWhere('templates', ['id', Input::get('template')]);
 
                         if (count($new_template)) {
                             $new_template = $new_template[0]->id;
@@ -250,7 +250,7 @@ if (isset($_GET['do'])) {
                         }
 
                         // Private profiles enabled?
-                        $private_profiles = $queries->getWhere('settings', ['name', '=', 'private_profile']);
+                        $private_profiles = $queries->getWhere('settings', ['name', 'private_profile']);
                         if ($private_profiles[0]->value == 1) {
                             if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
                                 $privateProfile = 1;
@@ -293,16 +293,20 @@ if (isset($_GET['do'])) {
 
                             $user_profile_fields = $user->getProfileFields(true);
                             if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
-                                // Update field value
-                                $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
-                                    'value' => $value
-                                ]);
+                                // Update field value if it has changed
+                                if ($value !== $user_profile_fields[$field->id]->value) {
+                                    $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                        'value' => $value,
+                                        'updated' => date('U'),
+                                    ]);
+                                }
                             } else {
                                 // Create new field value
                                 $queries->create('users_profile_fields', [
                                     'user_id' => $user->data()->id,
                                     'field_id' => $field->id,
-                                    'value' => $value
+                                    'value' => $value,
+                                    'updated' => date('U'),
                                 ]);
                             }
                         }
@@ -391,7 +395,7 @@ if (isset($_GET['do'])) {
 
                         if ($validation->passed()) {
                             // Check email doesn't exist
-                            $email_query = $queries->getWhere('users', ['email', '=', $_POST['email']]);
+                            $email_query = $queries->getWhere('users', ['email', $_POST['email']]);
                             if (count($email_query)) {
                                 if ($email_query[0]->id != $user->data()->id) {
                                     $error = $language->get('user', 'email_already_exists');
@@ -538,7 +542,7 @@ if (isset($_GET['do'])) {
     if ($forum_enabled) {
         $smarty->assign([
             'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
-            'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', '=', $user->data()->id])->first()->topic_updates
+            'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', $user->data()->id])->first()->topic_updates
         ]);
     }
 

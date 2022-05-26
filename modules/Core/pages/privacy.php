@@ -15,9 +15,9 @@ $page_title = $language->get('general', 'privacy_policy');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Retrieve privacy policy from database
-$policy = $queries->getWhere('privacy_terms', ['name', '=', 'privacy']);
+$policy = $queries->getWhere('privacy_terms', ['name', 'privacy']);
 if (!count($policy)) {
-    $policy = $queries->getWhere('settings', ['name', '=', 'privacy_policy']);
+    $policy = $queries->getWhere('settings', ['name', 'privacy_policy']);
 }
 $policy = Output::getPurified($policy[0]->value);
 

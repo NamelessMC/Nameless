@@ -61,7 +61,7 @@ class Placeholders extends Instanceable {
      * @param string $name Name of placeholder
      */
     public function registerPlaceholder(int $server_id, string $name): void {
-        $this->_db->createQuery('INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
+        $this->_db->query('INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
     }
 
     /**
@@ -74,7 +74,7 @@ class Placeholders extends Instanceable {
     public function loadUserPlaceholders(string $uuid): array {
         $binUuid = hex2bin(str_replace('-', '', $uuid));
 
-        $placeholder_query = $this->_db->selectQuery('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
+        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
 
         if (!$placeholder_query->count()) {
             return [];
@@ -124,7 +124,7 @@ class Placeholders extends Instanceable {
         $sort = $this->getPlaceholder($server_id, sha1($placeholder_name))->leaderboard_sort;
 
         // We have to add 0 to value so mysql converts from the TEXT field to an integer value
-        $leaderboard_data = $this->_db->selectQuery("SELECT * FROM nl2_users_placeholders WHERE name = ? AND server_id = ? ORDER BY value + 0 {$sort} LIMIT 50", [$placeholder_name, $server_id]);
+        $leaderboard_data = $this->_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? AND server_id = ? ORDER BY value + 0 {$sort} LIMIT 50", [$placeholder_name, $server_id]);
 
         if (!$leaderboard_data->count()) {
             return [];

@@ -24,7 +24,7 @@ if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
 }
 
 // Get post and forum ID
-$post = $queries->getWhere('posts', ['id', '=', $_GET['pid']]);
+$post = $queries->getWhere('posts', ['id', $_GET['pid']]);
 if (!count($post)) {
     Redirect::to(URL::build('/forum'));
 }
@@ -59,7 +59,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             ]);
 
             if (isset($opening_post)) {
-                $posts = $queries->getWhere('posts', ['topic_id', '=', $_POST['tid']]);
+                $posts = $queries->getWhere('posts', ['topic_id', $_POST['tid']]);
 
                 if (count($posts)) {
                     foreach ($posts as $post) {

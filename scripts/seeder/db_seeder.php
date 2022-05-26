@@ -53,7 +53,7 @@ if (!$wipe && $db->get('users', ['id', '>', 0])->count() > 0) {
 if ($wipe) {
     foreach ($seeders as $seeder) {
         foreach ($seeder->tables as $table) {
-            $db->selectQuery("TRUNCATE {$table}");
+            $db->query("TRUNCATE {$table}");
         }
     }
     print '🧨 Deleted existing data!' . PHP_EOL;

@@ -9,6 +9,10 @@
  */
 abstract class EndpointBase {
 
+    public const AUTH_TYPE_API_KEY = 'API Key';
+    public const AUTH_TYPE_NONE = 'None';
+    public const AUTH_TYPE_CUSTOM = 'Custom';
+
     protected string $_route;
     protected string $_module;
     protected string $_description;
@@ -60,11 +64,11 @@ abstract class EndpointBase {
     final public function getAuthType(): string {
         switch (get_parent_class($this)) {
             case KeyAuthEndpoint::class:
-                return 'API Key';
+                return self::AUTH_TYPE_API_KEY;
             case NoAuthEndpoint::class:
-                return 'None';
+                return self::AUTH_TYPE_NONE;
             default:
-                return 'Custom';
+                return self::AUTH_TYPE_CUSTOM;
         }
     }
 
@@ -77,6 +81,6 @@ abstract class EndpointBase {
      * @param Nameless2API $api Instance of Nameless2API.
      * @return bool
      */
-    public abstract function isAuthorised(Nameless2API $api): bool;
+    abstract public function isAuthorised(Nameless2API $api): bool;
 
 }

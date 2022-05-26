@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_GET['provider'], $_GET['code'])) {
-    if ($_GET['provider'] !== OAuth::DISCORD && $_GET['provider'] !== OAuth::GOOGLE) {
+    if (!array_key_exists($_GET['provider'], OAuth::getInstance()->getProvidersAvailable())) {
         throw new RuntimeException("Invalid provider {$_GET['provider']}");
     }
 }
@@ -16,7 +16,7 @@ $token = $provider->getAccessToken('authorization_code', [
     'code' => $_GET['code']
 ]);
 $oauth_user = $provider->getResourceOwner($token)->toArray();
-$provider_id = $oauth_user[OAuth::getInstance()->getIdName($provider_name)];
+$provider_id = $oauth_user[OAuth::getInstance()->getUserIdName($provider_name)];
 
 // register
 if (Session::get('oauth_method') === 'register') {

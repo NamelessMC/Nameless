@@ -227,19 +227,54 @@ class Language {
 
     /**
      * Set a term in specific file.
-     * Used for email message editing.
+     * Used for email message editing & dropdown name editing.
      *
      * @param string $section Name of file without extension to edit.
      * @param string $term Term which value to change.
      * @param string $value New value to set for term.
      */
     public function set(string $section, string $term, string $value): void {
-        $editing_file = $this->_activeLanguageFile;
+        $editing_file = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage . '.json']);
         $json = json_decode(file_get_contents($editing_file), true);
 
         $json[$section . '/' . $term] = $value;
 
         ksort($json);
         file_put_contents($editing_file, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+    }
+
+    /**
+     * Attempt to get a language code from browser headers for setting an automatic language for guests.
+     * If the Intl extension is loaded, it uses the builtin <code>Locale::acceptFromHttp(...)</code> method.
+     *
+     * @param string $header <code>HTTP_ACCEPT_LANGUAGE</code> header.
+     * @return false|string The browsers preferred language, or false if there is no valid preferred language.
+     */
+    public static function acceptFromHttp(string $header) {
+        // If the Intl extension is enabled, use the Locale::acceptFromHttp class
+        if (
+            extension_loaded('intl') &&
+            class_exists(Locale::class) &&
+            method_exists(Locale::class, 'acceptFromHttp')
+        ) {
+            return Locale::acceptFromHttp($header);
+        }
+
+        $prefLocales = array_reduce(
+            explode(',', $header),
+            static function ($res, $el) {
+                [$lang, $weight] = array_merge(explode(';q=', $el), [1]);
+                $res[$lang] = (float) $weight;
+                return $res;
+            }, []
+        );
+
+        foreach ($prefLocales as $locale) {
+            if (array_key_exists($locale, self::LANGUAGES)) {
+                return $locale;
+            }
+        }
+
+        return false;
     }
 }

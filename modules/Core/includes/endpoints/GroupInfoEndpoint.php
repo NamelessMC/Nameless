@@ -47,7 +47,7 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        $groups = $api->getDb()->selectQuery($query . $where . $order, $params)->results();
+        $groups = $api->getDb()->query($query . $where . $order, $params)->results();
 
         $groups_array = [];
         foreach ($groups as $group) {

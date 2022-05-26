@@ -128,7 +128,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the hook exist?
-            $hook = $queries->getWhere('hooks', ['id', '=', $_GET['id']]);
+            $hook = $queries->getWhere('hooks', ['id', $_GET['id']]);
             if (!count($hook)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/hooks'));
@@ -213,7 +213,7 @@ if (!isset($_GET['action'])) {
             }
 
             if (Token::check()) {
-                $queries->delete('hooks', ['id', '=', $_GET['id']]);
+                $queries->delete('hooks', ['id', $_GET['id']]);
 
                 $cache->setCache('hooks');
                 if ($cache->isCached('hooks')) {

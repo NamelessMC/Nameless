@@ -16,7 +16,7 @@ class TwitterWidget extends WidgetBase {
         // Get widget
         $widget_query = self::getData('Twitter');
 
-        parent::__construct(self::parsePages($widget_query->pages), true);
+        parent::__construct(self::parsePages($widget_query), true);
 
         $this->_smarty = $smarty;
 

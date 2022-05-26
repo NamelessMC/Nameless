@@ -65,7 +65,7 @@ if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) 
 // User related actions
 if ($user->isLoggedIn()) {
     // Warnings
-    $warnings = $queries->getWhere('infractions', ['punished', '=', $user->data()->id]);
+    $warnings = $queries->getWhere('infractions', ['punished', $user->data()->id]);
     if (count($warnings)) {
         foreach ($warnings as $warning) {
             if ($warning->revoked == 0 && $warning->acknowledged == 0) {
@@ -104,7 +104,7 @@ if (isset($_GET['route']) && $_GET['route'] != '/') {
 }
 
 if (!defined('PAGE_DESCRIPTION')) {
-    $page_metadata = $queries->getWhere('page_descriptions', ['page', '=', $route]);
+    $page_metadata = $queries->getWhere('page_descriptions', ['page', $route]);
     if (count($page_metadata)) {
         $smarty->assign([
             'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),
@@ -162,6 +162,9 @@ $smarty->assign([
     'FOOTER_LINKS_TITLE' => $language->get('general', 'links'),
     'FOOTER_SOCIAL_TITLE' => $language->get('general', 'social'),
     'TOGGLE_DARK_MODE_TEXT' => $language->get('general', 'toggle_dark_mode'),
+    'AUTO_LANGUAGE_TEXT' => $language->get('general', 'auto_language'),
+    'ENABLED' => $language->get('user', 'enabled'),
+    'DISABLED' => $language->get('user', 'disabled'),
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
 ]);

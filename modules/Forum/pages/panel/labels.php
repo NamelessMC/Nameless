@@ -28,7 +28,7 @@ if (!isset($_GET['action'])) {
 
     if (count($topic_labels)) {
         foreach ($topic_labels as $topic_label) {
-            $label_type = $queries->getWhere('forums_labels', ['id', '=', $topic_label->label]);
+            $label_type = $queries->getWhere('forums_labels', ['id', $topic_label->label]);
             if (!count($label_type)) {
                 $label_type = 0;
             } else {
@@ -39,7 +39,7 @@ if (!isset($_GET['action'])) {
             $enabled_forums = explode(',', $topic_label->fids);
             $forums_string = '';
             foreach ($enabled_forums as $item) {
-                $forum_name = $queries->getWhere('forums', ['id', '=', $item]);
+                $forum_name = $queries->getWhere('forums', ['id', $item]);
                 if (count($forum_name)) {
                     $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', ';
                 } else {
@@ -206,7 +206,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the label exist?
-            $label = $queries->getWhere('forums_topic_labels', ['id', '=', $_GET['lid']]);
+            $label = $queries->getWhere('forums_topic_labels', ['id', $_GET['lid']]);
             if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels'));
@@ -353,7 +353,7 @@ if (!isset($_GET['action'])) {
 
             if (Token::check($_POST['token'])) {
                 // Delete the label
-                $queries->delete('forums_topic_labels', ['id', '=', $_GET['lid']]);
+                $queries->delete('forums_topic_labels', ['id', $_GET['lid']]);
                 Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
 
             } else {
@@ -364,7 +364,10 @@ if (!isset($_GET['action'])) {
 
         case 'types':
             // List label types
-            $labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
+            // $labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
+            $labels = DB::getInstance()->query(
+                "SELECT `nl2_forums_labels`.*, (SELECT COUNT(id) FROM nl2_forums_topic_labels WHERE nl2_forums_labels.id = nl2_forums_topic_labels.id) as count FROM `nl2_forums_labels`"
+            )->results();
             $template_array = [];
 
             if (count($labels)) {
@@ -373,6 +376,7 @@ if (!isset($_GET['action'])) {
                         'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified($label->html)),
                         'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
                         'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid=' . Output::getClean($label->id)),
+                        'usages' => (int) $label->count,
                     ];
                 }
             }
@@ -471,7 +475,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the label exist?
-            $label = $queries->getWhere('forums_labels', ['id', '=', $_GET['lid']]);
+            $label = $queries->getWhere('forums_labels', ['id', $_GET['lid']]);
             if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
@@ -551,9 +555,16 @@ if (!isset($_GET['action'])) {
             }
 
             if (Token::check($_POST['token'])) {
-                // Delete the label
-                $queries->delete('forums_labels', ['id', '=', $_GET['lid']]);
-                Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
+                // Make sure label type is not in use
+                $count = DB::getInstance()->query('SELECT COUNT(id) AS count FROM nl2_forums_topic_labels WHERE nl2_forums_topic_labels.label = ?', [$_GET['lid']])->first()->count;
+
+                if ($count < 1) {
+                    // Delete the label
+                    $queries->delete('forums_labels', ['id', $_GET['lid']]);
+                    Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
+                } else {
+                    Session::flash('forum_labels_error', $forum_language->get('forum', 'label_type_in_use'));
+                }
 
             } else {
                 Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));

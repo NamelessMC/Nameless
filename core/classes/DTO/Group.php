@@ -43,7 +43,7 @@ class Group {
      * @return array<int, Group>
      */
     public static function all(): array {
-        $rows = DB::getInstance()->selectQuery('SELECT * FROM nl2_groups ORDER BY `order`')->results();
+        $rows = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
         $fields = [];
         foreach ($rows as $row) {
             $fields[$row->id] = new Group($row);
@@ -57,7 +57,7 @@ class Group {
      * @return Group|null
      */
     public static function find(string $value, string $column = 'id'): ?Group {
-        $row = DB::getInstance()->get('groups', [$column, '=', $value])->first();
+        $row = DB::getInstance()->get('groups', [$column, $value])->first();
         return $row
             ? new Group($row)
             : null;

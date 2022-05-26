@@ -18,13 +18,13 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api, User $user): void {
         $groups = $_POST['groups'];
         if ($groups == null || !count($groups)) {
-            $api->throwError(17, $api->getLanguage()->get('api', 'unable_to_find_group'), 'No groups provided');
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_FIND_GROUP, 'No groups provided');
         }
 
         $log_array = [];
         $added_groups = [];
         foreach ($groups as $group) {
-            $group_query = $api->getDb()->get('groups', ['id', '=', $group]);
+            $group_query = $api->getDb()->get('groups', ['id', $group]);
             if (!$group_query->count()) {
                 continue;
             }

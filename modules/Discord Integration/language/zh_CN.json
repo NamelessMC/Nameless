@@ -41,5 +41,11 @@
     "discord_integration/unable_to_set_discord_id": "无法设置 Discord ID。",
     "discord_integration/unable_to_update_discord_bot_username": "无法更新 Discord 机器人用户名。",
     "discord_integration/unable_to_update_discord_roles": "无法更新 Discord 权限组列表。",
-    "discord_integration/unable_to_update_discord_username": "无法更新 Discord 用户名。"
+    "discord_integration/unable_to_update_discord_username": "无法更新 Discord 用户名。",
+    "discord_integration/discord_bot_check_logs": "您应在 管理人员面板 -> 安全 -> 全部日志中查找更详细的错误信息 (如果有的话)。",
+    "discord_integration/discord_bot_error_partsuccess": "由于 Discord 权限顺序配置错误，本机器人无法编辑一个或更多权限组。",
+    "discord_integration/discord_id_confirm": "请在 Discord 中运行 \"/verify {{token}}\" 指令来链接您的 Discord 账号。",
+    "discord_integration/discord_invite_info": "{{inviteLinkStart}}点击这里{{inviteLinkEnd}} 即可邀请 Nameless Link 机器人加入您的 Discord服务器。随后，您可运行 {{command}} 命令来将机器人链接到您的网站上。您也可以 {{selfHostLinkStart}}了解如何自建机器人{{selfHostLinkEnd}}。",
+    "discord_integration/discord_widget_disabled": "本组件在本 Discord 服务器上被禁用了。请在您的 Discord 服务器设置中前往 \"组件\" 标签页，并确保 Discord 组件已经启用，并且 ID 也是正确的。",
+    "discord_integration/get_link_code": "获得链接代码"
 }

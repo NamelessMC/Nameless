@@ -30,7 +30,7 @@ if (isset($_GET['do'])) {
             $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[2])[0];
 
             // Is it already in the database?
-            $exists = $queries->getWhere('languages', ['short_code', '=', $short_code]);
+            $exists = $queries->getWhere('languages', ['short_code', $short_code]);
             if (!count($exists)) {
                 // No, add it now
                 $queries->create('languages', [
@@ -44,9 +44,9 @@ if (isset($_GET['do'])) {
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
     } else {
         if ($_GET['do'] == 'updateLanguages') {
-            $active_language = $queries->getWhere('languages', ['is_default', '=', 1]);
+            $active_language = $queries->getWhere('languages', ['is_default', true]);
             if (count($active_language)) {
-                DB::getInstance()->createQuery('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
+                DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
                 $language = new Language('core', $active_language[0]->short_code);
             }
 
@@ -80,10 +80,7 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            $sitename_id = $queries->getWhere('settings', ['name', '=', 'sitename']);
-            $sitename_id = $sitename_id[0]->id;
-
-            $queries->update('settings', $sitename_id, [
+            $queries->update('settings', ['name', 'sitename'], [
                 'value' => Output::getClean(Input::get('sitename'))
             ]);
 
@@ -92,23 +89,17 @@ if (Input::exists()) {
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
             // Email address
-            $contact_id = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
-            $contact_id = $contact_id[0]->id;
-
-            $queries->update('settings', $contact_id, [
+            $queries->update('settings', ['name', 'incoming_email'], [
                 'value' => Output::getClean(Input::get('contact_email'))
             ]);
 
             // Language
             // Get current default language
-            $default_language = $queries->getWhere('languages', ['is_default', '=', 1]);
-            $default_language = $default_language[0];
-
-            $queries->update('languages', $default_language->id, [
+            $queries->update('languages', ['is_default', true], [
                 'is_default' => 0
             ]);
 
-            $language_id = $queries->getWhere('languages', ['id', '=', Input::get('language')]);
+            $language_id = $queries->getWhere('languages', ['id', Input::get('language')]);
             $language_short_code = Output::getClean($language_id[0]->short_code);
             $language_id = $language_id[0]->id;
 
@@ -121,11 +112,8 @@ if (Input::exists()) {
             $cache->store('language', $language_short_code);
 
             // Timezone
-            $timezone_id = $queries->getWhere('settings', ['name', '=', 'timezone']);
-            $timezone_id = $timezone_id[0]->id;
-
             try {
-                $queries->update('settings', $timezone_id, [
+                $queries->update('settings', ['name', 'timezone'], [
                     'value' => Output::getClean($_POST['timezone'])
                 ]);
 
@@ -137,42 +125,35 @@ if (Input::exists()) {
             }
 
             // Portal
-            $portal_id = $queries->getWhere('settings', ['name', '=', 'portal']);
-            $portal_id = $portal_id[0]->id;
-
-            if ($_POST['homepage'] == 'portal') {
-                $use_portal = 1;
-            } else {
-                $use_portal = 0;
+            if ($_POST['homepage'] === 'portal') {
+                $home_type = 'portal';
+            } else if ($_POST['homepage'] === 'news') {
+                $home_type = 'news';
+            } else if ($_POST['homepage'] === 'custom') {
+                $home_type = 'custom';
             }
 
-            $queries->update('settings', $portal_id, [
-                'value' => $use_portal
+            $queries->update('settings', ['name', 'home_type'], [
+                'value' => $home_type
             ]);
 
             // Update cache
-            $cache->setCache('portal_cache');
-            $cache->store('portal', $use_portal);
+            $cache->setCache('home_type');
+            $cache->store('type', $home_type);
 
             // Private profile
-            $private_profile_id = $queries->getWhere('settings', ['name', '=', 'private_profile']);
-            $private_profile_id = $private_profile_id[0]->id;
-
             if ($_POST['privateProfile']) {
                 $private_profile = 1;
             } else {
                 $private_profile = 0;
             }
 
-            $queries->update('settings', $private_profile_id, [
+            $queries->update('settings', ['name', 'private_profile'], [
                 'value' => $private_profile
             ]);
 
             // Registration displaynames
-            $displaynames_id = $queries->getWhere('settings', ['name', '=', 'displaynames']);
-            $displaynames_id = $displaynames_id[0]->id;
-
-            $queries->update('settings', $displaynames_id, [
+            $queries->update('settings', ['name', 'displaynames'], [
                 'value' => $_POST['displaynames']
             ]);
 
@@ -216,10 +197,7 @@ if (Input::exists()) {
             }
 
             // Login method
-            $login_method_id = $queries->getWhere('settings', ['name', '=', 'login_method']);
-            $login_method_id = $login_method_id[0]->id;
-
-            $queries->update('settings', $login_method_id, [
+            $queries->update('settings', ['name', 'login_method'], [
                 'value' => $_POST['login_method']
             ]);
 
@@ -267,7 +245,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = $queries->getWhere('settings', ['name', '=', 'incoming_email']);
+$contact_email = $queries->getWhere('settings', ['name', 'incoming_email']);
 $contact_email = Output::getClean($contact_email[0]->value);
 
 $languages = $queries->getWhere('languages', ['id', '<>', 0]);
@@ -279,21 +257,21 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = $queries->getWhere('settings', ['name', '=', 'timezone']);
+$timezone = $queries->getWhere('settings', ['name', 'timezone']);
 $timezone = $timezone[0]->value;
 
-$portal = $queries->getWhere('settings', ['name', '=', 'portal']);
-$portal = $portal[0]->value;
+$home_type = $queries->getWhere('settings', ['name', 'home_type']);
+$home_type = $home_type[0]->value;
 
 $friendly_url = Config::get('core/friendly');
 
-$private_profile = $queries->getWhere('settings', ['name', '=', 'private_profile']);
+$private_profile = $queries->getWhere('settings', ['name', 'private_profile']);
 $private_profile = $private_profile[0]->value;
 
-$displaynames = $queries->getWhere('settings', ['name', '=', 'displaynames']);
+$displaynames = $queries->getWhere('settings', ['name', 'displaynames']);
 $displaynames = $displaynames[0]->value;
 
-$method = $queries->getWhere('settings', ['name', '=', 'login_method']);
+$method = $queries->getWhere('settings', ['name', 'login_method']);
 $method = $method[0]->value;
 
 $smarty->assign([
@@ -323,9 +301,10 @@ $smarty->assign([
     'DEFAULT_TIMEZONE_LIST' => Util::listTimezones(),
     'DEFAULT_TIMEZONE_VALUE' => $timezone,
     'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
-    'HOMEPAGE_DEFAULT' => $language->get('admin', 'default'),
+    'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_VALUE' => $portal,
+    'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
+    'HOMEPAGE_VALUE' => $home_type,
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => $friendly_url,
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help'),

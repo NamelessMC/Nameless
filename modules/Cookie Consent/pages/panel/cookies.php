@@ -35,7 +35,7 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             try {
-                $cookie_id = $queries->getWhere('privacy_terms', ['name', '=', 'cookies']);
+                $cookie_id = $queries->getWhere('privacy_terms', ['name', 'cookies']);
                 if (count($cookie_id)) {
                     $cookie_id = $cookie_id[0]->id;
 
@@ -79,7 +79,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get cookie notice
-$cookies = DB::getInstance()->selectQuery('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
+$cookies = DB::getInstance()->query('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

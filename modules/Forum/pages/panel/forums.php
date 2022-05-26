@@ -30,14 +30,14 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         $count = count($forums);
         foreach ($forums as $item) {
             if ($item->parent > 0) {
-                $parent_forum_query = $queries->getWhere('forums', ['id', '=', $item->parent]);
+                $parent_forum_query = $queries->getWhere('forums', ['id', $item->parent]);
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
                     $parent_forum = $forum_language->get('forum', 'parent_forum_x', ['forum' => Output::getClean($parent_forum_query[0]->forum_title)]);
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
-                        $parent_forum_query = $queries->getWhere('forums', ['id', '=', $parent_forum_query[0]->parent]);
+                        $parent_forum_query = $queries->getWhere('forums', ['id', $parent_forum_query[0]->parent]);
                         $id = $parent_forum_query[0]->parent;
                         $parent_forum_count++;
                     }
@@ -64,7 +64,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         }
     }
 
-    $forum_reactions = $queries->getWhere('settings', ['name', '=', 'forum_reactions']);
+    $forum_reactions = $queries->getWhere('settings', ['name', 'forum_reactions']);
     $forum_reactions = $forum_reactions[0]->value;
 
     $smarty->assign([
@@ -164,7 +164,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     }
 
                     // Get forum from database
-                    $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
+                    $forum = $queries->getWhere('forums', ['id', $_GET['forum']]);
                     if (!count($forum)) {
                         Redirect::to(URL::build('/panel/forums'));
                     }
@@ -293,10 +293,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     $dir = $_GET['dir'];
 
-                    $forum_id = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
+                    $forum_id = $queries->getWhere('forums', ['id', $_GET['fid']]);
                     $forum_id = $forum_id[0]->id;
 
-                    $forum_order = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
+                    $forum_order = $queries->getWhere('forums', ['id', $_GET['fid']]);
                     $forum_order = $forum_order[0]->forum_order;
 
                     $previous_forums = $queries->orderAll('forums', 'forum_order', 'ASC');
@@ -383,7 +383,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 }
 
                 // Ensure forum exists
-                $forum = $queries->getWhere('forums', ['id', '=', $_GET['fid']]);
+                $forum = $queries->getWhere('forums', ['id', $_GET['fid']]);
                 if (!count($forum)) {
                     Redirect::to(URL::build('/panel/forums'));
                 }
@@ -392,24 +392,24 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 if (Input::exists()) {
                     if (Token::check()) {
                         if (Input::get('confirm') === 'true') {
-                            $forum_perms = $queries->getWhere('forums_permissions', ['forum_id', '=', $_GET['fid']]); // Get permissions to be deleted
+                            $forum_perms = $queries->getWhere('forums_permissions', ['forum_id', $_GET['fid']]); // Get permissions to be deleted
                             if (Input::get('move_forum') === 'none') {
-                                $posts = $queries->getWhere('posts', ['forum_id', '=', $_GET['fid']]);
-                                $topics = $queries->getWhere('topics', ['forum_id', '=', $_GET['fid']]);
+                                $posts = $queries->getWhere('posts', ['forum_id', $_GET['fid']]);
+                                $topics = $queries->getWhere('topics', ['forum_id', $_GET['fid']]);
 
                                 foreach ($posts as $post) {
-                                    $queries->delete('posts', ['id', '=', $post->id]);
+                                    $queries->delete('posts', ['id', $post->id]);
                                 }
                                 foreach ($topics as $topic) {
-                                    $queries->delete('topics', ['id', '=', $topic->id]);
+                                    $queries->delete('topics', ['id', $topic->id]);
                                 }
 
                                 // Forum perm deletion
 
                             } else {
                                 $new_forum = Input::get('move_forum');
-                                $posts = $queries->getWhere('posts', ['forum_id', '=', $_GET['fid']]);
-                                $topics = $queries->getWhere('topics', ['forum_id', '=', $_GET['fid']]);
+                                $posts = $queries->getWhere('posts', ['forum_id', $_GET['fid']]);
+                                $topics = $queries->getWhere('topics', ['forum_id', $_GET['fid']]);
 
                                 foreach ($posts as $post) {
                                     $queries->update('posts', $post->id, [
@@ -425,9 +425,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 // Forum perm deletion
 
                             }
-                            $queries->delete('forums', ['id', '=', $_GET['fid']]);
+                            $queries->delete('forums', ['id', $_GET['fid']]);
                             foreach ($forum_perms as $perm) {
-                                $queries->delete('forums_permissions', ['id', '=', $perm->id]);
+                                $queries->delete('forums_permissions', ['id', $perm->id]);
                             }
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
                             Redirect::to(URL::build('/panel/forums'));
@@ -471,7 +471,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 die();
             }
 
-            $forum = $queries->getWhere('forums', ['id', '=', $_GET['forum']]);
+            $forum = $queries->getWhere('forums', ['id', $_GET['forum']]);
 
             if (!count($forum)) {
                 Redirect::to(URL::build('/panel/forums'));
@@ -573,7 +573,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                             $forum_perm_exists = 0;
 
-                            $forum_perm_query = $queries->getWhere('forums_permissions', ['forum_id', '=', $_GET['forum']]);
+                            $forum_perm_query = $queries->getWhere('forums_permissions', ['forum_id', $_GET['forum']]);
                             if (count($forum_perm_query)) {
                                 foreach ($forum_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -719,8 +719,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             }
 
             // Get all forum permissions
-            $guest_query = DB::getInstance()->selectQuery('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', [$forum[0]->id])->results();
-            $group_query = DB::getInstance()->selectQuery('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$forum[0]->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', [$forum[0]->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$forum[0]->id])->results();
 
             // Get default labels
             $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : [];

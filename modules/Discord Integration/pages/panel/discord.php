@@ -41,11 +41,7 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-
-                $discord_id = $queries->getWhere('settings', ['name', '=', 'discord']);
-                $discord_id = $discord_id[0]->id;
-
-                $queries->update('settings', $discord_id, [
+                $queries->update('settings', ['name', 'discord'], [
                     'value' => Output::getClean(Input::get('discord_guild_id'))
                 ]);
 
@@ -57,7 +53,7 @@ if (Input::exists()) {
         } else {
             // Valid token
             // Either enable or disable Discord integration
-            $enable_discord_id = $queries->getWhere('settings', ['name', '=', 'discord_integration']);
+            $enable_discord_id = $queries->getWhere('settings', ['name', 'discord_integration']);
             $enable_discord_id = $enable_discord_id[0]->id;
             if ($_POST['enable_discord'] == '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
@@ -128,7 +124,7 @@ $smarty->assign([
         'inviteLinkStart' => '<a target="_blank" href="https://namelessmc.com/discord-bot-invite">',
         'inviteLinkEnd' => '</a>',
         'command' => '<code>/apiurl</code>',
-        'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Own-instance">',
+        'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Installation-guide">',
         'selfHostLinkEnd' => '</a>',
     ]),
     'GUILD_ID_SET' => (Discord::getGuildId() != ''),
@@ -139,7 +135,7 @@ $smarty->assign([
     'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),
     'DISCORD_GUILD_ID_VALUE' => Discord::getGuildId(),
     'ID_INFO' => Discord::getLanguageTerm('discord_id_help', [
-        'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-" target="_blank">',
+        'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498" target="_blank">',
         'linkEnd' => '</a>',
     ]),
 ]);

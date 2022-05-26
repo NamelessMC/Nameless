@@ -1215,5 +1215,10 @@
     "user/not_connected": "Nepřipojen",
     "user/nickname_minimum_3": "Vaše přezdívka musí obsahovat alespoň 3 znaky.",
     "user/nickname_required": "Je vyžadována přezdívka.",
-    "user/nickname_maximum_20": "Vaše přezdívka může obsahovat maximálně 20 znaků."
+    "user/nickname_maximum_20": "Vaše přezdívka může obsahovat maximálně 20 znaků.",
+    "admin/updated": "Aktualizováno",
+    "admin/not_set": "Nenastaveno",
+    "admin/custom_content": "Vlastní obsah",
+    "admin/home_custom_content": "Vlastní obsah domovské stránky",
+    "admin/homepage_news": "Novinky"
 }

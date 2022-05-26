@@ -55,28 +55,40 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $return_array = [
             'limit' => -1,
             'offset' => 0,
+            'next_page' => null,
+            'previous_page' => null,
         ];
 
+        $base_url = Util::getSelfURL() . 'index.php?route=/api/v2/users&';
         if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
             $limit = (int) $_GET['limit'];
             if ($limit >= 1) {
-                $return_array['limit'] = $limit;
                 $query .= ' LIMIT ' . $limit;
+                $return_array['limit'] = $limit;
 
                 if (isset($_GET['offset']) && is_numeric($_GET['offset'])) {
                     $offset = (int) $_GET['offset'];
-                    $return_array['offset'] = $offset;
                     $query .= ' OFFSET ' . $offset;
+                    $return_array['offset'] = $offset;
+                    $return_array['next_page'] = $base_url . 'limit=' . $limit . '&offset=' . ($offset + $limit);
+                    if ($offset - $limit >= 0) {
+                        // Only show previous page if it would be a valid offset
+                        $return_array['previous_page'] = $base_url . 'limit=' . $limit . '&offset=' . ($offset - $limit);
+                    }
                 }
             }
+        } else {
+            $query .= ' LIMIT 15';
+            $return_array['limit'] = 15;
+            $return_array['next_page'] = $base_url . 'limit=15&offset=' . ($return_array['offset'] + 15);
         }
 
-        $users = $api->getDb()->selectQuery($query, $params)->results();
+        $users = $api->getDb()->query($query, $params)->results();
 
         $users_json = [];
         foreach ($users as $user) {
             $integrations = [];
-            $integrations_query = $api->getDb()->selectQuery('SELECT ui.*, i.name FROM nl2_users_integrations ui INNER JOIN nl2_integrations i ON i.id=ui.integration_id WHERE user_id = ? AND username IS NOT NULL AND identifier IS NOT NULL', [$user->id])->results();
+            $integrations_query = $api->getDb()->query('SELECT ui.*, i.name FROM nl2_users_integrations ui INNER JOIN nl2_integrations i ON i.id=ui.integration_id WHERE user_id = ? AND username IS NOT NULL AND identifier IS NOT NULL', [$user->id])->results();
             foreach ($integrations_query as $integration) {
                 $integrations[] = [
                     'integration' => Output::getClean($integration->name),

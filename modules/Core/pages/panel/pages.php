@@ -233,7 +233,7 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
-            $page = $queries->getWhere('custom_pages', ['id', '=', $_GET['id']]);
+            $page = $queries->getWhere('custom_pages', ['id', $_GET['id']]);
             if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
@@ -333,7 +333,7 @@ if (!isset($_GET['action'])) {
 
                             $page_perm_exists = 0;
 
-                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', '=', $page->id]);
+                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', $page->id]);
                             if (count($page_perm_query)) {
                                 foreach ($page_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -415,7 +415,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $group_permissions = DB::getInstance()->selectQuery('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
+            $group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
             $template_array = [];
             foreach ($group_permissions as $group) {
                 $template_array[Output::getClean($group->id)] = [
@@ -426,7 +426,7 @@ if (!isset($_GET['action'])) {
                 ];
             }
 
-            $guest_permissions = DB::getInstance()->selectQuery('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
+            $guest_permissions = DB::getInstance()->query('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
             $guest_can_view = 0;
             if (count($guest_permissions)) {
                 if ($guest_permissions[0]->view == 1) {
@@ -486,8 +486,8 @@ if (!isset($_GET['action'])) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 
-                        $queries->delete('custom_pages', ['id', '=', $_POST['id']]);
-                        $queries->delete('custom_pages_permissions', ['page_id', '=', $_POST['id']]);
+                        $queries->delete('custom_pages', ['id', $_POST['id']]);
+                        $queries->delete('custom_pages_permissions', ['page_id', $_POST['id']]);
 
                         Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
                     }

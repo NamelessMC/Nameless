@@ -74,21 +74,21 @@
                                                     {$FRIENDLY_NAME}
                                                     <span class="badge badge-info" style="margin-right:10px"><i
                                                             class="fas fa-question-circle" data-container="body"
-                                                            data-toggle="popover" title="{$INFO}"
+                                                            data-toggle="popover" title="{$INFO}" data-placement="top"
                                                             data-content="{$FRIENDLY_NAME_INFO}"></i></span>
                                                 </th>
                                                 <th class="text-center">
                                                     {$SHOW_ON_PROFILE}
                                                     <span class="badge badge-info" style="margin-right:10px"><i
                                                             class="fas fa-question-circle" data-container="body"
-                                                            data-toggle="popover" title="{$INFO}"
+                                                            data-toggle="popover" title="{$INFO}" data-placement="top"
                                                             data-content="{$SHOW_ON_PROFILE_INFO}"></i></span>
                                                 </th>
                                                 <th class="text-center">
                                                     {$SHOW_ON_FORUM}
                                                     <span class="badge badge-info" style="margin-right:10px"><i
                                                             class="fas fa-question-circle" data-container="body"
-                                                            data-toggle="popover" title="{$INFO}"
+                                                            data-toggle="popover" title="{$INFO}" data-placement="top"
                                                             data-content="{$SHOW_ON_FORUM_INFO}"></i></span>
                                                 </th>
                                                 <th class="text-center">{$LEADERBOARD_ENABLED}</th>

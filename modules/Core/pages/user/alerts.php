@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -79,7 +79,7 @@ if (!isset($_GET['view'])) {
     } else {
         if ($_GET['action'] == 'purge') {
             if (Token::check()) {
-                $queries->delete('alerts', ['user_id', '=', $user->data()->id]);
+                $queries->delete('alerts', ['user_id', $user->data()->id]);
             } else {
                 Session::flash('alerts_error', $language->get('general', 'invalid_token'));
             }
@@ -95,7 +95,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Check the alert belongs to the user..
-    $alert = $queries->getWhere('alerts', ['id', '=', $_GET['view']]);
+    $alert = $queries->getWhere('alerts', ['id', $_GET['view']]);
 
     if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));
@@ -103,7 +103,7 @@ if (!isset($_GET['view'])) {
 
     if ($alert[0]->read == 0) {
         $queries->update('alerts', $alert[0]->id, [
-            '`read`' => 1
+            'read' => 1
         ]);
     }
 

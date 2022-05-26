@@ -158,7 +158,7 @@ class Core_Module extends Module {
                     $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach ($user_groups as $user_group) {
-                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', $user_group]);
+                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', $user_group]);
                         if (count($custom_page_permissions)) {
                             foreach ($custom_page_permissions as $permission) {
                                 if ($permission->page_id == $custom_page->id) {
@@ -219,7 +219,7 @@ class Core_Module extends Module {
                     }
                 }
             } else {
-                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', '=', 0]);
+                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', 0]);
                 if (count($custom_page_permissions)) {
                     foreach ($custom_pages as $custom_page) {
                         $redirect = null;
@@ -423,37 +423,40 @@ class Core_Module extends Module {
             true
         );
 
-        // Webhooks
-        $cache->setCache('hooks');
-        if ($cache->isCached('hooks')) {
-            $hook_array = $cache->retrieve('hooks');
-        } else {
-            $hook_array = [];
-            if (Util::isModuleEnabled('Discord Integration')) {
-                $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
-                if (count($hooks)) {
-                    foreach ($hooks as $hook) {
-                        if ($hook->action != 2) {
-                            continue;
-                        }
+        EventHandler::registerEvent('userGroupAdded',
+            $language->get('admin', 'user_group_added_hook_info'),
+            [
+                'group_id' => $language->get('admin', 'group_id'),
+                'group_name' => $language->get('admin', 'group_name'),
+                'username' => $language->get('user', 'username'),
+                'user_id' => $language->get('admin', 'user_id'),
+            ]
+        );
 
-                        // TODO: more extendable webhook system, #2676
-                        if (!class_exists(DiscordHook::class)) {
-                            continue;
-                        }
+        EventHandler::registerEvent('userGroupRemoved',
+            $language->get('admin', 'user_group_removed_hook_info'),
+            [
+                'group_id' => $language->get('admin', 'group_id'),
+                'group_name' => $language->get('admin', 'group_name'),
+                'username' => $language->get('user', 'username'),
+                'user_id' => $language->get('admin', 'user_id'),
+            ]
+        );
 
-                        $hook_array[] = [
-                            'id' => $hook->id,
-                            'url' => Output::getClean($hook->url),
-                            'action' => 'DiscordHook::execute',
-                            'events' => json_decode($hook->events, true)
-                        ];
-                    }
-                    $cache->store('hooks', $hook_array);
-                }
-            }
-        }
-        EventHandler::registerWebhooks($hook_array);
+        // TODO: should this be in the Discord Integration module?
+        OAuth::getInstance()->registerProvider('discord', [
+            'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
+            'user_id_name' => 'id',
+            'scope_id_name' => 'identify',
+            'icon' => 'fab fa-discord',
+        ]);
+
+        OAuth::getInstance()->registerProvider('google', [
+            'class' => \League\OAuth2\Client\Provider\Google::class,
+            'user_id_name' => 'sub',
+            'scope_id_name' => 'openid',
+            'icon' => 'fab fa-google',
+        ]);
 
         // Captcha
         $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
@@ -497,7 +500,7 @@ class Core_Module extends Module {
                 } else if ($lookup_type === 'username') {
                     $column = 'username';
                 } else {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid native lookup type: $value");
+                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid native lookup type: $value");
                 }
 
                 $user = new User($lookup_value, $column);
@@ -516,23 +519,23 @@ class Core_Module extends Module {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else if ($integration_lookup_type === 'integration_name') {
                         $integrationUser = new IntegrationUser($integration, $lookup_value, 'username');
                         if ($integrationUser->exists()) {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else {
-                        $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup name: $value");
+                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     }
                 } else {
-                    $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), "invalid integration lookup type: $value");
+                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup type: $value");
                 }
             }
 
-            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'), $value);
+            $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, $value);
         });
 
         // Minecraft Integration
@@ -713,17 +716,7 @@ class Core_Module extends Module {
 
             // Statistics
             require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
-            $widgets->add(new StatsWidget($smarty, [
-                'statistics' => $language->get('general', 'statistics'),
-                'users_registered' => $language->get('general', 'users_registered'),
-                'latest_member' => $language->get('general', 'latest_member'),
-                'forum_stats' => $language->get('general', 'forum_statistics'),
-                'total_threads' => $language->get('general', 'total_threads'),
-                'total_posts' => $language->get('general', 'total_posts'),
-                'users_online' => $language->get('general', 'online_users'),
-                'guests_online' => $language->get('general', 'online_guests'),
-                'total_online' => $language->get('general', 'total_online'),
-            ], $cache));
+            $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
         // Queries
@@ -735,7 +728,7 @@ class Core_Module extends Module {
             $validate_action = $cache->retrieve('validate_action');
 
         } else {
-            $validate_action = $queries->getWhere('settings', ['name', '=', 'validate_user_action']);
+            $validate_action = $queries->getWhere('settings', ['name', 'validate_user_action']);
             $validate_action = $validate_action[0]->value;
             $validate_action = json_decode($validate_action, true);
 
@@ -757,7 +750,7 @@ class Core_Module extends Module {
             $group_id = $cache->retrieve('pre_validation_default');
 
         } else {
-            $group_id = $queries->getWhere('groups', ['default_group', '=', '1']);
+            $group_id = $queries->getWhere('groups', ['default_group', '1']);
             $group_id = $group_id[0]->id;
         }
 
@@ -798,7 +791,7 @@ class Core_Module extends Module {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
-                $status_enabled = $queries->getWhere('settings', ['name', '=', 'status_page']);
+                $status_enabled = $queries->getWhere('settings', ['name', 'status_page']);
                 if ($status_enabled[0]->value == 1) {
                     $status_enabled = 1;
                 } else {
@@ -871,10 +864,10 @@ class Core_Module extends Module {
                         $sub_servers = $cache->retrieve('default_sub');
                     } else {
                         // Get default server from database
-                        $default = $queries->getWhere('mc_servers', ['is_default', '=', 1]);
+                        $default = $queries->getWhere('mc_servers', ['is_default', true]);
                         if (count($default)) {
                             // Get sub-servers of default server
-                            $sub_servers = $queries->getWhere('mc_servers', ['parent_server', '=', $default[0]->id]);
+                            $sub_servers = $queries->getWhere('mc_servers', ['parent_server', $default[0]->id]);
                             if (count($sub_servers)) {
                                 $cache->store('default_sub', $sub_servers);
                             } else {
@@ -893,7 +886,7 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = $queries->getWhere('settings', ['name', '=', 'external_query']);
+                        $query_type = $queries->getWhere('settings', ['name', 'external_query']);
                         if (count($query_type)) {
                             if ($query_type[0]->value == '1') {
                                 $query_type = 'external';
@@ -992,7 +985,7 @@ class Core_Module extends Module {
                 $timeago = new TimeAgo(TIMEZONE);
 
                 if ($user_id) {
-                    $user_query = $queries->getWhere('users', ['id', '=', $user_id]);
+                    $user_query = $queries->getWhere('users', ['id', $user_id]);
                     if (count($user_query)) {
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
@@ -1503,14 +1496,14 @@ class Core_Module extends Module {
                     if (defined('MINECRAFT') && MINECRAFT) {
                         $players = [];
 
-                        $version = DB::getInstance()->selectQuery('select version()')->first()->{'version()'};
+                        $version = DB::getInstance()->query('select version()')->first()->{'version()'};
 
                         if (stripos($version, 'mariadb') !== false) {
                             $version = preg_replace('#[^0-9\.]#', '', $version);
 
                             if (version_compare($version, '10.1', '>=')) {
                                 try {
-                                    $players = DB::getInstance()->selectQuery('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->query('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
@@ -1521,14 +1514,14 @@ class Core_Module extends Module {
 
                             if (version_compare($version, '5.7.4', '>=') && version_compare($version, '5.7.8', '<')) {
                                 try {
-                                    $players = DB::getInstance()->selectQuery('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->query('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
                                 }
                             } else if (version_compare($version, '5.7.8', '>=')) {
                                 try {
-                                    $players = DB::getInstance()->selectQuery('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
+                                    $players = DB::getInstance()->query('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
                                 } catch (Exception $e) {
                                     // Unable to obtain player count
                                     $player_count_error = true;
@@ -1637,8 +1630,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
-    public static function addNotice($url, $text): void
-    {
+    public static function addNotice($url, $text): void {
         self::$_notices[$url] = $text;
     }
 
@@ -1651,8 +1643,7 @@ class Core_Module extends Module {
         }
     }
 
-    public static function addUserAction($title, $link): void
-    {
+    public static function addUserAction($title, $link): void {
         self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 

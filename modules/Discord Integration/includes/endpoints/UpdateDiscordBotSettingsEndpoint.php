@@ -18,35 +18,35 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api): void {
         if (isset($_POST['url'])) {
             if ($_POST['url'] == null) {
-                $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), '$_POST[\'url\'] is null.');
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_URL, "\$_POST['url'] is null.");
             }
 
             try {
-                $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['url'], 'discord_bot_url']);
+                $api->getDb()->query('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['url'], 'discord_bot_url']);
             } catch (Exception $e) {
-                $api->throwError(30, Discord::getLanguageTerm('unable_to_set_discord_bot_url'), $e->getMessage(), 500);
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_URL, $e->getMessage(), 500);
             }
         }
 
         if (isset($_POST['guild_id'])) {
             try {
-                $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['guild_id'], 'discord']);
+                $api->getDb()->query('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['guild_id'], 'discord']);
             } catch (Exception $e) {
-                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_id'), $e->getMessage(), 500);
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_GUILD_ID, $e->getMessage(), 500);
             }
         }
 
         if (isset($_POST['bot_username'])) {
             try {
-                $api->getDb()->createQuery('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['bot_username'], 'discord_bot_username']);
+                $api->getDb()->query('UPDATE nl2_settings SET `value` = ? WHERE `name` = ?', [$_POST['bot_username'], 'discord_bot_username']);
             } catch (Exception $e) {
-                $api->throwError(33, Discord::getLanguageTerm('unable_to_set_discord_bot_username'), $e->getMessage(), 500);
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), 500);
             }
         }
 
         // If bot url and username is empty then its setup for the first time
         if (empty(BOT_URL) && empty(BOT_USERNAME)) {
-            $api->getDb()->createQuery("UPDATE nl2_settings SET `value` = 1 WHERE `name` = 'discord_integration'");
+            $api->getDb()->query("UPDATE nl2_settings SET `value` = 1 WHERE `name` = 'discord_integration'");
         }
 
         if (isset($_POST['bot_user_id'])) {

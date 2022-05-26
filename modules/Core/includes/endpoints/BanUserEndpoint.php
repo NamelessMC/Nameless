@@ -15,7 +15,7 @@ class BanUserEndpoint extends KeyAuthEndpoint {
         ]);
 
         DB::getInstance()->delete('users_session', [
-            'user_id', '=', $user->data()->id
+            'user_id', $user->data()->id
         ]);
     }
 }

@@ -31,10 +31,14 @@ if (Session::exists('home_error')) {
     $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
 }
 
-if (isset($front_page_modules)) {
+$smarty->assign('HOME_TYPE', $home_type);
+
+if ($home_type === 'news') {
     foreach ($front_page_modules as $module) {
         require(ROOT_PATH . '/' . $module);
     }
+} else if ($home_type === 'custom') {
+    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting(DB::getInstance(), 'home_custom_content'));
 }
 
 // Assign to Smarty variables

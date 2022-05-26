@@ -71,10 +71,10 @@ if (Input::exists()) {
     }
 }
 
-$php_mailer = $queries->getWhere('settings', ['name', '=', 'phpmailer']);
+$php_mailer = $queries->getWhere('settings', ['name', 'phpmailer']);
 $php_mailer = $php_mailer[0]->value;
 
-$outgoing_email = $queries->getWhere('settings', ['name', '=', 'outgoing_email']);
+$outgoing_email = $queries->getWhere('settings', ['name', 'outgoing_email']);
 $outgoing_email = $outgoing_email[0]->value;
 
 require(ROOT_PATH . '/core/email.php');
