@@ -248,7 +248,7 @@ if (!isset($_GET['view'])) {
             'CHANGE' => $language->get('general', 'change'),
             'API_URL' => $language->get('admin', 'api_url'),
             'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
-            'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
+            'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
             'EMAIL_VERIFICATION_VALUE' => $emails,

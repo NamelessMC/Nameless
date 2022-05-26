@@ -303,7 +303,7 @@ $smarty->assign([
     'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
     'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_CUSTOM' => $language->get('admin', 'homepage_custom_content'),
+    'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
     'HOMEPAGE_VALUE' => $home_type,
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => $friendly_url,
