@@ -130,13 +130,39 @@ class Util {
     }
 
     /**
+     * @return array List of trusted proxy networks according to config file and environment
+     */
+    private static function getTrustedProxies(): array {
+        $trustedProxies = [];
+
+        // Add trusted proxies from config file
+        $configProxies = Config::get('core/trustedProxies');
+        if ($configProxies !== false) {
+            if (!is_array($configProxies)) {
+                die('Trusted proxies should be an array');
+            }
+            $trustedProxies = array_merge($trustedProxies, $configProxies);
+        }
+
+        // Add trusted proxies from environment variable (comma-separated string)
+        $envProxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        if ($envProxies !== false) {
+            $envProxiesArray = explode(',', $envProxies);
+            $trustedProxies = array_merge($trustedProxies, $envProxiesArray);
+        }
+
+        return $trustedProxies;
+    }
+
+    /**
      * Checks whether the client making the request is a trusted proxy. If not,
      * abruptly aborts the request using die().
      */
     private static function ensureTrustedProxy(): void {
-        $trustedProxies = Config::get('core/trustedProxies');
-        if ($trustedProxies === false) {
-            die("Received proxy header but trustedProxies not configured");
+        $trustedProxies = self::getTrustedProxies();
+
+        if (count($trustedProxies) === 0) {
+            die('Received proxy header but no trusted proxies are configured. Please configure trusted proxies in core/config.php or by setting the NAMELESS_TRUSTED_PROXIES environment variable.');
         }
 
         $trusted = false;
@@ -149,7 +175,7 @@ class Util {
         }
 
         if (!$trusted) {
-            die("Received proxy header but address " . $_SERVER['REMOTE_ADDR'] . " is not trusted.");
+            die('Received proxy header from untrusted remote address: ' . $_SERVER['REMOTE_ADDR']);
         }
     }
 
