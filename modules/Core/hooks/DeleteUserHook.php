@@ -13,6 +13,11 @@ class DeleteUserHook {
         if (isset($params['user_id']) && $params['user_id'] > 1) {
             $queries = new Queries();
 
+            // All the below tables have foreign key constrains which
+            // should be deleted after deleting the user from nl2_users, but since these
+            // keys were added in a later update, we cannot be sure they exist, hence needing to
+            // delete them manually still. Maybe in the future we can rely more on the foreign keys.
+
             // Delete the user
             $queries->delete('users', ['id', $params['user_id']]);
 
@@ -54,6 +59,9 @@ class DeleteUserHook {
 
             // Profile fields
             $queries->delete('users_profile_fields', ['user_id', $params['user_id']]);
+
+            // Username history
+            $queries->delete('users_username_history', ['user_id', $params['user_id']]);
 
             // Profile wall posts
             $queries->delete('user_profile_wall_posts', ['user_id', $params['user_id']]);
