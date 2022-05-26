@@ -609,7 +609,6 @@
     "api/finish_registration_email": "Будь ласка, перевірте свою електронну пошту, щоб завершити реєстрацію.",
     "api/finish_registration_link": "Будь ласка, натисніть на наступне посилання, щоб завершити реєстрацію:",
     "api/group_updated": "Група успішно оновлена",
-    "api/invalid_username": "Неправильне імʼя користувача",
     "api/report_created": "Скарга успішно створена",
     "api/server_info_updated": "Інформація про сервер успішно оновлена",
     "api/unable_to_update_server_info": "Не вдалося оновити інформацію про сервер",

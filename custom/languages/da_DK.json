@@ -135,7 +135,6 @@
     "api/finish_registration_email": "Tjek venligst dine e-mails for at fuldføre registreringen.",
     "api/finish_registration_link": "Klik på følgende link for at fuldføre registreringen:",
     "api/group_updated": "Gruppe opdateret",
-    "api/invalid_username": "Ugyldigt brugernavn",
     "api/report_created": "Rapport oprettet",
     "api/server_info_updated": "Server info opdateret",
     "api/unable_to_update_server_info": "Kan ikke opdatere serverinfo",

@@ -576,7 +576,6 @@
     "api/finish_registration_email": "Vennligst sjekk innboksen din for å fullføre registeringen.",
     "api/finish_registration_link": "Vennligst klikk på følgende lenke for å fullføre registeringen:",
     "api/group_updated": "Gruppen har blitt oppdatert",
-    "api/invalid_username": "Ugyldig brukernavn",
     "api/report_created": "Rapporten har blitt opprettet",
     "api/server_info_updated": "Serverinfoen har blitt oppdatert",
     "api/unable_to_update_server_info": "Kunne ikke oppdatere serverinfo",

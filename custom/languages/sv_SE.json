@@ -596,7 +596,6 @@
     "api/finish_registration_email": "Kontrollera dina e-postmeddelanden för att slutföra registreringen.",
     "api/finish_registration_link": "Klicka på följande länk för att slutföra registreringen:",
     "api/group_updated": "Gruppen uppdaterades framgångsrikt",
-    "api/invalid_username": "Ogiltigt användarnamn",
     "api/report_created": "Rapport skapades framgångsrikt",
     "api/server_info_updated": "Serverinfo uppdaterades framgångsrikt",
     "api/unable_to_update_server_info": "Det går inte att uppdatera serverinformation",

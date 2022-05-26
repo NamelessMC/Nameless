@@ -643,7 +643,6 @@
     "api/finish_registration_email": "Please check your emails to complete registration.",
     "api/finish_registration_link": "Please click on the following link to complete registration:",
     "api/group_updated": "Group updated successfully",
-    "api/invalid_username": "Invalid username",
     "api/report_created": "Report created successfully",
     "api/server_info_updated": "Server info updated successfully",
     "api/unable_to_update_server_info": "Unable to update server info",

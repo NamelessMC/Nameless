@@ -507,7 +507,6 @@
     "api/finish_registration_email": "Kaydı tamamlamak için lütfen e-postalarınızı kontrol edin.",
     "api/finish_registration_link": "Kaydı tamamlamak için lütfen aşağıdaki bağlantıyı tıklayın:",
     "api/group_updated": "Grup başarıyla güncellendi",
-    "api/invalid_username": "Geçersiz kullanıcı adı",
     "api/report_created": "Rapor başarıyla oluşturuldu",
     "api/server_info_updated": "Sunucu bilgileri başarıyla güncellendi",
     "api/unable_to_update_server_info": "Sunucu bilgileri güncellenemiyor",

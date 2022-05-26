@@ -501,7 +501,6 @@
     "api/finish_registration_email": "Verificați-vă e-mailurile pentru a finaliza înregistrarea.",
     "api/finish_registration_link": "Faceți clic pe următorul link pentru a finaliza înregistrarea:",
     "api/group_updated": "Grupul a fost actualizat cu succes",
-    "api/invalid_username": "Nume de utilizator invalid",
     "api/report_created": "Raportul a fost creat cu succes",
     "api/server_info_updated": "Informațiile serverului s-au actualizat cu succes",
     "api/unable_to_update_server_info": "Imposibil de actualizat informațiile serverului",

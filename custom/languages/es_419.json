@@ -616,7 +616,6 @@
     "api/finish_registration_email": "Por favor, compruebe sus correos electrónicos para completar el registro.",
     "api/finish_registration_link": "Haga clic en el siguiente enlace para completar el registro:",
     "api/group_updated": "Grupo actualizado con éxito",
-    "api/invalid_username": "Nombre de usuario inválido",
     "api/report_created": "Informe creado con éxito",
     "api/server_info_updated": "Información del servidor actualizada con éxito",
     "api/unable_to_update_server_info": "No se puede actualizar la información del servidor",
