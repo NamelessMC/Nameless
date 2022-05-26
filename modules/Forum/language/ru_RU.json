@@ -60,7 +60,7 @@
     "forum/guests": "Гости",
     "forum/has_no_parent": "Нет родительского форума",
     "forum/in": "в",
-    "forum/include_in_hook": "Включите новые темы с этого форума в webhook?",
+    "forum/include_in_hook": "Включать ивенты с этого форума в вебхуки?",
     "forum/input_forum_description": "Пожалуйста, введите описание форума.",
     "forum/input_forum_title": "Пожалуйста, введите название форума.",
     "forum/insert_quotes": "Вставить цитату",
@@ -192,5 +192,6 @@
     "forum/topic_author_username": "Имя автора топика",
     "forum/topic_author_nickname": "Никнейм автора топика",
     "forum/new_topic_reply_text": "Ответ топика создан в {{forum}} от {{author}}",
-    "forum/topic_author_uuid": "ID автора топика"
+    "forum/topic_author_uuid": "ID автора топика",
+    "forum/label_type_in_use": "Тип метки используется, не может быть удалён."
 }
