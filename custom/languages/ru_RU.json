@@ -263,7 +263,7 @@
     "admin/hook_edited": "Хук обновлён",
     "admin/hook_events": "События для отправки",
     "admin/hook_name": "Название хука",
-    "admin/hook_select_info": "Только хуки с 'Новый топик' показаны здесь как события.",
+    "admin/hook_select_info": "Только хуки с 'Новый топик' или 'Ответ на топик' показаны здесь как события.",
     "admin/hook_type": "Тип вебхука",
     "admin/hook_url": "URL вебхука",
     "admin/hooks": "Вебхуки",
@@ -1214,5 +1214,6 @@
     "admin/homepage_news": "Новости",
     "admin/user_group_added_hook_info": "Группа Пользователя Добавлена",
     "admin/user_group_removed_hook_info": "Группа Пользователя Удалена",
-    "admin/group_name": "Имя Группы"
+    "admin/group_name": "Имя Группы",
+    "admin/api_disabled": "API выключен"
 }
