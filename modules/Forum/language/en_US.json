@@ -60,7 +60,7 @@
     "forum/guests": "Guests",
     "forum/has_no_parent": "No parent",
     "forum/in": "in",
-    "forum/include_in_hook": "Include new topics from this forum in webhooks?",
+    "forum/include_in_hook": "Include events from this forum in webhooks?",
     "forum/input_forum_description": "Please input a forum description.",
     "forum/input_forum_title": "Please input a forum title.",
     "forum/insert_quotes": "Insert Quotes",

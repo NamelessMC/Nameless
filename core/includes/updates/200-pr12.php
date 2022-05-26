@@ -172,6 +172,71 @@ class Pre13 extends UpgradeScript {
             $db->addColumn('users_profile_fields', 'updated', 'int(11)');
         });
 
+        // delete old class files
+        $this->deleteFiles([
+            'core/classes/Alert.php',
+            'core/classes/Announcements.php',
+            'core/classes/AvatarSource.php',
+            'core/classes/Cache.php',
+            'core/classes/CaptchaBase.php',
+            'core/classes/CollectionItemBase.php',
+            'core/classes/CollectionManager.php',
+            'core/classes/Config.php',
+            'core/classes/Configuration.php',
+            'core/classes/Cookie.php',
+            'core/classes/DB.php',
+            'core/classes/DB_Custom.php',
+            'core/classes/Discord.php',
+            'core/classes/Email.php',
+            'core/classes/EndpointBase.php',
+            'core/classes/Endpoints.php',
+            'core/classes/ErrorHandler.php',
+            'core/classes/ExternalMCQuery.php',
+            'core/classes/Hash.php',
+            'core/classes/HookHandler.php',
+            'core/classes/Input.php',
+            'core/classes/Language.php',
+            'core/classes/Log.php',
+            'core/classes/MCAssoc.php',
+            'core/classes/MCQuery.php',
+            'core/classes/MentionsParser.php',
+            'core/classes/MinecraftBanner.php',
+            'core/classes/MinecraftPing.php',
+            'core/classes/Module.php',
+            'core/classes/Navigation.php',
+            'core/classes/Output.php',
+            'core/classes/Pages.php',
+            'core/classes/Paginator.php',
+            'core/classes/PermissionHandler.php',
+            'core/classes/Placeholders.php',
+            'core/classes/Queries.php',
+            'core/classes/Redirect.php',
+            'core/classes/Report.php',
+            'core/classes/ServerBanner.php',
+            'core/classes/Session.php',
+            'core/classes/TemplateBase.php',
+            'core/classes/Timeago.php',
+            'core/classes/Token.php',
+            'core/classes/URL.php',
+            'core/classes/User.php',
+            'core/classes/Util.php',
+            'core/classes/Validate.php',
+            'core/classes/WidgetBase.php',
+            'core/classes/Widgets.php',
+        ]);
+
+        // delete old home type cache & update new cache
+        $this->_cache->setCache('portal_cache');
+        $portal = $this->_cache->retrieve('portal');
+        $this->_cache->eraseAll();
+        $this->_cache->setCache('home_type');
+        $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
+        $this->databaseQuery(function (DB $db) use ($home_type) {
+            $db->query("DELETE FROM nl2_settings WHERE `name` = 'portal'");
+            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_type', ?)", [$home_type]);
+            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_custom_content', null)");
+        });
+
         $this->setVersion('2.0.0-pr13');
     }
 }

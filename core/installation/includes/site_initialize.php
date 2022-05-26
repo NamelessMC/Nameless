@@ -371,11 +371,16 @@ $queries->create('settings', [
 ]);
 
 $queries->create('settings', [
-    'name' => 'portal',
-    'value' => 0
+    'name' => 'home_type',
+    'value' => 'news'
 ]);
-$cache->setCache('portal_cache');
-$cache->store('portal', 0);
+$cache->setCache('home_type');
+$cache->store('type', 'news');
+
+$queries->create('settings', [
+    'name' => 'home_custom_content',
+    'value' => null
+]);
 
 $queries->create('settings', [
     'name' => 'forum_reactions',

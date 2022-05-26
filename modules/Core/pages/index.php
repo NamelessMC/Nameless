@@ -2,19 +2,19 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
- *  Display either homepage or portal
+ *  Display either homepage (with news or custom content) or portal
  */
 
 // Home page or portal?
-$cache->setCache('portal_cache');
-$use_portal = $cache->retrieve('portal');
+$cache->setCache('home_type');
+$home_type = $cache->retrieve('type');
 
-if ($use_portal !== 1) {
-    require('home.php');
-} else {
+if ($home_type === 'portal') {
     require('portal.php');
+} else {
+    require('home.php');
 }

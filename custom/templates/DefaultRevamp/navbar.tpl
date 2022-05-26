@@ -24,9 +24,10 @@
       <div class="ui container">
         {foreach from=$NAV_LINKS key=name item=item}
           {if isset($item.items)}
-            <div class="ui pointing dropdown link item">
-              <span class="text">{$item.icon} {$item.title}</span> <i class="dropdown icon"></i>
-              <div class="menu">
+            <div class="ui dropdown item">
+                {$item.icon} {$item.title}
+                <i class="dropdown icon"></i>
+                <div class="menu">
                 <div class="header">{$item.title}</div>
                 {foreach from=$item.items item=dropdown}
                   {if isset($dropdown.separator)}

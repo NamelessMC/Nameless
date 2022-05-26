@@ -120,7 +120,7 @@ if (!class_exists('Default_Panel_Template')) {
 					    if (!$(".popover:hover").length) {
 					      $(_this).popover("hide")
 					    }
-					  }, 100);
+					  }, 250);
 					});
 				});
 

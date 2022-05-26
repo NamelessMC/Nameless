@@ -21,11 +21,11 @@ class Core_Sitemap {
         $sitemap->addItem(URL::build('/login'), 0.8);
         $sitemap->addItem(URL::build('/register'));
 
-        $portal = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('portal_cache') . '.cache');
-        $portal = json_decode($portal);
-        $portal = unserialize($portal->portal->data);
+        $home_type = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('home_type') . '.cache');
+        $home_type = json_decode($home_type);
+        $home_type = unserialize($home_type->portal->data);
 
-        if ($portal == 1) {
+        if ($home_type === 'portal') {
             $sitemap->addItem(URL::build('/home'), 0.9);
         }
 

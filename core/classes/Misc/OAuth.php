@@ -1,8 +1,6 @@
 <?php
 
 use League\OAuth2\Client\Provider\AbstractProvider;
-use League\OAuth2\Client\Provider\Google as GoogleProvider;
-use Wohali\OAuth2\Client\Provider\Discord as DiscordProvider;
 
 /**
  * OAuth utility class.
@@ -14,16 +12,8 @@ use Wohali\OAuth2\Client\Provider\Discord as DiscordProvider;
  */
 class OAuth extends Instanceable {
 
-    public const DISCORD = 'discord';
-    public const GOOGLE = 'google';
-
-    private const PROVIDERS = [
-        self::DISCORD,
-        self::GOOGLE,
-    ];
-
-    private DiscordProvider $_discord_provider;
-    private GoogleProvider $_google_provider;
+    private array $_providers = [];
+    private array $_provider_instances = [];
 
     private DB $_db;
 
@@ -32,12 +22,31 @@ class OAuth extends Instanceable {
     }
 
     /**
+     * Add an OAuth provider to the system.
+     *
+     * @param string $name The name of the provider (Discord, Google, etc).
+     * @param array $data Metadata about the provider: class, user_id_name, scope_id_name, icon
+     */
+    public function registerProvider(string $name, array $data): void {
+        $this->_providers[$name] = $data;
+    }
+
+    /**
+     * Get an array of all registered provider names and their data.
+     *
+     * @return array An array of all registered OAuth providers.
+     */
+    public function getProviders(): array {
+        return $this->_providers;
+    }
+
+    /**
      * Determine if OAuth is available if at least one provider is setup.
      *
      * @return bool If any provider is setup
      */
     public function isAvailable(): bool {
-        foreach (self::PROVIDERS as $provider) {
+        foreach (array_keys($this->_providers) as $provider) {
             if ($this->isSetup($provider)) {
                 return true;
             }
@@ -52,7 +61,7 @@ class OAuth extends Instanceable {
      */
     public function getProvidersAvailable(): array {
         $providers = [];
-        foreach (self::PROVIDERS as $provider_name) {
+        foreach ($this->_providers as $provider_name => $provider_data) {
             if (!$this->isSetup($provider_name)) {
                 continue;
             }
@@ -62,11 +71,11 @@ class OAuth extends Instanceable {
             $providers[$provider_name] = [
                 'url' => $provider->getAuthorizationUrl([
                     'scope' => [
-                        $provider_name === self::DISCORD ? 'identify' : 'openid',
+                        $provider_data['scope_id_name'],
                         'email',
                     ],
                 ]),
-                'icon' => $this->getIcon($provider_name),
+                'icon' => $provider_data['icon'],
             ];
         }
 
@@ -88,16 +97,11 @@ class OAuth extends Instanceable {
             'redirectUri' => $url,
         ];
 
-        switch ($provider) {
-            case self::DISCORD:
-                return $this->_discord_provider ??= new DiscordProvider($options);
-
-            case self::GOOGLE:
-                return $this->_google_provider ??= new GoogleProvider($options);
-
-            default:
-                throw new RuntimeException("Unknown provider: $provider");
+        if (array_key_exists($provider, $this->_providers)) {
+            return $this->_provider_instances[$provider] ??= new $this->_providers[$provider]['class']($options);
         }
+
+        throw new RuntimeException("Unknown provider: $provider");
     }
 
     /**
@@ -144,32 +148,12 @@ class OAuth extends Instanceable {
      * @param string $provider The provider name
      * @return string The array key for the provider's client ID
      */
-    public function getIdName(string $provider): string {
-        switch ($provider) {
-            case self::DISCORD:
-                return 'id';
-            case self::GOOGLE:
-                return 'sub';
-            default:
-                throw new RuntimeException("Unknown provider: $provider");
+    public function getUserIdName(string $provider): string {
+        if (array_key_exists($provider, $this->_providers)) {
+            return $this->_providers[$provider]['user_id_name'];
         }
-    }
 
-    /**
-     * Get the FontAwesome icon for a specific provider.
-     *
-     * @param string $provider The provider name
-     * @return string The FontAwesome icon for the provider
-     */
-    public function getIcon(string $provider): string {
-        switch ($provider) {
-            case self::DISCORD:
-                return 'fab fa-discord';
-            case self::GOOGLE:
-                return 'fab fa-google';
-            default:
-                throw new RuntimeException("Unknown provider: $provider");
-        }
+        throw new RuntimeException("Unknown provider: $provider");
     }
 
     /**

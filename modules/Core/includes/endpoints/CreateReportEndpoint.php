@@ -23,12 +23,12 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
 
         // Ensure either reported OR reported_username AND reported_uid are provided
         if (!$_POST['reported'] && !($_POST['reported_username'] && $_POST['reported_uid'])) {
-            $api->throwError(16, $api->getLanguage()->get('api', 'unable_to_find_user'));
+            $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER);
         }
 
         // Ensure content is correct length
         if (strlen($_POST['content']) > 255) {
-            $api->throwError(19, $api->getLanguage()->get('api', 'report_content_too_long'));
+            $api->throwError(CoreApiErrors::ERROR_REPORT_CONTENT_TOO_LONG);
         }
 
         // Ensure user reporting has website account, and has not been banned
@@ -36,7 +36,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $user_reporting_data = $user_reporting->data();
 
         if ($user_reporting_data->isbanned) {
-            $api->throwError(21, $api->getLanguage()->get('api', 'you_have_been_banned_from_website'));
+            $api->throwError(CoreApiErrors::ERROR_BANNED_FROM_WEBSITE);
         }
 
         // See if reported user exists
@@ -48,7 +48,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         if ($user_reporting_data->id == $user_reported_id) {
-            $api->throwError(26, $api->getLanguage()->get('api', 'cannot_report_yourself'));
+            $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
         }
 
         // Ensure user has not already reported the same player, and the report is open
@@ -61,7 +61,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
                 $report->reported_id != 0 && $report->reported_id == $user_reported_id)
                 || (isset($_POST['reported_uid']) && $report->reported_uuid == Output::getClean($_POST['reported_uid']))
             ) {
-                $api->throwError(22, $api->getLanguage()->get('api', 'you_have_open_report_already'));
+                $api->throwError(CoreApiErrors::ERROR_OPEN_REPORT_ALREADY);
             }
         }
 

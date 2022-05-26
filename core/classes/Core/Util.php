@@ -466,7 +466,8 @@ class Util {
     }
 
     /**
-     * Wrap text in HTML `<strong>` tags.
+     * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
+     * since we want as little HTML in the translation strings as possible.
      *
      * @param string $text Text to wrap
      * @return string Text wrapped in `<strong>` tags

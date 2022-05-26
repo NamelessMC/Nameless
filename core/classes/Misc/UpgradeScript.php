@@ -119,10 +119,10 @@ abstract class UpgradeScript {
                 if (is_dir($newFile)) {
                     if ($recursive) {
                         $this->deleteFilesInPath($newFile, ['*'], true);
-                        $this->deleteFile($newFile);
+                        $this->deleteFiles($newFile);
                     }
                 } else {
-                    $this->deleteFile($newFile);
+                    $this->deleteFiles($newFile);
                 }
 
             } else {
@@ -135,19 +135,27 @@ abstract class UpgradeScript {
     /**
      * Delete a single folder or file
      *
-     * @param string $path Path to folder or file to delete
+     * @param string|array $paths Path to folder or file to delete
      */
-    protected function deleteFile(string $path): void {
-        if (!is_writable($path)) {
-            echo "'$path' is not writable, cannot delete. <br />";
-            return;
-        }
+    protected function deleteFiles($paths): void {
+        foreach ((array) $paths as $path) {
+            $path = ROOT_PATH . '/' . $path;
+            if (!file_exists($path)) {
+                echo "'$path' does not exist, cannot delete. <br />";
+                continue;
+            }
 
-        if (is_dir($path) && !rmdir($path)) {
-            echo "Could not delete '$path', is it empty? <br />";
-        }
+            if (!is_writable($path)) {
+                echo "'$path' is not writable, cannot delete. <br />";
+                return;
+            }
 
-        unlink($path);
+            if (is_dir($path) && !rmdir($path)) {
+                echo "Could not delete '$path', is it empty? <br />";
+            }
+
+            unlink($path);
+        }
     }
 
     protected function setVersion(string $version): void {

@@ -186,5 +186,6 @@
     "forum/pre_topic_create_hook_info": "Předběžné vytvoření tématu",
     "forum/pre_topic_edit_hook_info": "Předběžná úprava tématu",
     "forum/topic_id": "ID tématu",
-    "forum/user_object": "Objekt uživatele"
+    "forum/user_object": "Objekt uživatele",
+    "forum/no_news": "Nejsou zde žádné novinky."
 }

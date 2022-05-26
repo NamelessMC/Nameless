@@ -15,6 +15,10 @@
         </select>
     </div>
     <div class="form-group">
+        <label for="inputHomeCustomContent">{$HOME_CUSTOM_CONTENT}</label>
+        <textarea name="home_custom_content" id="inputHomeCustomContent"></textarea>
+    </div>
+    <div class="form-group">
         <input type="hidden" name="token" value="{$TOKEN}">
         <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
     </div>

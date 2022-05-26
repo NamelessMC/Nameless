@@ -30,7 +30,7 @@ if (!isset($_GET['id'])) {
         // Get open reports
         if (!isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
-            $url = URL::build('/panel/users/reports/', true);
+            $url = URL::build('/panel/users/reports/');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
             $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
