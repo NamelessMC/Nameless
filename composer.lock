@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a934708f0591ee29c1fa8a2b872efe74",
+    "content-hash": "8072be7008c490e203f597b8caae98f9",
     "packages": [
         {
             "name": "astrotomic/php-twemoji",
