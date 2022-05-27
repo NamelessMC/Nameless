@@ -268,9 +268,7 @@ class Util {
                 $addresses[] = trim($part);
             }
 
-            if (count($addresses) > 0) {
-                return self::firstNonProxyAddress($addresses);
-            }
+            return self::firstNonProxyAddress($addresses);
         }
 
         if (isset($headers['Forwarded'])) {
