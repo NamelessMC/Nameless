@@ -180,45 +180,125 @@ class Util {
     }
 
     /**
+     * Extract trustworthy address from a list of addresses provided by the Forwarded or X-Forwarded-For header.
+     * @return string Address that may be used for security purposes
+     */
+    private static function firstNonProxyAddress(array $addresses): string {
+        if (count($addresses) === 0) {
+            throw new InvalidArgumentException('Addresses must not be empty');
+        }
+
+        $trusted_proxies = self::getTrustedProxies();
+
+        /*
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#parsing
+
+        > When choosing the first trustworthy X-Forwarded-For client IP address, additional configuration is required.
+        >
+        > The IPs or IP ranges of the trusted reverse proxies are configured. The X-Forwarded-For IP list is searched
+        > from the rightmost, skipping all addresses that are on the trusted proxy list. The first non-matching
+        > address is the target address.
+        >
+        > The first trustworthy X-Forwarded-For IP address may belong to an untrusted intermediate proxy rather than
+        > the actual client computer, but it is the only IP suitable for security uses.
+        */
+
+        for ($i = count($addresses) - 1; $i >= 0; $i--) {
+            $address = $addresses[$i];
+
+            foreach ($trusted_proxies as $trusted_proxy) {
+                if (IpUtils::checkIp($address, $trusted_proxy)) {
+                    // This address is trusted, move one left
+                    continue 2;
+                }
+            }
+
+            // Address is not trusted, this is the client IP we should use
+            return $address;
+        }
+
+        // All addresses are in a trusted network, use leftmost address
+        return $addresses[0];
+    }
+
+    /**
      * Get the client's true IP address, using proxy headers if necessary.
      *
      * @return string Client IP address
      */
     public static function getRemoteAddress(): string {
-        $proxy_remote = null;
+        $headers = getallheaders();
 
-        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
-            $proxy_remote = $_SERVER['HTTP_X_REAL_IP'];
-        } else if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
-            $proxy_remote = $_SERVER['HTTP_CF_CONNECTING_IP'];
-        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            // Comma separated list of addresses, first one is the real client
-            return strtok($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
-        } else if (isset($_SERVER['HTTP_FORWARDED'])) {
-            // First component is the real client
-            $first = strtok($_SERVER['HTTP_FORWARDED'], ',');
+        // Try the simple headers first that only contain an IP address
 
-            // We are only looking for the 'for=<something>' part
-            // In case of ipv6 there may be two 'for=' parts, we'll only use the first one.
-            foreach (explode(';', $first) as $component) {
-                $exploded = explode('=', $component);
-                if (count($exploded) != 2) {
-                    die("Invalid Forwarded header");
-                }
+        // Non standard header that only contains the origin address
+        if (isset($headers['X-Real-Ip'])) {
+            self::ensureTrustedProxy();
+            return $headers['X-Real-Ip'];
+        }
 
-                if ($exploded[0] === 'for') {
-                    $proxy_remote = $exploded[1];
-                    break;
-                }
+        // Non standard header sent by CloudFlare that only contains the origin address
+        if (isset($headers['Cf-Connecting-Ip'])) {
+            self::ensureTrustedProxy();
+            return $headers['Cf-Connecting-Ip'];
+        }
+
+        /*
+        Now the more complicated (X-)Forwarded(-For) headers.
+
+        Quote from MDN https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#parsing:
+        > There may be multiple X-Forwarded-For headers present in a request (per RFC 2616). The IP addresses in
+        > these headers must be treated as a single list, starting with the first IP address of the first header
+        > and continuing to the last IP address of the last header.
+        > It is insufficient to use only one of multiple X-Forwarded-For headers.
+
+        Unfortunately, we cannot follow this advice since PHP only seems to return the last header. However, since
+        supposedly the addresses should be read from right to left, only using the last header is not insecure, while
+        the using the first header would be.
+        In case of a weirdly behaving proxy that sends an additional Forwarded header instead of appending to an
+        existing one, the worst that would happen is an IP ban affecting the proxy (every user). Under no
+        circumstance would a user be able to spoof their address.
+        */
+
+        if (isset($headers['X-Forwarded-For'])) {
+            self::ensureTrustedProxy();
+
+            $addresses = [];
+            foreach (explode(',', $headers['X-Forwarded-For']) as $part) {
+                $addresses[] = trim($part);
+            }
+
+            if (count($addresses) > 0) {
+                return self::firstNonProxyAddress($addresses);
             }
         }
 
-        if ($proxy_remote == null) {
-            return $_SERVER['REMOTE_ADDR'];
+        if (isset($headers['Forwarded'])) {
+            self::ensureTrustedProxy();
+
+            $addresses = [];
+            foreach (explode(',', $headers['Forwarded']) as $part1) {
+                // Extract the optional 'for=<address>' bit
+                foreach (explode(';', trim($part1)) as $part2) {
+                    $part2 = explode('=', $part2);
+                    if (count($part2) != 2) {
+                        die("Invalid Forwarded header");
+                    }
+
+                    if ($part2[0] === 'for') {
+                        $addresses[] = trim($part2[1]);
+                        break;
+                    }
+                }
+            }
+
+            if (count($addresses) > 0) {
+                return self::firstNonProxyAddress($addresses);
+            }
         }
 
-        self::ensureTrustedProxy();
-        return $proxy_remote;
+        // No supported proxy headers in use
+        return $_SERVER['REMOTE_ADDR'];
     }
 
     /**
