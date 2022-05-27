@@ -36,10 +36,10 @@ $queries->create('posts', [
     'post_creator' => 1,
     'post_content' => Output::getClean(
         '&lt;p&gt;Welcome!&lt;/p&gt;
-		&lt;p&gt;To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.&lt;/p&gt;
-		&lt;p&gt;If you need support, visit our Discord server: &lt;a href=&quot;https://discord.gg/nameless&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://discord.gg/nameless&lt;/a&gt;&lt;/p&gt;
-		&lt;p&gt;Thank you and enjoy,&lt;/p&gt;
-		&lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
+        &lt;p&gt;To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.&lt;/p&gt;
+        &lt;p&gt;If you need support, visit our Discord server: &lt;a href=&quot;https://discord.gg/nameless&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://discord.gg/nameless&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;Thank you and enjoy,&lt;/p&gt;
+        &lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
     ),
     'post_date' => date('Y-m-d H:i:s'),
     'created' => date('U')
