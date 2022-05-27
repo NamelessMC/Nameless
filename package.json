@@ -22,9 +22,10 @@
     "popper.js": "^1.16.1",
     "select2": "4.1.0-rc.0",
     "tinymce": "5.10.3",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "fs-extra": "^10.0.0"
   },
   "scripts": {
-    "postinstall": "mkdir -p ./core/assets/vendor && cp -r ./node_modules/* ./core/assets/vendor"
+    "postinstall": "node ./yarn-postinstall.js"
   }
 }
