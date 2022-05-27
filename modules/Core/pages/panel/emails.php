@@ -264,7 +264,18 @@ if (isset($_GET['action'])) {
         'ENABLE_MAILER' => $language->get('admin', 'enable_mailer'),
         'ENABLE_MAILER_VALUE' => $php_mailer,
         'INFO' => $language->get('general', 'info'),
-        'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help'),
+        'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help', [
+            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/home#translations\' target=\'_blank\'>',
+            'docLinkEnd' => '</a>'
+        ]),
+        'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
+            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/smtp\' target=\'_blank\'>',
+            'docLinkEnd' => '</a>'
+        ]),
+        'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
+            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/friendly-urls\' target=\'_blank\'>',
+            'docLinkEnd' => '</a>'
+        ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
         'OUTGOING_EMAIL_VALUE' => Output::getClean($outgoing_email),
@@ -295,7 +306,11 @@ if (Session::exists('emails_success')) {
 if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
+        'TEST_EMAIL_SUGGEST_3' => $language->get('admin', 'test_email_suggest_3', [
+            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/smtp\' target=\'_blank\'>',
+            'docLinkEnd' => '</a>'
+        ])
     ]);
 }
 
