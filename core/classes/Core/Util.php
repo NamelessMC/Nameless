@@ -132,7 +132,7 @@ class Util {
     /**
      * @return array List of trusted proxy networks according to config file and environment
      */
-    private static function getTrustedProxies(): array {
+    public static function getTrustedProxies(): array {
         $trustedProxies = [];
 
         // Add trusted proxies from config file

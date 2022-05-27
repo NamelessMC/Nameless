@@ -190,10 +190,11 @@ $data = [
             ],
         ],
         'groups' => $groups,
+        'trusted_proxies' => Util::getTrustedProxies(),
         'config' => [
             'core' => array_filter(
                 $GLOBALS['config']['core'],
-                static fn(string $key) => $key != 'hostname',
+                static fn(string $key) => $key != 'hostname' && $key != 'trustedProxies',
                 ARRAY_FILTER_USE_KEY
             ),
         ],
