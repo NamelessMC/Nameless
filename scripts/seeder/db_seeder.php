@@ -40,7 +40,7 @@ $db = DB_Custom::getInstance(
 );
 
 $wipe = false;
-if (isset($argv[1]) && $argv[1] === '--wipe') {
+if (isset($argv[1]) && $argv[1] === 'wipe') {
     $wipe = true;
     print('🧨 Wipe mode enabled!' . PHP_EOL);
 }
