@@ -61,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'username' => $db_username,
                         'password' => $db_password,
                         'db' => $db_name,
-                        'prefix' => 'nl2_',
                         'charset' => $charset,
                         'engine' => $engine,
                         'initialise_charset' => true,
