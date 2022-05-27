@@ -188,9 +188,9 @@ $data = [
                 'hooks' => $webhooks,
                 'forum_hooks' => $forum_hooks,
             ],
+            'trusted_proxies' => Util::getTrustedProxies(),
         ],
         'groups' => $groups,
-        'trusted_proxies' => Util::getTrustedProxies(),
         'config' => [
             'core' => array_filter(
                 $GLOBALS['config']['core'],
