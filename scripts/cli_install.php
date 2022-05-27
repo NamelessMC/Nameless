@@ -92,7 +92,6 @@ $conf = [
         'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', 'root'),
         'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
         'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
-        'prefix' => 'nl2_',
         'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', 'utf8mb4'),
         'engine' => getEnvVar('NAMELESS_DATABASE_ENGINE', 'InnoDB'),
         'initialise_charset' => true,
@@ -114,8 +113,8 @@ $conf = [
         'force_www' => false,
         'captcha' => false,
         'date_format' => 'd M Y, H:i',
+        'trustedProxies' => [],
     ],
-    'allowedProxies' => '',
 ];
 
 file_put_contents(

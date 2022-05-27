@@ -52,7 +52,6 @@ if (!isset($_GET['action'])) {
     ]);
 
     $template_file = 'core/pages.tpl';
-
 } else {
     switch ($_GET['action']) {
         case 'new':
@@ -64,38 +63,41 @@ if (!isset($_GET['action'])) {
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
+                            // This doesn't cover all pages, but enough for an admin to be able to delete a custom page.
+                            Validate::NOT_START_WITH => ['/panel', '/login'],
                         ],
                         'content' => [
-                            Validate::MAX => 100000
+                            Validate::MAX => 100000,
                         ],
                         'link_location' => [
-                            Validate::REQUIRED => true
+                            Validate::REQUIRED => true,
                         ],
                         'redirect_link' => [
-                            Validate::MAX => 512
+                            Validate::MAX => 512,
                         ]
                     ])->messages([
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255'),
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255'),
+                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_nameless_path'),
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
-                            Validate::REQUIRED => $language->get('admin', 'link_location_required')
+                            Validate::REQUIRED => $language->get('admin', 'link_location_required'),
                         ],
-                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
+                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512'),
                     ]);
 
                     if ($validation->passed()) {
@@ -243,38 +245,41 @@ if (!isset($_GET['action'])) {
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
+                            // This doesn't cover all pages, but enough for an admin to be able to delete a custom page.
+                            Validate::NOT_START_WITH => ['/panel', '/login'],
                         ],
                         'content' => [
-                            Validate::MAX => 100000
+                            Validate::MAX => 100000,
                         ],
                         'link_location' => [
-                            Validate::REQUIRED => true
+                            Validate::REQUIRED => true,
                         ],
                         'redirect_link' => [
-                            Validate::MAX => 512
+                            Validate::MAX => 512,
                         ]
                     ])->messages([
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255'),
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255'),
+                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_nameless_path'),
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
-                            Validate::REQUIRED => $language->get('admin', 'link_location_required')
+                            Validate::REQUIRED => $language->get('admin', 'link_location_required'),
                         ],
-                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
+                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512'),
                     ]);
 
                     if ($validation->passed()) {

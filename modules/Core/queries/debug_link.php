@@ -196,7 +196,6 @@ $data = [
                 static fn(string $key) => $key != 'hostname',
                 ARRAY_FILTER_USE_KEY
             ),
-            'allowedProxies' => $GLOBALS['config']['allowedProxies']
         ],
         'modules' => $namelessmc_modules,
         'templates' => [

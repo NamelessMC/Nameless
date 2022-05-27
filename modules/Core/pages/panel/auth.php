@@ -85,7 +85,7 @@ if (Input::exists()) {
 
             if ($login) {
                 // Get IP
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
 
                 // Create log
                 Log::getInstance()->log(Log::Action('admin/login'));

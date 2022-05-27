@@ -58,7 +58,7 @@
     "forum/guests": "Gäste",
     "forum/has_no_parent": "Kein übergeordnetes Forum",
     "forum/in": "in",
-    "forum/include_in_hook": "Neue Themen aus diesem Forum in Webhooks einbinden?",
+    "forum/include_in_hook": "Ereignisse aus diesem Forum in Webhooks einbeziehen?",
     "forum/input_forum_description": "Gib eine Forenbeschreibung ein.",
     "forum/input_forum_title": "Gib einen Forennamen ein.",
     "forum/insert_quotes": "Zitate einfügen",
@@ -192,5 +192,6 @@
     "forum/topic_author_username": "Benutzername des Themenautors",
     "forum/new_topic_reply_text": "Themenantwort erstellt in {{forum}} von {{author}}",
     "forum/topic_author_uuid": "Benutzer-ID des Themenautors",
-    "forum/topic_author_nickname": "Spitzname des Themenautors"
+    "forum/topic_author_nickname": "Spitzname des Themenautors",
+    "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden."
 }
