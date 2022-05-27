@@ -1215,5 +1215,6 @@
     "admin/user_group_added_hook_info": "Группа Пользователя Добавлена",
     "admin/user_group_removed_hook_info": "Группа Пользователя Удалена",
     "admin/group_name": "Имя Группы",
-    "admin/api_disabled": "API выключен"
+    "admin/api_disabled": "API выключен",
+    "admin/page_url_contains_nameless_path": "Ваша кастомная страница перезаписала бы NamelessMC страницу."
 }
