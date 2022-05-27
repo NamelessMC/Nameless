@@ -311,6 +311,10 @@ body {
 
 /* --------------- Sidebar --------------- */
 
+.sidebar {
+    z-index: 999;
+}
+
 @media (min-width: 768px) {
     .sidebar {
         width: 17rem !important;
