@@ -185,18 +185,40 @@ class Util {
      * @return string Client IP address
      */
     public static function getRemoteAddress(): string {
-        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
-            self::ensureTrustedProxy();
-            return $_SERVER['HTTP_X_REAL_IP'];
-        }
+        $proxy_remote = null;
 
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            self::ensureTrustedProxy();
+        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+            $proxy_remote = $_SERVER['HTTP_X_REAL_IP'];
+        } else if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+            $proxy_remote = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             // Comma separated list of addresses, first one is the real client
             return strtok($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
+        } else if (isset($_SERVER['HTTP_FORWARDED'])) {
+            // First component is the real client
+            $first = strtok($_SERVER['HTTP_FORWARDED'], ',');
+
+            // We are only looking for the 'for=<something>' part
+            // In case of ipv6 there may be two 'for=' parts, we'll only use the first one.
+            foreach (explode(';', $first) as $component) {
+                $exploded = explode('=', $component);
+                if (count($exploded) != 2) {
+                    die("Invalid Forwarded header");
+                }
+
+                if ($exploded[0] === 'for') {
+                    $proxy_remote = $exploded[1];
+                    break;
+                }
+            }
         }
 
-        return $_SERVER['REMOTE_ADDR'];
+        if ($proxy_remote == null) {
+            return $_SERVER['REMOTE_ADDR'];
+        }
+
+        self::ensureTrustedProxy();
+        return $proxy_remote;
     }
 
     /**
