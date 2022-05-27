@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $default_language = $queries->getWhere('languages', ['is_default', true]);
 
-            $ip = $user->getIP();
+            $ip = Util::getRemoteAddress();
 
             $user->create([
                 'username' => Input::get('username'),

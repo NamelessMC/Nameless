@@ -114,8 +114,8 @@ $conf = [
         'force_www' => false,
         'captcha' => false,
         'date_format' => 'd M Y, H:i',
+        'trustedProxies' => [],
     ],
-    'allowedProxies' => '',
 ];
 
 file_put_contents(

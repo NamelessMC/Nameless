@@ -91,7 +91,7 @@ if (Input::exists()) {
                     $language_id = $language_id[0]->id;
                 }
 
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
                     // Valid IP
                 } else {

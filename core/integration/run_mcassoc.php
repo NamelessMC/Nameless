@@ -93,7 +93,7 @@ if (!isset($_GET['step'])) {
                 $password = $_SESSION['password'];
 
                 // Get IP
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
 
                 $user->create([
                     'username' => $username,

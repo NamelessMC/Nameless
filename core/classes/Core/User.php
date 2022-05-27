@@ -230,23 +230,6 @@ class User {
     }
 
     /**
-     * Get the logged in user's IP address.
-     *
-     * @return string Their IP.
-     */
-    public function getIP(): string {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            return $_SERVER['HTTP_CLIENT_IP'];
-        }
-
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-
-        return $_SERVER['REMOTE_ADDR'];
-    }
-
-    /**
      * Update a user's data in the database.
      *
      * @param array $fields Column names and values to update.
@@ -346,7 +329,7 @@ class User {
 
                 $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry, Util::isConnectionSSL(), true);
+                Cookie::put($cookieName, $hash, $expiry, Util::getProtocol() === 'https', true);
             }
 
             return true;

@@ -1,6 +1,7 @@
 <?php
 
 use Astrotomic\Twemoji\Twemoji;
+use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * Contains misc utility methods.
@@ -129,13 +130,117 @@ class Util {
     }
 
     /**
+     * @return array List of trusted proxy networks according to config file and environment
+     */
+    private static function getTrustedProxies(): array {
+        $trustedProxies = [];
+
+        // Add trusted proxies from config file
+        $configProxies = Config::get('core/trustedProxies');
+        if ($configProxies !== false) {
+            if (!is_array($configProxies)) {
+                die('Trusted proxies should be an array');
+            }
+            $trustedProxies = array_merge($trustedProxies, $configProxies);
+        }
+
+        // Add trusted proxies from environment variable (comma-separated string)
+        $envProxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        if ($envProxies !== false) {
+            $envProxiesArray = explode(',', $envProxies);
+            $trustedProxies = array_merge($trustedProxies, $envProxiesArray);
+        }
+
+        return $trustedProxies;
+    }
+
+    /**
+     * Checks whether the client making the request is a trusted proxy. If not,
+     * abruptly aborts the request using die().
+     */
+    private static function ensureTrustedProxy(): void {
+        $trustedProxies = self::getTrustedProxies();
+
+        if (count($trustedProxies) === 0) {
+            die('Received proxy header but no trusted proxies are configured. Please see <a href="https://docs.namelessmc.com/trusted-proxies">https://docs.namelessmc.com/trusted-proxies</a> for more information.');
+        }
+
+        $trusted = false;
+
+        foreach ($trustedProxies as $trustedProxy) {
+            if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
+                $trusted = true;
+                break;
+            }
+        }
+
+        if (!$trusted) {
+            die('Received proxy header from untrusted remote address: ' . $_SERVER['REMOTE_ADDR']);
+        }
+    }
+
+    /**
+     * Get the client's true IP address, using proxy headers if necessary.
+     *
+     * @return string Client IP address
+     */
+    public static function getRemoteAddress(): string {
+        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+            self::ensureTrustedProxy();
+            return $_SERVER['HTTP_X_REAL_IP'];
+        }
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            self::ensureTrustedProxy();
+            // Comma separated list of addresses, first one is the real client
+            return strtok($_SERVER['HTTP_X_FORWARDED_FOR'], ',');
+        }
+
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
+    /**
+     * Get the protocol used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return string 'http' if HTTP or 'https' if HTTPS
+     */
+    public static function getProtocol(): string {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            self::ensureTrustedProxy();
+            $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+            if ($proto !== 'http' && $proto !== 'https') {
+                die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
+            }
+            return $proto;
+        }
+
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            ? 'https'
+            : 'http';
+    }
+
+    /**
+     * Get port used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return int Port number
+     */
+    public static function getPort(): int {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+            self::ensureTrustedProxy();
+            return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
+        }
+
+        return (int) $_SERVER['SERVER_PORT'];
+    }
+
+    /**
      * Get the server name.
      *
-     * @param bool $protocol Whether to show http(s) at front or not.
+     * @param bool $show_protocol Whether to show http(s) at front or not.
      *
      * @return string Compiled URL.
      */
-    public static function getSelfURL(bool $protocol = true): string {
+    public static function getSelfURL(bool $show_protocol = true): string {
         $hostname = Config::get('core/hostname');
 
         if (!$hostname) {
@@ -143,26 +248,21 @@ class Util {
         }
 
         // https and www checks
-        if (self::isConnectionSSL()) {
-            $proto = 'https://';
-        } else {
-            $proto = 'http://';
+        $protocol = self::getProtocol() . '://';
+
+        $url = $hostname;
+
+        if (defined('FORCE_WWW') && FORCE_WWW && !str_contains($hostname, 'www')) {
+            $url = 'www.' . $url;
         }
 
-        if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
-            $www = 'www.';
-        } else {
-            $www = '';
-        }
-
-        if ($protocol) {
-            if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = $proto . $www . Output::getClean($hostname);
-            } else {
-                $url = $proto . $www . Output::getClean($hostname) . ':' . $_SERVER['SERVER_PORT'];
+        if ($show_protocol) {
+            $url = $protocol . $url;
+            $port = self::getPort();
+            if (($port !== 80 && $protocol !== 'http://') ||
+                ($port !== 443 && $protocol !== 'https://')) {
+                $url .= ':' . $port;
             }
-        } else {
-            $url = $www . Output::getClean($hostname);
         }
 
         if (substr($url, -1) !== '/') {
@@ -196,6 +296,11 @@ class Util {
 
         return '';
     }
+
+    /*
+    *  The truncate function is taken from CakePHP, license MIT
+    *  https://github.com/cakephp/cakephp/blob/master/LICENSE
+    */
 
     /**
      * Truncates text.

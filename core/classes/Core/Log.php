@@ -212,7 +212,7 @@ class Log extends Instanceable {
     public function log(string $action, string $info = '', ?int $user = null, string $ip = null): bool {
         if ($user == null) {
             $userTemp = new User();
-            $ip = $userTemp->getIP();
+            $ip = Util::getRemoteAddress();
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 
