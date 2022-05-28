@@ -63,7 +63,7 @@ if (count($servers)) {
             'pre' => $server->pre,
             'name' => $server->name
         ];
-        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries);
+        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
         if ($server->parent_server > 0) {
             $result['parent_server'] = $server->parent_server;

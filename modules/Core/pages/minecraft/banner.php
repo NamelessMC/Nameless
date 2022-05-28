@@ -60,7 +60,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 $query_type = 'internal';
             }
 
-            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries);
+            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
             // Do we need to query for favicon?
             if (!$cache->isCached('favicon')) {
