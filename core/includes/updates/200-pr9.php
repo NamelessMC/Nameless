@@ -53,8 +53,8 @@ try {
 
 // plugin -> website placeholders
 try {
-    DB::getInstance()->createTable('users_placeholders', ' `server_id` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `name` varchar(256) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL', "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
-    DB::getInstance()->createTable('placeholders_settings', " `server_id` int(11) NOT NULL, `name` varchar(256) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable('users_placeholders', ' `server_id` int(11) NOT NULL, `uuid` varchar(32) NOT NULL, `name` varchar(256) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL');
+    DB::getInstance()->createTable('placeholders_settings', " `server_id` int(11) NOT NULL, `name` varchar(256) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC'");
 
     $queries->addPermissionGroup(2, 'admincp.core.placeholders');
 } catch (Exception $e) {
