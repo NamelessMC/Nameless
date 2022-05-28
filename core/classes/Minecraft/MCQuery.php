@@ -240,7 +240,7 @@ class MCQuery {
                 } catch (Exception $e) {
                     $query = [];
 
-                    DB::getInstance()->create('query_errors', [
+                    DB::getInstance()->insert('query_errors', [
                         'date' => date('U'),
                         'error' => $e->getMessage(),
                         'ip' => $query_ip[0],

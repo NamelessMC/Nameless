@@ -274,7 +274,7 @@ if (!isset($_GET['view'])) {
     if ($_GET['view'] == 'group_sync') {
 
         $group_sync_values = [];
-        foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0]) as $rule)->results() {
+        foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
             $rule_values = [];
             foreach (get_object_vars($rule) as $column => $value) {
                 $rule_values[$column] = $value;
