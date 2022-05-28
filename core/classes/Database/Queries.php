@@ -103,6 +103,7 @@ class Queries {
         }
 
         $engine = 'InnoDB'; // TODO Set engine in createTable() so it doesn't have to be repeated here
+
         $this->_db->createTable('alerts', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(128) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('blocked_users', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `user_blocked_id` int(11) NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('custom_announcements', " `id` int(11) NOT NULL AUTO_INCREMENT, `pages` varchar(1024) NOT NULL, `groups` varchar(1024) NOT NULL, `order` int(11) NOT NULL, `text_colour` varchar(7) NOT NULL, `background_colour` varchar(7) NOT NULL, `icon` varchar(64) NOT NULL, `closable` tinyint(1) NOT NULL DEFAULT '0', `header` varchar(64) NOT NULL, `message` varchar(1024) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
@@ -163,17 +164,17 @@ class Queries {
         $this->_db->createTable('widgets', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `pages` text, `order` int(11) NOT NULL DEFAULT '10', `location` varchar(5) NOT NULL DEFAULT 'right', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 
         // Indices
-        DB::getInstance()->query('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
-        DB::getInstance()->query('ALTER TABLE `nl2_posts` ADD INDEX `nl2_posts_idx_topic_id` (`topic_id`)');
-        DB::getInstance()->query('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
-        DB::getInstance()->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
-        DB::getInstance()->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
-        DB::getInstance()->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
-        DB::getInstance()->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
+        $this->_db->query('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
+        $this->_db->query('ALTER TABLE `nl2_posts` ADD INDEX `nl2_posts_idx_topic_id` (`topic_id`)');
+        $this->_db->query('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
+        $this->_db->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
+        $this->_db->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
+        $this->_db->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
+        $this->_db->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
 
         // (Builtin) Group Sync Injectors
-        DB::getInstance()->addColumn('group_sync', 'discord_role_id', "BIGINT NULL DEFAULT NULL");
-        DB::getInstance()->addColumn('group_sync', 'ingame_rank_name', "VARCHAR(64) NULL DEFAULT NULL");
+        $this->_db->addColumn('group_sync', 'discord_role_id', "BIGINT NULL DEFAULT NULL");
+        $this->_db->addColumn('group_sync', 'ingame_rank_name', "VARCHAR(64) NULL DEFAULT NULL");
 
         // Success
         return true;
