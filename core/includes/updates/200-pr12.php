@@ -37,14 +37,14 @@ class Pre13 extends UpgradeScript {
                                         `client_secret` varchar(256) DEFAULT NULL,
                                         PRIMARY KEY (`provider`),
                                         UNIQUE KEY `id` (`provider`)
-                                    ) ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
+                                    ) ENGINE=InnoDB DEFAULT CHARSET=$this->_db_charset");
             $db->query("CREATE TABLE `nl2_oauth_users` (
                                       `user_id` int NOT NULL,
                                       `provider` varchar(256) NOT NULL,
                                       `provider_id` varchar(256) NOT NULL,
                                       PRIMARY KEY (`user_id`,`provider`,`provider_id`),
                                       UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)
-                                    ) ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
+                                    ) ENGINE=InnoDB DEFAULT CHARSET=$this->_db_charset");
         });
 
         // User integrations

@@ -93,16 +93,16 @@ class Queries {
      * Initialise the database on a fresh install.
      *
      * @param string $charset The charset to use
-     * @param string $engine The engine to use
      * @return bool|string
      */
-    public function dbInitialise(string $charset = 'latin1', string $engine = 'InnoDB') {
+    public function dbInitialise(string $charset = 'utf8mb4') {
         $data = $this->_db->showTables('settings');
 
         if (!empty($data)) {
             return '<div class="alert alert-warning">Database already initialised!</div>';
         }
 
+        $engine = 'InnoDB'; // TODO Set engine in createTable() so it doesn't have to be repeated here
         $this->_db->createTable('alerts', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(128) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('blocked_users', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `user_blocked_id` int(11) NOT NULL, PRIMARY KEY (`id`)', "ENGINE=$engine DEFAULT CHARSET=$charset");
         $this->_db->createTable('custom_announcements', " `id` int(11) NOT NULL AUTO_INCREMENT, `pages` varchar(1024) NOT NULL, `groups` varchar(1024) NOT NULL, `order` int(11) NOT NULL, `text_colour` varchar(7) NOT NULL, `background_colour` varchar(7) NOT NULL, `icon` varchar(64) NOT NULL, `closable` tinyint(1) NOT NULL DEFAULT '0', `header` varchar(64) NOT NULL, `message` varchar(1024) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");

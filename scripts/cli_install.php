@@ -93,7 +93,6 @@ $conf = [
         'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
         'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
         'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', 'utf8mb4'),
-        'engine' => getEnvVar('NAMELESS_DATABASE_ENGINE', 'InnoDB'),
         'initialise_charset' => true,
     ],
     'remember' => [
