@@ -6,7 +6,7 @@ class MinecraftPlaceholderDataSeeder extends Seeder {
         'nl2_users_placeholders',
     ];
 
-    protected function run(DB_Custom $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void {
         $placeholders = $db->get('placeholders_settings', ['server_id', '<>', 0])->results();
         $users = $db->get('users', ['id', '<>', 0])->results();
         $saved = [];

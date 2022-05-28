@@ -30,13 +30,12 @@ $seeders = [
 
 $faker = Faker\Factory::create();
 
-$db = DB_Custom::getInstance(
+$db = DB::getCustomInstance(
     $conf['mysql']['host'],
     $conf['mysql']['db'],
     $conf['mysql']['username'],
     $conf['mysql']['password'],
-    3306,
-    'nl2_'
+    3306
 );
 
 $wipe = false;

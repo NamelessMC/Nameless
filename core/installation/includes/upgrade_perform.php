@@ -1,7 +1,13 @@
 <?php
 
 if ($s < 9) {
-    $conn = DB_Custom::getInstance($_SESSION['db_address'], $_SESSION['db_name'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_port']);
+    $conn = DB::getCustomInstance(
+        $_SESSION['db_address'],
+        $_SESSION['db_name'],
+        $_SESSION['db_username'],
+        $_SESSION['db_password'],
+        $_SESSION['db_port']
+    );
 }
 
 $queries = new Queries();

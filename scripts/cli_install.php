@@ -128,7 +128,13 @@ require './vendor/autoload.php';
 
 if ($reinstall) {
     print('🗑️  Deleting old database...' . PHP_EOL);
-    $instance = DB_Custom::getInstance($conf['mysql']['host'], $conf['mysql']['db'], $conf['mysql']['username'], $conf['mysql']['password'], $conf['mysql']['port'], 'nl2_');
+    $instance = DB::getCustomInstance(
+        $conf['mysql']['host'],
+        $conf['mysql']['db'],
+        $conf['mysql']['username'],
+        $conf['mysql']['password'],
+        $conf['mysql']['port']
+    );
     $instance->query('DROP DATABASE IF EXISTS `' . $conf['mysql']['db'] . '`');
     print('✍️  Creating new database...' . PHP_EOL);
     $instance->query('CREATE DATABASE `' . $conf['mysql']['db'] . '`');

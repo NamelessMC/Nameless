@@ -8,7 +8,7 @@ class UserProfilePostSeeder extends Seeder {
         'nl2_user_profile_wall_posts_reactions',
     ];
 
-    protected function run(DB_Custom $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
         $this->times(500, function () use ($db, $faker, $users) {
