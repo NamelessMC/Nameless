@@ -12,16 +12,20 @@ class DB {
 
     private static ?DB $_instance = null;
 
+    private string $_prefix;
+    private ?string $_force_charset;
     protected PDO $_pdo;
     private PDOStatement $_statement;
     private bool $_error = false;
     private array $_results;
-    private string $_prefix = 'nl2_';
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
     private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
         try {
+            $this->_force_charset = $force_charset;
+            $this->_prefix = $prefix;
+
             $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
             if ($force_charset) {
                 $connection_string .= ';charset=' . $force_charset;
@@ -35,7 +39,7 @@ class DB {
                     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
                 ]
             );
-            $this->_prefix = $prefix;
+
         } catch (PDOException $e) {
             die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
         }
@@ -313,12 +317,14 @@ class DB {
      *
      * @param string $name The name of the table.
      * @param string $table_schema The table SQL schema.
-     * @param string $other Other SQL table options.
      * @return bool Whether an error occurred or not.
      */
-    public function createTable(string $name, string $table_schema, string $other): bool {
+    public function createTable(string $name, string $table_schema): bool {
         $name = $this->_prefix . $name;
-        $sql = "CREATE TABLE `{$name}` ({$table_schema}) {$other}";
+        $sql = "CREATE TABLE `{$name}` ({$table_schema}) ENGINE=InnoDB";
+        if ($this->_force_charset) {
+            $sql .= ' DEFAULT CHARSET=' . $this->_force_charset;
+        }
 
         return !$this->query($sql)->error();
     }

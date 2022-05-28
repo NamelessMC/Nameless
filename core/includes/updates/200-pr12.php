@@ -30,28 +30,26 @@ class Pre13 extends UpgradeScript {
 
         // oauth
         $this->databaseQuery(function (DB $db) {
-            $db->query("CREATE TABLE `nl2_oauth` (
+            $db->createTable('nl2_oauth', "
                                         `provider` varchar(256) NOT NULL,
                                         `enabled` tinyint(1) NOT NULL DEFAULT '0',
                                         `client_id` varchar(256) DEFAULT NULL,
                                         `client_secret` varchar(256) DEFAULT NULL,
                                         PRIMARY KEY (`provider`),
-                                        UNIQUE KEY `id` (`provider`)
-                                    ) ENGINE=InnoDB DEFAULT CHARSET=$this->_db_charset");
-            $db->query("CREATE TABLE `nl2_oauth_users` (
+                                        UNIQUE KEY `id` (`provider`)");
+            $db->createTable('nl2_oauth_users', "
                                       `user_id` int NOT NULL,
                                       `provider` varchar(256) NOT NULL,
                                       `provider_id` varchar(256) NOT NULL,
                                       PRIMARY KEY (`user_id`,`provider`,`provider_id`),
-                                      UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)
-                                    ) ENGINE=InnoDB DEFAULT CHARSET=$this->_db_charset");
+                                      UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)");
         });
 
         // User integrations
         $this->databaseQueries([
             function (DB $db) {
-                $db->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=$this->_db_charset");
-                $db->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', `last_sync` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=InnoDB DEFAULT CHARSET=$this->_db_charset");
+                $db->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+                $db->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', `last_sync` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
             },
             function (DB $db) {
                 $db->insert('integrations', [

@@ -2,10 +2,8 @@
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
-            $charset = $_SESSION['charset'];
-
             $queries = new Queries();
-            $success = $queries->dbInitialise($charset);
+            $success = $queries->dbInitialise();
 
             $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 
