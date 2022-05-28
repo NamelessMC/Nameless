@@ -759,7 +759,6 @@
     "installer/credits_message": "向所有自 2014 年以来的 {{contribLinkStart}}NamelessMC 代码贡献者{{contribLinkEnd}} 致敬",
     "installer/database_address": "数据库地址",
     "installer/database_configuration": "数据库设置",
-    "installer/database_engine": "数据库存储引擎",
     "installer/database_error": "请确保所有字段均已填写。",
     "installer/database_name": "数据库名称",
     "installer/database_password": "数据库密码",

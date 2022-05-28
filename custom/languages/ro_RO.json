@@ -629,7 +629,6 @@
     "installer/credits_message": "O mulțime de mulțumiri tuturor {{contribLinkStart}}colaboratorilor NamelessMC{{contribLinkEnd}} înca din 2014",
     "installer/database_address": "Adresa bazei de date",
     "installer/database_configuration": "Configurarea bazei de date",
-    "installer/database_engine": "Motor de stocare pentru baza de date",
     "installer/database_error": "Asigurați-vă că toate câmpurile au fost completate.",
     "installer/database_name": "Numele bazei de date",
     "installer/database_password": "Parola utilizatorului bazei de date",

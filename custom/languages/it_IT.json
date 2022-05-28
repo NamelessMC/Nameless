@@ -695,7 +695,6 @@
     "installer/credits_message": "Un enorme ringraziamento a tutti i {{contribLinkStart}}Collaboratori NamelessMC{{contribLinkEnd}} dal 2014",
     "installer/database_address": "Indirizzo del database",
     "installer/database_configuration": "Configurazione del database",
-    "installer/database_engine": "Motore di archiviazione del database",
     "installer/database_error": "Assicurati che tutti i campi siano stati compilati.",
     "installer/database_name": "Nome del database",
     "installer/database_password": "Password del database",

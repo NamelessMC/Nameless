@@ -777,7 +777,6 @@
     "installer/credits_message": "Obrovské poďakovanie všetkým {{contribLinkStart}}NamelessMC prispievateľom{{contribLinkEnd}} od roku 2014",
     "installer/database_address": "Adresa databázy",
     "installer/database_configuration": "Konfigurácia databázy",
-    "installer/database_engine": "Engine databázového úložiska",
     "installer/database_error": "Skontrolujte, či sú všetky polia vyplnené.",
     "installer/database_name": "Názov databázy",
     "installer/database_password": "Heslo databázy",

@@ -751,7 +751,6 @@
     "installer/credits_message": "Muchas gracias a todos los que han {{contribLinkStart}}Contribuido en NamelessMC{{contribLinkEnd}} desde el 2014",
     "installer/database_address": "Dirección IP de la base de datos",
     "installer/database_configuration": "Configuración de la base de datos",
-    "installer/database_engine": "Motor de almacenamiento de base de datos",
     "installer/database_error": "Asegúrese de completar todos los campos.",
     "installer/database_name": "Nombre de la base de datos",
     "installer/database_password": "Contraseña de la base de datos",

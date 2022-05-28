@@ -785,7 +785,6 @@
     "installer/credits_message": "2014年以降のすべての {{contribLinkStart}}NamelessMCへの貢献者{{contribLinkEnd}} に大きな感謝を捧げます",
     "installer/database_address": "データベース アドレス",
     "installer/database_configuration": "データベース設定",
-    "installer/database_engine": "データベースストレージエンジン",
     "installer/database_error": "すべての項目が入力されていることを確認してください。",
     "installer/database_name": "データベース名",
     "installer/database_password": "データベース パスワード",

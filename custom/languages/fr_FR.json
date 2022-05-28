@@ -688,7 +688,6 @@
     "installer/credits_message": "Un grand merci à tous les contributeurs {{contribLinkStart}}NamelessMC{{contribLinkEnd}} depuis 2014",
     "installer/database_address": "Adresse de la base de donnée",
     "installer/database_configuration": "Configuration de la base de donnée",
-    "installer/database_engine": "Moteur de stockage de base de données",
     "installer/database_error": "Assurez-vous que tous les champs ont été remplis.",
     "installer/database_name": "Nom de la base de donnée",
     "installer/database_password": "Mot de passe de la base de donnée",

@@ -737,7 +737,6 @@
     "installer/credits_message": "Ein großer Dank an alle {{contribLinkStart}}NamelessMC Mitwirkenden{{contribLinkEnd}} die seid 2014 mitgeholfen haben",
     "installer/database_address": "Datenbank Addresse",
     "installer/database_configuration": "Datenbank Konfiguration",
-    "installer/database_engine": "Datenbank-Speicher-Engine",
     "installer/database_error": "Bitte stellen Sie sicher, dass alle Felder ausgefüllt sind.",
     "installer/database_name": "Datenbank Name",
     "installer/database_password": "Datenbank Passwort",

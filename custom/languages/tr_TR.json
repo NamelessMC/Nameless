@@ -638,7 +638,6 @@
     "installer/credits_message": "2014'ten bu yana tüm {{contribLinkStart}}NamelessMC katılımcılarına{{contribLinkEnd}} çok teşekkür ederiz.",
     "installer/database_address": "Veritaban Adresi",
     "installer/database_configuration": "Veritaban Ayarları",
-    "installer/database_engine": "Veritabanı Depolama Motoru",
     "installer/database_error": "Lütfen tüm alanların doldurulduğundan emin olun.",
     "installer/database_name": "Veritaban Adı",
     "installer/database_password": "Veritaban Şifresi",

@@ -745,7 +745,6 @@
     "installer/credits_message": "Podziękowania dla {{contribLinkStart}}współtwórców NamelessMC{{contribLinkEnd}} od 2014",
     "installer/database_address": "Adres bazy danych",
     "installer/database_configuration": "Konfiguracja bazy danych",
-    "installer/database_engine": "Silnik plików bazy danych",
     "installer/database_error": "Upewnij się że wypełniłeś wyszystkie pola.",
     "installer/database_name": "Nazwa bazy danych",
     "installer/database_password": "Hasło do bazy danych",

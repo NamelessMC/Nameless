@@ -786,7 +786,6 @@
     "installer/credits_message": "A huge thanks to all {{contribLinkStart}}NamelessMC contributors{{contribLinkEnd}} since 2014",
     "installer/database_address": "Database Address",
     "installer/database_configuration": "Database Configuration",
-    "installer/database_engine": "Database Storage Engine",
     "installer/database_error": "Please ensure all fields have been filled out.",
     "installer/database_name": "Database Name",
     "installer/database_password": "Database Password",
