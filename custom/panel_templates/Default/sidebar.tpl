@@ -4,7 +4,8 @@
     <!-- Sidebar - Brand -->
     <a href="{$PANEL_INDEX}" class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
-            <img src="{if isset($PANEL_LOGO_IMAGE)}{$PANEL_LOGO_IMAGE}{else}{$NAMELESS_LOGO}{/if}" style="height: 35px;">
+            <img src="{if isset($PANEL_LOGO_IMAGE)}{$PANEL_LOGO_IMAGE}{else}{$NAMELESS_LOGO}{/if}"
+                style="height: 35px;">
         </div>
         <div class="sidebar-brand-text mx-3" style="margin-top: 4px">{$SITE_NAME}</div>
     </a>
@@ -17,14 +18,19 @@
     {else}
     {if isset($item.items)}
     <li class="nav-item{if ($PAGE eq $name) || ($PARENT_PAGE eq $name)} active{/if}">
-        <a class="nav-link {if isset($PARENT_PAGE) && $PARENT_PAGE eq $name}{else}collapsed{/if}{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} active{/if}" href="#" data-toggle="collapse" data-target="#{$item.title|strip:'&nbsp;'}" aria-expanded="true" aria-controls="{$item.title|strip:'&nbsp;'}">
+        <a class="nav-link {if isset($PARENT_PAGE) && $PARENT_PAGE eq $name}{else}collapsed{/if}{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} active{/if}"
+            href="#" data-toggle="collapse" data-target="#{$item.title|strip:'&nbsp;'}" aria-expanded="true"
+            aria-controls="{$item.title|strip:'&nbsp;'}">
             {$item.icon}<span>{$item.title}</span>
         </a>
-        <div id="{$item.title|strip:'&nbsp;'}" class="collapse{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} show{/if}" aria-labelledby="{$item.title|strip:'&nbsp;'}" data-parent="#accordionSidebar">
+        <div id="{$item.title|strip:'&nbsp;'}"
+            class="collapse{if isset($PARENT_PAGE) && $PARENT_PAGE eq $name} show{/if}"
+            aria-labelledby="{$item.title|strip:'&nbsp;'}" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {if count($item.items)}
                 {foreach from=$item.items key=subKey item=subItem}
-                <a class="collapse-item {if $PAGE eq $subKey} active{/if}" href="{$subItem.link}" target="{$subItem.target}">{$subItem.icon} {$subItem.title}</a>
+                <a class="collapse-item {if $PAGE eq $subKey} active{/if}" href="{$subItem.link}"
+                    target="{$subItem.target}">{$subItem.icon} {$subItem.title}</a>
                 {/foreach}
                 {/if}
             </div>

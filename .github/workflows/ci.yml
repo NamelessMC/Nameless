@@ -1,14 +1,14 @@
 name: CI
 
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   phpstan:
     runs-on: ${{ matrix.operating-system }}
     strategy:
-        matrix:
-            operating-system: [ 'ubuntu-latest' ]
-            php-versions: [ '7.4', '8.0', '8.1' ]
+      matrix:
+        operating-system: ["ubuntu-latest"]
+        php-versions: ["7.4", "8.0", "8.1"]
     steps:
       - uses: actions/checkout@v2
 
@@ -31,4 +31,4 @@ jobs:
       - name: PHP Code Style (phpcs)
         uses: chindit/actions-phpcs@master
         with:
-          cli: '-q'
+          cli: "-q"

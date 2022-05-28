@@ -1,12 +1,12 @@
 <?php
 /*
- *	Made by Samerton | Revamped by Xemah
- *	https://github.com/NamelessMC/Nameless/
- *	NamelessMC version 2.0.0-pr13
+ *  Made by Samerton | Revamped by Xemah
+ *    https://github.com/NamelessMC/Nameless/
+ *    NamelessMC version 2.0.0-pr13
  *
- *	License: MIT
+ *    License: MIT
  *
- *	DefaultRevamp Template
+ *    DefaultRevamp Template
  */
 
 class DefaultRevamp_Template extends TemplateBase {

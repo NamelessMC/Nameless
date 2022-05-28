@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -44,8 +44,8 @@ if ($post_editing[0]->id == $post_id) {
     $edit_title = true;
 
     /*
-	 *  Get the title of the topic
-	 */
+     *  Get the title of the topic
+     */
 
     $post_title = $queries->getWhere('topics', ['id', $topic_id]);
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];

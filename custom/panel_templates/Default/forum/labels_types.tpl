@@ -2,67 +2,70 @@
 
 <body id="page-top">
 
-<!-- Wrapper -->
-<div id="wrapper">
+    <!-- Wrapper -->
+    <div id="wrapper">
 
-    <!-- Sidebar -->
-    {include file='sidebar.tpl'}
+        <!-- Sidebar -->
+        {include file='sidebar.tpl'}
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Main content -->
-        <div id="content">
+            <!-- Main content -->
+            <div id="content">
 
-            <!-- Topbar -->
-            {include file='navbar.tpl'}
+                <!-- Topbar -->
+                {include file='navbar.tpl'}
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">{$LABEL_TYPES}</h1>
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                        <li class="breadcrumb-item active">{$FORUM}</li>
-                        <li class="breadcrumb-item active">{$LABEL_TYPES}</li>
-                    </ol>
-                </div>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{$LABEL_TYPES}</h1>
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                            <li class="breadcrumb-item active">{$FORUM}</li>
+                            <li class="breadcrumb-item active">{$LABEL_TYPES}</li>
+                        </ol>
+                    </div>
 
-                <!-- Update Notification -->
-                {include file='includes/update.tpl'}
+                    <!-- Update Notification -->
+                    {include file='includes/update.tpl'}
 
-                <div class="card shadow mb-4">
-                    <div class="card-body">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
 
-                        <a href="{$NEW_LABEL_TYPE_LINK}" class="btn btn-primary">{$NEW_LABEL_TYPE}</a>
-                        <a href="{$LABELS_LINK}" class="btn btn-info">{$LABELS}</a>
-                        <hr />
+                            <a href="{$NEW_LABEL_TYPE_LINK}" class="btn btn-primary">{$NEW_LABEL_TYPE}</a>
+                            <a href="{$LABELS_LINK}" class="btn btn-info">{$LABELS}</a>
+                            <hr />
 
-                        <!-- Success and Error Alerts -->
-                        {include file='includes/alerts.tpl'}
+                            <!-- Success and Error Alerts -->
+                            {include file='includes/alerts.tpl'}
 
-                        {if count($ALL_LABEL_TYPES)}
+                            {if count($ALL_LABEL_TYPES)}
                             {foreach from=$ALL_LABEL_TYPES item=label_type name=label_list}
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        {$label_type.name}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="float-md-right">
-                                            <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
-                                                <button {if $label_type.usages < 1}onclick="showDeleteModal('{$label_type.delete_link}')"{/if}
-                                                        class="btn btn-danger btn-sm" {if $label_type.usages < 1}disabled{/if}>{$DELETE}</button>
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    {$label_type.name}
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="float-md-right">
+                                        <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
+                                        <button {if $label_type.usages <
+                                            1}onclick="showDeleteModal('{$label_type.delete_link}')" {/if}
+                                            class="btn btn-danger btn-sm" {if $label_type.usages <
+                                            1}disabled{/if}>{$DELETE}</button>
                                     </div>
                                 </div>
-                                {if !$smarty.foreach.label_list.last}
-                                    <hr />
-                                {/if}
-                            {/foreach}
+                            </div>
+                        </div>
+                        {if !$smarty.foreach.label_list.last}
+                        <hr />
+                        {/if}
+                        {/foreach}
                         {else}
-                            <p>{$NO_LABEL_TYPES}</p>
+                        <p>{$NO_LABEL_TYPES}</p>
                         {/if}
 
                     </div>
@@ -106,16 +109,16 @@
     </div>
 
     <!-- End Wrapper -->
-</div>
+    </div>
 
-{include file='scripts.tpl'}
+    {include file='scripts.tpl'}
 
-<script type="text/javascript">
-  function showDeleteModal(link) {
-    $('#deleteForm').attr('action', link);
-    $('#deleteModal').modal().show();
-  }
-</script>
+    <script type="text/javascript">
+        function showDeleteModal(link) {
+            $('#deleteForm').attr('action', link);
+            $('#deleteModal').modal().show();
+        }
+    </script>
 
 </body>
 

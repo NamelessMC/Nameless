@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -126,13 +126,13 @@ $background_image = $cache->retrieve('background_image');
 
 if (!empty($background_image)) {
     $template->addCSSStyle('
-			body {
-				background-image: url(\'' . Output::getClean($background_image) . '\');
-				background-repeat: no-repeat;
-				background-attachment: fixed;
-				background-size: cover;
-			}
-			');
+            body {
+                background-image: url(\'' . Output::getClean($background_image) . '\');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+            ');
 }
 
 $banner_image = $cache->retrieve('banner_image');
