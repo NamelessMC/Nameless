@@ -737,7 +737,6 @@
     "installer/credits_message": "Ett stort tack till alla {{contribLinkStart}}NamelessMC bidragsgivare{{contribLinkEnd}} sedan 2014",
     "installer/database_address": "Databas Adress",
     "installer/database_configuration": "Databas Konfiguration",
-    "installer/database_engine": "Databas Förvarings Motor",
     "installer/database_error": "Se till att alla fält har fyllts i.",
     "installer/database_name": "Databas Namn",
     "installer/database_password": "Databas Lösenord",

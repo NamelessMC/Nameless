@@ -754,7 +754,6 @@
     "installer/credits_message": "Een grote dank aan alle NamelessMC bijdragers sinds 2014: {{contribLinkStart}}NamelessMC contributors{{contribLinkEnd}}",
     "installer/database_address": "Database Adres",
     "installer/database_configuration": "Database Configuratie",
-    "installer/database_engine": "Gegevens opslag progamma",
     "installer/database_error": "Zorg ervoor dat alle velden zijn ingevuld.",
     "installer/database_name": "Database Naam",
     "installer/database_password": "Database Wachtwoord",

@@ -612,7 +612,6 @@
     "installer/credits_message": "Labai ačiū visiems {{contribLinkStart}}NamelessMC tiems, kas prisidėjo{{contribLinkEnd}} nuo 2014.",
     "installer/database_address": "Duomenų Bazės Adresas",
     "installer/database_configuration": "Duomenų Bazės Konfigūracija",
-    "installer/database_engine": "Duomenų Bazių Saugojimo Variklis",
     "installer/database_error": "Prašome įsitikinti, kad visi laukai buvo užpildyti.",
     "installer/database_name": "Duomenų Bazės Vardas",
     "installer/database_password": "Duomenų Bazės Slaptažodis",

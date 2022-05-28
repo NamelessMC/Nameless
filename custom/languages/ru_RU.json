@@ -784,7 +784,6 @@
     "installer/credits_message": "Огромное спасибо всем {{contribLinkStart}}NamelessMC участникам{{contribLinkEnd}} с 2014 года",
     "installer/database_address": "Адрес базы данных",
     "installer/database_configuration": "Конфигурация базы данных",
-    "installer/database_engine": "Движок базы данных",
     "installer/database_error": "Пожалуйста, убедитесь, что все поля были заполнены.",
     "installer/database_name": "Название базы данных",
     "installer/database_password": "Пароль от базы данных",

@@ -265,7 +265,6 @@
     "installer/credits_message": "En stor tak til alle {{contribLinkStart}}NamelessMC bidragsydere{{contribLinkEnd}} siden 2014",
     "installer/database_address": "Database Adresse",
     "installer/database_configuration": "Database Konfiguration",
-    "installer/database_engine": "Database Lager Motor",
     "installer/database_error": "Sørg venligst for, at alle felter er udfyldt.",
     "installer/database_name": "Database Navn",
     "installer/database_password": "Database Adgangskode",

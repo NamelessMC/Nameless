@@ -741,7 +741,6 @@
     "installer/credits_message": "ขอบคุณมากสำหรับทุกคน {{contribLinkStart}}NamelessMC contributors{{contribLinkEnd}} since 2014",
     "installer/database_address": "ที่อยู่ฐานข้อมูล",
     "installer/database_configuration": "การกำหนดค่าฐานข้อมูล",
-    "installer/database_engine": "เครื่องมือจัดเก็บฐานข้อมูล",
     "installer/database_error": "โปรดตรวจสอบให้แน่ใจว่าได้กรอกข้อมูลครบทุกช่องแล้ว",
     "installer/database_name": "ชื่อฐานข้อมูล",
     "installer/database_password": "รหัสผ่านฐานข้อมูล",
