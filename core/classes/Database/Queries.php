@@ -91,8 +91,7 @@ class Queries {
 
     /**
      * Initialise the database on a fresh install.
-     *
-     * @param string $charset The charset to use
+
      * @return bool|string
      */
     public function dbInitialise() {
