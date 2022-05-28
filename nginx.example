@@ -3,12 +3,19 @@
 # This example config will NOT work as-is.
 # With thanks to @Pugabyte, @Zethrus and KentuckyFriedData
 
+# Friendly URL support
 location / {
     try_files $uri $uri/ /index.php?route=$uri&$args;
 }
 
+# Deny access to some file types
 location ~ \.(tpl|cache)$ {
     return 403;
+}
+
+# Deny access to some directories
+location ~ /(node_modules|scripts|vendor) {
+   return 403;
 }
 
 add_header X-Frame-Options "SAMEORIGIN";
