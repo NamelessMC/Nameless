@@ -8,14 +8,17 @@ location / {
     try_files $uri $uri/ /index.php?route=$uri&$args;
 }
 
-# Deny access to some file types
-location ~ \.(tpl|cache)$ {
+# Deny access to some file types and directories
+location ~ \.(tpl|cache|htaccess)$ {
     return 403;
 }
 
-# Deny access to some directories
-location ~ /(node_modules|scripts|vendor) {
-   return 403;
+location ^~ /node_modules/ {
+    return 403;
+}
+
+location ^~ /scripts/ {
+    return 403;
 }
 
 add_header X-Frame-Options "SAMEORIGIN";
