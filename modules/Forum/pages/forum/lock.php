@@ -19,7 +19,7 @@ if ($user->isLoggedIn()) {
     $topic_id = $_GET['tid'];
 
     // Check topic exists and get forum ID
-    $topic = $queries->getWhere('topics', ['id', $topic_id]);
+    $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 
     if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));

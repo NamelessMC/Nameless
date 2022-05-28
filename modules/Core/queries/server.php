@@ -4,7 +4,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die();
 }
 
-$server = $queries->getWhere('mc_servers', ['id', $_GET['id']]);
+$server = DB::getInstance()->get('mc_servers', ['id', $_GET['id']])->results();
 if (!count($server)) {
     die();
 }
@@ -16,7 +16,7 @@ if ($cache->isCached('result')) {
     echo $cache->retrieve('result');
 } else {
     // Get query type
-    $query_type = $queries->getWhere('settings', ['name', 'external_query']);
+    $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
     if (count($query_type)) {
         if ($query_type[0]->value == '1') {
             $query_type = 'external';

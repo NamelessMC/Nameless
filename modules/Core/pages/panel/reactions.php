@@ -39,7 +39,7 @@ if (Session::exists('api_reactions_error')) {
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
-    $reactions = $queries->getWhere('reactions', ['id', '<>', 0]);
+    $reactions = DB::getInstance()->get('reactions', ['id', '<>', 0])->results();
 
     $template_reactions = [];
     if (count($reactions)) {
@@ -186,7 +186,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 if (Token::check($_POST['token'])) {
                     // Delete reaction
-                    $queries->delete('reactions', ['id', $_GET['reaction']]);
+                    DB::getInstance()->delete('reactions', ['id', $_GET['reaction']]);
                     Session::flash('api_reactions', $language->get('admin', 'reaction_deleted_successfully'));
 
                 } else {
@@ -201,7 +201,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         }
     } else {
         // Get reaction
-        $reaction = $queries->getWhere('reactions', ['id', $_GET['id']]);
+        $reaction = DB::getInstance()->get('reactions', ['id', $_GET['id']])->results();
         if (!count($reaction)) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));

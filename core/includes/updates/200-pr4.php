@@ -22,28 +22,28 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // New tables
 try {
-    $queries->createTable("topics_following", "`id` int(11) NOT NULL AUTO_INCREMENT, `topic_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `existing_alerts` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable("topics_following", "`id` int(11) NOT NULL AUTO_INCREMENT, `topic_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `existing_alerts` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
     // unable to create table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->createTable("page_descriptions", " `id` int(11) NOT NULL AUTO_INCREMENT, `page` varchar(64) NOT NULL, `description` varchar(500) DEFAULT NULL, `tags` text, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable("page_descriptions", " `id` int(11) NOT NULL AUTO_INCREMENT, `page` varchar(64) NOT NULL, `description` varchar(500) DEFAULT NULL, `tags` text, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
     // unable to create table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->createTable("privacy_terms", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(8) NOT NULL, `value` mediumtext NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable("privacy_terms", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(8) NOT NULL, `value` mediumtext NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
     // unable to create table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) NOT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable("group_sync", " `id` int(11) NOT NULL AUTO_INCREMENT, `ingame_rank_name` varchar(64) NOT NULL, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
     // unable to create table
     echo $e->getMessage() . '<br />';
@@ -51,63 +51,63 @@ try {
 
 // New columns
 try {
-    $queries->addColumn('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
+    DB::getInstance()->addColumn('profile_fields', 'editable', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('forums', 'icon', "varchar(256) DEFAULT NULL");
+    DB::getInstance()->addColumn('forums', 'icon', "varchar(256) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
+    DB::getInstance()->addColumn('custom_pages', 'sitemap', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
+    DB::getInstance()->addColumn('widgets', '`order`', "int(11) NOT NULL DEFAULT '10'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
+    DB::getInstance()->addColumn('groups', '`order`', "int(11) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('infractions', 'created', "int(11) DEFAULT NULL");
+    DB::getInstance()->addColumn('infractions', 'created', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('reports', 'reported', "int(11) DEFAULT NULL");
+    DB::getInstance()->addColumn('reports', 'reported', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('reports', 'updated', "int(11) DEFAULT NULL");
+    DB::getInstance()->addColumn('reports', 'updated', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
 }
 
 try {
-    $queries->addColumn('reports_comments', 'date', "int(11) DEFAULT NULL");
+    DB::getInstance()->addColumn('reports_comments', 'date', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     // unable to update table
     echo $e->getMessage() . '<br />';
@@ -149,29 +149,29 @@ $cache->store('enabled_modules', $enabled_modules);
 $cache->store('module_core', true);
 $cache->store('module_forum', true);
 
-$modules = $queries->getWhere('modules', array('enabled', 1));
+$modules = DB::getInstance()->get('modules', array('enabled', 1))->results();
 
 foreach ($modules as $item) {
     if ($item->name != 'Core' && $item->name != 'Forum') {
-        $queries->update('modules', $item->id, array('enabled' => 0));
+        DB::getInstance()->update('modules', $item->id, array('enabled' => 0));
     }
 }
 
 $cache->setCache('templatecache');
 $cache->store('default', 'Default');
 
-$default_template = $queries->getWhere('templates', array('is_default', 1));
+$default_template = DB::getInstance()->get('templates', array('is_default', 1))->results();
 if ($default_template[0]->name != 'Default') {
     $queries->update('templates', $default_template[0]->id, array(
         'is_default' => 0
     ));
-    $default_template = $queries->getWhere('templates', array('name', 'Default'));
+    $default_template = DB::getInstance()->get('templates', array('name', 'Default'))->results();
     $queries->update('templates', $default_template[0]->id, array(
         'is_default' => 1
     ));
 }
 
-$enabled_templates = $queries->getWhere('templates', array('enabled', 1));
+$enabled_templates = DB::getInstance()->get('templates', array('enabled', 1))->results();
 foreach ($enabled_templates as $template) {
     if ($template->name != 'Default') {
         $queries->update('templates', $template->id, array(
@@ -192,7 +192,7 @@ $queries->update('groups', 2, array(
 ));
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
+$version_number_id = DB::getInstance()->get('settings', array('name', 'nameless_version'))->results();
 $version_number_id = $version_number_id[0]->id;
 
 if (count($version_number_id)) {
@@ -200,7 +200,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr5'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
+    $version_number_id = DB::getInstance()->get('settings', array('name', 'version'))->results();
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -208,7 +208,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
+$version_update_id = DB::getInstance()->get('settings', array('name', 'version_update'))->results();
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

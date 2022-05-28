@@ -262,9 +262,9 @@ class Forum_Module extends Module {
             // Global variables if user is logged in
             if ($user->isLoggedIn()) {
                 // Basic user variables
-                $topic_count = $queries->getWhere('topics', ['topic_creator', $user->data()->id]);
+                $topic_count = DB::getInstance()->get('topics', ['topic_creator', $user->data()->id])->results();
                 $topic_count = count($topic_count);
-                $post_count = $queries->getWhere('posts', ['post_creator', $user->data()->id]);
+                $post_count = DB::getInstance()->get('posts', ['post_creator', $user->data()->id])->results();
                 $post_count = count($post_count);
                 $smarty->assign('LOGGED_IN_USER_FORUM', [
                     'topic_count' => $topic_count,
@@ -328,8 +328,8 @@ class Forum_Module extends Module {
                     $queries = new Queries();
 
                     // Get data for topics and posts
-                    $latest_topics = $queries->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC');
-                    $latest_posts = $queries->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC');
+                    $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
+                    $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {

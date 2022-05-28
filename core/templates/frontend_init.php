@@ -65,7 +65,7 @@ if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) 
 // User related actions
 if ($user->isLoggedIn()) {
     // Warnings
-    $warnings = $queries->getWhere('infractions', ['punished', $user->data()->id]);
+    $warnings = DB::getInstance()->get('infractions', ['punished', $user->data()->id])->results();
     if (count($warnings)) {
         foreach ($warnings as $warning) {
             if ($warning->revoked == 0 && $warning->acknowledged == 0) {
@@ -104,7 +104,7 @@ if (isset($_GET['route']) && $_GET['route'] != '/') {
 }
 
 if (!defined('PAGE_DESCRIPTION')) {
-    $page_metadata = $queries->getWhere('page_descriptions', ['page', $route]);
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $route])->results();
     if (count($page_metadata)) {
         $smarty->assign([
             'PAGE_DESCRIPTION' => str_replace('{site}', SITE_NAME, $page_metadata[0]->description),

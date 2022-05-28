@@ -24,7 +24,7 @@ $timeago = new TimeAgo(TIMEZONE);
 if (!isset($_GET['view'])) {
     if (!isset($_GET['action'])) {
         // Get alerts
-        $alerts = $queries->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC');
+        $alerts = DB::getInstance()->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC')->results();
 
         $alerts_limited = [];
         $n = 0;
@@ -79,7 +79,7 @@ if (!isset($_GET['view'])) {
     } else {
         if ($_GET['action'] == 'purge') {
             if (Token::check()) {
-                $queries->delete('alerts', ['user_id', $user->data()->id]);
+                DB::getInstance()->delete('alerts', ['user_id', $user->data()->id]);
             } else {
                 Session::flash('alerts_error', $language->get('general', 'invalid_token'));
             }
@@ -95,7 +95,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Check the alert belongs to the user..
-    $alert = $queries->getWhere('alerts', ['id', $_GET['view']]);
+    $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
 
     if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));

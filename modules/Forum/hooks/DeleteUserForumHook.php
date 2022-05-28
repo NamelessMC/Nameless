@@ -11,20 +11,20 @@ class DeleteUserForumHook {
 
     public static function execute(array $params = []): void {
         if (isset($params['user_id']) && $params['user_id'] > 1) {
-            $queries = new Queries();
+            $db = DB::getInstance();
 
             // Delete the user's posts
-            $queries->delete('posts', ['post_creator', $params['user_id']]);
+            $db->delete('posts', ['post_creator', $params['user_id']]);
 
             // Delete the user's topics
-            $queries->delete('topics', ['topic_creator', $params['user_id']]);
+            $db->delete('topics', ['topic_creator', $params['user_id']]);
 
             // Forum reactions
-            $queries->delete('forums_reactions', ['user_received', $params['user_id']]);
-            $queries->delete('forums_reactions', ['user_given', $params['user_id']]);
+            $db->delete('forums_reactions', ['user_received', $params['user_id']]);
+            $db->delete('forums_reactions', ['user_given', $params['user_id']]);
 
             // Topics following
-            $queries->delete('topics_following', ['user_id', $params['user_id']]);
+            $db->delete('topics_following', ['user_id', $params['user_id']]);
         }
     }
 }

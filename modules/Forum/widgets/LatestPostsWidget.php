@@ -42,7 +42,7 @@ class LatestPostsWidget extends WidgetBase {
 
     public function initialise(): void {
         $forum = new Forum();
-        $queries = new Queries();
+        $db = DB::getInstance();
         $timeago = new TimeAgo(TIMEZONE);
 
         // Get user group IDs
@@ -69,21 +69,21 @@ class LatestPostsWidget extends WidgetBase {
             // Generate an array to pass to template
             while ($n < $limit) {
                 // Get the name of the forum from the ID
-                $forum_name = $queries->getWhere('forums', ['id', $discussions[$n]['forum_id']]);
+                $forum_name = $db->get('forums', ['id', $discussions[$n]['forum_id']])->results();
                 $forum_name = Output::getPurified($forum_name[0]->forum_title);
 
                 // Get the number of replies
-                $posts = $queries->getWhere('posts', ['topic_id', $discussions[$n]['id']]);
+                $posts = $db->get('posts', ['topic_id', $discussions[$n]['id']])->results();
                 $posts = count($posts);
 
                 // Is there a label?
                 if ($discussions[$n]['label'] != 0) { // yes
                     // Get label
-                    $label = $queries->getWhere('forums_topic_labels', ['id', $discussions[$n]['label']]);
+                    $label = $db->get('forums_topic_labels', ['id', $discussions[$n]['label']])->results();
                     if (count($label)) {
                         $label = $label[0];
 
-                        $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
+                        $label_html = $db->get('forums_labels', ['id', $label->label])->results();
                         if (count($label_html)) {
                             $label_html = $label_html[0]->html;
                             $label = str_replace('{x}', Output::getClean($label->name), $label_html);

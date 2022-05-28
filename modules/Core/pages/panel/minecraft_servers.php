@@ -179,10 +179,10 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $available_parent_servers = $queries->getWhere('mc_servers', ['parent_server', 0]);
+            $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $external_query = $queries->getWhere('settings', ['name', 'external_query']);
+            $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
             $external_query = $external_query[0]->value;
 
             if ($external_query == 1) {
@@ -239,7 +239,7 @@ if (isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
             }
 
-            $server_editing = $queries->getWhere('mc_servers', ['id', $_GET['id']]);
+            $server_editing = DB::getInstance()->get('mc_servers', ['id', $_GET['id']])->results();
             if (!count($server_editing)) {
                 Redirect::to(URL::build('/panel/minecraft/servers'));
             }
@@ -390,10 +390,10 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $available_parent_servers = $queries->getWhere('mc_servers', ['parent_server', 0]);
+            $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $external_query = $queries->getWhere('settings', ['name', 'external_query']);
+            $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
             $external_query = $external_query[0]->value;
 
             if ($external_query == 1) {
@@ -454,8 +454,8 @@ if (isset($_GET['action'])) {
         case 'delete':
             if (Token::check($_POST['token'])) {
                 if (isset($_GET['id'])) {
-                    $queries->delete('mc_servers', ['id', $_GET['id']]);
-                    $queries->delete('query_results', ['server_id', $_GET['id']]);
+                    DB::getInstance()->delete('mc_servers', ['id', $_GET['id']]);
+                    DB::getInstance()->delete('query_results', ['server_id', $_GET['id']]);
 
                     Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
                 }
@@ -512,7 +512,7 @@ if (isset($_GET['action'])) {
             try {
                 // Default server
                 if ($new_default > 0) {
-                    $current_default = $queries->getWhere('mc_servers', ['is_default', true]);
+                    $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
                     if (count($current_default) && $current_default[0]->id != $new_default) {
                         $queries->update('mc_servers', $current_default[0]->id, [
                             'is_default' => 0
@@ -527,7 +527,7 @@ if (isset($_GET['action'])) {
                 }
 
                 // External query
-                $external_query_id = $queries->getWhere('settings', ['name', 'external_query']);
+                $external_query_id = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
                 $external_query_id = $external_query_id[0];
 
                 $queries->update('settings', $external_query_id->id, [
@@ -568,7 +568,7 @@ if (isset($_GET['action'])) {
     }
 
     // List servers
-    $servers = $queries->orderAll('mc_servers', '`order`', 'ASC');
+    $servers = DB::getInstance()->orderAll('mc_servers', '`order`', 'ASC')->results();
     $default = 0;
     $template_array = [];
 
@@ -594,10 +594,10 @@ if (isset($_GET['action'])) {
     }
 
     // Query options
-    $external_query = $queries->getWhere('settings', ['name', 'external_query']);
+    $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
     $external_query = $external_query[0]->value;
 
-    $status_page = $queries->getWhere('settings', ['name', 'status_page']);
+    $status_page = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
     $status_page = $status_page[0]->value;
 
     // Query interval

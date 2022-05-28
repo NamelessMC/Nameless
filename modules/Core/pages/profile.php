@@ -19,7 +19,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // User specified
     $md_profile = $profile[count($profile) - 1];
 
-    $page_metadata = $queries->getWhere('page_descriptions', ['page', '/profile']);
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profile'])->results();
     if (count($page_metadata)) {
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{profile}'], [SITE_NAME, Output::getClean($md_profile)], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -129,7 +129,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname()
                                     ],
-                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($queries->getLastId()))
+                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId()))
                                 );
                             }
 
@@ -164,7 +164,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             // Validation successful
 
                             // Ensure post exists
-                            $post = $queries->getWhere('user_profile_wall_posts', ['id', $_POST['post']]);
+                            $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post']])->results();
                             if (!count($post)) {
                                 Redirect::to($profile_user->getProfileURL());
                             }
@@ -262,7 +262,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if (Token::check()) {
                         if ($user->isBlocked($user->data()->id, $query->id)) {
                             // Unblock
-                            $blocked_id = $queries->getWhere('blocked_users', ['user_id', $user->data()->id]);
+                            $blocked_id = DB::getInstance()->get('blocked_users', ['user_id', $user->data()->id])->results();
                             if (count($blocked_id)) {
                                 foreach ($blocked_id as $id) {
                                     if ($id->user_blocked_id == $query->id) {
@@ -272,7 +272,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 }
 
                                 if (is_numeric($blocked_id)) {
-                                    $queries->delete('blocked_users', ['id', $blocked_id]);
+                                    DB::getInstance()->delete('blocked_users', ['id', $blocked_id]);
                                     $success = $language->get('user', 'user_unblocked');
                                 }
                             }
@@ -293,7 +293,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Ensure user is mod or owner of post
                     if (Token::check()) {
                         if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                            $post = $queries->getWhere('user_profile_wall_posts', ['id', $_POST['post_id']]);
+                            $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post_id']])->results();
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
@@ -320,13 +320,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Ensure user is mod or owner of post
                     if (Token::check()) {
                         if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                            $post = $queries->getWhere('user_profile_wall_posts', ['id', $_POST['post_id']]);
+                            $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post_id']])->results();
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
-                                        $queries->delete('user_profile_wall_posts', ['id', $_POST['post_id']]);
-                                        $queries->delete('user_profile_wall_posts_replies', ['post_id', $_POST['post_id']]);
+                                        DB::getInstance()->delete('user_profile_wall_posts', ['id', $_POST['post_id']]);
+                                        DB::getInstance()->delete('user_profile_wall_posts_replies', ['post_id', $_POST['post_id']]);
                                     } catch (Exception $e) {
                                         $error = $e->getMessage();
                                     }
@@ -342,12 +342,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Ensure user is mod or owner of reply
                     if (Token::check()) {
                         if (isset($_POST['post_id']) && is_numeric($_POST['post_id'])) {
-                            $post = $queries->getWhere('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
+                            $post = DB::getInstance()->get('user_profile_wall_posts_replies', ['id', $_POST['post_id']])->results();
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     try {
-                                        $queries->delete('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
+                                        DB::getInstance()->delete('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
                                     } catch (Exception $e) {
                                         $error = $e->getMessage();
                                     }
@@ -371,7 +371,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 // Does the post exist?
-                $post = $queries->getWhere('user_profile_wall_posts', ['id', $_GET['post']]);
+                $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_GET['post']])->results();
                 if (!count($post)) {
                     Redirect::to($profile_user->getProfileURL());
                 }
@@ -382,7 +382,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 // Liking or unliking?
-                $post_likes = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', $_GET['post']]);
+                $post_likes = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $_GET['post']])->results();
                 if (count($post_likes)) {
                     foreach ($post_likes as $like) {
                         if ($like->user_id == $user->data()->id) {
@@ -394,7 +394,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 if (isset($has_liked)) {
                     // Unlike
-                    $queries->delete('user_profile_wall_posts_reactions', ['id', $has_liked]);
+                    DB::getInstance()->delete('user_profile_wall_posts_reactions', ['id', $has_liked]);
                 } else {
                     // Like
                     $queries->create('user_profile_wall_posts_reactions', [
@@ -447,12 +447,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         || (!$user->isLoggedIn() && (defined('COOKIE_CHECK') && COOKIES_ALLOWED))
     ) {
         if (!Cookie::exists('nl-profile-' . $query->id)) {
-            $queries->increment('users', $query->id, 'profile_views');
+            DB::getInstance()->increment('users', $query->id, 'profile_views');
             Cookie::put('nl-profile-' . $query->id, 'true', 3600);
         }
     } else {
         if (!Session::exists('nl-profile-' . $query->id)) {
-            $queries->increment('users', $query->id, 'profile_views');
+            DB::getInstance()->increment('users', $query->id, 'profile_views');
             Session::put('nl-profile-' . $query->id, 'true');
         }
     }
@@ -605,7 +605,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     // Wall posts
     $wall_posts = [];
-    $wall_posts_query = $queries->orderWhere('user_profile_wall_posts', 'user_id = ' . $query->id, 'time', 'DESC');
+    $wall_posts_query = DB::getInstance()->orderWhere('user_profile_wall_posts', 'user_id = ' . $query->id, 'time', 'DESC')->results();
 
     if (count($wall_posts_query)) {
         // Pagination
@@ -621,7 +621,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
         // Display the correct number of posts
         foreach ($results->data as $nValue) {
-            $post_user = $queries->getWhere('users', ['id', $nValue->author_id]);
+            $post_user = DB::getInstance()->get('users', ['id', $nValue->author_id])->results();
 
             if (!count($post_user)) {
                 continue;
@@ -631,7 +631,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $reactions = [];
             $replies = [];
 
-            $reactions_query = $queries->getWhere('user_profile_wall_posts_reactions', ['post_id', $nValue->id]);
+            $reactions_query = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $nValue->id])->results();
             if (count($reactions_query)) {
                 if (count($reactions_query) == 1) {
                     $reactions['count'] = $language->get('user', '1_reaction');
@@ -643,7 +643,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Get reaction name and icon
                     // TODO
                     /*
-                    $reaction_name = $queries->getWhere('reactions', array('id', $reaction->reaction_id));
+                    $reaction_name = DB::getInstance()->get('reactions', array('id', $reaction->reaction_id))->results();
 
                     if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
                     $reaction_html = $reaction_name[0]->html;
@@ -667,7 +667,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
             $reactions_query = null;
 
-            $replies_query = $queries->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $nValue->id, 'time', 'ASC');
+            $replies_query = DB::getInstance()->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $nValue->id, 'time', 'ASC')->results();
             if (count($replies_query)) {
                 if (count($replies_query) == 1) {
                     $replies['count'] = $language->get('user', '1_reply');

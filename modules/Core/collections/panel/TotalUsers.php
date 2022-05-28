@@ -35,7 +35,7 @@ class TotalUsersItem extends CollectionItemBase {
     public function getContent(): string {
         // Get the number of total users
         $queries = new Queries();
-        $users_query = $queries->getWhere('users', ['id', '<>', 0]);
+        $users_query = DB::getInstance()->get('users', ['id', '<>', 0])->results();
 
         $this->_smarty->assign([
             'TITLE' => $this->_language->get('admin', 'total_users'),

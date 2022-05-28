@@ -43,7 +43,7 @@ if (Input::exists()) {
         $cache->store('twitter', Output::getClean(Input::get('twitterurl')));
 
         // Twitter dark theme
-        $twitter_dark_theme = $queries->getWhere('settings', ['name', 'twitter_style']);
+        $twitter_dark_theme = DB::getInstance()->get('settings', ['name', 'twitter_style'])->results();
         $twitter_dark_theme = $twitter_dark_theme[0]->id;
 
         if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
@@ -90,10 +90,10 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get values from database
-$youtube_url = $queries->getWhere('settings', ['name', 'youtube_url']);
-$twitter_url = $queries->getWhere('settings', ['name', 'twitter_url']);
-$twitter_style = $queries->getWhere('settings', ['name', 'twitter_style']);
-$fb_url = $queries->getWhere('settings', ['name', 'fb_url']);
+$youtube_url = DB::getInstance()->get('settings', ['name', 'youtube_url'])->results();
+$twitter_url = DB::getInstance()->get('settings', ['name', 'twitter_url'])->results();
+$twitter_style = DB::getInstance()->get('settings', ['name', 'twitter_style'])->results();
+$fb_url = DB::getInstance()->get('settings', ['name', 'fb_url'])->results();
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

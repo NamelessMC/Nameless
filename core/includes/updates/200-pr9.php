@@ -76,8 +76,8 @@ try {
 }
 
 // Captcha
-$captcha = $queries->getWhere('settings', array('name', 'recaptcha'));
-$captcha_login = $queries->getWhere('settings', array('name', 'recaptcha_login'));
+$captcha = DB::getInstance()->get('settings', array('name', 'recaptcha'))->results();
+$captcha_login = DB::getInstance()->get('settings', array('name', 'recaptcha_login'))->results();
 if ($captcha[0]->value == 'true' || $captcha_login[0]->value == 'true') {
     try {
         Config::set('core/captcha', true);
@@ -113,7 +113,7 @@ if ($cache->isCached('force_www')) {
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
+$version_number_id = DB::getInstance()->get('settings', array('name', 'nameless_version'))->results();
 
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
@@ -121,7 +121,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr10'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
+    $version_number_id = DB::getInstance()->get('settings', array('name', 'version'))->results();
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -129,7 +129,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
+$version_update_id = DB::getInstance()->get('settings', array('name', 'version_update'))->results();
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

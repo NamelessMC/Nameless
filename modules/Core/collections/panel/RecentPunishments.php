@@ -44,7 +44,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
             $data = $this->_cache->retrieve('recent_punishments_data');
         } else {
             $queries = new Queries();
-            $query = $queries->orderAll('infractions', 'infraction_date', 'DESC');
+            $query = DB::getInstance()->orderAll('infractions', 'infraction_date', 'DESC')->results();
             $data = [];
 
             if (count($query)) {

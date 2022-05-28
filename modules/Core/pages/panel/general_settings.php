@@ -30,7 +30,7 @@ if (isset($_GET['do'])) {
             $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[2])[0];
 
             // Is it already in the database?
-            $exists = $queries->getWhere('languages', ['short_code', $short_code]);
+            $exists = DB::getInstance()->get('languages', ['short_code', $short_code])->results();
             if (!count($exists)) {
                 // No, add it now
                 $queries->create('languages', [
@@ -44,7 +44,7 @@ if (isset($_GET['do'])) {
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
     } else {
         if ($_GET['do'] == 'updateLanguages') {
-            $active_language = $queries->getWhere('languages', ['is_default', true]);
+            $active_language = DB::getInstance()->get('languages', ['is_default', true])->results();
             if (count($active_language)) {
                 DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
                 $language = new Language('core', $active_language[0]->short_code);
@@ -99,7 +99,7 @@ if (Input::exists()) {
                 'is_default' => 0
             ]);
 
-            $language_id = $queries->getWhere('languages', ['id', Input::get('language')]);
+            $language_id = DB::getInstance()->get('languages', ['id', Input::get('language')])->results();
             $language_short_code = Output::getClean($language_id[0]->short_code);
             $language_id = $language_id[0]->id;
 
@@ -245,10 +245,10 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = $queries->getWhere('settings', ['name', 'incoming_email']);
+$contact_email = DB::getInstance()->get('settings', ['name', 'incoming_email'])->results();
 $contact_email = Output::getClean($contact_email[0]->value);
 
-$languages = $queries->getWhere('languages', ['id', '<>', 0]);
+$languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
 for ($i = 0; $i < $count; $i++) {
     $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
@@ -257,21 +257,21 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = $queries->getWhere('settings', ['name', 'timezone']);
+$timezone = DB::getInstance()->get('settings', ['name', 'timezone'])->results();
 $timezone = $timezone[0]->value;
 
-$home_type = $queries->getWhere('settings', ['name', 'home_type']);
+$home_type = DB::getInstance()->get('settings', ['name', 'home_type'])->results();
 $home_type = $home_type[0]->value;
 
 $friendly_url = Config::get('core/friendly');
 
-$private_profile = $queries->getWhere('settings', ['name', 'private_profile']);
+$private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
 $private_profile = $private_profile[0]->value;
 
-$displaynames = $queries->getWhere('settings', ['name', 'displaynames']);
+$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
 $displaynames = $displaynames[0]->value;
 
-$method = $queries->getWhere('settings', ['name', 'login_method']);
+$method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
 $method = $method[0]->value;
 
 $smarty->assign([

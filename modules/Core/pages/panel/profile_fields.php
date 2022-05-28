@@ -211,7 +211,7 @@ if (isset($_GET['action'])) {
                     } else {
                         if (Input::get('action') == 'delete') {
                             // Delete field
-                            $queries->delete('profile_fields', ['id', (int)$_POST['id']]);
+                            DB::getInstance()->delete('profile_fields', ['id', (int)$_POST['id']]);
 
                             Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
                             Redirect::to(URL::build('/panel/core/profile_fields'));

@@ -20,7 +20,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Get login method
-$login_method = $queries->getWhere('settings', ['name', 'login_method']);
+$login_method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
 $login_method = $login_method[0]->value;
 
 $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
@@ -154,7 +154,7 @@ if (Input::exists()) {
                         // Is Minecraft and AuthMe integration enabled?
                         $minecraft = MINECRAFT;
 
-                        $authme_enabled = $queries->getWhere('settings', ['name', 'authme']);
+                        $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
                         $authme_enabled = $authme_enabled[0]->value;
 
                         $cache->setCache('authme_cache');

@@ -37,7 +37,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 ]
             ]);
 
-            $posts_to_move = $queries->getWhere('posts', ['topic_id', $topic_id]);
+            $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
 
                 foreach ($posts_to_move as $post_to_move) {
@@ -45,7 +45,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                         'topic_id' => Input::get('merge')
                     ]);
                 }
-                $queries->delete('topics', ['id', $topic_id]);
+                DB::getInstance()->delete('topics', ['id', $topic_id]);
                 Log::getInstance()->log(Log::Action('forums/merge'));
                 // Update latest posts in categories
                 $forum->updateForumLatestPosts();

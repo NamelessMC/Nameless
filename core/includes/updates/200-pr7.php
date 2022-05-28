@@ -22,21 +22,21 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Edit Topics forum permission
 try {
-    $queries->addColumn('forums_permissions', '`edit_topic`', "tinyint(1) NOT NULL DEFAULT '0'");
+    DB::getInstance()->addColumn('forums_permissions', '`edit_topic`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Custom pages basic setting
 try {
-    $queries->addColumn('custom_pages', '`basic`', "tinyint(1) NOT NULL DEFAULT '0'");
+    DB::getInstance()->addColumn('custom_pages', '`basic`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Topic Updates
 try {
-    $queries->addColumn('users', '`topic_updates`', "tinyint(1) NOT NULL DEFAULT '1'");
+    DB::getInstance()->addColumn('users', '`topic_updates`', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -77,17 +77,17 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addColumn('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
+    DB::getInstance()->addColumn('group_sync', '`discord_role_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addColumn('users', '`discord_id`', "bigint(18) NULL DEFAULT NULL");
+    DB::getInstance()->addColumn('users', '`discord_id`', "bigint(18) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addColumn('users', '`discord_username` ', "varchar(128) NULL DEFAULT NULL");
+    DB::getInstance()->addColumn('users', '`discord_username` ', "varchar(128) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -104,12 +104,12 @@ try {
 
 // New group system
 try {
-    $queries->createTable("users_groups", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `received` int(11) NOT NULL DEFAULT '0', `expire` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable("users_groups", " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `received` int(11) NOT NULL DEFAULT '0', `expire` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addColumn('groups', '`deleted`', "tinyint(1) NOT NULL DEFAULT '0'");
+    DB::getInstance()->addColumn('groups', '`deleted`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -151,7 +151,7 @@ try {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addColumn('groups', '`group_username_css`', "varchar(256) NULL DEFAULT NULL");
+    DB::getInstance()->addColumn('groups', '`group_username_css`', "varchar(256) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -159,20 +159,20 @@ try {
 // Multiple webhooks
 try {
     if (!empty($queries->tableExists('hooks'))) {
-        $queries->addColumn('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
+        DB::getInstance()->addColumn('hooks', '`name`', "varchar(128) NULL DEFAULT NULL");
     } else {
-        $queries->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "");
+        DB::getInstance()->createTable("hooks", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)", "");
     }
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->delete('settings', array('name', 'forum_new_topic_hooks'));
+    DB::getInstance()->delete('settings', array('name', 'forum_new_topic_hooks'));
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 try {
-    $queries->addColumn('forums', '`hooks`', "varchar(512) NULL DEFAULT NULL");
+    DB::getInstance()->addColumn('forums', '`hooks`', "varchar(512) NULL DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -185,7 +185,7 @@ try {
 
 // Force group TFA
 try {
-    $queries->addColumn('groups', '`force_tfa`', "tinyint(1) NOT NULL DEFAULT '0'");
+    DB::getInstance()->addColumn('groups', '`force_tfa`', "tinyint(1) NOT NULL DEFAULT '0'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -204,14 +204,14 @@ try {
 
 // Widget Locations
 try {
-    $queries->addColumn('widgets', '`location`', "varchar(5) NOT NULL DEFAULT 'right'");
+    DB::getInstance()->addColumn('widgets', '`location`', "varchar(5) NOT NULL DEFAULT 'right'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Ingame group dropdown
 try {
-    $queries->addColumn('query_results', '`groups`', "varchar(256) NOT NULL DEFAULT '[]'");
+    DB::getInstance()->addColumn('query_results', '`groups`', "varchar(256) NOT NULL DEFAULT '[]'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
@@ -260,7 +260,7 @@ try {
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
+$version_number_id = DB::getInstance()->get('settings', array('name', 'nameless_version'))->results();
 
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
@@ -268,7 +268,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr8'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
+    $version_number_id = DB::getInstance()->get('settings', array('name', 'version'))->results();
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -276,7 +276,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
+$version_update_id = DB::getInstance()->get('settings', array('name', 'version_update'))->results();
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

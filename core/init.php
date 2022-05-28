@@ -134,7 +134,7 @@ if ($page != 'install') {
     $configuration = new Configuration($cache);
 
     // Get the Nameless version
-    $nameless_version = $queries->getWhere('settings', ['name', 'nameless_version']);
+    $nameless_version = DB::getInstance()->get('settings', ['name', 'nameless_version'])->results();
     $nameless_version = $nameless_version[0]->value;
     define('NAMELESS_VERSION', $nameless_version);
 
@@ -205,7 +205,7 @@ if ($page != 'install') {
     if ($cache->isCached('language')) {
         $default_language = $cache->retrieve('language');
     } else {
-        $default_language = $queries->getWhere('languages', ['is_default', true]);
+        $default_language = DB::getInstance()->get('languages', ['is_default', true])->results();
         if (count($default_language)) {
             $default_language = $default_language[0]->short_code;
             $cache->store('language', $default_language);
@@ -226,7 +226,7 @@ if ($page != 'install') {
         define('LANGUAGE', $default_language);
     } else {
         // User selected language
-        $language = $queries->getWhere('languages', ['id', $user->data()->language_id]);
+        $language = DB::getInstance()->get('languages', ['id', $user->data()->language_id])->results();
         if (!count($language)) {
             // Get default language
             define('LANGUAGE', $default_language);
@@ -259,7 +259,7 @@ if ($page != 'install') {
         }
     } else {
         // User selected template
-        $template = $queries->getWhere('templates', ['id', $user->data()->theme_id]);
+        $template = DB::getInstance()->get('templates', ['id', $user->data()->theme_id])->results();
         if (!count($template)) {
             // Get default template
             $cache->setCache('templatecache');
@@ -406,7 +406,7 @@ if ($page != 'install') {
     }
 
     // Minecraft integration?
-    $mc_integration = $queries->getWhere('settings', ['name', 'mc_integration']);
+    $mc_integration = DB::getInstance()->get('settings', ['name', 'mc_integration'])->results();
     if (count($mc_integration) && $mc_integration[0]->value == '1') {
         define('MINECRAFT', true);
     } else {
@@ -502,7 +502,7 @@ if ($page != 'install') {
     } else {
         $hook_array = [];
         if (Util::isModuleEnabled('Discord Integration')) {
-            $hooks = $queries->getWhere('hooks', ['id', '<>', 0]);
+            $hooks = DB::getInstance()->get('hooks', ['id', '<>', 0])->results();
             if (count($hooks)) {
                 foreach ($hooks as $hook) {
                     if ($hook->action != 2) {
@@ -540,7 +540,7 @@ if ($page != 'install') {
         }
 
         // Is the IP address banned?
-        $ip_bans = $queries->getWhere('ip_bans', ['ip', $ip]);
+        $ip_bans = DB::getInstance()->get('ip_bans', ['ip', $ip])->results();
         if (count($ip_bans)) {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
@@ -560,7 +560,7 @@ if ($page != 'install') {
         }
 
         // Insert it into the logs
-        $user_ip_logged = $queries->getWhere('users_ips', ['ip', $ip]);
+        $user_ip_logged = DB::getInstance()->get('users_ips', ['ip', $ip])->results();
         if (!count($user_ip_logged)) {
             // Create the entry now
             $queries->create('users_ips', [
@@ -644,14 +644,14 @@ if ($page != 'install') {
     } else {
         // Perform tasks for guests
         if (!$_SESSION['checked'] || (isset($_SESSION['checked']) && $_SESSION['checked'] <= strtotime('-5 minutes'))) {
-            $already_online = $queries->getWhere('online_guests', ['ip', $ip]);
+            $already_online = DB::getInstance()->get('online_guests', ['ip', $ip])->results();
 
             $date = date('U');
 
             if (count($already_online)) {
-                $queries->update('online_guests', $already_online[0]->id, ['last_seen' => $date]);
+                DB::getInstance()->update('online_guests', $already_online[0]->id, ['last_seen' => $date]);
             } else {
-                $queries->create('online_guests', ['ip' => $ip, 'last_seen' => $date]);
+                DB::getInstance()->insert('online_guests', ['ip' => $ip, 'last_seen' => $date]);
             }
 
             $_SESSION['checked'] = $date;

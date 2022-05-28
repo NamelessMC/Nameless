@@ -10,7 +10,7 @@
  */
 
 // Get page info from URL
-$custom_page = $queries->getWhere('custom_pages', ['url', rtrim($route, '/')]);
+$custom_page = DB::getInstance()->get('custom_pages', ['url', rtrim($route, '/')])->results();
 if (!count($custom_page)) {
     require(ROOT_PATH . '/404.php');
     die();
@@ -19,7 +19,7 @@ if (!count($custom_page)) {
 $custom_page = $custom_page[0];
 
 // Check permissions
-$perms = $queries->getWhere('custom_pages_permissions', ['page_id', $custom_page->id]);
+$perms = DB::getInstance()->get('custom_pages_permissions', ['page_id', $custom_page->id])->results();
 if ($user->isLoggedIn()) {
     $groups = $user->getAllGroupIds();
     foreach ($groups as $group) {

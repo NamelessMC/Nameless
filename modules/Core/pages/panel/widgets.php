@@ -28,7 +28,7 @@ if (!isset($_GET['action'])) {
 
     // List widgets
     foreach ($widgets->getAll() as $widget) {
-        $widget_query = $queries->getWhere('widgets', ['name', $widget->getName()]);
+        $widget_query = DB::getInstance()->get('widgets', ['name', $widget->getName()])->results();
         if (!count($widget_query)) {
             $queries->create(
                 'widgets',
@@ -36,7 +36,7 @@ if (!isset($_GET['action'])) {
                     'name' => $widget->getName()
                 ]
             );
-            $widget_query = $queries->getLastId();
+            $widget_query = DB::getInstance()->lastId();
         } else {
             $widget_query = $widget_query[0]->id;
         }
@@ -71,7 +71,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get widget name
-            $name = $queries->getWhere('widgets', ['id', $_GET['w']]);
+            $name = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
 
             if (count($name)) {
                 $name = Output::getClean($name[0]->name);
@@ -107,7 +107,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get widget name
-            $name = $queries->getWhere('widgets', ['id', $_GET['w']]);
+            $name = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
             if (count($name)) {
                 $name = Output::getClean($name[0]->name);
                 $widget = $widgets->getWidget($name);
@@ -140,7 +140,7 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
         }
 
-        $widget = $queries->getWhere('widgets', ['id', $_GET['w']]);
+        $widget = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
         if (!count($widget)) {
             Redirect::to(URL::build('/panel/core/widgets'));
         }
@@ -168,7 +168,7 @@ if (!isset($_GET['action'])) {
                         $location = 'right';
                     }
 
-                    $queries->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
+                    DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
                     Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
@@ -231,7 +231,7 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/widgets'));
             }
 
-            $widget = $queries->getWhere('widgets', ['id', $_GET['w']]);
+            $widget = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
             if (!count($widget)) {
                 Redirect::to(URL::build('/panel/core/widgets'));
             }

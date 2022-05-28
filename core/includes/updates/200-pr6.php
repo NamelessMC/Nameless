@@ -22,35 +22,35 @@ if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
 
 // Minecraft servers - show_ip
 try {
-    $queries->addColumn('mc_servers', '`show_ip`', "tinyint(1) NOT NULL DEFAULT '1'");
+    DB::getInstance()->addColumn('mc_servers', '`show_ip`', "tinyint(1) NOT NULL DEFAULT '1'");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Users - avatar_updated
 try {
-    $queries->addColumn('users', '`avatar_updated`', "int(11) DEFAULT NULL");
+    DB::getInstance()->addColumn('users', '`avatar_updated`', "int(11) DEFAULT NULL");
 } catch (Exception $e) {
     echo $e->getMessage() . '<br />';
 }
 
 // Online guests
 try {
-    $queries->createTable("online_guests", " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(45) NOT NULL, `last_seen` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
+    DB::getInstance()->createTable("online_guests", " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(45) NOT NULL, `last_seen` int(11) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$db_engine DEFAULT CHARSET=$db_charset");
 } catch (Exception $e) {
     // unable to create table
     echo $e->getMessage() . '<br />';
 }
 
 // Login reCAPTCHA
-$recaptcha_check = $queries->getWhere('settings', array('name', 'recaptcha_login'));
+$recaptcha_check = DB::getInstance()->get('settings', array('name', 'recaptcha_login'))->results();
 
 if (!count($recaptcha_check)) {
-    $queries->create('settings', array('name' => 'recaptcha_login', 'value' => 'false'));
+    DB::getInstance()->insert('settings', array('name' => 'recaptcha_login', 'value' => 'false'));
 }
 
 // Update version number
-$version_number_id = $queries->getWhere('settings', array('name', 'nameless_version'));
+$version_number_id = DB::getInstance()->get('settings', array('name', 'nameless_version'))->results();
 
 if (count($version_number_id)) {
     $version_number_id = $version_number_id[0]->id;
@@ -58,7 +58,7 @@ if (count($version_number_id)) {
         'value' => '2.0.0-pr7'
     ));
 } else {
-    $version_number_id = $queries->getWhere('settings', array('name', 'version'));
+    $version_number_id = DB::getInstance()->get('settings', array('name', 'version'))->results();
     $version_number_id = $version_number_id[0]->id;
 
     $queries->update('settings', $version_number_id, array(
@@ -66,7 +66,7 @@ if (count($version_number_id)) {
     ));
 }
 
-$version_update_id = $queries->getWhere('settings', array('name', 'version_update'));
+$version_update_id = DB::getInstance()->get('settings', array('name', 'version_update'))->results();
 $version_update_id = $version_update_id[0]->id;
 
 $queries->update('settings', $version_update_id, array(

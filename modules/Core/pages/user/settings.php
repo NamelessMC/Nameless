@@ -211,7 +211,7 @@ if (isset($_GET['do'])) {
                 if ($validation->passed()) {
                     try {
                         // Update language, template and timezone
-                        $new_language = $queries->getWhere('languages', ['name', Input::get('language')]);
+                        $new_language = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
 
                         if (count($new_language)) {
                             $new_language = $new_language[0]->id;
@@ -219,7 +219,7 @@ if (isset($_GET['do'])) {
                             $new_language = $user->data()->language_id;
                         }
 
-                        $new_template = $queries->getWhere('templates', ['id', Input::get('template')]);
+                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
 
                         if (count($new_template)) {
                             $new_template = $new_template[0]->id;
@@ -250,7 +250,7 @@ if (isset($_GET['do'])) {
                         }
 
                         // Private profiles enabled?
-                        $private_profiles = $queries->getWhere('settings', ['name', 'private_profile']);
+                        $private_profiles = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
                         if ($private_profiles[0]->value == 1) {
                             if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
                                 $privateProfile = 1;
@@ -395,7 +395,7 @@ if (isset($_GET['do'])) {
 
                         if ($validation->passed()) {
                             // Check email doesn't exist
-                            $email_query = $queries->getWhere('users', ['email', $_POST['email']]);
+                            $email_query = DB::getInstance()->get('users', ['email', $_POST['email']])->results();
                             if (count($email_query)) {
                                 if ($email_query[0]->id != $user->data()->id) {
                                     $error = $language->get('user', 'email_already_exists');
@@ -447,7 +447,7 @@ if (isset($_GET['do'])) {
 
     // Get languages
     $languages = [];
-    $language_query = $queries->getWhere('languages', ['id', '<>', 0]);
+    $language_query = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 
     foreach ($language_query as $item) {
         $languages[] = [

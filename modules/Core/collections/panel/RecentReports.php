@@ -44,7 +44,7 @@ class RecentReportsItem extends CollectionItemBase {
             $data = $this->_cache->retrieve('recent_reports_data');
         } else {
             $queries = new Queries();
-            $query = $queries->orderWhere('reports', 'status = 0', 'date_reported', 'DESC');
+            $query = DB::getInstance()->orderWhere('reports', 'status = 0', 'date_reported', 'DESC')->results();
             $data = [];
 
             if (count($query)) {

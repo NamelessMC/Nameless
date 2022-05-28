@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (!isset($_GET['action'])) {
-    $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
+    $custom_pages = DB::getInstance()->get('custom_pages', ['id', '<>', 0])->results();
     $template_array = [];
 
     if (count($custom_pages)) {
@@ -138,7 +138,7 @@ if (!isset($_GET['action'])) {
                                 'basic' => $basic,
                             ]);
 
-                            $last_id = $queries->getLastId();
+                            $last_id = DB::getInstance()->lastId();
 
                             // Permissions
                             $perms = [];
@@ -230,7 +230,7 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
-            $page = $queries->getWhere('custom_pages', ['id', $_GET['id']]);
+            $page = DB::getInstance()->get('custom_pages', ['id', $_GET['id']])->results();
             if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
@@ -321,7 +321,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             // Update all widget and announcement page arrays with the custom pages' new name
-                            $widget_query = $queries->getWhere('widgets', ['id', '<>', 0]);
+                            $widget_query = DB::getInstance()->get('widgets', ['id', '<>', 0])->results();
                             if (count($widget_query)) {
                                 foreach ($widget_query as $widget_row) {
                                     $pages = json_decode($widget_row->pages, true);
@@ -340,7 +340,7 @@ if (!isset($_GET['action'])) {
                                     }
                                 }
                             }
-                            $announcement_query = $queries->getWhere('custom_announcements', ['id', '<>', 0]);
+                            $announcement_query = DB::getInstance()->get('custom_announcements', ['id', '<>', 0])->results();
                             if (count($announcement_query)) {
                                 foreach ($announcement_query as $announcement_row) {
                                     $pages = json_decode($announcement_row->pages, true);
@@ -370,7 +370,7 @@ if (!isset($_GET['action'])) {
 
                             $page_perm_exists = 0;
 
-                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', $page->id]);
+                            $page_perm_query = DB::getInstance()->get('custom_pages_permissions', ['page_id', $page->id])->results();
                             if (count($page_perm_query)) {
                                 foreach ($page_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -523,8 +523,8 @@ if (!isset($_GET['action'])) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 
-                        $queries->delete('custom_pages', ['id', $_POST['id']]);
-                        $queries->delete('custom_pages_permissions', ['page_id', $_POST['id']]);
+                        DB::getInstance()->delete('custom_pages', ['id', $_POST['id']]);
+                        DB::getInstance()->delete('custom_pages_permissions', ['page_id', $_POST['id']]);
 
                         Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
                     }

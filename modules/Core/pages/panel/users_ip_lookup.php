@@ -26,14 +26,14 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 if (isset($_GET['uid'])) {
     $user_id = (int)$_GET['uid'];
 
-    $user_query = $queries->getWhere('users', ['id', $user_id]);
+    $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
     if (!count($user_query)) {
         Redirect::to(URL::build('/panel/users'));
     }
     $user_query = $user_query[0];
 
     // Search by user ID
-    $user_ips = $queries->getWhere('users_ips', ['user_id', $user_id]);
+    $user_ips = DB::getInstance()->get('users_ips', ['user_id', $user_id])->results();
 
     if (count($user_ips)) {
         $accounts = [];
@@ -73,7 +73,7 @@ if (isset($_GET['uid'])) {
     if (isset($_GET['ip'])) {
         // IP has been specified
         // Get accounts with this IP
-        $ip_accounts = $queries->getWhere('users_ips', ['ip', Output::getClean($_GET['ip'])]);
+        $ip_accounts = DB::getInstance()->get('users_ips', ['ip', Output::getClean($_GET['ip'])])->results();
 
         if (!count($ip_accounts)) {
             $errors = [$language->get('moderator', 'no_accounts_with_that_ip')];
@@ -83,7 +83,7 @@ if (isset($_GET['uid'])) {
             $accounts = [];
 
             foreach ($ip_accounts as $account) {
-                $username = $queries->getWhere('users', ['id', $account->user_id]);
+                $username = DB::getInstance()->get('users', ['id', $account->user_id])->results();
 
                 if (count($username)) {
                     $accounts[] = [
@@ -117,11 +117,11 @@ if (isset($_GET['uid'])) {
             // Check token
             if (Token::check()) {
                 // Search
-                $query = $queries->getWhere('users', ['username', Output::getClean(Input::get('search'))]);
+                $query = DB::getInstance()->get('users', ['username', Output::getClean(Input::get('search'))])->results();
 
                 if (!count($query)) {
                     // Try nickname
-                    $query = $queries->getWhere('users', ['nickname', Output::getClean(Input::get('search'))]);
+                    $query = DB::getInstance()->get('users', ['nickname', Output::getClean(Input::get('search'))])->results();
                 }
 
                 if (count($query)) {
@@ -129,7 +129,7 @@ if (isset($_GET['uid'])) {
                 }
 
                 // Try searching IPs
-                $query = $queries->getWhere('users_ips', ['ip', Output::getClean(Input::get('search'))]);
+                $query = DB::getInstance()->get('users_ips', ['ip', Output::getClean(Input::get('search'))])->results();
 
                 if (count($query)) {
                     Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode(Input::get('search'))));

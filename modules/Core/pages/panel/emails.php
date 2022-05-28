@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Session::exists('editing_language')) {
     $lang_short_code = Session::get('editing_language');
 } else {
-    $default_lang = $queries->getWhere('languages', ['is_default', true]);
+    $default_lang = DB::getInstance()->get('languages', ['is_default', true])->results();
     $lang_short_code = $default_lang[0]->short_code;
 }
 $editing_language = new Language('core', $lang_short_code);
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
 
             $available_languages = [];
 
-            $languages = $queries->getWhere('languages', ['id', '<>', 0]);
+            $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
             foreach ($languages as $language_db) {
                 $lang = new Language('core', $language_db->short_code);
                 $lang_file = $lang->getActiveLanguageFile();
@@ -155,7 +155,7 @@ if (isset($_GET['action'])) {
                     $mailer = '0';
                 }
 
-                $php_mailer = $queries->getWhere('settings', ['name', 'phpmailer']);
+                $php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
                 $php_mailer = $php_mailer[0]->id;
 
                 $queries->update('settings', $php_mailer, [
@@ -163,7 +163,7 @@ if (isset($_GET['action'])) {
                 ]);
 
                 if (!empty($_POST['email'])) {
-                    $outgoing_email = $queries->getWhere('settings', ['name', 'outgoing_email']);
+                    $outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
                     $outgoing_email = $outgoing_email[0]->id;
 
                     $queries->update('settings', $outgoing_email, [
@@ -237,10 +237,10 @@ if (isset($_GET['action'])) {
         }
     }
 
-    $php_mailer = $queries->getWhere('settings', ['name', 'phpmailer']);
+    $php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
     $php_mailer = $php_mailer[0]->value;
 
-    $outgoing_email = $queries->getWhere('settings', ['name', 'outgoing_email']);
+    $outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
     $outgoing_email = $outgoing_email[0]->value;
 
     require(ROOT_PATH . '/core/email.php');

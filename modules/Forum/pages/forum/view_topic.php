@@ -41,7 +41,7 @@ if (!$list) {
 }
 
 // Get the topic information
-$topic = $queries->getWhere('topics', ['id', $tid]);
+$topic = DB::getInstance()->get('topics', ['id', $tid])->results();
 $topic = $topic[0];
 
 if ($topic->deleted == 1) {
@@ -139,20 +139,20 @@ if (isset($_GET['action'])) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)));
 }
 
-$forum_parent = $queries->getWhere('forums', ['id', $topic->forum_id]);
+$forum_parent = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
 
-$page_metadata = $queries->getWhere('page_descriptions', ['page', '/forum/topic']);
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/topic'])->results();
 if (count($page_metadata)) {
-    $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
+    $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
     $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 } else {
-    $page_metadata = $queries->getWhere('page_descriptions', ['page', '/forum/view_topic']);
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/view_topic'])->results();
 
     if (count($page_metadata)) {
-        $first_post = $queries->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1');
+        $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
         $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
@@ -184,11 +184,11 @@ $smarty->assign([
 // Is there a label?
 if ($topic->label != 0) { // yes
     // Get label
-    $label = $queries->getWhere('forums_topic_labels', ['id', $topic->label]);
+    $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic->label])->results();
     if (count($label)) {
         $label = $label[0];
 
-        $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
+        $label_html = DB::getInstance()->get('forums_labels', ['id', $label->label])->results();
         if (count($label_html)) {
             $label_html = Output::getPurified($label_html[0]->html);
             $label = str_replace('{x}', Output::getClean($label->name), $label_html);
@@ -208,11 +208,11 @@ if ($topic->labels) {
     $topic_labels = explode(',', $topic->labels);
 
     foreach ($topic_labels as $topic_label) {
-        $label_query = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
+        $label_query = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
         if (count($label_query)) {
             $label_query = $label_query[0];
 
-            $label_html = $queries->getWhere('forums_labels', ['id', $label_query->label]);
+            $label_html = DB::getInstance()->get('forums_labels', ['id', $label_query->label])->results();
             if (count($label_html)) {
                 $label_html = Output::getPurified($label_html[0]->html);
                 $labels[] = str_replace('{x}', Output::getClean($label_query->name), $label_html);
@@ -271,7 +271,7 @@ if (Input::exists()) {
             ]);
 
             // Get last post ID
-            $last_post_id = $queries->getLastId();
+            $last_post_id = DB::getInstance()->lastId();
             $content = EventHandler::executeEvent('prePostCreate', [
                 'content' => $content,
                 'post_id' => $last_post_id,
@@ -295,7 +295,7 @@ if (Input::exists()) {
 
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific forum, not any of its parents...
-            $available_hooks = $queries->getWhere('forums', ['id', $topic->forum_id]);
+            $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
             $available_hooks = json_decode($available_hooks[0]->hooks);
             EventHandler::executeEvent('topicReply', [
                 'user_id' => $user->data()->id,
@@ -318,7 +318,7 @@ if (Input::exists()) {
             ]);
 
             // Alerts + Emails
-            $users_following = $queries->getWhere('topics_following', ['topic_id', $tid]);
+            $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
             if (count($users_following)) {
                 $users_following_info = [];
                 foreach ($users_following as $user_following) {
@@ -335,7 +335,7 @@ if (Input::exists()) {
                                 'existing_alerts' => 1
                             ]);
                         }
-                        $user_info = $queries->getWhere('users', ['id', $user_following->user_id]);
+                        $user_info = DB::getInstance()->get('users', ['id', $user_following->user_id])->results();
                         if ($user_info[0]->topic_updates) {
                             $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
                         }
@@ -395,12 +395,12 @@ if ($user->isLoggedIn()) {
 // View count
 if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     if (!Cookie::exists('nl-topic-' . $tid)) {
-        $queries->increment('topics', $tid, 'topic_views');
+        DB::getInstance()->increment('topics', $tid, 'topic_views');
         Cookie::put('nl-topic-' . $tid, 'true', 3600);
     }
 } else {
     if (!Session::exists('nl-topic-' . $tid)) {
-        $queries->increment('topics', $tid, 'topic_views');
+        DB::getInstance()->increment('topics', $tid, 'topic_views');
         Session::put('nl-topic-' . $tid, 'true');
     }
 }
@@ -418,7 +418,7 @@ if ($reactions_enabled == '1') {
 }
 
 // Assign Smarty variables to pass to template
-$parent_category = $queries->getWhere('forums', ['id', $forum_parent[0]->parent]);
+$parent_category = DB::getInstance()->get('forums', ['id', $forum_parent[0]->parent])->results();
 
 $breadcrumbs = [
     0 => [
@@ -450,7 +450,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         ];
         $parent = false;
         while ($parent == false) {
-            $parent_category = $queries->getWhere('forums', ['id', $parent_category[0]->parent]);
+            $parent_category = DB::getInstance()->get('forums', ['id', $parent_category[0]->parent])->results();
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'forum_title' => Output::getClean($parent_category[0]->forum_title),
@@ -659,14 +659,14 @@ foreach ($results->data as $n => $nValue) {
     $post_reactions = [];
     $total_karma = 0;
     if ($reactions_enabled) {
-        $post_reactions_query = $queries->getWhere('forums_reactions', ['post_id', $nValue->id]);
+        $post_reactions_query = DB::getInstance()->get('forums_reactions', ['post_id', $nValue->id])->results();
 
         if (count($post_reactions_query)) {
             foreach ($post_reactions_query as $item) {
                 if (!isset($post_reactions[$item->reaction_id])) {
                     $post_reactions[$item->reaction_id]['count'] = 1;
 
-                    $reaction = $queries->getWhere('reactions', ['id', $item->reaction_id]);
+                    $reaction = DB::getInstance()->get('reactions', ['id', $item->reaction_id])->results();
                     $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
                     $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
 
@@ -746,7 +746,7 @@ $smarty->assign('REPLIES', $replies);
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $reactions = $queries->getWhere('reactions', ['enabled', true]);
+        $reactions = DB::getInstance()->get('reactions', ['enabled', true])->results();
         if (!count($reactions)) {
             $reactions = [];
         }
