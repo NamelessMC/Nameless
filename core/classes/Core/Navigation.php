@@ -45,7 +45,7 @@ class Navigation {
         string $link,
         string $location = 'top',
         string $target = null,
-        int $order = 10,
+        float $order = 10,
         ?string $icon = ''
     ): void {
         if ($this->_panel && $location == 'top') {
