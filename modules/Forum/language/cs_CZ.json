@@ -60,7 +60,7 @@
     "forum/guests": "Hosté",
     "forum/has_no_parent": "Žádné nadřazené",
     "forum/in": "v",
-    "forum/include_in_hook": "Zahrnout do webhooků nová témata z tohoto fóra?",
+    "forum/include_in_hook": "Zahrnout do webhooků události z tohoto fóra?",
     "forum/input_forum_description": "Zadejte popis fóra.",
     "forum/input_forum_title": "Zadejte prosím název fóra.",
     "forum/insert_quotes": "Vložit uvozovky",
@@ -187,5 +187,11 @@
     "forum/pre_topic_edit_hook_info": "Předběžná úprava tématu",
     "forum/topic_id": "ID tématu",
     "forum/user_object": "Objekt uživatele",
-    "forum/no_news": "Nejsou zde žádné novinky."
+    "forum/no_news": "Nejsou zde žádné novinky.",
+    "forum/new_topic_reply_text": "Vytvořena odpověď na téma ve fóru {{forum}} uživatelem {{author}}",
+    "forum/topic_author_username": "Uživatelské jméno autora tématu",
+    "forum/topic_reply": "Odpověď na téma",
+    "forum/topic_author_uuid": "Uživatelské ID autora tématu",
+    "forum/label_type_in_use": "Typ štítku je používán, nelze jej odstranit.",
+    "forum/topic_author_nickname": "Přezdívka autora tématu"
 }
