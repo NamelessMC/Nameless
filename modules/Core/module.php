@@ -17,7 +17,7 @@ class Core_Module extends Module {
     private Language $_language;
     private Configuration $_configuration;
 
-    public function __construct(Language $language, Pages $pages, User $user, Queries $queries, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
+    public function __construct(Language $language, Pages $pages, User $user, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
         $this->_configuration = new Configuration($cache);
 

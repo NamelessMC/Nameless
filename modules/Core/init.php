@@ -19,4 +19,4 @@ if (!$module_installed) {
 
 require_once ROOT_PATH . '/modules/Core/module.php';
 
-$module = new Core_Module($language, $pages, $user, $queries, $navigation, $cache, $endpoints);
+$module = new Core_Module($language, $pages, $user, $navigation, $cache, $endpoints);
