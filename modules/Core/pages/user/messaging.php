@@ -296,7 +296,7 @@ if (!isset($_GET['action'])) {
             $user_messaging = DB::getInstance()->get('users', ['id', $_GET['uid']])->results();
 
             if (count($user_messaging)) {
-                $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->nickname));
+                $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->username));
             }
         }
 
