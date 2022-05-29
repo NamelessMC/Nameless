@@ -1277,8 +1277,19 @@ body.dark .tox .tox-statusbar,
 body.dark .tox .tox-menubar,
 body.dark .tox .tox-toolbar,
 body.dark .tox .tox-toolbar__overflow,
-body.dark .tox .tox-toolbar__primary {
+body.dark .tox .tox-toolbar__primary,
+body.dark .tox .tox-dialog,
+body.dark .tox .tox-dialog__header,
+body.dark .tox .tox-dialog__footer,
+body.dark .tox .tox-listboxfield .tox-listbox--select,
+body.dark .tox .tox-textarea,
+body.dark .tox .tox-textfield,
+body.dark .tox .tox-toolbar-textfield {
     background-color: #222;
+}
+
+body.dark .tox .tox-dialog-wrap__backdrop {
+    background-color: rgba(34, 34, 34, 0.7);
 }
 
 body.dark .tox .tox-collection--list .tox-collection__item--enabled {
