@@ -227,7 +227,7 @@ if (isset($_GET['action'])) {
                                     'admin_cp' => $staff_cp,
                                     'staff' => Input::get('staff'),
                                     'default_group' => $default,
-                                    '`order`' => Input::get('order'),
+                                    'order' => Input::get('order'),
                                     'force_tfa' => Input::get('tfa')
                                 ]);
 
@@ -495,7 +495,7 @@ if (isset($_GET['action'])) {
                 $i = 1;
                 foreach ($groups as $item) {
                     $queries->update('groups', $item, [
-                        '`order`' => $i
+                        'order' => $i
                     ]);
                     $i++;
                 }

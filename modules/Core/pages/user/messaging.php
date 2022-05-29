@@ -404,7 +404,7 @@ if (!isset($_GET['action'])) {
                                 'private_messages_users',
                                 $item->id,
                                 [
-                                    '`read`' => 0
+                                    'read' => 0
                                 ]
                             );
                         }

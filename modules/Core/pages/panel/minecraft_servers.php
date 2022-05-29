@@ -473,7 +473,7 @@ if (isset($_GET['action'])) {
                 $i = 1;
                 foreach ($servers as $item) {
                     $queries->update('mc_servers', $item, [
-                        '`order`' => $i
+                        'order' => $i
                     ]);
                     $i++;
                 }
