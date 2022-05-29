@@ -131,63 +131,62 @@
                             {$OAUTH_INFO}
                         </div>
                     </div>
-                </div>
-                <br />
-                <form action="" method="post">
-                    <div class="row">
-                        {foreach from=$OAUTH_PROVIDER_DATA key="provider_name" item="provider_data"}
-                        <div class="col">
-                            <div class="card shadow mb-4">
-                                <div class="card-body">
-                                    <div class="form-group custom-control custom-switch text-center">
-                                        <input id="enable-{$provider_name}" name="enable-{$provider_name}"
-                                            type="checkbox" class="custom-control-input" {if $provider_data['enabled']
-                                            && $provider_data['setup']} checked{/if} />
-                                        <label for="enable-{$provider_name}" id="enable-{$provider_name}"
-                                            class="custom-control-label">
-                                            {$provider_name|ucfirst} <i class="{$provider_data['icon']} fa-1x"></i>
-                                        </label>
-                                    </div>
+                    <br />
+                    <form action="" method="post">
+                        <div class="row">
+                            {foreach from=$OAUTH_PROVIDER_DATA key="provider_name" item="provider_data"}
+                            <div class="col">
+                                <div class="card shadow mb-4">
+                                    <div class="card-body">
+                                        <div class="form-group custom-control custom-switch text-center">
+                                            <input id="enable-{$provider_name}" name="enable-{$provider_name}"
+                                                type="checkbox" class="custom-control-input" {if $provider_data['enabled']
+                                                && $provider_data['setup']} checked{/if} />
+                                            <label for="enable-{$provider_name}" id="enable-{$provider_name}"
+                                                class="custom-control-label">
+                                                {$provider_name|ucfirst} <i class="{$provider_data['icon']} fa-1x"></i>
+                                            </label>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="client-id-discord">Client ID</label>
-                                        <input type="text" name="client-id-{$provider_name}" class="form-control"
-                                            id="client-id-{$provider_name}" placeholder="Client ID"
-                                            value="{$provider_data['client_id']}">
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="client-id-discord">Client ID</label>
+                                            <input type="text" name="client-id-{$provider_name}" class="form-control"
+                                                id="client-id-{$provider_name}" placeholder="Client ID"
+                                                value="{$provider_data['client_id']}">
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="client-secret-discord">Client Secret</label>
-                                        <input type="password" name="client-secret-{$provider_name}"
-                                            class="form-control" id="client-secret-{$provider_name}"
-                                            placeholder="Client Secret" value="{$provider_data['client_secret']}">
+                                        <div class="form-group">
+                                            <label for="client-secret-discord">Client Secret</label>
+                                            <input type="password" name="client-secret-{$provider_name}"
+                                                class="form-control" id="client-secret-{$provider_name}"
+                                                placeholder="Client Secret" value="{$provider_data['client_secret']}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {/foreach}
                         </div>
-                        {/foreach}
-                    </div>
 
-                    <div class="form-group">
-                        <input type="hidden" name="action" value="oauth">
-                        <input type="hidden" name="token" value="{$TOKEN}">
-                        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <input type="hidden" name="action" value="oauth">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                        </div>
+                    </form>
 
-                <!-- Spacing -->
-                <div style="height:1rem;"></div>
+                    <!-- Spacing -->
+                    <div style="height:1rem;"></div>
 
-                <!-- End Page Content -->
+                    <!-- End Page Content -->
+                </div>
+
+                <!-- End Main Content -->
             </div>
-
-            <!-- End Main Content -->
-        </div>
 
         {include file='footer.tpl'}
 
         <!-- End Content Wrapper -->
-    </div>
+        </div>
 
     <!-- End Wrapper -->
     </div>
