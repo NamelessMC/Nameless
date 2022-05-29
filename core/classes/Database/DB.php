@@ -433,8 +433,15 @@ class DB {
         return [$where, $params];
     }
 
-    public static function getCustomInstance(string $host, string $database, string $username,
-            string $password, int $port = 3306, ?string $force_charset = null, string $prefix = 'nl2_'): DB {
+    public static function getCustomInstance(
+        string $host,
+        string $database,
+        string $username,
+        string $password,
+        int $port = 3306,
+        ?string $force_charset = null,
+        string $prefix = 'nl2_'
+    ): DB {
         return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
     }
 
@@ -455,7 +462,7 @@ class DB {
             Config::get('mysql/username'),
             Config::get('mysql/password'),
             Config::get('mysql/port'),
-            $force_charset=$force_charset
+            $force_charset
         );
 
         return self::$_instance;
