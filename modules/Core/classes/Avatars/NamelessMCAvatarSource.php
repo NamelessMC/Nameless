@@ -22,6 +22,6 @@ class NamelessMCAvatarSource extends AvatarSourceBase {
             return URL::build('/avatar/{identifier}');
         }
 
-        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={identifier}';
+        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={identifier}&s={size}';
     }
 }
