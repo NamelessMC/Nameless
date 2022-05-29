@@ -87,6 +87,10 @@
                                                 {/if}
                                             </td>
                                         </tr>
+                                        {foreachelse}
+                                        <tr>
+                                            <td colspan="3" class="text-center">{$NO_OAUTH_PROVIDERS}</td>
+                                        </tr>
                                         {/foreach}
                                     </tbody>
                                 </table>
