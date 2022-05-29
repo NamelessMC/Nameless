@@ -242,7 +242,7 @@ class Pre13 extends UpgradeScript {
         $migrations_dir = ROOT_PATH . '/core/migrations';
         $files = scandir($migrations_dir);
         foreach ($files as $file) {
-            if (str_starts_with($file, '.')) {
+            if ($file === 'phinx.php' || str_starts_with($file, '.')) {
                 continue;
             }
             $file = explode('.', $file)[0];
@@ -262,7 +262,7 @@ class Pre13 extends UpgradeScript {
         }
 
         $this->databaseQuery(function (DB $db) use ($migrations) {
-            $db->query("CREATE TABLE IF NOT EXISTS `phinxlog` (
+            $db->query("CREATE TABLE IF NOT EXISTS `nl2_phinxlog` (
                 `version` bigint NOT NULL,
                 `migration_name` varchar(100) NULL DEFAULT NULL,
                 `start_time` timestamp NULL DEFAULT NULL,
@@ -273,7 +273,7 @@ class Pre13 extends UpgradeScript {
             $db->query("TRUNCATE TABLE `nl2_phinxlog`");
 
             foreach ($migrations as $migration) {
-                $db->query("INSERT INTO phinxlog (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES (?, ?, ?, ?, ?)", [
+                $db->query("INSERT INTO nl2_phinxlog (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES (?, ?, ?, ?, ?)", [
                     $migration['version'],
                     $migration['name'],
                     $migration['start_time'],

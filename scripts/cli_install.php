@@ -143,7 +143,7 @@ Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK')
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
-DatabaseInitializer::runPreUser($conf);
+DatabaseInitialiser::runPreUser($conf);
 $sitename = getEnvVar('NAMELESS_SITE_NAME');
 $queries->create('settings', [
     'name' => 'sitename',
@@ -210,7 +210,7 @@ if ($profile !== null) {
     }
 }
 
-DatabaseInitializer::runPostUser();
+DatabaseInitialiser::runPostUser();
 
 print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
 print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);

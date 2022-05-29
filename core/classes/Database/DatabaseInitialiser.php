@@ -1,6 +1,6 @@
 <?php
 
-class DatabaseInitializer {
+class DatabaseInitialiser {
 
     private Queries $_queries;
     private Cache $_cache;

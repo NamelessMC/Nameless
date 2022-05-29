@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
-            DatabaseInitializer::runPostUser();
+            DatabaseInitialiser::runPostUser();
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
             if ($login) {

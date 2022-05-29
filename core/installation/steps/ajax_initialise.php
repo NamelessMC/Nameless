@@ -16,7 +16,7 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
         } else {
             if ($_GET['initialise'] === 'site') {
-                DatabaseInitializer::runPreUser($conf);
+                DatabaseInitialiser::runPreUser($conf);
 
                 $json = [
                     'success' => true,
