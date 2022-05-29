@@ -599,28 +599,32 @@ foreach ($results->data as $n => $nValue) {
         }
 
         // Delete button
-        if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
-            $buttons['delete'] = [
-                'URL' => URL::build('/forum/delete_post/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
-                'TEXT' => $language->get('general', 'delete'),
-                'NUMBER' => $p . $n
-            ];
+        if ($user->data()->id != $nValue->post_creator && $moderate = $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             $buttons['spam'] = [
                 'URL' => URL::build('/forum/spam/'),
                 'TEXT' => $language->get('moderator', 'spam')
             ];
         }
+        if ($moderate || $user->data()->id == $nValue->post_creator) {
+            $buttons['delete'] = [
+                'URL' => URL::build('/forum/delete_post/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'TEXT' => $language->get('general', 'delete'),
+                'NUMBER' => $p . $n
+            ];
+        }
 
-        // Report button
-        $buttons['report'] = [
-            'URL' => URL::build('/forum/report/'),
-            'REPORT_TEXT' => $language->get('user', 'report_post_content'),
-            'TEXT' => $language->get('general', 'report')
-        ];
+        if ($user->data()->id != $nValue->post_creator) {
+            // Report button
+            $buttons['report'] = [
+                'URL' => URL::build('/forum/report/'),
+                'REPORT_TEXT' => $language->get('user', 'report_post_content'),
+                'TEXT' => $language->get('general', 'report')
+            ];
+        }
 
         // Quote button
         if ($can_reply) {
-            if ($forum->canModerateForum($forum_parent[0]->id, $user_groups) || $topic->locked != 1) {
+            if ($topic->locked != 1 || $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
                 $buttons['quote'] = [
                     'TEXT' => $forum_language->get('forum', 'quote')
                 ];
