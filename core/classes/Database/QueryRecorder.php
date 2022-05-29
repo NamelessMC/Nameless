@@ -31,6 +31,8 @@ class QueryRecorder extends Instanceable {
     public function pushQuery(string $sql, array $params): void {
         $backtrace = $this->lastReleventBacktrace();
 
+        // TODO: if/when we have a globally available way to get the logged in user,
+        // check if they're able to view the sql exception page, and don't waste time doing all this if they can't
         $this->_query_stack[] = [
             'number' => $this->_query_stack_num,
             'frame' => ErrorHandler::parseFrame(null, $backtrace['file'], $backtrace['line'], $this->_query_stack_num),
@@ -53,7 +55,7 @@ class QueryRecorder extends Instanceable {
 
         while (
             $current_file === $last_file
-            || (str_ends_with($backtrace[$i]['file'], 'InteractsWithDatabase.php') || str_ends_with($backtrace[$i]['file'], 'Queries.php'))
+            || (str_ends_with($backtrace[$i]['file'], 'DB.php') || str_ends_with($backtrace[$i]['file'], 'Queries.php'))
         ) {
             $last_file = $backtrace[$i]['file'];
             $i++;
