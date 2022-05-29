@@ -92,7 +92,7 @@ class AvatarSource {
             }
         }
 
-        return 'https://ui-avatars.com/api/?name=' . $data->nickname . '&size=' . $size;
+        return "https://avatars.dicebear.com/api/initials/{$data->username}.svg?size={$size}";
     }
 
     /**
