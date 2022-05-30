@@ -372,7 +372,7 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    $content = Output::getClean(Input::get('content'));
+                    $content = Input::get('content');
 
                     // Insert post content into database
                     $queries->create(

@@ -69,7 +69,7 @@
                         <textarea name="content" id="reply"></textarea>
                     </div>
                     <input type="hidden" name="token" value="{$TOKEN}">
-                    <input type="submit" class="ui primary button" name="{$SUBMIT}">
+                    <input type="submit" class="ui primary button" value="{$SUBMIT}">
                 </form>
             </div>
         </div>
