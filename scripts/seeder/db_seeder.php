@@ -13,6 +13,8 @@ $classes = [
     'MinecraftServerSeeder.php',
     'MinecraftPlaceholderSeeder.php',
     'MinecraftPlaceholderDataSeeder.php',
+    'ProfileFieldsSeeder.php',
+    'ProfileFieldsDataSeeder.php',
 ];
 
 foreach ($classes as $class) {
@@ -26,6 +28,8 @@ $seeders = [
     new MinecraftServerSeeder,
     new MinecraftPlaceholderSeeder,
     new MinecraftPlaceholderDataSeeder,
+    new ProfileFieldsSeeder,
+    new ProfileFieldsDataSeeder,
 ];
 
 $faker = Faker\Factory::create();
