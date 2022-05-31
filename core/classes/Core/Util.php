@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\IpUtils;
 class Util {
 
     private static array $_enabled_modules = [];
+    private static ?array $_cached_settings = null;
 
     /**
      * Convert Cyrillic to Latin letters.
@@ -605,13 +606,20 @@ class Util {
      * @return ?string Setting from DB or $fallback.
      */
     public static function getSetting(string $setting, ?string $fallback = null): ?string {
-        $value = DB::getInstance()->get('settings', ['name', $setting]);
-
-        if ($value->count()) {
-            return $value->first()->value;
+        if (self::$_cached_settings == null) {
+            $result = DB::getInstance()->query('SELECT `name`, `value` FROM nl2_settings')->results();
+            // Store settings in dictionary format
+            self::$_cached_settings = [];
+            foreach ($result as $row) {
+                self::$_cached_settings[$row->name] = $row->value;
+            }
         }
 
-        return $fallback;
+        if (isset(self::$_cached_settings[$setting])) {
+            return self::$_cached_settings[$setting];
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -625,6 +633,10 @@ class Util {
             DB::getInstance()->query('DELETE FROM nl2_settings WHERE `name` = ?', [$setting]);
         } else {
             DB::getInstance()->query('INSERT INTO nl2_settings (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE SET `value` = ? WHERE `name` = ?', [$new_value, $setting]);
+        }
+
+        if (self::$_cached_settings != null) {
+            self::$_cached_settings[$setting] = $new_value;
         }
     }
 
