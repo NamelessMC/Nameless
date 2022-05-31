@@ -25,7 +25,7 @@ class Pre13 extends UpgradeScript {
 
         // delete old "version" row
         $this->databaseQuery(function (DB $db) {
-            $db->query('DELETE FROM nl2_settings WHERE `name` = ?', ['version']);
+            Util::setSetting('version', null);
         });
 
         // oauth
@@ -230,9 +230,9 @@ class Pre13 extends UpgradeScript {
         $this->_cache->setCache('home_type');
         $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
         $this->databaseQuery(function (DB $db) use ($home_type) {
-            $db->query("DELETE FROM nl2_settings WHERE `name` = 'portal'");
-            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_type', ?)", [$home_type]);
-            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_custom_content', null)");
+            Util::setSetting('portal', null)
+            Util::setSetting('home_type', $home_type);
+            Util::setSetting('home_custom_content', null);
         });
 
         // add existing migrations to phinxlog table, so it doesn't try to run them again

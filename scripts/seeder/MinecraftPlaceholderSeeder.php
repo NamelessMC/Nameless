@@ -7,7 +7,8 @@ class MinecraftPlaceholderSeeder extends Seeder {
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {
-        $db->createQuery("UPDATE nl2_settings SET value = ? WHERE name = 'placeholders'", [1]);
+        Util::setSetting('placeholders', 1);
+
         $servers = $db->get('mc_servers', ['id', '<>', 0])->results();
 
         $this->times(5, function() use ($db, $faker, $servers) {

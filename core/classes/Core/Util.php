@@ -539,7 +539,7 @@ class Util {
             return json_encode(['error' => $error]);
         }
 
-        DB::getInstance()->query("UPDATE nl2_settings SET `value`= ? WHERE `name` = 'version_checked'", [date('U')]);
+        Util::setSetting("version_checked", date('U'));
 
         if ($update_check == 'None') {
             return json_encode(['no_update' => true]);
@@ -601,10 +601,10 @@ class Util {
      * Get a setting from the database table `nl2_settings`.
      *
      * @param string $setting Setting to check.
-     * @param mixed $fallback Fallback to return if $setting is not set in DB.
-     * @return mixed Setting from DB or $fallback.
+     * @param ?string $fallback Fallback to return if $setting is not set in DB.
+     * @return ?string Setting from DB or $fallback.
      */
-    public static function getSetting(string $setting, $fallback = null) {
+    public static function getSetting(string $setting, ?string $fallback = null): ?string {
         $value = DB::getInstance()->get('settings', ['name', $setting]);
 
         if ($value->count()) {
@@ -612,6 +612,20 @@ class Util {
         }
 
         return $fallback;
+    }
+
+    /**
+     * Modify a setting in the database table `nl2_settings`.
+     *
+     * @param string $setting Setting name.
+     * @param string $new_value New setting value, or null to delete
+     */
+    public static function setSetting(string $setting, ?string $new_value): void {
+        if ($new_value == null) {
+            DB::getInstance()->query('DELETE FROM nl2_settings WHERE `name` = ?', [$setting]);
+        } else {
+            DB::getInstance()->query('INSERT INTO nl2_settings (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE SET `value` = ? WHERE `name` = ?', [$new_value, $setting]);
+        }
     }
 
     /**

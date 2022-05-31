@@ -35,7 +35,7 @@ class Nameless2API {
             $this->_db = DB::getInstance();
 
             // Ensure API is actually enabled
-            if (!Util::getSetting($this->_db, 'use_api')) {
+            if (!Util::getSetting('use_api')) {
                 $this->throwError(self::ERROR_API_DISABLED);
             }
 

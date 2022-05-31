@@ -15,36 +15,22 @@ class InfoEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        // Get version, update info and modules from database
-        $version_query = $api->getDb()->query('SELECT `name`, `value` FROM nl2_settings WHERE `name` = ? OR `name` = ? OR `name` = ? OR `name` = ?', ['nameless_version', 'version_checked', 'version_update', 'new_version']);
-        if ($version_query->count()) {
-            $version_query = $version_query->results();
-        }
 
-        $site_id = Util::getSetting($api->getDb(), 'unique_id');
+        $site_id = Util::getSetting('unique_id');
+
         if ($site_id == null) {
             $api->throwError(Nameless2API::ERROR_NO_SITE_UID);
         }
 
         $ret = [];
-        foreach ($version_query as $item) {
-            if ($item->name == 'nameless_version') {
-                $ret[$item->name] = $item->value;
-                $current_version = $item->value;
-            } else if ($item->name == 'version_update') {
-                $version_update = $item->value;
-            } else if ($item->name == 'version_checked') {
-                $version_checked = (int) $item->value;
-            } else {
-                $new_version = $item->value;
-            }
-        }
 
-        if (isset($version_checked, $version_update, $current_version) && $version_update != 'false') {
+        $ret['nameless_version'] = Util::getSetting('nameless_version');
+
+        if (Util::getSetting('version_update') === true) {
             $ret['version_update'] = [
                 'update' => true,
-                'version' => (isset($new_version) ? Output::getClean($new_version) : 'unknown'),
-                'urgent' => ($version_update == 'urgent')
+                'version' => Util::getSetting('new_version'),
+                'urgent' => Util::getSetting('version_update') == 'urgent',
             ];
         }
 

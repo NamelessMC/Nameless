@@ -93,7 +93,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             ]);
         }
 
-        if (Util::getSetting($api->getDb(), 'username_sync')) {
+        if (Util::getSetting('username_sync')) {
             $user = $integrationUser->getUser();
             if (!$user->exists() ||
                 $player['name'] == $user->data()->username) {
@@ -101,7 +101,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             }
 
             // Update username
-            if (!Util::getSetting($api->getDb(), 'displaynames', false)) {
+            if (!Util::getSetting('displaynames', false)) {
                 $user->update([
                     'username' => $player['name'],
                     'nickname' => $player['name']
