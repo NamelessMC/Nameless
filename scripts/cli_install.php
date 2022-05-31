@@ -92,7 +92,6 @@ $conf = [
         'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', 'root'),
         'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
         'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
-        'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', 'utf8mb4'),
         'initialise_charset' => true,
     ],
     'remember' => [
