@@ -643,12 +643,16 @@ class Util {
             return true;
         }
 
-        $enabled_modules = DB::getInstance()->get('modules', [['enabled', true], ['name', $name]])->first();
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('modulescache');
 
-        if ($enabled_modules != null) {
+        $enabled_modules = $cache->retrieve('enabled_modules');
+
+        if (in_array($name, array_column($enabled_modules, 'name'))) {
             self::$_enabled_modules[] = $name;
             return true;
         }
+
         return false;
     }
 
