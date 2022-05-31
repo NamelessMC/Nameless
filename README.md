@@ -70,14 +70,27 @@ If you would like to assist with the NamelessMC development by translating to yo
 ![Translation progress](https://translate.namelessmc.com/widgets/namelessmc/-/nameless/multi-auto.svg)
 
 ## Contributing
-We welcome all contributions of code and translations. Please feel free to fork the repository on GitHub and create any pull requests.
-- We generally keep a todo list in the Milestones tab of the the Issues page.
+We welcome all contributions of code and translations. Please feel free to fork the repository on GitHub and create any pull requests!
+Here are some things you should know when contributing:
+- We generally keep a todo list in the Milestones tab of the Issues page.
 - We use Composer to manage dependencies. Before you can install the dependencies, you need to install Composer on your local computer. Installation instructions are [here](https://getcomposer.org/doc/00-intro.md).
-- To install the Composer packages we depend on, run the following command in the root directory of the NamelessMC repository:
-    ```console
-    composer install --dev
-    ```
-  - This could take up to about a minute depending on your internet connection.
+  - To install the Composer packages we depend on, run the following command in the root directory of the NamelessMC repository:
+      ```console
+      composer install --dev
+      ```
+    - This could take up to about a minute depending on your internet connection.
+- You can use the CLI (command line) install script to reset your development environment in less than 5 seconds!
+  - Run the following command when in the root directory:
+      ```console
+      php scripts/cli_install.php --iSwearIKnowWhatImDoing --reinstall
+      ```
+- To populate the database with some fake data, you can use the seeder.
+  - Run the following command when in the root directory:
+      ```console
+      php scripts/seeder/db_seeder.php wipe
+      ```
+    - This will wipe the database and populate it with lots of fake users, forums, and much, much more.
+    - *Note: Login to the admin account with `admin@localhost` and `password` after running the seeder*
 
 ## Special Thanks
 - All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
