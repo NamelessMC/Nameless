@@ -1466,7 +1466,7 @@ class Core_Module extends Module {
             if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                 // Dashboard graph
                 $cache->setCache('dashboard_graph');
-                if (false) {
+                if ($cache->isCached('core_data')) {
                     $data = $cache->retrieve('core_data');
 
                 } else {
