@@ -643,11 +643,7 @@ class Util {
             return true;
         }
 
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
-        $cache->setCache('modulescache');
-
-        $enabled_modules = $cache->retrieve('enabled_modules');
-
+        $enabled_modules = DB::getInstance()->get('modules', ['enabled', '=', 1])->results();
         if (in_array($name, array_column($enabled_modules, 'name'))) {
             self::$_enabled_modules[] = $name;
             return true;
