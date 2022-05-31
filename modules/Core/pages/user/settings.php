@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -76,8 +76,8 @@ if (isset($_GET['do'])) {
                     if (isset($_POST['tfa_code'])) {
                         if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
                             $user->update([
-                                'tfa_complete' => 1,
-                                'tfa_enabled' => 1,
+                                'tfa_complete' => true,
+                                'tfa_enabled' => true,
                                 'tfa_type' => 1
                             ]);
                             Session::delete('force_tfa_alert');
@@ -124,10 +124,10 @@ if (isset($_GET['do'])) {
         if ($_GET['do'] == 'disable_tfa') {
             // Disable TFA
             $user->update([
-                'tfa_enabled' => 0,
+                'tfa_enabled' => false,
                 'tfa_type' => 0,
                 'tfa_secret' => null,
-                'tfa_complete' => 0
+                'tfa_complete' => false
             ]);
 
             Redirect::to(URL::build('/user/settings'));
@@ -211,7 +211,7 @@ if (isset($_GET['do'])) {
                 if ($validation->passed()) {
                     try {
                         // Update language, template and timezone
-                        $new_language = $queries->getWhere('languages', ['name', Input::get('language')]);
+                        $new_language = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
 
                         if (count($new_language)) {
                             $new_language = $new_language[0]->id;
@@ -219,7 +219,7 @@ if (isset($_GET['do'])) {
                             $new_language = $user->data()->language_id;
                         }
 
-                        $new_template = $queries->getWhere('templates', ['id', Input::get('template')]);
+                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
 
                         if (count($new_template)) {
                             $new_template = $new_template[0]->id;
@@ -250,7 +250,7 @@ if (isset($_GET['do'])) {
                         }
 
                         // Private profiles enabled?
-                        $private_profiles = $queries->getWhere('settings', ['name', 'private_profile']);
+                        $private_profiles = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
                         if ($private_profiles[0]->value == 1) {
                             if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
                                 $privateProfile = 1;
@@ -295,14 +295,14 @@ if (isset($_GET['do'])) {
                             if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
                                 // Update field value if it has changed
                                 if ($value !== $user_profile_fields[$field->id]->value) {
-                                    $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                    DB::getInstance()->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
                                         'value' => $value,
                                         'updated' => date('U'),
                                     ]);
                                 }
                             } else {
                                 // Create new field value
-                                $queries->create('users_profile_fields', [
+                                DB::getInstance()->insert('users_profile_fields', [
                                     'user_id' => $user->data()->id,
                                     'field_id' => $field->id,
                                     'value' => $value,
@@ -395,7 +395,7 @@ if (isset($_GET['do'])) {
 
                         if ($validation->passed()) {
                             // Check email doesn't exist
-                            $email_query = $queries->getWhere('users', ['email', $_POST['email']]);
+                            $email_query = DB::getInstance()->get('users', ['email', $_POST['email']])->results();
                             if (count($email_query)) {
                                 if ($email_query[0]->id != $user->data()->id) {
                                     $error = $language->get('user', 'email_already_exists');
@@ -447,7 +447,7 @@ if (isset($_GET['do'])) {
 
     // Get languages
     $languages = [];
-    $language_query = $queries->getWhere('languages', ['id', '<>', 0]);
+    $language_query = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 
     foreach ($language_query as $item) {
         $languages[] = [

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Partydragen
+ *  Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -56,7 +56,7 @@ if (!isset($_GET['integration'])) {
         $errors = [];
 
         if (Token::check()) {
-            $queries->update('integrations', $integration->data()->id, [
+            DB::getInstance()->update('integrations', $integration->data()->id, [
                 'enabled' => Output::getClean(Input::get('enabled')),
                 'can_unlink' => Output::getClean(Input::get('can_unlink')),
                 'required' => Output::getClean(Input::get('required'))

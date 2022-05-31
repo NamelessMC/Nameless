@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -19,7 +19,7 @@ if ($user->isLoggedIn()) {
     $topic_id = $_GET['tid'];
 
     // Check topic exists and get forum ID
-    $topic = $queries->getWhere('topics', ['id', $topic_id]);
+    $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 
     if (!count($topic)) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -41,7 +41,7 @@ if ($user->isLoggedIn()) {
             $locked_status = 1;
         }
 
-        $queries->update('topics', $topic_id, [
+        DB::getInstance()->update('topics', $topic_id, [
             'locked' => $locked_status
         ]);
         Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -12,7 +12,7 @@
 $queries = new Queries();
 
 // Ensure an update is needed
-$update_needed = $queries->getWhere('settings', ['name', 'version_update']);
+$update_needed = DB::getInstance()->get('settings', ['name', 'version_update'])->results();
 $update_needed = $update_needed[0]->value;
 
 if ($update_needed != 'true' && $update_needed != 'urgent') {

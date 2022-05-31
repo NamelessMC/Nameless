@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr11
  *
@@ -71,7 +71,7 @@ if (isset($_GET['action'])) {
                         }
 
                         // Insert into database
-                        $queries->create('profile_fields', [
+                        DB::getInstance()->insert('profile_fields', [
                             'name' => Input::get('name'),
                             'type' => Input::get('type'),
                             'public' => $public,
@@ -185,7 +185,7 @@ if (isset($_GET['action'])) {
                                 }
 
                                 // Update database
-                                $queries->update('profile_fields', $field->id, [
+                                DB::getInstance()->update('profile_fields', $field->id, [
                                     'name' => Output::getClean(Input::get('name')),
                                     'type' => Input::get('type'),
                                     'public' => $public,
@@ -211,7 +211,7 @@ if (isset($_GET['action'])) {
                     } else {
                         if (Input::get('action') == 'delete') {
                             // Delete field
-                            $queries->delete('profile_fields', ['id', (int)$_POST['id']]);
+                            DB::getInstance()->delete('profile_fields', ['id', (int)$_POST['id']]);
 
                             Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
                             Redirect::to(URL::build('/panel/core/profile_fields'));

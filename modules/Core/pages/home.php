@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -38,7 +38,7 @@ if ($home_type === 'news') {
         require(ROOT_PATH . '/' . $module);
     }
 } else if ($home_type === 'custom') {
-    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting(DB::getInstance(), 'home_custom_content'));
+    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting('home_custom_content'));
 }
 
 // Assign to Smarty variables

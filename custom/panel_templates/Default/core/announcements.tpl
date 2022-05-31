@@ -39,7 +39,8 @@
                                     <p style="margin-top: 7px; margin-bottom: 7px;">{$ANNOUCEMENTS_INFO}</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> {$NEW}</a></span>
+                                    <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i
+                                                class="fas fa-plus-circle"></i> {$NEW}</a></span>
                                 </div>
                             </div>
                             <hr />
@@ -65,12 +66,19 @@
                                         <tr data-id="{$announcement[0]->id}">
                                             <td>{$announcement[0]->order}</td>
                                             <td>{$announcement[0]->header}</td>
-                                            <td>{if $announcement['pages'] != null}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
-                                            <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};" title="{$announcement[0]->text_colour}"></span></td>
-                                            <td><span class="badge border" style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;" title="{$announcement[0]->background_colour}"></span></td>
+                                            <td>{if $announcement['pages'] !=
+                                                null}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
+                                            <td><span class="badge border"
+                                                    style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};"
+                                                    title="{$announcement[0]->text_colour}"></span></td>
+                                            <td><span class="badge border"
+                                                    style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;"
+                                                    title="{$announcement[0]->background_colour}"></span></td>
                                             <td>
-                                                <a href="{$EDIT_LINK}{$announcement[0]->id}" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
-                                                <a href="#" onclick="showDeleteModal({$announcement[0]->id})" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
+                                                <a href="{$EDIT_LINK}{$announcement[0]->id}"
+                                                    class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
+                                                <a href="#" onclick="showDeleteModal({$announcement[0]->id})"
+                                                    class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         {/foreach}
@@ -78,7 +86,7 @@
                                 </table>
                             </div>
                             {else}
-                                {$NO_ANNOUNCEMENTS}
+                            {$NO_ANNOUNCEMENTS}
                             {/if}
                         </div>
                     </div>
@@ -130,14 +138,14 @@
         }
 
         function deleteAnnouncement() {
-          const id = $('#deleteId').attr('value');
-          if (id) {
-            const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
-            response.done(function() { window.location.reload(); });
-          }
+            const id = $('#deleteId').attr('value');
+            if (id) {
+                const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
+                response.done(function () { window.location.reload(); });
+            }
         }
 
-          $(document).ready(function () {
+        $(document).ready(function () {
             $("#sortable").sortable({
                 start: function (event, ui) {
                     let start_pos = ui.item.index();

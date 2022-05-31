@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -30,10 +30,10 @@ if (isset($_GET['do'])) {
             $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[2])[0];
 
             // Is it already in the database?
-            $exists = $queries->getWhere('languages', ['short_code', $short_code]);
+            $exists = DB::getInstance()->get('languages', ['short_code', $short_code])->results();
             if (!count($exists)) {
                 // No, add it now
-                $queries->create('languages', [
+                DB::getInstance()->insert('languages', [
                     // If they try and install a language which is not "official", default to the short code for the name
                     'name' => Language::LANGUAGES[$short_code]['name'] ?? $short_code,
                     'short_code' => $short_code
@@ -44,7 +44,7 @@ if (isset($_GET['do'])) {
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
     } else {
         if ($_GET['do'] == 'updateLanguages') {
-            $active_language = $queries->getWhere('languages', ['is_default', true]);
+            $active_language = DB::getInstance()->get('languages', ['is_default', true])->results();
             if (count($active_language)) {
                 DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
                 $language = new Language('core', $active_language[0]->short_code);
@@ -80,7 +80,7 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            $queries->update('settings', ['name', 'sitename'], [
+            DB::getInstance()->update('settings', ['name', 'sitename'], [
                 'value' => Output::getClean(Input::get('sitename'))
             ]);
 
@@ -89,22 +89,22 @@ if (Input::exists()) {
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
             // Email address
-            $queries->update('settings', ['name', 'incoming_email'], [
+            DB::getInstance()->update('settings', ['name', 'incoming_email'], [
                 'value' => Output::getClean(Input::get('contact_email'))
             ]);
 
             // Language
             // Get current default language
-            $queries->update('languages', ['is_default', true], [
-                'is_default' => 0
+            DB::getInstance()->update('languages', ['is_default', true], [
+                'is_default' => false,
             ]);
 
-            $language_id = $queries->getWhere('languages', ['id', Input::get('language')]);
+            $language_id = DB::getInstance()->get('languages', ['id', Input::get('language')])->results();
             $language_short_code = Output::getClean($language_id[0]->short_code);
             $language_id = $language_id[0]->id;
 
-            $queries->update('languages', $language_id, [
-                'is_default' => 1
+            DB::getInstance()->update('languages', $language_id, [
+                'is_default' => true,
             ]);
 
             // Update cache
@@ -113,7 +113,7 @@ if (Input::exists()) {
 
             // Timezone
             try {
-                $queries->update('settings', ['name', 'timezone'], [
+                DB::getInstance()->update('settings', ['name', 'timezone'], [
                     'value' => Output::getClean($_POST['timezone'])
                 ]);
 
@@ -133,7 +133,7 @@ if (Input::exists()) {
                 $home_type = 'custom';
             }
 
-            $queries->update('settings', ['name', 'home_type'], [
+            DB::getInstance()->update('settings', ['name', 'home_type'], [
                 'value' => $home_type
             ]);
 
@@ -148,12 +148,12 @@ if (Input::exists()) {
                 $private_profile = 0;
             }
 
-            $queries->update('settings', ['name', 'private_profile'], [
+            DB::getInstance()->update('settings', ['name', 'private_profile'], [
                 'value' => $private_profile
             ]);
 
             // Registration displaynames
-            $queries->update('settings', ['name', 'displaynames'], [
+            DB::getInstance()->update('settings', ['name', 'displaynames'], [
                 'value' => $_POST['displaynames']
             ]);
 
@@ -197,7 +197,7 @@ if (Input::exists()) {
             }
 
             // Login method
-            $queries->update('settings', ['name', 'login_method'], [
+            DB::getInstance()->update('settings', ['name', 'login_method'], [
                 'value' => $_POST['login_method']
             ]);
 
@@ -245,10 +245,10 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = $queries->getWhere('settings', ['name', 'incoming_email']);
+$contact_email = DB::getInstance()->get('settings', ['name', 'incoming_email'])->results();
 $contact_email = Output::getClean($contact_email[0]->value);
 
-$languages = $queries->getWhere('languages', ['id', '<>', 0]);
+$languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
 for ($i = 0; $i < $count; $i++) {
     $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
@@ -257,21 +257,21 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = $queries->getWhere('settings', ['name', 'timezone']);
+$timezone = DB::getInstance()->get('settings', ['name', 'timezone'])->results();
 $timezone = $timezone[0]->value;
 
-$home_type = $queries->getWhere('settings', ['name', 'home_type']);
+$home_type = DB::getInstance()->get('settings', ['name', 'home_type'])->results();
 $home_type = $home_type[0]->value;
 
 $friendly_url = Config::get('core/friendly');
 
-$private_profile = $queries->getWhere('settings', ['name', 'private_profile']);
+$private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
 $private_profile = $private_profile[0]->value;
 
-$displaynames = $queries->getWhere('settings', ['name', 'displaynames']);
+$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
 $displaynames = $displaynames[0]->value;
 
-$method = $queries->getWhere('settings', ['name', 'login_method']);
+$method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
 $method = $method[0]->value;
 
 $smarty->assign([
@@ -303,7 +303,7 @@ $smarty->assign([
     'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
     'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_CUSTOM' => $language->get('admin', 'homepage_custom_content'),
+    'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
     'HOMEPAGE_VALUE' => $home_type,
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => $friendly_url,

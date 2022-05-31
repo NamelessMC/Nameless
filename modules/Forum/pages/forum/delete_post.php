@@ -24,7 +24,7 @@ if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
 }
 
 // Get post and forum ID
-$post = $queries->getWhere('posts', ['id', $_GET['pid']]);
+$post = DB::getInstance()->get('posts', ['id', $_GET['pid']])->results();
 if (!count($post)) {
     Redirect::to(URL::build('/forum'));
 }
@@ -39,8 +39,8 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 // Is it the OP?
                 if (isset($_POST['number']) && Input::get('number') == 10) {
 
-                    $queries->update('topics', Input::get('tid'), [
-                        'deleted' => 1
+                    DB::getInstance()->update('topics', Input::get('tid'), [
+                        'deleted' => true,
                     ]);
 
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
@@ -54,17 +54,17 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 $redirect = URL::build('/forum/search/', 'p=1&s=' . urlencode($_POST['search_string']));
             }
 
-            $queries->update('posts', Input::get('pid'), [
-                'deleted' => 1
+            DB::getInstance()->update('posts', Input::get('pid'), [
+                'deleted' => true,
             ]);
 
             if (isset($opening_post)) {
-                $posts = $queries->getWhere('posts', ['topic_id', $_POST['tid']]);
+                $posts = DB::getInstance()->get('posts', ['topic_id', $_POST['tid']])->results();
 
                 if (count($posts)) {
                     foreach ($posts as $post) {
-                        $queries->update('posts', $post->id, [
-                            'deleted' => 1
+                        DB::getInstance()->update('posts', $post->id, [
+                            'deleted' => true,
                         ]);
                         Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
                     }

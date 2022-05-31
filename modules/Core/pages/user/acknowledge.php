@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -22,11 +22,11 @@ if (!is_numeric($wid)) {
 }
 
 // Ensure warning belongs to user
-$warning = $queries->getWhere('infractions', ['id', $wid]);
+$warning = DB::getInstance()->get('infractions', ['id', $wid])->results();
 if (count($warning)) {
     if ($warning[0]->acknowledged == 0 && $warning[0]->punished == $user->data()->id) {
-        $queries->update('infractions', $warning[0]->id, [
-            'acknowledged' => 1
+        DB::getInstance()->update('infractions', $warning[0]->id, [
+            'acknowledged' => true,
         ]);
 
         Log::getInstance()->log(Log::Action('user/acknowledge'), $result);

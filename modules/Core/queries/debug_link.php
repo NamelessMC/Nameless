@@ -11,7 +11,7 @@ $namelessmc_fe_templates = [];
 $namelessmc_panel_templates = [];
 
 // Get all modules
-$modules = $queries->getWhere('modules', ['id', '<>', 0]);
+$modules = DB::getInstance()->get('modules', ['id', '<>', 0])->results();
 $enabled_modules = Module::getModules();
 
 foreach ($modules as $item) {
@@ -42,7 +42,7 @@ foreach ($modules as $item) {
     ];
 }
 
-$templates_query = $queries->getWhere('templates', ['id', '<>', 0]);
+$templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();
 foreach ($templates_query as $fe_template) {
     $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($fe_template->name), 'template.php']);
 
@@ -60,7 +60,7 @@ foreach ($templates_query as $fe_template) {
     ];
 }
 
-$panel_templates_query = $queries->getWhere('panel_templates', ['id', '<>', 0]);
+$panel_templates_query = DB::getInstance()->get('panel_templates', ['id', '<>', 0])->results();
 foreach ($panel_templates_query as $panel_template) {
 
     $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', Output::getClean($panel_template->name), 'template.php']);
@@ -150,7 +150,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
     ];
 }
 
-$namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
+$namelessmc_version = trim(Util::getSetting('nameless_version'));
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
@@ -171,15 +171,15 @@ $data = [
     'generated_by_uuid' => $uuid,
     'namelessmc' => [
         'version' => $namelessmc_version,
-        'update_available' => Util::getSetting(DB::getInstance(), 'version_update') != 'false',
-        'update_checked' => (int)Util::getSetting(DB::getInstance(), 'version_checked'),
+        'update_available' => Util::getSetting('version_update') != 'false',
+        'update_checked' => (int)Util::getSetting('version_checked'),
         'settings' => [
-            'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
-            'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
-            'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
-            'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
-            'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
-            'captcha_login' => Util::getSetting(DB::getInstance(), 'recaptcha_login') === 'false' ? false : true, // dont ask
+            'phpmailer' => (bool)Util::getSetting('phpmailer'),
+            'api_enabled' => (bool)Util::getSetting('use_api'),
+            'email_verification' => (bool)Util::getSetting('email_verification'),
+            'login_method' => Util::getSetting('login_method'),
+            'captcha_type' => Util::getSetting('recaptcha_type'),
+            'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [
@@ -188,15 +188,15 @@ $data = [
                 'hooks' => $webhooks,
                 'forum_hooks' => $forum_hooks,
             ],
+            'trusted_proxies' => Util::getTrustedProxies(),
         ],
         'groups' => $groups,
         'config' => [
             'core' => array_filter(
                 $GLOBALS['config']['core'],
-                static fn(string $key) => $key != 'hostname',
+                static fn(string $key) => $key != 'hostname' && $key != 'trustedProxies',
                 ARRAY_FILTER_USE_KEY
             ),
-            'allowedProxies' => $GLOBALS['config']['allowedProxies']
         ],
         'modules' => $namelessmc_modules,
         'templates' => [

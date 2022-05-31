@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr11
  *
@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (!isset($_GET['action'])) {
-    $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
+    $custom_pages = DB::getInstance()->get('custom_pages', ['id', '<>', 0])->results();
     $template_array = [];
 
     if (count($custom_pages)) {
@@ -52,7 +52,6 @@ if (!isset($_GET['action'])) {
     ]);
 
     $template_file = 'core/pages.tpl';
-
 } else {
     switch ($_GET['action']) {
         case 'new':
@@ -64,38 +63,41 @@ if (!isset($_GET['action'])) {
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
+                            // This doesn't cover all pages, but enough for an admin to be able to delete a custom page.
+                            Validate::NOT_START_WITH => ['/panel', '/login'],
                         ],
                         'content' => [
-                            Validate::MAX => 100000
+                            Validate::MAX => 100000,
                         ],
                         'link_location' => [
-                            Validate::REQUIRED => true
+                            Validate::REQUIRED => true,
                         ],
                         'redirect_link' => [
-                            Validate::MAX => 512
+                            Validate::MAX => 512,
                         ]
                     ])->messages([
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255'),
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255'),
+                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_nameless_path'),
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
-                            Validate::REQUIRED => $language->get('admin', 'link_location_required')
+                            Validate::REQUIRED => $language->get('admin', 'link_location_required'),
                         ],
-                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
+                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512'),
                     ]);
 
                     if ($validation->passed()) {
@@ -123,7 +125,7 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $queries->create('custom_pages', [
+                            DB::getInstance()->insert('custom_pages', [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
                                 'content' => Input::get('content'),
@@ -136,7 +138,7 @@ if (!isset($_GET['action'])) {
                                 'basic' => $basic,
                             ]);
 
-                            $last_id = $queries->getLastId();
+                            $last_id = DB::getInstance()->lastId();
 
                             // Permissions
                             $perms = [];
@@ -155,7 +157,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             foreach ($perms as $key => $perm) {
-                                $queries->create('custom_pages_permissions', [
+                                DB::getInstance()->insert('custom_pages_permissions', [
                                     'page_id' => $last_id,
                                     'group_id' => $key,
                                     'view' => $perm
@@ -228,7 +230,7 @@ if (!isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
-            $page = $queries->getWhere('custom_pages', ['id', $_GET['id']]);
+            $page = DB::getInstance()->get('custom_pages', ['id', $_GET['id']])->results();
             if (!count($page)) {
                 Redirect::to(URL::build('/panel/core/pages'));
             }
@@ -243,38 +245,41 @@ if (!isset($_GET['action'])) {
                         'page_title' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
                         ],
                         'page_url' => [
                             Validate::REQUIRED => true,
                             Validate::MIN => 2,
-                            Validate::MAX => 255
+                            Validate::MAX => 255,
+                            // This doesn't cover all pages, but enough for an admin to be able to delete a custom page.
+                            Validate::NOT_START_WITH => ['/panel', '/login'],
                         ],
                         'content' => [
-                            Validate::MAX => 100000
+                            Validate::MAX => 100000,
                         ],
                         'link_location' => [
-                            Validate::REQUIRED => true
+                            Validate::REQUIRED => true,
                         ],
                         'redirect_link' => [
-                            Validate::MAX => 512
+                            Validate::MAX => 512,
                         ]
                     ])->messages([
                         'page_title' => [
                             Validate::REQUIRED => $language->get('admin', 'page_title_required'),
                             Validate::MIN => $language->get('admin', 'page_title_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_title_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_title_maximum_255'),
                         ],
                         'page_url' => [
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
-                            Validate::MAX => $language->get('admin', 'page_url_maximum_255')
+                            Validate::MAX => $language->get('admin', 'page_url_maximum_255'),
+                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_nameless_path'),
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
-                            Validate::REQUIRED => $language->get('admin', 'link_location_required')
+                            Validate::REQUIRED => $language->get('admin', 'link_location_required'),
                         ],
-                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512')
+                        'redirect_link' => $language->get('admin', 'page_redirect_link_maximum_512'),
                     ]);
 
                     if ($validation->passed()) {
@@ -302,7 +307,7 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $queries->update('custom_pages', $page->id, [
+                            DB::getInstance()->update('custom_pages', $page->id, [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
                                 'content' => Input::get('content'),
@@ -316,7 +321,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             // Update all widget and announcement page arrays with the custom pages' new name
-                            $widget_query = $queries->getWhere('widgets', ['id', '<>', 0]);
+                            $widget_query = DB::getInstance()->get('widgets', ['id', '<>', 0])->results();
                             if (count($widget_query)) {
                                 foreach ($widget_query as $widget_row) {
                                     $pages = json_decode($widget_row->pages, true);
@@ -329,13 +334,13 @@ if (!isset($_GET['action'])) {
                                                 $new_pages[] = $widget_page;
                                             }
                                         }
-                                        $queries->update('widgets', $widget_row->id, [
+                                        DB::getInstance()->update('widgets', $widget_row->id, [
                                             'pages' => json_encode($new_pages)
                                         ]);
                                     }
                                 }
                             }
-                            $announcement_query = $queries->getWhere('custom_announcements', ['id', '<>', 0]);
+                            $announcement_query = DB::getInstance()->get('custom_announcements', ['id', '<>', 0])->results();
                             if (count($announcement_query)) {
                                 foreach ($announcement_query as $announcement_row) {
                                     $pages = json_decode($announcement_row->pages, true);
@@ -348,7 +353,7 @@ if (!isset($_GET['action'])) {
                                                 $new_pages[] = $announcement_page;
                                             }
                                         }
-                                        $queries->update('custom_announcements', $announcement_row->id, [
+                                        DB::getInstance()->update('custom_announcements', $announcement_row->id, [
                                             'pages' => json_encode($new_pages)
                                         ]);
                                     }
@@ -365,7 +370,7 @@ if (!isset($_GET['action'])) {
 
                             $page_perm_exists = 0;
 
-                            $page_perm_query = $queries->getWhere('custom_pages_permissions', ['page_id', $page->id]);
+                            $page_perm_query = DB::getInstance()->get('custom_pages_permissions', ['page_id', $page->id])->results();
                             if (count($page_perm_query)) {
                                 foreach ($page_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -379,11 +384,11 @@ if (!isset($_GET['action'])) {
                             try {
                                 if ($page_perm_exists != 0) { // Permission already exists, update
                                     // Update the category
-                                    $queries->update('custom_pages_permissions', $update_id, [
+                                    DB::getInstance()->update('custom_pages_permissions', $update_id, [
                                         'view' => $view
                                     ]);
                                 } else { // Permission doesn't exist, create
-                                    $queries->create('custom_pages_permissions', [
+                                    DB::getInstance()->insert('custom_pages_permissions', [
                                         'group_id' => 0,
                                         'page_id' => $page->id,
                                         'view' => $view
@@ -417,11 +422,11 @@ if (!isset($_GET['action'])) {
                                 try {
                                     if ($page_perm_exists != 0) { // Permission already exists, update
                                         // Update the category
-                                        $queries->update('custom_pages_permissions', $update_id, [
+                                        DB::getInstance()->update('custom_pages_permissions', $update_id, [
                                             'view' => $view
                                         ]);
                                     } else { // Permission doesn't exist, create
-                                        $queries->create('custom_pages_permissions', [
+                                        DB::getInstance()->insert('custom_pages_permissions', [
                                             'group_id' => $group->id,
                                             'page_id' => $page->id,
                                             'view' => $view
@@ -518,8 +523,8 @@ if (!isset($_GET['action'])) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 
-                        $queries->delete('custom_pages', ['id', $_POST['id']]);
-                        $queries->delete('custom_pages_permissions', ['page_id', $_POST['id']]);
+                        DB::getInstance()->delete('custom_pages', ['id', $_POST['id']]);
+                        DB::getInstance()->delete('custom_pages_permissions', ['page_id', $_POST['id']]);
 
                         Session::flash('admin_pages', $language->get('admin', 'page_deleted_successfully'));
                     }

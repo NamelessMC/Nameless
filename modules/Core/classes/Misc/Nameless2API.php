@@ -13,6 +13,16 @@ class Nameless2API {
     private DB $_db;
     private Language $_language;
 
+    public const ERROR_API_DISABLED = 'nameless:api_is_disabled';
+    public const ERROR_UNKNOWN_ERROR = 'nameless:unknown_error';
+    public const ERROR_NOT_AUTHORIZED = 'nameless:not_authorized';
+    public const ERROR_INVALID_API_KEY = 'nameless:invalid_api_key';
+    public const ERROR_INVALID_API_METHOD = 'nameless:invalid_api_method';
+    public const ERROR_CANNOT_FIND_USER = 'nameless:cannot_find_user';
+    public const ERROR_INVALID_POST_CONTENTS = 'nameless:invalid_post_contents';
+    public const ERROR_INVALID_GET_CONTENTS = 'nameless:invalid_get_contents';
+    public const ERROR_NO_SITE_UID = 'nameless:no_site_uid';
+
     /**
      * Create an instance of the API class and forward the request to the Endpoints class.
      *
@@ -23,6 +33,12 @@ class Nameless2API {
     public function __construct(string $route, Language $api_language, Endpoints $endpoints) {
         try {
             $this->_db = DB::getInstance();
+
+            // Ensure API is actually enabled
+            if (!Util::getSetting('use_api')) {
+                $this->throwError(self::ERROR_API_DISABLED);
+            }
+
             $this->_language = $api_language;
 
             $route = explode('/', $route);
@@ -38,31 +54,23 @@ class Nameless2API {
             );
 
         } catch (Exception $e) {
-            $this->throwError(0, $this->_language->get('api', 'unknown_error'), $e->getMessage());
+            $this->throwError(self::ERROR_UNKNOWN_ERROR, $e->getMessage());
         }
     }
 
     /**
      * Throw an error to the client
      *
-     * @param mixed $code The error code
-     * @param mixed $message The error message
+     * @param string $error The namespaced error code
      * @param mixed $meta Any additional data to return
      * @param int $status HTTP status code
      * @return never
      */
-    public function throwError($code = null, $message = null, $meta = null, int $status = 400): void {
-        http_response_code($status);
-
-        if ($code && $message) {
-            die(self::encodeJson(
-                ['error' => true, 'code' => $code, 'message' => $message, 'meta' => $meta]
-            ));
-        }
-
-        die(self::encodeJson(
-            ['error' => true, 'code' => 0, 'message' => $this->_language->get('api', 'unknown_error'), 'meta' => $meta]
-        ));
+    public function throwError(string $error, $meta = null, int $status = 400): void {
+        $this->returnArray(
+            array_merge(['error' => $error], $meta ? ['meta' => $meta] : []),
+            $status
+        );
     }
 
     /**
@@ -83,7 +91,7 @@ class Nameless2API {
         $user = new User(Output::getClean($value), Output::getClean($column));
 
         if (!$user->exists()) {
-            $this->throwError(16, $this->getLanguage()->get('api', 'unable_to_find_user'));
+            $this->throwError(self::ERROR_CANNOT_FIND_USER);
         }
 
         return $user;
@@ -99,20 +107,14 @@ class Nameless2API {
     /**
      * Return an array of data to the client.
      *
-     * @param mixed $arr Array of data to be returned
+     * @param array $array Array of data to be returned
      * @param int $status HTTP status code
      * @return never
      */
-    public function returnArray($arr = null, int $status = 200): void {
-        if (!$arr) {
-            $arr = [];
-        }
-
-        $arr['error'] = false;
-
+    public function returnArray(array $array, int $status = 200): void {
         http_response_code($status);
 
-        die(self::encodeJson($arr));
+        die(self::encodeJson($array));
     }
 
     /**
@@ -123,13 +125,18 @@ class Nameless2API {
      * @param string $type Whether to check `post` or `get` input
      * @return bool True if the input is valid, false if not
      */
-    public function validateParams(array $input, array $required_fields, string $type = 'post'): bool {
+    public function validateParams(?array $input, array $required_fields, string $type = 'post'): bool {
+        $error = $type === 'post'
+            ? self::ERROR_INVALID_POST_CONTENTS
+            : self::ERROR_INVALID_GET_CONTENTS;
+
         if (empty($input)) {
-            $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'));
+            $this->throwError($error);
         }
+
         foreach ($required_fields as $required) {
             if (empty($input[$required])) {
-                $this->throwError(6, $this->_language->get('api', 'invalid_' . $type . '_contents'), ['field' => $required]);
+                $this->throwError($error, ['field' => $required]);
             }
         }
         return true;

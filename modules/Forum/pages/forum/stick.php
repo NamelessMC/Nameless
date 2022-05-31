@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -28,7 +28,7 @@ if (isset($_GET['tid'])) {
 }
 
 // Check topic exists and get forum ID
-$topic = $queries->getWhere('topics', ['id', $topic_id]);
+$topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 
 if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
@@ -51,7 +51,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         $status = $forum_language->get('forum', 'topic_unstuck');
     }
 
-    $queries->update('topics', $topic_id, [
+    DB::getInstance()->update('topics', $topic_id, [
         'sticky' => $sticky
     ]);
 

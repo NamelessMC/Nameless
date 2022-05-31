@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -28,7 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            $queries->update('settings', ['name', 'authme'], [
+            DB::getInstance()->update('settings', ['name', 'authme'], [
                 'value' => Input::get('enable_authme')
             ]);
 
@@ -53,7 +53,7 @@ if (Input::exists()) {
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if ($validation->passed()) {
-                $authme_db = $queries->getWhere('settings', ['name', 'authme_db']);
+                $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
                 $authme_db_id = $authme_db[0]->id;
                 $authme_db = json_decode($authme_db[0]->value);
 
@@ -81,7 +81,7 @@ if (Input::exists()) {
                 $cache->setCache('authme_cache');
                 $cache->store('authme', $result);
 
-                $queries->update('settings', $authme_db_id, [
+                DB::getInstance()->update('settings', $authme_db_id, [
                     'value' => json_encode($result)
                 ]);
 
@@ -114,12 +114,12 @@ if (isset($errors) && count($errors)) {
 }
 
 // Is Authme enabled?
-$authme_enabled = $queries->getWhere('settings', ['name', 'authme']);
+$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
 $authme_enabled = $authme_enabled[0]->value;
 
 if ($authme_enabled == '1') {
     // Retrieve Authme database details
-    $authme_db = $queries->getWhere('settings', ['name', 'authme_db']);
+    $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
     $authme_db = json_decode($authme_db[0]->value);
 
     $smarty->assign([

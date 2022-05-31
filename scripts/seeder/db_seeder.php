@@ -13,6 +13,12 @@ $classes = [
     'MinecraftServerSeeder.php',
     'MinecraftPlaceholderSeeder.php',
     'MinecraftPlaceholderDataSeeder.php',
+    'ProfileFieldsSeeder.php',
+    'ProfileFieldsDataSeeder.php',
+    'ForumCategorySeeder.php',
+    'ForumSubforumSeeder.php',
+    'ForumTopicSeeder.php',
+    'ForumPostSeeder.php',
 ];
 
 foreach ($classes as $class) {
@@ -20,27 +26,22 @@ foreach ($classes as $class) {
 }
 
 /** @var Seeder[] $seeders */
-$seeders = [
-    new UserSeeder,
-    new UserProfilePostSeeder,
-    new MinecraftServerSeeder,
-    new MinecraftPlaceholderSeeder,
-    new MinecraftPlaceholderDataSeeder,
-];
+$seeders = array_map(static function (string $class) {
+    return new (explode('.', $class)[0]);
+}, array_slice($classes, 1));
 
 $faker = Faker\Factory::create();
 
-$db = DB_Custom::getInstance(
+$db = DB::getCustomInstance(
     $conf['mysql']['host'],
     $conf['mysql']['db'],
     $conf['mysql']['username'],
     $conf['mysql']['password'],
-    3306,
-    'nl2_'
+    3306
 );
 
 $wipe = false;
-if (isset($argv[1]) && $argv[1] === '--wipe') {
+if (isset($argv[1]) && $argv[1] === 'wipe') {
     $wipe = true;
     print('🧨 Wipe mode enabled!' . PHP_EOL);
 }
@@ -51,6 +52,7 @@ if (!$wipe && $db->get('users', ['id', '>', 0])->count() > 0) {
 }
 
 if ($wipe) {
+    $db->query('SET FOREIGN_KEY_CHECKS = 0');
     foreach ($seeders as $seeder) {
         foreach ($seeder->tables as $table) {
             $db->query("TRUNCATE {$table}");

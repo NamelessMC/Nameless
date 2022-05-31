@@ -4,7 +4,7 @@ abstract class Seeder {
 
     public array $tables;
 
-    public function seed(DB_Custom $db, \Faker\Generator $faker): void {
+    public function seed(DB $db, \Faker\Generator $faker): void {
         print '🌱 Seeding ' . get_class($this) . '...' . PHP_EOL;
         $start = microtime(true);
 
@@ -13,7 +13,7 @@ abstract class Seeder {
         print '🌲 ' . get_class($this) . ' complete! (' . round((microtime(true) - $start), 2) . 's)' . PHP_EOL;
     }
 
-    abstract protected function run(DB_Custom $db, \Faker\Generator $faker): void;
+    abstract protected function run(DB $db, \Faker\Generator $faker): void;
 
     protected function times(int $count, Closure $factory): void {
         for ($i = 0; $i < $count; $i++) {

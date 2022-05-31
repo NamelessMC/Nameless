@@ -87,7 +87,7 @@ abstract class IntegrationBase {
     }
 
     /**
-     * Add a error to the errors array
+     * Add an error to the errors array
      *
      * @param string $error The error message
      */
@@ -111,6 +111,15 @@ abstract class IntegrationBase {
      */
     public function getLanguage(): Language {
         return $this->_language;
+    }
+
+    /**
+     * Should we allow linking with this integration?
+     *
+     * @return bool Whether to allow linking with this integration
+     */
+    public function allowLinking(): bool {
+        return true;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -20,7 +20,7 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
     );
 
     if (isset($sent['error'])) {
-        $queries->create('email_errors', [
+        DB::getInstance()->insert('email_errors', [
             'type' => Email::REGISTRATION,
             'content' => $sent['error'],
             'at' => date('U'),

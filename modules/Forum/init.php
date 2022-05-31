@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -16,7 +16,7 @@ if (!$module_installed) {
     // Hasn't been installed
     // Need to run the installer
 
-    $exists = $queries->tableExists('forums');
+    $exists = DB::getInstance()->showTables('forums');
     if (empty($exists)) {
         die('Run the installer first!');
     }

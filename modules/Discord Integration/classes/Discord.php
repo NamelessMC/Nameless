@@ -56,14 +56,13 @@ class Discord {
             return false;
         }
 
-        $added_arr = self::assembleGroupArray($added, 'add');
-        $removed_arr = self::assembleGroupArray($removed, 'remove');
+        $changed_arr = array_merge(self::assembleGroupArray($added, 'add'), self::assembleGroupArray($removed, 'remove'));
 
-        if (!count($added_arr) && !count($removed_arr)) {
+        if (!count($changed_arr)) {
             return false;
         }
 
-        $json = self::assembleJson($integrationUser->data()->identifier, $added_arr, $removed_arr);
+        $json = self::assembleJson($integrationUser->data()->identifier, $changed_arr);
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -79,7 +78,7 @@ class Discord {
         $errors = self::parseErrors($result);
 
         foreach ($errors as $error) {
-            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user->data()->id, $user->getIP());
+            Log::getInstance()->log(Log::Action('discord/role_set'), $error, $user->data()->id, Util::getRemoteAddress());
         }
 
         return false;
@@ -89,28 +88,22 @@ class Discord {
      * @return bool Whether the Discord bot is set up properly
      */
     public static function isBotSetup(): bool {
-        return self::$_is_bot_setup ??= Util::getSetting(DB::getInstance(), 'discord_integration');
+        return self::$_is_bot_setup ??= Util::getSetting('discord_integration');
     }
 
     /**
      * Create a JSON object to send to the Discord bot.
      *
-     * @param array $groups Array of Discord role IDs to add or remove
+     * @param array $role_ids Array of Discord role IDs to add or remove
      * @param string $action Whether to 'add' or 'remove' the groups
      * @return array Assembled array of Discord role IDs and their action
      */
-    private static function assembleGroupArray(array $groups, string $action): array {
+    private static function assembleGroupArray(array $role_ids, string $action): array {
         $return = [];
 
-        foreach ($groups as $group) {
-            $discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
-
-            if ($discord_id == null) {
-                continue;
-            }
-
+        foreach ($role_ids as $role_id) {
             $return[] = [
-                'id' => $discord_id,
+                'id' => $role_id,
                 'action' => $action
             ];
         }
@@ -140,17 +133,16 @@ class Discord {
      * Create a JSON objec to send to the Discord bot.
      *
      * @param int $user_id Discord user ID to affect
-     * @param array $added_arr Array of Discord role IDs to add (compiled with `assembleGroupArray`)
-     * @param array $removed_arr Array of Discord role IDs to remove (compiled with `assembleGroupArray`)
+     * @param array $change_arr Array of Discord role IDs to add or remove (compiled with `assembleGroupArray`)
      * @return string JSON object to send to the Discord bot
      */
-    private static function assembleJson(int $user_id, array $added_arr, array $removed_arr): string {
+    private static function assembleJson(int $user_id, array $change_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
             'guild_id' => trim(self::getGuildId()),
             'user_id' => $user_id,
-            'api_key' => trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key'))),
-            'roles' => array_merge($added_arr, $removed_arr),
+            'api_key' => trim(Util::getSetting('mc_api_key')),
+            'roles' => $change_arr,
         ]);
     }
 
@@ -159,7 +151,7 @@ class Discord {
      */
     public static function getGuildId(): ?int {
         if (!isset(self::$_guild_id)) {
-            self::$_guild_id = Util::getSetting(DB::getInstance(), 'discord');
+            self::$_guild_id = Util::getSetting('discord');
         }
 
         return self::$_guild_id;

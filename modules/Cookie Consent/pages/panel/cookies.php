@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -35,15 +35,15 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             try {
-                $cookie_id = $queries->getWhere('privacy_terms', ['name', 'cookies']);
+                $cookie_id = DB::getInstance()->get('privacy_terms', ['name', 'cookies'])->results();
                 if (count($cookie_id)) {
                     $cookie_id = $cookie_id[0]->id;
 
-                    $queries->update('privacy_terms', $cookie_id, [
+                    DB::getInstance()->update('privacy_terms', $cookie_id, [
                         'value' => Input::get('cookies')
                     ]);
                 } else {
-                    $queries->create('privacy_terms', [
+                    DB::getInstance()->insert('privacy_terms', [
                         'name' => 'cookies',
                         'value' => Input::get('cookies')
                     ]);

@@ -57,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $queries = new Queries();
 
-            $default_language = $queries->getWhere('languages', ['is_default', true]);
+            $default_language = DB::getInstance()->get('languages', ['is_default', true])->results();
 
-            $ip = $user->getIP();
+            $ip = Util::getRemoteAddress();
 
             $user->create([
                 'username' => Input::get('username'),
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'joined' => date('U'),
                 'email' => Input::get('email'),
                 'lastip' => $ip,
-                'active' => 1,
+                'active' => true,
                 'last_online' => date('U'),
                 'language_id' => $default_language[0]->id,
             ]);
@@ -80,16 +80,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (isset($result['uuid']) && !empty($result['uuid'])) {
                     $uuid = $result['uuid'];
 
-                    $queries->create('users_integrations', [
+                    DB::getInstance()->insert('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => 1,
                         'identifier' => $uuid,
                         'username' => Input::get('username'),
-                        'verified' => 1,
+                        'verified' => true,
                         'date' => date('U'),
                     ]);
                 }
             }
+
+            DatabaseInitialiser::runPostUser();
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
             if ($login) {
@@ -99,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Redirect::to('?step=conversion');
             }
 
-            $queries->delete('users', ['id', 1]);
+            DB::getInstance()->delete('users', ['id', 1]);
             display_error($language->get('installer', 'unable_to_login'));
         } catch (Exception $e) {
             display_error($language->get('installer', 'unable_to_create_account') . ': ' . $e->getMessage());

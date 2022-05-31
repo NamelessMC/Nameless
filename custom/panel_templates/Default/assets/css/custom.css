@@ -312,39 +312,7 @@ body {
 /* --------------- Sidebar --------------- */
 
 .sidebar {
-    position: fixed;
-    height: 100vh;
     z-index: 999;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.sidebar.toggled {
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-width: thin;
-}
-
-.sidebar::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.sidebar::-webkit-scrollbar {
-    width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 6px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.35);
-}
-
-#content-wrapper {
-    min-height: 100vh;
-    margin-left: 6.5rem !important;
 }
 
 @media (min-width: 768px) {
@@ -354,21 +322,12 @@ body {
 
     .sidebar.toggled {
         width: 7rem !important;
-        overflow-y: scroll;
         scrollbar-width: thin;
-    }
-
-    #content-wrapper {
-        margin-left: 17rem !important;
     }
 
     .sidebar .nav-item .nav-link {
         width: 16.5rem;
         padding: .70rem 1rem;
-    }
-
-    .sidebar.toggled+#content-wrapper {
-        margin-left: 6.5rem !important;
     }
 
     .sidebar .nav-item .nav-link span {

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -25,7 +25,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 if (!isset($_GET['action'])) {
     // Get all modules
-    $modules = $queries->getWhere('modules', ['id', '<>', 0]);
+    $modules = DB::getInstance()->get('modules', ['id', '<>', 0])->results();
     $enabled_modules = Module::getModules();
 
     $template_array = [];
@@ -144,7 +144,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get module name
-            $name = $queries->getWhere('modules', ['id', $_GET['m']]);
+            $name = DB::getInstance()->get('modules', ['id', $_GET['m']])->results();
             if (!count($name)) {
                 Redirect::to(URL::build('/panel/modules'));
             }
@@ -182,8 +182,8 @@ if (!isset($_GET['action'])) {
                     // Store
                     $cache->store('enabled_modules', $modules);
 
-                    $queries->update('modules', $_GET['m'], [
-                        'enabled' => 1
+                    DB::getInstance()->update('modules', $_GET['m'], [
+                        'enabled' => true,
                     ]);
                     Session::flash('admin_modules', $language->get('admin', 'module_enabled'));
                 } else {
@@ -220,7 +220,7 @@ if (!isset($_GET['action'])) {
 
         if (Token::check($_POST['token'])) {
             // Get module name
-            $name = $queries->getWhere('modules', ['id', $_GET['m']]);
+            $name = DB::getInstance()->get('modules', ['id', $_GET['m']])->results();
             $name = Output::getClean($name[0]->name);
 
             foreach (Module::getModules() as $item) {
@@ -231,8 +231,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $queries->update('modules', $_GET['m'], [
-                'enabled' => 0
+            DB::getInstance()->update('modules', $_GET['m'], [
+                'enabled' => false,
             ]);
 
             // Cache
@@ -278,7 +278,7 @@ if (!isset($_GET['action'])) {
                 $folders = explode('/', $directory);
 
                 if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
-                    $exists = $queries->getWhere('modules', ['name', $folders[count($folders) - 1]]);
+                    $exists = DB::getInstance()->get('modules', ['name', $folders[count($folders) - 1]])->results();
 
                     if (!count($exists)) {
                         $module = null;
@@ -287,7 +287,7 @@ if (!isset($_GET['action'])) {
 
                         /** @phpstan-ignore-next-line */
                         if ($module instanceof Module) {
-                            $queries->create('modules', [
+                            DB::getInstance()->insert('modules', [
                                 'name' => $folders[count($folders) - 1]
                             ]);
                             $module->onInstall();

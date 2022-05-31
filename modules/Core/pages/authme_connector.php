@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -13,7 +13,7 @@ $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Ensure AuthMe is enabled
-$authme_enabled = $queries->getWhere('settings', ['name', 'authme']);
+$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
 $authme_enabled = $authme_enabled[0]->value;
 
 // Use recaptcha?
@@ -31,7 +31,7 @@ if (Input::exists()) {
             }
 
             // Are custom usernames enabled?
-            $custom_usernames = $queries->getWhere('settings', ['name', 'displaynames']);
+            $custom_usernames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
             $custom_usernames = $custom_usernames[0]->value;
 
             if ($custom_usernames == 'true') {
@@ -81,17 +81,17 @@ if (Input::exists()) {
                 $authme_hash = $cache->retrieve('authme');
 
                 // Get default language ID before creating user
-                $language_id = $queries->getWhere('languages', ['short_code', LANGUAGE]);
+                $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE])->results();
 
                 if (count($language_id)) {
                     $language_id = $language_id[0]->id;
                 } else {
                     // fallback to EnglishUK
-                    $language_id = $queries->getWhere('languages', ['short_code', 'en_UK']);
+                    $language_id = DB::getInstance()->get('languages', ['short_code', 'en_UK'])->results();
                     $language_id = $language_id[0]->id;
                 }
 
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
                 if (filter_var($ip, FILTER_VALIDATE_IP)) {
                     // Valid IP
                 } else {
@@ -123,7 +123,7 @@ if (Input::exists()) {
                         if ($cache->isCached('default_group')) {
                             $default_group = $cache->retrieve('default_group');
                         } else {
-                            $default_group = $queries->getWhere('groups', ['default_group', true]);
+                            $default_group = DB::getInstance()->get('groups', ['default_group', true])->results();
                             if (!count($default_group)) {
                                 $default_group = 1;
                             } else {
@@ -141,13 +141,13 @@ if (Input::exists()) {
                             'joined' => date('U'),
                             'email' => Output::getClean(Input::get('email')),
                             'lastip' => $ip,
-                            'active' => 1,
+                            'active' => true,
                             'last_online' => date('U'),
                             'language_id' => $language_id
                         ]);
 
                         // Get user ID
-                        $user_id = $queries->getLastId();
+                        $user_id = DB::getInstance()->lastId();
 
                         $user = new User($user_id);
                         $user->addGroup($default_group);
@@ -370,7 +370,7 @@ if (!isset($_GET['step'])) {
 } else {
     // Step 2
     // Are custom usernames enabled?
-    $custom_usernames = $queries->getWhere('settings', ['name', 'displaynames']);
+    $custom_usernames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
     $custom_usernames = $custom_usernames[0]->value;
 
     if ($custom_usernames == 'true') {

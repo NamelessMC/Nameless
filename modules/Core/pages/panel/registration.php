@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -30,7 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            $queries->update('settings', ['name', 'registration_enabled'], [
+            DB::getInstance()->update('settings', ['name', 'registration_enabled'], [
                 'value' => Input::get('enable_registration')
             ]);
         } else {
@@ -38,11 +38,17 @@ if (Input::exists()) {
 
             if (Input::get('action') == 'oauth') {
 
-                OAuth::getInstance()->setEnabled('discord', Input::get('enable-discord') == 'on' ? 1 : 0);
-                OAuth::getInstance()->setCredentials('discord', Input::get('client-id-discord'), Input::get('client-secret-discord'));
+                foreach (array_keys(OAuth::getInstance()->getProviders()) as $provider_name) {
+                    $client_id = Input::get("client-id-{$provider_name}");
+                    $client_secret = Input::get("client-secret-{$provider_name}");
+                    if ($client_id && $client_secret) {
+                        OAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
+                    } else {
+                        OAuth::getInstance()->setEnabled($provider_name, 0);
+                    }
 
-                OAuth::getInstance()->setEnabled('google', Input::get('enable-google') == 'on' ? 1 : 0);
-                OAuth::getInstance()->setCredentials('google', Input::get('client-id-google'), Input::get('client-secret-google'));
+                    OAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
+                }
 
             } else {
                 // Email verification
@@ -50,14 +56,14 @@ if (Input::exists()) {
                 $configuration->set('Core', 'email_verification', $verification);
 
                 // Registration disabled message
-                $queries->update('settings', ['name', 'registration_disabled_message'], [
+                DB::getInstance()->update('settings', ['name', 'registration_disabled_message'], [
                     'value' => Output::getClean(Input::get('message'))
                 ]);
 
                 // reCAPTCHA type
-                $captcha_type = $queries->getWhere('settings', ['name', 'recaptcha_type']);
+                $captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
                 if (!count($captcha_type)) {
-                    $queries->create('settings', [
+                    DB::getInstance()->insert('settings', [
                         'name' => 'recaptcha_type',
                         'value' => Input::get('captcha_type')
                     ]);
@@ -91,7 +97,7 @@ if (Input::exists()) {
                         }
 
 
-                        $queries->update('settings', ['name', 'recaptcha'], [
+                        DB::getInstance()->update('settings', ['name', 'recaptcha'], [
                             'value' => $captcha
                         ]);
 
@@ -102,7 +108,7 @@ if (Input::exists()) {
                             $captcha = 'false';
                         }
 
-                        $queries->update('settings', ['name', 'recaptcha_login'], [
+                        DB::getInstance()->update('settings', ['name', 'recaptcha_login'], [
                             'value' => $captcha
                         ]);
 
@@ -135,7 +141,7 @@ if (Input::exists()) {
                 }
 
                 // Validation group
-                $validation_group_id = $queries->getWhere('settings', ['name', 'validate_user_action']);
+                $validation_group_id = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
                 $validation_action = $validation_group_id[0]->value;
                 $validation_action = json_decode($validation_action, true);
                 $validation_action = $validation_action['action'] ?? 'promote';
@@ -144,7 +150,7 @@ if (Input::exists()) {
                 $new_value = json_encode(['action' => $validation_action, 'group' => $_POST['promote_group']]);
 
                 try {
-                    $queries->update('settings', $validation_group_id, [
+                    DB::getInstance()->update('settings', $validation_group_id, [
                         'value' => $new_value
                     ]);
                 } catch (Exception $e) {
@@ -183,22 +189,22 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if registration is enabled
-$registration_enabled = $queries->getWhere('settings', ['name', 'registration_enabled']);
+$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
 $registration_enabled = $registration_enabled[0]->value;
 
 // Is email verification enabled
 $emails = $configuration->get('Core', 'email_verification');
 
 // Recaptcha
-$captcha_id = $queries->getWhere('settings', ['name', 'recaptcha']);
-$captcha_login = $queries->getWhere('settings', ['name', 'recaptcha_login']);
-$captcha_type = $queries->getWhere('settings', ['name', 'recaptcha_type']);
-$captcha_key = $queries->getWhere('settings', ['name', 'recaptcha_key']);
-$captcha_secret = $queries->getWhere('settings', ['name', 'recaptcha_secret']);
-$registration_disabled_message = $queries->getWhere('settings', ['name', 'registration_disabled_message']);
+$captcha_id = DB::getInstance()->get('settings', ['name', 'recaptcha'])->results();
+$captcha_login = DB::getInstance()->get('settings', ['name', 'recaptcha_login'])->results();
+$captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
+$captcha_key = DB::getInstance()->get('settings', ['name', 'recaptcha_key'])->results();
+$captcha_secret = DB::getInstance()->get('settings', ['name', 'recaptcha_secret'])->results();
+$registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
 
 // Validation group
-$validation_group = $queries->getWhere('settings', ['name', 'validate_user_action']);
+$validation_group = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
 $validation_group = $validation_group['group'] ?? 1;
@@ -212,6 +218,18 @@ foreach ($all_captcha_options as $option) {
     $captcha_options[] = [
         'value' => $option->getName(),
         'active' => $option->getName() == $active_option_name
+    ];
+}
+
+$oauth_provider_data = [];
+foreach (OAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
+    [$client_id, $client_secret] = OAuth::getInstance()->getCredentials($provider_name);
+    $oauth_provider_data[$provider_name] = [
+        'enabled' => OAuth::getInstance()->isEnabled($provider_name),
+        'setup' => OAuth::getInstance()->isSetup($provider_name),
+        'icon' => $provider_data['icon'],
+        'client_id' => $client_id,
+        'client_secret' => $client_secret,
     ];
 }
 
@@ -233,7 +251,7 @@ $smarty->assign([
     'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),
-    'GROUPS' => $queries->getWhere('groups', ['staff', 0]),
+    'GROUPS' => DB::getInstance()->get('groups', ['staff', 0])->results(),
     'VALIDATION_GROUP' => $validation_group,
     'CAPTCHA_OPTIONS' => $captcha_options,
     'OAUTH' => $language->get('admin', 'oauth'),
@@ -241,26 +259,6 @@ $smarty->assign([
         'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
         'docLinkEnd' => '</a>'
     ]),
-]);
-
-[$discord_client_id, $discord_client_secret] = OAuth::getInstance()->getCredentials(OAuth::DISCORD);
-[$google_client_id, $google_client_secret] = OAuth::getInstance()->getCredentials(OAuth::GOOGLE);
-
-$smarty->assign([
-    'DISCORD_OAUTH_ENABLED' => OAuth::getInstance()->isEnabled(OAuth::DISCORD),
-    'GOOGLE_OAUTH_ENABLED' => OAuth::getInstance()->isEnabled(OAuth::GOOGLE),
-
-    'DISCORD_OAUTH_SETUP' => OAuth::getInstance()->isSetup(OAuth::DISCORD),
-    'GOOGLE_OAUTH_SETUP' => OAuth::getInstance()->isSetup(OAuth::GOOGLE),
-
-    'DISCORD_CLIENT_ID' => $discord_client_id,
-    'DISCORD_CLIENT_SECRET' => $discord_client_secret,
-
-    'GOOGLE_CLIENT_ID' => $google_client_id,
-    'GOOGLE_CLIENT_SECRET' => $google_client_secret,
-]);
-
-$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -269,7 +267,8 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_REGISTRATION' => $language->get('admin', 'enable_registration'),
-    'REGISTRATION_ENABLED' => $registration_enabled
+    'REGISTRATION_ENABLED' => $registration_enabled,
+    'OAUTH_PROVIDER_DATA' => $oauth_provider_data,
 ]);
 
 $template->onPageLoad();

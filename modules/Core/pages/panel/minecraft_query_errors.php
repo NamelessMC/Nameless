@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -23,12 +23,12 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['id'])) {
     if (isset($_GET['action']) && $_GET['action'] == 'purge') {
-        $queries->delete('query_errors', ['id', '<>', 0]);
+        DB::getInstance()->delete('query_errors', ['id', '<>', 0]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
 
-    $query_errors = $queries->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC');
+    $query_errors = DB::getInstance()->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC')->results();
     if (count($query_errors)) {
         // Get page
         if (isset($_GET['p'])) {
@@ -77,14 +77,14 @@ if (!isset($_GET['id'])) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
 
-    $query_error = $queries->getWhere('query_errors', ['id', $_GET['id']]);
+    $query_error = DB::getInstance()->get('query_errors', ['id', $_GET['id']])->results();
     if (!count($query_error)) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
     $query_error = $query_error[0];
 
     if ($_GET['action'] == 'delete') {
-        $queries->delete('query_errors', ['id', $_GET['id']]);
+        DB::getInstance()->delete('query_errors', ['id', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr0
  *
@@ -27,7 +27,7 @@ $page_title = $language->get('admin', 'server_banners');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['server']) && !isset($_GET['edit'])) {
-    $servers = $queries->getWhere('mc_servers', ['id', '<>', 0]);
+    $servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();
     if (count($servers)) {
         $template_array = [];
 
@@ -55,7 +55,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     if (isset($_GET['server'])) {
         // View
         // Get server
-        $server = $queries->getWhere('mc_servers', ['id', $_GET['server']]);
+        $server = DB::getInstance()->get('mc_servers', ['id', $_GET['server']])->results();
         if (!count($server)) {
             Redirect::to(URL::build('/panel/minecraft/banners'));
         }
@@ -74,7 +74,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     } else {
         // Edit
         // Get server
-        $server = $queries->getWhere('mc_servers', ['id', $_GET['edit']]);
+        $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
         if (!count($server)) {
             Redirect::to(URL::build('/panel/minecraft/banners'));
         }
@@ -85,7 +85,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
                 // Valid token
                 try {
                     if (file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))) {
-                        $queries->update('mc_servers', $_GET['edit'], [
+                        DB::getInstance()->update('mc_servers', $_GET['edit'], [
                             'banner_background' => Output::getClean(Input::get('banner'))
                         ]);
 
@@ -102,7 +102,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             }
 
             // Re-query
-            $server = $queries->getWhere('mc_servers', ['id', $_GET['edit']]);
+            $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
         }
 
         $server = $server[0];

@@ -60,7 +60,7 @@
     "forum/guests": "Visitante",
     "forum/has_no_parent": "Nenhuma referência",
     "forum/in": "em",
-    "forum/include_in_hook": "Incluir novos tópicos deste fórum nas webhooks?",
+    "forum/include_in_hook": "Incluir eventos deste fórum em webhooks?",
     "forum/input_forum_description": "Por favor, insira uma descrição do fórum.",
     "forum/input_forum_title": "Por favor, insira um título do fórum.",
     "forum/insert_quotes": "Insert Quotes",
@@ -186,5 +186,8 @@
     "forum/pre_topic_create_hook_info": "Pré-tópico criado",
     "forum/pre_topic_edit_hook_info": "Editar pré-tópico",
     "forum/topic_id": "ID do tópico",
-    "forum/user_object": "Objeto do usuário"
+    "forum/user_object": "Objeto do usuário",
+    "forum/topic_reply": "Resposta do tópico",
+    "forum/new_topic_reply_text": "Resposta do tópico criada em {{forum}} por {{author}}",
+    "forum/topic_author_username": "Nome de usuário do autor do tópico"
 }

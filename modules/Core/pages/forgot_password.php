@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -43,7 +43,7 @@ if (!isset($_GET['c'])) {
                     );
 
                     if (isset($sent['error'])) {
-                        $queries->create('email_errors', [
+                        DB::getInstance()->insert('email_errors', [
                             'type' => Email::FORGOT_PASSWORD,
                             'content' => $sent['error'],
                             'at' => date('U'),

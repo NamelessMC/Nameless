@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -22,13 +22,14 @@ $page_title = $forum_language->get('forum', 'labels');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['action'])) {
+    $db = DB::getInstance();
     // Topic labels
-    $topic_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
+    $topic_labels = $db->get('forums_topic_labels', ['id', '<>', 0])->results();
     $template_array = [];
 
     if (count($topic_labels)) {
         foreach ($topic_labels as $topic_label) {
-            $label_type = $queries->getWhere('forums_labels', ['id', $topic_label->label]);
+            $label_type = $db->get('forums_labels', ['id', $topic_label->label])->results();
             if (!count($label_type)) {
                 $label_type = 0;
             } else {
@@ -39,7 +40,7 @@ if (!isset($_GET['action'])) {
             $enabled_forums = explode(',', $topic_label->fids);
             $forums_string = '';
             foreach ($enabled_forums as $item) {
-                $forum_name = $queries->getWhere('forums', ['id', $item]);
+                $forum_name = $db->get('forums', ['id', $item])->results();
                 if (count($forum_name)) {
                     $forums_string .= Output::getClean($forum_name[0]->forum_title) . ', ';
                 } else {
@@ -116,7 +117,7 @@ if (!isset($_GET['action'])) {
                         $group_string = rtrim($group_string, ',');
 
                         try {
-                            $queries->create('forums_topic_labels', [
+                            DB::getInstance()->insert('forums_topic_labels', [
                                 'fids' => $forum_string,
                                 'name' => Output::getClean(Input::get('label_name')),
                                 'label' => Input::get('label_id'),
@@ -141,7 +142,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Get a list of labels
-            $labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
+            $labels = DB::getInstance()->get('forums_labels', ['id', '<>', 0])->results();
             $template_array = [];
 
             if (count($labels)) {
@@ -154,7 +155,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Get a list of forums
-            $forum_list = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
+            $forum_list = DB::getInstance()->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC')->results();
             $template_forums = [];
 
             if (count($forum_list)) {
@@ -206,7 +207,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the label exist?
-            $label = $queries->getWhere('forums_topic_labels', ['id', $_GET['lid']]);
+            $label = DB::getInstance()->get('forums_topic_labels', ['id', $_GET['lid']])->results();
             if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels'));
@@ -253,7 +254,7 @@ if (!isset($_GET['action'])) {
                         $group_string = rtrim($group_string, ',');
 
                         try {
-                            $queries->update('forums_topic_labels', $label->id, [
+                            DB::getInstance()->update('forums_topic_labels', $label->id, [
                                 'fids' => $forum_string,
                                 'name' => Output::getClean(Input::get('label_name')),
                                 'label' => Input::get('label_id'),
@@ -278,7 +279,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Get a list of labels
-            $labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
+            $labels = DB::getInstance()->get('forums_labels', ['id', '<>', 0])->results();
             $template_array = [];
 
             if (count($labels)) {
@@ -292,7 +293,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Get a list of forums
-            $forum_list = $queries->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC');
+            $forum_list = DB::getInstance()->orderWhere('forums', 'parent <> 0', 'forum_order', 'ASC')->results();
             $template_forums = [];
 
             // Get a list of forums in which the label is enabled
@@ -353,7 +354,7 @@ if (!isset($_GET['action'])) {
 
             if (Token::check($_POST['token'])) {
                 // Delete the label
-                $queries->delete('forums_topic_labels', ['id', $_GET['lid']]);
+                DB::getInstance()->delete('forums_topic_labels', ['id', $_GET['lid']]);
                 Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
 
             } else {
@@ -364,7 +365,7 @@ if (!isset($_GET['action'])) {
 
         case 'types':
             // List label types
-            // $labels = $queries->getWhere('forums_labels', ['id', '<>', 0]);
+            // $labels = DB::getInstance()->get('forums_labels', ['id', '<>', 0])->results();
             $labels = DB::getInstance()->query(
                 "SELECT `nl2_forums_labels`.*, (SELECT COUNT(id) FROM nl2_forums_topic_labels WHERE nl2_forums_labels.id = nl2_forums_topic_labels.id) as count FROM `nl2_forums_labels`"
             )->results();
@@ -423,7 +424,7 @@ if (!isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         try {
-                            $queries->create('forums_labels', [
+                            DB::getInstance()->insert('forums_labels', [
                                 'name' => Output::getClean(Input::get('label_name')),
                                 'html' => Input::get('label_html')
                             ]);
@@ -475,7 +476,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the label exist?
-            $label = $queries->getWhere('forums_labels', ['id', $_GET['lid']]);
+            $label = DB::getInstance()->get('forums_labels', ['id', $_GET['lid']])->results();
             if (!count($label)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
@@ -504,7 +505,7 @@ if (!isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         try {
-                            $queries->update('forums_labels', $label->id, [
+                            DB::getInstance()->update('forums_labels', $label->id, [
                                 'name' => Output::getClean(Input::get('label_name')),
                                 'html' => Input::get('label_html')
                             ]);
@@ -560,7 +561,7 @@ if (!isset($_GET['action'])) {
 
                 if ($count < 1) {
                     // Delete the label
-                    $queries->delete('forums_labels', ['id', $_GET['lid']]);
+                    DB::getInstance()->delete('forums_labels', ['id', $_GET['lid']]);
                     Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
                 } else {
                     Session::flash('forum_labels_error', $forum_language->get('forum', 'label_type_in_use'));

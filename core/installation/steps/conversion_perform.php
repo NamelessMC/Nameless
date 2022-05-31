@@ -62,7 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 } else {
 
-                    $conn = DB_Custom::getInstance(Input::get('db_address'), Input::get('db_name'), Input::get('db_username'), $password, Input::get('db_port'));
+                    $conn = DB::getCustomInstance(
+                        Input::get('db_address'),
+                        Input::get('db_name'),
+                        Input::get('db_username'),
+                        $password,
+                        Input::get('db_port')
+                    );
                     require_once(ROOT_PATH . '/custom/converters/' . $_POST['converter'] . '/converter.php');
 
                     if (!isset($error)) {

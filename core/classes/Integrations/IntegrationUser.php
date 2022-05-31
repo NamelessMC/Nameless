@@ -135,7 +135,7 @@ class IntegrationUser {
      */
     public function verifyIntegration(): void {
         $this->update([
-            'verified' => 1,
+            'verified' => true,
             'code' => null
         ]);
 

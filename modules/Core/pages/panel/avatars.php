@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -32,13 +32,13 @@ if (Input::exists()) {
             }
 
             try {
-                $queries->update('settings', ['name', 'user_avatars'], ['value' => $custom_avatars]);
+                DB::getInstance()->update('settings', ['name', 'user_avatars'], ['value' => $custom_avatars]);
 
-                $queries->update('settings', ['name', 'default_avatar_type'], ['value' => Input::get('default_avatar')]);
+                DB::getInstance()->update('settings', ['name', 'default_avatar_type'], ['value' => Input::get('default_avatar')]);
 
-                $queries->update('settings', ['name', 'avatar_site'], ['value' => Input::get('avatar_source')]);
+                DB::getInstance()->update('settings', ['name', 'avatar_site'], ['value' => Input::get('avatar_source')]);
 
-                $queries->update('settings', ['name', 'avatar_type'], ['value' => Input::get('avatar_perspective')]);
+                DB::getInstance()->update('settings', ['name', 'avatar_type'], ['value' => Input::get('avatar_perspective')]);
 
                 $cache->setCache('avatar_settings_cache');
                 $cache->store('custom_avatars', $custom_avatars);
@@ -52,9 +52,9 @@ if (Input::exists()) {
             if (isset($_POST['avatar'])) {
                 // Selecting a new default avatar
                 try {
-                    $default_avatar = $queries->getWhere('settings', ['name', 'custom_default_avatar']);
+                    $default_avatar = DB::getInstance()->get('settings', ['name', 'custom_default_avatar'])->results();
                     $default_avatar = $default_avatar[0]->id;
-                    $queries->update('settings', $default_avatar, ['value' => Input::get('avatar')]);
+                    DB::getInstance()->update('settings', $default_avatar, ['value' => Input::get('avatar')]);
 
                     $cache->setCache('avatar_settings_cache');
                     $cache->store('default_avatar_image', Input::get('avatar'));
@@ -99,19 +99,19 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get setting values
-$custom_avatars = $queries->getWhere('settings', ['name', 'user_avatars']);
+$custom_avatars = DB::getInstance()->get('settings', ['name', 'user_avatars'])->results();
 $custom_avatars = $custom_avatars[0]->value;
 
-$default_avatar_type = $queries->getWhere('settings', ['name', 'default_avatar_type']);
+$default_avatar_type = DB::getInstance()->get('settings', ['name', 'default_avatar_type'])->results();
 $default_avatar_type = $default_avatar_type[0]->value;
 
-$mc_avatar_source = $queries->getWhere('settings', ['name', 'avatar_site']);
+$mc_avatar_source = DB::getInstance()->get('settings', ['name', 'avatar_site'])->results();
 $mc_avatar_source = $mc_avatar_source[0]->value;
 
-$mc_avatar_perspective = $queries->getWhere('settings', ['name', 'avatar_type']);
+$mc_avatar_perspective = DB::getInstance()->get('settings', ['name', 'avatar_type'])->results();
 $mc_avatar_perspective = $mc_avatar_perspective[0]->value;
 
-$default_avatar_image = $queries->getWhere('settings', ['name', 'custom_default_avatar']);
+$default_avatar_image = DB::getInstance()->get('settings', ['name', 'custom_default_avatar'])->results();
 $default_avatar_image = $default_avatar_image[0]->value;
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars', 'defaults']);

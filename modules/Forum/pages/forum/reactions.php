@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 }
 
 // Are reactions enabled?
-$reactions_enabled = $queries->getWhere('settings', ['name', 'forum_reactions']);
+$reactions_enabled = DB::getInstance()->get('settings', ['name', 'forum_reactions'])->results();
 if ($reactions_enabled[0]->value != '1') {
     Redirect::to(URL::build('/forum'));
 }
@@ -30,7 +30,7 @@ if (Input::exists()) {
     }
 
     // Get post information
-    $post = $queries->getWhere('posts', ['id', $_POST['post']]);
+    $post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
 
     if (!count($post)) {
         Redirect::to(URL::build('/forum'));
@@ -46,16 +46,16 @@ if (Input::exists()) {
 
     if (Token::check()) {
         // Check if the user has already reacted to this post
-        $user_reacted = $queries->getWhere('forums_reactions', ['post_id', $post->id]);
+        $user_reacted = DB::getInstance()->get('forums_reactions', ['post_id', $post->id])->results();
         if (count($user_reacted)) {
             foreach ($user_reacted as $reaction) {
                 if ($reaction->user_given == $user->data()->id) {
                     if ($reaction->reaction_id == $_POST['reaction']) {
                         // Undo reaction
-                        $queries->delete('forums_reactions', ['id', $reaction->id]);
+                        DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
                     } else {
                         // Change reaction
-                        $queries->update('forums_reactions', $reaction->id, [
+                        DB::getInstance()->update('forums_reactions', $reaction->id, [
                             'reaction_id' => $_POST['reaction'],
                             'time' => date('U')
                         ]);
@@ -69,7 +69,7 @@ if (Input::exists()) {
 
         if (!isset($changed)) {
             // Input new reaction
-            $queries->create('forums_reactions', [
+            DB::getInstance()->insert('forums_reactions', [
                 'post_id' => $post->id,
                 'user_received' => $post->post_creator,
                 'user_given' => $user->data()->id,

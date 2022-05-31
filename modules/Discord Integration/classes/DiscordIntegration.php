@@ -117,6 +117,10 @@ class DiscordIntegration extends IntegrationBase {
         return $validation->passed();
     }
 
+    public function allowLinking(): bool {
+        return Discord::isBotSetup();
+    }
+
     public function onRegistrationPageLoad(Fields $fields) {
         // Nothing to do here
     }

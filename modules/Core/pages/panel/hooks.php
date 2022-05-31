@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -23,7 +23,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (!isset($_GET['action'])) {
     // View all hooks
 
-    $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
+    $hooks_query = DB::getInstance()->orderAll('hooks', 'id', 'ASC')->results();
     $hooks_array = [];
     if (count($hooks_query)) {
         foreach ($hooks_query as $hook) {
@@ -80,7 +80,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Save to database
-                            $queries->create('hooks', [
+                            DB::getInstance()->insert('hooks', [
                                 'name' => $_POST['hook_name'],
                                 'action' => $_POST['hook_type'],
                                 'url' => $_POST['hook_url'],
@@ -128,7 +128,7 @@ if (!isset($_GET['action'])) {
             }
 
             // Does the hook exist?
-            $hook = $queries->getWhere('hooks', ['id', $_GET['id']]);
+            $hook = DB::getInstance()->get('hooks', ['id', $_GET['id']])->results();
             if (!count($hook)) {
                 // No, it doesn't exist
                 Redirect::to(URL::build('/panel/core/hooks'));
@@ -163,7 +163,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Save to database
-                            $queries->update('hooks', $hook->id, [
+                            DB::getInstance()->update('hooks', $hook->id, [
                                 'name' => Output::getClean($_POST['hook_name']),
                                 'action' => Output::getClean($_POST['hook_type']),
                                 'url' => Output::getClean($_POST['hook_url']),
@@ -213,7 +213,7 @@ if (!isset($_GET['action'])) {
             }
 
             if (Token::check()) {
-                $queries->delete('hooks', ['id', $_GET['id']]);
+                DB::getInstance()->delete('hooks', ['id', $_GET['id']]);
 
                 $cache->setCache('hooks');
                 if ($cache->isCached('hooks')) {

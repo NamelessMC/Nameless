@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -24,7 +24,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
 }
 
-$post = $queries->getWhere('posts', ['id', $_POST['post']]);
+$post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
@@ -49,16 +49,16 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         }
 
         // Delete all posts from the user
-        $queries->delete('posts', ['post_creator', $post->post_creator]);
+        DB::getInstance()->delete('posts', ['post_creator', $post->post_creator]);
 
         // Delete all topics from the user
-        $queries->delete('topics', ['topic_creator', $post->post_creator]);
+        DB::getInstance()->delete('topics', ['topic_creator', $post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
 
         // Ban IP
-        $queries->create('ip_bans', [
+        DB::getInstance()->insert('ip_bans', [
             'ip' => $banned_user_ip,
             'banned_by' => $user->data()->id,
             'banned_at' => date('U'),
@@ -66,8 +66,8 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         ]);
 
         // Ban user
-        $queries->update('users', $post->post_creator, [
-            'isbanned' => 1
+        DB::getInstance()->update('users', $post->post_creator, [
+            'isbanned' => true,
         ]);
 
         // Redirect

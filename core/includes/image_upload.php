@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -121,7 +121,7 @@ if (Input::exists()) {
                     }
 
                     $user->update([
-                        'has_avatar' => 1,
+                        'has_avatar' => true,
                         'avatar_updated' => date('U')
                     ]);
 

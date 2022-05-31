@@ -2,11 +2,7 @@
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
-            $charset = $_SESSION['charset'];
-            $engine = $_SESSION['engine'];
-
-            $queries = new Queries();
-            $success = $queries->dbInitialise($charset, $engine);
+            PhinxAdapter::migrate();
 
             $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 
@@ -19,7 +15,7 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
         } else {
             if ($_GET['initialise'] === 'site') {
-                require(dirname(__DIR__) . '/includes/site_initialize.php');
+                DatabaseInitialiser::runPreUser($conf);
 
                 $json = [
                     'success' => true,

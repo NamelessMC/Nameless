@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -35,7 +35,7 @@ class RecentUsersItem extends CollectionItemBase {
     public function getContent(): string {
         // Get the number of recent users
         $queries = new Queries();
-        $users_query = $queries->getWhere('users', ['joined', '>', strtotime('7 days ago')]);
+        $users_query = DB::getInstance()->get('users', ['joined', '>', strtotime('7 days ago')])->results();
 
         $this->_smarty->assign([
             'TITLE' => $this->_language->get('admin', 'recent_users'),

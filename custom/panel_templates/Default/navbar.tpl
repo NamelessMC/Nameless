@@ -11,14 +11,9 @@
 
     <div class="custom-control custom-switch">
         <input type="hidden" name="dark_mode" value="0">
-        <input onclick="switchTheme()"
-               id="dark_mode"
-               name="dark_mode"
-               type="checkbox"
-               class="custom-control-input"
-               value="1">
-        <label class="custom-control-label"
-               for="dark_mode">
+        <input onclick="switchTheme()" id="dark_mode" name="dark_mode" type="checkbox" class="custom-control-input"
+            value="1">
+        <label class="custom-control-label" for="dark_mode">
             {$MODE_TOGGLE}
         </label>
     </div>
@@ -28,7 +23,8 @@
 
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 {if $NOTICES|count > 0}
@@ -36,12 +32,14 @@
                 {/if}
             </a>
             <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
                 {if $NOTICES|count eq 0}
                 <span class="dropdown-item d-flex align-items-center">{$NO_NOTICES}</span>
                 {else}
                 {foreach from=$NOTICES key=url item=notice}
-                <a href="{$url}" class="dropdown-item d-flex align-items-center" style="color:#6c757d!important">{$notice}</a>
+                <a href="{$url}" class="dropdown-item d-flex align-items-center"
+                    style="color:#6c757d!important">{$notice}</a>
                 {/foreach}
                 {/if}
             </div>

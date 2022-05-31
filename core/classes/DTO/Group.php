@@ -12,7 +12,6 @@ class Group {
     public int $id;
     public string $name;
     public string $group_html;
-    public string $group_html_lg;
     public ?string $group_username_color;
     public ?string $group_username_css;
     public bool $admin_cp;
@@ -27,7 +26,6 @@ class Group {
         $this->id = $row->id;
         $this->name = $row->name;
         $this->group_html = $row->group_html;
-        $this->group_html_lg = $row->group_html_lg;
         $this->group_username_color = $row->group_username_color;
         $this->group_username_css = $row->group_username_css;
         $this->admin_cp = $row->admin_cp;

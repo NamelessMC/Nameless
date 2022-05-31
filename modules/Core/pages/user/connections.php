@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Partydragen
+ *  Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -58,6 +58,10 @@ if (Input::exists()) {
 
 $integrations_list = [];
 foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
+    if (!$integration->allowLinking()) {
+        continue;
+    }
+
     $connected = false;
     $username = null;
     $verified = null;

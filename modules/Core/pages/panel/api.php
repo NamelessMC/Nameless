@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -30,11 +30,11 @@ if (!isset($_GET['view'])) {
                 // Generate new key
                 $new_api_key = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32);
 
-                $plugin_api = $queries->getWhere('settings', ['name', 'mc_api_key']);
+                $plugin_api = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
                 $plugin_api = $plugin_api[0]->id;
 
                 // Update key
-                $queries->update(
+                DB::getInstance()->update(
                     'settings',
                     $plugin_api,
                     [
@@ -50,9 +50,9 @@ if (!isset($_GET['view'])) {
                 Redirect::to(URL::build('/panel/core/api'));
             }
 
-            $plugin_id = $queries->getWhere('settings', ['name', 'use_api']);
+            $plugin_id = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
             $plugin_id = $plugin_id[0]->id;
-            $queries->update(
+            DB::getInstance()->update(
                 'settings',
                 $plugin_id,
                 [
@@ -110,7 +110,7 @@ if (!isset($_GET['view'])) {
                 } else {
                     if ($validation->passed()) {
 
-                        $queries->create('group_sync', $fields);
+                        DB::getInstance()->insert('group_sync', $fields);
                         Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
 
                     } else {
@@ -148,7 +148,7 @@ if (!isset($_GET['view'])) {
 
                         if (!count($errors)) {
                             try {
-                                $queries->update('group_sync', $group_sync_id, $values);
+                                DB::getInstance()->update('group_sync', $group_sync_id, $values);
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -162,7 +162,7 @@ if (!isset($_GET['view'])) {
                     if ($_POST['action'] == 'delete') {
                         if (isset($_POST['id'])) {
                             try {
-                                $queries->delete('group_sync', ['id', $_POST['id']]);
+                                DB::getInstance()->delete('group_sync', ['id', $_POST['id']]);
                                 Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
                             } catch (Exception $e) {
                                 // Redirect anyway
@@ -201,22 +201,19 @@ if (isset($errors) && count($errors)) {
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
-    $api_enabled = $queries->getWhere('settings', ['name', 'use_api']);
+    $api_enabled = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
     if (count($api_enabled)) {
         $api_enabled = $api_enabled[0]->value;
     } else {
-        $queries->create(
-            'settings',
-            [
-                'name' => 'use_api',
-                'value' => 0
-            ]
-        );
+        DB::getInstance()->insert('settings', [
+            'name' => 'use_api',
+            'value' => false,
+        ]);
         $api_enabled = '0';
     }
 
     // Get API key
-    $api_key = $queries->getWhere('settings', ['name', 'mc_api_key']);
+    $api_key = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
     $api_key = $api_key[0]->value;
 
     // Is email verification enabled
@@ -251,7 +248,7 @@ if (!isset($_GET['view'])) {
             'CHANGE' => $language->get('general', 'change'),
             'API_URL' => $language->get('admin', 'api_url'),
             'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
-            'ENABLE_API_FOR_URL' => $language->get('api', 'api_disabled'),
+            'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
             'EMAIL_VERIFICATION_VALUE' => $emails,
@@ -274,7 +271,7 @@ if (!isset($_GET['view'])) {
     if ($_GET['view'] == 'group_sync') {
 
         $group_sync_values = [];
-        foreach ($queries->getWhere('group_sync', ['id', '<>', 0]) as $rule) {
+        foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
             $rule_values = [];
             foreach (get_object_vars($rule) as $column => $value) {
                 $rule_values[$column] = $value;

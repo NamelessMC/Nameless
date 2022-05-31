@@ -156,7 +156,7 @@ class ErrorHandler {
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
-            'CURRENT_URL' => urldecode('http' . ((Util::isConnectionSSL()) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']),
+            'CURRENT_URL' => Util::getProtocol() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
             'FRAMES' => $frames,
             'SKIP_FRAMES' => $skip_frames,
             'BACK' => $language->get('general', 'back'),
@@ -275,4 +275,14 @@ class ErrorHandler {
     public static function logCustomError(string $contents): void {
         self::logError('other', $contents);
     }
+
+    /**
+     * Write a message to the 'warning' log.
+     *
+     * @param string $contents Warning to write to file.
+     */
+    public static function logWarning(string $contents): void {
+        self::logError('warning', $contents);
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -20,7 +20,7 @@ if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
 }
 
 $topic_id = $_GET['tid'];
-$topic = $queries->getWhere('topics', ['id', $topic_id]);
+$topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
@@ -37,19 +37,19 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             ]);
 
             // Ensure forum we're moving to exists
-            $forum_moving_to = $queries->getWhere('forums', ['id', Input::get('forum')]);
+            $forum_moving_to = DB::getInstance()->get('forums', ['id', Input::get('forum')])->results();
             if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));
             }
 
-            $posts_to_move = $queries->getWhere('posts', ['topic_id', $topic_id]);
+            $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
 
-                $queries->update('topics', $topic->id, [
+                DB::getInstance()->update('topics', $topic->id, [
                     'forum_id' => Input::get('forum')
                 ]);
                 foreach ($posts_to_move as $post_to_move) {
-                    $queries->update('posts', $post_to_move->id, [
+                    DB::getInstance()->update('posts', $post_to_move->id, [
                         'forum_id' => Input::get('forum')
                     ]);
                 }
@@ -80,7 +80,7 @@ require(ROOT_PATH . '/core/templates/footer.php');
 // Get a list of all forums
 $template_forums = [];
 
-$categories = $queries->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC');
+$categories = DB::getInstance()->orderWhere('forums', 'parent = 0', 'forum_order', 'ASC')->results();
 foreach ($categories as $category) {
     if (!$forum->forumExist($category->id, $user->getAllGroupIds())) {
         continue;

@@ -41,10 +41,9 @@ class MCQuery {
      * @param string $type Type of query to use (`internal` or `external`).
      * @param bool $bedrock Whether this is a Bedrock server or not.
      * @param Language $language Query language object.
-     * @param Queries $queries Queries instance to pass through for error logging.
      * @return array Array containing query result.
      */
-    public static function singleQuery(array $ip, string $type, bool $bedrock, Language $language, Queries $queries): array {
+    public static function singleQuery(array $ip, string $type, bool $bedrock, Language $language): array {
         try {
             $query_ip = explode(':', $ip['ip']);
             if ($type == 'internal') {
@@ -150,7 +149,7 @@ class MCQuery {
 
             $query_ip = explode(':', $ip['ip']);
 
-            $queries->create('query_errors', [
+            DB::getInstance()->insert('query_errors', [
                     'date' => date('U'),
                     'error' => $error,
                     'ip' => $query_ip[0],
@@ -210,10 +209,9 @@ class MCQuery {
      * @param string $type Type of query to use (internal or external)
      * @param Language $language Query language object
      * @param bool $accumulate Whether to return as one accumulated result or not
-     * @param Queries $queries Queries instance to pass through for error logging
      * @return array Array containing query result
      */
-    public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate, Queries $queries): array {
+    public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate): array {
         $to_return = [];
         $total_count = 0;
         $status = 0;
@@ -242,7 +240,7 @@ class MCQuery {
                 } catch (Exception $e) {
                     $query = [];
 
-                    $queries->create('query_errors', [
+                    DB::getInstance()->insert('query_errors', [
                         'date' => date('U'),
                         'error' => $e->getMessage(),
                         'ip' => $query_ip[0],

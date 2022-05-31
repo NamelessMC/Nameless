@@ -25,47 +25,45 @@ class Pre13 extends UpgradeScript {
 
         // delete old "version" row
         $this->databaseQuery(function (DB $db) {
-            $db->query('DELETE FROM nl2_settings WHERE `name` = ?', ['version']);
+            Util::setSetting('version', null);
         });
 
         // oauth
         $this->databaseQuery(function (DB $db) {
-            $db->query("CREATE TABLE `nl2_oauth` (
+            $db->createTable('nl2_oauth', "
                                         `provider` varchar(256) NOT NULL,
                                         `enabled` tinyint(1) NOT NULL DEFAULT '0',
                                         `client_id` varchar(256) DEFAULT NULL,
                                         `client_secret` varchar(256) DEFAULT NULL,
                                         PRIMARY KEY (`provider`),
-                                        UNIQUE KEY `id` (`provider`)
-                                    ) ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
-            $db->query("CREATE TABLE `nl2_oauth_users` (
+                                        UNIQUE KEY `id` (`provider`)");
+            $db->createTable('nl2_oauth_users', "
                                       `user_id` int NOT NULL,
                                       `provider` varchar(256) NOT NULL,
                                       `provider_id` varchar(256) NOT NULL,
                                       PRIMARY KEY (`user_id`,`provider`,`provider_id`),
-                                      UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)
-                                    ) ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
+                                      UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)");
         });
 
         // User integrations
         $this->databaseQueries([
             function (DB $db) {
-                $db->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
-                $db->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', `last_sync` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)", "ENGINE=$this->_db_engine DEFAULT CHARSET=$this->_db_charset");
+                $db->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+                $db->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', `last_sync` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
             },
             function (DB $db) {
                 $db->insert('integrations', [
                     'name' => 'Minecraft',
-                    'enabled' => 1,
-                    'can_unlink' => 0,
-                    'required' => 0
+                    'enabled' => true,
+                    'can_unlink' => false,
+                    'required' => false,
                 ]);
 
                 $db->insert('integrations', [
                     'name' => 'Discord',
-                    'enabled' => 1,
-                    'can_unlink' => 1,
-                    'required' => 0
+                    'enabled' => true,
+                    'can_unlink' => true,
+                    'required' => false
                 ]);
             }
         ]);
@@ -232,9 +230,55 @@ class Pre13 extends UpgradeScript {
         $this->_cache->setCache('home_type');
         $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
         $this->databaseQuery(function (DB $db) use ($home_type) {
-            $db->query("DELETE FROM nl2_settings WHERE `name` = 'portal'");
-            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_type', ?)", [$home_type]);
-            $db->query("INSERT INTO nl2_settings (`name`, `value`) VALUES ('home_custom_content', null)");
+            Util::setSetting('portal', null)
+            Util::setSetting('home_type', $home_type);
+            Util::setSetting('home_custom_content', null);
+        });
+
+        // add existing migrations to phinxlog table, so it doesn't try to run them again
+        $migrations = [];
+        $migrations_dir = ROOT_PATH . '/core/migrations';
+        $files = scandir($migrations_dir);
+        foreach ($files as $file) {
+            if ($file === 'phinx.php' || str_starts_with($file, '.')) {
+                continue;
+            }
+            $file = explode('.', $file)[0];
+            [$time, $name] =  explode('_', $file, 2);
+            $name_parts = explode('_', $name);
+            // join name parts with upper case
+            $name = implode('', array_map('ucfirst', $name_parts));
+            $epoch = time();
+            $dt = new DateTime("@$epoch");
+            $migrations[] = [
+                'version' => $time,
+                'name' => $name,
+                'start_time' => $dt->format('Y-m-d H:i:s'),
+                'end_time' => $dt->format('Y-m-d H:i:s'),
+                'breakpoint' => 0,
+            ];
+        }
+
+        $this->databaseQuery(function (DB $db) use ($migrations) {
+            $db->query("CREATE TABLE IF NOT EXISTS `nl2_phinxlog` (
+                `version` bigint NOT NULL,
+                `migration_name` varchar(100) NULL DEFAULT NULL,
+                `start_time` timestamp NULL DEFAULT NULL,
+                `end_time` timestamp NULL DEFAULT NULL,
+                `breakpoint` tinyint(1) NOT NULL DEFAULT '0',
+                PRIMARY KEY (`version`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+            $db->query("TRUNCATE TABLE `nl2_phinxlog`");
+
+            foreach ($migrations as $migration) {
+                $db->query("INSERT INTO nl2_phinxlog (`version`, `migration_name`, `start_time`, `end_time`, `breakpoint`) VALUES (?, ?, ?, ?, ?)", [
+                    $migration['version'],
+                    $migration['name'],
+                    $migration['start_time'],
+                    $migration['end_time'],
+                    $migration['breakpoint'],
+                ]);
+            }
         });
 
         $this->setVersion('2.0.0-pr13');

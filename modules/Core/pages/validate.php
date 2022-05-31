@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -22,7 +22,7 @@ if (isset($_GET['c'])) {
     if ($user->exists()) {
         $user->update([
             'reset_code' => null,
-            'active' => 1
+            'active' => true,
         ]);
 
         EventHandler::executeEvent('validateUser', [

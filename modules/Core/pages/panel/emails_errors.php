@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -24,7 +24,7 @@ if (isset($_GET['do'])) {
     if ($_GET['do'] == 'purge') {
         // Purge all errors
 
-        $queries->delete('email_errors', ['id', '<>', 0]);
+        DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
 
         Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
@@ -32,7 +32,7 @@ if (isset($_GET['do'])) {
 
     if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
-        $queries->delete('email_errors', ['id', $_GET['id']]);
+        DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
 
         Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
         Redirect::to(URL::build('/panel/core/emails/errors'));
@@ -40,7 +40,7 @@ if (isset($_GET['do'])) {
 
     if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Check the error exists
-        $error = $queries->getWhere('email_errors', ['id', $_GET['id']]);
+        $error = DB::getInstance()->get('email_errors', ['id', $_GET['id']])->results();
         if (!count($error)) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
         }
@@ -90,7 +90,7 @@ if (isset($_GET['do'])) {
         ]);
 
         if ($error->type == 1) {
-            $user_validated = $queries->getWhere('users', ['id', $error->user_id]);
+            $user_validated = DB::getInstance()->get('users', ['id', $error->user_id])->results();
             if (count($user_validated)) {
                 $user_validated = $user_validated[0];
                 if ($user_validated->active == 0) {
@@ -102,7 +102,7 @@ if (isset($_GET['do'])) {
             }
         } else {
             if ($error->type == 4) {
-                $user_error = $queries->getWhere('users', ['id', $error->user_id]);
+                $user_error = DB::getInstance()->get('users', ['id', $error->user_id])->results();
                 if (count($user_error)) {
                     $user_error = $user_error[0];
                     if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
@@ -122,7 +122,7 @@ if (isset($_GET['do'])) {
     }
 } else {
     // Display all errors
-    $email_errors = $queries->orderWhere('email_errors', 'id <> 0', 'at', 'DESC');
+    $email_errors = DB::getInstance()->orderWhere('email_errors', 'id <> 0', 'at', 'DESC')->results();
 
     // Get page
     if (isset($_GET['p'])) {

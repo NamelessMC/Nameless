@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -35,7 +35,7 @@ if (isset($_GET['user'])) {
 
     if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
-            $infraction = $queries->getWhere('infractions', ['id', $_GET['id']]);
+            $infraction = DB::getInstance()->get('infractions', ['id', $_GET['id']])->results();
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
             }
@@ -46,9 +46,9 @@ if (isset($_GET['user'])) {
             if ($infraction->type == 1) {
                 // Unban user
                 try {
-                    $queries->update('users', $query->id, [
-                        'isbanned' => 0,
-                        'active' => 1
+                    DB::getInstance()->update('users', $query->id, [
+                        'isbanned' => false,
+                        'active' => true,
                     ]);
                 } catch (Exception $e) {
                     // Error
@@ -57,12 +57,12 @@ if (isset($_GET['user'])) {
             } else {
                 if ($infraction->type == 3) {
                     try {
-                        $queries->update('users', $query->id, [
-                            'isbanned' => 0,
-                            'active' => 1
+                        DB::getInstance()->update('users', $query->id, [
+                            'isbanned' => false,
+                            'active' => true,
                         ]);
 
-                        $queries->delete('ip_bans', ['ip', $query->lastip]);
+                        DB::getInstance()->delete('ip_bans', ['ip', $query->lastip]);
                     } catch (Exception $e) {
                         // Error
                         $errors = [$e->getMessage()];
@@ -71,9 +71,9 @@ if (isset($_GET['user'])) {
             }
 
             try {
-                $queries->update('infractions', $infraction->id, [
-                    'acknowledged' => 1,
-                    'revoked' => 1,
+                DB::getInstance()->update('infractions', $infraction->id, [
+                    'acknowledged' => true,
+                    'revoked' => true,
                     'revoked_by' => $user->data()->id,
                     'revoked_at' => date('U')
                 ]);
@@ -141,7 +141,7 @@ if (isset($_GET['user'])) {
                         if (!$is_admin) {
                             // Prevent ip banning if target ip match the user ip
                             if ($type != 3 || $user->data()->lastip != $banned_user->data()->lastip) {
-                                $queries->create('infractions', [
+                                DB::getInstance()->insert('infractions', [
                                     'type' => $type,
                                     'punished' => $query->id,
                                     'staff' => $user->data()->id,
@@ -155,18 +155,18 @@ if (isset($_GET['user'])) {
                                     case 1:
                                     case 3:
                                         // Ban the user
-                                        $queries->update('users', $query->id, [
-                                            'isbanned' => 1,
-                                            'active' => 0
+                                        DB::getInstance()->update('users', $query->id, [
+                                            'isbanned' => true,
+                                            'active' => false
                                         ]);
 
                                         $banned_user_ip = $banned_user->data()->lastip;
 
-                                        $queries->delete('users_session', ['user_id', $query->id]);
+                                        DB::getInstance()->delete('users_session', ['user_id', $query->id]);
 
                                         if ($type == 3) {
                                             // Ban IP
-                                            $queries->create('ip_bans', [
+                                            DB::getInstance()->insert('ip_bans', [
                                                 'ip' => $banned_user_ip,
                                                 'banned_by' => $user->data()->id,
                                                 'banned_at' => date('U'),
@@ -201,8 +201,8 @@ if (isset($_GET['user'])) {
                                             unlink($item);
                                         }
 
-                                        $queries->update('users', $query->id, [
-                                            'has_avatar' => 0,
+                                        DB::getInstance()->update('users', $query->id, [
+                                            'has_avatar' => false,
                                             'avatar_updated' => date('U')
                                         ]);
                                         break;
@@ -282,7 +282,7 @@ if (isset($_GET['user'])) {
     }
 
     // Get any previous punishments
-    $previous_punishments = $queries->orderWhere('infractions', 'punished = ' . $query->id, 'created', 'DESC');
+    $previous_punishments = DB::getInstance()->orderWhere('infractions', 'punished = ' . $query->id, 'created', 'DESC')->results();
     $previous_punishments_array = [];
     if (count($previous_punishments)) {
         foreach ($previous_punishments as $punishment) {
@@ -387,7 +387,7 @@ if (isset($_GET['user'])) {
     }
 
     // List all punishments
-    $punishments = $queries->orderWhere('infractions', 'id <> 0', 'created', 'DESC');
+    $punishments = DB::getInstance()->orderWhere('infractions', 'id <> 0', 'created', 'DESC')->results();
 
     if (count($punishments)) {
         // Pagination
