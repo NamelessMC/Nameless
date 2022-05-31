@@ -161,6 +161,7 @@ class Queries {
      * Initialise the database structure on a fresh installation.
      *
      * @return bool True if the database was initialised, false if not.
+     * @deprecated Call PhinxAdapter::migrate() instead
      */
     public function dbInitialise(): bool {
         $data = $this->_db->showTables('settings');
@@ -173,4 +174,5 @@ class Queries {
         PhinxAdapter::migrate();
         return true;
     }
+
 }

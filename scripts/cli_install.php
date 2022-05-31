@@ -140,8 +140,7 @@ if ($reinstall) {
 }
 
 print('✍️  Creating tables...' . PHP_EOL);
-$queries = new Queries();
-$queries->dbInitialise();
+PhinxAdapter::migrate();
 
 Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK'));
 

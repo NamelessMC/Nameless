@@ -2,8 +2,7 @@
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
-            $queries = new Queries();
-            $success = $queries->dbInitialise();
+            PhinxAdapter::migrate();
 
             $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 

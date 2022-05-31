@@ -92,6 +92,9 @@ if ($page != 'install') {
         header('Location: ' . Util::getProtocol() . '://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 
+    // Ensure database is up-to-date
+    PhinxAdapter::migrate();
+
     // Queries
     $queries = new Queries();
 
