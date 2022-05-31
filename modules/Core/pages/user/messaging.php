@@ -293,7 +293,7 @@ if (!isset($_GET['action'])) {
             $user_messaging = $queries->getWhere('users', ['id', $_GET['uid']]);
 
             if (count($user_messaging)) {
-                $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->nickname));
+                $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->username));
             }
         }
 
