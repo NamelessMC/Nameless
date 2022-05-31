@@ -15,6 +15,10 @@ $classes = [
     'MinecraftPlaceholderDataSeeder.php',
     'ProfileFieldsSeeder.php',
     'ProfileFieldsDataSeeder.php',
+    'ForumCategorySeeder.php',
+    'ForumSubforumSeeder.php',
+    'ForumTopicSeeder.php',
+    'ForumPostSeeder.php',
 ];
 
 foreach ($classes as $class) {
@@ -22,15 +26,9 @@ foreach ($classes as $class) {
 }
 
 /** @var Seeder[] $seeders */
-$seeders = [
-    new UserSeeder,
-    new UserProfilePostSeeder,
-    new MinecraftServerSeeder,
-    new MinecraftPlaceholderSeeder,
-    new MinecraftPlaceholderDataSeeder,
-    new ProfileFieldsSeeder,
-    new ProfileFieldsDataSeeder,
-];
+$seeders = array_map(static function (string $class) {
+    return new (explode('.', $class)[0]);
+}, array_slice($classes, 1));
 
 $faker = Faker\Factory::create();
 
