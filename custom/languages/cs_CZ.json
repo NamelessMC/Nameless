@@ -335,7 +335,7 @@
     "admin/name": "Název",
     "admin/name_maximum_16": "Jméno nesmí být delší než 16 znaků",
     "admin/name_required": "Je vyžadován název",
-    "admin/nameless_news": "NamelessMC novinky",
+    "admin/nameless_news": "Novinky NamelessMC",
     "admin/navbar_colour": "Barva navigační lišty",
     "admin/navbar_icon": "Ikona v navigační liště",
     "admin/navbar_icon_instructions": "Každé položce zde můžete také nastavit ikonu, například pomocí {{faLink}} nebo {{semLink}}.",
@@ -753,7 +753,7 @@
     "installer/config_writable": "Soubor core/config.php zapisovatelný",
     "installer/configuration": "Konfigurace",
     "installer/configuration_error": "Zadejte platný název webu o délce 1 až 32 znaků a platnou e-mailovou adresu o délce 4 až 64 znaků.",
-    "installer/configuration_info": "Zadejte základní informace o vašem webu. Tyto informace mohou být kdykoli později změněny v panelu.",
+    "installer/configuration_info": "Zadejte základní informace o vašem webu. Tyto informace lze kdykoli později změnit v panelu.",
     "installer/confirm_password": "Potvrdit heslo",
     "installer/contact_email": "Kontaktní e-mail",
     "installer/continue": "Pokračovat",
@@ -1215,5 +1215,6 @@
     "general/default": "Výchozí",
     "admin/user_group_added_hook_info": "Uživatelská skupina přidána",
     "admin/user_group_removed_hook_info": "Uživatelská skupina odebrána",
-    "admin/api_disabled": "API je zakázáno"
+    "admin/api_disabled": "API je zakázáno",
+    "user/no_providers_admin": "Správci webu zatím nenastavili žádné poskytovatele OAuth."
 }
