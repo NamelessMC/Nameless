@@ -29,12 +29,13 @@ if (PHP_VERSION_ID < 70400) {
     die('NamelessMC is not compatible with PHP versions older than 7.4');
 }
 
-if (!is_dir(__DIR__ . '/vendor')) {
+if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
     die(
-        "Your installation is missing the 'vendor' directory. This directory is included in releases. For regular
-        installations, please make sure to download a release from the GitHub releases page, not from the button on
-        the home page to download the latest source code. If you do want to run the latest version from source control
-        for development versions, please run 'composer install' and 'yarnpkg'/'yarn install'."
+        "Your installation is missing the 'vendor' or 'core/assets/vendor' directory. These directories are included in
+        releases, but not in the git repository. For regular installations, please make sure to download a release from
+        the GitHub releases page, not from the button on the home page to download the latest source code. If you do
+        want to run the latest version from source control for development versions, please run 'composer install'
+        and 'yarnpkg'/'yarn install'."
     );
 }
 

@@ -7,6 +7,7 @@
 .DS_Store
 .valet-env.php
 /vendor
+/core/assets/vendor
 /uploads/avatars/**
 /node_modules/
 composer.lock
