@@ -58,6 +58,10 @@ if (Input::exists()) {
 
 $integrations_list = [];
 foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
+    if (!$integration->allowLinking()) {
+        continue;
+    }
+
     $connected = false;
     $username = null;
     $verified = null;
