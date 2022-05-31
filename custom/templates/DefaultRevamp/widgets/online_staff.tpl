@@ -10,7 +10,7 @@
                     <div class="content">
                         <a class="" href="{$user.profile}" data-poload="{$USER_INFO_URL}{$user.id}"
                             style="{$user.style}">{$user.nickname}</a>
-                        {if $user.title}{$user.title}{else}{$user.group}{/if}
+                        {$user.group}
                     </div>
                 </div>
             </div>

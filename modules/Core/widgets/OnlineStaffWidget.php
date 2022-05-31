@@ -56,7 +56,6 @@ class OnlineStaffWidget extends WidgetBase {
                     'nickname' => $staff_user->getDisplayname(),
                     'avatar' => $staff_user->getAvatar(),
                     'id' => Output::getClean($staff_user->data()->id),
-                    'title' => Output::getClean($staff_user->data()->user_title),
                     'group' => $staff_user->getMainGroup()->group_html,
                     'group_order' => $staff_user->getMainGroup()->order
                 ];
