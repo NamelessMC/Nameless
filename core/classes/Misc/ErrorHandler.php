@@ -275,4 +275,14 @@ class ErrorHandler {
     public static function logCustomError(string $contents): void {
         self::logError('other', $contents);
     }
+
+    /**
+     * Write a message to the 'warning' log.
+     *
+     * @param string $contents Warning to write to file.
+     */
+    public static function logWarning(string $contents): void {
+        self::logError('warning', $contents);
+    }
+
 }
