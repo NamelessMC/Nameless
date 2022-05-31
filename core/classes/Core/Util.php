@@ -359,8 +359,8 @@ class Util {
         if ($show_protocol) {
             $url = $protocol . $url;
             $port = self::getPort();
-            if (($port !== 80 && $protocol !== 'http://') ||
-                ($port !== 443 && $protocol !== 'https://')) {
+            // Add port if it is non-standard for the current protocol
+            if (!(($port === 80 && $protocol === 'http://') || ($port === 443 && $protocol === 'https://'))) {
                 $url .= ':' . $port;
             }
         }
