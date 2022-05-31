@@ -632,7 +632,8 @@ class Util {
         if ($new_value == null) {
             DB::getInstance()->query('DELETE FROM nl2_settings WHERE `name` = ?', [$setting]);
         } else {
-            DB::getInstance()->query('INSERT INTO nl2_settings (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE SET `value` = ? WHERE `name` = ?', [$new_value, $setting]);
+            $query = 'INSERT INTO nl2_settings (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `value` = ?';
+            DB::getInstance()->query($query, [$setting, $new_value, $new_value]);
         }
 
         if (self::$_cached_settings != null) {
