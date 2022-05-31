@@ -128,7 +128,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->addColumn() with identical parameters intead
+     * @deprecated Use DB::getInstance()->addColumn() with identical parameters instead
      *
      * find and replace
      * from: \$queries->addColumn\((.*)\)
@@ -140,10 +140,20 @@ class Queries {
         }
     }
 
+    /**
+     * @deprecated Use DB::getInstance()->showTables() with identical parameters instead
+     *
+     * find and replace
+     * from: \$queries->tableExists\((.*)\)
+     * to:   DB::getInstance()->showTables($1)
+     */
     public function tableExists(string $table) {
         return $this->_db->showTables($table);
     }
 
+    /**
+     * @deprecated Seems to be unused
+     */
     public function addPermissionGroup(int $group_id, string $permission): void {
         $group = Group::find($group_id);
         if ($group) {
