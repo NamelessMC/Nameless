@@ -643,12 +643,12 @@ class Util {
             return true;
         }
 
-        $enabled_modules = DB::getInstance()->get('modules', ['enabled', '=', 1])->results();
-        if (in_array($name, array_column($enabled_modules, 'name'))) {
+        $enabled_modules = DB::getInstance()->get('modules', [['enabled', true], ['name', $name]])->first();
+
+        if ($enabled_modules != null) {
             self::$_enabled_modules[] = $name;
             return true;
         }
-
         return false;
     }
 
