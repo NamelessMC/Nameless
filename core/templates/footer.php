@@ -10,14 +10,12 @@
  */
 
 // Get social media icons if enabled
-// Check cache
-$cache->setCache('social_media');
 
 $social_media_icons = [];
 
 // Facebook
-$social_media = $cache->retrieve('facebook');
-if ($social_media) {
+$social_media = Util::getSetting('fb_url');
+if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'fb',
         'long' => 'facebook',
@@ -27,8 +25,8 @@ if ($social_media) {
 }
 
 // Twitter
-$social_media = $cache->retrieve('twitter');
-if ($social_media) {
+$social_media = Util::getSetting('twitter_url');
+if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'tw',
         'long' => 'twitter',
@@ -38,8 +36,8 @@ if ($social_media) {
 }
 
 // Youtube
-$social_media = $cache->retrieve('youtube');
-if ($social_media) {
+$social_media = Util::getSetting('youtube_url');
+if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'gp',
         'long' => 'youtube',

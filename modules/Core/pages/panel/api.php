@@ -213,8 +213,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Get API key
-    $api_key = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
-    $api_key = $api_key[0]->value;
+    $api_key = Util::getSetting('mc_api_key');
 
     // Is email verification enabled
     $emails = $configuration->get('Core', 'email_verification');

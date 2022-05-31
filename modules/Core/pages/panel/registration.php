@@ -195,17 +195,8 @@ $registration_enabled = $registration_enabled[0]->value;
 // Is email verification enabled
 $emails = $configuration->get('Core', 'email_verification');
 
-// Recaptcha
-$captcha_id = DB::getInstance()->get('settings', ['name', 'recaptcha'])->results();
-$captcha_login = DB::getInstance()->get('settings', ['name', 'recaptcha_login'])->results();
-$captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
-$captcha_key = DB::getInstance()->get('settings', ['name', 'recaptcha_key'])->results();
-$captcha_secret = DB::getInstance()->get('settings', ['name', 'recaptcha_secret'])->results();
-$registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
-
 // Validation group
-$validation_group = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
-$validation_group = $validation_group[0]->value;
+$validation_group = Util::getSetting('validate_user_action');
 $validation_group = json_decode($validation_group, true);
 $validation_group = $validation_group['group'] ?? 1;
 
@@ -237,17 +228,17 @@ $smarty->assign([
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
     'EMAIL_VERIFICATION_VALUE' => $emails,
     'CAPTCHA_GENERAL' => $language->get('admin', 'captcha_general'),
-    'CAPTCHA_GENERAL_VALUE' => $captcha_id[0]->value,
+    'CAPTCHA_GENERAL_VALUE' => Util::getSetting('recaptcha'),
     'CAPTCHA_LOGIN' => $language->get('admin', 'captcha_login'),
-    'CAPTCHA_LOGIN_VALUE' => $captcha_login[0]->value,
+    'CAPTCHA_LOGIN_VALUE' => Util::getSetting('recaptcha_login'),
     'CAPTCHA_TYPE' => $language->get('admin', 'captcha_type'),
-    'CAPTCHA_TYPE_VALUE' => count($captcha_type) ? $captcha_type[0]->value : 'Recaptcha2',
+    'CAPTCHA_TYPE_VALUE' => Util::getSetting('recaptcha_type', 'Recaptcha2'),
     'CAPTCHA_SITE_KEY' => $language->get('admin', 'captcha_site_key'),
-    'CAPTCHA_SITE_KEY_VALUE' => Output::getClean($captcha_key[0]->value),
+    'CAPTCHA_SITE_KEY_VALUE' => Output::getClean(Util::getSetting('recaptcha_key')),
     'CAPTCHA_SECRET_KEY' => $language->get('admin', 'captcha_secret_key'),
-    'CAPTCHA_SECRET_KEY_VALUE' => Output::getClean($captcha_secret[0]->value),
+    'CAPTCHA_SECRET_KEY_VALUE' => Output::getClean(Util::getSetting('recaptcha_secret')),
     'REGISTRATION_DISABLED_MESSAGE' => $language->get('admin', 'registration_disabled_message'),
-    'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified($registration_disabled_message[0]->value),
+    'REGISTRATION_DISABLED_MESSAGE_VALUE' => Output::getPurified(Util::getSetting('registration_disabled_message')),
     'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),

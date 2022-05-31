@@ -146,27 +146,18 @@ Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK')
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
 DatabaseInitialiser::runPreUser($conf);
-$sitename = getEnvVar('NAMELESS_SITE_NAME');
-DB::getInstance()->insert('settings', [
-    'name' => 'sitename',
-    'value' => $sitename,
-]);
+
+Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
+
 $cache = new Cache();
 $cache->setCache('sitenamecache');
 $cache->store('sitename', $sitename);
-DB::getInstance()->insert('settings', [
-    'name' => 'incoming_email',
-    'value' => getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'),
-]);
-DB::getInstance()->insert('settings', [
-    'name' => 'outgoing_email',
-    'value' => getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'),
-]);
+
+Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
+Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
+
 if (getEnvVar('NAMELESS_DISABLE_EMAIL_VERIFICATION', false)) {
-    DB::getInstance()->update('settings', ['name', 'email_verification'], [
-        'name' => 'email_verification',
-        'value' => false,
-    ]);
+    Util::setSetting('email_verification', '0');
 }
 
 print('👮 Creating admin account...' . PHP_EOL);

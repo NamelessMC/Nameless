@@ -16,13 +16,9 @@ if ($cache->isCached('result')) {
     echo $cache->retrieve('result');
 } else {
     // Get query type
-    $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-    if (count($query_type)) {
-        if ($query_type[0]->value == '1') {
-            $query_type = 'external';
-        } else {
-            $query_type = 'internal';
-        }
+    $query_type = Util::getSetting('external_query', '0');
+    if ($query_type === '1') {
+        $query_type = 'external';
     } else {
         $query_type = 'internal';
     }

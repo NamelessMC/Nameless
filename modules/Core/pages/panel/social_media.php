@@ -27,43 +27,22 @@ if (Input::exists()) {
     if (Token::check()) {
         // Update database values
         // Youtube URL
-        DB::getInstance()->update('settings', ['name', 'youtube_url'], [
-            'value' => Output::getClean(Input::get('youtubeurl'))
-        ]);
-
-        // Update cache
-        $cache->setCache('social_media');
-        $cache->store('youtube', Output::getClean(Input::get('youtubeurl')));
+        Util::setSetting('youtube_url', Input::get('youtubeurl'));
 
         // Twitter URL
-        DB::getInstance()->update('settings', ['name', 'twitter_url'], [
-            'value' => Output::getClean(Input::get('twitterurl'))
-        ]);
-
-        $cache->store('twitter', Output::getClean(Input::get('twitterurl')));
+        Util::setSetting('twitter_url', Input::get('twitterurl'))
 
         // Twitter dark theme
-        $twitter_dark_theme = DB::getInstance()->get('settings', ['name', 'twitter_style'])->results();
-        $twitter_dark_theme = $twitter_dark_theme[0]->id;
-
         if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
             $theme = 'dark';
         } else {
             $theme = 'light';
         }
 
-        DB::getInstance()->update('settings', $twitter_dark_theme, [
-            'value' => $theme
-        ]);
-
-        $cache->store('twitter_theme', $theme);
+        Util::setSetting('twitter_style', $theme);
 
         // Facebook URL
-        DB::getInstance()->update('settings', ['name', 'fb_url'], [
-            'value' => Output::getClean(Input::get('fburl'))
-        ]);
-
-        $cache->store('facebook', Output::getClean(Input::get('fburl')));
+        Util::setSetting('fb_url', Input::get('fburl'));
 
         $success = $language->get('admin', 'social_media_settings_updated');
     } else {
@@ -90,10 +69,10 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get values from database
-$youtube_url = DB::getInstance()->get('settings', ['name', 'youtube_url'])->results();
-$twitter_url = DB::getInstance()->get('settings', ['name', 'twitter_url'])->results();
-$twitter_style = DB::getInstance()->get('settings', ['name', 'twitter_style'])->results();
-$fb_url = DB::getInstance()->get('settings', ['name', 'fb_url'])->results();
+$youtube_url = Util::getSetting('youtube_url');
+$twitter_url = Util::getSetting('twitter_url');
+$twitter_style = Util::getSetting('twitter_style');
+$fb_url = Util::getSetting('fb_url');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -104,13 +83,13 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'YOUTUBE_URL' => $language->get('admin', 'youtube_url'),
-    'YOUTUBE_URL_VALUE' => Output::getClean($youtube_url[0]->value),
+    'YOUTUBE_URL_VALUE' => Output::getClean($youtube_url),
     'TWITTER_URL' => $language->get('admin', 'twitter_url'),
-    'TWITTER_URL_VALUE' => Output::getClean($twitter_url[0]->value),
+    'TWITTER_URL_VALUE' => Output::getClean($twitter_url),
     'TWITTER_STYLE' => $language->get('admin', 'twitter_dark_theme'),
-    'TWITTER_STYLE_VALUE' => $twitter_style[0]->value,
+    'TWITTER_STYLE_VALUE' => $twitter_style,
     'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),
-    'FACEBOOK_URL_VALUE' => Output::getClean($fb_url[0]->value),
+    'FACEBOOK_URL_VALUE' => Output::getClean($fb_url),
 ]);
 
 $template->onPageLoad();

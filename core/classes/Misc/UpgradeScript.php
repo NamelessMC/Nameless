@@ -147,12 +147,7 @@ abstract class UpgradeScript {
      * @param string $version Version to set
      */
     protected function setVersion(string $version): void {
-        $this->_queries->update('settings', ['name', 'nameless_version'], [
-            'value' => $version
-        ]);
-
-        $this->_queries->update('settings', ['name', 'version_update'], [
-            'value' => 'false'
-        ]);
+        Util::setSetting('nameless_version', $version);
+        Util::setSetting('version_update', '0');
     }
 }

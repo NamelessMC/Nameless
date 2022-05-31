@@ -137,9 +137,7 @@ if ($page != 'install') {
     $configuration = new Configuration($cache);
 
     // Get the Nameless version
-    $nameless_version = DB::getInstance()->get('settings', ['name', 'nameless_version'])->results();
-    $nameless_version = $nameless_version[0]->value;
-    define('NAMELESS_VERSION', $nameless_version);
+    define('NAMELESS_VERSION', Util::getSetting('nameless_version'));
 
     // Set the date format
     define('DATE_FORMAT', Config::get('core/date_format') ?: 'd M Y, H:i');
@@ -409,12 +407,7 @@ if ($page != 'install') {
     }
 
     // Minecraft integration?
-    $mc_integration = DB::getInstance()->get('settings', ['name', 'mc_integration'])->results();
-    if (count($mc_integration) && $mc_integration[0]->value == '1') {
-        define('MINECRAFT', true);
-    } else {
-        define('MINECRAFT', false);
-    }
+    define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
 
     // Navbar links
     $navigation = new Navigation();

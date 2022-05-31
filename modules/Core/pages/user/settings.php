@@ -250,8 +250,8 @@ if (isset($_GET['do'])) {
                         }
 
                         // Private profiles enabled?
-                        $private_profiles = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
-                        if ($private_profiles[0]->value == 1) {
+                        $private_profiles = Util::getSetting('private_profile');
+                        if ($private_profiles === '1') {
                             if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
                                 $privateProfile = 1;
                             } else {

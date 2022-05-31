@@ -14,15 +14,13 @@ class Discord_Module extends Module {
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
-        $bot_url = DB::getInstance()->get('settings', ['name', 'discord_bot_url'])->results();
-        $bot_url = $bot_url[0]->value;
+        $bot_url = Util::getSetting('discord_bot_url');
         if ($bot_url == null) {
             $bot_url = '';
         }
         define('BOT_URL', $bot_url);
 
-        $bot_username = DB::getInstance()->get('settings', ['name', 'discord_bot_username'])->results();
-        $bot_username = $bot_username[0]->value;
+        $bot_username = Util::getSetting('discord_bot_username');
         if ($bot_username == null) {
             $bot_username = '';
         }

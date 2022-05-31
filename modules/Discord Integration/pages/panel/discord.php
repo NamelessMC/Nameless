@@ -41,10 +41,7 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-                DB::getInstance()->update('settings', ['name', 'discord'], [
-                    'value' => Output::getClean(Input::get('discord_guild_id'))
-                ]);
-
+                Util::setSetting('discord', Input::get('discord_guild_id'));
                 $success = Discord::getLanguageTerm('discord_settings_updated');
 
             } else {
@@ -53,26 +50,18 @@ if (Input::exists()) {
         } else {
             // Valid token
             // Either enable or disable Discord integration
-            $enable_discord_id = DB::getInstance()->get('settings', ['name', 'discord_integration'])->results();
-            $enable_discord_id = $enable_discord_id[0]->id;
-            if ($_POST['enable_discord'] == '1') {
+            if ($_POST['enable_discord'] === '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
                     $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup', [
                         'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
                         'linkEnd' => '</a>',
                     ]);
-                    DB::getInstance()->update('settings', $enable_discord_id, [
-                        'value' => false
-                    ]);
+                    Util::setSetting('discord_integration', '0');
                 } else {
-                    DB::getInstance()->update('settings', $enable_discord_id, [
-                        'value' => true
-                    ]);
+                    Util::setSetting('discord_integration', '1');
                 }
             } else {
-                DB::getInstance()->update('settings', $enable_discord_id, [
-                    'value' => false
-                ]);
+                Util::setSetting('discord_integration', '0');
             }
         }
 

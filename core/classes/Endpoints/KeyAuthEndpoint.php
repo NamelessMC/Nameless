@@ -42,21 +42,11 @@ class KeyAuthEndpoint extends EndpointBase {
      * @return bool Whether it matches or not.
      */
     private function validateKey(Nameless2API $api, string $api_key): bool {
-        // Check cached key
-        if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache')) {
-            // Not cached, cache now
-            // Retrieve from database
-            $correct_key = $api->getDb()->get('settings', ['name', 'mc_api_key']);
-            $correct_key = $correct_key->results();
-            $correct_key = Output::getClean($correct_key[0]->value);
-
-            // Store in cache file
-            file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $correct_key);
-
-        } else {
-            $correct_key = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache');
+        $correct_key = Util::getSetting('mc_api_key');
+        if ($correct_key == null) {
+            die('API key is null');
         }
-
         return hash_equals($api_key, $correct_key);
     }
+
 }

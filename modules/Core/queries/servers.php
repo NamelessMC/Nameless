@@ -20,13 +20,8 @@ if ($cache->isCached('query_interval')) {
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
-    $key = DB::getInstance()->get('settings', ['name', 'unique_id'])->results();
-    if (!count($key)) {
-        die();
-    }
-
-    $key = $key[0];
-    if ($_GET['key'] != $key->value) {
+    $key = Util::getSetting('unique_id');
+    if ($key == null || $_GET['key'] != $key->value) {
         die();
     }
 } else {
@@ -40,13 +35,9 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-if (count($query_type)) {
-    if ($query_type[0]->value == '1') {
-        $query_type = 'external';
-    } else {
-        $query_type = 'internal';
-    }
+$query_type = Util::getSetting('external_query', 'use else statement if seting is not present in database');
+if ($query_type === '1') {
+    $query_type = 'external';
 } else {
     $query_type = 'internal';
 }

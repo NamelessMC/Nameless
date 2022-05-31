@@ -64,8 +64,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         }
     }
 
-    $forum_reactions = DB::getInstance()->get('settings', ['name', 'forum_reactions'])->results();
-    $forum_reactions = $forum_reactions[0]->value;
+    $forum_reactions = Util::getSetting('forum_reactions');
 
     $smarty->assign([
         'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),

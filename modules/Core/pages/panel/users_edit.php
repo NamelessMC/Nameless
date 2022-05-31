@@ -138,8 +138,7 @@ if (Input::exists()) {
                 try {
                     $signature = Output::getClean($signature);
 
-                    $private_profile_active = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
-                    $private_profile_active = $private_profile_active[0]->value == 1;
+                    $private_profile_active = Util::getSetting('private_profile');
                     $private_profile = 0;
 
                     if ($private_profile_active) {
@@ -156,8 +155,7 @@ if (Input::exists()) {
                     }
 
                     // Nicknames?
-                    $displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-                    $displaynames = $displaynames[0]->value;
+                    $displaynames = Util::getSetting('displaynames');
 
                     $username = Input::get('username');
                     if ($displaynames == 'true') {
@@ -297,11 +295,8 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
     $limit_groups = true;
 }
 
-$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-$displaynames = $displaynames[0]->value;
-
-$private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
-$private_profile = $private_profile[0]->value;
+$displaynames = Util::getSetting('displaynames');
+$private_profile = Util::getSetting('private_profile');
 
 $templates = [];
 $templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();

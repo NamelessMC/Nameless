@@ -172,11 +172,11 @@ $data = [
     'namelessmc' => [
         'version' => $namelessmc_version,
         'update_available' => Util::getSetting('version_update') != 'false',
-        'update_checked' => (int)Util::getSetting('version_checked'),
+        'update_checked' => (int) Util::getSetting('version_checked'),
         'settings' => [
-            'phpmailer' => (bool)Util::getSetting('phpmailer'),
-            'api_enabled' => (bool)Util::getSetting('use_api'),
-            'email_verification' => (bool)Util::getSetting('email_verification'),
+            'phpmailer' => (bool) Util::getSetting('phpmailer'),
+            'api_enabled' => (bool) Util::getSetting('use_api'),
+            'email_verification' => (bool) Util::getSetting('email_verification'),
             'login_method' => Util::getSetting('login_method'),
             'captcha_type' => Util::getSetting('recaptcha_type'),
             'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
