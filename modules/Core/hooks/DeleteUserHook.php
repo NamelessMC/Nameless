@@ -1,6 +1,6 @@
 <?php
 /*
- *  Made by Samerton
+ *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
  *
@@ -15,6 +15,11 @@ class DeleteUserHook {
 
             // Delete the user
             $db->delete('users', ['id', $params['user_id']]);
+
+            // All the below tables have foreign key constrains which
+            // should be deleted after deleting the user from nl2_users, but since these
+            // keys were added in a later update, we cannot be sure they exist, hence needing to
+            // delete them manually still. Maybe in the future we can rely more on the foreign keys.
 
             // Groups
             $db->delete('users_groups', ['user_id', $params['user_id']]);
@@ -34,10 +39,6 @@ class DeleteUserHook {
 
             // Email errors
             $db->delete('email_errors', ['user_id', $params['user_id']]);
-
-            // Friends
-            $db->delete('friends', ['user_id', $params['user_id']]);
-            $db->delete('friends', ['friend_id', $params['user_id']]);
 
             // Infractions
             $db->delete('infractions', ['punished', $params['user_id']]);

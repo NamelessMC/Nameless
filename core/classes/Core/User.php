@@ -854,7 +854,7 @@ class User {
             // Set message to "read"
             if ($pm->read == 0) {
                 $this->_db->update('private_messages_users', $pm_user_id, [
-                    'read' => 1
+                    'read' => true,
                 ]);
             }
 

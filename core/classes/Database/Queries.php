@@ -158,90 +158,19 @@ class Queries {
     }
 
     /**
-     * Initialise the database on a fresh install.
-
-     * @return bool|string
+     * Initialise the database structure on a fresh installation.
+     *
+     * @return bool True if the database was initialised, false if not.
      */
-    public function dbInitialise() {
+    public function dbInitialise(): bool {
         $data = $this->_db->showTables('settings');
 
         if (!empty($data)) {
-            return '<div class="alert alert-warning">Database already initialised!</div>';
+            echo '<div class="alert alert-warning">Database already initialised!</div>';
+            return false;
         }
 
-        $this->createTable('alerts', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `type` varchar(64) NOT NULL, `url` varchar(255) NOT NULL, `content_short` varchar(128) NOT NULL, `content` varchar(512) NOT NULL, `created` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('blocked_users', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `user_blocked_id` int(11) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('custom_announcements', " `id` int(11) NOT NULL AUTO_INCREMENT, `pages` varchar(1024) NOT NULL, `groups` varchar(1024) NOT NULL, `order` int(11) NOT NULL, `text_colour` varchar(7) NOT NULL, `background_colour` varchar(7) NOT NULL, `icon` varchar(64) NOT NULL, `closable` tinyint(1) NOT NULL DEFAULT '0', `header` varchar(64) NOT NULL, `message` varchar(1024) NOT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('custom_pages', " `id` int(11) NOT NULL AUTO_INCREMENT, `url` varchar(255) NOT NULL, `title` varchar(255) NOT NULL, `content` mediumtext NOT NULL, `link_location` tinyint(1) NOT NULL DEFAULT '1', `redirect` tinyint(1) NOT NULL DEFAULT '0', `link` varchar(512) DEFAULT NULL, `target` tinyint(1) NOT NULL DEFAULT '0', `icon` varchar(64) DEFAULT NULL, `all_html` tinyint(1) NOT NULL DEFAULT '0', `sitemap` tinyint(1) NOT NULL DEFAULT '0', `basic` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('custom_pages_permissions', " `id` int(11) NOT NULL AUTO_INCREMENT, `page_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `view` tinyint(4) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('email_errors', ' `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `content` text NOT NULL, `at` int(11) NOT NULL, `user_id` int(11) DEFAULT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('forums', " `id` int(11) NOT NULL AUTO_INCREMENT, `forum_title` varchar(150) NOT NULL, `forum_description` varchar(255) DEFAULT NULL, `last_post_date` int(11) DEFAULT NULL, `last_user_posted` int(11) DEFAULT NULL, `last_topic_posted` int(11) DEFAULT NULL, `parent` int(11) NOT NULL DEFAULT '0', `forum_order` int(11) NOT NULL, `news` tinyint(1) NOT NULL DEFAULT '0', `forum_type` varchar(255) NOT NULL DEFAULT 'forum', `redirect_forum` tinyint(1) NOT NULL DEFAULT '0', `redirect_url` varchar(512) DEFAULT NULL, `icon` varchar(256) DEFAULT NULL, `topic_placeholder` mediumtext, `hooks` varchar(512) NULL DEFAULT NULL, `default_labels` varchar(128) DEFAULT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('forums_labels', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `html` varchar(1024) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('forums_permissions', " `id` int(11) NOT NULL AUTO_INCREMENT, `group_id` int(11) NOT NULL, `forum_id` int(11) NOT NULL, `view` tinyint(1) NOT NULL DEFAULT '0', `create_topic` tinyint(1) NOT NULL DEFAULT '0', `edit_topic` tinyint(1) NOT NULL DEFAULT '0', `create_post` tinyint(1) NOT NULL DEFAULT '0', `view_other_topics` tinyint(1) NOT NULL DEFAULT '0', `moderate` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('forums_reactions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `post_id` int(11) NOT NULL, `user_received` int(11) NOT NULL, `user_given` int(11) NOT NULL, `reaction_id` int(11) NOT NULL, `time` int(11) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('forums_topic_labels', ' `id` int(11) NOT NULL AUTO_INCREMENT, `fids` varchar(128) NOT NULL, `name` varchar(32) NOT NULL, `label` varchar(20) NOT NULL, `gids` varchar(256) DEFAULT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('friends', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `friend_id` int(11) NOT NULL, `notify` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('groups', "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `group_html` varchar(1024) NOT NULL, `group_html_lg` varchar(1024) NOT NULL, `group_username_color` varchar(256) DEFAULT NULL, `group_username_css` varchar(256) DEFAULT NULL, `admin_cp` tinyint(1) NOT NULL DEFAULT '0', `staff` tinyint(1) NOT NULL DEFAULT '0', `permissions` mediumtext, `default_group` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', `force_tfa` tinyint(1) NOT NULL DEFAULT '0', `deleted` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('groups_templates', " `id` int(11) NOT NULL AUTO_INCREMENT, `group_id` int(11) NOT NULL, `template_id` int(11) NOT NULL, `can_use_template` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
-        $this->createTable('group_sync', ' `id` int(11) NOT NULL AUTO_INCREMENT, `website_group_id` int(11) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('hooks', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `action` int(11) NOT NULL, `url` varchar(2048) NOT NULL, `events` varchar(2048) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('ip_bans', ' `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(128) NOT NULL, `banned_by` int(11) NOT NULL, `banned_at` int(11) NOT NULL, `reason` varchar(255) DEFAULT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('infractions', " `id` int(11) NOT NULL AUTO_INCREMENT, `type` int(11) NOT NULL, `punished` int(11) NOT NULL, `staff` int(11) NOT NULL, `reason` text NOT NULL, `infraction_date` datetime NOT NULL, `created` int(11) DEFAULT NULL, `acknowledged` tinyint(1) NOT NULL, `revoked` tinyint(1) NOT NULL DEFAULT '0', `revoked_by` int(11) DEFAULT NULL, `revoked_at` int(11) DEFAULT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('languages', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `short_code` varchar(64) NOT NULL, `is_default` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('logs', ' `id` int(11) NOT NULL AUTO_INCREMENT, `time` int(11) NOT NULL, `action` mediumtext NOT NULL, `ip` varchar(128) DEFAULT NULL, `user_id` int(11) NOT NULL, `info` mediumtext, PRIMARY KEY (`id`)');
-        $this->createTable('mc_servers', " `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(64) NOT NULL, `query_ip` varchar(64) NOT NULL, `name` varchar(128) NOT NULL, `is_default` tinyint(1) NOT NULL DEFAULT '0', `display` tinyint(1) NOT NULL DEFAULT '1', `pre` tinyint(1) NOT NULL DEFAULT '0', `player_list` tinyint(1) NOT NULL DEFAULT '1', `parent_server` int(11) NOT NULL DEFAULT '0', `bungee` tinyint(1) NOT NULL DEFAULT '0', `bedrock` tinyint(1) NOT NULL DEFAULT '0', `port` int(11) DEFAULT NULL, `query_port` int(11) DEFAULT '25565', `banner_background` varchar(32) NOT NULL DEFAULT 'background.png', `show_ip` tinyint(1) NOT NULL DEFAULT '1', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
-        $this->createTable('modules', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL UNIQUE, `enabled` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('oauth', " `provider` varchar(256) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `client_id` varchar(256) DEFAULT NULL, `client_secret` varchar(256) DEFAULT NULL, PRIMARY KEY (`provider`), UNIQUE KEY `id` (`provider`)");
-        $this->createTable('oauth_users', ' `user_id` int(11) NOT NULL, `provider` varchar(256) NOT NULL, `provider_id` varchar(256) NOT NULL, PRIMARY KEY (`user_id`,`provider`,`provider_id`), UNIQUE KEY `user_id` (`user_id`,`provider`,`provider_id`)');
-        $this->createTable('online_guests', ' `id` int(11) NOT NULL AUTO_INCREMENT, `ip` varchar(128) NOT NULL, `last_seen` int(11) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('page_descriptions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `page` varchar(64) NOT NULL, `description` varchar(500) DEFAULT NULL, `tags` text, PRIMARY KEY (`id`)');
-        $this->createTable('panel_templates', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `is_default` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('posts', " `id` int(11) NOT NULL AUTO_INCREMENT, `forum_id` int(11) NOT NULL, `topic_id` int(11) NOT NULL, `post_creator` int(11) NOT NULL, `post_content` mediumtext NOT NULL, `post_date` datetime DEFAULT NULL, `last_edited` int(11) DEFAULT NULL, `ip_address` varchar(128) DEFAULT NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', `created` int(11) DEFAULT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('privacy_terms', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(8) NOT NULL, `value` mediumtext NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('private_messages', ' `id` int(11) NOT NULL AUTO_INCREMENT, `author_id` int(11) NOT NULL, `title` varchar(128) NOT NULL, `created` int(11) NOT NULL, `last_reply_user` int(11) NOT NULL, `last_reply_date` int(11) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('private_messages_replies', ' `id` int(11) NOT NULL AUTO_INCREMENT, `pm_id` int(11) NOT NULL, `author_id` int(11) NOT NULL, `created` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('private_messages_users', " `id` int(11) NOT NULL AUTO_INCREMENT, `pm_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `read` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('profile_fields', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(16) NOT NULL, `type` int(11) NOT NULL DEFAULT '1', `public` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `description` text, `length` int(11) DEFAULT NULL, `forum_posts` tinyint(1) NOT NULL DEFAULT '0', `editable` tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
-        $this->createTable('placeholders_settings', " `server_id` int(4) NOT NULL, `name` varchar(186) NOT NULL, `friendly_name` varchar(256) NULL DEFAULT NULL, `show_on_profile` tinyint(1) NOT NULL DEFAULT '1', `show_on_forum` tinyint(1) NOT NULL DEFAULT '1', `leaderboard` tinyint(1) NOT NULL DEFAULT '0', `leaderboard_title` varchar(36) NULL DEFAULT NULL, `leaderboard_sort` varchar(4) NOT NULL DEFAULT 'DESC', PRIMARY KEY(`server_id`, `name`)");
-        $this->createTable('query_errors', ' `id` int(11) NOT NULL AUTO_INCREMENT, `date` int(11) NOT NULL, `error` varchar(2048) NOT NULL, `ip` varchar(64) NOT NULL, `port` int(6) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('query_results', ' `id` int(11) NOT NULL AUTO_INCREMENT, `server_id` int(11) NOT NULL, `queried_at` int(11) NOT NULL, `players_online` int(11) NOT NULL, `groups` text, PRIMARY KEY (`id`)');
-        $this->createTable('reactions', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(16) NOT NULL, `html` varchar(255) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `type` tinyint(1) NOT NULL DEFAULT '2', PRIMARY KEY (`id`)");
-        $this->createTable('reports', " `id` int(11) NOT NULL AUTO_INCREMENT, `type` tinyint(1) NOT NULL, `reporter_id` int(11) NOT NULL, `reported_id` int(11) NOT NULL, `status` tinyint(1) NOT NULL DEFAULT '0', `date_reported` datetime NOT NULL, `date_updated` datetime NOT NULL, `reported` int(11) DEFAULT NULL, `updated` int(11) DEFAULT NULL, `report_reason` mediumtext NOT NULL, `updated_by` int(11) NOT NULL, `reported_post` int(11) DEFAULT NULL, `link` varchar(128) DEFAULT NULL, `reported_mcname` varchar(64) DEFAULT NULL, `reported_uuid` varchar(64) DEFAULT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('reports_comments', ' `id` int(11) NOT NULL AUTO_INCREMENT, `report_id` int(11) NOT NULL, `commenter_id` int(11) NOT NULL, `comment_date` datetime NOT NULL, `date` int(11) DEFAULT NULL, `comment_content` mediumtext NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('settings', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `value` varchar(2048) DEFAULT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(32) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '1', `can_unlink` tinyint(1) NOT NULL DEFAULT '1', `required` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('templates', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `is_default` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('topics', " `id` int(11) NOT NULL AUTO_INCREMENT, `forum_id` int(11) NOT NULL, `topic_title` varchar(150) NOT NULL, `topic_creator` int(11) NOT NULL, `topic_last_user` int(11) NOT NULL, `topic_date` int(11) NOT NULL, `topic_reply_date` int(11) NOT NULL, `topic_views` int(11) NOT NULL DEFAULT '0', `locked` tinyint(1) NOT NULL DEFAULT '0', `sticky` tinyint(1) NOT NULL DEFAULT '0', `label` int(11) DEFAULT NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', `labels` VARCHAR(128) NULL DEFAULT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('topics_following', " `id` int(11) NOT NULL AUTO_INCREMENT, `topic_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `existing_alerts` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('users', " `id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `nickname` varchar(20) NOT NULL, `password` varchar(255) NOT NULL, `pass_method` varchar(12) NOT NULL DEFAULT 'default', `joined` int(11) NOT NULL, `email` varchar(64) NOT NULL, `isbanned` tinyint(1) NOT NULL DEFAULT '0', `lastip` varchar(128) DEFAULT NULL, `active` tinyint(1) NOT NULL DEFAULT '0', `signature` mediumtext, `profile_views` int(11) NOT NULL DEFAULT '0', `reputation` int(11) NOT NULL DEFAULT '0', `reset_code` VARCHAR(64) DEFAULT NULL, `has_avatar` tinyint(1) NOT NULL DEFAULT '0', `gravatar` tinyint(1) NOT NULL DEFAULT '0', `topic_updates` tinyint(1) NOT NULL DEFAULT '1', `private_profile` tinyint(1) NOT NULL DEFAULT '0', `last_online` int(11) DEFAULT NULL, `user_title` varchar(64) DEFAULT NULL, `theme_id` int(11) DEFAULT NULL, `language_id` int(11) DEFAULT NULL, `warning_points` int(11) NOT NULL DEFAULT '0', `night_mode` tinyint(1) DEFAULT NULL, `tfa_enabled` tinyint(1) NOT NULL DEFAULT '0', `tfa_type` int(11) NOT NULL DEFAULT '0', `tfa_secret` varchar(256) DEFAULT NULL, `tfa_complete` tinyint(1) NOT NULL DEFAULT '0', `banner` varchar(64) DEFAULT NULL, `timezone` varchar(32) NOT NULL DEFAULT 'Europe/London', `avatar_updated` int(11) DEFAULT NULL, PRIMARY KEY (`id`)");
-        $this->createTable('users_groups', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `received` int(11) NOT NULL DEFAULT '0', `expire` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('users_integrations', " `id` int(11) NOT NULL AUTO_INCREMENT, `integration_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `identifier` varchar(64) DEFAULT NULL, `username` varchar(32) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `date` int(11) NOT NULL, `code` varchar(64) DEFAULT NULL, `show_publicly` tinyint(1) NOT NULL DEFAULT '1', `last_sync` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('users_admin_session', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(64) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('users_ips', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `ip` varchar(128) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('users_profile_fields', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, `value` mediumtext, `updated` int(11), PRIMARY KEY (`id`)');
-        $this->createTable('users_session', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `hash` varchar(64) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('users_username_history', " `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `changed_to` varchar(64) NOT NULL, `changed_at` int(11) NOT NULL, `original` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-        $this->createTable('users_placeholders', ' `server_id` int(4) NOT NULL, `uuid` varbinary(16) NOT NULL, `name` varchar(186) NOT NULL, `value` TEXT NOT NULL, `last_updated` int(11) NOT NULL, PRIMARY KEY(`server_id`, `uuid`, `name`)');
-        $this->createTable('user_profile_wall_posts', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `author_id` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('user_profile_wall_posts_reactions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `post_id` int(11) NOT NULL, `reaction_id` int(11) NOT NULL, `time` int(11) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('user_profile_wall_posts_replies', ' `id` int(11) NOT NULL AUTO_INCREMENT, `post_id` int(11) NOT NULL, `author_id` int(11) NOT NULL, `time` int(11) NOT NULL, `content` mediumtext NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('uuid_cache', ' `id` int(11) NOT NULL AUTO_INCREMENT, `mcname` varchar(20) NOT NULL, `uuid` varchar(64) NOT NULL, PRIMARY KEY (`id`)');
-        $this->createTable('widgets', " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT '0', `pages` text, `order` int(11) NOT NULL DEFAULT '10', `location` varchar(5) NOT NULL DEFAULT 'right', PRIMARY KEY (`id`)");
-
-        // Indices
-        $this->_db->query('ALTER TABLE `nl2_groups` ADD INDEX `nl2_groups_idx_staff` (`staff`)');
-        $this->_db->query('ALTER TABLE `nl2_posts` ADD INDEX `nl2_posts_idx_topic_id` (`topic_id`)');
-        $this->_db->query('ALTER TABLE `nl2_users` ADD INDEX `nl2_users_idx_id_last_online` (`id`,`last_online`)');
-        $this->_db->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_group_id` (`group_id`)');
-        $this->_db->query('ALTER TABLE `nl2_users_groups` ADD INDEX `nl2_users_groups_idx_user_id` (`user_id`)');
-        $this->_db->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_integration_id` (`integration_id`)');
-        $this->_db->query('ALTER TABLE `nl2_users_integrations` ADD INDEX `nl2_users_integrations_idx_user_id` (`user_id`)');
-
-        // (Builtin) Group Sync Injectors
-        $this->_db->addColumn('group_sync', 'discord_role_id', "BIGINT NULL DEFAULT NULL");
-        $this->_db->addColumn('group_sync', 'ingame_rank_name', "VARCHAR(64) NULL DEFAULT NULL");
-
-        // Success
+        PhinxAdapter::migrate();
         return true;
     }
 }

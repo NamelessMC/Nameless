@@ -67,7 +67,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
 
         // Ban user
         $queries->update('users', $post->post_creator, [
-            'isbanned' => 1
+            'isbanned' => true,
         ]);
 
         // Redirect

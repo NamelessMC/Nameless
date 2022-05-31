@@ -76,8 +76,8 @@ if (isset($_GET['do'])) {
                     if (isset($_POST['tfa_code'])) {
                         if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
                             $user->update([
-                                'tfa_complete' => 1,
-                                'tfa_enabled' => 1,
+                                'tfa_complete' => true,
+                                'tfa_enabled' => true,
                                 'tfa_type' => 1
                             ]);
                             Session::delete('force_tfa_alert');
@@ -124,10 +124,10 @@ if (isset($_GET['do'])) {
         if ($_GET['do'] == 'disable_tfa') {
             // Disable TFA
             $user->update([
-                'tfa_enabled' => 0,
+                'tfa_enabled' => false,
                 'tfa_type' => 0,
                 'tfa_secret' => null,
-                'tfa_complete' => 0
+                'tfa_complete' => false
             ]);
 
             Redirect::to(URL::build('/user/settings'));

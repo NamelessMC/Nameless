@@ -1,6 +1,6 @@
 <?php
 /*
- *  Made by Samerton
+ *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -24,7 +24,7 @@ if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
 }
 
 // Get post and forum ID
-$post = DB::getInstance()->get('posts', ['id', $_GET['pid']])->results();
+$post = $queries->getWhere('posts', ['id', $_GET['pid']]);
 if (!count($post)) {
     Redirect::to(URL::build('/forum'));
 }
@@ -39,8 +39,8 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 // Is it the OP?
                 if (isset($_POST['number']) && Input::get('number') == 10) {
 
-                    DB::getInstance()->update('topics', Input::get('tid'), [
-                        'deleted' => 1
+                    $queries->update('topics', Input::get('tid'), [
+                        'deleted' => true,
                     ]);
 
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
@@ -54,17 +54,17 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 $redirect = URL::build('/forum/search/', 'p=1&s=' . urlencode($_POST['search_string']));
             }
 
-            DB::getInstance()->update('posts', Input::get('pid'), [
-                'deleted' => 1
+            $queries->update('posts', Input::get('pid'), [
+                'deleted' => true,
             ]);
 
             if (isset($opening_post)) {
-                $posts = DB::getInstance()->get('posts', ['topic_id', $_POST['tid']])->results();
+                $posts = $queries->getWhere('posts', ['topic_id', $_POST['tid']]);
 
                 if (count($posts)) {
                     foreach ($posts as $post) {
                         $queries->update('posts', $post->id, [
-                            'deleted' => 1
+                            'deleted' => true,
                         ]);
                         Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);
                     }

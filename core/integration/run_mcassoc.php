@@ -102,7 +102,7 @@ if (!isset($_GET['step'])) {
                     'pass_method' => 'default',
                     'joined' => date('U'),
                     'email' => $_SESSION['mcassoc']['email'],
-                    'active' => 1,
+                    'active' => true,
                     'lastip' => $ip,
                     'last_online' => date('U')
                 ]);

@@ -121,7 +121,7 @@ if (Input::exists()) {
                     }
 
                     $user->update([
-                        'has_avatar' => 1,
+                        'has_avatar' => true,
                         'avatar_updated' => date('U')
                     ]);
 

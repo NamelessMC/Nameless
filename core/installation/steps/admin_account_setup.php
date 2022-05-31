@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'joined' => date('U'),
                 'email' => Input::get('email'),
                 'lastip' => $ip,
-                'active' => 1,
+                'active' => true,
                 'last_online' => date('U'),
                 'language_id' => $default_language[0]->id,
             ]);
@@ -85,11 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'user_id' => 1,
                         'identifier' => $uuid,
                         'username' => Input::get('username'),
-                        'verified' => 1,
+                        'verified' => true,
                         'date' => date('U'),
                     ]);
                 }
             }
+
+            DatabaseInitialiser::runPostUser();
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
             if ($login) {

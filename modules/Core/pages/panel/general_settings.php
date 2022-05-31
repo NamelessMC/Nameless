@@ -96,7 +96,7 @@ if (Input::exists()) {
             // Language
             // Get current default language
             $queries->update('languages', ['is_default', true], [
-                'is_default' => 0
+                'is_default' => false,
             ]);
 
             $language_id = DB::getInstance()->get('languages', ['id', Input::get('language')])->results();
@@ -104,7 +104,7 @@ if (Input::exists()) {
             $language_id = $language_id[0]->id;
 
             $queries->update('languages', $language_id, [
-                'is_default' => 1
+                'is_default' => true,
             ]);
 
             // Update cache

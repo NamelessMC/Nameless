@@ -338,7 +338,7 @@ if (!isset($_GET['id'])) {
                 $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
                 if (count($report)) {
                     $queries->update('reports', $report[0]->id, [
-                        'status' => 0,
+                        'status' => false,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
                         'updated_by' => $user->data()->id

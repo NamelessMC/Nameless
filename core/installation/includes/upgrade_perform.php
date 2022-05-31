@@ -124,7 +124,7 @@ switch ($s) {
                         'view' => $item->view,
                         'create_topic' => $item->create_topic,
                         'create_post' => $item->create_post,
-                        'view_other_topics' => 1
+                        'view_other_topics' => true,
                     ]);
                 }
             }
@@ -151,24 +151,6 @@ switch ($s) {
             $errors[] = 'Unable to convert forum topic labels: ' . $e->getMessage();
         }
 
-        // Friends/followers
-        try {
-            $old = $conn->get('nl1_friends', ['id', '<>', 0]);
-            if ($old->count()) {
-                $old = $old->results();
-
-                foreach ($old as $item) {
-                    $queries->create('friends', [
-                        'id' => $item->id,
-                        'user_id' => $item->user_id,
-                        'friend_id' => $item->friend_id
-                    ]);
-                }
-            }
-        } catch (Exception $e) {
-            $errors[] = 'Unable to convert friends: ' . $e->getMessage();
-        }
-
         // Groups
         try {
             $old = $conn->get('nl1_groups', ['id', '<>', 0]);
@@ -180,7 +162,6 @@ switch ($s) {
                         'id' => $item->id,
                         'name' => $item->name,
                         'group_html' => $item->group_html,
-                        'group_html_lg' => $item->group_html_lg,
                         'admin_cp' => (($item->staff) ? 1 : 0),
                         'default_group' => (($item->id == 1) ? 1 : 0)
                     ]);
@@ -539,7 +520,7 @@ switch ($s) {
                         'user_id' => $item->id,
                         'identifier' => $item->uuid,
                         'username' => $item->mcname,
-                        'verified' => 1,
+                        'verified' => true,
                         'date' => $item->joined,
                     ]);
                 }
@@ -717,15 +698,15 @@ switch ($s) {
         // Modules
         $queries->create('modules', [
             'name' => 'Core',
-            'enabled' => 1
+            'enabled' => true,
         ]);
         $queries->create('modules', [
             'name' => 'Forum',
-            'enabled' => 1
+            'enabled' => true
         ]);
         $queries->create('modules', [
             'name' => 'Discord Integration',
-            'enabled' => 1
+            'enabled' => true,
         ]);
         $cache->setCache('modulescache');
         $cache->store('enabled_modules', [
@@ -739,35 +720,35 @@ switch ($s) {
         // Integrations
         $queries->create('integrations', [
             'name' => 'Minecraft',
-            'enabled' => 1,
-            'can_unlink' => 0,
-            'required' => 0
+            'enabled' => true,
+            'can_unlink' => false,
+            'required' => false,
         ]);
 
         $queries->create('integrations', [
             'name' => 'Discord',
-            'enabled' => 1,
-            'can_unlink' => 1,
-            'required' => 0
+            'enabled' => true,
+            'can_unlink' => true,
+            'required' => false,
         ]);
 
         // Reactions
         $queries->create('reactions', [
             'name' => 'Like',
             'html' => '<i class="fas fa-thumbs-up text-success"></i>',
-            'enabled' => 1,
+            'enabled' => true,
             'type' => 2
         ]);
         $queries->create('reactions', [
             'name' => 'Dislike',
             'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
-            'enabled' => 1,
+            'enabled' => true,
             'type' => 0
         ]);
         $queries->create('reactions', [
             'name' => 'Meh',
             'html' => '<i class="fas fa-meh text-warning"></i>',
-            'enabled' => 1,
+            'enabled' => true,
             'type' => 1
         ]);
 
@@ -800,7 +781,7 @@ switch ($s) {
         // Settings
         $queries->create('settings', [
             'name' => 'registration_enabled',
-            'value' => 1
+            'value' => true,
         ]);
 
         $queries->create('settings', [
@@ -848,7 +829,7 @@ switch ($s) {
         } else {
             $queries->create('settings', [
                 'name' => 'verify_accounts',
-                'value' => 0
+                'value' => false,
             ]);
         }
 
@@ -866,19 +847,19 @@ switch ($s) {
 
         $queries->create('settings', [
             'name' => 'mc_integration',
-            'value' => 1
+            'value' => true,
         ]);
 
         $queries->create('settings', [
             'name' => 'portal',
-            'value' => 0
+            'value' => false,
         ]);
         $cache->setCache('portal_cache');
         $cache->store('portal', 0);
 
         $queries->create('settings', [
             'name' => 'forum_reactions',
-            'value' => 1
+            'value' => true,
         ]);
 
         $error_reporting = DB::getInstance()->get('settings', ['name', 'error_reporting'])->results();
@@ -888,7 +869,7 @@ switch ($s) {
         } else {
             $queries->create('settings', [
                 'name' => 'error_reporting',
-                'value' => 0
+                'value' => false,
             ]);
             $cache->setCache('error_cache');
             $cache->store('error_reporting', 0);
@@ -896,7 +877,7 @@ switch ($s) {
 
         $queries->create('settings', [
             'name' => 'page_loading',
-            'value' => 0
+            'value' => false,
         ]);
         $cache->setCache('page_load_cache');
         $cache->store('page_load', 0);
@@ -909,7 +890,7 @@ switch ($s) {
         } else {
             $queries->create('settings', [
                 'name' => 'use_api',
-                'value' => 0
+                'value' => false,
             ]);
         }
 
@@ -929,7 +910,7 @@ switch ($s) {
 
         $queries->create('settings', [
             'name' => 'authme',
-            'value' => 0
+            'value' => false,
         ]);
 
         $queries->create('settings', [
@@ -949,7 +930,7 @@ switch ($s) {
 
         $queries->create('settings', [
             'name' => 'private_profile',
-            'value' => 1
+            'value' => true,
         ]);
 
         $queries->create('settings', [
@@ -997,7 +978,7 @@ switch ($s) {
 
         $queries->create('settings', [
             'name' => 'discord_integration',
-            'value' => 0,
+            'value' => false,
         ]);
 
         $queries->create('settings', [
@@ -1017,15 +998,9 @@ switch ($s) {
 
         // Templates
         $queries->create('templates', [
-            'name' => 'Default',
-            'enabled' => 1,
-            'is_default' => 0
-        ]);
-
-        $queries->create('templates', [
             'name' => 'DefaultRevamp',
-            'enabled' => 1,
-            'is_default' => 1
+            'enabled' => true,
+            'is_default' => true,
         ]);
 
         $cache->setCache('templatecache');
@@ -1033,27 +1008,27 @@ switch ($s) {
 
         $queries->create('panel_templates', [
             'name' => 'Default',
-            'enabled' => 1,
-            'is_default' => 1
+            'enabled' => true,
+            'is_default' => true,
         ]);
         $cache->store('panel_default', 'Default');
 
         // Widgets - initialise just a few default ones for now
         $queries->create('widgets', [
             'name' => 'Online Staff',
-            'enabled' => 1,
+            'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
         $queries->create('widgets', [
             'name' => 'Online Users',
-            'enabled' => 1,
+            'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
         $queries->create('widgets', [
             'name' => 'Statistics',
-            'enabled' => 1,
+            'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 

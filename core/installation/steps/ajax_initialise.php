@@ -16,7 +16,7 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
         } else {
             if ($_GET['initialise'] === 'site') {
-                require(dirname(__DIR__) . '/includes/site_initialize.php');
+                DatabaseInitialiser::runPreUser($conf);
 
                 $json = [
                     'success' => true,

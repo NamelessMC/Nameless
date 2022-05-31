@@ -205,13 +205,10 @@ if (!isset($_GET['view'])) {
     if (count($api_enabled)) {
         $api_enabled = $api_enabled[0]->value;
     } else {
-        $queries->create(
-            'settings',
-            [
-                'name' => 'use_api',
-                'value' => 0
-            ]
-        );
+        $queries->create('settings', [
+            'name' => 'use_api',
+            'value' => false,
+        ]);
         $api_enabled = '0';
     }
 

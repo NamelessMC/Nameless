@@ -1,6 +1,6 @@
 <?php
 /*
- *  Made by Samerton
+ *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -225,7 +225,7 @@ if (!isset($_GET['action'])) {
                                 );
 
                                 // Get the PM ID
-                                $last_id = DB::getInstance()->lastId();
+                                $last_id = $queries->getLastId();
 
                                 // Insert post content into database
                                 $queries->create(
@@ -256,14 +256,11 @@ if (!isset($_GET['action'])) {
                                 }
 
                                 // Add the author to the list of users
-                                $queries->create(
-                                    'private_messages_users',
-                                    [
-                                        'pm_id' => $last_id,
-                                        'user_id' => $user->data()->id,
-                                        'read' => 1
-                                    ]
-                                );
+                                $queries->create('private_messages_users', [
+                                    'pm_id' => $last_id,
+                                    'user_id' => $user->data()->id,
+                                    'read' => true,
+                                ]);
 
                                 // Sent successfully
                                 Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
@@ -293,7 +290,7 @@ if (!isset($_GET['action'])) {
 
         if (isset($_GET['uid'])) {
             // Messaging a specific user
-            $user_messaging = DB::getInstance()->get('users', ['id', $_GET['uid']])->results();
+            $user_messaging = $queries->getWhere('users', ['id', $_GET['uid']]);
 
             if (count($user_messaging)) {
                 $smarty->assign('TO_USER', Output::getClean($user_messaging[0]->username));
@@ -396,17 +393,13 @@ if (!isset($_GET['action'])) {
                     );
 
                     // Update PM as unread for all users
-                    $users = DB::getInstance()->get('private_messages_users', ['pm_id', $pm[0]->id])->results();
+                    $users = $queries->getWhere('private_messages_users', ['pm_id', $pm[0]->id]);
 
                     foreach ($users as $item) {
                         if ($item->user_id != $user->data()->id) {
-                            $queries->update(
-                                'private_messages_users',
-                                $item->id,
-                                [
-                                    'read' => 0
-                                ]
-                            );
+                            $queries->update('private_messages_users', $item->id, [
+                                'read' => false
+                            ]);
                         }
                     }
 
@@ -431,7 +424,7 @@ if (!isset($_GET['action'])) {
         }
 
         // Get all PM replies
-        $pm_replies = DB::getInstance()->get('private_messages_replies', ['pm_id', $_GET['message']])->results();
+        $pm_replies = $queries->getWhere('private_messages_replies', ['pm_id', $_GET['message']]);
 
         // Pagination
         $paginator = new Paginator(
@@ -519,12 +512,12 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/user/messaging'));
         }
 
-        $message = DB::getInstance()->get('private_messages_users', ['pm_id', $_GET['message']])->results();
+        $message = $queries->getWhere('private_messages_users', ['pm_id', $_GET['message']]);
 
         if (count($message)) {
             foreach ($message as $item) {
                 if ($item->user_id == $user->data()->id) {
-                    DB::getInstance()->delete('private_messages_users', ['id', $item->id]);
+                    $queries->delete('private_messages_users', ['id', $item->id]);
                     break;
                 }
             }

@@ -145,20 +145,15 @@ $queries->dbInitialise();
 
 Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK'));
 
-$nameless_terms = 'This website uses "Nameless" website software. The ' .
-    '"Nameless" software creators will not be held responsible for any content ' .
-    'that may be experienced whilst browsing this site, nor are they responsible ' .
-    'for any loss of data which may come about, for example a hacking attempt. ' .
-    'The website is run independently from the software creators, and any content' .
-    ' is the responsibility of the website administration.';
-
 print('✍️  Inserting default data to database...' . PHP_EOL);
-require './core/installation/includes/site_initialize.php';
+
+DatabaseInitialiser::runPreUser($conf);
 $sitename = getEnvVar('NAMELESS_SITE_NAME');
 $queries->create('settings', [
     'name' => 'sitename',
     'value' => $sitename,
 ]);
+$cache = new Cache();
 $cache->setCache('sitenamecache');
 $cache->store('sitename', $sitename);
 $queries->create('settings', [
@@ -172,7 +167,7 @@ $queries->create('settings', [
 if (getEnvVar('NAMELESS_DISABLE_EMAIL_VERIFICATION', false)) {
     $queries->update('settings', ['name', 'email_verification'], [
         'name' => 'email_verification',
-        'value' => 0,
+        'value' => false,
     ]);
 }
 
@@ -191,7 +186,7 @@ $user->create([
     'joined' => date('U'),
     'email' => $email,
     'lastip' => '127.0.0.1',
-    'active' => 1,
+    'active' => true,
     'last_online' => date('U'),
     'language_id' => DB::getInstance()->get('languages', ['is_default', 1])->results()[0]->id,
 ]);
@@ -213,11 +208,13 @@ if ($profile !== null) {
             'user_id' => 1,
             'identifier' => $uuid,
             'username' => $username,
-            'verified' => 1,
+            'verified' => true,
             'date' => date('U'),
         ]);
     }
 }
+
+DatabaseInitialiser::runPostUser();
 
 print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
 print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);

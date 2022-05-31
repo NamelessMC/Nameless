@@ -27,7 +27,7 @@ class VerifyEndpoint extends KeyAuthEndpoint {
         }
 
         $user->update([
-            'active' => 1,
+            'active' => true,
             'reset_code' => ''
         ]);
 
