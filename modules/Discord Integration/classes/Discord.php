@@ -56,14 +56,13 @@ class Discord {
             return false;
         }
 
-        $added_arr = self::assembleGroupArray($added, 'add');
-        $removed_arr = self::assembleGroupArray($removed, 'remove');
+        $changed_arr = array_merge(self::assembleGroupArray($added, 'add'), self::assembleGroupArray($removed, 'remove'));
 
-        if (!count($added_arr) && !count($removed_arr)) {
+        if (!count($changed_arr)) {
             return false;
         }
 
-        $json = self::assembleJson($integrationUser->data()->identifier, $added_arr, $removed_arr);
+        $json = self::assembleJson($integrationUser->data()->identifier, $changed_arr);
 
         $result = self::discordBotRequest('/roleChange', $json);
 
@@ -134,17 +133,16 @@ class Discord {
      * Create a JSON objec to send to the Discord bot.
      *
      * @param int $user_id Discord user ID to affect
-     * @param array $added_arr Array of Discord role IDs to add (compiled with `assembleGroupArray`)
-     * @param array $removed_arr Array of Discord role IDs to remove (compiled with `assembleGroupArray`)
+     * @param array $change_arr Array of Discord role IDs to add or remove (compiled with `assembleGroupArray`)
      * @return string JSON object to send to the Discord bot
      */
-    private static function assembleJson(int $user_id, array $added_arr, array $removed_arr): string {
+    private static function assembleJson(int $user_id, array $change_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
             'guild_id' => trim(self::getGuildId()),
             'user_id' => $user_id,
-            'api_key' => trim(Output::getClean(Util::getSetting(DB::getInstance(), 'mc_api_key'))),
-            'roles' => array_merge($added_arr, $removed_arr),
+            'api_key' => trim(Util::getSetting(DB::getInstance(), 'mc_api_key')),
+            'roles' => $change_arr,
         ]);
     }
 
