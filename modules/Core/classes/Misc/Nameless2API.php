@@ -125,7 +125,7 @@ class Nameless2API {
      * @param string $type Whether to check `post` or `get` input
      * @return bool True if the input is valid, false if not
      */
-    public function validateParams(array $input, array $required_fields, string $type = 'post'): bool {
+    public function validateParams(?array $input, array $required_fields, string $type = 'post'): bool {
         $error = $type === 'post'
             ? self::ERROR_INVALID_POST_CONTENTS
             : self::ERROR_INVALID_GET_CONTENTS;
