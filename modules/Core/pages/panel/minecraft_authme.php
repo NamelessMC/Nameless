@@ -28,7 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            $queries->update('settings', ['name', 'authme'], [
+            DB::getInstance()->update('settings', ['name', 'authme'], [
                 'value' => Input::get('enable_authme')
             ]);
 
@@ -81,7 +81,7 @@ if (Input::exists()) {
                 $cache->setCache('authme_cache');
                 $cache->store('authme', $result);
 
-                $queries->update('settings', $authme_db_id, [
+                DB::getInstance()->update('settings', $authme_db_id, [
                     'value' => json_encode($result)
                 ]);
 

@@ -121,7 +121,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                         $last_forum_order = 0;
                                     }
 
-                                    $queries->create('forums', [
+                                    DB::getInstance()->insert('forums', [
                                         'forum_title' => Input::get('forumname'),
                                         'forum_description' => $description,
                                         'forum_order' => $last_forum_order + 1,
@@ -203,7 +203,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 if (!isset($redirect_error)) {
                                     $parent = $_POST['parent'] ?? 0;
 
-                                    $queries->update('forums', $forum->id, [
+                                    DB::getInstance()->update('forums', $forum->id, [
                                         'parent' => $parent,
                                         'news' => Input::get('news_forum'),
                                         'redirect_forum' => $redirect,
@@ -314,10 +314,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                         try {
                             if (isset($previous_fid, $previous_f_order)) {
-                                $queries->update('forums', $forum_id, [
+                                DB::getInstance()->update('forums', $forum_id, [
                                     'forum_order' => $previous_f_order
                                 ]);
-                                $queries->update('forums', $previous_fid, [
+                                DB::getInstance()->update('forums', $previous_fid, [
                                     'forum_order' => $previous_f_order + 1
                                 ]);
                             }
@@ -340,10 +340,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         }
                         try {
                             if (isset($previous_fid, $previous_f_order)) {
-                                $queries->update('forums', $forum_id, [
+                                DB::getInstance()->update('forums', $forum_id, [
                                     'forum_order' => $previous_f_order
                                 ]);
-                                $queries->update('forums', $previous_fid, [
+                                DB::getInstance()->update('forums', $previous_fid, [
                                     'forum_order' => $previous_f_order - 1
                                 ]);
                             }
@@ -361,7 +361,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                             $i = 0;
                             foreach ($forums as $item) {
-                                $queries->update('forums', $item, [
+                                DB::getInstance()->update('forums', $item, [
                                     'forum_order' => $i
                                 ]);
 
@@ -412,12 +412,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $topics = DB::getInstance()->get('topics', ['forum_id', $_GET['fid']])->results();
 
                                 foreach ($posts as $post) {
-                                    $queries->update('posts', $post->id, [
+                                    DB::getInstance()->update('posts', $post->id, [
                                         'forum_id' => $new_forum
                                     ]);
                                 }
                                 foreach ($topics as $topic) {
-                                    $queries->update('topics', $topic->id, [
+                                    DB::getInstance()->update('topics', $topic->id, [
                                         'forum_id' => $new_forum
                                     ]);
                                 }
@@ -587,7 +587,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             try {
                                 if ($forum_perm_exists != 0) { // Permission already exists, update
                                     // Update the forum
-                                    $queries->update('forums_permissions', $update_id, [
+                                    DB::getInstance()->update('forums_permissions', $update_id, [
                                         'view' => $view,
                                         'create_topic' => $create,
                                         'edit_topic' => $edit,
@@ -596,7 +596,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                         'moderate' => $moderate
                                     ]);
                                 } else { // Permission doesn't exist, create
-                                    $queries->create('forums_permissions', [
+                                    DB::getInstance()->insert('forums_permissions', [
                                         'group_id' => 0,
                                         'forum_id' => $_GET['forum'],
                                         'view' => $view,
@@ -654,7 +654,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 try {
                                     if ($forum_perm_exists != 0) { // Permission already exists, update
                                         // Update the forum
-                                        $queries->update('forums_permissions', $update_id, [
+                                        DB::getInstance()->update('forums_permissions', $update_id, [
                                             'view' => $view,
                                             'create_topic' => $create,
                                             'edit_topic' => $edit,
@@ -663,7 +663,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                             'moderate' => $moderate
                                         ]);
                                     } else { // Permission doesn't exist, create
-                                        $queries->create('forums_permissions', [
+                                        DB::getInstance()->insert('forums_permissions', [
                                             'group_id' => $group->id,
                                             'forum_id' => $_GET['forum'],
                                             'view' => $view,

@@ -219,7 +219,7 @@ if (Input::exists()) {
                                                 $user_id = $user->nameToId($username);
                                             }
 
-                                            $queries->update('users', $user_id, [
+                                            DB::getInstance()->update('users', $user_id, [
                                                 'password' => $password,
                                                 'pass_method' => $authme_db['hash']
                                             ]);

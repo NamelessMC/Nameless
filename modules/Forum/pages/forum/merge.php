@@ -41,7 +41,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             if ($validation->passed()) {
 
                 foreach ($posts_to_move as $post_to_move) {
-                    $queries->update('posts', $post_to_move->id, [
+                    DB::getInstance()->update('posts', $post_to_move->id, [
                         'topic_id' => Input::get('merge')
                     ]);
                 }

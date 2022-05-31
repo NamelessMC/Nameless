@@ -52,7 +52,7 @@ if (Input::exists()) {
                 );
 
                 if (isset($sent['error'])) {
-                    $queries->create('email_errors', [
+                    DB::getInstance()->insert('email_errors', [
                         'type' => Email::MASS_MESSAGE,
                         'content' => $sent['error'],
                         'at' => date('U'),

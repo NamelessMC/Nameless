@@ -24,7 +24,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('alerts', [
+                    DB::getInstance()->insert('alerts', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'type' => $item->type,
@@ -47,7 +47,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('custom_pages', [
+                    DB::getInstance()->insert('custom_pages', [
                         'id' => $item->id,
                         'url' => $item->url,
                         'title' => $item->title,
@@ -69,7 +69,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('custom_pages_permissions', [
+                    DB::getInstance()->insert('custom_pages_permissions', [
                         'id' => $item->id,
                         'page_id' => $item->page_id,
                         'group_id' => $item->group_id,
@@ -92,7 +92,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums', [
+                    DB::getInstance()->insert('forums', [
                         'id' => $item->id,
                         'forum_title' => $item->forum_title,
                         'forum_description' => $item->forum_description,
@@ -117,7 +117,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums_permissions', [
+                    DB::getInstance()->insert('forums_permissions', [
                         'id' => $item->id,
                         'group_id' => $item->group_id,
                         'forum_id' => $item->forum_id,
@@ -139,7 +139,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums_topic_labels', [
+                    DB::getInstance()->insert('forums_topic_labels', [
                         'id' => $item->id,
                         'fids' => $item->fids,
                         'name' => $item->name,
@@ -158,7 +158,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('groups', [
+                    DB::getInstance()->insert('groups', [
                         'id' => $item->id,
                         'name' => $item->name,
                         'group_html' => $item->group_html,
@@ -186,7 +186,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('infractions', [
+                    DB::getInstance()->insert('infractions', [
                         'id' => $item->id,
                         'type' => $item->type,
                         'punished' => $item->punished,
@@ -208,7 +208,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('mc_servers', [
+                    DB::getInstance()->insert('mc_servers', [
                         'id' => $item->id,
                         'ip' => $item->ip,
                         'query_ip' => $item->query_ip,
@@ -231,7 +231,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('posts', [
+                    DB::getInstance()->insert('posts', [
                         'id' => $item->id,
                         'forum_id' => $item->forum_id,
                         'topic_id' => $item->topic_id,
@@ -257,7 +257,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('private_messages', [
+                    DB::getInstance()->insert('private_messages', [
                         'id' => $item->id,
                         'author_id' => $item->author_id,
                         'title' => $item->title,
@@ -296,7 +296,7 @@ switch ($s) {
                         }
                     }
 
-                    $queries->create('private_messages_replies', [
+                    DB::getInstance()->insert('private_messages_replies', [
                         'id' => $item->id,
                         'pm_id' => $item->pm_id,
                         'author_id' => $item->user_id,
@@ -316,7 +316,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('private_messages_users', [
+                    DB::getInstance()->insert('private_messages_users', [
                         'id' => $item->id,
                         'pm_id' => $item->pm_id,
                         'user_id' => $item->user_id,
@@ -331,7 +331,7 @@ switch ($s) {
         // Update private message columns
         foreach ($private_messages as $key => $message) {
             try {
-                $queries->update('private_messages', $key, [
+                DB::getInstance()->update('private_messages', $key, [
                     'created' => $message['created'],
                     'last_reply_user' => $message['last_reply_user']
                 ]);
@@ -351,7 +351,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('query_errors', [
+                    DB::getInstance()->insert('query_errors', [
                         'id' => $item->id,
                         'date' => $item->date,
                         'error' => $item->error,
@@ -371,7 +371,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('reports', [
+                    DB::getInstance()->insert('reports', [
                         'id' => $item->id,
                         'type' => $item->type,
                         'reporter_id' => $item->reporter_id,
@@ -398,7 +398,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('reports_comments', [
+                    DB::getInstance()->insert('reports_comments', [
                         'id' => $item->id,
                         'report_id' => $item->report_id,
                         'commenter_id' => $item->commenter_id,
@@ -418,7 +418,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('forums_reactions', [
+                    DB::getInstance()->insert('forums_reactions', [
                         'id' => $item->id,
                         'post_id' => $item->post_id,
                         'user_received' => $item->user_received,
@@ -439,7 +439,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('settings', [
+                    DB::getInstance()->insert('settings', [
                         'id' => $item->id,
                         'name' => $item->name,
                         'value' => $item->value
@@ -460,7 +460,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('topics', [
+                    DB::getInstance()->insert('topics', [
                         'id' => $item->id,
                         'forum_id' => $item->forum_id,
                         'topic_title' => $item->topic_title,
@@ -486,7 +486,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users', [
+                    DB::getInstance()->insert('users', [
                         'id' => $item->id,
                         'username' => $item->mcname,
                         'nickname' => $item->username,
@@ -510,12 +510,12 @@ switch ($s) {
                         'tfa_complete' => $item->tfa_complete
                     ]);
 
-                    $queries->create('users_groups', [
+                    DB::getInstance()->insert('users_groups', [
                         'user_id' => $item->id,
                         'group_id' => $item->group_id
                     ]);
 
-                    $queries->create('users_integrations', [
+                    DB::getInstance()->insert('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => $item->id,
                         'identifier' => $item->uuid,
@@ -540,7 +540,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users_admin_session', [
+                    DB::getInstance()->insert('users_admin_session', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'hash' => $item->hash
@@ -558,7 +558,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users_session', [
+                    DB::getInstance()->insert('users_session', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'hash' => $item->hash
@@ -576,7 +576,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('users_username_history', [
+                    DB::getInstance()->insert('users_username_history', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'changed_to' => $item->changed_to,
@@ -596,7 +596,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('user_profile_wall_posts', [
+                    DB::getInstance()->insert('user_profile_wall_posts', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'author_id' => $item->author_id,
@@ -616,7 +616,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('user_profile_wall_posts_reactions', [
+                    DB::getInstance()->insert('user_profile_wall_posts_reactions', [
                         'id' => $item->id,
                         'user_id' => $item->user_id,
                         'post_id' => $item->post_id,
@@ -636,7 +636,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('user_profile_wall_posts_replies', [
+                    DB::getInstance()->insert('user_profile_wall_posts_replies', [
                         'id' => $item->id,
                         'post_id' => $item->post_id,
                         'author_id' => $item->author_id,
@@ -659,7 +659,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    $queries->create('uuid_cache', [
+                    DB::getInstance()->insert('uuid_cache', [
                         'id' => $item->id,
                         'mcname' => $item->mcname,
                         'uuid' => $item->uuid
@@ -685,7 +685,7 @@ switch ($s) {
 
         // Languages
         foreach (Language::LANGUAGES as $short_code => $meta) {
-            $queries->create('languages', [
+            DB::getInstance()->insert('languages', [
                 'name' => $meta['name'],
                 'short_code' => $short_code,
                 'is_default' => $short_code === 'en_UK' ? 1 : 0
@@ -696,15 +696,15 @@ switch ($s) {
         $cache->store('language', 'en_UK');
 
         // Modules
-        $queries->create('modules', [
+        DB::getInstance()->insert('modules', [
             'name' => 'Core',
             'enabled' => true,
         ]);
-        $queries->create('modules', [
+        DB::getInstance()->insert('modules', [
             'name' => 'Forum',
             'enabled' => true
         ]);
-        $queries->create('modules', [
+        DB::getInstance()->insert('modules', [
             'name' => 'Discord Integration',
             'enabled' => true,
         ]);
@@ -718,14 +718,14 @@ switch ($s) {
         $cache->store('module_forum', true);
 
         // Integrations
-        $queries->create('integrations', [
+        DB::getInstance()->insert('integrations', [
             'name' => 'Minecraft',
             'enabled' => true,
             'can_unlink' => false,
             'required' => false,
         ]);
 
-        $queries->create('integrations', [
+        DB::getInstance()->insert('integrations', [
             'name' => 'Discord',
             'enabled' => true,
             'can_unlink' => true,
@@ -733,19 +733,19 @@ switch ($s) {
         ]);
 
         // Reactions
-        $queries->create('reactions', [
+        DB::getInstance()->insert('reactions', [
             'name' => 'Like',
             'html' => '<i class="fas fa-thumbs-up text-success"></i>',
             'enabled' => true,
             'type' => 2
         ]);
-        $queries->create('reactions', [
+        DB::getInstance()->insert('reactions', [
             'name' => 'Dislike',
             'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
             'enabled' => true,
             'type' => 0
         ]);
-        $queries->create('reactions', [
+        DB::getInstance()->insert('reactions', [
             'name' => 'Meh',
             'html' => '<i class="fas fa-meh text-warning"></i>',
             'enabled' => true,
@@ -753,43 +753,43 @@ switch ($s) {
         ]);
 
         // Forum Labels
-        $queries->create('forums_labels', [
+        DB::getInstance()->insert('forums_labels', [
             'name' => 'Default',
             'html' => '<span class="badge badge-default">{x}</span>'
         ]);
-        $queries->create('forums_labels', [
+        DB::getInstance()->insert('forums_labels', [
             'name' => 'Primary',
             'html' => '<span class="badge badge-primary">{x}</span>'
         ]);
-        $queries->create('forums_labels', [
+        DB::getInstance()->insert('forums_labels', [
             'name' => 'Success',
             'html' => '<span class="badge badge-success">{x}</span>'
         ]);
-        $queries->create('forums_labels', [
+        DB::getInstance()->insert('forums_labels', [
             'name' => 'Info',
             'html' => '<span class="badge badge-info">{x}</span>'
         ]);
-        $queries->create('forums_labels', [
+        DB::getInstance()->insert('forums_labels', [
             'name' => 'Warning',
             'html' => '<span class="badge badge-warning">{x}</span>'
         ]);
-        $queries->create('forums_labels', [
+        DB::getInstance()->insert('forums_labels', [
             'name' => 'Danger',
             'html' => '<span class="badge badge-danger">{x}</span>'
         ]);
 
         // Settings
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'registration_enabled',
             'value' => true,
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'recaptcha_login',
             'value' => 'false'
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'recaptcha_type',
             'value' => 'reCaptcha'
         ]);
@@ -797,13 +797,13 @@ switch ($s) {
         // convert from "version" to "nameless_version"
         $version = DB::getInstance()->get('settings', ['name', 'version'])->results();
         if (count($version)) {
-            $queries->update('settings', $version[0]->id, [
+            DB::getInstance()->update('settings', $version[0]->id, [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
             ]);
             DB::getInstance()->delete('settings', ['name', 'version']);
         } else {
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
             ]);
@@ -811,11 +811,11 @@ switch ($s) {
 
         $version_update = DB::getInstance()->get('settings', ['name', 'version_update'])->results();
         if (count($version_update)) {
-            $queries->update('settings', $version_update[0]->id, [
+            DB::getInstance()->update('settings', $version_update[0]->id, [
                 'value' => 'false'
             ]);
         } else {
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'version_update',
                 'value' => 'false'
             ]);
@@ -823,11 +823,11 @@ switch ($s) {
 
         $mcassoc = DB::getInstance()->get('settings', ['name', 'use_mcassoc'])->results();
         if (count($mcassoc)) {
-            $queries->update('settings', $mcassoc[0]->id, [
+            DB::getInstance()->update('settings', $mcassoc[0]->id, [
                 'name' => 'verify_accounts'
             ]);
         } else {
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'verify_accounts',
                 'value' => false,
             ]);
@@ -835,29 +835,29 @@ switch ($s) {
 
         $avatar_site = DB::getInstance()->get('settings', ['name', 'avatar_api'])->results();
         if (count($avatar_site)) {
-            $queries->update('settings', $avatar_site[0]->id, [
+            DB::getInstance()->update('settings', $avatar_site[0]->id, [
                 'name' => 'avatar_site'
             ]);
         } else {
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'avatar_site',
                 'value' => 'cravatar'
             ]);
         }
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'mc_integration',
             'value' => true,
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'portal',
             'value' => false,
         ]);
         $cache->setCache('portal_cache');
         $cache->store('portal', 0);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'forum_reactions',
             'value' => true,
         ]);
@@ -867,7 +867,7 @@ switch ($s) {
             $cache->setCache('error_cache');
             $cache->store('error_reporting', $error_reporting[0]->value);
         } else {
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'error_reporting',
                 'value' => false,
             ]);
@@ -875,7 +875,7 @@ switch ($s) {
             $cache->store('error_reporting', 0);
         }
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'page_loading',
             'value' => false,
         ]);
@@ -884,120 +884,120 @@ switch ($s) {
 
         $use_plugin = DB::getInstance()->get('settings', ['name', 'use_plugin'])->results();
         if (count($use_plugin)) {
-            $queries->update('settings', $use_plugin[0]->id, [
+            DB::getInstance()->update('settings', $use_plugin[0]->id, [
                 'name' => 'use_api'
             ]);
         } else {
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'use_api',
                 'value' => false,
             ]);
         }
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'timezone',
             'value' => 'Europe/London'
         ]);
         $cache->setCache('timezone_cache');
         $cache->store('timezone', 'Europe/London');
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'maintenance_message',
             'value' => 'This website is currently in maintenance mode.'
         ]);
         $cache->setCache('maintenance_cache');
         $cache->store('maintenance', ['maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.']);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'authme',
             'value' => false,
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'authme_db',
             'value' => null
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'default_avatar_type',
             'value' => 'minecraft'
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'custom_default_avatar',
             'value' => null
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'private_profile',
             'value' => true,
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'registration_disabled_message',
             'value' => null
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'validate_user_action',
             'value' => '{"action":"activate"}'
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'login_method',
             'value' => 'email'
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'username_sync',
             'value' => '1'
         ]);
 
-        $queries->create('privacy_terms', [
+        DB::getInstance()->insert('privacy_terms', [
             'name' => 'privacy',
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
         $terms = DB::getInstance()->get('settings', ['name', 't_and_c_site'])->results();
         if (count($terms)) {
-            $queries->create('privacy_terms', [
+            DB::getInstance()->insert('privacy_terms', [
                 'name' => 'terms',
                 'value' => $terms[0]->value
             ]);
         }
 
-        $queries->create('privacy_terms', [
+        DB::getInstance()->insert('privacy_terms', [
             'name' => 'cookies',
             'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'status_page',
             'value' => '1'
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'discord_integration',
             'value' => false,
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'discord_bot_url',
             'value' => null
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'discord_bot_username',
             'value' => null
         ]);
 
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'placeholders',
             'value' => '0'
         ]);
 
         // Templates
-        $queries->create('templates', [
+        DB::getInstance()->insert('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
             'is_default' => true,
@@ -1006,7 +1006,7 @@ switch ($s) {
         $cache->setCache('templatecache');
         $cache->store('default', 'DefaultRevamp');
 
-        $queries->create('panel_templates', [
+        DB::getInstance()->insert('panel_templates', [
             'name' => 'Default',
             'enabled' => true,
             'is_default' => true,
@@ -1014,19 +1014,19 @@ switch ($s) {
         $cache->store('panel_default', 'Default');
 
         // Widgets - initialise just a few default ones for now
-        $queries->create('widgets', [
+        DB::getInstance()->insert('widgets', [
             'name' => 'Online Staff',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $queries->create('widgets', [
+        DB::getInstance()->insert('widgets', [
             'name' => 'Online Users',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $queries->create('widgets', [
+        DB::getInstance()->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
             'pages' => '["index","forum"]'

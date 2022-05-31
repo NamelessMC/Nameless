@@ -33,7 +33,7 @@ if (isset($_GET['do'])) {
             $exists = DB::getInstance()->get('languages', ['short_code', $short_code])->results();
             if (!count($exists)) {
                 // No, add it now
-                $queries->create('languages', [
+                DB::getInstance()->insert('languages', [
                     // If they try and install a language which is not "official", default to the short code for the name
                     'name' => Language::LANGUAGES[$short_code]['name'] ?? $short_code,
                     'short_code' => $short_code
@@ -80,7 +80,7 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            $queries->update('settings', ['name', 'sitename'], [
+            DB::getInstance()->update('settings', ['name', 'sitename'], [
                 'value' => Output::getClean(Input::get('sitename'))
             ]);
 
@@ -89,13 +89,13 @@ if (Input::exists()) {
             $cache->store('sitename', Output::getClean(Input::get('sitename')));
 
             // Email address
-            $queries->update('settings', ['name', 'incoming_email'], [
+            DB::getInstance()->update('settings', ['name', 'incoming_email'], [
                 'value' => Output::getClean(Input::get('contact_email'))
             ]);
 
             // Language
             // Get current default language
-            $queries->update('languages', ['is_default', true], [
+            DB::getInstance()->update('languages', ['is_default', true], [
                 'is_default' => false,
             ]);
 
@@ -103,7 +103,7 @@ if (Input::exists()) {
             $language_short_code = Output::getClean($language_id[0]->short_code);
             $language_id = $language_id[0]->id;
 
-            $queries->update('languages', $language_id, [
+            DB::getInstance()->update('languages', $language_id, [
                 'is_default' => true,
             ]);
 
@@ -113,7 +113,7 @@ if (Input::exists()) {
 
             // Timezone
             try {
-                $queries->update('settings', ['name', 'timezone'], [
+                DB::getInstance()->update('settings', ['name', 'timezone'], [
                     'value' => Output::getClean($_POST['timezone'])
                 ]);
 
@@ -133,7 +133,7 @@ if (Input::exists()) {
                 $home_type = 'custom';
             }
 
-            $queries->update('settings', ['name', 'home_type'], [
+            DB::getInstance()->update('settings', ['name', 'home_type'], [
                 'value' => $home_type
             ]);
 
@@ -148,12 +148,12 @@ if (Input::exists()) {
                 $private_profile = 0;
             }
 
-            $queries->update('settings', ['name', 'private_profile'], [
+            DB::getInstance()->update('settings', ['name', 'private_profile'], [
                 'value' => $private_profile
             ]);
 
             // Registration displaynames
-            $queries->update('settings', ['name', 'displaynames'], [
+            DB::getInstance()->update('settings', ['name', 'displaynames'], [
                 'value' => $_POST['displaynames']
             ]);
 
@@ -197,7 +197,7 @@ if (Input::exists()) {
             }
 
             // Login method
-            $queries->update('settings', ['name', 'login_method'], [
+            DB::getInstance()->update('settings', ['name', 'login_method'], [
                 'value' => $_POST['login_method']
             ]);
 

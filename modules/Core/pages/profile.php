@@ -100,7 +100,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         if ($validation->passed()) {
                             // Validation successful
                             // Input into database
-                            $queries->create(
+                            DB::getInstance()->insert(
                                 'user_profile_wall_posts',
                                 [
                                     'user_id' => $query->id,
@@ -170,7 +170,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             }
 
                             // Input into database
-                            $queries->create(
+                            DB::getInstance()->insert(
                                 'user_profile_wall_posts_replies',
                                 [
                                     'post_id' => $_POST['post'],
@@ -269,7 +269,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             }
                         } else {
                             // Block
-                            $queries->create('blocked_users', [
+                            DB::getInstance()->insert('blocked_users', [
                                 'user_id' => $user->data()->id,
                                 'user_blocked_id' => $query->id
                             ]);
@@ -290,7 +290,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
                                         try {
-                                            $queries->update('user_profile_wall_posts', $_POST['post_id'], [
+                                            DB::getInstance()->update('user_profile_wall_posts', $_POST['post_id'], [
                                                 'content' => $_POST['content']
                                             ]);
                                         } catch (Exception $e) {
@@ -388,7 +388,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     DB::getInstance()->delete('user_profile_wall_posts_reactions', ['id', $has_liked]);
                 } else {
                     // Like
-                    $queries->create('user_profile_wall_posts_reactions', [
+                    DB::getInstance()->insert('user_profile_wall_posts_reactions', [
                         'user_id' => $user->data()->id,
                         'post_id' => $_GET['post'],
                         'reaction_id' => 1,
@@ -402,7 +402,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
                     if ($user->hasPermission('modcp.profile_banner_reset')) {
-                        $queries->update('users', $query->id, [
+                        DB::getInstance()->update('users', $query->id, [
                             'banner' => null
                         ]);
                     }

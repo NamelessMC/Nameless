@@ -125,13 +125,13 @@ if (!isset($_GET['metadata'])) {
                 if (count($page_metadata)) {
                     $page_id = $page_metadata[0]->id;
 
-                    $queries->update('page_descriptions', $page_id, [
+                    DB::getInstance()->update('page_descriptions', $page_id, [
                         'description' => $description,
                         'tags' => $keywords
                     ]);
 
                 } else {
-                    $queries->create('page_descriptions', [
+                    DB::getInstance()->insert('page_descriptions', [
                         'page' => $page['key'],
                         'description' => $description,
                         'tags' => $keywords

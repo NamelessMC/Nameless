@@ -168,7 +168,7 @@ if (!isset($_GET['action'])) {
                         /** @phpstan-ignore-next-line */
                         if ($template instanceof TemplateBase) {
                             // No, add it now
-                            $queries->create('panel_templates', [
+                            DB::getInstance()->insert('panel_templates', [
                                 'name' => $folders[count($folders) - 1]
                             ]);
                         }
@@ -202,7 +202,7 @@ if (!isset($_GET['action'])) {
                     /** @phpstan-ignore-next-line */
                     if ($template instanceof TemplateBase) {
                         // Activate the template
-                        $queries->update('panel_templates', $id, [
+                        DB::getInstance()->update('panel_templates', $id, [
                             'enabled' => true,
                         ]);
 
@@ -233,7 +233,7 @@ if (!isset($_GET['action'])) {
                 $template = $template[0]->id;
 
                 // Deactivate the template
-                $queries->update('panel_templates', $template, [
+                DB::getInstance()->update('panel_templates', $template, [
                     'enabled' => false,
                 ]);
 
@@ -302,13 +302,13 @@ if (!isset($_GET['action'])) {
                 if (count($current_default)) {
                     $current_default = $current_default[0]->id;
                     // No longer default
-                    $queries->update('panel_templates', $current_default, [
+                    DB::getInstance()->update('panel_templates', $current_default, [
                         'is_default' => false,
                     ]);
                 }
 
                 // Make selected template default
-                $queries->update('panel_templates', $new_default, [
+                DB::getInstance()->update('panel_templates', $new_default, [
                     'is_default' => true,
                 ]);
 

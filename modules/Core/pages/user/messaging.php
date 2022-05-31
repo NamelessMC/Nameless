@@ -213,7 +213,7 @@ if (!isset($_GET['action'])) {
                             if (!isset($max_users)) {
 
                                 // Input the content
-                                $queries->create(
+                                DB::getInstance()->insert(
                                     'private_messages',
                                     [
                                         'author_id' => $user->data()->id,
@@ -228,7 +228,7 @@ if (!isset($_GET['action'])) {
                                 $last_id = DB::getInstance()->lastId();
 
                                 // Insert post content into database
-                                $queries->create(
+                                DB::getInstance()->insert(
                                     'private_messages_replies',
                                     [
                                         'pm_id' => $last_id,
@@ -245,7 +245,7 @@ if (!isset($_GET['action'])) {
 
                                     if ($user_id) {
                                         // Not the author
-                                        $queries->create(
+                                        DB::getInstance()->insert(
                                             'private_messages_users',
                                             [
                                                 'pm_id' => $last_id,
@@ -256,7 +256,7 @@ if (!isset($_GET['action'])) {
                                 }
 
                                 // Add the author to the list of users
-                                $queries->create('private_messages_users', [
+                                DB::getInstance()->insert('private_messages_users', [
                                     'pm_id' => $last_id,
                                     'user_id' => $user->data()->id,
                                     'read' => true,
@@ -372,7 +372,7 @@ if (!isset($_GET['action'])) {
                     $content = Input::get('content');
 
                     // Insert post content into database
-                    $queries->create(
+                    DB::getInstance()->insert(
                         'private_messages_replies',
                         [
                             'pm_id' => $pm[0]->id,
@@ -383,7 +383,7 @@ if (!isset($_GET['action'])) {
                     );
 
                     // Update last reply PM information
-                    $queries->update(
+                    DB::getInstance()->update(
                         'private_messages',
                         $pm[0]->id,
                         [
@@ -397,7 +397,7 @@ if (!isset($_GET['action'])) {
 
                     foreach ($users as $item) {
                         if ($item->user_id != $user->data()->id) {
-                            $queries->update('private_messages_users', $item->id, [
+                            DB::getInstance()->update('private_messages_users', $item->id, [
                                 'read' => false
                             ]);
                         }

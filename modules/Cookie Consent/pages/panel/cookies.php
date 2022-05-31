@@ -39,11 +39,11 @@ if (Input::exists()) {
                 if (count($cookie_id)) {
                     $cookie_id = $cookie_id[0]->id;
 
-                    $queries->update('privacy_terms', $cookie_id, [
+                    DB::getInstance()->update('privacy_terms', $cookie_id, [
                         'value' => Input::get('cookies')
                     ]);
                 } else {
-                    $queries->create('privacy_terms', [
+                    DB::getInstance()->insert('privacy_terms', [
                         'name' => 'cookies',
                         'value' => Input::get('cookies')
                     ]);

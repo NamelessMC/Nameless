@@ -158,7 +158,7 @@ if (isset($_GET['action'])) {
                 $php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
                 $php_mailer = $php_mailer[0]->id;
 
-                $queries->update('settings', $php_mailer, [
+                DB::getInstance()->update('settings', $php_mailer, [
                     'value' => $mailer
                 ]);
 
@@ -166,7 +166,7 @@ if (isset($_GET['action'])) {
                     $outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
                     $outgoing_email = $outgoing_email[0]->id;
 
-                    $queries->update('settings', $outgoing_email, [
+                    DB::getInstance()->update('settings', $outgoing_email, [
                         'value' => Output::getClean($_POST['email'])
                     ]);
                 }

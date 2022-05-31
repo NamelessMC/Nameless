@@ -30,7 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            $queries->update('settings', ['name', 'registration_enabled'], [
+            DB::getInstance()->update('settings', ['name', 'registration_enabled'], [
                 'value' => Input::get('enable_registration')
             ]);
         } else {
@@ -56,14 +56,14 @@ if (Input::exists()) {
                 $configuration->set('Core', 'email_verification', $verification);
 
                 // Registration disabled message
-                $queries->update('settings', ['name', 'registration_disabled_message'], [
+                DB::getInstance()->update('settings', ['name', 'registration_disabled_message'], [
                     'value' => Output::getClean(Input::get('message'))
                 ]);
 
                 // reCAPTCHA type
                 $captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
                 if (!count($captcha_type)) {
-                    $queries->create('settings', [
+                    DB::getInstance()->insert('settings', [
                         'name' => 'recaptcha_type',
                         'value' => Input::get('captcha_type')
                     ]);
@@ -97,7 +97,7 @@ if (Input::exists()) {
                         }
 
 
-                        $queries->update('settings', ['name', 'recaptcha'], [
+                        DB::getInstance()->update('settings', ['name', 'recaptcha'], [
                             'value' => $captcha
                         ]);
 
@@ -108,7 +108,7 @@ if (Input::exists()) {
                             $captcha = 'false';
                         }
 
-                        $queries->update('settings', ['name', 'recaptcha_login'], [
+                        DB::getInstance()->update('settings', ['name', 'recaptcha_login'], [
                             'value' => $captcha
                         ]);
 
@@ -150,7 +150,7 @@ if (Input::exists()) {
                 $new_value = json_encode(['action' => $validation_action, 'group' => $_POST['promote_group']]);
 
                 try {
-                    $queries->update('settings', $validation_group_id, [
+                    DB::getInstance()->update('settings', $validation_group_id, [
                         'value' => $new_value
                     ]);
                 } catch (Exception $e) {

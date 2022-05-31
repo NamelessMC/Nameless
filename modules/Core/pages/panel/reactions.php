@@ -136,7 +136,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             }
 
                             // Update database
-                            $queries->create('reactions', [
+                            DB::getInstance()->insert('reactions', [
                                 'name' => Input::get('name'),
                                 'html' => Input::get('html'),
                                 'type' => $type,
@@ -262,7 +262,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
 
                     // Update database
-                    $queries->update('reactions', $_GET['id'], [
+                    DB::getInstance()->update('reactions', $_GET['id'], [
                         'name' => Output::getClean(Input::get('name')),
                         'html' => Output::getPurified(Input::get('html')),
                         'type' => $type,

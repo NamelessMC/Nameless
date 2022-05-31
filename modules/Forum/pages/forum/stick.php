@@ -51,7 +51,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         $status = $forum_language->get('forum', 'topic_unstuck');
     }
 
-    $queries->update('topics', $topic_id, [
+    DB::getInstance()->update('topics', $topic_id, [
         'sticky' => $sticky
     ]);
 

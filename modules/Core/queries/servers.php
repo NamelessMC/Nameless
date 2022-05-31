@@ -82,7 +82,7 @@ if (count($servers)) {
     // Insert into db
     foreach ($results as $id => $result) {
         // Insert into db
-        $queries->create('query_results', [
+        DB::getInstance()->insert('query_results', [
             'server_id' => $id,
             'queried_at' => date('U'),
             'players_online' => ($result['player_count'] ?? 0)

@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
 
             $queries = new Queries();
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'sitename',
                 'value' => Input::get('sitename')
             ]);
@@ -49,12 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cache->setCache('sitenamecache');
             $cache->store('sitename', Input::get('sitename'));
 
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'incoming_email',
                 'value' => Input::get('incoming')
             ]);
 
-            $queries->create('settings', [
+            DB::getInstance()->insert('settings', [
                 'name' => 'outgoing_email',
                 'value' => Input::get('outgoing')
             ]);

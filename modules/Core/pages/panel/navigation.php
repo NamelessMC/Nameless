@@ -44,7 +44,7 @@ if (Input::exists()) {
                     // Custom page?
                     $custom_page = DB::getInstance()->get('custom_pages', ['id', $key])->results();
                     if (count($custom_page)) {
-                        $queries->update('custom_pages', $key, [
+                        DB::getInstance()->update('custom_pages', $key, [
                             'icon' => $item
                         ]);
                     }

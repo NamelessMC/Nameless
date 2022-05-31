@@ -71,7 +71,7 @@ if (isset($_GET['action'])) {
                         }
 
                         // Insert into database
-                        $queries->create('profile_fields', [
+                        DB::getInstance()->insert('profile_fields', [
                             'name' => Input::get('name'),
                             'type' => Input::get('type'),
                             'public' => $public,
@@ -185,7 +185,7 @@ if (isset($_GET['action'])) {
                                 }
 
                                 // Update database
-                                $queries->update('profile_fields', $field->id, [
+                                DB::getInstance()->update('profile_fields', $field->id, [
                                     'name' => Output::getClean(Input::get('name')),
                                     'type' => Input::get('type'),
                                     'public' => $public,

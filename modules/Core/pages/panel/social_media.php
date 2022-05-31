@@ -27,7 +27,7 @@ if (Input::exists()) {
     if (Token::check()) {
         // Update database values
         // Youtube URL
-        $queries->update('settings', ['name', 'youtube_url'], [
+        DB::getInstance()->update('settings', ['name', 'youtube_url'], [
             'value' => Output::getClean(Input::get('youtubeurl'))
         ]);
 
@@ -36,7 +36,7 @@ if (Input::exists()) {
         $cache->store('youtube', Output::getClean(Input::get('youtubeurl')));
 
         // Twitter URL
-        $queries->update('settings', ['name', 'twitter_url'], [
+        DB::getInstance()->update('settings', ['name', 'twitter_url'], [
             'value' => Output::getClean(Input::get('twitterurl'))
         ]);
 
@@ -52,14 +52,14 @@ if (Input::exists()) {
             $theme = 'light';
         }
 
-        $queries->update('settings', $twitter_dark_theme, [
+        DB::getInstance()->update('settings', $twitter_dark_theme, [
             'value' => $theme
         ]);
 
         $cache->store('twitter_theme', $theme);
 
         // Facebook URL
-        $queries->update('settings', ['name', 'fb_url'], [
+        DB::getInstance()->update('settings', ['name', 'fb_url'], [
             'value' => Output::getClean(Input::get('fburl'))
         ]);
 

@@ -115,7 +115,7 @@ if (isset($_GET['action'])) {
                 case 'follow':
                     $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', [$tid, $user->data()->id]);
                     if (!$already_following->count()) {
-                        $queries->create('topics_following', [
+                        DB::getInstance()->insert('topics_following', [
                             'topic_id' => $tid,
                             'user_id' => $user->data()->id,
                             'existing_alerts' => 0
@@ -261,7 +261,7 @@ if (Input::exists()) {
         if ($validate->passed()) {
             $content = Input::get('content');
 
-            $queries->create('posts', [
+            DB::getInstance()->insert('posts', [
                 'forum_id' => $topic->forum_id,
                 'topic_id' => $tid,
                 'post_creator' => $user->data()->id,
@@ -279,16 +279,16 @@ if (Input::exists()) {
                 'user' => $user,
             ])['content'];
 
-            $queries->update('posts', $last_post_id, [
+            DB::getInstance()->update('posts', $last_post_id, [
                 'post_content' => $content
             ]);
 
-            $queries->update('forums', $topic->forum_id, [
+            DB::getInstance()->update('forums', $topic->forum_id, [
                 'last_topic_posted' => $tid,
                 'last_user_posted' => $user->data()->id,
                 'last_post_date' => date('U')
             ]);
-            $queries->update('topics', $tid, [
+            DB::getInstance()->update('topics', $tid, [
                 'topic_last_user' => $user->data()->id,
                 'topic_reply_date' => date('U')
             ]);
@@ -331,7 +331,7 @@ if (Input::exists()) {
                                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
-                            $queries->update('topics_following', $user_following->id, [
+                            DB::getInstance()->update('topics_following', $user_following->id, [
                                 'existing_alerts' => 1
                             ]);
                         }
@@ -368,7 +368,7 @@ if (Input::exists()) {
                     );
 
                     if (isset($sent['error'])) {
-                        $queries->create('email_errors', [
+                        DB::getInstance()->insert('email_errors', [
                             'type' => Email::FORUM_TOPIC_REPLY,
                             'content' => $sent['error'],
                             'at' => date('U'),
@@ -766,7 +766,7 @@ if ($user->isLoggedIn()) {
         $is_user_following = $is_user_following->first();
 
         if ($is_user_following->existing_alerts == 1) {
-            $queries->update('topics_following', $is_user_following->id, [
+            DB::getInstance()->update('topics_following', $is_user_following->id, [
                 'existing_alerts' => 0
             ]);
         }

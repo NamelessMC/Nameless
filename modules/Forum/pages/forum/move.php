@@ -45,11 +45,11 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
 
-                $queries->update('topics', $topic->id, [
+                DB::getInstance()->update('topics', $topic->id, [
                     'forum_id' => Input::get('forum')
                 ]);
                 foreach ($posts_to_move as $post_to_move) {
-                    $queries->update('posts', $post_to_move->id, [
+                    DB::getInstance()->update('posts', $post_to_move->id, [
                         'forum_id' => Input::get('forum')
                     ]);
                 }

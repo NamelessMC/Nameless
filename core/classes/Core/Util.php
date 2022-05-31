@@ -555,7 +555,7 @@ class Util {
             }
 
             $queries = new Queries();
-            $queries->update('settings', ['name', 'version_update'], [
+            DB::getInstance()->update('settings', ['name', 'version_update'], [
                 'value' => $to_db
             ]);
         }

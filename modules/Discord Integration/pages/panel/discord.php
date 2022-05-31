@@ -41,7 +41,7 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-                $queries->update('settings', ['name', 'discord'], [
+                DB::getInstance()->update('settings', ['name', 'discord'], [
                     'value' => Output::getClean(Input::get('discord_guild_id'))
                 ]);
 
@@ -61,16 +61,16 @@ if (Input::exists()) {
                         'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
                         'linkEnd' => '</a>',
                     ]);
-                    $queries->update('settings', $enable_discord_id, [
+                    DB::getInstance()->update('settings', $enable_discord_id, [
                         'value' => false
                     ]);
                 } else {
-                    $queries->update('settings', $enable_discord_id, [
+                    DB::getInstance()->update('settings', $enable_discord_id, [
                         'value' => true
                     ]);
                 }
             } else {
-                $queries->update('settings', $enable_discord_id, [
+                DB::getInstance()->update('settings', $enable_discord_id, [
                     'value' => false
                 ]);
             }

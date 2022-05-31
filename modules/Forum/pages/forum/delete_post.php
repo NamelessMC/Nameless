@@ -63,7 +63,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 
                 if (count($posts)) {
                     foreach ($posts as $post) {
-                        $queries->update('posts', $post->id, [
+                        DB::getInstance()->update('posts', $post->id, [
                             'deleted' => true,
                         ]);
                         Log::getInstance()->log(Log::Action('forums/post/delete'), $post->id);

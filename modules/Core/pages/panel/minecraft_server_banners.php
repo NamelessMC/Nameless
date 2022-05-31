@@ -85,7 +85,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
                 // Valid token
                 try {
                     if (file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))) {
-                        $queries->update('mc_servers', $_GET['edit'], [
+                        DB::getInstance()->update('mc_servers', $_GET['edit'], [
                             'banner_background' => Output::getClean(Input::get('banner'))
                         ]);
 

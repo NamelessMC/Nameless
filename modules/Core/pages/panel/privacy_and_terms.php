@@ -44,11 +44,11 @@ if (Input::exists()) {
                 if (count($privacy_id)) {
                     $privacy_id = $privacy_id[0]->id;
 
-                    $queries->update('privacy_terms', $privacy_id, [
+                    DB::getInstance()->update('privacy_terms', $privacy_id, [
                         'value' => Input::get('privacy')
                     ]);
                 } else {
-                    $queries->create('privacy_terms', [
+                    DB::getInstance()->insert('privacy_terms', [
                         'name' => 'privacy',
                         'value' => Input::get('privacy')
                     ]);
@@ -58,11 +58,11 @@ if (Input::exists()) {
                 if (count($terms_id)) {
                     $terms_id = $terms_id[0]->id;
 
-                    $queries->update('privacy_terms', $terms_id, [
+                    DB::getInstance()->update('privacy_terms', $terms_id, [
                         'value' => Input::get('terms')
                     ]);
                 } else {
-                    $queries->create('privacy_terms', [
+                    DB::getInstance()->insert('privacy_terms', [
                         'name' => 'terms',
                         'value' => Input::get('terms')
                     ]);

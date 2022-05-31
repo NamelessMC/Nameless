@@ -41,7 +41,7 @@ $topic = $topic[0];
 
 if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
 
-    $queries->update('topics', $topic_id, [
+    DB::getInstance()->update('topics', $topic_id, [
         'deleted' => true,
     ]);
     //TODO: TOPIC
@@ -51,7 +51,7 @@ if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
 
     if (count($posts)) {
         foreach ($posts as $post) {
-            $queries->update('posts', $post->id, [
+            DB::getInstance()->update('posts', $post->id, [
                 'deleted' => true,
             ]);
         }

@@ -121,7 +121,7 @@ if (Input::exists()) {
             ])['content'];
 
             // Update post content
-            $queries->update('posts', $post_id, [
+            DB::getInstance()->update('posts', $post_id, [
                 'post_content' => $content,
                 'last_edited' => date('U')
             ]);
@@ -153,7 +153,7 @@ if (Input::exists()) {
                     }
                 }
 
-                $queries->update('topics', $topic_id, [
+                DB::getInstance()->update('topics', $topic_id, [
                     'topic_title' => Input::get('title'),
                     'labels' => implode(',', $post_labels)
                 ]);

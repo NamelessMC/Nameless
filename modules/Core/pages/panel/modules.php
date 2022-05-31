@@ -182,7 +182,7 @@ if (!isset($_GET['action'])) {
                     // Store
                     $cache->store('enabled_modules', $modules);
 
-                    $queries->update('modules', $_GET['m'], [
+                    DB::getInstance()->update('modules', $_GET['m'], [
                         'enabled' => true,
                     ]);
                     Session::flash('admin_modules', $language->get('admin', 'module_enabled'));
@@ -231,7 +231,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $queries->update('modules', $_GET['m'], [
+            DB::getInstance()->update('modules', $_GET['m'], [
                 'enabled' => false,
             ]);
 
@@ -287,7 +287,7 @@ if (!isset($_GET['action'])) {
 
                         /** @phpstan-ignore-next-line */
                         if ($module instanceof Module) {
-                            $queries->create('modules', [
+                            DB::getInstance()->insert('modules', [
                                 'name' => $folders[count($folders) - 1]
                             ]);
                             $module->onInstall();

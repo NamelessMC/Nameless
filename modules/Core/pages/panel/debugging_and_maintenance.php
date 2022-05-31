@@ -42,7 +42,7 @@ if (Input::exists()) {
                 $enabled = 0;
             }
 
-            $queries->update('settings', ['name', 'error_reporting'], [
+            DB::getInstance()->update('settings', ['name', 'error_reporting'], [
                 'value' => $enabled
             ]);
 
@@ -57,7 +57,7 @@ if (Input::exists()) {
                 $enabled = 'false';
             }
 
-            $queries->update('settings', ['name', 'maintenance'], [
+            DB::getInstance()->update('settings', ['name', 'maintenance'], [
                 'value' => $enabled
             ]);
 
@@ -67,7 +67,7 @@ if (Input::exists()) {
                 $message = 'Maintenance mode is enabled.';
             }
 
-            $queries->update('settings', ['name', 'maintenance_message'], [
+            DB::getInstance()->update('settings', ['name', 'maintenance_message'], [
                 'value' => $message
             ]);
 
@@ -87,7 +87,7 @@ if (Input::exists()) {
                 $enabled = 0;
             }
 
-            $queries->update('settings', ['name', 'page_loading'], [
+            DB::getInstance()->update('settings', ['name', 'page_loading'], [
                 'value' => $enabled
             ]);
 

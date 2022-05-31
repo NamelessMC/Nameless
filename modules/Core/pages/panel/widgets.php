@@ -30,7 +30,7 @@ if (!isset($_GET['action'])) {
     foreach ($widgets->getAll() as $widget) {
         $widget_query = DB::getInstance()->get('widgets', ['name', $widget->getName()])->results();
         if (!count($widget_query)) {
-            $queries->create(
+            DB::getInstance()->insert(
                 'widgets',
                 [
                     'name' => $widget->getName()
@@ -78,7 +78,7 @@ if (!isset($_GET['action'])) {
                 $widget = $widgets->getWidget($name);
 
                 if (!is_null($widget)) {
-                    $queries->update('widgets', $_GET['w'], [
+                    DB::getInstance()->update('widgets', $_GET['w'], [
                         'enabled' => true
                     ]);
 
@@ -109,7 +109,7 @@ if (!isset($_GET['action'])) {
                 $widget = $widgets->getWidget($name);
 
                 if (!is_null($widget)) {
-                    $queries->update('widgets', $_GET['w'], [
+                    DB::getInstance()->update('widgets', $_GET['w'], [
                         'enabled' => false
                     ]);
 

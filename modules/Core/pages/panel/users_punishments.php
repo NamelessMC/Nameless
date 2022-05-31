@@ -46,7 +46,7 @@ if (isset($_GET['user'])) {
             if ($infraction->type == 1) {
                 // Unban user
                 try {
-                    $queries->update('users', $query->id, [
+                    DB::getInstance()->update('users', $query->id, [
                         'isbanned' => false,
                         'active' => true,
                     ]);
@@ -57,7 +57,7 @@ if (isset($_GET['user'])) {
             } else {
                 if ($infraction->type == 3) {
                     try {
-                        $queries->update('users', $query->id, [
+                        DB::getInstance()->update('users', $query->id, [
                             'isbanned' => false,
                             'active' => true,
                         ]);
@@ -71,7 +71,7 @@ if (isset($_GET['user'])) {
             }
 
             try {
-                $queries->update('infractions', $infraction->id, [
+                DB::getInstance()->update('infractions', $infraction->id, [
                     'acknowledged' => true,
                     'revoked' => true,
                     'revoked_by' => $user->data()->id,
@@ -141,7 +141,7 @@ if (isset($_GET['user'])) {
                         if (!$is_admin) {
                             // Prevent ip banning if target ip match the user ip
                             if ($type != 3 || $user->data()->lastip != $banned_user->data()->lastip) {
-                                $queries->create('infractions', [
+                                DB::getInstance()->insert('infractions', [
                                     'type' => $type,
                                     'punished' => $query->id,
                                     'staff' => $user->data()->id,
@@ -155,7 +155,7 @@ if (isset($_GET['user'])) {
                                     case 1:
                                     case 3:
                                         // Ban the user
-                                        $queries->update('users', $query->id, [
+                                        DB::getInstance()->update('users', $query->id, [
                                             'isbanned' => true,
                                             'active' => false
                                         ]);
@@ -166,7 +166,7 @@ if (isset($_GET['user'])) {
 
                                         if ($type == 3) {
                                             // Ban IP
-                                            $queries->create('ip_bans', [
+                                            DB::getInstance()->insert('ip_bans', [
                                                 'ip' => $banned_user_ip,
                                                 'banned_by' => $user->data()->id,
                                                 'banned_at' => date('U'),
@@ -201,7 +201,7 @@ if (isset($_GET['user'])) {
                                             unlink($item);
                                         }
 
-                                        $queries->update('users', $query->id, [
+                                        DB::getInstance()->update('users', $query->id, [
                                             'has_avatar' => false,
                                             'avatar_updated' => date('U')
                                         ]);

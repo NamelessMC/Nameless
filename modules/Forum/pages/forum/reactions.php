@@ -55,7 +55,7 @@ if (Input::exists()) {
                         DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
                     } else {
                         // Change reaction
-                        $queries->update('forums_reactions', $reaction->id, [
+                        DB::getInstance()->update('forums_reactions', $reaction->id, [
                             'reaction_id' => $_POST['reaction'],
                             'time' => date('U')
                         ]);
@@ -69,7 +69,7 @@ if (Input::exists()) {
 
         if (!isset($changed)) {
             // Input new reaction
-            $queries->create('forums_reactions', [
+            DB::getInstance()->insert('forums_reactions', [
                 'post_id' => $post->id,
                 'user_received' => $post->post_creator,
                 'user_given' => $user->data()->id,

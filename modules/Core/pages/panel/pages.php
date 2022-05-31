@@ -125,7 +125,7 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $queries->create('custom_pages', [
+                            DB::getInstance()->insert('custom_pages', [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
                                 'content' => Input::get('content'),
@@ -157,7 +157,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             foreach ($perms as $key => $perm) {
-                                $queries->create('custom_pages_permissions', [
+                                DB::getInstance()->insert('custom_pages_permissions', [
                                     'page_id' => $last_id,
                                     'group_id' => $key,
                                     'view' => $perm
@@ -307,7 +307,7 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $queries->update('custom_pages', $page->id, [
+                            DB::getInstance()->update('custom_pages', $page->id, [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
                                 'content' => Input::get('content'),
@@ -334,7 +334,7 @@ if (!isset($_GET['action'])) {
                                                 $new_pages[] = $widget_page;
                                             }
                                         }
-                                        $queries->update('widgets', $widget_row->id, [
+                                        DB::getInstance()->update('widgets', $widget_row->id, [
                                             'pages' => json_encode($new_pages)
                                         ]);
                                     }
@@ -353,7 +353,7 @@ if (!isset($_GET['action'])) {
                                                 $new_pages[] = $announcement_page;
                                             }
                                         }
-                                        $queries->update('custom_announcements', $announcement_row->id, [
+                                        DB::getInstance()->update('custom_announcements', $announcement_row->id, [
                                             'pages' => json_encode($new_pages)
                                         ]);
                                     }
@@ -384,11 +384,11 @@ if (!isset($_GET['action'])) {
                             try {
                                 if ($page_perm_exists != 0) { // Permission already exists, update
                                     // Update the category
-                                    $queries->update('custom_pages_permissions', $update_id, [
+                                    DB::getInstance()->update('custom_pages_permissions', $update_id, [
                                         'view' => $view
                                     ]);
                                 } else { // Permission doesn't exist, create
-                                    $queries->create('custom_pages_permissions', [
+                                    DB::getInstance()->insert('custom_pages_permissions', [
                                         'group_id' => 0,
                                         'page_id' => $page->id,
                                         'view' => $view
@@ -422,11 +422,11 @@ if (!isset($_GET['action'])) {
                                 try {
                                     if ($page_perm_exists != 0) { // Permission already exists, update
                                         // Update the category
-                                        $queries->update('custom_pages_permissions', $update_id, [
+                                        DB::getInstance()->update('custom_pages_permissions', $update_id, [
                                             'view' => $view
                                         ]);
                                     } else { // Permission doesn't exist, create
-                                        $queries->create('custom_pages_permissions', [
+                                        DB::getInstance()->insert('custom_pages_permissions', [
                                             'group_id' => $group->id,
                                             'page_id' => $page->id,
                                             'view' => $view

@@ -147,7 +147,7 @@ if (isset($_GET['action'])) {
                                 $last_server_order = 0;
                             }
 
-                            $queries->create('mc_servers', [
+                            DB::getInstance()->insert('mc_servers', [
                                 'ip' => Input::get('server_address'),
                                 'query_ip' => Input::get('server_address'),
                                 'name' => Input::get('server_name'),
@@ -359,7 +359,7 @@ if (isset($_GET['action'])) {
                                 $query_port = 25565;
                             }
 
-                            $queries->update('mc_servers', $server_editing->id, [
+                            DB::getInstance()->update('mc_servers', $server_editing->id, [
                                 'ip' => Output::getClean(Input::get('server_address')),
                                 'query_ip' => Output::getClean(Input::get('server_address')),
                                 'name' => Output::getClean(Input::get('server_name')),
@@ -472,7 +472,7 @@ if (isset($_GET['action'])) {
 
                 $i = 1;
                 foreach ($servers as $item) {
-                    $queries->update('mc_servers', $item, [
+                    DB::getInstance()->update('mc_servers', $item, [
                         'order' => $i
                     ]);
                     $i++;
@@ -514,13 +514,13 @@ if (isset($_GET['action'])) {
                 if ($new_default > 0) {
                     $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
                     if (count($current_default) && $current_default[0]->id != $new_default) {
-                        $queries->update('mc_servers', $current_default[0]->id, [
+                        DB::getInstance()->update('mc_servers', $current_default[0]->id, [
                             'is_default' => false,
                         ]);
                     }
 
                     if (!count($current_default) || $current_default[0]->id != $new_default) {
-                        $queries->update('mc_servers', $new_default, [
+                        DB::getInstance()->update('mc_servers', $new_default, [
                             'is_default' => true,
                         ]);
                     }
@@ -530,7 +530,7 @@ if (isset($_GET['action'])) {
                 $external_query_id = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
                 $external_query_id = $external_query_id[0];
 
-                $queries->update('settings', $external_query_id->id, [
+                DB::getInstance()->update('settings', $external_query_id->id, [
                     'value' => $external
                 ]);
 
@@ -542,7 +542,7 @@ if (isset($_GET['action'])) {
                 ]);
 
                 // Status page
-                $queries->update('settings', ['name', 'status_page'], [
+                DB::getInstance()->update('settings', ['name', 'status_page'], [
                     'value' => $status
                 ]);
 

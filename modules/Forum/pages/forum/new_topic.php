@@ -155,7 +155,7 @@ if (Input::exists()) {
                     }
                 }
 
-                $queries->create('topics', [
+                DB::getInstance()->insert('topics', [
                     'forum_id' => $fid,
                     'topic_title' => Input::get('title'),
                     'topic_creator' => $user->data()->id,
@@ -168,7 +168,7 @@ if (Input::exists()) {
 
                 $content = Input::get('content');
 
-                $queries->create('posts', [
+                DB::getInstance()->insert('posts', [
                     'forum_id' => $fid,
                     'topic_id' => $topic_id,
                     'post_creator' => $user->data()->id,
@@ -186,11 +186,11 @@ if (Input::exists()) {
                     'user' => $user,
                 ])['content'];
 
-                $queries->update('posts', $last_post_id, [
+                DB::getInstance()->update('posts', $last_post_id, [
                     'post_content' => $content
                 ]);
 
-                $queries->update('forums', $fid, [
+                DB::getInstance()->update('forums', $fid, [
                     'last_post_date' => date('U'),
                     'last_user_posted' => $user->data()->id,
                     'last_topic_posted' => $topic_id

@@ -184,7 +184,7 @@ if (!isset($_GET['id'])) {
                 ])->message($language->get('moderator', 'report_comment_invalid'));
 
                 if ($validation->passed()) {
-                    $queries->create('reports_comments', [
+                    DB::getInstance()->insert('reports_comments', [
                         'report_id' => $report->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
@@ -192,7 +192,7 @@ if (!isset($_GET['id'])) {
                         'date' => date('U')
                     ]);
 
-                    $queries->update('reports', $report->id, [
+                    DB::getInstance()->update('reports', $report->id, [
                         'updated_by' => $user->data()->id,
                         'updated' => date('U'),
                         'date_updated' => date('Y-m-d H:i:s')
@@ -308,14 +308,14 @@ if (!isset($_GET['id'])) {
                 // Get report
                 $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
                 if (count($report)) {
-                    $queries->update('reports', $report[0]->id, [
+                    DB::getInstance()->update('reports', $report[0]->id, [
                         'status' => 1,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
                         'updated_by' => $user->data()->id
                     ]);
 
-                    $queries->create('reports_comments', [
+                    DB::getInstance()->insert('reports_comments', [
                         'report_id' => $report[0]->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
@@ -337,14 +337,14 @@ if (!isset($_GET['id'])) {
                 // Get report
                 $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
                 if (count($report)) {
-                    $queries->update('reports', $report[0]->id, [
+                    DB::getInstance()->update('reports', $report[0]->id, [
                         'status' => false,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
                         'updated_by' => $user->data()->id
                     ]);
 
-                    $queries->create('reports_comments', [
+                    DB::getInstance()->insert('reports_comments', [
                         'report_id' => $report[0]->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),

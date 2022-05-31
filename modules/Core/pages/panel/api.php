@@ -34,7 +34,7 @@ if (!isset($_GET['view'])) {
                 $plugin_api = $plugin_api[0]->id;
 
                 // Update key
-                $queries->update(
+                DB::getInstance()->update(
                     'settings',
                     $plugin_api,
                     [
@@ -52,7 +52,7 @@ if (!isset($_GET['view'])) {
 
             $plugin_id = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
             $plugin_id = $plugin_id[0]->id;
-            $queries->update(
+            DB::getInstance()->update(
                 'settings',
                 $plugin_id,
                 [
@@ -205,7 +205,7 @@ if (!isset($_GET['view'])) {
     if (count($api_enabled)) {
         $api_enabled = $api_enabled[0]->value;
     } else {
-        $queries->create('settings', [
+        DB::getInstance()->insert('settings', [
             'name' => 'use_api',
             'value' => false,
         ]);

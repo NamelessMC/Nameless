@@ -102,7 +102,7 @@ if (!isset($_GET['view'])) {
     }
 
     if ($alert[0]->read == 0) {
-        $queries->update('alerts', $alert[0]->id, [
+        DB::getInstance()->update('alerts', $alert[0]->id, [
             'read' => true,
         ]);
     }

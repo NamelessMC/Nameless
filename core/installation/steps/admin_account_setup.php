@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (isset($result['uuid']) && !empty($result['uuid'])) {
                     $uuid = $result['uuid'];
 
-                    $queries->create('users_integrations', [
+                    DB::getInstance()->insert('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => 1,
                         'identifier' => $uuid,

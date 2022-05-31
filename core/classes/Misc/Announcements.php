@@ -125,7 +125,7 @@ class Announcements {
     public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
 
-        $queries->update('custom_announcements', $id, [
+        DB::getInstance()->update('custom_announcements', $id, [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
             'text_colour' => $text_colour,
@@ -173,7 +173,7 @@ class Announcements {
     public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         $queries = new Queries();
 
-        $queries->create('custom_announcements', [
+        DB::getInstance()->insert('custom_announcements', [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
             'text_colour' => $text_colour,

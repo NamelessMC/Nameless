@@ -566,7 +566,7 @@ if ($page != 'install') {
         $user_ip_logged = DB::getInstance()->get('users_ips', ['ip', $ip])->results();
         if (!count($user_ip_logged)) {
             // Create the entry now
-            $queries->create('users_ips', [
+            DB::getInstance()->insert('users_ips', [
                 'user_id' => $user->data()->id,
                 'ip' => $ip
             ]);
@@ -583,7 +583,7 @@ if ($page != 'install') {
 
                 if (!isset($already_logged)) {
                     // Not yet logged, do so now
-                    $queries->create('users_ips', [
+                    DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
                     ]);
@@ -591,7 +591,7 @@ if ($page != 'install') {
             } else {
                 // Does the entry already belong to the current user?
                 if ($user_ip_logged[0]->user_id != $user->data()->id) {
-                    $queries->create('users_ips', [
+                    DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
                     ]);

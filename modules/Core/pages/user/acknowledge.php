@@ -25,7 +25,7 @@ if (!is_numeric($wid)) {
 $warning = DB::getInstance()->get('infractions', ['id', $wid])->results();
 if (count($warning)) {
     if ($warning[0]->acknowledged == 0 && $warning[0]->punished == $user->data()->id) {
-        $queries->update('infractions', $warning[0]->id, [
+        DB::getInstance()->update('infractions', $warning[0]->id, [
             'acknowledged' => true,
         ]);
 

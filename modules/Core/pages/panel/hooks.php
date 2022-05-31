@@ -80,7 +80,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Save to database
-                            $queries->create('hooks', [
+                            DB::getInstance()->insert('hooks', [
                                 'name' => $_POST['hook_name'],
                                 'action' => $_POST['hook_type'],
                                 'url' => $_POST['hook_url'],
@@ -163,7 +163,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             // Save to database
-                            $queries->update('hooks', $hook->id, [
+                            DB::getInstance()->update('hooks', $hook->id, [
                                 'name' => Output::getClean($_POST['hook_name']),
                                 'action' => Output::getClean($_POST['hook_type']),
                                 'url' => Output::getClean($_POST['hook_url']),

@@ -424,7 +424,7 @@ if (!isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         try {
-                            $queries->create('forums_labels', [
+                            DB::getInstance()->insert('forums_labels', [
                                 'name' => Output::getClean(Input::get('label_name')),
                                 'html' => Input::get('label_html')
                             ]);
@@ -505,7 +505,7 @@ if (!isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         try {
-                            $queries->update('forums_labels', $label->id, [
+                            DB::getInstance()->update('forums_labels', $label->id, [
                                 'name' => Output::getClean(Input::get('label_name')),
                                 'html' => Input::get('label_html')
                             ]);

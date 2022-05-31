@@ -20,7 +20,7 @@ function sendRegisterEmail(Queries $queries, Language $language, string $email_a
     );
 
     if (isset($sent['error'])) {
-        $queries->create('email_errors', [
+        DB::getInstance()->insert('email_errors', [
             'type' => Email::REGISTRATION,
             'content' => $sent['error'],
             'at' => date('U'),

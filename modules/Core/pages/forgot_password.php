@@ -43,7 +43,7 @@ if (!isset($_GET['c'])) {
                     );
 
                     if (isset($sent['error'])) {
-                        $queries->create('email_errors', [
+                        DB::getInstance()->insert('email_errors', [
                             'type' => Email::FORGOT_PASSWORD,
                             'content' => $sent['error'],
                             'at' => date('U'),

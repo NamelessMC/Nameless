@@ -353,7 +353,7 @@ if (Input::exists()) {
                         foreach ($_POST['profile_fields'] as $field_id => $value) {
                             if (!empty($value)) {
                                 // Insert custom field
-                                $queries->create('users_profile_fields', [
+                                DB::getInstance()->insert('users_profile_fields', [
                                     'user_id' => $user_id,
                                     'field_id' => $field_id,
                                     'value' => $value,

@@ -58,7 +58,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         $banned_user_ip = $banned_user->data()->lastip;
 
         // Ban IP
-        $queries->create('ip_bans', [
+        DB::getInstance()->insert('ip_bans', [
             'ip' => $banned_user_ip,
             'banned_by' => $user->data()->id,
             'banned_at' => date('U'),
@@ -66,7 +66,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         ]);
 
         // Ban user
-        $queries->update('users', $post->post_creator, [
+        DB::getInstance()->update('users', $post->post_creator, [
             'isbanned' => true,
         ]);
 

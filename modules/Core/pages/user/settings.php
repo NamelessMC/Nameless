@@ -295,14 +295,14 @@ if (isset($_GET['do'])) {
                             if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
                                 // Update field value if it has changed
                                 if ($value !== $user_profile_fields[$field->id]->value) {
-                                    $queries->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                    DB::getInstance()->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
                                         'value' => $value,
                                         'updated' => date('U'),
                                     ]);
                                 }
                             } else {
                                 // Create new field value
-                                $queries->create('users_profile_fields', [
+                                DB::getInstance()->insert('users_profile_fields', [
                                     'user_id' => $user->data()->id,
                                     'field_id' => $field->id,
                                     'value' => $value,
