@@ -11,7 +11,6 @@ parameters:
         - '#might not be defined#'
         - '#Constant#'
         - '#Undefined variable:#'
-        # $queries->getWhere()->{$property}
         - '#Access to an undefined property object::#'
         # because php is dumb
         - '#Call to an undefined method ReflectionType::getName\(\).#'
