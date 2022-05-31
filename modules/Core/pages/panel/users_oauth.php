@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -80,6 +80,7 @@ $smarty->assign([
     'NO' => $language->get('general', 'no'),
     'DELETE_LINK' => URL::build('/panel/users/oauth/', 'action=delete'),
     'OAUTH_PROVIDERS' => $oauth_providers,
+    'NO_OAUTH_PROVIDERS' => $language->get('user', 'no_providers'),
     'USER_OAUTH_PROVIDERS' => $user_providers_template,
     'UNLINK' => $language->get('admin', 'unlink'),
     'NAME' => $language->get('admin', 'name'),

@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -58,7 +58,7 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-$user_language = $queries->getWhere('languages', ['id', $user_query->language_id]);
+$user_language = DB::getInstance()->get('languages', ['id', $user_query->language_id])->results();
 $user_language = $user_language[0]->name;
 
 if ($user->hasPermission('admincp.users.edit')) {

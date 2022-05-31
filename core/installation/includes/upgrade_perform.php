@@ -1,7 +1,13 @@
 <?php
 
 if ($s < 9) {
-    $conn = DB_Custom::getInstance($_SESSION['db_address'], $_SESSION['db_name'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_port']);
+    $conn = DB::getCustomInstance(
+        $_SESSION['db_address'],
+        $_SESSION['db_name'],
+        $_SESSION['db_username'],
+        $_SESSION['db_password'],
+        $_SESSION['db_port']
+    );
 }
 
 $queries = new Queries();
@@ -161,9 +167,9 @@ switch ($s) {
                     ]);
                 }
 
-                $queries->update('groups', 1, ['permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}']);
-                $queries->update('groups', 2, ['permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.core.emails_mass_message":1,"usercp.gif_avatar":1}']);
-                $queries->update('groups', 3, ['permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}']);
+                DB::getInstance()->update('groups', 1, ['permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}']);
+                DB::getInstance()->update('groups', 2, ['permissions' => '{"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.integrations":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.verification":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.core.emails_mass_message":1,"usercp.gif_avatar":1}']);
+                DB::getInstance()->update('groups', 3, ['permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}']);
             }
         } catch (Exception $e) {
             $errors[] = 'Unable to convert groups: ' . $e->getMessage();
@@ -669,7 +675,7 @@ switch ($s) {
     case 8:
         // New settings/initialise cache
         // Site name
-        $sitename = $queries->getWhere('settings', ['name', 'sitename']);
+        $sitename = DB::getInstance()->get('settings', ['name', 'sitename'])->results();
         $cache->setCache('sitenamecache');
         if (!count($sitename)) {
             $cache->store('sitename', 'NamelessMC');
@@ -789,13 +795,13 @@ switch ($s) {
         ]);
 
         // convert from "version" to "nameless_version"
-        $version = $queries->getWhere('settings', ['name', 'version']);
+        $version = DB::getInstance()->get('settings', ['name', 'version'])->results();
         if (count($version)) {
             $queries->update('settings', $version[0]->id, [
                 'name' => 'nameless_version',
                 'value' => '2.0.0-pr12'
             ]);
-            $queries->delete('settings', ['name', 'version']);
+            DB::getInstance()->delete('settings', ['name', 'version']);
         } else {
             $queries->create('settings', [
                 'name' => 'nameless_version',
@@ -803,7 +809,7 @@ switch ($s) {
             ]);
         }
 
-        $version_update = $queries->getWhere('settings', ['name', 'version_update']);
+        $version_update = DB::getInstance()->get('settings', ['name', 'version_update'])->results();
         if (count($version_update)) {
             $queries->update('settings', $version_update[0]->id, [
                 'value' => 'false'
@@ -815,7 +821,7 @@ switch ($s) {
             ]);
         }
 
-        $mcassoc = $queries->getWhere('settings', ['name', 'use_mcassoc']);
+        $mcassoc = DB::getInstance()->get('settings', ['name', 'use_mcassoc'])->results();
         if (count($mcassoc)) {
             $queries->update('settings', $mcassoc[0]->id, [
                 'name' => 'verify_accounts'
@@ -827,7 +833,7 @@ switch ($s) {
             ]);
         }
 
-        $avatar_site = $queries->getWhere('settings', ['name', 'avatar_api']);
+        $avatar_site = DB::getInstance()->get('settings', ['name', 'avatar_api'])->results();
         if (count($avatar_site)) {
             $queries->update('settings', $avatar_site[0]->id, [
                 'name' => 'avatar_site'
@@ -856,7 +862,7 @@ switch ($s) {
             'value' => true,
         ]);
 
-        $error_reporting = $queries->getWhere('settings', ['name', 'error_reporting']);
+        $error_reporting = DB::getInstance()->get('settings', ['name', 'error_reporting'])->results();
         if (count($error_reporting)) {
             $cache->setCache('error_cache');
             $cache->store('error_reporting', $error_reporting[0]->value);
@@ -876,7 +882,7 @@ switch ($s) {
         $cache->setCache('page_load_cache');
         $cache->store('page_load', 0);
 
-        $use_plugin = $queries->getWhere('settings', ['name', 'use_plugin']);
+        $use_plugin = DB::getInstance()->get('settings', ['name', 'use_plugin'])->results();
         if (count($use_plugin)) {
             $queries->update('settings', $use_plugin[0]->id, [
                 'name' => 'use_api'
@@ -952,7 +958,7 @@ switch ($s) {
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
-        $terms = $queries->getWhere('settings', ['name', 't_and_c_site']);
+        $terms = DB::getInstance()->get('settings', ['name', 't_and_c_site'])->results();
         if (count($terms)) {
             $queries->create('privacy_terms', [
                 'name' => 'terms',

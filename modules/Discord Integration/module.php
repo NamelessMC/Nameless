@@ -4,7 +4,7 @@ class Discord_Module extends Module {
 
     private Language $_language;
 
-    public function __construct(Language $language, Pages $pages, Queries $queries, Endpoints $endpoints) {
+    public function __construct(Language $language, Pages $pages, Endpoints $endpoints) {
         $this->_language = $language;
 
         $name = 'Discord Integration';
@@ -14,14 +14,14 @@ class Discord_Module extends Module {
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
-        $bot_url = $queries->getWhere('settings', ['name', 'discord_bot_url']);
+        $bot_url = DB::getInstance()->get('settings', ['name', 'discord_bot_url'])->results();
         $bot_url = $bot_url[0]->value;
         if ($bot_url == null) {
             $bot_url = '';
         }
         define('BOT_URL', $bot_url);
 
-        $bot_username = $queries->getWhere('settings', ['name', 'discord_bot_username']);
+        $bot_username = DB::getInstance()->get('settings', ['name', 'discord_bot_username'])->results();
         $bot_username = $bot_username[0]->value;
         if ($bot_username == null) {
             $bot_username = '';

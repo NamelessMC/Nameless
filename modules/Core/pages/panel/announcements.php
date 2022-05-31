@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -242,7 +242,7 @@ if (!isset($_GET['action'])) {
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id'])) {
-                        $queries->delete('custom_announcements', ['id', $_POST['id']]);
+                        DB::getInstance()->delete('custom_announcements', ['id', $_POST['id']]);
 
                         $announcements->resetCache();
                         Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));

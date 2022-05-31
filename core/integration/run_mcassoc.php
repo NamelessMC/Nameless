@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -48,14 +48,14 @@ if (!isset($_GET['step'])) {
     $key = $mcassoc->generateKey($username);
 
     $smarty->assign('MCASSOC', '
-	  <center>
-	    <iframe id="mcassoc" width="100%" height="400" frameBorder="0" seamless scrolling="no"></iframe>
-	  </center>
+      <center>
+        <iframe id="mcassoc" width="100%" height="400" frameBorder="0" seamless scrolling="no"></iframe>
+      </center>
     ');
 
     $template->addJSScript('
-	  MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
-	');
+      MCAssoc.init("' . $mcassoc_site_id . '", "' . $key . '", "' . $return_link . '");
+    ');
 
 } else {
     if ($_GET['step'] == 2) {
@@ -93,7 +93,7 @@ if (!isset($_GET['step'])) {
                 $password = $_SESSION['password'];
 
                 // Get IP
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
 
                 $user->create([
                     'username' => $username,

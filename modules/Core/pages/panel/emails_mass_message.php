@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Aberdeener
+ *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -39,7 +39,7 @@ if (Input::exists()) {
 
         if ($validate->passed()) {
 
-            $users = $queries->getWhere('users', ['id', '<>', 0]);
+            $users = DB::getInstance()->get('users', ['id', '<>', 0])->results();
 
             $reply_to = Email::getReplyTo();
 
@@ -71,10 +71,10 @@ if (Input::exists()) {
     }
 }
 
-$php_mailer = $queries->getWhere('settings', ['name', 'phpmailer']);
+$php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
 $php_mailer = $php_mailer[0]->value;
 
-$outgoing_email = $queries->getWhere('settings', ['name', 'outgoing_email']);
+$outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
 $outgoing_email = $outgoing_email[0]->value;
 
 require(ROOT_PATH . '/core/email.php');

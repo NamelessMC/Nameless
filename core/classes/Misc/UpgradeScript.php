@@ -12,36 +12,12 @@ abstract class UpgradeScript {
     protected Cache $_cache;
     protected Queries $_queries;
 
-    protected string $_db_engine;
-    protected string $_db_charset;
-
     public function __construct() {
         $this->_cache = new Cache(
             ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
 
         $this->_queries = new Queries();
-
-        try {
-            $db_engine = Config::get('mysql/engine');
-        } catch (Exception $e) {
-            echo $e->getMessage() . '<br />';
-        }
-        if (!$db_engine || ($db_engine != 'MyISAM' && $db_engine != 'InnoDB')) {
-            $db_engine = 'InnoDB';
-        }
-
-        try {
-            $db_charset = Config::get('mysql/charset');
-        } catch (Exception $e) {
-            echo $e->getMessage() . '<br />';
-        }
-        if (!$db_charset || ($db_charset != 'utf8mb4' && $db_charset != 'latin1')) {
-            $db_charset = 'latin1';
-        }
-
-        $this->_db_engine = $db_engine;
-        $this->_db_charset = $db_charset;
     }
 
     /**

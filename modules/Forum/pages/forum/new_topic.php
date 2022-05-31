@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -52,7 +52,7 @@ $labels = [];
 $default_labels = $current_forum->default_labels ? explode(',', $current_forum->default_labels) : [];
 $selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_label'])) ? Input::get('topic_label') : $default_labels);
 
-$forum_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
+$forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
 if (count($forum_labels)) {
     foreach ($forum_labels as $label) {
         $forum_ids = explode(',', $label->fids);
@@ -74,7 +74,7 @@ if (count($forum_labels)) {
             }
 
             // Get label HTML
-            $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
+            $label_html = DB::getInstance()->get('forums_labels', ['id', $label->label])->results();
             if (!count($label_html)) {
                 continue;
             }
@@ -94,7 +94,7 @@ if (count($forum_labels)) {
 if (Input::exists()) {
     if (Token::check()) {
         // Check post limits
-        $last_post = $queries->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1');
+        $last_post = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1')->results();
         if (count($last_post)) {
             if ($last_post[0]->created > strtotime('-30 seconds')) {
                 $spam_check = true;
@@ -132,7 +132,7 @@ if (Input::exists()) {
 
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
+                        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
                         if (count($label)) {
                             $lgroups = explode(',', $label[0]->gids);
 
@@ -164,7 +164,7 @@ if (Input::exists()) {
                     'topic_reply_date' => date('U'),
                     'labels' => implode(',', $post_labels)
                 ]);
-                $topic_id = $queries->getLastId();
+                $topic_id = DB::getInstance()->lastId();
 
                 $content = Input::get('content');
 
@@ -178,7 +178,7 @@ if (Input::exists()) {
                 ]);
 
                 // Get last post ID
-                $last_post_id = $queries->getLastId();
+                $last_post_id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
                     'content' => $content,
                     'post_id' => $last_post_id,
@@ -199,7 +199,7 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
                 // Execute hooks and pass $available_hooks
-                $available_hooks = $queries->getWhere('forums', ['id', $fid]);
+                $available_hooks = DB::getInstance()->get('forums', ['id', $fid])->results();
                 $available_hooks = json_decode($available_hooks[0]->hooks);
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
@@ -242,7 +242,7 @@ $creating_topic_in = $forum_language->get('forum', 'creating_topic_in_x', ['foru
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about forum
-$forum_query = $queries->getWhere('forums', ['id', $fid]);
+$forum_query = DB::getInstance()->get('forums', ['id', $fid])->results();
 $forum_query = $forum_query[0];
 
 // Placeholder?

@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $db_name = $_POST['db_name'];
 
         $charset = ($_POST['charset'] == 'latin1') ? 'latin1' : 'utf8mb4';
-        $engine = ($_POST['engine'] == 'MyISAM') ? 'MyISAM' : 'InnoDB';
 
         try {
             $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
@@ -61,9 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'username' => $db_username,
                         'password' => $db_password,
                         'db' => $db_name,
-                        'prefix' => 'nl2_',
                         'charset' => $charset,
-                        'engine' => $engine,
                         'initialise_charset' => true,
                     ],
                     'remember' => [
@@ -83,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'force_www' => false,
                         'captcha' => false,
                         'date_format' => 'd M Y, H:i',
+                        'trustedProxies' => [],
                     ],
-                    'allowedProxies' => '',
                 ];
 
                 try {
@@ -99,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
 
                         $_SESSION['charset'] = $charset;
-                        $_SESSION['engine'] = $engine;
 
                         Redirect::to('?step=database_initialization');
                     }
@@ -153,10 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         create_field('select', $language->get('installer', 'character_set'), 'charset', 'inputCharset', $default_charset, [
                             'utf8mb4' => 'Unicode (utf8mb4)',
                             'latin1' => 'Latin (latin1)',
-                        ]);
-                        create_field('select', $language->get('installer', 'database_engine'), 'engine', 'inputEngine', $default_engine, [
-                            'InnoDB' => 'InnoDB',
-                            'MyISAM' => 'MyISAM',
                         ]);
                         ?>
                     </div>

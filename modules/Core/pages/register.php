@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -23,13 +23,13 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
-$registration_enabled = $queries->getWhere('settings', ['name', 'registration_enabled']);
+$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
 $registration_enabled = $registration_enabled[0]->value;
 
 if ($registration_enabled == 0) {
     // Registration is disabled, display a message
     // Get registration disabled message and assign to Smarty variable
-    $registration_disabled_message = $queries->getWhere('settings', ['name', 'registration_disabled_message']);
+    $registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
     if (count($registration_disabled_message)) {
         $message = Output::getPurified($registration_disabled_message[0]->value);
     } else {
@@ -60,7 +60,7 @@ $minecraft = MINECRAFT;
 
 if ($minecraft == '1') {
     // Check if AuthMe is enabled
-    $authme_enabled = $queries->getWhere('settings', ['name', 'authme']);
+    $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
     $authme_enabled = $authme_enabled[0]->value;
 
     if ($authme_enabled == '1') {
@@ -72,17 +72,17 @@ if ($minecraft == '1') {
 
 // Registration page
 // Are custom usernames enabled?
-$custom_usernames = $queries->getWhere('settings', ['name', 'displaynames']);
+$custom_usernames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
 $custom_usernames = $custom_usernames[0]->value;
 
 if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     // Get site details for MCAssoc
     $mcassoc_site_id = SITE_NAME;
 
-    $mcassoc_shared_secret = $queries->getWhere('settings', ['name', 'mcassoc_key']);
+    $mcassoc_shared_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
     $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-    $mcassoc_instance_secret = $queries->getWhere('settings', ['name', 'mcassoc_instance']);
+    $mcassoc_instance_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
     $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
     define('MCASSOC', true);
@@ -97,12 +97,12 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
 
 // Is UUID linking enabled?
 if ($minecraft == '1') {
-    $uuid_linking = $queries->getWhere('settings', ['name', 'uuid_linking']);
+    $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
     $uuid_linking = $uuid_linking[0]->value;
 
     if ($uuid_linking == '1') {
         // Do we want to verify the user owns the account?
-        $account_verification = $queries->getWhere('settings', ['name', 'verify_accounts']);
+        $account_verification = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
         $account_verification = $account_verification[0]->value;
     }
 } else {
@@ -112,7 +112,7 @@ if ($minecraft == '1') {
 $captcha = CaptchaBase::isCaptchaEnabled();
 
 // Is email verification enabled?
-$email_verification = $queries->getWhere('settings', ['name', 'email_verification']);
+$email_verification = DB::getInstance()->get('settings', ['name', 'email_verification'])->results();
 $email_verification = $email_verification[0]->value;
 
 $integrations = Integrations::getInstance();
@@ -251,10 +251,10 @@ if (Input::exists()) {
                         // Get data from database
                         $mcassoc_site_id = SITE_NAME;
 
-                        $mcassoc_shared_secret = $queries->getWhere('settings', ['name', 'mcassoc_key']);
+                        $mcassoc_shared_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
                         $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
 
-                        $mcassoc_instance_secret = $queries->getWhere('settings', ['name', 'mcassoc_instance']);
+                        $mcassoc_instance_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
                         $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
 
                         define('MCASSOC', true);
@@ -274,7 +274,7 @@ if (Input::exists()) {
                         // Disabled
                         $user = new User();
 
-                        $ip = $user->getIP();
+                        $ip = Util::getRemoteAddress();
                         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                             // TODO: Invalid IP, do something
                         }
@@ -288,13 +288,13 @@ if (Input::exists()) {
                         $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
 
                         // Get default language ID before creating user
-                        $language_id = $queries->getWhere('languages', ['short_code', LANGUAGE]);
+                        $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE])->results();
 
                         if (count($language_id)) {
                             $language_id = $language_id[0]->id;
                         } else {
                             // fallback to EnglishUK
-                            $language_id = $queries->getWhere('languages', ['short_code', 'en_UK']);
+                            $language_id = DB::getInstance()->get('languages', ['short_code', 'en_UK'])->results();
                             $language_id = $language_id[0]->id;
                         }
 
@@ -330,7 +330,7 @@ if (Input::exists()) {
                         ]);
 
                         // Get user ID
-                        $user_id = $queries->getLastId();
+                        $user_id = DB::getInstance()->lastId();
 
                         $user = new User($user_id);
                         $user->addGroup($default_group);
@@ -362,7 +362,7 @@ if (Input::exists()) {
                             }
                         }
 
-                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id, $user->getIP());
+                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id, Util::getRemoteAddress());
 
                         EventHandler::executeEvent('registerUser', [
                             'user_id' => $user_id,

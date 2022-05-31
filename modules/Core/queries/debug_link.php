@@ -11,7 +11,7 @@ $namelessmc_fe_templates = [];
 $namelessmc_panel_templates = [];
 
 // Get all modules
-$modules = $queries->getWhere('modules', ['id', '<>', 0]);
+$modules = DB::getInstance()->get('modules', ['id', '<>', 0])->results();
 $enabled_modules = Module::getModules();
 
 foreach ($modules as $item) {
@@ -42,7 +42,7 @@ foreach ($modules as $item) {
     ];
 }
 
-$templates_query = $queries->getWhere('templates', ['id', '<>', 0]);
+$templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();
 foreach ($templates_query as $fe_template) {
     $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($fe_template->name), 'template.php']);
 
@@ -60,7 +60,7 @@ foreach ($templates_query as $fe_template) {
     ];
 }
 
-$panel_templates_query = $queries->getWhere('panel_templates', ['id', '<>', 0]);
+$panel_templates_query = DB::getInstance()->get('panel_templates', ['id', '<>', 0])->results();
 foreach ($panel_templates_query as $panel_template) {
 
     $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', Output::getClean($panel_template->name), 'template.php']);
@@ -188,15 +188,15 @@ $data = [
                 'hooks' => $webhooks,
                 'forum_hooks' => $forum_hooks,
             ],
+            'trusted_proxies' => Util::getTrustedProxies(),
         ],
         'groups' => $groups,
         'config' => [
             'core' => array_filter(
                 $GLOBALS['config']['core'],
-                static fn(string $key) => $key != 'hostname',
+                static fn(string $key) => $key != 'hostname' && $key != 'trustedProxies',
                 ARRAY_FILTER_USE_KEY
             ),
-            'allowedProxies' => $GLOBALS['config']['allowedProxies']
         ],
         'modules' => $namelessmc_modules,
         'templates' => [

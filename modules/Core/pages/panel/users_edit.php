@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -138,7 +138,7 @@ if (Input::exists()) {
                 try {
                     $signature = Output::getClean($signature);
 
-                    $private_profile_active = $queries->getWhere('settings', ['name', 'private_profile']);
+                    $private_profile_active = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
                     $private_profile_active = $private_profile_active[0]->value == 1;
                     $private_profile = 0;
 
@@ -147,7 +147,7 @@ if (Input::exists()) {
                     }
 
                     // Template
-                    $new_template = $queries->getWhere('templates', ['id', Input::get('template')]);
+                    $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
 
                     if (count($new_template)) {
                         $new_template = $new_template[0]->id;
@@ -156,7 +156,7 @@ if (Input::exists()) {
                     }
 
                     // Nicknames?
-                    $displaynames = $queries->getWhere('settings', ['name', 'displaynames']);
+                    $displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
                     $displaynames = $displaynames[0]->value;
 
                     $username = Input::get('username');
@@ -297,14 +297,14 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
     $limit_groups = true;
 }
 
-$displaynames = $queries->getWhere('settings', ['name', 'displaynames']);
+$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
 $displaynames = $displaynames[0]->value;
 
-$private_profile = $queries->getWhere('settings', ['name', 'private_profile']);
+$private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
 $private_profile = $private_profile[0]->value;
 
 $templates = [];
-$templates_query = $queries->getWhere('templates', ['id', '<>', 0]);
+$templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();
 
 foreach ($templates_query as $item) {
     $templates[] = [
@@ -314,7 +314,7 @@ foreach ($templates_query as $item) {
     ];
 }
 
-$groups = $queries->orderAll('groups', '`order`', 'ASC');
+$groups = DB::getInstance()->orderAll('groups', '`order`', 'ASC')->results();
 $filtered_groups = [];
 foreach ($groups as $group) {
     // Only show groups whose ID is not their main group and whose order is HIGHER than their main group. A main group simply means this $user's group with LOWEST order

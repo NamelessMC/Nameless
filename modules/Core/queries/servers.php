@@ -20,7 +20,7 @@ if ($cache->isCached('query_interval')) {
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
-    $key = $queries->getWhere('settings', ['name', 'unique_id']);
+    $key = DB::getInstance()->get('settings', ['name', 'unique_id'])->results();
     if (!count($key)) {
         die();
     }
@@ -40,7 +40,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = $queries->getWhere('settings', ['name', 'external_query']);
+$query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
 if (count($query_type)) {
     if ($query_type[0]->value == '1') {
         $query_type = 'external';
@@ -52,7 +52,7 @@ if (count($query_type)) {
 }
 
 // Query
-$servers = $queries->getWhere('mc_servers', ['id', '<>', 0]);
+$servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();
 if (count($servers)) {
     $results = [];
 
@@ -63,7 +63,7 @@ if (count($servers)) {
             'pre' => $server->pre,
             'name' => $server->name
         ];
-        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries);
+        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
         if ($server->parent_server > 0) {
             $result['parent_server'] = $server->parent_server;

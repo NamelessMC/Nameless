@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -24,9 +24,9 @@ if (!isset($_GET['c'])) {
 }
 
 // Ensure API is enabled
-$is_api_enabled = $queries->getWhere('settings', ['name', 'use_api']);
+$is_api_enabled = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
 if ($is_api_enabled[0]->value != '1') {
-    $is_legacy_enabled = $queries->getWhere('settings', ['name', 'use_legacy_api']);
+    $is_legacy_enabled = DB::getInstance()->get('settings', ['name', 'use_legacy_api'])->results();
     if ($is_legacy_enabled[0]->value != '1') {
         die('Legacy API is disabled');
     }

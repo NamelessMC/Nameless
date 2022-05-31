@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -15,9 +15,9 @@ $page_title = $language->get('general', 'privacy_policy');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Retrieve privacy policy from database
-$policy = $queries->getWhere('privacy_terms', ['name', 'privacy']);
+$policy = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
 if (!count($policy)) {
-    $policy = $queries->getWhere('settings', ['name', 'privacy_policy']);
+    $policy = DB::getInstance()->get('settings', ['name', 'privacy_policy'])->results();
 }
 $policy = Output::getPurified($policy[0]->value);
 

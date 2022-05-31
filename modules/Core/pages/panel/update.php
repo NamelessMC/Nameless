@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -58,7 +58,7 @@ $update_check = json_decode($update_check);
 
 if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {
     // Unique ID + current version
-    $uid = $queries->getWhere('settings', ['name', 'unique_id']);
+    $uid = DB::getInstance()->get('settings', ['name', 'unique_id'])->results();
     $uid = $uid[0]->value;
 
     $instructions = HttpClient::get('https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . NAMELESS_VERSION);

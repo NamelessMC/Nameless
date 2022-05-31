@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -44,10 +44,10 @@ if ($post_editing[0]->id == $post_id) {
     $edit_title = true;
 
     /*
-	 *  Get the title of the topic
-	 */
+     *  Get the title of the topic
+     */
 
-    $post_title = $queries->getWhere('topics', ['id', $topic_id]);
+    $post_title = DB::getInstance()->get('topics', ['id', $topic_id])->results();
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
     $post_title = Output::getClean($post_title[0]->topic_title);
 }
@@ -56,7 +56,7 @@ if ($post_editing[0]->id == $post_id) {
  *  Get the post we're editing
  */
 
-$post_editing = $queries->getWhere('posts', ['id', $post_id]);
+$post_editing = DB::getInstance()->get('posts', ['id', $post_id])->results();
 
 // Check post exists
 if (!count($post_editing)) {
@@ -134,7 +134,7 @@ if (Input::exists()) {
 
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
                     foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = $queries->getWhere('forums_topic_labels', ['id', $topic_label]);
+                        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
                         if (count($label)) {
                             $lgroups = explode(',', $label[0]->gids);
 
@@ -192,7 +192,7 @@ if (isset($edit_title, $post_labels)) {
     $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
     $labels = [];
 
-    $forum_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
+    $forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
     if (count($forum_labels)) {
         foreach ($forum_labels as $label) {
             $forum_ids = explode(',', $label->fids);
@@ -213,7 +213,7 @@ if (isset($edit_title, $post_labels)) {
                 }
 
                 // Get label HTML
-                $label_html = $queries->getWhere('forums_labels', ['id', $label->label]);
+                $label_html = DB::getInstance()->get('forums_labels', ['id', $label->label])->results();
                 if (!count($label_html)) {
                     continue;
                 }

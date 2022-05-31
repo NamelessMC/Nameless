@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -35,7 +35,7 @@ if (isset($_GET['user'])) {
 
     if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
-            $infraction = $queries->getWhere('infractions', ['id', $_GET['id']]);
+            $infraction = DB::getInstance()->get('infractions', ['id', $_GET['id']])->results();
             if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
             }
@@ -62,7 +62,7 @@ if (isset($_GET['user'])) {
                             'active' => true,
                         ]);
 
-                        $queries->delete('ip_bans', ['ip', $query->lastip]);
+                        DB::getInstance()->delete('ip_bans', ['ip', $query->lastip]);
                     } catch (Exception $e) {
                         // Error
                         $errors = [$e->getMessage()];
@@ -162,7 +162,7 @@ if (isset($_GET['user'])) {
 
                                         $banned_user_ip = $banned_user->data()->lastip;
 
-                                        $queries->delete('users_session', ['user_id', $query->id]);
+                                        DB::getInstance()->delete('users_session', ['user_id', $query->id]);
 
                                         if ($type == 3) {
                                             // Ban IP
@@ -282,7 +282,7 @@ if (isset($_GET['user'])) {
     }
 
     // Get any previous punishments
-    $previous_punishments = $queries->orderWhere('infractions', 'punished = ' . $query->id, 'created', 'DESC');
+    $previous_punishments = DB::getInstance()->orderWhere('infractions', 'punished = ' . $query->id, 'created', 'DESC')->results();
     $previous_punishments_array = [];
     if (count($previous_punishments)) {
         foreach ($previous_punishments as $punishment) {
@@ -387,7 +387,7 @@ if (isset($_GET['user'])) {
     }
 
     // List all punishments
-    $punishments = $queries->orderWhere('infractions', 'id <> 0', 'created', 'DESC');
+    $punishments = DB::getInstance()->orderWhere('infractions', 'id <> 0', 'created', 'DESC')->results();
 
     if (count($punishments)) {
         // Pagination

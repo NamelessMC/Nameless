@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -90,7 +90,7 @@ if (isset($_GET['action'])) {
                                 'force_tfa' => Input::get('tfa')
                             ]);
 
-                            $group_id = $queries->getLastId();
+                            $group_id = DB::getInstance()->lastId();
 
                             if ($default == 1) {
                                 if ($default_group && $default_group->id != $group_id) {
@@ -250,8 +250,8 @@ if (isset($_GET['action'])) {
                                         // Can't delete default group/admin group
                                         Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
                                     } else {
-                                        $queries->delete('groups', ['id', Input::get('id')]);
-                                        $queries->delete('users_groups', ['group_id', Input::get('id')]);
+                                        DB::getInstance()->delete('groups', ['id', Input::get('id')]);
+                                        DB::getInstance()->delete('users_groups', ['group_id', Input::get('id')]);
                                         Session::flash('admin_groups', $language->get('admin', 'group_deleted_successfully'));
                                     }
                                 }
@@ -359,7 +359,7 @@ if (isset($_GET['action'])) {
                                     'force_tfa' => Input::get('tfa')
                                 ]);
 
-                                $group_id = $queries->getLastId();
+                                $group_id = DB::getInstance()->lastId();
 
                                 EventHandler::executeEvent('cloneGroup', [
                                     'group_id' => $group_id,
@@ -458,7 +458,7 @@ if (isset($_GET['action'])) {
                     $perms_json = json_encode($perms);
 
                     try {
-                        $queries->update('groups', $group->id, ['permissions' => $perms_json]);
+                        DB::getInstance()->update('groups', $group->id, ['permissions' => $perms_json]);
 
                         Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
                         Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)));

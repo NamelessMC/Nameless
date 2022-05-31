@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -14,7 +14,7 @@ if ($cache->isCached('enabled')) {
     $status_enabled = $cache->retrieve('enabled');
 
 } else {
-    $status_enabled = $queries->getWhere('settings', ['name', 'status_page']);
+    $status_enabled = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
     $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
     $cache->store('enabled', $status_enabled);
 }
@@ -28,7 +28,7 @@ const PAGE = 'status';
 $page_title = $language->get('general', 'status');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$servers = $queries->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC');
+$servers = DB::getInstance()->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC')->results();
 
 $smarty->assign(
     [

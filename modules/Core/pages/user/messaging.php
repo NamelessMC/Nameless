@@ -259,7 +259,7 @@ if (!isset($_GET['action'])) {
                                 $queries->create('private_messages_users', [
                                     'pm_id' => $last_id,
                                     'user_id' => $user->data()->id,
-                                    'read' => true
+                                    'read' => true,
                                 ]);
 
                                 // Sent successfully
@@ -369,7 +369,7 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    $content = Output::getClean(Input::get('content'));
+                    $content = Input::get('content');
 
                     // Insert post content into database
                     $queries->create(

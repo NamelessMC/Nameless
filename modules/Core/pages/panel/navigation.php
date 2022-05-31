@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -42,7 +42,7 @@ if (Input::exists()) {
             foreach ($_POST['inputIcon'] as $key => $item) {
                 if (is_numeric($key)) {
                     // Custom page?
-                    $custom_page = $queries->getWhere('custom_pages', ['id', $key]);
+                    $custom_page = DB::getInstance()->get('custom_pages', ['id', $key])->results();
                     if (count($custom_page)) {
                         $queries->update('custom_pages', $key, [
                             'icon' => $item

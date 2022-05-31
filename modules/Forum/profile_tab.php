@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -14,7 +14,7 @@ if (!isset($forum) || (!$forum instanceof Forum)) {
 }
 
 // Get latest posts
-$latest_posts = $queries->orderWhere('posts', 'post_creator = ' . $query->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 15');
+$latest_posts = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $query->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 15')->results();
 if (!count($latest_posts)) {
     $smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
@@ -40,7 +40,7 @@ if (!count($latest_posts)) {
         // Is the post somewhere the user can view?
         if (!isset($permissions[$latest_post->forum_id])) {
             $permission = false;
-            $forum_permissions = $queries->getWhere('forums_permissions', ['forum_id', $latest_post->forum_id]);
+            $forum_permissions = DB::getInstance()->get('forums_permissions', ['forum_id', $latest_post->forum_id])->results();
             foreach ($forum_permissions as $forum_permission) {
                 if (in_array($forum_permission->group_id, $groups)) {
                     if ($forum_permission->view == 1 && $forum_permission->view_other_topics == 1) {
@@ -65,7 +65,7 @@ if (!count($latest_posts)) {
 
         // Get topic title
         if (!isset($topic_titles[$latest_post->topic_id])) {
-            $topic_title = $queries->getWhere('topics', ['id', $latest_post->topic_id]);
+            $topic_title = DB::getInstance()->get('topics', ['id', $latest_post->topic_id])->results();
             if (!count($topic_title)) {
                 continue;
             }

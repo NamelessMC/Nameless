@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -29,7 +29,7 @@ $page_title = $language->get('admin', 're-authenticate');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Get login method
-$login_method = $queries->getWhere('settings', ['name', 'login_method']);
+$login_method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
 $login_method = $login_method[0]->value;
 
 // Deal with any input
@@ -85,7 +85,7 @@ if (Input::exists()) {
 
             if ($login) {
                 // Get IP
-                $ip = $user->getIP();
+                $ip = Util::getRemoteAddress();
 
                 // Create log
                 Log::getInstance()->log(Log::Action('admin/login'));

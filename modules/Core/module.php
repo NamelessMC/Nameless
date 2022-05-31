@@ -17,7 +17,7 @@ class Core_Module extends Module {
     private Language $_language;
     private Configuration $_configuration;
 
-    public function __construct(Language $language, Pages $pages, User $user, Queries $queries, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
+    public function __construct(Language $language, Pages $pages, User $user, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
         $this->_configuration = new Configuration($cache);
 
@@ -138,7 +138,7 @@ class Core_Module extends Module {
         $navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 
         // Custom pages
-        $custom_pages = $queries->getWhere('custom_pages', ['id', '<>', 0]);
+        $custom_pages = DB::getInstance()->get('custom_pages', ['id', '<>', 0])->results();
         if (count($custom_pages)) {
             $more = [];
             $cache->setCache('navbar_order');
@@ -158,7 +158,7 @@ class Core_Module extends Module {
                     $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                     foreach ($user_groups as $user_group) {
-                        $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', $user_group]);
+                        $custom_page_permissions = DB::getInstance()->get('custom_pages_permissions', ['group_id', $user_group])->results();
                         if (count($custom_page_permissions)) {
                             foreach ($custom_page_permissions as $permission) {
                                 if ($permission->page_id == $custom_page->id) {
@@ -219,7 +219,7 @@ class Core_Module extends Module {
                     }
                 }
             } else {
-                $custom_page_permissions = $queries->getWhere('custom_pages_permissions', ['group_id', 0]);
+                $custom_page_permissions = DB::getInstance()->get('custom_pages_permissions', ['group_id', 0])->results();
                 if (count($custom_page_permissions)) {
                     foreach ($custom_pages as $custom_page) {
                         $redirect = null;
@@ -728,7 +728,7 @@ class Core_Module extends Module {
             $validate_action = $cache->retrieve('validate_action');
 
         } else {
-            $validate_action = $queries->getWhere('settings', ['name', 'validate_user_action']);
+            $validate_action = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
             $validate_action = $validate_action[0]->value;
             $validate_action = json_decode($validate_action, true);
 
@@ -750,7 +750,7 @@ class Core_Module extends Module {
             $group_id = $cache->retrieve('pre_validation_default');
 
         } else {
-            $group_id = $queries->getWhere('groups', ['default_group', '1']);
+            $group_id = DB::getInstance()->get('groups', ['default_group', '1'])->results();
             $group_id = $group_id[0]->id;
         }
 
@@ -791,7 +791,7 @@ class Core_Module extends Module {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
-                $status_enabled = $queries->getWhere('settings', ['name', 'status_page']);
+                $status_enabled = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
                 if ($status_enabled[0]->value == 1) {
                     $status_enabled = 1;
                 } else {
@@ -864,10 +864,10 @@ class Core_Module extends Module {
                         $sub_servers = $cache->retrieve('default_sub');
                     } else {
                         // Get default server from database
-                        $default = $queries->getWhere('mc_servers', ['is_default', true]);
+                        $default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
                         if (count($default)) {
                             // Get sub-servers of default server
-                            $sub_servers = $queries->getWhere('mc_servers', ['parent_server', $default[0]->id]);
+                            $sub_servers = DB::getInstance()->get('mc_servers', ['parent_server', $default[0]->id])->results();
                             if (count($sub_servers)) {
                                 $cache->store('default_sub', $sub_servers);
                             } else {
@@ -886,7 +886,7 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = $queries->getWhere('settings', ['name', 'external_query']);
+                        $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
                         if (count($query_type)) {
                             if ($query_type[0]->value == '1') {
                                 $query_type = 'external';
@@ -909,7 +909,7 @@ class Core_Module extends Module {
                                 ];
                             }
 
-                            $result = MCQuery::multiQuery($servers, $query_type, $language, true, $queries);
+                            $result = MCQuery::multiQuery($servers, $query_type, $language, true);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -929,7 +929,7 @@ class Core_Module extends Module {
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language, $queries);
+                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -985,7 +985,7 @@ class Core_Module extends Module {
                 $timeago = new TimeAgo(TIMEZONE);
 
                 if ($user_id) {
-                    $user_query = $queries->getWhere('users', ['id', $user_id]);
+                    $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
                     if (count($user_query)) {
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
@@ -1454,7 +1454,7 @@ class Core_Module extends Module {
                 if ($cache->isCached('email_errors')) {
                     $email_errors = $cache->retrieve('email_errors');
                 } else {
-                    $email_errors = $queries->getWhere('email_errors', ['id', '<>', 0]);
+                    $email_errors = DB::getInstance()->get('email_errors', ['id', '<>', 0])->results();
                     $cache->store('email_errors', $email_errors, 120);
                 }
 
@@ -1470,7 +1470,7 @@ class Core_Module extends Module {
                     $data = $cache->retrieve('core_data');
 
                 } else {
-                    $users = $queries->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC');
+                    $users = DB::getInstance()->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC')->results();
 
                     // Output array
                     $data = [];

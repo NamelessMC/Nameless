@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
  *
@@ -61,7 +61,7 @@ if (Input::exists()) {
                 ]);
 
                 // reCAPTCHA type
-                $captcha_type = $queries->getWhere('settings', ['name', 'recaptcha_type']);
+                $captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
                 if (!count($captcha_type)) {
                     $queries->create('settings', [
                         'name' => 'recaptcha_type',
@@ -141,7 +141,7 @@ if (Input::exists()) {
                 }
 
                 // Validation group
-                $validation_group_id = $queries->getWhere('settings', ['name', 'validate_user_action']);
+                $validation_group_id = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
                 $validation_action = $validation_group_id[0]->value;
                 $validation_action = json_decode($validation_action, true);
                 $validation_action = $validation_action['action'] ?? 'promote';
@@ -189,22 +189,22 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if registration is enabled
-$registration_enabled = $queries->getWhere('settings', ['name', 'registration_enabled']);
+$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
 $registration_enabled = $registration_enabled[0]->value;
 
 // Is email verification enabled
 $emails = $configuration->get('Core', 'email_verification');
 
 // Recaptcha
-$captcha_id = $queries->getWhere('settings', ['name', 'recaptcha']);
-$captcha_login = $queries->getWhere('settings', ['name', 'recaptcha_login']);
-$captcha_type = $queries->getWhere('settings', ['name', 'recaptcha_type']);
-$captcha_key = $queries->getWhere('settings', ['name', 'recaptcha_key']);
-$captcha_secret = $queries->getWhere('settings', ['name', 'recaptcha_secret']);
-$registration_disabled_message = $queries->getWhere('settings', ['name', 'registration_disabled_message']);
+$captcha_id = DB::getInstance()->get('settings', ['name', 'recaptcha'])->results();
+$captcha_login = DB::getInstance()->get('settings', ['name', 'recaptcha_login'])->results();
+$captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
+$captcha_key = DB::getInstance()->get('settings', ['name', 'recaptcha_key'])->results();
+$captcha_secret = DB::getInstance()->get('settings', ['name', 'recaptcha_secret'])->results();
+$registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
 
 // Validation group
-$validation_group = $queries->getWhere('settings', ['name', 'validate_user_action']);
+$validation_group = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
 $validation_group = $validation_group[0]->value;
 $validation_group = json_decode($validation_group, true);
 $validation_group = $validation_group['group'] ?? 1;
@@ -251,7 +251,7 @@ $smarty->assign([
     'VALIDATE_PROMOTE_GROUP' => $language->get('admin', 'validation_promote_group'),
     'VALIDATE_PROMOTE_GROUP_INFO' => $language->get('admin', 'validation_promote_group_info'),
     'INFO' => $language->get('general', 'info'),
-    'GROUPS' => $queries->getWhere('groups', ['staff', 0]),
+    'GROUPS' => DB::getInstance()->get('groups', ['staff', 0])->results(),
     'VALIDATION_GROUP' => $validation_group,
     'CAPTCHA_OPTIONS' => $captcha_options,
     'OAUTH' => $language->get('admin', 'oauth'),

@@ -1,6 +1,7 @@
 <?php
 
 use Astrotomic\Twemoji\Twemoji;
+use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * Contains misc utility methods.
@@ -129,13 +130,217 @@ class Util {
     }
 
     /**
+     * @return array List of trusted proxy networks according to config file and environment
+     */
+    public static function getTrustedProxies(): array {
+        $trustedProxies = [];
+
+        // Add trusted proxies from config file
+        $configProxies = Config::get('core/trustedProxies');
+        if ($configProxies !== false) {
+            if (!is_array($configProxies)) {
+                die('Trusted proxies should be an array');
+            }
+            $trustedProxies = array_merge($trustedProxies, $configProxies);
+        }
+
+        // Add trusted proxies from environment variable (comma-separated string)
+        $envProxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        if ($envProxies !== false) {
+            $envProxiesArray = explode(',', $envProxies);
+            $trustedProxies = array_merge($trustedProxies, $envProxiesArray);
+        }
+
+        return $trustedProxies;
+    }
+
+    /**
+     * Checks whether the client making the request is a trusted proxy. If not,
+     * abruptly aborts the request using die().
+     */
+    private static function ensureTrustedProxy(): void {
+        $trustedProxies = self::getTrustedProxies();
+
+        if (count($trustedProxies) === 0) {
+            die('Received proxy header but no trusted proxies are configured. Please see <a href="https://docs.namelessmc.com/trusted-proxies">https://docs.namelessmc.com/trusted-proxies</a> for more information.');
+        }
+
+        $trusted = false;
+
+        foreach ($trustedProxies as $trustedProxy) {
+            if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
+                $trusted = true;
+                break;
+            }
+        }
+
+        if (!$trusted) {
+            die('Received proxy header from untrusted remote address: ' . $_SERVER['REMOTE_ADDR']);
+        }
+    }
+
+    /**
+     * Extract trustworthy address from a list of addresses provided by the Forwarded or X-Forwarded-For header.
+     * @return string Address that may be used for security purposes
+     */
+    private static function firstNonProxyAddress(array $addresses): string {
+        if (count($addresses) === 0) {
+            throw new InvalidArgumentException('Addresses must not be empty');
+        }
+
+        $trusted_proxies = self::getTrustedProxies();
+
+        /*
+        https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#parsing
+
+        > When choosing the first trustworthy X-Forwarded-For client IP address, additional configuration is required.
+        >
+        > The IPs or IP ranges of the trusted reverse proxies are configured. The X-Forwarded-For IP list is searched
+        > from the rightmost, skipping all addresses that are on the trusted proxy list. The first non-matching
+        > address is the target address.
+        >
+        > The first trustworthy X-Forwarded-For IP address may belong to an untrusted intermediate proxy rather than
+        > the actual client computer, but it is the only IP suitable for security uses.
+        */
+
+        for ($i = count($addresses) - 1; $i >= 0; $i--) {
+            $address = $addresses[$i];
+
+            foreach ($trusted_proxies as $trusted_proxy) {
+                if (IpUtils::checkIp($address, $trusted_proxy)) {
+                    // This address is trusted, move one left
+                    continue 2;
+                }
+            }
+
+            // Address is not trusted, this is the client IP we should use
+            return $address;
+        }
+
+        // All addresses are in a trusted network, use leftmost address
+        return $addresses[0];
+    }
+
+    /**
+     * Get the client's true IP address, using proxy headers if necessary.
+     *
+     * @return string Client IP address
+     */
+    public static function getRemoteAddress(): string {
+        $headers = getallheaders();
+
+        // Try the simple headers first that only contain an IP address
+
+        // Non standard header that only contains the origin address
+        if (isset($headers['X-Real-Ip'])) {
+            self::ensureTrustedProxy();
+            return $headers['X-Real-Ip'];
+        }
+
+        // Non standard header sent by CloudFlare that only contains the origin address
+        if (isset($headers['Cf-Connecting-Ip'])) {
+            self::ensureTrustedProxy();
+            return $headers['Cf-Connecting-Ip'];
+        }
+
+        /*
+        Now the more complicated (X-)Forwarded(-For) headers.
+
+        Quote from MDN https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#parsing:
+        > There may be multiple X-Forwarded-For headers present in a request (per RFC 2616). The IP addresses in
+        > these headers must be treated as a single list, starting with the first IP address of the first header
+        > and continuing to the last IP address of the last header.
+        > It is insufficient to use only one of multiple X-Forwarded-For headers.
+
+        Unfortunately, we cannot follow this advice since PHP only seems to return the last header. However, since
+        supposedly the addresses should be read from right to left, only using the last header is not insecure, while
+        the using the first header would be.
+        In case of a weirdly behaving proxy that sends an additional Forwarded header instead of appending to an
+        existing one, the worst that would happen is an IP ban affecting the proxy (every user). Under no
+        circumstance would a user be able to spoof their address.
+        */
+
+        if (isset($headers['X-Forwarded-For'])) {
+            self::ensureTrustedProxy();
+
+            $addresses = [];
+            foreach (explode(',', $headers['X-Forwarded-For']) as $part) {
+                $addresses[] = trim($part);
+            }
+
+            return self::firstNonProxyAddress($addresses);
+        }
+
+        if (isset($headers['Forwarded'])) {
+            self::ensureTrustedProxy();
+
+            $addresses = [];
+            foreach (explode(',', $headers['Forwarded']) as $part1) {
+                // Extract the optional 'for=<address>' bit
+                foreach (explode(';', trim($part1)) as $part2) {
+                    $part2 = explode('=', $part2);
+                    if (count($part2) != 2) {
+                        die("Invalid Forwarded header");
+                    }
+
+                    if ($part2[0] === 'for') {
+                        $addresses[] = trim($part2[1]);
+                        break;
+                    }
+                }
+            }
+
+            if (count($addresses) > 0) {
+                return self::firstNonProxyAddress($addresses);
+            }
+        }
+
+        // No supported proxy headers in use
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
+    /**
+     * Get the protocol used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return string 'http' if HTTP or 'https' if HTTPS
+     */
+    public static function getProtocol(): string {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            self::ensureTrustedProxy();
+            $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+            if ($proto !== 'http' && $proto !== 'https') {
+                die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
+            }
+            return $proto;
+        }
+
+        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            ? 'https'
+            : 'http';
+    }
+
+    /**
+     * Get port used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return int Port number
+     */
+    public static function getPort(): int {
+        if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+            self::ensureTrustedProxy();
+            return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
+        }
+
+        return (int) $_SERVER['SERVER_PORT'];
+    }
+
+    /**
      * Get the server name.
      *
-     * @param bool $protocol Whether to show http(s) at front or not.
+     * @param bool $show_protocol Whether to show http(s) at front or not.
      *
      * @return string Compiled URL.
      */
-    public static function getSelfURL(bool $protocol = true): string {
+    public static function getSelfURL(bool $show_protocol = true): string {
         $hostname = Config::get('core/hostname');
 
         if (!$hostname) {
@@ -143,26 +348,21 @@ class Util {
         }
 
         // https and www checks
-        if (self::isConnectionSSL()) {
-            $proto = 'https://';
-        } else {
-            $proto = 'http://';
+        $protocol = self::getProtocol() . '://';
+
+        $url = $hostname;
+
+        if (defined('FORCE_WWW') && FORCE_WWW && !str_contains($hostname, 'www')) {
+            $url = 'www.' . $url;
         }
 
-        if (!str_contains($hostname, 'www') && defined('FORCE_WWW') && FORCE_WWW) {
-            $www = 'www.';
-        } else {
-            $www = '';
-        }
-
-        if ($protocol) {
-            if ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['SERVER_PORT'] == 443) {
-                $url = $proto . $www . Output::getClean($hostname);
-            } else {
-                $url = $proto . $www . Output::getClean($hostname) . ':' . $_SERVER['SERVER_PORT'];
+        if ($show_protocol) {
+            $url = $protocol . $url;
+            $port = self::getPort();
+            if (($port !== 80 && $protocol !== 'http://') ||
+                ($port !== 443 && $protocol !== 'https://')) {
+                $url .= ':' . $port;
             }
-        } else {
-            $url = $www . Output::getClean($hostname);
         }
 
         if (substr($url, -1) !== '/') {
@@ -196,6 +396,11 @@ class Util {
 
         return '';
     }
+
+    /*
+    *  The truncate function is taken from CakePHP, license MIT
+    *  https://github.com/cakephp/cakephp/blob/master/LICENSE
+    */
 
     /**
      * Truncates text.

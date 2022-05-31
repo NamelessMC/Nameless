@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -27,7 +27,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
         $banner = urldecode($banner);
 
-        $server = $queries->getWhere('mc_servers', ['name', $banner]);
+        $server = DB::getInstance()->get('mc_servers', ['name', $banner])->results();
 
         if (!count($server)) {
             die('Invalid server');
@@ -49,7 +49,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if (!$cache->isCached('image')) {
             // Internal or external query?
-            $query_type = $queries->getWhere('settings', ['name', 'external_query']);
+            $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
             if (count($query_type)) {
                 if ($query_type[0]->value == '1') {
                     $query_type = 'external';
@@ -60,7 +60,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 $query_type = 'internal';
             }
 
-            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language, $queries);
+            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
             // Do we need to query for favicon?
             if (!$cache->isCached('favicon')) {

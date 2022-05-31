@@ -15,7 +15,7 @@ class MinecraftServerSeeder extends Seeder {
         'server.minewind.com',
     ];
 
-    protected function run(DB_Custom $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void {
         $default_id = $faker->randomElement([1, 2, 3, 4, 5]);
 
         $id = 1;

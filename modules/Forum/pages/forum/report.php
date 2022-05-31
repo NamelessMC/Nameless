@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -24,7 +24,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/forum'));
 }
 
-$post = $queries->getWhere('posts', ['id', $_POST['post']]);
+$post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/forum'));
@@ -35,7 +35,7 @@ $post = $post[0];
 if (Token::check()) {
     // Valid token
     // Ensure user hasn't already submitted a report for this post
-    $reports = $queries->getWhere('reports', ['reported_post', $_POST['post']]);
+    $reports = DB::getInstance()->get('reports', ['reported_post', $_POST['post']])->results();
 
     if (count($reports)) {
         foreach ($reports as $report) {

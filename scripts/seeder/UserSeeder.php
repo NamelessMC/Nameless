@@ -8,7 +8,7 @@ class UserSeeder extends Seeder {
         'nl2_users_integrations',
     ];
 
-    public function run(DB_Custom $db, \Faker\Generator $faker): void {
+    public function run(DB $db, \Faker\Generator $faker): void {
         $password = password_hash('password', PASSWORD_BCRYPT, ['cost' => 13]);
 
         $db->insert('users', [

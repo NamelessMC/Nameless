@@ -15,7 +15,6 @@ class Core_Sitemap {
 
         // Core pages
         $sitemap->addItem(URL::build('/'), 1.0);
-        $sitemap->addItem(URL::build('/contact'), 0.6);
         $sitemap->addItem(URL::build('/privacy'));
         $sitemap->addItem(URL::build('/terms'));
         $sitemap->addItem(URL::build('/login'), 0.8);

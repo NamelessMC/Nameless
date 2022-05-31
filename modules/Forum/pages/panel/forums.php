@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
@@ -22,7 +22,7 @@ $page_title = $forum_language->get('forum', 'forums');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['action']) && !isset($_GET['forum'])) {
-    $forums = $queries->orderAll('forums', 'forum_order', 'ASC');
+    $forums = DB::getInstance()->orderAll('forums', 'forum_order', 'ASC')->results();
     $template_array = [];
 
     if (count($forums)) {
@@ -30,14 +30,14 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         $count = count($forums);
         foreach ($forums as $item) {
             if ($item->parent > 0) {
-                $parent_forum_query = $queries->getWhere('forums', ['id', $item->parent]);
+                $parent_forum_query = DB::getInstance()->get('forums', ['id', $item->parent])->results();
                 if (count($parent_forum_query)) {
                     $parent_forum_count = 1;
                     $parent_forum = $forum_language->get('forum', 'parent_forum_x', ['forum' => Output::getClean($parent_forum_query[0]->forum_title)]);
                     $id = $parent_forum_query[0]->parent;
 
                     while ($parent_forum_count < 100 && $id > 0) {
-                        $parent_forum_query = $queries->getWhere('forums', ['id', $parent_forum_query[0]->parent]);
+                        $parent_forum_query = DB::getInstance()->get('forums', ['id', $parent_forum_query[0]->parent])->results();
                         $id = $parent_forum_query[0]->parent;
                         $parent_forum_count++;
                     }
@@ -64,7 +64,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         }
     }
 
-    $forum_reactions = $queries->getWhere('settings', ['name', 'forum_reactions']);
+    $forum_reactions = DB::getInstance()->get('settings', ['name', 'forum_reactions'])->results();
     $forum_reactions = $forum_reactions[0]->value;
 
     $smarty->assign([
@@ -114,7 +114,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 try {
                                     $description = Input::get('forumdesc');
 
-                                    $last_forum_order = $queries->orderAll('forums', 'forum_order', 'DESC');
+                                    $last_forum_order = DB::getInstance()->orderAll('forums', 'forum_order', 'DESC')->results();
                                     if (count($last_forum_order)) {
                                         $last_forum_order = $last_forum_order[0]->forum_order;
                                     } else {
@@ -129,7 +129,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                         'icon' => Input::get('forum_icon')
                                     ]);
 
-                                    $forum_id = $queries->getLastId();
+                                    $forum_id = DB::getInstance()->lastId();
 
                                     Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum=' . $forum_id));
                                 } catch (Exception $e) {
@@ -164,7 +164,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     }
 
                     // Get forum from database
-                    $forum = $queries->getWhere('forums', ['id', $_GET['forum']]);
+                    $forum = DB::getInstance()->get('forums', ['id', $_GET['forum']])->results();
                     if (!count($forum)) {
                         Redirect::to(URL::build('/panel/forums'));
                     }
@@ -224,7 +224,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     }
 
                     // Get a list of forums
-                    $forums = $queries->getWhere('forums', ['id', '<>', $forum->id]);
+                    $forums = DB::getInstance()->get('forums', ['id', '<>', $forum->id])->results();
                     $template_array = [];
 
                     if (count($forums)) {
@@ -235,7 +235,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             ];
                         }
                     }
-                    $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
+                    $hooks_query = DB::getInstance()->orderAll('hooks', 'id', 'ASC')->results();
                     $hooks_array = [];
                     if (count($hooks_query)) {
                         foreach ($hooks_query as $hook) {
@@ -293,13 +293,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                     $dir = $_GET['dir'];
 
-                    $forum_id = $queries->getWhere('forums', ['id', $_GET['fid']]);
+                    $forum_id = DB::getInstance()->get('forums', ['id', $_GET['fid']])->results();
                     $forum_id = $forum_id[0]->id;
 
-                    $forum_order = $queries->getWhere('forums', ['id', $_GET['fid']]);
+                    $forum_order = DB::getInstance()->get('forums', ['id', $_GET['fid']])->results();
                     $forum_order = $forum_order[0]->forum_order;
 
-                    $previous_forums = $queries->orderAll('forums', 'forum_order', 'ASC');
+                    $previous_forums = DB::getInstance()->orderAll('forums', 'forum_order', 'ASC')->results();
 
                     if ($dir == 'up') {
                         $n = 0;
@@ -383,7 +383,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 }
 
                 // Ensure forum exists
-                $forum = $queries->getWhere('forums', ['id', $_GET['fid']]);
+                $forum = DB::getInstance()->get('forums', ['id', $_GET['fid']])->results();
                 if (!count($forum)) {
                     Redirect::to(URL::build('/panel/forums'));
                 }
@@ -392,24 +392,24 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 if (Input::exists()) {
                     if (Token::check()) {
                         if (Input::get('confirm') === 'true') {
-                            $forum_perms = $queries->getWhere('forums_permissions', ['forum_id', $_GET['fid']]); // Get permissions to be deleted
+                            $forum_perms = DB::getInstance()->get('forums_permissions', ['forum_id', $_GET['fid']])->results(); // Get permissions to be deleted
                             if (Input::get('move_forum') === 'none') {
-                                $posts = $queries->getWhere('posts', ['forum_id', $_GET['fid']]);
-                                $topics = $queries->getWhere('topics', ['forum_id', $_GET['fid']]);
+                                $posts = DB::getInstance()->get('posts', ['forum_id', $_GET['fid']])->results();
+                                $topics = DB::getInstance()->get('topics', ['forum_id', $_GET['fid']])->results();
 
                                 foreach ($posts as $post) {
-                                    $queries->delete('posts', ['id', $post->id]);
+                                    DB::getInstance()->delete('posts', ['id', $post->id]);
                                 }
                                 foreach ($topics as $topic) {
-                                    $queries->delete('topics', ['id', $topic->id]);
+                                    DB::getInstance()->delete('topics', ['id', $topic->id]);
                                 }
 
                                 // Forum perm deletion
 
                             } else {
                                 $new_forum = Input::get('move_forum');
-                                $posts = $queries->getWhere('posts', ['forum_id', $_GET['fid']]);
-                                $topics = $queries->getWhere('topics', ['forum_id', $_GET['fid']]);
+                                $posts = DB::getInstance()->get('posts', ['forum_id', $_GET['fid']])->results();
+                                $topics = DB::getInstance()->get('topics', ['forum_id', $_GET['fid']])->results();
 
                                 foreach ($posts as $post) {
                                     $queries->update('posts', $post->id, [
@@ -425,9 +425,9 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 // Forum perm deletion
 
                             }
-                            $queries->delete('forums', ['id', $_GET['fid']]);
+                            DB::getInstance()->delete('forums', ['id', $_GET['fid']]);
                             foreach ($forum_perms as $perm) {
-                                $queries->delete('forums_permissions', ['id', $perm->id]);
+                                DB::getInstance()->delete('forums_permissions', ['id', $perm->id]);
                             }
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
                             Redirect::to(URL::build('/panel/forums'));
@@ -437,7 +437,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     }
                 }
 
-                $other_forums = $queries->orderWhere('forums', 'parent > 0', 'forum_order', 'ASC');
+                $other_forums = DB::getInstance()->orderWhere('forums', 'parent > 0', 'forum_order', 'ASC')->results();
                 $template_array = [];
                 foreach ($other_forums as $item) {
                     if ($item->id == $forum->id) {
@@ -471,13 +471,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 die();
             }
 
-            $forum = $queries->getWhere('forums', ['id', $_GET['forum']]);
+            $forum = DB::getInstance()->get('forums', ['id', $_GET['forum']])->results();
 
             if (!count($forum)) {
                 Redirect::to(URL::build('/panel/forums'));
             }
 
-            $available_forums = $queries->orderWhere('forums', 'id > 0', 'forum_order', 'ASC'); // Get a list of all forums which can be chosen as a parent
+            $available_forums = DB::getInstance()->orderWhere('forums', 'id > 0', 'forum_order', 'ASC')->results(); // Get a list of all forums which can be chosen as a parent
 
             if (Input::exists()) {
                 $errors = [];
@@ -554,7 +554,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     $to_update['redirect_url'] = $redirect_url;
                                 }
 
-                                $queries->update('forums', $_GET['forum'], $to_update);
+                                DB::getInstance()->update('forums', $_GET['forum'], $to_update);
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -573,7 +573,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                             $forum_perm_exists = 0;
 
-                            $forum_perm_query = $queries->getWhere('forums_permissions', ['forum_id', $_GET['forum']]);
+                            $forum_perm_query = DB::getInstance()->get('forums_permissions', ['forum_id', $_GET['forum']])->results();
                             if (count($forum_perm_query)) {
                                 foreach ($forum_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -690,7 +690,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 }
             }
 
-            $hooks_query = $queries->orderAll('hooks', 'id', 'ASC');
+            $hooks_query = DB::getInstance()->orderAll('hooks', 'id', 'ASC')->results();
             $hooks_array = [];
             if (count($hooks_query)) {
                 foreach ($hooks_query as $hook) {
@@ -724,7 +724,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
             // Get default labels
             $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : [];
-            $forum_labels = $queries->getWhere('forums_topic_labels', ['id', '<>', 0]);
+            $forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
             $available_labels = [];
             if (count($forum_labels)) {
                 foreach ($forum_labels as $label) {

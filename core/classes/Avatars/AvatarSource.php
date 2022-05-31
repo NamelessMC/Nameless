@@ -92,7 +92,7 @@ class AvatarSource {
             }
         }
 
-        return 'https://ui-avatars.com/api/?name=' . $data->nickname . '&size=' . $size;
+        return "https://avatars.dicebear.com/api/initials/{$data->username}.svg?size={$size}";
     }
 
     /**
@@ -102,17 +102,26 @@ class AvatarSource {
      * @return bool Whether the URL is a valid image URL
      */
     private static function validImageUrl(string $url): bool {
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('avatar_validity');
+
+        if ($cache->isCached($url)) {
+            return $cache->retrieve($url);
+        }
+
+        $is_valid = false;
         try {
             $client = new Client();
             $response = $client->head($url);
             $headers = $response->getHeaders();
             if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
-                return true;
+                $is_valid = true;
             }
-        } catch (Exception $e) {
-            return false;
+        } catch (Exception $ignored) {
         }
-        return false;
+
+        $cache->store($url, $is_valid, 3600);
+        return $is_valid;
     }
 
     /**

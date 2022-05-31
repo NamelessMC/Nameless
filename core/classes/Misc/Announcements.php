@@ -188,7 +188,7 @@ class Announcements {
         $this->resetCache();
 
         EventHandler::executeEvent('createAnnouncement', [
-            'announcement_id' => $queries->getLastId(),
+            'announcement_id' => DB::getInstance()->lastId(),
             'created_by' => $user->data()->id,
             'header' => $header,
             'message' => $message,

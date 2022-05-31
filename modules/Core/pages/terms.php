@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -15,13 +15,13 @@ $page_title = $language->get('user', 'terms_and_conditions');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Retrieve terms from database
-$site_terms = $queries->getWhere('privacy_terms', ['name', 'terms']);
+$site_terms = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
 if (!count($site_terms)) {
-    $site_terms = $queries->getWhere('settings', ['name', 't_and_c_site']);
+    $site_terms = DB::getInstance()->get('settings', ['name', 't_and_c_site'])->results();
 }
 $site_terms = Output::getPurified($site_terms[0]->value);
 
-$nameless_terms = $queries->getWhere('settings', ['name', 't_and_c']);
+$nameless_terms = DB::getInstance()->get('settings', ['name', 't_and_c'])->results();
 $nameless_terms = Output::getPurified($nameless_terms[0]->value);
 
 $smarty->assign([

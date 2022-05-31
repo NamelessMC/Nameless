@@ -60,7 +60,7 @@
     "forum/guests": "ゲスト",
     "forum/has_no_parent": "親フォーラムなし",
     "forum/in": "in",
-    "forum/include_in_hook": "このフォーラムの新しいトピックをウェブフックに通知しますか？",
+    "forum/include_in_hook": "このフォーラムでのイベントをウェブフックに通知しますか？",
     "forum/input_forum_description": "フォーラムの概要を入力してください。",
     "forum/input_forum_title": "フォーラムタイトルを入力してください。",
     "forum/insert_quotes": "引用を挿入",
@@ -181,5 +181,17 @@
     "forum/x_topics": "{{count}} トピック",
     "forum/your_posts": "投稿数",
     "forum/topic_id": "トピックID",
-    "forum/post_id": "投稿ID"
+    "forum/post_id": "投稿ID",
+    "forum/new_topic_reply_text": "{{forum}}で{{author}}によって、トピックの返信が作成されました",
+    "forum/no_news": "ニュースの投稿はありません。",
+    "forum/topic_reply": "トピックの返信",
+    "forum/label_type_in_use": "ラベルタイプを使用中のため、削除できません。",
+    "forum/pre_post_edit_hook_info": "プレ投稿の編集",
+    "forum/pre_post_create_hook_info": "プレ投稿の作成",
+    "forum/pre_topic_create_hook_info": "プレトピックの作成",
+    "forum/pre_topic_edit_hook_info": "プレトピックの編集",
+    "forum/topic_author_uuid": "トピック作成者のユーザーID",
+    "forum/topic_author_username": "トピック作成者のユーザー名",
+    "forum/topic_author_nickname": "トピック作成者のニックネーム",
+    "forum/user_object": "ユーザーオブジェクト"
 }

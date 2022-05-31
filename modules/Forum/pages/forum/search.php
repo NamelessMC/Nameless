@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
  *
@@ -70,14 +70,14 @@ if (!isset($_GET['s'])) {
         $results = [];
         foreach ($search_results as $result) {
             // Check permissions
-            $perms = $queries->getWhere('forums_permissions', ['forum_id', $result->forum_id]);
+            $perms = DB::getInstance()->get('forums_permissions', ['forum_id', $result->forum_id])->results();
             foreach ($perms as $perm) {
                 if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
                             // Get associated topic
-                            $topic = $queries->getWhere('topics', ['id', $result->topic_id]);
+                            $topic = DB::getInstance()->get('topics', ['id', $result->topic_id])->results();
                             if (count($topic) && $topic[0]->deleted === 0) {
                                 $topic = $topic[0];
                                 $results[$result->id] = [

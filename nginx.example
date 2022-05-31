@@ -3,11 +3,21 @@
 # This example config will NOT work as-is.
 # With thanks to @Pugabyte, @Zethrus and KentuckyFriedData
 
+# Friendly URL support
 location / {
     try_files $uri $uri/ /index.php?route=$uri&$args;
 }
 
-location ~ \.(tpl|cache)$ {
+# Deny access to some file types and directories
+location ~ \.(tpl|cache|htaccess)$ {
+    return 403;
+}
+
+location ^~ /node_modules/ {
+    return 403;
+}
+
+location ^~ /scripts/ {
     return 403;
 }
 

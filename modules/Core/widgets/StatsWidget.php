@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Samerton
+ *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
  *
@@ -45,7 +45,7 @@ class StatsWidget extends WidgetBase {
 
         } else {
 
-            $users_query = $queries->orderAll('users', 'joined', 'DESC');
+            $users_query = DB::getInstance()->orderAll('users', 'joined', 'DESC')->results();
             $users_registered = count($users_query);
 
             $latest_user = new User($users_query[0]->id);
@@ -92,7 +92,7 @@ class StatsWidget extends WidgetBase {
             $online_guests = $this->_cache->retrieve('online_guests');
         }
 
-        $forum_module = $queries->getWhere('modules', ['name', 'Forum']);
+        $forum_module = DB::getInstance()->get('modules', ['name', 'Forum'])->results();
         $forum_module = $forum_module[0];
 
         if ($forum_module->enabled) {

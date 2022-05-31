@@ -92,9 +92,7 @@ $conf = [
         'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', 'root'),
         'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
         'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
-        'prefix' => 'nl2_',
         'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', 'utf8mb4'),
-        'engine' => getEnvVar('NAMELESS_DATABASE_ENGINE', 'InnoDB'),
         'initialise_charset' => true,
     ],
     'remember' => [
@@ -114,8 +112,8 @@ $conf = [
         'force_www' => false,
         'captcha' => false,
         'date_format' => 'd M Y, H:i',
+        'trustedProxies' => [],
     ],
-    'allowedProxies' => '',
 ];
 
 file_put_contents(
@@ -129,7 +127,13 @@ require './vendor/autoload.php';
 
 if ($reinstall) {
     print('🗑️  Deleting old database...' . PHP_EOL);
-    $instance = DB_Custom::getInstance($conf['mysql']['host'], $conf['mysql']['db'], $conf['mysql']['username'], $conf['mysql']['password'], $conf['mysql']['port'], 'nl2_');
+    $instance = DB::getCustomInstance(
+        $conf['mysql']['host'],
+        $conf['mysql']['db'],
+        $conf['mysql']['username'],
+        $conf['mysql']['password'],
+        $conf['mysql']['port']
+    );
     $instance->query('DROP DATABASE IF EXISTS `' . $conf['mysql']['db'] . '`');
     print('✍️  Creating new database...' . PHP_EOL);
     $instance->query('CREATE DATABASE `' . $conf['mysql']['db'] . '`');
@@ -184,7 +188,7 @@ $user->create([
     'lastip' => '127.0.0.1',
     'active' => true,
     'last_online' => date('U'),
-    'language_id' => $queries->getWhere('languages', ['is_default', 1])[0]->id,
+    'language_id' => DB::getInstance()->get('languages', ['is_default', 1])->results()[0]->id,
 ]);
 DB::getInstance()->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
     1,
