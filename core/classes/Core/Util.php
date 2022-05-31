@@ -516,7 +516,7 @@ class Util {
      * @return string JSON object with information about any updates.
      */
     public static function updateCheck(): string {
-        $uid = self::getSetting(DB::getInstance(), 'unique_id');
+        $uid = self::getSetting('unique_id');
 
         $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid .
             '&version=' . NAMELESS_VERSION .
@@ -600,13 +600,12 @@ class Util {
     /**
      * Get a setting from the database table `nl2_settings`.
      *
-     * @param DB $db Instance of DB class to use.
      * @param string $setting Setting to check.
      * @param mixed $fallback Fallback to return if $setting is not set in DB.
      * @return mixed Setting from DB or $fallback.
      */
-    public static function getSetting(DB $db, string $setting, $fallback = null) {
-        $value = $db->get('settings', ['name', $setting]);
+    public static function getSetting(string $setting, $fallback = null) {
+        $value = DB::getInstance()->get('settings', ['name', $setting]);
 
         if ($value->count()) {
             return $value->first()->value;

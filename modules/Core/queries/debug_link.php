@@ -150,7 +150,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
     ];
 }
 
-$namelessmc_version = trim(Util::getSetting(DB::getInstance(), 'nameless_version'));
+$namelessmc_version = trim(Util::getSetting('nameless_version'));
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
@@ -171,15 +171,15 @@ $data = [
     'generated_by_uuid' => $uuid,
     'namelessmc' => [
         'version' => $namelessmc_version,
-        'update_available' => Util::getSetting(DB::getInstance(), 'version_update') != 'false',
-        'update_checked' => (int)Util::getSetting(DB::getInstance(), 'version_checked'),
+        'update_available' => Util::getSetting('version_update') != 'false',
+        'update_checked' => (int)Util::getSetting('version_checked'),
         'settings' => [
-            'phpmailer' => (bool)Util::getSetting(DB::getInstance(), 'phpmailer'),
-            'api_enabled' => (bool)Util::getSetting(DB::getInstance(), 'use_api'),
-            'email_verification' => (bool)Util::getSetting(DB::getInstance(), 'email_verification'),
-            'login_method' => Util::getSetting(DB::getInstance(), 'login_method'),
-            'captcha_type' => Util::getSetting(DB::getInstance(), 'recaptcha_type'),
-            'captcha_login' => Util::getSetting(DB::getInstance(), 'recaptcha_login') === 'false' ? false : true, // dont ask
+            'phpmailer' => (bool)Util::getSetting('phpmailer'),
+            'api_enabled' => (bool)Util::getSetting('use_api'),
+            'email_verification' => (bool)Util::getSetting('email_verification'),
+            'login_method' => Util::getSetting('login_method'),
+            'captcha_type' => Util::getSetting('recaptcha_type'),
+            'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [

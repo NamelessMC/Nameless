@@ -123,7 +123,7 @@ if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dar
     define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
 }
 
-$current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Util::getSetting(DB::getInstance(), 'home_custom_content')));
+$current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Util::getSetting('home_custom_content')));
 
 $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),

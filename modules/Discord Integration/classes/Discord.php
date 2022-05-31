@@ -88,7 +88,7 @@ class Discord {
      * @return bool Whether the Discord bot is set up properly
      */
     public static function isBotSetup(): bool {
-        return self::$_is_bot_setup ??= Util::getSetting(DB::getInstance(), 'discord_integration');
+        return self::$_is_bot_setup ??= Util::getSetting('discord_integration');
     }
 
     /**
@@ -141,7 +141,7 @@ class Discord {
         return json_encode([
             'guild_id' => trim(self::getGuildId()),
             'user_id' => $user_id,
-            'api_key' => trim(Util::getSetting(DB::getInstance(), 'mc_api_key')),
+            'api_key' => trim(Util::getSetting('mc_api_key')),
             'roles' => $change_arr,
         ]);
     }
@@ -151,7 +151,7 @@ class Discord {
      */
     public static function getGuildId(): ?int {
         if (!isset(self::$_guild_id)) {
-            self::$_guild_id = Util::getSetting(DB::getInstance(), 'discord');
+            self::$_guild_id = Util::getSetting('discord');
         }
 
         return self::$_guild_id;

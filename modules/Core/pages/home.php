@@ -38,7 +38,7 @@ if ($home_type === 'news') {
         require(ROOT_PATH . '/' . $module);
     }
 } else if ($home_type === 'custom') {
-    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting(DB::getInstance(), 'home_custom_content'));
+    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting('home_custom_content'));
 }
 
 // Assign to Smarty variables

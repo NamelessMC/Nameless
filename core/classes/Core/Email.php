@@ -42,7 +42,7 @@ class Email {
             'replyto' => $reply_to,
         ];
 
-        if (Util::getSetting(DB::getInstance(), 'phpmailer') == '1') {
+        if (Util::getSetting('phpmailer') == '1') {
             return self::sendMailer($email);
         }
 
@@ -54,7 +54,7 @@ class Email {
      * @return array Array with reply-to email address and name
      */
     public static function getReplyTo(): array {
-        $contactemail = Util::getSetting(DB::getInstance(), 'incoming_email');
+        $contactemail = Util::getSetting('incoming_email');
         return ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)];
     }
 
@@ -65,8 +65,8 @@ class Email {
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendPHP(array $email) {
-        $outgoing_email = Util::getSetting(DB::getInstance(), 'outgoing_email');
-        $incoming_email = Util::getSetting(DB::getInstance(), 'incoming_email');
+        $outgoing_email = Util::getSetting('outgoing_email');
+        $incoming_email = Util::getSetting('incoming_email');
 
         if (mail($email['to']['email'], $email['subject'], $email['message'], [
             'From' => SITE_NAME . ' ' . '<' . $outgoing_email . '>',
