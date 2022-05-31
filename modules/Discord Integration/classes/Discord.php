@@ -95,22 +95,16 @@ class Discord {
     /**
      * Create a JSON object to send to the Discord bot.
      *
-     * @param array $groups Array of Discord role IDs to add or remove
+     * @param array $role_ids Array of Discord role IDs to add or remove
      * @param string $action Whether to 'add' or 'remove' the groups
      * @return array Assembled array of Discord role IDs and their action
      */
-    private static function assembleGroupArray(array $groups, string $action): array {
+    private static function assembleGroupArray(array $role_ids, string $action): array {
         $return = [];
 
-        foreach ($groups as $group) {
-            $discord_id = self::getDiscordRoleId(DB::getInstance(), $group);
-
-            if ($discord_id == null) {
-                continue;
-            }
-
+        foreach ($role_ids as $role_id) {
             $return[] = [
-                'id' => $discord_id,
+                'id' => $role_id,
                 'action' => $action
             ];
         }
