@@ -51,32 +51,32 @@
                                     <tbody id="sortable">
                                         {foreach from=$FORUMS_ARRAY item=item name=forum_array}
                                         <tr data-id="{$item.id}">
-                                            <td{if $item.parent_forum} style="padding-left:{math equation="x * y" x=25 y=$item.parent_forum_count}px" {/if}>
+                                            <td {if $item.parent_forum} style="padding-left:{math equation="x * y" x=25 y=$item.parent_forum_count}px" {/if}>
                                                 <a href="{$item.edit_link}">{$item.title}</a>{if $item.parent_forum}
                                                 <small>| {$item.parent_forum}</small>{/if}<br />{$item.description}
-                                                </td>
-                                                <td>
-                                                    <div class="float-md-right">
-                                                        {if $item.up_link}
-                                                        <form action="{$item.up_link}" method="post"
-                                                            style="display: inline">
-                                                            <input type="hidden" name="token" value="{$TOKEN}" />
-                                                            <button class="btn btn-success btn-sm"><i
-                                                                    class="fas fa-chevron-up"></i></button>
-                                                        </form>
-                                                        {/if}
-                                                        {if $item.down_link}
-                                                        <form action="{$item.down_link}" method="post"
-                                                            style="display: inline">
-                                                            <input type="hidden" name="token" value="{$TOKEN}" />
-                                                            <button class="btn btn-warning btn-sm"><i
-                                                                    class="fas fa-chevron-down"></i></button>
-                                                        </form>
-                                                        {/if}
-                                                        <a href="{$item.delete_link}" class="btn btn-danger btn-sm"><i
-                                                                class="fas fa-trash"></i></a>
-                                                    </div>
-                                                </td>
+                                            </td>
+                                            <td width="10%">
+                                                <div class="float-md-right">
+                                                    {if $item.up_link}
+                                                    <form action="{$item.up_link}" method="post"
+                                                        style="display: inline">
+                                                        <input type="hidden" name="token" value="{$TOKEN}" />
+                                                        <button class="btn btn-success btn-sm"><i
+                                                                class="fas fa-chevron-up"></i></button>
+                                                    </form>
+                                                    {/if}
+                                                    {if $item.down_link}
+                                                    <form action="{$item.down_link}" method="post"
+                                                        style="display: inline">
+                                                        <input type="hidden" name="token" value="{$TOKEN}" />
+                                                        <button class="btn btn-warning btn-sm"><i
+                                                                class="fas fa-chevron-down"></i></button>
+                                                    </form>
+                                                    {/if}
+                                                    <a href="{$item.delete_link}" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-trash"></i></a>
+                                                </div>
+                                            </td>
                                         </tr>
                                         {/foreach}
                                     </tbody>
