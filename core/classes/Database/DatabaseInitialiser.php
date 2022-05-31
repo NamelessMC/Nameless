@@ -14,22 +14,22 @@ class DatabaseInitialiser {
 
     public static function runPreUser(array $config) {
         $instance = new self($config);
-        $instance->initializeGroups();
-        $instance->initializeLanguages();
-        $instance->initializeModules();
-        $instance->initializeIntegrations();
-        $instance->initializeReactions();
-        $instance->initializeSettings();
-        $instance->initializeTemplates();
-        $instance->initializeWidgets();
+        $instance->initialiseGroups();
+        $instance->initialiseLanguages();
+        $instance->initialiseModules();
+        $instance->initialiseIntegrations();
+        $instance->initialiseReactions();
+        $instance->initialiseSettings();
+        $instance->initialiseTemplates();
+        $instance->initialiseWidgets();
     }
 
     public static function runPostUser() {
         $instance = new self();
-        $instance->initializeForum();
+        $instance->initialiseForum();
     }
 
-    private function initializeGroups(): void {
+    private function initialiseGroups(): void {
         $this->_queries->create('groups', [
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
@@ -66,7 +66,7 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initializeLanguages(): void {
+    private function initialiseLanguages(): void {
         foreach (Language::LANGUAGES as $short_code => $meta) {
             $this->_queries->create('languages', [
                 'name' => $meta['name'],
@@ -79,7 +79,7 @@ class DatabaseInitialiser {
         $this->_cache->store('language', Session::get('default_language'));
     }
 
-    private function initializeModules(): void {
+    private function initialiseModules(): void {
         $this->_queries->create('modules', [
             'name' => 'Core',
             'enabled' => true,
@@ -124,7 +124,7 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
-    private function initializeIntegrations(): void {
+    private function initialiseIntegrations(): void {
         $this->_queries->create('integrations', [
             'name' => 'Minecraft',
             'enabled' => true,
@@ -141,7 +141,7 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initializeReactions(): void {
+    private function initialiseReactions(): void {
         $this->_queries->create('reactions', [
             'name' => 'Like',
             'html' => '<i class="fas fa-thumbs-up text-success"></i>',
@@ -164,7 +164,7 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initializeSettings(): void {
+    private function initialiseSettings(): void {
         $this->_queries->create('settings', [
             'name' => 'registration_enabled',
             'value' => 1
@@ -486,7 +486,7 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initializeTemplates(): void {
+    private function initialiseTemplates(): void {
         $this->_queries->create('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
@@ -511,7 +511,7 @@ class DatabaseInitialiser {
         $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     }
 
-    private function initializeWidgets(): void {
+    private function initialiseWidgets(): void {
         $this->_queries->create('widgets', [
             'name' => 'Online Staff',
             'enabled' => true,
@@ -538,7 +538,7 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initializeForum() {
+    private function initialiseForum() {
         $this->_queries->create('forums', [
             'forum_title' => 'Category',
             'forum_description' => 'The first forum category!',
