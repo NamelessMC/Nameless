@@ -1466,7 +1466,7 @@ class Core_Module extends Module {
             if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                 // Dashboard graph
                 $cache->setCache('dashboard_graph');
-                if ($cache->isCached('core_data')) {
+                if (false) {
                     $data = $cache->retrieve('core_data');
 
                 } else {
@@ -1493,59 +1493,6 @@ class Core_Module extends Module {
 
                     $users = null;
 
-                    if (defined('MINECRAFT') && MINECRAFT) {
-                        $players = [];
-
-                        $version = DB::getInstance()->query('select version()')->first()->{'version()'};
-
-                        if (stripos($version, 'mariadb') !== false) {
-                            $version = preg_replace('#[^0-9\.]#', '', $version);
-
-                            if (version_compare($version, '10.1', '>=')) {
-                                try {
-                                    $players = DB::getInstance()->query('SET STATEMENT MAX_STATEMENT_TIME = 1000 FOR SELECT ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
-                                } catch (Exception $e) {
-                                    // Unable to obtain player count
-                                    $player_count_error = true;
-                                }
-                            }
-                        } else {
-                            $version = preg_replace('#[^0-9\.]#', '', $version);
-
-                            if (version_compare($version, '5.7.4', '>=') && version_compare($version, '5.7.8', '<')) {
-                                try {
-                                    $players = DB::getInstance()->query('SELECT MAX_STATEMENT_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
-                                } catch (Exception $e) {
-                                    // Unable to obtain player count
-                                    $player_count_error = true;
-                                }
-                            } else if (version_compare($version, '5.7.8', '>=')) {
-                                try {
-                                    $players = DB::getInstance()->query('SELECT MAX_EXECUTION_TIME = 1000 ROUND(AVG(players_online)) AS players, DATE(FROM_UNIXTIME(queried_at)) AS `date` FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) IN (SELECT DATE(FROM_UNIXTIME(queried_at)) AS ForDate FROM nl2_query_results WHERE DATE(FROM_UNIXTIME(queried_at)) > NOW() - INTERVAL 1 WEEK GROUP BY DATE(FROM_UNIXTIME(queried_at)) ORDER BY ForDate) GROUP BY DATE(FROM_UNIXTIME(queried_at))')->results();
-                                } catch (Exception $e) {
-                                    // Unable to obtain player count
-                                    $player_count_error = true;
-                                }
-                            } else {
-                                $player_count_error = true;
-                            }
-                        }
-
-                        if (!isset($player_count_error)) {
-                            $data['datasets']['players']['axis'] = 2; // second axis
-                            $data['datasets']['players']['axis_side'] = 'right'; // right side
-                            $data['datasets']['players']['label'] = 'language/admin/average_players';
-                            $data['datasets']['players']['colour'] = '#ff0c00';
-
-                            foreach ($players as $player) {
-                                $date = '_' . strtotime($player->date);
-                                $data[$date]['players'] = $player->players;
-                            }
-
-                            $players = null;
-                        }
-                    }
-
                     // Fill in missing dates, set registrations/players to 0
                     $start = strtotime('-1 week');
                     $start = date('d M Y', $start);
@@ -1554,10 +1501,6 @@ class Core_Module extends Module {
                     while ($start <= $end) {
                         if (!isset($data['_' . $start]['users'])) {
                             $data['_' . $start]['users'] = 0;
-                        }
-
-                        if (!isset($player_count_error) && defined('MINECRAFT') && MINECRAFT && !isset($data['_' . $start]['players'])) {
-                            $data['_' . $start]['players'] = 0;
                         }
 
                         $start = strtotime('+1 day', $start);
