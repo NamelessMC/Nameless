@@ -22,7 +22,8 @@
         "ircmaxell/password-compat": "^1.0",
         "astrotomic/php-twemoji": "^0.2",
         "samerton/i18next": "^1.0",
-        "robmorgan/phinx": "^0.12.10"
+        "robmorgan/phinx": "^0.12.10",
+        "symfony/http-foundation": "^5.4"
     },
     "require-dev": {
         "phpstan/phpstan": "1.6.9",
