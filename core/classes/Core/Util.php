@@ -599,11 +599,16 @@ class Util {
      *
      * @param string $setting Setting to check.
      * @param ?string $fallback Fallback to return if $setting is not set in DB.
+     * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
+     *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
+     *                        nl2_settings table.
      * @return ?string Setting from DB or $fallback.
      */
-    public static function getSetting(string $setting, ?string $fallback = null): ?string {
+    public static function getSetting(string $setting, ?string $fallback = null, ?string $module = ''): ?string {
+        $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
+
         if (self::$_cached_settings == null) {
-            $result = DB::getInstance()->query('SELECT `name`, `value` FROM nl2_settings')->results();
+            $result = DB::getInstance()->query('SELECT `name`, `value` FROM `' . $table_name. '`')->results();
             // Store settings in dictionary format
             self::$_cached_settings = [];
             foreach ($result as $row) {
@@ -623,12 +628,17 @@ class Util {
      *
      * @param string $setting Setting name.
      * @param string $new_value New setting value, or null to delete
+     * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
+     *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
+     *                        nl2_settings table.
      */
-    public static function setSetting(string $setting, ?string $new_value): void {
+    public static function setSetting(string $setting, ?string $new_value, ?string $module): void {
+        $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
+
         if ($new_value == null) {
-            DB::getInstance()->query('DELETE FROM nl2_settings WHERE `name` = ?', [$setting]);
+            DB::getInstance()->query('DELETE FROM `' . $table_name . '` WHERE `name` = ?', [$setting]);
         } else {
-            $query = 'INSERT INTO nl2_settings (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `value` = ?';
+            $query = 'INSERT INTO `' . $table_name . '` (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `value` = ?';
             DB::getInstance()->query($query, [$setting, $new_value, $new_value]);
         }
 
