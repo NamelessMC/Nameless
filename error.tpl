@@ -154,9 +154,7 @@
 </body>
 
 <style>
-    {
-        literal
-    }
+    {literal}
 
     * {
         box-sizing: border-box
@@ -244,9 +242,7 @@
         left: 20px;
     }
 
-        {
-        /literal
-    }
+    {/literal}
 </style>
 
 <script src="{$JQUERY}"></script>
