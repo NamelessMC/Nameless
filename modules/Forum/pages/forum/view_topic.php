@@ -410,12 +410,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Are reactions enabled?
-$reactions_enabled = $configuration->get('Core', 'forum_reactions');
-if ($reactions_enabled == '1') {
-    $reactions_enabled = true;
-} else {
-    $reactions_enabled = false;
-}
+$reactions_enabled = Util::getSetting('forum_reactions') === '1';
 
 // Assign Smarty variables to pass to template
 $parent_category = DB::getInstance()->get('forums', ['id', $forum_parent[0]->parent])->results();

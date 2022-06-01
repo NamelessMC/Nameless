@@ -35,11 +35,11 @@ class Configuration {
      * @return mixed The configuration value
      */
     public function get(string $module, string $setting) {
-        if ($module == null || $setting == null) {
-            throw new InvalidArgumentException('Parameter is null');
+        if ($module === 'Core') {
+            throw new InvalidArgumentException('Configuration class should not be used for the Core module');
         }
 
-        $module = ($module == 'Core' ? '' : $module . '_');
+        $module = $module . '_';
 
         $this->_cache->setCache($module . 'configuration');
         if ($this->_cache->isCached($setting)) {
@@ -65,11 +65,11 @@ class Configuration {
      * @param mixed $value New value
      */
     public function set(string $module, string $setting, $value): void {
-        if ($module == null || $setting == null || $value === null) {
-            throw new InvalidArgumentException('Parameter is null');
+        if ($module === 'Core') {
+            throw new InvalidArgumentException('Configuration class should not be used for the Core module');
         }
 
-        $module = ($module == 'Core' ? '' : $module . '_');
+        $module = $module . '_';
 
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
         $this->_db->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [

@@ -62,8 +62,7 @@ if (!isset($_GET['metadata'])) {
                 $success = $language->get('admin', 'sitemap_generated');
             } else {
                 if (Input::get('type') == 'google_analytics') {
-                    $configuration->set('Core', 'ga_script', Input::get('analyticsid'));
-
+                    Util::setSetting('ga_script', Input::get('analyticsid'));
                     $success = $language->get('admin', 'seo_settings_updated_successfully');
                 }
             }
@@ -193,7 +192,7 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'GENERATE' => $language->get('admin', 'generate_sitemap'),
-    'GOOGLE_ANALYTICS_VALUE' => $configuration->get('Core', 'ga_script'),
+    'GOOGLE_ANALYTICS_VALUE' => Util::getSetting('ga_script'),
     'PAGE_TITLE' => $language->get('admin', 'page'),
     'PAGE_LIST' => $pages->returnPages(),
     'EDIT_LINK' => URL::build('/panel/core/seo/', 'metadata={x}'),

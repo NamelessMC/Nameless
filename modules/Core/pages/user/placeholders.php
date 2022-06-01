@@ -15,8 +15,7 @@ if (!$user->isLoggedIn()) {
 }
 
 // Placeholders enabled?
-$placeholders_enabled = $configuration->get('Core', 'placeholders');
-if ($placeholders_enabled != 1) {
+if (Util::getSetting('placeholders') !== '1') {
     require_once(ROOT_PATH . '/404.php');
     die();
 }

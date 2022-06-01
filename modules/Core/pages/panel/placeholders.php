@@ -102,13 +102,7 @@ if (isset($_GET['leaderboard'])) {
 
         if (Token::check()) {
             // Update placeholders value
-            if (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') {
-                $placeholders_enabled = 1;
-            } else {
-                $placeholders_enabled = 0;
-            }
-
-            $configuration->set('Core', 'placeholders', $placeholders_enabled);
+            Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0')
 
             foreach ($all_placeholders as $placeholder) {
                 try {
@@ -142,9 +136,6 @@ if (isset($_GET['leaderboard'])) {
         }
     }
 
-    // Retrieve placeholders value
-    $placeholders_enabled = $configuration->get('Core', 'placeholders');
-
     $smarty->assign([
         'PAGE' => PANEL_PAGE,
         'PARENT_PAGE' => PARENT_PAGE,
@@ -171,7 +162,7 @@ if (isset($_GET['leaderboard'])) {
         'MINECRAFT' => $language->get('admin', 'minecraft'),
         'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
         'ENABLE_PLACEHOLDERS' => $language->get('admin', 'enable_placeholders'),
-        'ENABLE_PLACEHOLDERS_VALUE' => ($placeholders_enabled == 1),
+        'ENABLE_PLACEHOLDERS_VALUE' => Util::getSetting('placeholders') === '1',
     ]);
 }
 

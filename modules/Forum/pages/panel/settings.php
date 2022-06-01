@@ -43,14 +43,7 @@ if (Input::exists()) {
         $cache->setCache('nav_location');
         $cache->store('forum_location', $location);
 
-        // Update reactions value
-        if (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') {
-            $use_reactions = 1;
-        } else {
-            $use_reactions = 0;
-        }
-
-        $configuration->set('Core', 'forum_reactions', $use_reactions);
+        Util::setSetting('forum_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
 
         Session::flash('admin_forums_settings', $forum_language->get('forum', 'settings_updated_successfully'));
     } else {
@@ -63,9 +56,6 @@ if (Input::exists()) {
 // Retrieve Link Location from cache
 $cache->setCache('nav_location');
 $link_location = $cache->retrieve('forum_location');
-
-// Retrieve reactions value
-$use_reactions = $configuration->get('Core', 'forum_reactions');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -100,7 +90,7 @@ $smarty->assign([
     'LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
     'LINK_NONE' => $language->get('admin', 'page_link_none'),
     'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
-    'USE_REACTIONS_VALUE' => ($use_reactions == 1),
+    'USE_REACTIONS_VALUE' => Util::getSetting('forum_reactions') === '1',
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')

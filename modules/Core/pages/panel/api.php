@@ -61,12 +61,12 @@ if (!isset($_GET['view'])) {
             );
 
             // Update email verification
-            $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
-            $configuration->set('Core', 'email_verification', $verification);
+            $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? '1' : '0';
+            Util::setSetting('email_verification', $verification);
 
             // Update Username sync
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? 1 : 0;
-            $configuration->set('Core', 'username_sync', $username_sync);
+            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
+            Util::setSetting('username_sync', $username_sync);
 
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
 
@@ -212,15 +212,6 @@ if (!isset($_GET['view'])) {
         $api_enabled = '0';
     }
 
-    // Get API key
-    $api_key = Util::getSetting('mc_api_key');
-
-    // Is email verification enabled
-    $emails = $configuration->get('Core', 'email_verification');
-
-    // Is the username sync enabled?
-    $username_sync = $configuration->get('Core', 'username_sync');
-
     $smarty->assign(
         [
             'PARENT_PAGE' => PARENT_PAGE,
@@ -238,7 +229,7 @@ if (!isset($_GET['view'])) {
             'ENABLE_API' => $language->get('admin', 'enable_api'),
             'API_ENABLED' => $api_enabled,
             'API_KEY' => $language->get('admin', 'api_key'),
-            'API_KEY_VALUE' => $api_key,
+            'API_KEY_VALUE' => Util::getSetting('mc_api_key'),
             'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
@@ -250,10 +241,10 @@ if (!isset($_GET['view'])) {
             'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
-            'EMAIL_VERIFICATION_VALUE' => $emails,
+            'EMAIL_VERIFICATION_VALUE' => Util::getSetting('email_verification') === '1',
             'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
             'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
-            'USERNAME_SYNC_VALUE' => $username_sync,
+            'USERNAME_SYNC_VALUE' => Util::getSetting('username_sync') === '1',
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
             'COPIED' => $language->get('general', 'copied'),

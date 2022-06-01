@@ -130,9 +130,6 @@ if ($page != 'install') {
         DebugBarHelper::getInstance()->enable($smarty);
     }
 
-    // Configurations
-    $configuration = new Configuration($cache);
-
     // Get the Nameless version
     define('NAMELESS_VERSION', Util::getSetting('nameless_version'));
 
@@ -417,8 +414,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
 
     // Placeholders enabled?
-    $placeholders_enabled = $configuration->get('Core', 'placeholders');
-    if ($placeholders_enabled == 1) {
+    if (Util::getSetting('placeholders') === '1') {
         $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholders'));
     }
 

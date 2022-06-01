@@ -52,8 +52,7 @@ if (Input::exists()) {
 
             } else {
                 // Email verification
-                $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? 1 : 0;
-                $configuration->set('Core', 'email_verification', $verification);
+                Util::setSetting((isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0')
 
                 // Registration disabled message
                 DB::getInstance()->update('settings', ['name', 'registration_disabled_message'], [
@@ -61,17 +60,9 @@ if (Input::exists()) {
                 ]);
 
                 // reCAPTCHA type
-                $captcha_type = DB::getInstance()->get('settings', ['name', 'recaptcha_type'])->results();
-                if (!count($captcha_type)) {
-                    DB::getInstance()->insert('settings', [
-                        'name' => 'recaptcha_type',
-                        'value' => Input::get('captcha_type')
-                    ]);
-                    $cache->setCache('configuration');
-                    $cache->store('recaptcha_type', Input::get('captcha_type'));
-                } else {
-                    $configuration->set('Core', 'recaptcha_type', Input::get('captcha_type'));
-                }
+                Util::setSetting('recaptcha_type', Input::get('captcha_type'));
+                $cache->setCache('configuration');
+                $cache->store('recaptcha_type', Input::get('captcha_type'));
 
                 // Verify if the captha inputted is correct (if enabled)
                 if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
@@ -132,11 +123,9 @@ if (Input::exists()) {
                             }
                         }
 
-                        // reCAPTCHA key
-                        $configuration->set('Core', 'recaptcha_key', Input::get('recaptcha'));
-
-                        // reCAPTCHA secret key
-                        $configuration->set('Core', 'recaptcha_secret', Input::get('recaptcha_secret'));
+                        // Save settings
+                        Util::setSetting('recaptcha_key', Input::get('recaptcha'));
+                        Util::setSettings('recaptcha_secret', Input::get('recaptcha_secret'));
                     }
                 }
 
@@ -177,9 +166,6 @@ if (isset($errors) && count($errors)) {
 $registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
 $registration_enabled = $registration_enabled[0]->value;
 
-// Is email verification enabled
-$emails = $configuration->get('Core', 'email_verification');
-
 // Validation group
 $validation_group = Util::getSetting('validate_user_action');
 $validation_group = json_decode($validation_group, true);
@@ -187,7 +173,7 @@ $validation_group = $validation_group['group'] ?? 1;
 
 $all_captcha_options = CaptchaBase::getAllProviders();
 $captcha_options = [];
-$active_option = $configuration->get('Core', 'recaptcha_type');
+$active_option = Util::getSetting('recaptcha_type');
 $active_option_name = $active_option ?: '';
 
 foreach ($all_captcha_options as $option) {
@@ -211,7 +197,7 @@ foreach (OAuth::getInstance()->getProviders() as $provider_name => $provider_dat
 
 $smarty->assign([
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
-    'EMAIL_VERIFICATION_VALUE' => $emails,
+    'EMAIL_VERIFICATION_VALUE' => Util::getSetting('email_verification') === '1',
     'CAPTCHA_GENERAL' => $language->get('admin', 'captcha_general'),
     'CAPTCHA_GENERAL_VALUE' => Util::getSetting('recaptcha'),
     'CAPTCHA_LOGIN' => $language->get('admin', 'captcha_login'),

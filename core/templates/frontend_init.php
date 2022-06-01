@@ -140,7 +140,7 @@ if (!empty($favicon_image)) {
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 }
 
-$analytics_id = $configuration->get('Core', 'ga_script');
+$analytics_id = Util::getSetting('ga_script');
 if ($analytics_id) {
     $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));
 }

@@ -15,11 +15,9 @@ class Core_Module extends Module {
     private static array $_notices = [];
     private static array $_user_actions = [];
     private Language $_language;
-    private Configuration $_configuration;
 
     public function __construct(Language $language, Pages $pages, User $user, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
-        $this->_configuration = new Configuration($cache);
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
@@ -459,9 +457,9 @@ class Core_Module extends Module {
         ]);
 
         // Captcha
-        $captchaPublicKey = $this->_configuration->get('Core', 'recaptcha_key');
-        $captchaPrivateKey = $this->_configuration->get('Core', 'recaptcha_secret');
-        $activeCaptcha = $this->_configuration->get('Core', 'recaptcha_type');
+        $captchaPublicKey = Util::getSetting('recaptcha_key');
+        $captchaPrivateKey = Util::getSetting('recaptcha_secret');
+        $activeCaptcha = Util::getSetting('recaptcha_type', 'Recaptcha2');
 
         CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
@@ -805,11 +803,9 @@ class Core_Module extends Module {
         }
 
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
-        $placeholders_enabled = Configuration::getInstance()->get('Core', 'placeholders');
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if ($placeholders_enabled == 1 && count($leaderboard_placeholders)) {
-
+        if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {
                 $leaderboards_order = 4;
