@@ -66,7 +66,7 @@
                                             data-container="body" data-toggle="popover" title="{$INFO}"
                                             data-content="{$ENABLE_MAILER_HELP}"></i></span>
                                     <script>
-                                        function ToggleFields() {
+                                        function toggleFields() {
                                             const x = document.getElementById("fields-block");
                                             if (x.style.display === "none") {
                                                 x.style.display = "block";
