@@ -45,7 +45,6 @@
     "admin/average_players": "Średnia liczba graczy",
     "admin/background_colour": "Kolor Tła",
     "admin/background_colour_required": "Kolor tła jest wymagany",
-    "admin/background_updated_successfully": "Tło zostało zmienione pomyślnie.",
     "admin/banner_background": "Tło bannera",
     "admin/banner_image_x": "Grafika na bannerze: {{imageName}}",
     "admin/banner_updated_successfully": "Baner został zmieniony pomyślnie. Jego aktualizacja może chwilę potrwać.",

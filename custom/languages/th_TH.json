@@ -43,7 +43,6 @@
     "admin/average_players": "ผู้เล่นเฉลี่ย",
     "admin/background_colour": "สีพื้นหลัง",
     "admin/background_colour_required": "ต้องใช้สีพื้นหลัง",
-    "admin/background_updated_successfully": "อัปเดต Background เรียบร้อยแล้ว",
     "admin/ban_hook_info": "User banned",
     "admin/banner_image_x": "ภาพ Banner: {{imageName}}",
     "admin/banner_updated_successfully": "อัปเดต banner เรียบร้อยแล้ว อาจใช้เวลาสักครู่ก่อนที่การเปลี่ยนแปลงของคุณจะมีผล",

@@ -48,7 +48,6 @@
     "admin/average_players": "Priemerne hráčov",
     "admin/background_colour": "Farba pozadia",
     "admin/background_colour_required": "Farba pozadia je povinná",
-    "admin/background_updated_successfully": "Pozadie bolo úspešne aktualizované.",
     "admin/ban_hook_info": "Používateľ bol zabanovaný",
     "admin/banner_background": "Pozadie banneru",
     "admin/banner_image_x": "Obrázok bannera: {{imageName}}",

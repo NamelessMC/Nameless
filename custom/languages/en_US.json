@@ -48,7 +48,6 @@
     "admin/average_players": "Average Players",
     "admin/background_colour": "Background Color",
     "admin/background_colour_required": "Background Color is required",
-    "admin/background_updated_successfully": "Background updated successfully.",
     "admin/ban_hook_info": "User banned",
     "admin/banner_background": "Banner background",
     "admin/banner_image_x": "Banner image: {{imageName}}",

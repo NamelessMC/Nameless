@@ -46,7 +46,6 @@
     "admin/average_players": "Durchschnittliche Spieler",
     "admin/background_colour": "Hintergrund Farbe",
     "admin/background_colour_required": "Hintergrundfarbe ist erforderlich",
-    "admin/background_updated_successfully": "Hintergrund erfolgreich aktualisiert.",
     "admin/banner_background": "Banner Hintergrund",
     "admin/banner_image_x": "Banner image: {{imageName}}",
     "admin/banner_updated_successfully": "Banner erfolgreich aktualisiert. Es kann eine Weile dauern, bis Deine Änderungen wirksam werden.",
