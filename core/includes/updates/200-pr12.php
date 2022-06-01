@@ -230,7 +230,7 @@ class Pre13 extends UpgradeScript {
         $this->_cache->setCache('home_type');
         $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
         $this->databaseQuery(function (DB $db) use ($home_type) {
-            Util::setSetting('portal', null)
+            Util::setSetting('portal', null);
             Util::setSetting('home_type', $home_type);
             Util::setSetting('home_custom_content', null);
         });

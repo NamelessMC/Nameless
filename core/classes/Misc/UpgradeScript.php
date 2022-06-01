@@ -148,6 +148,6 @@ abstract class UpgradeScript {
      */
     protected function setVersion(string $version): void {
         Util::setSetting('nameless_version', $version);
-        Util::setSetting('version_update', '0');
+        Util::setSetting('version_update', null);
     }
 }

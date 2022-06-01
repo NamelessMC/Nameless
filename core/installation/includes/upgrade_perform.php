@@ -809,17 +809,7 @@ switch ($s) {
             ]);
         }
 
-        $version_update = DB::getInstance()->get('settings', ['name', 'version_update'])->results();
-        if (count($version_update)) {
-            DB::getInstance()->update('settings', $version_update[0]->id, [
-                'value' => 'false'
-            ]);
-        } else {
-            DB::getInstance()->insert('settings', [
-                'name' => 'version_update',
-                'value' => 'false'
-            ]);
-        }
+        Util::setSetting('version_update', null);
 
         $mcassoc = DB::getInstance()->get('settings', ['name', 'use_mcassoc'])->results();
         if (count($mcassoc)) {

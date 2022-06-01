@@ -554,11 +554,7 @@ class Util {
             } else {
                 $to_db = 'true';
             }
-
-            $queries = new Queries();
-            DB::getInstance()->update('settings', ['name', 'version_update'], [
-                'value' => $to_db
-            ]);
+            Util::setSetting('version_update', $to_db);
         }
 
         return $update_check;

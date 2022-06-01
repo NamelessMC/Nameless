@@ -150,7 +150,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
     ];
 }
 
-$namelessmc_version = trim(Util::getSetting('nameless_version'));
+$namelessmc_version = Util::getSetting('nameless_version');
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
@@ -171,7 +171,7 @@ $data = [
     'generated_by_uuid' => $uuid,
     'namelessmc' => [
         'version' => $namelessmc_version,
-        'update_available' => Util::getSetting('version_update') != 'false',
+        'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
         'update_checked' => (int) Util::getSetting('version_checked'),
         'settings' => [
             'phpmailer' => (bool) Util::getSetting('phpmailer'),

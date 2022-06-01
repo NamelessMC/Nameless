@@ -30,7 +30,7 @@ if (Input::exists()) {
         Util::setSetting('youtube_url', Input::get('youtubeurl'));
 
         // Twitter URL
-        Util::setSetting('twitter_url', Input::get('twitterurl'))
+        Util::setSetting('twitter_url', Input::get('twitterurl'));
 
         // Twitter dark theme
         if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {

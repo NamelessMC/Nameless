@@ -243,11 +243,6 @@ class DatabaseInitialiser {
         ]);
 
         $this->_queries->create('settings', [
-            'name' => 'version_update',
-            'value' => 'false'
-        ]);
-
-        $this->_queries->create('settings', [
             'name' => 'phpmailer',
             'value' => false
         ]);

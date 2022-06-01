@@ -14,7 +14,7 @@ $queries = new Queries();
 // Ensure an update is needed
 $update_needed = Util::getSetting('version_update');
 
-if ($update_needed != 'true' && $update_needed != 'urgent') {
+if ($update_needed !== 'true' && $update_needed !== 'urgent') {
     Redirect::to(URL::build('/panel/update'));
 }
 

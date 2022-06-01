@@ -151,7 +151,7 @@ class Discord {
      */
     public static function getGuildId(): ?int {
         if (!isset(self::$_guild_id)) {
-            self::$_guild_id = Util::getSetting('discord');
+            self::$_guild_id = (int) Util::getSetting('discord');
         }
 
         return self::$_guild_id;
