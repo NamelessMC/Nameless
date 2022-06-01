@@ -460,7 +460,7 @@
     "admin/running_nameless_version": "การเรียกใช้เนมเลสเอ็มซีรุ่น {{version}}",
     "admin/security": "ความปลอดภัย",
     "admin/select_all": "เลือกทั้งหมด",
-    "admin/select_default_avatar": "เลือกอวตารเริ่มต้นใหม่",
+    "admin/select_default_avatar": "เลือกรูปโปรไฟล์เริ่มต้นใหม่",
     "admin/select_user_group": "คุณต้องเลือกกลุ่มของผู้ใช้",
     "admin/send": "ส่ง",
     "admin/send_test_email": "ทดสอบการส่งอีเมล",
@@ -1068,5 +1068,9 @@
     "user/x_reactions": "{{count}} ปฏิกิริยา",
     "user/x_replies": "{{count}} ตอบกลับ",
     "user/you_have_been_banned": "คุณถูกห้าม!",
-    "user/you_have_received_a_warning": "คุณได้รับคำเตือน!"
+    "user/you_have_received_a_warning": "คุณได้รับคำเตือน!",
+    "admin/activate": "เปิดใช้งาน",
+    "admin/active": "ใช้งานอยู่",
+    "admin/announcement_hook_info": "การสร้างประกาศ",
+    "admin/announcement_order": "ลำดับ"
 }
