@@ -10,7 +10,6 @@ if ($s < 9) {
     );
 }
 
-$queries = new Queries();
 $cache = new Cache();
 
 switch ($s) {
@@ -439,11 +438,7 @@ switch ($s) {
                 $old = $old->results();
 
                 foreach ($old as $item) {
-                    DB::getInstance()->insert('settings', [
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'value' => $item->value
-                    ]);
+                    Util::setSetting($item->name, $item->value);
                 }
             }
         } catch (Exception $e) {
@@ -675,13 +670,13 @@ switch ($s) {
     case 8:
         // New settings/initialise cache
         // Site name
-        $sitename = DB::getInstance()->get('settings', ['name', 'sitename'])->results();
-        $cache->setCache('sitenamecache');
-        if (!count($sitename)) {
-            $cache->store('sitename', 'NamelessMC');
-        } else {
-            $cache->store('sitename', Output::getClean($sitename[0]->value));
+        $sitename = Util::getSetting('sitename');
+        if ($sitename == null) {
+            $sitename = 'NamelessMC';
         }
+
+        $cache->setCache('sitenamecache');
+        $cache->store('sitename', $sitename);
 
         // Languages
         foreach (Language::LANGUAGES as $short_code => $meta) {

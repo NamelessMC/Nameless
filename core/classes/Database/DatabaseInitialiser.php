@@ -172,7 +172,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'displaynames',
-            'value' => 'false'
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -182,7 +182,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'recaptcha',
-            'value' => 'false'
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -192,7 +192,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'recaptcha_login',
-            'value' => 'false'
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -244,7 +244,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'phpmailer',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -254,7 +254,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'verify_accounts',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -269,17 +269,17 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'user_avatars',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
             'name' => 'forum_layout',
-            'value' => 1
+            'value' => '1'
         ]);
 
         $this->_queries->create('settings', [
             'name' => 'maintenance',
-            'value' => 'false'
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -289,7 +289,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'mc_integration',
-            'value' => 1
+            'value' => '1'
         ]);
 
         $this->_queries->create('settings', [
@@ -304,7 +304,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'discord_integration',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -326,7 +326,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'forum_reactions',
-            'value' => 1
+            'value' => '1'
         ]);
 
         $this->_queries->create('settings', [
@@ -356,14 +356,14 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'error_reporting',
-            'value' => false
+            'value' => '0'
         ]);
         $this->_cache->setCache('error_cache');
         $this->_cache->store('error_reporting', 0);
 
         $this->_queries->create('settings', [
             'name' => 'page_loading',
-            'value' => false
+            'value' => '0'
         ]);
         $this->_cache->setCache('page_load_cache');
         $this->_cache->store('page_load', 0);
@@ -375,7 +375,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'use_api',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -385,12 +385,12 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'external_query',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
             'name' => 'followers',
-            'value' => false
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -400,7 +400,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'language',
-            'value' => 1
+            'value' => '1'
         ]);
 
         $this->_queries->create('settings', [
@@ -422,7 +422,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'authme',
-            'value' => 0
+            'value' => '0'
         ]);
 
         $this->_queries->create('settings', [
@@ -442,7 +442,7 @@ class DatabaseInitialiser {
 
         $this->_queries->create('settings', [
             'name' => 'private_profile',
-            'value' => 1
+            'value' => '1'
         ]);
 
         $this->_queries->create('settings', [

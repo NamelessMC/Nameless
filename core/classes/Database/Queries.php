@@ -183,23 +183,4 @@ class Queries {
         }
     }
 
-    /**
-     * Initialise the database structure on a fresh installation.
-     *
-     * @return bool True if the database was initialised, false if not.
-     * @deprecated Call PhinxAdapter::migrate() instead
-     */
-    public function dbInitialise(): bool {
-        self::warnDeprecated();
-        $data = $this->_db->showTables('settings');
-
-        if (!empty($data)) {
-            echo '<div class="alert alert-warning">Database already initialised!</div>';
-            return false;
-        }
-
-        PhinxAdapter::migrate();
-        return true;
-    }
-
 }

@@ -155,10 +155,8 @@ if (Input::exists()) {
                     }
 
                     // Nicknames?
-                    $displaynames = Util::getSetting('displaynames');
-
                     $username = Input::get('username');
-                    if ($displaynames == 'true') {
+                    if (Util::getSetting('displaynames') === '1') {
                         $nickname = Input::get('nickname');
                     } else {
                         $nickname = Input::get('username');
@@ -295,7 +293,6 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
     $limit_groups = true;
 }
 
-$displaynames = Util::getSetting('displaynames');
 $private_profile = Util::getSetting('private_profile');
 
 $templates = [];
@@ -342,7 +339,7 @@ $smarty->assign([
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
     'USER_ID' => Output::getClean($user_query->id),
-    'DISPLAYNAMES' => ($displaynames == 'true'),
+    'DISPLAYNAMES' => Util::getSetting('displaynames') === '1',
     'USERNAME' => $language->get('user', 'username'),
     'USERNAME_VALUE' => Output::getClean($user_query->username),
     'NICKNAME' => $language->get('user', 'nickname'),

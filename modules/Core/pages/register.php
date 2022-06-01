@@ -71,9 +71,6 @@ if ($minecraft == '1') {
 }
 
 // Registration page
-// Are custom usernames enabled?
-$custom_usernames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-$custom_usernames = $custom_usernames[0]->value;
 
 if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     // Get site details for MCAssoc
@@ -161,7 +158,7 @@ if (Input::exists()) {
                 // ]
             ];
 
-            if ($custom_usernames == 'true') {
+            if (Util::getSetting('displaynames') === '1') {
                 // Nickname enabled
                 $to_validation['nickname'] = [
                     Validate::REQUIRED => true,
@@ -418,7 +415,7 @@ if (isset($errors)) {
 $fields = new Fields();
 
 // Are custom usernames enabled?
-if ($custom_usernames == 'true') {
+if (Util::getSetting('displaynames') === '1') {
     $nickname_value = ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : '');
 
     $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $nickname_value);

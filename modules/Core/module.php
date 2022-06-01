@@ -726,14 +726,11 @@ class Core_Module extends Module {
         $cache->setCache('validate_action');
         if ($cache->isCached('validate_action')) {
             $validate_action = $cache->retrieve('validate_action');
-
         } else {
-            $validate_action = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
-            $validate_action = $validate_action[0]->value;
+            $validate_action = Util::getSetting('validate_user_action');
             $validate_action = json_decode($validate_action, true);
 
             $cache->store('validate_action', $validate_action);
-
         }
 
         if ($validate_action['action'] == 'promote') {
@@ -791,13 +788,7 @@ class Core_Module extends Module {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
-                $status_enabled = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
-                if ($status_enabled[0]->value == 1) {
-                    $status_enabled = 1;
-                } else {
-                    $status_enabled = 0;
-                }
-
+                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
                 $cache->store('enabled', $status_enabled);
 
             }
@@ -886,16 +877,7 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-                        if (count($query_type)) {
-                            if ($query_type[0]->value == '1') {
-                                $query_type = 'external';
-                            } else {
-                                $query_type = 'internal';
-                            }
-                        } else {
-                            $query_type = 'internal';
-                        }
+                        $query_type = Util::getSetting('external_query') === '1' ? 'external' : 'internal';
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];

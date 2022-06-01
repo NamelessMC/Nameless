@@ -12,10 +12,6 @@
 $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-// Ensure AuthMe is enabled
-$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-$authme_enabled = $authme_enabled[0]->value;
-
 // Use recaptcha?
 $captcha = CaptchaBase::isCaptchaEnabled();
 
@@ -31,10 +27,7 @@ if (Input::exists()) {
             }
 
             // Are custom usernames enabled?
-            $custom_usernames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-            $custom_usernames = $custom_usernames[0]->value;
-
-            if ($custom_usernames == 'true') {
+            if (Util::getSetting('displaynames') === '1') {
                 $validation = Validate::check($_POST, [
                     'nickname' => [
                         Validate::REQUIRED => true,
@@ -370,10 +363,7 @@ if (!isset($_GET['step'])) {
 } else {
     // Step 2
     // Are custom usernames enabled?
-    $custom_usernames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-    $custom_usernames = $custom_usernames[0]->value;
-
-    if ($custom_usernames == 'true') {
+    if (Util::getSetting('displaynames') === '1') {
         $info = $language->get('user', 'authme_email_help_2');
         $smarty->assign('NICKNAME', $language->get('user', 'username'));
     } else {

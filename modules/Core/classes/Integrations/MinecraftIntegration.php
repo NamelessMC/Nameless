@@ -194,10 +194,7 @@ class MinecraftIntegration extends IntegrationBase {
     public function getUuidByUsername(string $username): array {
         $queries = new Queries();
 
-        $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-        $uuid_linking = $uuid_linking[0]->value;
-
-        if ($uuid_linking == 1) {
+        if (Util::getSetting('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
         } else {
             return $this->getOfflineModeUuid($username);

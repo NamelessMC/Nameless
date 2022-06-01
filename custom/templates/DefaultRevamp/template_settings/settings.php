@@ -21,10 +21,9 @@ if (Input::exists()) {
             $cache->store('navbarColour', $_POST['navbarColour']);
         }
 
-        DB::getInstance()->update('settings', ['name', 'home_custom_content'], ['value' => Input::get('home_custom_content')]);
+        Util::setSetting('home_custom_content', Input::get('home_custom_content'));
 
         Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
-
     } else {
         $errors = [$language->get('general', 'invalid_token')];
     }
