@@ -273,7 +273,7 @@ if (isset($_GET['action'])) {
             'docLinkEnd' => '</a>'
         ]),
         'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
-            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/friendly-urls\' target=\'_blank\'>',
+            'docLinkStart' => "<a href='https://docs.namelessmc.com/friendly-urls' target='_blank'>",
             'docLinkEnd' => '</a>'
         ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
