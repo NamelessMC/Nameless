@@ -33,8 +33,6 @@ class StatsWidget extends WidgetBase {
     }
 
     public function initialise(): void {
-        $queries = new Queries();
-
         $this->_cache->setCache('statistics');
 
         if ($this->_cache->isCached('statistics')) {

@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
         }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
         require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-        if (sendRegisterEmail($queries, $language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+        if (sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));

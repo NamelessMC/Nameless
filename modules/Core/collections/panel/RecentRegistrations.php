@@ -43,7 +43,6 @@ class RecentRegistrationsItem extends CollectionItemBase {
         if ($this->_cache->isCached('recent_registrations_data')) {
             $data = $this->_cache->retrieve('recent_registrations_data');
         } else {
-            $queries = new Queries();
             $query = DB::getInstance()->orderAll('users', 'joined', 'DESC LIMIT 5')->results();
             $data = [];
 

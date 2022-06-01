@@ -20,7 +20,6 @@ const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'placeholders';
 $page_title = $language->get('admin', 'placeholders');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-$queries = new Queries();
 
 $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 

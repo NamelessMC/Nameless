@@ -123,8 +123,6 @@ class Announcements {
      * @param int $order Order of this announcement to use for sorting.
      */
     public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
-        $queries = new Queries();
-
         DB::getInstance()->update('custom_announcements', $id, [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
@@ -171,8 +169,6 @@ class Announcements {
      * @param int $order Order of this announcement to use for sorting.
      */
     public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
-        $queries = new Queries();
-
         DB::getInstance()->insert('custom_announcements', [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),

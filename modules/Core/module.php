@@ -719,9 +719,6 @@ class Core_Module extends Module {
             $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
-        // Queries
-        $queries = new Queries();
-
         // Validate user hook
         $validate_action = Util::getSetting('validate_user_action');
         $validate_action = json_decode($validate_action, true);

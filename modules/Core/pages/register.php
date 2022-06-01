@@ -374,7 +374,7 @@ if (Input::exists()) {
 
                         if ($email_verification == '1') {
                             // Send registration email
-                            sendRegisterEmail($queries, $language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+                            sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
                             Session::flash('home', $language->get('user', 'registration_check_email'));
                         } else {

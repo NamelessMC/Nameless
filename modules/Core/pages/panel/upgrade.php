@@ -9,8 +9,6 @@
  *  Panel update execute page
  */
 
-$queries = new Queries();
-
 // Ensure an update is needed
 $update_needed = Util::getSetting('version_update');
 

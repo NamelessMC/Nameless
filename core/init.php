@@ -95,9 +95,6 @@ if ($page != 'install') {
     // Ensure database is up-to-date
     PhinxAdapter::ensureUpToDate();
 
-    // Queries
-    $queries = new Queries();
-
     // Page load timer?
     $cache->setCache('page_load_cache');
     $page_loading = $cache->retrieve('page_load');

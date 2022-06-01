@@ -257,8 +257,6 @@ class Forum_Module extends Module {
 
         // Front end or back end?
         if (defined('FRONT_END')) {
-            $queries = new Queries();
-
             // Global variables if user is logged in
             if ($user->isLoggedIn()) {
                 // Basic user variables
@@ -325,7 +323,6 @@ class Forum_Module extends Module {
 
                 if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                     // Dashboard graph
-                    $queries = new Queries();
 
                     // Get data for topics and posts
                     $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();

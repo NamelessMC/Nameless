@@ -134,7 +134,7 @@ class Pre13 extends UpgradeScript {
                 $key = array_search(str_replace(' ', '', $meta['name']), array_column($languages, 'name'));
 
                 if ($key !== false) {
-                    $this->_queries->update('languages', $languages[$key]->id, [
+                    $db->update('languages', $languages[$key]->id, [
                         'name' => $meta['name'],
                         'short_code' => $short_code
                     ]);
@@ -146,7 +146,7 @@ class Pre13 extends UpgradeScript {
                         'short_code' => $short_code
                     ]);
 
-                    $converted_languages[] = $this->_queries->getLastId();
+                    $converted_languages[] = $db->lastId();
                 }
             }
 

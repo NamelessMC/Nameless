@@ -10,14 +10,11 @@
 abstract class UpgradeScript {
 
     protected Cache $_cache;
-    protected Queries $_queries;
 
     public function __construct() {
         $this->_cache = new Cache(
             ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
-
-        $this->_queries = new Queries();
     }
 
     /**

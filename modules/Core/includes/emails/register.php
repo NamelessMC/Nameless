@@ -9,7 +9,7 @@
  *  Register email
  */
 
-function sendRegisterEmail(Queries $queries, Language $language, string $email_address, string $username, int $user_id, string $code): bool {
+function sendRegisterEmail(Language $language, string $email_address, string $username, int $user_id, string $code): bool {
     $link = rtrim(Util::getSelfURL(), '/') . URL::build('/validate/', 'c=' . urlencode($code));
 
     $sent = Email::send(

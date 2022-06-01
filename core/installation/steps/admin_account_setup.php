@@ -55,8 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
 
         try {
-            $queries = new Queries();
-
             $default_language = DB::getInstance()->get('languages', ['is_default', true])->results();
 
             $ip = Util::getRemoteAddress();
