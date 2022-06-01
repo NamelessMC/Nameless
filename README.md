@@ -91,6 +91,17 @@ Here are some things you should know when contributing:
       ```
     - This will wipe the database and populate it with lots of fake users, forums, and much, much more.
     - *Note: Login to the admin account with `admin@localhost` and `password` after running the seeder*
+- To make changes to the database schema (add, modify or remove a table), please create a new migration with Phinx:
+  - Run the following command when in the root directory:
+      ```console
+      vendor/bin/phinx create MigrationNameInCamelCase -c core/migrations/phinx.php
+      ```
+  - This will create a new migration file in the `./core/migrations` directory, where you can use the Phinx table builder to make your changes.
+    Please try to stick with the conventions of pre-existing migrations.
+  - To execute the migration, run the following command:
+    ```console
+    vendor/bin/phinx migrate -c core/migrations/phinx.php
+    ```
 
 ## Special Thanks
 - All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
