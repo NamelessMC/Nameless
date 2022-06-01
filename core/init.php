@@ -93,7 +93,7 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
-    PhinxAdapter::migrate();
+    PhinxAdapter::ensureUpToDate();
 
     // Queries
     $queries = new Queries();

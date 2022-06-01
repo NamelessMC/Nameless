@@ -155,6 +155,7 @@ class ErrorHandler {
             'CAN_GENERATE_DEBUG' => $can_generate_debug,
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
+            // TODO: should we skip the 2 frames that are from the "new User()" above?
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
             'CURRENT_URL' => Util::getProtocol() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
             'FRAMES' => $frames,
