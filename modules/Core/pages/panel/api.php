@@ -28,7 +28,7 @@ if (!isset($_GET['view'])) {
             if (isset($_POST['action']) && $_POST['action'] == 'regen') {
                 // Regenerate new API key
                 // Generate new key
-                $new_api_key = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32);
+                $new_api_key = SecureRandom::alphanumeric();
 
                 $plugin_api = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
                 $plugin_api = $plugin_api[0]->id;

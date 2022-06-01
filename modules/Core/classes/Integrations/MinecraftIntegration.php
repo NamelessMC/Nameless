@@ -39,7 +39,7 @@ class MinecraftIntegration extends IntegrationBase {
             return;
         }
 
-        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
+        $code = SecureRandom::alphanumeric();
 
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
@@ -160,7 +160,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function successfulRegistration(User $user) {
-        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
+        $code = SecureRandom::alphanumeric();
 
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, Input::get('username'), false, $code);

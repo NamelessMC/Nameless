@@ -30,7 +30,7 @@ if (!isset($_GET['c'])) {
                 $target_user = new User(Input::get('email'), 'email');
                 if ($target_user->exists() && $target_user->data()->active) {
                     // Generate a code
-                    $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+                    $code = SecureRandom::alphanumeric();
 
                     // Send an email
                     $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));

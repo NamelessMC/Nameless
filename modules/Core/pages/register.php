@@ -282,7 +282,7 @@ if (Input::exists()) {
                         $date = $date->getTimestamp();
 
                         // Generate validation code
-                        $code = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 60);
+                        $code = SecureRandom::alphanumeric();
 
                         // Get default language ID before creating user
                         $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE])->results();
