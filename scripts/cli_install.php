@@ -82,7 +82,7 @@ if ($reinstall) {
     }
 }
 
-const ROOT_PATH = __DIR__;
+const ROOT_PATH = __DIR__ . '..';
 
 print('✍️  Creating new config.php file...' . PHP_EOL);
 $conf = [
