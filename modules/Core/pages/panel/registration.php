@@ -52,7 +52,7 @@ if (Input::exists()) {
 
             } else {
                 // Email verification
-                Util::setSetting((isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
+                Util::setSetting('email_verification', (isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
 
                 // Registration disabled message
                 DB::getInstance()->update('settings', ['name', 'registration_disabled_message'], [
@@ -123,7 +123,7 @@ if (Input::exists()) {
 
                         // Save settings
                         Util::setSetting('recaptcha_key', Input::get('recaptcha'));
-                        Util::setSettings('recaptcha_secret', Input::get('recaptcha_secret'));
+                        Util::setSetting('recaptcha_secret', Input::get('recaptcha_secret'));
                     }
                 }
 

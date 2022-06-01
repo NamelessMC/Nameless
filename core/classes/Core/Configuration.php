@@ -22,17 +22,15 @@ class Configuration {
     /**
      * Get a configuration value
      *
-     * @param string $module Module name
      * @param string $setting Setting name
      *
      * @return mixed The configuration value
      */
     public function get(string $setting) {
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->module) . 'settings';
-        $data = $this->_db->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
+        $data = DB::getInstance()->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
         if ($data->count()) {
             $results = $data->results();
-            $this->_cache->store($setting, $results[0]->value);
             return $results[0]->value;
         }
 
@@ -42,13 +40,12 @@ class Configuration {
     /**
      * Set configuration value
      *
-     * @param string $module Module name
      * @param string $setting Setting name
      * @param mixed $value New value
      */
     public function set(string $setting, $value): void {
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->module) . 'settings';
-        $this->_db->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [
+        DB::getInstance()->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [
             $value,
             $setting,
         ]);
