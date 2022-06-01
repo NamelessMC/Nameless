@@ -155,11 +155,11 @@ if (!class_exists('Default_Panel_Template')) {
                             AssetTree::DATATABLES
                         ]);
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/fomantic.toast.min.css' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => [],
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/fomantic.toast.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
                         ]);
 
                         $this->addJSScript('
@@ -225,11 +225,11 @@ if (!class_exists('Default_Panel_Template')) {
                         ]);
 
                         $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/fomantic.toast.min.css' => []
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => []
                         ]);
 
                         $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/fomantic.toast.min.js' => [],
+                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
                         ]);
 
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage'));
