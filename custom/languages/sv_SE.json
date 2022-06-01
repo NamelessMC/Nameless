@@ -43,7 +43,6 @@
     "admin/average_players": "Genomsnittliga spelare",
     "admin/background_colour": "Bakgrundsfärg",
     "admin/background_colour_required": "Bakgrundsfärg krävs",
-    "admin/background_image_x": "Bakgrundsbild: {{imageName}}",
     "admin/background_updated_successfully": "Bakgrunden har uppdaterats.",
     "admin/banner_background": "Banner bakgrund",
     "admin/banner_image_x": "Bannerbild: {{imageName}}",

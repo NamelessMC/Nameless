@@ -44,7 +44,6 @@
     "admin/average_players": "Gjennomsnittlige spillere",
     "admin/background_colour": "Bakgrunnsfarge",
     "admin/background_colour_required": "En bakgrunnsfarge er påkrevd",
-    "admin/background_image_x": "Bakgrunnsbilde: {{imageName}}",
     "admin/background_updated_successfully": "Bakgrunnen har blitt oppdatert.",
     "admin/banner_background": "Bannerbakgrunn",
     "admin/banner_image_x": "Banner: {{imageName}}>",
