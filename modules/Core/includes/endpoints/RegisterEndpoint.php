@@ -120,7 +120,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             }
 
             if (!$code) {
-                $code = Hash::unique();
+                $code = SecureRandom::alphanumeric();
             }
 
             $api->getDb()->insert('users', [
@@ -194,7 +194,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      */
     private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
         // Generate random code
-        $code = Hash::unique();
+        $code = SecureRandom::alphanumeric();
 
         // Create user
         $user_id = $this->createUser($api, $username, $email, false, $code);

@@ -314,7 +314,7 @@ class User {
             Session::put($sessionName, $this->data()->id);
 
             if ($remember) {
-                $hash = Hash::unique();
+                $hash = SecureRandom::alphanumeric();
                 $table = $is_admin ? 'users_admin_session' : 'users_session';
                 $hashCheck = $this->_db->get($table, ['user_id', $this->data()->id]);
 
