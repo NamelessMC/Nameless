@@ -165,62 +165,58 @@ class DatabaseInitialiser {
     }
 
     private function initialiseSettings(): void {
-        $this->_db->insert('settings', [
-            'name' => 'registration_enabled',
-            'value' => 1
+        Util::setSetting('registration_enabled', '1');
+        Util::setSetting('displaynames', '0');
+        Util::setSetting('uuid_linking', '1');
+        Util::setSetting('recaptcha', '0');
+        Util::setSetting('recaptcha_type', 'reCaptcha2');
+        Util::setSetting('recaptcha_login', '0');
+        Util::setSetting('email_verification', '1');
+        Util::setSetting('nameless_version', '2.0.0-pr12');
+        Util::setSetting('version_checked', date('U'));
+        Util::setSetting('phpmailer', '0');
+        Util::setSetting('phpmailer_type', 'smtp');
+        Util::setSetting('verify_accounts', '0');
+        Util::setSetting('user_avatars', '0');
+        Util::setSetting('forum_layout', '1');
+        Util::setSetting('maintenance', '0');
+        Util::setSetting('avatar_site', 'cravatar');
+        Util::setSetting('mc_integration', '1');
+        Util::setSetting('discord_integration', '0');
+        Util::setSetting('avatar_type', 'helmavatar');
+        Util::setSetting('home_type', 'news');
+        $this->_cache->setCache('home_type');
+        $this->_cache->store('type', 'news');
+        Util::setSetting('forum_reactions', '1');
+        Util::setSetting('error_reporting', '0');
+        $this->_cache->setCache('error_cache');
+        $this->_cache->store('error_reporting', 0);
+        Util::setSetting('page_loading', '0');
+        $this->_cache->setCache('page_load_cache');
+        $this->_cache->store('page_load', 0);
+        Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
+        Util::setSetting('use_api', 0);
+        Util::setSetting('mc_api_key', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32));
+        Util::setSetting('external_query', '0');
+        Util::setSetting('followers', '0');
+        Util::setSetting('language', '1');
+        Util::setSetting('timezone', 'Europe/London');
+        $this->_cache->setCache('timezone_cache');
+        $this->_cache->store('timezone', 'Europe/London');
+        Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
+        $this->_cache->setCache('maintenance_cache');
+        $this->_cache->store('maintenance', [
+            'maintenance' => 'false',
+            'message' => 'This website is currently in maintenance mode.'
         ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'displaynames',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'uuid_linking',
-            'value' => 1
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'recaptcha',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'recaptcha_type',
-            'value' => 'reCaptcha'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'recaptcha_login',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'recaptcha_key',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'recaptcha_secret',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'email_verification',
-            'value' => 1
-        ]);
-
-        $nameless_terms = 'This website uses "Nameless" website software. The ' .
-            '"Nameless" software creators will not be held responsible for any content ' .
-            'that may be experienced whilst browsing this site, nor are they responsible ' .
-            'for any loss of data which may come about, for example a hacking attempt. ' .
-            'The website is run independently from the software creators, and any content' .
-            ' is the responsibility of the website administration.';
-
-        $this->_db->insert('settings', [
-            'name' => 't_and_c',
-            'value' => 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>'
-        ]);
+        Util::setSetting('authme', 0);
+        Util::setSetting('default_avatar_type', 'minecraft');
+        Util::setSetting('private_profile', '1');
+        Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
+        Util::setSetting('login_method', 'email');
+        Util::setSetting('username_sync', '1');
+        Util::setSetting('status_page', '0');
+        Util::setSetting('placeholders', '0');
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
@@ -232,253 +228,18 @@ class DatabaseInitialiser {
             'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
         ]);
 
-        $this->_db->insert('settings', [
-            'name' => 'nameless_version',
-            'value' => '2.0.0-pr12'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'version_checked',
-            'value' => date('U')
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'phpmailer',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'phpmailer_type',
-            'value' => 'smtp'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'verify_accounts',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'mcassoc_key',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'mcassoc_instance',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'user_avatars',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'forum_layout',
-            'value' => '1'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'maintenance',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'avatar_site',
-            'value' => 'cravatar'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'mc_integration',
-            'value' => '1'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'discord_bot_url',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'discord_bot_username',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'discord_integration',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'avatar_type',
-            'value' => 'helmavatar'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'home_type',
-            'value' => 'news'
-        ]);
-        $this->_cache->setCache('home_type');
-        $this->_cache->store('type', 'news');
-
-        $this->_db->insert('settings', [
-            'name' => 'home_custom_content',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'forum_reactions',
-            'value' => '1'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'youtube_url',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'twitter_url',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'twitter_style',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'fb_url',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'ga_script',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'error_reporting',
-            'value' => '0'
-        ]);
-        $this->_cache->setCache('error_cache');
-        $this->_cache->store('error_reporting', 0);
-
-        $this->_db->insert('settings', [
-            'name' => 'page_loading',
-            'value' => '0'
-        ]);
-        $this->_cache->setCache('page_load_cache');
-        $this->_cache->store('page_load', 0);
-
-        $this->_db->insert('settings', [
-            'name' => 'unique_id',
-            'value' => substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62)
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'use_api',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'mc_api_key',
-            'value' => substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32)
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'external_query',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'followers',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'discord',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'language',
-            'value' => '1'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'timezone',
-            'value' => 'Europe/London'
-        ]);
-        $this->_cache->setCache('timezone_cache');
-        $this->_cache->store('timezone', 'Europe/London');
-
-        $this->_db->insert('settings', [
-            'name' => 'maintenance_message',
-            'value' => 'This website is currently in maintenance mode.'
-        ]);
-        $this->_cache->setCache('maintenance_cache');
-        $this->_cache->store('maintenance', [
-            'maintenance' => 'false',
-            'message' => 'This website is currently in maintenance mode.'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'authme',
-            'value' => '0'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'authme_db',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'default_avatar_type',
-            'value' => 'minecraft'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'custom_default_avatar',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'private_profile',
-            'value' => '1'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'registration_disabled_message',
-            'value' => null
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'validate_user_action',
-            'value' => '{"action":"promote","group":1}'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'login_method',
-            'value' => 'email'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'username_sync',
-            'value' => '1'
-        ]);
-
         $this->_db->insert('privacy_terms', [
             'name' => 'privacy',
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
-        $this->_db->insert('settings', [
-            'name' => 'status_page',
-            'value' => '1'
-        ]);
-
-        $this->_db->insert('settings', [
-            'name' => 'placeholders',
-            'value' => '0'
-        ]);
+        $nameless_terms = 'This website uses "Nameless" website software. The ' .
+                        '"Nameless" software creators will not be held responsible for any content ' .
+                        'that may be experienced whilst browsing this site, nor are they responsible ' .
+                        'for any loss of data which may come about, for example a hacking attempt. ' .
+                        'The website is run independently from the software creators, and any content' .
+                        ' is the responsibility of the website administration.';
+        Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
     }
 
     private function initialiseTemplates(): void {
