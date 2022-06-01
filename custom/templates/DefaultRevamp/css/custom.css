@@ -1272,6 +1272,8 @@ body.dark .tox .tox-tbtn svg {
     fill: #fff;
 }
 
+/* Override TinyMCE blue-ish dark theme with neutral dark theme */
+
 body.dark .tox .tox-menu,
 body.dark .tox .tox-statusbar,
 body.dark .tox .tox-menubar,
@@ -1284,7 +1286,8 @@ body.dark .tox .tox-dialog__footer,
 body.dark .tox .tox-listboxfield .tox-listbox--select,
 body.dark .tox .tox-textarea,
 body.dark .tox .tox-textfield,
-body.dark .tox .tox-toolbar-textfield {
+body.dark .tox .tox-toolbar-textfield,
+body.dark .tox .tox-selectfield select {
     background-color: #222;
 }
 
