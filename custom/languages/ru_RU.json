@@ -48,7 +48,6 @@
     "admin/average_players": "Среднее кол-во игроков",
     "admin/background_colour": "Цвет заднего фона",
     "admin/background_colour_required": "Укажите цвет заднего фона",
-    "admin/background_updated_successfully": "Фон успешно обновлён.",
     "admin/ban_hook_info": "Пользователь забанен",
     "admin/banner_background": "Фон баннера",
     "admin/banner_image_x": "Изображение баннера: {{imageName}}",

@@ -48,7 +48,6 @@
     "admin/average_players": "Průměrný počet hráčů",
     "admin/background_colour": "Barva pozadí",
     "admin/background_colour_required": "Je vyžadována barva pozadí",
-    "admin/background_updated_successfully": "Pozadí úspěšně aktualizováno.",
     "admin/banner_background": "Pozadí banneru",
     "admin/banner_image_x": "Bannerový obrázek: {{imageName}}",
     "admin/banner_updated_successfully": "Banner úspěšně aktualizován. Může chvíli trvat, než uvidíte účinky vašich změn.",

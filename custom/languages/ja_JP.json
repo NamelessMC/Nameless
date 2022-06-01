@@ -48,7 +48,6 @@
     "admin/average_players": "平均プレイヤー数",
     "admin/background_colour": "背景色",
     "admin/background_colour_required": "背景色は必須です",
-    "admin/background_updated_successfully": "背景が正常に更新されました。",
     "admin/ban_hook_info": "ユーザーのBAN",
     "admin/banner_background": "バナー背景",
     "admin/banner_image_x": "バナー画像: {{imageName}}",
