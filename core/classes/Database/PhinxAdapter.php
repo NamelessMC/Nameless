@@ -12,7 +12,7 @@ class PhinxAdapter {
         $migration_files = count(scandir(__DIR__ . '/../../migrations')) - 3; // -3 because of . and .. and phinx.php
         $migration_database_entries = DB::getInstance()->query('SELECT COUNT(*) AS count FROM nl2_phinxlog')->first()->count;
 
-        if ($migration_files === $migration_database_entries) {
+        if ($migration_files == $migration_database_entries) {
             return;
         }
 
@@ -24,7 +24,7 @@ class PhinxAdapter {
 
         // Something went wonky, either they've deleted migration files,
         // or they've added stuff to the nl2_phinxlog table.
-        throw new RuntimeException('Inconsistent number of migration database entries and migration files.');
+        throw new RuntimeException("Inconsistent number of migration database entries ({$migration_database_entries}) and migration files ({$migration_files}).");
     }
 
     /**
