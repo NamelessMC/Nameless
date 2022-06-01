@@ -269,7 +269,7 @@ if (isset($_GET['action'])) {
             'docLinkEnd' => '</a>'
         ]),
         'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
-            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/smtp\' target=\'_blank\'>',
+            'docLinkStart' => "<a href='https://docs.namelessmc.com/smtp' target='_blank'>",
             'docLinkEnd' => '</a>'
         ]),
         'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
