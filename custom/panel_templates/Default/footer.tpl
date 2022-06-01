@@ -17,6 +17,8 @@
                         data-placement="top" title="FAQ"><i class="fas fa-info-circle fa-fw text-info"></i></a>
                     <a class="ml-1" href="https://namelessmc.com" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                    <a class="ml-1" href="https://translate.namelessmc.com" target="_blank" data-toggle="tooltip"
+                       data-placement="top" title="Translate"><i class="fas fa-language fa-fw text-warning"></i></a>
                     <a class="ml-1" href="https://namelessmc.com/donate" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="Donate"><i class="fas fa-heart fa-fw text-danger"></i></a>
                 </div>
