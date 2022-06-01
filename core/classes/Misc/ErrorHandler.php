@@ -122,11 +122,8 @@ class ErrorHandler {
             // installed yet. Assume the user does not have permission.
         }
 
-        if (defined('CONFIG_PATH')) {
-            $path = CONFIG_PATH . '/core/assets/';
-        } else {
-            $path = '/core/assets/';
-        }
+        $path = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/';
+        $site_name = defined('SITE_NAME') ? Output::getClean(SITE_NAME) : 'NamelessMC';
 
         $smarty = new Smarty();
 
@@ -136,8 +133,8 @@ class ErrorHandler {
             'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
             'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
             'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
-            'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . (defined('SITE_NAME') ? SITE_NAME : 'installer'),
-            'SITE_NAME' => (defined('SITE_NAME') ? Output::getClean(SITE_NAME) : 'installer'),
+            'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . $site_name,
+            'SITE_NAME' => $site_name,
             'BOOTSTRAP' => $path . 'vendor/bootstrap/dist/css/bootstrap.min.css',
             'BOOTSTRAP_JS' => $path . 'vendor/bootstrap/dist/js/bootstrap.min.js',
             'CUSTOM' => $path . 'css/custom.css',
