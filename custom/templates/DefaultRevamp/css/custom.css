@@ -1038,7 +1038,8 @@ body.dark .ui.button.red {
 }
 
 body.dark .ui.image.label,
-body.dark .ui.selection.dropdown {
+body.dark .ui.selection.dropdown,
+body.dark .ui.selection.visible.dropdown>.text:not(.default) {
     background-color: #282828;
     color: #fff;
 }
