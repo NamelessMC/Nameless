@@ -265,7 +265,7 @@ if (isset($_GET['action'])) {
         'ENABLE_MAILER_VALUE' => $php_mailer,
         'INFO' => $language->get('general', 'info'),
         'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help', [
-            'docLinkStart' => '<a href=\'https://docs.namelessmc.com/home#translations\' target=\'_blank\'>',
+            'docLinkStart' => "<a href='https://docs.namelessmc.com/home#translations' target='_blank'>",
             'docLinkEnd' => '</a>'
         ]),
         'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
