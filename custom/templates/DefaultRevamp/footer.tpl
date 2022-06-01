@@ -89,9 +89,11 @@
         return false;
     }
 
+    {if !$LOGGED_IN_USER}
     const autoLanguage = document.getElementById('auto-language');
     const autoLanguageValue = $.cookie('auto_language') ?? 'true';
     autoLanguage.innerText = '{$AUTO_LANGUAGE_TEXT} (' + (autoLanguageValue === 'true' ? '{$ENABLED}' : '{$DISABLED}') + ')';
+    {/if}
 
     function toggleAutoLanguage() {
         $.cookie(
