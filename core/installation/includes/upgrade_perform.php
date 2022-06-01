@@ -828,13 +828,6 @@ switch ($s) {
         ]);
 
         DB::getInstance()->insert('settings', [
-            'name' => 'portal',
-            'value' => false,
-        ]);
-        $cache->setCache('portal_cache');
-        $cache->store('portal', 0);
-
-        DB::getInstance()->insert('settings', [
             'name' => 'forum_reactions',
             'value' => true,
         ]);

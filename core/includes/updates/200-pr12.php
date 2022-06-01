@@ -238,12 +238,9 @@ class Pre13 extends UpgradeScript {
         $this->_cache->setCache('portal_cache');
         $portal = $this->_cache->retrieve('portal');
         $this->_cache->eraseAll();
-        $this->_cache->setCache('home_type');
-        $this->_cache->store('type', $home_type = ($portal ? 'portal' : 'news'));
-        $this->databaseQuery(function (DB $db) use ($home_type) {
+        $this->databaseQuery(function (DB $db) use ($portal) {
             Util::setSetting('portal', null);
-            Util::setSetting('home_type', $home_type);
-            Util::setSetting('home_custom_content', null);
+            Util::setSetting('home_type', $portal ? 'portal' : 'news');
         });
 
         // add existing migrations to phinxlog table, so it doesn't try to run them again

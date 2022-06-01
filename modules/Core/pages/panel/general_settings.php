@@ -127,13 +127,7 @@ if (Input::exists()) {
                 $home_type = 'custom';
             }
 
-            DB::getInstance()->update('settings', ['name', 'home_type'], [
-                'value' => $home_type
-            ]);
-
-            // Update cache
-            $cache->setCache('home_type');
-            $cache->store('type', $home_type);
+            Util::setSetting('home_type', $home_type);
 
             // Private profile
             if ($_POST['privateProfile']) {
@@ -254,11 +248,6 @@ for ($i = 0; $i < $count; $i++) {
 $timezone = DB::getInstance()->get('settings', ['name', 'timezone'])->results();
 $timezone = $timezone[0]->value;
 
-$home_type = DB::getInstance()->get('settings', ['name', 'home_type'])->results();
-$home_type = $home_type[0]->value;
-
-$friendly_url = Config::get('core/friendly');
-
 $private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
 $private_profile = $private_profile[0]->value;
 
@@ -298,9 +287,9 @@ $smarty->assign([
     'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
     'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
-    'HOMEPAGE_VALUE' => $home_type,
+    'HOMEPAGE_VALUE' => Util::getSetting('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
-    'USE_FRIENDLY_URLS_VALUE' => $friendly_url,
+    'USE_FRIENDLY_URLS_VALUE' => Config::get('core/friendly'),
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help'),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),

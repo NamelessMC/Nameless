@@ -185,8 +185,6 @@ class DatabaseInitialiser {
         Util::setSetting('discord_integration', '0');
         Util::setSetting('avatar_type', 'helmavatar');
         Util::setSetting('home_type', 'news');
-        $this->_cache->setCache('home_type');
-        $this->_cache->store('type', 'news');
         Util::setSetting('forum_reactions', '1');
         Util::setSetting('error_reporting', '0');
         $this->_cache->setCache('error_cache');

@@ -31,6 +31,8 @@ if (Session::exists('home_error')) {
     $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
 }
 
+$home_type = Util::getSetting('home_type');
+
 $smarty->assign('HOME_TYPE', $home_type);
 
 if ($home_type === 'news') {

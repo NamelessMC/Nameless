@@ -10,10 +10,7 @@
  */
 
 // Home page or portal?
-$cache->setCache('home_type');
-$home_type = $cache->retrieve('type');
-
-if ($home_type === 'portal') {
+if (Util::getSetting('home_type') === 'portal') {
     require('portal.php');
 } else {
     require('home.php');
