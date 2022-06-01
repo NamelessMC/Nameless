@@ -147,7 +147,8 @@ print('✍️  Inserting default data to database...' . PHP_EOL);
 
 DatabaseInitialiser::runPreUser($conf);
 
-Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
+$sitename = getEnvVar('NAMELESS_SITE_NAME');
+Util::setSetting('sitename', $sitename);
 
 $cache = new Cache();
 $cache->setCache('sitenamecache');
