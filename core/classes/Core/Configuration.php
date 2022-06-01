@@ -9,14 +9,14 @@
  */
 class Configuration {
 
-    private string $module;
+    private string $_module;
 
     public function __construct(string $module) {
         if ($module === 'Core') {
             throw new InvalidArgumentException('Configuration class should not be used for the Core module');
         }
 
-        $this->module = $module;
+        $this->_module = $module;
     }
 
     /**
@@ -27,7 +27,7 @@ class Configuration {
      * @return mixed The configuration value
      */
     public function get(string $setting) {
-        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->module) . 'settings';
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . 'settings';
         $data = DB::getInstance()->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
         if ($data->count()) {
             $results = $data->results();
@@ -44,7 +44,7 @@ class Configuration {
      * @param mixed $value New value
      */
     public function set(string $setting, $value): void {
-        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->module) . 'settings';
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . 'settings';
         DB::getInstance()->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [
             $value,
             $setting,
