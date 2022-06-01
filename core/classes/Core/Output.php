@@ -18,21 +18,21 @@ class Output {
      * Returns a clean version of an inputted string.
      * Will remove HTML, convert HTML entities, and strip slashes.
      *
-     * @param string|null $input The string which will be cleaned
-     * @return string Cleaned version of string.
+     * @param ?string $input The string which will be cleaned
+     * @return ?string Cleaned version of string.
      */
-    public static function getClean(?string $input): string {
-        return htmlspecialchars(self::getDecoded($input), ENT_QUOTES);
+    public static function getClean(?string $input): ?string {
+        return $input == null ? null : htmlspecialchars(self::getDecoded($input), ENT_QUOTES);
     }
 
     /**
      * Returns a decoded version of a clean string.
      *
-     * @param string|null $input Contains the clean string which will be decoded.
-     * @return string Decoded string.
+     * @param ?string $input Contains the clean string which will be decoded.
+     * @return ?string Decoded string.
      */
-    public static function getDecoded(?string $input): string {
-        return htmlspecialchars_decode($input, ENT_QUOTES);
+    public static function getDecoded(?string $input): ?string {
+        return $input == null ? null : htmlspecialchars_decode($input, ENT_QUOTES);
     }
 
     /**
