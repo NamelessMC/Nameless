@@ -170,6 +170,17 @@ class Pre13 extends UpgradeScript {
             $db->addColumn('users_profile_fields', 'updated', 'int(11)');
         });
 
+        // update settings from true/false to 1/0
+        $settings = ['displaynames', 'recaptcha', 'recaptcha_login', 'version_update', 'maintenance'];
+        foreach ($settings as $setting) {
+            $value = Util::getSetting($setting);
+            if ($value === 'true' || $value === '1') {
+                Util::setSetting($setting, '1');
+            } else {
+                Util::setSetting($setting, '0');
+            }
+        }
+
         // delete old class files
         $this->deleteFiles([
             'core/classes/Alert.php',
