@@ -48,21 +48,10 @@
                             <!-- Area Chart -->
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-white"><i class="far fa-chart-bar"></i>
-                                        {$STATISTICS}</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                                                class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            {assign var="i" value=0} {foreach from=$GRAPHS key=key item=graph}
-                                            <a class="dropdown-item" href="#" onclick="drawChart({$i})">{$key}</a>
-                                            {assign var="i" value=$i+1} {/foreach}
-                                        </div>
-                                    </div>
+                                <div class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-white">
+                                        <i class="far fa-chart-bar"></i> {$STATISTICS}
+                                    </h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -71,17 +60,24 @@
                                     </div>
                                 </div>
                             </div>
-                            {/if} {if count($MAIN_ITEMS)} {assign var="i" value=0} {assign var="counter" value=0}
-                            <div class="row justify-content-md-center">
-                                {foreach from=$MAIN_ITEMS item=item} {assign var="width"
-                                value=(12*$item->getWidth())|round:1} {assign var="counter" value=($counter+$width)} {if
-                                $counter > 12} {assign var="counter" value=0}
-                            </div><br />
-                            <div class="row justify-content-md-center">
-                                {/if}
-                                <div class="col-md-6 col-lg-{$width}">{$item->getContent()}</div>
-                                {assign var="i" value=$i+1} {/foreach}
-                            </div>
+                            {/if}
+                            {if count($MAIN_ITEMS)} {assign var="i" value=0} {assign var="counter" value=0}
+                                <div class="row justify-content-md-center">
+                                    {foreach from=$MAIN_ITEMS item=item}
+                                        {assign var="width" value=(12*$item->getWidth())|round:1}
+                                        {assign var="counter" value=($counter+$width)}
+
+                                        {if $counter > 12} {assign var="counter" value=0}
+                                            </div>
+                                            <br />
+                                            <div class="row justify-content-md-center">
+                                        {/if}
+                                        <div class="col-md-6 col-lg-{$width}">
+                                            {$item->getContent()}
+                                        </div>
+                                        {assign var="i" value=$i+1}
+                                    {/foreach}
+                                </div>
                             {/if}
                         </div>
 
@@ -174,38 +170,47 @@
 
     {if count($GRAPHS)}
     <script type="text/javascript">
-        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontFamily = 'Nunito,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 
-
-        if (currentPanelTheme == "dark") {
-
-        Chart.defaults.global.defaultFontColor = 'rgb(189,189,189)';
+        if (currentPanelTheme === "dark") {
+            Chart.defaults.global.defaultFontColor = 'rgb(189,189,189)';
+        } else {
+            Chart.defaults.global.defaultFontColor = '#858796';
+        }
 
         graphs = [
             {foreach from=$GRAPHS item=graph}
             {
                 type: 'line',
                 data: {
-                    labels: [{foreach from=$graph.keys key=key item=item}'{$item}',{/foreach}],
+                    labels: [
+                        {foreach from=$graph.keys key=key item=item}
+                            '{$item}',
+                        {/foreach}
+                    ],
                     datasets: [
                         {foreach from=$graph.datasets item=dataset}
-                        {
-                            fill: false,
-                            borderColor: '{$dataset.colour}',
-                            label: '{$dataset.label}',
-                            yAxisID: '{$dataset.axis}',
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(78, 115, 223, 0.05)",
-                            pointRadius: 3,
-                            pointBackgroundColor: "{$dataset.colour}",
-                            pointBorderColor: "{$dataset.colour}",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "{$dataset.colour}",
-                            pointHoverBorderColor: "{$dataset.colour}",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2,
-                            data: [ {foreach from=$dataset.data item=data name=ds} {$data}{if not $smarty.foreach.ds.last}, {/if}{/foreach} ]
-                        },
+                            {
+                                fill: false,
+                                borderColor: '{$dataset.colour}',
+                                label: '{$dataset.label}',
+                                yAxisID: '{$dataset.axis}',
+                                lineTension: 0.3,
+                                backgroundColor: "rgba(78, 115, 223, 0.05)",
+                                pointRadius: 3,
+                                pointBackgroundColor: "{$dataset.colour}",
+                                pointBorderColor: "{$dataset.colour}",
+                                pointHoverRadius: 3,
+                                pointHoverBackgroundColor: "{$dataset.colour}",
+                                pointHoverBorderColor: "{$dataset.colour}",
+                                pointHitRadius: 10,
+                                pointBorderWidth: 2,
+                                data: [
+                                    {foreach from=$dataset.data item=data name=ds}
+                                        {$data}{if not $smarty.foreach.ds.last}, {/if}
+                                    {/foreach}
+                                ]
+                            },
                         {/foreach}
                     ]
                 },
@@ -224,101 +229,12 @@
                         }],
                         yAxes: [
                             {foreach from=$graph.axes key=key item=axis}
-                            {
-                                id: '{$key}',
-                                type: 'linear',
-                                position: '{$axis}'
-                            },
+                                {
+                                    id: '{$key}',
+                                    type: 'linear',
+                                    position: '{$axis}'
+                                },
                             {/foreach}
-                            {
-                                gridLines: {
-                                    color: "rgb(189,189,189)",
-                                    zeroLineColor: "rgb(189,189,189)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }
-                        ]
-                    },
-                    tooltips: {
-                        backgroundColor: "#161c25",
-                        bodyFontColor: "rgb(189,189,189)",
-                        titleMarginBottom: 10,
-                        titleFontColor: 'rgb(189,189,189)',
-                        titleFontSize: 14,
-                        borderWidth: 1,
-                        xPadding: 15,
-                        yPadding: 15,
-                        displayColors: false,
-                        caretPadding: 10
-                    }
-                }
-            },
-            {/foreach}
-        ];
-        } else {
-
-            Chart.defaults.global.defaultFontColor = '#858796';
-
-            graphs = [
-            {foreach from=$GRAPHS item=graph}
-            {
-                type: 'line',
-                data: {
-                    labels: [{foreach from=$graph.keys key=key item=item}'{$item}',{/foreach}],
-                    datasets: [
-                        {foreach from=$graph.datasets item=dataset}
-                        {
-                            fill: false,
-                            borderColor: '{$dataset.colour}',
-                            label: '{$dataset.label}',
-                            yAxisID: '{$dataset.axis}',
-                            lineTension: 0.3,
-                            backgroundColor: "rgba(78, 115, 223, 0.05)",
-                            pointRadius: 3,
-                            pointBackgroundColor: "{$dataset.colour}",
-                            pointBorderColor: "{$dataset.colour}",
-                            pointHoverRadius: 3,
-                            pointHoverBackgroundColor: "{$dataset.colour}",
-                            pointHoverBorderColor: "{$dataset.colour}",
-                            pointHitRadius: 10,
-                            pointBorderWidth: 2,
-                            data: [ {foreach from=$dataset.data item=data name=ds} {$data}{if not $smarty.foreach.ds.last}, {/if}{/foreach} ]
-                        },
-                        {/foreach}
-                    ]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            type: 'time',
-                            gridLines: {
-                                display: false,
-                                drawBorder: false
-                            },
-                            time: {
-                                tooltipFormat: 'MMM D',
-                                unit: 'day'
-                            }
-                        }],
-                        yAxes: [
-                            {foreach from=$graph.axes key=key item=axis}
-                            {
-                                id: '{$key}',
-                                type: 'linear',
-                                position: '{$axis}'
-                            },
-                            {/foreach}
-                            {
-                                gridLines: {
-                                    color: "rgb(189,189,189)",
-                                    zeroLineColor: "rgb(189,189,189)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                }
-                            }
                         ]
                     },
                     tooltips: {
@@ -338,8 +254,6 @@
             },
             {/foreach}
         ];
-
-        }
 
         function drawChart(i) {
             let canvas = document.getElementById('graphDiv');

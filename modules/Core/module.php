@@ -1577,8 +1577,7 @@ class Core_Module extends Module {
         self::$_notices[$url] = $text;
     }
 
-    public static function addDataToDashboardGraph($title, $data): void
-    {
+    public static function addDataToDashboardGraph($title, $data): void {
         if (isset(self::$_dashboard_graph[$title])) {
             self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
         } else {
