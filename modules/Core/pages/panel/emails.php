@@ -65,6 +65,10 @@ if (isset($_GET['action'])) {
                 'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
                     'email' => Util::bold(Output::getClean($user->data()->email))
                 ]),
+                'TEST_EMAIL_QUERY' => $language->get("admin/test_email_query"),
+                'TEST_EMAIL_SUGGEST_1' => $language->get('admin', 'test_email_suggest_1'),
+                'TEST_EMAIL_SUGGEST_2' => $language->get('admin', 'test_email_suggest_2'),
+                'TEST_EMAIL_SUGGEST_3' => $language->get('admin', 'test_email_suggest_3'),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),
                 'SEND_LINK' => URL::build('/panel/core/emails/', 'action=test&do=send')

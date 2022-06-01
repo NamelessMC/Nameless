@@ -6,15 +6,6 @@
         <h5><i class="icon fa fa-check"></i> {$SUCCESS_TITLE}</h5>
         {$SUCCESS}
     </div>
-    <!-- TODO: reference string from file (e.g. test_email_query) -->
-    <div class ="email-suggest">
-        Not reaching your inbox? Try the following:
-        <ul>
-            <li>Wait a few minutes and check your Spam folder.</li>
-            <li>Update your site's DNS records (check SPF & DKIM).</li>
-            <li>Set up a SMTP server. <a href="https://docs.namelessmc.com/en/smtp">Read more »</a></li>
-        </ul>
-    </div>
 {/if}
 {if isset($ERRORS) && count($ERRORS)}
     <div class="alert bg-danger text-white alert-dismissible">
