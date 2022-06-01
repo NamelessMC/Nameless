@@ -723,15 +723,8 @@ class Core_Module extends Module {
         $queries = new Queries();
 
         // Validate user hook
-        $cache->setCache('validate_action');
-        if ($cache->isCached('validate_action')) {
-            $validate_action = $cache->retrieve('validate_action');
-        } else {
-            $validate_action = Util::getSetting('validate_user_action');
-            $validate_action = json_decode($validate_action, true);
-
-            $cache->store('validate_action', $validate_action);
-        }
+        $validate_action = Util::getSetting('validate_user_action');
+        $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
             require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');

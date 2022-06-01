@@ -141,24 +141,9 @@ if (Input::exists()) {
                 }
 
                 // Validation group
-                $validation_group_id = DB::getInstance()->get('settings', ['name', 'validate_user_action'])->results();
-                $validation_action = $validation_group_id[0]->value;
-                $validation_action = json_decode($validation_action, true);
-                $validation_action = $validation_action['action'] ?? 'promote';
-                $validation_group_id = $validation_group_id[0]->id;
-
-                $new_value = json_encode(['action' => $validation_action, 'group' => $_POST['promote_group']]);
-
-                try {
-                    DB::getInstance()->update('settings', $validation_group_id, [
-                        'value' => $new_value
-                    ]);
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
-                }
-
-                $cache->setCache('validate_action');
-                $cache->store('validate_action', ['action' => $validation_action, 'group' => $_POST['promote_group']]);
+                $validation_action = json_decode(Util::getSetting('validate_user_action'));
+                $new_value = json_encode(['action' => $validation_action['action'] ?? 'promote', 'group' => $_POST['promote_group']]);
+                Util::setSetting('validate_user_action', $new_value);
             }
         }
 
