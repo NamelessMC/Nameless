@@ -2,12 +2,12 @@
 
 class DatabaseInitialiser {
 
-    private Queries $_queries;
+    private DB $_db;
     private Cache $_cache;
     private array $_config;
 
     private function __construct(array $config = []) {
-        $this->_queries = new Queries();
+        $this->_db = DB::getInstance();
         $this->_cache = new Cache();
         $this->_config = $config;
     }
@@ -30,7 +30,7 @@ class DatabaseInitialiser {
     }
 
     private function initialiseGroups(): void {
-        $this->_queries->create('groups', [
+        $this->_db->insert('groups', [
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
             'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}',
@@ -38,7 +38,7 @@ class DatabaseInitialiser {
             'order' => 3
         ]);
 
-        $this->_queries->create('groups', [
+        $this->_db->insert('groups', [
             'name' => 'Admin',
             'group_html' => '<span class="badge badge-danger">Admin</span>',
             'group_username_color' => '#ff0000',
@@ -49,7 +49,7 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        $this->_queries->create('groups', [
+        $this->_db->insert('groups', [
             'name' => 'Moderator',
             'group_html' => '<span class="badge badge-primary">Moderator</span>',
             'admin_cp' => true,
@@ -58,7 +58,7 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        $this->_queries->create('groups', [
+        $this->_db->insert('groups', [
             'name' => 'Unconfirmed Member',
             'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
             'group_username_color' => '#6c757d',
@@ -68,7 +68,7 @@ class DatabaseInitialiser {
 
     private function initialiseLanguages(): void {
         foreach (Language::LANGUAGES as $short_code => $meta) {
-            $this->_queries->create('languages', [
+            $this->_db->insert('languages', [
                 'name' => $meta['name'],
                 'short_code' => $short_code,
                 'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0
@@ -80,22 +80,22 @@ class DatabaseInitialiser {
     }
 
     private function initialiseModules(): void {
-        $this->_queries->create('modules', [
+        $this->_db->insert('modules', [
             'name' => 'Core',
             'enabled' => true,
         ]);
 
-        $this->_queries->create('modules', [
+        $this->_db->insert('modules', [
             'name' => 'Forum',
             'enabled' => true,
         ]);
 
-        $this->_queries->create('modules', [
+        $this->_db->insert('modules', [
             'name' => 'Discord Integration',
             'enabled' => true,
         ]);
 
-        $this->_queries->create('modules', [
+        $this->_db->insert('modules', [
             'name' => 'Cookie Consent',
             'enabled' => true,
         ]);
@@ -125,7 +125,7 @@ class DatabaseInitialiser {
     }
 
     private function initialiseIntegrations(): void {
-        $this->_queries->create('integrations', [
+        $this->_db->insert('integrations', [
             'name' => 'Minecraft',
             'enabled' => true,
             'can_unlink' => false,
@@ -133,7 +133,7 @@ class DatabaseInitialiser {
         ]);
 
         // TODO: should this be in the DiscordIntegration module...?
-        $this->_queries->create('integrations', [
+        $this->_db->insert('integrations', [
             'name' => 'Discord',
             'enabled' => true,
             'can_unlink' => true,
@@ -142,21 +142,21 @@ class DatabaseInitialiser {
     }
 
     private function initialiseReactions(): void {
-        $this->_queries->create('reactions', [
+        $this->_db->insert('reactions', [
             'name' => 'Like',
             'html' => '<i class="fas fa-thumbs-up text-success"></i>',
             'enabled' => true,
             'type' => 2
         ]);
 
-        $this->_queries->create('reactions', [
+        $this->_db->insert('reactions', [
             'name' => 'Dislike',
             'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
             'enabled' => true,
             'type' => 0
         ]);
 
-        $this->_queries->create('reactions', [
+        $this->_db->insert('reactions', [
             'name' => 'Meh',
             'html' => '<i class="fas fa-meh text-warning"></i>',
             'enabled' => true,
@@ -165,47 +165,47 @@ class DatabaseInitialiser {
     }
 
     private function initialiseSettings(): void {
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'registration_enabled',
             'value' => 1
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'displaynames',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'uuid_linking',
             'value' => 1
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'recaptcha',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'recaptcha_type',
             'value' => 'reCaptcha'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'recaptcha_login',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'recaptcha_key',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'recaptcha_secret',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'email_verification',
             'value' => 1
         ]);
@@ -217,200 +217,200 @@ class DatabaseInitialiser {
             'The website is run independently from the software creators, and any content' .
             ' is the responsibility of the website administration.';
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 't_and_c',
             'value' => 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>'
         ]);
 
-        $this->_queries->create('privacy_terms', [
+        $this->_db->insert('privacy_terms', [
             'name' => 'terms',
             'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
         ]);
 
-        $this->_queries->create('privacy_terms', [
+        $this->_db->insert('privacy_terms', [
             'name' => 'cookies',
             'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'nameless_version',
             'value' => '2.0.0-pr12'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'version_checked',
             'value' => date('U')
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'phpmailer',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'phpmailer_type',
             'value' => 'smtp'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'verify_accounts',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'mcassoc_key',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'mcassoc_instance',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'user_avatars',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'forum_layout',
             'value' => '1'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'maintenance',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'avatar_site',
             'value' => 'cravatar'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'mc_integration',
             'value' => '1'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'discord_bot_url',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'discord_bot_username',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'discord_integration',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'avatar_type',
             'value' => 'helmavatar'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'home_type',
             'value' => 'news'
         ]);
         $this->_cache->setCache('home_type');
         $this->_cache->store('type', 'news');
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'home_custom_content',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'forum_reactions',
             'value' => '1'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'youtube_url',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'twitter_url',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'twitter_style',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'fb_url',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'ga_script',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'error_reporting',
             'value' => '0'
         ]);
         $this->_cache->setCache('error_cache');
         $this->_cache->store('error_reporting', 0);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'page_loading',
             'value' => '0'
         ]);
         $this->_cache->setCache('page_load_cache');
         $this->_cache->store('page_load', 0);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'unique_id',
             'value' => substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62)
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'use_api',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'mc_api_key',
             'value' => substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32)
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'external_query',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'followers',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'discord',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'language',
             'value' => '1'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'timezone',
             'value' => 'Europe/London'
         ]);
         $this->_cache->setCache('timezone_cache');
         $this->_cache->store('timezone', 'Europe/London');
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'maintenance_message',
             'value' => 'This website is currently in maintenance mode.'
         ]);
@@ -420,69 +420,69 @@ class DatabaseInitialiser {
             'message' => 'This website is currently in maintenance mode.'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'authme',
             'value' => '0'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'authme_db',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'default_avatar_type',
             'value' => 'minecraft'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'custom_default_avatar',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'private_profile',
             'value' => '1'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'registration_disabled_message',
             'value' => null
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'validate_user_action',
             'value' => '{"action":"promote","group":1}'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'login_method',
             'value' => 'email'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'username_sync',
             'value' => '1'
         ]);
 
-        $this->_queries->create('privacy_terms', [
+        $this->_db->insert('privacy_terms', [
             'name' => 'privacy',
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'status_page',
             'value' => '1'
         ]);
 
-        $this->_queries->create('settings', [
+        $this->_db->insert('settings', [
             'name' => 'placeholders',
             'value' => '0'
         ]);
     }
 
     private function initialiseTemplates(): void {
-        $this->_queries->create('templates', [
+        $this->_db->insert('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
             'is_default' => true,
@@ -491,7 +491,7 @@ class DatabaseInitialiser {
         $this->_cache->setCache('templatecache');
         $this->_cache->store('default', 'DefaultRevamp');
 
-        $this->_queries->create('panel_templates', [
+        $this->_db->insert('panel_templates', [
             'name' => 'Default',
             'enabled' => true,
             'is_default' => true,
@@ -507,19 +507,19 @@ class DatabaseInitialiser {
     }
 
     private function initialiseWidgets(): void {
-        $this->_queries->create('widgets', [
+        $this->_db->insert('widgets', [
             'name' => 'Online Staff',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $this->_queries->create('widgets', [
+        $this->_db->insert('widgets', [
             'name' => 'Online Users',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $this->_queries->create('widgets', [
+        $this->_db->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
             'pages' => '["index","forum"]'
@@ -534,14 +534,14 @@ class DatabaseInitialiser {
     }
 
     private function initialiseForum() {
-        $this->_queries->create('forums', [
+        $this->_db->insert('forums', [
             'forum_title' => 'Category',
             'forum_description' => 'The first forum category!',
             'forum_order' => 1,
             'forum_type' => 'category'
         ]);
 
-        $this->_queries->create('forums', [
+        $this->_db->insert('forums', [
             'forum_title' => 'Forum',
             'forum_description' => 'The first discussion forum!',
             'forum_order' => 2,
@@ -550,7 +550,7 @@ class DatabaseInitialiser {
             'news' => 1
         ]);
 
-        $this->_queries->create('topics', [
+        $this->_db->insert('topics', [
             'forum_id' => 2,
             'topic_title' => 'Welcome to NamelessMC!',
             'topic_creator' => 1,
@@ -560,7 +560,7 @@ class DatabaseInitialiser {
             'label' => null
         ]);
 
-        $this->_queries->create('posts', [
+        $this->_db->insert('posts', [
             'forum_id' => 2,
             'topic_id' => 1,
             'post_creator' => 1,
@@ -579,7 +579,7 @@ class DatabaseInitialiser {
         // Permissions
         for ($i = 0; $i < 4; $i++) {
             for ($n = 1; $n < 3; $n++) {
-                $this->_queries->create('forums_permissions', [
+                $this->_db->insert('forums_permissions', [
                     'group_id' => $i,
                     'forum_id' => $n,
                     'view' => true,
@@ -593,32 +593,32 @@ class DatabaseInitialiser {
         }
 
         // Forum Labels
-        $this->_queries->create('forums_labels', [
+        $this->_db->insert('forums_labels', [
             'name' => 'Default',
             'html' => '<span class="badge badge-default">{x}</span>'
         ]);
 
-        $this->_queries->create('forums_labels', [
+        $this->_db->insert('forums_labels', [
             'name' => 'Primary',
             'html' => '<span class="badge badge-primary">{x}</span>'
         ]);
 
-        $this->_queries->create('forums_labels', [
+        $this->_db->insert('forums_labels', [
             'name' => 'Success',
             'html' => '<span class="badge badge-success">{x}</span>'
         ]);
 
-        $this->_queries->create('forums_labels', [
+        $this->_db->insert('forums_labels', [
             'name' => 'Info',
             'html' => '<span class="badge badge-info">{x}</span>'
         ]);
 
-        $this->_queries->create('forums_labels', [
+        $this->_db->insert('forums_labels', [
             'name' => 'Warning',
             'html' => '<span class="badge badge-warning">{x}</span>'
         ]);
 
-        $this->_queries->create('forums_labels', [
+        $this->_db->insert('forums_labels', [
             'name' => 'Danger',
             'html' => '<span class="badge badge-danger">{x}</span>'
         ]);
