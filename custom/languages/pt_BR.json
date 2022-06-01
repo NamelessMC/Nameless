@@ -47,7 +47,6 @@
     "admin/average_players": "Média de Jogadores",
     "admin/background_colour": "Cor de fundo",
     "admin/background_colour_required": "A cor de fundo é necessária.",
-    "admin/background_image_x": "Imagem de fundo: {{imageName}}",
     "admin/background_updated_successfully": "Background atualizado com sucesso.",
     "admin/banner_background": "Fundo do Banner",
     "admin/banner_image_x": "Imagem do banner: {{imageName}}",

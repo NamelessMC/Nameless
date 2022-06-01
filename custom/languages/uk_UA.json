@@ -46,7 +46,6 @@
     "admin/average_players": "Average Players",
     "admin/background_colour": "Колір заднього фону",
     "admin/background_colour_required": "Вкажіть колір заднього фону",
-    "admin/background_image_x": "Зображення фону. {{imageName}}",
     "admin/background_updated_successfully": "Фон успішно оновлено.",
     "admin/banner_background": "Фон банера",
     "admin/banner_image_x": "Зображення банера: {{imageName}}",

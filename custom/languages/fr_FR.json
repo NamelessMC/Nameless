@@ -41,7 +41,6 @@
     "admin/average_players": "Joueurs moyens",
     "admin/background_colour": "Couleur de fond",
     "admin/background_colour_required": "La couleur de fond est requise",
-    "admin/background_image_x": "Image de fond: {{imageName}}",
     "admin/background_updated_successfully": "Contexte mis à jour avec succès.",
     "admin/ban_hook_info": "User banned",
     "admin/banner_background": "Fond de bannière",

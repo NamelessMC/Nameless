@@ -35,7 +35,6 @@
     "admin/avatar_settings_updated_successfully": "Setările avatarelor s-au actualizat cu succes.",
     "admin/avatars": "Avatare",
     "admin/average_players": "Media jucătorilor",
-    "admin/background_reset_successfully": "Imaginea de fundal a fost resetată cu succes.",
     "admin/banner_background": "Alegeți imaginea de fundal pentru bannerul serverului:",
     "admin/banner_image_x": "Imagine banner: {{imageName}}",
     "admin/banner_updated_successfully": "Bannerul a fost actualizat cu succes. Ar putea dura ceva timp pentru ca modificările să fie vizibile.",
