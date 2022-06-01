@@ -604,7 +604,7 @@ class Util {
      *                        nl2_settings table.
      * @return ?string Setting from DB or $fallback.
      */
-    public static function getSetting(string $setting, ?string $fallback = null, ?string $module = ''): ?string {
+    public static function getSetting(string $setting, ?string $fallback = null, ?string $module = null): ?string {
         $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
 
         if (self::$_cached_settings == null) {
@@ -632,7 +632,7 @@ class Util {
      *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
      *                        nl2_settings table.
      */
-    public static function setSetting(string $setting, ?string $new_value, ?string $module): void {
+    public static function setSetting(string $setting, ?string $new_value, ?string $module = null): void {
         $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
 
         if ($new_value == null) {
