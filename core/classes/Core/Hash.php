@@ -13,6 +13,7 @@ class Hash {
      * Generate a unique hash.
      *
      * @return string Generated hash.
+     * @deprecated Use SecureRandom::alphanumeric() instead which is in a more appropriately named class
      * @throws Exception If an appropriate source of randomness cannot be found.
      */
     public static function unique(): string {

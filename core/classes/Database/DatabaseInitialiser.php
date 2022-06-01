@@ -196,7 +196,7 @@ class DatabaseInitialiser {
         $this->_cache->store('page_load', 0);
         Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
         Util::setSetting('use_api', 0);
-        Util::setSetting('mc_api_key', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 32));
+        Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
         Util::setSetting('external_query', '0');
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
