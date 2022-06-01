@@ -22,14 +22,6 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Reset background
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'reset_bg') {
-        $cache->setCache('backgroundcache');
-        $cache->store('background_image', '');
-
-        Session::flash('panel_images_success', $language->get('admin', 'background_reset_successfully'));
-        Redirect::to(URL::build('/panel/core/images'));
-    }
-
     if ($_GET['action'] == 'reset_banner') {
         $cache->setCache('backgroundcache');
         $cache->store('banner_image', '');
@@ -62,30 +54,23 @@ if (Input::exists()) {
         // Valid token
         $cache->setCache('backgroundcache');
 
-        if (isset($_POST['bg'])) {
-            $cache->store('background_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/backgrounds/' . Input::get('bg'));
+        if (isset($_POST['banner'])) {
+            $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
 
-            Session::flash('panel_images_success', $language->get('admin', 'background_updated_successfully'));
+            Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
 
         } else {
-            if (isset($_POST['banner'])) {
-                $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
+            if (isset($_POST['logo'])) {
+                $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
 
-                Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
+                Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
 
             } else {
-                if (isset($_POST['logo'])) {
-                    $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
+                if (isset($_POST['favicon'])) {
+                    $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
 
-                    Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
+                    Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
 
-                } else {
-                    if (isset($_POST['favicon'])) {
-                        $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
-
-                        Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
-
-                    }
                 }
             }
         }
@@ -116,16 +101,6 @@ if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors
     ]);
-}
-
-// Get background from cache
-$cache->setCache('backgroundcache');
-$background_image = $cache->retrieve('background_image');
-
-if ($background_image == '') {
-    $bg_img = $language->get('general', 'none');
-} else {
-    $bg_img = Output::getClean($background_image);
 }
 
 // Get banner from cache
@@ -160,47 +135,8 @@ if ($favicon_image == '') {
     $favicon_img = Output::getClean($favicon_image);
 }
 
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'backgrounds']);
-$images = scandir($image_path);
-$template_images = [];
-
 // Only display jpeg, png, jpg, gif
 $allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
-$n = 1;
-
-foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
-        continue;
-    }
-    $template_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/backgrounds/' . $image,
-        'value' => $image,
-        'selected' => ($background_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/backgrounds/' . $image),
-        'n' => $n
-    ];
-    $n++;
-}
-
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
-$images = scandir($image_path);
-$template_banner_images = [];
-
-$n = 1;
-
-foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
-        continue;
-    }
-    $template_banner_images[] = [
-        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image,
-        'value' => $image,
-        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
-        'n' => $n
-    ];
-    $n++;
-}
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']);
 $images = scandir($image_path);
@@ -277,9 +213,6 @@ $smarty->assign([
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
     'UPLOAD_PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'CLOSE' => $language->get('general', 'close'),
-    'BACKGROUND_IMAGE' => $language->get('admin', 'background_image_x', [
-        'imageName' => Util::bold($bg_img)
-    ]),
     'RESET' => $language->get('admin', 'reset_background'),
     'RESET_LINK' => URL::build('/panel/core/images/', 'action=reset_bg'),
     'RESET_BANNER' => $language->get('admin', 'reset_banner'),
@@ -288,7 +221,6 @@ $smarty->assign([
     'RESET_LOGO_LINK' => URL::build('/panel/core/images/', 'action=reset_logo'),
     'RESET_FAVICON' => $language->get('admin', 'reset_favicon'),
     'RESET_FAVICON_LINK' => URL::build('/panel/core/images/', 'action=reset_favicon'),
-    'BACKGROUND_IMAGES_ARRAY' => $template_images,
     'BANNER_IMAGES_ARRAY' => $template_banner_images,
     'BANNER_IMAGE' => $language->get('admin', 'banner_image_x', [
         'imageName' => Util::bold($banner_img)
@@ -303,7 +235,6 @@ $smarty->assign([
     ]),
     'ERRORS_TITLE' => $language->get('general', 'error'),
     'INFO' => $language->get('general', 'info'),
-    'BACKGROUND_IMAGE_INFO' => $language->get('admin', 'background_image_info')
 ]);
 
 $template->onPageLoad();

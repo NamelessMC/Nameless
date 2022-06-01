@@ -63,27 +63,6 @@
                             </div>
                             {/if}
 
-                            <p>{$BACKGROUND_IMAGE} <span class="badge badge-info" data-toggle="popover"
-                                    data-title="{$INFO}" data-content="{$BACKGROUND_IMAGE_INFO}"><i
-                                        class="fa fa-question"></i></p>
-
-                            <form action="" method="post" style="display:inline;">
-                                <select name="bg" class="image-picker show-html">
-                                    {foreach from=$BACKGROUND_IMAGES_ARRAY item=image}
-                                    <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
-                                        selected{/if}>{$image.n}</option>
-                                    {/foreach}
-                                </select>
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                            </form>
-
-                            <a href="{$RESET_LINK}" class="btn btn-danger">{$RESET}</a>
-                            <button class="btn btn-info" data-toggle="modal"
-                                data-target="#uploadModal">{$UPLOAD_NEW_IMAGE}</button>
-
-                            <hr />
-
                             <p>{$BANNER_IMAGE}</p>
 
                             <form action="" method="post" style="display:inline;">

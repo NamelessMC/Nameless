@@ -120,20 +120,7 @@ if (!defined('PAGE_DESCRIPTION')) {
 
 $smarty->assign('TITLE', $page_title);
 
-// Background?
 $cache->setCache('backgroundcache');
-$background_image = $cache->retrieve('background_image');
-
-if (!empty($background_image)) {
-    $template->addCSSStyle('
-            body {
-                background-image: url(\'' . Output::getClean($background_image) . '\');
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
-            }
-            ');
-}
 
 $banner_image = $cache->retrieve('banner_image');
 
