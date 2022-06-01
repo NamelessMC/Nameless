@@ -67,7 +67,7 @@
                                             data-content="{$ENABLE_MAILER_HELP}"></i></span>
                                     <script>
                                         function ToggleFields() {
-                                            var x = document.getElementById("fields-block");
+                                            const x = document.getElementById("fields-block");
                                             if (x.style.display === "none") {
                                                 x.style.display = "block";
                                             } else {
