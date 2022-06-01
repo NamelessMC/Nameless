@@ -9,18 +9,14 @@
  */
 class Configuration {
 
-    private static Configuration $_instance;
+    private string $module;
 
-    private DB $_db;
+    public function __construct(string $module) {
+        if ($module === 'Core') {
+            throw new InvalidArgumentException('Configuration class should not be used for the Core module');
+        }
 
-    public function __construct() {
-        $this->_db = DB::getInstance();
-
-        self::$_instance = $this;
-    }
-
-    public static function getInstance(): Configuration {
-        return self::$_instance;
+        $this->module = $module;
     }
 
     /**
@@ -31,14 +27,8 @@ class Configuration {
      *
      * @return mixed The configuration value
      */
-    public function get(string $module, string $setting) {
-        if ($module === 'Core') {
-            throw new InvalidArgumentException('Configuration class should not be used for the Core module');
-        }
-
-        $module = $module . '_';
-
-        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
+    public function get(string $setting) {
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->module) . 'settings';
         $data = $this->_db->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
         if ($data->count()) {
             $results = $data->results();
@@ -56,14 +46,8 @@ class Configuration {
      * @param string $setting Setting name
      * @param mixed $value New value
      */
-    public function set(string $module, string $setting, $value): void {
-        if ($module === 'Core') {
-            throw new InvalidArgumentException('Configuration class should not be used for the Core module');
-        }
-
-        $module = $module . '_';
-
-        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
+    public function set(string $setting, $value): void {
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->module) . 'settings';
         $this->_db->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [
             $value,
             $setting,
