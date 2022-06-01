@@ -13,11 +13,8 @@ class Configuration {
 
     private DB $_db;
 
-    private Cache $_cache;
-
-    public function __construct(Cache $cache) {
+    public function __construct() {
         $this->_db = DB::getInstance();
-        $this->_cache = $cache;
 
         self::$_instance = $this;
     }
@@ -40,11 +37,6 @@ class Configuration {
         }
 
         $module = $module . '_';
-
-        $this->_cache->setCache($module . 'configuration');
-        if ($this->_cache->isCached($setting)) {
-            return $this->_cache->retrieve($setting);
-        }
 
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $module) . 'settings';
         $data = $this->_db->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
@@ -76,8 +68,5 @@ class Configuration {
             $value,
             $setting,
         ]);
-
-        $this->_cache->setCache($module . 'configuration');
-        $this->_cache->store($setting, $value);
     }
 }

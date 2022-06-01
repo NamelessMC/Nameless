@@ -61,8 +61,6 @@ if (Input::exists()) {
 
                 // reCAPTCHA type
                 Util::setSetting('recaptcha_type', Input::get('captcha_type'));
-                $cache->setCache('configuration');
-                $cache->store('recaptcha_type', Input::get('captcha_type'));
 
                 // Verify if the captha inputted is correct (if enabled)
                 if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
