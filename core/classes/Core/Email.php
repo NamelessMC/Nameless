@@ -69,7 +69,7 @@ class Email {
         $incoming_email = Util::getSetting('incoming_email');
 
         if (mail($email['to']['email'], $email['subject'], $email['message'], [
-            'From' => SITE_NAME . ' ' . '<' . $outgoing_email . '>',
+            'From' => Output::getClean(SITE_NAME) . ' ' . '<' . $outgoing_email . '>',
             'Reply-To' => $incoming_email,
             'MIME-Version' => '1.0',
             'Content-type' => 'text/html; charset=UTF-8'
@@ -170,7 +170,7 @@ class Email {
                 '[Thanks]',
             ], array_keys(self::$_message_placeholders)),
             array_merge([
-                SITE_NAME,
+                Output::getClean(SITE_NAME),
                 $viewing_language->get('emails', 'greeting'),
                 $viewing_language->get('emails', $email . '_message'),
                 $viewing_language->get('emails', 'thanks'),

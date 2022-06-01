@@ -11,7 +11,7 @@
 
 // Assign to Smarty variables
 $smarty->assign([
-    'SITE_NAME' => SITE_NAME,
+    'SITE_NAME' => Output::getClean(SITE_NAME),
     'PANEL_INDEX' => URL::build('/panel'),
     'NAV_LINKS' => $staffcp_nav->returnNav('top'),
     'VIEW_SITE' => $language->get('admin', 'view_site'),

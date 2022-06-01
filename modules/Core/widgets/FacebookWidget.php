@@ -38,7 +38,7 @@ class FacebookWidget extends WidgetBase {
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, \'script\', \'facebook-jssdk\'));</script>
 
-            <div class="fb-page" data-href="' . $fb_url . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . $fb_url . '" class="fb-xfbml-parse-ignore"><a href="' . $fb_url . '">' . SITE_NAME . '</a></blockquote></div>';
+            <div class="fb-page" data-href="' . Output::getClean($fb_url) . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . Output::getClean($fb_url) . '" class="fb-xfbml-parse-ignore"><a href="' . Output::getClean($fb_url) . '">' . Output::getClean(SITE_NAME) . '</a></blockquote></div>';
     }
 
     public function initialise(): void {

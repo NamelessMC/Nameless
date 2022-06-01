@@ -48,8 +48,8 @@ if (isset($_GET['action'])) {
 
             $sent = Email::send(
                 ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
-                SITE_NAME . ' - Test Email',
-                SITE_NAME . ' - Test email successful!',
+                Output::getClean(SITE_NAME) . ' - Test Email',
+                Output::getClean(SITE_NAME) . ' - Test email successful!',
                 Email::getReplyTo()
             );
 

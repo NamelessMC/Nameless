@@ -31,7 +31,7 @@ if (isset($_GET['do'])) {
             Redirect::to(URL::build('/user/settings'));
         }
 
-        $tfa = new \RobThree\Auth\TwoFactorAuth(SITE_NAME);
+        $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
 
         if (!isset($_GET['s'])) {
             // Generate secret
@@ -49,7 +49,7 @@ if (isset($_GET['do'])) {
             $smarty->assign([
                 'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
                 'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
-                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(SITE_NAME . ':' . Output::getClean($user->data()->username), $secret),
+                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $secret),
                 'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
                 'TFA_CODE' => chunk_split($secret, 4, ' '),
                 'NEXT' => $language->get('general', 'next'),

@@ -147,19 +147,10 @@ print('✍️  Inserting default data to database...' . PHP_EOL);
 
 DatabaseInitialiser::runPreUser($conf);
 
-$sitename = getEnvVar('NAMELESS_SITE_NAME');
-Util::setSetting('sitename', $sitename);
-
-$cache = new Cache();
-$cache->setCache('sitenamecache');
-$cache->store('sitename', $sitename);
-
+Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
 Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-
-if (getEnvVar('NAMELESS_DISABLE_EMAIL_VERIFICATION', false)) {
-    Util::setSetting('email_verification', '0');
-}
+Util::setSetting('email_verification', getEnvVar('NAMELESS_DISABLE_EMAIL_VERIFICATION') != null ? '1' : '0');
 
 print('👮 Creating admin account...' . PHP_EOL);
 

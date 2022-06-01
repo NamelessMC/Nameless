@@ -177,7 +177,7 @@ if ($user->isLoggedIn()) {
 // Assign to Smarty variables
 $smarty->assign([
     'NAVBAR_INVERSE' => '',
-    'SITE_NAME' => SITE_NAME,
+    'SITE_NAME' => Output::getClean(SITE_NAME),
     'NAV_LINKS' => $navigation->returnNav('top'),
     'USER_AREA' => $user_area,
     'USER_DROPDOWN' => $user_area_left,

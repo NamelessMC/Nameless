@@ -80,13 +80,7 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            DB::getInstance()->update('settings', ['name', 'sitename'], [
-                'value' => Output::getClean(Input::get('sitename'))
-            ]);
-
-            // Update cache
-            $cache->setCache('sitenamecache');
-            $cache->store('sitename', Output::getClean(Input::get('sitename')));
+            Util::setSetting('sitename', Input::get('sitename'));
 
             // Email address
             DB::getInstance()->update('settings', ['name', 'incoming_email'], [

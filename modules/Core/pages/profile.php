@@ -21,7 +21,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profile'])->results();
     if (count($page_metadata)) {
-        define('PAGE_DESCRIPTION', str_replace(['{site}', '{profile}'], [SITE_NAME, Output::getClean($md_profile)], $page_metadata[0]->description));
+        define('PAGE_DESCRIPTION', str_replace(['{site}', '{profile}'], [Output::getClean(SITE_NAME), Output::getClean($md_profile)], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
     }
 

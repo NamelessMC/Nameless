@@ -47,7 +47,7 @@ if (Input::exists()) {
                 $sent = Email::send(
                     ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
                     Output::getClean(Input::get('subject')),
-                    str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content')),
+                    Output::getClean(str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content'))),
                     $reply_to
                 );
 

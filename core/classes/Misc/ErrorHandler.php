@@ -137,7 +137,7 @@ class ErrorHandler {
             'RTL' => defined('HTML_RTL') && HTML_RTL === true ? ' dir="rtl"' : '',
             'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
             'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . (defined('SITE_NAME') ? SITE_NAME : 'installer'),
-            'SITE_NAME' => (defined('SITE_NAME') ? SITE_NAME : 'installer'),
+            'SITE_NAME' => (defined('SITE_NAME') ? Output::getClean(SITE_NAME) : 'installer'),
             'BOOTSTRAP' => $path . 'vendor/bootstrap/dist/css/bootstrap.min.css',
             'BOOTSTRAP_JS' => $path . 'vendor/bootstrap/dist/js/bootstrap.min.js',
             'CUSTOM' => $path . 'css/custom.css',

@@ -669,14 +669,6 @@ switch ($s) {
 
     case 8:
         // New settings/initialise cache
-        // Site name
-        $sitename = Util::getSetting('sitename');
-        if ($sitename == null) {
-            $sitename = 'NamelessMC';
-        }
-
-        $cache->setCache('sitenamecache');
-        $cache->store('sitename', $sitename);
 
         // Languages
         foreach (Language::LANGUAGES as $short_code => $meta) {

@@ -38,16 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
 
         try {
-
-            $queries = new Queries();
-            DB::getInstance()->insert('settings', [
-                'name' => 'sitename',
-                'value' => Input::get('sitename')
-            ]);
-
-            $cache = new Cache();
-            $cache->setCache('sitenamecache');
-            $cache->store('sitename', Input::get('sitename'));
+            Util::setSetting('sitename', Input::get('sitename'));
 
             DB::getInstance()->insert('settings', [
                 'name' => 'incoming_email',

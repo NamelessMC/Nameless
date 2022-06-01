@@ -238,14 +238,11 @@ if ($page != 'install') {
     $language = new Language('core', LANGUAGE);
 
     // Site name
-    $cache->setCache('sitenamecache');
-    $sitename = $cache->retrieve('sitename');
-
-    if (!$sitename) {
-        define('SITE_NAME', 'NamelessMC');
-    } else {
-        define('SITE_NAME', $sitename);
+    $sitename = Util::getSetting('sitename');
+    if ($sitename == null) {
+        die('No sitename in settings table');
     }
+    define('SITE_NAME', $sitename);
 
     // Template
     if (!$user->isLoggedIn() || !($user->data()->theme_id)) {
@@ -348,7 +345,7 @@ if ($page != 'install') {
         'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
         'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
         'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
-        'SITE_NAME' => SITE_NAME,
+        'SITE_NAME' => Output::getClean(SITE_NAME),
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
         'GUEST' => $language->get('user', 'guest')

@@ -146,7 +146,7 @@ if (count($page_metadata)) {
     $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
     $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
-    define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
+    define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 } else {
     $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/view_topic'])->results();
@@ -155,7 +155,7 @@ if (count($page_metadata)) {
         $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
         $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
-        define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [SITE_NAME, Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
+        define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
     }
 }
@@ -347,7 +347,7 @@ if (Input::exists()) {
                 $message = str_replace(
                     ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
                     [
-                        SITE_NAME,
+                        Output::getClean(SITE_NAME),
                         $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
                         $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
@@ -356,7 +356,7 @@ if (Input::exists()) {
                     ],
                     $html
                 );
-                $subject = SITE_NAME . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
+                $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
 
                 $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
