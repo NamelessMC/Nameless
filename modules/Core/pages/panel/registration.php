@@ -52,7 +52,7 @@ if (Input::exists()) {
 
             } else {
                 // Email verification
-                Util::setSetting((isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0')
+                Util::setSetting((isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
 
                 // Registration disabled message
                 DB::getInstance()->update('settings', ['name', 'registration_disabled_message'], [

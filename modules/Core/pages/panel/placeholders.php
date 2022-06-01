@@ -102,7 +102,7 @@ if (isset($_GET['leaderboard'])) {
 
         if (Token::check()) {
             // Update placeholders value
-            Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0')
+            Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
 
             foreach ($all_placeholders as $placeholder) {
                 try {
