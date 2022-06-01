@@ -30,25 +30,25 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function getSelectionOptions(): array {
-        $groups_query = json_decode(
-            DB::getInstance()->query('SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1')->first()->groups,
-            true
-        );
+        $row = DB::getInstance()->query('SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1')->first();
 
-        $groups = [];
-
-        if ($groups_query == null) {
-            return $groups;
+        if ($row == null) {
+            // Plugin is not set up
+            return [];
         }
 
-        foreach ($groups_query as $group) {
-            $groups[] = [
+        $groups = json_decode($row->groups, true);
+
+        $cleaned_groups = [];
+
+        foreach ($groups as $group) {
+            $cleaned_groups[] = [
                 'id' => Output::getClean($group),
                 'name' => Output::getClean($group),
             ];
         }
 
-        return $groups;
+        return $cleaned_groups;
     }
 
     public function getNotEnabledMessage(Language $language): string {
