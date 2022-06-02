@@ -169,7 +169,7 @@ class DatabaseInitialiser {
         Util::setSetting('displaynames', '0');
         Util::setSetting('uuid_linking', '1');
         Util::setSetting('recaptcha', '0');
-        Util::setSetting('recaptcha_type', 'reCaptcha2');
+        Util::setSetting('recaptcha_type', 'Recaptcha3');
         Util::setSetting('recaptcha_login', '0');
         Util::setSetting('email_verification', '1');
         Util::setSetting('nameless_version', '2.0.0-pr12');

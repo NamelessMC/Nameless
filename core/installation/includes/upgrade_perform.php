@@ -765,10 +765,7 @@ DB::getInstance()->insert('settings', [
     'value' => 'false'
 ]);
 
-DB::getInstance()->insert('settings', [
-    'name' => 'recaptcha_type',
-    'value' => 'reCaptcha'
-]);
+Util::setSetting('recaptcha_type', 'Recaptcha3');
 
 // convert from "version" to "nameless_version"
 $version = DB::getInstance()->get('settings', ['name', 'version'])->results();

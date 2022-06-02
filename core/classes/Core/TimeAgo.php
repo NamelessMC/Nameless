@@ -23,13 +23,7 @@ class TimeAgo {
     private int $_secondsPerYear = 31104000;
     private string $_timezone;
 
-    public function __construct(string $timezone = null) {
-        // if the $timezone is null, we take 'Europe/London' as the default
-        // this was done, because the parent construct tossed an exception
-        if ($timezone == null) {
-            $timezone = 'Europe/London';
-        }
-
+    public function __construct(string $timezone) {
         $this->_timezone = $timezone;
     }
 
