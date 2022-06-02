@@ -187,13 +187,11 @@
                                         type: "POST",
                                         data: {
                                             token: "{$TOKEN}",
-                                            {
-                                                literal
-                                            }
+                                            {literal}
                                             servers: JSON.stringify({
                                                 "servers": toSubmit
-                                            }) {
-                                                /literal}
+                                            })
+                                            {/literal}
                                             },
                                             success: function(response) {
                                                 // Success
