@@ -51,12 +51,12 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 if ($integration != null) {
                     // Validate username and make sure username is unique
                     if (!$integration->validateUsername($item['username'])) {
-                        $api->throwError($integration->getErrors()[0]);
+                        $api->throwError(CoreApiErrors::ERROR_INTEGRATION_USERNAME_ERRORS, $integration->getErrors());
                     }
 
                     // Validate identifier and make sure identifier is unique
                     if (!$integration->validateIdentifier($item['identifier'])) {
-                        $api->throwError($integration->getErrors()[0]);
+                        $api->throwError(CoreApiErrors::ERROR_INTEGRATION_IDENTIFIER_ERRORS, $integration->getErrors());
                     }
                 }
             }

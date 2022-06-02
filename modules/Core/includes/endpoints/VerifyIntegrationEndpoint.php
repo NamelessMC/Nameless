@@ -33,12 +33,12 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
 
         // Validate username and make sure username is unique
         if (!$integration->validateUsername($_POST['username'], $integrationUser->data()->id)) {
-            $api->throwError($integration->getErrors()[0]);
+            $api->throwError(CoreApiErrors::ERROR_INTEGRATION_USERNAME_ERRORS, $integration->getErrors());
         }
 
         // Validate identifier and make sure identifier is unique
         if (!$integration->validateIdentifier($_POST['identifier'], $integrationUser->data()->id)) {
-            $api->throwError($integration->getErrors()[0]);
+            $api->throwError(CoreApiErrors::ERROR_INTEGRATION_IDENTIFIER_ERRORS, $integration->getErrors());
         }
 
         $integrationUser->update([
