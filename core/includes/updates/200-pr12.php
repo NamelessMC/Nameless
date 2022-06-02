@@ -219,7 +219,7 @@ class Pre13 extends UpgradeScript {
             SELECT s.id FROM nl2_settings s
             WHERE s.name IN (SELECT name FROM nl2_settings GROUP BY name HAVING count(*) > 1)
             AND id <> (SELECT MIN(id) FROM nl2_settings WHERE name = s.name)
-        )')
+        )');
         // now add unique constraint
         $db->query('ALTER TABLE nl2_settings ADD CONSTRAINT UNIQUE(`name`)');
 
