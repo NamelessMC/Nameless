@@ -127,7 +127,7 @@ if (Input::exists()) {
             Util::setSetting('private_profile', $_POST['privateProfile'] ? '1' : '0');
 
             // Registration displaynames
-            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames']) ? '1' : '0');
+            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
 
             // Friendly URLs
             $friendly = Input::get('friendlyURL') == 'true';

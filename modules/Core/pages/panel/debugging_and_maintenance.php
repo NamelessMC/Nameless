@@ -98,8 +98,10 @@ $smarty->assign([
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => Util::getSetting('page_loading'),
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
-    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified($maintenance['message']),
+    'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified(Util::getSetting('maintenance_message')),
+    'CANCEL' => $language->get('general', 'cancel'),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
+    'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
     'TOAST_COPIED' => $language->get('admin', 'debug_link_toast', [
         'linkStart' => '<u><a href="{url}" target="_blank">',

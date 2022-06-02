@@ -212,16 +212,18 @@ class Pre13 extends UpgradeScript {
             Util::getSetting('recaptcha_type', 'Recaptcha3');
         }
 
-        // make the name column in nl2_settings table unique
-        // first remove duplicates
-        $db->query('
-        DELETE FROM nl2_settings WHERE id IN (
-            SELECT s.id FROM nl2_settings s
-            WHERE s.name IN (SELECT name FROM nl2_settings GROUP BY name HAVING count(*) > 1)
-            AND id <> (SELECT MIN(id) FROM nl2_settings WHERE name = s.name)
-        )');
-        // now add unique constraint
-        $db->query('ALTER TABLE nl2_settings ADD CONSTRAINT UNIQUE(`name`)');
+        $this->databaseQuery(function (DB $db) {
+            // make the name column in nl2_settings table unique
+            // first remove duplicates
+            $db->query('
+            DELETE FROM nl2_settings WHERE id IN (
+                SELECT s.id FROM nl2_settings s
+                WHERE s.name IN (SELECT name FROM nl2_settings GROUP BY name HAVING count(*) > 1)
+                AND id <> (SELECT MIN(id) FROM nl2_settings WHERE name = s.name)
+            )');
+            // now add unique constraint
+            $db->query('ALTER TABLE nl2_settings ADD CONSTRAINT UNIQUE(`name`)');
+        });
 
         // delete old class files
         $this->deleteFiles([
@@ -274,6 +276,24 @@ class Pre13 extends UpgradeScript {
             'core/classes/Validate.php',
             'core/classes/WidgetBase.php',
             'core/classes/Widgets.php',
+            'modules/Core/classes/Core_Sitemap.php',
+            'modules/Core/classes/CrafatarAvatarSource.php',
+            'modules/Core/classes/CraftheadAvatarSource.php',
+            'modules/Core/classes/CravatarAvatarSource.php',
+            'modules/Core/classes/MCHeadsAvatarSource.php',
+            'modules/Core/classes/MinotarAvatarSource.php',
+            'modules/Core/classes/NamelessMCAvatarSource.php',
+            'modules/Core/classes/Recaptcha2.php',
+            'modules/Core/classes/Recaptcha3.php',
+            'modules/Core/classes/VisageAvatarSource.php',
+            'modules/Core/classes/hCaptcha.php',
+            'modules/Core/includes/endpoints/discord/SetDiscordRolesEndpoint.php',
+            'modules/Core/includes/endpoints/discord/SubmitDiscordRoleListEndpoint.php',
+            'modules/Core/includes/endpoints/discord/UpdateDiscordBotSettingsEndpoint.php',
+            'modules/Core/includes/endpoints/discord/UpdateDiscordUsernames.php',
+            'modules/Core/includes/endpoints/discord/VerifyDiscordEndpoint.php',
+            'modules/Core/includes/endpoints/ListGroupsEndpoint.php',
+            'modules/Core/includes/endpoints/VerifyMinecraftEndpoint.php',
         ]);
 
         // delete old home type cache & update new cache

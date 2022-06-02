@@ -39,17 +39,7 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
-                            <hr>
                             <form action="" method="POST">
-                                <div class="form-group">
-                                    <label for="inputDiscordId">{$DISCORD_GUILD_ID} <span class="badge badge-info"><i
-                                                class="fa fa-question-circle" data-toggle="popover" data-title="{$INFO}"
-                                                data-content="{$ID_INFO|escape}" data-placement="top"></i></label>
-                                    <input class="form-control" type="number" name="discord_guild_id"
-                                        id="inputDiscordId" value="{$DISCORD_GUILD_ID_VALUE}">
-                                </div>
-                                <br />
-
                                 <h4>{$REQUIREMENTS}</h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped">

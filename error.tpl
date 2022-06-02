@@ -34,9 +34,7 @@
                         <h3>(File: {$ERROR_FILE})</h3>
                         <a href="{$CURRENT_URL}">{$CURRENT_URL}</a>
                         {if $CAN_GENERATE_DEBUG}
-                        <button class="float-right btn btn-info d-flex align-items-center" id="debug_link">
-                            <span class="spinner-border spinner-border-sm mr-2" role="status" id="debug_link_loading"
-                                style="display: none;"></span>
+                        <button class="float-right btn btn-info d-flex align-items-center" id="show_debug_modal" onclick="showDebugModal()">
                             <span id="debug_link_text">{$DEBUG_LINK}</span>
                             <span id="debug_link_success" style="display: none;">
                                 <i class="fa fa-check"></i>
@@ -150,6 +148,25 @@
 
         {/if}
 
+    </div>
+
+    <!-- Debug link modal -->
+    <div class="modal fade" id="debug_link_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {$DEBUG_LINK_INFO}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
+                    <button class="btn btn-primary" id="generateUrl" onclick="generateUrl()">
+                            <span class="spinner-border spinner-border-sm mr-2" role="status"
+                                  id="debug_link_loading" style="display: none;"></span>
+                        <span>{$DEBUG_LINK}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -312,8 +329,13 @@
     {if $CAN_GENERATE_DEBUG}
     let link_created = false;
 
-    $('#debug_link').click(() => {
-        $('#debug_link').blur();
+    function showDebugModal() {
+      $('#debug_link_modal').modal('show');
+    }
+
+    const generateUrl = () => {
+        $('#generateUrl').prop('disabled', true);
+        $('#show_debug_modal').prop('disabled', true);
 
         if (link_created) {
             return;
@@ -326,14 +348,14 @@
                 link_created = true;
 
                 $('#debug_link_loading').hide(100);
-                $('#debug_link').removeClass('btn-info');
+                $('#debug_link_modal').modal('hide');
+                $('#show_debug_modal').removeClass('btn-info');
                 $('#debug_link_text').hide();
-                $('#debug_link').prop('disabled', false);
 
                 if (!url.startsWith('https://debug.namelessmc.com/')) {
-                    $('#debug_link').addClass('btn-danger');
+                    $('#show_debug_modal').addClass('btn-danger');
                     $('#debug_link_error').show();
-                    console.log(url);
+                    console.error(url);
                     $('body').toast({
                         showIcon: 'fa-solid fa-circle-info move-right',
                         message: 'Could not create debug link. Check console for information.',
@@ -344,7 +366,7 @@
                         position: 'bottom left',
                     });
                 } else {
-                    $('#debug_link').addClass('btn-success');
+                    $('#show_debug_modal').addClass('btn-success');
                     $('#debug_link_success').show();
 
                     if (navigator.clipboard !== undefined) {
@@ -371,7 +393,7 @@
                     }
                 }
             });
-    });
+    };
     {/if}
 </script>
 
