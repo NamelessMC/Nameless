@@ -135,8 +135,14 @@ if (Input::exists()) {
             ]);
 
             // Registration displaynames
+            if (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') {
+                $displaynames = 1;
+            } else {
+                $displaynames = 0;
+            }
+
             DB::getInstance()->update('settings', ['name', 'displaynames'], [
-                'value' => $_POST['displaynames']
+                'value' => $displaynames
             ]);
 
             // Friendly URLs
