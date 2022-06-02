@@ -292,6 +292,9 @@ class DatabaseInitialiser {
         $this->_db->insert('forums', [
             'forum_title' => 'Forum',
             'forum_description' => 'The first discussion forum!',
+            'last_post_date' => date('U'),
+            'last_user_posted' => 1,
+            'last_topic_posted' => 1,
             'forum_order' => 2,
             'parent' => 1,
             'forum_type' => 'forum',
