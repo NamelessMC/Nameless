@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -128,7 +128,7 @@ if (Input::exists()) {
                 }
 
                 // Validation group
-                $validation_action = json_decode(Util::getSetting('validate_user_action'));
+                $validation_action = json_decode(Util::getSetting('validate_user_action'), true);
                 $new_value = json_encode(['action' => $validation_action['action'] ?? 'promote', 'group' => $_POST['promote_group']]);
                 Util::setSetting('validate_user_action', $new_value);
             }
