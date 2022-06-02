@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -60,17 +60,20 @@ if (isset($_GET['action'])) {
             if (!count($errors)) {
                 $success = $language->get('admin', 'test_email_success');
             }
-        } else {
+
             $smarty->assign([
-                'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
-                    'email' => Util::bold(Output::getClean($user->data()->email))
-                ]),
                 'TEST_EMAIL_QUERY' => $language->get('admin', 'test_email_query'),
                 'TEST_EMAIL_SUGGEST_1' => $language->get('admin', 'test_email_suggest_1'),
                 'TEST_EMAIL_SUGGEST_2' => $language->get('admin', 'test_email_suggest_2'),
                 'TEST_EMAIL_SUGGEST_3' => $language->get('admin', 'test_email_suggest_3', [
                     'docLinkStart' => '<a href=\'https://docs.namelessmc.com/smtp\' target=\'_blank\'>',
                     'docLinkEnd' => '</a>'
+                ])
+            ]);
+        } else {
+            $smarty->assign([
+                'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
+                    'email' => Util::bold(Output::getClean($user->data()->email))
                 ]),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),
