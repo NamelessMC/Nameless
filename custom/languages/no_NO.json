@@ -274,7 +274,6 @@
     "admin/logo_image_x": "Logo: {{imageName}}",
     "admin/logo_reset_successfully": "Logo har blitt tilbakestilt.",
     "admin/logo_updated_successfully": "Logo har blitt oppdatert.",
-    "admin/mailer_settings_info": "De markerte feltene må være utfylt hvis du har PHPMailer aktivert. For mer informasjon om hvordan du fyller ut disse feltene, sjekk ut {{docLinkStart}}wiki{{docLinkEnd}}.",
     "admin/main_group": "Hovedgruppe",
     "admin/maintenance": "Vedlikehold",
     "admin/maintenance_enabled": "Vedlikeholdsmodus er aktivert.",

@@ -297,7 +297,6 @@
     "admin/logo_image_x": "Imagen del logo: {{imageName}}",
     "admin/logo_reset_successfully": "Logo restablecido con éxito.",
     "admin/logo_updated_successfully": "Logo actualizado con éxito.",
-    "admin/mailer_settings_info": "Los siguientes campos son obligatorios si ha activado PHPMailer. Para más información sobre cómo rellenar estos campos, consulte {{docLinkStart}}la wiki{{docLinkEnd}}.",
     "admin/main_group": "Grupo principal",
     "admin/maintenance": "Mantenimiento",
     "admin/maintenance_enabled": "El modo de mantenimiento está actualmente activado.",

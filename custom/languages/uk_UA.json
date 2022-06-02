@@ -287,7 +287,6 @@
     "admin/logo_image_x": "Зображення логотипу: {{imageName}}",
     "admin/logo_reset_successfully": "Логотип скинутий.",
     "admin/logo_updated_successfully": "Логотип оновлено.",
-    "admin/mailer_settings_info": "Наступні поля є обовʼязковими для заповнення, якщо ви увімкнули PHPMailer. Для отримання додаткової інформації про те, як заповнити ці поля, ознайомтеся з {{docLinkStart}}Wiki{{docLinkEnd}}.",
     "admin/main_group": "Група за замовчуванням",
     "admin/maintenance": "Відладка",
     "admin/maintenance_enabled": "В даний час увімкнено режим технічного обслуговування.",

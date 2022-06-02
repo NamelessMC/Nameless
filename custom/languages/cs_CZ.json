@@ -295,7 +295,6 @@
     "admin/logo_image_x": "Logo: {{imageName}}",
     "admin/logo_reset_successfully": "Logo úspěšně obnoveno.",
     "admin/logo_updated_successfully": "Logo úspěšně aktualizováno.",
-    "admin/mailer_settings_info": "Pro povolení PHPMaileru jsou vyžadována následující pole. Pro více informací, jak vyplnit tato pole, se podívejte na {{docLinkStart}}wiki{{docLinkEnd}}.",
     "admin/main_group": "Hlavní skupina",
     "admin/maintenance": "Údržba",
     "admin/maintenance_enabled": "Je zapnut režim údržby.",

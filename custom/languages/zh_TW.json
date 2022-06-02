@@ -124,7 +124,6 @@
     "admin/ip_address": "IP位置",
     "admin/leave_port_empty_for_srv": "非必填選項，埠將使用預設值 25565，或者您的SRV紀錄",
     "admin/link_location_required": "自訂頁面的連結是必填的。",
-    "admin/mailer_settings_info": "如果您已啟用PHPMailer，則以下都為必填。造訪 {{docLinkStart}}文獻{{docLinkEnd}} 查看更多資訊。",
     "admin/maintenance": "維護",
     "admin/maintenance_enabled": "維護模式已啟用。",
     "admin/maintenance_message_max_1024": "維護模式訊息最高限制為 1024 個字元。",

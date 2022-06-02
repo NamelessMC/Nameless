@@ -301,7 +301,6 @@
     "admin/logo_image_x": "ロゴ画像: {{imageName}}",
     "admin/logo_reset_successfully": "ロゴのリセットに成功しました。",
     "admin/logo_updated_successfully": "ロゴの更新に成功しました。",
-    "admin/mailer_settings_info": "PHPMailerを有効にした場合、以下のフィールドに必要事項を記入する必要があります。以下のフィールドに記入する方法については {{docLinkStart}}Wiki{{docLinkEnd}} を確認して下さい。",
     "admin/main_group": "メイングループ",
     "admin/maintenance": "メンテナンス",
     "admin/maintenance_enabled": "メンテナンスモードが有効になっています。",

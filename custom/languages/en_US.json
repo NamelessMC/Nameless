@@ -301,7 +301,6 @@
     "admin/logo_image_x": "Logo image: {{imageName}}",
     "admin/logo_reset_successfully": "Logo reset successfully.",
     "admin/logo_updated_successfully": "Logo updated successfully.",
-    "admin/mailer_settings_info": "The following fields are required if you have enabled PHPMailer. For more information on how to fill out these fields, check out {{docLinkStart}}the wiki{{docLinkEnd}}.",
     "admin/main_group": "Main Group",
     "admin/maintenance": "Maintenance",
     "admin/maintenance_enabled": "Maintenance mode is currently enabled.",

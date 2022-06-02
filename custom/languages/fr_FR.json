@@ -243,7 +243,6 @@
     "admin/log_purged_successfully": "Le log a été purgé avec succès.",
     "admin/login_method": "Méthode de connexion",
     "admin/logo_image_x": "Logo image: {{imageName}}",
-    "admin/mailer_settings_info": "Les champs suivants sont requis si vous avez activé PHPMailer. Pour plus d’informations sur la façon de remplir ces champs, consultez {{docLinkStart}}le wiki{{docLinkEnd}}.",
     "admin/main_group": "Groupe principal",
     "admin/maintenance": "Maintenance",
     "admin/maintenance_enabled": "Le mode de maintenance est actuellement activé.",

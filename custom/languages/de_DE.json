@@ -283,7 +283,6 @@
     "admin/logo_image_x": "Logo image: {{imageName}}",
     "admin/logo_reset_successfully": "Logo erfolgreich zurückgesetzt.",
     "admin/logo_updated_successfully": "Logo erfolgreich aktualisiert.",
-    "admin/mailer_settings_info": "Die folgenden Felder sind erforderlich, wenn Du PHPMailer aktiviert hast. Weitere Informationen zum Ausfüllen dieser Felder findest Du unter {{docLinkStart}}NamelessMC Wiki{{docLinkEnd}}.",
     "admin/main_group": "Hauptgruppe",
     "admin/maintenance": "Fehlerbenachrichtigung",
     "admin/maintenance_enabled": "Der Wartungsmodus ist derzeit aktiviert.",
