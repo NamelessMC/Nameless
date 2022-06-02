@@ -116,13 +116,13 @@ abstract class UpgradeScript {
         foreach ((array) $paths as $path) {
             $path = ROOT_PATH . '/' . $path;
             if (!file_exists($path)) {
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$newFile' does not exist, cannot delete. <br />");
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$path' does not exist, cannot delete. <br />");
                 echo "'$path' does not exist, cannot delete. <br />";
                 continue;
             }
 
             if (!is_writable($path)) {
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$newFile' is not writable, cannot delete. <br />");
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$path' is not writable, cannot delete. <br />");
                 echo "'$path' is not writable, cannot delete. <br />";
                 return;
             }
