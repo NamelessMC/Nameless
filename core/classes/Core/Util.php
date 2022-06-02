@@ -163,7 +163,8 @@ class Util {
         $trustedProxies = self::getTrustedProxies();
 
         if (count($trustedProxies) === 0) {
-            die('Received proxy header but no trusted proxies are configured. Please see <a href="https://docs.namelessmc.com/trusted-proxies">https://docs.namelessmc.com/trusted-proxies</a> for more information.');
+            ErrorHandler::logWarning('Received proxy header but no trusted proxies are configured. Please see https://docs.namelessmc.com/trusted-proxies for more information.');
+            return;
         }
 
         $trusted = false;
