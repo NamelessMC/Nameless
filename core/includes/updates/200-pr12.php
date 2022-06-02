@@ -3,6 +3,20 @@
 class Pre13 extends UpgradeScript {
 
     public function run(): void {
+        $this->databaseQuery(function (DB $db) {
+            // Disable all modules and templates & reset defaults
+            $db->query("UPDATE `nl2_modules` SET `enabled` = 0 WHERE `name` NOT IN ('Core', 'Forum')");
+            $this->_cache->setCache('modulescache');
+            $this->_cache->eraseAll();
+
+            $db->query("UPDATE `nl2_templates` SET `enabled` = 0 WHERE `name` <> 'DefaultRevamp'");
+            $db->query("UPDATE `nl2_templates` SET `enabled` = 1, `is_default`  = 1 WHERE `name` = 'DefaultRevamp'");
+            $db->query("UPDATE `nl2_panel_templates` SET `enabled` = 0 WHERE `name` <> 'Default'");
+            $db->query("UPDATE `nl2_panel_templates` SET `enabled` = 1, `is_default`  = 1 WHERE `name` = 'Default'");
+            $this->_cache->setCache('templatecache');
+            $this->_cache->eraseAll();
+        });
+
         // Default night mode to null instead of 0
         $this->databaseQuery(function (DB $db) {
             $db->query('ALTER TABLE nl2_users MODIFY night_mode tinyint(1) DEFAULT NULL NULL');
@@ -152,15 +166,19 @@ class Pre13 extends UpgradeScript {
 
             $db->query('DELETE FROM nl2_languages WHERE `short_code` IS NULL');
 
-            $default_language = $db->query('SELECT id FROM nl2_languages WHERE `is_default` = 1');
+            $default_language = $db->query('SELECT id, short_code FROM nl2_languages WHERE `is_default` = 1');
 
             if (!$default_language->count()) {
                 // Default to 1 (EnglishUK)
                 $default_language = 1;
+                $default_short_code = 'en_UK';
                 $db->query('UPDATE nl2_languages SET `is_default` = 1 WHERE `id` = 1');
             } else {
                 $default_language = $default_language->first()->id;
+                $default_short_code = $default_language->short_code;
             }
+
+            $this->_cache->store('language', $default_short_code);
 
             $db->query('UPDATE nl2_users SET `language_id` = ? WHERE `language_id` NOT IN (' . implode(', ', $converted_languages) . ')', [$default_language]);
         });
