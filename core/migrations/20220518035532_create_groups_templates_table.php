@@ -15,7 +15,6 @@ final class CreateGroupsTemplatesTable extends AbstractMigration
             ->addColumn('can_use_template', 'boolean', ['default' => false]);
 
         $table
-            ->addForeignKey('group_id', 'nl2_groups', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
             ->addForeignKey('template_id', 'nl2_templates', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();

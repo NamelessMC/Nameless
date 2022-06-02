@@ -97,6 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         $_SESSION['charset'] = $charset;
 
+						// Ensure file save has concluded
+						sleep(1);
+
                         Redirect::to('?step=database_initialization');
                     }
 

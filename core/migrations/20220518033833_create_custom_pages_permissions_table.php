@@ -15,8 +15,7 @@ final class CreateCustomPagesPermissionsTable extends AbstractMigration
             ->addColumn('view', 'boolean', ['default' => false]);
 
         $table
-            ->addForeignKey('page_id', 'nl2_custom_pages', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('group_id', 'nl2_groups', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('page_id', 'nl2_custom_pages', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table
             ->addIndex(['page_id', 'group_id'], ['unique' => true]);

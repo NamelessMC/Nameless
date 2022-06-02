@@ -11,8 +11,8 @@ final class CreateReportsTable extends AbstractMigration
 
         $table
             ->addColumn('type', 'integer', ['length' => 1])
-            ->addColumn('reporter_id', 'integer', ['length' => 11])
-            ->addColumn('reported_id', 'integer', ['length' => 11])
+            ->addColumn('reporter_id', 'integer', ['length' => 11, 'null' => true, 'default' => null])
+            ->addColumn('reported_id', 'integer', ['length' => 11, 'null' => true, 'default' => null])
             ->addColumn('status', 'integer', ['length' => 1, 'default' => 0])
             ->addColumn('date_reported', 'datetime')
             ->addColumn('date_updated', 'datetime')
