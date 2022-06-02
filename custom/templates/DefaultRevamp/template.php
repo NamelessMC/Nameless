@@ -114,10 +114,10 @@ class DefaultRevamp_Template extends TemplateBase {
             'noPlayersOnline' => $this->_language->get('general', 'no_players_online'),
             'offline' => $this->_language->get('general', 'offline'),
             'confirmDelete' => $this->_language->get('general', 'confirm_deletion'),
-            'debugging' => ((defined('DEBUGGING') && DEBUGGING == 1) ? '1' : '0'),
-            'loggedIn' => ($this->_user->isLoggedIn() ? '1' : '0'),
-            'cookie' => (defined('COOKIE_NOTICE') ? '1' : '0'),
-            'loadingTime' => ((defined('PAGE_LOADING') && PAGE_LOADING == 1) ? PAGE_LOAD_TIME : ''),
+            'debugging' => (defined('DEBUGGING') && DEBUGGING == 1) ? '1' : '0',
+            'loggedIn' => $this->_user->isLoggedIn() ? '1' : '0',
+            'cookie' => defined('COOKIE_NOTICE') ? '1' : '0',
+            'loadingTime' => Util::getSetting('page_loading') === '1' ? PAGE_LOAD_TIME : '',
             'route' => $route
         ];
 

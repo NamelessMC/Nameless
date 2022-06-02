@@ -845,12 +845,7 @@ switch ($s) {
             $cache->store('error_reporting', 0);
         }
 
-        DB::getInstance()->insert('settings', [
-            'name' => 'page_loading',
-            'value' => false,
-        ]);
-        $cache->setCache('page_load_cache');
-        $cache->store('page_load', 0);
+        Util::setSetting('page_loading', '0');
 
         $use_plugin = DB::getInstance()->get('settings', ['name', 'use_plugin'])->results();
         if (count($use_plugin)) {

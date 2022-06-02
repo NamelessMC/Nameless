@@ -81,19 +81,7 @@ if (Input::exists()) {
             ]);
 
             // Page load timer
-            if (isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1) {
-                $enabled = 1;
-            } else {
-                $enabled = 0;
-            }
-
-            DB::getInstance()->update('settings', ['name', 'page_loading'], [
-                'value' => $enabled
-            ]);
-
-            // Cache
-            $cache->setCache('page_load_cache');
-            $cache->store('page_load', $enabled);
+            Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1 ? '1' : '0');
 
             // Reload to update debugging
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
@@ -127,13 +115,6 @@ if (isset($errors) && count($errors)) {
 $cache->setCache('maintenance_cache');
 $maintenance = $cache->retrieve('maintenance');
 
-$cache->setCache('page_load_cache');
-if ($cache->isCached('page_load')) {
-    $page_loading = $cache->retrieve('page_load');
-} else {
-    $page_loading = 0;
-}
-
 if ($user->hasPermission('admincp.errors')) {
     $smarty->assign([
         'ERROR_LOGS' => $language->get('admin', 'error_logs'),
@@ -154,7 +135,7 @@ $smarty->assign([
     'ENABLE_MAINTENANCE_MODE' => $language->get('admin', 'enable_maintenance_mode'),
     'ENABLE_MAINTENANCE_MODE_VALUE' => ((isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') ? 1 : 0),
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
-    'ENABLE_PAGE_LOAD_TIMER_VALUE' => $page_loading,
+    'ENABLE_PAGE_LOAD_TIMER_VALUE' => Util::getSetting('page_loading'),
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),
     'MAINTENANCE_MODE_MESSAGE_VALUE' => Output::getPurified($maintenance['message']),
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
