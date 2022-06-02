@@ -151,8 +151,10 @@ class ErrorHandler {
             'ERROR_TYPE' => is_null($exception) ? $language->get('general', 'error') : (new ReflectionClass($exception))->getName(),
             'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
+            'CANCEL' => $language->get('general', 'cancel'),
             'CAN_GENERATE_DEBUG' => $can_generate_debug,
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
+            'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             // TODO: should we skip the 2 frames that are from the "new User()" above?
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
