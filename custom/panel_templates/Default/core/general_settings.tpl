@@ -174,9 +174,9 @@
                                         <div class="col-md-6">
                                             <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
                                             <select name="displaynames" class="form-control" id="inputEnableNicknames">
-                                                <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "true" }
+                                                <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "1" }
                                                     selected{/if}>{$ENABLED}</option>
-                                                <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "false" }
+                                                <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "0" }
                                                     selected{/if}>{$DISABLED}</option>
                                             </select>
                                         </div>
