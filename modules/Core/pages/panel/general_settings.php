@@ -124,26 +124,10 @@ if (Input::exists()) {
             Util::setSetting('home_type', $home_type);
 
             // Private profile
-            if ($_POST['privateProfile']) {
-                $private_profile = 1;
-            } else {
-                $private_profile = 0;
-            }
-
-            DB::getInstance()->update('settings', ['name', 'private_profile'], [
-                'value' => $private_profile
-            ]);
+            Util::setSetting('private_profile', $_POST['privateProfile'] ? '1' : '0');
 
             // Registration displaynames
-            if (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') {
-                $displaynames = 1;
-            } else {
-                $displaynames = 0;
-            }
-
-            DB::getInstance()->update('settings', ['name', 'displaynames'], [
-                'value' => $displaynames
-            ]);
+            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames']) ? '1' : '0');
 
             // Friendly URLs
             $friendly = Input::get('friendlyURL') == 'true';
