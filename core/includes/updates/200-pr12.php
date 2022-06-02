@@ -52,14 +52,14 @@ class Pre13 extends UpgradeScript {
 
         // oauth
         $this->databaseQuery(function (DB $db) {
-            $db->createTable('nl2_oauth', "
+            $db->createTable('oauth', "
                                         `provider` varchar(256) NOT NULL,
                                         `enabled` tinyint(1) NOT NULL DEFAULT '0',
                                         `client_id` varchar(256) DEFAULT NULL,
                                         `client_secret` varchar(256) DEFAULT NULL,
                                         PRIMARY KEY (`provider`),
                                         UNIQUE KEY `id` (`provider`)");
-            $db->createTable('nl2_oauth_users', "
+            $db->createTable('oauth_users', "
                                       `user_id` int NOT NULL,
                                       `provider` varchar(256) NOT NULL,
                                       `provider_id` varchar(256) NOT NULL,
