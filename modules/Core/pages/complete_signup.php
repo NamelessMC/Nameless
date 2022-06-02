@@ -24,12 +24,8 @@ if (!isset($_GET['c'])) {
 }
 
 // Ensure API is enabled
-$is_api_enabled = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
-if ($is_api_enabled[0]->value != '1') {
-    $is_legacy_enabled = DB::getInstance()->get('settings', ['name', 'use_legacy_api'])->results();
-    if ($is_legacy_enabled[0]->value != '1') {
-        die('Legacy API is disabled');
-    }
+if (Util::getSetting('use_api') !== 1) {
+    die('API is disabled');
 }
 
 if (!$user->isLoggedIn()) {

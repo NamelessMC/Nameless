@@ -1008,10 +1008,7 @@ class User {
      * @return bool Whether profile privatizing is allowed and if they have permission to use it.
      */
     public function canPrivateProfile(): bool {
-        $settings_data = $this->_db->get('settings', ['name', 'private_profile']);
-        $settings_results = $settings_data->results();
-
-        return (($settings_results[0]->value == 1) && ($this->hasPermission('usercp.private_profile')));
+        return Util::getSetting('private_profile') === '1' && $this->hasPermission('usercp.private_profile');
     }
 
     /**
@@ -1031,7 +1028,7 @@ class User {
     public function getUserTemplates(): array {
         $groups = '(';
         foreach ($this->_groups as $group) {
-            $groups .= ((int)$group->id) . ',';
+            $groups .= ((int) $group->id) . ',';
         }
         $groups = rtrim($groups, ',') . ')';
 

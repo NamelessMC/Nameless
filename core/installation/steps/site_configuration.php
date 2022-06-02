@@ -39,16 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         try {
             Util::setSetting('sitename', Input::get('sitename'));
-
-            DB::getInstance()->insert('settings', [
-                'name' => 'incoming_email',
-                'value' => Input::get('incoming')
-            ]);
-
-            DB::getInstance()->insert('settings', [
-                'name' => 'outgoing_email',
-                'value' => Input::get('outgoing')
-            ]);
+            Util::setSetting('incoming_email', Input::get('incoming'));
+            Util::setSetting('outgoing_email', Input::get('outgoing'));
 
             $_SESSION['default_language'] = Input::get('language');
 
