@@ -192,7 +192,7 @@ if (!isset($_GET['action'])) {
                         foreach (Input::get('pages') as $page) {
                             $pages[] = $page;
                         }
-                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'), Input::get('order'))) {
+                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Output::getClean(Input::get('closable')), Input::get('header'), Input::get('message'), Input::get('order'))) {
                             Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));

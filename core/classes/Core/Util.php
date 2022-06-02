@@ -519,7 +519,7 @@ class Util {
     public static function updateCheck() {
         $uid = self::getSetting('unique_id');
 
-        $update_check_response = HttpClient::get('http://nameless.test/index.php?route=/api/v2/updateCheck&uid=' . $uid .
+        $update_check_response = HttpClient::get('https://namelessmc.com/api/v2/updateCheck&uid=' . $uid .
             '&version=' . NAMELESS_VERSION .
             '&php_version=' . urlencode(PHP_VERSION) .
             '&language=' . LANGUAGE .
