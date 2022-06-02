@@ -65,6 +65,13 @@ if (isset($_GET['action'])) {
                 'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
                     'email' => Util::bold(Output::getClean($user->data()->email))
                 ]),
+                'TEST_EMAIL_QUERY' => $language->get('admin', 'test_email_query'),
+                'TEST_EMAIL_SUGGEST_1' => $language->get('admin', 'test_email_suggest_1'),
+                'TEST_EMAIL_SUGGEST_2' => $language->get('admin', 'test_email_suggest_2'),
+                'TEST_EMAIL_SUGGEST_3' => $language->get('admin', 'test_email_suggest_3', [
+                    'docLinkStart' => '<a href=\'https://docs.namelessmc.com/smtp\' target=\'_blank\'>',
+                    'docLinkEnd' => '</a>'
+                ]),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),
                 'SEND_LINK' => URL::build('/panel/core/emails/', 'action=test&do=send')
@@ -264,14 +271,21 @@ if (isset($_GET['action'])) {
         'ENABLE_MAILER' => $language->get('admin', 'enable_mailer'),
         'ENABLE_MAILER_VALUE' => $php_mailer,
         'INFO' => $language->get('general', 'info'),
-        'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help'),
+        'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help', [
+            'docLinkStart' => "<a href='https://docs.namelessmc.com/home#translations' target='_blank'>",
+            'docLinkEnd' => '</a>'
+        ]),
+        'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
+            'docLinkStart' => "<a href='https://docs.namelessmc.com/smtp' target='_blank'>",
+            'docLinkEnd' => '</a>'
+        ]),
+        'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
+            'docLinkStart' => "<a href='https://docs.namelessmc.com/friendly-urls' target='_blank'>",
+            'docLinkEnd' => '</a>'
+        ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
         'OUTGOING_EMAIL_VALUE' => Output::getClean($outgoing_email),
-        'MAILER_SETTINGS_INFO' => $language->get('admin', 'mailer_settings_info', [
-            'docLinkStart' => '<a href="https://docs.namelessmc.com/en/smtp" target="_blank">',
-            'docLinkEnd' => '</a>'
-        ]),
         'USERNAME' => $language->get('user', 'username'),
         'USERNAME_VALUE' => (!empty($GLOBALS['email']['username']) ? Output::getClean($GLOBALS['email']['username']) : ''),
         'PASSWORD' => $language->get('user', 'password'),

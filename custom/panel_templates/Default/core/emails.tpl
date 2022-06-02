@@ -56,14 +56,6 @@
                                     <input type="text" id="InputOutgoingEmail" name="email"
                                         value="{$OUTGOING_EMAIL_VALUE}" class="form-control">
                                 </div>
-                                <hr />
-                                <div class="card shadow border-left-primary">
-                                    <div class="card-body">
-                                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                        {$MAILER_SETTINGS_INFO}
-                                    </div>
-                                </div>
-                                <br />
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="enable_mailer" value="0">
                                     <input id="inputMailer" name="enable_mailer" type="checkbox"
@@ -73,35 +65,46 @@
                                     <span class="badge badge-info"><i class="fa fa-question-circle"
                                             data-container="body" data-toggle="popover" title="{$INFO}"
                                             data-content="{$ENABLE_MAILER_HELP}"></i></span>
+                                    <script>
+                                        function toggleFields() {
+                                            const x = document.getElementById("fields-block");
+                                            if (x.style.display === "none") {
+                                                x.style.display = "block";
+                                            } else {
+                                                x.style.display = "none";
+                                            }
+                                        }
+                                    </script>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputUsername">{$USERNAME}</label>
-                                    <input class="form-control" type="text" name="username" value="{$USERNAME_VALUE}"
-                                        id="inputUsername">
+                                <div class="fields-block" id="fields-block">
+                                    <div class="form-group">
+                                        <label for="inputUsername">{$USERNAME}</label>
+                                        <input class="form-control" type="text" name="username" value="{$USERNAME_VALUE}"
+                                            id="inputUsername">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword">{$PASSWORD}</label>
+                                        <span class="badge badge-info"><i class="fa fa-question-circle"
+                                                data-container="body" data-toggle="popover" title="{$INFO}"
+                                                data-content="{$PASSWORD_HIDDEN}"></i></span>
+                                        <input class="form-control" type="password" name="password" id="inputPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">{$NAME}</label>
+                                        <input class="form-control" type="text" name="name" value="{$NAME_VALUE}"
+                                            id="inputName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputHost">{$HOST}</label>
+                                        <input class="form-control" type="text" name="host" value="{$HOST_VALUE}"
+                                            id="inputHost">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPort">{$PORT}</label>
+                                        <input class="form-control" type="text" name="port" value="{$PORT_VALUE}"
+                                            id="inputPort">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputPassword">{$PASSWORD}</label>
-                                    <span class="badge badge-info"><i class="fa fa-question-circle"
-                                            data-container="body" data-toggle="popover" title="{$INFO}"
-                                            data-content="{$PASSWORD_HIDDEN}"></i></span>
-                                    <input class="form-control" type="password" name="password" id="inputPassword">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputName">{$NAME}</label>
-                                    <input class="form-control" type="text" name="name" value="{$NAME_VALUE}"
-                                        id="inputName">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputHost">{$HOST}</label>
-                                    <input class="form-control" type="text" name="host" value="{$HOST_VALUE}"
-                                        id="inputHost">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPort">{$PORT}</label>
-                                    <input class="form-control" type="text" name="port" value="{$PORT_VALUE}"
-                                        id="inputPort">
-                                </div>
-                                <hr />
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
