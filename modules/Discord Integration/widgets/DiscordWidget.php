@@ -49,7 +49,7 @@ class DiscordWidget extends WidgetBase {
             $result = $this->_cache->retrieve('discord_widget_check');
 
         } else {
-            $request = HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json');
+            $request = HttpClient::get('https://discord.com/api/guilds/' . urlencode($this->_guild_id) . '/widget.json');
             if ($request->hasError()) {
                 $this->_content = Discord::getLanguageTerm('discord_widget_error', [
                     'error' => $request->getError()
@@ -76,8 +76,7 @@ class DiscordWidget extends WidgetBase {
                 $theme = $this->_cache->retrieve('discord_widget_theme');
             }
 
-            $this->_content = '<iframe src="https://discord.com/widget?id=' . Output::getClean($this->_guild_id) . '&theme=' . Output::getClean($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
-
+            $this->_content = '<iframe src="https://discord.com/widget?id=' . urlencode($this->_guild_id) . '&theme=' . urlencode($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
         }
     }
 }
