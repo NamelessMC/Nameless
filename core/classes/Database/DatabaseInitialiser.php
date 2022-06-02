@@ -292,9 +292,6 @@ class DatabaseInitialiser {
         $this->_db->insert('forums', [
             'forum_title' => 'Forum',
             'forum_description' => 'The first discussion forum!',
-            'last_post_date' => date('U'),
-            'last_user_posted' => 1,
-            'last_topic_posted' => 1,
             'forum_order' => 2,
             'parent' => 1,
             'forum_type' => 'forum',
@@ -325,6 +322,13 @@ class DatabaseInitialiser {
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U'),
             'last_edited' => date('U'),
+        ]);
+
+        // Must be updated afterwards due of foreign key
+        $this->_db->update('forums', 2, [
+            'last_post_date' => date('U'),
+            'last_user_posted' => 1,
+            'last_topic_posted' => 1,
         ]);
 
         // Permissions
