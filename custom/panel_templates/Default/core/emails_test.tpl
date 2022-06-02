@@ -54,7 +54,7 @@
                             {/if}
 
                             {if isset($SUCCESS)}
-                            <div class ="email-suggest">
+                            <div>
                                 {$TEST_EMAIL_QUERY}
                                 <ul>
                                     <li>{$TEST_EMAIL_SUGGEST_1}</li>
