@@ -5,5 +5,6 @@ if (window.cookieconsent === undefined) {
     onStatusChange: function() {
       window.location.reload();
     },
+    //"{x}"
   });
 }
