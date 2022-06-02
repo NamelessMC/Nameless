@@ -34,21 +34,9 @@ if (Input::exists()) {
         ])->message($language->get('admin', 'maintenance_message_max_1024'));
 
         if ($validation->passed()) {
-            // Update database and cache
+            // Update database
             // Is debug mode enabled or not?
-            if (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] == 1) {
-                $enabled = 1;
-            } else {
-                $enabled = 0;
-            }
-
-            DB::getInstance()->update('settings', ['name', 'error_reporting'], [
-                'value' => $enabled
-            ]);
-
-            // Cache
-            $cache->setCache('error_cache');
-            $cache->store('error_reporting', $enabled);
+            Util::setSetting('error_reporting', (isset($_POST['enable_debugging']) && $_POST['enable_debugging']) ? '1' : '0');
 
             // Is maintenance enabled or not?
             if (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) {

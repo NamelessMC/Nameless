@@ -832,19 +832,6 @@ switch ($s) {
             'value' => true,
         ]);
 
-        $error_reporting = DB::getInstance()->get('settings', ['name', 'error_reporting'])->results();
-        if (count($error_reporting)) {
-            $cache->setCache('error_cache');
-            $cache->store('error_reporting', $error_reporting[0]->value);
-        } else {
-            DB::getInstance()->insert('settings', [
-                'name' => 'error_reporting',
-                'value' => false,
-            ]);
-            $cache->setCache('error_cache');
-            $cache->store('error_reporting', 0);
-        }
-
         Util::setSetting('page_loading', '0');
 
         $use_plugin = DB::getInstance()->get('settings', ['name', 'use_plugin'])->results();

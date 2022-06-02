@@ -187,8 +187,6 @@ class DatabaseInitialiser {
         Util::setSetting('home_type', 'news');
         Util::setSetting('forum_reactions', '1');
         Util::setSetting('error_reporting', '0');
-        $this->_cache->setCache('error_cache');
-        $this->_cache->store('error_reporting', 0);
         Util::setSetting('page_loading', '0');
         Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
         Util::setSetting('use_api', 0);
