@@ -12,7 +12,7 @@
 class AssetResolver extends AssetTree {
 
     /**
-     * @var array<string> Array of assets currently resolved.
+     * @var array<array> Array of assets currently resolved.
      */
     private array $_assets = [];
 
@@ -43,8 +43,16 @@ class AssetResolver extends AssetTree {
         $css = [];
         $js = [];
 
-        foreach ($this->_assets as $name => $asset) {
-            $this->gatherAsset($name, $asset, $css, $js);
+        $assets = Util::determineOrder(array_map(function($key, $value) {
+            return [
+                'name' => $key,
+                'after' => $value['depends'] ?? $value['after'] ?? [],
+                'before' => $value['before'] ?? [],
+            ];
+        }, array_keys($this->_assets), array_values($this->_assets)));
+
+        foreach ($assets as $name) {
+            $this->gatherAsset($name, $this->_assets[$name], $css, $js);
         }
 
         return [$css, $js];

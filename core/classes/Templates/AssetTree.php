@@ -102,6 +102,9 @@ class AssetTree {
             'js' => [
                 'vendor/bootstrap/dist/js/bootstrap.bundle.js',
             ],
+            'after' => [
+                self::JQUERY_UI,
+            ]
         ],
         self::BOOTSTRAP_COLORPICKER => [
             'css' => [
@@ -117,6 +120,9 @@ class AssetTree {
         self::CHART_JS => [
             'js' => [
                 'vendor/chart.js/dist/Chart.min.js',
+            ],
+            'depends' => [
+                self::JQUERY,
             ],
         ],
         self::CODEMIRROR => [
@@ -139,6 +145,9 @@ class AssetTree {
                 'vendor/datatables.net/js/jquery.dataTables.min.js',
                 'vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
             ],
+            'depends' => [
+                self::JQUERY,
+            ],
         ],
         self::DROPZONE => [
             'css' => [
@@ -155,6 +164,9 @@ class AssetTree {
             'js' => [
                 'vendor/image-picker/image-picker/image-picker.min.js',
             ],
+            'depends' => [
+                self::JQUERY,
+            ],
         ],
         self::JQUERY => [
             'js' => [
@@ -165,10 +177,16 @@ class AssetTree {
             'js' => [
                 'vendor/jquery-ui-dist/jquery-ui.min.js',
             ],
+            'depends' => [
+                self::JQUERY,
+            ],
         ],
         self::JQUERY_COOKIE => [
             'js' => [
                 'vendor/jquery.cookie/jquery.cookie.js',
+            ],
+            'depends' => [
+                self::JQUERY,
             ],
         ],
         self::MCASSOC_CLIENT => [
@@ -204,6 +222,9 @@ class AssetTree {
             'css' => [
                 'vendor/select2/dist/css/select2.min.css',
             ],
+            'depends' => [
+                self::JQUERY,
+            ],
         ],
         self::TINYMCE => [
             'js' => [
@@ -222,6 +243,9 @@ class AssetTree {
             ],
             'js' => [
                 'plugins/tinymce_spoiler/js/spoiler.js',
+            ],
+            'depends' => [
+                self::JQUERY,
             ],
         ],
     ];

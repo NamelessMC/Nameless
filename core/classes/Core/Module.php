@@ -96,7 +96,7 @@ abstract class Module {
             }
 
             foreach ($module_order as $n => $nValue) {
-                $before_after = self::findBeforeAfter($module_order, $nValue);
+                $before_after = Util::findBeforeAfter($module_order, $nValue);
 
                 if (!array_diff($module->getLoadAfter(), $before_after[0]) && !array_diff($module->getLoadBefore(), $before_after[1])) {
                     array_splice($module_order, $n + 1, 0, $module->getName());
@@ -112,26 +112,6 @@ abstract class Module {
 
     public function getName(): string {
         return $this->_name;
-    }
-
-    private static function findBeforeAfter(array $modules, string $current): array {
-        $before = [$current];
-        $after = [];
-        $found = false;
-
-        foreach ($modules as $module) {
-            if ($found) {
-                $after[] = $module;
-            } else {
-                if ($module == $current) {
-                    $found = true;
-                } else {
-                    $before[] = $module;
-                }
-            }
-        }
-
-        return [$before, $after];
     }
 
     /**

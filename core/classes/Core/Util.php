@@ -734,4 +734,56 @@ class Util {
         return $content;
     }
 
+    /**
+     * Determine the order of array items with dependencies (denoted by the "after" or "before" field)
+     * This is a more generic version of the module sort order determination
+     * @param array $items Items (array of items consisting of after, before and name)
+     * @return array Ordered items
+     */
+    public static function determineOrder(array $items): array {
+        $order = [array_shift($items)['name']];
+
+        foreach ($items as $item) {
+            foreach ($order as $n => $nValue) {
+                $before_after = self::findBeforeAfter($order, $nValue);
+
+                if (!array_diff($item['after'], $before_after[0]) && !array_diff($item['before'], $before_after[1])) {
+                    array_splice($order, $n + 1, 0, $item['name']);
+                    continue 2;
+                }
+            }
+
+            $order[] = $item['name'];
+        }
+
+        return $order;
+    }
+
+    /**
+     * Used by order determination to get items before or after a specified item
+     * Typically not called on its own - use Util::determineOrder in most cases!
+     * @param array $items Names of items already processed
+     * @param string $current Name of current item
+     * @return array Items before and after the current item
+     */
+    public static function findBeforeAfter(array $items, string $current): array {
+        $before = [$current];
+        $after = [];
+        $found = false;
+
+        foreach ($items as $item) {
+            if ($found) {
+                $after[] = $item;
+            } else {
+                if ($item == $current) {
+                    $found = true;
+                } else {
+                    $before[] = $item;
+                }
+            }
+        }
+
+        return [$before, $after];
+    }
+
 }
