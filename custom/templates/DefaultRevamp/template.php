@@ -25,8 +25,8 @@ class DefaultRevamp_Template extends TemplateBase {
     public function __construct($cache, $smarty, $language, $user, $pages) {
         $template = [
             'name' => 'DefaultRevamp',
-            'version' => '2.0.0-pr12',
-            'nl_version' => '2.0.0-pr12',
+            'version' => '2.0.0-pr13',
+            'nl_version' => '2.0.0-pr13',
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 
@@ -88,7 +88,7 @@ class DefaultRevamp_Template extends TemplateBase {
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=2pr12' => []
+            $this->_template['path'] . 'css/custom.css?v=2pr13' => []
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
