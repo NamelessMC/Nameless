@@ -38,35 +38,11 @@ if (Input::exists()) {
             // Is debug mode enabled or not?
             Util::setSetting('error_reporting', (isset($_POST['enable_debugging']) && $_POST['enable_debugging']) ? '1' : '0');
 
-            // Is maintenance enabled or not?
-            if (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] == 1) {
-                $enabled = 'true';
-            } else {
-                $enabled = 'false';
-            }
+            // Maintenance mode
+            Util::setSetting('maintenance', (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance']) ? '1' : '0');
+            Util::setSetting('maintenance_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Maintenance mode is enabled.');
 
-            DB::getInstance()->update('settings', ['name', 'maintenance'], [
-                'value' => $enabled
-            ]);
-
-            if (isset($_POST['message']) && !empty($_POST['message'])) {
-                $message = Input::get('message');
-            } else {
-                $message = 'Maintenance mode is enabled.';
-            }
-
-            DB::getInstance()->update('settings', ['name', 'maintenance_message'], [
-                'value' => $message
-            ]);
-
-            //Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
-
-            // Cache
-            $cache->setCache('maintenance_cache');
-            $cache->store('maintenance', [
-                'maintenance' => $enabled,
-                'message' => $message
-            ]);
+            // Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
 
             // Page load timer
             Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1 ? '1' : '0');
@@ -100,9 +76,6 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-$cache->setCache('maintenance_cache');
-$maintenance = $cache->retrieve('maintenance');
-
 if ($user->hasPermission('admincp.errors')) {
     $smarty->assign([
         'ERROR_LOGS' => $language->get('admin', 'error_logs'),
@@ -121,7 +94,7 @@ $smarty->assign([
     'ENABLE_DEBUG_MODE' => $language->get('admin', 'enable_debug_mode'),
     'ENABLE_DEBUG_MODE_VALUE' => (defined('DEBUGGING') ? DEBUGGING : 0),
     'ENABLE_MAINTENANCE_MODE' => $language->get('admin', 'enable_maintenance_mode'),
-    'ENABLE_MAINTENANCE_MODE_VALUE' => ((isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') ? 1 : 0),
+    'ENABLE_MAINTENANCE_MODE_VALUE' => Util::getSetting('maintenance'),
     'ENABLE_PAGE_LOAD_TIMER' => $language->get('admin', 'enable_page_load_timer'),
     'ENABLE_PAGE_LOAD_TIMER_VALUE' => Util::getSetting('page_loading'),
     'MAINTENANCE_MODE_MESSAGE' => $language->get('admin', 'maintenance_mode_message'),

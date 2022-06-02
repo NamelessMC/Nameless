@@ -855,8 +855,6 @@ switch ($s) {
             'name' => 'maintenance_message',
             'value' => 'This website is currently in maintenance mode.'
         ]);
-        $cache->setCache('maintenance_cache');
-        $cache->store('maintenance', ['maintenance' => 'false', 'message' => 'This website is currently in maintenance mode.']);
 
         DB::getInstance()->insert('settings', [
             'name' => 'authme',

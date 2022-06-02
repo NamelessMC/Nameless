@@ -354,9 +354,7 @@ if ($page != 'install') {
     $widgets = new Widgets($cache);
 
     // Maintenance mode?
-    $cache->setCache('maintenance_cache');
-    $maintenance = $cache->retrieve('maintenance');
-    if (isset($maintenance['maintenance']) && $maintenance['maintenance'] != 'false') {
+    if (Util::getSetting('maintenance') === '1') {
         // Enabled
         // Admins only beyond this point
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {

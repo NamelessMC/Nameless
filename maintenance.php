@@ -28,17 +28,10 @@ if (!$user->isLoggedIn()) {
 $smarty->assign(
     [
         'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),
+        'MAINTENANCE_MESSAGE', Output::getPurified(Util::getSetting($maintenance_message, 'Maintenance mode is enabled.'),
         'RETRY' => $language->get('errors', 'maintenance_retry')
     ]
 );
-
-// Retrieve maintenance message
-$maintenance_message = $maintenance['message'];
-if (!empty($maintenance_message)) {
-    $smarty->assign('MAINTENANCE_MESSAGE', Output::getPurified(htmlspecialchars_decode($maintenance_message)));
-} else {
-    $smarty->assign('MAINTENANCE_MESSAGE', 'Maintenance mode is enabled.');
-}
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);

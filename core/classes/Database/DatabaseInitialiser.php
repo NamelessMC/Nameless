@@ -179,7 +179,6 @@ class DatabaseInitialiser {
         Util::setSetting('verify_accounts', '0');
         Util::setSetting('user_avatars', '0');
         Util::setSetting('forum_layout', '1');
-        Util::setSetting('maintenance', '0');
         Util::setSetting('avatar_site', 'cravatar');
         Util::setSetting('mc_integration', '1');
         Util::setSetting('discord_integration', '0');
@@ -195,12 +194,8 @@ class DatabaseInitialiser {
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
         Util::setSetting('timezone', 'Europe/London');
+        Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
-        $this->_cache->setCache('maintenance_cache');
-        $this->_cache->store('maintenance', [
-            'maintenance' => 'false',
-            'message' => 'This website is currently in maintenance mode.'
-        ]);
         Util::setSetting('authme', 0);
         Util::setSetting('default_avatar_type', 'minecraft');
         Util::setSetting('private_profile', '1');
