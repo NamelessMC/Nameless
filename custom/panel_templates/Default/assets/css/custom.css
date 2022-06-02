@@ -452,3 +452,9 @@ footer.sticky-footer {
     position: absolute;
     left: 20px;
 }
+
+@media only screen and (max-width: 425px) {
+    .statistics {
+        display: none;
+    }
+}
