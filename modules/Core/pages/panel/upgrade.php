@@ -19,7 +19,7 @@ if ($update_needed !== 'true' && $update_needed !== 'urgent') {
 $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
 // Perform the update
-$upgradeScript = UpgradeScript::get(NAMELESS_VERSION);
+$upgradeScript = UpgradeScript::get(Util::getSetting('nameless_version'));
 if ($upgradeScript instanceof UpgradeScript) {
     $upgradeScript->run();
 }
