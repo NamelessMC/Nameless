@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -29,7 +29,7 @@ if (count($warning)) {
             'acknowledged' => true,
         ]);
 
-        Log::getInstance()->log(Log::Action('user/acknowledge'), $result);
+        Log::getInstance()->log(Log::Action('user/acknowledge'));
     }
 }
 
