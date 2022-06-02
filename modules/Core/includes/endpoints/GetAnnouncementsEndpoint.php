@@ -3,7 +3,7 @@
 /**
  * @return string JSON Array of the latest announcements
  */
-class GetAnnoucementsEndpoint extends NoAuthEndpoint {
+class GetAnnouncementsEndpoint extends NoAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'announcements';
