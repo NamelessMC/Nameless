@@ -197,7 +197,7 @@ class User {
      * @return UserData This user's data.
      */
     public function data(): ?UserData {
-        return $this->_data;
+        return $this->_data ?? null;
     }
 
     /**
