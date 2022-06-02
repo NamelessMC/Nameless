@@ -752,16 +752,18 @@ class Core_Module extends Module {
                     $cache->store('update_check', $update_check, 3600);
                 }
 
-                $current_version = NAMELESS_VERSION;
-
-                $update_check = json_decode($update_check);
-
-                if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {
+                if (!is_string($update_check) && $update_check->updateAvailable()) {
                     $smarty->assign([
-                        'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $language->get('admin', 'new_urgent_update_available') : $language->get('admin', 'new_update_available'),
-                        'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', ['version' => Output::getClean($current_version)]),
-                        'NEW_VERSION' => $language->get('admin', 'new_version_x', ['version' => Output::getClean($update_check->new_version)]),
+                        'NEW_UPDATE' => $update_check->isUrgent()
+                            ? $language->get('admin', 'new_urgent_update_available')
+                            : $language->get('admin', 'new_update_available'),
+                        'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
+                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
+                            'version' => Output::getClean(NAMELESS_VERSION)
+                        ]),
+                        'NEW_VERSION' => $language->get('admin', 'new_version_x', [
+                            'version' => Output::getClean($update_check->version())
+                        ]),
                         'UPDATE' => $language->get('admin', 'update'),
                         'UPDATE_LINK' => URL::build('/panel/update')
                     ]);

@@ -514,12 +514,12 @@ class Util {
     /**
      * Check for Nameless updates.
      *
-     * @return string JSON object with information about any updates.
+     * @return string|UpdateCheck Object with information about any updates, or error message.
      */
-    public static function updateCheck(): string {
+    public static function updateCheck() {
         $uid = self::getSetting('unique_id');
 
-        $update_check = HttpClient::get('https://namelessmc.com/nl_core/nl2/stats.php?uid=' . $uid .
+        $update_check_response = HttpClient::get('http://nameless.test/index.php?route=/api/v2/updateCheck&uid=' . $uid .
             '&version=' . NAMELESS_VERSION .
             '&php_version=' . urlencode(PHP_VERSION) .
             '&language=' . LANGUAGE .
@@ -527,34 +527,22 @@ class Util {
             '&mysql_server=' . DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION)
         );
 
+        if ($update_check_response->hasError()) {
+            return $update_check_response->getError();
+        }
+
+        $update_check = new UpdateCheck($update_check_response->json(true));
         if ($update_check->hasError()) {
-            $error = $update_check->getError();
-        } else {
-            $update_check = $update_check->contents();
-            if ($update_check == 'Failed') {
-                $error = 'Unknown error';
-            }
+            return $update_check->getErrorMessage();
         }
 
-        if (isset($error)) {
-            return json_encode(['error' => $error]);
-        }
+        self::setSetting("version_checked", date('U'));
 
-        Util::setSetting("version_checked", date('U'));
-
-        if ($update_check == 'None') {
-            return json_encode(['no_update' => true]);
-        }
-
-        $info = json_decode($update_check);
-
-        if (!isset($info->error) && !isset($info->no_update) && isset($info->new_version)) {
-            if (isset($info->urgent) && $info->urgent == 'true') {
-                $to_db = 'urgent';
-            } else {
-                $to_db = 'true';
-            }
-            Util::setSetting('version_update', $to_db);
+        if ($update_check->updateAvailable()) {
+            self::setSetting('version_update', $update_check->isUrgent()
+                ? 'urgent'
+                : 'true'
+            );
         }
 
         return $update_check;

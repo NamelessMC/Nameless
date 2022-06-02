@@ -54,26 +54,20 @@ if ($cache->isCached('update_check')) {
     $cache->store('update_check', $update_check, 3600);
 }
 
-$update_check = json_decode($update_check);
-
-if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {
-    // Unique ID + current version
-    $uid = Util::getSetting('unique_id');
-
-    $instructions = HttpClient::get('https://namelessmc.com/nl_core/nl2/instructions.php?uid=' . $uid . '&version=' . NAMELESS_VERSION);
-
-    if ($instructions->hasError()) {
-        $instructions = $instructions->getError();
-    } else {
-        $instructions = $instructions->contents();
-        if ($instructions == 'Failed') {
-            $instructions = 'Unknown error';
-        }
+if (!is_string($update_check)) {
+    if ($update_check->updateAvailable()) {
+        $smarty->assign([
+            'INSTRUCTIONS' => $language->get('admin', 'instructions'),
+            'INSTRUCTIONS_VALUE' => Output::getPurified($update_check->instructions()),
+            'UPGRADE_LINK' => URL::build('/panel/upgrade'),
+            'DOWNLOAD_LINK' => $update_check->gitHubLink(),
+            'DOWNLOAD' => $language->get('admin', 'download'),
+            'INSTALL_CONFIRM' => $language->get('admin', 'install_confirm')
+        ]);
     }
-
+} else {
     $smarty->assign([
-        'INSTRUCTIONS' => $language->get('admin', 'instructions'),
-        'INSTRUCTIONS_VALUE' => Output::getPurified($instructions)
+        'UPDATE_CHECK_ERROR' => $update_check,
     ]);
 }
 
@@ -96,12 +90,8 @@ $smarty->assign([
     'UP_TO_DATE' => $language->get('admin', 'up_to_date'),
     'CHECK_AGAIN' => $language->get('admin', 'check_again'),
     'CHECK_AGAIN_LINK' => URL::build('/panel/update/', 'recheck=true'),
-    'UPGRADE_LINK' => URL::build('/panel/upgrade'),
-    'DOWNLOAD_LINK' => 'https://namelessmc.com/nl_core/nl2/updates/' . str_replace(['.', '-'], '', Output::getClean($update_check->new_version)) . '.zip',
-    'DOWNLOAD' => $language->get('admin', 'download'),
     'WARNING' => $language->get('general', 'warning'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'INSTALL_CONFIRM' => $language->get('admin', 'install_confirm')
 ]);
 
 $template->onPageLoad();
