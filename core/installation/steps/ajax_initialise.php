@@ -2,11 +2,12 @@
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
-            PhinxAdapter::migrate();
+            $message = PhinxAdapter::migrate();
 
             $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 
             $json = [
+                'message' => defined('DEBUGGING') && DEBUGGING ? $message : $language->get('installer', 'database_configured'),
                 'success' => $success,
                 'redirect_url' => $redirect_url,
             ];
@@ -25,10 +26,14 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
                 $_SESSION['site_initialized'] = true;
 
             } else if ($_GET['initialise'] === 'upgrade') {
+                define('UPGRADE', true);
+
                 require(dirname(__DIR__) . '/includes/upgrade_perform.php');
 
                 $json = [
-                    'success' => true,
+                    'success' => !isset($errors) || !count($errors),
+                    'errors' => $errors ?? [],
+                    'message' => $language->get('installer', 'upgrade_error'),
                     'redirect_url' => '?step=finish',
                 ];
 

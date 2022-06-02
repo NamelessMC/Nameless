@@ -9,12 +9,12 @@ $scripts = [
                     window.location.replace(response.redirect_url);
                 } else {
                     $("#info").html(response.message);
+                    if (response.errors) {
+                      $("#info").after(`<div class="ui inverted red segment">${response.errors.join("<br />")}</div>`);
+                    }
                     if (response.redirect_url) {
                         $("#continue-button").attr("href", response.redirect_url);
                         $("#continue-button").removeClass("disabled");
-                    }
-                    if (response.error) {
-                        $("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language->get('installer', 'reload') . '</button>");
                     }
                 }
             });
