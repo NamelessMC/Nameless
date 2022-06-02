@@ -49,7 +49,15 @@ class DiscordWidget extends WidgetBase {
             $result = $this->_cache->retrieve('discord_widget_check');
 
         } else {
-            $result = HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json')->json();
+            $request = HttpClient::get('https://discord.com/api/guilds/' . Output::getClean($this->_guild_id) . '/widget.json');
+            if ($request->hasError()) {
+                $this->_content = Discord::getLanguageTerm('discord_widget_error', [
+                    'error' => $request->getError()
+                ]);
+                return;
+            }
+
+            $result = $request->json();
 
             // Cache for 60 seconds
             $this->_cache->store('discord_widget_check', $result, 60);

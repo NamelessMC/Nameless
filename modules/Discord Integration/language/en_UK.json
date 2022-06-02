@@ -35,6 +35,7 @@
     "discord_integration\/discord_username": "Discord Username",
     "discord_integration\/discord_usernames_updated": "Discord usernames updated successfully",
     "discord_integration\/discord_widget_disabled": "The widget is disabled for the specified Discord server. Please go to the 'Widget' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.",
+    "discord_integration\/discord_widget_error": "An error occurred when getting Discord widget: {{error}}.",
     "discord_integration\/discord_widget_theme": "Discord Widget Theme",
     "discord_integration\/enable_discord_integration": "Enable Discord integration?",
     "discord_integration\/get_link_code": "Get link code",
