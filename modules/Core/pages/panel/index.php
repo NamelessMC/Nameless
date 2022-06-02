@@ -173,10 +173,12 @@ if ($user->hasPermission('admincp.core.debugging')) {
             $pdo_server_version = explode('-', $pdo_server_version)[0];
         }
     }
-    if (!in_array($pdo_driver, ['MySQL', 'MariaDB']) || version_compare($pdo_server_version, '5.7.0', '<')) {
-        $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
-    } else {
+
+    if ($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=') ||
+        $pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>=')) {
         $compat_success[] = $pdo_driver . ' Server ' . $pdo_server_version;
+    } else {
+        $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
     }
 
     // Permissions
