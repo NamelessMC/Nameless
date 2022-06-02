@@ -487,12 +487,12 @@ if ($page != 'install') {
     }
 
     // Webhooks
+    $hook_array = [];
     if (Util::isModuleEnabled('Discord Integration')) {
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
             $hook_array = $cache->retrieve('hooks');
         } else {
-            $hook_array = [];
             $hooks = DB::getInstance()->get('hooks', ['id', '<>', 0])->results();
             if (count($hooks)) {
                 foreach ($hooks as $hook) {

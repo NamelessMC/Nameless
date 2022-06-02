@@ -14,7 +14,8 @@ class Pre13 extends UpgradeScript {
             if ($db->query("SELECT enabled from nl2_modules WHERE name = 'Forum'")->count() > 0) {
                 $arr[] = ['name' => 'Forum', 'priority' => 2];
             }
-            $cache->store('enabled_modules', $arr);
+            $this->_cache->store('enabled_modules', $arr);
+            $this->_cache->store('module_core', true);
 
             $db->query("UPDATE `nl2_templates` SET `enabled` = 0 WHERE `name` <> 'DefaultRevamp'");
             $db->query("UPDATE `nl2_templates` SET `enabled` = 1, `is_default`  = 1 WHERE `name` = 'DefaultRevamp'");

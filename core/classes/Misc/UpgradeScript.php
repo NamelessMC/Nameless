@@ -42,9 +42,9 @@ abstract class UpgradeScript {
      * Run a single database query
      *
      * @param Closure $query Function which returns the query
-     * @return array The result of the query, if any
+     * @return mixed The result of the closure, if any
      */
-    protected function databaseQuery(Closure $query): array {
+    protected function databaseQuery(Closure $query) {
         return $this->databaseQueries([$query])[0];
     }
 
@@ -62,6 +62,7 @@ abstract class UpgradeScript {
                 $results[] = $query(DB::getInstance());
             } catch (Exception $exception) {
                 $results[] = null;
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $exception->getMessage());
                 echo $exception->getMessage() . '<br />';
             }
         }
@@ -99,6 +100,7 @@ abstract class UpgradeScript {
                 }
 
             } else {
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$newFile' does not exist, cannot delete. <br />");
                 echo "'$newFile' does not exist, cannot delete. <br />";
             }
 
@@ -114,16 +116,19 @@ abstract class UpgradeScript {
         foreach ((array) $paths as $path) {
             $path = ROOT_PATH . '/' . $path;
             if (!file_exists($path)) {
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$newFile' does not exist, cannot delete. <br />");
                 echo "'$path' does not exist, cannot delete. <br />";
                 continue;
             }
 
             if (!is_writable($path)) {
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$newFile' is not writable, cannot delete. <br />");
                 echo "'$path' is not writable, cannot delete. <br />";
                 return;
             }
 
             if (is_dir($path) && !rmdir($path)) {
+                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "Could not delete '$path', is it empty? <br />");
                 echo "Could not delete '$path', is it empty? <br />";
             }
 
