@@ -158,27 +158,10 @@ if (isset($_GET['action'])) {
                 Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
             } else {
-
-                if (isset($_POST['enable_mailer']) && $_POST['enable_mailer'] == 1) {
-                    $mailer = '1';
-                } else {
-                    $mailer = '0';
-                }
-
-                $php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
-                $php_mailer = $php_mailer[0]->id;
-
-                DB::getInstance()->update('settings', $php_mailer, [
-                    'value' => $mailer
-                ]);
+                Util::setSetting('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0')
 
                 if (!empty($_POST['email'])) {
-                    $outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
-                    $outgoing_email = $outgoing_email[0]->id;
-
-                    DB::getInstance()->update('settings', $outgoing_email, [
-                        'value' => Output::getClean($_POST['email'])
-                    ]);
+                    Util::setSetting('outgoing_email', $_POST['email']);
                 }
 
                 if ($_POST['port'] && !is_numeric($_POST['port'])) {
@@ -247,12 +230,6 @@ if (isset($_GET['action'])) {
         }
     }
 
-    $php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
-    $php_mailer = $php_mailer[0]->value;
-
-    $outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
-    $outgoing_email = $outgoing_email[0]->value;
-
     require(ROOT_PATH . '/core/email.php');
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
@@ -272,7 +249,7 @@ if (isset($_GET['action'])) {
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
         'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/errors'),
         'ENABLE_MAILER' => $language->get('admin', 'enable_mailer'),
-        'ENABLE_MAILER_VALUE' => $php_mailer,
+        'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
         'INFO' => $language->get('general', 'info'),
         'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help', [
             'docLinkStart' => "<a href='https://docs.namelessmc.com/home#translations' target='_blank'>",
@@ -288,7 +265,7 @@ if (isset($_GET['action'])) {
         ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
-        'OUTGOING_EMAIL_VALUE' => Output::getClean($outgoing_email),
+        'OUTGOING_EMAIL_VALUE' => Output::getClean(Util::getSetting('outgoing_email')),
         'USERNAME' => $language->get('user', 'username'),
         'USERNAME_VALUE' => (!empty($GLOBALS['email']['username']) ? Output::getClean($GLOBALS['email']['username']) : ''),
         'PASSWORD' => $language->get('user', 'password'),

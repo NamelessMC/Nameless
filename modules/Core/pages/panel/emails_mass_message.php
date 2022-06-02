@@ -71,11 +71,8 @@ if (Input::exists()) {
     }
 }
 
-$php_mailer = DB::getInstance()->get('settings', ['name', 'phpmailer'])->results();
-$php_mailer = $php_mailer[0]->value;
-
-$outgoing_email = DB::getInstance()->get('settings', ['name', 'outgoing_email'])->results();
-$outgoing_email = $outgoing_email[0]->value;
+$php_mailer = Util::getSetting('phpmailer');
+$outgoing_email = Util::getSetting('outgoing_email');
 
 require(ROOT_PATH . '/core/email.php');
 
