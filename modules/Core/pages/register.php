@@ -108,10 +108,6 @@ if ($minecraft == '1') {
 
 $captcha = CaptchaBase::isCaptchaEnabled();
 
-// Is email verification enabled?
-$email_verification = DB::getInstance()->get('settings', ['name', 'email_verification'])->results();
-$email_verification = $email_verification[0]->value;
-
 $integrations = Integrations::getInstance();
 
 Session::put('oauth_method', 'register');
@@ -372,7 +368,7 @@ if (Input::exists()) {
                             'language' => $language,
                         ]);
 
-                        if ($email_verification == '1') {
+                        if (Util::getSetting('email_verification') === '1') {
                             // Send registration email
                             sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 

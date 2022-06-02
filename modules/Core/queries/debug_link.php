@@ -174,9 +174,9 @@ $data = [
         'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
         'update_checked' => (int) Util::getSetting('version_checked'),
         'settings' => [
-            'phpmailer' => (bool) Util::getSetting('phpmailer'),
-            'api_enabled' => (bool) Util::getSetting('use_api'),
-            'email_verification' => (bool) Util::getSetting('email_verification'),
+            'phpmailer' => Util::getSetting('phpmailer') === '1',
+            'api_enabled' => Util::getSetting('use_api') === '1',
+            'email_verification' => Util::getSetting('email_verification') === '1',
             'login_method' => Util::getSetting('login_method'),
             'captcha_type' => Util::getSetting('recaptcha_type'),
             'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
