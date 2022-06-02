@@ -269,7 +269,6 @@
     "admin/log_file_not_found": "File di log non trovato.",
     "admin/log_purged_successfully": "Log eliminati con successo.",
     "admin/login_method": "Metodo di login",
-    "admin/mailer_settings_info": "I seguenti campi sono obbligatori se hai attivato PHPMailer. Per maggiori informazioni su come riempire questi campi controlla {{docLinkStart}}la wiki{{docLinkEnd}}.",
     "admin/main_group": "Main Group",
     "admin/maintenance": "Manutenzione",
     "admin/maintenance_enabled": "La modalità di manutenzione è attualmente abilitata.",

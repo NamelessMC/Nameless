@@ -208,7 +208,6 @@
     "admin/log_file_not_found": "Žurnalo failas nerastas.",
     "admin/log_purged_successfully": "Žurnalas buvo sėkmingai ištrintas.",
     "admin/login_method": "Prisijungimo metodas",
-    "admin/mailer_settings_info": "Šie laukai reikalingi, jei įjungėte PHPMailer. Norėdami gauti daugiau informacijos, kaip užpildyti šiuos laukus, patikrinkite {{docLinkStart}}wiki{{docLinkEnd}}.",
     "admin/maintenance": "Priežiūra",
     "admin/maintenance_enabled": "Priežiūros režimas šiuo metu yra įjungtas.",
     "admin/maintenance_message_max_1024": "Prašome įsitikinti, kad jūsų priežiūros žinutė yra ne ilgesne kaip 1024 simboliai.",

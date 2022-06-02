@@ -216,7 +216,6 @@
     "admin/logo_image_x": "Logo image: {{imageName}}",
     "admin/logo_reset_successfully": "Logo reset successfully.",
     "admin/logo_updated_successfully": "Logo updated successfully.",
-    "admin/mailer_settings_info": "Următoarele câmpuri sunt necesare dacă ați activat PHPMailer. Pentru mai multe informații despre completarea acestor câmpuri, consultați {{docLinkStart}}wiki-ul{{docLinkEnd}}.",
     "admin/main_group": "Main Group",
     "admin/maintenance": "Întreținere",
     "admin/maintenance_enabled": "Modul de întreținere este activat în prezent.",

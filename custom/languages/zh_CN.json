@@ -292,7 +292,6 @@
     "admin/login_method": "登录方式",
     "admin/logo_reset_successfully": "图标重置成功。",
     "admin/logo_updated_successfully": "图标更新成功。",
-    "admin/mailer_settings_info": "如果启用了 PHPMailer，则必须填写以下字段。 更多的填写信息请点击 {{docLinkStart}}NamelessMC Wiki相关页面{{docLinkEnd}}.",
     "admin/main_group": "主权限组",
     "admin/maintenance": "维护模式",
     "admin/maintenance_enabled": "维护模式当前正在启用",

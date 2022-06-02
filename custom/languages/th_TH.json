@@ -288,7 +288,6 @@
     "admin/logo_image_x": "ภาพโลโก้: {{imageName}}",
     "admin/logo_reset_successfully": "รีเซ็ตโลโก้สำเร็จแล้ว",
     "admin/logo_updated_successfully": "อัปเดตโลโก้เรียบร้อยแล้ว",
-    "admin/mailer_settings_info": "ต้องระบุฟิลด์ต่อไปนี้หากคุณเปิดใช้งาน PHPMailer สําหรับข้อมูลเพิ่มเติมเกี่ยวกับวิธีการกรอกข้อมูลเหล่านี้โปรดดูที่ {{docLinkStart}}the wiki{{docLinkEnd}}.",
     "admin/main_group": "กลุ่มหลัก",
     "admin/maintenance": "การบํารุงรักษา",
     "admin/maintenance_enabled": "โหมดการแก้ไขปรับปรุงเปิดใช้งานอยู่ในขณะนี้",

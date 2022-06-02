@@ -285,7 +285,6 @@
     "admin/log_file_not_found": "Plik z logami nie został znaleziony.",
     "admin/log_purged_successfully": "Log został wyczyszczony pomyślnie.",
     "admin/login_method": "Metoda logowania",
-    "admin/mailer_settings_info": "Następujące pola są wymagane, jeśli masz włączony PHPMailer. Aby uzyskać więcej informacji na temat wypełniania tych pól, przeczytaj {{docLinkStart}}ten{{docLinkEnd}} artykuł w NamelessMC wiki.",
     "admin/main_group": "Main Group",
     "admin/maintenance": "Konserwacja",
     "admin/maintenance_enabled": "Tryb konserwacji jest aktualnie włączony.",

@@ -295,7 +295,6 @@
     "admin/logo_image_x": "Imagem do logotipo: {{imageName}}",
     "admin/logo_reset_successfully": "Logotipo redefinido com sucesso.",
     "admin/logo_updated_successfully": "Logo atualizado com sucesso.",
-    "admin/mailer_settings_info": "Os campos a seguir são necessários se você tiver habilitado o PHPMailer. Para obter mais informações sobre como preencher esses campos, confira {{docLinkStart}}a wiki{{docLinkEnd}}.",
     "admin/main_group": "Grupo principal",
     "admin/maintenance": "Manutenção",
     "admin/maintenance_enabled": "O modo de manutenção está ativado no momento.",

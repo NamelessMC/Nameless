@@ -296,7 +296,6 @@
     "admin/logo_image_x": "Obrázok loga: {{imageName}}",
     "admin/logo_reset_successfully": "Logo bolo úspešne resetované.",
     "admin/logo_updated_successfully": "Logo bolo úspešne aktualizované.",
-    "admin/mailer_settings_info": "Nasledujúce polia sú povinné, ak ste povolili PHPMailer. Ďalšie informácie o tom, ako vyplniť tieto polia, nájdete na {{docLinkStart}}wiki{{docLinkEnd}}.",
     "admin/main_group": "Hlavná skupina",
     "admin/maintenance": "Údržba",
     "admin/maintenance_enabled": "Režim údržby je momentálne povolený.",

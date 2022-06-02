@@ -289,7 +289,6 @@
     "admin/logo_image_x": "Logo afbeelding: {{imageName}}",
     "admin/logo_reset_successfully": "Logo is met succes gereset.",
     "admin/logo_updated_successfully": "Logo is met succes aangepast.",
-    "admin/mailer_settings_info": "De volgende velden zijn nodig als je PHPMailer aan hebt gezet. Voor meer informatie over hoe je deze velden moet invullen, bekijk dan {{docLinkStart}}de NamelessMC documentatie{{docLinkEnd}}.",
     "admin/main_group": "Hoofdgroep",
     "admin/maintenance": "Onderhoud",
     "admin/maintenance_enabled": "Onderhoud modus staat nu aan.",

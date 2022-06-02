@@ -276,7 +276,6 @@
     "admin/logo_image_x": "Logotypbild: {{imageName}}",
     "admin/logo_reset_successfully": "Logotypen har återställts.",
     "admin/logo_updated_successfully": "Logotypen har uppdaterats.",
-    "admin/mailer_settings_info": "De följande fälten krävs om du har aktiverat PHPMailer, se {{docLinkStart}}dokumentationen{{docLinkEnd}}.",
     "admin/main_group": "Huvudgrupp",
     "admin/maintenance": "Uppbyggnadsläge",
     "admin/maintenance_enabled": "Uppbyggnadsläge är nuvarande inaktiverat",
