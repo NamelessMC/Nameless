@@ -355,7 +355,7 @@
                 if (!url.startsWith('https://debug.namelessmc.com/')) {
                     $('#show_debug_modal').addClass('btn-danger');
                     $('#debug_link_error').show();
-                    console.log(url);
+                    console.error(url);
                     $('body').toast({
                         showIcon: 'fa-solid fa-circle-info move-right',
                         message: 'Could not create debug link. Check console for information.',
