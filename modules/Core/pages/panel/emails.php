@@ -158,7 +158,7 @@ if (isset($_GET['action'])) {
                 Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
             } else {
-                Util::setSetting('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0')
+                Util::setSetting('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
 
                 if (!empty($_POST['email'])) {
                     Util::setSetting('outgoing_email', $_POST['email']);

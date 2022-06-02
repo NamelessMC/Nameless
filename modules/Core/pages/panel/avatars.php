@@ -114,7 +114,7 @@ $smarty->assign([
     'CUSTOM_AVATARS' => $language->get('admin', 'allow_custom_avatars'),
     'CUSTOM_AVATARS_VALUE' => Util::getSetting('users_avatars'),
     'DEFAULT_AVATAR' => $language->get('admin', 'default_avatar'),
-    'DEFAULT_AVATAR_VALUE' => Utils::getSetting('default_avatar_type'),
+    'DEFAULT_AVATAR_VALUE' => Util::getSetting('default_avatar_type'),
     'MINECRAFT_AVATAR' => $language->get('admin', 'minecraft_avatar'),
     'CUSTOM_AVATAR' => $language->get('admin', 'custom_avatar'),
     'MINECRAFT_AVATAR_SOURCE' => $language->get('admin', 'minecraft_avatar_source'),
