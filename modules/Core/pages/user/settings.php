@@ -241,7 +241,7 @@ if (isset($_GET['do'])) {
                             $new_template = $user->data()->theme_id;
                         }
 
-                        $timezone = Output::getClean(Input::get('timezone'));
+                        $timezone = Input::get('timezone');
 
                         if ($user->hasPermission('usercp.signature')) {
                             $signature = Input::get('signature');

@@ -107,13 +107,7 @@ if (Input::exists()) {
 
             // Timezone
             try {
-                DB::getInstance()->update('settings', ['name', 'timezone'], [
-                    'value' => Output::getClean($_POST['timezone'])
-                ]);
-
-                // Cache
-                $cache->setCache('timezone_cache');
-                $cache->store('timezone', Output::getClean($_POST['timezone']));
+                Util::setSetting('timezone', $_POST['timezone']);
             } catch (Exception $e) {
                 $errors = [$e->getMessage()];
             }

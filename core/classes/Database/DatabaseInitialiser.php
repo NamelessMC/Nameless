@@ -195,8 +195,6 @@ class DatabaseInitialiser {
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
         Util::setSetting('timezone', 'Europe/London');
-        $this->_cache->setCache('timezone_cache');
-        $this->_cache->store('timezone', 'Europe/London');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
         $this->_cache->setCache('maintenance_cache');
         $this->_cache->store('maintenance', [

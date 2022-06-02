@@ -168,17 +168,7 @@ if ($page != 'install') {
     }
 
     // Set timezone
-    if ($user->isLoggedIn()) {
-        define('TIMEZONE', $user->data()->timezone);
-    } else {
-        $cache->setCache('timezone_cache');
-        if ($cache->isCached('timezone')) {
-            define('TIMEZONE', $cache->retrieve('timezone'));
-        } else {
-            define('TIMEZONE', 'Europe/London');
-        }
-    }
-
+    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Util::getSetting('timezone', 'Europe/London'));
     date_default_timezone_set(TIMEZONE);
 
     // Language

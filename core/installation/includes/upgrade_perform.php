@@ -850,8 +850,6 @@ switch ($s) {
             'name' => 'timezone',
             'value' => 'Europe/London'
         ]);
-        $cache->setCache('timezone_cache');
-        $cache->store('timezone', 'Europe/London');
 
         DB::getInstance()->insert('settings', [
             'name' => 'maintenance_message',
