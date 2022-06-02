@@ -207,6 +207,11 @@ class Pre13 extends UpgradeScript {
             }
         }
 
+        // add captcha default
+        if (Util::getSetting('recaptcha_type') == null) {
+            Util::getSetting('recaptcha_type', 'Recaptcha3');
+        }
+
         // delete old class files
         $this->deleteFiles([
             'core/classes/Alert.php',
