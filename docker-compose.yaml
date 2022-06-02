@@ -59,7 +59,7 @@ services:
             NAMELESS_DEBUGGING: 'enabled'
             NAMELESS_AUTO_INSTALL: 'yes please'
             NAMELESS_ALWAYS_INSTALL_DEPENDENCIES: 'yes please'
-            NAMELESS_DISABLE_EMAIL_VERIFICATION: 1
+            NAMELESS_EMAIL_VERIFICATION: '0'
 
     db:
         image: mariadb
