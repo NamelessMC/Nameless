@@ -324,6 +324,13 @@ class DatabaseInitialiser {
             'last_edited' => date('U'),
         ]);
 
+        // Must be updated afterwards due of foreign key
+        $this->_db->update('forums', 2, [
+            'last_post_date' => date('U'),
+            'last_user_posted' => 1,
+            'last_topic_posted' => 1,
+        ]);
+
         // Permissions
         for ($i = 0; $i < 4; $i++) {
             for ($n = 1; $n < 3; $n++) {

@@ -5,7 +5,7 @@
  * this script was made with the primary goal of making the install process automatic for hosting providers + our API test suite.
  */
 
-function getEnvVar(string $name, string $fallback = null) {
+function getEnvVar(string $name, string $fallback = null, array $valid_values = null) {
     $value = getenv($name);
     $required = $fallback === null;
 
@@ -17,6 +17,11 @@ function getEnvVar(string $name, string $fallback = null) {
     if (!$value && $fallback !== null) {
         $value = $fallback;
         print("ℹ️  Environment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL);
+    }
+
+    if ($valid_values != null && !in_array($value, $valid_values)) {
+        print("⚠️  Environment variable '$name' has invalid value");
+        exit(1);
     }
 
     return $value;
@@ -150,7 +155,7 @@ DatabaseInitialiser::runPreUser($conf);
 Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
 Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getenv('NAMELESS_DISABLE_EMAIL_VERIFICATION') != null ? '1' : '0');
+Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', $valid_values = ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 
