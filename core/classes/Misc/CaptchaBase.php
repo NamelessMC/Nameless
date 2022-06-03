@@ -81,7 +81,7 @@ abstract class CaptchaBase {
             return false;
         }
 
-        return Util::getSetting($key) === 'true';
+        return Util::getSetting($key) === '1';
     }
 
     /**

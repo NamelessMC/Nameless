@@ -62,68 +62,46 @@ if (Input::exists()) {
                 // reCAPTCHA type
                 Util::setSetting('recaptcha_type', Input::get('captcha_type'));
 
-                // Verify if the captha inputted is correct (if enabled)
-                if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
-                    if (
-                        (
-                            CaptchaBase::isCaptchaEnabled('recaptcha_login')
-                            || CaptchaBase::isCaptchaEnabled()
-                        )
-                        && (
-                            CaptchaBase::getActiveProvider()->validateSecret(Input::get('recaptcha_secret')) == false
-                            || CaptchaBase::getActiveProvider()->validateKey(Input::get('recaptcha')) == false
-                        )
-                    ) {
-                        $errors = [$language->get('admin', 'invalid_recaptcha_settings', [
+                // Validate captcha key and secret key
+                if (!empty(Input::get('recaptcha_key')) || !empty(Input::get('recaptcha_secret')) || Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                    $provider = CaptchaBase::getActiveProvider();
+                    if ($provider->validateSecret(Input::get('recaptcha_secret')) == false || $provider->validateKey(Input::get('recaptcha')) == false) {
+                        $errors[] = $language->get('admin', 'invalid_recaptcha_settings', [
                             'recaptchaProvider' => Util::bold(Input::get('captcha_type'))
-                        ])];
+                        ]);
+
                     } else {
-                        // reCAPTCHA enabled?
-                        if (Input::get('enable_recaptcha') == 1) {
-                            $captcha = 'true';
-                        } else {
-                            $captcha = 'false';
-                        }
-
-
-                        DB::getInstance()->update('settings', ['name', 'recaptcha'], [
-                            'value' => $captcha
-                        ]);
-
-                        // Login reCAPTCHA enabled?
-                        if (Input::get('enable_recaptcha_login') == 1) {
-                            $captcha = 'true';
-                        } else {
-                            $captcha = 'false';
-                        }
-
-                        DB::getInstance()->update('settings', ['name', 'recaptcha_login'], [
-                            'value' => $captcha
-                        ]);
-
-                        // Config value
-                        if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
-                            if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                                // Require config
-                                if (isset($path) && file_exists($path . 'core/config.php')) {
-                                    $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
-                                } else {
-                                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-                                }
-
-                                if (is_array($loadedConfig)) {
-                                    $GLOBALS['config'] = $loadedConfig;
-                                }
-
-                                Config::set('core/captcha', true);
-                            } else {
-                                $errors = [$language->get('admin', 'config_not_writable')];
-                            }
-                        }
-
-                        // Save settings
                         Util::setSetting('recaptcha_key', Input::get('recaptcha'));
                         Util::setSetting('recaptcha_secret', Input::get('recaptcha_secret'));
+                    }
+                } else if (empty(Input::get('recaptcha_key')) && empty(Input::get('recaptcha_secret'))) {
+                    Util::setSetting('recaptcha_key', '');
+                    Util::setSetting('recaptcha_secret', '');
+                }
+
+                // Can enable captcha?
+                if (!count($errors)) {
+                    Util::setSetting('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] == '1') ? '1' : '0');
+                    Util::setSetting('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] == '1') ? '1' : '0');
+
+                    // Config value
+                    if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                        if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+                            // Require config
+                            if (isset($path) && file_exists($path . 'core/config.php')) {
+                                $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
+                            } else {
+                                $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
+                            }
+
+                            if (is_array($loadedConfig)) {
+                                $GLOBALS['config'] = $loadedConfig;
+                            }
+
+                            Config::set('core/captcha', true);
+                        } else {
+                            $errors = [$language->get('admin', 'config_not_writable')];
+                        }
                     }
                 }
 

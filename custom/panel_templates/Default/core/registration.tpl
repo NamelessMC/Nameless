@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group custom-control custom-switch">
                                     <input id="InputEnableRecaptcha" name="enable_recaptcha" type="checkbox"
-                                        class="custom-control-input" value="1" {if $CAPTCHA_GENERAL_VALUE eq 'true' }
+                                        class="custom-control-input" value="1" {if $CAPTCHA_GENERAL_VALUE eq 1}
                                         checked{/if}>
                                     <label class="custom-control-label" for="InputEnableRecaptcha">
                                         {$CAPTCHA_GENERAL}
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="form-group custom-control custom-switch">
                                     <input id="InputEnableRecaptchaLogin" name="enable_recaptcha_login" type="checkbox"
-                                        class="custom-control-input" value="1" {if $CAPTCHA_LOGIN_VALUE eq 'true' }
+                                        class="custom-control-input" value="1" {if $CAPTCHA_LOGIN_VALUE eq 1}
                                         checked{/if} />
                                     <label class="custom-control-label" for="InputEnableRecaptchaLogin">
                                         {$CAPTCHA_LOGIN}
