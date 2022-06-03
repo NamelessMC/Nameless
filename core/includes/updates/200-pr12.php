@@ -11,7 +11,7 @@ class Pre13 extends UpgradeScript {
             $arr = [
                 ['name' => 'Core', 'priority' => 1]
             ];
-            if ($db->query("SELECT enabled from nl2_modules WHERE name = 'Forum'")->count() > 0) {
+            if ($db->query("SELECT enabled FROM nl2_modules WHERE name = 'Forum' AND enabled = 1")->count() > 0) {
                 $arr[] = ['name' => 'Forum', 'priority' => 2];
             }
             $this->_cache->store('enabled_modules', $arr);
