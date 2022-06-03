@@ -225,6 +225,7 @@
         $(function () {
             $('.groupColour').colorpicker({
                 format: 'hex',
+                'color': '{$GROUP_USERNAME_COLOUR_VALUE}'
             });
 
             $('.groupColour').on('colorpickerChange', function (event) {
