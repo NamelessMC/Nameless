@@ -211,10 +211,11 @@ if (isset($_GET['do'])) {
                 if ($validation->passed()) {
                     try {
                         // Update language, template and timezone
-                        $new_language = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
+                        $new_language_results = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
 
-                        if (count($new_language)) {
-                            $new_language = $new_language[0]->id;
+                        if (count($new_language_results)) {
+                            $new_language = $new_language_results[0]->id;
+                            $language = new Language('core', $new_language_results[0]->short_code);
                         } else {
                             $new_language = $user->data()->language_id;
                         }
