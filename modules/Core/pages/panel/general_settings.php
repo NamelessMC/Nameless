@@ -254,7 +254,10 @@ $smarty->assign([
     'CONTACT_EMAIL_ADDRESS_VALUE' => $contact_email,
     'INFO' => $language->get('general', 'info'),
     'DEFAULT_LANGUAGE' => $language->get('admin', 'default_language'),
-    'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help'),
+    'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help', [
+        'docLinkStart' => "<a href='https://docs.namelessmc.com/home#translations' target='_blank'>",
+        'docLinkEnd' => '</a>'
+    ]),
     'DEFAULT_LANGUAGE_VALUES' => $languages,
     'INSTALL_LANGUAGE_LINK' => URL::build('/panel/core/general_settings/', 'do=installLanguage'),
     'INSTALL_LANGUAGE' => $language->get('admin', 'install_language'),
@@ -274,7 +277,10 @@ $smarty->assign([
     'HOMEPAGE_VALUE' => Util::getSetting('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => Config::get('core/friendly'),
-    'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help'),
+    'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
+        'docLinkStart' => "<a href='https://docs.namelessmc.com/friendly-urls' target='_blank'>",
+        'docLinkEnd' => '</a>'
+    ]),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),
     'PRIVATE_PROFILES' => $language->get('admin', 'private_profiles'),
