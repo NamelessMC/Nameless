@@ -47,5 +47,6 @@
     "discord_integration/unable_to_set_discord_id": "Не удалось установить Discord ID.",
     "discord_integration/unable_to_update_discord_bot_username": "Не удалось обновить никнейм бота в Discord.",
     "discord_integration/unable_to_update_discord_roles": "Не удалось обновить роли в Discord.",
-    "discord_integration/unable_to_update_discord_username": "Не удалось обновить никнеймы в Discord."
+    "discord_integration/unable_to_update_discord_username": "Не удалось обновить никнеймы в Discord.",
+    "discord_integration/discord_widget_error": "Произошла ошибка при Discord виджете: {{error}}."
 }
