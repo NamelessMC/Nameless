@@ -408,10 +408,10 @@ class User {
      */
     public function getDisplayname(bool $username = false): string {
         if ($username) {
-            return $this->data()->username;
+            return Output::getClean($this->data()->username);
         }
 
-        return $this->data()->nickname;
+        return Output::getClean($this->data()->nickname);
     }
 
     /**

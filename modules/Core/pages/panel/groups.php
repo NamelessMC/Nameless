@@ -87,7 +87,8 @@ if (isset($_GET['action'])) {
                                 'staff' => Input::get('staff'),
                                 'default_group' => $default,
                                 'order' => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
-                                'force_tfa' => Input::get('tfa')
+                                'force_tfa' => Input::get('tfa'),
+                                'permissions' => '{}',
                             ]);
 
                             $group_id = DB::getInstance()->lastId();

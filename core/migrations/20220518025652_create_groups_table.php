@@ -16,7 +16,7 @@ final class CreateGroupsTable extends AbstractMigration
             ->addColumn('group_username_css', 'string', ['length' => 256, 'null' => true, 'default' => null])
             ->addColumn('admin_cp', 'boolean', ['default' => false])
             ->addColumn('staff', 'boolean', ['default' => false])
-            ->addColumn('permissions', 'text', ['default' => '[]'])
+            ->addColumn('permissions', 'text')
             ->addColumn('default_group', 'boolean', ['default' => false])
             ->addColumn('order', 'integer', ['length' => 11, 'default' => 1])
             ->addColumn('force_tfa', 'boolean', ['default' => false])

@@ -27,7 +27,7 @@ class Configuration {
      * @return mixed The configuration value
      */
     public function get(string $setting) {
-        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . 'settings';
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . '_settings';
         $data = DB::getInstance()->query("SELECT value FROM $table WHERE `name` = ?", [$setting]);
         if ($data->count()) {
             $results = $data->results();
@@ -44,7 +44,7 @@ class Configuration {
      * @param mixed $value New value
      */
     public function set(string $setting, $value): void {
-        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . 'settings';
+        $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . '_settings';
         DB::getInstance()->query("UPDATE $table SET `value` = ? WHERE `name` = ?", [
             $value,
             $setting,

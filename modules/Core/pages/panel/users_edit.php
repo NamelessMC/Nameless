@@ -136,8 +136,6 @@ if (Input::exists()) {
 
             if ($validation->passed() && $passed) {
                 try {
-                    $signature = Output::getClean($signature);
-
                     $private_profile_active = Util::getSetting('private_profile');
                     $private_profile = 0;
 

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -10,13 +10,13 @@
  */
 
 // Get page info from URL
-$custom_page = DB::getInstance()->get('custom_pages', ['url', rtrim($route, '/')])->results();
-if (!count($custom_page)) {
+$custom_page = DB::getInstance()->get('custom_pages', ['url', rtrim($route, '/')]);
+if (!$custom_page->count()) {
     require(ROOT_PATH . '/404.php');
     die();
 }
 
-$custom_page = $custom_page[0];
+$custom_page = $custom_page->first();
 
 // Check permissions
 $perms = DB::getInstance()->get('custom_pages_permissions', ['page_id', $custom_page->id])->results();
@@ -75,7 +75,11 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 $smarty->assign([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => Util::renderEmojis((($custom_page->all_html == 0) ? Output::getPurified($custom_page->content) : Output::getClean($custom_page->content)))
+    'CONTENT' => Util::renderEmojis(
+        $custom_page->all_html
+            ? Output::getDecoded($custom_page->content)
+            : Output::getPurified($custom_page->content)
+    )
 ]);
 
 $template->onPageLoad();

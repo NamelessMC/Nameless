@@ -58,7 +58,7 @@ if (!is_string($update_check)) {
     if ($update_check->updateAvailable()) {
         $smarty->assign([
             'INSTRUCTIONS' => $language->get('admin', 'instructions'),
-            'INSTRUCTIONS_VALUE' => Output::getPurified($update_check->instructions()),
+            'INSTRUCTIONS_VALUE' => Output::getDecoded($update_check->instructions()),
             'UPGRADE_LINK' => URL::build('/panel/upgrade'),
             'DOWNLOAD_LINK' => $update_check->gitHubLink(),
             'DOWNLOAD' => $language->get('admin', 'download'),

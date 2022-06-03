@@ -16,24 +16,11 @@ class UpdateCheck {
     }
 
     public function hasError(): bool {
-        return $this->_response['error'] || !$this->validResponse();
-    }
-
-    private function validResponse(): bool {
-        return isset(
-            $this->_response['error'],
-            $this->_response['update_available'],
-            $this->_response['name'],
-            $this->_response['version_tag'],
-            $this->_response['required_version'],
-            $this->_response['github_link'],
-            $this->_response['checksum'],
-            $this->_response['install_instructions']
-        );
+        return !count($this->_response) || $this->_response['error'];
     }
 
     public function getErrorMessage(): string {
-        return $this->_response['message'] ?? 'Invalid response from server';
+        return $this->_response['message'] ?? 'Invalid response from server: ' . json_encode($this->_response);
     }
 
     public function updateAvailable(): bool {

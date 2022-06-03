@@ -658,3 +658,29 @@ NamelessMC version 2 Changelog
 - Translation updates
 - PHP 8 improvements
 - Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr11...v2.0.0-pr12
+
+2.0.0 pr-13
+- Discord + Google OAuth support
+- New user verification system
+- New cookie consent module
+- Migration to Composer + Yarn
+- Database migration system + new upgrade class
+- Improved database indexing
+- New hook system for forum/private message post rendering, including better codeblock + mentions support
+- Automatic user language detection
+- Show unsupported banner to Internet Explorer users
+- Contact page removed
+- Webhook for reports, announcements, bans, warnings
+- API additions including new ban user endpoint
+- ListUsers API endpoint pagination
+- Update to Font Awesome 6
+- Use Guzzle for HTTP requests
+- Custom date format support
+- Replace API error codes with namespaced strings
+- Fix issue using certain characters in URLs
+- Removed CKEditor
+- Frontend and backend template updates
+- PHP 8 improvements
+- Many more features + bugfixes!
+- Milestone: https://github.com/NamelessMC/Nameless/issues?page=1&q=is%3Aissue+milestone%3A2.0.0-pr13+is%3Aclosed
+- Full changeset https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr12...v2.0.0-pr13
