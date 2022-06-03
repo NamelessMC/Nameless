@@ -679,6 +679,7 @@ NamelessMC version 2 Changelog
 - Replace API error codes with namespaced strings
 - Fix issue using certain characters in URLs
 - Removed CKEditor
+- Frontend and backend template updates
 - PHP 8 improvements
 - Many more features + bugfixes!
 - Milestone: https://github.com/NamelessMC/Nameless/issues?page=1&q=is%3Aissue+milestone%3A2.0.0-pr13+is%3Aclosed
