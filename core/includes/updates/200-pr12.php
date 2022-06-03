@@ -45,6 +45,28 @@ class Pre13 extends UpgradeScript {
             }
         });
 
+        $this->databaseQuery(function (DB $db) {
+            // make the name column in nl2_settings table unique
+            // first remove duplicates
+            $to_delete = $db->query('SELECT s.id FROM nl2_settings s
+                WHERE s.name IN (SELECT name FROM nl2_settings GROUP BY name HAVING count(*) > 1)
+                AND id <> (SELECT MIN(id) FROM nl2_settings WHERE name = s.name)
+            ');
+
+            if ($to_delete->count()) {
+                $items = '(';
+                foreach ($to_delete->results() as $item) {
+                    $items .= ((int)$item->id) . ',';
+                }
+                $items = rtrim($items, ',') . ')';
+
+                $db->query('DELETE FROM nl2_settings WHERE id IN ' . $items);
+            }
+
+            // now add unique constraint
+            $db->query('ALTER TABLE nl2_settings ADD CONSTRAINT UNIQUE(`name`)');
+        });
+
         // delete old "version" row
         $this->databaseQuery(function (DB $db) {
             Util::setSetting('version', null);
@@ -211,19 +233,6 @@ class Pre13 extends UpgradeScript {
         if (Util::getSetting('recaptcha_type') == null) {
             Util::getSetting('recaptcha_type', 'Recaptcha3');
         }
-
-        $this->databaseQuery(function (DB $db) {
-            // make the name column in nl2_settings table unique
-            // first remove duplicates
-            $db->query('
-            DELETE FROM nl2_settings WHERE id IN (
-                SELECT s.id FROM nl2_settings s
-                WHERE s.name IN (SELECT name FROM nl2_settings GROUP BY name HAVING count(*) > 1)
-                AND id <> (SELECT MIN(id) FROM nl2_settings WHERE name = s.name)
-            )');
-            // now add unique constraint
-            $db->query('ALTER TABLE nl2_settings ADD CONSTRAINT UNIQUE(`name`)');
-        });
 
         // delete old class files
         $this->deleteFiles([
