@@ -1215,5 +1215,8 @@
     "admin/test_email_query": "Не получаете в ваших входящих? Попробуйте:",
     "admin/test_email_suggest_1": "Подождите несколько минут и проверьте вашу Спам папку.",
     "admin/test_email_suggest_2": "Обновите DNS рекорды вашего сайта (проверьте SPF & DKIM).",
-    "admin/test_email_suggest_3": "Настройте SMTP сервер. {{docLinkStart}}Прочитать больше »{{docLinkEnd}}"
+    "admin/test_email_suggest_3": "Настройте SMTP сервер. {{docLinkStart}}Прочитать больше »{{docLinkEnd}}",
+    "installer/database_configured": "Датабаза была настроена.",
+    "installer/upgrade_error": "Произошли ошибки при обновлении.",
+    "admin/debug_link_info": "Важно - только делитесь этой ссылкой с людьми которыми вы доверяете!"
 }
