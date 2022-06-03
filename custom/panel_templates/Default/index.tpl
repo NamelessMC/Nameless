@@ -240,7 +240,7 @@
                         backgroundColor: currentPanelTheme === "dark" ? "#161c25" : "#f8f9fc",
                         bodyFontColor: currentPanelTheme === "dark" ? "rgb(189,189,189)" : "#858796",
                         titleFontColor: currentPanelTheme === "dark" ? "rgb(189,189,189)" : "#6e707e",
-                        borderColor: currentPanelTheme !== "dark" ? "#dddfeb" : "",
+                        borderColor: currentPanelTheme !== "dark" ? "#dddfeb" : "#161c25",
                         titleMarginBottom: 10,
                         titleFontSize: 14,
                         borderWidth: 1,
