@@ -14,8 +14,8 @@
     "discord_integration/discord_database_error": "Databáze Nameless Link momentálně není dostupná. Zkuste to prosím znovu za chvíli.",
     "discord_integration/discord_guild_id": "ID Discord serveru",
     "discord_integration/discord_id_help": "Pro informace, kde nalézt Discord ID, si přečtěte {{linkStart}}toto.{{linkEnd}}",
-    "discord_integration/discord_id_length": "Ujistěte se, že vaše Discord ID je dlouhé 18 znaků.",
-    "discord_integration/discord_id_numeric": "Ujistěte se, že vaše Discord ID obsahuje pouze čísla.",
+    "discord_integration/discord_id_length": "Ujistěte se, že ID vašeho Discord serveru je dlouhé 18 znaků.",
+    "discord_integration/discord_id_numeric": "Ujistěte se, že ID vašeho Discord serveru obsahuje pouze čísla.",
     "discord_integration/discord_id_set": "ID Discordu úspěšně nastaveno",
     "discord_integration/discord_id_taken": "Toto Discord ID je již zabráno.",
     "discord_integration/discord_id_unlinked": "Úspěšně jste odpojili své uživatelské ID.",
@@ -47,5 +47,7 @@
     "discord_integration/discord_bot_check_logs": "Zkuste se podívat po specifičtější chybě (pokud existuje) v Panel -> Zabezpečení -> Všechny protokoly.",
     "discord_integration/discord_bot_error_partsuccess": "Bot nemohl upravit jednu nebo více rolí kvůli nesprávné konfiguraci hierarchie na Discordu.",
     "discord_integration/discord_invite_info": "Pro pozvání bota Nameless Link na váš Discord server klikněte {{inviteLinkStart}}sem{{inviteLinkEnd}}. Poté spusťte příkaz {{command}} pro propojení bota s vaším webem. Můžete také {{selfHostLinkStart}}sami hostovat bota{{selfHostLinkEnd}}.",
-    "discord_integration/discord_widget_disabled": "U zadaného Discord serveru je zakázán widget. Běžte prosím do záložky 'Widget' v nastavení vašeho Discord serveru a ujistěte se, že je možnost povolena a že je ID správné."
+    "discord_integration/discord_widget_disabled": "U zadaného Discord serveru je zakázán widget. Běžte prosím do záložky 'Widget' v nastavení vašeho Discord serveru a ujistěte se, že je možnost povolena a že je ID správné.",
+    "discord_integration/discord_widget_error": "Při načítání Discord widgetu se vyskytla chyba: {{error}}.",
+    "discord_integration/discord_id_required": "Zadejte ID vašeho Discord serveru."
 }
