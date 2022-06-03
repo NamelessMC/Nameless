@@ -55,9 +55,7 @@ if (Input::exists()) {
                 Util::setSetting('email_verification', (isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
 
                 // Registration disabled message
-                DB::getInstance()->update('settings', ['name', 'registration_disabled_message'], [
-                    'value' => Output::getClean(Input::get('message'))
-                ]);
+                Util::setSetting('registration_disabled_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Website registration is disabled.');
 
                 // reCAPTCHA type
                 Util::setSetting('recaptcha_type', Input::get('captcha_type'));
