@@ -12,7 +12,7 @@ final class CreateWidgetsTable extends AbstractMigration
         $table
             ->addColumn('name', 'string', ['length' => 20])
             ->addColumn('enabled', 'boolean', ['default' => false])
-            ->addColumn('pages', 'text', ['default' => '[]'])
+            ->addColumn('pages', 'text')
             ->addColumn('order', 'integer', ['length' => 11, 'default' => 10])
             ->addColumn('location', 'string', ['length' => 5, 'default' => 'right']);
 

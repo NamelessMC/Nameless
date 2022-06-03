@@ -62,6 +62,7 @@ class DatabaseInitialiser {
             'name' => 'Unconfirmed Member',
             'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
             'group_username_color' => '#6c757d',
+            'permissions' => '{}',
             'order' => 4
         ]);
     }
