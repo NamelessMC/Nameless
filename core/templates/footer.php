@@ -50,7 +50,7 @@ if ($social_media != null) {
 // Assign to Smarty variables
 $smarty->assign([
     'SOCIAL_MEDIA_ICONS' => $social_media_icons,
-    'PAGE_LOAD_TIME' => isset($page_loading) && $page_loading == '1',
+    'PAGE_LOAD_TIME' => Util::getSetting('page_loading'),
     'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ]);
 
