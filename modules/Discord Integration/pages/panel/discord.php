@@ -36,7 +36,8 @@ if (Input::exists()) {
                 'discord_guild_id' => [
                     Validate::MIN => Discord::getLanguageTerm('discord_id_length'),
                     Validate::MAX => Discord::getLanguageTerm('discord_id_length'),
-                    Validate::NUMERIC => Discord::getLanguageTerm('discord_id_numeric')
+                    Validate::NUMERIC => Discord::getLanguageTerm('discord_id_numeric'),
+                    Validate::REQUIRED => Discord::getLanguageTerm('discord_id_required'),
                 ]
             ]);
 
