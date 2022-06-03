@@ -33,7 +33,8 @@ if (!isset($_GET['action'])) {
             DB::getInstance()->insert(
                 'widgets',
                 [
-                    'name' => $widget->getName()
+                    'name' => $widget->getName(),
+                    'pages' => '{}'
                 ]
             );
             $widget_query = DB::getInstance()->lastId();
