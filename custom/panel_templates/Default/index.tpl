@@ -179,8 +179,7 @@
         }
 
         graphs = [
-            {foreach from=$GRAPHS item=graph}
-            {
+            {foreach from=$GRAPHS item=graph} {
                 type: 'line',
                 data: {
                     labels: [
@@ -238,12 +237,12 @@
                         ]
                     },
                     tooltips: {
-                        backgroundColor: "rgb(255,255,255)",
-                        bodyFontColor: "#858796",
+                        backgroundColor: currentPanelTheme === "dark" ? "#161c25" : "#f8f9fc",
+                        bodyFontColor: currentPanelTheme === "dark" ? "rgb(189,189,189)" : "#858796",
+                        titleFontColor: currentPanelTheme === "dark" ? "rgb(189,189,189)" : "#6e707e",
+                        borderColor: currentPanelTheme !== "dark" ? "#dddfeb" : "#161c25",
                         titleMarginBottom: 10,
-                        titleFontColor: '#6e707e',
                         titleFontSize: 14,
-                        borderColor: '#dddfeb',
                         borderWidth: 1,
                         xPadding: 15,
                         yPadding: 15,
