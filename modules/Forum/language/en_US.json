@@ -186,5 +186,12 @@
     "forum/topic_id": "Topic ID",
     "forum/post_id": "Post ID",
     "forum/pre_post_create_hook_info": "Pre post create",
-    "forum/user_object": "User object"
+    "forum/user_object": "User object",
+    "forum/no_news": "There are no news posts.",
+    "forum/topic_reply": "Topic reply",
+    "forum/label_type_in_use": "Label type is being used, cannot be deleted.",
+    "forum/new_topic_reply_text": "Topic reply created in {{forum}} by {{author}}",
+    "forum/topic_author_uuid": "Topic author user ID",
+    "forum/topic_author_username": "Topic author username",
+    "forum/topic_author_nickname": "Topic author nickname"
 }

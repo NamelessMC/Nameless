@@ -10,8 +10,8 @@
     "discord_integration/discord_communication_error": "Er was een fout in de communicatie met de Discord Bot. Zorg ervoor dat de bot werkt en dat uw Bot-URL correct is.",
     "discord_integration/discord_database_error": "De Nameless Link database is op dit moment offline. Probeer het later nog eens.",
     "discord_integration/discord_id_help": "Voor informatie over waar je de Discord IDs kunt vinden, lees alsjeblieft {{linkStart}}dit.{{linkEnd}}",
-    "discord_integration/discord_id_length": "Zorg ervoor dat uw Discord ID 18 karakters lang is.",
-    "discord_integration/discord_id_numeric": "Zorg ervoor dat uw Discord ID numeriek is (alleen cijfers).",
+    "discord_integration/discord_id_length": "Zorg ervoor dat uw Discord server ID 18 karakters lang is.",
+    "discord_integration/discord_id_numeric": "Zorg ervoor dat uw Discord server ID numeriek is (alleen cijfers).",
     "discord_integration/discord_id_set": "Discord ID met succes ingesteld",
     "discord_integration/discord_id_taken": "Die Discord Gebruikers-ID is al ingenomen.",
     "discord_integration/discord_id_unlinked": "Succesvol ontkoppeld van uw Discord Gebruikers-ID.",
@@ -47,5 +47,7 @@
     "discord_integration/unable_to_set_discord_bot_url": "Niet mogelijk om de Discord bot URL in te stellen",
     "discord_integration/unable_to_update_discord_roles": "Niet mogelijk om de Discord rollen lijst up te daten.",
     "discord_integration/unable_to_update_discord_username": "Niet in staat om de Discord gebruikersnaam aan te passen.",
-    "discord_integration/no_pending_verification_for_token": "Er zijn geen verificaties in afwachting onder de ingegeven token."
+    "discord_integration/no_pending_verification_for_token": "Er zijn geen verificaties in afwachting onder de ingegeven token.",
+    "discord_integration/discord_widget_error": "Er is een fout opgetreden tijdens het ophalen van de Discord widget: {{error}}.",
+    "discord_integration/discord_id_required": "Vul alsjeblieft je Discord server ID in."
 }

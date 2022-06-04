@@ -1217,5 +1217,6 @@
     "admin/test_email_query": "Nedorazilo? Zkuste následující:",
     "admin/test_email_suggest_1": "Počkejte pár minut a zkontrolujte složku s nevyžádanou poštou.",
     "admin/test_email_suggest_2": "Aktualizujte záznamy DNS vašeho webu (zkontrolujte SPF a DKIM).",
-    "admin/test_email_suggest_3": "Nastavte server SMTP. {{docLinkStart}}Zjistit více »{{docLinkEnd}}"
+    "admin/test_email_suggest_3": "Nastavte server SMTP. {{docLinkStart}}Zjistit více »{{docLinkEnd}}",
+    "admin/debug_link_info": "Důležité - tento odkaz sdílejte pouze s lidmi, kterým důvěřujete!"
 }

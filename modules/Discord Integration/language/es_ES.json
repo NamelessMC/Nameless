@@ -47,5 +47,6 @@
     "discord_integration/get_link_code": "Obtener código de enlace",
     "discord_integration/discord_invite_info": "Para invitar al bot Nameless Link a tu servidor de Discord, haz clic en {{inviteLinkStart}}aquí{{inviteLinkEnd}}. A continuación, ejecuta el comando {{command}} para enlazar el bot con tu sitio web. También puedes {{selfHostLinkStart}}alojar el bot tú mismo{{selfHostLinkEnd}}.",
     "discord_integration/discord_user_id": "ID de usuario de Discord",
-    "discord_integration/discord_widget_disabled": "El widget está desactivado para el servidor de Discord especificado. Ve a la pestaña \"Widget\" en la configuración de tu servidor de Discord y asegúrate de que el widget de Discord está activado y de que el ID es correcto."
+    "discord_integration/discord_widget_disabled": "El widget está desactivado para el servidor de Discord especificado. Ve a la pestaña \"Widget\" en la configuración de tu servidor de Discord y asegúrate de que el widget de Discord está activado y de que el ID es correcto.",
+    "discord_integration/discord_widget_error": "Se ha producido un error al obtener el widget de Discord: {{error}}."
 }
