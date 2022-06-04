@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -150,7 +150,7 @@ class Core_Module extends Module {
 
                     // Get redirect URL if enabled
                     if ($custom_page->redirect == 1) {
-                        $redirect = Output::getClean($custom_page->link);
+                        $redirect = $custom_page->link;
                     }
 
                     $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);

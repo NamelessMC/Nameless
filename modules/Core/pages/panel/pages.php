@@ -496,7 +496,7 @@ if (!isset($_GET['action'])) {
                 'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
                 'PAGE_REDIRECT_VALUE' => $page->redirect,
                 'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
-                'PAGE_REDIRECT_TO_VALUE' => (isset($_POST['redirect_link']) ? Output::getClean(Input::get('redirect_link')) : $page->link),
+                'PAGE_REDIRECT_TO_VALUE' => (isset($_POST['redirect_link']) ? Output::getClean(Input::get('redirect_link')) : Output::getClean($page->link)),
                 'TARGET' => $language->get('admin', 'page_target'),
                 'TARGET_VALUE' => $page->target,
                 'UNSAFE_HTML' => $language->get('admin', 'unsafe_html'),
