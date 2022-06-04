@@ -53,7 +53,7 @@ if (!isset($can_view)) {
 
 if ($custom_page->redirect) {
     header('X-Robots-Tag: noindex, nofollow');
-    Redirect::to(URL::build(Output::getClean($custom_page->link)));
+    Redirect::to(URL::build($custom_page->link));
 }
 
 // Always define page name
