@@ -39,6 +39,10 @@ class DiscordHook {
             ]];
         }
 
+        if (isset($params['color'])) {
+            $return['embeds'][0]['color'] = hexdec($params['color']);
+        }
+
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);
 
         $httpClient = HttpClient::post($params['webhook'], $json, [
