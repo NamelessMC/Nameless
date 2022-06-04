@@ -302,8 +302,8 @@ if (Input::exists()) {
                 'user_id' => $user->data()->id,
                 'username' => $user->data()->username,
                 'nickname' => $user->data()->nickname,
-                'content' => $default_forum_language->get('forum', 'new_topic_reply_text', [
-                    'forum' => $forum_parent[0]->forum_title,
+                'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
+                    'topic' => $topic->topic_title,
                     'author' => $user->getDisplayname(),
                 ]),
                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
