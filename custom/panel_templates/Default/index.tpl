@@ -46,7 +46,7 @@
                         <div class="col-md-9">
                             {if count($GRAPHS)}
                             <!-- Area Chart -->
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-4 statistics">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-white">
@@ -188,28 +188,27 @@
                         {/foreach}
                     ],
                     datasets: [
-                        {foreach from=$graph.datasets item=dataset}
-                            {
-                                fill: false,
-                                borderColor: '{$dataset.colour}',
-                                label: '{$dataset.label}',
-                                yAxisID: '{$dataset.axis}',
-                                lineTension: 0.3,
-                                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                                pointRadius: 3,
-                                pointBackgroundColor: "{$dataset.colour}",
-                                pointBorderColor: "{$dataset.colour}",
-                                pointHoverRadius: 3,
-                                pointHoverBackgroundColor: "{$dataset.colour}",
-                                pointHoverBorderColor: "{$dataset.colour}",
-                                pointHitRadius: 10,
-                                pointBorderWidth: 2,
-                                data: [
-                                    {foreach from=$dataset.data item=data name=ds}
-                                        {$data}{if not $smarty.foreach.ds.last}, {/if}
-                                    {/foreach}
-                                ]
-                            },
+                        {foreach from=$graph.datasets item=dataset} {
+                            fill: false,
+                            borderColor: '{$dataset.colour}',
+                            label: '{$dataset.label}',
+                            yAxisID: '{$dataset.axis}',
+                            lineTension: 0.3,
+                            backgroundColor: "rgba(78, 115, 223, 0.05)",
+                            pointRadius: 3,
+                            pointBackgroundColor: "{$dataset.colour}",
+                            pointBorderColor: "{$dataset.colour}",
+                            pointHoverRadius: 3,
+                            pointHoverBackgroundColor: "{$dataset.colour}",
+                            pointHoverBorderColor: "{$dataset.colour}",
+                            pointHitRadius: 10,
+                            pointBorderWidth: 2,
+                            data: [
+                                {foreach from=$dataset.data item=data name=ds}
+                                    {$data}{if not $smarty.foreach.ds.last}, {/if}
+                                {/foreach}
+                            ]
+                        },
                         {/foreach}
                     ]
                 },
