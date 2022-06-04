@@ -56,11 +56,11 @@
                                 <a href="#" onclick="return deselectAllPerms();">{$DESELECT_ALL}</a>
 
                                 {foreach from=$GROUP_PERMISSIONS item=group}
-                                <div class="custom-control custom-switch" style="margin-top: 5px; margin-bottom: 5px;">
-                                    <input type="hidden" name="perm-use-{$group->id|escape}" value="0">
-                                    <input class="custom-control-input permission-switch"
-                                        name="perm-use-{$group->id|escape}" id="Input-use-{$group->id|escape}" value="1"
-                                        type="checkbox" {if isset($group->can_use_template) && $group->can_use_template
+                                    <div class="custom-control custom-switch" style="margin-top: 5px; margin-bottom: 5px;">
+                                        <input type="hidden" name="perm-use-{$group->id|escape}" value="0">
+                                        <input class="custom-control-input permission-switch"
+                                            name="perm-use-{$group->id|escape}" id="Input-use-{$group->id|escape}" value="1"
+                                            type="checkbox" {if isset($group->can_use_template) && $group->can_use_template
                                     eq 1} checked{/if}>
                                     <label class="custom-control-label" for="Input-use-{$group->id|escape}">
                                         {$group->name|escape}
@@ -108,14 +108,15 @@
 
     <script type="text/javascript">
         function selectAllPerms() {
-            $('#select-deselect-all-target').find('.permission-switch').each(function () {
+            $('#select-deselect-all-target').find('.permission-switch').each(function() {
                 $(this).prop('checked', true);
                 onChange(this);
             });
             return false;
         }
+
         function deselectAllPerms() {
-            $('#select-deselect-all-target').find('.permission-switch').each(function () {
+            $('#select-deselect-all-target').find('.permission-switch').each(function() {
                 $(this).prop('checked', false);
                 onChange(this);
             });

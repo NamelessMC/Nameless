@@ -1,7 +1,7 @@
 {include file='header.tpl'}
 {$CONTENT}
 {foreach from=$TEMPLATE_JS item=script}
-{$script}
+    {$script}
 {/foreach}
 </body>
 

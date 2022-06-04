@@ -50,41 +50,41 @@
                             <br />
 
                             {if count($GROUP_SYNC_VALUES)}
-                            <h5>{$EXISTING_RULES}</h5>
-                            <form action="" method="post">
-                                {foreach from=$GROUP_SYNC_VALUES item=group_sync}
-                                <div class="form-group">
-                                    <div class="row">
+                                <h5>{$EXISTING_RULES}</h5>
+                                <form action="" method="post">
+                                    {foreach from=$GROUP_SYNC_VALUES item=group_sync}
+                                        <div class="form-group">
+                                            <div class="row">
 
-                                        {foreach from=$GROUP_SYNC_INJECTORS key=column_name item=injector}
-                                        <input type="hidden">
-                                        <div class="col-md">
-                                            <label for="input_{$column_name}">{$injector->getName()}</label>
-                                            {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
-                                            <select name="existing[{$group_sync['id']}][{$column_name}]"
-                                                class="form-control" id="input_{$column_name}">
-                                                <option value="0" {if {$group_sync[$column_name]} eq null} selected
-                                                    {/if}>{$NONE} ({$DISABLED})</option>
-                                                {foreach from=$injector->getSelectionOptions() item=group}
-                                                <option value="{$group['id']}" {if $group_sync[$column_name] eq
-                                                    $group['id']} selected {/if}>{$group['name']}</option>
-                                                {/foreach}
-                                            </select>
-                                            {else}
-                                            <p class="text-muted" style="padding-top: 5px">
-                                                {$injector->getNotEnabledMessage($LANGUAGE)}</p>
-                                            <input name="{$column_name}" type="hidden" id="input_{$column_name}">
-                                            {/if}
-                                        </div>
-                                        {/foreach}
+                                                {foreach from=$GROUP_SYNC_INJECTORS key=column_name item=injector}
+                                                    <input type="hidden">
+                                                    <div class="col-md">
+                                                        <label for="input_{$column_name}">{$injector->getName()}</label>
+                                                        {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
+                                                            <select name="existing[{$group_sync['id']}][{$column_name}]"
+                                                                class="form-control" id="input_{$column_name}">
+                                                                <option value="0" {if {$group_sync[$column_name]} eq null} selected
+                                                                    {/if}>{$NONE} ({$DISABLED})</option>
+                                                                {foreach from=$injector->getSelectionOptions() item=group}
+                                                                    <option value="{$group['id']}" {if $group_sync[$column_name] eq
+                                                                    $group['id']} selected {/if}>{$group['name']}</option>
+                                                            {/foreach}
+                                                        </select>
+                                                    {else}
+                                                        <p class="text-muted" style="padding-top: 5px">
+                                                            {$injector->getNotEnabledMessage($LANGUAGE)}</p>
+                                                        <input name="{$column_name}" type="hidden" id="input_{$column_name}">
+                                                    {/if}
+                                                </div>
+                                            {/foreach}
 
-                                        <div class="col-md-1">
-                                            <div style="height:32px"></div>
-                                            <button type="button" onclick="deleteGroupSync('{$group_sync['id']}')"
-                                                class="btn btn-danger">{$DELETE}</button>
+                                            <div class="col-md-1">
+                                                <div style="height:32px"></div>
+                                                <button type="button" onclick="deleteGroupSync('{$group_sync['id']}')"
+                                                    class="btn btn-danger">{$DELETE}</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 {/foreach}
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
@@ -101,24 +101,24 @@
                                     <div class="row">
 
                                         {foreach from=$GROUP_SYNC_INJECTORS item=injector key=column_name}
-                                        <div class="col-md">
-                                            <label for="input_{$column_name}">{$injector->getName()}</label>
-                                            {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
-                                            <select name="{$column_name}" class="form-control"
-                                                id="input_{$column_name}">
-                                                {if $column_name != $NAMELESS_INJECTOR_COLUMN}
-                                                <option value="0">{$NONE} ({$DISABLED})</option>
+                                            <div class="col-md">
+                                                <label for="input_{$column_name}">{$injector->getName()}</label>
+                                                {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
+                                                    <select name="{$column_name}" class="form-control"
+                                                        id="input_{$column_name}">
+                                                        {if $column_name != $NAMELESS_INJECTOR_COLUMN}
+                                                            <option value="0">{$NONE} ({$DISABLED})</option>
+                                                        {/if}
+                                                        {foreach from=$injector->getSelectionOptions() item=group}
+                                                            <option value="{$group['id']}">{$group['name']}</option>
+                                                        {/foreach}
+                                                    </select>
+                                                {else}
+                                                    <p class="text-muted" style="padding-top: 5px">
+                                                        {$injector->getNotEnabledMessage($LANGUAGE)}</p>
+                                                    <input name="{$column_name}" type="hidden" id="input_{$column_name}">
                                                 {/if}
-                                                {foreach from=$injector->getSelectionOptions() item=group}
-                                                <option value="{$group['id']}">{$group['name']}</option>
-                                                {/foreach}
-                                            </select>
-                                            {else}
-                                            <p class="text-muted" style="padding-top: 5px">
-                                                {$injector->getNotEnabledMessage($LANGUAGE)}</p>
-                                            <input name="{$column_name}" type="hidden" id="input_{$column_name}">
-                                            {/if}
-                                        </div>
+                                            </div>
                                         {/foreach}
 
                                     </div>
@@ -155,7 +155,7 @@
     <script type="text/javascript">
         function deleteGroupSync(id) {
             const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
-            response.done(function () { window.location.reload(); })
+            response.done(function() { window.location.reload(); })
         }
     </script>
 

@@ -52,14 +52,14 @@
 
                             <ul>
                                 {if isset($IP_SEARCH)}
-                                {foreach from=$ACCOUNTS item=account}
-                                <li><a href="{$account.account_ips}" style="{$account.style}">{$account.username}</a>
-                                </li>
-                                {/foreach}
+                                    {foreach from=$ACCOUNTS item=account}
+                                        <li><a href="{$account.account_ips}" style="{$account.style}">{$account.username}</a>
+                                        </li>
+                                    {/foreach}
                                 {else}
-                                {foreach from=$ACCOUNTS item=account}
-                                <li><a href="{$account.link}">{$account.ip}</a></li>
-                                {/foreach}
+                                    {foreach from=$ACCOUNTS item=account}
+                                        <li><a href="{$account.link}">{$account.ip}</a></li>
+                                    {/foreach}
                                 {/if}
                             </ul>
 

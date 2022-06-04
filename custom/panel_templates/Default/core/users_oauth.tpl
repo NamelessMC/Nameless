@@ -62,35 +62,35 @@
                                     </thead>
                                     <tbody>
                                         {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
-                                        <tr>
-                                            <td>
-                                                {if $provider_data.icon}
-                                                <i class="{$provider_data.icon} fa-2x align-middle">&nbsp;</i>
-                                                {/if}
-                                                {$provider_name|ucfirst}
-                                            </td>
+                                            <tr>
+                                                <td>
+                                                    {if $provider_data.icon}
+                                                        <i class="{$provider_data.icon} fa-2x align-middle">&nbsp;</i>
+                                                    {/if}
+                                                    {$provider_name|ucfirst}
+                                                </td>
 
-                                            <td>
-                                                {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
-                                                {else}
-                                                <i>{$NOT_LINKED}</i>
-                                                {/if}
-                                            </td>
+                                                <td>
+                                                    {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
+                                                        <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
+                                                    {else}
+                                                        <i>{$NOT_LINKED}</i>
+                                                    {/if}
+                                                </td>
 
-                                            <td class="text-right">
-                                                {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                <button class="btn btn-danger"
-                                                    onclick="showDeleteModal('{$provider_name}')">{$UNLINK}</button>
-                                                {else}
-                                                <button class="btn btn-danger disabled" disabled>{$UNLINK}</button>
-                                                {/if}
-                                            </td>
-                                        </tr>
+                                                <td class="text-right">
+                                                    {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
+                                                        <button class="btn btn-danger"
+                                                            onclick="showDeleteModal('{$provider_name}')">{$UNLINK}</button>
+                                                    {else}
+                                                        <button class="btn btn-danger disabled" disabled>{$UNLINK}</button>
+                                                    {/if}
+                                                </td>
+                                            </tr>
                                         {foreachelse}
-                                        <tr>
-                                            <td colspan="3" class="text-center">{$NO_OAUTH_PROVIDERS}</td>
-                                        </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-center">{$NO_OAUTH_PROVIDERS}</td>
+                                            </tr>
                                         {/foreach}
                                     </tbody>
                                 </table>
@@ -150,7 +150,7 @@
             const id = $('#deleteId').attr('value');
             if (id) {
                 const response = $.post("{$DELETE_LINK}", { user_id: "{$USER_ID}", provider_name: id, action: 'delete', token: "{$TOKEN}" });
-                response.done(function () { window.location.reload(); });
+                response.done(function() { window.location.reload(); });
             }
         }
     </script>

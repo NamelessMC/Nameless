@@ -28,19 +28,19 @@
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 {if $NOTICES|count > 0}
-                <span class="badge badge-danger badge-counter">{$NOTICES|count}</span>
+                    <span class="badge badge-danger badge-counter">{$NOTICES|count}</span>
                 {/if}
             </a>
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="alertsDropdown">
                 {if $NOTICES|count eq 0}
-                <span class="dropdown-item d-flex align-items-center">{$NO_NOTICES}</span>
+                    <span class="dropdown-item d-flex align-items-center">{$NO_NOTICES}</span>
                 {else}
-                {foreach from=$NOTICES key=url item=notice}
-                <a href="{$url}" class="dropdown-item d-flex align-items-center"
-                    style="color:#6c757d!important">{$notice}</a>
-                {/foreach}
+                    {foreach from=$NOTICES key=url item=notice}
+                        <a href="{$url}" class="dropdown-item d-flex align-items-center"
+                            style="color:#6c757d!important">{$notice}</a>
+                    {/foreach}
                 {/if}
             </div>
         </li>

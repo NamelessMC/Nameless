@@ -41,7 +41,8 @@
                                     <p style="margin-top: 7px; margin-bottom: 7px;">{$PLACEHOLDER_LEADERBOARD_INFO}</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <span class="float-md-right"><a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a></span>
+                                    <span class="float-md-right"><a href="{$BACK_LINK}"
+                                            class="btn btn-primary">{$BACK}</a></span>
                                 </div>
                             </div>
                             <hr />
@@ -54,17 +55,12 @@
                                 <input type="hidden" name="token" value="{$TOKEN}">
 
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox"
-                                           id="InputEnableLeaderboard"
-                                           class="custom-control-input"
-                                           name="leaderboard_enabled"
-                                           {if $PLACEHOLDER->leaderboard eq 1}checked{/if}>
+                                    <input type="checkbox" id="InputEnableLeaderboard" class="custom-control-input"
+                                        name="leaderboard_enabled" {if $PLACEHOLDER->leaderboard eq 1}checked{/if}>
                                     <label class="custom-control-label" for="InputEnableLeaderboard">
                                         {$LEADERBOARD_ENABLED}
-                                        <span class="badge badge-info"
-                                              data-toggle="popover"
-                                              data-title="{$INFO}"
-                                              data-content="{$ENABLED_INFO}">
+                                        <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}"
+                                            data-content="{$ENABLED_INFO}">
                                             <i class="fa fa-question"></i>
                                         </span>
                                     </label>
@@ -72,14 +68,17 @@
 
                                 <div class="form-group">
                                     <label for="leaderboard_title">{$LEADERBOARD_TITLE}</label>
-                                    <input type="text" name="leaderboard_title" class="form-control" value="{$PLACEHOLDER->leaderboard_title}">
+                                    <input type="text" name="leaderboard_title" class="form-control"
+                                        value="{$PLACEHOLDER->leaderboard_title}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="leaderboard_sort">{$LEADERBOARD_SORT}</label>
                                     <select name="leaderboard_sort" class="form-control">
-                                        <option value="ASC" {if $PLACEHOLDER->leaderboard_sort eq 'ASC'} selected {/if}>Ascending</option>
-                                        <option value="DESC" {if $PLACEHOLDER->leaderboard_sort eq 'DESC'} selected {/if}>Descending</option>
+                                        <option value="ASC" {if $PLACEHOLDER->leaderboard_sort eq 'ASC'} selected {/if}>
+                                            Ascending</option>
+                                        <option value="DESC" {if $PLACEHOLDER->leaderboard_sort eq 'DESC'} selected
+                                            {/if}>Descending</option>
                                     </select>
                                 </div>
 

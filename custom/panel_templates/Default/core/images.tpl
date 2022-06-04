@@ -45,19 +45,19 @@
                                 <h5><i class="icon fas fa-exclamation-triangle"></i> {$ERRORS_TITLE}</h5>
                                 <ul>
                                     {if isset($BACKGROUNDS_NOT_WRITABLE)}
-                                    <li>{$BACKGROUNDS_NOT_WRITABLE}</li>
+                                        <li>{$BACKGROUNDS_NOT_WRITABLE}</li>
                                     {/if}
 
                                     {if isset($TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE)}
-                                    <li>{$TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE}</li>
+                                        <li>{$TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE}</li>
                                     {/if}
 
                                     {if isset($LOGOS_DIRECTORY_NOT_WRITABLE)}
-                                    <li>{$LOGOS_DIRECTORY_NOT_WRITABLE}</li>
+                                        <li>{$LOGOS_DIRECTORY_NOT_WRITABLE}</li>
                                     {/if}
 
                                     {if isset($FAVICONS_DIRECTORY_NOT_WRITABLE)}
-                                    <li>{$FAVICONS_DIRECTORY_NOT_WRITABLE}</li>
+                                        <li>{$FAVICONS_DIRECTORY_NOT_WRITABLE}</li>
                                     {/if}
                                 </ul>
                             </div>
@@ -68,8 +68,8 @@
                             <form action="" method="post" style="display:inline;">
                                 <select name="banner" class="image-picker show-html">
                                     {foreach from=$BANNER_IMAGES_ARRAY item=image}
-                                    <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
-                                        selected{/if}>{$image.n}</option>
+                                        <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
+                                            selected{/if}>{$image.n}</option>
                                     {/foreach}
                                 </select>
                                 <input type="hidden" name="token" value="{$TOKEN}">
@@ -87,8 +87,8 @@
                             <form action="" method="post" style="display:inline;">
                                 <select name="logo" class="image-picker show-html">
                                     {foreach from=$LOGO_IMAGES_ARRAY item=image}
-                                    <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
-                                        selected{/if}>{$image.n}</option>
+                                        <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
+                                            selected{/if}>{$image.n}</option>
                                     {/foreach}
                                 </select>
                                 <input type="hidden" name="token" value="{$TOKEN}">
@@ -106,8 +106,8 @@
                             <form action="" method="post" style="display:inline;">
                                 <select name="favicon" class="image-picker show-html">
                                     {foreach from=$FAVICON_IMAGES_ARRAY item=image}
-                                    <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
-                                        selected{/if}>{$image.n}</option>
+                                        <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}
+                                            selected{/if}>{$image.n}</option>
                                     {/foreach}
                                 </select>
                                 <input type="hidden" name="token" value="{$TOKEN}">

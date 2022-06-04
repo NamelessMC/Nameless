@@ -54,36 +54,36 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($DEFAULT_TEMPLATE_WARNING)}
-                            <div class="alert bg-warning text-white">{$DEFAULT_TEMPLATE_WARNING}</div>
+                                <div class="alert bg-warning text-white">{$DEFAULT_TEMPLATE_WARNING}</div>
                             {/if}
 
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     {if count($TEMPLATE_DIRS)}
-                                    {foreach from=$TEMPLATE_DIRS item=dir}
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-folder"></i> {$dir.name}
-                                            <div class="float-right">
-                                                <a href="{$dir.link}" class="btn btn-primary btn-sm"><i
-                                                        class="fas fa-search fa-fw"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {/foreach}
+                                        {foreach from=$TEMPLATE_DIRS item=dir}
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-folder"></i> {$dir.name}
+                                                    <div class="float-right">
+                                                        <a href="{$dir.link}" class="btn btn-primary btn-sm"><i
+                                                                class="fas fa-search fa-fw"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {/foreach}
                                     {/if}
                                     {if count($TEMPLATE_FILES)}
-                                    {foreach from=$TEMPLATE_FILES item=file}
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-file"></i> {$file.name}
-                                            <div class="float-right">
-                                                <a href="{$file.link}" class="btn btn-primary btn-sm"><i
-                                                        class="fas fa-edit fa-fw"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {/foreach}
+                                        {foreach from=$TEMPLATE_FILES item=file}
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-file"></i> {$file.name}
+                                                    <div class="float-right">
+                                                        <a href="{$file.link}" class="btn btn-primary btn-sm"><i
+                                                                class="fas fa-edit fa-fw"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {/foreach}
                                     {/if}
                                 </table>
                             </div>

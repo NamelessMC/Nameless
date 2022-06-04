@@ -44,64 +44,64 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($RESULTS)}
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <colgroup>
-                                        <col span="1" style="width: 20%;">
-                                        <col span="1" style="width: 20%;">
-                                        <col span="1" style="width: 20%;">
-                                        <col span="1" style="width: 20%;">
-                                        <col span="1" style="width: 20%;">
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>{$USERNAME}</th>
-                                            <th>{$STAFF}</th>
-                                            <th>{$TYPE}</th>
-                                            <th>{$WHEN}</th>
-                                            <th>{$ACTIONS}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$RESULTS item=result}
-                                        <tr>
-                                            <td><a href="{$result.profile}" style="{$result.style}"><img
-                                                        src="{$result.avatar}" class="rounded"
-                                                        style="max-width:25px;max-height:25px;"> {$result.nickname}
-                                                </a></td>
-                                            <td><a href="{$result.staff_profile}" style="{$result.staff_style}"><img
-                                                        src="{$result.staff_avatar}" class="rounded"
-                                                        style="max-width:25px;max-height:25px;">
-                                                    {$result.staff_nickname}
-                                                </a></td>
-                                            <td>
-                                                {if $result.type_numeric == 1}
-                                                <span class="badge badge-danger">{$result.type}</span>
-                                                {elseif $result.type_numeric == 2}
-                                                <span class="badge badge-warning">{$result.type}</span>
-                                                {elseif $result.type_numeric == 3}
-                                                <span class="badge badge-danger">{$result.type}</span>
-                                                {/if}
-                                                {if $result.revoked == 1}
-                                                <span class="badge badge-info">{$REVOKED}</span>
-                                                {/if}
-                                                {if $result.acknowledged == 1}
-                                                <span class="badge badge-success">{$ACKNOWLEDGED}</span>
-                                                {/if}
-                                            </td>
-                                            <td><span data-toggle="tooltip"
-                                                    data-original-title="{$result.time_full}">{$result.time}</span>
-                                            </td>
-                                            <td><a href="{$result.link}" class="btn btn-info">{$VIEW_USER}</a></td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <br />
-                            {$PAGINATION}
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <colgroup>
+                                            <col span="1" style="width: 20%;">
+                                            <col span="1" style="width: 20%;">
+                                            <col span="1" style="width: 20%;">
+                                            <col span="1" style="width: 20%;">
+                                            <col span="1" style="width: 20%;">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>{$USERNAME}</th>
+                                                <th>{$STAFF}</th>
+                                                <th>{$TYPE}</th>
+                                                <th>{$WHEN}</th>
+                                                <th>{$ACTIONS}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$RESULTS item=result}
+                                                <tr>
+                                                    <td><a href="{$result.profile}" style="{$result.style}"><img
+                                                                src="{$result.avatar}" class="rounded"
+                                                                style="max-width:25px;max-height:25px;"> {$result.nickname}
+                                                        </a></td>
+                                                    <td><a href="{$result.staff_profile}" style="{$result.staff_style}"><img
+                                                                src="{$result.staff_avatar}" class="rounded"
+                                                                style="max-width:25px;max-height:25px;">
+                                                            {$result.staff_nickname}
+                                                        </a></td>
+                                                    <td>
+                                                        {if $result.type_numeric == 1}
+                                                            <span class="badge badge-danger">{$result.type}</span>
+                                                        {elseif $result.type_numeric == 2}
+                                                            <span class="badge badge-warning">{$result.type}</span>
+                                                        {elseif $result.type_numeric == 3}
+                                                            <span class="badge badge-danger">{$result.type}</span>
+                                                        {/if}
+                                                        {if $result.revoked == 1}
+                                                            <span class="badge badge-info">{$REVOKED}</span>
+                                                        {/if}
+                                                        {if $result.acknowledged == 1}
+                                                            <span class="badge badge-success">{$ACKNOWLEDGED}</span>
+                                                        {/if}
+                                                    </td>
+                                                    <td><span data-toggle="tooltip"
+                                                            data-original-title="{$result.time_full}">{$result.time}</span>
+                                                    </td>
+                                                    <td><a href="{$result.link}" class="btn btn-info">{$VIEW_USER}</a></td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br />
+                                {$PAGINATION}
                             {else}
-                            {$NO_PUNISHMENTS}
+                                {$NO_PUNISHMENTS}
                             {/if}
 
                         </div>

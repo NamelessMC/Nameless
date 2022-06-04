@@ -63,7 +63,7 @@
                                             <label for="inputFieldType">{$TYPE}</label>
                                             <select class="form-control" name="type" id="inputFieldType">
                                                 {foreach from=$TYPES key=key item=item}
-                                                <option value="{$key}">{$item}</option>
+                                                    <option value="{$key}">{$item}</option>
                                                 {/foreach}
                                             </select>
                                         </div>

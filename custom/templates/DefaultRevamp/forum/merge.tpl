@@ -14,7 +14,7 @@
                         <label for="name">{$MERGE_INSTRUCTIONS}</label>
                         <select name="merge" id="InputTopic">
                             {foreach from=$TOPICS item=topic}
-                            <option value="{$topic->id}">{$topic->topic_title|escape}</option>
+                                <option value="{$topic->id}">{$topic->topic_title|escape}</option>
                             {/foreach}
                         </select>
                     </div>

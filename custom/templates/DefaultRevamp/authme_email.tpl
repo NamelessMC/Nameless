@@ -6,17 +6,17 @@
 </h2>
 
 {if isset($ERRORS)}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <div class="header">{$ERROR}</div>
-        <ul class="list">
-            {foreach from=$ERRORS item=error}
-            <li>{$error}</li>
-            {/foreach}
-        </ul>
+    <div class="ui error icon message">
+        <i class="x icon"></i>
+        <div class="content">
+            <div class="header">{$ERROR}</div>
+            <ul class="list">
+                {foreach from=$ERRORS item=error}
+                    <li>{$error}</li>
+                {/foreach}
+            </ul>
+        </div>
     </div>
-</div>
 {/if}
 
 <div class="ui padded segment" id="authme-email">
@@ -37,10 +37,10 @@
                     </div>
 
                     {if isset($NICKNAME)}
-                    <div class="field">
-                        <label for="inputNickname">{$NICKNAME}</label>
-                        <input type="text" id="inputNickname" name="nickname" placeholder="{$NICKNAME}">
-                    </div>
+                        <div class="field">
+                            <label for="inputNickname">{$NICKNAME}</label>
+                            <input type="text" id="inputNickname" name="nickname" placeholder="{$NICKNAME}">
+                        </div>
                     {/if}
                     <div class="field">
                         <input type="hidden" name="token" value="{$TOKEN}">

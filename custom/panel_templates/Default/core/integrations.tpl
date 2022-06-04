@@ -51,27 +51,27 @@
                                     </thead>
                                     <tbody>
                                         {foreach $INTEGRATIONS_LIST as $integration_name => $integration}
-                                        <tr>
-                                            <td>
-                                                {if $integration.icon}
-                                                <i class="{$integration.icon} fa-lg align-middle">&nbsp;</i>
-                                                {/if}
-                                                {$integration.name}
-                                            </td>
-                                            <td>{if $integration.enabled eq 1}<i
-                                                    class="fa fa-check-circle text-success"></i>{else}<i
-                                                    class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                            <td>{if $integration.can_unlink eq 1}<i
-                                                    class="fa fa-check-circle text-success"></i>{else}<i
-                                                    class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                            <td>{if $integration.required eq 1}<i
-                                                    class="fa fa-check-circle text-success"></i>{else}<i
-                                                    class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                            <td class="text-right">
-                                                <a href="{$integration.edit_link}"
-                                                    class="btn btn-warning btn-sm">{$EDIT}</a>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>
+                                                    {if $integration.icon}
+                                                        <i class="{$integration.icon} fa-lg align-middle">&nbsp;</i>
+                                                    {/if}
+                                                    {$integration.name}
+                                                </td>
+                                                <td>{if $integration.enabled eq 1}<i
+                                                        class="fa fa-check-circle text-success"></i>{else}<i
+                                                        class="fa fa-times-circle text-danger"></i>{/if}</td>
+                                                <td>{if $integration.can_unlink eq 1}<i
+                                                        class="fa fa-check-circle text-success"></i>{else}<i
+                                                        class="fa fa-times-circle text-danger"></i>{/if}</td>
+                                                <td>{if $integration.required eq 1}<i
+                                                        class="fa fa-check-circle text-success"></i>{else}<i
+                                                        class="fa fa-times-circle text-danger"></i>{/if}</td>
+                                                <td class="text-right">
+                                                    <a href="{$integration.edit_link}"
+                                                        class="btn btn-warning btn-sm">{$EDIT}</a>
+                                                </td>
+                                            </tr>
                                         {/foreach}
                                     </tbody>
                                 </table>

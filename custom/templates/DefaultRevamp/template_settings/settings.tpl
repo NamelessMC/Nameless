@@ -10,7 +10,7 @@
         <label for="inputNavbarColour">{$NAVBAR_COLOUR}</label>
         <select name="navbarColour" class="form-control" id="inputNavbarColour">
             {foreach from=$NAVBAR_COLOURS item=item}
-            <option value="{$item.value}" {if $item.selected} selected{/if}>{$item.name}</option>
+                <option value="{$item.value}" {if $item.selected} selected{/if}>{$item.name}</option>
             {/foreach}
         </select>
     </div>

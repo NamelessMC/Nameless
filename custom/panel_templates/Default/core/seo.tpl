@@ -55,22 +55,22 @@
 
                             <h4>{$SITEMAP}</h4>
                             {if isset($SITEMAP_LAST_GENERATED)}
-                            <p>{$SITEMAP_LAST_GENERATED}</p>
-                            <p>{$LINK}<br /><code>{$SITEMAP_FULL_LINK}</code></p>
-                            <form action="" method="post">
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="hidden" name="type" value="sitemap">
-                                <input type="submit" class="btn btn-primary" value="{$GENERATE}">
-                                <a href="{$SITEMAP_LINK}" class="btn btn-primary" download
-                                    style="color:#fff;text-decoration:none">{$DOWNLOAD_SITEMAP}</a>
-                            </form>
+                                <p>{$SITEMAP_LAST_GENERATED}</p>
+                                <p>{$LINK}<br /><code>{$SITEMAP_FULL_LINK}</code></p>
+                                <form action="" method="post">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="hidden" name="type" value="sitemap">
+                                    <input type="submit" class="btn btn-primary" value="{$GENERATE}">
+                                    <a href="{$SITEMAP_LINK}" class="btn btn-primary" download
+                                        style="color:#fff;text-decoration:none">{$DOWNLOAD_SITEMAP}</a>
+                                </form>
                             {else}
-                            <p>{$SITEMAP_NOT_GENERATED}</p>
-                            <form action="" method="post">
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="hidden" name="type" value="sitemap">
-                                <input type="submit" class="btn btn-primary" value="{$GENERATE}">
-                            </form>
+                                <p>{$SITEMAP_NOT_GENERATED}</p>
+                                <form action="" method="post">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="hidden" name="type" value="sitemap">
+                                    <input type="submit" class="btn btn-primary" value="{$GENERATE}">
+                                </form>
                             {/if}
 
                             <hr />
@@ -85,9 +85,9 @@
                                     </thead>
                                     <tbody>
                                         {foreach from=$PAGE_LIST key=key item=item}
-                                        <tr>
-                                            <td><a href="{$EDIT_LINK|replace:'{x}':$item.id}">{$key|escape}</a></td>
-                                        </tr>
+                                            <tr>
+                                                <td><a href="{$EDIT_LINK|replace:'{x}':$item.id}">{$key|escape}</a></td>
+                                            </tr>
                                         {/foreach}
                                     </tbody>
                                 </table>

@@ -49,38 +49,39 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($ALL_ANNOUNCEMENTS)}
-                            <div class="table-responsive">
-                                <table class="table table-borderless table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>{$ORDER}</th>
-                                            <th>{$HEADER}</th>
-                                            <th>{$PAGES}</th>
-                                            <th>{$TEXT_COLOUR}</th>
-                                            <th>{$BACKGROUND_COLOUR}</th>
-                                            <th>{$ACTIONS}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="sortable">
-                                        {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
-                                        <tr data-id="{$announcement[0]->id}">
-                                            <td>{$announcement[0]->order}</td>
-                                            <td>{$announcement[0]->header}</td>
-                                            <td>{if $announcement['pages'] !=
-                                                null}{$announcement['pages']}{else}<i>{$NONE}</i>{/if}</td>
-                                            <td><span class="badge border"
-                                                    style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};"
-                                                    title="{$announcement[0]->text_colour}"></span></td>
-                                            <td><span class="badge border"
-                                                    style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;"
-                                                    title="{$announcement[0]->background_colour}"></span></td>
-                                            <td>
-                                                <a href="{$EDIT_LINK}{$announcement[0]->id}"
-                                                    class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
-                                                <a href="#" onclick="showDeleteModal({$announcement[0]->id})"
-                                                    class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
-                                            </td>
-                                        </tr>
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$ORDER}</th>
+                                                <th>{$HEADER}</th>
+                                                <th>{$PAGES}</th>
+                                                <th>{$TEXT_COLOUR}</th>
+                                                <th>{$BACKGROUND_COLOUR}</th>
+                                                <th>{$ACTIONS}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sortable">
+                                            {foreach from=$ALL_ANNOUNCEMENTS item=announcement}
+                                                <tr data-id="{$announcement[0]->id}">
+                                                    <td>{$announcement[0]->order}</td>
+                                                    <td>{$announcement[0]->header}</td>
+                                                    <td>{if $announcement['pages'] !=
+                                                    null}{$announcement['pages']}{else}<i>{$NONE}</i>
+                                                    {/if}</td>
+                                                <td><span class="badge border"
+                                                        style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->text_colour};"
+                                                        title="{$announcement[0]->text_colour}"></span></td>
+                                                <td><span class="badge border"
+                                                        style="display: inline-block; width: 50px; height: 25px; background-color: {$announcement[0]->background_colour}; color:#ffffff;"
+                                                        title="{$announcement[0]->background_colour}"></span></td>
+                                                <td>
+                                                    <a href="{$EDIT_LINK}{$announcement[0]->id}"
+                                                        class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
+                                                    <a href="#" onclick="showDeleteModal({$announcement[0]->id})"
+                                                        class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
+                                                </td>
+                                            </tr>
                                         {/foreach}
                                     </tbody>
                                 </table>
@@ -141,37 +142,37 @@
             const id = $('#deleteId').attr('value');
             if (id) {
                 const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
-                response.done(function () { window.location.reload(); });
+                response.done(function() { window.location.reload(); });
             }
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#sortable").sortable({
-                start: function (event, ui) {
+                start: function(event, ui) {
                     let start_pos = ui.item.index();
                     ui.item.data('startPos', start_pos);
                 },
-                update: function (event, ui) {
+                update: function(event, ui) {
                     let announcements = $("#sortable").children();
                     let toSubmit = [];
-                    announcements.each(function () {
+                    announcements.each(function() {
                         toSubmit.push($(this).data().id);
                     });
 
                     $.ajax({
-                    url: "{$REORDER_DRAG_URL}",
-                    type: "GET",
-                    data: {
-                        action: "order",
-                        {literal}announcements: JSON.stringify({"announcements": toSubmit}){/literal}
-                    },
-                    success: function (response) {
-                        // Success
-                    },
-                    error: function (xhr) {
-                        // Error
-                        console.log(xhr);
-                    }
+                        url: "{$REORDER_DRAG_URL}",
+                        type: "GET",
+                        data: {
+                            action: "order",
+                            {literal}announcements: JSON.stringify({"announcements": toSubmit}){/literal}
+                        },
+                        success: function(response) {
+                            // Success
+                        },
+                        error: function(xhr) {
+                            // Error
+                            console.log(xhr);
+                        }
                     });
                 }
             });

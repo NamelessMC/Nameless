@@ -44,14 +44,14 @@
                             <hr />
 
                             {if isset($LOG)}
-                            <pre class="error_log">
-                                {$LOG}
-                            </pre>
-                            <hr />
-                            <h5>{$ACTIONS}</h5>
-                            <a class="btn btn-danger text-white" onclick="showPurgeModal()">{$PURGE_LOG}</a>
+                                <pre class="error_log">
+                                    {$LOG}
+                                </pre>
+                                <hr />
+                                <h5>{$ACTIONS}</h5>
+                                <a class="btn btn-danger text-white" onclick="showPurgeModal()">{$PURGE_LOG}</a>
                             {else}
-                            {$NO_LOG_FOUND}
+                                {$NO_LOG_FOUND}
                             {/if}
 
                         </div>

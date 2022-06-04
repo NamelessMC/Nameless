@@ -80,9 +80,9 @@
                                     <label for="InputCaptchaType">{$CAPTCHA_TYPE}</label>
                                     <select name="captcha_type" id="InputCaptchaType" class="form-control">
                                         {foreach from=$CAPTCHA_OPTIONS item=option}
-                                        <option value="{$option.value}" {if $option.active} selected{/if}>
-                                            {$option.value}
-                                        </option>
+                                            <option value="{$option.value}" {if $option.active} selected{/if}>
+                                                {$option.value}
+                                            </option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -110,8 +110,8 @@
                                             class="fa fa-question"></i></span>
                                     <select class="form-control" id="InputValidationPromoteGroup" name="promote_group">
                                         {foreach from=$GROUPS item=group}
-                                        <option value="{$group->id}" {if $group->id eq $VALIDATION_GROUP}
-                                            selected{/if}>{$group->name|escape}</option>
+                                            <option value="{$group->id}" {if $group->id eq $VALIDATION_GROUP} selected{/if}>
+                                                {$group->name|escape}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -135,12 +135,12 @@
                     <form action="" method="post">
                         <div class="row">
                             {foreach from=$OAUTH_PROVIDER_DATA key="provider_name" item="provider_data"}
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="form-group custom-control custom-switch text-center">
-                                            <input id="enable-{$provider_name}" name="enable-{$provider_name}"
-                                                type="checkbox" class="custom-control-input" {if $provider_data['enabled']
+                                <div class="col">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-body">
+                                            <div class="form-group custom-control custom-switch text-center">
+                                                <input id="enable-{$provider_name}" name="enable-{$provider_name}"
+                                                    type="checkbox" class="custom-control-input" {if $provider_data['enabled']
                                                 && $provider_data['setup']} checked{/if} />
                                             <label for="enable-{$provider_name}" id="enable-{$provider_name}"
                                                 class="custom-control-label">
@@ -183,12 +183,12 @@
                 <!-- End Main Content -->
             </div>
 
-        {include file='footer.tpl'}
+            {include file='footer.tpl'}
 
-        <!-- End Content Wrapper -->
+            <!-- End Content Wrapper -->
         </div>
 
-    <!-- End Wrapper -->
+        <!-- End Wrapper -->
     </div>
 
     {include file='scripts.tpl'}

@@ -42,11 +42,11 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     {foreach from=$LINKS item=link}
-                                    <tr>
-                                        <td>
-                                            <a href="{$link.link}">{$link.title}</a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="{$link.link}">{$link.title}</a>
+                                            </td>
+                                        </tr>
                                     {/foreach}
                                 </table>
                             </div>

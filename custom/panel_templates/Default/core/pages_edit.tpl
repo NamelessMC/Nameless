@@ -134,14 +134,16 @@
                                             </td>
                                         </tr>
                                         {foreach from=$GROUPS item=item}
-                                        <tr>
-                                            <td onclick="toggleAll(this);">{$item.name}</td>
-                                            <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input
-                                                    onclick="colourUpdate(this);" name="perm-view-{$item.id}"
-                                                    id="Input-view-{$item.id}" value="1" type="checkbox" {if $item.view
+                                            <tr>
+                                                <td onclick="toggleAll(this);">{$item.name}</td>
+                                                <td><input type="hidden" name="perm-view-{$item.id}" value="0" /><input
+                                                        onclick="colourUpdate(this);" name="perm-view-{$item.id}"
+                                                        id="Input-view-{$item.id}" value="1" type="checkbox" {if $item.view
                                                     eq 1} checked{/if} /></td>
                                         </tr>
-                                        <script>groups.push("{$item.id}");</script>
+                                        <script>
+                                            groups.push("{$item.id}");
+                                        </script>
                                         {/foreach}
                                     </tbody>
                                 </table>
@@ -223,14 +225,14 @@
         // Toggle all columns in row
         function toggleAll(that) {
             var first = (($(that).parents('tr').find(':checkbox').first().is(':checked') == true) ? false : true);
-            $(that).parents('tr').find(':checkbox').each(function () {
+            $(that).parents('tr').find(':checkbox').each(function() {
                 $(this).prop('checked', first);
                 colourUpdate(this);
             });
         }
 
-        $(document).ready(function () {
-            $('td').click(function () {
+        $(document).ready(function() {
+            $('td').click(function() {
                 let checkbox = $(this).find('input:checkbox');
                 let id = checkbox.attr('id');
 
@@ -243,7 +245,7 @@
 
                     colourUpdate(document.getElementById(id));
                 }
-            }).children().click(function (e) {
+            }).children().click(function(e) {
                 e.stopPropagation();
             });
         });

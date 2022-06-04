@@ -52,7 +52,9 @@
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="enable_authme" value="0">
-                                    <input id="inputEnableAuthme" name="enable_authme" type="checkbox" class="custom-control-input js-check-change" value="1" {if $ENABLE_AUTHME_VALUE} checked{/if} />
+                                    <input id="inputEnableAuthme" name="enable_authme" type="checkbox"
+                                        class="custom-control-input js-check-change" value="1" {if $ENABLE_AUTHME_VALUE}
+                                        checked{/if} />
                                     <label for="inputEnableAuthme" class="custom-control-label">
                                         {$ENABLE_AUTHME}
                                     </label>
@@ -60,61 +62,82 @@
                             </form>
 
                             {if isset($AUTHME_DB_DETAILS)}
-                            <hr />
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="inputHashingAlgorithm">{$AUTHME_HASH_ALGORITHM}</label>
-                                    <select id="inputHashingAlgorithm" class="form-control" name="hashing_algorithm">
-                                        <option value="bcrypt" {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'bcrypt'} selected{/if}>
-                                            bcrypt
-                                        </option>
-                                        <option value="sha1" {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'sha1'} selected{/if}>
-                                            SHA1
-                                        </option>
-                                        <option value="sha256" {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'sha256'} selected{/if}>
-                                            SHA256
-                                        </option>
-                                        <option value="pbkdf2" {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'pbkdf2'} selected{/if}>
-                                            PBKDF2
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDBAddress">{$AUTHME_DB_ADDRESS}</label>
-                                    <input type="text" class="form-control" name="db_address" value="{if isset($AUTHME_DB_DETAILS->address)}{$AUTHME_DB_DETAILS->address|escape}{/if}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDBPort">{$AUTHME_DB_PORT}</label>
-                                    <input type="text" class="form-control" name="db_port" value="{if isset($AUTHME_DB_DETAILS->port)}{$AUTHME_DB_DETAILS->port|escape}{else}3306{/if}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDBName">{$AUTHME_DB_NAME}</label>
-                                    <input type="text" class="form-control" name="db_name" value="{if isset($AUTHME_DB_DETAILS->db)}{$AUTHME_DB_DETAILS->db|escape}{/if}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDBUsername">{$AUTHME_DB_USER}</label>
-                                    <input type="text" class="form-control" name="db_username" value="{if isset($AUTHME_DB_DETAILS->user)}{$AUTHME_DB_DETAILS->user|escape}{/if}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDBPassword">{$AUTHME_DB_PASSWORD}</label> <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$AUTHME_DB_PASSWORD_HIDDEN}"></i></span>
-                                    <input type="password" class="form-control" name="db_password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDBTable">{$AUTHME_DB_TABLE}</label>
-                                    <input type="text" class="form-control" name="db_table" value="{if isset($AUTHME_DB_DETAILS->table)}{$AUTHME_DB_DETAILS->table|escape}{else}authme{/if}">
-                                </div>
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="authme_sync" value="0">
-                                    <input id="inputAuthmeSync" name="authme_sync" type="checkbox" class="custom-control-input js-check-change" value="1" {if isset($AUTHME_DB_DETAILS->sync) && $AUTHME_DB_DETAILS->sync} checked{/if} />
-                                    <label for="inputAuthmeSync" class="custom-control-label">
-                                        {$AUTHME_PASSWORD_SYNC} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$AUTHME_PASSWORD_SYNC_HELP}"></i></span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
-                                </div>
-                            </form>
+                                <hr />
+                                <form action="" method="post">
+                                    <div class="form-group">
+                                        <label for="inputHashingAlgorithm">{$AUTHME_HASH_ALGORITHM}</label>
+                                        <select id="inputHashingAlgorithm" class="form-control" name="hashing_algorithm">
+                                            <option value="bcrypt"
+                                                {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'bcrypt'}
+                                                selected{/if}>
+                                                bcrypt
+                                            </option>
+                                            <option value="sha1"
+                                                {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'sha1'}
+                                                selected{/if}>
+                                                SHA1
+                                            </option>
+                                            <option value="sha256"
+                                                {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'sha256'}
+                                                selected{/if}>
+                                                SHA256
+                                            </option>
+                                            <option value="pbkdf2"
+                                                {if isset($AUTHME_DB_DETAILS->hash) && $AUTHME_DB_DETAILS->hash eq 'pbkdf2'}
+                                                selected{/if}>
+                                                PBKDF2
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDBAddress">{$AUTHME_DB_ADDRESS}</label>
+                                        <input type="text" class="form-control" name="db_address"
+                                            value="{if isset($AUTHME_DB_DETAILS->address)}{$AUTHME_DB_DETAILS->address|escape}{/if}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDBPort">{$AUTHME_DB_PORT}</label>
+                                        <input type="text" class="form-control" name="db_port"
+                                            value="{if isset($AUTHME_DB_DETAILS->port)}{$AUTHME_DB_DETAILS->port|escape}{else}3306{/if}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDBName">{$AUTHME_DB_NAME}</label>
+                                        <input type="text" class="form-control" name="db_name"
+                                            value="{if isset($AUTHME_DB_DETAILS->db)}{$AUTHME_DB_DETAILS->db|escape}{/if}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDBUsername">{$AUTHME_DB_USER}</label>
+                                        <input type="text" class="form-control" name="db_username"
+                                            value="{if isset($AUTHME_DB_DETAILS->user)}{$AUTHME_DB_DETAILS->user|escape}{/if}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDBPassword">{$AUTHME_DB_PASSWORD}</label> <span
+                                            class="badge badge-info"><i class="fa fa-question-circle" data-container="body"
+                                                data-toggle="popover" data-placement="top" title="{$INFO}"
+                                                data-content="{$AUTHME_DB_PASSWORD_HIDDEN}"></i></span>
+                                        <input type="password" class="form-control" name="db_password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDBTable">{$AUTHME_DB_TABLE}</label>
+                                        <input type="text" class="form-control" name="db_table"
+                                            value="{if isset($AUTHME_DB_DETAILS->table)}{$AUTHME_DB_DETAILS->table|escape}{else}authme{/if}">
+                                    </div>
+                                    <div class="form-group custom-control custom-switch">
+                                        <input type="hidden" name="authme_sync" value="0">
+                                        <input id="inputAuthmeSync" name="authme_sync" type="checkbox"
+                                            class="custom-control-input js-check-change" value="1"
+                                            {if isset($AUTHME_DB_DETAILS->sync) && $AUTHME_DB_DETAILS->sync} checked{/if} />
+                                        <label for="inputAuthmeSync" class="custom-control-label">
+                                            {$AUTHME_PASSWORD_SYNC} <span class="badge badge-info"><i
+                                                    class="fa fa-question-circle" data-container="body"
+                                                    data-toggle="popover" data-placement="top" title="{$INFO}"
+                                                    data-content="{$AUTHME_PASSWORD_SYNC_HELP}"></i></span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="token" value="{$TOKEN}">
+                                        <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
+                                    </div>
+                                </form>
                             {/if}
 
                         </div>

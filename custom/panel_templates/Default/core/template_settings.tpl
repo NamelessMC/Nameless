@@ -54,7 +54,7 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($SETTINGS_TEMPLATE)}
-                            {include file=$SETTINGS_TEMPLATE}
+                                {include file=$SETTINGS_TEMPLATE}
                             {/if}
 
                         </div>

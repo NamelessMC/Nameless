@@ -60,18 +60,18 @@
                                     <label for="label_id">{$LABEL_TYPE}</label><br />
                                     <div class="row">
                                         {if count($LABEL_TYPES)}
-                                        {assign var=i value=0}
-                                        {foreach from=$LABEL_TYPES item=label_type}
-                                        {if $i != 0 && ($i % 6) == 0}
-                                    </div>
-                                    <div class="row">
-                                        {/if}
-                                        <div class="col-md-2">
-                                            <input type="radio" name="label_id" id="label_id" value="{$label_type.id}">
-                                            {$label_type.name}
-                                        </div>
-                                        {assign var=i value=$i+1}
-                                        {/foreach}
+                                            {assign var=i value=0}
+                                            {foreach from=$LABEL_TYPES item=label_type}
+                                                {if $i != 0 && ($i % 6) == 0}
+                                                </div>
+                                                <div class="row">
+                                                {/if}
+                                                <div class="col-md-2">
+                                                    <input type="radio" name="label_id" id="label_id" value="{$label_type.id}">
+                                                    {$label_type.name}
+                                                </div>
+                                                {assign var=i value=$i+1}
+                                            {/foreach}
                                         {/if}
                                     </div>
                                 </div>
@@ -80,9 +80,9 @@
                                     <select name="label_forums[]" id="label_forums" size="5" class="form-control"
                                         multiple style="overflow:auto;">
                                         {if count($ALL_FORUMS)}
-                                        {foreach from=$ALL_FORUMS item=item}
-                                        <option value="{$item.id}">{$item.name}</option>
-                                        {/foreach}
+                                            {foreach from=$ALL_FORUMS item=item}
+                                                <option value="{$item.id}">{$item.name}</option>
+                                            {/foreach}
                                         {/if}
                                     </select>
                                 </div>
@@ -91,9 +91,9 @@
                                     <select name="label_groups[]" id="label_groups" size="5" class="form-control"
                                         multiple style="overflow:auto;">
                                         {if count($ALL_GROUPS)}
-                                        {foreach from=$ALL_GROUPS item=item}
-                                        <option value="{$item.id}">{$item.name}</option>
-                                        {/foreach}
+                                            {foreach from=$ALL_GROUPS item=item}
+                                                <option value="{$item.id}">{$item.name}</option>
+                                            {/foreach}
                                         {/if}
                                     </select>
                                 </div>

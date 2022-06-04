@@ -80,7 +80,7 @@ $(function () {
         hoverable: true,
         html: '<i class="circle notch loading icon"></i>',
         delay: { show: 500, hide: 200 },
-        onShow: function (e) { this.html(cachedUsers[$(e).data('poload')].html) }
+        onShow: function (e) { this.html(cachedUsers[$(e).data('poload')].html); }
     });
 
     const timezone = document.getElementById('timezone');

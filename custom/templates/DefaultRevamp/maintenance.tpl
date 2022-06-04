@@ -8,8 +8,8 @@
             <button class="ui positive button" onclick="window.location.reload()">{$RETRY}</button>
         </div>
         {if isset($LOGIN)}
-        <div class="ui divider"></div>
-        <a href="{$LOGIN_LINK}">{$LOGIN}</a>
+            <div class="ui divider"></div>
+            <a href="{$LOGIN_LINK}">{$LOGIN}</a>
         {/if}
     </div>
 </div>

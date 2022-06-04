@@ -40,14 +40,14 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($NO_ACCOUNTS)}
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <ul>
-                                    {$NO_ACCOUNTS}
-                                </ul>
-                            </div>
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <ul>
+                                        {$NO_ACCOUNTS}
+                                    </ul>
+                                </div>
                             {/if}
 
                             <form action="" method="post">

@@ -68,10 +68,10 @@
                                             <a class="nav-link active">{$DETAILS}</a>
                                         </li>
                                         {foreach from=$LINKS item=item}
-                                        <li class="nav-item">
-                                            <a class="nav-link"
-                                                href="{($item.link|replace:'{id}':$USER_ID)|replace:'{username}':$USERNAME}">{$item.title}</a>
-                                        </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                    href="{($item.link|replace:'{id}':$USER_ID)|replace:'{username}':$USERNAME}">{$item.title}</a>
+                                            </li>
                                         {/foreach}
                                     </ul>
                                     <hr />
@@ -112,22 +112,22 @@
                                             </div>
                                         </div>
                                         {if isset($EMAIL_ADDRESS)}
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="email">{$EMAIL_ADDRESS_LABEL}</label>
-                                                <input id="email" type="email" class="form-control"
-                                                    value="{$EMAIL_ADDRESS}" readonly>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="email">{$EMAIL_ADDRESS_LABEL}</label>
+                                                    <input id="email" type="email" class="form-control"
+                                                        value="{$EMAIL_ADDRESS}" readonly>
+                                                </div>
                                             </div>
-                                        </div>
                                         {/if}
                                         {if isset($LAST_IP)}
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="last_ip">{$LAST_IP_LABEL}</label>
-                                                <input id="last_ip" type="text" class="form-control" value="{$LAST_IP}"
-                                                    readonly>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="last_ip">{$LAST_IP_LABEL}</label>
+                                                    <input id="last_ip" type="text" class="form-control" value="{$LAST_IP}"
+                                                        readonly>
+                                                </div>
                                             </div>
-                                        </div>
                                         {/if}
                                     </div>
                                 </div>
@@ -148,29 +148,29 @@
                                             </thead>
                                             <tbody>
                                                 {foreach from=$ALL_PROFILE_FIELDS item=field}
-                                                <tr>
-                                                    <td>
-                                                        {$field->name}
-                                                    </td>
-                                                    <td>
-                                                        {if $USER_PROFILE_FIELDS[$field->id]->value}
-                                                        {$USER_PROFILE_FIELDS[$field->id]->value}
-                                                        {else}
-                                                        <i>{$NOT_SET}</i>
-                                                        {/if}
-                                                    </td>
-                                                    <td>
-                                                        {if $USER_PROFILE_FIELDS[$field->id]->updated}
-                                                        {$USER_PROFILE_FIELDS[$field->id]->updated()}
-                                                        {else}
-                                                        <i>{$NOT_SET}</i>
-                                                        {/if}
-                                                    </td>
-                                                </tr>
+                                                    <tr>
+                                                        <td>
+                                                            {$field->name}
+                                                        </td>
+                                                        <td>
+                                                            {if $USER_PROFILE_FIELDS[$field->id]->value}
+                                                                {$USER_PROFILE_FIELDS[$field->id]->value}
+                                                            {else}
+                                                                <i>{$NOT_SET}</i>
+                                                            {/if}
+                                                        </td>
+                                                        <td>
+                                                            {if $USER_PROFILE_FIELDS[$field->id]->updated}
+                                                                {$USER_PROFILE_FIELDS[$field->id]->updated()}
+                                                            {else}
+                                                                <i>{$NOT_SET}</i>
+                                                            {/if}
+                                                        </td>
+                                                    </tr>
                                                 {foreachelse}
-                                                <tr>
-                                                    <td colspan="3" style="text-align:center;">{$NO_PROFILE_FIELDS}</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td colspan="3" style="text-align:center;">{$NO_PROFILE_FIELDS}</td>
+                                                    </tr>
                                                 {/foreach}
                                             </tbody>
                                         </table>

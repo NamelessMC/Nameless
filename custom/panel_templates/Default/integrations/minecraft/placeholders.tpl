@@ -51,98 +51,101 @@
                             {include file='includes/alerts.tpl'}
 
                             {if count($ALL_PLACEHOLDERS)}
-                            <form action="" method="POST">
-                                <div class="form-group custom-control custom-switch">
-                                    <input name="placeholders_enabled"
-                                           id="InputEnablePlaceholders"
-                                           type="checkbox"
-                                           class="custom-control-input js-check-change"
-                                           {if $ENABLE_PLACEHOLDERS_VALUE eq 1} checked{/if}>
-                                    <label class="custom-control-label" for="InputEnablePlaceholders">
-                                        {$ENABLE_PLACEHOLDERS}
-                                    </label>
-                                </div>
+                                <form action="" method="POST">
+                                    <div class="form-group custom-control custom-switch">
+                                        <input name="placeholders_enabled" id="InputEnablePlaceholders" type="checkbox"
+                                            class="custom-control-input js-check-change"
+                                            {if $ENABLE_PLACEHOLDERS_VALUE eq 1} checked{/if}>
+                                        <label class="custom-control-label" for="InputEnablePlaceholders">
+                                            {$ENABLE_PLACEHOLDERS}
+                                        </label>
+                                    </div>
 
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <div class="table-responsive">
-                                    <table class="table table-borderless table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>{$SERVER_ID}</th>
-                                                <th>{$NAME}</th>
-                                                <th>
-                                                    {$FRIENDLY_NAME}
-                                                    <span class="badge badge-info" style="margin-right:10px"><i
-                                                            class="fas fa-question-circle" data-container="body"
-                                                            data-toggle="popover" title="{$INFO}" data-placement="top"
-                                                            data-content="{$FRIENDLY_NAME_INFO}"></i></span>
-                                                </th>
-                                                <th class="text-center">
-                                                    {$SHOW_ON_PROFILE}
-                                                    <span class="badge badge-info" style="margin-right:10px"><i
-                                                            class="fas fa-question-circle" data-container="body"
-                                                            data-toggle="popover" title="{$INFO}" data-placement="top"
-                                                            data-content="{$SHOW_ON_PROFILE_INFO}"></i></span>
-                                                </th>
-                                                <th class="text-center">
-                                                    {$SHOW_ON_FORUM}
-                                                    <span class="badge badge-info" style="margin-right:10px"><i
-                                                            class="fas fa-question-circle" data-container="body"
-                                                            data-toggle="popover" title="{$INFO}" data-placement="top"
-                                                            data-content="{$SHOW_ON_FORUM_INFO}"></i></span>
-                                                </th>
-                                                <th class="text-center">{$LEADERBOARD_ENABLED}</th>
-                                                <th class="text-center">{$LEADERBOARD_SETTINGS}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {foreach from=$ALL_PLACEHOLDERS item=placeholder}
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless table-striped">
+                                            <thead>
                                                 <tr>
-                                                    <td>{$placeholder->server_id}</td>
-                                                    <td><code>{$placeholder->name}</code></td>
-                                                    <td>
-                                                        <input type="text" class="form-control" name="friendly_name-{$placeholder->name}-server-{$placeholder->server_id}" value="{$placeholder->friendly_name}">
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="form-group custom-control custom-switch">
-                                                            <input type="checkbox"
+                                                    <th>{$SERVER_ID}</th>
+                                                    <th>{$NAME}</th>
+                                                    <th>
+                                                        {$FRIENDLY_NAME}
+                                                        <span class="badge badge-info" style="margin-right:10px"><i
+                                                                class="fas fa-question-circle" data-container="body"
+                                                                data-toggle="popover" title="{$INFO}" data-placement="top"
+                                                                data-content="{$FRIENDLY_NAME_INFO}"></i></span>
+                                                    </th>
+                                                    <th class="text-center">
+                                                        {$SHOW_ON_PROFILE}
+                                                        <span class="badge badge-info" style="margin-right:10px"><i
+                                                                class="fas fa-question-circle" data-container="body"
+                                                                data-toggle="popover" title="{$INFO}" data-placement="top"
+                                                                data-content="{$SHOW_ON_PROFILE_INFO}"></i></span>
+                                                    </th>
+                                                    <th class="text-center">
+                                                        {$SHOW_ON_FORUM}
+                                                        <span class="badge badge-info" style="margin-right:10px"><i
+                                                                class="fas fa-question-circle" data-container="body"
+                                                                data-toggle="popover" title="{$INFO}" data-placement="top"
+                                                                data-content="{$SHOW_ON_FORUM_INFO}"></i></span>
+                                                    </th>
+                                                    <th class="text-center">{$LEADERBOARD_ENABLED}</th>
+                                                    <th class="text-center">{$LEADERBOARD_SETTINGS}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$ALL_PLACEHOLDERS item=placeholder}
+                                                    <tr>
+                                                        <td>{$placeholder->server_id}</td>
+                                                        <td><code>{$placeholder->name}</code></td>
+                                                        <td>
+                                                            <input type="text" class="form-control"
+                                                                name="friendly_name-{$placeholder->name}-server-{$placeholder->server_id}"
+                                                                value="{$placeholder->friendly_name}">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="form-group custom-control custom-switch">
+                                                                <input type="checkbox"
                                                                     id="InputShowOnProfile-{$placeholder->name}-{$placeholder->server_id}"
                                                                     class="custom-control-input"
                                                                     name="show_on_profile-{$placeholder->name}-server-{$placeholder->server_id}"
                                                                     {if $placeholder->show_on_profile eq 1} checked {/if}>
-                                                            <label class="custom-control-label" for="InputShowOnProfile-{$placeholder->name}-{$placeholder->server_id}"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="form-group custom-control custom-switch">
-                                                            <input type="checkbox"
+                                                                <label class="custom-control-label"
+                                                                    for="InputShowOnProfile-{$placeholder->name}-{$placeholder->server_id}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div class="form-group custom-control custom-switch">
+                                                                <input type="checkbox"
                                                                     id="InputShowOnForum-{$placeholder->name}-{$placeholder->server_id}"
                                                                     class="custom-control-input"
                                                                     name="show_on_forum-{$placeholder->name}-server-{$placeholder->server_id}"
                                                                     {if $placeholder->show_on_forum eq 1} checked {/if}>
-                                                            <label class="custom-control-label" for="InputShowOnForum-{$placeholder->name}-{$placeholder->server_id}"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        {if $placeholder->leaderboard eq 1}
-                                                            <i class="fa fa-check-circle text-success"></i>
-                                                        {else}
-                                                            <i class="fa fa-times-circle text-danger"></i>
-                                                        {/if}
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-secondary text-white" href="{$placeholder->leaderboard_settings_url}">
-                                                            <i class="fas fa-cog"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                                <label class="custom-control-label"
+                                                                    for="InputShowOnForum-{$placeholder->name}-{$placeholder->server_id}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {if $placeholder->leaderboard eq 1}
+                                                                <i class="fa fa-check-circle text-success"></i>
+                                                            {else}
+                                                                <i class="fa fa-times-circle text-danger"></i>
+                                                            {/if}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a class="btn btn-secondary text-white"
+                                                                href="{$placeholder->leaderboard_settings_url}">
+                                                                <i class="fas fa-cog"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                <button type="submit" class="btn btn-primary">{$SUBMIT}</button>
-                            </form>
+                                    <button type="submit" class="btn btn-primary">{$SUBMIT}</button>
+                                </form>
                             {else}
                                 {$NO_PLACEHOLDERS}
                             {/if}

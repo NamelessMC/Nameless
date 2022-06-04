@@ -5,25 +5,25 @@
     style="background-image:url('{$BANNER}');background-size:cover;">
     <div class="actions">
         {if isset($LOGGED_IN)}
-        {if isset($SELF)}
-        <a class="ui tiny primary icon button" href="{$SETTINGS_LINK}"><i class="cogs icon"></i></a>
-        <button type="button" class="ui tiny teal icon button" onclick="showBannerSelect()"><i
-                class="picture icon"></i></button>
-        {else}
-        {if ($MOD_OR_ADMIN != true)}
-        <a class="ui tiny negative icon button" data-toggle="modal" data-target="#modal-block"><i
-                class="ban icon"></i></a>
-        {/if}
-        <a class="ui tiny default icon button" href="{$MESSAGE_LINK}"><i class="envelope icon"></i></a>
-        {if isset($RESET_PROFILE_BANNER)}
-        <form action="{$RESET_PROFILE_BANNER_LINK}" method="post" style="display: inline">
-            <input type="hidden" name="token" value="{$TOKEN}" />
-            <button class="ui tiny negative icon button" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
-                <i class="picture icon"></i>
-            </button>
-        </form>
-        {/if}
-        {/if}
+            {if isset($SELF)}
+                <a class="ui tiny primary icon button" href="{$SETTINGS_LINK}"><i class="cogs icon"></i></a>
+                <button type="button" class="ui tiny teal icon button" onclick="showBannerSelect()"><i
+                        class="picture icon"></i></button>
+            {else}
+                {if ($MOD_OR_ADMIN != true)}
+                    <a class="ui tiny negative icon button" data-toggle="modal" data-target="#modal-block"><i
+                            class="ban icon"></i></a>
+                {/if}
+                <a class="ui tiny default icon button" href="{$MESSAGE_LINK}"><i class="envelope icon"></i></a>
+                {if isset($RESET_PROFILE_BANNER)}
+                    <form action="{$RESET_PROFILE_BANNER_LINK}" method="post" style="display: inline">
+                        <input type="hidden" name="token" value="{$TOKEN}" />
+                        <button class="ui tiny negative icon button" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
+                            <i class="picture icon"></i>
+                        </button>
+                    </form>
+                {/if}
+            {/if}
         {/if}
     </div>
     <center>
@@ -31,11 +31,11 @@
         <h2 class="ui header">
             <span{if $USERNAME_COLOUR !=false} style="{$USERNAME_COLOUR}" {/if}>{$NICKNAME}</span>
                 {if isset($USER_TITLE)}
-                <div class="sub header">{$USER_TITLE}</div>
+                    <div class="sub header">{$USER_TITLE}</div>
                 {/if}
         </h2>
         {foreach from=$GROUPS item=group}
-        {$group}
+            {$group}
         {/foreach}
     </center>
 </div>
@@ -43,126 +43,126 @@
 <div class="ui stackable grid" id="profile">
     <div class="ui centered row">
         {if count($WIDGETS_LEFT)}
-        <div class="ui six wide tablet four wide computer column">
-            {foreach from=$WIDGETS_LEFT item=widget}
-            {$widget}
-            {/foreach}
-        </div>
+            <div class="ui six wide tablet four wide computer column">
+                {foreach from=$WIDGETS_LEFT item=widget}
+                    {$widget}
+                {/foreach}
+            </div>
         {/if}
         <div
             class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
             {if isset($SUCCESS)}
-            <div class="ui success icon message">
-                <i class="check icon"></i>
-                <div class="content">
-                    <div class="header">{$SUCCESS_TITLE}</div>
-                    {$SUCCESS}
+                <div class="ui success icon message">
+                    <i class="check icon"></i>
+                    <div class="content">
+                        <div class="header">{$SUCCESS_TITLE}</div>
+                        {$SUCCESS}
+                    </div>
                 </div>
-            </div>
             {/if}
             {if isset($ERROR)}
-            <div class="ui negative icon message">
-                <i class="x icon"></i>
-                <div class="content">
-                    <div class="header">{$ERROR_TITLE}</div>
-                    {$ERROR}
+                <div class="ui negative icon message">
+                    <i class="x icon"></i>
+                    <div class="content">
+                        <div class="header">{$ERROR_TITLE}</div>
+                        {$ERROR}
+                    </div>
                 </div>
-            </div>
             {/if}
             {if $CAN_VIEW}
-            <div class="ui top attached tabular menu">
-                <a class="item active" data-tab="feed">{$FEED}</a>
-                <a class="item" data-tab="about">{$ABOUT}</a>
-                {foreach from=$TABS key=key item=tab}
-                <a class="item" data-tab="{$key}">{$tab.title}</a>
-                {/foreach}
-            </div>
-            <div class="ui bottom attached tab segment active" data-tab="feed" id="profile-feed">
-                <h3 class="ui header">{$FEED}</h3>
-                {if isset($LOGGED_IN)}
-                <form class="ui reply form" action="" method="post" id="form-profile-post">
-                    <div class="field">
-                        <textarea name="post" placeholder="{$POST_ON_WALL}"></textarea>
-                    </div>
-                    <input type="hidden" name="action" value="new_post">
-                    <input type="hidden" name="token" value="{$TOKEN}">
-                    <input type="submit" class="ui primary button" value="{$SUBMIT}">
-                </form>
-                {/if}
-                {if count($WALL_POSTS)}
-                <div class="ui threaded comments" id="profile-posts">
-                    {foreach from=$WALL_POSTS item=post}
-                    <div class="comment" id="post-{$post.id}">
-                        <a class="ui circular image avatar">
-                            <img src="{$post.avatar}" alt="{$post.nickname}">
-                        </a>
-                        <div class="content">
-                            <a class="author" href="{$post.profile}" data-poload="{$USER_INFO_URL}{$post.user_id}"
-                                style="{$post.user_style}">{$post.nickname}</a>
-                            <div class="metadata">
-                                <span class="date" data-toggle="tooltip"
-                                    data-content="{$post.date}">{$post.date_rough}</span>
+                <div class="ui top attached tabular menu">
+                    <a class="item active" data-tab="feed">{$FEED}</a>
+                    <a class="item" data-tab="about">{$ABOUT}</a>
+                    {foreach from=$TABS key=key item=tab}
+                        <a class="item" data-tab="{$key}">{$tab.title}</a>
+                    {/foreach}
+                </div>
+                <div class="ui bottom attached tab segment active" data-tab="feed" id="profile-feed">
+                    <h3 class="ui header">{$FEED}</h3>
+                    {if isset($LOGGED_IN)}
+                        <form class="ui reply form" action="" method="post" id="form-profile-post">
+                            <div class="field">
+                                <textarea name="post" placeholder="{$POST_ON_WALL}"></textarea>
                             </div>
-                            <div class="text forum_post">
-                                {$post.content}
-                            </div>
-                            <div class="actions">
-                                {if isset($LOGGED_IN_USER)}
-                                {if $post.user_id ne $VIEWER_ID}
-                                <a href="{if $post.reactions_link !== " #"}{$post.reactions_link}{else}#{/if}"
-                                    data-toggle="popup">Like
-                                    {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' !=
-                                    0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
-                                {/if}
-                                <a data-toggle="modal" data-target="#modal-reply-{$post.id}">{$REPLY} {if
-                                    ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=
-                                    0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
-                                {/if}
-                                {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
-                                <a data-toggle="modal" data-target="#modal-edit-{$post.id}">{$EDIT}</a>
-                                <a
-                                    onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-post-{/literal}{$post.id}{literal}').submit();}{/literal}">{$DELETE}</a>
-                                <form action="" method="post" id="form-delete-post-{$post.id}">
-                                    <input type="hidden" name="post_id" value="{$post.id}">
-                                    <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                </form>
-                                {/if}
-                            </div>
-                        </div>
-                        {if isset($post.replies.replies)}
-                        <div class="comments">
-                            {foreach from=$post.replies.replies item=item}
-                            <div class="comment">
-                                <a class="ui circular image avatar">
-                                    <img src="{$item.avatar}" alt="{$item.nickname}">
-                                </a>
-                                <div class="content">
-                                    <a class="author" href="{$item.profile}" style="{$item.style}">{$item.nickname}</a>
-                                    <div class="metadata">
-                                        <span class="date" data-toggle="tooltip"
-                                            data-content="{$item.time_full}">{$item.time_friendly}</span>
-                                    </div>
-                                    <div class="text forum_post">
-                                        {$item.content}
-                                    </div>
-                                    <div class="actions">
-                                        {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
-                                        <form class="ui form" action="" method="post" id="form-delete-{$item.id}">
-                                            <input type="hidden" name="action" value="deleteReply">
-                                            <input type="hidden" name="token" value="{$TOKEN}">
-                                            <input type="hidden" name="post_id" value="{$item.id}">
-                                        </form>
+                            <input type="hidden" name="action" value="new_post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" class="ui primary button" value="{$SUBMIT}">
+                        </form>
+                    {/if}
+                    {if count($WALL_POSTS)}
+                        <div class="ui threaded comments" id="profile-posts">
+                            {foreach from=$WALL_POSTS item=post}
+                                <div class="comment" id="post-{$post.id}">
+                                    <a class="ui circular image avatar">
+                                        <img src="{$post.avatar}" alt="{$post.nickname}">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author" href="{$post.profile}" data-poload="{$USER_INFO_URL}{$post.user_id}"
+                                            style="{$post.user_style}">{$post.nickname}</a>
+                                        <div class="metadata">
+                                            <span class="date" data-toggle="tooltip"
+                                                data-content="{$post.date}">{$post.date_rough}</span>
+                                        </div>
+                                        <div class="text forum_post">
+                                            {$post.content}
+                                        </div>
+                                        <div class="actions">
+                                            {if isset($LOGGED_IN_USER)}
+                                                {if $post.user_id ne $VIEWER_ID}
+                                                    <a href="{if $post.reactions_link !== " #"}{$post.reactions_link}{else}#{/if}"
+                                                        data-toggle="popup">Like
+                                                        {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' !=
+                                                    0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                                            {/if}
+                                            <a data-toggle="modal" data-target="#modal-reply-{$post.id}">{$REPLY} {if
+                                                ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=
+                                            0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                                    {/if}
+                                    {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
+                                        <a data-toggle="modal" data-target="#modal-edit-{$post.id}">{$EDIT}</a>
                                         <a
-                                            onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-{/literal}{$item.id}{literal}').submit();}{/literal}">{$DELETE}</a>
-                                        {/if}
-                                    </div>
+                                            onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-post-{/literal}{$post.id}{literal}').submit();}{/literal}">{$DELETE}</a>
+                                        <form action="" method="post" id="form-delete-post-{$post.id}">
+                                            <input type="hidden" name="post_id" value="{$post.id}">
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="token" value="{$TOKEN}">
+                                        </form>
+                                    {/if}
                                 </div>
                             </div>
-                            {/foreach}
+                            {if isset($post.replies.replies)}
+                                <div class="comments">
+                                    {foreach from=$post.replies.replies item=item}
+                                        <div class="comment">
+                                            <a class="ui circular image avatar">
+                                                <img src="{$item.avatar}" alt="{$item.nickname}">
+                                            </a>
+                                            <div class="content">
+                                                <a class="author" href="{$item.profile}" style="{$item.style}">{$item.nickname}</a>
+                                                <div class="metadata">
+                                                    <span class="date" data-toggle="tooltip"
+                                                        data-content="{$item.time_full}">{$item.time_friendly}</span>
+                                                </div>
+                                                <div class="text forum_post">
+                                                    {$item.content}
+                                                </div>
+                                                <div class="actions">
+                                                    {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
+                                                        <form class="ui form" action="" method="post" id="form-delete-{$item.id}">
+                                                            <input type="hidden" name="action" value="deleteReply">
+                                                            <input type="hidden" name="token" value="{$TOKEN}">
+                                                            <input type="hidden" name="post_id" value="{$item.id}">
+                                                        </form>
+                                                        <a
+                                                            onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-{/literal}{$item.id}{literal}').submit();}{/literal}">{$DELETE}</a>
+                                                    {/if}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {/foreach}
+                                </div>
+                            {/if}
                         </div>
-                        {/if}
-                    </div>
                     {/foreach}
                 </div>
                 {$PAGINATION}
@@ -210,13 +210,13 @@
                     </div>
                 </div>
                 {if count($ABOUT_FIELDS)}
-                <div class="ui relaxed list">
-                    {foreach from=$ABOUT_FIELDS key=key item=field}
-                    {if is_numeric($key)}
-                    <div class="item">
-                        <i
-                            class="middle aligned {if $field.type eq 'date'}calendar alternate{else}dot circle{/if} icon"></i>
-                        <div class="middle aligned content" {if $field.tooltip} data-toggle="popup" {/if}">
+                    <div class="ui relaxed list">
+                        {foreach from=$ABOUT_FIELDS key=key item=field}
+                            {if is_numeric($key)}
+                                <div class="item">
+                                    <i
+                                        class="middle aligned {if $field.type eq 'date'}calendar alternate{else}dot circle{/if} icon"></i>
+                                    <div class="middle aligned content" {if $field.tooltip} data-toggle="popup" {/if}">
                             <div class="header">{$field.title}</div>
                             <div class="description">{$field.value}</div>
                         </div>
@@ -365,9 +365,9 @@
     <div class="actions">
         <button class="ui negative button">{$CANCEL}</button>
         <button class="ui positive button" onclick="document.updateBanner.submit()">{$SUBMIT}</button>
-    </div>
-</div>
-{/if}
-{/if}
+                </div>
+            </div>
+        {/if}
+    {/if}
 
-{include file='footer.tpl'}
+    {include file='footer.tpl'}

@@ -51,18 +51,18 @@
                             <hr />
 
                             {if isset($RESET_AVATAR)}
-                            <button data-toggle="modal" data-target="#resetAvatarModal" class="btn btn-warning" {if
+                                <button data-toggle="modal" data-target="#resetAvatarModal" class="btn btn-warning" {if
                                 ($HAS_AVATAR !=true)} disabled {/if}>{$RESET_AVATAR}</button>
                             {/if}
                             {if isset($WARN)}
-                            <a href="#" data-toggle="modal" data-target="#warnModal" class="btn btn-warning">{$WARN}</a>
+                                <a href="#" data-toggle="modal" data-target="#warnModal" class="btn btn-warning">{$WARN}</a>
                             {/if}
                             {if isset($BAN)}
-                            <a href="#" data-toggle="modal" data-target="#banModal" class="btn btn-danger">{$BAN}</a>
+                                <a href="#" data-toggle="modal" data-target="#banModal" class="btn btn-danger">{$BAN}</a>
                             {/if}
                             {if isset($BAN_IP)}
-                            <a href="#" data-toggle="modal" data-target="#banIPModal"
-                                class="btn btn-danger">{$BAN_IP}</a>
+                                <a href="#" data-toggle="modal" data-target="#banIPModal"
+                                    class="btn btn-danger">{$BAN_IP}</a>
                             {/if}
 
                         </div>
@@ -74,33 +74,33 @@
                             <h5>{$PREVIOUS_PUNISHMENTS}</h5>
                             <hr />
                             {if count($PREVIOUS_PUNISHMENTS_LIST)}
-                            {foreach from=$PREVIOUS_PUNISHMENTS_LIST item=punishment name=punishments}
-                            <div class="card shadow">
-                                <div class="card-header">
-                                    {if $punishment.type_numeric == 1}
-                                    <span class="badge badge-danger">{$punishment.type}</span>
-                                    {elseif $punishment.type_numeric == 2 || $punishment.type_numeric == 4}
-                                    <span class="badge badge-warning">{$punishment.type}</span>
-                                    {elseif $punishment.type_numeric == 3}
-                                    <span class="badge badge-danger">{$punishment.type}</span>
-                                    {/if}
-                                    {if $punishment.revoked == 1}
-                                    <span class="badge badge-info">{$REVOKED}</span>
-                                    {/if}
-                                    {if $punishment.acknowledged == 1}
-                                    <span class="badge badge-success">{$ACKNOWLEDGED}</span>
-                                    {/if}
-                                    <a href="{$punishment.issued_by_profile}"
-                                        style="{$punishment.issued_by_style}">{$punishment.issued_by_nickname}</a>
-                                    <span class="pull-right"><span data-toggle="tooltip"
-                                            data-original-title="{$punishment.date_full}">{$punishment.date_friendly}</span></span>
-                                </div>
-                                <div class="card-body">
-                                    {$punishment.reason}
-                                    {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
-                                    <hr />
-                                    <button class="btn btn-warning"
-                                        onclick="showRevokeModal('{$punishment.revoke_link}', '{$punishment.confirm_revoke_punishment|replace:"'":"\'"}')">{$REVOKE}</button>
+                                {foreach from=$PREVIOUS_PUNISHMENTS_LIST item=punishment name=punishments}
+                                    <div class="card shadow">
+                                        <div class="card-header">
+                                            {if $punishment.type_numeric == 1}
+                                                <span class="badge badge-danger">{$punishment.type}</span>
+                                            {elseif $punishment.type_numeric == 2 || $punishment.type_numeric == 4}
+                                                <span class="badge badge-warning">{$punishment.type}</span>
+                                            {elseif $punishment.type_numeric == 3}
+                                                <span class="badge badge-danger">{$punishment.type}</span>
+                                            {/if}
+                                            {if $punishment.revoked == 1}
+                                                <span class="badge badge-info">{$REVOKED}</span>
+                                            {/if}
+                                            {if $punishment.acknowledged == 1}
+                                                <span class="badge badge-success">{$ACKNOWLEDGED}</span>
+                                            {/if}
+                                            <a href="{$punishment.issued_by_profile}"
+                                                style="{$punishment.issued_by_style}">{$punishment.issued_by_nickname}</a>
+                                            <span class="pull-right"><span data-toggle="tooltip"
+                                                    data-original-title="{$punishment.date_full}">{$punishment.date_friendly}</span></span>
+                                        </div>
+                                        <div class="card-body">
+                                            {$punishment.reason}
+                                            {if $punishment.revoked == 0 && $punishment.revoke_link != 'none'}
+                                                <hr />
+                                                <button class="btn btn-warning"
+                                                    onclick="showRevokeModal('{$punishment.revoke_link}', '{$punishment.confirm_revoke_punishment|replace:"'":"\'"}')">{$REVOKE}</button>
                                     {/if}
                                 </div>
                             </div>
@@ -275,13 +275,13 @@
     {include file='scripts.tpl'}
 
     <script type="text/javascript">
-        function showRevokeModal(link, text) {
-            $('#revokeModalContents').html(text);
-            $('#revokeForm').attr('action', link);
-            $('#revokeModal').modal().show();
-        }
-    </script>
+                    function showRevokeModal(link, text) {
+                        $('#revokeModalContents').html(text);
+                        $('#revokeForm').attr('action', link);
+                        $('#revokeModal').modal().show();
+                    }
+                </script>
 
-</body>
+            </body>
 
-</html>
+            </html>

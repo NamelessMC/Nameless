@@ -69,9 +69,9 @@
                                 </div>
                                 <label for="InputName">{$HOOK_EVENTS}</label>
                                 {foreach from=$ALL_EVENTS key=key item=item}
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" id="inputevents[{$key|escape}]" name="events[{$key|escape}]"
-                                        class="custom-control-input" value="1" {if in_array($key|escape,
+                                    <div class="form-group custom-control custom-switch">
+                                        <input type="checkbox" id="inputevents[{$key|escape}]" name="events[{$key|escape}]"
+                                            class="custom-control-input" value="1" {if in_array($key|escape,
                                         $ENABLED_HOOKS)} checked{/if}>
                                     <label class="custom-control-label" for="inputevents[{$key|escape}]">
                                         {$item|escape}

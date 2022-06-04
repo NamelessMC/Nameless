@@ -44,7 +44,7 @@
                                     <h5 style="margin-top: 7px; margin-bottom: 7px;">{$VIEWING_REPORT} &raquo; <a
                                             target="_blank" href="{$REPORTED_USER_PROFILE}"
                                             style="{$REPORTED_USER_STYLE}">{$REPORTED_USER}</a> {if ($TYPE == 0)}|
-                                        <small><a href="{$CONTENT_LINK}" target="_blank">{$VIEW_CONTENT}</a>
+                                            <small><a href="{$CONTENT_LINK}" target="_blank">{$VIEW_CONTENT}</a>
                                         </small>{/if}
                                     </h5>
                                 </div>
@@ -76,27 +76,27 @@
                             <h5>{$COMMENTS_TEXT}</h5>
                             <hr />
                             {if count($COMMENTS)}
-                            {foreach from=$COMMENTS item=comment}
-                            <div class="card shadow">
-                                <div class="card-header">
-                                    <a href="{$comment.profile}" style="{$comment.style}" target="_blank"><img
-                                            src="{$comment.avatar}" class="rounded"
-                                            style="max-height:25px;max-width:25px;" alt="{$comment.username}" />
-                                        {$comment.username}</a>:
-                                    <span class="pull-right" data-toggle="tooltip"
-                                        data-original-title="{$comment.date}">{$comment.date_friendly}</span>
-                                </div>
-                                <div class="card-body">
-                                    {$comment.content}
-                                </div>
-                            </div>
-                            <br />
-                            {/foreach}
-                            <hr />
+                                {foreach from=$COMMENTS item=comment}
+                                    <div class="card shadow">
+                                        <div class="card-header">
+                                            <a href="{$comment.profile}" style="{$comment.style}" target="_blank"><img
+                                                    src="{$comment.avatar}" class="rounded"
+                                                    style="max-height:25px;max-width:25px;" alt="{$comment.username}" />
+                                                {$comment.username}</a>:
+                                            <span class="pull-right" data-toggle="tooltip"
+                                                data-original-title="{$comment.date}">{$comment.date_friendly}</span>
+                                        </div>
+                                        <div class="card-body">
+                                            {$comment.content}
+                                        </div>
+                                    </div>
+                                    <br />
+                                {/foreach}
+                                <hr />
                             {else}
-                            {$NO_COMMENTS}
-                            <br />
-                            <br />
+                                {$NO_COMMENTS}
+                                <br />
+                                <br />
                             {/if}
 
                             <form action="" method="post">
@@ -109,9 +109,9 @@
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                     <div class="float-md-right">
                                         {if isset($CLOSE_REPORT)}
-                                        <a href="{$CLOSE_LINK}" class="btn btn-danger">{$CLOSE_REPORT}</a>
+                                            <a href="{$CLOSE_LINK}" class="btn btn-danger">{$CLOSE_REPORT}</a>
                                         {else}
-                                        <a href="{$REOPEN_LINK}" class="btn btn-danger">{$REOPEN_REPORT}</a>
+                                            <a href="{$REOPEN_LINK}" class="btn btn-danger">{$REOPEN_REPORT}</a>
                                         {/if}
                                     </div>
                                 </div>

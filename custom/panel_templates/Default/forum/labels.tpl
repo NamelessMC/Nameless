@@ -44,25 +44,25 @@
                             {include file='includes/alerts.tpl'}
 
                             {if count($ALL_LABELS)}
-                            {foreach from=$ALL_LABELS item=label name=label_list}
-                            <div class="row">
-                                <div class="col-md-7">
-                                    {$label.name} {$label.enabled_forums}
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="float-md-right">
-                                        <a href="{$label.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
-                                        <button onclick="showDeleteModal('{$label.delete_link}')"
-                                            class="btn btn-danger btn-sm">{$DELETE}</button>
+                                {foreach from=$ALL_LABELS item=label name=label_list}
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            {$label.name} {$label.enabled_forums}
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="float-md-right">
+                                                <a href="{$label.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
+                                                <button onclick="showDeleteModal('{$label.delete_link}')"
+                                                    class="btn btn-danger btn-sm">{$DELETE}</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            {if !$smarty.foreach.label_list.last}
-                            <hr />
-                            {/if}
-                            {/foreach}
+                                    {if !$smarty.foreach.label_list.last}
+                                        <hr />
+                                    {/if}
+                                {/foreach}
                             {else}
-                            <p>{$NO_LABELS}</p>
+                                <p>{$NO_LABELS}</p>
                             {/if}
 
                         </div>

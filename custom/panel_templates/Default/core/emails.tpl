@@ -36,7 +36,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             {if isset($MASS_MESSAGE_LINK)}
-                            <a href="{$MASS_MESSAGE_LINK}" class="btn btn-primary">{$MASS_MESSAGE}</a>
+                                <a href="{$MASS_MESSAGE_LINK}" class="btn btn-primary">{$MASS_MESSAGE}</a>
                             {/if}
                             <a href="{$EDIT_EMAIL_MESSAGES_LINK}" class="btn btn-primary">{$EDIT_EMAIL_MESSAGES}</a>
                             <a href="{$EMAIL_ERRORS_LINK}" class="btn btn-primary">{$EMAIL_ERRORS}</a>
@@ -79,8 +79,8 @@
                                 <div class="fields-block" id="fields-block">
                                     <div class="form-group">
                                         <label for="inputUsername">{$USERNAME}</label>
-                                        <input class="form-control" type="text" name="username" value="{$USERNAME_VALUE}"
-                                            id="inputUsername">
+                                        <input class="form-control" type="text" name="username"
+                                            value="{$USERNAME_VALUE}" id="inputUsername">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputPassword">{$PASSWORD}</label>

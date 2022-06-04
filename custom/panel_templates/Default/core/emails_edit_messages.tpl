@@ -67,7 +67,7 @@
                                             <select name="editing_language" class="form-control"
                                                 id="inputDefaultLanguage">
                                                 {foreach from=$LANGUAGES item=item}
-                                                <option value="{$item->short_code}" {if $item->short_code eq
+                                                    <option value="{$item->short_code}" {if $item->short_code eq
                                                     $EDITING_LANGUAGE} selected{/if}>{$item->name}</option>
                                                 {/foreach}
                                             </select>
@@ -76,32 +76,32 @@
                                 </div>
                                 <hr />
                                 {foreach from=$EMAILS_LIST item=item}
-                                <h4>{$item[1]}</h4>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <label for="{$item[1]}_message">{$SUBJECT}</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" value="{$item[2]['subject']}"
-                                                name="{$item[0]}_subject" id="{$item[0]}_subject">
+                                    <h4>{$item[1]}</h4>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <label for="{$item[1]}_message">{$SUBJECT}</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{$item[2]['subject']}"
+                                                    name="{$item[0]}_subject" id="{$item[0]}_subject">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{$item[1]}_message">{$MESSAGE}</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{$item[2]['message']}"
+                                                    name="{$item[0]}_message" id="{$item[0]}_message">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1" align="center">
+                                            <button class="btn btn-success"
+                                                onclick="window.open('{$BACK_LINK}&action=preview&email={$item[0]}', 'newwindow', 'width=700,height=375'); return false;"
+                                                style="margin-top: 32px;"><i class="fas fa-share-square"
+                                                    data-container="body" data-toggle="popover" data-placement="top"
+                                                    title="{$PREVIEW}" data-content="{$PREVIEW_INFO}"></i>
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="{$item[1]}_message">{$MESSAGE}</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" value="{$item[2]['message']}"
-                                                name="{$item[0]}_message" id="{$item[0]}_message">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1" align="center">
-                                        <button class="btn btn-success"
-                                            onclick="window.open('{$BACK_LINK}&action=preview&email={$item[0]}', 'newwindow', 'width=700,height=375'); return false;"
-                                            style="margin-top: 32px;"><i class="fas fa-share-square"
-                                                data-container="body" data-toggle="popover" data-placement="top"
-                                                title="{$PREVIEW}" data-content="{$PREVIEW_INFO}"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <br>
+                                    <br>
                                 {/foreach}
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">

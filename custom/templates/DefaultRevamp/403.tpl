@@ -9,9 +9,9 @@
             <button class="ui primary button" onclick="javascript:history.go(-1)">{$BACK}</button>
             <div class="or"></div>
             {if isset($LOGGED_IN_USER)}
-            <a class="ui positive button" href="{$SITE_HOME}">{$HOME}</a>
+                <a class="ui positive button" href="{$SITE_HOME}">{$HOME}</a>
             {else}
-            <a class="ui positive button" href="{$LOGIN_LINK}">{$LOGIN}</a>
+                <a class="ui positive button" href="{$LOGIN_LINK}">{$LOGIN}</a>
             {/if}
         </div>
     </div>

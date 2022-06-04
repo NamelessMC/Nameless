@@ -53,21 +53,22 @@
                                 <thead>
                                     <tr>
                                         {foreach from=$COL_TITLES item=col_title}
-                                        <td>{$col_title}</td>
+                                            <td>{$col_title}</td>
                                         {/foreach}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {foreach from=$ROWS item=row}
-                                    <tr>
-                                        {assign var=i value=0}
-                                        {while $i < count($row)} <td{if isset($row.$i.order)}
-                                            data-order="{$row.$i.order}" {/if}>
-                                            {$row.$i.content}
-                                            </td>
-                                            {assign var=i value=$i+1}
-                                            {/while}
-                                    </tr>
+                                        <tr>
+                                            {assign var=i value=0}
+                                            {while $i < count($row)} <td
+                                                {if isset($row.$i.order)}
+                                                    data-order="{$row.$i.order}" {/if}>
+                                                    {$row.$i.content}
+                                                    </td>
+                                                    {assign var=i value=$i+1}
+                                                {/while}
+                                        </tr>
                                     {/foreach}
                                 </tbody>
                             </table>

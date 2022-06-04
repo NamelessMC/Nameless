@@ -82,13 +82,13 @@
                                         value="5">
                                 </div>
                                 {if $DISCORD_INTEGRATION}
-                                <div class="form-group">
-                                    <label for="InputDiscordRoleID">{$DISCORD_ROLE_ID} <span class="badge badge-info"
-                                            data-toggle="popover" data-title="{$INFO}"
-                                            data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
-                                    <input type="number" min="1" class="form-control" id="InputDiscordRoleID"
-                                        name="discord_role_id" value="{$DISCORD_ROLE_ID_VALUE}">
-                                </div>
+                                    <div class="form-group">
+                                        <label for="InputDiscordRoleID">{$DISCORD_ROLE_ID} <span class="badge badge-info"
+                                                data-toggle="popover" data-title="{$INFO}"
+                                                data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
+                                        <input type="number" min="1" class="form-control" id="InputDiscordRoleID"
+                                            name="discord_role_id" value="{$DISCORD_ROLE_ID_VALUE}">
+                                    </div>
                                 {/if}
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="tfa" value="0">
@@ -168,7 +168,7 @@
             $('#cancelModal').modal().show();
         }
 
-        $(function () {
+        $(function() {
             $('.groupColour').colorpicker({
                 format: 'hex',
                 color: '#000000'

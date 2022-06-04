@@ -89,8 +89,8 @@
                                         <option value="0" {if $PARENT_FORUM_VALUE eq 0} selected{/if}>{$NO_PARENT}
                                         </option>
                                         {foreach from=$PARENT_FORUM_LIST item=item}
-                                        <option value="{$item.id}" {if $item.id eq $PARENT_FORUM_VALUE} selected{/if}>
-                                            {$item.title}</option>
+                                            <option value="{$item.id}" {if $item.id eq $PARENT_FORUM_VALUE} selected{/if}>
+                                                {$item.title}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -125,9 +125,9 @@
                                             data-content="{$HOOK_SELECT_INFO}"><i class="fa fa-question"></i></label>
                                     <select name="hooks[]" id="InputHooks" class="form-control" multiple>
                                         {foreach from=$HOOKS_ARRAY item=hook}
-                                        <option value="{$hook.id}" {if in_array($hook.id, $FORUM_HOOKS)} selected {/if}>
-                                            {$hook.name|ucfirst}
-                                        </option>
+                                            <option value="{$hook.id}" {if in_array($hook.id, $FORUM_HOOKS)} selected {/if}>
+                                                {$hook.name|ucfirst}
+                                            </option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -139,8 +139,8 @@
                                     <select name="default_labels[]" id="InputDefaultLabels" class="form-control"
                                         multiple>
                                         {foreach from=$AVAILABLE_DEFAULT_LABELS item=label}
-                                        <option value="{$label.id}" {if $label.is_enabled} selected {/if}>{$label.name}
-                                        </option>
+                                            <option value="{$label.id}" {if $label.is_enabled} selected {/if}>{$label.name}
+                                            </option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -190,14 +190,13 @@
                                                 <td></td>
                                             </tr>
                                             {foreach from=$GROUP_PERMISSIONS item=group}
-                                            <tr>
-                                                <td onclick="toggleAll(this);">{$group->name|escape}</td>
-                                                <td><input type="hidden" name="perm-view-{$group->id|escape}"
-                                                        value="0" />
-                                                    <input onclick="colourUpdate(this);"
-                                                        name="perm-view-{$group->id|escape}"
-                                                        id="Input-view-{$group->id|escape}" value="1" type="checkbox"
-                                                        {if isset($group->view) &&
+                                                <tr>
+                                                    <td onclick="toggleAll(this);">{$group->name|escape}</td>
+                                                    <td><input type="hidden" name="perm-view-{$group->id|escape}"
+                                                            value="0" />
+                                                        <input onclick="colourUpdate(this);"
+                                                            name="perm-view-{$group->id|escape}"
+                                                            id="Input-view-{$group->id|escape}" value="1" type="checkbox" {if isset($group->view) &&
                                                     $group->view eq 1} checked{/if} />
                                                 </td>
                                                 <td><input type="hidden" name="perm-topic-{$group->id|escape}"
@@ -205,7 +204,7 @@
                                                         name="perm-topic-{$group->id|escape}"
                                                         id="Input-topic-{$group->id|escape}" value="1" type="checkbox"
                                                         {if isset($group->create_topic) && $group->create_topic eq 1}
-                                                    checked{/if} />
+                                                        checked{/if} />
                                                 </td>
                                                 <td><input type="hidden" name="perm-edit_topic-{$group->id|escape}"
                                                         value="0" /><input onclick="colourUpdate(this);"
@@ -217,8 +216,7 @@
                                                 <td><input type="hidden" name="perm-post-{$group->id|escape}"
                                                         value="0" /><input onclick="colourUpdate(this);"
                                                         name="perm-post-{$group->id|escape}"
-                                                        id="Input-post-{$group->id|escape}" value="1" type="checkbox"
-                                                        {if isset($group->create_post)
+                                                        id="Input-post-{$group->id|escape}" value="1" type="checkbox" {if isset($group->create_post)
                                                     && $group->create_post eq 1} checked{/if} />
                                                 </td>
                                                 <td><input type="hidden" name="perm-view_others-{$group->id|escape}"
@@ -361,14 +359,14 @@
         // Toggle all columns in row
         function toggleAll(that) {
             var first = (($(that).parents('tr').find(':checkbox').first().is(':checked') == true) ? false : true);
-            $(that).parents('tr').find(':checkbox').each(function () {
+            $(that).parents('tr').find(':checkbox').each(function() {
                 $(this).prop('checked', first);
                 colourUpdate(this);
             });
         }
 
-        $(document).ready(function () {
-            $('td').click(function () {
+        $(document).ready(function() {
+            $('td').click(function() {
                 let checkbox = $(this).find('input:checkbox');
                 let id = checkbox.attr('id');
 
@@ -381,7 +379,7 @@
 
                     colourUpdate(document.getElementById(id));
                 }
-            }).children().click(function (e) {
+            }).children().click(function(e) {
                 e.stopPropagation();
             });
 

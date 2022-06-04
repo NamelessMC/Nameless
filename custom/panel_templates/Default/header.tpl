@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html{if "HTML_CLASS"|defined} {$smarty.const.HTML_CLASS}{/if} lang="{if "
-    HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}" {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq
+    HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en
+    {/if}" {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq
     true} dir="rtl" {/if}>
 
     <head>
@@ -11,15 +12,15 @@
         <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 
         {if isset($FAVICON)}
-        <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
+            <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
         {/if}
 
         {foreach from=$TEMPLATE_CSS item=css}
-        {$css}
+            {$css}
         {/foreach}
 
         {if isset($DEBUGBAR_JS)}
-        {$DEBUGBAR_JS}
+            {$DEBUGBAR_JS}
         {/if}
 
-    </head>
+</head>

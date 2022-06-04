@@ -43,25 +43,25 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($SEND_TEST_EMAIL_INFO)}
-                            <div class="card shadow border-left-primary">
-                                <div class="card-body">
-                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                    {$SEND_TEST_EMAIL_INFO}
+                                <div class="card shadow border-left-primary">
+                                    <div class="card-body">
+                                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                        {$SEND_TEST_EMAIL_INFO}
+                                    </div>
                                 </div>
-                            </div>
-                            <br />
-                            <a href="{$SEND_LINK}" class="btn btn-primary">{$SEND}</a>
+                                <br />
+                                <a href="{$SEND_LINK}" class="btn btn-primary">{$SEND}</a>
                             {/if}
 
                             {if isset($SUCCESS)}
-                            <div>
-                                {$TEST_EMAIL_QUERY}
-                                <ul>
-                                    <li>{$TEST_EMAIL_SUGGEST_1}</li>
-                                    <li>{$TEST_EMAIL_SUGGEST_2}</li>
-                                    <li>{$TEST_EMAIL_SUGGEST_3}</li>
-                                </ul>
-                            </div>
+                                <div>
+                                    {$TEST_EMAIL_QUERY}
+                                    <ul>
+                                        <li>{$TEST_EMAIL_SUGGEST_1}</li>
+                                        <li>{$TEST_EMAIL_SUGGEST_2}</li>
+                                        <li>{$TEST_EMAIL_SUGGEST_3}</li>
+                                    </ul>
+                                </div>
                             {/if}
                         </div>
                     </div>

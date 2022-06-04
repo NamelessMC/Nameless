@@ -51,25 +51,25 @@
 
                             <form action="" method="post">
                                 {foreach from=$ALL_PERMISSIONS key=key item=item}
-                                <h3 class="mt-3">{$key|escape}</h3>
-                                {if $item|@count > 1}
-                                <a href="#" onclick="return selectAllPerms('{$key|escape}');">{$SELECT_ALL}</a>
-                                |
-                                <a href="#" onclick="return deselectAllPerms('{$key|escape}');">{$DESELECT_ALL}</a>
-                                {/if}
-                                <!-- </h3> -->
-                                <div id="perm-section-{$key|escape}">
-                                    {foreach from=$item key=permission item=title}
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="permissions[{$permission|escape}]"
-                                            id="permissions-checkbox-[{$permission|escape}]"
-                                            class="custom-control-input" value="1" {if is_array($PERMISSIONS_VALUES) &&
-                                            array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
-                                        <label class="custom-control-label"
-                                            for="permissions-checkbox-[{$permission|escape}]">
-                                            {$title}
-                                        </label>
-                                    </div>
+                                    <h3 class="mt-3">{$key|escape}</h3>
+                                    {if $item|@count > 1}
+                                        <a href="#" onclick="return selectAllPerms('{$key|escape}');">{$SELECT_ALL}</a>
+                                        |
+                                        <a href="#" onclick="return deselectAllPerms('{$key|escape}');">{$DESELECT_ALL}</a>
+                                    {/if}
+                                    <!-- </h3> -->
+                                    <div id="perm-section-{$key|escape}">
+                                        {foreach from=$item key=permission item=title}
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" name="permissions[{$permission|escape}]"
+                                                    id="permissions-checkbox-[{$permission|escape}]"
+                                                    class="custom-control-input" value="1" {if is_array($PERMISSIONS_VALUES) &&
+                                                array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
+                                            <label class="custom-control-label"
+                                                for="permissions-checkbox-[{$permission|escape}]">
+                                                {$title}
+                                            </label>
+                                        </div>
                                     {/foreach}
                                 </div>
                                 {/foreach}
@@ -106,7 +106,7 @@
     <script type="text/javascript">
         function selectAllPerms(sectionName) {
             let section = $('#perm-section-' + sectionName);
-            section.find('.custom-control-input').each(function () {
+            section.find('.custom-control-input').each(function() {
                 $(this).prop('checked', true);
                 onChange(this);
             });
@@ -115,7 +115,7 @@
 
         function deselectAllPerms(sectionName) {
             let section = $('#perm-section-' + sectionName);
-            section.find('.custom-control-input').each(function () {
+            section.find('.custom-control-input').each(function() {
                 $(this).prop('checked', false);
                 onChange(this);
             });

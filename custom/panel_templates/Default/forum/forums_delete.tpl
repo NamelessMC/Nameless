@@ -45,7 +45,7 @@
                                     <select id="inputNewForum" class="form-control" name="move_forum">
                                         <option value="none" selected>{$DELETE_TOPICS_AND_POSTS}</option>
                                         {foreach from=$OTHER_FORUMS item=item}
-                                        <option value="{$item.id}">{$item.name}</option>
+                                            <option value="{$item.id}">{$item.name}</option>
                                         {/foreach}
                                     </select>
                                 </div>

@@ -64,47 +64,47 @@
                                     </thead>
                                     <tbody>
                                         {foreach $INTEGRATIONS as $integration_name => $integration}
-                                        <tr>
-                                            <td>
-                                                {if $integration.icon}
-                                                <i class="{$integration.icon} fa-2x align-middle">&nbsp;</i>
-                                                {/if}
-                                                {$integration_name}
-                                            </td>
+                                            <tr>
+                                                <td>
+                                                    {if $integration.icon}
+                                                        <i class="{$integration.icon} fa-2x align-middle">&nbsp;</i>
+                                                    {/if}
+                                                    {$integration_name}
+                                                </td>
 
-                                            <td>
-                                                {if isset($USER_INTEGRATIONS[$integration_name])}
-                                                <code>{$USER_INTEGRATIONS[$integration_name].username}</code>
-                                                {else}
-                                                <i>{$NOT_LINKED}</i>
-                                                {/if}
-                                            </td>
+                                                <td>
+                                                    {if isset($USER_INTEGRATIONS[$integration_name])}
+                                                        <code>{$USER_INTEGRATIONS[$integration_name].username}</code>
+                                                    {else}
+                                                        <i>{$NOT_LINKED}</i>
+                                                    {/if}
+                                                </td>
 
-                                            <td>
-                                                {if isset($USER_INTEGRATIONS[$integration_name])}
-                                                <code>{$USER_INTEGRATIONS[$integration_name].identifier}</code>
-                                                {else}
-                                                <i>{$NOT_LINKED}</i>
-                                                {/if}
-                                            </td>
+                                                <td>
+                                                    {if isset($USER_INTEGRATIONS[$integration_name])}
+                                                        <code>{$USER_INTEGRATIONS[$integration_name].identifier}</code>
+                                                    {else}
+                                                        <i>{$NOT_LINKED}</i>
+                                                    {/if}
+                                                </td>
 
-                                            <td>
-                                                {if isset($USER_INTEGRATIONS[$integration_name]) &&
-                                                $USER_INTEGRATIONS[$integration_name].verified}
-                                                <i class="fa fa-check-circle text-success"></i>
+                                                <td>
+                                                    {if isset($USER_INTEGRATIONS[$integration_name]) &&
+                                                    $USER_INTEGRATIONS[$integration_name].verified}
+                                                    <i class="fa fa-check-circle text-success"></i>
                                                 {else}
-                                                <i class="fa fa-times-circle text-danger"></i>
+                                                    <i class="fa fa-times-circle text-danger"></i>
                                                 {/if}
                                             </td>
 
                                             <td class="text-right">
                                                 {if isset($USER_INTEGRATIONS[$integration_name])}
-                                                <button class="btn btn-danger btn-sm"
-                                                    onclick="showDeleteModal('{$integration_name}')">{$UNLINK}</button>
-                                                <a href="{$integration.edit}" class="btn btn-warning btn-sm">{$EDIT}</a>
+                                                    <button class="btn btn-danger btn-sm"
+                                                        onclick="showDeleteModal('{$integration_name}')">{$UNLINK}</button>
+                                                    <a href="{$integration.edit}" class="btn btn-warning btn-sm">{$EDIT}</a>
                                                 {else}
-                                                <a href="{$integration.link}"
-                                                    class="btn btn-success btn-sm">{$MANUAL_LINKING}</a>
+                                                    <a href="{$integration.link}"
+                                                        class="btn btn-success btn-sm">{$MANUAL_LINKING}</a>
                                                 {/if}
                                             </td>
                                         </tr>
@@ -167,7 +167,7 @@
             const id = $('#deleteId').attr('value');
             if (id) {
                 const response = $.post("{$UNLINK_LINK}" + id, { integration: id, action: 'unlink', token: "{$TOKEN}" });
-                response.done(function () { window.location.reload(); });
+                response.done(function() { window.location.reload(); });
             }
         }
     </script>

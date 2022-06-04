@@ -38,40 +38,40 @@
 
                             <a href="{$NEW_PAGE_LINK}" class="btn btn-primary">{$NEW_PAGE}</a>
                             {if count($CUSTOM_PAGE_LIST)}
-                            <br />
-                            <br />
+                                <br />
+                                <br />
                             {else}
-                            <hr />
+                                <hr />
                             {/if}
 
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
                             {if count($CUSTOM_PAGE_LIST)}
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <tbody>
-                                        {foreach from=$CUSTOM_PAGE_LIST item=custom_page}
-                                        <tr>
-                                            <td>
-                                                <strong>{$custom_page.title}</strong>
-                                            </td>
-                                            <td>
-                                                <div class="float-md-right">
-                                                    <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i
-                                                            class="fas fa-edit fa-fw"></i></a>
-                                                    <button class="btn btn-danger btn-sm" type="button"
-                                                        onclick="showDeleteModal('{$custom_page.id}')"><i
-                                                            class="fas fa-trash fa-fw"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            {foreach from=$CUSTOM_PAGE_LIST item=custom_page}
+                                                <tr>
+                                                    <td>
+                                                        <strong>{$custom_page.title}</strong>
+                                                    </td>
+                                                    <td>
+                                                        <div class="float-md-right">
+                                                            <a class="btn btn-warning btn-sm" href="{$custom_page.edit_link}"><i
+                                                                    class="fas fa-edit fa-fw"></i></a>
+                                                            <button class="btn btn-danger btn-sm" type="button"
+                                                                onclick="showDeleteModal('{$custom_page.id}')"><i
+                                                                    class="fas fa-trash fa-fw"></i></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {else}
-                            <p>{$NO_CUSTOM_PAGES}</p>
+                                <p>{$NO_CUSTOM_PAGES}</p>
                             {/if}
 
                         </div>
@@ -127,7 +127,7 @@
             const id = $('#deleteId').attr('value');
             if (id) {
                 const response = $.post("{$DELETE_LINK}", { id, action: 'delete', token: "{$TOKEN}" });
-                response.done(function () { window.location.reload(); });
+                response.done(function() { window.location.reload(); });
             }
         }
     </script>

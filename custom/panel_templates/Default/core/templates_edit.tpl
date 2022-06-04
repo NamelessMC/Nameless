@@ -51,7 +51,7 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($DEFAULT_TEMPLATE_WARNING)}
-                            <div class="alert bg-warning text-white">{$DEFAULT_TEMPLATE_WARNING}</div>
+                                <div class="alert bg-warning text-white">{$DEFAULT_TEMPLATE_WARNING}</div>
                             {/if}
 
                             <form action="" method="post">

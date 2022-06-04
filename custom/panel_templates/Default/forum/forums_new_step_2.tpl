@@ -55,7 +55,7 @@
                                     <label for="InputParent">{$SELECT_PARENT_FORUM}</label>
                                     <select class="form-control" id="InputParent" name="parent">
                                         {foreach from=$PARENT_FORUMS item=item}
-                                        <option value="{$item.id}">{$item.name}</option>
+                                            <option value="{$item.id}">{$item.name}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -86,7 +86,7 @@
                                             data-content="{$HOOK_SELECT_INFO}"><i class="fa fa-question"></i></label>
                                     <select name="hooks[]" id="InputHooks" class="form-control" multiple>
                                         {foreach from=$HOOKS_ARRAY item=hook}
-                                        <option value="{$hook.id}">{$hook.name|ucfirst}</option>
+                                            <option value="{$hook.id}">{$hook.name|ucfirst}</option>
                                         {/foreach}
                                     </select>
                                 </div>

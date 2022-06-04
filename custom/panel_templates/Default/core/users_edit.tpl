@@ -68,17 +68,17 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($WARNINGS) && count($WARNINGS)}
-                            <div class="alert bg-warning text-white alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h5><i class="icon fas fa-exclamation-triangle"></i> {$WARNINGS_TITLE}</h5>
-                                <ul>
-                                    {foreach from=$WARNINGS item=warning}
-                                    <li>{$warning}</li>
-                                    {/foreach}
-                                </ul>
-                            </div>
+                                <div class="alert bg-warning text-white alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5><i class="icon fas fa-exclamation-triangle"></i> {$WARNINGS_TITLE}</h5>
+                                    <ul>
+                                        {foreach from=$WARNINGS item=warning}
+                                            <li>{$warning}</li>
+                                        {/foreach}
+                                    </ul>
+                                </div>
                             {/if}
 
                             <form role="form" action="" method="post">
@@ -88,13 +88,13 @@
                                         placeholder="{$USERNAME}" value="{$USERNAME_VALUE}">
                                 </div>
                                 {if $DISPLAYNAMES eq true}
-                                <div class="form-group">
-                                    <label for="InputUsername">{$NICKNAME}</label>
-                                    <input type="text" name="nickname" class="form-control" id="InputUsername"
-                                        placeholder="{$NICKNAME}" value="{$NICKNAME_VALUE}">
-                                </div>
+                                    <div class="form-group">
+                                        <label for="InputUsername">{$NICKNAME}</label>
+                                        <input type="text" name="nickname" class="form-control" id="InputUsername"
+                                            placeholder="{$NICKNAME}" value="{$NICKNAME_VALUE}">
+                                    </div>
                                 {else}
-                                <input type="hidden" name="nickname" value="{$NICKNAME_VALUE}">
+                                    <input type="hidden" name="nickname" value="{$NICKNAME_VALUE}">
                                 {/if}
                                 <div class="form-group">
                                     <label for="InputEmail">{$EMAIL_ADDRESS}</label>
@@ -107,24 +107,24 @@
                                         placeholder="{$USER_TITLE}" value="{$USER_TITLE_VALUE}">
                                 </div>
                                 {if $PRIVATE_PROFILE_ENABLED eq true}
-                                <div class="form-group">
-                                    <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
-                                    <select name="privateProfile" class="form-control" id="inputPrivateProfile">
-                                        <option value="1" {if $PRIVATE_PROFILE_VALUE eq 1} selected{/if}>{$ENABLED}
-                                        </option>
-                                        <option value="0" {if $PRIVATE_PROFILE_VALUE eq 0} selected{/if}>{$DISABLED}
-                                        </option>
-                                    </select>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
+                                        <select name="privateProfile" class="form-control" id="inputPrivateProfile">
+                                            <option value="1" {if $PRIVATE_PROFILE_VALUE eq 1} selected{/if}>{$ENABLED}
+                                            </option>
+                                            <option value="0" {if $PRIVATE_PROFILE_VALUE eq 0} selected{/if}>{$DISABLED}
+                                            </option>
+                                        </select>
+                                    </div>
                                 {else}
-                                <input type="hidden" name="privateProfile" value="0">
+                                    <input type="hidden" name="privateProfile" value="0">
                                 {/if}
                                 <div class="form-group">
                                     <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
                                     <select name="template" class="form-control" id="inputTemplate">
                                         {foreach from=$TEMPLATES item=template}
-                                        <option value="{$template.id}" {if $template.active eq true} selected{/if}>
-                                            {$template.name}</option>
+                                            <option value="{$template.id}" {if $template.active eq true} selected{/if}>
+                                                {$template.name}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -145,8 +145,8 @@
                                     <br />
                                     <select class="form-control" name="groups[]" id="inputGroups" multiple>
                                         {foreach from=$ALL_GROUPS item=item}
-                                        <option value="{$item->id}" {if in_array($item->id, $GROUPS_VALUE)}
-                                            selected{/if}>{$item->name|escape}</option>
+                                            <option value="{$item->id}" {if in_array($item->id, $GROUPS_VALUE)}
+                                                selected{/if}>{$item->name|escape}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -173,30 +173,30 @@
         </div>
 
         {if isset($DELETE_USER)}
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {$CONFIRM_DELETE_USER}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <form action="" method="post">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="id" value="{$USER_ID}">
-                            <input type="submit" class="btn btn-primary" value="{$YES}">
-                        </form>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {$CONFIRM_DELETE_USER}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                            <form action="" method="post">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="{$USER_ID}">
+                                <input type="submit" class="btn btn-primary" value="{$YES}">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {/if}
 
         <!-- End Wrapper -->
@@ -214,13 +214,13 @@
                 $('#deleteModal').modal().show();
             }
         {/if}
-    
+
         {if isset($VALIDATE_USER)}
             function validateUser() {
                 $('#validateUserForm').submit();
             }
         {/if}
-    
+
         $(document).ready(() => {
             $('#inputGroups').select2({ placeholder: "{$NO_ITEM_SELECTED}" });
         })

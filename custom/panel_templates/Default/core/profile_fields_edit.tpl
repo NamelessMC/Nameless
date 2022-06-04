@@ -64,8 +64,8 @@
                                             <label for="inputFieldType">{$TYPE}</label>
                                             <select class="form-control" name="type" id="inputFieldType">
                                                 {foreach from=$TYPES key=key item=item}
-                                                <option value="{$key}" {if $key eq $TYPE_VALUE} selected{/if}>{$item}
-                                                </option>
+                                                    <option value="{$key}" {if $key eq $TYPE_VALUE} selected{/if}>{$item}
+                                                    </option>
                                                 {/foreach}
                                             </select>
                                         </div>

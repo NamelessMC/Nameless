@@ -42,13 +42,13 @@
                                 <div class="col-md-3">
                                     <span class="float-md-right">
                                         {if isset($PERMISSIONS)}
-                                        <a href="{$PERMISSIONS_LINK}" class="btn btn-primary">{$PERMISSIONS}</a>
+                                            <a href="{$PERMISSIONS_LINK}" class="btn btn-primary">{$PERMISSIONS}</a>
                                         {/if}
                                         <button role="button" class="btn btn-warning"
                                             onclick="showCancelModal()">{$CANCEL}</button>
                                         {if isset($DELETE_GROUP)}
-                                        <button role="button" class="btn btn-danger"
-                                            onclick="showDeleteModal()">{$DELETE}</button>
+                                            <button role="button" class="btn btn-danger"
+                                                onclick="showDeleteModal()">{$DELETE}</button>
                                         {/if}
                                     </span>
                                 </div>
@@ -59,13 +59,13 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($OWN_GROUP)}
-                            <div class="card shadow border-left-primary">
-                                <div class="card-body">
-                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                    {$OWN_GROUP}
+                                <div class="card shadow border-left-primary">
+                                    <div class="card-body">
+                                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                        {$OWN_GROUP}
+                                    </div>
                                 </div>
-                            </div>
-                            <br />
+                                <br />
                             {/if}
 
                             <form role="form" action="" method="post">
@@ -100,13 +100,13 @@
                                         value="{$GROUP_ORDER_VALUE}">
                                 </div>
                                 {if $DISCORD_INTEGRATION}
-                                <div class="form-group">
-                                    <label for="InputDiscordRoleID">{$DISCORD_ROLE_ID} <span class="badge badge-info"
-                                            data-toggle="popover" data-title="{$INFO}"
-                                            data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
-                                    <input type="number" min="1" class="form-control" id="InputDiscordRoleID"
-                                        name="discord_role_id" value="{$DISCORD_ROLE_ID_VALUE}">
-                                </div>
+                                    <div class="form-group">
+                                        <label for="InputDiscordRoleID">{$DISCORD_ROLE_ID} <span class="badge badge-info"
+                                                data-toggle="popover" data-title="{$INFO}"
+                                                data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
+                                        <input type="number" min="1" class="form-control" id="InputDiscordRoleID"
+                                            name="discord_role_id" value="{$DISCORD_ROLE_ID_VALUE}">
+                                    </div>
                                 {/if}
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="tfa" value="0">
@@ -124,12 +124,12 @@
                                     <label class="custom-control-label" for="InputStaff">{$STAFF_GROUP}</label>
                                 </div>
                                 {if !isset($OWN_GROUP)}
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="staffcp" value="0">
-                                    <input type="checkbox" name="staffcp" class="custom-control-input" id="InputStaffCP"
-                                        value="1" {if $STAFF_CP_VALUE eq 1} checked{/if}>
-                                    <label class="custom-control-label" for="InputStaffCP">{$STAFF_CP}</label>
-                                </div>
+                                    <div class="form-group custom-control custom-switch">
+                                        <input type="hidden" name="staffcp" value="0">
+                                        <input type="checkbox" name="staffcp" class="custom-control-input" id="InputStaffCP"
+                                            value="1" {if $STAFF_CP_VALUE eq 1} checked{/if}>
+                                        <label class="custom-control-label" for="InputStaffCP">{$STAFF_CP}</label>
+                                    </div>
                                 {/if}
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="default" value="0">
@@ -182,30 +182,30 @@
         </div>
 
         {if isset($DELETE_GROUP)}
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {$CONFIRM_DELETE}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <form action="" method="post">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="id" value="{$GROUP_ID}">
-                            <input type="submit" class="btn btn-primary" value="{$YES}">
-                        </form>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {$CONFIRM_DELETE}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                            <form action="" method="post">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="{$GROUP_ID}">
+                                <input type="submit" class="btn btn-primary" value="{$YES}">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {/if}
 
         <!-- End Wrapper -->
@@ -218,21 +218,21 @@
             $('#cancelModal').modal().show();
         }
         {if isset($DELETE_GROUP)}
-        function showDeleteModal() {
-            $('#deleteModal').modal().show();
-        }
+            function showDeleteModal() {
+                $('#deleteModal').modal().show();
+            }
         {/if}
-        $(function () {
+        $(function() {
             $('.groupColour').colorpicker({
                 format: 'hex',
                 'color': '{$GROUP_USERNAME_COLOUR_VALUE}'
             });
 
-            $('.groupColour').on('colorpickerChange', function (event) {
+            $('.groupColour').on('colorpickerChange', function(event) {
                 $('#InputColour').val(event.color.toString());
             });
 
-            $('#InputColour').change(function () {
+            $('#InputColour').change(function() {
                 $('.groupColour').colorpicker('setValue', $(this).val());
             });
         });

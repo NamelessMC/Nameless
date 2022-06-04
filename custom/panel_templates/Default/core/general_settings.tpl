@@ -64,8 +64,8 @@
                                             <div class="input-group">
                                                 <select name="language" class="form-control" id="inputDefaultLanguage">
                                                     {foreach from=$DEFAULT_LANGUAGE_VALUES item=item}
-                                                    <option value="{$item->id}" {if $item->is_default eq 1}
-                                                        selected{/if}>{$item->name}</option>
+                                                        <option value="{$item->id}" {if $item->is_default eq 1}
+                                                            selected{/if}>{$item->name}</option>
                                                     {/foreach}
                                                 </select>
                                                 <div class="input-group-append">
@@ -84,10 +84,10 @@
                                             <label for="inputDefaultTimezone">{$DEFAULT_TIMEZONE}</label>
                                             <select name="timezone" class="form-control" id="inputDefaultTimezone">
                                                 {foreach from=$DEFAULT_TIMEZONE_LIST key=key item=item}
-                                                <option value="{$key}" {if $DEFAULT_TIMEZONE_VALUE eq $key}
-                                                    selected{/if}>
-                                                    ({$item.offset}) - {$item.name} ({$item.time})
-                                                </option>
+                                                    <option value="{$key}" {if $DEFAULT_TIMEZONE_VALUE eq $key}
+                                                        selected{/if}>
+                                                        ({$item.offset}) - {$item.name} ({$item.time})
+                                                    </option>
                                                 {/foreach}
                                             </select>
                                         </div>
@@ -114,7 +114,8 @@
                                                 <option value="username" {if $LOGIN_METHOD_VALUE eq "username" }
                                                     selected{/if}>{$USERNAME}</option>
                                                 <option value="email_or_username" {if $LOGIN_METHOD_VALUE
-                                                    eq "email_or_username" } selected{/if}>{$EMAIL_OR_USERNAME}</option>
+                                                    eq "email_or_username" } selected{/if}>{$EMAIL_OR_USERNAME}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -174,8 +175,8 @@
                                         <div class="col-md-6">
                                             <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
                                             <select name="displaynames" class="form-control" id="inputEnableNicknames">
-                                                <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "1" }
-                                                    selected{/if}>{$ENABLED}</option>
+                                                <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "1" } selected{/if}>
+                                                    {$ENABLED}</option>
                                                 <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "0" }
                                                     selected{/if}>{$DISABLED}</option>
                                             </select>

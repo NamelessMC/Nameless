@@ -44,11 +44,11 @@
                                     <span class="float-md-right">
                                         <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
                                         {if isset($SYNC_INTEGRATION)}
-                                        <form role="form" action="" method="post" style="display:inline">
-                                            <input type="hidden" name="token" value="{$TOKEN}">
-                                            <input type="hidden" name="action" value="sync">
-                                            <input type="submit" value="{$SYNC_INTEGRATION}" class="btn btn-primary">
-                                        </form>
+                                            <form role="form" action="" method="post" style="display:inline">
+                                                <input type="hidden" name="token" value="{$TOKEN}">
+                                                <input type="hidden" name="action" value="sync">
+                                                <input type="submit" value="{$SYNC_INTEGRATION}" class="btn btn-primary">
+                                            </form>
                                         {/if}
                                     </span>
                                 </div>

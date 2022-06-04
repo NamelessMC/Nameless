@@ -54,8 +54,8 @@
                                         <option value="minecraft" {if $DEFAULT_AVATAR_VALUE eq "minecraft" }
                                             selected{/if}>{$MINECRAFT_AVATAR}</option>
                                         {if $CUSTOM_AVATARS_VALUE eq 1}
-                                        <option value="custom" {if $DEFAULT_AVATAR_VALUE eq "custom" } selected{/if}>
-                                            {$CUSTOM_AVATAR}</option>
+                                            <option value="custom" {if $DEFAULT_AVATAR_VALUE eq "custom" } selected{/if}>
+                                                {$CUSTOM_AVATAR}</option>
                                         {/if}
                                     </select>
                                 </div>
@@ -63,8 +63,8 @@
                                     <label for="inputMinecraftAvatarSource">{$MINECRAFT_AVATAR_SOURCE}</label>
                                     <select class="form-control" name="avatar_source" id="inputMinecraftAvatarSource">
                                         {foreach from=$MINECRAFT_AVATAR_VALUES key=name item=url}
-                                        <option value="{$name}" {if $name eq $MINECRAFT_AVATAR_VALUE} selected{/if}>
-                                            {$url}</option>
+                                            <option value="{$name}" {if $name eq $MINECRAFT_AVATAR_VALUE} selected{/if}>
+                                                {$url}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -91,13 +91,13 @@
                             <br /><br />
 
                             {if count($IMAGES)}
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="selectDefaultAvatar">{$SELECT_DEFAULT_AVATAR}</label>
-                                    <select class="image-picker show-html" id="selectDefaultAvatar" name="avatar">
-                                        {foreach from=$IMAGES key=key item=item}
-                                        <option data-img-src="{$key}" value="{$item}" {if $DEFAULT_AVATAR_IMAGE eq
-                                            $item} selected{/if}>{$item}</option>
+                                <form action="" method="post">
+                                    <div class="form-group">
+                                        <label for="selectDefaultAvatar">{$SELECT_DEFAULT_AVATAR}</label>
+                                        <select class="image-picker show-html" id="selectDefaultAvatar" name="avatar">
+                                            {foreach from=$IMAGES key=key item=item}
+                                                <option data-img-src="{$key}" value="{$item}" {if $DEFAULT_AVATAR_IMAGE eq
+                                                $item} selected{/if}>{$item}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -160,7 +160,6 @@
     </div>
 
     <script>
-
         const perspective_selector = document.getElementById('inputAvatarPerspective');
         const source_selector = document.getElementById('inputMinecraftAvatarSource');
         source_selector.addEventListener('change', () => reloadPerspectives(source_selector.value));
@@ -171,22 +170,22 @@
             removeOptions(perspective_selector);
             {foreach $MINECRAFT_AVATAR_PERSPECTIVE_VALUES key=source item=perspectives}
                 if ('{$source}' == source) {
-                    {foreach $perspectives item=$perspective}
-                        if (firstLoad) {
-                            {if $perspective|strtolower eq $MINECRAFT_AVATAR_PERSPECTIVE_VALUE|strtolower}
-                                option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}', true, true);
-                                perspective_selector.add(option, undefined);
-                            {else}
-                                option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
-                                perspective_selector.add(option, undefined);
-                            {/if}
-                        } else {
+                {foreach $perspectives item=$perspective}
+                    if (firstLoad) {
+                        {if $perspective|strtolower eq $MINECRAFT_AVATAR_PERSPECTIVE_VALUE|strtolower}
+                            option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}', true, true);
+                            perspective_selector.add(option, undefined);
+                        {else}
                             option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
                             perspective_selector.add(option, undefined);
-                        }
-                    {/foreach}
-                }
-            {/foreach}
+                        {/if}
+                    } else {
+                        option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
+                        perspective_selector.add(option, undefined);
+                    }
+                {/foreach}
+            }
+        {/foreach}
         }
 
         function removeOptions(selectElement) {
@@ -195,7 +194,6 @@
                 selectElement.remove(i);
             }
         }
-
     </script>
 
     {include file='scripts.tpl'}

@@ -52,36 +52,36 @@
                             {include file='includes/alerts.tpl'}
 
                             {if count($HOOKS_LIST)}
-                            <div class="table-responsive">
-                                <table class="table table-borderless table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>{$NAME}</th>
-                                            <th>{$LINK}</th>
-                                            <th class="float-md-right">{$EDIT}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$HOOKS_LIST item=item item=hook name=hook_list}
-                                        <tr>
-                                            <td>{$hook.name}</td>
-                                            <td><a href="{$hook.edit_link}">{$hook.url}</a></td>
-                                            <td>
-                                                <div class="float-md-right">
-                                                    <a href="{$hook.edit_link}" class="btn btn-warning btn-sm"><i
-                                                            class="fas fa-edit fa-fw"></i></a>
-                                                    <button class="btn btn-danger btn-sm" type="button"
-                                                        onclick="showDeleteModal('{$hook.delete_link}')"><i
-                                                            class="fas fa-trash fa-fw"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$NAME}</th>
+                                                <th>{$LINK}</th>
+                                                <th class="float-md-right">{$EDIT}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$HOOKS_LIST item=item item=hook name=hook_list}
+                                                <tr>
+                                                    <td>{$hook.name}</td>
+                                                    <td><a href="{$hook.edit_link}">{$hook.url}</a></td>
+                                                    <td>
+                                                        <div class="float-md-right">
+                                                            <a href="{$hook.edit_link}" class="btn btn-warning btn-sm"><i
+                                                                    class="fas fa-edit fa-fw"></i></a>
+                                                            <button class="btn btn-danger btn-sm" type="button"
+                                                                onclick="showDeleteModal('{$hook.delete_link}')"><i
+                                                                    class="fas fa-trash fa-fw"></i></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {else}
-                            {$NO_HOOKS}
+                                {$NO_HOOKS}
                             {/if}
 
                         </div>

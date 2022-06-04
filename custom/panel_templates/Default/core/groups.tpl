@@ -55,28 +55,28 @@
                   </thead>
                   <tbody id="sortable">
                     {foreach from=$GROUP_LIST item=group}
-                    <tr data-id="{$group.id}">
-                      <td>{$group.order}</td>
-                      <td>{$group.id}</td>
-                      <td><a href="{$group.edit_link}">{$group.name}</a></td>
-                      <td>{$group.users}</td>
-                      <td>
-                        {if $group.staff}
-                        <i class="fas fa-check-circle text-success"></i>
-                        {else}
-                        <i class="fas fa-times-circle text-danger"></i>
-                        {/if}
-                      </td>
-                      <td>
-                        <div class="float-md-right">
-                          <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
-                          <a href="{$group.clone_link}" class="btn btn-primary btn-sm"><i
-                              class="fas fa-clone fa-fw"></i></a>
-                          <a href="{$group.edit_link}" class="btn btn-warning btn-sm"><i
-                              class="fas fa-edit fa-fw"></i></a>
-                        </div>
-                      </td>
-                    </tr>
+                      <tr data-id="{$group.id}">
+                        <td>{$group.order}</td>
+                        <td>{$group.id}</td>
+                        <td><a href="{$group.edit_link}">{$group.name}</a></td>
+                        <td>{$group.users}</td>
+                        <td>
+                          {if $group.staff}
+                            <i class="fas fa-check-circle text-success"></i>
+                          {else}
+                            <i class="fas fa-times-circle text-danger"></i>
+                          {/if}
+                        </td>
+                        <td>
+                          <div class="float-md-right">
+                            <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
+                            <a href="{$group.clone_link}" class="btn btn-primary btn-sm"><i
+                                class="fas fa-clone fa-fw"></i></a>
+                            <a href="{$group.edit_link}" class="btn btn-warning btn-sm"><i
+                                class="fas fa-edit fa-fw"></i></a>
+                          </div>
+                        </td>
+                      </tr>
                     {/foreach}
                   </tbody>
                 </table>
@@ -105,16 +105,16 @@
   {include file='scripts.tpl'}
 
   <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
       $("#sortable").sortable({
-        start: function (event, ui) {
+        start: function(event, ui) {
           let start_pos = ui.item.index();
           ui.item.data('startPos', start_pos);
         },
-        update: function (event, ui) {
+        update: function(event, ui) {
           let groups = $("#sortable").children();
           let toSubmit = [];
-          groups.each(function () {
+          groups.each(function() {
             toSubmit.push($(this).data().id);
           });
 
@@ -125,10 +125,10 @@
               token: "{$TOKEN}",
               {literal}groups: JSON.stringify({"groups": toSubmit}){/literal}
             },
-            success: function (response) {
+            success: function(response) {
               // Success
             },
-            error: function (xhr) {
+            error: function(xhr) {
               // Error
               console.log(xhr);
             }

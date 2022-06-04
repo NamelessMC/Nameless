@@ -43,35 +43,35 @@
                             {include file='includes/alerts.tpl'}
 
                             {if count($REACTIONS_LIST)}
-                            <div class="table-responsive">
-                                <table class="table table-borderless table-striped">
-                                    <thead>
-                                        <tr>
-                                            <td>{$NAME}</td>
-                                            <td>{$ICON}</td>
-                                            <td>{$TYPE}</td>
-                                            <td>{$ENABLED}</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$REACTIONS_LIST item=reaction}
-                                        <tr>
-                                            <td><a href="{$reaction.edit_link}">{$reaction.name}</a></td>
-                                            <td>{$reaction.html}</td>
-                                            <td>{$reaction.type}</td>
-                                            <td>{if $reaction.enabled eq 1}
-                                                <i class="fa fa-check-circle fa-fw text-success"></i>
-                                                {else}
-                                                <i class="fa fa-times-circle fa-fw text-danger"></i>
-                                                {/if}
-                                            </td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <td>{$NAME}</td>
+                                                <td>{$ICON}</td>
+                                                <td>{$TYPE}</td>
+                                                <td>{$ENABLED}</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$REACTIONS_LIST item=reaction}
+                                                <tr>
+                                                    <td><a href="{$reaction.edit_link}">{$reaction.name}</a></td>
+                                                    <td>{$reaction.html}</td>
+                                                    <td>{$reaction.type}</td>
+                                                    <td>{if $reaction.enabled eq 1}
+                                                            <i class="fa fa-check-circle fa-fw text-success"></i>
+                                                        {else}
+                                                            <i class="fa fa-times-circle fa-fw text-danger"></i>
+                                                        {/if}
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {else}
-                            {$NO_REACTIONS}
+                                {$NO_REACTIONS}
                             {/if}
 
                         </div>

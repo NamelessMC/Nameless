@@ -39,61 +39,61 @@
                             <a class="btn btn-primary" {if count($FIELDS)}style="margin-bottom: 15px"
                                 {/if}href="{$NEW_FIELD_LINK}">{$NEW_FIELD}</a>
                             {if !count($FIELDS)}
-                            <hr />
+                                <hr />
                             {/if}
 
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
                             {if count($FIELDS)}
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>{$FIELD_NAME}</th>
-                                            <th>{$TYPE}</th>
-                                            <th>{$REQUIRED}</th>
-                                            <th>{$EDITABLE}</th>
-                                            <th>{$PUBLIC}</th>
-                                            <th>{$FORUM_POSTS}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$FIELDS item=field}
-                                        <tr>
-                                            <td><a href="{$field.edit_link}">{$field.name}</a></td>
-                                            <td>{$field.type}</td>
-                                            <td>{if $field.required eq 1}
-                                                <i class="fa fa-check-circle text-success"></i>
-                                                {else}
-                                                <i class="fa fa-times-circle text-danger"></i>
-                                                {/if}
-                                            </td>
-                                            <td>{if $field.editable eq 1}
-                                                <i class="fa fa-check-circle text-success"></i>
-                                                {else}
-                                                <i class="fa fa-times-circle text-danger"></i>
-                                                {/if}
-                                            </td>
-                                            <td>{if $field.public eq 1}
-                                                <i class="fa fa-check-circle text-success"></i>
-                                                {else}
-                                                <i class="fa fa-times-circle text-danger"></i>
-                                                {/if}
-                                            </td>
-                                            <td>{if $field.forum_posts eq 1}
-                                                <i class="fa fa-check-circle text-success"></i>
-                                                {else}
-                                                <i class="fa fa-times-circle text-danger"></i>
-                                                {/if}
-                                            </td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$FIELD_NAME}</th>
+                                                <th>{$TYPE}</th>
+                                                <th>{$REQUIRED}</th>
+                                                <th>{$EDITABLE}</th>
+                                                <th>{$PUBLIC}</th>
+                                                <th>{$FORUM_POSTS}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$FIELDS item=field}
+                                                <tr>
+                                                    <td><a href="{$field.edit_link}">{$field.name}</a></td>
+                                                    <td>{$field.type}</td>
+                                                    <td>{if $field.required eq 1}
+                                                            <i class="fa fa-check-circle text-success"></i>
+                                                        {else}
+                                                            <i class="fa fa-times-circle text-danger"></i>
+                                                        {/if}
+                                                    </td>
+                                                    <td>{if $field.editable eq 1}
+                                                            <i class="fa fa-check-circle text-success"></i>
+                                                        {else}
+                                                            <i class="fa fa-times-circle text-danger"></i>
+                                                        {/if}
+                                                    </td>
+                                                    <td>{if $field.public eq 1}
+                                                            <i class="fa fa-check-circle text-success"></i>
+                                                        {else}
+                                                            <i class="fa fa-times-circle text-danger"></i>
+                                                        {/if}
+                                                    </td>
+                                                    <td>{if $field.forum_posts eq 1}
+                                                            <i class="fa fa-check-circle text-success"></i>
+                                                        {else}
+                                                            <i class="fa fa-times-circle text-danger"></i>
+                                                        {/if}
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {else}
-                            {$NO_FIELDS}
+                                {$NO_FIELDS}
                             {/if}
 
                         </div>

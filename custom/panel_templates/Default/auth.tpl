@@ -12,23 +12,23 @@
                                 <h1 class="h4 text-gray-900 mb-4">{$PLEASE_REAUTHENTICATE}</h1>
                             </div>
                             {if isset($ERROR)}
-                            <div class="alert bg-danger text-white">
-                                {$ERROR}
-                            </div>
+                                <div class="alert bg-danger text-white">
+                                    {$ERROR}
+                                </div>
                             {/if}
                             <form class="user" action="" method="post">
                                 {if isset($EMAIL)}
-                                <div class="form-group has-feedback">
-                                    <input type="email" name="email" id="email" autocomplete="off"
-                                        class="form-control form-control-user" placeholder="{$EMAIL}"
-                                        value="{$EMAIL_VALUE}">
-                                </div>
+                                    <div class="form-group has-feedback">
+                                        <input type="email" name="email" id="email" autocomplete="off"
+                                            class="form-control form-control-user" placeholder="{$EMAIL}"
+                                            value="{$EMAIL_VALUE}">
+                                    </div>
                                 {else}
-                                <div class="form-group has-feedback">
-                                    <input type="text" name="username" id="username" autocomplete="off"
-                                        class="form-control form-control-user" placeholder="{$USERNAME}"
-                                        value="{$USERNAME_VALUE}">
-                                </div>
+                                    <div class="form-group has-feedback">
+                                        <input type="text" name="username" id="username" autocomplete="off"
+                                            class="form-control form-control-user" placeholder="{$USERNAME}"
+                                            value="{$USERNAME_VALUE}">
+                                    </div>
                                 {/if}
                                 <div class="form-group has-feedback">
                                     <input type="password" name="password" id="password"
