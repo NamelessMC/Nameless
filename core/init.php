@@ -185,6 +185,8 @@ if ($page != 'install') {
         }
     }
 
+    define('DEFAULT_LANGUAGE', $default_language);
+
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Attempt to get the requested language from the browser if it exists
         // and if the user has enabled auto language detection

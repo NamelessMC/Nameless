@@ -112,11 +112,12 @@ class IntegrationUser {
             ]
         );
 
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('linkIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => $this->_integration->getLanguage()->get('user', 'user_has_linked_integration', [
+            'content' => $default_language->get('user', 'user_has_linked_integration', [
                 'user' => $user->getDisplayname(),
                 'integration' => $this->_integration->getName(),
             ]),
@@ -142,11 +143,12 @@ class IntegrationUser {
         $this->_integration->onSuccessfulVerification($this);
 
         $user = $this->getUser();
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('verifyIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => $this->_integration->getLanguage()->get('user', 'user_has_verified_integration', [
+            'content' => $default_language->get('user', 'user_has_verified_integration', [
                 'user' => $user->getDisplayname(),
                 'integration' => $this->_integration->getName(),
             ]),
@@ -172,11 +174,12 @@ class IntegrationUser {
         );
 
         $user = $this->getUser();
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('unlinkIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
-            'content' => $this->_integration->getLanguage()->get('user', 'user_has_unlinked_integration', [
+            'content' => $default_language->get('user', 'user_has_unlinked_integration', [
                 'user' => $user->getDisplayname(),
                 'integration' => $this->_integration->getName(),
             ]),

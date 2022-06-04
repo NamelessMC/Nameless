@@ -295,13 +295,14 @@ if (Input::exists()) {
 
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific forum, not any of its parents...
+            $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
             $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
             $available_hooks = json_decode($available_hooks[0]->hooks);
             EventHandler::executeEvent('topicReply', [
                 'user_id' => $user->data()->id,
                 'username' => $user->data()->username,
                 'nickname' => $user->data()->nickname,
-                'content' => $forum_language->get('forum', 'new_topic_reply_text', [
+                'content' => $default_forum_language->get('forum', 'new_topic_reply_text', [
                     'forum' => $forum_parent[0]->forum_title,
                     'author' => $user->getDisplayname(),
                 ]),

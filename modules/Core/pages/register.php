@@ -357,15 +357,16 @@ if (Input::exists()) {
 
                         Log::getInstance()->log(Log::Action('user/register'), '', $user_id, Util::getRemoteAddress());
 
+                        $default_language = new Language('core', DEFAULT_LANGUAGE);
                         EventHandler::executeEvent('registerUser', [
                             'user_id' => $user_id,
                             'username' => Input::get('username'),
-                            'content' => $language->get('user', 'user_x_has_registered', [
+                            'content' => $default_language->get('user', 'user_x_has_registered', [
                                 'user' => Input::get('username'),
                             ]),
                             'avatar_url' => $user->getAvatar(128, true),
                             'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
-                            'language' => $language,
+                            'language' => $default_language,
                         ]);
 
                         if (Util::getSetting('email_verification') === '1') {
