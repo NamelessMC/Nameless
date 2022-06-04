@@ -27,7 +27,7 @@
                     {if isset($EDITING_TOPIC)}
                     <div class="field">
                         <label for="title">{$TOPIC_TITLE}</label>
-                        <input type="text" id="title" name="title" value="{$TOPIC_TITLE}">
+                        <input type="text" id="title" name="title" value="{$TOPIC_TITLE_VALUE}">
                     </div>
                     {if count($LABELS)}
                     <div class="inline fields labels">

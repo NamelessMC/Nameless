@@ -186,7 +186,7 @@ $smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 if (isset($edit_title, $post_labels)) {
     $smarty->assign('EDITING_TOPIC', true);
 
-    $smarty->assign('TOPIC_TITLE', $post_title);
+    $smarty->assign('TOPIC_TITLE_VALUE', $post_title);
 
     // Topic labels
     $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
