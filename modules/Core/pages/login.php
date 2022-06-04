@@ -151,16 +151,10 @@ if (Input::exists()) {
                         // Did the user check 'remember me'?
                         $remember = Input::get('remember') == 1;
 
-                        // Is Minecraft and AuthMe integration enabled?
-                        $minecraft = MINECRAFT;
-
-                        $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-                        $authme_enabled = $authme_enabled[0]->value;
-
                         $cache->setCache('authme_cache');
                         $authme_db = $cache->retrieve('authme');
 
-                        if ($minecraft == '1' && $authme_enabled == '1' && $authme_db['sync'] == '1') {
+                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
 
                             // Sync AuthMe password
                             try {

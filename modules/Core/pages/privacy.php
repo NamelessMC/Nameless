@@ -17,9 +17,10 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Retrieve privacy policy from database
 $policy = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
 if (!count($policy)) {
-    $policy = DB::getInstance()->get('settings', ['name', 'privacy_policy'])->results();
+    $policy = Output::getPurified(Util::getSetting('privacy_policy'));
+} else {
+    $policy = Output::getPurified($policy[0]->value);
 }
-$policy = Output::getPurified($policy[0]->value);
 
 $smarty->assign([
     'PRIVACY_POLICY' => $language->get('general', 'privacy_policy'),
