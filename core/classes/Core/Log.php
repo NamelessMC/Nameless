@@ -206,15 +206,15 @@ class Log extends Instanceable {
      * @param string $action The action being logged
      * @param string $info Some more information about what the action is about
      * @param ?int $user The User ID who is doing the action
-     * @param ?string $ip The ip of the user. If not specified, it will try to get the IP from the currently logged in user.
      * @return bool Return true or false if inserted into the database.
      */
-    public function log(string $action, string $info = '', ?int $user = null, string $ip = null): bool {
+    public function log(string $action, string $info = '', ?int $user = null): bool {
         if ($user == null) {
             $userTemp = new User();
-            $ip = Util::getRemoteAddress();
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
+
+        $ip = Util::getRemoteAddress();
 
         return $this->_db->insert('logs', [
             'time' => date('U'),
