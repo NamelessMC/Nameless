@@ -375,15 +375,6 @@ class Util {
     }
 
     /**
-     * Detect if the current connection is using SSL.
-     *
-     * @return bool Whether SSL is in use or not.
-     */
-    public static function isConnectionSSL(): bool {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
-    }
-
-    /**
      * URL-ify a string
      *
      * @param string|null $string $string String to URLify
