@@ -328,7 +328,7 @@ class Util {
      *
      * @return ?int Port number, or null when using the CLI
      */
-    public static function getPort(): int {
+    public static function getPort(): ?int {
         if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
             self::ensureTrustedProxy();
             return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
