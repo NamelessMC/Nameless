@@ -138,6 +138,26 @@ if ($favicon_image == '') {
 // Only display jpeg, png, jpg, gif
 $allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
 
+$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
+$images = scandir($image_path);
+$template_banner_images = [];
+
+$n = 1;
+
+foreach ($images as $image) {
+    $ext = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($ext, $allowed_exts)) {
+        continue;
+    }
+    $template_banner_images[] = [
+        'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image,
+        'value' => $image,
+        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
+        'n' => $n
+    ];
+    $n++;
+}
+
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']);
 $images = scandir($image_path);
 $logo_images = [];
