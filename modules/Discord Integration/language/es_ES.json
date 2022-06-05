@@ -16,8 +16,8 @@
     "discord_integration/discord_database_error": "La base de datos de Nameless Link no funciona actualmente. Por favor, inténtelo más tarde.",
     "discord_integration/discord_guild_id": "ID del servidor de Discord",
     "discord_integration/discord_id_help": "Para obtener información sobre dónde encontrar IDs de Discord, por favor lea {{linkStart}}esto.{{linkEnd}}",
-    "discord_integration/discord_id_length": "Por favor, asegúrate de que la ID de Discord tiene 18 caracteres.",
-    "discord_integration/discord_id_numeric": "Por favor, asegúrese de que su ID de Discord es numérica (sólo números).",
+    "discord_integration/discord_id_length": "Por favor, asegúrate de que la ID del servidor de Discord tiene 18 caracteres.",
+    "discord_integration/discord_id_numeric": "Por favor, asegúrese de que su ID del servidor de Discord es numérica (sólo números).",
     "discord_integration/discord_id_set": "ID de Discord establecida con éxito",
     "discord_integration/discord_id_taken": "Esa ID de Discord ya ha sido tomada.",
     "discord_integration/discord_id_unlinked": "Se ha desvinculado con éxito su ID de usuario de Discord.",
@@ -48,5 +48,6 @@
     "discord_integration/discord_invite_info": "Para invitar al bot Nameless Link a tu servidor de Discord, haz clic en {{inviteLinkStart}}aquí{{inviteLinkEnd}}. A continuación, ejecuta el comando {{command}} para enlazar el bot con tu sitio web. También puedes {{selfHostLinkStart}}alojar el bot tú mismo{{selfHostLinkEnd}}.",
     "discord_integration/discord_user_id": "ID de usuario de Discord",
     "discord_integration/discord_widget_disabled": "El widget está desactivado para el servidor de Discord especificado. Ve a la pestaña \"Widget\" en la configuración de tu servidor de Discord y asegúrate de que el widget de Discord está activado y de que el ID es correcto.",
-    "discord_integration/discord_widget_error": "Se ha producido un error al obtener el widget de Discord: {{error}}."
+    "discord_integration/discord_widget_error": "Se ha producido un error al obtener el widget de Discord: {{error}}.",
+    "discord_integration/discord_id_required": "Por favor, introduce la ID del servidor de Discord."
 }
