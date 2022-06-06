@@ -1217,5 +1217,7 @@
     "admin/test_email_suggest_1": "Warte ein paar Minuten und überprüfe deinen Spam-Ordner.",
     "admin/test_email_suggest_2": "Aktualisiere die DNS-Einträge deiner Website (prüfe SPF und DKIM).",
     "admin/test_email_suggest_3": "Einen SMTP-Server einrichten. {{docLinkStart}}Weiterlesen \"{{docLinkEnd}}",
-    "admin/debug_link_info": "Wichtig - teile diesen Link nur mit Personen, denen du vertraust!"
+    "admin/debug_link_info": "Wichtig - teile diesen Link nur mit Personen, denen du vertraust!",
+    "general/deleted_user": "Gelöschte Benutzer",
+    "admin/use_external_mail_server": "Externen Mailserver verwenden"
 }
