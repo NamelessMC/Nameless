@@ -1217,5 +1217,7 @@
     "admin/test_email_suggest_2": "Update je site zijn DNS records (check SPF & DKIM).",
     "admin/test_email_suggest_3": "Configureer een SMTP server. {{docLinkStart}}Lees meer »{{docLinkEnd}}",
     "installer/upgrade_error": "Er zijn fouten ontstaan tijdens het upgraden.",
-    "admin/custom_content": "Aangepaste Inhoud"
+    "admin/custom_content": "Aangepaste Inhoud",
+    "general/deleted_user": "Verwijderde gebruiker",
+    "admin/use_external_mail_server": "Gebruik externe mail server"
 }
