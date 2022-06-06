@@ -57,6 +57,16 @@ if ($cache->isCached('update_check')) {
 if (!is_string($update_check)) {
     if ($update_check->updateAvailable()) {
         $smarty->assign([
+            'NEW_UPDATE' => $update_check->isUrgent()
+                ? $language->get('admin', 'new_urgent_update_available')
+                : $language->get('admin', 'new_update_available'),
+            'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
+            'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
+                'version' => Output::getClean(NAMELESS_VERSION)
+            ]),
+            'NEW_VERSION' => $language->get('admin', 'new_version_x', [
+                'version' => Output::getClean($update_check->version())
+            ]),
             'INSTRUCTIONS' => $language->get('admin', 'instructions'),
             'INSTRUCTIONS_VALUE' => Output::getDecoded($update_check->instructions()),
             'UPGRADE_LINK' => URL::build('/panel/upgrade'),

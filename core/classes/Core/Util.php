@@ -226,9 +226,9 @@ class Util {
     /**
      * Get the client's true IP address, using proxy headers if necessary.
      *
-     * @return string Client IP address
+     * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
      */
-    public static function getRemoteAddress(): string {
+    public static function getRemoteAddress(): ?string {
         $headers = getallheaders();
 
         // Try the simple headers first that only contain an IP address
@@ -304,9 +304,9 @@ class Util {
     /**
      * Get the protocol used by client's HTTP request, using proxy headers if necessary.
      *
-     * @return string 'http' if HTTP or 'https' if HTTPS
+     * @return ?string 'http' if HTTP or 'https' if HTTPS, or null when using the CLI
      */
-    public static function getProtocol(): string {
+    public static function getProtocol(): ?string {
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             self::ensureTrustedProxy();
             $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
@@ -316,23 +316,29 @@ class Util {
             return $proto;
         }
 
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            ? 'https'
-            : 'http';
+        if (isset($_SERVER['HTTPS'])) {
+            return $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+        }
+
+        return null;
     }
 
     /**
      * Get port used by client's HTTP request, using proxy headers if necessary.
      *
-     * @return int Port number
+     * @return ?int Port number, or null when using the CLI
      */
-    public static function getPort(): int {
+    public static function getPort(): ?int {
         if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
             self::ensureTrustedProxy();
             return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
         }
 
-        return (int) $_SERVER['SERVER_PORT'];
+        if (isset($_SERVER['SERVER_PORT'])) {
+            return (int) $_SERVER['SERVER_PORT'];
+        }
+
+        return null;
     }
 
     /**
@@ -372,15 +378,6 @@ class Util {
         }
 
         return $url;
-    }
-
-    /**
-     * Detect if the current connection is using SSL.
-     *
-     * @return bool Whether SSL is in use or not.
-     */
-    public static function isConnectionSSL(): bool {
-        return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
     }
 
     /**

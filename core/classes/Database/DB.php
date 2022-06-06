@@ -274,6 +274,20 @@ class DB {
     }
 
     /**
+     * Decrement a numeric column value by 1.
+     *
+     * @param string $table The table to use.
+     * @param int $id The id of the row to decrement a column in.
+     * @param string $field The field to increment.
+     * @return bool Whether an error occurred or not.
+     */
+    public function decrement(string $table, int $id, string $field): bool {
+        $table = $this->_prefix . $table;
+
+        return !$this->query("UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?", [$id])->error();
+    }
+
+    /**
      * Select rows from the database, ordering by a specific column and sort type.
      *
      * @param string $table The table to use.

@@ -27,34 +27,41 @@
                     {if isset($EDITING_TOPIC)}
                         <div class="field">
                             <label for="title">{$TOPIC_TITLE}</label>
-                            <input type="text" id="title" name="title" value="{$TOPIC_TITLE}">
+                            <input type="text" id="title" name="title" value="{$TOPIC_TITLE_VALUE}">
                         </div>
                         {if count($LABELS)}
                             <div class="inline fields labels">
                                 {foreach from=$LABELS item=label}
                                     <div class="field">
-                                        <div class="ui checkbox">
-                                            <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}" {if
-                                            $label.active} checked="checked" {/if} hidden>
-                                        <label for="{$label.id}">{$label.html}</label>
+                                        <label for="title">{$TOPIC_TITLE}</label>
+                                        <input type="text" id="title" name="title" value="{$TOPIC_TITLE}">
                                     </div>
-                                </div>
-                            {/foreach}
-                        </div>
-                    {/if}
-                    {/if}
-                    <div class="field">
-                        <label for="editor">{$CONTENT_LABEL}</label>
-                        <textarea name="content" id="editor"></textarea>
-                    </div>
-                    <input type="hidden" name="token" value="{$TOKEN}">
-                    <input type="submit" class="ui primary button" value="{$SUBMIT}">
-                    <a class="ui negative button" href="{$CANCEL_LINK}"
-                        onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>
-                </form>
+                                    {if count($LABELS)}
+                                        <div class="inline fields labels">
+                                            {foreach from=$LABELS item=label}
+                                                <div class="field">
+                                                    <div class="ui checkbox">
+                                                        <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}" {if
+                                                            $label.active} checked="checked" {/if} hidden>
+                                                    <label for="{$label.id}">{$label.html}</label>
+                                                </div>
+                                            </div>
+                                        {/foreach}
+                                    </div>
+                                {/if}
+                            {/if}
+                            <div class="field">
+                                <label for="editor">{$CONTENT_LABEL}</label>
+                                <textarea name="content" id="editor"></textarea>
+                            </div>
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" class="ui primary button" value="{$SUBMIT}">
+                            <a class="ui negative button" href="{$CANCEL_LINK}"
+                                onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-{include file='footer.tpl'}
+    {include file='footer.tpl'}

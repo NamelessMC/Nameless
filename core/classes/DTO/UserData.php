@@ -27,7 +27,7 @@ class UserData {
     public bool $gravatar;
     public bool $topic_updates;
     public bool $private_profile;
-    public int $last_online;
+    public ?int $last_online;
     public ?string $user_title;
     public ?int $theme_id;
     public ?int $language_id;

@@ -829,6 +829,7 @@
     "general/pink": "Pink",
     "general/brown": "Brown",
     "general/grey": "Grey",
+    "general/deleted_user": "Deleted User",
     "installer/back": "Back",
     "installer/cache_writable": "Cache Writable",
     "installer/character_set": "Character Set",

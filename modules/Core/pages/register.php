@@ -355,7 +355,7 @@ if (Input::exists()) {
                             }
                         }
 
-                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id, Util::getRemoteAddress());
+                        Log::getInstance()->log(Log::Action('user/register'), '', $user_id);
 
                         $default_language = new Language('core', DEFAULT_LANGUAGE);
                         EventHandler::executeEvent('registerUser', [
