@@ -179,7 +179,6 @@
     "admin/enable_api": "是否启用 API?",
     "admin/enable_authme": "是否启用 AuthMe 集成?",
     "admin/enable_debug_mode": "是否启用调试模式?",
-    "admin/enable_mailer": "是否启用 PHPMailer?",
     "admin/enable_mailer_help": "如果默认情况下无法发送电子邮件，请启用此功能。使用 PHPMailer 要求您具有能够发送电子邮件的服务，例如 Gmail 或 SMTP 提供程序。",
     "admin/enable_maintenance_mode": "是否启用维护模式?",
     "admin/enable_minecraft_integration": "是否启用 Minecraft 集成?",

@@ -173,7 +173,6 @@
     "admin/enable_api": "API aktivieren?",
     "admin/enable_authme": "Aktiviere AuthMe Integration?",
     "admin/enable_debug_mode": "Aktiviere den Fehlerbenachrichtungs Modus?",
-    "admin/enable_mailer": "Aktiviere PHPMailer?",
     "admin/enable_mailer_help": "Wenn diese Option aktiviert ist, werden E-Mails mit PHPMailer anstelle der Systemvorgabe gesendet. Dies kann bei der Zustellung helfen, erfordert aber die Konfiguration eines SMTP-Providers. {{docLinkStart}}Weiterlesen \"{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "Wartungsmodus aktivieren?",
     "admin/enable_minecraft_integration": "Minecraft Integration aktivieren?",

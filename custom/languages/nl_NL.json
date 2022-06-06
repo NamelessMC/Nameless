@@ -175,7 +175,6 @@
     "admin/enable_api": "API aanzetten?",
     "admin/enable_authme": "AuthMe integratie aanzetten?",
     "admin/enable_debug_mode": "Wil je debug modus inschakelen?",
-    "admin/enable_mailer": "PHPMailer inschakelen?",
     "admin/enable_mailer_help": "Als dit aanstaat, worden e-mails verzonden met PHPMailer in plaats van de standaard van het system. Dit zou kunnen helpen met het verzenden van e-mails maar vereist wel dat je een SMTP aanbieder configureert. {{docLinkStart}}Lees meer »{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "Wil je onderhoud modus inschakelen?",
     "admin/enable_minecraft_integration": "Minecraft integratie inschakelen?",

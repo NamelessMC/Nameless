@@ -127,7 +127,6 @@
     "admin/enable_api": "Activare API?",
     "admin/enable_authme": "Activați integrarea AuthMe?",
     "admin/enable_debug_mode": "Activați modul de depanare?",
-    "admin/enable_mailer": "Activati PHPMailer?",
     "admin/enable_mailer_help": "Activați această opțiune dacă e-mailurile nu sunt trimise în mod implicit. Utilizarea programului PHPMailer necesită un serviciu care să poată trimite e-mailuri, cum ar fi Gmail sau un furnizor SMTP.",
     "admin/enable_maintenance_mode": "Activați modul de întreținere?",
     "admin/enable_minecraft_integration": "Activați integrarea Minecraft?",

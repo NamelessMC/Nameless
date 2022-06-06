@@ -166,7 +166,6 @@
     "admin/enable_api": "Aktivera API?",
     "admin/enable_authme": "Aktivera AuthMe integration?",
     "admin/enable_debug_mode": "Aktivera debug-läge?",
-    "admin/enable_mailer": "Aktivera PHPMailer?",
     "admin/enable_mailer_help": "Aktivera det här om e-postmeddelanden inte skickas som standard. Användningen av PHPMailer kräver att du har en tjänst som kan skicka e-postmeddelanden, till exempel Gmail eller en SMTP-leverantör.",
     "admin/enable_maintenance_mode": "Aktivera uppbyggnadsläge?",
     "admin/enable_minecraft_integration": "Aktivera Minecraft Integration?",

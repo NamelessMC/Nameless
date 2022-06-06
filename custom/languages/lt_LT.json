@@ -129,7 +129,6 @@
     "admin/enable_api": "Įjungti API?",
     "admin/enable_authme": "Įjungti AuthMe integraciją?",
     "admin/enable_debug_mode": "Įjungti derinimo režimą?",
-    "admin/enable_mailer": "Įjungti PHPMailer?",
     "admin/enable_mailer_help": "Įjunkite tai, jei el. Laiškai nebus siunčiami pagal numatytuosius nustatymus. Naudojant PHPMailer reikia turėti paslaugą, galinčią siųsti el. Laiškus, pvz., \"Gmail\" ar SMTP teikėją.",
     "admin/enable_maintenance_mode": "Įjungti priežiūros režimą?",
     "admin/enable_minecraft_integration": "Įjungti Minecraft integraciją?",

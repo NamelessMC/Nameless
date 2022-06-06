@@ -182,7 +182,6 @@
     "admin/enable_api": "Povoliť API?",
     "admin/enable_authme": "Povoliť AuthMe integráciu?",
     "admin/enable_debug_mode": "Povoliť debug mód?",
-    "admin/enable_mailer": "Povoliť PHPMailer?",
     "admin/enable_mailer_help": "Túto možnosť povoľte, ak sa emaily predvolene neposielajú. Používanie PHPMaileru vyžaduje, aby ste mali službu schopnú odosielať emaily, napríklad Gmail alebo SMTP poskytovateľ.",
     "admin/enable_maintenance_mode": "Povoliť režim údržby?",
     "admin/enable_minecraft_integration": "Povoliť Minecraft integráciu?",
