@@ -43,7 +43,7 @@ $language = new Language('core', $language_short_code);
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
-if (!isset($CONFIG['installed'])) {
+if (isset($GLOBALS['config']['core'])) {
     if (isset($_GET['language'])) {
         // Set language
         if (is_file('custom/languages/' . $_GET['language'] . '.json')) {
