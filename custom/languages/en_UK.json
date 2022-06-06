@@ -194,7 +194,7 @@
     "admin/enable_api": "Enable API?",
     "admin/enable_authme": "Enable AuthMe integration?",
     "admin/enable_debug_mode": "Enable debug mode?",
-    "admin/enable_mailer": "Enable PHPMailer?",
+    "admin/use_external_mail_server": "Use external mail server",
     "admin/enable_mailer_help": "If enabled, emails will be sent using PHPMailer instead of the system default. This may help with delivery, but requires you to configure an SMTP provider. {{docLinkStart}}Read more »{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "Enable maintenance mode?",
     "admin/enable_minecraft_integration": "Enable Minecraft integration?",
