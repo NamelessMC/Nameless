@@ -37,6 +37,17 @@ class Discord_Module extends Module {
         // Discord Integration
         require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/DiscordIntegration.php");
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
+        
+        // Hooks
+        EventHandler::registerEvent('discordWebhookFormatter',
+            'Discord webhook formatter',
+            [
+                'data' => 'Event data',
+                'format' => 'The format witch being sent to the discord webhook'
+            ],
+            true,
+            true
+        );
     }
 
     public function onInstall() {

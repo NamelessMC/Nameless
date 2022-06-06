@@ -10,20 +10,11 @@
 class DiscordHook {
 
     public static function execute(array $params = []): void {
-        // Ensure hook is compatible
-        $return = [];
-        if ($params['event'] == 'registerUser') {
-            $return['username'] = SITE_NAME;
-            $return['content'] = '';
-            $return['embeds'] = [[
-                'author' => [
-                    'name' => Output::getClean($params['username']),
-                    'url' => $params['url'],
-                    'icon_url' => $params['avatar_url']
-                ],
-                'description' => $params['language']->get('user', 'user_x_has_registered', ['user' => Output::getClean($params['username']), 'siteName' => SITE_NAME])
-            ]];
-        } else {
+        $return = EventHandler::executeEvent('discordWebhookFormatter', ['format' => [], 'data' => $params])['format'];
+
+        if (!is_array($return) || !count($return)) {
+            $return = [];
+
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
             if (mb_strlen($content) > 512) {
                 $content = mb_substr($content, 0, 512) . '...';
@@ -37,10 +28,10 @@ class DiscordHook {
                 'url' => $params['url'],
                 'footer' => ['text' => $params['content']]
             ]];
-        }
 
-        if (isset($params['color'])) {
-            $return['embeds'][0]['color'] = hexdec($params['color']);
+            if (isset($params['color'])) {
+                $return['embeds'][0]['color'] = hexdec($params['color']);
+            }
         }
 
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);

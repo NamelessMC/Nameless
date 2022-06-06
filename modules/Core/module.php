@@ -557,6 +557,9 @@ class Core_Module extends Module {
 
         require_once(ROOT_PATH . '/modules/Core/hooks/CloneGroupHook.php');
         EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
+
+        require_once ROOT_PATH . '/modules/Core/hooks/DiscordFormatterHook.php';
+        EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
     public static function getDashboardGraphs(): array {
