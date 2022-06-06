@@ -135,7 +135,6 @@
     "admin/enable_api": "API etkinleştirilsin mi?",
     "admin/enable_authme": "AuthMe entegrasyonu etkinleştirilsin mi?",
     "admin/enable_debug_mode": "Hata ayıklama modu etkinleştirilsin mi?",
-    "admin/enable_mailer": "PHPMailer etkinleştirilsin mi?",
     "admin/enable_mailer_help": "Varsayılan olarak e-postalar gönderilmiyorsa bunu etkinleştirin. PHPMailer kullanımı için Gmail veya SMTP sağlayıcısı gibi e-posta gönderebilecek bir hizmetinizin olması gerekir.",
     "admin/enable_maintenance_mode": "Bakım modu etkinleştirilsin mi?",
     "admin/enable_minecraft_integration": "Minecraft entegrasyonu etkinleştirilsin mi?",

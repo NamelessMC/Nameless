@@ -181,7 +181,6 @@
     "admin/enable_api": "Povolit API?",
     "admin/enable_authme": "Povolit integraci AuthMe?",
     "admin/enable_debug_mode": "Povolit režim ladění?",
-    "admin/enable_mailer": "Povolit PHPMailer?",
     "admin/enable_mailer_help": "Pokud je povoleno, budou e-maily odesílány pomocí PHPMaileru místo výchozí služby systému. Může to pomoci s doručením, ale vyžaduje to nastavení poskytovatele SMTP. {{docLinkStart}}Zjistit více »{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "Povolit režim údržby?",
     "admin/enable_minecraft_integration": "Povolit integraci Minecraftu?",
