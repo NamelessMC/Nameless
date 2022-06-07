@@ -191,7 +191,7 @@
     "admin/enable_registration": "Povolit registrace?",
     "admin/enable_status_query": "Povolit query stavu?",
     "admin/enable_username_sync": "Povolit synchronizaci uživatelských jmen?",
-    "admin/enable_username_sync_info": "Pokud povolíte tuto možnost, uživatelská jména na webu budou aktualizována tak, aby odpovídala uživatelským jménům ve hře.",
+    "admin/enable_username_sync_info": "Pokud povolíte tuto možnost, uživatelská jména na webu budou aktualizována tak, aby odpovídala uživatelským jménům ve hře. Toto se bude dít, když herní plugin odešle seznam UUID a uživatelských jmen online hráčů na web.",
     "admin/enabled": "Povoleno",
     "admin/enter_authme_db_details": "Zadejte platné podrobnosti databáze.",
     "admin/error_deleted_successfully": "Chyba byla úspěšně odstraněna.",
@@ -1217,5 +1217,7 @@
     "admin/test_email_suggest_1": "Počkejte pár minut a zkontrolujte složku s nevyžádanou poštou.",
     "admin/test_email_suggest_2": "Aktualizujte záznamy DNS vašeho webu (zkontrolujte SPF a DKIM).",
     "admin/test_email_suggest_3": "Nastavte server SMTP. {{docLinkStart}}Zjistit více »{{docLinkEnd}}",
-    "admin/debug_link_info": "Důležité - tento odkaz sdílejte pouze s lidmi, kterým důvěřujete!"
+    "admin/debug_link_info": "Důležité - tento odkaz sdílejte pouze s lidmi, kterým důvěřujete!",
+    "general/deleted_user": "Smazaný uživatel",
+    "admin/use_external_mail_server": "Použít externí e-mailový server"
 }
