@@ -308,7 +308,6 @@ class Util {
      */
     public static function getProtocol(): ?string {
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            self::ensureTrustedProxy();
             $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
             if ($proto !== 'http' && $proto !== 'https') {
                 die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
@@ -330,7 +329,6 @@ class Util {
      */
     public static function getPort(): ?int {
         if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
-            self::ensureTrustedProxy();
             return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
         }
 
