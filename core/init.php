@@ -9,9 +9,6 @@
  *  Initialisation file
  */
 
-require_once ROOT_PATH . '/vendor/autoload.php';
-require_once ROOT_PATH . '/core/includes/constants/autoload.php';
-
 // Nameless error handling
 set_exception_handler([ErrorHandler::class, 'catchException']);
 // catchError() used for throw_error or any exceptions which may be missed by catchException()

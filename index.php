@@ -29,6 +29,9 @@ if (PHP_VERSION_ID < 70400) {
     die('NamelessMC is not compatible with PHP versions older than 7.4');
 }
 
+// Start page load timer
+define('PAGE_START_TIME', microtime(true));
+
 if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
     die(
         "Your installation is missing the 'vendor' or 'core/assets/vendor' directory. These directories are included in
@@ -39,12 +42,12 @@ if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
     );
 }
 
-// Start page load timer
-define('PAGE_START_TIME', microtime(true));
-
-// Definitions
 const PATH = '/';
 const ROOT_PATH = __DIR__;
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/core/includes/constants/autoload.php';
+
 $page = 'Home';
 
 if (!ini_get('upload_tmp_dir')) {
@@ -53,7 +56,7 @@ if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
-if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+if (Util::getProtocol() === 'https') {
     ini_set('session.cookie_secure', 'On');
 }
 
