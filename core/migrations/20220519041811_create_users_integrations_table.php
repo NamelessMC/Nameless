@@ -13,7 +13,7 @@ final class CreateUsersIntegrationsTable extends AbstractMigration
             ->addColumn('user_id', 'integer', ['length' => 11])
             ->addColumn('integration_id', 'integer', ['length' => 11])
             ->addColumn('identifier', 'string', ['length' => 64, 'null' => true, 'default' => null])
-            ->addColumn('username', 'string', ['length' => 32, 'null' => true, 'default' => null])
+            ->addColumn('username', 'string', ['length' => 32])
             ->addColumn('verified', 'boolean', ['default' => false])
             ->addColumn('date', 'integer', ['length' => 11])
             ->addColumn('code', 'string', ['length' => 64, 'null' => true, 'default' => null])
