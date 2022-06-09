@@ -9,6 +9,8 @@
  *  Installer
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
+
 // Definitions
 if (!defined('PATH')) {
     define('PATH', '/');
