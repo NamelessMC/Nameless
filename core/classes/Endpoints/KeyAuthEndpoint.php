@@ -19,14 +19,14 @@ class KeyAuthEndpoint extends EndpointBase {
         $headers = getallheaders();
 
         if (!isset($headers['Authorization'])) {
-            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, $meta="Missing authorization header");
+            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
         }
 
         $exploded = explode(' ', trim($headers['Authorization']));
 
         if (count($exploded) !== 2 ||
             strcasecmp($exploded[0], 'Bearer') !== 0) {
-            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, $meta="Authorization header not in expected format");
+            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Authorization header not in expected format');
         }
 
         $api_key = $exploded[1];
