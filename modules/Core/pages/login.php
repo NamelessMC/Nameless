@@ -289,8 +289,8 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
-    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
 ]);
 
 if (Session::exists('oauth_error')) {

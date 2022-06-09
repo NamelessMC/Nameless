@@ -38,16 +38,16 @@ if (Input::exists()) {
 
             if (Input::get('action') == 'oauth') {
 
-                foreach (array_keys(OAuth::getInstance()->getProviders()) as $provider_name) {
+                foreach (array_keys(NamelessOAuth::getInstance()->getProviders()) as $provider_name) {
                     $client_id = Input::get("client-id-{$provider_name}");
                     $client_secret = Input::get("client-secret-{$provider_name}");
                     if ($client_id && $client_secret) {
-                        OAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
+                        NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
                     } else {
-                        OAuth::getInstance()->setEnabled($provider_name, 0);
+                        NamelessOAuth::getInstance()->setEnabled($provider_name, 0);
                     }
 
-                    OAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
+                    NamelessOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
                 }
 
             } else {
@@ -158,11 +158,11 @@ foreach ($all_captcha_options as $option) {
 }
 
 $oauth_provider_data = [];
-foreach (OAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
-    [$client_id, $client_secret] = OAuth::getInstance()->getCredentials($provider_name);
+foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
+    [$client_id, $client_secret] = NamelessOAuth::getInstance()->getCredentials($provider_name);
     $oauth_provider_data[$provider_name] = [
-        'enabled' => OAuth::getInstance()->isEnabled($provider_name),
-        'setup' => OAuth::getInstance()->isSetup($provider_name),
+        'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
+        'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
         'icon' => $provider_data['icon'],
         'client_id' => $client_id,
         'client_secret' => $client_secret,

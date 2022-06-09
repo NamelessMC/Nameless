@@ -334,7 +334,7 @@ if (Input::exists()) {
 
                         if (Session::exists('oauth_register_data')) {
                             $data = json_decode(Session::get('oauth_register_data'), true);
-                            OAuth::getInstance()->saveUserProvider(
+                            NamelessOAuth::getInstance()->saveUserProvider(
                                 $user_id,
                                 $data['provider'],
                                 $data['id'],
@@ -476,8 +476,8 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
-    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
 ]);
 
 if ($captcha) {

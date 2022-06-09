@@ -26,7 +26,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
         if (Token::check(Input::get('token'))) {
             if (isset($_POST['provider_name'], $_POST['user_id'])) {
 
-                OAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
+                NamelessOAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
 
                 Session::flash('oauth_success', $language->get('admin', 'unlink_account_success', ['provider' => ucfirst($_POST['provider_name'])]));
             }
@@ -45,8 +45,8 @@ if (!$view_user->exists()) {
 }
 $user_query = $view_user->data();
 
-$oauth_providers = OAuth::getInstance()->getProvidersAvailable();
-$user_oauth_providers = OAuth::getInstance()->getAllProvidersForUser($user_query->id);
+$oauth_providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+$user_oauth_providers = NamelessOAuth::getInstance()->getAllProvidersForUser($user_query->id);
 
 $user_providers_template = [];
 foreach ($user_oauth_providers as $user_provider) {

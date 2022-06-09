@@ -10,7 +10,7 @@ use League\OAuth2\Client\Provider\AbstractProvider;
  * @version 2.0.0-pr13
  * @license MIT
  */
-class OAuth extends Instanceable {
+class NamelessOAuth extends Instanceable {
 
     private array $_providers = [];
     private array $_provider_instances = [];
