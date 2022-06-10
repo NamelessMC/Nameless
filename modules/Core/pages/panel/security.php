@@ -89,7 +89,9 @@ if (!isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                        'content' => $target_user->exists()
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            : $language->get('general', 'deleted_user')
                     ],
                     1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -125,7 +127,9 @@ if (!isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                        'content' => $target_user->exists()
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            : $language->get('general', 'deleted_user')
                     ],
                     1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -163,7 +167,9 @@ if (!isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                        'content' => $target_user->exists()
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            : $language->get('general', 'deleted_user')
                     ],
                     1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -211,7 +217,9 @@ if (!isset($_GET['view'])) {
 
                 $rows[] = [
                     0 => [
-                        'content' => '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                        'content' => $target_user->exists()
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            : $language->get('general', 'deleted_user')
                     ],
                     1 => [
                         'content' => date(DATE_FORMAT, $log->time),
@@ -259,7 +267,8 @@ if (!isset($_GET['view'])) {
                     0 => [
                         'content' => $log->user_id == 0
                             ? $language->get('general', 'none')
-                            : '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            : ($target_user->exists() ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            : $language->get('general', 'deleted_user'))
                     ],
                     1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
