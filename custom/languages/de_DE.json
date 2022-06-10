@@ -784,7 +784,7 @@
     "installer/step_general_config": "Allgemeine Konfiguration",
     "installer/step_home": "Startseite",
     "installer/step_requirements": "Anforderungen",
-    "installer/step_site_config": "Standort Konfiguration",
+    "installer/step_site_config": "Konfiguration der Website",
     "installer/support_message": "Wenn du irgendwelche Unterstützung benötigst, schau dir unsere Website {{websiteLinkStart}}NamelessMC{{websiteLinkEnd}} an, oder besuch doch unseren {{discordLinkStart}}Discord Server{{discordLinkEnd}} sowie unser {{githubLinkStart}}GitHub repository{{githubLinkEnd}}",
     "installer/template_cache_writable": "Vorlagen Cache beschreibbar",
     "installer/terms_and_conditions": "Wenn Sie fortfahren, stimmen Sie den Allgemeinen Geschäftsbedingungen zu.",
