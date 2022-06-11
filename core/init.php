@@ -22,12 +22,8 @@ if (!isset($page)) {
     die('$page variable is unset. Cannot continue.');
 }
 
-if (!file_exists(ROOT_PATH . '/core/config.php')) {
-    if (is_writable(ROOT_PATH . '/core')) {
-        fopen(ROOT_PATH . '/core/config.php', 'w');
-    } else {
-        die('Your <strong>/core</strong> directory is not writable, please check your file permissions.');
-    }
+if (!is_writable(ROOT_PATH)) {
+    die('Your website directory is not writable, please check your file permissions.');
 }
 
 if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
@@ -38,15 +34,8 @@ if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
     }
 }
 
-// Require config
-require(ROOT_PATH . '/core/config.php');
-
-if (isset($conf) && is_array($conf)) {
-    $GLOBALS['config'] = $conf;
-} else {
-    if (!isset($GLOBALS['config'])) {
-        $page = 'install';
-    }
+if (!Config::exists()) {
+    $page = 'install';
 }
 
 // If we're accessing the upgrade script don't initialise further

@@ -833,7 +833,7 @@
     "installer/back": "Back",
     "installer/cache_writable": "Cache Writable",
     "installer/character_set": "Character Set",
-    "installer/config_not_writable": "The config file is not writable.",
+    "installer/config_write_failed": "Failed to write to config file: {{message}}",
     "installer/config_writable": "core\/config.php Writable",
     "installer/configuration": "Configuration",
     "installer/configuration_error": "Please input a valid site name between 1 and 32 characters long, and valid email addresses between 4 and 64 characters long.",

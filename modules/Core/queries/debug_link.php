@@ -207,7 +207,7 @@ $data = [
         'groups' => $groups,
         'config' => [
             'core' => array_filter(
-                $GLOBALS['config']['core'],
+                Config::read()['core'],
                 static fn(string $key) => $key != 'hostname' && $key != 'trustedProxies',
                 ARRAY_FILTER_USE_KEY
             ),

@@ -110,14 +110,14 @@ class ErrorHandler {
             $language = new Language('core', 'en_UK');
         }
 
-        $detailed_error = defined('DEBUGGING');
-        $can_generate_debug = defined('DEBUGGING');
+        $detailed_error = defined('DEBUGGING') && DEBUGGING;
+        $can_generate_debug = defined('DEBUGGING') && DEBUGGING;
 
         try {
             $user = new User();
             $detailed_error |= $user->isLoggedIn() && $user->hasPermission('admincp.errors');
             $can_generate_debug |= $user->hasPermission('admincp.core.debugging');
-        } catch (Error $ignored) {
+        } catch (Error | RuntimeException $ignored) {
             // Getting user info might fail, for example if the website isn't
             // installed yet. Assume the user does not have permission.
         }

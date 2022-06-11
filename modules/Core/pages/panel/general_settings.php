@@ -148,17 +148,6 @@ if (Input::exists()) {
 
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                // Require config
-                if (isset($path) && file_exists($path . 'core/config.php')) {
-                    $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
-                } else {
-                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-                }
-
-                if (is_array($loadedConfig)) {
-                    $GLOBALS['config'] = $loadedConfig;
-                }
-
                 Config::setMultiple([
                     'core/friendly' => $friendly,
                     'core/force_https' => $https,

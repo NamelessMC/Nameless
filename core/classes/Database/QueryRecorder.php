@@ -10,7 +10,7 @@
  */
 class QueryRecorder extends Instanceable {
 
-    private array $_query_stack;
+    private array $_query_stack = [];
     private int $_query_stack_num = 1;
 
     /**

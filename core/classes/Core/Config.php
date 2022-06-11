@@ -9,35 +9,78 @@
  */
 class Config {
 
+    private static ?array $_config_cache = null;
+
+    /**
+     * @return bool Whether config file exists
+     */
+    public static function exists(): bool {
+        return file_exists(ROOT_PATH . '/core/config.php');
+    }
+
+    /**
+     * Read `core/config.php` file
+     * @return array Config array
+     */
+    public static function read(): array {
+        if (self::$_config_cache != null) {
+            return self::$_config_cache;
+        }
+
+        if (!self::exists()) {
+            throw new RuntimeException('Config file does not exist');
+        }
+
+        require(ROOT_PATH . '/core/config.php');
+
+        /** @phpstan-ignore-next-line  */
+        if (!isset($conf) || !is_array($conf)) {
+            throw new RuntimeException('Config file is invalid');
+        }
+
+        self::$_config_cache = $conf;
+        return $conf;
+    }
+
+    /**
+     * Overwrite new `core/config.php` file.
+     *
+     * @param array $config New config array to store.
+     */
+    public static function write(array $config): void {
+        $contents = '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';';
+        if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
+            throw new RuntimeException('Failed to write to config file');
+        }
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate(ROOT_PATH . '/core/config.php', true);
+        }
+        self::$_config_cache = $config;
+    }
+
     /**
      * Get a config value from `core/config.php` file.
      *
-     * @param string|null $path `/` seperated path of key to get from config file.
+     * @param string $path `/` seperated path of key to get from config file.
      * @return false|mixed Returns false if key doesn't exist, otherwise returns the value.
      *
      * @throws RuntimeException If the config file is not found.
      */
-    public static function get(string $path = null) {
-        if ($path) {
-            if (!isset($GLOBALS['config'])) {
-                throw new RuntimeException('Config unavailable. Please refresh the page.');
+    public static function get(string $path) {
+        $config = self::read();
+
+        $path = explode('/', $path);
+
+        foreach ($path as $bit) {
+            if (isset($config[$bit])) {
+                $config = $config[$bit];
+            } else {
+                $not_matched = true;
             }
+        }
 
-            $config = $GLOBALS['config'];
-
-            $path = explode('/', $path);
-
-            foreach ($path as $bit) {
-                if (isset($config[$bit])) {
-                    $config = $config[$bit];
-                } else {
-                    $not_matched = true;
-                }
-            }
-
-            if (!isset($not_matched)) {
-                return $config;
-            }
+        if (!isset($not_matched)) {
+            return $config;
         }
 
         return false;
@@ -49,17 +92,8 @@ class Config {
      * @param string $key `/` seperated path of key to set.
      * @param mixed $value Value to set under $key.
      */
-    public static function set(string $key, $value): bool {
-        if (!file_exists(ROOT_PATH . '/core/config.php')) {
-            fopen(ROOT_PATH . '/core/config.php', 'wb');
-        }
-
-        require(ROOT_PATH . '/core/config.php');
-
-        /** @phpstan-ignore-next-line  */
-        if (!isset($conf) || !is_array($conf)) {
-            $conf = [];
-        }
+    public static function set(string $key, $value): void {
+        $conf = self::read();
 
         $path = explode('/', $key);
 
@@ -73,18 +107,7 @@ class Config {
             $loc = $value;
         }
 
-        return static::write($conf);
-    }
-
-    /**
-     * Overwrite new `core/config.php` file.
-     *
-     * @param array $config New config array to store.
-     */
-    public static function write(array $config): bool {
-        $file = fopen(ROOT_PATH . '/core/config.php', 'wab+');
-        fwrite($file, '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';' . PHP_EOL . '$CONFIG[\'installed\'] = true;');
-        return fclose($file);
+        static::write($conf);
     }
 
     /**
@@ -92,17 +115,8 @@ class Config {
      *
      * @param array $values Array of key/value pairs
      */
-    public static function setMultiple(array $values): bool {
-        if (!file_exists(ROOT_PATH . '/core/config.php')) {
-            fopen(ROOT_PATH . '/core/config.php', 'wb');
-        }
-
-        require(ROOT_PATH . '/core/config.php');
-
-        /** @phpstan-ignore-next-line  */
-        if (!isset($conf) || !is_array($conf)) {
-            $conf = [];
-        }
+    public static function setMultiple(array $values): void {
+        $conf = self::read();
 
         foreach ($values as $key => $value) {
             $path = explode('/', $key);
@@ -118,6 +132,6 @@ class Config {
             }
         }
 
-        return static::write($conf);
+        static::write($conf);
     }
 }

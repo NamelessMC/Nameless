@@ -30,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } else {
 
+        // TODO Use DB::getCustomInstance() instead
+
         $db_address = $_POST['db_address'];
         $db_port = $_POST['db_port'];
         $db_username = $_POST['db_username'];
@@ -75,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'core' => [
                         'hostname' => $_SESSION['hostname'],
                         'path' => $_SESSION['install_path'],
-                        'friendly' => $_SESSION['friendly_urls'] == 'true',
+                        'friendly' => $_SESSION['friendly_urls'] === 'true',
                         'force_https' => false,
                         'force_www' => false,
                         'captcha' => false,
@@ -85,28 +87,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ];
 
                 try {
-
-                    if (!is_writable(ROOT_PATH . '/core/config.php')) {
-
-                        $error = $language->get('installer', 'config_not_writable');
-
-                    } else {
-
-                        $config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
-                        file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
-
-                        $_SESSION['charset'] = $charset;
-
-						// Ensure file save has concluded
-						sleep(1);
-
-                        Redirect::to('?step=database_initialization');
+                    try {
+                        Config::write($conf);
+                    } catch (RuntimeException $e) {
+                        $error = $language->get('installer', 'config_write_failed', ['message' => $e->getMessage()]);
                     }
 
+                    $_SESSION['charset'] = $charset;
+                    Redirect::to('?step=database_initialization');
                 } catch (Exception $e) {
-
                     $error = $e->getMessage();
-
                 }
 
             }
