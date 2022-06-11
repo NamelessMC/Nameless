@@ -701,7 +701,7 @@
     "general/success": "Erfolgreich",
     "general/total_online": "Insgesamt online",
     "general/total_online_staff": "Teammitglieder online: {{count}}",
-    "general/total_online_users": "Total Online Users: {{count}}",
+    "general/total_online_users": "Total User online: {{count}}",
     "general/total_posts": "Beiträge insgesamt",
     "general/total_threads": "Gesamtanzahl der Threads",
     "general/unlink": "Verknüpfung aufheben",
