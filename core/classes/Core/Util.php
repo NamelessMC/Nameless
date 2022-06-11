@@ -360,7 +360,7 @@ class Util {
         }
 
         if ($show_protocol) {
-            $protocol = self::getProtocol()
+            $protocol = self::getProtocol();
             $url = $protocol . '://' . $url;
             $port = self::getPort();
             // Add port if it is non-standard for the current protocol
