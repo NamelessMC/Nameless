@@ -723,6 +723,10 @@ class Util {
      * @return array Ordered items
      */
     public static function determineOrder(array $items): array {
+        if (empty($items)) {
+            return $items;
+        }
+
         $order = [array_shift($items)['name']];
 
         foreach ($items as $item) {
