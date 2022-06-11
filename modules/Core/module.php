@@ -441,15 +441,14 @@ class Core_Module extends Module {
             ]
         );
 
-        // TODO: should this be in the Discord Integration module?
-        NamelessOAuth::getInstance()->registerProvider('discord', [
+        NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
         ]);
 
-        NamelessOAuth::getInstance()->registerProvider('google', [
+        NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
             'class' => \League\OAuth2\Client\Provider\Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',

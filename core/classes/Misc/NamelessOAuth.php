@@ -25,10 +25,11 @@ class NamelessOAuth extends Instanceable {
      * Add an OAuth provider to the system.
      *
      * @param string $name The name of the provider (Discord, Google, etc).
+     * @param string $module Name of the module which registered this provider.
      * @param array $data Metadata about the provider: class, user_id_name, scope_id_name, icon
      */
-    public function registerProvider(string $name, array $data): void {
-        $this->_providers[$name] = $data;
+    public function registerProvider(string $name, string $module, array $data): void {
+        $this->_providers[$name] = array_merge(['module' => $module], $data);
     }
 
     /**
