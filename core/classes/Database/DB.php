@@ -13,6 +13,7 @@ class DB {
     private static ?DB $_instance = null;
 
     private string $_prefix;
+    private string $_database;
     private ?string $_force_charset;
     protected PDO $_pdo;
     private PDOStatement $_statement;
@@ -25,6 +26,7 @@ class DB {
         try {
             $this->_force_charset = $force_charset;
             $this->_prefix = $prefix;
+            $this->_database = $database;
 
             $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
             if ($force_charset) {
@@ -53,6 +55,15 @@ class DB {
      */
     public function getPDO(): PDO {
         return $this->_pdo;
+    }
+
+    /**
+     * Get the database name this instance is connected to.
+     *
+     * @return string Database name.
+     */
+    public function getDatabase(): string {
+        return $this->_database;
     }
 
     /**
