@@ -37,8 +37,9 @@ class Config {
         if (!isset($conf) || !is_array($conf)) {
             throw new RuntimeException('Config file is invalid');
         }
-
+        /** @phpstan-ignore-next-line  */
         self::$_config_cache = $conf;
+        /** @phpstan-ignore-next-line  */
         return $conf;
     }
 

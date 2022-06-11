@@ -152,7 +152,7 @@ Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK')
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
-DatabaseInitialiser::runPreUser($conf);
+DatabaseInitialiser::runPreUser();
 
 Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
