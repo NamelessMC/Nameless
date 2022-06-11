@@ -67,7 +67,7 @@ trait ManagesTransformers {
      * @param string $value The value to convert.
      * @return mixed The converted value.
      */
-    private static function transform(Nameless2API $api, string $type, string $value) {
+    public static function transform(Nameless2API $api, string $type, string $value) {
         if (array_key_exists($type, self::$_transformers)) {
             return self::$_transformers[$type]['transformer']($api, $value);
         }
