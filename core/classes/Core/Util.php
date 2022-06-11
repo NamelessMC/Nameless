@@ -304,9 +304,9 @@ class Util {
     /**
      * Get the protocol used by client's HTTP request, using proxy headers if necessary.
      *
-     * @return ?string 'http' if HTTP or 'https' if HTTPS, or null when using the CLI
+     * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
      */
-    public static function getProtocol(): ?string {
+    public static function getProtocol(): string {
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
             if ($proto !== 'http' && $proto !== 'https') {
@@ -319,7 +319,7 @@ class Util {
             return $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
         }
 
-        return null;
+        return 'http';
     }
 
     /**
@@ -353,9 +353,6 @@ class Util {
             $hostname = $_SERVER['SERVER_NAME'];
         }
 
-        // https and www checks
-        $protocol = self::getProtocol() . '://';
-
         $url = $hostname;
 
         if (defined('FORCE_WWW') && FORCE_WWW && !str_contains($hostname, 'www')) {
@@ -363,10 +360,11 @@ class Util {
         }
 
         if ($show_protocol) {
-            $url = $protocol . $url;
+            $protocol = self::getProtocol()
+            $url = $protocol . '://' . $url;
             $port = self::getPort();
             // Add port if it is non-standard for the current protocol
-            if (!(($port === 80 && $protocol === 'http://') || ($port === 443 && $protocol === 'https://'))) {
+            if (!(($port === 80 && $protocol === 'http') || ($port === 443 && $protocol === 'https'))) {
                 $url .= ':' . $port;
             }
         }
