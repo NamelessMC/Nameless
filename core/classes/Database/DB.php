@@ -13,7 +13,6 @@ class DB {
     private static ?DB $_instance = null;
 
     private string $_prefix;
-    private string $_database;
     private ?string $_force_charset;
     protected PDO $_pdo;
     private PDOStatement $_statement;
@@ -26,7 +25,6 @@ class DB {
         try {
             $this->_force_charset = $force_charset;
             $this->_prefix = $prefix;
-            $this->_database = $database;
 
             $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
             if ($force_charset) {
@@ -58,12 +56,27 @@ class DB {
     }
 
     /**
-     * Get the database name this instance is connected to.
+     * Execute a database query within a MySQL transaction, and get the results of the query, if any.
      *
-     * @return string Database name.
+     * @param Closure(DB): mixed $closure The closure to pass this instance to and execute within a transaction context.
+     * @return mixed The results of the query, null if none.
      */
-    public function getDatabase(): string {
-        return $this->_database;
+    public function transaction(Closure $closure) {
+        $result = null;
+
+        try {
+            $this->_pdo->beginTransaction();
+
+            $result = $closure($this);
+
+            $this->_pdo->commit();
+        } catch (Exception $exception) {
+            if ($this->_pdo->inTransaction()) {
+                $this->_pdo->rollBack();
+            }
+        }
+
+        return $result;
     }
 
     /**
