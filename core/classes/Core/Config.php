@@ -4,7 +4,7 @@
  *
  * @package NamelessMC\Core
  * @author Samerton
- * @version 2.0.0-pr8
+ * @version 2.0.0
  * @license MIT
  */
 class Config {
@@ -19,11 +19,12 @@ class Config {
     }
 
     /**
-     * Read `core/config.php` file
-     * @return array Config array
+     * Read `core/config.php` file and load into cache
+     *
+     * @return array The entire config array
      */
-    public static function read(): array {
-        if (self::$_config_cache != null) {
+    public static function all(): array {
+        if (self::$_config_cache !== null) {
             return self::$_config_cache;
         }
 
@@ -37,10 +38,9 @@ class Config {
         if (!isset($conf) || !is_array($conf)) {
             throw new RuntimeException('Config file is invalid');
         }
+
         /** @phpstan-ignore-next-line  */
-        self::$_config_cache = $conf;
-        /** @phpstan-ignore-next-line  */
-        return $conf;
+        return self::$_config_cache = $conf;
     }
 
     /**
@@ -68,7 +68,7 @@ class Config {
      * @throws RuntimeException If the config file is not found.
      */
     public static function get(string $path) {
-        $config = self::read();
+        $config = self::all();
 
         $path = explode('/', $path);
 
@@ -94,21 +94,21 @@ class Config {
      * @param mixed $value Value to set under $key.
      */
     public static function set(string $key, $value): void {
-        $conf = self::read();
+        $config = self::all();
 
         $path = explode('/', $key);
 
         if (!is_array($path)) {
-            $conf[$key] = $value;
+            $config[$key] = $value;
         } else {
-            $loc = &$conf;
+            $loc = &$config;
             foreach ($path as $step) {
                 $loc = &$loc[$step];
             }
             $loc = $value;
         }
 
-        static::write($conf);
+        static::write($config);
     }
 
     /**
@@ -117,15 +117,15 @@ class Config {
      * @param array $values Array of key/value pairs
      */
     public static function setMultiple(array $values): void {
-        $conf = self::read();
+        $config = self::all();
 
         foreach ($values as $key => $value) {
             $path = explode('/', $key);
 
             if (!is_array($path)) {
-                $conf[$key] = $value;
+                $config[$key] = $value;
             } else {
-                $loc = &$conf;
+                $loc = &$config;
                 foreach ($path as $step) {
                     $loc = &$loc[$step];
                 }
@@ -133,6 +133,6 @@ class Config {
             }
         }
 
-        static::write($conf);
+        static::write($config);
     }
 }
