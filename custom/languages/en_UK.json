@@ -679,6 +679,8 @@
     "admin/x_directory_not_writable": "The {{directory}} directory is not writable!",
     "admin/youtube_url": "Youtube URL",
     "admin/api_disabled": "API is disabled",
+    "admin/trusted_proxies_configured": "Trusted proxies",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Trusted proxies{{linkEnd}} are not configured, IP bans may not work properly.",
     "api/account_validated": "Account validated successfully",
     "api/finish_registration_email": "Please check your emails to complete registration.",
     "api/finish_registration_link": "Please click on the following link to complete registration:",

@@ -130,55 +130,51 @@ class Util {
         return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
+    public static function isTrustedProxiesConfigured() {
+        $config_proxies = Config::get('core/trustedProxies');
+        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        return $config_proxies !== false && $config_proxies !== null && is_array($config_proxies)
+                || $env_proxies !== false;
+    }
+
     /**
      * @return array List of trusted proxy networks according to config file and environment
      */
     public static function getTrustedProxies(): array {
-        $trustedProxies = [];
+        $trusted_proxies = [];
 
         // Add trusted proxies from config file
-        $configProxies = Config::get('core/trustedProxies');
-        if ($configProxies !== false) {
-            if (!is_array($configProxies)) {
+        $config_proxies = Config::get('core/trustedProxies');
+        if ($config_proxies !== false && $config_proxies !== null) {
+            if (!is_array($config_proxies)) {
                 die('Trusted proxies should be an array');
             }
-            $trustedProxies = array_merge($trustedProxies, $configProxies);
+            $trusted_proxies = array_merge($trusted_proxies, $config_proxies);
         }
 
         // Add trusted proxies from environment variable (comma-separated string)
-        $envProxies = getenv('NAMELESS_TRUSTED_PROXIES');
-        if ($envProxies !== false) {
-            $envProxiesArray = explode(',', $envProxies);
-            $trustedProxies = array_merge($trustedProxies, $envProxiesArray);
+        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        if ($env_proxies !== false && $env_proxies !== 'none') {
+            $env_proxies_array = explode(',', $env_proxies);
+            $trusted_proxies = array_merge($trusted_proxies, $env_proxies_array);
         }
 
-        return $trustedProxies;
+        return $trusted_proxies;
     }
 
     /**
-     * Checks whether the client making the request is a trusted proxy. If not,
-     * abruptly aborts the request using die().
+     * Checks whether the client making the request is a trusted proxy.
      */
-    private static function ensureTrustedProxy(): void {
-        $trustedProxies = self::getTrustedProxies();
+    private static function isTrustedProxy(): bool {
+        $trusted_proxies = self::getTrustedProxies();
 
-        if (count($trustedProxies) === 0) {
-            ErrorHandler::logWarning('Received proxy header but no trusted proxies are configured. Please see https://docs.namelessmc.com/trusted-proxies for more information.');
-            return;
-        }
-
-        $trusted = false;
-
-        foreach ($trustedProxies as $trustedProxy) {
+        foreach ($trusted_proxies as $trustedProxy) {
             if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
-                $trusted = true;
-                break;
+                return true;
             }
         }
 
-        if (!$trusted) {
-            die('Received proxy header from untrusted remote address: ' . $_SERVER['REMOTE_ADDR']);
-        }
+        return false;
     }
 
     /**
@@ -229,19 +225,21 @@ class Util {
      * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
      */
     public static function getRemoteAddress(): ?string {
+        if (!self::isTrustedProxy()) {
+            return $_SERVER['REMOTE_ADDR'];
+        }
+
         $headers = getallheaders();
 
         // Try the simple headers first that only contain an IP address
 
         // Non standard header that only contains the origin address
         if (isset($headers['X-Real-Ip'])) {
-            self::ensureTrustedProxy();
             return $headers['X-Real-Ip'];
         }
 
         // Non standard header sent by CloudFlare that only contains the origin address
         if (isset($headers['Cf-Connecting-Ip'])) {
-            self::ensureTrustedProxy();
             return $headers['Cf-Connecting-Ip'];
         }
 
@@ -263,8 +261,6 @@ class Util {
         */
 
         if (isset($headers['X-Forwarded-For'])) {
-            self::ensureTrustedProxy();
-
             $addresses = [];
             foreach (explode(',', $headers['X-Forwarded-For']) as $part) {
                 $addresses[] = trim($part);
@@ -274,8 +270,6 @@ class Util {
         }
 
         if (isset($headers['Forwarded'])) {
-            self::ensureTrustedProxy();
-
             $addresses = [];
             foreach (explode(',', $headers['Forwarded']) as $part1) {
                 // Extract the optional 'for=<address>' bit
@@ -297,7 +291,6 @@ class Util {
             }
         }
 
-        // No supported proxy headers in use
         return $_SERVER['REMOTE_ADDR'];
     }
 
