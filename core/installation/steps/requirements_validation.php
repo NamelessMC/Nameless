@@ -23,15 +23,14 @@ unset($_SESSION['requirements_validated']);
                 validate_requirement('PHP PDO', extension_loaded('PDO'));
                 validate_requirement('PHP XML', extension_loaded('xml'));
                 validate_requirement('PHP MBString', extension_loaded('mbstring'));
-                validate_requirement('PHP GD', extension_loaded('gd'));
-                validate_requirement('PHP cURL', function_exists('curl_version'));
-                validate_requirement('PHP Exif', function_exists('exif_imagetype'));
-                validate_requirement('PHP JSON', function_exists('json_decode'));
                 ?>
             </div>
             <div class="sixteen wide mobile eight wide tablet eight wide computer column">
                 <?php
-                validate_requirement('Website directory writable <span class="ui basic label">' . Output::getClean(ROOT_PATH) . '</span>', is_writable(ROOT_PATH));
+                validate_requirement('PHP GD', extension_loaded('gd'));
+                validate_requirement('PHP cURL', function_exists('curl_version'));
+                validate_requirement('PHP Exif', function_exists('exif_imagetype'));
+                validate_requirement('PHP JSON', function_exists('json_decode'));
                 ?>
             </div>
         </div>
