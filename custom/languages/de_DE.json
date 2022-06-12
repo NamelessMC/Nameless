@@ -1219,5 +1219,7 @@
     "admin/test_email_suggest_3": "Einen SMTP-Server einrichten. {{docLinkStart}}Weiterlesen \"{{docLinkEnd}}",
     "admin/debug_link_info": "Wichtig - teile diesen Link nur mit Personen, denen du vertraust!",
     "general/deleted_user": "Gelöschte Benutzer",
-    "admin/use_external_mail_server": "Externen Mailserver verwenden"
+    "admin/use_external_mail_server": "Externen Mailserver verwenden",
+    "admin/trusted_proxies_configured": "Vertrauenswürdige Proxys",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Vertrauenswürdige Proxys{{linkEnd}} sind nicht konfiguriert, IP-Sperren funktionieren möglicherweise nicht richtig."
 }
