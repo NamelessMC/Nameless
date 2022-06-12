@@ -1219,5 +1219,7 @@
     "installer/upgrade_error": "Произошли ошибки при обновлении.",
     "admin/debug_link_info": "Важно - только делитесь этой ссылкой с людьми которыми вы доверяете!",
     "general/deleted_user": "Удаленный Пользователь",
-    "admin/use_external_mail_server": "Использовать внешний почтовый сервер"
+    "admin/use_external_mail_server": "Использовать внешний почтовый сервер",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Доверенные прокси{{linkEnd}} не настроены, IP баны могут не так работать.",
+    "admin/trusted_proxies_configured": "Доверенные прокси"
 }
