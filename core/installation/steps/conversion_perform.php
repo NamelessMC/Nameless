@@ -69,7 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $password,
                         Input::get('db_port')
                     );
-                    require_once(ROOT_PATH . '/custom/converters/' . $_POST['converter'] . '/converter.php');
+
+                    $converter_dir = ROOT_PATH . '/custom/converters/' . $_POST['converter'];
+
+                    $converter_dirs = glob(ROOT_PATH . '/custom/converters/*', GLOB_ONLYDIR);
+
+                    if (!in_array($converter_dir, $converter_dirs)) {
+                        throw new InvalidArgumentException("Invalid converter");
+                    }
+
+                    require_once($converter_dir . '/converter.php');
 
                     if (!isset($error)) {
                         Redirect::to('?step=finish');
