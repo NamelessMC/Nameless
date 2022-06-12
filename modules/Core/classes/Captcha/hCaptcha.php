@@ -42,7 +42,11 @@ class hCaptcha extends CaptchaBase {
     }
 
     public function getHtml(): string {
-        return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
+        if (DARK_MODE == 1) {
+            return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '" data-theme="dark"></div>';
+        } else {
+            return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
+        }
     }
 
     public function getJavascriptSource(): string {
