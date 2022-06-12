@@ -18,7 +18,7 @@ class PhinxAdapter {
 
         // Likely a pull from the repo dev branch or migrations
         // weren't run during an upgrade script.
-        if (($diff = abs($migration_files - $migration_database_entries)) > 0) {
+        if (($diff = $migration_files - $migration_database_entries) > 0) {
             throw new RuntimeException("There are {$diff} database migrations pending.");
         }
 
