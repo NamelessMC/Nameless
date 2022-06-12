@@ -3,8 +3,8 @@ if (PHP_SAPI !== 'cli') {
     die('This script must be run from the command line.');
 }
 
+define('ROOT_PATH', __DIR__ . '/../..');
 require 'vendor/autoload.php';
-require 'core/config.php';
 
 $classes = [
     'Seeder.php',
@@ -32,13 +32,7 @@ $seeders = array_map(static function (string $class) {
 
 $faker = Faker\Factory::create();
 
-$db = DB::getCustomInstance(
-    $conf['mysql']['host'],
-    $conf['mysql']['db'],
-    $conf['mysql']['username'],
-    $conf['mysql']['password'],
-    3306
-);
+$db = DB::getInstance();
 
 $wipe = false;
 if (isset($argv[1]) && $argv[1] === 'wipe') {
