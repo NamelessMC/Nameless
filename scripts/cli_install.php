@@ -119,7 +119,7 @@ $conf = [
         'force_www' => false,
         'captcha' => false,
         'date_format' => 'd M Y, H:i',
-        'trustedProxies' => [],
+        'trustedProxies' => null,
     ],
 ];
 

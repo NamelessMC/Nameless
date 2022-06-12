@@ -198,6 +198,15 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_success[] = $language->get('installer', 'template_cache_writable');
     }
 
+    if (Util::isTrustedProxiesConfigured()) {
+        $compat_success[] = $language->get('admin', 'trusted_proxies_configured');
+    } else {
+        $compat_errors[] = $language->get('admin', 'trusted_proxies_not_configured', [
+            'linkStart' => '<a href="https://docs.namelessmc.com/trusted-proxies">',
+            'linkEnd' => '</a>',
+        ]);
+    }
+
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
