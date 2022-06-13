@@ -715,7 +715,6 @@
     "installer/back": "Zurück",
     "installer/cache_writable": "Cache beschreibbar",
     "installer/character_set": "Zeichensatz",
-    "installer/config_not_writable": "Die Konfigurationsdatei ist nicht beschreibbar.",
     "installer/config_writable": "core/config.php beschreibbar",
     "installer/configuration": "Konfiguration",
     "installer/configuration_error": "Bitte geben Sie einen gültigen Website-Namen zwischen 1 und 32 Zeichen lang und gültige E-Mail-Adressen zwischen 4 und 64 Zeichen lang ein.",

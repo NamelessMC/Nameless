@@ -755,7 +755,6 @@
     "installer/back": "Späť",
     "installer/cache_writable": "Cache zapisovateľná",
     "installer/character_set": "Znaková sada",
-    "installer/config_not_writable": "Do konfiguračného súboru nie je možné zapisovať.",
     "installer/config_writable": "core/config.php zapisovateľné",
     "installer/configuration": "Konfigurácia",
     "installer/configuration_error": "Zadajte platný názov webu s dĺžkou od 1 do 32 znakov a platné emailové adresy s dĺžkou od 4 do 64 znakov.",

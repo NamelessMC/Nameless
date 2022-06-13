@@ -749,7 +749,6 @@
     "installer/back": "Voltar",
     "installer/cache_writable": "Cache é Gravável",
     "installer/character_set": "Conjunto de caracteres",
-    "installer/config_not_writable": "O arquivo de configuração não é gravável.",
     "installer/config_writable": "core/config.php é Gravável",
     "installer/configuration": "Configuração",
     "installer/configuration_error": "Digite um nome de site válido entre 1 e 32 caracteres e endereços de email válidos entre 4 e 64 caracteres.",

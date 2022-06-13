@@ -674,7 +674,6 @@
     "installer/back": "Indietro",
     "installer/cache_writable": "Cache scrivibile",
     "installer/character_set": "Set di caratteri",
-    "installer/config_not_writable": "Il file di configurazione non è scrivibile.",
     "installer/config_writable": "core/config.php scrivibile",
     "installer/configuration": "Configurazione",
     "installer/configuration_error": "Inserisci un nome sito valido compreso tra 1 e 32 caratteri e un indirizzo email valido da 4 a 64 caratteri.",
