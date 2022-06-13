@@ -248,7 +248,7 @@ if (isset($_GET['action'])) {
         'SEND_TEST_EMAIL_LINK' => URL::build('/panel/core/emails/', 'action=test'),
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
         'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/errors'),
-        'ENABLE_MAILER' => $language->get('admin', 'enable_mailer'),
+        'ENABLE_MAILER' => $language->get('admin', 'use_external_mail_server'),
         'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
         'INFO' => $language->get('general', 'info'),
         'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [

@@ -113,10 +113,13 @@ if (!count($news)) {
 // Compatibility
 if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
+    $compat_warnings = [];
     $compat_errors = [];
 
     if (PHP_VERSION_ID < 70400) {
         $compat_errors[] = 'PHP ' . PHP_VERSION;
+    } else if (PHP_VERSION_ID < 80000) {
+        $compat_warnings[] = 'PHP ' . PHP_VERSION;
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
     }
@@ -168,41 +171,44 @@ if ($user->hasPermission('admincp.core.debugging')) {
             $pdo_driver = 'MySQL';
         } else {
             $pdo_driver = 'MariaDB';
-            // MariaDB version strings are displayed as: "<replication version hack>-<major>.<minor>.<patch>-MariaDB",
+            // MariaDB version strings are displayed as: "<major>.<minor>.<patch>-MariaDB",
             // and we only want the version number.
-            // See: https://stackoverflow.com/a/56607492
-            $pdo_server_version = explode('-', $pdo_server_version)[1];
+            $pdo_server_version = explode('-', $pdo_server_version)[0];
         }
     }
 
-    if ($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=') ||
-        $pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>=')) {
+    if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '8.0', '>=')) ||
+        ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.5', '>='))) {
         $compat_success[] = $pdo_driver . ' Server ' . $pdo_server_version;
+    } else if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=')) ||
+        ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>='))) {
+        $compat_warnings[] = $pdo_driver . ' Server ' . $pdo_server_version;
     } else {
         $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
     }
 
-    // Permissions
-    if (!is_writable(ROOT_PATH . '/core/config.php')) {
-        $compat_errors[] = $language->get('installer', 'config_writable');
+    if (Util::isTrustedProxiesConfigured()) {
+        $compat_success[] = $language->get('admin', 'trusted_proxies_configured');
     } else {
-        $compat_success[] = $language->get('installer', 'config_writable');
+        $compat_errors[] = $language->get('admin', 'trusted_proxies_not_configured', [
+            'linkStart' => '<a href="https://docs.namelessmc.com/trusted-proxies">',
+            'linkEnd' => '</a>',
+        ]);
     }
-    if (!is_writable(ROOT_PATH . '/cache')) {
-        $compat_errors[] = $language->get('installer', 'cache_writable');
-    } else {
-        $compat_success[] = $language->get('installer', 'cache_writable');
+
+    if (Util::getPort() === 80 && Util::getProtocol() === 'https') {
+        $compat_errors[] = $language->get('admin', 'https_port_80');
     }
-    if (!is_writable(ROOT_PATH . '/cache/templates_c')) {
-        $compat_errors[] = $language->get('installer', 'template_cache_writable');
-    } else {
-        $compat_success[] = $language->get('installer', 'template_cache_writable');
+
+    if (defined('DEBUGGING') && DEBUGGING) {
+        $compat_errors[] = $language->get('admin', 'debugging_enabled');
     }
 
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
-        'COMPAT_ERRORS' => $compat_errors
+        'COMPAT_WARNINGS' => $compat_warnings,
+        'COMPAT_ERRORS' => $compat_errors,
     ]);
 }
 

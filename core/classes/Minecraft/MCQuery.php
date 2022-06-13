@@ -303,7 +303,9 @@ class MCQuery {
                     continue;
                 }
 
-                $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)), $server['bedrock']);
+                $is_bedrock = isset($server['bedrock']) && $server['bedrock'] === true;
+
+                $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($is_bedrock ? 19132 : 25565)), $is_bedrock);
 
                 if ($query !== false && !$query->error && isset($query->response)) {
                     if ($accumulate === false) {

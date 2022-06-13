@@ -61,7 +61,6 @@ class DefaultRevamp_Template extends TemplateBase {
 
         if (defined('DARK_MODE') && DARK_MODE == '1') {
             $smartyDarkMode = true;
-            define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
         }
 
         if ($cache->isCached('navbarColour')) {

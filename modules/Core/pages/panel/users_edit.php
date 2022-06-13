@@ -170,6 +170,7 @@ if (Input::exists()) {
                         'theme_id' => $new_template
                     ]);
 
+                    $group_sync_log = [];
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
                             $modified = [];
@@ -192,11 +193,21 @@ if (Input::exists()) {
                             }
 
                             // Dispatch the modified groups
-                            GroupSyncManager::getInstance()->broadcastChange(
+                            $group_sync_log = GroupSyncManager::getInstance()->broadcastChange(
                                 $view_user,
                                 NamelessMCGroupSyncInjector::class,
                                 $modified
                             );
+                        }
+                    }
+
+                    if (!count($group_sync_log)) {
+                        // TODO: more "dynamic" since we should not assume they don't have other group sync injectors installed by a module
+                        $rules = DB::getInstance()->query(
+                            'SELECT COUNT(*) AS count FROM nl2_group_sync WHERE website_group_id IN (' . implode(', ', $modified) . ') AND discord_role_id IS NOT NULL;'
+                        )->first()->count;
+                        if ($rules > 0) {
+                            Session::flash('edit_user_warnings', 'Group sync rules are setup but no changes were reported. This could indicate a misconfiguration.');
                         }
                     }
 
@@ -240,7 +251,7 @@ if (Session::exists('edit_user_error')) {
 }
 
 if (Session::exists('edit_user_warnings')) {
-    $warnings = Session::flash('edit_user_warnings');
+    $warnings = [Session::flash('edit_user_warnings')];
 }
 
 if (isset($success)) {

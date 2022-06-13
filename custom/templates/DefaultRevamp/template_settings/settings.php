@@ -117,11 +117,6 @@ $current_template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 
-// We have to define this here because this is run before Module::onPageLoad, so it hasn't been defined yet
-if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark') {
-    define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
-}
-
 $current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Util::getSetting('home_custom_content')));
 
 $smarty->assign([

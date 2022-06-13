@@ -22,26 +22,21 @@ class DB {
     protected QueryRecorder $_query_recorder;
 
     private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
-        try {
-            $this->_force_charset = $force_charset;
-            $this->_prefix = $prefix;
+        $this->_force_charset = $force_charset;
+        $this->_prefix = $prefix;
 
-            $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
-            if ($force_charset) {
-                $connection_string .= ';charset=' . $force_charset;
-            }
-            $this->_pdo = new PDO(
-                $connection_string,
-                $username,
-                $password,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                ]
-            );
-
-        } catch (PDOException $e) {
-            die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
+        $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
+        if ($force_charset) {
+            $connection_string .= ';charset=' . $force_charset;
         }
+        $this->_pdo = new PDO(
+            $connection_string,
+            $username,
+            $password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]
+        );
 
         $this->_query_recorder = QueryRecorder::getInstance();
     }
@@ -53,6 +48,30 @@ class DB {
      */
     public function getPDO(): PDO {
         return $this->_pdo;
+    }
+
+    /**
+     * Execute a database query within a MySQL transaction, and get the results of the query, if any.
+     *
+     * @param Closure(DB): mixed $closure The closure to pass this instance to and execute within a transaction context.
+     * @return mixed The results of the query, null if none.
+     */
+    public function transaction(Closure $closure) {
+        $result = null;
+
+        try {
+            $this->_pdo->beginTransaction();
+
+            $result = $closure($this);
+
+            $this->_pdo->commit();
+        } catch (Exception $exception) {
+            if ($this->_pdo->inTransaction()) {
+                $this->_pdo->rollBack();
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -463,18 +482,18 @@ class DB {
             return self::$_instance;
         }
 
-        if (Config::get('mysql/initialise_charset')) {
-            $force_charset = Config::get('mysql/charset') ?: 'utf8mb4';
+        if (Config::get('mysql.initialise_charset')) {
+            $force_charset = Config::get('mysql.charset') ?: 'utf8mb4';
         } else {
             $force_charset = null;
         }
 
         self::$_instance = self::getCustomInstance(
-            Config::get('mysql/host'),
-            Config::get('mysql/db'),
-            Config::get('mysql/username'),
-            Config::get('mysql/password'),
-            Config::get('mysql/port'),
+            Config::get('mysql.host'),
+            Config::get('mysql.db'),
+            Config::get('mysql.username'),
+            Config::get('mysql.password'),
+            Config::get('mysql.port'),
             $force_charset
         );
 

@@ -81,7 +81,6 @@
     "admin/enable": "啟用",
     "admin/enable_authme": "啟用 AuthMe 連結?",
     "admin/enable_debug_mode": "啟用除錯模式?",
-    "admin/enable_mailer": "使用 PHPMailer?",
     "admin/enable_mailer_help": "如果電子郵件無法成功發送請啟用PHPMailer，將讓您可以正常地發送郵件，例如: Google的SMTP。",
     "admin/enable_maintenance_mode": "啟用維護模式?",
     "admin/enable_minecraft_integration": "啟用 Minecraft 連結?",

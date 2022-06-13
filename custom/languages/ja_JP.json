@@ -184,7 +184,6 @@
     "admin/enable_api": "APIを有効にしますか？",
     "admin/enable_authme": "AuthMe 連携を有効にしますか？",
     "admin/enable_debug_mode": "デバッグモードを有効にしますか？",
-    "admin/enable_mailer": "PHPMailerを有効にしますか？",
     "admin/enable_mailer_help": "有効にすると、システムのデフォルトではなくPHPMailerを使ってメールを送信するようになります。これはメール配信の助けになるかもしれませんが、SMTP プロバイダを設定する必要があります。{{docLinkStart}}続きを読む »{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "メンテナンスモードを有効にしますか？",
     "admin/enable_minecraft_integration": "Minecraft連携を有効にしますか？",

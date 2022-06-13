@@ -180,7 +180,6 @@
     "admin/enable_api": "Ativar a API?",
     "admin/enable_authme": "Ativar a integração com o AuthMe?",
     "admin/enable_debug_mode": "Habilitar o modo de depuração?",
-    "admin/enable_mailer": "Ativar o PHPMailer?",
     "admin/enable_mailer_help": "Habilite isso se os emails não estiverem sendo enviados por padrão. O uso de PHPMailer exige que você tenha um serviço capaz de enviar emails, como o Gmail ou um provedor SMTP.",
     "admin/enable_maintenance_mode": "Habilitar modo de manutenção?",
     "admin/enable_minecraft_integration": "Ativar a integração do Minecraft?",

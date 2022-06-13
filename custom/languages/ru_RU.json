@@ -184,7 +184,6 @@
     "admin/enable_api": "Включить API?",
     "admin/enable_authme": "Включить интеграцию с AuthMe?",
     "admin/enable_debug_mode": "Включить режим отладки?",
-    "admin/enable_mailer": "Включить PHPMailer?",
     "admin/enable_mailer_help": "Если включено, письма будут отправлены с помощью PHPMailer вместо системы по умолчанию. Это может помочь с отправкой, но требует вашу настройку SMTP провайдера. {{docLinkStart}}Прочитать больше »{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "Включить режим обслуживания?",
     "admin/enable_minecraft_integration": "Включить интеграцию с Minecraft?",
@@ -1218,5 +1217,7 @@
     "admin/test_email_suggest_3": "Настройте SMTP сервер. {{docLinkStart}}Прочитать больше »{{docLinkEnd}}",
     "installer/database_configured": "Датабаза была настроена.",
     "installer/upgrade_error": "Произошли ошибки при обновлении.",
-    "admin/debug_link_info": "Важно - только делитесь этой ссылкой с людьми которыми вы доверяете!"
+    "admin/debug_link_info": "Важно - только делитесь этой ссылкой с людьми которыми вы доверяете!",
+    "general/deleted_user": "Удаленный Пользователь",
+    "admin/use_external_mail_server": "Использовать внешний почтовый сервер"
 }

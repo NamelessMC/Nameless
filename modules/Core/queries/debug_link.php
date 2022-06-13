@@ -150,6 +150,20 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
     ];
 }
 
+$oauth_providers = [];
+$providers_available = array_keys(NamelessOAuth::getInstance()->getProvidersAvailable());
+foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $data) {
+    $oauth_providers[$provider_name] = [
+        'provider_name' => $provider_name,
+        'module' => $data['module'],
+        'class' => $data['class'],
+        'user_id_name' => $data['user_id_name'],
+        'scope_id_name' => $data['scope_id_name'],
+        'enabled' => in_array($provider_name, $providers_available),
+        'client_id' => NamelessOAuth::getInstance()->getCredentials($provider_name)[0],
+    ];
+}
+
 $namelessmc_version = Util::getSetting('nameless_version');
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
@@ -193,8 +207,8 @@ $data = [
         'groups' => $groups,
         'config' => [
             'core' => array_filter(
-                $GLOBALS['config']['core'],
-                static fn(string $key) => $key != 'hostname' && $key != 'trustedProxies',
+                Config::get('core'),
+                static fn(string $key) => $key !== 'hostname' && $key !== 'trustedProxies',
                 ARRAY_FILTER_USE_KEY
             ),
         ],
@@ -204,6 +218,7 @@ $data = [
             'panel' => $namelessmc_panel_templates,
         ],
         'integrations' => $integrations,
+        'oauth_providers' => $oauth_providers,
     ],
     'logs' => [
         'fatal' => $logs['fatal'],

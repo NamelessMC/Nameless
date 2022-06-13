@@ -15,13 +15,14 @@ $scripts = [
                 if (response.success) {
                     window.location.replace(response.redirect_url);
                 } else {
-                    $("#info").html(response.message);
-                    if (response.redirect_url) {
+                    if (response.error) {
+                        $("#info").parent().attr("class", "ui red message");
+                        $("#info").html(response.error);
+                        $("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language->get('installer', 'reload') . '</button>");
+                    } else if (response.redirect_url) {
+                        $("#info").html(response.message);
                         $("#continue-button").attr("href", response.redirect_url);
                         $("#continue-button").removeClass("disabled");
-                    }
-                    if (response.error) {
-                        $("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language->get('installer', 'reload') . '</button>");
                     }
                 }
             });

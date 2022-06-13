@@ -131,54 +131,56 @@ class Util {
     }
 
     /**
-     * @return array List of trusted proxy networks according to config file and environment
+     * Determine whether the trusted proxies config option is set to a valid value or not.
+     *
+     * @return bool Whether the trusted proxies option is configured or not
      */
-    public static function getTrustedProxies(): array {
-        $trustedProxies = [];
-
-        // Add trusted proxies from config file
-        $configProxies = Config::get('core/trustedProxies');
-        if ($configProxies !== false) {
-            if (!is_array($configProxies)) {
-                die('Trusted proxies should be an array');
-            }
-            $trustedProxies = array_merge($trustedProxies, $configProxies);
-        }
-
-        // Add trusted proxies from environment variable (comma-separated string)
-        $envProxies = getenv('NAMELESS_TRUSTED_PROXIES');
-        if ($envProxies !== false) {
-            $envProxiesArray = explode(',', $envProxies);
-            $trustedProxies = array_merge($trustedProxies, $envProxiesArray);
-        }
-
-        return $trustedProxies;
+    public static function isTrustedProxiesConfigured(): bool {
+        $config_proxies = Config::get('core.trustedProxies');
+        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        return ($config_proxies !== false
+            && is_array($config_proxies))
+            || $env_proxies !== false;
     }
 
     /**
-     * Checks whether the client making the request is a trusted proxy. If not,
-     * abruptly aborts the request using die().
+     * @return array List of trusted proxy networks according to config file and environment
      */
-    private static function ensureTrustedProxy(): void {
-        $trustedProxies = self::getTrustedProxies();
+    public static function getTrustedProxies(): array {
+        $trusted_proxies = [];
 
-        if (count($trustedProxies) === 0) {
-            ErrorHandler::logWarning('Received proxy header but no trusted proxies are configured. Please see https://docs.namelessmc.com/trusted-proxies for more information.');
-            return;
+        // Add trusted proxies from config file
+        $config_proxies = Config::get('core.trustedProxies');
+        if ($config_proxies !== false && $config_proxies !== null) {
+            if (!is_array($config_proxies)) {
+                die('Trusted proxies should be an array');
+            }
+            $trusted_proxies = array_merge($trusted_proxies, $config_proxies);
         }
 
-        $trusted = false;
+        // Add trusted proxies from environment variable (comma-separated string)
+        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        if ($env_proxies !== false && $env_proxies !== 'none') {
+            $env_proxies_array = explode(',', $env_proxies);
+            $trusted_proxies = array_merge($trusted_proxies, $env_proxies_array);
+        }
 
-        foreach ($trustedProxies as $trustedProxy) {
+        return $trusted_proxies;
+    }
+
+    /**
+     * Checks whether the client making the request is a trusted proxy.
+     */
+    private static function isTrustedProxy(): bool {
+        $trusted_proxies = self::getTrustedProxies();
+
+        foreach ($trusted_proxies as $trustedProxy) {
             if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
-                $trusted = true;
-                break;
+                return true;
             }
         }
 
-        if (!$trusted) {
-            die('Received proxy header from untrusted remote address: ' . $_SERVER['REMOTE_ADDR']);
-        }
+        return false;
     }
 
     /**
@@ -229,19 +231,21 @@ class Util {
      * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
      */
     public static function getRemoteAddress(): ?string {
+        if (!self::isTrustedProxy()) {
+            return $_SERVER['REMOTE_ADDR'];
+        }
+
         $headers = getallheaders();
 
         // Try the simple headers first that only contain an IP address
 
         // Non standard header that only contains the origin address
         if (isset($headers['X-Real-Ip'])) {
-            self::ensureTrustedProxy();
             return $headers['X-Real-Ip'];
         }
 
         // Non standard header sent by CloudFlare that only contains the origin address
         if (isset($headers['Cf-Connecting-Ip'])) {
-            self::ensureTrustedProxy();
             return $headers['Cf-Connecting-Ip'];
         }
 
@@ -263,8 +267,6 @@ class Util {
         */
 
         if (isset($headers['X-Forwarded-For'])) {
-            self::ensureTrustedProxy();
-
             $addresses = [];
             foreach (explode(',', $headers['X-Forwarded-For']) as $part) {
                 $addresses[] = trim($part);
@@ -274,8 +276,6 @@ class Util {
         }
 
         if (isset($headers['Forwarded'])) {
-            self::ensureTrustedProxy();
-
             $addresses = [];
             foreach (explode(',', $headers['Forwarded']) as $part1) {
                 // Extract the optional 'for=<address>' bit
@@ -297,18 +297,16 @@ class Util {
             }
         }
 
-        // No supported proxy headers in use
         return $_SERVER['REMOTE_ADDR'];
     }
 
     /**
      * Get the protocol used by client's HTTP request, using proxy headers if necessary.
      *
-     * @return ?string 'http' if HTTP or 'https' if HTTPS, or null when using the CLI
+     * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
      */
-    public static function getProtocol(): ?string {
+    public static function getProtocol(): string {
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            self::ensureTrustedProxy();
             $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
             if ($proto !== 'http' && $proto !== 'https') {
                 die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
@@ -320,7 +318,7 @@ class Util {
             return $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
         }
 
-        return null;
+        return 'http';
     }
 
     /**
@@ -330,7 +328,6 @@ class Util {
      */
     public static function getPort(): ?int {
         if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
-            self::ensureTrustedProxy();
             return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
         }
 
@@ -349,14 +346,11 @@ class Util {
      * @return string Compiled URL.
      */
     public static function getSelfURL(bool $show_protocol = true): string {
-        $hostname = Config::get('core/hostname');
+        $hostname = Config::get('core.hostname');
 
         if (!$hostname) {
             $hostname = $_SERVER['SERVER_NAME'];
         }
-
-        // https and www checks
-        $protocol = self::getProtocol() . '://';
 
         $url = $hostname;
 
@@ -365,10 +359,11 @@ class Util {
         }
 
         if ($show_protocol) {
-            $url = $protocol . $url;
+            $protocol = self::getProtocol();
+            $url = $protocol . '://' . $url;
             $port = self::getPort();
             // Add port if it is non-standard for the current protocol
-            if (!(($port === 80 && $protocol === 'http://') || ($port === 443 && $protocol === 'https://'))) {
+            if (!(($port === 80 && $protocol === 'http') || ($port === 443 && $protocol === 'https'))) {
                 $url .= ':' . $port;
             }
         }
@@ -396,11 +391,6 @@ class Util {
         return '';
     }
 
-    /*
-    *  The truncate function is taken from CakePHP, license MIT
-    *  https://github.com/cakephp/cakephp/blob/master/LICENSE
-    */
-
     /**
      * Truncates text.
      *
@@ -412,13 +402,13 @@ class Util {
      * - `ending` Will be used as Ending and appended to the trimmed string
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
+     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
+     * @link https://github.com/cakephp/cakephp/blob/master/LICENSE
      *
      * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
      * @return string Trimmed string.
-     * @access public
-     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      */
     public static function truncate(string $text, int $length = 750, array $options = []): string {
         $default = [
@@ -602,18 +592,14 @@ class Util {
             }
         }
 
-        if (isset(self::$_cached_settings[$setting])) {
-            return self::$_cached_settings[$setting];
-        } else {
-            return null;
-        }
+        return self::$_cached_settings[$setting] ?? null;
     }
 
     /**
      * Modify a setting in the database table `nl2_settings`.
      *
      * @param string $setting Setting name.
-     * @param string $new_value New setting value, or null to delete
+     * @param string|null $new_value New setting value, or null to delete
      * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
      *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
      *                        nl2_settings table.
@@ -706,7 +692,7 @@ class Util {
      * @return string Read string
      */
     public static function readFileEnd(string $file_path, int $max_bytes = 100_000): string {
-        $fp = fopen($file_path, 'r');
+        $fp = fopen($file_path, 'rb');
         $size = filesize($file_path);
         $start = max([$size - $max_bytes, 0]);
         fseek($fp, $start);
@@ -727,6 +713,10 @@ class Util {
      * @return array Ordered items
      */
     public static function determineOrder(array $items): array {
+        if (empty($items)) {
+            return $items;
+        }
+
         $order = [array_shift($items)['name']];
 
         foreach ($items as $item) {

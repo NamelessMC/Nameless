@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_GET['provider'], $_GET['code'])) {
-    if (!array_key_exists($_GET['provider'], OAuth::getInstance()->getProvidersAvailable())) {
+    if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
         throw new RuntimeException("Invalid provider {$_GET['provider']}");
     }
 }
@@ -11,16 +11,16 @@ if (!Session::exists('oauth_method')) {
 }
 
 $provider_name = $_GET['provider'];
-$provider = OAuth::getInstance()->getProviderInstance($provider_name);
+$provider = NamelessOAuth::getInstance()->getProviderInstance($provider_name);
 $token = $provider->getAccessToken('authorization_code', [
     'code' => $_GET['code']
 ]);
 $oauth_user = $provider->getResourceOwner($token)->toArray();
-$provider_id = $oauth_user[OAuth::getInstance()->getUserIdName($provider_name)];
+$provider_id = $oauth_user[NamelessOAuth::getInstance()->getUserIdName($provider_name)];
 
 // register
 if (Session::get('oauth_method') === 'register') {
-    if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    if (NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/register'));
     }
@@ -37,13 +37,13 @@ if (Session::get('oauth_method') === 'register') {
 
 // login
 if (Session::get('oauth_method') === 'login') {
-    if (!OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'no_user_found_with_provider', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/login'));
     }
 
     if ((new User())->login(
-        OAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
+        NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
         '', true, 'oauth'
     )) {
         Log::getInstance()->log(Log::Action('user/login'));
@@ -51,7 +51,7 @@ if (Session::get('oauth_method') === 'login') {
         Session::delete('oauth_method');
 
         if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-            Redirect::to($_SESSION['last_page']);
+            Redirect::back();
         }
 
         Redirect::to(URL::build('/'));
@@ -62,12 +62,12 @@ if (Session::get('oauth_method') === 'login') {
 
 // link
 if (Session::get('oauth_method') === 'link') {
-    if (OAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    if (NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/user/oauth'));
     }
 
-    OAuth::getInstance()->saveUserProvider(
+    NamelessOAuth::getInstance()->saveUserProvider(
         $user->data()->id,
         $provider_name,
         $provider_id,

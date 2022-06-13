@@ -17,6 +17,7 @@ class Nameless2API {
     public const ERROR_UNKNOWN_ERROR = 'nameless:unknown_error';
     public const ERROR_NOT_AUTHORIZED = 'nameless:not_authorized';
     public const ERROR_INVALID_API_KEY = 'nameless:invalid_api_key';
+    public const ERROR_MISSING_API_KEY = 'nameless:missing_api_key';
     public const ERROR_INVALID_API_METHOD = 'nameless:invalid_api_method';
     public const ERROR_CANNOT_FIND_USER = 'nameless:cannot_find_user';
     public const ERROR_INVALID_POST_CONTENTS = 'nameless:invalid_post_contents';

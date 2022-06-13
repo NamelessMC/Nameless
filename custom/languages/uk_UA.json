@@ -177,7 +177,6 @@
     "admin/enable_api": "Увімкнути API?",
     "admin/enable_authme": "Увімкнути інтеграцію із AuthMe?",
     "admin/enable_debug_mode": "Увімкнути режим відладки?",
-    "admin/enable_mailer": "Увімкнути PHPMailer?",
     "admin/enable_mailer_help": "Увімкніть цю функцію, якщо електронні листи не надсилаються за замовчуванням. Використання PHPMailer вимагає наявності служби, здатної надсилати електронні листи, наприклад, Gmail або SMTP-провайдера.",
     "admin/enable_maintenance_mode": "Увімкнути режим обслуговування?",
     "admin/enable_minecraft_integration": "Увімкнути інтеграцію з Minecraft?",

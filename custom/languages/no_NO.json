@@ -167,7 +167,6 @@
     "admin/enable_api": "Aktiver API?",
     "admin/enable_authme": "Aktiver AuthMe-integrasjon",
     "admin/enable_debug_mode": "Tillatt feilsøkingsmodus?",
-    "admin/enable_mailer": "Aktiver PHPMailer?",
     "admin/enable_mailer_help": "Aktiver denne funksjonen hvis e-postene ikke blir sendt automatisk. Bruk av PHPMailer krever at du har tilgang til for eksempel Gmail eller en annen e-postleverandør som støtter SMTP.",
     "admin/enable_maintenance_mode": "Aktiver vedlikeholdsmodus?",
     "admin/enable_minecraft_integration": "Aktiver Minecraft-integrasjon",

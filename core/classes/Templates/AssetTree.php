@@ -191,7 +191,7 @@ class AssetTree {
         ],
         self::MCASSOC_CLIENT => [
             'js' => [
-                'js/mcassoc-client.js',
+                'js/mcassoc_client.js',
             ],
         ],
         self::MOMENT => [

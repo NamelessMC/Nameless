@@ -173,7 +173,6 @@
     "admin/enable_api": "เปิดใช้งาน API?",
     "admin/enable_authme": "เปิดใช้งาน AuthMe integration หรือไม่",
     "admin/enable_debug_mode": "เปิดใช้งานโหมดดีบักหรือไม่",
-    "admin/enable_mailer": "เปิดใช้งาน PHPMailer หรือไม่",
     "admin/enable_mailer_help": "เปิดใช้งานสิ่งนี้หากอีเมลไม่ได้ถูกส่งตามค่าเริ่มต้น การใช้ PHPMailer กําหนดให้คุณต้องมีบริการที่สามารถส่งอีเมลเช่น Gmail หรือผู้ให้บริการ SMTP",
     "admin/enable_maintenance_mode": "เปิดใช้งานโหมดปรับปรุงไหม",
     "admin/enable_minecraft_integration": "เปิดใช้งานการรวม Minecraft หริอไหม่",

@@ -33,16 +33,15 @@ class hCaptcha extends CaptchaBase {
     }
 
     public function validateKey(string $key) : bool {
-        $url = 'https://api.hcaptcha.com/checksiteconfig?sitekey=' . $key;
-        $client = HttpClient::get($url);
-        if ($client->hasError()) {
-            return false;
-        }
-        return $client->json(true)['pass'] == true;
+        return true; // hCaptcha changed their validation so this is a temporary fix
     }
 
     public function getHtml(): string {
-        return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
+        if (defined('DARK_MODE') && DARK_MODE == 1) {
+            return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '" data-theme="dark"></div>';
+        } else {
+            return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';
+        }
     }
 
     public function getJavascriptSource(): string {

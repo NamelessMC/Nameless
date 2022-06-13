@@ -57,7 +57,15 @@ class Input {
      * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
     public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false): string {
-        $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
+        if (
+            (defined('DARK_MODE') && DARK_MODE) ||
+            (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
+        ) {
+            $skin = 'oxide-dark';
+        } else {
+            $skin = 'oxide';
+        }
+
         $js = '';
 
         if ($mentions) {

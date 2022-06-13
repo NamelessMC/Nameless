@@ -82,13 +82,6 @@
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">
-                                    <input name="verification" id="verification" type="checkbox"
-                                        class="custom-control-input" {if $EMAIL_VERIFICATION_VALUE eq 1} checked{/if} />
-                                    <label class="custom-control-label" for="verification"
-                                        style="margin-right:10px">{$EMAIL_VERIFICATION}</label>
-                                </div>
-
-                                <div class="form-group custom-control custom-switch">
                                     <input name="username_sync" id="username_sync" type="checkbox"
                                         class="custom-control-input" {if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
                                     <label class="custom-control-label" for="username_sync">{$USERNAME_SYNC}</label>

@@ -4,16 +4,14 @@ class DatabaseInitialiser {
 
     private DB $_db;
     private Cache $_cache;
-    private array $_config;
 
-    private function __construct(array $config = []) {
+    private function __construct() {
         $this->_db = DB::getInstance();
         $this->_cache = new Cache();
-        $this->_config = $config;
     }
 
-    public static function runPreUser(array $config) {
-        $instance = new self($config);
+    public static function runPreUser() {
+        $instance = new self();
         $instance->initialiseGroups();
         $instance->initialiseLanguages();
         $instance->initialiseModules();
@@ -247,9 +245,10 @@ class DatabaseInitialiser {
         ]);
         $this->_cache->store('panel_default', 'Default');
 
-
-        $config_path = $this->_config['core']['path'];
-        $config_path = ($config_path ? '/' . trim($config_path, '/') : '');
+        $config_path = Config::get('core.path');
+        if (!empty($config_path)) {
+            $config_path = '/' . trim($config_path, '/');
+        }
 
         $this->_cache->setCache('backgroundcache');
         $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');

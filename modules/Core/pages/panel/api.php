@@ -60,10 +60,6 @@ if (!isset($_GET['view'])) {
                 ]
             );
 
-            // Update email verification
-            $verification = isset($_POST['verification']) && $_POST['verification'] == 'on' ? '1' : '0';
-            Util::setSetting('email_verification', $verification);
-
             // Update Username sync
             $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
             Util::setSetting('username_sync', $username_sync);
@@ -240,8 +236,6 @@ if (!isset($_GET['view'])) {
             'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
-            'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
-            'EMAIL_VERIFICATION_VALUE' => Util::getSetting('email_verification') === '1',
             'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
             'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
             'USERNAME_SYNC_VALUE' => Util::getSetting('username_sync') === '1',

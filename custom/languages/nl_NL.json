@@ -175,7 +175,6 @@
     "admin/enable_api": "API aanzetten?",
     "admin/enable_authme": "AuthMe integratie aanzetten?",
     "admin/enable_debug_mode": "Wil je debug modus inschakelen?",
-    "admin/enable_mailer": "PHPMailer inschakelen?",
     "admin/enable_mailer_help": "Als dit aanstaat, worden e-mails verzonden met PHPMailer in plaats van de standaard van het system. Dit zou kunnen helpen met het verzenden van e-mails maar vereist wel dat je een SMTP aanbieder configureert. {{docLinkStart}}Lees meer »{{docLinkEnd}}",
     "admin/enable_maintenance_mode": "Wil je onderhoud modus inschakelen?",
     "admin/enable_minecraft_integration": "Minecraft integratie inschakelen?",
@@ -743,7 +742,7 @@
     "installer/continue": "Doorgaan",
     "installer/convert": "Converteer",
     "installer/convert_message": "Tot slot, wil je data overzetten van een ander forum software?",
-    "installer/converter": "Converter",
+    "installer/converter": "Converteer",
     "installer/creating_admin_account": "Admin account maken",
     "installer/credits": "Credits",
     "installer/credits_message": "Een grote dank aan alle NamelessMC bijdragers sinds 2014: {{contribLinkStart}}NamelessMC contributors{{contribLinkEnd}}",
@@ -1218,5 +1217,7 @@
     "admin/test_email_suggest_2": "Update je site zijn DNS records (check SPF & DKIM).",
     "admin/test_email_suggest_3": "Configureer een SMTP server. {{docLinkStart}}Lees meer »{{docLinkEnd}}",
     "installer/upgrade_error": "Er zijn fouten ontstaan tijdens het upgraden.",
-    "admin/custom_content": "Aangepaste Inhoud"
+    "admin/custom_content": "Aangepaste Inhoud",
+    "general/deleted_user": "Verwijderde gebruiker",
+    "admin/use_external_mail_server": "Gebruik externe mail server"
 }

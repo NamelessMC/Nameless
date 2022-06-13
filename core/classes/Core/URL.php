@@ -19,16 +19,6 @@ class URL {
      * @return string Assembled URL, false on failure.
      */
     public static function build(string $url, string $params = '', ?string $force = null): string {
-        if (is_null($force)) {
-            if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
-                // Friendly URLs are enabled
-                return self::buildFriendly($url, $params);
-            }
-
-            // Friendly URLs are disabled, we need to change it
-            return self::buildNonFriendly($url, $params);
-        }
-
         if ($force === 'friendly') {
             return self::buildFriendly($url, $params);
         }
@@ -37,7 +27,22 @@ class URL {
             return self::buildNonFriendly($url, $params);
         }
 
-        throw new InvalidArgumentException('Invalid force string: ' . $force);
+        // Use non-friendly URLs if NamelessMC is not installed yet
+        if (!Config::exists()) {
+            return self::buildFriendly($url, $params);
+        }
+
+        if (!is_null($force)) {
+            throw new InvalidArgumentException('Invalid force string: ' . $force);
+        }
+
+        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly') == true)) {
+            // Friendly URLs are enabled
+            return self::buildFriendly($url, $params);
+        }
+
+        // Friendly URLs are disabled, we need to change it
+        return self::buildNonFriendly($url, $params);
     }
 
     /**

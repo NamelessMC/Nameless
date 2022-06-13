@@ -441,15 +441,14 @@ class Core_Module extends Module {
             ]
         );
 
-        // TODO: should this be in the Discord Integration module?
-        OAuth::getInstance()->registerProvider('discord', [
+        NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
         ]);
 
-        OAuth::getInstance()->registerProvider('google', [
+        NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
             'class' => \League\OAuth2\Client\Provider\Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
@@ -1532,10 +1531,6 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('modcp.reports')) {
                 self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
-            }
-
-            if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark') {
-                define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
             }
         }
 
