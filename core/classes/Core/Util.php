@@ -130,12 +130,16 @@ class Util {
         return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
+    /**
+     * Determine whether the trusted proxies config option is set to a valid value or not.
+     *
+     * @return bool Whether the trusted proxies option is configured or not
+     */
     public static function isTrustedProxiesConfigured(): bool {
         $config_proxies = Config::get('core.trustedProxies');
         $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
-        return $config_proxies !== false
-            && $config_proxies !== null
-            && is_array($config_proxies)
+        return ($config_proxies !== false
+            && is_array($config_proxies))
             || $env_proxies !== false;
     }
 
@@ -387,11 +391,6 @@ class Util {
         return '';
     }
 
-    /*
-    *  The truncate function is taken from CakePHP, license MIT
-    *  https://github.com/cakephp/cakephp/blob/master/LICENSE
-    */
-
     /**
      * Truncates text.
      *
@@ -403,13 +402,13 @@ class Util {
      * - `ending` Will be used as Ending and appended to the trimmed string
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
+     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
+     * @link https://github.com/cakephp/cakephp/blob/master/LICENSE
      *
      * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
      * @return string Trimmed string.
-     * @access public
-     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      */
     public static function truncate(string $text, int $length = 750, array $options = []): string {
         $default = [
@@ -593,18 +592,14 @@ class Util {
             }
         }
 
-        if (isset(self::$_cached_settings[$setting])) {
-            return self::$_cached_settings[$setting];
-        } else {
-            return null;
-        }
+        return self::$_cached_settings[$setting] ?? null;
     }
 
     /**
      * Modify a setting in the database table `nl2_settings`.
      *
      * @param string $setting Setting name.
-     * @param string $new_value New setting value, or null to delete
+     * @param string|null $new_value New setting value, or null to delete
      * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
      *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
      *                        nl2_settings table.
@@ -697,7 +692,7 @@ class Util {
      * @return string Read string
      */
     public static function readFileEnd(string $file_path, int $max_bytes = 100_000): string {
-        $fp = fopen($file_path, 'r');
+        $fp = fopen($file_path, 'rb');
         $size = filesize($file_path);
         $start = max([$size - $max_bytes, 0]);
         fseek($fp, $start);
