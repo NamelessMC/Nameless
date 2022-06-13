@@ -1218,5 +1218,10 @@
     "installer/upgrade_error": "Er zijn fouten ontstaan tijdens het upgraden.",
     "admin/custom_content": "Aangepaste Inhoud",
     "general/deleted_user": "Verwijderde gebruiker",
-    "admin/use_external_mail_server": "Gebruik externe mail server"
+    "admin/use_external_mail_server": "Gebruik externe mail server",
+    "installer/config_write_failed": "Fout met het schrijven naar config bestand: {{message}}",
+    "installer/database_connection_failed": "Fout met het connecteren naar de database: <br>{{message}}",
+    "admin/trusted_proxies_configured": "Vertrouwde proxies",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Vertrouwde proxies{{linkEnd}} zijn nog niet geconfigureerd, IP verbanningen zouden niet correct kunnen werken.",
+    "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je CloudFlare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header."
 }
