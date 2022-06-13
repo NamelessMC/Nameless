@@ -113,10 +113,13 @@ if (!count($news)) {
 // Compatibility
 if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
+    $compat_warnings = [];
     $compat_errors = [];
 
     if (PHP_VERSION_ID < 70400) {
         $compat_errors[] = 'PHP ' . PHP_VERSION;
+    } else if (PHP_VERSION_ID < 80000) {
+        $compat_warnings[] = 'PHP ' . PHP_VERSION;
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
     }
@@ -174,9 +177,12 @@ if ($user->hasPermission('admincp.core.debugging')) {
         }
     }
 
-    if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=')) ||
-        ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>='))) {
+    if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '8.0', '>=')) ||
+        ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.5', '>='))) {
         $compat_success[] = $pdo_driver . ' Server ' . $pdo_server_version;
+    } else if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=')) ||
+        ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>='))) {
+        $compat_warnings[] = $pdo_driver . ' Server ' . $pdo_server_version;
     } else {
         $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
     }
@@ -197,7 +203,8 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
-        'COMPAT_ERRORS' => $compat_errors
+        'COMPAT_WARNINGS' => $compat_warnings,
+        'COMPAT_ERRORS' => $compat_errors,
     ]);
 }
 
