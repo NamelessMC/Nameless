@@ -70,9 +70,13 @@ class Config {
     public static function get(string $path) {
         $config = self::all();
 
-        $path = self::parsePath($path);
+        $parsed_path = self::parsePath($path);
 
-        foreach ($path as $bit) {
+        if (!is_array($parsed_path)) {
+            return $config[$parsed_path] ?? false;
+        }
+
+        foreach ($parsed_path as $bit) {
             if (isset($config[$bit])) {
                 $config = $config[$bit];
             } else {
