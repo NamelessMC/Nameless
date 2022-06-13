@@ -51,7 +51,7 @@ if (Session::get('oauth_method') === 'login') {
         Session::delete('oauth_method');
 
         if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-            Redirect::to($_SESSION['last_page']);
+            Redirect::back();
         }
 
         Redirect::to(URL::build('/'));

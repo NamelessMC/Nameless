@@ -234,7 +234,7 @@ if (Input::exists()) {
 
                             // Redirect to a certain page?
                             if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                                Redirect::to($_SESSION['last_page']);
+                                Redirect::back();
                             } else {
                                 Session::flash('home', $language->get('user', 'successful_login'));
                                 Redirect::to(URL::build('/'));
