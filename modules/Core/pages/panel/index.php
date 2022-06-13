@@ -200,6 +200,10 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_errors[] = $language->get('admin', 'https_port_80');
     }
 
+    if (defined('DEBUGGING') && DEBUGGING) {
+        $compat_errors[] = $language->get('admin', 'debugging_enabled');
+    }
+
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
