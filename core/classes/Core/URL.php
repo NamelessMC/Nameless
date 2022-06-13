@@ -36,7 +36,7 @@ class URL {
             throw new InvalidArgumentException('Invalid force string: ' . $force);
         }
 
-        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core/friendly') == true)) {
+        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly') == true)) {
             // Friendly URLs are enabled
             return self::buildFriendly($url, $params);
         }

@@ -66,16 +66,16 @@ if ($page != 'install') {
      */
 
     // Friendly URLs?
-    define('FRIENDLY_URLS', Config::get('core/friendly') == 'true');
+    define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
 
     // Set up cache
     $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
-    if (Config::get('core/force_https')) {
+    if (Config::get('core.force_https')) {
         define('FORCE_SSL', true);
     }
-    if (Config::get('core/force_www')) {
+    if (Config::get('core.force_www')) {
         define('FORCE_WWW', true);
     }
 
@@ -121,13 +121,13 @@ if ($page != 'install') {
     define('NAMELESS_VERSION', Util::getSetting('nameless_version'));
 
     // Set the date format
-    define('DATE_FORMAT', Config::get('core/date_format') ?: 'd M Y, H:i');
+    define('DATE_FORMAT', Config::get('core.date_format') ?: 'd M Y, H:i');
 
     // User initialisation
     $user = new User();
     // Do they need logging in (checked remember me)?
-    if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
-        $hash = Cookie::get(Config::get('remember/cookie_name'));
+    if (Cookie::exists(Config::get('remember.cookie_name')) && !Session::exists(Config::get('session.session_name'))) {
+        $hash = Cookie::get(Config::get('remember.cookie_name'));
         $hashCheck = DB::getInstance()->get('users_session', ['hash', $hash]);
 
         if ($hashCheck->count()) {
@@ -144,16 +144,16 @@ if ($page != 'install') {
 
         $directories = array_values($directories);
 
-        $config_path = Config::get('core/path');
+        $config_path = Config::get('core.path');
 
         if (!empty($config_path)) {
-            $config_path = explode('/', Config::get('core/path'));
+            $config_path = explode('/', Config::get('core.path'));
 
             for ($i = 0, $iMax = count($config_path); $i < $iMax; $i++) {
                 unset($directories[$i]);
             }
 
-            define('CONFIG_PATH', '/' . Config::get('core/path'));
+            define('CONFIG_PATH', '/' . Config::get('core.path'));
 
             $directories = array_values($directories);
         }

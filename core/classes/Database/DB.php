@@ -482,18 +482,18 @@ class DB {
             return self::$_instance;
         }
 
-        if (Config::get('mysql/initialise_charset')) {
-            $force_charset = Config::get('mysql/charset') ?: 'utf8mb4';
+        if (Config::get('mysql.initialise_charset')) {
+            $force_charset = Config::get('mysql.charset') ?: 'utf8mb4';
         } else {
             $force_charset = null;
         }
 
         self::$_instance = self::getCustomInstance(
-            Config::get('mysql/host'),
-            Config::get('mysql/db'),
-            Config::get('mysql/username'),
-            Config::get('mysql/password'),
-            Config::get('mysql/port'),
+            Config::get('mysql.host'),
+            Config::get('mysql.db'),
+            Config::get('mysql.username'),
+            Config::get('mysql.password'),
+            Config::get('mysql.port'),
             $force_charset
         );
 

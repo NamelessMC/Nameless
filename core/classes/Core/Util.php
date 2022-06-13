@@ -130,11 +130,13 @@ class Util {
         return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
     }
 
-    public static function isTrustedProxiesConfigured() {
-        $config_proxies = Config::get('core/trustedProxies');
+    public static function isTrustedProxiesConfigured(): bool {
+        $config_proxies = Config::get('core.trustedProxies');
         $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
-        return $config_proxies !== false && $config_proxies !== null && is_array($config_proxies)
-                || $env_proxies !== false;
+        return $config_proxies !== false
+            && $config_proxies !== null
+            && is_array($config_proxies)
+            || $env_proxies !== false;
     }
 
     /**
@@ -144,7 +146,7 @@ class Util {
         $trusted_proxies = [];
 
         // Add trusted proxies from config file
-        $config_proxies = Config::get('core/trustedProxies');
+        $config_proxies = Config::get('core.trustedProxies');
         if ($config_proxies !== false && $config_proxies !== null) {
             if (!is_array($config_proxies)) {
                 die('Trusted proxies should be an array');
@@ -340,7 +342,7 @@ class Util {
      * @return string Compiled URL.
      */
     public static function getSelfURL(bool $show_protocol = true): string {
-        $hostname = Config::get('core/hostname');
+        $hostname = Config::get('core.hostname');
 
         if (!$hostname) {
             $hostname = $_SERVER['SERVER_NAME'];

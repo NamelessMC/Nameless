@@ -77,7 +77,7 @@ abstract class CaptchaBase {
      * @return bool Whether captcha is enabled or not
      */
     public static function isCaptchaEnabled(string $key = 'recaptcha'): bool {
-        if (!Config::get('core/captcha')) {
+        if (!Config::get('core.captcha')) {
             return false;
         }
 

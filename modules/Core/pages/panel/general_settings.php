@@ -265,7 +265,7 @@ $smarty->assign([
     'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
     'HOMEPAGE_VALUE' => Util::getSetting('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
-    'USE_FRIENDLY_URLS_VALUE' => Config::get('core/friendly'),
+    'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
         'docLinkStart' => "<a href='https://docs.namelessmc.com/friendly-urls' target='_blank'>",
         'docLinkEnd' => '</a>'

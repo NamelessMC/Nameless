@@ -62,7 +62,7 @@ class Config {
     /**
      * Get a config value from `core/config.php` file.
      *
-     * @param string $path `/` seperated path of key to get from config file.
+     * @param string $path `.` seperated path of key to get from config file.
      * @return false|mixed Returns false if key doesn't exist, otherwise returns the value.
      *
      * @throws RuntimeException If the config file is not found.
@@ -70,7 +70,7 @@ class Config {
     public static function get(string $path) {
         $config = self::all();
 
-        $path = explode('/', $path);
+        $path = self::parsePath($path);
 
         foreach ($path as $bit) {
             if (isset($config[$bit])) {
@@ -90,13 +90,13 @@ class Config {
     /**
      * Write a value to `core/config.php` file.
      *
-     * @param string $key `/` seperated path of key to set.
+     * @param string $key `.` seperated path of key to set.
      * @param mixed $value Value to set under $key.
      */
     public static function set(string $key, $value): void {
         $config = self::all();
 
-        $path = explode('/', $key);
+        $path = self::parsePath($key);
 
         if (!is_array($path)) {
             $config[$key] = $value;
@@ -120,7 +120,7 @@ class Config {
         $config = self::all();
 
         foreach ($values as $key => $value) {
-            $path = explode('/', $key);
+            $path = self::parsePath($key);
 
             if (!is_array($path)) {
                 $config[$key] = $value;
@@ -134,5 +134,26 @@ class Config {
         }
 
         static::write($config);
+    }
+
+    /**
+     * Parse a string path to an array of config paths.
+     * Will log a warning if a legacy path (using `/` is used).
+     *
+     * @param string $path Path to parse.
+     * @return string|array Path split into sections or plain string if no section seperator was found.
+     */
+    private static function parsePath(string $path) {
+        if (str_contains($path, '.')) {
+            return explode('.', $path);
+        }
+
+        // TODO: Remove for 2.1.0
+        if (str_contains($path, '/')) {
+            ErrorHandler::logWarning("Legacy config path: {$path}. Please use periods to seperate paths.");
+            return explode('/', $path);
+        }
+
+        return $path;
     }
 }

@@ -67,9 +67,9 @@ class User {
 
     public function __construct(string $user = null, string $field = 'id') {
         $this->_db = DB::getInstance();
-        $this->_sessionName = Config::get('session/session_name');
-        $this->_cookieName = Config::get('remember/cookie_name');
-        $this->_admSessionName = Config::get('session/admin_name');
+        $this->_sessionName = Config::get('session.session_name');
+        $this->_cookieName = Config::get('remember.cookie_name');
+        $this->_admSessionName = Config::get('session.admin_name');
 
         if ($user === null) {
             if (Session::exists($this->_sessionName)) {
@@ -327,7 +327,7 @@ class User {
                     $hash = $hashCheck->first()->hash;
                 }
 
-                $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
+                $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
                 Cookie::put($cookieName, $hash, $expiry, Util::getProtocol() === 'https', true);
             }

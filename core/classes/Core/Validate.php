@@ -95,7 +95,7 @@ class Validate {
     private function __construct() {
         // Connect to database for rules which need DB access
         try {
-            $host = Config::get('mysql/host');
+            $host = Config::get('mysql.host');
         } catch (Exception $e) {
             $host = null;
         }

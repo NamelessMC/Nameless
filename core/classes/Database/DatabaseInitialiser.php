@@ -245,7 +245,7 @@ class DatabaseInitialiser {
         ]);
         $this->_cache->store('panel_default', 'Default');
 
-        $config_path = Config::get('core/path');
+        $config_path = Config::get('core.path');
         if (!empty($config_path)) {
             $config_path = '/' . trim($config_path, '/');
         }
