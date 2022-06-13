@@ -22,11 +22,22 @@ if (!isset($page)) {
     die('$page variable is unset. Cannot continue.');
 }
 
-if (!file_exists(ROOT_PATH . '/core/config.php')) {
-    if (is_writable(ROOT_PATH . '/core')) {
-        fopen(ROOT_PATH . '/core/config.php', 'w');
-    } else {
-        die('Your <strong>/core</strong> directory is not writable, please check your file permissions.');
+// All paths should be writable, but recursively checking everything would take too much time.
+// Only check the most important paths.
+$writable_check_paths = [
+    ROOT_PATH,
+    ROOT_PATH . '/cache',
+    ROOT_PATH . '/cache/logs',
+    ROOT_PATH . '/cache/sitemaps',
+    ROOT_PATH . '/cache/templates_c',
+    ROOT_PATH . '/uploads',
+    ROOT_PATH . '/core/email.php'
+];
+
+foreach ($writable_check_paths as $path) {
+    if (is_dir($path) && !is_writable($path)) {
+        die('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
+        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>');
     }
 }
 
@@ -38,15 +49,8 @@ if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
     }
 }
 
-// Require config
-require(ROOT_PATH . '/core/config.php');
-
-if (isset($conf) && is_array($conf)) {
-    $GLOBALS['config'] = $conf;
-} else {
-    if (!isset($GLOBALS['config'])) {
-        $page = 'install';
-    }
+if (!Config::exists()) {
+    $page = 'install';
 }
 
 // If we're accessing the upgrade script don't initialise further

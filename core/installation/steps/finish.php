@@ -5,12 +5,7 @@ if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
 }
 
 try {
-
-    if (!is_writable('core/config.php')) {
-        $error = $language->get('installer', 'config_not_writable');
-    } else {
-        Config::set('core/installed', true);
-    }
+    Config::set('core/installed', true);
 
     unset($_SESSION['admin_setup'], $_SESSION['database_initialized'], $_SESSION['site_initialized']);
 

@@ -48,6 +48,14 @@ const ROOT_PATH = __DIR__;
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/core/includes/constants/autoload.php';
 
+if (!Config::exists()) {
+    if (is_file(ROOT_PATH . '/install.php')) {
+        Redirect::to('install.php');
+    } else {
+        die('Config does not exist, but neither does the installer');
+    }
+}
+
 $page = 'Home';
 
 if (!ini_get('upload_tmp_dir')) {
@@ -75,10 +83,6 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
 
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');
-
-if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
-    Redirect::to('install.php');
-}
 
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {

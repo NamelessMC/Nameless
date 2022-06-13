@@ -87,7 +87,10 @@ if ($reinstall) {
     }
 }
 
-const ROOT_PATH = __DIR__ . '..';
+const ROOT_PATH = __DIR__ . '/..';
+
+print('♻️  Registering autoloader...' . PHP_EOL);
+require './vendor/autoload.php';
 
 print('✍️  Creating new config.php file...' . PHP_EOL);
 $conf = [
@@ -111,7 +114,7 @@ $conf = [
     'core' => [
         'hostname' => getEnvVar('NAMELESS_HOSTNAME', 'localhost'),
         'path' => getEnvVar('NAMELESS_PATH', ''),
-        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS', 'false') === 'true' ? true : false,
+        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS', 'false') === 'true',
         'force_https' => false,
         'force_www' => false,
         'captcha' => false,
@@ -120,14 +123,7 @@ $conf = [
     ],
 ];
 
-file_put_contents(
-    './core/config.php',
-    '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';'
-);
-$GLOBALS['config'] = $conf;
-
-print('♻️  Registering autoloader...' . PHP_EOL);
-require './vendor/autoload.php';
+Config::write($conf);
 
 if ($reinstall) {
     print('🗑️  Deleting old database...' . PHP_EOL);
@@ -144,13 +140,19 @@ if ($reinstall) {
 }
 
 print('✍️  Creating tables...' . PHP_EOL);
-PhinxAdapter::migrate();
+
+$message = PhinxAdapter::migrate();
+
+if (!str_contains($message, 'All Done')) {
+    print($message);
+    exit(1);
+}
 
 Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK'));
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
-DatabaseInitialiser::runPreUser($conf);
+DatabaseInitialiser::runPreUser();
 
 Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
