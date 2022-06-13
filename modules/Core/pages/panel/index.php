@@ -207,6 +207,10 @@ if ($user->hasPermission('admincp.core.debugging')) {
         ]);
     }
 
+    if (Util::getPort() === 80 && Util::getProtocol() === 'https') {
+        $compat_errors[] = $language->get('admin', 'https_port_80');
+    }
+
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,

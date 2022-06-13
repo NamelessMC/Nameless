@@ -681,6 +681,7 @@
     "admin/api_disabled": "API is disabled",
     "admin/trusted_proxies_configured": "Trusted proxies",
     "admin/trusted_proxies_not_configured": "{{linkStart}}Trusted proxies{{linkEnd}} are not configured, IP bans may not work properly.",
+    "admin/https_port_80": "You appear as if you are using HTTPS on port 80, which is almost definitely not true. If you use CloudFlare, make sure to set TLS encryption mode to Full (strict). If you run your own proxy, please configure it to send the X-Forwarded-Port header.",
     "api/account_validated": "Account validated successfully",
     "api/finish_registration_email": "Please check your emails to complete registration.",
     "api/finish_registration_link": "Please click on the following link to complete registration:",
