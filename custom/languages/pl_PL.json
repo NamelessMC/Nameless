@@ -723,7 +723,6 @@
     "installer/back": "Powrót",
     "installer/cache_writable": "Pamięć podręczna do zapisu",
     "installer/character_set": "Zestaw znaków",
-    "installer/config_not_writable": "Plik konfiguracyjny jest zablokowany.",
     "installer/config_writable": "Zapistywalność pliku core/config.php",
     "installer/configuration": "Konfiguracja",
     "installer/configuration_error": "Wpisz nazwę strony mającą od 1 do 32 znaków, i twój adres email mający od 4 do 64 znaków długości.",

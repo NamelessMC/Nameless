@@ -732,7 +732,6 @@
     "installer/back": "Terug",
     "installer/cache_writable": "Cache Schrijfbaar",
     "installer/character_set": "Karakterset",
-    "installer/config_not_writable": "Het configuratiebestand is niet beschrijfbaar.",
     "installer/config_writable": "core/config.php Schrijfbaar",
     "installer/configuration": "Configuratie",
     "installer/configuration_error": "Voer een geldige naam in voor de site die tussen de 1 en 32 tekens lang is, en geldige e-mailadressen die tussen de 4 en 64 tekens lang zijn.",

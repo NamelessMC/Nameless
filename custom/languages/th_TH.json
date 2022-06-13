@@ -719,7 +719,6 @@
     "installer/back": "กลับ",
     "installer/cache_writable": "cache เขียนได้",
     "installer/character_set": "ชุดตัวอักษร",
-    "installer/config_not_writable": "ไฟล์กำหนดค่าไม่สามารถเขียนได้",
     "installer/config_writable": "core/config.php เขียนได้",
     "installer/configuration": "การกำหนดค่า",
     "installer/configuration_error": "โปรดป้อนชื่อไซต์ที่ถูกต้องระหว่าง 1 ถึง 32 อักขระ และที่อยู่อีเมลที่ถูกต้องระหว่าง 4 ถึง 64 อักขระ",

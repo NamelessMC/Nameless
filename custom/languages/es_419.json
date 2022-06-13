@@ -729,7 +729,6 @@
     "installer/back": "Volver",
     "installer/cache_writable": "Caché grabable",
     "installer/character_set": "Conjunto de carácteres",
-    "installer/config_not_writable": "El archivo de configuracion no es writable",
     "installer/config_writable": "Escritura del core/config.php",
     "installer/configuration": "Configuración",
     "installer/configuration_error": "Introduzca un nombre de sitio válido entre 1 y 32 caracteres y direcciones de correo electrónico válidas entre 4 y 64 caracteres.",

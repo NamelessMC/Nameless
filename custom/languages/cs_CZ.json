@@ -743,7 +743,6 @@
     "installer/back": "Zpět",
     "installer/cache_writable": "Mezipaměť zapisovatelná",
     "installer/character_set": "Znaková sada",
-    "installer/config_not_writable": "Konfigurační soubor není zapisovatelný.",
     "installer/config_writable": "Soubor core/config.php zapisovatelný",
     "installer/configuration": "Konfigurace",
     "installer/configuration_error": "Zadejte platný název webu o délce 1 až 32 znaků a platnou e-mailovou adresu o délce 4 až 64 znaků.",
