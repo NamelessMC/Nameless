@@ -180,3 +180,10 @@
                     {$MUST_VALIDATE_ACCOUNT}
                 </div>
                 {/if}
+
+                {if isset($MAINTENANCE_ENABLED)}
+                <div class="ui warning message">
+                    <i class="close icon"></i>
+                    {$MAINTENANCE_ENABLED}
+                </div>
+                {/if}
