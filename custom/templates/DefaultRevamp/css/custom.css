@@ -1143,7 +1143,8 @@ body.dark .ui.cards>.card>.extra a:not(.ui),
 body.dark .ui.relaxed.list .item .content,
 body.dark .ui.horizontal.divider,
 body.dark .ui.dropdown .menu>.header:not(.ui),
-body.dark .ui.link.list.list .active.item {
+body.dark .ui.link.list.list .active.item,
+body.dark .ui.link.list.list .active.item a:not(.ui) {
     color: rgba(255, 255, 255, 0.6) !important;
 }
 
@@ -1159,7 +1160,8 @@ body.dark .ui.pointing.dropdown>.menu>.item {
 body.dark .ui.menu .ui.dropdown .menu>.item:hover,
 body.dark .ui.dropdown .menu>.item:hover,
 body.dark .ui.menu .ui.dropdown .menu>.item.active,
-body.dark .ui.list>.item a.header {
+body.dark .ui.list>.item a.header,
+body.dark .ui.link.list.list .active.item a:not(.ui):hover {
     color: #fff !important;
 }
 
