@@ -1224,5 +1224,6 @@
     "installer/config_write_failed": "Das Schreiben in die Konfigurationsdatei ist fehlgeschlagen: {{message}}",
     "installer/database_connection_failed": "Verbindung zur Datenbank fehlgeschlagen:<br>{{message}}",
     "admin/debugging_enabled": "Wenn Debugging aktiviert ist, können sensible Informationen für unbefugte Besucher zugänglich sein. Debugging sollte nur für die Entwicklung verwendet werden, nicht auf öffentlichen Seiten.",
-    "admin/https_port_80": "Es sieht so aus, als ob du HTTPS auf Port 80 verwendest, was mit ziemlicher Sicherheit nicht der Fall ist. Wenn du Cloudflare verwendest, stelle sicher, dass du den TLS-Verschlüsselungsmodus auf Full (strict) gesetzt hast. Wenndu deine eigene Proxy verwendest, konfiguriere ihn bitte so, dass er den X-Forwarded-Port-Header sendet."
+    "admin/https_port_80": "Es sieht so aus, als ob du HTTPS auf Port 80 verwendest, was mit ziemlicher Sicherheit nicht der Fall ist. Wenn du Cloudflare verwendest, stelle sicher, dass du den TLS-Verschlüsselungsmodus auf Full (strict) gesetzt hast. Wenndu deine eigene Proxy verwendest, konfiguriere ihn bitte so, dass er den X-Forwarded-Port-Header sendet.",
+    "admin/group_sync_no_results_warning": "Gruppensynchronisierungsregeln sind eingerichtet, aber es wurden keine Änderungen gemeldet. Dies könnte auf eine Fehlkonfiguration hindeuten."
 }
