@@ -33,7 +33,7 @@ if (!isset($_GET['c'])) {
                     $code = SecureRandom::alphanumeric();
 
                     // Send an email
-                    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
+                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
 
                     $sent = Email::send(
                         ['email' => Output::getClean($target_user->data()->email), 'name' => $target_user->getDisplayname()],

@@ -39,10 +39,12 @@ Here are some things you should know when contributing:
 ## Versioning
 As of NamelessMC 2.0.0 (to be released at time of writing), we use a unique versioning system.
 Similar to [semver](https://semver.org), we follow the `major.minor.patch` versioning pattern, however there are a few things to note:
-- The `major` version is pinned at `2` for the time being.
-- The `minor` version is only changed when *breaking changes are made*. These include:
+- We use the naming `constant.major.patch` compared to semver.
+- The `constant` version is pinned at `2` for the time being.
+- The `major` version is only changed when *breaking changes are made*. These include:
   - Changes that require modules to update
   - Changes that require templates to update
+  - Changes that require updates to the Nameless-Link Discord bot
   - Changes that require updates to the Nameless-Link Discord bot
   - Changes that require updates to the debug.namelessmc.com repo
   - **If the minor version is bumped, we will inform users about which of the above aspects were affected.**
@@ -55,3 +57,8 @@ Examples:
   - A "major" release. Modules and/or templates and/or other integrations will need to be updated to support this release.
 - `2.1.4`
     - A bug fix release. Fully backwards compatible with `2.1.0` modules, templates & other integrations, but not compatible with (at least 1) `2.0.0` integration
+
+Deprecations rule of thumb:
+- We might deprecate methods, classes or constants within a minor release.
+- These will get tagged with `@deprecated` and will be announced.
+- When something is marked as deprecated, it will not be removed until at least the next major release.

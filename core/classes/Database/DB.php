@@ -3,7 +3,6 @@
  * Creates a singleton connection to the database with credentials from the config file.
  *
  * @package NamelessMC\Database
- * @see InteractsWithDatabase
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -39,6 +38,39 @@ class DB {
         );
 
         $this->_query_recorder = QueryRecorder::getInstance();
+    }
+
+    public static function getCustomInstance(
+        string $host,
+        string $database,
+        string $username,
+        string $password,
+        int $port = 3306,
+        ?string $force_charset = null,
+        string $prefix = 'nl2_'
+    ): DB {
+        return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
+    }
+
+    public static function getInstance(): DB {
+        if (self::$_instance) {
+            return self::$_instance;
+        }
+
+        if (Config::get('mysql.initialise_charset')) {
+            $force_charset = Config::get('mysql.charset') ?: 'utf8mb4';
+        } else {
+            $force_charset = null;
+        }
+
+        return self::$_instance = self::getCustomInstance(
+            Config::get('mysql.host'),
+            Config::get('mysql.db'),
+            Config::get('mysql.username'),
+            Config::get('mysql.password'),
+            Config::get('mysql.port'),
+            $force_charset
+        );
     }
 
     /**
@@ -183,7 +215,7 @@ class DB {
     }
 
     /**
-     * @deprecated Use query() instead
+     * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
     public function selectQuery(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ) {
@@ -191,7 +223,7 @@ class DB {
     }
 
     /**
-     * @deprecated Use query() instead
+     * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
     public function createQuery(string $sql, array $params = []) {
@@ -464,40 +496,4 @@ class DB {
 
         return [$where, $params];
     }
-
-    public static function getCustomInstance(
-        string $host,
-        string $database,
-        string $username,
-        string $password,
-        int $port = 3306,
-        ?string $force_charset = null,
-        string $prefix = 'nl2_'
-    ): DB {
-        return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
-    }
-
-    public static function getInstance(): DB {
-        if (self::$_instance) {
-            return self::$_instance;
-        }
-
-        if (Config::get('mysql.initialise_charset')) {
-            $force_charset = Config::get('mysql.charset') ?: 'utf8mb4';
-        } else {
-            $force_charset = null;
-        }
-
-        self::$_instance = self::getCustomInstance(
-            Config::get('mysql.host'),
-            Config::get('mysql.db'),
-            Config::get('mysql.username'),
-            Config::get('mysql.password'),
-            Config::get('mysql.port'),
-            $force_charset
-        );
-
-        return self::$_instance;
-    }
-
 }

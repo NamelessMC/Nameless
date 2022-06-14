@@ -69,7 +69,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'EDITING_USER' => $language->get('admin', 'editing_user_x', [
-        'user' => Util::bold(Output::getClean($user_query->nickname))
+        'user' => Text::bold(Output::getClean($user_query->nickname))
     ]),
     'USER_ID' => $user_query->id,
     'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query->id)),

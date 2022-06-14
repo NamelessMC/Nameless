@@ -17,7 +17,7 @@ class MinecraftPlaceholderDataSeeder extends Seeder {
             $user = $faker->randomElement($users);
 
             if (!array_key_exists($user->id, $user_uuids)) {
-                $uuid = hex2bin($db->selectQuery('SELECT identifier FROM nl2_users_integrations WHERE user_id = ?', [$user->id])->first()->identifier);
+                $uuid = hex2bin($db->query('SELECT identifier FROM nl2_users_integrations WHERE user_id = ?', [$user->id])->first()->identifier);
                 $user_uuids[$user->id] = $uuid;
             } else {
                 $uuid = $user_uuids[$user->id];

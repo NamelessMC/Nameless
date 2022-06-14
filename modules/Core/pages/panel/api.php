@@ -233,7 +233,7 @@ if (!isset($_GET['view'])) {
             'NO' => $language->get('general', 'no'),
             'CHANGE' => $language->get('general', 'change'),
             'API_URL' => $language->get('admin', 'api_url'),
-            'API_URL_VALUE' => rtrim(Util::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
+            'API_URL_VALUE' => rtrim(URL::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
             'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),

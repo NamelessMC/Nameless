@@ -58,8 +58,8 @@ if (!isset($_GET['action'])) {
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
                 ? $language->get('admin', 'template_outdated', [
-                    'intendedVersion' => Util::bold(Output::getClean($template->getNamelessVersion())),
-                    'actualVersion' => Util::bold(NAMELESS_VERSION)
+                    'intendedVersion' => Text::bold(Output::getClean($template->getNamelessVersion())),
+                    'actualVersion' => Text::bold(NAMELESS_VERSION)
                 ])
                 : false
             ),
@@ -100,7 +100,7 @@ if (!isset($_GET['action'])) {
                 $all_templates[] = [
                     'name' => Output::getClean($item->name),
                     'description' => Output::getPurified($item->description),
-                    'description_short' => Util::truncate(Output::getPurified($item->description)),
+                    'description_short' => Text::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
                     'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),
@@ -352,7 +352,7 @@ if (!isset($_GET['action'])) {
 
                     $smarty->assign([
                         'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
-                            'template' => Util::bold(Output::getClean($template_query->name))
+                            'template' => Text::bold(Output::getClean($template_query->name))
                         ]),
                         'BACK' => $language->get('general', 'back'),
                         'BACK_LINK' => URL::build('/panel/core/templates'),
@@ -476,7 +476,7 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign([
                 'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
-                    'template' => Util::bold(Output::getClean($template_query->name))
+                    'template' => Text::bold(Output::getClean($template_query->name))
                 ]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/templates'),
@@ -683,8 +683,8 @@ if (!isset($_GET['action'])) {
 
                         $smarty->assign([
                             'EDITING_FILE' => $language->get('admin', 'editing_template_file_in_template', [
-                                'file' => Util::bold($template_path),
-                                'template' => Util::bold(Output::getClean($template_query->name)),
+                                'file' => Text::bold($template_path),
+                                'template' => Text::bold(Output::getClean($template_query->name)),
                             ]),
                             'CANCEL' => $language->get('general', 'cancel'),
                             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -703,7 +703,7 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign([
                 'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
-                    'template' => Util::bold(Output::getClean($template_query->name))
+                    'template' => Text::bold(Output::getClean($template_query->name))
                 ]),
             ]);
 

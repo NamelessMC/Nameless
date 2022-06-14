@@ -763,7 +763,6 @@
     "installer/back": "戻る",
     "installer/cache_writable": "cache 書き込み可能",
     "installer/character_set": "キャラクターセット",
-    "installer/config_not_writable": "設定ファイルが書き込み可能ではありません。",
     "installer/config_writable": "core/config.php 書き込み可能",
     "installer/configuration": "設定",
     "installer/configuration_error": "1~32文字の有効なサイト名と、4~64文字の有効なメールアドレスを入力してください。",

@@ -737,7 +737,6 @@
     "installer/back": "返回",
     "installer/cache_writable": "Cache 可写",
     "installer/character_set": "字符集",
-    "installer/config_not_writable": "配置文件无法写入",
     "installer/config_writable": "core/config.php 可写",
     "installer/configuration": "配置",
     "installer/configuration_error": "请输入有效的网站名称，长度在 1 到 32 个字符之间，有效的电子邮箱地址在 4 到 64 个字符之间。",

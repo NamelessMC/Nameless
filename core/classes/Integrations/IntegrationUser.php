@@ -122,7 +122,7 @@ class IntegrationUser {
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
                 'identifier' => $identifier,
                 'username' => $username,
@@ -153,7 +153,7 @@ class IntegrationUser {
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,
@@ -184,7 +184,7 @@ class IntegrationUser {
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,

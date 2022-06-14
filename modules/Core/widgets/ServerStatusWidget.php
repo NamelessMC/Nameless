@@ -46,7 +46,7 @@ class ServerStatusWidget extends WidgetBase {
             $server = $server[0];
 
             if ($server != null) {
-                $server_array_request = HttpClient::get(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id));
+                $server_array_request = HttpClient::get(rtrim(URL::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id));
                 if (!$server_array_request->hasError()) {
                     $server_array = $server_array_request->json(true);
                     foreach ($server_array as $key => $value) {

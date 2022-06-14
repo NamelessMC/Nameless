@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             $default_language = DB::getInstance()->get('languages', ['is_default', true])->results();
 
-            $ip = Util::getRemoteAddress();
+            $ip = HttpUtils::getRemoteAddress();
 
             $user->create([
                 'username' => Input::get('username'),

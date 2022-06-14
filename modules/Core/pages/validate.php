@@ -31,7 +31,7 @@ if (isset($_GET['c'])) {
             'username' => $user->getDisplayname(),
             'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $user->getDisplayname()]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $default_language
         ]);
 

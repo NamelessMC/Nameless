@@ -78,7 +78,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?
 if ($forum_query->redirect_forum == 1) {
-    if (!Util::isExternalURL($forum_query->redirect_url)) {
+    if (!URL::isExternalURL($forum_query->redirect_url)) {
         Redirect::to(Output::getClean($forum_query->redirect_url));
     }
 

@@ -73,7 +73,7 @@ if (isset($_GET['action'])) {
         } else {
             $smarty->assign([
                 'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
-                    'email' => Util::bold(Output::getClean($user->data()->email))
+                    'email' => Text::bold(Output::getClean($user->data()->email))
                 ]),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),

@@ -213,7 +213,7 @@ if (Input::exists()) {
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
-                    'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                    'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
                     'available_hooks' => $available_hooks == null ? [] : $available_hooks
                 ]);
 
