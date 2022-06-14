@@ -92,7 +92,7 @@ class HttpUtils {
         if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
             if ($proto !== 'http' && $proto !== 'https') {
-                die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
+                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($proto) . '".');
             }
             return $proto;
         }
