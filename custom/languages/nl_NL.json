@@ -1223,5 +1223,5 @@
     "installer/database_connection_failed": "Fout met het connecteren naar de database: <br>{{message}}",
     "admin/trusted_proxies_configured": "Vertrouwde proxies",
     "admin/trusted_proxies_not_configured": "{{linkStart}}Vertrouwde proxies{{linkEnd}} zijn nog niet geconfigureerd, IP verbanningen zouden niet correct kunnen werken.",
-    "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je CloudFlare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header."
+    "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je Cloudflare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header."
 }
