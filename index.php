@@ -64,7 +64,7 @@ if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
-if (Util::getProtocol() === 'https') {
+if (HttpUtils::getProtocol() === 'https') {
     ini_set('session.cookie_secure', 'On');
 }
 

@@ -267,7 +267,7 @@ if (Input::exists()) {
                         // Disabled
                         $user = new User();
 
-                        $ip = Util::getRemoteAddress();
+                        $ip = HttpUtils::getRemoteAddress();
                         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                             // TODO: Invalid IP, do something
                         }

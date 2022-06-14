@@ -214,7 +214,7 @@ class Log extends Instanceable {
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 
-        $ip = Util::getRemoteAddress();
+        $ip = HttpUtils::getRemoteAddress();
 
         return $this->_db->insert('logs', [
             'time' => date('U'),

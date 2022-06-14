@@ -329,7 +329,7 @@ class User {
 
                 $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry, Util::getProtocol() === 'https', true);
+                Cookie::put($cookieName, $hash, $expiry, HttpUtils::getProtocol() === 'https', true);
             }
 
             return true;
