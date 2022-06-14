@@ -724,7 +724,6 @@
     "installer/back": "Назад",
     "installer/cache_writable": "Cache доступний для запису",
     "installer/character_set": "Кодування",
-    "installer/config_not_writable": "Файл конфігурації недоступний для запису.",
     "installer/config_writable": "core/config.php доступний для запису",
     "installer/configuration": "Конфігурація",
     "installer/configuration_error": "Будь ласка, введіть дійсну назву сайту довжиною від 1 до 32 символів та дійсні адреси електронної пошти довжиною від 4 до 64 символів.",

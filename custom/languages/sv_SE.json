@@ -715,7 +715,6 @@
     "installer/back": "Tillbaka",
     "installer/cache_writable": "Cache Skrivbar",
     "installer/character_set": "Teckenuppsättning",
-    "installer/config_not_writable": "Konfigurationsfilen är inte skrivbar.",
     "installer/config_writable": "core/config.php Skrivbar",
     "installer/configuration": "Konfiguration",
     "installer/configuration_error": "Ange ett giltigt webbplatsnamn mellan 1 och 32 tecken långt och giltiga e-postadresser mellan 4 och 64 tecken långa.",

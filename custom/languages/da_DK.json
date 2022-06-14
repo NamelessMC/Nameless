@@ -249,7 +249,6 @@
     "installer/back": "Tilbage",
     "installer/cache_writable": "Cache Skrivbar",
     "installer/character_set": "Tegn Sæt",
-    "installer/config_not_writable": "Konfigurationsfilen kan ikke skrives i.",
     "installer/config_writable": "core/config.php Skrivbar",
     "installer/configuration": "Indstilling",
     "installer/configuration_error": "Angiv venligst et gyldigt webstedsnavn på mellem 1 og 32 tegn og gyldige e-mailadresser på mellem 4 og 64 tegn.",

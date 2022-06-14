@@ -185,7 +185,7 @@
     "admin/enable_registration": "Schakel registratie in?",
     "admin/enable_status_query": "Status query aanzetten?",
     "admin/enable_username_sync": "Gebruikersnaam synchroniseren?",
-    "admin/enable_username_sync_info": "Indien ingeschakeld, zullen de gebruikersnamen van de website worden aangepast aan de ingame gebruikersnamen.",
+    "admin/enable_username_sync_info": "Indien ingeschakeld, zullen de gebruikersnamen van de website worden aangepast aan de ingame gebruikersnamen. Dit zal gebeuren wanneer de plugin in minecraft een lijst verzend van UUIDs en gebruikersnamen, voor online spelers, naar de website.",
     "admin/enabled": "Ingeschakeld",
     "admin/enter_authme_db_details": "Vul geldige database gegevens in.",
     "admin/error_deleted_successfully": "De fout is met succes verwijderd.",
@@ -732,7 +732,6 @@
     "installer/back": "Terug",
     "installer/cache_writable": "Cache Schrijfbaar",
     "installer/character_set": "Karakterset",
-    "installer/config_not_writable": "Het configuratiebestand is niet beschrijfbaar.",
     "installer/config_writable": "core/config.php Schrijfbaar",
     "installer/configuration": "Configuratie",
     "installer/configuration_error": "Voer een geldige naam in voor de site die tussen de 1 en 32 tekens lang is, en geldige e-mailadressen die tussen de 4 en 64 tekens lang zijn.",
@@ -1219,5 +1218,10 @@
     "installer/upgrade_error": "Er zijn fouten ontstaan tijdens het upgraden.",
     "admin/custom_content": "Aangepaste Inhoud",
     "general/deleted_user": "Verwijderde gebruiker",
-    "admin/use_external_mail_server": "Gebruik externe mail server"
+    "admin/use_external_mail_server": "Gebruik externe mail server",
+    "installer/config_write_failed": "Fout met het schrijven naar config bestand: {{message}}",
+    "installer/database_connection_failed": "Fout met het connecteren naar de database: <br>{{message}}",
+    "admin/trusted_proxies_configured": "Vertrouwde proxies",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Vertrouwde proxies{{linkEnd}} zijn nog niet geconfigureerd, IP verbanningen zouden niet correct kunnen werken.",
+    "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je CloudFlare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header."
 }

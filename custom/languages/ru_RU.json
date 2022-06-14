@@ -194,7 +194,7 @@
     "admin/enable_registration": "Включить регистрацию?",
     "admin/enable_status_query": "Включить запрос статуса сервера?",
     "admin/enable_username_sync": "Включить синхронизацию имён пользователей?",
-    "admin/enable_username_sync_info": "Если этот параметр включен, имена пользователей веб-сайта будут обновлены в соответствии с игровыми именами пользователей.",
+    "admin/enable_username_sync_info": "Если этот параметр включен, имена пользователей веб-сайта будут обновлены в соответствии с игровыми именами пользователей. Это происходит когда игровой плагин отправляет список UUIDов и никнеймов, для онлайн игроков, на сайт.",
     "admin/enabled": "Включено",
     "admin/enter_authme_db_details": "Введите корректные данные базы данных.",
     "admin/error_deleted_successfully": "Ошибка была успешно удалена.",
@@ -762,7 +762,6 @@
     "installer/back": "Назад",
     "installer/cache_writable": "Cache доступен для записи",
     "installer/character_set": "Кодировка",
-    "installer/config_not_writable": "Файл конфигурации недоступен для записи.",
     "installer/config_writable": "core/config.php доступен для записи",
     "installer/configuration": "Конфигурация",
     "installer/configuration_error": "Пожалуйста, введите действительное название сайта длиной от 1 до 32 символов и действительные адреса электронной почты длиной от 4 до 64 символов.",
@@ -1219,5 +1218,7 @@
     "installer/upgrade_error": "Произошли ошибки при обновлении.",
     "admin/debug_link_info": "Важно - только делитесь этой ссылкой с людьми которыми вы доверяете!",
     "general/deleted_user": "Удаленный Пользователь",
-    "admin/use_external_mail_server": "Использовать внешний почтовый сервер"
+    "admin/use_external_mail_server": "Использовать внешний почтовый сервер",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Доверенные прокси{{linkEnd}} не настроены, IP баны могут не так работать.",
+    "admin/trusted_proxies_configured": "Доверенные прокси"
 }
