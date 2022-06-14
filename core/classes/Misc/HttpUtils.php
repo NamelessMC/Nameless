@@ -31,7 +31,7 @@ class HttpUtils {
             return $headers['X-Real-Ip'];
         }
 
-        // Non-standard header sent by CloudFlare that only contains the origin address
+        // Non-standard header sent by Cloudflare that only contains the origin address
         if (isset($headers['Cf-Connecting-Ip'])) {
             return $headers['Cf-Connecting-Ip'];
         }
