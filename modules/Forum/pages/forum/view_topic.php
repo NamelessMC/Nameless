@@ -309,7 +309,7 @@ if (Input::exists()) {
                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
                 'avatar_url' => $user->getAvatar(128, true),
                 'title' => $topic->topic_title,
-                'url' => Util::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
+                'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
                 'topic_author_user_id' => $topic_user->data()->id,
                 'topic_author_username' => $topic_user->data()->username,
                 'topic_author_nickname' => $topic_user->data()->nickname,
@@ -352,7 +352,7 @@ if (Input::exists()) {
                         $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
                         $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(Util::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                        rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                         $language->get('emails', 'thanks')
                     ],
                     $html
@@ -532,9 +532,9 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
 $smarty->assign([
     'SHARE' => $forum_language->get('forum', 'share'),
     'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
-    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . urlencode(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)),
+    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)),
     'SHARE_FACEBOOK' => $forum_language->get('forum', 'share_facebook'),
-    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(rtrim(Util::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title))
+    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title))
 ]);
 
 // Pagination
@@ -730,7 +730,7 @@ foreach ($results->data as $n => $nValue) {
         'post_date' => $post_date,
         'buttons' => $buttons,
         'content' => $content,
-        'signature' => Output::getPurified(Util::renderEmojis($signature)),
+        'signature' => Output::getPurified(Text::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => is_null($nValue->last_edited)
             ? null

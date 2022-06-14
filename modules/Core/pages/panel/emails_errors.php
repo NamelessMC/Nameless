@@ -109,7 +109,7 @@ if (isset($_GET['do'])) {
                         $smarty->assign([
                             'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
                             'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
-                            'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
+                            'REGISTRATION_LINK_VALUE' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
                         ]);
                     }
                 }

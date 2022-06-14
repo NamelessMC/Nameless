@@ -365,7 +365,7 @@ if (Input::exists()) {
                                 'user' => Input::get('username'),
                             ]),
                             'avatar_url' => $user->getAvatar(128, true),
-                            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
+                            'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                             'language' => $default_language,
                         ]);
 

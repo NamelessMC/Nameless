@@ -90,7 +90,7 @@ if (!isset($_GET['action'])) {
                 $all_templates[] = [
                     'name' => Output::getClean($item->name),
                     'description' => Output::getPurified($item->description),
-                    'description_short' => Util::truncate(Output::getPurified($item->description)),
+                    'description_short' => Text::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
                     'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),

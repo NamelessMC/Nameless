@@ -241,7 +241,7 @@ $smarty->assign([
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
     'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', [
-        'version' => Util::bold(NAMELESS_VERSION)
+        'version' => Text::bold(NAMELESS_VERSION)
     ]),
 ]);
 

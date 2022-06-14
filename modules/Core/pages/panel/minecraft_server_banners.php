@@ -65,7 +65,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/minecraft/banners'),
             'SERVER_NAME' => Output::getClean($server->name),
-            'BANNER_URL' => Util::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
+            'BANNER_URL' => URL::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
             'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/')
         ]);
 

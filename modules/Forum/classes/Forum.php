@@ -513,7 +513,7 @@ class Forum {
                 'topic_title' => $item->topic_title,
                 'topic_views' => $item->topic_views,
                 'author' => $item->topic_creator,
-                'content' => Util::truncate($post),
+                'content' => Text::truncate($post),
                 'replies' => $posts,
                 'label' => count($labels) ? $labels[0] : null,
                 'labels' => $labels

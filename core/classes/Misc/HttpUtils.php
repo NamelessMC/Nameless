@@ -2,6 +2,14 @@
 
 use Symfony\Component\HttpFoundation\IpUtils;
 
+/**
+ * Helps with common HTTP related tasks.
+ *
+ * @package NamelessMC\Misc
+ * @author Derkades
+ * @version 2.0.0
+ * @license MIT
+ */
 class HttpUtils {
 
     /**
