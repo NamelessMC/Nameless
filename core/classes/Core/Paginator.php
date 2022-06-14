@@ -181,7 +181,7 @@ class Paginator {
 
     /**
      * Set values of instance variables, alternative function (as they are set in getLimited()).
-     * @deprecated Not used internally.
+     * @deprecated Not used internally. Will be removed in 2.1.0
      *
      * @param int $total
      * @param int $limit

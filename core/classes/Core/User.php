@@ -201,7 +201,7 @@ class User {
     }
 
     /**
-     * @deprecated Use getGroupStyle instead
+     * @deprecated Use getGroupStyle instead.  Will be removed in 2.1.0
      */
     public function getGroupClass(): string {
         return $this->getGroupStyle();
