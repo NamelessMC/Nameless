@@ -125,6 +125,7 @@ class Text {
      *
      * @param string|null $string $string String to URLify
      * @return string Url-ified string. (I dont know what this means)
+     * @deprecated This should no longer be used because it doesn't work well for non-latin languages. Just use urlencode() instead.
      */
     public static function urlSafe(string $string = null): string {
         if ($string) {
