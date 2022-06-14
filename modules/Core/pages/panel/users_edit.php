@@ -207,7 +207,7 @@ if (Input::exists()) {
                             'SELECT COUNT(*) AS count FROM nl2_group_sync WHERE website_group_id IN (' . implode(', ', $modified) . ') AND discord_role_id IS NOT NULL;'
                         )->first()->count;
                         if ($rules > 0) {
-                            Session::flash('edit_user_warnings', 'Group sync rules are setup but no changes were reported. This could indicate a misconfiguration.');
+                            Session::flash('edit_user_warnings', $language->get('admin', 'group_sync_no_results_warning'));
                         }
                     }
 

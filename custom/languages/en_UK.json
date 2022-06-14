@@ -256,6 +256,7 @@
     "admin/group_sync_rule_created_successfully": "The group sync rule has been created successfully.",
     "admin/group_sync_rule_deleted_successfully": "The group sync rule has been deleted successfully.",
     "admin/group_sync_rules_updated_successfully": "Group sync rules have been updated successfully.",
+    "admin/group_sync_no_results_warning": "Group sync rules are setup but no changes were reported. This could indicate a misconfiguration.",
     "admin/group_updated_successfully": "Group updated successfully.",
     "admin/group_cloned_successfully": "Group cloned successfully.",
     "admin/group_username_colour": "Group Username Colour",
