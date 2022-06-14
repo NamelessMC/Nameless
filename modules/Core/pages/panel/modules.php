@@ -55,8 +55,8 @@ if (!isset($_GET['action'])) {
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
             'version_mismatch' => (($module->getNamelessVersion() != NAMELESS_VERSION) ? $language->get('admin', 'module_outdated', [
-                'intendedVersion' => Util::bold(Output::getClean($module->getNamelessVersion())),
-                'actualVersion' => Util::bold(NAMELESS_VERSION)
+                'intendedVersion' => Text::bold(Output::getClean($module->getNamelessVersion())),
+                'actualVersion' => Text::bold(NAMELESS_VERSION)
             ]) : false),
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
             'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
@@ -89,7 +89,7 @@ if (!isset($_GET['action'])) {
                 $all_modules[] = [
                     'name' => Output::getClean($item->name),
                     'description' => Output::getPurified($item->description),
-                    'description_short' => Util::truncate(Output::getPurified($item->description)),
+                    'description_short' => Text::truncate(Output::getPurified($item->description)),
                     'author' => Output::getClean($item->author),
                     'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
                     'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),

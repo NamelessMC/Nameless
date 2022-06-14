@@ -201,25 +201,25 @@ foreach ($images as $image) {
 
 if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {
     $smarty->assign('BACKGROUNDS_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
-        'directory' => Util::bold('uploads/backgrounds')
+        'directory' => Text::bold('uploads/backgrounds')
     ]));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/template_banners')) {
     $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
-        'directory' => Util::bold('uploads/template_banners')
+        'directory' => Text::bold('uploads/template_banners')
     ]));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/logos')) {
     $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
-        'directory' => Util::bold('uploads/logos')
+        'directory' => Text::bold('uploads/logos')
     ]));
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/favicons')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
-        'directory' => Util::bold('uploads/favicons')
+        'directory' => Text::bold('uploads/favicons')
     ]));
 }
 
@@ -244,15 +244,15 @@ $smarty->assign([
     'RESET_FAVICON_LINK' => URL::build('/panel/core/images/', 'action=reset_favicon'),
     'BANNER_IMAGES_ARRAY' => $template_banner_images,
     'BANNER_IMAGE' => $language->get('admin', 'banner_image_x', [
-        'imageName' => Util::bold($banner_img)
+        'imageName' => Text::bold($banner_img)
     ]),
     'LOGO_IMAGES_ARRAY' => $logo_images,
     'LOGO_IMAGE' => $language->get('admin', 'logo_image_x', [
-        'imageName' => Util::bold($logo_img)
+        'imageName' => Text::bold($logo_img)
     ]),
     'FAVICON_IMAGES_ARRAY' => $favicon_images,
     'FAVICON_IMAGE' => $language->get('admin', 'favicon_image_x', [
-        'imageName' => Util::bold($favicon_img)
+        'imageName' => Text::bold($favicon_img)
     ]),
     'ERRORS_TITLE' => $language->get('general', 'error'),
     'INFO' => $language->get('general', 'info'),

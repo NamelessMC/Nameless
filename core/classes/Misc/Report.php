@@ -59,7 +59,7 @@ class Report {
             'content_full' => $data['report_reason'],
             'avatar_url' => $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? AvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
             'title' => $language->get('general', 'view_report'),
-            'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
+            'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
         ]);
     }
 }

@@ -73,7 +73,7 @@ if (!$user->isLoggedIn()) {
                         'username' => $target_user->getDisplayname(),
                         'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $target_user->getDisplayname()]),
                         'avatar_url' => $target_user->getAvatar(128, true),
-                        'url' => Util::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
+                        'url' => URL::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
                         'language' => $default_language
                     ]);
 

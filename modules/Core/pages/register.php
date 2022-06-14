@@ -267,7 +267,7 @@ if (Input::exists()) {
                         // Disabled
                         $user = new User();
 
-                        $ip = Util::getRemoteAddress();
+                        $ip = HttpUtils::getRemoteAddress();
                         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                             // TODO: Invalid IP, do something
                         }
@@ -365,7 +365,7 @@ if (Input::exists()) {
                                 'user' => Input::get('username'),
                             ]),
                             'avatar_url' => $user->getAvatar(128, true),
-                            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
+                            'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                             'language' => $default_language,
                         ]);
 

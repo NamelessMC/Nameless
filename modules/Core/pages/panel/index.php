@@ -187,7 +187,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
     }
 
-    if (Util::isTrustedProxiesConfigured()) {
+    if (HttpUtils::isTrustedProxiesConfigured()) {
         $compat_success[] = $language->get('admin', 'trusted_proxies_configured');
     } else {
         $compat_errors[] = $language->get('admin', 'trusted_proxies_not_configured', [
@@ -196,7 +196,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
         ]);
     }
 
-    if (Util::getPort() === 80 && Util::getProtocol() === 'https') {
+    if (HttpUtils::getPort() === 80 && HttpUtils::getProtocol() === 'https') {
         $compat_errors[] = $language->get('admin', 'https_port_80');
     }
 
@@ -241,7 +241,7 @@ $smarty->assign([
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
     'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', [
-        'version' => Util::bold(NAMELESS_VERSION)
+        'version' => Text::bold(NAMELESS_VERSION)
     ]),
 ]);
 

@@ -202,7 +202,7 @@ $data = [
                 'hooks' => $webhooks,
                 'forum_hooks' => $forum_hooks,
             ],
-            'trusted_proxies' => Util::getTrustedProxies(),
+            'trusted_proxies' => HttpUtils::getTrustedProxies(),
         ],
         'groups' => $groups,
         'config' => [

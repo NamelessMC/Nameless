@@ -694,7 +694,6 @@
     "installer/back": "Tilbake",
     "installer/cache_writable": "Cache skrivelig",
     "installer/character_set": "Tegnsetting",
-    "installer/config_not_writable": "Konfigurasjonsfilen er ikke skrivbar.",
     "installer/config_writable": "core/config.php skrivelig",
     "installer/configuration": "Konfigurering",
     "installer/configuration_error": "Skriv inn et nettsidenavn mellom 1 til 32 tegn, og en gyldig e-postadresse mellom 4 til 64 tegn.",

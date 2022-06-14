@@ -41,7 +41,7 @@ if (!isset($_GET['metadata'])) {
         if (Token::check(Input::get('token'))) {
             if (Input::get('type') == 'sitemap') {
 
-                $sitemap = new \SitemapPHP\Sitemap(rtrim(Util::getSelfURL(), '/'));
+                $sitemap = new \SitemapPHP\Sitemap(rtrim(URL::getSelfURL(), '/'));
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
@@ -54,7 +54,7 @@ if (!isset($_GET['metadata'])) {
                     $method($sitemap, $cache);
                 }
 
-                $sitemap->createSitemapIndex(rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
+                $sitemap->createSitemapIndex(rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
 
                 $cache->setCache('sitemap_cache');
                 $cache->store('updated', date(DATE_FORMAT));
@@ -85,10 +85,10 @@ if (!isset($_GET['metadata'])) {
 
             $smarty->assign([
                 'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', [
-                    'generatedAt' => Util::bold($updated)
+                    'generatedAt' => Text::bold($updated)
                 ]),
                 'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
-                'SITEMAP_FULL_LINK' => rtrim(Util::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
+                'SITEMAP_FULL_LINK' => rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
                 'LINK' => $language->get('admin', 'sitemap_link')
             ]);
@@ -159,7 +159,7 @@ if (!isset($_GET['metadata'])) {
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/seo'),
         'EDITING_PAGE' => $language->get('admin', 'editing_page_x', [
-            'page' => Util::bold(Output::getClean($page['key']))
+            'page' => Text::bold(Output::getClean($page['key']))
         ]),
         'DESCRIPTION' => $language->get('admin', 'description'),
         'DESCRIPTION_VALUE' => $description,

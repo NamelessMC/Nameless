@@ -199,7 +199,7 @@ if (!isset($_GET['action'])) {
         $smarty->assign(
             [
                 'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
-                    'widget' => Util::bold(Output::getClean($widget->name))
+                    'widget' => Text::bold(Output::getClean($widget->name))
                 ]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/widgets'),
@@ -242,7 +242,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign(
                 [
                     'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
-                        'widget' => Util::bold(Output::getClean($widget->name))
+                        'widget' => Text::bold(Output::getClean($widget->name))
                     ]),
                     'BACK' => $language->get('general', 'back'),
                     'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id))
