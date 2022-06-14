@@ -194,7 +194,7 @@
     "admin/enable_registration": "Enable registration?",
     "admin/enable_status_query": "Enable status query?",
     "admin/enable_username_sync": "Enable username sync?",
-    "admin/enable_username_sync_info": "If enabled, website usernames will be updated to match ingame usernames.",
+    "admin/enable_username_sync_info": "If enabled, website usernames will be updated to match in-game usernames. This happens when the in-game plugin sends a list of UUIDs and usernames, for online players, to the website.",
     "admin/enabled": "Enabled",
     "admin/enter_authme_db_details": "Please enter valid database details.",
     "admin/error_deleted_successfully": "The error has been deleted successfully.",
@@ -1216,5 +1216,12 @@
     "admin/custom_content": "Custom Content",
     "user/no_providers_admin": "No OAuth providers have been configured by site administrators yet.",
     "general/red": "Red",
-    "admin/not_set": "Not set"
+    "admin/not_set": "Not set",
+    "general/deleted_user": "Deleted User",
+    "admin/use_external_mail_server": "Use external mail server",
+    "admin/debugging_enabled": "Debugging is enabled, sensitive information may be exposed to unauthorised visitors. Debugging should only be used for development, not on public sites.",
+    "admin/trusted_proxies_configured": "Trusted proxies",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Trusted proxies{{linkEnd}} are not configured, IP bans may not work properly.",
+    "admin/https_port_80": "You appear as if you are using HTTPS on port 80, which is almost definitely not true. If you use Cloudflare, make sure to set TLS encryption mode to Full (strict). If you run your own proxy, please configure it to send the X-Forwarded-Port header.",
+    "admin/group_sync_no_results_warning": "Group sync rules are setup but no changes were reported. This could indicate a misconfiguration."
 }
