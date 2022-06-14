@@ -764,8 +764,8 @@
     "installer/host": "Hostnaam",
     "installer/host_help": "De hostnaam is de basis URL voor uw website. Voeg hier geen submappen toe uit het Installatiepad veld, of http(s):// !",
     "installer/initialising_database_and_cache": "Initialiseren van de database en cache, even geduld...",
-    "installer/input_maximum": "Zorg ervoor dat uw gebruikersnaam een maximum van 20 karakters, en uw e-mailadres en wachtwoord maximaal 64 tekens bevatten.",
-    "installer/input_minimum": "Zorg ervoor dat uw gebruikersnaam een minimum van 3 karakters, je e-mailadres een minimum van 4 karakters, en uw wachtwoord minimaal {{minPassword}} karakters heeft.",
+    "installer/input_maximum": "Zorg ervoor dat uw gebruikersnaam een maximum van {{maxUsername}} karakters, uw e-mailadres een maximum van {{maxEmail}} karakters, en uw wachtwoord maximaal {{maxPassword}} karakters bevat.",
+    "installer/input_minimum": "Zorg ervoor dat uw gebruikersnaam een minimum van {{minUsername}} karakters, je e-mailadres een minimum van {{minEmail}} karakters, en uw wachtwoord minimaal {{minPassword}} karakters heeft.",
     "installer/input_required": "Graag een geldige gebruikersnaam, email adres en wachtwoord invullen.",
     "installer/input_v1_details": "Voer de database-informatie in van uw Nameless versie 1 installatie.",
     "installer/install": "Installatie",
@@ -1223,5 +1223,7 @@
     "installer/database_connection_failed": "Fout met het connecteren naar de database: <br>{{message}}",
     "admin/trusted_proxies_configured": "Vertrouwde proxies",
     "admin/trusted_proxies_not_configured": "{{linkStart}}Vertrouwde proxies{{linkEnd}} zijn nog niet geconfigureerd, IP verbanningen zouden niet correct kunnen werken.",
-    "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je Cloudflare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header."
+    "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je Cloudflare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header.",
+    "admin/debugging_enabled": "Debugging is ingeschakeld, gevoelige informatie zou kunnen worden blootgesteld aan onbevoegde bezoekers. Debugging zou alleen mogen worden gebruikt voor ontwikkeling, niet voor publieke sites.",
+    "admin/group_sync_no_results_warning": "Group synchronisatie regels zijn ingesteld maar geen wijzigingen zijn gerapporteerd. Dit kan een misconfiguratie aanwijzen."
 }
