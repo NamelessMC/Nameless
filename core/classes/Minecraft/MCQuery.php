@@ -82,7 +82,7 @@ class MCQuery {
                             'format_player_list' => self::formatPlayerList($player_list),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                             'motd' => self::getMotd(
-                                $query['description']['text'],
+                                is_string($text = $query['description']) ? $text : $text['text'],
                                 $query['description']['extra'] ?? [],
                             ),
                             'version' => $query['version']['name']
