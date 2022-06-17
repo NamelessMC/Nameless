@@ -92,6 +92,10 @@ class Language {
             'name' => 'Slovak',
             'htmlCode' => 'sk',
         ],
+        'sq_AL' => [
+            'name' => 'Albanian',
+            'htmlCode' => 'sq',
+        ],
         'es_419' => [
             'name' => 'Spanish',
             'htmlCode' => 'es',

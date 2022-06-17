@@ -178,10 +178,9 @@ class DB {
      *
      * @param string $sql The SQL query string to execute.
      * @param array $params The parameters to bind to the query.
-     * @param int $fetch_method The PDO fetch method to use.
      * @return static This DB instance.
      */
-    public function query(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ) {
+    public function query(string $sql, array $params = []) {
         $this->_error = false;
         if ($this->_statement = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -202,7 +201,7 @@ class DB {
             if ($this->_statement->execute()) {
                 // Only fetch the results if this is a SELECT query.
                 if (str_starts_with(strtoupper($sql), 'SELECT')) {
-                    $this->_results = $this->_statement->fetchAll($fetch_method);
+                    $this->_results = $this->_statement->fetchAll(PDO::FETCH_OBJ);
                 }
                 $this->_count = $this->_statement->rowCount();
             } else {
@@ -218,8 +217,8 @@ class DB {
      * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
-    public function selectQuery(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ) {
-        return $this->query($sql, $params, $fetch_method);
+    public function selectQuery(string $sql, array $params = []) {
+        return $this->query($sql, $params);
     }
 
     /**

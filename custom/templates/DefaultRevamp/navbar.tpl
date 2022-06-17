@@ -143,7 +143,7 @@
                         <div class="ui info icon message" id="update-message">
                             <i class="close icon"></i>
                         {/if}
-                        <a href="{$UPDATE_LINK}">
+                        <a href="{$NAMELESS_UPDATE_LINK}">
                             <i class="download icon"></i>
                         </a>
                         <div class="content">
@@ -153,37 +153,36 @@
                                 <li>{$NEW_VERSION}</li>
                             </ul>
                         </div>
-                    </div>
-                {/if}
+                    {/if}
 
-                {if !empty($ANNOUNCEMENTS)}
-                    {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
-                        <div class="ui {if $ANNOUNCEMENT->icon} icon {/if} message announcement"
-                            id="announcement-{$ANNOUNCEMENT->id}"
-                            style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
-                            {if $ANNOUNCEMENT->closable}
-                                <i class="close icon"></i>
-                            {/if}
-                            {if $ANNOUNCEMENT->icon}
-                                <i class="{$ANNOUNCEMENT->icon} icon"></i>
-                            {/if}
-                            <div class="content">
-                                <div class="header">{$ANNOUNCEMENT->header}</div>
-                                <p>{$ANNOUNCEMENT->message|escape}</p>
+                    {if !empty($ANNOUNCEMENTS)}
+                        {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
+                            <div class="ui {if $ANNOUNCEMENT->icon} icon {/if} message announcement"
+                                id="announcement-{$ANNOUNCEMENT->id}"
+                                style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}">
+                                {if $ANNOUNCEMENT->closable}
+                                    <i class="close icon"></i>
+                                {/if}
+                                {if $ANNOUNCEMENT->icon}
+                                    <i class="{$ANNOUNCEMENT->icon} icon"></i>
+                                {/if}
+                                <div class="content">
+                                    <div class="header">{$ANNOUNCEMENT->header}</div>
+                                    <p>{$ANNOUNCEMENT->message|escape}</p>
+                                </div>
                             </div>
+                        {/foreach}
+                    {/if}
+
+                    {if isset($MUST_VALIDATE_ACCOUNT)}
+                        <div class="ui message">
+                            {$MUST_VALIDATE_ACCOUNT}
                         </div>
-                    {/foreach}
-                {/if}
+                    {/if}
 
-                {if isset($MUST_VALIDATE_ACCOUNT)}
-                    <div class="ui message">
-                        {$MUST_VALIDATE_ACCOUNT}
-                    </div>
-                {/if}
-
-                {if isset($MAINTENANCE_ENABLED)}
-                    <div class="ui warning message">
-                        <i class="close icon"></i>
-                        {$MAINTENANCE_ENABLED}
-                    </div>
+                    {if isset($MAINTENANCE_ENABLED)}
+                        <div class="ui warning message">
+                            <i class="close icon"></i>
+                            {$MAINTENANCE_ENABLED}
+                        </div>
 {/if}

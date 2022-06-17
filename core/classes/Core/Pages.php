@@ -17,7 +17,7 @@ class Pages {
     /**
      * @var array Array of data about the active page.
      */
-    private array $_active_page;
+    private array $_active_page = [];
 
     /**
      * @var array<callable> Array of sitemap files and methods.
