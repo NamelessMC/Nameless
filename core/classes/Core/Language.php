@@ -56,6 +56,10 @@ class Language {
             'name' => 'Greek',
             'htmlCode' => 'el',
         ],
+        'hu_HU' => [
+            'name' => 'Hungarian',
+            'htmlCode' => 'hu',
+        ],
         'it_IT' => [
             'name' => 'Italian',
             'htmlCode' => 'it',
