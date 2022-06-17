@@ -78,28 +78,30 @@ class ErrorHandler {
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
 
-        $frames = [];
+        if (Debugging::canViewDetailedError()) {
+            $frames = [];
 
-        // Most recent frame is not included in getTrace(), so deal with it individually
-        $frames[] = self::parseFrame($exception, $error_file, $error_line);
+            // Most recent frame is not included in getTrace(), so deal with it individually
+            $frames[] = self::parseFrame($exception, $error_file, $error_line);
 
-        $skip_frames = 0;
+            $skip_frames = 0;
 
-        // Loop all frames in the exception trace & get relevent information
-        if ($exception != null) {
+            // Loop all frames in the exception trace & get relevent information
+            if ($exception != null) {
 
-            $i = count($exception->getTrace());
+                $i = count($exception->getTrace());
 
-            foreach ($exception->getTrace() as $frame) {
+                foreach ($exception->getTrace() as $frame) {
 
-                // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
-                if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
-                    ++$skip_frames;
-                    continue;
+                    // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
+                    if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
+                        ++$skip_frames;
+                        continue;
+                    }
+
+                    $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
+                    $i--;
                 }
-
-                $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
-                $i--;
             }
         }
 
@@ -108,18 +110,6 @@ class ErrorHandler {
         } else {
             // NamelessMC not installed yet
             $language = new Language('core', 'en_UK');
-        }
-
-        $detailed_error = defined('DEBUGGING') && DEBUGGING;
-        $can_generate_debug = defined('DEBUGGING') && DEBUGGING;
-
-        try {
-            $user = new User();
-            $detailed_error |= $user->isLoggedIn() && $user->hasPermission('admincp.errors');
-            $can_generate_debug |= $user->hasPermission('admincp.core.debugging');
-        } catch (Exception $ignored) {
-            // Getting user info might fail, for example if the website isn't
-            // installed yet. Assume the user does not have permission.
         }
 
         $path = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/';
@@ -144,7 +134,7 @@ class ErrorHandler {
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'TOAST_CSS' => $path . 'css/fomantic.toast.min.css',
             'TOAST_JS' => $path . 'js/fomantic.toast.min.js',
-            'DETAILED_ERROR' => $detailed_error,
+            'DETAILED_ERROR' => Debugging::canViewDetailedError(),
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
             'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
@@ -152,7 +142,7 @@ class ErrorHandler {
             'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
             'CANCEL' => $language->get('general', 'cancel'),
-            'CAN_GENERATE_DEBUG' => $can_generate_debug,
+            'CAN_GENERATE_DEBUG' => Debugging::canGenerateDebugLink(),
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
