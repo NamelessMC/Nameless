@@ -18,7 +18,7 @@
                     <div class="description right floated"><b>{$USERS_REGISTERED_VALUE}</b></div>
                 </div>
                 <div class="item" style="display: flex;">
-                    <span class="text">{$LATEST_MEMBER}</span>
+                    <span class="text" style="width: 100%;">{$LATEST_MEMBER}</span>
                     <div class="description right floated">
                         <a href="{$LATEST_MEMBER_VALUE.profile}" data-poload="{$USER_INFO_URL}{$LATEST_MEMBER_VALUE.id}"
                             style="{$LATEST_MEMBER_VALUE.style}"><b>{$LATEST_MEMBER_VALUE.nickname}</b></a>
