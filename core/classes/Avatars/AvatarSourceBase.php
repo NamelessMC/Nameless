@@ -59,7 +59,7 @@ abstract class AvatarSourceBase {
      * @return string Compiled URL of avatar image.
      */
     public function getAvatar(string $uuid, string $perspective, int $size = 128): string {
-        return $this->formatUrl($this->getUrlToFormat($perspective), $uuid, $size);
+        return $this->formatUrl($this->getUrlToFormat(strtolower($perspective)), $uuid, $size);
     }
 
     /**
@@ -95,8 +95,14 @@ abstract class AvatarSourceBase {
      *
      * @param string $perspective NamelessMC perspective name to translate.
      * @return string Translated perspective name.
+     * @throws InvalidArgumentException When an invalid perspective is passed.
      */
     public function getRelativePerspective(string $perspective): string {
-        return $this->_perspectives_map[strtolower($perspective)];
+        if (isset($this->_perspectives_map[$perspective])) {
+            return $this->_perspectives_map[$perspective];
+        }
+
+        $class = static::class;
+        throw new InvalidArgumentException("Attempted to get invalid perspective of: {$perspective} on {$class}");
     }
 }

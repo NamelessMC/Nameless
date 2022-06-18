@@ -1,7 +1,4 @@
 <?php
-
-use GuzzleHttp\Client;
-
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *
