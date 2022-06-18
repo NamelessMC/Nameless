@@ -111,8 +111,7 @@ class AvatarSource {
 
         $is_valid = false;
         try {
-            $client = new Client();
-            $response = $client->head($url);
+            $response = HttpClient::createClient()->head($url);
             $headers = $response->getHeaders();
             if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
                 $is_valid = true;
