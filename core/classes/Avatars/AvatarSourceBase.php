@@ -59,7 +59,7 @@ abstract class AvatarSourceBase {
      * @return string Compiled URL of avatar image.
      */
     public function getAvatar(string $uuid, string $perspective, int $size = 128): string {
-        return $this->formatUrl($this->getUrlToFormat(strtolower($perspective)), $uuid, $size);
+        return $this->formatUrl($this->getUrlToFormat($perspective), $uuid, $size);
     }
 
     /**
@@ -98,6 +98,7 @@ abstract class AvatarSourceBase {
      * @throws InvalidArgumentException When an invalid perspective is passed.
      */
     public function getRelativePerspective(string $perspective): string {
+        $perspective = strtolower($perspective);
         if (isset($this->_perspectives_map[$perspective])) {
             return $this->_perspectives_map[$perspective];
         }
