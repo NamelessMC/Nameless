@@ -63,11 +63,12 @@ class Config {
      * Get a config value from `core/config.php` file.
      *
      * @param string $path `.` seperated path of key to get from config file.
+     * @param mixed $fallback Value to return if option is not present in config file. If set to null, false is returned.
      * @return false|mixed Returns false if key doesn't exist, otherwise returns the value.
      *
      * @throws RuntimeException If the config file is not found.
      */
-    public static function get(string $path) {
+    public static function get(string $path, $fallback = null) {
         $config = self::all();
 
         $parsed_path = self::parsePath($path);
@@ -86,6 +87,10 @@ class Config {
 
         if (!isset($not_matched)) {
             return $config;
+        }
+
+        if ($fallback !== null) {
+            return $fallback;
         }
 
         return false;
