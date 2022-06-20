@@ -6,8 +6,12 @@ use Phinx\Migration\AbstractMigration;
 final class MoveEmailSettingsToConfig extends AbstractMigration {
 
     public function change(): void {
-        // Migrate settings from core/email.php to core/config.php
+        // New installations won't have the old email.php config file
+        if (!is_file(ROOT_PATH . '/core/email.php')) {
+            return;
+        }
 
+        // Migrate settings from core/email.php to core/config.php
         require(ROOT_PATH . '/core/email.php');
         Config::set('email.email', $GLOBALS['email']['email']);
         Config::set('email.username', $GLOBALS['email']['username']);
