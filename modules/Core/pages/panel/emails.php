@@ -171,12 +171,12 @@ if (isset($_GET['action'])) {
                 if (!count($errors)) {
                     // Update config
 
-                    Config::set('email.email', !empty($_POST['email'] ? $_POST['email'] : Util::getSetting('email.email', ''));
-                    Config::set('email.username', !empty($_POST['username'] ? $_POST['username'] : Util::getSetting('email.username', ''));
-                    Config::set('email.password', !empty($_POST['password'] ? $_POST['password'] : Util::getSetting('email.password', ''));
-                    Config::set('email.name', !empty($_POST['name'] ? $_POST['name'] : Util::getSetting('email.name', ''));
-                    Config::set('email.host', !empty($_POST['host'] ? $_POST['host'] : Util::getSetting('email.host', ''));
-                    Config::set('email.port', !empty($_POST['port'] ? (int) $_POST['port'] : Util::getSetting('email.port', ''));
+                    Config::set('email.email', !empty($_POST['email']) ? $_POST['email'] : Util::getSetting('email.email', ''));
+                    Config::set('email.username', !empty($_POST['username']) ? $_POST['username'] : Util::getSetting('email.username', ''));
+                    Config::set('email.password', !empty($_POST['password']) ? $_POST['password'] : Util::getSetting('email.password', ''));
+                    Config::set('email.name', !empty($_POST['name']) ? $_POST['name'] : Util::getSetting('email.name', ''));
+                    Config::set('email.host', !empty($_POST['host']) ? $_POST['host'] : Util::getSetting('email.host', ''));
+                    Config::set('email.port', !empty($_POST['port']) ? (int) $_POST['port'] : Util::getSetting('email.port', ''));
 
                     // Redirect to refresh config values
                     Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
