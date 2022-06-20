@@ -584,7 +584,7 @@
     "user/username_required": "Et brugernavn er påkrævet.",
     "user/users_to_required": "Indtast venligst nogle beskedmodtagere",
     "user/uuid_already_exists": "Dit UUID eksisterer allerede, hvilket betyder, at denne Minecraft-konto allerede er registreret.",
-    "user/validate_account_command": "For at fuldføre registreringen, skal du udføre kommandoen /verify {{command}} ingame.",
+    "user/validate_account_command": "For at fuldføre registreringen, skal du udføre kommandoen {{command}} ingame.",
     "user/validation_complete": "Din konto er blevet valideret, du kan nu logge ind.",
     "user/validation_error": "Der opstod en ukendt fejl under valideringen af din konto, kontakt venligst en webstedsadministrator.",
     "user/verification_failed": "Bekræftelse mislykkedes, forsøg venligst igen.",

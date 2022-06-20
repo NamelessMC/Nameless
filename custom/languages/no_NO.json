@@ -1026,7 +1026,7 @@
     "user/username_required": "Fyll inn et brukeravn.",
     "user/users_to_required": "Skriv inn minst én bruker i 'Til'-feltet",
     "user/uuid_already_exists": "Din UUID eksisterer allerede, som betyr at denne brukeren allerede har blitt registrert.",
-    "user/validate_account_command": "For å fullføre registeringen, skriv inn kommandoen /verify {{command}} ingame.",
+    "user/validate_account_command": "For å fullføre registeringen, skriv inn kommandoen {{command}} ingame.",
     "user/validation_complete": "Kontoen er nå bekreftet.",
     "user/validation_error": "Det oppstod en feil under bekreftelsen av kontoen din. Kontakt en administrator med en gang!",
     "user/verification_failed": "Verifisering feilet, prøv igjen.",

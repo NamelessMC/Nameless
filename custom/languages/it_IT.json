@@ -1006,7 +1006,7 @@
     "user/username_required": "È richiesto un username.",
     "user/users_to_required": "Si prega di inserire i destinatari del messaggio",
     "user/uuid_already_exists": "Il tuo UUID esiste già, ovvero questo account Minecraft è già stato registrato.",
-    "user/validate_account_command": "Per completare la registrazione, per favore esegui in gioco il comando /verify {{command}}.",
+    "user/validate_account_command": "Per completare la registrazione, per favore esegui in gioco il comando {{command}}.",
     "user/validation_complete": "Il tuo account è stato convalidato, ora puoi effettuare il login.",
     "user/validation_error": "Si è verificato un errore sconosciuto durante la convalida del tuo account, contatta l'amministratore del sito web.",
     "user/verification_failed": "Convalida fallita. Per favore provate di nuovo.",

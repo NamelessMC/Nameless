@@ -1057,7 +1057,7 @@
     "user/username_required": "Bitte gebe einen Nutzernamen an.",
     "user/users_to_required": "Bitte gib einige Empfänger ein",
     "user/uuid_already_exists": "Deine UUID existiert bereits, was bedeutet, dass dieser Minecraft-Account bereits registriert ist.",
-    "user/validate_account_command": "Um die Registrierung abzuschließen, führe bitte den Befehl /verify {{command}} ingame aus.",
+    "user/validate_account_command": "Um die Registrierung abzuschließen, führe bitte den Befehl {{command}} ingame aus.",
     "user/validation_complete": "Dein Account wurde verifiziert. Du kannst dich nun anmelden.",
     "user/validation_error": "Mit deinem Account stimmt etwas nicht. Bitte Benachrichtige einen Administrator.",
     "user/verification_failed": "Verifikation fehlgeschlagen.",

@@ -1065,7 +1065,7 @@
     "user/username_required": "Se requiere un nombre de usuario.",
     "user/users_to_required": "Ingresa algunos destinatarios de mensajes",
     "user/uuid_already_exists": "Tu UUID ya existe, por lo tanto esa cuenta de Minecraft ya está registrada.",
-    "user/validate_account_command": "Para completar la validación, ejecute el comando /verify {{command}} en el servidor.",
+    "user/validate_account_command": "Para completar la validación, ejecute el comando {{command}} en el servidor.",
     "user/validation_complete": "Su cuenta ha sido validada, ahora puede iniciar sesión.",
     "user/validation_error": "Se ha producido un error desconocido al validar su cuenta, póngase en contacto con un administrador del sitio web.",
     "user/verification_failed": "Verificación fallida. Por favor intenta de nuevo.",

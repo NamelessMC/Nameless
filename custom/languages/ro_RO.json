@@ -929,7 +929,7 @@
     "user/username_required": "Este necesar un nume de utilizator.",
     "user/users_to_required": "Introduceți minim un destinatar al mesajului.",
     "user/uuid_already_exists": "UUID-ul dvs. există deja, ceea ce înseamnă că acest cont Minecraft este deja înregistrat.",
-    "user/validate_account_command": "Pentru a finaliza înregistrarea, vă rugăm să executați comanda /verify {{command}} in joc.",
+    "user/validate_account_command": "Pentru a finaliza înregistrarea, vă rugăm să executați comanda {{command}} in joc.",
     "user/validation_complete": "Contul dvs. a fost validat, acum vă puteți conecta.",
     "user/validation_error": "A apărut o eroare necunoscută în timpul validări contul dvs., vă rugăm să contactați un administrator de site web.",
     "user/verification_failed": "Verificare eșuată. Vă rugăm încercați din nou.",

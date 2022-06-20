@@ -1103,7 +1103,7 @@
     "user/username_required": "Meno je povinné.",
     "user/users_to_required": "Zadajte príjemcov správy",
     "user/uuid_already_exists": "Vaše UUID už existuje, čo znamená, že tento Minecraft účet je už zaregistrovaný.",
-    "user/validate_account_command": "Registráciu dokončíte vykonaním príkazu /verify {{command}} v hre.",
+    "user/validate_account_command": "Registráciu dokončíte vykonaním príkazu {{command}} v hre.",
     "user/validation_complete": "Váš účet bol overený. Teraz sa môžete prihlásiť.",
     "user/validation_error": "Pri overovaní vášho účtu sa vyskytla neznáma chyba. Prosím kontaktujte správcu webu.",
     "user/verification_failed": "Overenie zlyhalo, skúste to znova.",

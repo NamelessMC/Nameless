@@ -1053,7 +1053,7 @@
     "user/username_required": "Ett användarnamn krävs.",
     "user/users_to_required": "Vänligen ange vissa meddelandemottagare",
     "user/uuid_already_exists": "Ditt UUID finns redan, vilket betyder att detta Minecraft-konto redan har registrerats.",
-    "user/validate_account_command": "För att slutföra registreringen, vänligen kör kommandot /verify {{command}} i spelet.",
+    "user/validate_account_command": "För att slutföra registreringen, vänligen kör kommandot {{command}} i spelet.",
     "user/validation_complete": "Ditt konto har validerats, du kan nu logga in.",
     "user/validation_error": "Ett okänt fell uppstod under valideringen av ditt konto, var god kontakta en webbplats administratör.",
     "user/verification_failed": "Verifiering misslyckades, vänligen försök igen.",
