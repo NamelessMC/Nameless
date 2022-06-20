@@ -21,6 +21,18 @@ return new class extends UpgradeScript {
             Config::set('core/trustedProxies', null);
         }
 
+        // TODO Move to phinx migration
+        // Migrate settings from core/email.php to core/config.php
+        require(ROOT_PATH . '/core/email.php');
+        Config::set('email.email', $GLOBALS['email']['email']);
+        Config::set('email.username', $GLOBALS['email']['username']);
+        Config::set('email.password', $GLOBALS['email']['password']);
+        Config::set('email.name', $GLOBALS['email']['name']);
+        Config::set('email.host', $GLOBALS['email']['host']);
+        Config::set('email.port', $GLOBALS['email']['port']);
+        Config::set('email.secure', $GLOBALS['email']['secure']);
+        Config::set('email.smtp_auth', $GLOBALS['email']['smtp_auth']);
+
         $this->runMigrations();
 
         $this->setVersion('2.0.0');
