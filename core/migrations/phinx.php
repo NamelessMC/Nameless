@@ -1,5 +1,7 @@
 <?php
 
+define('ROOT_PATH', __DIR__ . '/../..');
+
 $config = Config::get('mysql');
 
 return [
