@@ -456,9 +456,9 @@ class Core_Module extends Module {
         ]);
 
         // Captcha
-        $captchaPublicKey = Util::getSetting('recaptcha_key');
-        $captchaPrivateKey = Util::getSetting('recaptcha_secret');
-        $activeCaptcha = Util::getSetting('recaptcha_type');
+        $captchaPublicKey = Util::getSetting('recaptcha_key', '');
+        $captchaPrivateKey = Util::getSetting('recaptcha_secret', '');
+        $activeCaptcha = Util::getSetting('recaptcha_type', 'Recaptcha3');
 
         CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
