@@ -23,6 +23,10 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $serverId);
         }
 
+        if (isset($_POST['verify_command'])) {
+            Util::setSetting('minecraft_verify_command', $_POST['verify_command']);
+        }
+
         try {
             $api->getDb()->insert('query_results', [
                 'server_id' => $_POST['server-id'],

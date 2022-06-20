@@ -20,6 +20,12 @@ class MinecraftIntegration extends IntegrationBase {
         parent::__construct();
     }
 
+    private function flashVerifyCommand(string $verifaction_code): void {
+        $verification_command = Output::getClean(Util::getSetting('minecraft_verify_command', '/verify'));
+        $message = $this->_language->get('user', 'validate_account_command', ['command' => $verification_command . ' ' . $verification_code]);
+        Session::flash('connections_success', $message);
+    }
+
     public function onLinkRequest(User $user) {
         $username = $user->data()->username;
 
@@ -44,13 +50,12 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
 
-        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean('/verify ' . $code)]));
+        $this->flashVerifyCommand($code);
     }
 
     public function onVerifyRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
-
-        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean('/verify ' . $integrationUser->data()->code)]));
+        $this->flashVerifyCommand($integrationUser->data()->code);
     }
 
     public function onUnlinkRequest(User $user) {
