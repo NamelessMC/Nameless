@@ -283,6 +283,22 @@ class Util {
         return URL::replaceAnchorsWithText($data);
     }
 
+    private static function getSettingsCache(?string $module): ?array {
+        $cache_name = $module !== null ? $module : 'core';
+
+        if (self::$_cached_settings === null ||
+                !isset(self::$_cached_settings[$cache_name])) {
+            return null;
+        }
+
+        return self::$_cached_settings[$cache_name];
+    }
+
+    private static function setSettingsCache(?string $module, array $cache): void {
+        $cache_name = $module !== null ? $module : 'core';
+        self::$_cached_settings[$cache_name] = $cache;
+    }
+
     /**
      * Get a setting from the database table `nl2_settings`.
      *
@@ -294,18 +310,24 @@ class Util {
      * @return ?string Setting from DB or $fallback.
      */
     public static function getSetting(string $setting, ?string $fallback = null, ?string $module = null): ?string {
-        $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
+        $cache = self::getSettingsCache($module);
 
-        if (self::$_cached_settings == null) {
-            $result = DB::getInstance()->query('SELECT `name`, `value` FROM `' . $table_name. '`')->results();
-            // Store settings in dictionary format
-            self::$_cached_settings = [];
-            foreach ($result as $row) {
-                self::$_cached_settings[$row->name] = $row->value;
+        if ($cache === null) {
+            // Load all settings for this module and store it as a dictionary
+            if ($module === null) {
+                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` IS NULL')->results();
+            } else {
+                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` = ?', [$module])->results();
             }
+
+            $cache = [];
+            foreach ($result as $row) {
+                $cache[$row->name] = $row->value;
+            }
+            self::setSettingsCache($module, $cache);
         }
 
-        return self::$_cached_settings[$setting] ?? null;
+        return $cache[$setting] ?? $fallback;
     }
 
     /**
@@ -318,17 +340,35 @@ class Util {
      *                        nl2_settings table.
      */
     public static function setSetting(string $setting, ?string $new_value, ?string $module = null): void {
-        $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
-
         if ($new_value == null) {
-            DB::getInstance()->query('DELETE FROM `' . $table_name . '` WHERE `name` = ?', [$setting]);
+            if ($module === null) {
+                DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
+            } else {
+                DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` = ?', [$setting, $module]);
+            }
         } else {
-            $query = 'INSERT INTO `' . $table_name . '` (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `value` = ?';
-            DB::getInstance()->query($query, [$setting, $new_value, $new_value]);
+            if ($module === null) {
+                DB::getInstance()->query('INSERT INTO `nl2_settings` (`name`, `value`)
+                                          VALUES (?, ?)
+                                          ON DUPLICATE KEY UPDATE `value` = ?',
+                                          [$setting, $new_value, $new_value]);
+            } else {
+                DB::getInstance()->query('INSERT INTO `nl2_settings` (`name`, `value`, `module`)
+                                          VALUES (?, ?, ?)
+                                          ON DUPLICATE KEY UPDATE `value` = ?',
+                                          [$setting, $new_value, $module, $new_value]);
+            }
         }
 
-        if (self::$_cached_settings != null) {
-            self::$_cached_settings[$setting] = $new_value;
+        $cache = self::getSettingsCache($module);
+        if ($cache === null) {
+            return;
+        }
+
+        if ($new_value === null && isset($cache[$setting])) {
+            unset($cache[$setting]);
+        } else if ($new_value !== null) {
+            $cache[$setting] = $new_value;
         }
     }
 
