@@ -564,7 +564,6 @@
     "admin/unable_to_retrieve_modules": "Nepodařilo se získat doplňky",
     "admin/unable_to_retrieve_nameless_news": "Nepodařilo se získat novinky",
     "admin/unable_to_retrieve_templates": "Nepodařilo se získat šablony",
-    "admin/unable_to_write_email_config": "Nepodařilo se upravit soubor core/email.php. Zkontrolujte prosím oprávnění souboru.",
     "admin/unknown": "Neznámé",
     "admin/unsafe_html": "Povolit nebezpečné HTML?",
     "admin/unsafe_html_warning": "Povolením této možnosti lze na stránce použít jakékoli HTML, včetně potenciálně nebezpečného JavaScriptu. Tuto možnost povolte pouze pokud jste si jistí, že je vaše HTML bezpečné.",

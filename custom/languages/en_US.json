@@ -577,7 +577,6 @@
     "admin/unable_to_retrieve_modules": "Unable to retrieve modules",
     "admin/unable_to_retrieve_nameless_news": "Unable to retrieve the latest news",
     "admin/unable_to_retrieve_templates": "Unable to retrieve templates",
-    "admin/unable_to_write_email_config": "Unable to write to file core/email.php. Please check file permissions.",
     "admin/unknown": "Unknown",
     "admin/unlink": "Unlink",
     "admin/unlink_account_confirm": "Are you sure you want to forcibly unlink this provider from this user?",

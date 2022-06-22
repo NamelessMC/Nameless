@@ -535,7 +535,6 @@
     "admin/unable_to_retrieve_modules": "Module können nicht abgerufen werden",
     "admin/unable_to_retrieve_nameless_news": "Die neuesten Nachrichten konnten nicht abgerufen werden",
     "admin/unable_to_retrieve_templates": "Templates können nicht abgerufen werden",
-    "admin/unable_to_write_email_config": "In die Datei core/email.php kann nicht geschrieben werden. Bitte überprüfe die Dateiberechtigungen.",
     "admin/unknown": "Unbekannt",
     "admin/unlink": "Unlink",
     "admin/unlink_account_confirm": "Bist du sicher, dass du diesen Anbieter zwangsweise von diesem Benutzer trennen willst?",

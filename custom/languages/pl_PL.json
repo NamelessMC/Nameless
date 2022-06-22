@@ -549,7 +549,6 @@
     "admin/unable_to_retrieve_modules": "Podczas pobierania modułów wystąpił błąd.",
     "admin/unable_to_retrieve_nameless_news": "Podczas pobierania newsów NamelessMC wystąpił błąd",
     "admin/unable_to_retrieve_templates": "Podczas pobierania szablonów wystąpił błąd.",
-    "admin/unable_to_write_email_config": "Nie można zapisać pliku <strong>core/email.php</strong>. Sprawdź uprawnienia plików.",
     "admin/unknown": "Nieznany",
     "admin/unsafe_html": "Zezwalać na niebezpieczne strony HTML?",
     "admin/unsafe_html_warning": "Włączenie tej opcji oznacza, że na stronie można użyć dowolnego kodu HTML, w tym potencjalnie niebezpiecznego kodu JavaScript. Włącz to tylko, jeśli masz pewność, że Twój kod HTML jest bezpieczny.",

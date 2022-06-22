@@ -577,7 +577,6 @@
     "admin/unable_to_retrieve_modules": "モジュールの取得ができません",
     "admin/unable_to_retrieve_nameless_news": "最新ニュースの取得ができません",
     "admin/unable_to_retrieve_templates": "テンプレートの取得ができません",
-    "admin/unable_to_write_email_config": "core/email.phpファイルに書き込みできません。ファイルアクセス権限を確認して下さい。",
     "admin/unknown": "不明",
     "admin/unlink": "連携を解除",
     "admin/unlink_account_confirm": "プロバイダーとユーザーとの連携を強制的に解除してよろしいですか？",

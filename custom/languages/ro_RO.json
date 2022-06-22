@@ -443,7 +443,6 @@
     "admin/unable_to_retrieve_modules": "Imposibil de obținut module",
     "admin/unable_to_retrieve_nameless_news": "Nu se pot obține cele mai recente știri",
     "admin/unable_to_retrieve_templates": "Nu s-au putut obține șabloanele",
-    "admin/unable_to_write_email_config": "Imposibil de scris în fișierul <strong>core/email.php</strong>. Verificați permisiunile fișierelor.",
     "admin/unknown": "Necunoscut",
     "admin/unsafe_html": "Permiteți HTML (nesigur) ?",
     "admin/unsafe_html_warning": "Activarea acestei opțiuni înseamnă că orice HTML poate fi folosit pe pagină, incluzând JavaScript potențial periculos. Activați acest lucru numai dacă sunteți sigur că codul dvs. HTML este sigur.",

@@ -576,7 +576,6 @@
     "admin/unable_to_retrieve_modules": "Невозможно получить модули",
     "admin/unable_to_retrieve_nameless_news": "Невозможно получить последние новости",
     "admin/unable_to_retrieve_templates": "Невозможно получить шаблоны",
-    "admin/unable_to_write_email_config": "Невозможно записать в файл core/email.php. Пожалуйста, проверьте права доступа к файлам.",
     "admin/unknown": "Неизвестно",
     "admin/unlink": "Развязать",
     "admin/unlink_account_confirm": "Вы уверены что хотите принудительно отвязать этот провайдер от этого пользователя?",

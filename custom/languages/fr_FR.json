@@ -499,7 +499,6 @@
     "admin/unable_to_retrieve_modules": "Impossible de récupérer les modules",
     "admin/unable_to_retrieve_nameless_news": "Impossible de récupérer les dernières nouvelles",
     "admin/unable_to_retrieve_templates": "Impossible de récupérer des modèles",
-    "admin/unable_to_write_email_config": "Impossible d'écrire sur le fichier <strong>core/email.php</strong>. Veuillez vérifier les permissions du fichier.",
     "admin/unknown": "Inconnu",
     "admin/unsafe_html": "Permettre le HTML non sécurisé?",
     "admin/unsafe_html_warning": "Activer cette option signifie que tout HTML peut être utilisé sur la page, y compris le JavaScript potentiellement dangereux. N’activez ceci que si vous êtes sûr que votre HTML est sécurisé.",

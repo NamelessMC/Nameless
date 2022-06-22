@@ -554,7 +554,6 @@
     "admin/unable_to_retrieve_modules": "Niet in staat om modules op te halen",
     "admin/unable_to_retrieve_nameless_news": "Niet in staat om het laatste nieuws op te halen",
     "admin/unable_to_retrieve_templates": "Kan sjablonen niet ophalen",
-    "admin/unable_to_write_email_config": "Kon niet naar het bestand core/email.php schrijven. Graag de bestandsrechten bekijken.",
     "admin/unknown": "Onbekend",
     "admin/unsafe_html": "Toestaan van onveilige HTML?",
     "admin/unsafe_html_warning": "Dit aanzetten betekent dat je HTML kan gebruiken op je pagina, inclusief potentieel gevaarlijke JavaScript. Alleen aanzetten als je weet dat je HTML veilig is.",

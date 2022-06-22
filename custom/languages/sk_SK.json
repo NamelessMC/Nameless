@@ -571,7 +571,6 @@
     "admin/unable_to_retrieve_modules": "Nepodarilo sa načítať moduly",
     "admin/unable_to_retrieve_nameless_news": "Nie je možné načítať najnovšie novinky",
     "admin/unable_to_retrieve_templates": "Šablóny sa nepodarilo načítať",
-    "admin/unable_to_write_email_config": "Nedá sa zapisovať do súboru core/email.php. Skontrolujte povolenia súborov.",
     "admin/unknown": "Neznáme",
     "admin/unlink": "Odpojiť",
     "admin/unlink_account_confirm": "Naozaj chcete násilne odpojiť tohto poskytovateľa od tohto používateľa?",

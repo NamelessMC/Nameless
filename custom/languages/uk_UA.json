@@ -549,7 +549,6 @@
     "admin/unable_to_retrieve_modules": "Неможливо отримати модулі",
     "admin/unable_to_retrieve_nameless_news": "Неможливо отримати останні новини",
     "admin/unable_to_retrieve_templates": "Неможливо отримати шаблони",
-    "admin/unable_to_write_email_config": "Неможливо записати у файл core/email.php. Перевірте права доступу до файлів.",
     "admin/unknown": "Невідомо",
     "admin/unsafe_html": "Дозволити небезпечний HTML?",
     "admin/unsafe_html_warning": "Увімкнення цієї опції означає, що на сторінці можна використовувати будь-який HTML-код, включаючи потенційно небезпечний JavaScript. Увімкніть цю функцію лише в тому випадку, якщо ви впевнені, що ваш HTML є безпечним.",
