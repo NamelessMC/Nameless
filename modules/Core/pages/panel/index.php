@@ -191,7 +191,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_success[] = $language->get('admin', 'trusted_proxies_configured');
     } else {
         $compat_errors[] = $language->get('admin', 'trusted_proxies_not_configured', [
-            'linkStart' => '<a href="https://docs.namelessmc.com/trusted-proxies">',
+            'linkStart' => '<a href="https://docs.namelessmc.com/trusted-proxies" target="_blank">',
             'linkEnd' => '</a>',
         ]);
     }
