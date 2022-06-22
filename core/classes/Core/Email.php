@@ -106,15 +106,15 @@ class Email {
             $mail->Timeout = 15;
 
             // login to their smtp account
-            $mail->Host = $GLOBALS['email']['host'];
-            $mail->Port = $GLOBALS['email']['port'];
-            $mail->SMTPSecure = $GLOBALS['email']['secure'];
-            $mail->SMTPAuth = $GLOBALS['email']['smtp_auth'];
-            $mail->Username = $GLOBALS['email']['username'];
-            $mail->Password = $GLOBALS['email']['password'];
+            $mail->Host = Config::get('email.host', '');
+            $mail->Port = Config::get('email.port', 587);
+            $mail->SMTPSecure = Config::get('email.secure', 'tls');
+            $mail->SMTPAuth = Config::get('email.smtp_auth', true);
+            $mail->Username = Config::get('email.username', '');
+            $mail->Password = Config::get('email.password', '');
 
             // set from email ("outgoing email" seting)
-            $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
+            $mail->setFrom(Config::get('email.email', ''), Config::get('email.name', ''));
 
             // add a "to" address
             $mail->addAddress($email['to']['email'], $email['to']['name']);
