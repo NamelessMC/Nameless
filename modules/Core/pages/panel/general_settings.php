@@ -149,9 +149,9 @@ if (Input::exists()) {
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                 Config::setMultiple([
-                    'core/friendly' => $friendly,
-                    'core/force_https' => $https,
-                    'core/force_www' => $www
+                    'core.friendly' => $friendly,
+                    'core.force_https' => $https,
+                    'core.force_www' => $www
                 ]);
             } else {
                 $errors = [$language->get('admin', 'config_not_writable')];
