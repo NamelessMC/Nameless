@@ -47,7 +47,7 @@ if (isset($_GET['action'])) {
             $errors = [];
 
             $sent = Email::send(
-                ['email' => Output::getClean($user->data()->email), 'name' => Output::getClean($user->data()->nickname)],
+                ['email' => $user->data()->email, 'name' => $user->data()->nickname],
                 Output::getClean(SITE_NAME) . ' - Test Email',
                 Output::getClean(SITE_NAME) . ' - Test email successful!',
                 Email::getReplyTo()

@@ -362,7 +362,7 @@ if (Input::exists()) {
                 $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
-                        ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
+                        ['email' => $user_info['email'], 'name' => $user_info['username']],
                         $subject,
                         $message,
                         $reply_to

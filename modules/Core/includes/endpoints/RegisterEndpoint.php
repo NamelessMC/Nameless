@@ -204,8 +204,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $link = URL::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
 
         $sent = Email::send(
-            ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
-            Output::getClean(SITE_NAME) . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
+            ['email' => $email, 'name' => $username],
+            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
             str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
             Email::getReplyTo()
         );

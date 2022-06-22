@@ -55,7 +55,7 @@ class Email {
      */
     public static function getReplyTo(): array {
         $contactemail = Util::getSetting('incoming_email');
-        return ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)];
+        return ['email' => $contactemail, 'name' => SITE_NAME];
     }
 
     /**
@@ -68,8 +68,10 @@ class Email {
         $outgoing_email = Util::getSetting('outgoing_email');
         $incoming_email = Util::getSetting('incoming_email');
 
+        // TODO Handle non-ascii in subject and headers (RFC 1342)
+
         if (mail($email['to']['email'], $email['subject'], $email['message'], [
-            'From' => Output::getClean(SITE_NAME) . ' ' . '<' . $outgoing_email . '>',
+            'From' => SITE_NAME . ' ' . '<' . $outgoing_email . '>',
             'Reply-To' => $incoming_email,
             'MIME-Version' => '1.0',
             'Content-type' => 'text/html; charset=UTF-8'

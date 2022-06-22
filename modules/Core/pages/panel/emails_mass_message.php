@@ -45,9 +45,9 @@ if (Input::exists()) {
 
             foreach ($users as $email_user) {
                 $sent = Email::send(
-                    ['email' => Output::getClean($email_user->email), 'name' => Output::getClean($email_user->username)],
-                    Output::getClean(Input::get('subject')),
-                    Output::getClean(str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Input::get('content'))),
+                    ['email' => $email_user->email, 'name' => $email_user->username],
+                    Input::get('subject'),
+                    str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Output::getPurified(Input::get('content'))),
                     $reply_to
                 );
 
