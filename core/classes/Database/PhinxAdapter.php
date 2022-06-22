@@ -29,16 +29,21 @@ class PhinxAdapter {
 
     /**
      * Runs any pending migrations. Used for installation and upgrades. Resource heavy, only call when needed.
+     * Logs output of Phinx to other-log.log file
      *
      * @return string Output of the migration command from Phinx as if it was executed in the console.
      */
     public static function migrate(): string {
-        return (new Phinx\Wrapper\TextWrapper(
+        $output = (new Phinx\Wrapper\TextWrapper(
             new Phinx\Console\PhinxApplication(),
             [
                 'configuration' => __DIR__ . '/../../migrations/phinx.php',
             ]
         ))->getMigrate();
+
+        ErrorHandler::logCustomError($output);
+
+        return $output;
     }
 
 }
