@@ -16,13 +16,13 @@ class Language {
      * @var array Metadata about different languages available
      */
     public const LANGUAGES = [
-        'zh_TW' => [
-            'name' => 'Chinese',
-            'htmlCode' => 'zh-TW',
+        'zh_Hant' => [
+            'name' => 'Chinese (Traditional)',
+            'htmlCode' => 'zh-Hant',
         ],
-        'zh_CN' => [
+        'zh_Hans' => [
             'name' => 'Chinese (Simplified)',
-            'htmlCode' => 'zh-CN',
+            'htmlCode' => 'zh-Hans',
         ],
         'cs_CZ' => [
             'name' => 'Czech',
