@@ -68,13 +68,16 @@ class Email {
         $outgoing_email = Util::getSetting('outgoing_email');
         $incoming_email = Util::getSetting('incoming_email');
 
-        // TODO Handle non-ascii in subject and headers (RFC 1342)
+        $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';
+        $encoded_message = base64_encode($email['message']);
+        $encoded_from = '=?UTF-8?B?' . base64_encode(SITE_NAME) . '?= <' . $outgoing_email . '>';
 
-        if (mail($email['to']['email'], $email['subject'], $email['message'], [
-            'From' => SITE_NAME . ' ' . '<' . $outgoing_email . '>',
+        if (mail($email['to']['email'], $encoded_subject, $encoded_message, [
+            'From' => $encoded_from,
             'Reply-To' => $incoming_email,
             'MIME-Version' => '1.0',
-            'Content-type' => 'text/html; charset=UTF-8'
+            'Content-type' => 'text/html; charset=UTF-8',
+            'Content-Transfer-Encoding' => 'base64',
         ])) {
             return true;
         }
