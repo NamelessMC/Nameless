@@ -188,8 +188,6 @@ if (isset($_GET['action'])) {
         }
     }
 
-    require(ROOT_PATH . '/core/email.php');
-
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign([
             'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),

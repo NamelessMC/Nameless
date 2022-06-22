@@ -34,7 +34,7 @@ $writable_check_paths = [
     ROOT_PATH . '/cache/sitemaps',
     ROOT_PATH . '/cache/templates_c',
     ROOT_PATH . '/uploads',
-    ROOT_PATH . '/core/email.php'
+    ROOT_PATH . '/core/config.php'
 ];
 
 foreach ($writable_check_paths as $path) {

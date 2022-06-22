@@ -74,8 +74,6 @@ if (Input::exists()) {
 $php_mailer = Util::getSetting('phpmailer');
 $outgoing_email = Util::getSetting('outgoing_email');
 
-require(ROOT_PATH . '/core/email.php');
-
 $smarty->assign([
     'SENDING_MASS_MESSAGE' => $language->get('admin', 'sending_mass_message'),
     'EMAILS_MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),

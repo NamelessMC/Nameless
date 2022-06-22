@@ -93,8 +93,6 @@ class Email {
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendMailer(array $email) {
-        require(ROOT_PATH . '/core/email.php');
-
         // Initialise PHPMailer
         $mail = new PHPMailer(true);
 
