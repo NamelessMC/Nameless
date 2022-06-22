@@ -13,14 +13,18 @@ final class MoveEmailSettingsToConfig extends AbstractMigration {
 
         // Migrate settings from core/email.php to core/config.php
         require(ROOT_PATH . '/core/email.php');
-        Config::set('email.email', $GLOBALS['email']['email']);
-        Config::set('email.username', $GLOBALS['email']['username']);
-        Config::set('email.password', $GLOBALS['email']['password']);
-        Config::set('email.name', $GLOBALS['email']['name']);
-        Config::set('email.host', $GLOBALS['email']['host']);
-        Config::set('email.port', $GLOBALS['email']['port']);
-        Config::set('email.secure', $GLOBALS['email']['secure']);
-        Config::set('email.smtp_auth', $GLOBALS['email']['smtp_auth']);
+        $email_config = $GLOBALS['email'];
+
+        Config::set('email', [
+            'email' => $email_config['email'],
+            'username' => $email_config['username'],
+            'password' => $email_config['password'],
+            'name' => $email_config['name'],
+            'host' => $email_config['host'],
+            'port' => $email_config['port'],
+            'secure' => $email_config['secure'],
+            'smtp_auth' => $email_config['smtp_auth'],
+        ]);
 
         try {
             unlink(ROOT_PATH . '/core/email.php');

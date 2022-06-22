@@ -49,7 +49,7 @@ class Config {
      * @param array $config New config array to store.
      */
     public static function write(array $config): void {
-        $contents = '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';';
+        $contents = '<?php' . PHP_EOL . '$conf = ' . self::arrayToString($config) . ';';
         if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
             throw new RuntimeException('Failed to write to config file');
         }
@@ -89,11 +89,7 @@ class Config {
             return $config;
         }
 
-        if ($fallback !== null) {
-            return $fallback;
-        }
-
-        return false;
+        return $fallback ?? false;
     }
 
     /**
@@ -164,5 +160,20 @@ class Config {
         }
 
         return $path;
+    }
+
+    /**
+     * Converts an array to a string to be inserted into the config file, with shorthand array syntax.
+     *
+     * @link https://gist.github.com/Bogdaan/ffa287f77568fcbb4cffa0082e954022
+     * @param array $config Config array to convert to string.
+     * @return string PHP code for the config array
+     */
+    private static function arrayToString(array $config): string {
+        $export = var_export($config, true);
+        $export = preg_replace("/^(' '*)(.*)/m", '$1$1$2', $export);
+        $array = preg_split("/\r\n|\n|\r/", $export);
+        $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [null, ']$1', ' => ['], $array);
+        return implode(PHP_EOL, array_filter(["["] + ($array ?: [])));
     }
 }
