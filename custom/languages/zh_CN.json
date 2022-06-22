@@ -561,7 +561,6 @@
     "admin/unable_to_retrieve_modules": "无法检索模块",
     "admin/unable_to_retrieve_nameless_news": "无法获取最新新闻",
     "admin/unable_to_retrieve_templates": "无法检索模板",
-    "admin/unable_to_write_email_config": "无法写入 core/email.php。请检查文件权限。",
     "admin/unknown": "未知",
     "admin/unsafe_html": "是否允许不安全的 HTML?",
     "admin/unsafe_html_warning": "启用此选项意味着可以在页面上使用任何 HTML，包括有潜在危险的 JavaScript。仅当您确定 HTML 安全时才启用此功能。",

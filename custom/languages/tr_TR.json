@@ -451,7 +451,6 @@
     "admin/unable_to_load_sitemap_file_x": "{{file}} site haritası dosyası yüklenemedi",
     "admin/unable_to_retrieve_modules": "Modüller alınamıyor",
     "admin/unable_to_retrieve_templates": "Şablonlar alınamıyor",
-    "admin/unable_to_write_email_config": "<strong>core/email.php</strong> dosyasına yazılamıyor. Lütfen dosya izinlerini kontrol edin.",
     "admin/unknown": "Bilinmeyen",
     "admin/unsafe_html": "Güvenli olmayan HTML'ye izin verilsin mi? ",
     "admin/unsafe_html_warning": "Bu seçeneğin etkinleştirilmesi, tehlikeli olabilecek JavaScript de dahil olmak üzere sayfada herhangi bir HTML'nin kullanılabileceği anlamına gelir. Bunu yalnızca HTML'nizin güvenli olduğundan eminseniz etkinleştirin.",

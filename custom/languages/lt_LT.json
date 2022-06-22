@@ -429,7 +429,6 @@
     "admin/unable_to_retrieve_modules": "Neįmanoma nuskaityti modulių",
     "admin/unable_to_retrieve_nameless_news": "Nepavyko gauti naujausių naujienų.",
     "admin/unable_to_retrieve_templates": "Nepavyko gauti šablonų",
-    "admin/unable_to_write_email_config": "Nepavyko įrašyti į failą <strong>core/email.php</strong>. Patikrinkite failų leidimus.",
     "admin/unknown": "Nežinoma",
     "admin/unsafe_html": "Leisti nesaugius HTML?",
     "admin/unsafe_html_warning": "Įjungus šią parinktį, šiame puslapyje gali būti naudojamas bet koks HTML, įskaitant potencialiai pavojingą JavaScript. Įjunkite tik tai, jei esate tikri, kad jūsų HTML yra saugus.",

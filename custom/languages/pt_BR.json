@@ -567,7 +567,6 @@
     "admin/unable_to_retrieve_modules": "Não foi possível recuperar os módulos.",
     "admin/unable_to_retrieve_nameless_news": "Não foi possível recuperar as últimas notícias.",
     "admin/unable_to_retrieve_templates": "Não foi possível recuperar os modelos.",
-    "admin/unable_to_write_email_config": "Não é possível escrever no arquivo core/email.php. Por favor, verifique as permissões do arquivo.",
     "admin/unknown": "Desconhecido",
     "admin/unsafe_html": "Permitir tags HTML não seguras?",
     "admin/unsafe_html_warning": "Ativando está opção, siginifica que qualquer HTML pode ser usada nesta página, incluindo JavaScript potencialmente perigosos. Somente ativa esta opção se você está ciente que o seu HTML é seguro.",
