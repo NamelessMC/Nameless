@@ -126,8 +126,6 @@ if (isset($_GET['action'])) {
                 $viewing_language = new Language('core', Session::get('editing_language'));
 
                 $smarty->assign([
-                    'USER_NAME' => $user->data()->username,
-                    'SUBJECT' => $viewing_language->get('emails', $_GET['email'] . '_subject'),
                     'MESSAGE' => Email::formatEmail($_GET['email'], $viewing_language)
                 ]);
 

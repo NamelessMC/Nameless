@@ -28,14 +28,10 @@ class Discord_Module extends Module {
 
         $pages->add($this->getName(), '/panel/discord', 'pages/panel/discord.php');
 
-        require_once(ROOT_PATH . "/modules/{$this->getName()}/hooks/DiscordHook.php");
-
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
 
-        // Discord Integration
-        require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/DiscordIntegration.php");
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
     }
 
@@ -57,7 +53,6 @@ class Discord_Module extends Module {
         ]);
 
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
-            require_once(ROOT_PATH . "/modules/{$this->getName()}/widgets/DiscordWidget.php");
             $widgets->add(new DiscordWidget($cache, $smarty));
         }
 

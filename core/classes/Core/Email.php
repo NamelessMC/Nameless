@@ -54,8 +54,10 @@ class Email {
      * @return array Array with reply-to email address and name
      */
     public static function getReplyTo(): array {
-        $contactemail = Util::getSetting('incoming_email');
-        return ['email' => $contactemail, 'name' => SITE_NAME];
+        return [
+            'email' => Util::getSetting('incoming_email'),
+            'name' => SITE_NAME
+        ];
     }
 
     /**
@@ -145,12 +147,11 @@ class Email {
 
     /**
      * Add a custom placeholder/variable for email messages.
-     * Not used internally, but can be used by other modules.
      *
      * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
-     * @param string $value The value to replace the placeholder with.
+     * @param string|Closure(Language, string): string $value The value to replace the placeholder with.
      */
-    public static function addPlaceholder(string $key, string $value): void {
+    public static function addPlaceholder(string $key, $value): void {
         self::$_message_placeholders[$key] = $value;
     }
 
@@ -162,19 +163,20 @@ class Email {
      * @return string Formatted email.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {
+        $placeholders = array_keys(self::$_message_placeholders);
+
+        $placeholder_values = [];
+        foreach (self::$_message_placeholders as $value) {
+            if (is_callable($value)) {
+                $placeholder_values[] = $value($viewing_language, $email);
+            } else {
+                $placeholder_values[] = $value;
+            }
+        }
+
         return str_replace(
-            array_merge([
-                '[Sitename]',
-                '[Greeting]',
-                '[Message]',
-                '[Thanks]',
-            ], array_keys(self::$_message_placeholders)),
-            array_merge([
-                Output::getClean(SITE_NAME),
-                $viewing_language->get('emails', 'greeting'),
-                $viewing_language->get('emails', $email . '_message'),
-                $viewing_language->get('emails', 'thanks'),
-            ], array_values(self::$_message_placeholders)),
+            $placeholders,
+            $placeholder_values,
             file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }
