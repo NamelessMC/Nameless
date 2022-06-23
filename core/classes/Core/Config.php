@@ -32,11 +32,15 @@ class Config {
             throw new RuntimeException('Config file does not exist');
         }
 
-        require(ROOT_PATH . '/core/config.php');
-
-        /** @phpstan-ignore-next-line  */
-        if (!isset($conf) || !is_array($conf)) {
-            throw new RuntimeException('Config file is invalid');
+        $config = require(ROOT_PATH . '/core/config.php');
+        if ($config === 1) {
+            // TODO: Legacy < 2.0.0 config file. Remove in 2.1.0
+            /** @phpstan-ignore-next-line  */
+            if (!isset($conf) || !is_array($conf)) {
+                throw new RuntimeException('Config file is invalid');
+            }
+        } else {
+            $conf = $config;
         }
 
         /** @phpstan-ignore-next-line  */
@@ -49,7 +53,7 @@ class Config {
      * @param array $config New config array to store.
      */
     public static function write(array $config): void {
-        $contents = '<?php' . PHP_EOL . '$conf = ' . self::arrayToString($config) . ';';
+        $contents = '<?php' . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
         if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
             throw new RuntimeException('Failed to write to config file');
         }

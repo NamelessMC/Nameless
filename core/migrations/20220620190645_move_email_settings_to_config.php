@@ -12,6 +12,7 @@ final class MoveEmailSettingsToConfig extends AbstractMigration {
         }
 
         // Migrate settings from core/email.php to core/config.php
+        // This will also convert the file to the "new" `return [...]` format instead of `$conf = [...]`
         require(ROOT_PATH . '/core/email.php');
         $email_config = $GLOBALS['email'];
 
