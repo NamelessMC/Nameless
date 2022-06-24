@@ -32,7 +32,7 @@ class DebugBarHelper extends Instanceable {
 
         $configCollector = new ConfigCollector();
         $configCollector->setData(array_filter(Config::all(), static function ($key) {
-            return $key !== 'mysql';
+            return $key !== 'mysql' && $key !== 'email';
         }, ARRAY_FILTER_USE_KEY));
         $debugbar->addCollector($configCollector);
 

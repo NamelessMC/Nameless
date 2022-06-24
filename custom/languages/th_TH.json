@@ -548,7 +548,6 @@
     "admin/unable_to_retrieve_modules": "ไม่สามารถเรียก modules ",
     "admin/unable_to_retrieve_nameless_news": "ไม่สามารถเรียกข้อมูลข่าวสารล่าสุด",
     "admin/unable_to_retrieve_templates": "ไม่สามารถ Template",
-    "admin/unable_to_write_email_config": "ไม่สามารถเขียนไปยังไฟล์ <strong>core/email.php</strong>. กรุณาตรวจสอบสิทธิ์ของแฟ้ม",
     "admin/unknown": "ไม่ทราบ",
     "admin/unsafe_html": "อนุญาต HTML ที่ไม่ปลอดภัยหรือไม่",
     "admin/unsafe_html_warning": "การเปิดใช้งานตัวเลือกนี้หมายความว่าสามารถใช้ HTML ใดๆ ก็ได้บนหน้าเว็บ ซึ่งรวมถึง JavaScript ที่อาจเป็นอันตราย เปิดใช้งานสิ่งนี้เฉพาะเมื่อคุณแน่ใจว่า HTML ของคุณปลอดภัย",

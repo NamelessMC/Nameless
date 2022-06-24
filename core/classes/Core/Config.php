@@ -32,11 +32,15 @@ class Config {
             throw new RuntimeException('Config file does not exist');
         }
 
-        require(ROOT_PATH . '/core/config.php');
-
-        /** @phpstan-ignore-next-line  */
-        if (!isset($conf) || !is_array($conf)) {
-            throw new RuntimeException('Config file is invalid');
+        $config = require(ROOT_PATH . '/core/config.php');
+        if ($config === 1) {
+            // TODO: Legacy < 2.0.0 config file. Remove in 2.1.0
+            /** @phpstan-ignore-next-line  */
+            if (!isset($conf) || !is_array($conf)) {
+                throw new RuntimeException('Config file is invalid');
+            }
+        } else {
+            $conf = $config;
         }
 
         /** @phpstan-ignore-next-line  */
@@ -49,7 +53,7 @@ class Config {
      * @param array $config New config array to store.
      */
     public static function write(array $config): void {
-        $contents = '<?php' . PHP_EOL . '$conf = ' . var_export($config, true) . ';';
+        $contents = '<?php' . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
         if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
             throw new RuntimeException('Failed to write to config file');
         }
@@ -63,11 +67,12 @@ class Config {
      * Get a config value from `core/config.php` file.
      *
      * @param string $path `.` seperated path of key to get from config file.
+     * @param mixed $fallback Value to return if option is not present in config file. If set to null, false is returned.
      * @return false|mixed Returns false if key doesn't exist, otherwise returns the value.
      *
      * @throws RuntimeException If the config file is not found.
      */
-    public static function get(string $path) {
+    public static function get(string $path, $fallback = null) {
         $config = self::all();
 
         $parsed_path = self::parsePath($path);
@@ -88,7 +93,7 @@ class Config {
             return $config;
         }
 
-        return false;
+        return $fallback ?? false;
     }
 
     /**
@@ -159,5 +164,20 @@ class Config {
         }
 
         return $path;
+    }
+
+    /**
+     * Converts an array to a string to be inserted into the config file, with shorthand array syntax.
+     *
+     * @link https://gist.github.com/Bogdaan/ffa287f77568fcbb4cffa0082e954022
+     * @param array $config Config array to convert to string.
+     * @return string PHP code for the config array
+     */
+    private static function arrayToString(array $config): string {
+        $export = var_export($config, true);
+        $export = preg_replace("/^(' '*)(.*)/m", '$1$1$2', $export);
+        $array = preg_split("/\r\n|\n|\r/", $export);
+        $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [null, ']$1', ' => ['], $array);
+        return implode(PHP_EOL, array_filter(["["] + ($array ?: [])));
     }
 }

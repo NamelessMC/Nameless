@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $db_username = $_POST['db_username'];
         $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
         $db_name = $_POST['db_name'];
-        $db_charset = ($_POST['charset'] == 'latin1') ? 'latin1' : 'utf8mb4';
 
         try {
             // This throws a PDOException if the connection fails
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'username' => $db_username,
                     'password' => $db_password,
                     'db' => $db_name,
-                    'charset' => $charset,
+                    'charset' => 'utf8mb4',
                     'initialise_charset' => true,
                 ],
                 'remember' => [
@@ -73,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             try {
                 Config::write($conf);
-                $_SESSION['charset'] = $charset;
+                $_SESSION['database_configured'] = true;
                 Redirect::to('?step=database_initialization');
             } catch (RuntimeException $e) {
                 $error = $language->get('installer', 'config_write_failed', ['message' => $e->getMessage()]);
@@ -118,10 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername', $default_user);
                         create_field('password', $language->get('installer', 'database_password'), 'db_password', 'inputDBPassword', $default_pass);
                         create_field('text', $language->get('installer', 'database_name'), 'db_name', 'inputDBName', $default_name);
-                        create_field('select', $language->get('installer', 'character_set'), 'charset', 'inputCharset', $default_charset, [
-                            'utf8mb4' => 'Unicode (utf8mb4)',
-                            'latin1' => 'Latin (latin1)',
-                        ]);
                         ?>
                     </div>
                 </div>

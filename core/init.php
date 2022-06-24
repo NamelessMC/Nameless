@@ -22,6 +22,9 @@ if (!isset($page)) {
     die('$page variable is unset. Cannot continue.');
 }
 
+Debugging::setCanViewDetailedError(defined('DEBUGGING') && DEBUGGING);
+Debugging::setCanGenerateDebugLink(defined('DEBUGGING') && DEBUGGING);
+
 // All paths should be writable, but recursively checking everything would take too much time.
 // Only check the most important paths.
 $writable_check_paths = [
@@ -31,7 +34,7 @@ $writable_check_paths = [
     ROOT_PATH . '/cache/sitemaps',
     ROOT_PATH . '/cache/templates_c',
     ROOT_PATH . '/uploads',
-    ROOT_PATH . '/core/email.php'
+    ROOT_PATH . '/core/config.php'
 ];
 
 foreach ($writable_check_paths as $path) {
@@ -500,6 +503,9 @@ if ($page != 'install') {
 
     // Perform tasks if the user is logged in
     if ($user->isLoggedIn()) {
+        Debugging::setCanViewDetailedError($user->hasPermission('admincp.errors'));
+        Debugging::setCanGenerateDebugLink($user->hasPermission('admincp.core.debugging'));
+
         // Ensure a user is not banned
         if ($user->data()->isbanned == 1) {
             $user->logout();

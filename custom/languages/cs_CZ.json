@@ -564,7 +564,6 @@
     "admin/unable_to_retrieve_modules": "Nepodařilo se získat doplňky",
     "admin/unable_to_retrieve_nameless_news": "Nepodařilo se získat novinky",
     "admin/unable_to_retrieve_templates": "Nepodařilo se získat šablony",
-    "admin/unable_to_write_email_config": "Nepodařilo se upravit soubor core/email.php. Zkontrolujte prosím oprávnění souboru.",
     "admin/unknown": "Neznámé",
     "admin/unsafe_html": "Povolit nebezpečné HTML?",
     "admin/unsafe_html_warning": "Povolením této možnosti lze na stránce použít jakékoli HTML, včetně potenciálně nebezpečného JavaScriptu. Tuto možnost povolte pouze pokud jste si jistí, že je vaše HTML bezpečné.",
@@ -777,8 +776,8 @@
     "installer/host_help": "Adresa je <strong>základní URL</strong> vašeho webu. Nepatří sem podsložky z pole Instalační cesta ani http(s)://!",
     "installer/hostname_error": "Zadejte prosím platného hostitele bez http:// nebo https://",
     "installer/initialising_database_and_cache": "Příprava databáze a mezipaměti, vydržte prosím...",
-    "installer/input_maximum": "Ujistěte se, že vaše uživatelské jméno má maximálně 20 znaků a e-mailová adresa a heslo maximálně 64 znaků.",
-    "installer/input_minimum": "Ujistěte se, že vaše uživatelské jméno má minimálně 3 znaky, e-mailová adresa minimálně 4 znaky a heslo minimálně {{minPassword}} znaků.",
+    "installer/input_maximum": "Ujistěte se, že vaše uživatelské jméno má maximálně {{maxUsername}} znaků, e-mailová adresa maximálně {{maxEmail}} znaků a heslo maximálně {{maxPassword}} znaků.",
+    "installer/input_minimum": "Ujistěte se, že vaše uživatelské jméno má minimálně {{minUsername}} znaky, e-mailová adresa minimálně {{minEmail}} znaky a heslo minimálně {{minPassword}} znaků.",
     "installer/input_required": "Zadejte platné uživatelské jméno, e-mailovou adresu a heslo.",
     "installer/input_v1_details": "Zadejte podrobnosti databáze instalace vašeho Nameless verze 1.",
     "installer/install": "Instalace",
@@ -1218,5 +1217,12 @@
     "admin/test_email_suggest_3": "Nastavte server SMTP. {{docLinkStart}}Zjistit více »{{docLinkEnd}}",
     "admin/debug_link_info": "Důležité - tento odkaz sdílejte pouze s lidmi, kterým důvěřujete!",
     "general/deleted_user": "Smazaný uživatel",
-    "admin/use_external_mail_server": "Použít externí e-mailový server"
+    "admin/use_external_mail_server": "Použít externí e-mailový server",
+    "installer/config_write_failed": "Nepodařilo se zapsat konfigurační soubor: {{message}}",
+    "installer/database_connection_failed": "Nepodařilo se připojit k databázi:<br>{{message}}",
+    "admin/trusted_proxies_configured": "Důvěryhodné sítě proxy",
+    "admin/trusted_proxies_not_configured": "{{linkStart}}Důvěryhodné sítě proxy{{linkEnd}} nejsou nastaveny, IP bany nemusí správně fungovat.",
+    "admin/debugging_enabled": "Ladění je povoleno, nepovoleným návštěvníkům mohou být zobrazeny citlivé informacy. Ladění by mělo být použito pouze při vývoji, ne na veřejných webech.",
+    "admin/https_port_80": "Vypadá to, že používáte HTTPS na portu 80, což nejspíše není pravda. Pokud používáte Cloudflare, nezapomeňte nastavit šifrování TLS na Full (strict). Pokud máte svou vlastní síť proxy, nastavte ji tak, aby posílala hlavičku X-Forwarded-Port.",
+    "admin/group_sync_no_results_warning": "Pravidla synchronizace skupin jsou nastavena, ale nebyly nahlášeny žádné změny. Toto může znamenat nesprávné nastavení."
 }

@@ -3,7 +3,7 @@ if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'
     Redirect::to('?step=site_configuration');
 }
 
-if (!isset($_SESSION['charset'])) {
+if (!isset($_SESSION['database_configured'])) {
     Redirect::to('?step=database_configuration');
 }
 

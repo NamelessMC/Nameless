@@ -56,6 +56,10 @@ class Language {
             'name' => 'Greek',
             'htmlCode' => 'el',
         ],
+        'hu_HU' => [
+            'name' => 'Hungarian',
+            'htmlCode' => 'hu',
+        ],
         'it_IT' => [
             'name' => 'Italian',
             'htmlCode' => 'it',
@@ -199,7 +203,7 @@ class Language {
      * @param array $variables Any variables to pass through to the translation.
      * @return string Translated phrase.
      */
-    public function get(string $section, ?string $term, array $variables = []): string {
+    public function get(string $section, ?string $term = null, array $variables = []): string {
         if ($term) {
             $section .= '/' . $term;
         }

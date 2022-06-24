@@ -15,7 +15,7 @@
 header('X-Frame-Options: SAMEORIGIN');
 
 if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING']))) {
-    define('DEBUGGING', 1);
+    define('DEBUGGING', true);
 }
 
 if (defined('DEBUGGING') && DEBUGGING) {
@@ -46,7 +46,6 @@ const PATH = '/';
 const ROOT_PATH = __DIR__;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/core/includes/constants/autoload.php';
 
 if (!Config::exists()) {
     if (is_file(ROOT_PATH . '/install.php')) {

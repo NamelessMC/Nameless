@@ -66,7 +66,6 @@
                             {else}
                                 <p>{$NO_LABEL_TYPES}</p>
                             {/if}
-
                         </div>
                     </div>
 
