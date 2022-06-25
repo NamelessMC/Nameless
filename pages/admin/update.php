@@ -153,9 +153,15 @@ curl_close($ch);
 			  ?>
 			  </p>
 			  <hr>
+			  <?php if ($update_check == '2.0.0') { ?>
+			  <a class="btn btn-success" target="blank" href="https://github.com/NamelessMC/Nameless/releases/tag/v2.0.0"><?php echo $admin_language['download']; ?></a>
+			  <?php } else { ?>
 			  <a class="btn btn-success" target="blank" href="https://worldscapemc.co.uk/nl_core/nl1/updates/<?php echo htmlspecialchars(str_replace('.', '', $update_check)); ?>.zip"><?php echo $admin_language['download']; ?></a>
 			  <a class="btn btn-info" href="/admin/update_execute" onclick="return confirm('<?php echo $admin_language['update_warning']; ?>')"><?php echo $admin_language['update']; ?></a>
-			<?php } ?>
+			  <?php
+			  }
+			}
+			?>
 		  </div>
 		</div>
       </div>
