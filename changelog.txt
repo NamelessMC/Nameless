@@ -546,3 +546,23 @@ The notes for each release
 - Ensure reputation user exists
 - Update DB class
 - Update htmlspecialchars calls
+
+1.0.22
+- Update update checker
+- Auto remove - from UUIDs when editing user
+- Fix donation sync not working
+- Optimise images
+- Translation updates
+- Order donation store packages
+- Fix incorrect table name
+- Update column name in sort
+- Update code tags in post editing
+- FIx staff application token message
+- Add topic labels to homepage news
+- Add extra user related template variables
+- Create sample email.php
+- Update issue templates
+- Changed Buycraft to its new name
+- Remove MinecraftMarket + MCStock and add CraftingStore from donor group help popup
+- Add Turkish language
+- Prepare update page for v2 release

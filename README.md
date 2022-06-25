@@ -4,11 +4,11 @@
 
 Nameless version 2.0.0 is currently in development and the source can be viewed on the v2 branch. Until it's ready for production use, any pre-releases can be found here: https://github.com/NamelessMC/Nameless/releases.
 
-## Version 1.0.21
+## Version 1.0.22
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.21 features:
+Version 1.0.22 features:
 
 - Template and theme system
 - Languages
@@ -121,17 +121,19 @@ Core modules:
 
 **NamelessMC Translations**
 * Chinese: @BirkhoffLee
-* Czech: @SnooWiK, @Root3287, @godleydemon, @yshf9
-* Dutch: @Sander0542, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @yshf9, @GodleyDemon, @Tim-NL, @Derkades, smessie, @DoraKlikOpDora, @TheSander562
+* Czech: @SnooWiK, @Root3287, @godleydemon, @yshf9, @Fjuro
+* Dutch: @Sander0542, @Azoraqua, @Headhunterzpw, @melerpe, @aycgit, @yshf9, @GodleyDemon, @Tim-NL, @Derkades, smessie, @DoraKlikOpDora, @TheSander562, @PixelNotFound
 * EnglishUK: @Samerton, @Awtra
 * Finnish: -kakara-, @Root3287, @godleydemon, @yshf9
-* French: @Pandalyser, CreaModZ, Aviortheking, @Noiknez, @yshf9, @Root3287
+* French: @Pandalyser, CreaModZ, Aviortheking, @Noiknez, @yshf9, @Root3287, @x9nico
 * German: @LPkkjHD, @nerdtron123, @manuelgu, @BukkitTNT, philipp0002, @McLive, @Cl1608Ho, @monjo44, @Root3287, @godleydemon, @yshf9
+* Italian: @michelecursed
 * Japanese: SimplyRin
-* Norsk: @partydragen, @Root3287, @godleydemon, @OscarWoHA, @tlystad24
+* Norsk: @partydragen, @Root3287, @godleydemon, @OscarWoHA, @tlystad24, Ludvik Sørensen
 * Portugues: @dgateles, @dasilvaj4, @Root3287, @godleydemon
 * Slovak: Marki35, @Root3287, @godleydemon, MrMiijoSK
-* Spanish: @paloke, @mrlost, @Legomix13, Dexkum, @SrBas97, @Root3287, @Ariuw, @godleydemon, @iJosGCS
+* Spanish: @paloke, @mrlost, @Legomix13, Dexkum, @SrBas97, @Root3287, @Ariuw, @godleydemon, @JosGCS, AllPlayed
+* Turkish: KeremWho
 
 ## Discord
 [<img src="https://discordapp.com/api/guilds/246705793066467328/widget.png?style=shield">](https://discord.gg/HYVMgN2)
