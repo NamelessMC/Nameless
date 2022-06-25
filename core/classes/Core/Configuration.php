@@ -6,6 +6,7 @@
  * @author Partydragen
  * @version 2.0.0-pr8
  * @license MIT
+ * @deprecated Use Util::getSetting and Util::setSetting with $module parameter instead
  */
 class Configuration {
 
