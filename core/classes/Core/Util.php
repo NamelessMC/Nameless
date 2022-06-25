@@ -348,15 +348,19 @@ class Util {
             }
         } else {
             if ($module === null) {
-                DB::getInstance()->query('INSERT INTO `nl2_settings` (`name`, `value`)
-                                          VALUES (?, ?)
-                                          ON DUPLICATE KEY UPDATE `value` = ?',
-                                          [$setting, $new_value, $new_value]);
+                DB::getInstance()->query(
+                    'INSERT INTO `nl2_settings` (`name`, `value`)
+                     VALUES (?, ?)
+                     ON DUPLICATE KEY UPDATE `value` = ?',
+                    [$setting, $new_value, $new_value]
+                );
             } else {
-                DB::getInstance()->query('INSERT INTO `nl2_settings` (`name`, `value`, `module`)
-                                          VALUES (?, ?, ?)
-                                          ON DUPLICATE KEY UPDATE `value` = ?',
-                                          [$setting, $new_value, $module, $new_value]);
+                DB::getInstance()->query(
+                    'INSERT INTO `nl2_settings` (`name`, `value`, `module`)
+                     VALUES (?, ?, ?)
+                     ON DUPLICATE KEY UPDATE `value` = ?',
+                    [$setting, $new_value, $module, $new_value]
+                );
             }
         }
 
