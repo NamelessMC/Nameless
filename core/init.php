@@ -82,18 +82,19 @@ if ($page != 'install') {
         define('FORCE_WWW', true);
     }
 
-    if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
-        if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-            die();
+    $host = HttpUtils::getHeader('Host');
+    // Only check force HTTPS and force www. when Host header is set
+    // These options don't make sense when making requests to IP addresses anyway
+    if ($host !== null) {
+        if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
+            if (defined('FORCE_WWW') && !str_contains(host, 'www.')) {
+                Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
+            } else {
+                Redirect::to('https://.' . $host . $_SERVER['REQUEST_URI']);
+            }
+        } else if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
+            Redirect::to(HttpUtils::getProtocol() . '://www.' . $host . $_SERVER['REQUEST_URI']);
         }
-
-        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        die();
-    }
-
-    if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-        header('Location: ' . HttpUtils::getProtocol() . '://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 
     // Ensure database is up-to-date
@@ -194,7 +195,7 @@ if ($page != 'install') {
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Attempt to get the requested language from the browser if it exists
         // and if the user has enabled auto language detection
-        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
+        $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
         if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             $default_language = $automatic_locale;
         }

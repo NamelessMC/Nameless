@@ -19,21 +19,22 @@ class HttpUtils {
      */
     public static function getRemoteAddress(): ?string {
         if (!self::isTrustedProxy()) {
+            // Client is not a trusted proxy, we can only trust its actual remote address
             return $_SERVER['REMOTE_ADDR'];
         }
-
-        $headers = getallheaders();
 
         // Try the simple headers first that only contain an IP address...
 
         // Non-standard header that only contains the origin address
-        if (isset($headers['X-Real-Ip'])) {
-            return $headers['X-Real-Ip'];
+        $x_real_ip = self::getHeader('X-Real-IP');
+        if ($x_real_ip !== null) {
+            return $x_real_ip;
         }
 
         // Non-standard header sent by Cloudflare that only contains the origin address
-        if (isset($headers['Cf-Connecting-Ip'])) {
-            return $headers['Cf-Connecting-Ip'];
+        $cf_connecting_ip = self::getHeader('CF-Connecting-IP');
+        if ($cf_connecting_ip !== null) {
+            return $cf_connecting_ip;
         }
 
         // Now the more complicated (X-)Forwarded(-For) headers.
@@ -49,18 +50,20 @@ class HttpUtils {
         // In case of a weirdly behaving proxy that sends an additional Forwarded header instead of appending to an
         // existing one, the worst that would happen is an IP ban affecting the proxy (every user). Under no
         // circumstance would a user be able to spoof their address.
-        if (isset($headers['X-Forwarded-For'])) {
+        $x_forwarded_for = self::getHeader('X-Forwarded-For');
+        if ($x_forwarded_for !== null) {
             $addresses = [];
-            foreach (explode(',', $headers['X-Forwarded-For']) as $part) {
+            foreach (explode(',', trim($x_forwarded_for)) as $part) {
                 $addresses[] = trim($part);
             }
 
             return self::firstNonProxyAddress($addresses);
         }
 
-        if (isset($headers['Forwarded'])) {
+        $forwarded = self::getHeader('Forwarded');
+        if ($forwarded !== null) {
             $addresses = [];
-            foreach (explode(',', $headers['Forwarded']) as $part1) {
+            foreach (explode(',', trim($forwarded)) as $part1) {
                 // Extract the optional 'for=<address>' bit
                 foreach (explode(';', trim($part1)) as $part2) {
                     $part2 = explode('=', $part2);
@@ -89,12 +92,12 @@ class HttpUtils {
      * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
      */
     public static function getProtocol(): string {
-        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
-            if ($proto !== 'http' && $proto !== 'https') {
+        $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
+        if ($x_forwarded_proto !== null) {
+            if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
                 die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($proto) . '".');
             }
-            return $proto;
+            return $x_forwarded_proto;
         }
 
         if (isset($_SERVER['HTTPS'])) {
@@ -110,8 +113,9 @@ class HttpUtils {
      * @return ?int Port number, or null when using the CLI
      */
     public static function getPort(): ?int {
-        if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
-            return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
+        $x_forwarded_port = self::getHeader('X-Forwarded-Port');
+        if ($x_forwarded_port !== null) {
+            return (int) $x_forwarded_port;
         }
 
         if (isset($_SERVER['SERVER_PORT'])) {
@@ -209,6 +213,21 @@ class HttpUtils {
 
         // All addresses are in a trusted network, use leftmost address
         return $addresses[0];
+    }
+
+    /**
+     * Get header value
+     * @param string $header_name Header name
+     * @return ?string Header value, or null if header is not present in request
+     */
+    public static function getHeader(string $header_name): ?string {
+        $headers = getallheaders();
+        foreach ($headers as $key => $value) {
+            if (strcasecmp($key, $header_name) === 0) {
+                return $value;
+            }
+        }
+        return null;
     }
 
 }
