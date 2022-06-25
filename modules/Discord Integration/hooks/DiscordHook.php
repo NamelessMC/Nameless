@@ -39,7 +39,7 @@ class DiscordHook {
             ]];
         }
 
-        if (isset($params['color'])) {
+        if (isset($params['color']) && $params['color'] != null) {
             $return['embeds'][0]['color'] = hexdec($params['color']);
         }
 
