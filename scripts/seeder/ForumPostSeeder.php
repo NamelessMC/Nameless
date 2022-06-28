@@ -17,7 +17,7 @@ class ForumPostSeeder extends Seeder {
                 'forum_id' => $topic->forum_id,
                 'topic_id' => $topic->id,
                 'post_creator' => $topic->topic_creator,
-                'post_content' => $faker->randomHtml(),
+                'post_content' => $faker->boolean(40) ? $faker->randomHtml() : $faker->sentences($faker->numberBetween(3, 30), true),
                 'post_date' => $created->format('Y-m-d H:i:s'),
                 'created' => $created->format('U'),
             ]);
@@ -30,7 +30,7 @@ class ForumPostSeeder extends Seeder {
                     'forum_id' => $topic->forum_id,
                     'topic_id' => $topic->id,
                     'post_creator' => $user->id,
-                    'post_content' => $faker->randomHtml(),
+                    'post_content' => $faker->boolean(40) ? $faker->randomHtml() : $faker->sentences($faker->numberBetween(3, 30), true),
                     'post_date' => $created->format('Y-m-d H:i:s'),
                     'created' => $created->format('U'),
                 ]);
