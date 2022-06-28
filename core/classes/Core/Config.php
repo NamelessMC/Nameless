@@ -34,7 +34,7 @@ class Config {
 
         $config = require(ROOT_PATH . '/core/config.php');
         if ($config === 1) {
-            // TODO: Legacy < 2.0.0 config file. Remove in 2.1.0
+            // TODO: Legacy < 2.0.0 config file. Remove in 2.0.1, all sites will have been updated or installed with this syntax by then
             /** @phpstan-ignore-next-line  */
             if (!isset($conf) || !is_array($conf)) {
                 throw new RuntimeException('Config file is invalid');
