@@ -360,29 +360,6 @@ if ($page != 'install') {
     // Widgets
     $widgets = new Widgets($cache);
 
-    // Maintenance mode?
-    if (Util::getSetting('maintenance') === '1') {
-        // Enabled
-        // Admins only beyond this point
-        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
-            // Maintenance mode
-            if (isset($_GET['route']) && (
-                rtrim($_GET['route'], '/') == '/login'
-                || rtrim($_GET['route'], '/') == '/forgot_password'
-                || str_contains($_GET['route'], '/api/')
-                || str_contains($_GET['route'], 'queries')
-            )) {
-                // Can continue as normal
-            } else {
-                require(ROOT_PATH . '/maintenance.php');
-                die();
-            }
-        } else {
-            // Display notice to admin stating maintenance mode is enabled
-            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
-        }
-    }
-
     // Minecraft integration?
     define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
 
@@ -464,6 +441,29 @@ if ($page != 'install') {
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+        }
+    }
+
+    // Maintenance mode?
+    if (Util::getSetting('maintenance') === '1') {
+        // Enabled
+        // Admins only beyond this point
+        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
+            // Maintenance mode
+            if (isset($_GET['route']) && (
+                    rtrim($_GET['route'], '/') == '/login'
+                    || rtrim($_GET['route'], '/') == '/forgot_password'
+                    || str_contains($_GET['route'], '/api/')
+                    || str_contains($_GET['route'], 'queries')
+                )) {
+                // Can continue as normal
+            } else {
+                require(ROOT_PATH . '/maintenance.php');
+                die();
+            }
+        } else {
+            // Display notice to admin stating maintenance mode is enabled
+            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
         }
     }
 
