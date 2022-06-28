@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0
  *
  *  License: MIT
  *
@@ -26,7 +26,7 @@ if ($cache->isCached('news')) {
             'id' => $item['topic_id'],
             'url' => URL::build('/forum/topic/' . urlencode($item['topic_id']) . '-' . $forum->titleToURL($item['topic_title'])),
             'date' => date(DATE_FORMAT, strtotime($item['topic_date'])),
-            'time_ago' => $item['topic_date'], $language,
+            'time_ago' => $item['topic_date'],
             'title' => Output::getClean($item['topic_title']),
             'views' => $item['topic_views'],
             'replies' => $item['replies'],
