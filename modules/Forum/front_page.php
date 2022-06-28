@@ -14,7 +14,6 @@ if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 } else {
     $forum = new Forum();
-    $timeago = new TimeAgo(TIMEZONE);
 
     $latest_news = $forum->getLatestNews(); // Get latest 5 items
 
@@ -27,7 +26,7 @@ if ($cache->isCached('news')) {
             'id' => $item['topic_id'],
             'url' => URL::build('/forum/topic/' . urlencode($item['topic_id']) . '-' . $forum->titleToURL($item['topic_title'])),
             'date' => date(DATE_FORMAT, strtotime($item['topic_date'])),
-            'time_ago' => $timeago->inWords($item['topic_date'], $language),
+            'time_ago' => $item['topic_date'], $language,
             'title' => Output::getClean($item['topic_title']),
             'views' => $item['topic_views'],
             'replies' => $item['replies'],
@@ -46,6 +45,11 @@ if ($cache->isCached('news')) {
     }
 
     $cache->store('news', $news, 60);
+}
+
+$timeago = new TimeAgo(TIMEZONE);
+foreach ($news as $key => $item) {
+    $news[$key]['time_ago'] = $timeago->inWords($item['time_ago'], $language);
 }
 
 $smarty->assign('LATEST_ANNOUNCEMENTS', $forum_language->get('forum', 'latest_announcements'));
