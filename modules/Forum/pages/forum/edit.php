@@ -69,11 +69,11 @@ $forum_id = $post_editing[0]->forum_id;
 $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
-if ($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
+if ($user->data()->id == $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
-if ($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
+if ($user->data()->id != $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
