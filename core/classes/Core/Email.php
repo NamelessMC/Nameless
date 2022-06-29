@@ -67,6 +67,8 @@ class Email {
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendPHP(array $email) {
+        error_clear_last();
+
         $outgoing_email = Util::getSetting('outgoing_email');
         $incoming_email = Util::getSetting('incoming_email');
 
