@@ -291,6 +291,7 @@ $smarty->assign([
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
     'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
     'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
+    'OR' => $language->get('general', 'or'),
 ]);
 
 if (Session::exists('oauth_error')) {
