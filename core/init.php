@@ -451,10 +451,11 @@ if ($page != 'install') {
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
             // Maintenance mode
             if (isset($_GET['route']) && (
-                    rtrim($_GET['route'], '/') == '/login'
-                    || rtrim($_GET['route'], '/') == '/forgot_password'
+                    rtrim($_GET['route'], '/') === '/login'
+                    || rtrim($_GET['route'], '/') === '/forgot_password'
                     || str_contains($_GET['route'], '/api/')
                     || str_contains($_GET['route'], 'queries')
+                    || str_contains($_GET['route'], 'oauth/')
                 )) {
                 // Can continue as normal
             } else {
