@@ -680,84 +680,90 @@
 
 
 ## [2.0.0 pr-2](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr1...v2.0.0-pr2) - 2017-06-07
-- Fix issue with editing user in AdminCP
-- Prevent non-moderators replying to locked topics
-- Prevent signature image overflow
-- Remove unnecessary header template file
-- Fix registration issue
-- Fix recaptcha issues in upgrade script
-- Minor forum updates
-- Update Mojang API URL
-- Fix incorrect "last user" information in PMs
-- Redirect to previous page after login
-- Allow use of HTML in report content
+
+### Added
 - Add forum labels
-- Update panels in AdminCP night theme
-- Small AdminCP label fixes
-- Update default template Bootstrap version
-- Update core Bootstrap version
-- Update profile template
-- Fix signin issue with numeric usernames
-- Fix negative reactions not creating
-- Allow creating new instances of custom DB class
-- Update AdminCP registrations graph
-- Change popover placement in AdminCP
-- Increase query interval
-- Display success message upon sending PM reply
-- Update installer and configuration methods
-- Display errors if unable to create config + cache
-- Update htaccess
-- Fix installation detection
-- Separate core JS into templates
 - Add maintenance mode
-- Allow logging in whilst in maintenance mode
-- Prevent admin account switch in AdminCP
-- Fix installer not loading
 - Allow installer translations
-- Add default database address to installer
-- Update admin auth screen layout
-- Remove deprecated mcrypt requirement, along with a now unused function
-- Fix permission check for configuration file
-- Add AuthMe integration and Minecraft service status
-- Fix invalid charset in installer
-- Fix AdminCP mobile navbar toggler not showing
-- Update cp_dark.css
-- Fix AdminCP auth + password changing
-- Add switch to toggle error reporting
-- Fix error in 404 page
-- Update PasswordHash class
-- Update form tokens
-- Allow per-user timezones
-- Add topics and posts to AdminCP overview stats graph
-- Fix potentially incorrect news ordering
-- Add card colour for Minecraft service status "Slow"
-- Define page on register page
-- Update post editor
-- Fix minor login/logout issues
-- Apply GeSHi to new topics and edited posts
-- Fix AdminCP security log sorting
-- Add force-HTTPS option to AdminCP
-- Fix post word wrapping and temporarily disable the code editor
 - Add Minecraft server query to homepage
 - Allow editing + deleting Minecraft servers
-- Fix sub-server queries
-- Fix invalid MySQL column default value
-- Fix timezone offsets not displaying minutes correctly
-- Minor forum SEO improvements
+- Add forgot password functionality
+- Add forum topic label permissions
+- Add forum search
 - Add contact page, new email class and email errors + testing
 - Add registration email verification toggle in AdminCP
 - Add Minecraft server query error logging
 - Add Minecraft server banners
 - Allow purging Minecraft query errors
+- Add avatar configuration, including the ability to upload a default avatar
+- Add force-HTTPS option to AdminCP
+- Add switch to toggle error reporting
+- Add card colour for Minecraft service status "Slow"
+- Add topics and posts to AdminCP overview stats graph
+- Allow per-user timezones
+- Add AuthMe integration and Minecraft service status
+- Add default database address to installer
+- Allow logging in whilst in maintenance mode
+
+### Changed
+- Remove unnecessary header template file
+- Minor forum updates
+- Update Mojang API URL
+- Update panels in AdminCP night theme
+- Redirect to previous page after login
+- Update profile template
+- Update core Bootstrap version
+- Update default template Bootstrap version
+- Update htaccess
+- Allow use of HTML in report content
+- Separate core JS into templates
+- Change popover placement in AdminCP
+- Allow creating new instances of custom DB class
+- Update AdminCP registrations graph
+- Update PasswordHash class
+- Update form tokens
+- Update Font Awesome
+- Apply GeSHi to new topics and edited posts
+- Remove deprecated mcrypt requirement, along with a now unused function
+- Increase query interval
+- Update admin auth screen layout
+- Minor forum SEO improvements
+- Define page on register page
+- Update post editor
+- Update cp_dark.css
+- Prevent admin account switch in AdminCP
+- Update installer and configuration methods
+
+### Fixed
+- Fix issue with editing user in AdminCP
+- Prevent non-moderators replying to locked topics
+- Prevent signature image overflow
+- Fix registration issue
+- Fix recaptcha issues in upgrade script
+- Fix incorrect "last user" information in PMs
+- Small AdminCP label fixes
+- Fix signin issue with numeric usernames
+- Fix negative reactions not creating
+- Display success message upon sending PM reply
+- Display errors if unable to create config + cache
+- Fix installation detection
+- Fix installer not loading
+- Fix permission check for configuration file
+- Fix invalid charset in installer
+- Fix AdminCP mobile navbar toggler not showing
+- Fix AdminCP auth + password changing
+- Fix error in 404 page
+- Fix potentially incorrect news ordering
+- Fix minor login/logout issues
+- Fix AdminCP security log sorting
+- Fix post word wrapping and temporarily disable the code editor
+- Fix sub-server queries
+- Fix invalid MySQL column default value
+- Fix timezone offsets not displaying minutes correctly
 - Complete mcassoc integration
 - Add terms and conditions page, and the ability to modify them
 - Update installer
-- Add avatar configuration, including the ability to upload a default avatar
 - Fix AdminCP -> Minecraft PHP notice
-- Add forgot password functionality
-- Add forum topic label permissions
-- Add forum search
-- Update Font Awesome
 
 
 ## [2.0.0 pr-1](https://github.com/NamelessMC/Nameless/compare/v1.0.15...v2.0.0-pr1) - 2016-12-30
