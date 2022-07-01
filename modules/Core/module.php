@@ -332,9 +332,10 @@ class Core_Module extends Module {
             $language->get('admin', 'announcement_hook_info'),
             [
                 'announcement_id' => $language->get('admin', 'announcement_id'),
-                'created_by' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
                 'header' => $language->get('admin', 'header'),
                 'message' => $language->get('admin', 'message'),
+                'avatar_url' => $language->get('user', 'avatar'),
             ]
         );
 

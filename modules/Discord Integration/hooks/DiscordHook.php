@@ -7,6 +7,7 @@
  *  Discord webhook handler class
  */
 
+// TODO: Let events define a function to build a discord embed for the webhook
 class DiscordHook {
 
     public static function execute(array $params = []): void {
@@ -23,6 +24,18 @@ class DiscordHook {
                 ],
                 'description' => $params['language']->get('user', 'user_x_has_registered', ['user' => Output::getClean($params['username']), 'siteName' => SITE_NAME])
             ]];
+        } else if ($params['event'] == 'createAnnouncement') {
+            $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['message']));
+            if (mb_strlen($content) > 512) {
+                $content = mb_substr($content, 0, 512) . '...';
+            }
+
+            $return['username'] = $params['username'] . ' | ' . SITE_NAME;
+            $return['avatar_url'] = $params['avatar_url'];
+            $return['embeds'] = [[
+                'title' => 'New Announcement: ' . $params['header'],
+                'description' => $content,
+            ]];
         } else {
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
             if (mb_strlen($content) > 512) {
@@ -32,8 +45,8 @@ class DiscordHook {
             $return['username'] = $params['username'] . ' | ' . SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
             $return['embeds'] = [[
-                'description' => $content,
                 'title' => $params['title'],
+                'description' => $content,
                 'url' => $params['url'],
                 'footer' => ['text' => $params['content']]
             ]];
