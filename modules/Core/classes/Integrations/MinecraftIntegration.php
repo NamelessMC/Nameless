@@ -200,7 +200,7 @@ class MinecraftIntegration extends IntegrationBase {
         if (Util::getSetting('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
         } else {
-            return $this->getOfflineModeUuid($username);
+            return ProfileUtils::getOfflineModeUuid($username);
         }
     }
 
@@ -228,22 +228,5 @@ class MinecraftIntegration extends IntegrationBase {
         }
 
         return [];
-    }
-
-    /**
-     * Generate an offline minecraft UUID v3 based on the case sensitive player name.
-     *
-     * @param string $username
-     * @return array
-     */
-    public function getOfflineModeUuid(string $username): array {
-        $data = hex2bin(md5("OfflinePlayer:" . $username));
-        $data[6] = chr(ord($data[6]) & 0x0f | 0x30);
-        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-
-        return [
-            'uuid' => bin2hex($data),
-            'username' => $username
-        ];
     }
 }
