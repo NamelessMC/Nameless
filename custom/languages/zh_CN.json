@@ -113,7 +113,7 @@
     "admin/default_avatar": "默认头像",
     "admin/default_group": "这个权限组是否为默认组 (对于新用户来说)?",
     "admin/default_language": "默认语言",
-    "admin/default_language_help": "用户可从已安装的语言中选择。",
+    "admin/default_language_help": "用户可从已安装的语言中选择 {{docLinkStart}}阅读更多 »{{docLinkEnd}}",
     "admin/default_server": "默认服务器",
     "admin/default_template_set": "将默认模板设置为 {{template}} 的操作已成功",
     "admin/default_timezone": "默认时区",

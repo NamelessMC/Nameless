@@ -1224,5 +1224,6 @@
     "admin/updated": "Aktualizované",
     "admin/user_group_added_hook_info": "Uživateľská skupina pridaná",
     "admin/user_group_removed_hook_info": "Užívateľská skupina odstránená",
-    "admin/group_name": "Názov skupiny"
+    "admin/group_name": "Názov skupiny",
+    "user/avatar_set_successfully": "Avatar bol úspešne nastavený."
 }

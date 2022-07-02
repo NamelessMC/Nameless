@@ -598,7 +598,7 @@
     "api/username_updated": "Benutzername erfolgreich aktualisiert",
     "emails/change_password_message": "Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert haben, kannst du diese E-Mail bedenkenlos löschen.",
     "emails/change_password_subject": "Passwort vergessen",
-    "emails/forum_topic_reply_message": "{{author}} hat auf ein Thema geantwortet, dem Sie folgen. Content: {{content}}",
+    "emails/forum_topic_reply_message": "{{author}} hat auf ein Thema geantwortet, dem du folgst. Content: {{content}}",
     "emails/forum_topic_reply_subject": "{{author}} hat geantwortet {{topic}}",
     "emails/greeting": "Hey,",
     "emails/register_message": "Danke für deine Registration! Um deine Registration abzuschließen klicke auf folgenden Link:",
@@ -1224,5 +1224,6 @@
     "installer/database_connection_failed": "Verbindung zur Datenbank fehlgeschlagen:<br>{{message}}",
     "admin/debugging_enabled": "Wenn Debugging aktiviert ist, können sensible Informationen für unbefugte Besucher zugänglich sein. Debugging sollte nur für die Entwicklung verwendet werden, nicht auf öffentlichen Seiten.",
     "admin/https_port_80": "Es sieht so aus, als ob du HTTPS auf Port 80 verwendest, was mit ziemlicher Sicherheit nicht der Fall ist. Wenn du Cloudflare verwendest, stelle sicher, dass du den TLS-Verschlüsselungsmodus auf Full (strict) gesetzt hast. Wenndu deine eigene Proxy verwendest, konfiguriere ihn bitte so, dass er den X-Forwarded-Port-Header sendet.",
-    "admin/group_sync_no_results_warning": "Gruppensynchronisierungsregeln sind eingerichtet, aber es wurden keine Änderungen gemeldet. Dies könnte auf eine Fehlkonfiguration hindeuten."
+    "admin/group_sync_no_results_warning": "Gruppensynchronisierungsregeln sind eingerichtet, aber es wurden keine Änderungen gemeldet. Dies könnte auf eine Fehlkonfiguration hindeuten.",
+    "user/avatar_set_successfully": "Avatar erfolgreich gesetzt."
 }
