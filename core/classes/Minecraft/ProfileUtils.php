@@ -85,10 +85,10 @@ class ProfileUtils {
     /**
     * Add dashes to UUID
     *
-    * @param $uuid string UUID to format
+    * @param string $uuid string UUID to format
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
-    public static function formatUUID($uuid): string {
+    public static function formatUUID(string $uuid): string {
         $uid = "";
         $uid .= substr($uuid, 0, 8)."-";
         $uid .= substr($uuid, 8, 4)."-";
