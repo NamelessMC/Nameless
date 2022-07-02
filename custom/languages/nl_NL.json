@@ -1224,5 +1224,6 @@
     "admin/trusted_proxies_not_configured": "{{linkStart}}Vertrouwde proxies{{linkEnd}} zijn nog niet geconfigureerd, IP verbanningen zouden niet correct kunnen werken.",
     "admin/https_port_80": "Het lijkt erop dat je HTTPS op poort 80 gebruikt, wat hoogstwaarschijnlijk niet correct is. Als je Cloudflare gebruikt, zorg ervoor dat je TLS encryptie modus op Full (strict) zet. Als je je eigen proxy runt, configureer dan de X-Forwarded-Port header.",
     "admin/debugging_enabled": "Debugging is ingeschakeld, gevoelige informatie zou kunnen worden blootgesteld aan onbevoegde bezoekers. Debugging zou alleen mogen worden gebruikt voor ontwikkeling, niet voor publieke sites.",
-    "admin/group_sync_no_results_warning": "Group synchronisatie regels zijn ingesteld maar geen wijzigingen zijn gerapporteerd. Dit kan een misconfiguratie aanwijzen."
+    "admin/group_sync_no_results_warning": "Group synchronisatie regels zijn ingesteld maar geen wijzigingen zijn gerapporteerd. Dit kan een misconfiguratie aanwijzen.",
+    "user/avatar_set_successfully": "Avatar succesvol ingesteld."
 }
