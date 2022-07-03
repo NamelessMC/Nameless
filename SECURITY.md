@@ -17,5 +17,5 @@ The following NamelessMC releases are supported by the development team
 
 Currently, the best place to report a vulnerability is either via email or Discord.
 
-- Email address: samerton7@gmail.com (temporary - we'll get a fancy one set up in the near future)
+- huntr.dev - https://huntr.dev/repos/namelessmc/nameless
 - Discord server: https://discord.gg/nameless -> Samerton#9433
