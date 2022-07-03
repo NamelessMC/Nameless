@@ -27,17 +27,8 @@ class AssetResolver extends AssetTree {
         }
 
         foreach ($assets as $asset) {
-            if ($asset === null) {
-                throw new InvalidArgumentException("Attempted to register null asset");
-            }
-
             $this->validateAsset($asset);
-
             $this->_assets[$asset] = parent::ASSET_TREE[$asset];
-
-            if ($this->_assets[$asset] === null) {
-                throw new InvalidArgumentException("Asset missing in asset tree");
-            }
         }
     }
 
