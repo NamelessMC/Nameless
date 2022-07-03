@@ -251,7 +251,7 @@ class ErrorHandler {
     public static function catchShutdownError(): void {
         $error = error_get_last();
 
-        if ($error == null) {
+        if ($error === null) {
             return;
         }
 

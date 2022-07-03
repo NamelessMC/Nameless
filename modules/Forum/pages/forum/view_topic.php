@@ -315,7 +315,7 @@ if (Input::exists()) {
                 'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
                 'post_id' => $last_post_id,
-                'available_hooks' => $available_hooks == null ? [] : $available_hooks
+                'available_hooks' => $available_hooks === null ? [] : $available_hooks
             ]);
 
             // Alerts + Emails

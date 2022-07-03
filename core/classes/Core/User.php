@@ -172,7 +172,7 @@ class User {
             ]
         );
 
-        if ($group_data == null) {
+        if ($group_data === null) {
             $group = Group::find($group_id);
             if ($group) {
                 $this->_groups[$group_id] = $group;
@@ -674,7 +674,7 @@ class User {
         );
 
         $this->_groups = [];
-        if ($group_data == null) {
+        if ($group_data === null) {
             $group = Group::find($group_id);
             if ($group) {
                 $this->_groups[$group_id] = $group;
@@ -1043,7 +1043,7 @@ class User {
      */
     public function savePlaceholders(int $server_id, array $placeholders): void {
         $integrationUser = $this->getIntegration('Minecraft');
-        if ($integrationUser == null || !$integrationUser->getIntegration()->isEnabled()) {
+        if ($integrationUser === null || !$integrationUser->getIntegration()->isEnabled()) {
             return;
         }
 

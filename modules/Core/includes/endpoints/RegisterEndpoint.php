@@ -150,7 +150,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     }
 
                     $integration = $integrations->getIntegration($integration_name);
-                    if ($integration == null) {
+                    if ($integration === null) {
                         continue;
                     }
 

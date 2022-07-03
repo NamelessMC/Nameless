@@ -20,7 +20,7 @@ class ProfileUtils {
     public static function getProfile(string $identifier): ?MinecraftProfile {
         if (strlen($identifier) <= 16) {
             $result = self::getUUIDFromUsername($identifier);
-            if ($result == null) {
+            if ($result === null) {
                 return null;
             }
             $uuid = $result['uuid'];

@@ -216,7 +216,7 @@ if ($page != 'install') {
 
     // Site name
     $sitename = Util::getSetting('sitename');
-    if ($sitename == null) {
+    if ($sitename === null) {
         die('No sitename in settings table');
     }
     define('SITE_NAME', $sitename);

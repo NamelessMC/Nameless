@@ -102,7 +102,7 @@ if (!isset($_GET['id'])) {
                 }
             }
 
-            if ($user_reported == null) {
+            if ($user_reported === null) {
                 // Reported user doesn't exist, use their username and uuid
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $report->reported_mcname));

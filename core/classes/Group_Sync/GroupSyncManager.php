@@ -149,7 +149,7 @@ final class GroupSyncManager extends Instanceable {
     public function broadcastChange(User $user, string $sending_injector_class, array $group_ids): array {
         $sending_injector = $this->getInjectorByClass($sending_injector_class);
 
-        if ($sending_injector == null) {
+        if ($sending_injector === null) {
             return [];
         }
 
@@ -180,7 +180,7 @@ final class GroupSyncManager extends Instanceable {
                 $nameless_group_id = $rule->{$namelessmc_column};
 
                 // Skip this injector if it doesn't have a group id setup for this rule
-                if ($injector_group_id == null) {
+                if ($injector_group_id === null) {
                     continue;
                 }
 

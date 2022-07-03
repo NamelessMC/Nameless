@@ -45,7 +45,7 @@ class Token {
      * @throws Exception
      */
     public static function check(string $token = null): bool {
-        if ($token == null) {
+        if ($token === null) {
             $token = Input::get('token');
         }
 

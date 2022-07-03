@@ -27,7 +27,7 @@ class AssetResolver extends AssetTree {
         }
 
         foreach ($assets as $asset) {
-            if ($asset == null) {
+            if ($asset === null) {
                 throw new InvalidArgumentException("Attempted to register null asset");
             }
 
@@ -35,7 +35,7 @@ class AssetResolver extends AssetTree {
 
             $this->_assets[$asset] = parent::ASSET_TREE[$asset];
 
-            if ($this->_assets[$asset] == null) {
+            if ($this->_assets[$asset] === null) {
                 throw new InvalidArgumentException("Asset missing in asset tree");
             }
         }

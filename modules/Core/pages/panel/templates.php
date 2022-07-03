@@ -633,7 +633,7 @@ if (!isset($_GET['action'])) {
                             }
                         }
 
-                        if ($file_type == null) {
+                        if ($file_type === null) {
                             Redirect::to(URL::build('/panel/core/templates'));
                         }
 

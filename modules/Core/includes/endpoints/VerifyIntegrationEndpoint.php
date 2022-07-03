@@ -21,7 +21,7 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['integration', 'code', 'identifier', 'username']);
 
         $integration = Integrations::getInstance()->getIntegration($_POST['integration']);
-        if ($integration == null) {
+        if ($integration === null) {
             $api->throwError(CoreApiErrors::ERROR_INVALID_INTEGRATION);
         }
 

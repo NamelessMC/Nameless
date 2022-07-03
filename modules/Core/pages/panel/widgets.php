@@ -231,7 +231,7 @@ if (!isset($_GET['action'])) {
             $widget = $widget[0];
 
             if (
-                $widgets->getWidget($widget->name)->getSettings() == null
+                $widgets->getWidget($widget->name)->getSettings() === null
                 || !file_exists($widgets->getWidget($widget->name)->getSettings())
             ) {
                 Redirect::to(URL::build('/admin/widgets'));

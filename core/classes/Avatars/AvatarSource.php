@@ -137,7 +137,7 @@ class AvatarSource {
      */
     public static function setActiveSource(string $name): void {
         $source = self::getSourceByName($name);
-        if ($source == null) {
+        if ($source === null) {
             $source = self::getSourceByName('cravatar');
         }
 

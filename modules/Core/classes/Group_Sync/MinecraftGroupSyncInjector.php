@@ -32,7 +32,7 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector {
     public function getSelectionOptions(): array {
         $row = DB::getInstance()->query('SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1')->first();
 
-        if ($row == null) {
+        if ($row === null) {
             // Plugin is not set up
             return [];
         }

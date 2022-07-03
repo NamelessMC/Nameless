@@ -214,7 +214,7 @@ if (Input::exists()) {
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
                     'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
-                    'available_hooks' => $available_hooks == null ? [] : $available_hooks
+                    'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));

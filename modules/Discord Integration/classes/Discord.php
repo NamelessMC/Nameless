@@ -52,7 +52,7 @@ class Discord {
         }
 
         $integrationUser = $user->getIntegration('Discord');
-        if ($integrationUser == null || !$integrationUser->isVerified()) {
+        if ($integrationUser === null || !$integrationUser->isVerified()) {
             return false;
         }
 

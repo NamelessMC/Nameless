@@ -24,7 +24,7 @@ if (Input::exists()) {
 
         // Get Integration
         $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
-        if ($integration == null) {
+        if ($integration === null) {
             Redirect::to(URL::build('/user/connections'));
         }
 
