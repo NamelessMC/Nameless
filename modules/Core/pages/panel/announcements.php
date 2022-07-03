@@ -254,6 +254,11 @@ if (!isset($_GET['action'])) {
 
         case 'order':
             if (isset($_GET['announcements'])) {
+                if (!Token::check()) {
+                    Session::flash('announcement_error', $language->get('general', 'invalid_token'));
+                    die('Invalid Token');
+                }
+
                 $announcements_list = json_decode($_GET['announcements'])->announcements;
 
                 $i = 1;
