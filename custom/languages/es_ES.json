@@ -1224,5 +1224,6 @@
     "admin/trusted_proxies_configured": "Proxies de confianza",
     "admin/trusted_proxies_not_configured": "{{linkStart}}Proxies de confianza{{linkEnd}} no están configurados, las prohibiciones de IP pueden no funcionar correctamente.",
     "admin/https_port_80": "Parece como si estuvieras usando HTTPS en el puerto 80, lo que casi definitivamente no es cierto. Si usas Cloudflare, asegúrate de configurar el modo de encriptación TLS en Full (estricto). Si ejecuta su propio proxy, configúrelo para que envíe la cabecera X-Forwarded-Port.",
-    "admin/group_sync_no_results_warning": "Las reglas de sincronización de grupos están configuradas pero no se ha informado de ningún cambio. Esto podría indicar una configuración errónea."
+    "admin/group_sync_no_results_warning": "Las reglas de sincronización de grupos están configuradas pero no se ha informado de ningún cambio. Esto podría indicar una configuración errónea.",
+    "user/avatar_set_successfully": "Avatar fijado con éxito."
 }
