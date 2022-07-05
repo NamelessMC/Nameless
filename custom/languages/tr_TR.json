@@ -956,5 +956,14 @@
     "user/x_reactions": "{{count}} reaksiyon",
     "user/x_replies": "{{count}} cevap",
     "user/you_have_been_banned": "Engellendiniz!",
-    "user/you_have_received_a_warning": "Bir uyarı aldınız!"
+    "user/you_have_received_a_warning": "Bir uyarı aldınız!",
+    "admin/user_group_added_hook_info": "Kullanıcı Grubu Eklenildi",
+    "admin/user_group_removed_hook_info": "Kullanıcı Grubu Kaldırıldı",
+    "admin/administrator": "Yönetici",
+    "admin/administrator_permission_info": "Bu izne sahip olan kullanıcılar tüm izinlere sahip olacaktır. Bu, tehlikeli bir izindir.",
+    "admin/announcement_hook_info": "Duyuru oluşturma",
+    "admin/announcement_info": "Web sitenizin belirli sayfalarında belirli gruplara mesaj göstermek için duyurular oluşturun.",
+    "admin/announcement_order": "Sipariş",
+    "admin/announcements": "Duyurular",
+    "admin/api_endpoints": "API uç noktası"
 }
