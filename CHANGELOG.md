@@ -4,10 +4,80 @@
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/17)
 
 ### Added
+- Translation updates
+- Add info about OAuth providers to debug link
+- Respect light/dark mode for captcha popups
+- Added `ProfileUtils::getOfflineModeUuid()` & `ProfileUtils::formatUuid()`
 
 ### Changed
+- Better Discord widget error display
+- Light/dark mode for StaffCP statistics graph
+- Hide StaffCP stats on mobile
+- Renamed `OAuth` class to `NamelessOAuth` to avoid conflicts with OAuth PHP extension
+- Add warning to StaffCP dashboard when HTTPs is misconfigured
+- Add warnings for old versions of MySQL/MariaDB
+- Track avatar validity HTTP requests in debug bar
+- Only track queries when debug mode is enabled, this gives performance increases of ~15%
+- Allow server to send correct Minecraft verify command
+- Use `return [...` in config files instead of `$conf = [...`
+  - Backwards compatibility will be removed in 2.0.1 to ensure all sites have been updated
+- Use case insensitive header handling
+- "OR" in login page is no longer hardcoded
+- Better TinyMCE image uploading errors + logging
+- Add form token to announcement order change
 
 ### Fixed
+- Fix MariaDB version detection
+- Fix editing topic title not showing up
+- Fix MC banner image listing
+- Fix installer failing when migrations were silently not run
+- Fix `nl2_users_integrations.username` column not being nullable
+- Include `CGIPassAuth On` in the default `.htaccess` file
+- Fix MCAssoc file path
+- Fix exception when cloning a group
+- Fix error when `nl2_mc_servers.bedrock` is null
+- Fix `Util::determineOrder()` for empty arrays
+- Fix long sentences in statistic widget not going onto a new line
+- Fix maintenance mode message not appearing
+- Fix DefaultRevamp dropdown not respecting light/dark mode
+- Fix edge case exception when no `$_active_page` is set in `Pages` class
+- Fix issue with `Forum::getLatestDiscussions()` returning an array of objects randomly
+- Fix missing `ROOT_PATH` definition in Phinx migration file
+- Fix exception when captcha provider is null
+- Fix exception when `nl2_email_errors.user_id` is null while viewing logs in StaffCP
+- Fix forum label types page formatting in StaffCP
+- Fix debug link modal still being rendered on exception page when they don't have permission to generate debug link
+- Fix editing posts strict comparision which prevented users from editing their own post sometimes
+- Fix avatar related exception on maintenance mode page
+- Fix `Timeago` values being globally cached for all users on news posts
+- Use `.png` instead of `.svg` for default fallback avatar links
+  - Using `.svg` would break on Discord embeds
+- Fix forum signature overflow
+- Fix Oauth login when maintenance mode is enabled
+- Fix `createAnnouncement` webhook
+- Don't cast Discord snowflakes to integers (would break on 32bit systems)
+
+### Deprecated
+*These will be removed in 2.1.0*
+- The entire `Queries` class has been deprecated, read each of the methods' documentation for more information
+- Using `Config::get('path/to/value')` syntax is deprecated. Use `Config::get('path.to.value')` instead
+- `Hash::unique()`, use `SecureRandom::alphanumeric()` instead
+- `Pages->getActivePage()` is deprecated, no alternative was created
+- `Paginator->setValues()` is deprecated, set the values within the constructor instead
+- `User->getGroupClass()` is deprecated, use `User->getGroupStyle()` instead
+- `DB->selectQuery()` is deprecated, use `DB->query()` instead
+- `Util::isTrustedProxiesConfigured()` is deprecated, use `HttpUtils::isTrustedProxiesConfigured()` instead
+- `Util::getTrustedProxies()` is deprecated, use `HttpUtils::getTrustedProxies()` instead
+- `Util::getRemoteAddress()` is deprecated, use `HttpUtils::getRemoteAddress()` instead
+- `Util::getProtocol()` is deprecated, use `HttpUtils::getProtocol()` instead
+- `Util::getPort()` is deprecated, use `HttpUtils::getPort()` instead
+- `Util::isExternalURL()` is deprecated, use `URL::isExternalURL()` instead
+- `Util::getSelfURL()` is deprecated, use `URL::getSelfURL()` instead
+- `Util::replaceAnchorsWithText()` is deprecated, use `URL::replaceAnchorsWithText()` instead
+- `Util::stringToURL()` is deprecated, use native `urlencode()` for better non-latin support
+- `Util::truncate()` is deprecated, use `Text::truncate()` instead
+- `Util::renderEmojis()` is deprecated, use `Text::renderEmojis()` instead
+- `Util::bold()` is deprecated, use `Text::bold()` instead
 
 
 ## [2.0.0 pr-13](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr12...v2.0.0-pr13) - 2022-06-04
