@@ -56,6 +56,7 @@
 - Fix Oauth login when maintenance mode is enabled
 - Fix `createAnnouncement` webhook
 - Don't cast Discord snowflakes to integers (would break on 32bit systems)
+- Fix `AssetResolver` adding an asset more than once if several assets depend on it
 
 ### Deprecated
 *These will be removed in 2.1.0*
