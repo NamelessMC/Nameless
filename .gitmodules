@@ -1,0 +1,3 @@
+[submodule "custom/panel_templates/Default"]
+	path = custom/panel_templates/Default
+	url = https://github.com/NamelessMC/Default
