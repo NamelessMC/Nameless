@@ -1,3 +1,6 @@
 [submodule "custom/panel_templates/Default"]
 	path = custom/panel_templates/Default
 	url = https://github.com/NamelessMC/Default
+[submodule "custom/templates/DefaultRevamp"]
+	path = custom/templates/DefaultRevamp
+	url = https://github.com/NamelessMC/DefaultRevamp
