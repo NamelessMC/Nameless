@@ -429,17 +429,17 @@ class MCQuery {
         $blue2_substr = substr($rgb2, 4, 2);
 
         $red2 = 0;
-        if (ctype_xdigit($red2_substr) && ctype_xdigit($red2_substr)) {
+        if (ctype_xdigit($red2_substr)) {
             $red2 = hexdec($red2_substr);
         }
 
         $green2 = 0;
-        if (ctype_xdigit($green2_substr) && ctype_xdigit($green2_substr)) {
+        if (ctype_xdigit($green2_substr)) {
             $green2 = hexdec($green2_substr);
         }
 
         $blue2 = 0;
-        if (ctype_xdigit($blue2_substr) && ctype_xdigit($blue2_substr)) {
+        if (ctype_xdigit($blue2_substr)) {
             $blue2 = hexdec($blue2_substr);
         }
 
