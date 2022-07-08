@@ -34,7 +34,7 @@ $writable_check_paths = [
     ROOT_PATH . '/cache/sitemaps',
     ROOT_PATH . '/cache/templates_c',
     ROOT_PATH . '/uploads',
-    ROOT_PATH . '/core/email.php'
+    ROOT_PATH . '/core/config.php'
 ];
 
 foreach ($writable_check_paths as $path) {
@@ -82,18 +82,19 @@ if ($page != 'install') {
         define('FORCE_WWW', true);
     }
 
-    if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
-        if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-            die();
+    $host = HttpUtils::getHeader('Host');
+    // Only check force HTTPS and force www. when Host header is set
+    // These options don't make sense when making requests to IP addresses anyway
+    if ($host !== null) {
+        if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
+            if (defined('FORCE_WWW') && !str_contains(host, 'www.')) {
+                Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
+            } else {
+                Redirect::to('https://.' . $host . $_SERVER['REQUEST_URI']);
+            }
+        } else if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
+            Redirect::to(HttpUtils::getProtocol() . '://www.' . $host . $_SERVER['REQUEST_URI']);
         }
-
-        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        die();
-    }
-
-    if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-        header('Location: ' . HttpUtils::getProtocol() . '://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 
     // Ensure database is up-to-date
@@ -194,7 +195,7 @@ if ($page != 'install') {
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Attempt to get the requested language from the browser if it exists
         // and if the user has enabled auto language detection
-        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
+        $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
         if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             $default_language = $automatic_locale;
         }
@@ -215,7 +216,7 @@ if ($page != 'install') {
 
     // Site name
     $sitename = Util::getSetting('sitename');
-    if ($sitename == null) {
+    if ($sitename === null) {
         die('No sitename in settings table');
     }
     define('SITE_NAME', $sitename);
@@ -359,29 +360,6 @@ if ($page != 'install') {
     // Widgets
     $widgets = new Widgets($cache);
 
-    // Maintenance mode?
-    if (Util::getSetting('maintenance') === '1') {
-        // Enabled
-        // Admins only beyond this point
-        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
-            // Maintenance mode
-            if (isset($_GET['route']) && (
-                rtrim($_GET['route'], '/') == '/login'
-                || rtrim($_GET['route'], '/') == '/forgot_password'
-                || str_contains($_GET['route'], '/api/')
-                || str_contains($_GET['route'], 'queries')
-            )) {
-                // Can continue as normal
-            } else {
-                require(ROOT_PATH . '/maintenance.php');
-                die();
-            }
-        } else {
-            // Display notice to admin stating maintenance mode is enabled
-            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
-        }
-    }
-
     // Minecraft integration?
     define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
 
@@ -463,6 +441,30 @@ if ($page != 'install') {
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+        }
+    }
+
+    // Maintenance mode?
+    if (Util::getSetting('maintenance') === '1') {
+        // Enabled
+        // Admins only beyond this point
+        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
+            // Maintenance mode
+            if (isset($_GET['route']) && (
+                    rtrim($_GET['route'], '/') === '/login'
+                    || rtrim($_GET['route'], '/') === '/forgot_password'
+                    || str_contains($_GET['route'], '/api/')
+                    || str_contains($_GET['route'], 'queries')
+                    || str_contains($_GET['route'], 'oauth/')
+                )) {
+                // Can continue as normal
+            } else {
+                require(ROOT_PATH . '/maintenance.php');
+                die();
+            }
+        } else {
+            // Display notice to admin stating maintenance mode is enabled
+            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
         }
     }
 

@@ -51,7 +51,7 @@ if (!class_exists('Default_Panel_Template')) {
                 // Dark and light theme switch
                 var currentPanelTheme = $.cookie("nmc_panel_theme");
 
-                if (currentPanelTheme == null) {
+                if (currentPanelTheme === null) {
                     $.cookie("nmc_panel_theme", "light", { path: "/" });
                 } else {
                     if (currentPanelTheme == "dark") {

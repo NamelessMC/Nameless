@@ -37,8 +37,14 @@
             "core/classes",
             "modules/Cookie Consent/classes",
             "modules/Core/classes",
+            "modules/Core/hooks",
+            "modules/Core/widgets",
             "modules/Discord Integration/classes",
-            "modules/Forum/classes"
+            "modules/Discord Integration/hooks",
+            "modules/Discord Integration/widgets",
+            "modules/Forum/classes",
+            "modules/Forum/hooks",
+            "modules/Forum/widgets"
         ]
     }
 }

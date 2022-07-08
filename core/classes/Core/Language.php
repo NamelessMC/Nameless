@@ -170,7 +170,7 @@ class Language {
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
 
         // Require file
-        if ($module == null || $module === 'core') {
+        if ($module === 'core') {
             $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', '__lng__.json']);
         } else {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . '__lng__.json';
@@ -203,7 +203,7 @@ class Language {
      * @param array $variables Any variables to pass through to the translation.
      * @return string Translated phrase.
      */
-    public function get(string $section, ?string $term, array $variables = []): string {
+    public function get(string $section, ?string $term = null, array $variables = []): string {
         if ($term) {
             $section .= '/' . $term;
         }

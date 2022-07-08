@@ -178,9 +178,10 @@ class DB {
      *
      * @param string $sql The SQL query string to execute.
      * @param array $params The parameters to bind to the query.
+     * @param bool $isSelect Whether the statement is a select, defaults to null
      * @return static This DB instance.
      */
-    public function query(string $sql, array $params = []) {
+    public function query(string $sql, array $params = [], bool $isSelect = null) {
         $this->_error = false;
         if ($this->_statement = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -200,7 +201,7 @@ class DB {
 
             if ($this->_statement->execute()) {
                 // Only fetch the results if this is a SELECT query.
-                if (str_starts_with(strtoupper($sql), 'SELECT')) {
+                if ($isSelect || str_starts_with(strtoupper($sql), 'SELECT')) {
                     $this->_results = $this->_statement->fetchAll(PDO::FETCH_OBJ);
                 }
                 $this->_count = $this->_statement->rowCount();

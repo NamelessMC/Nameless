@@ -37,7 +37,7 @@ if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
         if ($integration->data()->required) {
             $integrationUser = $user->getIntegration($integration->getName());
-            if ($integrationUser == null || !$integrationUser->isVerified()) {
+            if ($integrationUser === null || !$integrationUser->isVerified()) {
                 Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
                 Redirect::to(URL::build('/user/connections'));
             }

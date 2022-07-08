@@ -150,6 +150,7 @@
 
     </div>
 
+    {if $CAN_GENERATE_DEBUG}
     <!-- Debug link modal -->
     <div class="modal fade" id="debug_link_modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -168,6 +169,7 @@
             </div>
         </div>
     </div>
+    {/if}
 </body>
 
 <style>

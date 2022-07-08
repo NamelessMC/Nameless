@@ -10,8 +10,8 @@
  */
 class Debugging {
 
-    private static bool $_can_view_detailed_error;
-    private static bool $_can_generate_debug_link;
+    private static bool $_can_view_detailed_error = false;
+    private static bool $_can_generate_debug_link = false;
 
     public static function canViewDetailedError(): bool {
         return self::$_can_view_detailed_error;

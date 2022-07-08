@@ -576,7 +576,6 @@
     "admin/unable_to_retrieve_modules": "Невозможно получить модули",
     "admin/unable_to_retrieve_nameless_news": "Невозможно получить последние новости",
     "admin/unable_to_retrieve_templates": "Невозможно получить шаблоны",
-    "admin/unable_to_write_email_config": "Невозможно записать в файл core/email.php. Пожалуйста, проверьте права доступа к файлам.",
     "admin/unknown": "Неизвестно",
     "admin/unlink": "Развязать",
     "admin/unlink_account_confirm": "Вы уверены что хотите принудительно отвязать этот провайдер от этого пользователя?",
@@ -1225,5 +1224,6 @@
     "installer/database_connection_failed": "Не удалось подключиться к датабазе:<br>{{message}}",
     "admin/https_port_80": "Похоже вы используйте HTTPS на порте 80, что скорее всего не правда. Если вы используете Cloudflare, не забудьте сделать TLS шифрование на Полное (строгое). Если у вас свой прокси, настройте его для отправки X-Forwarded-Port заголовка.",
     "admin/group_sync_no_results_warning": "Правила синхронизации групп настроены, но нет изменений которые были сообщены. Это может произойти из-за не правильной настройки.",
-    "installer/config_write_failed": "Не удалось написать в конфиг файл: {{message}}"
+    "installer/config_write_failed": "Не удалось написать в конфиг файл: {{message}}",
+    "user/avatar_set_successfully": "Аватарка успешно поставлена."
 }

@@ -157,11 +157,7 @@ class Forum_Module extends Module {
             ]
         );
 
-        require_once ROOT_PATH . '/modules/Forum/hooks/DeleteUserForumHook.php';
         EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
-
-        require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
-        require_once ROOT_PATH . '/modules/Forum/hooks/MentionsHook.php';
 
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
@@ -180,7 +176,6 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', false, 15);
 
-        require_once(ROOT_PATH . '/modules/Forum/hooks/CloneGroupForumHook.php');
         EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
@@ -251,7 +246,6 @@ class Forum_Module extends Module {
         // Widgets
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Latest posts
-            require_once(ROOT_PATH . '/modules/Forum/widgets/LatestPostsWidget.php');
             $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
         }
 

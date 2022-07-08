@@ -332,9 +332,10 @@ class Core_Module extends Module {
             $language->get('admin', 'announcement_hook_info'),
             [
                 'announcement_id' => $language->get('admin', 'announcement_id'),
-                'created_by' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
                 'header' => $language->get('admin', 'header'),
                 'message' => $language->get('admin', 'message'),
+                'avatar_url' => $language->get('user', 'avatar'),
             ]
         );
 
@@ -537,12 +538,10 @@ class Core_Module extends Module {
 
         // Minecraft Integration
         if (defined('MINECRAFT') && MINECRAFT === true) {
-            require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/Integrations/MinecraftIntegration.php");
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
-        require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
-
+        // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
@@ -554,8 +553,12 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', false, 15);
 
-        require_once(ROOT_PATH . '/modules/Core/hooks/CloneGroupHook.php');
         EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
+
+        Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
+        Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
+        Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
+        Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
     }
 
     public static function getDashboardGraphs(): array {
@@ -679,7 +682,6 @@ class Core_Module extends Module {
         // Widgets - only load if on a widget staffcp page or the frontend
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
-            require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
             $cache->setCache('social_media');
             $fb_url = $cache->retrieve('facebook');
             if ($fb_url) {
@@ -687,7 +689,6 @@ class Core_Module extends Module {
             }
 
             // Twitter
-            require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
             $twitter = $cache->retrieve('twitter');
 
             if ($twitter) {
@@ -696,23 +697,18 @@ class Core_Module extends Module {
             }
 
             // Profile Posts
-            require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
             $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
             // Online staff
-            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
             $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
 
             // Online users
-            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
             $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
 
             // Online users
-            require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
             $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
 
             // Statistics
-            require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
             $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
@@ -721,7 +717,6 @@ class Core_Module extends Module {
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
-            require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
             EventHandler::registerListener('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
@@ -1534,7 +1529,6 @@ class Core_Module extends Module {
             }
         }
 
-        require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 

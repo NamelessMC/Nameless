@@ -6,6 +6,7 @@
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
+ * @deprecated Use DB class. Will be removed in 2.1.0
  */
 class Queries {
 

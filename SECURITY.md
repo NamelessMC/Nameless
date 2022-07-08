@@ -10,12 +10,12 @@ The following NamelessMC releases are supported by the development team
 |---------------| ------------------ |
 | 2.0.0-pr13    | :white_check_mark: |
 | <= 2.0.0-pr12 | :x:                |
-| 1.0.21        | :white_check_mark: |
-| <= 1.0.20     | :x:                |
+| 1.0.22        | :white_check_mark: |
+| <= 1.0.21     | :x:                |
 
 ## Reporting a Vulnerability
 
 Currently, the best place to report a vulnerability is either via email or Discord.
 
-- Email address: samerton7@gmail.com (temporary - we'll get a fancy one set up in the near future)
+- huntr.dev - https://huntr.dev/repos/namelessmc/nameless
 - Discord server: https://discord.gg/nameless -> Samerton#9433

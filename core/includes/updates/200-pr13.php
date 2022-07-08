@@ -9,7 +9,7 @@ return new class extends UpgradeScript {
             // The core/trustedProxies option was mistakenly set during the installer for pr13. If we decide to
             // allow not configuring it, at least it must be in an "unconfigured" state by default so StaffCP
             // can display a warning until it is explicitly set to an empty or non-empty array by the user.
-            Config::set('core/trustedProxies', null);
+            Config::set('core.trustedProxies', null);
         }
 
         $trusted_proxies = Config::get('core.trustedProxies');
@@ -18,7 +18,7 @@ return new class extends UpgradeScript {
             // The core/trustedProxies option was mistakenly set during the installer for pr13. If we decide to
             // allow not configuring it, at least it must be in an "unconfigured" state by default so StaffCP
             // can display a warning until it is explicitly set to an empty or non-empty array by the user.
-            Config::set('core/trustedProxies', null);
+            Config::set('core.trustedProxies', null);
         }
 
         $this->runMigrations();

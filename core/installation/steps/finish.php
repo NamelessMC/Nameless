@@ -5,7 +5,7 @@ if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
 }
 
 try {
-    Config::set('core/installed', true);
+    Config::set('core.installed', true);
 
     unset($_SESSION['admin_setup'], $_SESSION['database_initialized'], $_SESSION['site_initialized']);
 

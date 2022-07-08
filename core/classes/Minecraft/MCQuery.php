@@ -424,9 +424,24 @@ class MCQuery {
         $green1 = hexdec(substr($rgb1, 2, 2));
         $blue1 = hexdec(substr($rgb1, 4, 2));
 
-        $red2 = hexdec(substr($rgb2, 0, 2));
-        $green2 = hexdec(substr($rgb2, 2, 2));
-        $blue2 = hexdec(substr($rgb2, 4, 2));
+        $red2_substr = substr($rgb2, 0, 2);
+        $green2_substr = substr($rgb2, 2, 2);
+        $blue2_substr = substr($rgb2, 4, 2);
+
+        $red2 = 0;
+        if (ctype_xdigit($red2_substr)) {
+            $red2 = hexdec($red2_substr);
+        }
+
+        $green2 = 0;
+        if (ctype_xdigit($green2_substr)) {
+            $green2 = hexdec($green2_substr);
+        }
+
+        $blue2 = 0;
+        if (ctype_xdigit($blue2_substr)) {
+            $blue2 = hexdec($blue2_substr);
+        }
 
         return abs($red1 - $red2) + abs($green1 - $green2) + abs($blue1 - $blue2);
     }

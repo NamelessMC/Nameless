@@ -27,16 +27,8 @@ class AssetResolver extends AssetTree {
         }
 
         foreach ($assets as $asset) {
-            if ($asset == null) {
-                throw new InvalidArgumentException("Attempted to register null asset");
-            }
-
-            $this->validateAsset($asset);
-
-            $this->_assets[$asset] = parent::ASSET_TREE[$asset];
-
-            if ($this->_assets[$asset] == null) {
-                throw new InvalidArgumentException("Asset missing in asset tree");
+            if ($this->validateAsset($asset)) {
+                $this->_assets[$asset] = parent::ASSET_TREE[$asset];
             }
         }
     }
@@ -51,7 +43,7 @@ class AssetResolver extends AssetTree {
         $css = [];
         $js = [];
 
-        $assets = Util::determineOrder(array_map(function($key, $value) {
+        $assets = Util::determineOrder(array_map(static function(string $key, array $value) {
             return [
                 'name' => $key,
                 'after' => $value['depends'] ?? $value['after'] ?? [],
@@ -108,6 +100,10 @@ class AssetResolver extends AssetTree {
             foreach ($asset['js'] as $jsFile) {
                 $js[] = $this->buildPath($jsFile, 'js');
             }
+        }
+
+        if (!in_array($name, $this->_assets)) {
+            $this->_assets[$name] = $asset;
         }
     }
 

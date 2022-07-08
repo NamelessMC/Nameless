@@ -209,7 +209,7 @@ class Log extends Instanceable {
      * @return bool Return true or false if inserted into the database.
      */
     public function log(string $action, string $info = '', ?int $user = null): bool {
-        if ($user == null) {
+        if ($user === null) {
             $userTemp = new User();
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }

@@ -87,7 +87,7 @@ if (Input::exists()) {
                     // Config value
                     if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
                         if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                            Config::set('core/captcha', true);
+                            Config::set('core.captcha', true);
                         } else {
                             $errors = [$language->get('admin', 'config_not_writable')];
                         }

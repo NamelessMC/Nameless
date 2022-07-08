@@ -44,32 +44,30 @@
                             {include file='includes/alerts.tpl'}
 
                             {if count($ALL_LABEL_TYPES)}
-                            {foreach from=$ALL_LABEL_TYPES item=label_type name=label_list}
-                            <div class="row">
-                                <div class="col-md-9">
-                                    {$label_type.name}
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="float-md-right">
-                                        <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
-                                        <button {if $label_type.usages <
-                                            1}onclick="showDeleteModal('{$label_type.delete_link}')" {/if}
-                                            class="btn btn-danger btn-sm" {if $label_type.usages <
-                                            1}disabled{/if}>{$DELETE}</button>
+                                {foreach from=$ALL_LABEL_TYPES item=label_type name=label_list}
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        {$label_type.name}
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="float-md-right">
+                                            <a href="{$label_type.edit_link}" class="btn btn-info btn-sm">{$EDIT}</a>
+                                            <button {if $label_type.usages <
+                                                1}onclick="showDeleteModal('{$label_type.delete_link}')" {/if}
+                                                class="btn btn-danger btn-sm" {if $label_type.usages > 0}disabled{/if}>{$DELETE}</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        {if !$smarty.foreach.label_list.last}
-                        <hr />
-                        {/if}
-                        {/foreach}
-                        {else}
-                        <p>{$NO_LABEL_TYPES}</p>
-                        {/if}
 
+                                {if !$smarty.foreach.label_list.last}
+                                    <hr />
+                                {/if}
+                            {/foreach}
+                            {else}
+                                <p>{$NO_LABEL_TYPES}</p>
+                            {/if}
+                        </div>
                     </div>
-                </div>
 
                 <!-- Spacing -->
                 <div style="height:1rem;"></div>

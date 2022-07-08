@@ -535,7 +535,6 @@
     "admin/unable_to_retrieve_modules": "Module können nicht abgerufen werden",
     "admin/unable_to_retrieve_nameless_news": "Die neuesten Nachrichten konnten nicht abgerufen werden",
     "admin/unable_to_retrieve_templates": "Templates können nicht abgerufen werden",
-    "admin/unable_to_write_email_config": "In die Datei core/email.php kann nicht geschrieben werden. Bitte überprüfe die Dateiberechtigungen.",
     "admin/unknown": "Unbekannt",
     "admin/unlink": "Unlink",
     "admin/unlink_account_confirm": "Bist du sicher, dass du diesen Anbieter zwangsweise von diesem Benutzer trennen willst?",
@@ -599,7 +598,7 @@
     "api/username_updated": "Benutzername erfolgreich aktualisiert",
     "emails/change_password_message": "Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert haben, kannst du diese E-Mail bedenkenlos löschen.",
     "emails/change_password_subject": "Passwort vergessen",
-    "emails/forum_topic_reply_message": "{{author}} hat auf ein Thema geantwortet, dem Sie folgen. Content: {{content}}",
+    "emails/forum_topic_reply_message": "{{author}} hat auf ein Thema geantwortet, dem du folgst. Content: {{content}}",
     "emails/forum_topic_reply_subject": "{{author}} hat geantwortet {{topic}}",
     "emails/greeting": "Hey,",
     "emails/register_message": "Danke für deine Registration! Um deine Registration abzuschließen klicke auf folgenden Link:",
@@ -612,7 +611,7 @@
     "errors/403_title": "Entschuldige!",
     "errors/404_back": "Zurück",
     "errors/404_content": "Wir konnten diese Seite nicht finden.",
-    "errors/404_error": "Wenn du glaubst das dies ein Fehler ist, Kontaktieren einen Administrator",
+    "errors/404_error": "Wenn du glaubst das dies ein Fehler ist, kontaktiere einen Administrator",
     "errors/404_home": "Startseite",
     "errors/404_title": "Entschuldige!",
     "errors/fatal_error": "Fataler Fehler",
@@ -1057,7 +1056,7 @@
     "user/username_required": "Bitte gebe einen Nutzernamen an.",
     "user/users_to_required": "Bitte gib einige Empfänger ein",
     "user/uuid_already_exists": "Deine UUID existiert bereits, was bedeutet, dass dieser Minecraft-Account bereits registriert ist.",
-    "user/validate_account_command": "Um die Registrierung abzuschließen, führe bitte den Befehl /verify {{command}} ingame aus.",
+    "user/validate_account_command": "Um die Registrierung abzuschließen, führe bitte den Befehl {{command}} ingame aus.",
     "user/validation_complete": "Dein Account wurde verifiziert. Du kannst dich nun anmelden.",
     "user/validation_error": "Mit deinem Account stimmt etwas nicht. Bitte Benachrichtige einen Administrator.",
     "user/verification_failed": "Verifikation fehlgeschlagen.",
@@ -1225,5 +1224,6 @@
     "installer/database_connection_failed": "Verbindung zur Datenbank fehlgeschlagen:<br>{{message}}",
     "admin/debugging_enabled": "Wenn Debugging aktiviert ist, können sensible Informationen für unbefugte Besucher zugänglich sein. Debugging sollte nur für die Entwicklung verwendet werden, nicht auf öffentlichen Seiten.",
     "admin/https_port_80": "Es sieht so aus, als ob du HTTPS auf Port 80 verwendest, was mit ziemlicher Sicherheit nicht der Fall ist. Wenn du Cloudflare verwendest, stelle sicher, dass du den TLS-Verschlüsselungsmodus auf Full (strict) gesetzt hast. Wenndu deine eigene Proxy verwendest, konfiguriere ihn bitte so, dass er den X-Forwarded-Port-Header sendet.",
-    "admin/group_sync_no_results_warning": "Gruppensynchronisierungsregeln sind eingerichtet, aber es wurden keine Änderungen gemeldet. Dies könnte auf eine Fehlkonfiguration hindeuten."
+    "admin/group_sync_no_results_warning": "Gruppensynchronisierungsregeln sind eingerichtet, aber es wurden keine Änderungen gemeldet. Dies könnte auf eine Fehlkonfiguration hindeuten.",
+    "user/avatar_set_successfully": "Avatar erfolgreich gesetzt."
 }

@@ -262,7 +262,6 @@
     "admin/twitter_dark_theme": "使用Twitter黑主題?",
     "admin/twitter_url": "Twitter 網址",
     "admin/type": "類型",
-    "admin/unable_to_write_email_config": "無法寫入<strong>core/email.php</strong>，請檢查權限。",
     "admin/unknown": "未知",
     "admin/unsafe_html": "允許使用不安全的 HTML?",
     "admin/unsafe_html_warning": "啟用此選項表示你可以使用任何的HTML標籤，包括未加密的JavaScript，請確定HTML是安全的再開啟",

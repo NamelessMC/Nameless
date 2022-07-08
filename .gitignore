@@ -1,6 +1,5 @@
 /.idea/
 /core/config.php
-/core/email.php
 /cache
 /.vscode/
 **/.DS_STORE

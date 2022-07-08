@@ -15,9 +15,9 @@ class Discord {
     private static bool $_is_bot_setup;
 
     /**
-     * @var int|null The ID of this website's Discord server
+     * @var string|null The ID of this website's Discord server
      */
-    private static ?int $_guild_id;
+    private static ?string $_guild_id;
 
     /**
      * @var Language Instance of Language class for translations
@@ -52,7 +52,7 @@ class Discord {
         }
 
         $integrationUser = $user->getIntegration('Discord');
-        if ($integrationUser == null || !$integrationUser->isVerified()) {
+        if ($integrationUser === null || !$integrationUser->isVerified()) {
             return false;
         }
 
@@ -147,11 +147,11 @@ class Discord {
     }
 
     /**
-     * @return int|null Discord guild ID for this site
+     * @return string|null Discord guild ID for this site
      */
-    public static function getGuildId(): ?int {
+    public static function getGuildId(): ?string {
         if (!isset(self::$_guild_id)) {
-            self::$_guild_id = (int) Util::getSetting('discord');
+            self::$_guild_id = (string) Util::getSetting('discord');
         }
 
         return self::$_guild_id;

@@ -48,7 +48,7 @@ if (!isset($_GET['integration'])) {
 } else {
     // View integration settings
     $integration = $integrations->getIntegration($_GET['integration']);
-    if ($integration == null) {
+    if ($integration === null) {
         Redirect::to(URL::build('/panel/core/integrations'));
     }
 

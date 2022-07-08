@@ -315,7 +315,7 @@ if (Input::exists()) {
                 'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
                 'post_id' => $last_post_id,
-                'available_hooks' => $available_hooks == null ? [] : $available_hooks
+                'available_hooks' => $available_hooks === null ? [] : $available_hooks
             ]);
 
             // Alerts + Emails
@@ -362,7 +362,7 @@ if (Input::exists()) {
                 $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
-                        ['email' => Output::getClean($user_info['email']), 'name' => Output::getClean($user_info['username'])],
+                        ['email' => $user_info['email'], 'name' => $user_info['username']],
                         $subject,
                         $message,
                         $reply_to

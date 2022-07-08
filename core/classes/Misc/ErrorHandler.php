@@ -30,6 +30,7 @@ class ErrorHandler {
             return false;
         }
 
+        $log_entry = $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string;
         switch ($error_number) {
             case E_USER_ERROR:
                 // Pass execution to new error handler.
@@ -39,15 +40,15 @@ class ErrorHandler {
                 break;
 
             case E_USER_WARNING:
-                self::logError('warning', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('warning', $log_entry);
                 break;
 
             case E_USER_NOTICE:
-                self::logError('notice', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('notice', $log_entry);
                 break;
 
             default:
-                self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('other', $log_entry);
                 break;
         }
 
@@ -71,7 +72,7 @@ class ErrorHandler {
         $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
 
         // Create a log entry for viewing in staffcp
-        self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
+        self::logError('fatal', $error_file . '(' . $error_line . '): ' . $error_string);
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::shouldUsePlainText()) {
@@ -148,7 +149,7 @@ class ErrorHandler {
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             // TODO: should we skip the 2 frames that are from the "new User()" above?
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
-            'CURRENT_URL' => HttpUtils::getProtocol() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+            'CURRENT_URL' => HttpUtils::getProtocol() . '://' . HttpUtils::getHeader('Host') . $_SERVER['REQUEST_URI'],
             'FRAMES' => $frames,
             'SKIP_FRAMES' => $skip_frames,
             'BACK' => $language->get('general', 'back'),
@@ -188,7 +189,7 @@ class ErrorHandler {
             }
 
             if ($dir_exists) {
-                file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
+                file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), '[' . date('Y-m-d, H:i:s') . '] ' . $contents . PHP_EOL, FILE_APPEND);
             }
         } catch (Exception $ignored) {
         }
@@ -250,7 +251,7 @@ class ErrorHandler {
     public static function catchShutdownError(): void {
         $error = error_get_last();
 
-        if ($error == null) {
+        if ($error === null) {
             return;
         }
 

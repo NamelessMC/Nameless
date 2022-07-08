@@ -27,7 +27,8 @@ foreach ($classes as $class) {
 
 /** @var Seeder[] $seeders */
 $seeders = array_map(static function (string $class) {
-    return new (explode('.', $class)[0]);
+    $class = explode('.', $class)[0];
+    return new $class();
 }, array_slice($classes, 1));
 
 $faker = Faker\Factory::create();

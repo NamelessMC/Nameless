@@ -32,7 +32,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // Ensure user reporting has website account, and has not been banned
-        $user_reporting = $api->getUser('id', Output::getClean($_POST['reporter']));
+        $user_reporting = $api->getUser('id', $_POST['reporter']);
         $user_reporting_data = $user_reporting->data();
 
         if ($user_reporting_data->isbanned) {
@@ -59,7 +59,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             }
             if ((
                 $report->reported_id != null && $report->reported_id == $user_reported_id)
-                || (isset($_POST['reported_uid']) && $report->reported_uuid == Output::getClean($_POST['reported_uid']))
+                || (isset($_POST['reported_uid']) && $report->reported_uuid == $_POST['reported_uid'])
             ) {
                 $api->throwError(CoreApiErrors::ERROR_OPEN_REPORT_ALREADY);
             }
@@ -77,10 +77,10 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             'type' => Report::ORIGIN_API,
             'reporter_id' => $user_reporting_data->id,
             'reported_id' => $user_reported_id,
-            'report_reason' => Output::getClean($_POST['content']),
+            'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
-            'reported_mcname' => $_POST['reported_username'] ? Output::getClean($_POST['reported_username']) : $reported_user->getDisplayname(),
-            'reported_uuid' => $_POST['reported_uid'] ? Output::getClean($_POST['reported_uid']) : $reported_uuid ?? 'none',
+            'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
+            'reported_uuid' => $_POST['reported_uid'] ? $_POST['reported_uid'] : $reported_uuid ?? 'none',
         ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);

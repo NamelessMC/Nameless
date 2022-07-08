@@ -89,7 +89,7 @@ class AvatarSource {
             }
         }
 
-        return "https://avatars.dicebear.com/api/initials/{$data->username}.svg?size={$size}";
+        return "https://avatars.dicebear.com/api/initials/{$data->username}.png?size={$size}";
     }
 
     /**
@@ -137,7 +137,7 @@ class AvatarSource {
      */
     public static function setActiveSource(string $name): void {
         $source = self::getSourceByName($name);
-        if ($source == null) {
+        if ($source === null) {
             $source = self::getSourceByName('cravatar');
         }
 

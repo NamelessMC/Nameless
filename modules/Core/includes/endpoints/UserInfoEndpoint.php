@@ -68,7 +68,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
 
         $integrations_array = [];
         foreach ($user->getIntegrations() as $key => $integrationUser) {
-            if ($integrationUser->data()->identifier == null && $integrationUser->data()->username == null) {
+            if ($integrationUser->data()->identifier === null && $integrationUser->data()->username === null) {
                 continue;
             }
 

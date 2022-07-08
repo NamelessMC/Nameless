@@ -20,6 +20,12 @@ class MinecraftIntegration extends IntegrationBase {
         parent::__construct();
     }
 
+    private function flashVerifyCommand(string $verifaction_code): void {
+        $verification_command = Output::getClean(Util::getSetting('minecraft_verify_command', '/verify'));
+        $message = $this->_language->get('user', 'validate_account_command', ['command' => $verification_command . ' ' . $verification_code]);
+        Session::flash('connections_success', $message);
+    }
+
     public function onLinkRequest(User $user) {
         $username = $user->data()->username;
 
@@ -44,13 +50,12 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, $username, false, $code);
 
-        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean('/verify ' . $code)]));
+        $this->flashVerifyCommand($code);
     }
 
     public function onVerifyRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
-
-        Session::flash('connections_success', $this->_language->get('user', 'validate_account_command', ['command' => Output::getClean('/verify ' . $integrationUser->data()->code)]));
+        $this->flashVerifyCommand($integrationUser->data()->code);
     }
 
     public function onUnlinkRequest(User $user) {
@@ -195,7 +200,7 @@ class MinecraftIntegration extends IntegrationBase {
         if (Util::getSetting('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
         } else {
-            return $this->getOfflineModeUuid($username);
+            return ProfileUtils::getOfflineModeUuid($username);
         }
     }
 
@@ -223,22 +228,5 @@ class MinecraftIntegration extends IntegrationBase {
         }
 
         return [];
-    }
-
-    /**
-     * Generate an offline minecraft UUID v3 based on the case sensitive player name.
-     *
-     * @param string $username
-     * @return array
-     */
-    public function getOfflineModeUuid(string $username): array {
-        $data = hex2bin(md5("OfflinePlayer:" . $username));
-        $data[6] = chr(ord($data[6]) & 0x0f | 0x30);
-        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-
-        return [
-            'uuid' => bin2hex($data),
-            'username' => $username
-        ];
     }
 }

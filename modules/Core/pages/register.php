@@ -88,7 +88,7 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
     $mcassoc->enableInsecureMode();
 
-    require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+    require('../includes/run_mcassoc.php');
     die();
 }
 
@@ -261,7 +261,7 @@ if (Input::exists()) {
                         $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
                         $mcassoc->enableInsecureMode();
 
-                        require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+                        require('../includes/run_mcassoc.php');
 
                     } else {
                         // Disabled
