@@ -714,7 +714,6 @@
     "installer/outgoing_email": "Email de sortie (addresse mail d'envoie)",
     "installer/password": "Mot de passe",
     "installer/passwords_must_match": "Vos mots de passe doivent correspondre.",
-    "installer/pre-release_warning": "Veuillez noter que ce pre-release n'est pas destinée à être utilisée sur un site public.",
     "installer/proceed": "Procéder",
     "installer/requirements": "Exigences :",
     "installer/requirements_error": "Vous devez avoir installé toutes les extensions requises, et avoir les permissions correctes définies, afin de procéder à l’installation.",

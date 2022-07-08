@@ -802,7 +802,6 @@
     "installer/password": "Senha",
     "installer/passwords_must_match": "Suas senhas devem corresponder.",
     "installer/pre-release": "pre-release",
-    "installer/pre-release_warning": "Por favor, note que esta pre-release não se destina ao uso em um site público.",
     "installer/proceed": "Prosseguir",
     "installer/reload": "Recarregar",
     "installer/reload_page": "Recarregar a página",

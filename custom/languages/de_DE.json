@@ -768,7 +768,6 @@
     "installer/password": "Passwort",
     "installer/passwords_must_match": "Ihre Passwörter müssen übereinstimmen.",
     "installer/pre-release": "Vorab Version (Pre-Release)",
-    "installer/pre-release_warning": "Bitte beachten Sie, dass diese Vorabversion nicht für den Einsatz auf einer öffentlichen Website bestimmt ist.",
     "installer/proceed": "Fortfahren",
     "installer/reload": "Neuladen",
     "installer/reload_page": "Seite neuladen",

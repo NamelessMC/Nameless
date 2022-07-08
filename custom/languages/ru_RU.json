@@ -815,7 +815,6 @@
     "installer/password": "Пароль",
     "installer/passwords_must_match": "Ваши пароли должны совпадать.",
     "installer/pre-release": "предрелиз",
-    "installer/pre-release_warning": "Внимание! Эта версия не предназначена для повседневного использования.",
     "installer/proceed": "Продолжить",
     "installer/reload": "Сброс",
     "installer/reload_page": "Перезагрузить страницу",

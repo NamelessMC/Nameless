@@ -808,7 +808,6 @@
     "installer/password": "Heslo",
     "installer/passwords_must_match": "Vaše heslá sa nezhodujú.",
     "installer/pre-release": "pre-release",
-    "installer/pre-release_warning": "Upozorňujeme, že toto predbežné vydanie nie je určené na použitie na verejnej stránke.",
     "installer/proceed": "Pokračovať",
     "installer/reload": "Znovu načítať",
     "installer/reload_page": "Znovu načítať stránku",

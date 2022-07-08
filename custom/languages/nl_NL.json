@@ -783,7 +783,6 @@
     "installer/password": "Wachtwoord",
     "installer/passwords_must_match": "Uw wachtwoorden komen niet overeen.",
     "installer/pre-release": "pre-release",
-    "installer/pre-release_warning": "Houd er rekening mee dat deze pre-release niet voor een openbare site bedoeld is.",
     "installer/proceed": "Doorgaan",
     "installer/reload": "Herlaad",
     "installer/reload_page": "Herlaad pagina",

@@ -772,7 +772,6 @@
     "installer/password": "รหัสผ่าน",
     "installer/passwords_must_match": "รหัสผ่านของคุณต้องตรงกัน",
     "installer/pre-release": "pre-release",
-    "installer/pre-release_warning": "โปรดทราบว่ารุ่นก่อนเผยแพร่นี้ไม่ได้มีไว้สำหรับใช้บนเว็บไซต์สาธารณะ",
     "installer/proceed": "ดำเนินการ",
     "installer/reload": "โหลดซ้ำ",
     "installer/reload_page": "โหลดหน้าใหม่",

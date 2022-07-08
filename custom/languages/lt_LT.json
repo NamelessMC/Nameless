@@ -642,7 +642,6 @@
     "installer/password": "Slaptažodis",
     "installer/passwords_must_match": "Jūsų slaptažodžiai turi atitikti.",
     "installer/pre-release": "Išankstinis išleidimas",
-    "installer/pre-release_warning": "Atkreipkite dėmesį, kad šis išankstinis leidimas nėra skirtas naudoti viešoje svetainėje.",
     "installer/proceed": "Tęsti",
     "installer/requirements": "Reikalavimai:",
     "installer/requirements_error": "Jei norite tęsti diegimą, turite turėti visus reikalingus plėtinius ir nustatyti teisingus leidimus.",

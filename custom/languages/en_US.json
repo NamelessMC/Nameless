@@ -817,7 +817,6 @@
     "installer/password": "Password",
     "installer/passwords_must_match": "Your passwords must match.",
     "installer/pre-release": "pre-release",
-    "installer/pre-release_warning": "Please note that this pre-release is not intended for use on a public site.",
     "installer/proceed": "Proceed",
     "installer/reload": "Reload",
     "installer/reload_page": "Reload page",
