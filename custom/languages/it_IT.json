@@ -727,7 +727,6 @@
     "installer/password": "Password",
     "installer/passwords_must_match": "Le password devono corrispondere.",
     "installer/pre-release": "Pre-Rilascio",
-    "installer/pre-release_warning": "Si prega di notare che questo è un pre-rilascio e non è pensato per l'uso su un sito pubblico.",
     "installer/proceed": "Procedi",
     "installer/reload": "Ricarica",
     "installer/reload_page": "Ricarica la pagina",

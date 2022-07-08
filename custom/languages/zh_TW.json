@@ -387,7 +387,6 @@
     "installer/password": "密碼",
     "installer/passwords_must_match": "密碼不相同。",
     "installer/pre-release": "測試版",
-    "installer/pre-release_warning": "請注意! 不建議您使用此版本於正式網站。",
     "installer/proceed": "繼續",
     "installer/requirements": "必要條件:",
     "installer/requirements_error": "您必須安裝所有必要條件，並設置正確才能繼續安裝。",

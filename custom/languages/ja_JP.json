@@ -816,7 +816,6 @@
     "installer/password": "パスワード",
     "installer/passwords_must_match": "パスワードが一致していません。",
     "installer/pre-release": "プレリリース",
-    "installer/pre-release_warning": "このプレリリースは、公開サイトでの利用を想定していません。",
     "installer/proceed": "続行",
     "installer/reload": "再読み込み",
     "installer/reload_page": "ページを再読み込み",

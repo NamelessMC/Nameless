@@ -798,7 +798,6 @@
     "installer/password": "Contraseña",
     "installer/passwords_must_match": "Sus contraseñas deben coincidir.",
     "installer/pre-release": "antes del lanzamiento",
-    "installer/pre-release_warning": "Tenga en cuenta que esta versión preliminar no está pensada para su uso en un sitio público.",
     "installer/proceed": "Proceder",
     "installer/reload": "Recargar",
     "installer/reload_page": "Recargar la página",

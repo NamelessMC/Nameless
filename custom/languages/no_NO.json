@@ -747,7 +747,6 @@
     "installer/password": "Passord",
     "installer/passwords_must_match": "Passordene dine er ikke like.",
     "installer/pre-release": "beta-utgivelse",
-    "installer/pre-release_warning": "Husk at denne beta-utgivelsen ikke er ment for å brukes på nettsider.",
     "installer/proceed": "Fortsett",
     "installer/reload": "Last inn på nytt",
     "installer/reload_page": "Last inn siden på nytt",

@@ -301,7 +301,6 @@
     "installer/password": "Adgangskode",
     "installer/passwords_must_match": "Dine adgangskoder stemmer ikke overens.",
     "installer/pre-release": "pre-release",
-    "installer/pre-release_warning": "Bemærk, at denne pre-release ikke er beregnet til brug på et offentligt websted.",
     "installer/proceed": "Fortsæt",
     "installer/reload": "Genindlæs",
     "installer/reload_page": "Genindlæs side",

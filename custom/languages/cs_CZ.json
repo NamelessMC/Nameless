@@ -796,7 +796,6 @@
     "installer/password": "Heslo",
     "installer/passwords_must_match": "Vaše hesla se musí shodovat.",
     "installer/pre-release": "předběžné vydání",
-    "installer/pre-release_warning": "Toto předběžné vydání není určen pro použití na veřejném webu.",
     "installer/proceed": "Pokračovat",
     "installer/reload": "Znovu načíst",
     "installer/reload_page": "Znovu načíst stránku",

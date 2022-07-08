@@ -766,7 +766,6 @@
     "installer/password": "Lösenord",
     "installer/passwords_must_match": "Dina lösenord måste matcha.",
     "installer/pre-release": "Förhands-utgivning",
-    "installer/pre-release_warning": "Kom ihåg att detta släppet är inte avsett att användas på en allmän hemsida.",
     "installer/proceed": "Fortsätt",
     "installer/reload": "Ladda om",
     "installer/reload_page": "Ladda om sidan",
