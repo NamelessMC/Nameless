@@ -82,36 +82,28 @@ if (!isset($_GET['view'])) {
 
                 $external = false;
                 $fields = [];
-
-                foreach (GroupSyncManager::getInstance()->getEnabledInjectors() as $injector) {
-                    if (
-                        $injector->getColumnName() == GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName()
-                    ) {
-                        $fields[$injector->getColumnName()] = $_POST[$injector->getColumnName()];
+                $nameless_injector_column = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName();
+                foreach (GroupSyncManager::getInstance()->getEnabledInjectors() as $column_name => $injector) {
+                    if (!$_POST[$column_name]) {
                         continue;
                     }
 
-                    if ($_POST[$injector->getColumnName()]) {
-                        if ($_POST[$injector->getColumnName()] == 0) {
-                            continue;
-                        }
+                    $fields[$column_name] = $_POST[$column_name];
 
-                        $fields[$injector->getColumnName()] = $_POST[$injector->getColumnName()];
+                    if ($column_name !== $nameless_injector_column) {
                         $external = true;
                     }
                 }
 
                 if (!$external) {
                     $errors[] = $language->get('admin', 'at_least_one_external');
+                } else if ($validation->passed()) {
+
+                    DB::getInstance()->insert('group_sync', $fields);
+                    Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
+
                 } else {
-                    if ($validation->passed()) {
-
-                        DB::getInstance()->insert('group_sync', $fields);
-                        Session::flash('api_success', $language->get('admin', 'group_sync_rule_created_successfully'));
-
-                    } else {
-                        $errors = $validation->errors();
-                    }
+                    $errors = $validation->errors();
                 }
             } else {
                 if ($_POST['action'] == 'update') {

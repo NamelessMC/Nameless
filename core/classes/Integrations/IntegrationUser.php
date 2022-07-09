@@ -46,9 +46,7 @@ class IntegrationUser {
      * @return User NamelessMC User that belong to this integration user
      */
     public function getUser(): User {
-        return $this->_user ??= (function (): User {
-            return new User($this->data()->user_id);
-        })();
+        return $this->_user ??= new User($this->data()->user_id);
     }
 
     /**

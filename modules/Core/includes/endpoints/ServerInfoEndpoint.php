@@ -72,7 +72,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             foreach ($_POST['players'] as $uuid => $player) {
                 $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                 if ($integrationUser->exists()) {
-                    $this->updateUsername($integrationUser, $player, $api);
+                    $this->updateUsername($integrationUser, $player);
                     $log = $this->updateGroups($integrationUser, $player);
                     if (count($log)) {
                         $group_sync_log[] = $log;
@@ -90,7 +90,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
     }
 
-    private function updateUsername(IntegrationUser $integrationUser, array $player, Nameless2API $api): void {
+    private function updateUsername(IntegrationUser $integrationUser, array $player): void {
         if ($player['name'] != $integrationUser->data()->username) {
             $integrationUser->update([
                 'username' => Output::getClean($player['name'])
@@ -99,8 +99,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
         if (Util::getSetting('username_sync')) {
             $user = $integrationUser->getUser();
-            if (!$user->exists() ||
-                $player['name'] == $user->data()->username) {
+            if (!$user->exists() || $player['name'] == $user->data()->username) {
                 return;
             }
 
