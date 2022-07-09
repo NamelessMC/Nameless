@@ -57,6 +57,7 @@
 - Fix `createAnnouncement` webhook
 - Don't cast Discord snowflakes to integers (would break on 32bit systems)
 - Fix `AssetResolver` adding an asset more than once if several assets depend on it
+- Fix TinyMCE spoiler plugin not being added properly if a custom path is set
 - Fix error when creating group sync rules with only 1 external service
 
 ### Deprecated
