@@ -1223,5 +1223,6 @@
     "admin/trusted_proxies_not_configured": "{{linkStart}}Důvěryhodné sítě proxy{{linkEnd}} nejsou nastaveny, IP bany nemusí správně fungovat.",
     "admin/debugging_enabled": "Ladění je povoleno, nepovoleným návštěvníkům mohou být zobrazeny citlivé informacy. Ladění by mělo být použito pouze při vývoji, ne na veřejných webech.",
     "admin/https_port_80": "Vypadá to, že používáte HTTPS na portu 80, což nejspíše není pravda. Pokud používáte Cloudflare, nezapomeňte nastavit šifrování TLS na Full (strict). Pokud máte svou vlastní síť proxy, nastavte ji tak, aby posílala hlavičku X-Forwarded-Port.",
-    "admin/group_sync_no_results_warning": "Pravidla synchronizace skupin jsou nastavena, ale nebyly nahlášeny žádné změny. Toto může znamenat nesprávné nastavení."
+    "admin/group_sync_no_results_warning": "Pravidla synchronizace skupin jsou nastavena, ale nebyly nahlášeny žádné změny. Toto může znamenat nesprávné nastavení.",
+    "user/avatar_set_successfully": "Avatar úspěšně nastaven."
 }
