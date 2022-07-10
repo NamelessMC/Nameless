@@ -194,24 +194,31 @@ final class GroupSyncManager extends Instanceable {
                     continue;
                 }
 
-                if (
-                    in_array($sending_group_id, $group_ids)
-                    && !in_array($nameless_group_id, $user->getAllGroupIds())
-                ) {
-                    // Attempt to add group if this group id was sent in the broadcastChange() method
-                    // and if they don't have the namelessmc equivilant of it
-                    if ($injector->addGroup($user, $injector_group_id)) {
-                        $modified[$injector_column][] = $injector_group_id;
-                        $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
-                    }
+                if (in_array($sending_group_id, $group_ids)) {
+                    // echo 'adding ' . $injector_column . ' of ' . $injector_group_id . '(website ' . $nameless_group_id . ') to ' . $user->data()->username . PHP_EOL;
+                    // TODO: add bot status of "nochange" @ https://canary.discord.com/channels/246705793066467328/434751012428054530/995503906350174290
+                    //if (!in_array($nameless_group_id, $user_group_ids)) {
+                        // Attempt to add group if this group id was sent in the broadcastChange() method
+                        // and if they don't have the namelessmc equivilant of it
+                        if ($injector->addGroup($user, $injector_group_id)) {
+                            $modified[$injector_column][] = $injector_group_id;
+                            $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
+                        }
+                    //}
                 } else {
                     foreach ($rules as $item) {
-                        if (in_array($item->{$sending_injector->getColumnName()}, $group_ids)) {
+                        if (in_array($rule->{$sending_injector->getColumnName()}, $group_ids)) {
                             if ($item->{$namelessmc_column} == $rule->{$namelessmc_column}) {
                                 continue 2;
                             }
                         }
                     }
+
+//                    if (!in_array($nameless_group_id, $user_group_ids)) {
+//                        continue;
+//                    }
+
+                    // echo 'removing ' . $injector_column . ' of ' . $injector_group_id . ' from ' . $user->data()->username . PHP_EOL;
 
                     // Attempt to remove this group if it doesn't have multiple rules, or if the group ids
                     // list sent to broadcastChange() was empty - NOT both

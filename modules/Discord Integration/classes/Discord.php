@@ -25,9 +25,9 @@ class Discord {
     private static Language $_discord_integration_language;
 
     /**
-     * @var array|string[] Valid responses from the Discord bot
+     * @var array Valid responses from the Discord bot
      */
-    private static array $_valid_responses = [
+    private const VALID_RESPONSES = [
         'fullsuccess',
         'badparameter',
         'error',
@@ -71,7 +71,7 @@ class Discord {
         }
 
         if ($result == 'partsuccess') {
-            Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'));
+            Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'), $user->data()->id);
             return true;
         }
 
@@ -174,7 +174,7 @@ class Discord {
 
         $response = $client->contents();
 
-        if (in_array($response, self::$_valid_responses)) {
+        if (in_array($response, self::VALID_RESPONSES)) {
             return $response;
         }
 
@@ -214,7 +214,7 @@ class Discord {
             ];
         }
 
-        if (in_array($result, self::$_valid_responses)) {
+        if (in_array($result, self::VALID_RESPONSES)) {
             return [self::getLanguageTerm('discord_bot_error_' . $result)];
         }
 
