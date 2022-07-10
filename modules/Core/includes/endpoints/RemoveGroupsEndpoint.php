@@ -33,7 +33,7 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
         GroupSyncManager::getInstance()->broadcastChange(
             $user,
             NamelessMCGroupSyncInjector::class,
-            $removed_groups
+            $user->getAllGroupIds()
         );
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated')]);
