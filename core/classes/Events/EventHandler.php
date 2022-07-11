@@ -70,10 +70,9 @@ class EventHandler {
      *
      * @param string $event Event name to hook into (must be registered with `registerEvent()`).
      * @param callable $callback Listener callback to execute.
-     * @param bool $advanced When true, the callback will be given specific parameters as per its method declaration, otherwise it will be given the raw $params array.
      * @param int $priority Execution priority - higher gets executed first
      */
-    public static function registerListener(string $event, callable $callback, bool $advanced = false, int $priority = 10): void {
+    public static function registerListener(string $event, callable $callback, int $priority = 10): void {
         if (!isset(self::$_events[$event])) {
             // Silently create event if it doesn't exist, maybe throw exception instead?
             self::registerEvent($event, $event);
@@ -81,7 +80,6 @@ class EventHandler {
 
         self::$_events[$event]['listeners'][] = [
             'callback' => $callback,
-            'advanced' => $advanced,
             'priority' => $priority,
         ];
     }
@@ -112,41 +110,7 @@ class EventHandler {
             });
 
             foreach ($listeners as $listener) {
-                $callback = $listener['callback'];
-
-                if ($listener['advanced'] === false) {
-                    $response = $callback($params);
-                } else {
-                    $toPass = [];
-
-                    foreach ((new ReflectionMethod($callback))->getParameters() as $callbackParam) {
-                        if (!isset($params[$callbackParam->getName()])) {
-                            throw new InvalidArgumentException(
-                                "Callable parameter: {$callbackParam->getName()}, is not set in event params (event: $event)"
-                            );
-                        }
-
-                        if ($callbackParam->getType() != null) {
-                            $eventParamType = get_debug_type($params[$callbackParam->getName()]);
-
-                            if ($callbackParam->getType()->getName() != $eventParamType) {
-                                throw new InvalidArgumentException(
-                                    "{$callbackParam->getName()} expected to be {$callbackParam->getType()->getName()}, but found: $eventParamType"
-                                );
-                            }
-
-                            if (!$callbackParam->getType()->isBuiltin()) {
-                                throw new InvalidArgumentException(
-                                    "Callable parameter must be a built-in type, parameter {$callbackParam->getName()} expects: {$callbackParam->getType()->getName()}"
-                                );
-                            }
-                        }
-
-                        $toPass[] = $params[$callbackParam->getName()];
-                    }
-
-                    $response = $callback(...$toPass);
-                }
+                $response = $listener['callback']($params);
 
                 if (self::$_events[$event]['shouldReturn'] && $response) {
                     $params = $response;

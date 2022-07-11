@@ -83,6 +83,9 @@
 - `Util::renderEmojis()` is deprecated, use `Text::renderEmojis()` instead
 - `Util::bold()` is deprecated, use `Text::bold()` instead
 
+### Breaking Changes
+- "Advanced" event listeners have been removed.
+
 
 ## [2.0.0 pr-13](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr12...v2.0.0-pr13) - 2022-06-04
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/14)
