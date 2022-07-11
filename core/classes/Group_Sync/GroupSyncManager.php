@@ -207,7 +207,7 @@ final class GroupSyncManager extends Instanceable {
                     //}
                 } else {
                     foreach ($rules as $item) {
-                        if (in_array($rule->{$sending_injector->getColumnName()}, $group_ids)) {
+                        if (in_array($item->{$sending_injector->getColumnName()}, $group_ids)) {
                             if ($item->{$namelessmc_column} == $rule->{$namelessmc_column}) {
                                 continue 2;
                             }

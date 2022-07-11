@@ -29,6 +29,7 @@ class Discord {
      */
     private const VALID_RESPONSES = [
         'fullsuccess',
+        'partsuccess',
         'badparameter',
         'error',
         'invguild',
