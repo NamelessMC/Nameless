@@ -23,17 +23,14 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
             $api->throwError(Nameless2API::ERROR_INVALID_POST_CONTENTS);
         }
 
-        $removed_groups = [];
         foreach ($groups as $group) {
-            if ($user->removeGroup($group)) {
-                $removed_groups[] = $group;
-            }
+            $user->removeGroup($group);
         }
 
         GroupSyncManager::getInstance()->broadcastChange(
             $user,
             NamelessMCGroupSyncInjector::class,
-            $removed_groups
+            $user->getAllGroupIds(),
         );
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'group_updated')]);

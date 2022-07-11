@@ -165,16 +165,16 @@ class Forum_Module extends Module {
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
 
         EventHandler::registerListener('renderPost', 'ContentHook::purify');
-        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', false, 15);
-        EventHandler::registerListener('renderPost', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', false, 10);
-        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', false, 15);
-        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', false, 5);
+        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', false, 15);
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', false, 15);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }

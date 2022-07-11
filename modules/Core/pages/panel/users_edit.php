@@ -173,41 +173,29 @@ if (Input::exists()) {
                     $group_sync_log = [];
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                            $modified = [];
+                            $user_group_ids = $view_user->getAllGroupIds();
+                            $form_groups = $_POST['groups'] ?? [];
 
-                            // Check for new groups to give them which they dont already have
-                            foreach ($_POST['groups'] as $group_id) {
-                                if (!in_array($group_id, $view_user->getAllGroupIds())) {
+                            // Check for new groups to give them which they don't already have
+                            foreach ($form_groups as $group_id) {
+                                if (!in_array($group_id, $user_group_ids)) {
                                     $view_user->addGroup($group_id);
-                                    $modified[] = $group_id;
                                 }
                             }
 
-                            // Check for groups they had, but werent in the $_POST groups
-                            foreach ($view_user->getAllGroupIds() as $group_id) {
-                                $form_groups = $_POST['groups'] ?? [];
+                            // Check for groups they had, but weren't in the $_POST groups
+                            foreach ($user_group_ids as $group_id) {
                                 if (!in_array($group_id, $form_groups)) {
                                     $view_user->removeGroup($group_id);
-                                    $modified[] = $group_id;
                                 }
                             }
 
-                            // Dispatch the modified groups
-                            $group_sync_log = GroupSyncManager::getInstance()->broadcastChange(
+                            // Dispatch groupsync with all of their groups
+                            GroupSyncManager::getInstance()->broadcastChange(
                                 $view_user,
                                 NamelessMCGroupSyncInjector::class,
-                                $modified
+                                $view_user->getAllGroupIds(),
                             );
-                        }
-                    }
-
-                    if (!count($group_sync_log)) {
-                        // TODO: more "dynamic" since we should not assume they don't have other group sync injectors installed by a module
-                        $rules = DB::getInstance()->query(
-                            'SELECT COUNT(*) AS count FROM nl2_group_sync WHERE website_group_id IN (' . implode(', ', $modified) . ') AND discord_role_id IS NOT NULL;'
-                        )->first()->count;
-                        if ($rules > 0) {
-                            Session::flash('edit_user_warnings', $language->get('admin', 'group_sync_no_results_warning'));
                         }
                     }
 

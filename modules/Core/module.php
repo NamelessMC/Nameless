@@ -543,15 +543,15 @@ class Core_Module extends Module {
 
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 10);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', false, 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
 

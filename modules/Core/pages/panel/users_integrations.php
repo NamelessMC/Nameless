@@ -102,6 +102,10 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
                             $integrationUser = new IntegrationUser($integration);
                             $integrationUser->linkIntegration($view_user, Output::getClean(Input::get('identifier')), Output::getClean(Input::get('username')), (bool) Output::getClean(Input::get('verified')), $code);
+
+                            if (Output::getClean(Input::get('verified'))) {
+                                $integrationUser->verifyIntegration();
+                            }
                         } else {
                             // Update existing integration user
                             $integrationUser->update([

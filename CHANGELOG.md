@@ -59,6 +59,7 @@
 - Fix `AssetResolver` adding an asset more than once if several assets depend on it
 - Fix TinyMCE spoiler plugin not being added properly if a custom path is set
 - Fix error when creating group sync rules with only 1 external service
+- Fix website -> Discord group sync issues
 
 ### Deprecated
 *These will be removed in 2.1.0*
@@ -81,6 +82,9 @@
 - `Util::truncate()` is deprecated, use `Text::truncate()` instead
 - `Util::renderEmojis()` is deprecated, use `Text::renderEmojis()` instead
 - `Util::bold()` is deprecated, use `Text::bold()` instead
+
+### Breaking Changes
+- "Advanced" event listeners have been removed.
 
 
 ## [2.0.0 pr-13](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr12...v2.0.0-pr13) - 2022-06-04
