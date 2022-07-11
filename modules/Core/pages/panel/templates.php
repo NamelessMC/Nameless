@@ -56,6 +56,7 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
+            'renderer_x' => 'Renderer: ' . $template->getRenderer(),
             'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
                 ? $language->get('admin', 'template_outdated', [
                     'intendedVersion' => Text::bold(Output::getClean($template->getNamelessVersion())),

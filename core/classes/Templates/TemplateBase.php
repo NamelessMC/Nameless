@@ -9,6 +9,8 @@
  */
 abstract class TemplateBase {
 
+    private array $_variables = [];
+
     /**
      * @var string The template name
      */
@@ -60,6 +62,10 @@ abstract class TemplateBase {
 
     public function assets(): AssetResolver {
         return $this->_assets_resolver ??= new AssetResolver();
+    }
+
+    public function assign(string $key, $value): void {
+        $this->_variables[$key] = $value;
     }
 
     /**
@@ -170,9 +176,16 @@ abstract class TemplateBase {
     }
 
     /**
-     * Render this template with Smarty engine.
+     * @deprecated
      */
     public function displayTemplate(string $template, Smarty $smarty): void {
+        $this->display($template, $smarty);
+    }
+
+    /**
+     * Render this template with Smarty engine.
+     */
+    public function display(string $template, Smarty $smarty): void {
         [$css, $js] = $this->assets()->compile();
 
         // Put the assets at the start of the arrays, so they load first (SBAdmin requires JQuery first, etc.)
@@ -192,7 +205,25 @@ abstract class TemplateBase {
             ]);
         }
 
-        $smarty->display($template);
+        foreach ($this->_variables as $key => $value) {
+            $smarty->assign($key, $value);
+        }
+
+        if ($this->getRenderer() === 'Twig') {
+            $loader = new \Twig\Loader\FilesystemLoader($smarty->getTemplateDir());
+            $twig = new \Twig\Environment($loader, [
+                'cache' => false,
+            ]);
+
+            $file = explode('.tpl', $template)[0] . '.twig';
+            echo $twig->render($file, $smarty->getTemplateVars());
+        } else {
+            if (!str_ends_with($template, '.tpl')) {
+                $template .= '.tpl';
+            }
+
+            $smarty->display($template);
+        }
     }
 
     /**
@@ -211,6 +242,13 @@ abstract class TemplateBase {
      */
     public function getJS(): array {
         return $this->_js;
+    }
+
+    public function getRenderer(): string {
+        if (property_exists($this, '_use_twig') && $this->_use_twig) {
+            return 'Twig';
+        }
+        return 'Smarty';
     }
 
     public function getTemplate(string $template, Smarty $smarty): string {
