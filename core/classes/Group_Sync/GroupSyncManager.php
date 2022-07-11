@@ -177,7 +177,6 @@ final class GroupSyncManager extends Instanceable {
                 $injector_column = $injector->getColumnName();
                 $injector_group_id = $rule->{$injector_column};
                 $sending_group_id = $rule->{$sending_injector->getColumnName()};
-                $nameless_group_id = $rule->{$namelessmc_column};
 
                 // Skip this injector if it doesn't have a group id setup for this rule
                 if ($injector_group_id === null) {
@@ -194,10 +193,8 @@ final class GroupSyncManager extends Instanceable {
                     continue;
                 }
 
-                if (
-                    in_array($sending_group_id, $group_ids)
-                    && !in_array($nameless_group_id, $user->getAllGroupIds())
-                ) {
+                if (in_array($sending_group_id, $group_ids)) {
+                    // TODO: add bot status of "nochange" @ https://canary.discord.com/channels/246705793066467328/434751012428054530/995503906350174290
                     // Attempt to add group if this group id was sent in the broadcastChange() method
                     // and if they don't have the namelessmc equivilant of it
                     if ($injector->addGroup($user, $injector_group_id)) {

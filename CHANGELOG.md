@@ -59,6 +59,7 @@
 - Fix `AssetResolver` adding an asset more than once if several assets depend on it
 - Fix TinyMCE spoiler plugin not being added properly if a custom path is set
 - Fix error when creating group sync rules with only 1 external service
+- Fix website -> Discord group sync issues
 
 ### Deprecated
 *These will be removed in 2.1.0*

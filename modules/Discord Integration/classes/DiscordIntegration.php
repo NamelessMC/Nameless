@@ -50,7 +50,11 @@ class DiscordIntegration extends IntegrationBase {
         // attempt to update their Discord roles
         $user = $integrationUser->getUser();
 
-        Discord::updateDiscordRoles($user, $user->getAllGroupIds(), []);
+        $roles = array_unique(array_map(static function ($group_id) {
+            return Discord::getDiscordRoleId(DB::getInstance(), $group_id);
+        }, $user->getAllGroupIds()));
+
+        Discord::updateDiscordRoles($user, $roles, []);
     }
 
     public function validateUsername(string $username, int $integration_user_id = 0): bool {
