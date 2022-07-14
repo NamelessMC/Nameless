@@ -124,6 +124,10 @@ class Language {
             'name' => 'Ukrainian',
             'htmlCode' => 'uk',
         ],
+        'ko_KR' => [
+            'name' => 'Korean (Korea)',
+            'htmlCode' => 'ko',
+        ],
     ];
 
     /**
