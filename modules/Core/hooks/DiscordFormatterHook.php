@@ -25,6 +25,20 @@ class DiscordFormatterHook extends HookBase {
             ]];
 
             $params['format'] = $format;
+        } else if ($params['data']['event'] == 'createAnnouncement') {
+            $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['data']['message']));
+            if (mb_strlen($content) > 512) {
+                $content = mb_substr($content, 0, 512) . '...';
+            }
+
+            $return['username'] = $params['data']['username'] . ' | ' . SITE_NAME;
+            $return['avatar_url'] = $params['data']['avatar_url'];
+            $return['embeds'] = [[
+                'title' => 'New Announcement: ' . $params['data']['header'],
+                'description' => $content,
+            ]];
+
+            $params['format'] = $format;
         }
 
         return $params;
