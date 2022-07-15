@@ -555,7 +555,6 @@ class Core_Module extends Module {
 
         EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
 
-        require_once ROOT_PATH . '/modules/Core/hooks/DiscordFormatterHook.php';
         EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
