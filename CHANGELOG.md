@@ -8,6 +8,7 @@
 - Add info about OAuth providers to debug link
 - Respect light/dark mode for captcha popups
 - Added `ProfileUtils::getOfflineModeUuid()` & `ProfileUtils::formatUuid()`
+- Added `discordWebhookFormatter` event so modules can define how a Discord webhook embed looks
 
 ### Changed
 - Better Discord widget error display
