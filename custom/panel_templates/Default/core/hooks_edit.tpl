@@ -65,6 +65,7 @@
                                     <label for="link_location">{$HOOK_TYPE}</label>
                                     <select class="form-control" id="hook_type" name="hook_type">
                                         <option value="2" {if $HOOK_TYPE_VALUE eq 2} selected{/if}>Discord</option>
+                                        <option value="1" {if $HOOK_TYPE_VALUE eq 1} selected{/if}>{$NORMAL}</option>
                                     </select>
                                 </div>
                                 <label for="InputName">{$HOOK_EVENTS}</label>

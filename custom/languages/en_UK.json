@@ -774,6 +774,7 @@
     "general/no_players_online": "There are no players online.",
     "general/no_servers": "There are no servers to display!",
     "general/none": "None",
+    "general/normal": "Normal",
     "general/not_registered_yet": "Not registered yet?",
     "general/oauth_message_continue": "Continue registering with {{provider}}",
     "general/offline": "Offline",
