@@ -9,6 +9,12 @@
  *  Installer
  */
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+if (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING'])) {
+    define('DEBUGGING', 1);
+}
+
 // Definitions
 if (!defined('PATH')) {
     define('PATH', '/');
@@ -43,16 +49,17 @@ $language = new Language('core', $language_short_code);
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
-if (!isset($CONFIG['installed'])) {
-    if (isset($_GET['language'])) {
-        // Set language
-        if (is_file('custom/languages/' . $_GET['language'] . '.json')) {
-            $_SESSION['installer_language'] = $_GET['language'];
-            die('OK');
-        }
-        die($_GET['language'] . ' is not a valid language');
-    }
-    require(ROOT_PATH . '/core/installation/installer.php');
-} else {
+if (isset($CONFIG['installed']) || (Config::exists() && Config::get('core.installed') === true)) {
     require(ROOT_PATH . '/core/installation/already_installed.php');
+    return;
 }
+
+if (isset($_GET['language'])) {
+    // Set language
+    if (is_file('custom/languages/' . $_GET['language'] . '.json')) {
+        $_SESSION['installer_language'] = $_GET['language'];
+        die('OK');
+    }
+    die($_GET['language'] . ' is not a valid language');
+}
+require(ROOT_PATH . '/core/installation/installer.php');

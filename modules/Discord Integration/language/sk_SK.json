@@ -17,8 +17,8 @@
     "discord_integration/discord_guild_id": "ID Discord serveru",
     "discord_integration/discord_id_confirm": "Spustite príkaz \"/verify {{token}}\" v Discorde, aby ste dokončili prepojenie svojho Discord účtu.",
     "discord_integration/discord_id_help": "Informácie o tom, kde nájdete Discord ID, si prečítajte {{linkStart}}toto.{{linkEnd}}",
-    "discord_integration/discord_id_length": "Uistite sa, že vaše Discord ID má 18 znakov.",
-    "discord_integration/discord_id_numeric": "Uistite sa, že vaše Discord ID je číselné (iba čísla).",
+    "discord_integration/discord_id_length": "Uistite sa, že vaše ID discord servera má 18 znakov.",
+    "discord_integration/discord_id_numeric": "Uistite sa, že vaše ID discord servera je číselné (iba čísla).",
     "discord_integration/discord_id_set": "Discord ID bolo úspešne nastavené",
     "discord_integration/discord_id_taken": "Toto Discord ID už bolo použité.",
     "discord_integration/discord_id_unlinked": "Vaše Discord ID bolo úspešne odpojené.",
@@ -47,5 +47,7 @@
     "discord_integration/unable_to_set_discord_id": "Nepodarilo sa nastaviť Discord ID.",
     "discord_integration/unable_to_update_discord_bot_username": "Nepodarilo sa aktualizovať Discord užívateľské meno bota.",
     "discord_integration/unable_to_update_discord_roles": "Nepodarilo sa aktualizovať zoznam Discord rolí.",
-    "discord_integration/unable_to_update_discord_username": "Nepodarilo sa aktualizovať Discord užívateľské meno."
+    "discord_integration/unable_to_update_discord_username": "Nepodarilo sa aktualizovať Discord užívateľské meno.",
+    "discord_integration/discord_widget_error": "Pri získavaní widgetu Discord sa vyskytla chyba: {{error}}.",
+    "discord_integration/discord_id_required": "Zadajte ID vášho discord servera."
 }

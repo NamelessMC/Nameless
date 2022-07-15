@@ -36,53 +36,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         if (!$validation->passed()) {
-
             $error = $language->get('installer', 'database_error');
-
         } else {
-
-            $db_address = $_POST['db_address'];
-            $db_port = $_POST['db_port'];
-            $db_username = $_POST['db_username'];
-            $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
-            $db_name = $_POST['db_name'];
-
-            $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
-            if ($mysqli->connect_errno) {
-
-                $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
-
+            if (!isset($_POST['converter']) || !in_array($_POST['converter'], $converters)) {
+                $error = $language->get('installer', 'unable_to_load_converter');
             } else {
-
-                $mysqli->close();
-
-                if (!isset($_POST['converter']) || !in_array($_POST['converter'], $converters)) {
-
-                    $error = $language->get('installer', 'unable_to_load_converter');
-
-                } else {
-
+                try {
                     $conn = DB::getCustomInstance(
                         Input::get('db_address'),
                         Input::get('db_name'),
                         Input::get('db_username'),
-                        $password,
+                        Input::get('db_password'),
                         Input::get('db_port')
                     );
-                    require_once(ROOT_PATH . '/custom/converters/' . $_POST['converter'] . '/converter.php');
+
+                    $converter_dir = ROOT_PATH . '/custom/converters/' . $_POST['converter'];
+
+                    $converter_dirs = glob(ROOT_PATH . '/custom/converters/*', GLOB_ONLYDIR);
+
+                    if (!in_array($converter_dir, $converter_dirs)) {
+                        throw new InvalidArgumentException("Invalid converter");
+                    }
+
+                    require_once($converter_dir . '/converter.php');
 
                     if (!isset($error)) {
                         Redirect::to('?step=finish');
                     }
-
+                } catch (PDOException $e) {
+                    $error = $language->get('installer', 'database_connection_failed', ['message' => $e->getMessage()]);
                 }
-
             }
-
         }
-
     }
-
 }
 
 ?>

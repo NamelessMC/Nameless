@@ -1,7 +1,6 @@
 <?php
 
 use Astrotomic\Twemoji\Twemoji;
-use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * Contains misc utility methods.
@@ -116,290 +115,83 @@ class Util {
     /**
      * Is a URL internal or external? Accepts full URL and also just a path.
      *
+     * @deprecated Use `URL::isExternalURL` instead. Will be removed in 2.1.0
      * @param string $url URL/path to check.
-     *
      * @return bool Whether URL is external or not.
      */
     public static function isExternalURL(string $url): bool {
-        if ($url[0] == '/' && $url[1] != '/') {
-            return false;
-        }
-
-        $parsed = parse_url($url);
-
-        return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
+        return URL::isExternalURL($url);
     }
 
     /**
+     * Determine whether the trusted proxies config option is set to a valid value or not.
+     *
+     * @deprecated Use `HttpUtils::isTrustedProxiesConfigured`. Will be removed in 2.1.0
+     * @return bool Whether the trusted proxies option is configured or not
+     */
+    public static function isTrustedProxiesConfigured(): bool {
+        return HttpUtils::isTrustedProxiesConfigured();
+    }
+
+    /**
+     * @deprecated Use `HttpUtils::getTrustedProxies`. Will be removed in 2.1.0
      * @return array List of trusted proxy networks according to config file and environment
      */
     public static function getTrustedProxies(): array {
-        $trustedProxies = [];
-
-        // Add trusted proxies from config file
-        $configProxies = Config::get('core/trustedProxies');
-        if ($configProxies !== false) {
-            if (!is_array($configProxies)) {
-                die('Trusted proxies should be an array');
-            }
-            $trustedProxies = array_merge($trustedProxies, $configProxies);
-        }
-
-        // Add trusted proxies from environment variable (comma-separated string)
-        $envProxies = getenv('NAMELESS_TRUSTED_PROXIES');
-        if ($envProxies !== false) {
-            $envProxiesArray = explode(',', $envProxies);
-            $trustedProxies = array_merge($trustedProxies, $envProxiesArray);
-        }
-
-        return $trustedProxies;
-    }
-
-    /**
-     * Checks whether the client making the request is a trusted proxy. If not,
-     * abruptly aborts the request using die().
-     */
-    private static function ensureTrustedProxy(): void {
-        $trustedProxies = self::getTrustedProxies();
-
-        if (count($trustedProxies) === 0) {
-            ErrorHandler::logWarning('Received proxy header but no trusted proxies are configured. Please see https://docs.namelessmc.com/trusted-proxies for more information.');
-            return;
-        }
-
-        $trusted = false;
-
-        foreach ($trustedProxies as $trustedProxy) {
-            if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
-                $trusted = true;
-                break;
-            }
-        }
-
-        if (!$trusted) {
-            die('Received proxy header from untrusted remote address: ' . $_SERVER['REMOTE_ADDR']);
-        }
-    }
-
-    /**
-     * Extract trustworthy address from a list of addresses provided by the Forwarded or X-Forwarded-For header.
-     * @return string Address that may be used for security purposes
-     */
-    private static function firstNonProxyAddress(array $addresses): string {
-        if (count($addresses) === 0) {
-            throw new InvalidArgumentException('Addresses must not be empty');
-        }
-
-        $trusted_proxies = self::getTrustedProxies();
-
-        /*
-        https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#parsing
-
-        > When choosing the first trustworthy X-Forwarded-For client IP address, additional configuration is required.
-        >
-        > The IPs or IP ranges of the trusted reverse proxies are configured. The X-Forwarded-For IP list is searched
-        > from the rightmost, skipping all addresses that are on the trusted proxy list. The first non-matching
-        > address is the target address.
-        >
-        > The first trustworthy X-Forwarded-For IP address may belong to an untrusted intermediate proxy rather than
-        > the actual client computer, but it is the only IP suitable for security uses.
-        */
-
-        for ($i = count($addresses) - 1; $i >= 0; $i--) {
-            $address = $addresses[$i];
-
-            foreach ($trusted_proxies as $trusted_proxy) {
-                if (IpUtils::checkIp($address, $trusted_proxy)) {
-                    // This address is trusted, move one left
-                    continue 2;
-                }
-            }
-
-            // Address is not trusted, this is the client IP we should use
-            return $address;
-        }
-
-        // All addresses are in a trusted network, use leftmost address
-        return $addresses[0];
+        return HttpUtils::getTrustedProxies();
     }
 
     /**
      * Get the client's true IP address, using proxy headers if necessary.
      *
+     * @deprecated Use `HttpUtils::getRemoteAddress`. Will be removed in 2.1.0
      * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
      */
     public static function getRemoteAddress(): ?string {
-        $headers = getallheaders();
-
-        // Try the simple headers first that only contain an IP address
-
-        // Non standard header that only contains the origin address
-        if (isset($headers['X-Real-Ip'])) {
-            self::ensureTrustedProxy();
-            return $headers['X-Real-Ip'];
-        }
-
-        // Non standard header sent by CloudFlare that only contains the origin address
-        if (isset($headers['Cf-Connecting-Ip'])) {
-            self::ensureTrustedProxy();
-            return $headers['Cf-Connecting-Ip'];
-        }
-
-        /*
-        Now the more complicated (X-)Forwarded(-For) headers.
-
-        Quote from MDN https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For#parsing:
-        > There may be multiple X-Forwarded-For headers present in a request (per RFC 2616). The IP addresses in
-        > these headers must be treated as a single list, starting with the first IP address of the first header
-        > and continuing to the last IP address of the last header.
-        > It is insufficient to use only one of multiple X-Forwarded-For headers.
-
-        Unfortunately, we cannot follow this advice since PHP only seems to return the last header. However, since
-        supposedly the addresses should be read from right to left, only using the last header is not insecure, while
-        the using the first header would be.
-        In case of a weirdly behaving proxy that sends an additional Forwarded header instead of appending to an
-        existing one, the worst that would happen is an IP ban affecting the proxy (every user). Under no
-        circumstance would a user be able to spoof their address.
-        */
-
-        if (isset($headers['X-Forwarded-For'])) {
-            self::ensureTrustedProxy();
-
-            $addresses = [];
-            foreach (explode(',', $headers['X-Forwarded-For']) as $part) {
-                $addresses[] = trim($part);
-            }
-
-            return self::firstNonProxyAddress($addresses);
-        }
-
-        if (isset($headers['Forwarded'])) {
-            self::ensureTrustedProxy();
-
-            $addresses = [];
-            foreach (explode(',', $headers['Forwarded']) as $part1) {
-                // Extract the optional 'for=<address>' bit
-                foreach (explode(';', trim($part1)) as $part2) {
-                    $part2 = explode('=', $part2);
-                    if (count($part2) != 2) {
-                        die("Invalid Forwarded header");
-                    }
-
-                    if ($part2[0] === 'for') {
-                        $addresses[] = trim($part2[1]);
-                        break;
-                    }
-                }
-            }
-
-            if (count($addresses) > 0) {
-                return self::firstNonProxyAddress($addresses);
-            }
-        }
-
-        // No supported proxy headers in use
-        return $_SERVER['REMOTE_ADDR'];
+        return HttpUtils::getRemoteAddress();
     }
 
     /**
      * Get the protocol used by client's HTTP request, using proxy headers if necessary.
      *
-     * @return ?string 'http' if HTTP or 'https' if HTTPS, or null when using the CLI
+     * @deprecated Use `HttpUtils::getProtocol`. Will be removed in 2.1.0
+     * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
      */
-    public static function getProtocol(): ?string {
-        if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-            self::ensureTrustedProxy();
-            $proto = $_SERVER['HTTP_X_FORWARDED_PROTO'];
-            if ($proto !== 'http' && $proto !== 'https') {
-                die("Invalid X-Forwarded-Proto header, should be 'http' or 'https'.");
-            }
-            return $proto;
-        }
-
-        if (isset($_SERVER['HTTPS'])) {
-            return $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
-        }
-
-        return null;
+    public static function getProtocol(): string {
+        return HttpUtils::getProtocol();
     }
 
     /**
      * Get port used by client's HTTP request, using proxy headers if necessary.
      *
+     * @deprecated Use `HttpUtils::getPort`. Will be removed in 2.1.0
      * @return ?int Port number, or null when using the CLI
      */
     public static function getPort(): ?int {
-        if (isset($_SERVER['HTTP_X_FORWARDED_PORT'])) {
-            self::ensureTrustedProxy();
-            return (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
-        }
-
-        if (isset($_SERVER['SERVER_PORT'])) {
-            return (int) $_SERVER['SERVER_PORT'];
-        }
-
-        return null;
+        return HttpUtils::getPort();
     }
 
     /**
      * Get the server name.
      *
+     * @deprecated Use `URL::getSelfURL` instead. Will be removed in 2.1.0
      * @param bool $show_protocol Whether to show http(s) at front or not.
-     *
      * @return string Compiled URL.
      */
     public static function getSelfURL(bool $show_protocol = true): string {
-        $hostname = Config::get('core/hostname');
-
-        if (!$hostname) {
-            $hostname = $_SERVER['SERVER_NAME'];
-        }
-
-        // https and www checks
-        $protocol = self::getProtocol() . '://';
-
-        $url = $hostname;
-
-        if (defined('FORCE_WWW') && FORCE_WWW && !str_contains($hostname, 'www')) {
-            $url = 'www.' . $url;
-        }
-
-        if ($show_protocol) {
-            $url = $protocol . $url;
-            $port = self::getPort();
-            // Add port if it is non-standard for the current protocol
-            if (!(($port === 80 && $protocol === 'http://') || ($port === 443 && $protocol === 'https://'))) {
-                $url .= ':' . $port;
-            }
-        }
-
-        if (substr($url, -1) !== '/') {
-            $url .= '/';
-        }
-
-        return $url;
+        return URL::getSelfURL($show_protocol);
     }
 
     /**
      * URL-ify a string
      *
+     * @deprecated Use `Text::urlSafe` instead. Will be removed in 2.1.0
      * @param string|null $string $string String to URLify
-     *
      * @return string Url-ified string. (I dont know what this means)
      */
     public static function stringToURL(string $string = null): string {
-        if ($string) {
-            $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $string))));
-        }
-
-        return '';
+        return Text::urlSafe($string);
     }
-
-    /*
-    *  The truncate function is taken from CakePHP, license MIT
-    *  https://github.com/cakephp/cakephp/blob/master/LICENSE
-    */
 
     /**
      * Truncates text.
@@ -412,101 +204,17 @@ class Util {
      * - `ending` Will be used as Ending and appended to the trimmed string
      * - `exact` If false, $text will not be cut mid-word
      * - `html` If true, HTML tags would be handled correctly
+     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
+     * @link https://github.com/cakephp/cakephp/blob/master/LICENSE
      *
+     * @deprecated Use `Text::truncate` instead. Will be removed in 2.1.0
      * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
      * @return string Trimmed string.
-     * @access public
-     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      */
     public static function truncate(string $text, int $length = 750, array $options = []): string {
-        $default = [
-            'ending' => '...', 'exact' => true, 'html' => false
-        ];
-        $options = array_merge($default, $options);
-        extract($options);
-
-        if ($html) {
-            if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
-                return $text;
-            }
-            $totalLength = mb_strlen(strip_tags($ending));
-            $openTags = [];
-            $truncate = '';
-
-            preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
-            foreach ($tags as $tag) {
-                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
-                    if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
-                        array_unshift($openTags, $tag[2]);
-                    } else {
-                        if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
-                            $pos = array_search($closeTag[1], $openTags);
-                            if ($pos !== false) {
-                                array_splice($openTags, $pos, 1);
-                            }
-                        }
-                    }
-                }
-                $truncate .= $tag[1];
-
-                $contentLength = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
-                if ($contentLength + $totalLength > $length) {
-                    $left = $length - $totalLength;
-                    $entitiesLength = 0;
-                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities, PREG_OFFSET_CAPTURE)) {
-                        foreach ($entities[0] as $entity) {
-                            if ($entity[1] + 1 - $entitiesLength <= $left) {
-                                $left--;
-                                $entitiesLength += mb_strlen($entity[0]);
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-
-                    $truncate .= mb_substr($tag[3], 0, $left + $entitiesLength);
-                    break;
-                }
-
-                $truncate .= $tag[3];
-                $totalLength += $contentLength;
-                if ($totalLength >= $length) {
-                    break;
-                }
-            }
-        } else {
-            if (mb_strlen($text) <= $length) {
-                return $text;
-            }
-
-            $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
-        }
-        if (!$exact) {
-            $spacepos = mb_strrpos($truncate, ' ');
-            if ($html) {
-                $bits = mb_substr($truncate, $spacepos);
-                preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
-                if (!empty($droppedTags)) {
-                    foreach ($droppedTags as $closingTag) {
-                        if (!in_array($closingTag[1], $openTags)) {
-                            array_unshift($openTags, $closingTag[1]);
-                        }
-                    }
-                }
-            }
-            $truncate = mb_substr($truncate, 0, $spacepos);
-        }
-        $truncate .= $ending;
-
-        if ($html) {
-            foreach ($openTags as $tag) {
-                $truncate .= '</' . $tag . '>';
-            }
-        }
-
-        return $truncate;
+        return Text::truncate($text, $length, $options);
     }
 
     /**
@@ -567,17 +275,12 @@ class Util {
      * Add target and rel attributes to external links only.
      * From https://stackoverflow.com/a/53461987
      *
+     * @deprecated Use `URL::replaceAnchorsWithText`. Will be removed in 2.1.0
      * @param string $data Data to replace.
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {
-        return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
-            if (!str_contains($m[1], self::getSelfURL())) {
-                return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
-            }
-
-            return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
-        }, $data);
+        return URL::replaceAnchorsWithText($data);
     }
 
     /**
@@ -591,9 +294,9 @@ class Util {
      * @return ?string Setting from DB or $fallback.
      */
     public static function getSetting(string $setting, ?string $fallback = null, ?string $module = null): ?string {
-        $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
+        $table_name = $module === null ? 'nl2_settings' : "nl2_${module}_settings";
 
-        if (self::$_cached_settings == null) {
+        if (self::$_cached_settings === null) {
             $result = DB::getInstance()->query('SELECT `name`, `value` FROM `' . $table_name. '`')->results();
             // Store settings in dictionary format
             self::$_cached_settings = [];
@@ -602,26 +305,22 @@ class Util {
             }
         }
 
-        if (isset(self::$_cached_settings[$setting])) {
-            return self::$_cached_settings[$setting];
-        } else {
-            return null;
-        }
+        return self::$_cached_settings[$setting] ?? null;
     }
 
     /**
      * Modify a setting in the database table `nl2_settings`.
      *
      * @param string $setting Setting name.
-     * @param string $new_value New setting value, or null to delete
+     * @param string|null $new_value New setting value, or null to delete
      * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
      *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
      *                        nl2_settings table.
      */
     public static function setSetting(string $setting, ?string $new_value, ?string $module = null): void {
-        $table_name = $module == null ? 'nl2_settings' : "nl2_${module}_settings";
+        $table_name = $module === null ? 'nl2_settings' : "nl2_${module}_settings";
 
-        if ($new_value == null) {
+        if ($new_value === null) {
             DB::getInstance()->query('DELETE FROM `' . $table_name . '` WHERE `name` = ?', [$setting]);
         } else {
             $query = 'INSERT INTO `' . $table_name . '` (`name`, `value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `value` = ?';
@@ -677,26 +376,24 @@ class Util {
     /**
      * Replace native emojis with their Twemoji equivalent.
      *
+     * @deprecated Use `Text::renderEmojis` instead. Will be removed in 2.1.0
      * @param string $text Text to parse
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
      */
     public static function renderEmojis(string $text): string {
-        return Twemoji::text($text)->toHtml(null, [
-            'width' => 20,
-            'height' => 20,
-            'style' => 'vertical-align: middle;'
-        ]);
+        return Text::renderEmojis($text);
     }
 
     /**
      * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
      * since we want as little HTML in the translation strings as possible.
      *
+     * @deprecated Use `Text::bold` instead. Will be removed in 2.1.0
      * @param string $text Text to wrap
      * @return string Text wrapped in `<strong>` tags
      */
     public static function bold(string $text): string {
-        return '<strong>' . $text . '</strong>';
+        return Text::bold($text);
     }
 
     /**
@@ -706,7 +403,7 @@ class Util {
      * @return string Read string
      */
     public static function readFileEnd(string $file_path, int $max_bytes = 100_000): string {
-        $fp = fopen($file_path, 'r');
+        $fp = fopen($file_path, 'rb');
         $size = filesize($file_path);
         $start = max([$size - $max_bytes, 0]);
         fseek($fp, $start);
@@ -727,6 +424,10 @@ class Util {
      * @return array Ordered items
      */
     public static function determineOrder(array $items): array {
+        if (empty($items)) {
+            return $items;
+        }
+
         $order = [array_shift($items)['name']];
 
         foreach ($items as $item) {

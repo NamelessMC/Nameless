@@ -1,0 +1,13 @@
+{
+    "cookie/configure_cookies": "Konfigurer cookies",
+    "cookie/cookie_notice": "Cookie-meddelelse",
+    "cookie/cookie_notice_error": "Indtast venligst en cookie-meddelelse, på højst 10.000 tegn.",
+    "cookie/cookie_notice_info": "Denne widget kræver cookies",
+    "cookie/cookie_notice_success": "Cookie-meddelelse blev opdateret.",
+    "cookie/cookie_popup": "Denne hjemmeside bruger cookies til at forbedre din browseroplevelse.",
+    "cookie/cookie_popup_allow": "Tillad cookies",
+    "cookie/cookie_popup_disallow": "Tillad ikke cookies",
+    "cookie/cookie_popup_more_info": "Mere information",
+    "cookie/cookies": "Cookies",
+    "cookie/update_settings": "Vis Cookie Popup"
+}

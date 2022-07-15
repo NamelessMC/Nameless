@@ -75,7 +75,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 $smarty->assign([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => Util::renderEmojis(
+    'CONTENT' => Text::renderEmojis(
         $custom_page->all_html
             ? Output::getDecoded($custom_page->content)
             : Output::getPurified($custom_page->content)

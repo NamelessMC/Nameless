@@ -148,21 +148,10 @@ if (Input::exists()) {
 
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                // Require config
-                if (isset($path) && file_exists($path . 'core/config.php')) {
-                    $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
-                } else {
-                    $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-                }
-
-                if (is_array($loadedConfig)) {
-                    $GLOBALS['config'] = $loadedConfig;
-                }
-
                 Config::setMultiple([
-                    'core/friendly' => $friendly,
-                    'core/force_https' => $https,
-                    'core/force_www' => $www
+                    'core.friendly' => $friendly,
+                    'core.force_https' => $https,
+                    'core.force_www' => $www
                 ]);
             } else {
                 $errors = [$language->get('admin', 'config_not_writable')];
@@ -276,7 +265,7 @@ $smarty->assign([
     'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
     'HOMEPAGE_VALUE' => Util::getSetting('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
-    'USE_FRIENDLY_URLS_VALUE' => Config::get('core/friendly'),
+    'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
         'docLinkStart' => "<a href='https://docs.namelessmc.com/friendly-urls' target='_blank'>",
         'docLinkEnd' => '</a>'

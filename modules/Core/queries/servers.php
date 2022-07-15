@@ -21,7 +21,7 @@ if ($cache->isCached('query_interval')) {
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
     $key = Util::getSetting('unique_id');
-    if ($key == null || $_GET['key'] != $key) {
+    if ($key === null || $_GET['key'] != $key) {
         die();
     }
 } else {

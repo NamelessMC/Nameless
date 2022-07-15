@@ -118,6 +118,13 @@
                                     <i class="fas fa-check-circle text-success"></i> {$item}
                                     <br />
                                     {/foreach}
+                                    {if count($COMPAT_WARNINGS)}
+                                    <hr />
+                                    {foreach from=$COMPAT_WARNINGS item=item}
+                                    <i class="fas fa-check-circle text-warning"></i> {$item}
+                                    <br />
+                                    {/foreach}
+                                    {/if}
                                     {if count($COMPAT_ERRORS)}
                                     <hr />
                                     {foreach from=$COMPAT_ERRORS item=item}

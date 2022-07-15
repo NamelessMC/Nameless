@@ -332,9 +332,10 @@ class Core_Module extends Module {
             $language->get('admin', 'announcement_hook_info'),
             [
                 'announcement_id' => $language->get('admin', 'announcement_id'),
-                'created_by' => $language->get('admin', 'user_id'),
+                'username' => $language->get('user', 'username'),
                 'header' => $language->get('admin', 'header'),
                 'message' => $language->get('admin', 'message'),
+                'avatar_url' => $language->get('user', 'avatar'),
             ]
         );
 
@@ -441,15 +442,14 @@ class Core_Module extends Module {
             ]
         );
 
-        // TODO: should this be in the Discord Integration module?
-        OAuth::getInstance()->registerProvider('discord', [
+        NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
         ]);
 
-        OAuth::getInstance()->registerProvider('google', [
+        NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
             'class' => \League\OAuth2\Client\Provider\Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
@@ -457,9 +457,9 @@ class Core_Module extends Module {
         ]);
 
         // Captcha
-        $captchaPublicKey = Util::getSetting('recaptcha_key');
-        $captchaPrivateKey = Util::getSetting('recaptcha_secret');
-        $activeCaptcha = Util::getSetting('recaptcha_type');
+        $captchaPublicKey = Util::getSetting('recaptcha_key', '');
+        $captchaPrivateKey = Util::getSetting('recaptcha_secret', '');
+        $activeCaptcha = Util::getSetting('recaptcha_type', 'Recaptcha3');
 
         CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
@@ -538,28 +538,30 @@ class Core_Module extends Module {
 
         // Minecraft Integration
         if (defined('MINECRAFT') && MINECRAFT === true) {
-            require_once(ROOT_PATH . "/modules/{$this->getName()}/classes/Integrations/MinecraftIntegration.php");
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
-        require_once ROOT_PATH . '/modules/Core/hooks/ContentHook.php';
-
+        // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', false, 15);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', false, 10);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', false, 15);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', false, 15);
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', false, 20);
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', false, 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
 
-        require_once(ROOT_PATH . '/modules/Core/hooks/CloneGroupHook.php');
         EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
 
         require_once ROOT_PATH . '/modules/Core/hooks/DiscordFormatterHook.php';
         EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
+
+        Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
+        Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
+        Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
+        Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
     }
 
     public static function getDashboardGraphs(): array {
@@ -683,7 +685,6 @@ class Core_Module extends Module {
         // Widgets - only load if on a widget staffcp page or the frontend
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
-            require_once(ROOT_PATH . '/modules/Core/widgets/FacebookWidget.php');
             $cache->setCache('social_media');
             $fb_url = $cache->retrieve('facebook');
             if ($fb_url) {
@@ -691,7 +692,6 @@ class Core_Module extends Module {
             }
 
             // Twitter
-            require_once(ROOT_PATH . '/modules/Core/widgets/TwitterWidget.php');
             $twitter = $cache->retrieve('twitter');
 
             if ($twitter) {
@@ -700,23 +700,18 @@ class Core_Module extends Module {
             }
 
             // Profile Posts
-            require_once(ROOT_PATH . '/modules/Core/widgets/ProfilePostsWidget.php');
             $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
             // Online staff
-            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineStaffWidget.php');
             $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
 
             // Online users
-            require_once(ROOT_PATH . '/modules/Core/widgets/OnlineUsersWidget.php');
             $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
 
             // Online users
-            require_once(ROOT_PATH . '/modules/Core/widgets/ServerStatusWidget.php');
             $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
 
             // Statistics
-            require_once(ROOT_PATH . '/modules/Core/widgets/StatsWidget.php');
             $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
@@ -725,7 +720,6 @@ class Core_Module extends Module {
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
-            require_once(ROOT_PATH . '/modules/Core/hooks/ValidateHook.php');
             EventHandler::registerListener('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
@@ -767,8 +761,8 @@ class Core_Module extends Module {
                         'NEW_VERSION' => $language->get('admin', 'new_version_x', [
                             'version' => Output::getClean($update_check->version())
                         ]),
-                        'UPDATE' => $language->get('admin', 'update'),
-                        'UPDATE_LINK' => URL::build('/panel/update')
+                        'NAMELESS_UPDATE' => $language->get('admin', 'update'),
+                        'NAMELESS_UPDATE_LINK' => URL::build('/panel/update')
                     ]);
                 }
             }
@@ -1536,13 +1530,8 @@ class Core_Module extends Module {
             if ($user->hasPermission('modcp.reports')) {
                 self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
             }
-
-            if (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark') {
-                define('TEMPLATE_TINY_EDITOR_DARKMODE', true);
-            }
         }
 
-        require_once(ROOT_PATH . '/modules/Core/hooks/DeleteUserHook.php');
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 

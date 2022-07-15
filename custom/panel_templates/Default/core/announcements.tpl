@@ -163,10 +163,14 @@
                     type: "GET",
                     data: {
                         action: "order",
-                        {literal}announcements: JSON.stringify({"announcements": toSubmit}){/literal}
+                        {literal}announcements: JSON.stringify({"announcements": toSubmit}){/literal},
+                        token: "{$TOKEN}"
                     },
                     success: function (response) {
                         // Success
+                        if (response === 'Invalid Token') {
+                            window.location.reload();
+                        }
                     },
                     error: function (xhr) {
                         // Error

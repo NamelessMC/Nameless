@@ -56,7 +56,7 @@ class ContentHook extends HookBase {
 
     public static function renderEmojis(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
-            $params['content'] = Util::renderEmojis($params['content']);
+            $params['content'] = Text::renderEmojis($params['content']);
         }
 
         return $params;
@@ -64,7 +64,7 @@ class ContentHook extends HookBase {
 
     public static function replaceAnchors(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
-            $params['content'] = Util::replaceAnchorsWithText($params['content']);
+            $params['content'] = URL::replaceAnchorsWithText($params['content']);
         }
 
         return $params;

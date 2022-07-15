@@ -3,7 +3,6 @@
  * Creates a singleton connection to the database with credentials from the config file.
  *
  * @package NamelessMC\Database
- * @see InteractsWithDatabase
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -22,28 +21,56 @@ class DB {
     protected QueryRecorder $_query_recorder;
 
     private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
-        try {
-            $this->_force_charset = $force_charset;
-            $this->_prefix = $prefix;
+        $this->_force_charset = $force_charset;
+        $this->_prefix = $prefix;
 
-            $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
-            if ($force_charset) {
-                $connection_string .= ';charset=' . $force_charset;
-            }
-            $this->_pdo = new PDO(
-                $connection_string,
-                $username,
-                $password,
-                [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                ]
-            );
-
-        } catch (PDOException $e) {
-            die("<strong>Error:<br /></strong><div class=\"alert alert-danger\">" . $e->getMessage() . '</div>Please check your database connection settings.');
+        $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
+        if ($force_charset) {
+            $connection_string .= ';charset=' . $force_charset;
         }
+        $this->_pdo = new PDO(
+            $connection_string,
+            $username,
+            $password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]
+        );
 
         $this->_query_recorder = QueryRecorder::getInstance();
+    }
+
+    public static function getCustomInstance(
+        string $host,
+        string $database,
+        string $username,
+        string $password,
+        int $port = 3306,
+        ?string $force_charset = null,
+        string $prefix = 'nl2_'
+    ): DB {
+        return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
+    }
+
+    public static function getInstance(): DB {
+        if (self::$_instance) {
+            return self::$_instance;
+        }
+
+        if (Config::get('mysql.initialise_charset')) {
+            $force_charset = Config::get('mysql.charset') ?: 'utf8mb4';
+        } else {
+            $force_charset = null;
+        }
+
+        return self::$_instance = self::getCustomInstance(
+            Config::get('mysql.host'),
+            Config::get('mysql.db'),
+            Config::get('mysql.username'),
+            Config::get('mysql.password'),
+            Config::get('mysql.port'),
+            $force_charset
+        );
     }
 
     /**
@@ -53,6 +80,30 @@ class DB {
      */
     public function getPDO(): PDO {
         return $this->_pdo;
+    }
+
+    /**
+     * Execute a database query within a MySQL transaction, and get the results of the query, if any.
+     *
+     * @param Closure(DB): mixed $closure The closure to pass this instance to and execute within a transaction context.
+     * @return mixed The results of the query, null if none.
+     */
+    public function transaction(Closure $closure) {
+        $result = null;
+
+        try {
+            $this->_pdo->beginTransaction();
+
+            $result = $closure($this);
+
+            $this->_pdo->commit();
+        } catch (Exception $exception) {
+            if ($this->_pdo->inTransaction()) {
+                $this->_pdo->rollBack();
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -127,10 +178,10 @@ class DB {
      *
      * @param string $sql The SQL query string to execute.
      * @param array $params The parameters to bind to the query.
-     * @param int $fetch_method The PDO fetch method to use.
+     * @param bool $isSelect Whether the statement is a select, defaults to null
      * @return static This DB instance.
      */
-    public function query(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ) {
+    public function query(string $sql, array $params = [], bool $isSelect = null) {
         $this->_error = false;
         if ($this->_statement = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -150,8 +201,8 @@ class DB {
 
             if ($this->_statement->execute()) {
                 // Only fetch the results if this is a SELECT query.
-                if (str_starts_with(strtoupper($sql), 'SELECT')) {
-                    $this->_results = $this->_statement->fetchAll($fetch_method);
+                if ($isSelect || str_starts_with(strtoupper($sql), 'SELECT')) {
+                    $this->_results = $this->_statement->fetchAll(PDO::FETCH_OBJ);
                 }
                 $this->_count = $this->_statement->rowCount();
             } else {
@@ -164,15 +215,15 @@ class DB {
     }
 
     /**
-     * @deprecated Use query() instead
+     * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
-    public function selectQuery(string $sql, array $params = [], int $fetch_method = PDO::FETCH_OBJ) {
-        return $this->query($sql, $params, $fetch_method);
+    public function selectQuery(string $sql, array $params = []) {
+        return $this->query($sql, $params);
     }
 
     /**
-     * @deprecated Use query() instead
+     * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
     public function createQuery(string $sql, array $params = []) {
@@ -445,40 +496,4 @@ class DB {
 
         return [$where, $params];
     }
-
-    public static function getCustomInstance(
-        string $host,
-        string $database,
-        string $username,
-        string $password,
-        int $port = 3306,
-        ?string $force_charset = null,
-        string $prefix = 'nl2_'
-    ): DB {
-        return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
-    }
-
-    public static function getInstance(): DB {
-        if (self::$_instance) {
-            return self::$_instance;
-        }
-
-        if (Config::get('mysql/initialise_charset')) {
-            $force_charset = Config::get('mysql/charset') ?: 'utf8mb4';
-        } else {
-            $force_charset = null;
-        }
-
-        self::$_instance = self::getCustomInstance(
-            Config::get('mysql/host'),
-            Config::get('mysql/db'),
-            Config::get('mysql/username'),
-            Config::get('mysql/password'),
-            Config::get('mysql/port'),
-            $force_charset
-        );
-
-        return self::$_instance;
-    }
-
 }

@@ -44,7 +44,7 @@ if (!isset($_GET['step'])) {
         }
     }
 
-    $return_link = rtrim(Util::getSelfURL(), '/') . URL::build('/register/', 'step=2');
+    $return_link = rtrim(URL::getSelfURL(), '/') . URL::build('/register/', 'step=2');
     $key = $mcassoc->generateKey($username);
 
     $smarty->assign('MCASSOC', '
@@ -93,7 +93,7 @@ if (!isset($_GET['step'])) {
                 $password = $_SESSION['password'];
 
                 // Get IP
-                $ip = Util::getRemoteAddress();
+                $ip = HttpUtils::getRemoteAddress();
 
                 $user->create([
                     'username' => $username,

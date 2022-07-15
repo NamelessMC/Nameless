@@ -1,7 +1,4 @@
 <?php
-
-use GuzzleHttp\Client;
-
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *
@@ -57,7 +54,7 @@ class AvatarSource {
                 foreach ($exts as $ext) {
                     if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
                         // We don't check the validity here since we know the file exists for sure
-                        return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . urlencode($data->avatar_updated);
+                        return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . urlencode($data->avatar_updated);
                     }
                 }
             }
@@ -67,7 +64,7 @@ class AvatarSource {
         if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
             if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
                 // We don't check the validity here since we know the file exists for sure
-                return ($full ? rtrim(Util::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+                return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
             }
         }
 
@@ -92,7 +89,7 @@ class AvatarSource {
             }
         }
 
-        return "https://avatars.dicebear.com/api/initials/{$data->username}.svg?size={$size}";
+        return "https://avatars.dicebear.com/api/initials/{$data->username}.png?size={$size}";
     }
 
     /**
@@ -111,8 +108,7 @@ class AvatarSource {
 
         $is_valid = false;
         try {
-            $client = new Client();
-            $response = $client->head($url);
+            $response = HttpClient::createClient()->head($url);
             $headers = $response->getHeaders();
             if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
                 $is_valid = true;
@@ -141,7 +137,7 @@ class AvatarSource {
      */
     public static function setActiveSource(string $name): void {
         $source = self::getSourceByName($name);
-        if ($source == null) {
+        if ($source === null) {
             $source = self::getSourceByName('cravatar');
         }
 

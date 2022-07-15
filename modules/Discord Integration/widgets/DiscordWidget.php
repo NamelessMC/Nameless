@@ -14,7 +14,7 @@
 class DiscordWidget extends WidgetBase {
 
     private Cache $_cache;
-    private ?int $_guild_id;
+    private ?string $_guild_id;
 
     public function __construct(Cache $cache, Smarty $smarty) {
         $this->_cache = $cache;

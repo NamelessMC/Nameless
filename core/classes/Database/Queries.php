@@ -6,6 +6,7 @@
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
+ * @deprecated Use DB class. Will be removed in 2.1.0
  */
 class Queries {
 
@@ -21,7 +22,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->get(...)->results() with identical parameters instead
+     * @deprecated Use DB::getInstance()->get(...)->results() with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->getWhere\((.*)\)
@@ -33,7 +34,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->orderAll(...)->results() with identical parameters instead.
+     * @deprecated Use DB::getInstance()->orderAll(...)->results() with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->orderAll\((.*)\)
@@ -45,7 +46,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->orderWhere(...)->results() with identical parameters instead
+     * @deprecated Use DB::getInstance()->orderWhere(...)->results() with identical parameters instead.  Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->orderWhere\((.*)\)
@@ -57,7 +58,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->update(...) with identical parameters instead
+     * @deprecated Use DB::getInstance()->update(...) with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->update\((.*)\)
@@ -71,7 +72,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->insert(...) with identical parameters instead
+     * @deprecated Use DB::getInstance()->insert(...) with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->create\((.*)\)
@@ -85,7 +86,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->delete(...) with identical parameters instead
+     * @deprecated Use DB::getInstance()->delete(...) with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->delete\((.*)\)
@@ -99,7 +100,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->increment(...) with identical parameters instead
+     * @deprecated Use DB::getInstance()->increment(...) with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->increment\((.*)\)
@@ -113,7 +114,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->createTable(...) with identical parameters instead
+     * @deprecated Use DB::getInstance()->createTable(...) with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->createTable\((.*)\)
@@ -129,7 +130,7 @@ class Queries {
     /**
      * Get the last inserted ID
      *
-     * @deprecated Use DB::getInstance()->lastId() instead
+     * @deprecated Use DB::getInstance()->lastId() instead. Will be removed in 2.1.0
      * find and replace
      * from: \$queries->getLastId\(\)
      * to:   DB::getInstance()->lastId()
@@ -142,7 +143,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->addColumn() with identical parameters instead
+     * @deprecated Use DB::getInstance()->addColumn() with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->addColumn\((.*)\)
@@ -156,7 +157,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Use DB::getInstance()->showTables() with identical parameters instead
+     * @deprecated Use DB::getInstance()->showTables() with identical parameters instead. Will be removed in 2.1.0
      *
      * find and replace
      * from: \$queries->tableExists\((.*)\)
@@ -168,7 +169,7 @@ class Queries {
     }
 
     /**
-     * @deprecated Seems to be unused
+     * Used in upgrade scripts to add permissions to a group. For example, if a new staffcp page has been added.
      */
     public function addPermissionGroup(int $group_id, string $permission): void {
         $group = Group::find($group_id);

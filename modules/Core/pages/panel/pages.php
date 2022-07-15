@@ -479,7 +479,7 @@ if (!isset($_GET['action'])) {
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
                 'EDITING_PAGE' => $language->get('admin', 'editing_page_x', [
-                    'page' => Util::bold(Output::getClean($page->title))
+                    'page' => Text::bold(Output::getClean($page->title))
                 ]),
                 'PAGE_TITLE' => $language->get('admin', 'page_title'),
                 'PAGE_TITLE_VALUE' => (isset($_POST['page_title']) ? Output::getClean(Input::get('page_title')) : Output::getClean($page->title)),

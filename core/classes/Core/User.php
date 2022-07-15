@@ -67,9 +67,9 @@ class User {
 
     public function __construct(string $user = null, string $field = 'id') {
         $this->_db = DB::getInstance();
-        $this->_sessionName = Config::get('session/session_name');
-        $this->_cookieName = Config::get('remember/cookie_name');
-        $this->_admSessionName = Config::get('session/admin_name');
+        $this->_sessionName = Config::get('session.session_name');
+        $this->_cookieName = Config::get('remember.cookie_name');
+        $this->_admSessionName = Config::get('session.admin_name');
 
         if ($user === null) {
             if (Session::exists($this->_sessionName)) {
@@ -172,7 +172,7 @@ class User {
             ]
         );
 
-        if ($group_data == null) {
+        if ($group_data === null) {
             $group = Group::find($group_id);
             if ($group) {
                 $this->_groups[$group_id] = $group;
@@ -201,7 +201,7 @@ class User {
     }
 
     /**
-     * @deprecated Use getGroupStyle instead
+     * @deprecated Use getGroupStyle instead.  Will be removed in 2.1.0
      */
     public function getGroupClass(): string {
         return $this->getGroupStyle();
@@ -327,9 +327,9 @@ class User {
                     $hash = $hashCheck->first()->hash;
                 }
 
-                $expiry = $is_admin ? 3600 : Config::get('remember/cookie_expiry');
+                $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry, Util::getProtocol() === 'https', true);
+                Cookie::put($cookieName, $hash, $expiry, HttpUtils::getProtocol() === 'https', true);
             }
 
             return true;
@@ -674,7 +674,7 @@ class User {
         );
 
         $this->_groups = [];
-        if ($group_data == null) {
+        if ($group_data === null) {
             $group = Group::find($group_id);
             if ($group) {
                 $this->_groups[$group_id] = $group;
@@ -1043,7 +1043,7 @@ class User {
      */
     public function savePlaceholders(int $server_id, array $placeholders): void {
         $integrationUser = $this->getIntegration('Minecraft');
-        if ($integrationUser == null || !$integrationUser->getIntegration()->isEnabled()) {
+        if ($integrationUser === null || !$integrationUser->getIntegration()->isEnabled()) {
             return;
         }
 

@@ -1,7 +1,10 @@
 <?php
 
-require __DIR__ . '/../config.php';
-$conf = $conf['mysql'];
+if (!defined('ROOT_PATH')) {
+    define('ROOT_PATH', __DIR__ . '/../..');
+}
+
+$config = Config::get('mysql');
 
 return [
     'paths' => [
@@ -10,11 +13,11 @@ return [
     'environments' => [
         'nameless' => [
             'adapter' => 'mysql',
-            'host' => $conf['host'],
-            'name' => $conf['db'],
-            'user' => $conf['username'],
-            'pass' => $conf['password'],
-            'port' => $conf['port'],
+            'host' => $config['host'],
+            'name' => $config['db'],
+            'user' => $config['username'],
+            'pass' => $config['password'],
+            'port' => $config['port'],
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'default_migration_table' => 'nl2_phinxlog',

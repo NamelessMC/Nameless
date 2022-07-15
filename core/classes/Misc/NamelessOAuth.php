@@ -10,7 +10,7 @@ use League\OAuth2\Client\Provider\AbstractProvider;
  * @version 2.0.0-pr13
  * @license MIT
  */
-class OAuth extends Instanceable {
+class NamelessOAuth extends Instanceable {
 
     private array $_providers = [];
     private array $_provider_instances = [];
@@ -25,10 +25,11 @@ class OAuth extends Instanceable {
      * Add an OAuth provider to the system.
      *
      * @param string $name The name of the provider (Discord, Google, etc).
+     * @param string $module Name of the module which registered this provider.
      * @param array $data Metadata about the provider: class, user_id_name, scope_id_name, icon
      */
-    public function registerProvider(string $name, array $data): void {
-        $this->_providers[$name] = $data;
+    public function registerProvider(string $name, string $module, array $data): void {
+        $this->_providers[$name] = array_merge(['module' => $module], $data);
     }
 
     /**
@@ -90,7 +91,7 @@ class OAuth extends Instanceable {
      */
     public function getProviderInstance(string $provider): AbstractProvider {
         [$clientId, $clientSecret] = $this->getCredentials($provider);
-        $url = rtrim(Util::getSelfURL(), '/') . URL::build('/oauth', "provider=" . urlencode($provider), 'non-friendly');
+        $url = rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', "provider=" . urlencode($provider), 'non-friendly');
         $options = [
             'clientId' => $clientId,
             'clientSecret' => $clientSecret,

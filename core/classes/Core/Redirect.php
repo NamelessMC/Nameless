@@ -25,4 +25,21 @@ class Redirect {
         }
         die();
     }
+
+    /**
+     * Attempt to redirect the user to the previous page.
+     *
+     * @return never
+     */
+    public static function back(): void {
+        if (isset($_SESSION['last_page'])) {
+            self::to($_SESSION['last_page']);
+        }
+
+        if (isset($_SESSION['HTTP_REFERER'])) {
+            self::to($_SESSION['HTTP_REFERER']);
+        }
+
+        self::to(URL::build('/'));
+    }
 }

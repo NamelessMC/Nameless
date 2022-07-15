@@ -7,6 +7,7 @@
  *  Discord webhook handler class
  */
 
+// TODO: Let events define a function to build a discord embed for the webhook
 class DiscordHook {
 
     public static function execute(array $params = []): void {
@@ -23,8 +24,8 @@ class DiscordHook {
             $return['username'] = $params['username'] . ' | ' . SITE_NAME;
             $return['avatar_url'] = $params['avatar_url'];
             $return['embeds'] = [[
-                'description' => $content,
                 'title' => $params['title'],
+                'description' => $content,
                 'url' => $params['url'],
                 'footer' => ['text' => $params['content']]
             ]];

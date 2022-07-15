@@ -170,32 +170,31 @@ if (Input::exists()) {
                         'theme_id' => $new_template
                     ]);
 
+                    $group_sync_log = [];
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                            $modified = [];
+                            $user_group_ids = $view_user->getAllGroupIds();
+                            $form_groups = $_POST['groups'] ?? [];
 
-                            // Check for new groups to give them which they dont already have
-                            foreach ($_POST['groups'] as $group_id) {
-                                if (!in_array($group_id, $view_user->getAllGroupIds())) {
+                            // Check for new groups to give them which they don't already have
+                            foreach ($form_groups as $group_id) {
+                                if (!in_array($group_id, $user_group_ids)) {
                                     $view_user->addGroup($group_id);
-                                    $modified[] = $group_id;
                                 }
                             }
 
-                            // Check for groups they had, but werent in the $_POST groups
-                            foreach ($view_user->getAllGroupIds() as $group_id) {
-                                $form_groups = $_POST['groups'] ?? [];
+                            // Check for groups they had, but weren't in the $_POST groups
+                            foreach ($user_group_ids as $group_id) {
                                 if (!in_array($group_id, $form_groups)) {
                                     $view_user->removeGroup($group_id);
-                                    $modified[] = $group_id;
                                 }
                             }
 
-                            // Dispatch the modified groups
+                            // Dispatch groupsync with all of their groups
                             GroupSyncManager::getInstance()->broadcastChange(
                                 $view_user,
                                 NamelessMCGroupSyncInjector::class,
-                                $modified
+                                $view_user->getAllGroupIds(),
                             );
                         }
                     }
@@ -240,7 +239,7 @@ if (Session::exists('edit_user_error')) {
 }
 
 if (Session::exists('edit_user_warnings')) {
-    $warnings = Session::flash('edit_user_warnings');
+    $warnings = [Session::flash('edit_user_warnings')];
 }
 
 if (isset($success)) {

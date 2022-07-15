@@ -85,14 +85,14 @@ if (Input::exists()) {
 
             if ($login) {
                 // Get IP
-                $ip = Util::getRemoteAddress();
+                $ip = HttpUtils::getRemoteAddress();
 
                 // Create log
                 Log::getInstance()->log(Log::Action('admin/login'));
 
                 // Redirect to a certain page?
                 if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                    Redirect::to($_SESSION['last_page']);
+                    Redirect::back();
                 } else {
                     Redirect::to(URL::build('/panel'));
                 }

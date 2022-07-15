@@ -42,13 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? $_POST['db_password'] : '');
         $db_name = $_POST['db_name'];
 
-        $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
-        if ($mysqli->connect_errno) {
+        try {
+            // Check database details
+            DB::getCustomInstance($db_address, $db_name, $db_username, $db_password, $db_port);
 
-            $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
-
-        } else {
-
+            // Database connection successful
             $_SESSION['db_address'] = $db_address;
             $_SESSION['db_port'] = $db_port;
             $_SESSION['db_username'] = $db_username;
@@ -56,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['db_name'] = $db_name;
 
             Redirect::to('?step=upgrade_perform');
+        } catch (PDOException $e) {
+            $error = $language->get('installer', 'database_connection_failed', ['message' => $e->getMessage()]);
         }
-
     }
-
 }
 
 ?>

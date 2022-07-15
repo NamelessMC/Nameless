@@ -95,7 +95,7 @@ class Validate {
     private function __construct() {
         // Connect to database for rules which need DB access
         try {
-            $host = Config::get('mysql/host');
+            $host = Config::get('mysql.host');
         } catch (Exception $e) {
             $host = null;
         }
@@ -383,7 +383,7 @@ class Validate {
 
             // If there is no generic `message()` set or the translated message is not equal to generic message
             // we can continue without worrying about duplications
-            if ($this->_message == null || ($message != $this->_message && !in_array($message, $this->_errors))) {
+            if ($this->_message === null || ($message != $this->_message && !in_array($message, $this->_errors))) {
                 $this->_errors[] = $message;
                 continue;
             }

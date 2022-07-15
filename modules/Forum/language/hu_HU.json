@@ -1,0 +1,23 @@
+{
+    "forum/all_topics_unfollowed": "Az összes téma követése megszűnt.",
+    "forum/available_hooks": "Elérhető Hookok",
+    "forum/average_posts": "Átlagos felhasználói bejegyzések száma",
+    "forum/topic_reply": "Téma válasz",
+    "forum/by": "által",
+    "forum/can_create_topic": "Lehet témákat létrehozni?",
+    "forum/can_post_reply": "Létrehozhat válaszokat?",
+    "forum/can_view_forum": "Meg tudja nézni a fórumot?",
+    "forum/can_moderate_forum": "Tudja moderálni a fórumot?",
+    "forum/can_edit_topic": "Tudja szerkeszteni a témáikat?",
+    "forum/can_view_other_topics": "Megnézheti más felhasználók témáit?",
+    "forum/confirm_delete_post": "Biztosan törlöd ezt a bejegyzést?",
+    "forum/confirm_delete_short": "A törlés megerősítése",
+    "forum/confirm_delete_topic": "Biztosan törlöd ezt a témát?",
+    "forum/confirm_unfollow_all_topics": "Biztosan le szeretnéd állítani az összes téma követését?",
+    "forum/content_max_50000": "A bejegyzés tartalma nem lehet hosszabb 50 000 karakternél",
+    "forum/content_min_2": "A bejegyzés tartalmának legalább 2 karakterből kell állnia",
+    "forum/content_required": "Kérjük, add meg a bejegyzés tartalmát",
+    "forum/creating_forum": "Új fórum létrehozása",
+    "forum/creating_label": "Új címke létrehozása",
+    "forum/creating_label_type": "Új címketípus létrehozása"
+}

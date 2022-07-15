@@ -89,7 +89,7 @@ if (isset($_GET['do'])) {
             'CLOSE' => $language->get('general', 'close')
         ]);
 
-        if ($error->type == 1) {
+        if ($error->type == Email::REGISTRATION) {
             $user_validated = DB::getInstance()->get('users', ['id', $error->user_id])->results();
             if (count($user_validated)) {
                 $user_validated = $user_validated[0];
@@ -100,18 +100,16 @@ if (isset($_GET['do'])) {
                     ]);
                 }
             }
-        } else {
-            if ($error->type == 4) {
-                $user_error = DB::getInstance()->get('users', ['id', $error->user_id])->results();
-                if (count($user_error)) {
-                    $user_error = $user_error[0];
-                    if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
-                        $smarty->assign([
-                            'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
-                            'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
-                            'REGISTRATION_LINK_VALUE' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
-                        ]);
-                    }
+        } else if ($error->type == Email::API_REGISTRATION) {
+            $user_error = DB::getInstance()->get('users', ['id', $error->user_id])->results();
+            if (count($user_error)) {
+                $user_error = $user_error[0];
+                if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
+                    $smarty->assign([
+                        'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
+                        'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
+                        'REGISTRATION_LINK_VALUE' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
+                    ]);
                 }
             }
         }
@@ -156,8 +154,8 @@ if (isset($_GET['do'])) {
     if (count($email_errors)) {
         $template_errors = [];
 
-        foreach ($results->data as $nValue) {
-            switch ($nValue->type) {
+        foreach ($results->data as $error) {
+            switch ($error->type) {
                 case Email::REGISTRATION:
                     $type = $language->get('admin', 'registration_email');
                     break;
@@ -180,10 +178,10 @@ if (isset($_GET['do'])) {
 
             $template_errors[] = [
                 'type' => $type,
-                'date' => date(DATE_FORMAT, $nValue->at),
-                'user' => Output::getClean($user->idToName($nValue->user_id)),
-                'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $nValue->id),
-                'id' => $nValue->id
+                'date' => date(DATE_FORMAT, $error->at),
+                'user' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : '',
+                'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $error->id),
+                'id' => $error->id
             ];
         }
 

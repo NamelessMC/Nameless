@@ -512,7 +512,7 @@ if (isset($_GET['do'])) {
 
         $custom_fields_template[$field->name] = [
             'name' => Output::getClean($field->name),
-            'value' => $field->value,
+            'value' => Output::getClean($field->value),
             'id' => $field->id,
             'type' => $type,
             'required' => $field->required,

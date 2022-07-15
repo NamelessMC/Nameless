@@ -28,7 +28,7 @@ class GetNotificationsEndpoint extends KeyAuthEndpoint {
                     'type' => $result->type,
                     'message_short' => $result->content_short,
                     'message' => ($result->content) ? strip_tags($result->content) : $result->content_short,
-                    'url' => rtrim(Util::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . urlencode($result->id)),
+                    'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/user/alerts/', 'view=' . urlencode($result->id)),
                     'received_at' => $result->created,
                 ];
             }
@@ -40,7 +40,7 @@ class GetNotificationsEndpoint extends KeyAuthEndpoint {
             foreach ($messages->results() as $result) {
                 $return['notifications'][] = [
                     'type' => 'message',
-                    'url' => Util::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . urlencode($result->id)), '/'),
+                    'url' => URL::getSelfURL() . ltrim(URL::build('/user/messaging/', 'action=view&message=' . urlencode($result->id)), '/'),
                     'message_short' => $result->title,
                     'message' => $result->title
                 ];

@@ -39,6 +39,16 @@ abstract class UpgradeScript {
     abstract public function run(): void;
 
     /**
+     * Logs a message to the screen and the warning-log.log file.
+     *
+     * @param string $message Message to log
+     */
+    protected function log(string $message): void {
+        echo $message . '<br/>';
+        ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $exception->getMessage());
+    }
+
+    /**
      * Run a single database query
      *
      * @param Closure $query Function which returns the query
@@ -62,8 +72,7 @@ abstract class UpgradeScript {
                 $results[] = $query(DB::getInstance());
             } catch (Exception $exception) {
                 $results[] = null;
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $exception->getMessage());
-                echo $exception->getMessage() . '<br />';
+                $this->log($exception->getMessage());
             }
         }
 
@@ -100,8 +109,7 @@ abstract class UpgradeScript {
                 }
 
             } else {
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$newFile' does not exist, cannot delete. <br />");
-                echo "'$newFile' does not exist, cannot delete. <br />";
+                $this->log("'$newFile' does not exist, cannot delete.");
             }
 
         }
@@ -116,20 +124,17 @@ abstract class UpgradeScript {
         foreach ((array) $paths as $path) {
             $path = ROOT_PATH . '/' . $path;
             if (!file_exists($path)) {
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$path' does not exist, cannot delete. <br />");
-                echo "'$path' does not exist, cannot delete. <br />";
+                $this->log("'$path' does not exist, cannot delete.");
                 continue;
             }
 
             if (!is_writable($path)) {
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "'$path' is not writable, cannot delete. <br />");
-                echo "'$path' is not writable, cannot delete. <br />";
+                $this->log("'$path' is not writable, cannot delete.");
                 return;
             }
 
             if (is_dir($path) && !rmdir($path)) {
-                ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . "Could not delete '$path', is it empty? <br />");
-                echo "Could not delete '$path', is it empty? <br />";
+                $this->log("Could not delete '$path', is it empty?");
             }
 
             unlink($path);
@@ -139,7 +144,7 @@ abstract class UpgradeScript {
     /**
      * Execute any pending database migrations.
      */
-    protected function migrateDb(): void {
+    protected function runMigrations(): void {
         PhinxAdapter::migrate();
     }
 

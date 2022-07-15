@@ -59,7 +59,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             'previous_page' => null,
         ];
 
-        $base_url = Util::getSelfURL() . 'index.php?route=/api/v2/users&';
+        $base_url = URL::getSelfURL() . 'index.php?route=/api/v2/users&';
         if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
             $limit = (int) $_GET['limit'];
             if ($limit >= 1) {

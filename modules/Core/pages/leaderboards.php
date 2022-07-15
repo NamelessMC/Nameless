@@ -78,7 +78,7 @@ $template->addJSScript('
 
     function showTable(name, server_id, first = false) {
 
-        if (name == null) {
+        if (name === null) {
             name = $(".leaderboard_tab").first().attr("name");
             server_id = $(".leaderboard_tab").first().attr("server_id");
         }

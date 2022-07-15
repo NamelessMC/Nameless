@@ -25,7 +25,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
             try {
-                Util::setSetting('user_avatars', (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
+                Util::setSetting('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
                 Util::setSetting('default_avatar_type', Input::get('default_avatar'));
                 Util::setSetting('avatar_site', Input::get('avatar_source'));
                 Util::setSetting('avatar_type', Input::get('avatar_perspective'));
@@ -112,7 +112,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CUSTOM_AVATARS' => $language->get('admin', 'allow_custom_avatars'),
-    'CUSTOM_AVATARS_VALUE' => Util::getSetting('users_avatars'),
+    'CUSTOM_AVATARS_VALUE' => defined('CUSTOM_AVATARS'),
     'DEFAULT_AVATAR' => $language->get('admin', 'default_avatar'),
     'DEFAULT_AVATAR_VALUE' => Util::getSetting('default_avatar_type'),
     'MINECRAFT_AVATAR' => $language->get('admin', 'minecraft_avatar'),

@@ -10,11 +10,11 @@
  */
 
 function sendRegisterEmail(Language $language, string $email_address, string $username, int $user_id, string $code): bool {
-    $link = rtrim(Util::getSelfURL(), '/') . URL::build('/validate/', 'c=' . urlencode($code));
+    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/validate/', 'c=' . urlencode($code));
 
     $sent = Email::send(
-        ['email' => Output::getClean($email_address), 'name' => Output::getClean($username)],
-        Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'register_subject'),
+        ['email' => $email_address, 'name' => $username],
+        SITE_NAME . ' - ' . $language->get('emails', 'register_subject'),
         str_replace('[Link]', $link, Email::formatEmail('register', $language)),
         Email::getReplyTo()
     );

@@ -10,7 +10,7 @@
  */
 class QueryRecorder extends Instanceable {
 
-    private array $_query_stack;
+    private array $_query_stack = [];
     private int $_query_stack_num = 1;
 
     /**
@@ -29,10 +29,12 @@ class QueryRecorder extends Instanceable {
      * @param array $params Bound parameters used in the query
      */
     public function pushQuery(string $sql, array $params): void {
+        if (!Debugging::canViewDetailedError()) {
+            return;
+        }
+
         $backtrace = $this->lastReleventBacktrace();
 
-        // TODO: if/when we have a globally available way to get the logged in user,
-        // check if they're able to view the sql exception page, and don't waste time doing all this if they can't
         $this->_query_stack[] = [
             'number' => $this->_query_stack_num,
             'frame' => ErrorHandler::parseFrame(null, $backtrace['file'], $backtrace['line'], $this->_query_stack_num),
@@ -48,7 +50,7 @@ class QueryRecorder extends Instanceable {
      * @return array debug_backtrace entry
      */
     private function lastReleventBacktrace(): array {
-        $backtrace = debug_backtrace();
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
         $current_file = $last_file = $backtrace[0]['file'];
         $i = 1;

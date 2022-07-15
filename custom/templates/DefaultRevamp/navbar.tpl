@@ -143,7 +143,7 @@
                 <div class="ui info icon message" id="update-message">
                     <i class="close icon"></i>
                     {/if}
-                    <a href="{$UPDATE_LINK}">
+                    <a href="{$NAMELESS_UPDATE_LINK}">
                         <i class="download icon"></i>
                     </a>
                     <div class="content">
@@ -178,5 +178,12 @@
                 {if isset($MUST_VALIDATE_ACCOUNT)}
                 <div class="ui message">
                     {$MUST_VALIDATE_ACCOUNT}
+                </div>
+                {/if}
+
+                {if isset($MAINTENANCE_ENABLED)}
+                <div class="ui warning message">
+                    <i class="close icon"></i>
+                    {$MAINTENANCE_ENABLED}
                 </div>
                 {/if}

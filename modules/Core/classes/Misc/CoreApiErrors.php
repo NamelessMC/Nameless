@@ -30,6 +30,7 @@ class CoreApiErrors {
 
     public const ERROR_INVALID_INTEGRATION = 'core:invalid_integration';
     public const ERROR_INVALID_CODE = 'core:invalid_code';
+    public const ERROR_INTEGRATION_ALREADY_VERIFIED = 'core:integration_already_verified';
     public const ERROR_USER_ALREADY_ACTIVE = 'core:user_already_active';
 
     public const ERROR_UNABLE_TO_UPDATE_USERNAME = 'core:unable_to_update_username';

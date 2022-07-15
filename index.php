@@ -15,7 +15,7 @@
 header('X-Frame-Options: SAMEORIGIN');
 
 if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING']))) {
-    define('DEBUGGING', 1);
+    define('DEBUGGING', true);
 }
 
 if (defined('DEBUGGING') && DEBUGGING) {
@@ -29,6 +29,9 @@ if (PHP_VERSION_ID < 70400) {
     die('NamelessMC is not compatible with PHP versions older than 7.4');
 }
 
+// Start page load timer
+define('PAGE_START_TIME', microtime(true));
+
 if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
     die(
         "Your installation is missing the 'vendor' or 'core/assets/vendor' directory. These directories are included in
@@ -39,12 +42,19 @@ if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
     );
 }
 
-// Start page load timer
-define('PAGE_START_TIME', microtime(true));
-
-// Definitions
 const PATH = '/';
 const ROOT_PATH = __DIR__;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+if (!Config::exists()) {
+    if (is_file(ROOT_PATH . '/install.php')) {
+        Redirect::to('install.php');
+    } else {
+        die('Config does not exist, but neither does the installer');
+    }
+}
+
 $page = 'Home';
 
 if (!ini_get('upload_tmp_dir')) {
@@ -53,7 +63,7 @@ if (!ini_get('upload_tmp_dir')) {
     $tmp_dir = ini_get('upload_tmp_dir');
 }
 
-if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) {
+if (HttpUtils::getProtocol() === 'https') {
     ini_set('session.cookie_secure', 'On');
 }
 
@@ -72,10 +82,6 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
 
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');
-
-if (!isset($GLOBALS['config']['core']) && is_file(ROOT_PATH . '/install.php')) {
-    Redirect::to('install.php');
-}
 
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {

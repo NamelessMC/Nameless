@@ -57,7 +57,15 @@ class Input {
      * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
      */
     public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false): string {
-        $skin = defined('TEMPLATE_TINY_EDITOR_DARKMODE') ? 'oxide-dark' : 'oxide';
+        if (
+            (defined('DARK_MODE') && DARK_MODE) ||
+            (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
+        ) {
+            $skin = 'oxide-dark';
+        } else {
+            $skin = 'oxide';
+        }
+
         $js = '';
 
         if ($mentions) {
@@ -116,9 +124,9 @@ class Input {
                 'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
               ],
               external_plugins: {
-                'spoiler': " . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . " '/core/assets/plugins/tinymce_spoiler/plugin.min.js',
+                'spoiler': '" . URL::build('/core/assets/plugins/tinymce_spoiler/plugin.min.js') . "',
               },
-              toolbar: 'undo redo | bold italic underline strikethrough formatselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
+              toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample code hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
               skin: '$skin'," .

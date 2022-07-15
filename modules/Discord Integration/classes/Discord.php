@@ -15,9 +15,9 @@ class Discord {
     private static bool $_is_bot_setup;
 
     /**
-     * @var int|null The ID of this website's Discord server
+     * @var string|null The ID of this website's Discord server
      */
-    private static ?int $_guild_id;
+    private static ?string $_guild_id;
 
     /**
      * @var Language Instance of Language class for translations
@@ -25,10 +25,11 @@ class Discord {
     private static Language $_discord_integration_language;
 
     /**
-     * @var array|string[] Valid responses from the Discord bot
+     * @var array Valid responses from the Discord bot
      */
-    private static array $_valid_responses = [
+    private const VALID_RESPONSES = [
         'fullsuccess',
+        'partsuccess',
         'badparameter',
         'error',
         'invguild',
@@ -52,7 +53,7 @@ class Discord {
         }
 
         $integrationUser = $user->getIntegration('Discord');
-        if ($integrationUser == null || !$integrationUser->isVerified()) {
+        if ($integrationUser === null || !$integrationUser->isVerified()) {
             return false;
         }
 
@@ -71,7 +72,7 @@ class Discord {
         }
 
         if ($result == 'partsuccess') {
-            Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'));
+            Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'), $user->data()->id);
             return true;
         }
 
@@ -147,11 +148,11 @@ class Discord {
     }
 
     /**
-     * @return int|null Discord guild ID for this site
+     * @return string|null Discord guild ID for this site
      */
-    public static function getGuildId(): ?int {
+    public static function getGuildId(): ?string {
         if (!isset(self::$_guild_id)) {
-            self::$_guild_id = (int) Util::getSetting('discord');
+            self::$_guild_id = (string) Util::getSetting('discord');
         }
 
         return self::$_guild_id;
@@ -174,7 +175,7 @@ class Discord {
 
         $response = $client->contents();
 
-        if (in_array($response, self::$_valid_responses)) {
+        if (in_array($response, self::VALID_RESPONSES)) {
             return $response;
         }
 
@@ -214,7 +215,7 @@ class Discord {
             ];
         }
 
-        if (in_array($result, self::$_valid_responses)) {
+        if (in_array($result, self::VALID_RESPONSES)) {
             return [self::getLanguageTerm('discord_bot_error_' . $result)];
         }
 

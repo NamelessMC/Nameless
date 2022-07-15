@@ -9,9 +9,6 @@
  *  Initialisation file
  */
 
-require_once ROOT_PATH . '/vendor/autoload.php';
-require_once ROOT_PATH . '/core/includes/constants/autoload.php';
-
 // Nameless error handling
 set_exception_handler([ErrorHandler::class, 'catchException']);
 // catchError() used for throw_error or any exceptions which may be missed by catchException()
@@ -25,11 +22,25 @@ if (!isset($page)) {
     die('$page variable is unset. Cannot continue.');
 }
 
-if (!file_exists(ROOT_PATH . '/core/config.php')) {
-    if (is_writable(ROOT_PATH . '/core')) {
-        fopen(ROOT_PATH . '/core/config.php', 'w');
-    } else {
-        die('Your <strong>/core</strong> directory is not writable, please check your file permissions.');
+Debugging::setCanViewDetailedError(defined('DEBUGGING') && DEBUGGING);
+Debugging::setCanGenerateDebugLink(defined('DEBUGGING') && DEBUGGING);
+
+// All paths should be writable, but recursively checking everything would take too much time.
+// Only check the most important paths.
+$writable_check_paths = [
+    ROOT_PATH,
+    ROOT_PATH . '/cache',
+    ROOT_PATH . '/cache/logs',
+    ROOT_PATH . '/cache/sitemaps',
+    ROOT_PATH . '/cache/templates_c',
+    ROOT_PATH . '/uploads',
+    ROOT_PATH . '/core/config.php'
+];
+
+foreach ($writable_check_paths as $path) {
+    if (is_dir($path) && !is_writable($path)) {
+        die('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
+        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>');
     }
 }
 
@@ -41,15 +52,8 @@ if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
     }
 }
 
-// Require config
-require(ROOT_PATH . '/core/config.php');
-
-if (isset($conf) && is_array($conf)) {
-    $GLOBALS['config'] = $conf;
-} else {
-    if (!isset($GLOBALS['config'])) {
-        $page = 'install';
-    }
+if (!Config::exists()) {
+    $page = 'install';
 }
 
 // If we're accessing the upgrade script don't initialise further
@@ -65,31 +69,32 @@ if ($page != 'install') {
      */
 
     // Friendly URLs?
-    define('FRIENDLY_URLS', Config::get('core/friendly') == 'true');
+    define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
 
     // Set up cache
     $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
-    if (Config::get('core/force_https')) {
+    if (Config::get('core.force_https')) {
         define('FORCE_SSL', true);
     }
-    if (Config::get('core/force_www')) {
+    if (Config::get('core.force_www')) {
         define('FORCE_WWW', true);
     }
 
-    if (defined('FORCE_SSL') && Util::getProtocol() === 'http') {
-        if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-            header('Location: https://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-            die();
+    $host = HttpUtils::getHeader('Host');
+    // Only check force HTTPS and force www. when Host header is set
+    // These options don't make sense when making requests to IP addresses anyway
+    if ($host !== null) {
+        if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
+            if (defined('FORCE_WWW') && !str_contains(host, 'www.')) {
+                Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
+            } else {
+                Redirect::to('https://.' . $host . $_SERVER['REQUEST_URI']);
+            }
+        } else if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
+            Redirect::to(HttpUtils::getProtocol() . '://www.' . $host . $_SERVER['REQUEST_URI']);
         }
-
-        header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-        die();
-    }
-
-    if (defined('FORCE_WWW') && !str_contains($_SERVER['HTTP_HOST'], 'www.')) {
-        header('Location: ' . Util::getProtocol() . '://www.' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 
     // Ensure database is up-to-date
@@ -120,13 +125,13 @@ if ($page != 'install') {
     define('NAMELESS_VERSION', Util::getSetting('nameless_version'));
 
     // Set the date format
-    define('DATE_FORMAT', Config::get('core/date_format') ?: 'd M Y, H:i');
+    define('DATE_FORMAT', Config::get('core.date_format') ?: 'd M Y, H:i');
 
     // User initialisation
     $user = new User();
     // Do they need logging in (checked remember me)?
-    if (Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
-        $hash = Cookie::get(Config::get('remember/cookie_name'));
+    if (Cookie::exists(Config::get('remember.cookie_name')) && !Session::exists(Config::get('session.session_name'))) {
+        $hash = Cookie::get(Config::get('remember.cookie_name'));
         $hashCheck = DB::getInstance()->get('users_session', ['hash', $hash]);
 
         if ($hashCheck->count()) {
@@ -143,16 +148,16 @@ if ($page != 'install') {
 
         $directories = array_values($directories);
 
-        $config_path = Config::get('core/path');
+        $config_path = Config::get('core.path');
 
         if (!empty($config_path)) {
-            $config_path = explode('/', Config::get('core/path'));
+            $config_path = explode('/', Config::get('core.path'));
 
             for ($i = 0, $iMax = count($config_path); $i < $iMax; $i++) {
                 unset($directories[$i]);
             }
 
-            define('CONFIG_PATH', '/' . Config::get('core/path'));
+            define('CONFIG_PATH', '/' . Config::get('core.path'));
 
             $directories = array_values($directories);
         }
@@ -190,7 +195,7 @@ if ($page != 'install') {
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
         // Attempt to get the requested language from the browser if it exists
         // and if the user has enabled auto language detection
-        $automatic_locale = Language::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '');
+        $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
         if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             $default_language = $automatic_locale;
         }
@@ -211,7 +216,7 @@ if ($page != 'install') {
 
     // Site name
     $sitename = Util::getSetting('sitename');
-    if ($sitename == null) {
+    if ($sitename === null) {
         die('No sitename in settings table');
     }
     define('SITE_NAME', $sitename);
@@ -315,8 +320,8 @@ if ($page != 'install') {
     // Basic Smarty variables
     $smarty->assign([
         'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
-        'OG_URL' => Output::getClean(rtrim(Util::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
-        'OG_IMAGE' => Output::getClean(rtrim(Util::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
+        'OG_URL' => Output::getClean(rtrim(URL::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
+        'OG_IMAGE' => Output::getClean(rtrim(URL::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
         'SITE_NAME' => Output::getClean(SITE_NAME),
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
@@ -354,29 +359,6 @@ if ($page != 'install') {
 
     // Widgets
     $widgets = new Widgets($cache);
-
-    // Maintenance mode?
-    if (Util::getSetting('maintenance') === '1') {
-        // Enabled
-        // Admins only beyond this point
-        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
-            // Maintenance mode
-            if (isset($_GET['route']) && (
-                rtrim($_GET['route'], '/') == '/login'
-                || rtrim($_GET['route'], '/') == '/forgot_password'
-                || str_contains($_GET['route'], '/api/')
-                || str_contains($_GET['route'], 'queries')
-            )) {
-                // Can continue as normal
-            } else {
-                require(ROOT_PATH . '/maintenance.php');
-                die();
-            }
-        } else {
-            // Display notice to admin stating maintenance mode is enabled
-            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
-        }
-    }
 
     // Minecraft integration?
     define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
@@ -462,6 +444,30 @@ if ($page != 'install') {
         }
     }
 
+    // Maintenance mode?
+    if (Util::getSetting('maintenance') === '1') {
+        // Enabled
+        // Admins only beyond this point
+        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
+            // Maintenance mode
+            if (isset($_GET['route']) && (
+                    rtrim($_GET['route'], '/') === '/login'
+                    || rtrim($_GET['route'], '/') === '/forgot_password'
+                    || str_contains($_GET['route'], '/api/')
+                    || str_contains($_GET['route'], 'queries')
+                    || str_contains($_GET['route'], 'oauth/')
+                )) {
+                // Can continue as normal
+            } else {
+                require(ROOT_PATH . '/maintenance.php');
+                die();
+            }
+        } else {
+            // Display notice to admin stating maintenance mode is enabled
+            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
+        }
+    }
+
     // Webhooks
     $hook_array = [];
     if (Util::isModuleEnabled('Discord Integration')) {
@@ -495,10 +501,13 @@ if ($page != 'install') {
     EventHandler::registerWebhooks($hook_array);
 
     // Get IP
-    $ip = Util::getRemoteAddress();
+    $ip = HttpUtils::getRemoteAddress();
 
     // Perform tasks if the user is logged in
     if ($user->isLoggedIn()) {
+        Debugging::setCanViewDetailedError($user->hasPermission('admincp.errors'));
+        Debugging::setCanGenerateDebugLink($user->hasPermission('admincp.core.debugging'));
+
         // Ensure a user is not banned
         if ($user->data()->isbanned == 1) {
             $user->logout();

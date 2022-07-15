@@ -29,92 +29,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = $language->get('installer', 'database_error');
 
     } else {
-
         $db_address = $_POST['db_address'];
         $db_port = $_POST['db_port'];
         $db_username = $_POST['db_username'];
         $db_password = ((isset($_POST['db_password']) && !empty($_POST['db_password'])) ? str_replace('\'', '\\\'', $_POST['db_password']) : '');
         $db_name = $_POST['db_name'];
 
-        $charset = ($_POST['charset'] == 'latin1') ? 'latin1' : 'utf8mb4';
-
         try {
-            $mysqli = new mysqli($db_address, $db_username, $db_password, $db_name, $db_port);
+            // This throws a PDOException if the connection fails
+            DB::getCustomInstance($db_address, $db_name, $db_username, $db_password, $db_port, $force_charset=$db_charset);
+
+            $conf = [
+                'mysql' => [
+                    'host' => $db_address,
+                    'port' => $db_port,
+                    'username' => $db_username,
+                    'password' => $db_password,
+                    'db' => $db_name,
+                    'charset' => 'utf8mb4',
+                    'initialise_charset' => true,
+                ],
+                'remember' => [
+                    'cookie_name' => 'nl2',
+                    'cookie_expiry' => 604800,
+                ],
+                'session' => [
+                    'session_name' => '2user',
+                    'admin_name' => '2admin',
+                    'token_name' => '2token',
+                ],
+                'core' => [
+                    'hostname' => $_SESSION['hostname'],
+                    'path' => $_SESSION['install_path'],
+                    'friendly' => $_SESSION['friendly_urls'] === 'true',
+                    'force_https' => false,
+                    'force_www' => false,
+                    'captcha' => false,
+                    'date_format' => 'd M Y, H:i',
+                    'trustedProxies' => null,
+                ],
+            ];
+
+            try {
+                Config::write($conf);
+                $_SESSION['database_configured'] = true;
+                Redirect::to('?step=database_initialization');
+            } catch (RuntimeException $e) {
+                $error = $language->get('installer', 'config_write_failed', ['message' => $e->getMessage()]);
+            }
+        } catch (PDOException $e) {
+            $error = $language->get('installer', 'database_connection_failed', ['message' => $e->getMessage()]);
         } catch (Exception $e) {
             $error = $e->getMessage();
         }
-
-        if (!$error) {
-            if ($mysqli->connect_errno) {
-
-                $error = $mysqli->connect_errno . ' - ' . $mysqli->connect_error;
-
-            } else {
-
-                $mysqli->close();
-
-                $conf = [
-                    'mysql' => [
-                        'host' => $db_address,
-                        'port' => $db_port,
-                        'username' => $db_username,
-                        'password' => $db_password,
-                        'db' => $db_name,
-                        'charset' => $charset,
-                        'initialise_charset' => true,
-                    ],
-                    'remember' => [
-                        'cookie_name' => 'nl2',
-                        'cookie_expiry' => 604800,
-                    ],
-                    'session' => [
-                        'session_name' => '2user',
-                        'admin_name' => '2admin',
-                        'token_name' => '2token',
-                    ],
-                    'core' => [
-                        'hostname' => $_SESSION['hostname'],
-                        'path' => $_SESSION['install_path'],
-                        'friendly' => $_SESSION['friendly_urls'] == 'true',
-                        'force_https' => false,
-                        'force_www' => false,
-                        'captcha' => false,
-                        'date_format' => 'd M Y, H:i',
-                        'trustedProxies' => [],
-                    ],
-                ];
-
-                try {
-
-                    if (!is_writable(ROOT_PATH . '/core/config.php')) {
-
-                        $error = $language->get('installer', 'config_not_writable');
-
-                    } else {
-
-                        $config_content = '<?php' . PHP_EOL . '$conf = ' . var_export($conf, true) . ';';
-                        file_put_contents(ROOT_PATH . '/core/config.php', $config_content);
-
-                        $_SESSION['charset'] = $charset;
-
-						// Ensure file save has concluded
-						sleep(1);
-
-                        Redirect::to('?step=database_initialization');
-                    }
-
-                } catch (Exception $e) {
-
-                    $error = $e->getMessage();
-
-                }
-
-            }
-
-        }
-
     }
-
 }
 
 ?>
@@ -149,10 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername', $default_user);
                         create_field('password', $language->get('installer', 'database_password'), 'db_password', 'inputDBPassword', $default_pass);
                         create_field('text', $language->get('installer', 'database_name'), 'db_name', 'inputDBName', $default_name);
-                        create_field('select', $language->get('installer', 'character_set'), 'charset', 'inputCharset', $default_charset, [
-                            'utf8mb4' => 'Unicode (utf8mb4)',
-                            'latin1' => 'Latin (latin1)',
-                        ]);
                         ?>
                     </div>
                 </div>

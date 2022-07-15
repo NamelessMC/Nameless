@@ -42,9 +42,6 @@ require(__DIR__ . '/includes/header.php');
                 </div>
                 <div class="sixteen wide tablet eleven wide computer column">
                     <?php if (!isset($step)) { ?>
-                        <div class="ui red message">
-                            <?php echo $language->get('installer', 'pre-release_warning'); ?>
-                        </div>
                         <div class="ui segments">
                             <div class="ui secondary segment">
                                 <h4 class="ui header">

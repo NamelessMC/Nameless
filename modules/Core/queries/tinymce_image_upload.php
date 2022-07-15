@@ -1,28 +1,31 @@
 <?php
 
 if (!$user->isLoggedIn()) {
-    die();
+    http_response_code(400);
+    die('Not logged in');
 }
 
 if (!Token::check()) {
-    die();
+    http_response_code(400);
+    die('Invalid token');
 }
 
-$image = new \Bulletproof\Image($_FILES);
-$image->setLocation(implode(DIRECTORY_SEPARATOR, array(ROOT_PATH, 'uploads', 'post_images')));
-$image->setDimension(10000, 10000);
-$image->setSize(10, 10000000 /* 10MB */);
-$image->setName($user->data()->id . '-' . time());
+$image = (new \Bulletproof\Image($_FILES))
+    ->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'post_images']))
+    ->setSize(10, 10000000 /* 10MB */)
+    ->setDimension(10000, 10000)
+    ->setName($user->data()->id . '-' . time());
 
 if ($image['file']) {
-    $upload = $image->upload();
-    if (!$upload) {
-        http_response_code(400);
-        die($image->getError());
+    if (!$image->upload()) {
+        http_response_code(500);
+        $error = $e->getMessage() ?: 'Unknown error, check logs for more details';
+        ErrorHandler::logWarning('TinyMCE image upload error: ' . $error);
+        die($error);
     }
 
     die(json_encode([
-        'location' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/post_images/' . $image->getName().'.'.$image->getMime(),
+        'location' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/post_images/' . $image->getName() . '.' . $image->getMime(),
     ]));
 }
 

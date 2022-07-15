@@ -15,7 +15,7 @@ class Token {
      * @return string current form token.
      */
     public static function get(): string {
-        $tokenName = Config::get('session/token_name');
+        $tokenName = Config::get('session.token_name');
 
         // Return if it already exists
         if (Session::exists($tokenName)) {
@@ -33,7 +33,7 @@ class Token {
      */
     public static function generate(): void {
         // Generate random token using md5
-        Session::put(Config::get('session/token_name'), md5(uniqid('', true)));
+        Session::put(Config::get('session.token_name'), md5(uniqid('', true)));
     }
 
     /**
@@ -45,11 +45,11 @@ class Token {
      * @throws Exception
      */
     public static function check(string $token = null): bool {
-        if ($token == null) {
+        if ($token === null) {
             $token = Input::get('token');
         }
 
-        $tokenName = Config::get('session/token_name');
+        $tokenName = Config::get('session.token_name');
 
         // Check the token matches
         return Session::exists($tokenName) && $token === Session::get($tokenName);

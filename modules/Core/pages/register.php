@@ -88,7 +88,7 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
     $mcassoc->enableInsecureMode();
 
-    require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+    require('../includes/run_mcassoc.php');
     die();
 }
 
@@ -261,13 +261,13 @@ if (Input::exists()) {
                         $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
                         $mcassoc->enableInsecureMode();
 
-                        require(ROOT_PATH . '/core/integration/run_mcassoc.php');
+                        require('../includes/run_mcassoc.php');
 
                     } else {
                         // Disabled
                         $user = new User();
 
-                        $ip = Util::getRemoteAddress();
+                        $ip = HttpUtils::getRemoteAddress();
                         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                             // TODO: Invalid IP, do something
                         }
@@ -334,7 +334,7 @@ if (Input::exists()) {
 
                         if (Session::exists('oauth_register_data')) {
                             $data = json_decode(Session::get('oauth_register_data'), true);
-                            OAuth::getInstance()->saveUserProvider(
+                            NamelessOAuth::getInstance()->saveUserProvider(
                                 $user_id,
                                 $data['provider'],
                                 $data['id'],
@@ -365,7 +365,7 @@ if (Input::exists()) {
                                 'user' => Input::get('username'),
                             ]),
                             'avatar_url' => $user->getAvatar(128, true),
-                            'url' => Util::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
+                            'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
                             'language' => $default_language,
                         ]);
 
@@ -476,8 +476,8 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
-    'OAUTH_AVAILABLE' => OAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => OAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
 ]);
 
 if ($captcha) {

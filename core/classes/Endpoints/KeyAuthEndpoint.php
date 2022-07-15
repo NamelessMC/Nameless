@@ -16,17 +16,17 @@ class KeyAuthEndpoint extends EndpointBase {
      * @return bool Whether the API key is valid
      */
     final public function isAuthorised(Nameless2API $api): bool {
-        $headers = getallheaders();
+        $auth_header = HttpUtils::getHeader('Authorization');
 
-        if (!isset($headers['Authorization'])) {
-            return false;
+        if ($auth_header === null) {
+            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
         }
 
-        $exploded = explode(' ', trim($headers['Authorization']));
+        $exploded = explode(' ', trim($auth_header));
 
         if (count($exploded) !== 2 ||
             strcasecmp($exploded[0], 'Bearer') !== 0) {
-            return false;
+            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Authorization header not in expected format');
         }
 
         $api_key = $exploded[1];
@@ -43,9 +43,10 @@ class KeyAuthEndpoint extends EndpointBase {
      */
     private function validateKey(Nameless2API $api, string $api_key): bool {
         $correct_key = Util::getSetting('mc_api_key');
-        if ($correct_key == null) {
+        if ($correct_key === null) {
             die('API key is null');
         }
+
         return hash_equals($api_key, $correct_key);
     }
 

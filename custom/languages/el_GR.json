@@ -204,7 +204,6 @@
     "installer/outgoing_email": "Εξερχόμενο Email",
     "installer/passwords_must_match": "Οι κωδικοί πρόσβασης πρέπει να ταιριάζουν.",
     "installer/pre-release": "προδηµοσιεύσει",
-    "installer/pre-release_warning": "Παρακαλείστε να σημειώσετε ότι αυτή η προδηµοσιεύσει δεν προορίζεται για χρήση σε δημόσιο χώρο.",
     "installer/proceed": "συνεχίζω",
     "installer/requirements": "Απαιτήσεις:",
     "installer/requirements_error": "Πρέπει να έχετε όλες τις απαιτούμενες επεκτάσεις εγκατεστημένες, και να έχουν οριστεί σωστά δικαιώματα, προκειμένου να προχωρήσει με την εγκατάσταση.",

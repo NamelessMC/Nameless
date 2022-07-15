@@ -22,7 +22,7 @@ class Output {
      * @return ?string Cleaned version of string.
      */
     public static function getClean(?string $input): ?string {
-        return $input == null ? null : htmlspecialchars(self::getDecoded($input), ENT_QUOTES);
+        return $input === null ? null : htmlspecialchars(self::getDecoded($input), ENT_QUOTES);
     }
 
     /**
@@ -32,7 +32,7 @@ class Output {
      * @return ?string Decoded string.
      */
     public static function getDecoded(?string $input): ?string {
-        return $input == null ? null : htmlspecialchars_decode($input, ENT_QUOTES);
+        return $input === null ? null : htmlspecialchars_decode($input, ENT_QUOTES);
     }
 
     /**

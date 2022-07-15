@@ -7,16 +7,19 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
             $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
 
             $json = [
-                'message' => defined('DEBUGGING') && DEBUGGING ? $message : $language->get('installer', 'database_configured'),
-                'success' => $success,
+                'message' => $language->get('installer', 'database_configured'),
                 'redirect_url' => $redirect_url,
             ];
 
-            $_SESSION['database_initialized'] = true;
+            if (!str_contains($message, 'All Done')) {
+                $json['error'] = $message;
+            } else {
+                $_SESSION['database_initialized'] = true;
+            }
 
         } else {
             if ($_GET['initialise'] === 'site') {
-                DatabaseInitialiser::runPreUser($conf);
+                DatabaseInitialiser::runPreUser();
 
                 $json = [
                     'success' => true,

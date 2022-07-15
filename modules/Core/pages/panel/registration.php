@@ -38,16 +38,16 @@ if (Input::exists()) {
 
             if (Input::get('action') == 'oauth') {
 
-                foreach (array_keys(OAuth::getInstance()->getProviders()) as $provider_name) {
+                foreach (array_keys(NamelessOAuth::getInstance()->getProviders()) as $provider_name) {
                     $client_id = Input::get("client-id-{$provider_name}");
                     $client_secret = Input::get("client-secret-{$provider_name}");
                     if ($client_id && $client_secret) {
-                        OAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
+                        NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
                     } else {
-                        OAuth::getInstance()->setEnabled($provider_name, 0);
+                        NamelessOAuth::getInstance()->setEnabled($provider_name, 0);
                     }
 
-                    OAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
+                    NamelessOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
                 }
 
             } else {
@@ -62,10 +62,12 @@ if (Input::exists()) {
 
                 // Validate captcha key and secret key
                 if (!empty(Input::get('recaptcha_key')) || !empty(Input::get('recaptcha_secret')) || Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                    CaptchaBase::setActiveProvider(Input::get('captcha_type'));
+
                     $provider = CaptchaBase::getActiveProvider();
                     if ($provider->validateSecret(Input::get('recaptcha_secret')) == false || $provider->validateKey(Input::get('recaptcha')) == false) {
                         $errors[] = $language->get('admin', 'invalid_recaptcha_settings', [
-                            'recaptchaProvider' => Util::bold(Input::get('captcha_type'))
+                            'recaptchaProvider' => Text::bold(Input::get('captcha_type'))
                         ]);
 
                     } else {
@@ -85,18 +87,7 @@ if (Input::exists()) {
                     // Config value
                     if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
                         if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                            // Require config
-                            if (isset($path) && file_exists($path . 'core/config.php')) {
-                                $loadedConfig = json_decode(file_get_contents($path . 'core/config.php'), true);
-                            } else {
-                                $loadedConfig = json_decode(file_get_contents(ROOT_PATH . '/core/config.php'), true);
-                            }
-
-                            if (is_array($loadedConfig)) {
-                                $GLOBALS['config'] = $loadedConfig;
-                            }
-
-                            Config::set('core/captcha', true);
+                            Config::set('core.captcha', true);
                         } else {
                             $errors = [$language->get('admin', 'config_not_writable')];
                         }
@@ -158,11 +149,11 @@ foreach ($all_captcha_options as $option) {
 }
 
 $oauth_provider_data = [];
-foreach (OAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
-    [$client_id, $client_secret] = OAuth::getInstance()->getCredentials($provider_name);
+foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
+    [$client_id, $client_secret] = NamelessOAuth::getInstance()->getCredentials($provider_name);
     $oauth_provider_data[$provider_name] = [
-        'enabled' => OAuth::getInstance()->isEnabled($provider_name),
-        'setup' => OAuth::getInstance()->isSetup($provider_name),
+        'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
+        'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
         'icon' => $provider_data['icon'],
         'client_id' => $client_id,
         'client_secret' => $client_secret,

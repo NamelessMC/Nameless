@@ -46,9 +46,7 @@ class IntegrationUser {
      * @return User NamelessMC User that belong to this integration user
      */
     public function getUser(): User {
-        return $this->_user ??= (function (): User {
-            return new User($this->data()->user_id);
-        })();
+        return $this->_user ??= new User($this->data()->user_id);
     }
 
     /**
@@ -112,6 +110,9 @@ class IntegrationUser {
             ]
         );
 
+        // Load the data for this integration from the query we just made
+        $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM nl2_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
+
         $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('linkIntegrationUser', [
             'integration' => $this->_integration->getName(),
@@ -122,7 +123,7 @@ class IntegrationUser {
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
                 'identifier' => $identifier,
                 'username' => $username,
@@ -153,7 +154,7 @@ class IntegrationUser {
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,
@@ -184,7 +185,7 @@ class IntegrationUser {
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
-            'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,

@@ -57,7 +57,7 @@
                     <a class="ui negative button right floated" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
                 </form>
                 {if $OAUTH_AVAILABLE}
-                <div class="ui horizontal divider">OR</div>
+                <div class="ui horizontal divider">{$OR}</div>
                 <div class="ui equal width grid">
                     {foreach $OAUTH_PROVIDERS as $name => $meta}
                     <div class="column">

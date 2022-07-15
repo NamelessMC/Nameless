@@ -30,6 +30,7 @@ class ErrorHandler {
             return false;
         }
 
+        $log_entry = $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string;
         switch ($error_number) {
             case E_USER_ERROR:
                 // Pass execution to new error handler.
@@ -39,15 +40,15 @@ class ErrorHandler {
                 break;
 
             case E_USER_WARNING:
-                self::logError('warning', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('warning', $log_entry);
                 break;
 
             case E_USER_NOTICE:
-                self::logError('notice', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('notice', $log_entry);
                 break;
 
             default:
-                self::logError('other', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . ') ' . $error_number . ': ' . $error_string);
+                self::logError('other', $log_entry);
                 break;
         }
 
@@ -71,35 +72,37 @@ class ErrorHandler {
         $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
 
         // Create a log entry for viewing in staffcp
-        self::logError('fatal', '[' . date('Y-m-d, H:i:s') . '] ' . $error_file . '(' . $error_line . '): ' . $error_string);
+        self::logError('fatal', $error_file . '(' . $error_line . '): ' . $error_string);
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::shouldUsePlainText()) {
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
 
-        $frames = [];
+        if (Debugging::canViewDetailedError()) {
+            $frames = [];
 
-        // Most recent frame is not included in getTrace(), so deal with it individually
-        $frames[] = self::parseFrame($exception, $error_file, $error_line);
+            // Most recent frame is not included in getTrace(), so deal with it individually
+            $frames[] = self::parseFrame($exception, $error_file, $error_line);
 
-        $skip_frames = 0;
+            $skip_frames = 0;
 
-        // Loop all frames in the exception trace & get relevent information
-        if ($exception != null) {
+            // Loop all frames in the exception trace & get relevent information
+            if ($exception != null) {
 
-            $i = count($exception->getTrace());
+                $i = count($exception->getTrace());
 
-            foreach ($exception->getTrace() as $frame) {
+                foreach ($exception->getTrace() as $frame) {
 
-                // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
-                if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
-                    ++$skip_frames;
-                    continue;
+                    // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
+                    if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
+                        ++$skip_frames;
+                        continue;
+                    }
+
+                    $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
+                    $i--;
                 }
-
-                $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
-                $i--;
             }
         }
 
@@ -108,18 +111,6 @@ class ErrorHandler {
         } else {
             // NamelessMC not installed yet
             $language = new Language('core', 'en_UK');
-        }
-
-        $detailed_error = defined('DEBUGGING');
-        $can_generate_debug = defined('DEBUGGING');
-
-        try {
-            $user = new User();
-            $detailed_error |= $user->isLoggedIn() && $user->hasPermission('admincp.errors');
-            $can_generate_debug |= $user->hasPermission('admincp.core.debugging');
-        } catch (Error $ignored) {
-            // Getting user info might fail, for example if the website isn't
-            // installed yet. Assume the user does not have permission.
         }
 
         $path = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/';
@@ -144,7 +135,7 @@ class ErrorHandler {
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'TOAST_CSS' => $path . 'css/fomantic.toast.min.css',
             'TOAST_JS' => $path . 'js/fomantic.toast.min.js',
-            'DETAILED_ERROR' => $detailed_error,
+            'DETAILED_ERROR' => Debugging::canViewDetailedError(),
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
             'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
@@ -152,13 +143,13 @@ class ErrorHandler {
             'ERROR_STRING' => Output::getClean($error_string),
             'ERROR_FILE' => $error_file,
             'CANCEL' => $language->get('general', 'cancel'),
-            'CAN_GENERATE_DEBUG' => $can_generate_debug,
+            'CAN_GENERATE_DEBUG' => Debugging::canGenerateDebugLink(),
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
             // TODO: should we skip the 2 frames that are from the "new User()" above?
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
-            'CURRENT_URL' => Util::getProtocol() . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+            'CURRENT_URL' => HttpUtils::getProtocol() . '://' . HttpUtils::getHeader('Host') . $_SERVER['REQUEST_URI'],
             'FRAMES' => $frames,
             'SKIP_FRAMES' => $skip_frames,
             'BACK' => $language->get('general', 'back'),
@@ -198,7 +189,7 @@ class ErrorHandler {
             }
 
             if ($dir_exists) {
-                file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), $contents . PHP_EOL, FILE_APPEND);
+                file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), '[' . date('Y-m-d, H:i:s') . '] ' . $contents . PHP_EOL, FILE_APPEND);
             }
         } catch (Exception $ignored) {
         }
@@ -260,7 +251,7 @@ class ErrorHandler {
     public static function catchShutdownError(): void {
         $error = error_get_last();
 
-        if ($error == null) {
+        if ($error === null) {
             return;
         }
 

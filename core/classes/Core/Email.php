@@ -54,8 +54,10 @@ class Email {
      * @return array Array with reply-to email address and name
      */
     public static function getReplyTo(): array {
-        $contactemail = Util::getSetting('incoming_email');
-        return ['email' => $contactemail, 'name' => Output::getClean(SITE_NAME)];
+        return [
+            'email' => Util::getSetting('incoming_email'),
+            'name' => SITE_NAME
+        ];
     }
 
     /**
@@ -65,14 +67,21 @@ class Email {
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendPHP(array $email) {
+        error_clear_last();
+
         $outgoing_email = Util::getSetting('outgoing_email');
         $incoming_email = Util::getSetting('incoming_email');
 
-        if (mail($email['to']['email'], $email['subject'], $email['message'], [
-            'From' => Output::getClean(SITE_NAME) . ' ' . '<' . $outgoing_email . '>',
+        $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';
+        $encoded_message = base64_encode($email['message']);
+        $encoded_from = '=?UTF-8?B?' . base64_encode(SITE_NAME) . '?= <' . $outgoing_email . '>';
+
+        if (mail($email['to']['email'], $encoded_subject, $encoded_message, [
+            'From' => $encoded_from,
             'Reply-To' => $incoming_email,
             'MIME-Version' => '1.0',
-            'Content-type' => 'text/html; charset=UTF-8'
+            'Content-type' => 'text/html; charset=UTF-8',
+            'Content-Transfer-Encoding' => 'base64',
         ])) {
             return true;
         }
@@ -91,8 +100,6 @@ class Email {
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendMailer(array $email) {
-        require(ROOT_PATH . '/core/email.php');
-
         // Initialise PHPMailer
         $mail = new PHPMailer(true);
 
@@ -106,15 +113,15 @@ class Email {
             $mail->Timeout = 15;
 
             // login to their smtp account
-            $mail->Host = $GLOBALS['email']['host'];
-            $mail->Port = $GLOBALS['email']['port'];
-            $mail->SMTPSecure = $GLOBALS['email']['secure'];
-            $mail->SMTPAuth = $GLOBALS['email']['smtp_auth'];
-            $mail->Username = $GLOBALS['email']['username'];
-            $mail->Password = $GLOBALS['email']['password'];
+            $mail->Host = Config::get('email.host', '');
+            $mail->Port = Config::get('email.port', 587);
+            $mail->SMTPSecure = Config::get('email.secure', 'tls');
+            $mail->SMTPAuth = Config::get('email.smtp_auth', true);
+            $mail->Username = Config::get('email.username', '');
+            $mail->Password = Config::get('email.password', '');
 
             // set from email ("outgoing email" seting)
-            $mail->setFrom($GLOBALS['email']['email'], $GLOBALS['email']['name']);
+            $mail->setFrom(Config::get('email.email', ''), Config::get('email.name', ''));
 
             // add a "to" address
             $mail->addAddress($email['to']['email'], $email['to']['name']);
@@ -145,12 +152,11 @@ class Email {
 
     /**
      * Add a custom placeholder/variable for email messages.
-     * Not used internally, but can be used by other modules.
      *
      * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
-     * @param string $value The value to replace the placeholder with.
+     * @param string|Closure(Language, string): string $value The value to replace the placeholder with.
      */
-    public static function addPlaceholder(string $key, string $value): void {
+    public static function addPlaceholder(string $key, $value): void {
         self::$_message_placeholders[$key] = $value;
     }
 
@@ -162,19 +168,20 @@ class Email {
      * @return string Formatted email.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {
+        $placeholders = array_keys(self::$_message_placeholders);
+
+        $placeholder_values = [];
+        foreach (self::$_message_placeholders as $value) {
+            if (is_callable($value)) {
+                $placeholder_values[] = $value($viewing_language, $email);
+            } else {
+                $placeholder_values[] = $value;
+            }
+        }
+
         return str_replace(
-            array_merge([
-                '[Sitename]',
-                '[Greeting]',
-                '[Message]',
-                '[Thanks]',
-            ], array_keys(self::$_message_placeholders)),
-            array_merge([
-                Output::getClean(SITE_NAME),
-                $viewing_language->get('emails', 'greeting'),
-                $viewing_language->get('emails', $email . '_message'),
-                $viewing_language->get('emails', 'thanks'),
-            ], array_values(self::$_message_placeholders)),
+            $placeholders,
+            $placeholder_values,
             file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }

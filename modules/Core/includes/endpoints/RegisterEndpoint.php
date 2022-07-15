@@ -150,7 +150,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     }
 
                     $integration = $integrations->getIntegration($integration_name);
-                    if ($integration == null) {
+                    if ($integration === null) {
                         continue;
                     }
 
@@ -166,13 +166,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                         'user' => $user->getDisplayname(),
                     ]),
                     'avatar_url' => $user->getAvatar(128, true),
-                    'url' => Util::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+                    'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
                     'language' => $api->getLanguage(),
                 ]
             );
 
             if ($return) {
-                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(Util::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);
+                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);
             }
 
             return ['user_id' => $user_id];
@@ -201,11 +201,11 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $user_id = $user_id['user_id'];
 
         // Get link + template
-        $link = Util::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
+        $link = URL::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
 
         $sent = Email::send(
-            ['email' => Output::getClean($email), 'name' => Output::getClean($username)],
-            Output::getClean(SITE_NAME) . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
+            ['email' => $email, 'name' => $username],
+            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
             str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
             Email::getReplyTo()
         );

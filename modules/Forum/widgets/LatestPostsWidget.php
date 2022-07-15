@@ -68,18 +68,18 @@ class LatestPostsWidget extends WidgetBase {
 
             // Generate an array to pass to template
             while ($n < $limit) {
+                $discussion = $discussions[$n];
                 // Get the name of the forum from the ID
-                $forum_name = $db->get('forums', ['id', $discussions[$n]['forum_id']])->results();
+                $forum_name = $db->get('forums', ['id', $discussion->forum_id])->results();
                 $forum_name = Output::getPurified($forum_name[0]->forum_title);
 
                 // Get the number of replies
-                $posts = $db->get('posts', ['topic_id', $discussions[$n]['id']])->results();
-                $posts = count($posts);
+                $posts = $db->get('posts', ['topic_id', $discussion->id])->count();
 
                 // Is there a label?
-                if ($discussions[$n]['label'] != 0) { // yes
+                if ($discussion->label != 0) {
                     // Get label
-                    $label = $db->get('forums_topic_labels', ['id', $discussions[$n]['label']])->results();
+                    $label = $db->get('forums_topic_labels', ['id', $discussion->label])->results();
                     if (count($label)) {
                         $label = $label[0];
 
@@ -98,35 +98,35 @@ class LatestPostsWidget extends WidgetBase {
                 }
 
                 // Add to array
-                $topic_creator = new User($discussions[$n]['topic_creator']);
-                $last_reply_user = new User($discussions[$n]['topic_last_user']);
+                $topic_creator = new User($discussion->topic_creator);
+                $last_reply_user = new User($discussion->topic_last_user);
                 $template_array[] = [
-                    'topic_title' => Output::getClean($discussions[$n]['topic_title']),
-                    'topic_id' => $discussions[$n]['id'],
-                    'topic_created_rough' => $timeago->inWords($discussions[$n]['topic_date'], $this->_language),
-                    'topic_created' => date(DATE_FORMAT, $discussions[$n]['topic_date']),
+                    'topic_title' => Output::getClean($discussion->topic_title),
+                    'topic_id' => $discussion->id,
+                    'topic_created_rough' => $timeago->inWords($discussion->topic_date, $this->_language),
+                    'topic_created' => date(DATE_FORMAT, $discussion->topic_date),
                     'topic_created_username' => $topic_creator->getDisplayname(),
                     'topic_created_mcname' => $topic_creator->getDisplayname(true),
                     'topic_created_style' => $topic_creator->getGroupStyle(),
-                    'topic_created_user_id' => Output::getClean($discussions[$n]['topic_creator']),
-                    'locked' => $discussions[$n]['locked'],
+                    'topic_created_user_id' => Output::getClean($discussion->topic_creator),
+                    'locked' => $discussion->locked,
                     'forum_name' => $forum_name,
-                    'forum_id' => $discussions[$n]['forum_id'],
-                    'views' => $discussions[$n]['topic_views'],
+                    'forum_id' => $discussion->forum_id,
+                    'views' => $discussion->topic_views,
                     'posts' => $posts,
                     'last_reply_avatar' => $last_reply_user->getAvatar(64),
-                    'last_reply_rough' => $timeago->inWords($discussions[$n]['topic_reply_date'], $this->_language),
-                    'last_reply' => date(DATE_FORMAT, $discussions[$n]['topic_reply_date']),
+                    'last_reply_rough' => $timeago->inWords($discussion->topic_reply_date, $this->_language),
+                    'last_reply' => date(DATE_FORMAT, $discussion->topic_reply_date),
                     'last_reply_username' => $last_reply_user->getDisplayname(),
                     'last_reply_mcname' => $last_reply_user->getDisplayname(true),
                     'last_reply_style' => $last_reply_user->getGroupStyle(),
-                    'last_reply_user_id' => Output::getClean($discussions[$n]['topic_last_user']),
+                    'last_reply_user_id' => Output::getClean($discussion->topic_last_user),
                     'label' => $label,
-                    'link' => URL::build('/forum/topic/' . urlencode($discussions[$n]['id']) . '-' . $forum->titleToURL($discussions[$n]['topic_title'])),
-                    'forum_link' => URL::build('/forum/forum/' . $discussions[$n]['forum_id']),
+                    'link' => URL::build('/forum/topic/' . urlencode($discussion->id) . '-' . $forum->titleToURL($discussion->topic_title)),
+                    'forum_link' => URL::build('/forum/forum/' . $discussion->forum_id),
                     'author_link' => $topic_creator->getProfileURL(),
                     'last_reply_profile_link' => $last_reply_user->getProfileURL(),
-                    'last_reply_link' => URL::build('/forum/topic/' . $discussions[$n]['id'] . '-' . $forum->titleToURL($discussions[$n]['topic_title']), 'pid=' . $discussions[$n]['last_post_id'])
+                    'last_reply_link' => URL::build('/forum/topic/' . $discussion->id . '-' . $forum->titleToURL($discussion->topic_title), 'pid=' . $discussion->last_post_id)
                 ];
 
                 $n++;

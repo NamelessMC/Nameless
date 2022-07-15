@@ -73,7 +73,7 @@ class ProfilePostsWidget extends WidgetBase {
                     'avatar' => $post_author->getAvatar(),
                     'username' => $post_author->getDisplayname(),
                     'username_style' => $post_author->getGroupStyle(),
-                    'content' => Util::truncate(strip_tags($post->content), 20),
+                    'content' => Text::truncate(strip_tags($post->content), 20),
                     'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date(DATE_FORMAT, $post->time),
                     'user_id' => $post->author_id,

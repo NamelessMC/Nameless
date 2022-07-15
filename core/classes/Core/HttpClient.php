@@ -83,7 +83,13 @@ class HttpClient {
         );
     }
 
-    private static function createClient(array $options): Client {
+    /**
+     * Make a new Guzzle Client instance and attach it to the debug bar to display requests.
+     *
+     * @param array $options Options to provide Guzzle instance.
+     * @return Client New Guzzle instance.
+     */
+    public static function createClient(array $options = []): Client {
         $debugBar = DebugBarHelper::getInstance()->getDebugBar();
         $stack = HandlerStack::create();
 

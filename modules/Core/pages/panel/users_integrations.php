@@ -43,7 +43,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
     $user_integrations_list = [];
     foreach ($view_user->getIntegrations() as $key => $integrationUser) {
-        if ($integrationUser->data()->username == null && $integrationUser->data()->identifier == null) {
+        if ($integrationUser->data()->username === null && $integrationUser->data()->identifier === null) {
             continue;
         }
 
@@ -82,7 +82,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         case 'link':
             // Manual linking to integration (Integration User might already exist due of pending completion)
             $integration = Integrations::getInstance()->getIntegration($_GET['integration']);
-            if ($integration == null) {
+            if ($integration === null) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
             }
 
@@ -96,12 +96,16 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
                 if (Token::check()) {
                     if ($integration->validateUsername(Input::get('username')) && $integration->validateIdentifier(Input::get('identifier'))) {
-                        if ($integrationUser == null) {
+                        if ($integrationUser === null) {
                             // Register new integration user
                             $code = uniqid('', true);
 
                             $integrationUser = new IntegrationUser($integration);
                             $integrationUser->linkIntegration($view_user, Output::getClean(Input::get('identifier')), Output::getClean(Input::get('username')), (bool) Output::getClean(Input::get('verified')), $code);
+
+                            if (Output::getClean(Input::get('verified'))) {
+                                $integrationUser->verifyIntegration();
+                            }
                         } else {
                             // Update existing integration user
                             $integrationUser->update([
@@ -145,7 +149,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         case 'edit':
             // Edit integration user details
             $integrationUser = $view_user->getIntegration($_GET['integration']);
-            if ($integrationUser == null) {
+            if ($integrationUser === null) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
             }
 

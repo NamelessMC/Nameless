@@ -46,18 +46,20 @@ class ServerStatusWidget extends WidgetBase {
             $server = $server[0];
 
             if ($server != null) {
-                $server_array = HttpClient::get(rtrim(Util::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id))->json(true);
-
-                foreach ($server_array as $key => $value) {
-                    // we have to NOT escape the player list or the formatted player list. luckily these are the only arrays
-                    if (is_array($value)) {
-                        $server_array[$key] = $value;
-                    } else {
-                        $server_array[$key] = Output::getClean($value);
+                $server_array_request = HttpClient::get(rtrim(URL::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id));
+                if (!$server_array_request->hasError()) {
+                    $server_array = $server_array_request->json(true);
+                    foreach ($server_array as $key => $value) {
+                        // we have to NOT escape the player list or the formatted player list. luckily these are the only arrays
+                        if (is_array($value)) {
+                            $server_array[$key] = $value;
+                        } else {
+                            $server_array[$key] = Output::getClean($value);
+                        }
                     }
+                    $server_array['name'] = $server->name;
+                    $server_array['join_at'] = $server->ip;
                 }
-                $server_array['name'] = $server->name;
-                $server_array['join_at'] = $server->ip;
 
                 $this->_cache->store('server_status', $server_array, 120);
             }

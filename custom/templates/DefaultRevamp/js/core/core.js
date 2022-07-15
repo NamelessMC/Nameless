@@ -49,6 +49,8 @@ $(function () {
         $(this).closest('.message').transition('fade');
     });
 
+    $('.menu .item').tab();
+
 });
 
 $(function () {
