@@ -45,5 +45,9 @@
     "discord_integration/discord_role_id_length": "Discord Rolle ID skal være på 18 cifre.",
     "discord_integration/discord_role_id_numeric": "Discord Rolle ID skal være numerisk.",
     "discord_integration/discord_bot_error_invguild": "Angivet Guild ID er ugyldigt, eller er botten ikke i Guilden.",
-    "discord_integration/discord_bot_error_partsuccess": "Botten kunne ikke redigere en eller flere af rollerne på grund af en fejlkonfiguration af Discord-hierarki."
+    "discord_integration/discord_bot_error_partsuccess": "Botten kunne ikke redigere en eller flere af rollerne på grund af en fejlkonfiguration af Discord-hierarki.",
+    "discord_integration/discord_widget_error": "Der opstod en fejl ved indlæsning af Discord widget: {{error}}.",
+    "discord_integration/discord_widget_theme": "Discord Widget Tema",
+    "discord_integration/discord_widget_disabled": "Widgetten er deaktiveret for den angivet Discord-server. Gå til fanen 'Widget' i dine Discord-serverindstillinger, og sørg for, at Discord-widgetten er aktiveret, og at ID'et er korrekt.",
+    "discord_integration/enable_discord_integration": "Aktiver Discord Integration?"
 }
