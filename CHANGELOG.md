@@ -60,6 +60,7 @@
 - Fix TinyMCE spoiler plugin not being added properly if a custom path is set
 - Fix error when creating group sync rules with only 1 external service
 - Fix website -> Discord group sync issues
+- Fix /rewrite_test not being accessible during installation
 
 ### Deprecated
 *These will be removed in 2.1.0*
