@@ -47,6 +47,11 @@ const ROOT_PATH = __DIR__;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
+    require_once('rewrite_test.php');
+    die();
+}
+
 if (!Config::exists()) {
     if (is_file(ROOT_PATH . '/install.php')) {
         Redirect::to('install.php');
@@ -75,10 +80,6 @@ $directory = $_SERVER['REQUEST_URI'];
 $directories = explode('/', $directory);
 $lim = count($directories);
 
-if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
-    require_once('rewrite_test.php');
-    die();
-}
 
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');
