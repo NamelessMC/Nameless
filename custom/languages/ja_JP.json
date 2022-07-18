@@ -1223,5 +1223,6 @@
     "user/integration_linked": "{{integration}}のアカウントは正常にリンクされました。",
     "user/integration_unlinked": "{{integration}}のアカウントは正常にリンク解除されました。",
     "user/integration_username_already_linked": "{{integration}}のユーザー名は、すでに他のユーザーとリンクしています。",
-    "api/integration_username_already_linked": "{{integration}}のユーザー名は、すでに他のユーザーとリンクしています。"
+    "api/integration_username_already_linked": "{{integration}}のユーザー名は、すでに他のユーザーとリンクしています。",
+    "user/avatar_set_successfully": "アバター設定に成功。"
 }
