@@ -682,7 +682,7 @@
     "general/cookie_notice": "Táto webstránka používa súbory cookie na zlepšenie vášho zážitku z prehliadania. Registráciou na našom webe alebo zatvorením tohto oznámenia súhlasíte s ich použitím.",
     "general/copied": "Skopírované!",
     "general/currently_1_player_online": "Aktuálne je online 1 hráč.",
-    "general/currently_x_players_online": "Aktuálne je {{count}} online hráčov.",
+    "general/currently_x_players_online": "Aktuálne je {{count}} hráčov online.",
     "general/date": "Dátum",
     "general/delete": "Odstrániť",
     "general/edit": "Upraviť",
@@ -707,7 +707,7 @@
     "general/no_default_server": "Neexistuje žiadny predvolený server, vyberte ho v StaffCP - Integrácie - Minecraft.",
     "general/no_online_staff": "Nie sú žiadni admini online.",
     "general/no_online_users": "Nie sú žiadni užívatelia online.",
-    "general/no_players_online": "Nie sú žiadni hráči online.",
+    "general/no_players_online": "Nie sú online žiadni hráči.",
     "general/no_servers": "Nie sú k dispozícii žiadne servery na zobrazenie!",
     "general/none": "Žiadne",
     "general/not_registered_yet": "Ešte nie ste zaregistrovaný?",
@@ -928,7 +928,7 @@
     "time/less_than_a_minute": "pred menej ako minútou",
     "time/over_x_years": "pred viac ako {{count}} rokmi",
     "user/1_new_alert": "Máte 1 nové upozornenie",
-    "user/1_new_message": "Máte 1 novú správu",
+    "user/1_new_message": "Máte {{count}} novú správu",
     "user/1_reaction": "1 reakcia",
     "user/1_reply": "1 odpoveď",
     "user/about": "O užívateľovi",
@@ -1224,5 +1224,10 @@
     "admin/user_group_added_hook_info": "Uživateľská skupina pridaná",
     "admin/user_group_removed_hook_info": "Užívateľská skupina odstránená",
     "admin/group_name": "Názov skupiny",
-    "user/avatar_set_successfully": "Avatar bol úspešne nastavený."
+    "user/avatar_set_successfully": "Avatar bol úspešne nastavený.",
+    "admin/pre_custom_page_create_hook_info": "Pred vytvorením vlastnej stránky",
+    "admin/pre_custom_page_edit_hook_info": "Pred úpravou vlastnej stránky",
+    "general/user_object": "Používateľský objekt",
+    "admin/render_custom_page_hook_info": "Vykresliť vlastnú stránku",
+    "admin/render_custom_page_edit_hook_info": "Vykresliť úpravu vlastnej stránky"
 }
