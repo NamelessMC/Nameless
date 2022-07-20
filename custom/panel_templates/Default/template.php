@@ -288,16 +288,6 @@ if (!class_exists('Default_Panel_Template')) {
 
                         break;
 
-                    case 'custom_pages':
-                        if (isset($_GET['action'])) {
-                            $this->assets()->include([
-                                AssetTree::TINYMCE,
-                            ]);
-
-                            $this->addJSScript(Input::createTinyEditor($this->_language, 'inputContent'));
-                        }
-                        break;
-
                     case 'seo':
                         $this->assets()->include([
                             AssetTree::DATATABLES,

@@ -376,6 +376,44 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('preCustomPageCreate',
+            $language->get('admin', 'pre_custom_page_create_hook_info'),
+            [
+                'content' => $language->get('general', 'content'),
+                'user' => $language->get('general', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('preCustomPageEdit',
+            $language->get('admin', 'pre_custom_page_edit_hook_info'),
+            [
+                'content' => $language->get('general', 'content'),
+                'user' => $language->get('general', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('renderCustomPage',
+            $language->get('admin', 'render_custom_page_hook_info'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('renderCustomPageEdit',
+            $language->get('admin', 'render_custom_page_edit_hook_info'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
         EventHandler::registerEvent('linkIntegrationUser',
             $language->get('admin', 'user_link_integration_hook_info'),
             [
@@ -554,6 +592,20 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
+
+        EventHandler::registerListener('preCustomPageCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('preCustomPageEdit', 'MentionsHook::preEdit');
+
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
+
+        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));

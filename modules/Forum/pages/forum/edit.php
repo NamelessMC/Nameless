@@ -233,7 +233,10 @@ if (isset($edit_title, $post_labels)) {
 }
 
 // Purify post content
-$content = EventHandler::executeEvent('renderPostEdit', ['content' => $post_editing[0]->post_content])['content'];
+$content = EventHandler::executeEvent('renderPostEdit', [
+    'content' => $post_editing[0]->post_content,
+    'user' => $user
+])['content'];
 
 $smarty->assign([
     'TOKEN' => Token::get(),

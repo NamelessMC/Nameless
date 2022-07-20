@@ -72,14 +72,15 @@ $template->assets()->include([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
+$content = EventHandler::executeEvent('renderCustomPage', [
+    'content' => $custom_page->content,
+    'skip_purify' => $custom_page->all_html ?? false
+])['content'];
+
 $smarty->assign([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => Text::renderEmojis(
-        $custom_page->all_html
-            ? Output::getDecoded($custom_page->content)
-            : Output::getPurified($custom_page->content)
-    )
+    'CONTENT' => $content,
 ]);
 
 $template->onPageLoad();

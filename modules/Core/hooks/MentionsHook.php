@@ -4,7 +4,7 @@
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0 pre-13
  *
- *  Mentions hook for pre-create/edit event for Forum module
+ *  Mentions hook for pre-create/edit event for Core module
  */
 
 class MentionsHook extends HookBase {
@@ -16,9 +16,9 @@ class MentionsHook extends HookBase {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
-                URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id'])),
-                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => Output::getClean($params['user']->data()->nickname)]
+                $params['alert_url'] ?: null,
+                $params['alert_short'] ?: null,
+                $params['alert_full'] ?: null,
             );
         }
 
@@ -69,6 +69,6 @@ class MentionsHook extends HookBase {
     }
 
     private static function validate(array $params): bool {
-        return parent::validateParams($params, ['content', 'post_id', 'topic_id', 'user']);
+        return parent::validateParams($params, ['content', 'user']);
     }
 }

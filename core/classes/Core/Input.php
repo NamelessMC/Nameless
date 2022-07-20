@@ -55,8 +55,11 @@ class Input {
      * @param string $name Name of input field ID.
      * @param ?string $content Any default content to insert
      * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
+     * @param bool $admin Enable admin only features
+     *
+     * @return string Script to render on page
      */
-    public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false): string {
+    public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false, bool $admin = false): string {
         if (
             (defined('DARK_MODE') && DARK_MODE) ||
             (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
@@ -178,6 +181,9 @@ class Input {
 
                   xhr.send(formData);
                 },
+                extended_valid_elements: " . ($admin ?
+                    '"script[src|async|defer|type|charset],+@[data-options]"'
+                : 'undefined') . "
             });
         ";
 

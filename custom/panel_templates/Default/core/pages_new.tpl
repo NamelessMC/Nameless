@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputContent">{$PAGE_CONTENT}</label>
-                                    <textarea name="content" id="inputContent">{$PAGE_CONTENT_VALUE}</textarea>
+                                    <textarea name="content" id="inputContent"></textarea>
                                 </div>
                                 <div class="form-group custom-control custom-switch">
                                     <input id="inputBasicPage" name="basic" type="checkbox"

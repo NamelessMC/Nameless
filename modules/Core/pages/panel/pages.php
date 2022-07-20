@@ -125,10 +125,15 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
+                            $content = EventHandler::executeEvent('preCustomPageCreate', [
+                                'content' => Input::get('content'),
+                                'user' => $user,
+                            ])['content'];
+
                             DB::getInstance()->insert('custom_pages', [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
-                                'content' => Input::get('content'),
+                                'content' => $content,
                                 'link_location' => $location,
                                 'redirect' => $redirect,
                                 'link' => $link,
@@ -187,6 +192,12 @@ if (!isset($_GET['action'])) {
                 ];
             }
 
+            $content = $_POST['content'] ?? null;
+            if ($content) {
+                // Purify post content
+                $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => $content])['content'];
+            }
+
             $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/core/pages'),
@@ -205,7 +216,6 @@ if (!isset($_GET['action'])) {
                 'PAGE_LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
                 'PAGE_LINK_NONE' => $language->get('admin', 'page_link_none'),
                 'PAGE_CONTENT' => $language->get('admin', 'page_content'),
-                'PAGE_CONTENT_VALUE' => Output::getClean(Input::get('content')),
                 'BASIC_PAGE' => $language->get('admin', 'basic_page'),
                 'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
                 'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
@@ -220,6 +230,12 @@ if (!isset($_GET['action'])) {
                 'GUESTS' => $language->get('user', 'guests'),
                 'GROUPS' => $template_array
             ]);
+
+            $template->assets()->include([
+                AssetTree::TINYMCE,
+            ]);
+
+            $template->addJSScript(Input::createTinyEditor($language, 'inputContent', $content, true, true));
 
             $template_file = 'core/pages_new.tpl';
 
@@ -307,10 +323,15 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
+                            $content = EventHandler::executeEvent('preCustomPageEdit', [
+                                'content' => Input::get('content'),
+                                'user' => $user,
+                            ])['content'];
+
                             DB::getInstance()->update('custom_pages', $page->id, [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
-                                'content' => Input::get('content'),
+                                'content' => $content,
                                 'link_location' => $location,
                                 'redirect' => $redirect,
                                 'link' => $link,
@@ -471,6 +492,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
+            $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => ($_POST['content'] ?: $page->content)])['content'];
+
             $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/core/pages'),
@@ -492,7 +515,6 @@ if (!isset($_GET['action'])) {
                 'PAGE_LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
                 'PAGE_LINK_NONE' => $language->get('admin', 'page_link_none'),
                 'PAGE_CONTENT' => $language->get('admin', 'page_content'),
-                'PAGE_CONTENT_VALUE' => (isset($_POST['content']) ? Output::getClean(Input::get('content')) : Output::getClean($page->content)),
                 'PAGE_REDIRECT' => $language->get('admin', 'page_redirect'),
                 'PAGE_REDIRECT_VALUE' => $page->redirect,
                 'PAGE_REDIRECT_TO' => $language->get('admin', 'page_redirect_to'),
@@ -513,6 +535,12 @@ if (!isset($_GET['action'])) {
                 'GROUPS' => $template_array,
                 'GUEST_PERMS' => $guest_can_view
             ]);
+
+            $template->assets()->include([
+                AssetTree::TINYMCE,
+            ]);
+
+            $template->addJSScript(Input::createTinyEditor($language, 'inputContent', $content, true, true));
 
             $template_file = 'core/pages_edit.tpl';
 
