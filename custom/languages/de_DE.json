@@ -1224,5 +1224,10 @@
     "admin/debugging_enabled": "Wenn Debugging aktiviert ist, können sensible Informationen für unbefugte Besucher zugänglich sein. Debugging sollte nur für die Entwicklung verwendet werden, nicht auf öffentlichen Seiten.",
     "admin/https_port_80": "Es sieht so aus, als ob du HTTPS auf Port 80 verwendest, was mit ziemlicher Sicherheit nicht der Fall ist. Wenn du Cloudflare verwendest, stelle sicher, dass du den TLS-Verschlüsselungsmodus auf Full (strict) gesetzt hast. Wenndu deine eigene Proxy verwendest, konfiguriere ihn bitte so, dass er den X-Forwarded-Port-Header sendet.",
     "admin/group_sync_no_results_warning": "Gruppensynchronisierungsregeln sind eingerichtet, aber es wurden keine Änderungen gemeldet. Dies könnte auf eine Fehlkonfiguration hindeuten.",
-    "user/avatar_set_successfully": "Avatar erfolgreich gesetzt."
+    "user/avatar_set_successfully": "Avatar erfolgreich gesetzt.",
+    "general/user_object": "Benutzerobjekt",
+    "admin/pre_custom_page_create_hook_info": "Vordefinierte Seite erstellen",
+    "admin/pre_custom_page_edit_hook_info": "Vordefinierte Seite bearbeiten",
+    "admin/render_custom_page_hook_info": "Benutzerdefinierte Seite rendern",
+    "admin/render_custom_page_edit_hook_info": "Rendering benutzerdefinierte Seite bearbeiten"
 }
