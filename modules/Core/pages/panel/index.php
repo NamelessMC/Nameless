@@ -171,9 +171,10 @@ if ($user->hasPermission('admincp.core.debugging')) {
             $pdo_driver = 'MySQL';
         } else {
             $pdo_driver = 'MariaDB';
-            // MariaDB version strings are displayed as: "<major>.<minor>.<patch>-MariaDB",
+            // MariaDB version strings are displayed as: "<major>.<minor>.<patch>-MariaDB" OR sometimes its "<replication version hack>-<major>.<minor>.<patch>-MariaDB",
             // and we only want the version number.
-            $pdo_server_version = explode('-', $pdo_server_version)[0];
+            preg_match('/(?:\d+-)?(.+)?-MariaDB/', $pdo_server_version, $pdo_server_version);
+            $pdo_server_version = $pdo_server_version[1];
         }
     }
 
