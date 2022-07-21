@@ -1224,5 +1224,10 @@
     "admin/debugging_enabled": "Ladění je povoleno, nepovoleným návštěvníkům mohou být zobrazeny citlivé informacy. Ladění by mělo být použito pouze při vývoji, ne na veřejných webech.",
     "admin/https_port_80": "Vypadá to, že používáte HTTPS na portu 80, což nejspíše není pravda. Pokud používáte Cloudflare, nezapomeňte nastavit šifrování TLS na Full (strict). Pokud máte svou vlastní síť proxy, nastavte ji tak, aby posílala hlavičku X-Forwarded-Port.",
     "admin/group_sync_no_results_warning": "Pravidla synchronizace skupin jsou nastavena, ale nebyly nahlášeny žádné změny. Toto může znamenat nesprávné nastavení.",
-    "user/avatar_set_successfully": "Avatar úspěšně nastaven."
+    "user/avatar_set_successfully": "Avatar úspěšně nastaven.",
+    "admin/pre_custom_page_edit_hook_info": "Předběžná úprava vlastní stránky",
+    "general/user_object": "Uživatelský objekt",
+    "admin/pre_custom_page_create_hook_info": "Předběžné vytvoření vlastní stránky",
+    "admin/render_custom_page_hook_info": "Vykreslení vlastní stránky",
+    "admin/render_custom_page_edit_hook_info": "Vykreslení úpravy vlastní stránky"
 }
