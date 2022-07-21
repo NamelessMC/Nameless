@@ -114,10 +114,10 @@ class Config {
             foreach ($path as $step) {
                 $loc = &$loc[$step];
             }
-            $loc = $value;
+            $loc = addslashes($value);
         }
 
-        static::write($config);
+        static::write((array) $config);
     }
 
     /**
@@ -138,11 +138,11 @@ class Config {
                 foreach ($path as $step) {
                     $loc = &$loc[$step];
                 }
-                $loc = $value;
+                $loc = addslashes($value);
             }
         }
 
-        static::write($config);
+        static::write((array) $config);
     }
 
     /**
