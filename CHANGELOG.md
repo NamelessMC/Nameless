@@ -61,6 +61,8 @@
 - Fix error when creating group sync rules with only 1 external service
 - Fix website -> Discord group sync issues
 - Fix /rewrite_test not being accessible during installation
+- Fix exception when no user tries to login with OAuth and no Nameless user is linked
+- Fix some special chars in DB/email password getting escaped
 
 ### Deprecated
 *These will be removed in 2.1.0*

@@ -295,11 +295,9 @@ $smarty->assign([
 ]);
 
 if (Session::exists('oauth_error')) {
-    $smarty->assign('ERROR', Session::flash('oauth_error'));
+    $smarty->assign('ERROR', [Session::flash('oauth_error')]);
 } else if (isset($return_error)) {
-    $smarty->assign('SESSION_FLASH', $return_error);
-} else {
-    $smarty->assign('SESSION_FLASH', '');
+    $smarty->assign('ERROR', $return_error);
 }
 
 if (Session::exists('login_success')) {
