@@ -17,7 +17,7 @@ try {
         'code' => $_GET['code']
     ]);
 } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-    Session::flash('oauth_error', $language->get('general', 'oath_failed'));
+    Session::flash('oauth_error', $language->get('general', 'oauth_failed'));
     ErrorHandler::logWarning('An error occurred while handling an oauth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
 
     $method = Session::get('oauth_method');
