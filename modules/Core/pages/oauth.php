@@ -19,7 +19,18 @@ try {
 } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
     Session::flash('oauth_error', $language->get('general', 'oath_failed'));
     ErrorHandler::logWarning('An error occurred while handling an oauth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
-    Redirect::to(URL::build(Session::get('oauth_method') == 'register' ? '/register' : '/login'));
+
+    $method = Session::get('oauth_method');
+    switch($method) {
+        case 'register':
+            Redirect::to(URL::build('/register'));
+
+        case 'login':
+            Redirect::to(URL::build('/login'));
+
+        case 'link':
+            Redirect::to(URL::build('/user/oauth/'));
+    }
 }
 
 $oauth_user = $provider->getResourceOwner($token)->toArray();
