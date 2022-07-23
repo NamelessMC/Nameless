@@ -12,9 +12,16 @@ if (!Session::exists('oauth_method')) {
 
 $provider_name = $_GET['provider'];
 $provider = NamelessOAuth::getInstance()->getProviderInstance($provider_name);
-$token = $provider->getAccessToken('authorization_code', [
-    'code' => $_GET['code']
-]);
+try {
+    $token = $provider->getAccessToken('authorization_code', [
+        'code' => $_GET['code']
+    ]);
+} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+    Session::flash('oauth_error', $language->get('general', 'oath_failed'));
+    ErrorHandler::logWarning('An error occurred while handling an oauth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
+    Redirect::to(URL::build(Session::get('oauth_method') == 'register' ? '/register' : '/login'));
+}
+
 $oauth_user = $provider->getResourceOwner($token)->toArray();
 $provider_id = $oauth_user[NamelessOAuth::getInstance()->getUserIdName($provider_name)];
 
