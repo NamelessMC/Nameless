@@ -2,12 +2,16 @@
 
 if (!isset($_GET['provider'], $_GET['code'])) {
     if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
-        throw new RuntimeException("Invalid provider {$_GET['provider']}");
+        ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
+        Session::flash('home_error', $language->get('general', 'oauth_failed'));
+        Redirect::to(URL::build('/'));
     }
 }
 
 if (!Session::exists('oauth_method')) {
-    throw new RuntimeException('No OAuth method set');
+    ErrorHandler::logWarning("No OAuth Zmethod set");
+    Session::flash('home_error', $language->get('general', 'oauth_failed'));
+    Redirect::to(URL::build('/'));
 }
 
 $provider_name = $_GET['provider'];
@@ -17,7 +21,7 @@ try {
         'code' => $_GET['code']
     ]);
 } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-    Session::flash('oauth_error', $language->get('general', 'oauth_failed'));
+    Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
     ErrorHandler::logWarning('An error occurred while handling an oauth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
 
     $method = Session::get('oauth_method');
