@@ -232,7 +232,7 @@ if (!class_exists('Default_Panel_Template')) {
                             (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
                         ]);
 
-                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage'));
+                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage', null, false, true));
 
                         break;
 
@@ -243,10 +243,10 @@ if (!class_exists('Default_Panel_Template')) {
                         ]);
 
                         if (PANEL_PAGE === 'cookie_settings') {
-                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputCookies'));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputCookies', null, false, true));
                         } else {
-                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPrivacy'));
-                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputTerms'));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPrivacy', null, false, true));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputTerms', null, false, true));
                         }
                         break;
 
@@ -255,7 +255,7 @@ if (!class_exists('Default_Panel_Template')) {
                             AssetTree::TINYMCE,
                         ]);
 
-                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputRegistrationDisabledMessage'));
+                        $this->addJSScript(Input::createTinyEditor($this->_language, 'InputRegistrationDisabledMessage', null, false, true));
 
                         $this->addJSScript('
                         /*
@@ -520,7 +520,7 @@ if (!class_exists('Default_Panel_Template')) {
                         ]);
 
                         if (isset($_GET['forum'])) {
-                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPlaceholder'));
+                            $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPlaceholder', null, false, true));
                         }
                         break;
 
