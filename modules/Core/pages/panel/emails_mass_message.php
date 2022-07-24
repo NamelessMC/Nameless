@@ -95,7 +95,7 @@ $template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'reply'));
+$template->addJSScript(Input::createTinyEditor($language, 'reply', null, false, true));
 
 if (Session::exists('emails_success')) {
     $success = Session::flash('emails_success');

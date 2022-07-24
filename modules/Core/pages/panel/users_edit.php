@@ -368,7 +368,7 @@ $template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'InputSignature'));
+$template->addJSScript(Input::createTinyEditor($language, 'InputSignature', null, false, true));
 
 $template->onPageLoad();
 
