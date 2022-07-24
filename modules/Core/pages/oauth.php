@@ -9,7 +9,7 @@ if (!isset($_GET['provider'], $_GET['code'])) {
 }
 
 if (!Session::exists('oauth_method')) {
-    ErrorHandler::logWarning("No OAuth Zmethod set");
+    ErrorHandler::logWarning("No OAuth method set");
     Session::flash('home_error', $language->get('general', 'oauth_failed'));
     Redirect::to(URL::build('/'));
 }
