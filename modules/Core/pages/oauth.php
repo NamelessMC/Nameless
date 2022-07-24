@@ -15,7 +15,7 @@ if (!Session::exists('oauth_method')) {
 
 // If they are filling in 2FA. We've already retrieved their user. We can skip the other steps in this case
 if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
-    $user = new User($_SESSION['userid']);
+    $user = new User($_SESSION['user_id']);
 
     // Continue the 2FA process
     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
