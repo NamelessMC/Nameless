@@ -223,7 +223,7 @@ if (Input::exists()) {
             // Check if the ip they are trying to register with is banned
             $ip = HttpUtils::getRemoteAddress();
             if (DB::getInstance()->get('ip_bans', ['ip', $ip])->count()) {
-                Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
+                Session::flash('home_error', $language->get('user', 'banned_from_registering'));
                 Redirect::to(URL::build('/'));
             }
 
