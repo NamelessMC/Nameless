@@ -22,7 +22,7 @@ try {
     ]);
 } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
     Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
-    ErrorHandler::logWarning('An error occurred while handling an oauth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
+    ErrorHandler::logWarning('An error occurred while handling an OAuth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
 
     $method = Session::get('oauth_method');
     switch($method) {
