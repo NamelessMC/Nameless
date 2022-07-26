@@ -303,10 +303,9 @@ class Util {
      * Get a setting from the database table `nl2_settings`.
      *
      * @param string $setting Setting to check.
-     * @param ?string $fallback Fallback to return if $setting is not set in DB.
-     * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
-     *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
-     *                        nl2_settings table.
+     * @param ?string $fallback Fallback to return if $setting is not set in DB. Defaults to null.
+     * @param string $module Module name to keep settings separate from other modules. Set module
+     *                       to 'Core' for global settings.
      * @return ?string Setting from DB or $fallback.
      */
     public static function getSetting(string $setting, ?string $fallback = null, string $module = 'core'): ?string {
@@ -335,9 +334,8 @@ class Util {
      *
      * @param string $setting Setting name.
      * @param string|null $new_value New setting value, or null to delete
-     * @param ?string $module Alphanumeric (no spaces!) module name to use as a settings table prefix. For example,
-     *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
-     *                        nl2_settings table.
+     * @param string $module Module name to keep settings separate from other modules. Set module
+     *                       to 'Core' for global settings.
      */
     public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
         if ($new_value == null) {
