@@ -309,12 +309,12 @@ class Util {
      *                        nl2_settings table.
      * @return ?string Setting from DB or $fallback.
      */
-    public static function getSetting(string $setting, ?string $fallback = null, ?string $module = null): ?string {
+    public static function getSetting(string $setting, ?string $fallback = null, string $module = 'core'): ?string {
         $cache = self::getSettingsCache($module);
 
         if ($cache === null) {
             // Load all settings for this module and store it as a dictionary
-            if ($module === null) {
+            if ($module === 'core') {
                 $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` IS NULL')->results();
             } else {
                 $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` = ?', [$module])->results();
@@ -339,15 +339,15 @@ class Util {
      *                        specify 'store' to use the 'nl2_store_settings' table. Null to use the standard
      *                        nl2_settings table.
      */
-    public static function setSetting(string $setting, ?string $new_value, ?string $module = null): void {
+    public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
         if ($new_value == null) {
-            if ($module === null) {
+            if ($module === 'core') {
                 DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
             } else {
                 DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` = ?', [$setting, $module]);
             }
         } else {
-            if ($module === null) {
+            if ($module === 'core') {
                 DB::getInstance()->query(
                     'INSERT INTO `nl2_settings` (`name`, `value`)
                      VALUES (?, ?)
