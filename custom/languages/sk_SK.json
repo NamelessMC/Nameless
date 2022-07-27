@@ -1229,5 +1229,7 @@
     "admin/pre_custom_page_edit_hook_info": "Pred úpravou vlastnej stránky",
     "general/user_object": "Používateľský objekt",
     "admin/render_custom_page_hook_info": "Vykresliť vlastnú stránku",
-    "admin/render_custom_page_edit_hook_info": "Vykresliť úpravu vlastnej stránky"
+    "admin/render_custom_page_edit_hook_info": "Vykresliť úpravu vlastnej stránky",
+    "general/oauth_failed_setup": "Niečo sa pokazilo. Nastavenie OAuth2 je neplatné. Kontaktujte správcu",
+    "general/oauth_failed": "Pri pokuse o použitie OAuth sa vyskytla chyba. Prosím skúste znova."
 }
