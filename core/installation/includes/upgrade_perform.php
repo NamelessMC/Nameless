@@ -167,7 +167,8 @@ try {
                 'name' => $item->name,
                 'group_html' => $item->group_html,
                 'admin_cp' => (($item->staff) ? 1 : 0),
-                'default_group' => (($item->id == 1) ? 1 : 0)
+                'default_group' => (($item->id == 1) ? 1 : 0),
+                'permissions' => '{}',
             ]);
         }
 
@@ -374,6 +375,8 @@ try {
                 'status' => $item->status,
                 'date_reported' => $item->date_reported,
                 'date_updated' => $item->date_updated,
+                'reported' => strtotime($item->date_reported),
+                'updated' => $item->date_updated ? strtotime($item->date_updated) : null,
                 'report_reason' => $item->report_reason,
                 'updated_by' => $item->updated_by,
                 'reported_post' => $item->reported_post,
@@ -398,6 +401,7 @@ try {
                 'report_id' => $item->report_id,
                 'commenter_id' => $item->commenter_id,
                 'comment_date' => $item->comment_date,
+                'date' => strtotime($item->comment_date),
                 'comment_content' => $item->comment_content
             ]);
         }
