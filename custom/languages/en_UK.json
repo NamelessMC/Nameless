@@ -776,7 +776,7 @@
     "general/no_online_staff": "There are no staff members online.",
     "general/no_online_users": "There are no users online.",
     "general/no_players_online": "There are no players online.",
-    "general/no_servers": "There are no servers to display!",
+    "general/no_servers": "There are no servers to display. The site administrator can add a Minecraft server in StaffCP > Integrations > Minecraft > Minecraft servers.",
     "general/none": "None",
     "general/not_registered_yet": "Not registered yet?",
     "general/oauth_message_continue": "Continue registering with {{provider}}",
