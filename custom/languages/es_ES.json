@@ -699,7 +699,7 @@
     "general/no_online_staff": "No hay miembros del personal administrativo en línea.",
     "general/no_online_users": "No hay usuarios en línea.",
     "general/no_players_online": "No hay jugadores conectados.",
-    "general/no_servers": "¡No hay servidores para mostrar!",
+    "general/no_servers": "No hay servidores que mostrar. El administrador del sitio web puede añadir un servidor de Minecraft en StaffCP > Integraciones > Minecraft > Servidores de Minecraft.",
     "general/none": "Ninguno",
     "general/not_registered_yet": "¿Aún no se ha registrado?",
     "general/offline": "Desconectado",
@@ -1224,5 +1224,9 @@
     "admin/trusted_proxies_not_configured": "{{linkStart}}Proxies de confianza{{linkEnd}} no están configurados, las prohibiciones de IP pueden no funcionar correctamente.",
     "admin/https_port_80": "Parece como si estuvieras usando HTTPS en el puerto 80, lo que casi definitivamente no es cierto. Si usas Cloudflare, asegúrate de configurar el modo de encriptación TLS en Full (estricto). Si ejecuta su propio proxy, configúrelo para que envíe la cabecera X-Forwarded-Port.",
     "admin/group_sync_no_results_warning": "Las reglas de sincronización de grupos están configuradas pero no se ha informado de ningún cambio. Esto podría indicar una configuración errónea.",
-    "user/avatar_set_successfully": "Avatar fijado con éxito."
+    "user/avatar_set_successfully": "Avatar fijado con éxito.",
+    "general/user_object": "Objeto del usuario",
+    "user/banned_from_registering": "Tu IP ha sido vetada, no puedes registrarte.",
+    "general/oauth_failed_setup": "Algo salió mal. La configuración de OAuth2 no es válida. Póngase en contacto con un administrador",
+    "general/oauth_failed": "Algo ha ido mal al intentar utilizar OAuth. Por favor, inténtelo de nuevo."
 }
