@@ -1,5 +1,8 @@
 <?php
 
+const PAGE = 'oauth';
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
 if (!isset($_GET['provider'], $_GET['code'])) {
     if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
         ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
@@ -12,6 +15,31 @@ if (!Session::exists('oauth_method')) {
     ErrorHandler::logWarning("No OAuth method set");
     Session::flash('home_error', $language->get('general', 'oauth_failed'));
     Redirect::to(URL::build('/'));
+}
+
+// If they are filling in 2FA. We've already retrieved their user. We can skip the other steps in this case
+if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
+    $user = new User($_SESSION['user_id']);
+
+    // Continue the 2FA process
+    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+    if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
+        Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
+        require(ROOT_PATH . '/core/includes/tfa_signin.php');
+        die();
+    }
+    unset($_SESSION['user_id']);
+
+    // Log the user in if 2FA passed
+    if ($user->login(
+        $user->data()->id,
+        '', true, 'oauth'
+    )) {
+        Log::getInstance()->log(Log::Action('user/login'));
+        Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
+        Session::delete('oauth_method');
+        Redirect::to(URL::build('/'));
+    }
 }
 
 $provider_name = $_GET['provider'];
@@ -64,6 +92,19 @@ if (Session::get('oauth_method') === 'login') {
         Redirect::to(URL::build('/login'));
     }
 
+    $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
+    $user = new User($user_id);
+
+    // If the user has 2FA enabled, ask for those credentials
+    if ($user->data()->tfa_enabled == 1 && $user->data()->tfa_complete == 1) {
+        $_SESSION['user_id'] = $user_id;
+        if (!isset($_POST['tfa_code'])) {
+            require(ROOT_PATH . '/core/includes/tfa_signin.php');
+            die();
+        }
+    }
+
+    // Log the user in
     if ((new User())->login(
         NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
         '', true, 'oauth'
