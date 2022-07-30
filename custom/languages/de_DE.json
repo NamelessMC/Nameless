@@ -667,7 +667,7 @@
     "general/no_online_staff": "Derzeit sind keine Teammitglieder online.",
     "general/no_online_users": "Es sind keine User online.",
     "general/no_players_online": "Es sind keine Spieler Online.",
-    "general/no_servers": "Es sind keine Server verfügbar!",
+    "general/no_servers": "Es gibt keine Server, die angezeigt werden können. Der Website-Administrator kann einen Minecraft-Server unter StaffCP > Integrationen > Minecraft > Minecraft-Server hinzufügen.",
     "general/none": "Nichts",
     "general/not_registered_yet": "Noch nicht registriert?",
     "general/offline": "Offline",
