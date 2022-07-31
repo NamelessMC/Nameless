@@ -778,6 +778,7 @@
     "general/no_players_online": "There are no players online.",
     "general/no_servers": "There are no servers to display. The site administrator can add a Minecraft server in StaffCP > Integrations > Minecraft > Minecraft servers.",
     "general/none": "None",
+    "general/normal": "Normal",
     "general/not_registered_yet": "Not registered yet?",
     "general/oauth_message_continue": "Continue registering with {{provider}}",
     "general/oauth_failed_setup": "Something went wrong. The OAuth2 setup is invalid. Contact an administrator",

@@ -478,19 +478,19 @@ if ($page != 'install') {
             $hooks = DB::getInstance()->get('hooks', ['id', '<>', 0])->results();
             if (count($hooks)) {
                 foreach ($hooks as $hook) {
-                    if ($hook->action != 2) {
+                    if ($hook->action != 1 && $hook->action != 2) {
                         continue;
                     }
 
                     // TODO: more extendable webhook system, #2676
-                    if (!class_exists(DiscordHook::class)) {
+                    if ($hook->action == 2 && !class_exists(DiscordHook::class)) {
                         continue;
                     }
 
                     $hook_array[] = [
                         'id' => $hook->id,
                         'url' => Output::getClean($hook->url),
-                        'action' => 'DiscordHook::execute',
+                        'action' => $hook->action == 1 ? 'WebHook::execute' : 'DiscordHook::execute',
                         'events' => json_decode($hook->events, true)
                     ];
                 }

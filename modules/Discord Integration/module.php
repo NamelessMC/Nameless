@@ -33,6 +33,19 @@ class Discord_Module extends Module {
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
 
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
+
+        // Hooks
+        EventHandler::registerEvent('discordWebhookFormatter',
+            'Discord webhook formatter',
+            [
+                'data' => 'Event data',
+                'format' => 'The format which being sent to the discord webhook'
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
     public function onInstall() {
