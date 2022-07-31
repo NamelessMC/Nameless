@@ -1232,5 +1232,8 @@
     "general/oauth_failed_setup": "Niečo sa pokazilo. Nastavenie OAuth2 je neplatné. Kontaktujte správcu",
     "general/oauth_failed": "Pri pokuse o použitie OAuth sa vyskytla chyba. Prosím skúste znova.",
     "general/normal": "Normálny",
-    "user/banned_from_registering": "Vaša IP adresa bola zabanovaná, nemôžete sa zaregistrovať."
+    "user/banned_from_registering": "Vaša IP adresa bola zabanovaná, nemôžete sa zaregistrovať.",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "admin/invalid_recaptcha_settings_info": ""
 }
