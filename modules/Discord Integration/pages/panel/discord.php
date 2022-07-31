@@ -28,14 +28,14 @@ if (Input::exists()) {
             $validation = Validate::check($_POST, [
                 'discord_guild_id' => [
                     Validate::MIN => 18,
-                    Validate::MAX => 18,
+                    Validate::MAX => 20,
                     Validate::NUMERIC => true,
                     Validate::REQUIRED => true,
                 ]
             ])->messages([
                 'discord_guild_id' => [
-                    Validate::MIN => Discord::getLanguageTerm('discord_id_length'),
-                    Validate::MAX => Discord::getLanguageTerm('discord_id_length'),
+                    Validate::MIN => Discord::getLanguageTerm('discord_id_length', ['min' => 18, 'max' => 20]),
+                    Validate::MAX => Discord::getLanguageTerm('discord_id_length', ['min' => 18, 'max' => 20]),
                     Validate::NUMERIC => Discord::getLanguageTerm('discord_id_numeric'),
                     Validate::REQUIRED => Discord::getLanguageTerm('discord_id_required'),
                 ]

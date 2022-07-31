@@ -49,15 +49,15 @@ class DiscordGroupSyncInjector implements GroupSyncInjector {
     public function getValidationRules(): array {
         return [
             Validate::MIN => 18,
-            Validate::MAX => 18,
+            Validate::MAX => 20,
             Validate::NUMERIC => true
         ];
     }
 
     public function getValidationMessages(Language $language): array {
         return [
-            Validate::MIN => Discord::getLanguageTerm('discord_role_id_length'),
-            Validate::MAX => Discord::getLanguageTerm('discord_role_id_length'),
+            Validate::MIN => Discord::getLanguageTerm('discord_role_id_length', ['min' => 18, 'max' => 20]),
+            Validate::MAX => Discord::getLanguageTerm('discord_role_id_length', ['min' => 18, 'max' => 20]),
             Validate::NUMERIC => Discord::getLanguageTerm('discord_role_id_numeric'),
         ];
     }

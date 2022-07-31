@@ -93,7 +93,7 @@ class DiscordIntegration extends IntegrationBase {
                 Validate::REQUIRED => true,
                 Validate::NUMERIC => true,
                 Validate::MIN => 17,
-                Validate::MAX => 18
+                Validate::MAX => 20
             ]
         ])->messages([
             'identifier' => [
