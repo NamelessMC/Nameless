@@ -321,9 +321,7 @@ class Core_Module extends Module {
                 'user_id' => $language->get('admin', 'user_id'),
                 'username' => $language->get('user', 'username'),
                 'email_address' => $language->get('user', 'email_address')
-            ],
-            false,
-            true
+            ]
         );
 
         EventHandler::registerEvent('createReport',
@@ -366,9 +364,7 @@ class Core_Module extends Module {
                 'punisher_id' => $language->get('admin', 'punisher_id'),
                 'reason' => $language->get('admin', 'reason'),
                 'ip_ban' => $language->get('admin', 'ip_ban'),
-            ],
-            false,
-            true
+            ]
         );
 
         EventHandler::registerEvent('userWarned',
@@ -377,9 +373,7 @@ class Core_Module extends Module {
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
                 'reason' => $language->get('admin', 'reason'),
-            ],
-            false,
-            true
+            ]
         );
 
         EventHandler::registerEvent('linkIntegrationUser',
@@ -435,9 +429,7 @@ class Core_Module extends Module {
                 'group_name' => $language->get('admin', 'group_name'),
                 'username' => $language->get('user', 'username'),
                 'user_id' => $language->get('admin', 'user_id'),
-            ],
-            false,
-            true
+            ]
         );
 
         EventHandler::registerEvent('userGroupRemoved',
@@ -447,9 +439,7 @@ class Core_Module extends Module {
                 'group_name' => $language->get('admin', 'group_name'),
                 'username' => $language->get('user', 'username'),
                 'user_id' => $language->get('admin', 'user_id'),
-            ],
-            false,
-            true
+            ]
         );
 
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
