@@ -1232,5 +1232,6 @@
     "admin/render_custom_page_edit_hook_info": "Vykreslení úpravy vlastní stránky",
     "general/oauth_failed_setup": "Něco se pokazilo. Nastavení OAuth2 je neplatné. Kontaktujte správce",
     "general/oauth_failed": "Něco se pokazilo při pokusu o použití OAuth. Zkuste to prosím znovu.",
-    "user/banned_from_registering": "Vaše IP byla zabanována, nemůžete se zaregistrovat."
+    "user/banned_from_registering": "Vaše IP byla zabanována, nemůžete se zaregistrovat.",
+    "general/normal": "Normální"
 }
