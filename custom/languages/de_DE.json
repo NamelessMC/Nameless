@@ -816,7 +816,7 @@
     "moderator/enter_valid_punishment_reason": "Bitte geben Sie einen Grund für Ihre Bestrafung ein, zwischen 5 und 5000 Zeichen.",
     "moderator/groups": "Gruppen",
     "moderator/ingame": "Im Spiel",
-    "moderator/ip_ban": "IP Sperren",
+    "moderator/ip_ban": "IP Sperre",
     "moderator/ip_lookup": "IP Suche",
     "moderator/mark_as_spam": "Als Spam makieren",
     "moderator/new_comment": "Neuer Kommentar",
@@ -1232,5 +1232,6 @@
     "admin/render_custom_page_edit_hook_info": "Rendering benutzerdefinierte Seite bearbeiten",
     "general/oauth_failed_setup": "Etwas ist schief gelaufen. Die OAuth2-Einrichtung ist ungültig. Kontaktiere einen Administrator",
     "general/oauth_failed": "Beim Versuch, OAuth zu verwenden, ist etwas schief gelaufen. Bitte versuch es erneut.",
-    "user/banned_from_registering": "Deine IP wurde gesperrt, du kannst dich nicht registrieren."
+    "user/banned_from_registering": "Deine IP wurde gesperrt, du kannst dich nicht registrieren.",
+    "general/normal": "Normal"
 }
