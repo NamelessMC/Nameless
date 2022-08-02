@@ -35,7 +35,7 @@ class DiscordFormatterHook extends HookBase {
             $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
-                'title' => 'New Announcement: ' . $data['header'],
+                'title' => $data['language']->get('admin', 'new_announcement') . ': ' . $data['header'],
                 'description' => $content,
             ]];
 
