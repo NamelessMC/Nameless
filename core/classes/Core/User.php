@@ -187,7 +187,7 @@ class User {
             'user_id' => $this->data()->id,
             'group_id' => $group_id,
             'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => AvatarSource::getAvatarFromUserData($this->data()),
+            'avatar_url' => $this->getAvatar(128, true),
             'language' => $default_language,
         ]);
 
@@ -717,7 +717,7 @@ class User {
             'user_id' => $this->data()->id,
             'group_id' => $group_id,
             'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => AvatarSource::getAvatarFromUserData($this->data()),
+            'avatar_url' => $this->getAvatar(128, true),
             'language' => $default_language,
         ]);
 
