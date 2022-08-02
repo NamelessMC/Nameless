@@ -364,11 +364,11 @@ class MCQuery {
 
         // some servers (originrealms) return a weird MOTD
         if (count($modern_format) === 1 && is_array($modern_format[0])) {
-            $modern_format = $modern_format[0]['extra'];
+            $modern_format = $modern_format[0]['extra'] ?? [];
         }
         // and sometimes it's doubly nested...
         if (count($modern_format) === 1 && is_array($modern_format[0])) {
-            $modern_format = $modern_format[0]['extra'];
+            $modern_format = $modern_format[0]['extra'] ?? [];
         }
 
         $motd = '';
