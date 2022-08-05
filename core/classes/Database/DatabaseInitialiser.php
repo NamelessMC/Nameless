@@ -171,7 +171,7 @@ class DatabaseInitialiser {
         Util::setSetting('recaptcha_type', 'Recaptcha3');
         Util::setSetting('recaptcha_login', '0');
         Util::setSetting('email_verification', '1');
-        Util::setSetting('nameless_version', '2.0.0-pr13');
+        Util::setSetting('nameless_version', '2.0.0');
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
         Util::setSetting('phpmailer_type', 'smtp');

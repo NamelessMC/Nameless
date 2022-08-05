@@ -16,10 +16,8 @@ body:
       description: From StaffCP -> Overview
       options:
         - Development version
-        - 2.0.0-pr13
-        - <= 2.0.0-pr12
-        - 1.0.21
-        - <= 1.0.20
+        - 2.0.0
+        - < 2.0.0
     validations:
       required: true
 

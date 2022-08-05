@@ -776,13 +776,13 @@ $version = DB::getInstance()->get('settings', ['name', 'version'])->results();
 if (count($version)) {
     DB::getInstance()->update('settings', $version[0]->id, [
         'name' => 'nameless_version',
-        'value' => '2.0.0-pr13'
+        'value' => '2.0.0'
     ]);
     DB::getInstance()->delete('settings', ['name', 'version']);
 } else {
     DB::getInstance()->insert('settings', [
         'name' => 'nameless_version',
-        'value' => '2.0.0-pr13'
+        'value' => '2.0.0'
     ]);
 }
 
