@@ -9,6 +9,8 @@
 - Respect light/dark mode for captcha popups
 - Added `ProfileUtils::getOfflineModeUuid()` & `ProfileUtils::formatUuid()`
 - Added `discordWebhookFormatter` event so modules can define how a Discord webhook embed looks
+- Add `userGroupAdded` and `userGroupRemoved` events to Discord webhook formatter
+- Block banned IPs from registering
 
 ### Changed
 - Better Discord widget error display
@@ -26,6 +28,9 @@
 - "OR" in login page is no longer hardcoded
 - Better TinyMCE image uploading errors + logging
 - Add form token to announcement order change
+- Captcha key failure will still allow values in DB to be updated, incase the test request fails
+- Support 2FA with OAuth2 logging in
+- Only show source code option in staffcp pages in text editor
 
 ### Fixed
 - Fix MariaDB version detection
@@ -64,6 +69,14 @@
 - Fix /rewrite_test not being accessible during installation
 - Fix exception when no user tries to login with OAuth and no Nameless user is linked
 - Fix some special chars in DB/email password getting escaped
+- Fix forum post avatars not matching rest of site
+- Fix Twitter and Facebook widget
+- Fix Discord role IDs length
+- Fix issues converting groups and reports from v1
+- Handle OAuth2 errors properly during login/registration
+- Fix exception when trying to login with non-existent oauth account
+- Add slashes to saved config values
+  - Passwords with slashes would escape the strings
 
 ### Deprecated
 *These will be removed in 2.1.0*
