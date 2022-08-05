@@ -310,6 +310,7 @@
     "admin/invalid_hook_name": "Invalid Webhook name",
     "admin/invalid_hook_url": "Invalid Webhook URL",
     "admin/invalid_recaptcha_settings": "Invalid {{recaptchaProvider}} credentials. Ensure the site key and site secret are correct.",
+    "admin/invalid_recaptcha_settings_info": "Consider testing login/registration in an incognito/private window to ensure that your Captcha is working!",
     "admin/ip_address": "IP Address",
     "admin/ip_ban": "IP ban?",
     "admin/is_verified": "Is Verified?",

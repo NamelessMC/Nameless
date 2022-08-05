@@ -40,14 +40,16 @@
                             {include file='includes/alerts.tpl'}
 
                             <!-- Captcha warning -->
-                            {if isset($CAPTCHA_WARNING)}
+                            {if isset($CAPTCHA_WARNINGS)}
                                 <div class="alert alert-warning alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     <h5><i class="icon fas fa-exclamation-triangle"></i> {$WARNING}</h5>
                                     <ul>
-                                        <li>{$CAPTCHA_WARNING}</li>
+                                        {foreach from=$CAPTCHA_WARNINGS item=warning}
+                                            <li>{$warning}</li>
+                                        {/foreach}
                                     </ul>
                                 </div>
                             {/if}

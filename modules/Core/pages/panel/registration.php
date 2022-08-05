@@ -119,7 +119,7 @@ if (isset($success)) {
 
 if (isset($captcha_warning)) {
     $smarty->assign([
-        'CAPTCHA_WARNING' => $captcha_warning,
+        'CAPTCHA_WARNINGS' => [$captcha_warning, $language->get('admin', 'invalid_recaptcha_settings_info')],
         'WARNING' => $language->get('general', 'warning')
     ]);
 }
