@@ -5,7 +5,7 @@
  *
  *  For NamelessMC
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ *  NamelessMC version 2.0.0
  *
  *  License: MIT
  *
@@ -24,8 +24,8 @@ if (!class_exists('Default_Panel_Template')) {
 
             parent::__construct(
                 'Default',  // Template name
-                '2.0.0-pr13',  // Template version
-                '2.0.0-pr13',  // Nameless version template is made for
+                '2.0.0',  // Template version
+                '2.0.0',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
@@ -40,7 +40,7 @@ if (!class_exists('Default_Panel_Template')) {
             $this->addCSSFiles([
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=2pr13' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=200' => [],
             ]);
 
             $this->addJSFiles([
