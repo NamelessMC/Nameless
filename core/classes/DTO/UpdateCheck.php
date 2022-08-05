@@ -39,6 +39,10 @@ class UpdateCheck {
         return $this->_response['name'] . ' (' . $this->_response['version_tag'] . ')';
     }
 
+    public function upgradeZipLink(): string {
+        return $this->_response['upgrade_zip_link'];
+    }
+
     public function gitHubLink(): string {
         return $this->_response['github_link'];
     }
