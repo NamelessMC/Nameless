@@ -126,12 +126,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="{$PURGE_QUERY_ERRORS_LINK}" class="btn btn-primary">{$YES}</a>
+                    <form action="{$PURGE_QUERY_ERRORS_LINK}" method="post" style="display: inline">
+                        <input type="hidden" name="token" value="{$TOKEN}" />
+                        <input type="submit" class="btn btn-primary" value="{$YES}" />
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- End Wrapper -->
 </div>

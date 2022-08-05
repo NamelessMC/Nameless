@@ -306,9 +306,16 @@ if (!isset($_GET['id'])) {
             // Close report
             if (is_numeric($_GET['id'])) {
                 // Get report
-                $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
-                if (count($report)) {
-                    DB::getInstance()->update('reports', $report[0]->id, [
+                $report = DB::getInstance()->get('reports', ['id', $_GET['id']]);
+                if ($report->count()) {
+                    $report = $report->first();
+
+                    if (!Token::check()) {
+                        Session::flash('report_error', $language->get('general', 'invalid_token'));
+                        die();
+                    }
+
+                    DB::getInstance()->update('reports', $report->id, [
                         'status' => 1,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
@@ -316,16 +323,16 @@ if (!isset($_GET['id'])) {
                     ]);
 
                     DB::getInstance()->insert('reports_comments', [
-                        'report_id' => $report[0]->id,
+                        'report_id' => $report->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => Output::getClean($user->data()->username)])
+                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => $user->getDisplayname()])
                     ]);
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_closed'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report[0]->id)));
+                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
@@ -335,9 +342,16 @@ if (!isset($_GET['id'])) {
             // Reopen report
             if (is_numeric($_GET['id'])) {
                 // Get report
-                $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
-                if (count($report)) {
-                    DB::getInstance()->update('reports', $report[0]->id, [
+                $report = DB::getInstance()->get('reports', ['id', $_GET['id']]);
+                if ($report->count()) {
+                    $report = $report->first();
+
+                    if (!Token::check()) {
+                        Session::flash('report_error', $language->get('general', 'invalid_token'));
+                        die();
+                    }
+
+                    DB::getInstance()->update('reports', $report->id, [
                         'status' => false,
                         'date_updated' => date('Y-m-d H:i:s'),
                         'updated' => date('U'),
@@ -345,16 +359,16 @@ if (!isset($_GET['id'])) {
                     ]);
 
                     DB::getInstance()->insert('reports_comments', [
-                        'report_id' => $report[0]->id,
+                        'report_id' => $report->id,
                         'commenter_id' => $user->data()->id,
                         'comment_date' => date('Y-m-d H:i:s'),
                         'date' => date('U'),
-                        'comment_content' => $language->get('moderator', 'x_reopened_report', ['user' => $user->data()->username])
+                        'comment_content' => $language->get('moderator', 'x_reopened_report', ['user' => $user->getDisplayname()])
                     ]);
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report[0]->id)));
+                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
             }
 
             Redirect::to(URL::build('/panel/users/reports'));
@@ -369,6 +383,10 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 if (Session::exists('report_success')) {
     $success = Session::flash('report_success');
+}
+
+if (Session::exists('report_error')) {
+    $errors = [Session::flash('report_error')];
 }
 
 if (isset($success)) {

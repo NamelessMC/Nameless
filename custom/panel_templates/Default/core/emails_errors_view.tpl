@@ -132,7 +132,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="{$DELETE_ERROR_LINK}" class="btn btn-primary">{$YES}</a>
+                        <form action="{$DELETE_ERROR_LINK}" method="post" style="display: inline">
+                            <input type="hidden" name="token" value="{$TOKEN}" />
+                            <input type="submit" class="btn btn-primary" value="{$YES}" />
+                        </form>
                     </div>
                 </div>
             </div>

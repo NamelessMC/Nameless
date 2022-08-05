@@ -114,7 +114,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="{$PURGE_LINK}" class="btn btn-primary">{$YES}</a>
+                        <form action="{$PURGE_LINK}" method="post" style="display: inline">
+                            <input type="hidden" name="token" value="{$TOKEN}" />
+                            <input type="submit" class="btn btn-primary" value="{$YES}" />
+                        </form>
                     </div>
                 </div>
             </div>
@@ -135,7 +138,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="" id="deleteLink" class="btn btn-primary">{$YES}</a>
+                        <form action="" id="deleteAction" method="post" style="display: inline">
+                            <input type="hidden" name="token" value="{$TOKEN}" />
+                            <input type="submit" class="btn btn-primary" value="{$YES}" />
+                        </form>
                     </div>
                 </div>
             </div>
@@ -152,7 +158,7 @@
         }
 
         function showDeleteModal(id) {
-            $('#deleteLink').attr('href', '{$DELETE_LINK}'.replace('{literal}{x}{/literal}', id));
+            $('#deleteAction').attr('action', '{$DELETE_LINK}'.replace('{literal}{x}{/literal}', id));
             $('#deleteModal').modal().show();
         }
     </script>

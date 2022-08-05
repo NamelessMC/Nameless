@@ -43,6 +43,9 @@
                             </div>
                             <hr />
 
+                            <!-- Success and Error Alerts -->
+                            {include file='includes/alerts.tpl'}
+
                             {if isset($LOG)}
                             <pre class="error_log">
                                 {$LOG}
@@ -85,7 +88,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="{$PURGE_LOG_LINK}" class="btn btn-primary">{$YES}</a>
+                        <form action="{$PURGE_LOG_LINK}" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" class="btn btn-primary" value="{$YES}">
+                        </form>
                     </div>
                 </div>
             </div>

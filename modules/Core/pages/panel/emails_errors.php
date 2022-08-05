@@ -21,21 +21,28 @@ $page_title = $language->get('admin', 'email_errors');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (isset($_GET['do'])) {
-    if ($_GET['do'] == 'purge') {
-        // Purge all errors
+    if (in_array($_GET['do'], ['delete', 'purge'])) {
+        if (Token::check()) {
+            if ($_GET['do'] == 'purge') {
+                // Purge all errors
 
-        DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
+                DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
 
-        Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
-        Redirect::to(URL::build('/panel/core/emails/errors'));
-    }
+                Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
+                Redirect::to(URL::build('/panel/core/emails/errors'));
+            }
 
-    if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+            if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
-        DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
+                DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
 
-        Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
-        Redirect::to(URL::build('/panel/core/emails/errors'));
+                Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
+                Redirect::to(URL::build('/panel/core/emails/errors'));
+            }
+        } else {
+            Session::flash('emails_errors_error', $language->get('general', 'invalid_token'));
+            Redirect::to(URL::build('/panel/core/emails/errors'));
+        }
     }
 
     if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -216,6 +223,10 @@ if (Session::exists('emails_errors_success')) {
     ]);
 }
 
+if (Session::exists('emails_errors_error')) {
+    $errors = [Session::flash('emails_errors_error')];
+}
+
 if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
@@ -231,7 +242,8 @@ $smarty->assign([
     'EMAILS_LINK' => URL::build('/panel/core/emails'),
     'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
     'PAGE' => PANEL_PAGE,
-    'BACK' => $language->get('general', 'back')
+    'BACK' => $language->get('general', 'back'),
+    'TOKEN' => Token::get(),
 ]);
 
 $template->onPageLoad();

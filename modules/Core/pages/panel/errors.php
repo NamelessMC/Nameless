@@ -21,9 +21,13 @@ $page_title = $language->get('admin', 'error_logs');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
-    file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
-    Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
-    Redirect::to(URL::build('/panel/core/errors'));
+    if (Token::check()) {
+        file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
+        Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
+        Redirect::to(URL::build('/panel/core/errors'));
+    } else {
+        Session::flash('error_log_error', $language->get('general', 'invalid_token'));
+    }
 }
 
 // Load modules + template
@@ -69,6 +73,13 @@ if (isset($_GET['log'])) {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
 
+    if (Session::exists('error_log_error')) {
+        $smarty->assign([
+            'ERRORS' => [Session::flash('error_log_error')],
+            'ERRORS_TITLE' => $language->get('general', 'error')
+        ]);
+    }
+
     $smarty->assign([
         'BACK_LINK' => URL::build('/panel/core/errors'),
         'LOG_NAME' => $title,
@@ -101,7 +112,8 @@ $smarty->assign([
     'DEBUGGING_AND_MAINTENANCE' => $language->get('admin', 'debugging_and_maintenance'),
     'PAGE' => PANEL_PAGE,
     'ERROR_LOGS' => $language->get('admin', 'error_logs'),
-    'BACK' => $language->get('general', 'back')
+    'BACK' => $language->get('general', 'back'),
+    'TOKEN' => Token::get(),
 ]);
 
 $template->onPageLoad();

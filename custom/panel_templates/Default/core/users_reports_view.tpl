@@ -109,9 +109,9 @@
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                     <div class="float-md-right">
                                         {if isset($CLOSE_REPORT)}
-                                        <a href="{$CLOSE_LINK}" class="btn btn-danger">{$CLOSE_REPORT}</a>
+                                        <button type="button" onclick="closeReport()" class="btn btn-danger">{$CLOSE_REPORT}</button>
                                         {else}
-                                        <a href="{$REOPEN_LINK}" class="btn btn-danger">{$REOPEN_REPORT}</a>
+                                        <button type="button" onclick="reopenReport()" class="btn btn-danger">{$REOPEN_REPORT}</button>
                                         {/if}
                                     </div>
                                 </div>
@@ -138,6 +138,16 @@
     </div>
 
     {include file='scripts.tpl'}
+
+    <script type="text/javascript">
+        function closeReport() {
+          $.post("{$CLOSE_LINK}", { token: "{$TOKEN}" }).done(function () { window.location.reload(); });
+        }
+
+        function reopenReport() {
+          $.post("{$REOPEN_LINK}", { token: "{$TOKEN}" }).done(function () { window.location.reload(); });
+        }
+    </script>
 
 </body>
 

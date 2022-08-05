@@ -23,8 +23,13 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['id'])) {
     if (isset($_GET['action']) && $_GET['action'] == 'purge') {
-        DB::getInstance()->delete('query_errors', ['id', '<>', 0]);
-        Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
+        if (Token::check()) {
+            DB::getInstance()->delete('query_errors', ['id', '<>', 0]);
+            Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
+        } else {
+            Session::flash('panel_query_errors_error', $language->get('general', 'invalid_token'));
+        }
+
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
 
@@ -117,6 +122,10 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 if (Session::exists('panel_query_errors_success')) {
     $success = Session::flash('panel_query_errors_success');
+}
+
+if (Session::exists('panel_query_errors_error')) {
+    $errors = [Session::flash('panel_query_errors_error')];
 }
 
 if (isset($success)) {
