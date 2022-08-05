@@ -128,6 +128,10 @@ class Language {
             'name' => 'Korean (Korea)',
             'htmlCode' => 'ko',
         ],
+        'vi_VN' => [
+            'name' => 'Vietnamese',
+            'htmlCode' => 'vi',
+        ],
     ];
 
     /**
