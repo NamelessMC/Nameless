@@ -1,6 +1,10 @@
 # NamelessMC v2 Changelog
 
-## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr13...v2)
+## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2)
+> [Milestone](https://github.com/NamelessMC/Nameless/milestone/18)
+
+
+## [2.0.0](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr13...v2) - 2022-08-05
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/17)
 
 ### Added
