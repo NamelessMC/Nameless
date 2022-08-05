@@ -153,10 +153,6 @@ final class GroupSyncManager extends Instanceable {
             return [];
         }
 
-        if (count($group_ids) === 0) {
-            return [];
-        }
-
         $logs = [];
 
         $modified = [];
@@ -166,6 +162,17 @@ final class GroupSyncManager extends Instanceable {
 
         // Get all group sync rules where this injector is not null
         $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
+        foreach ($rules as $rule) {
+            if ($rule->website_group_id == PRE_VALIDATED_DEFAULT) {
+                // Require atleast 1 group if default group is synced
+                if (count($group_ids) === 0) {
+                    return [];
+                }
+                
+                break;
+            }
+        }
+
         foreach ($rules as $rule) {
 
             foreach ($this->getEnabledInjectors() as $injector) {
