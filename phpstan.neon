@@ -17,6 +17,6 @@ parameters:
         - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
         # DB::first() has been checked beforehand with DB::count() - probably need a better long term solution!
         -
-            message: '#Cannot access property $id on object|false.#'
+            message: '#Cannot access property \$id on object\|false.#'
             path: modules/Core/pages/panel/users_reports.php
     reportUnmatchedIgnoredErrors: false
