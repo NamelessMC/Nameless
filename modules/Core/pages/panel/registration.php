@@ -66,31 +66,28 @@ if (Input::exists()) {
 
                     $provider = CaptchaBase::getActiveProvider();
                     if ($provider->validateSecret(Input::get('recaptcha_secret')) == false || $provider->validateKey(Input::get('recaptcha')) == false) {
-                        $errors[] = $language->get('admin', 'invalid_recaptcha_settings', [
+                        $captcha_warning = $language->get('admin', 'invalid_recaptcha_settings', [
                             'recaptchaProvider' => Text::bold(Input::get('captcha_type'))
                         ]);
-
-                    } else {
-                        Util::setSetting('recaptcha_key', Input::get('recaptcha'));
-                        Util::setSetting('recaptcha_secret', Input::get('recaptcha_secret'));
                     }
+
+                    Util::setSetting('recaptcha_key', Input::get('recaptcha'));
+                    Util::setSetting('recaptcha_secret', Input::get('recaptcha_secret'));
+
                 } else if (empty(Input::get('recaptcha_key')) && empty(Input::get('recaptcha_secret'))) {
                     Util::setSetting('recaptcha_key', '');
                     Util::setSetting('recaptcha_secret', '');
                 }
 
-                // Can enable captcha?
-                if (!count($errors)) {
-                    Util::setSetting('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] == '1') ? '1' : '0');
-                    Util::setSetting('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] == '1') ? '1' : '0');
+                Util::setSetting('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] == '1') ? '1' : '0');
+                Util::setSetting('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] == '1') ? '1' : '0');
 
-                    // Config value
-                    if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
-                        if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
-                            Config::set('core.captcha', true);
-                        } else {
-                            $errors = [$language->get('admin', 'config_not_writable')];
-                        }
+                // Config value
+                if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                    if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+                        Config::set('core.captcha', true);
+                    } else {
+                        $errors = [$language->get('admin', 'config_not_writable')];
                     }
                 }
 
@@ -117,6 +114,13 @@ if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
+    ]);
+}
+
+if (isset($captcha_warning)) {
+    $smarty->assign([
+        'CAPTCHA_WARNING' => $captcha_warning,
+        'WARNING' => $language->get('general', 'warning')
     ]);
 }
 
