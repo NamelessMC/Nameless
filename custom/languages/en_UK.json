@@ -1234,5 +1234,7 @@
     "user/x_replies": "{{count}} replies",
     "user/you_have_been_banned": "You have been banned!",
     "user/banned_from_registering": "Your IP has been banned, you cannot register.",
-    "user/you_have_received_a_warning": "You have received a warning!"
+    "user/you_have_received_a_warning": "You have received a warning!",
+    "user/group_has_been_added": "Group {{group}} has been added to user {{user}}",
+    "user/group_has_been_removed": "Group {{group}} has been removed from user {{user}}"
 }

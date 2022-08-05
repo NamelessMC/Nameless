@@ -35,8 +35,24 @@ class DiscordFormatterHook extends HookBase {
             $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
-                'title' => 'New Announcement: ' . $data['header'],
+                'title' => $data['language']->get('admin', 'new_announcement') . ': ' . $data['header'],
                 'description' => $content,
+            ]];
+
+            $params['format'] = $format;
+        } else if ($data['event'] == 'userGroupAdded') {
+            $format['username'] = $data['username'] . ' | ' . SITE_NAME;
+            $format['avatar_url'] = $data['avatar_url'];
+            $format['embeds'] = [[
+                'description' => $data['language']->get('user', 'group_has_been_added', ['group' => "`" . $data['group_name'] . "`", 'user' => Output::getClean($data['username'])]),
+            ]];
+
+            $params['format'] = $format;
+        } else if ($data['event'] == 'userGroupRemoved') {
+            $format['username'] = $data['username'] . ' | ' . SITE_NAME;
+            $format['avatar_url'] = $data['avatar_url'];
+            $format['embeds'] = [[
+                'description' => $data['language']->get('user', 'group_has_been_removed', ['group' => "`" . $data['group_name'] . "`", 'user' => Output::getClean($data['username'])]),
             ]];
 
             $params['format'] = $format;
