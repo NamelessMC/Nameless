@@ -735,16 +735,16 @@ class Core_Module extends Module {
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');
-            $fb_url = $cache->retrieve('facebook');
+            $fb_url = Util::getSetting('fb_url');
             if ($fb_url) {
                 $widgets->add(new FacebookWidget($smarty, $fb_url));
             }
 
             // Twitter
-            $twitter = $cache->retrieve('twitter');
+            $twitter = Util::getSetting('twitter_url');
 
             if ($twitter) {
-                $theme = $cache->retrieve('twitter_theme');
+                $theme = Util::getSetting('twitter_style');
                 $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
             }
 
