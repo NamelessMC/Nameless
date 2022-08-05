@@ -450,13 +450,17 @@ class Util {
         $start = max([$size - $max_bytes, 0]);
         fseek($fp, $start);
         $read_length = $size - $start;
-        $content = fread($fp, $read_length);
-        if ($start > 0) {
-            // Read content may contain partial line, remove it
-            $first_lf = strpos($content, PHP_EOL);
-            $content = substr($content, $first_lf + 1);
+        if ($read_length) {
+            $content = fread($fp, $read_length);
+            if ($start > 0) {
+                // Read content may contain partial line, remove it
+                $first_lf = strpos($content, PHP_EOL);
+                $content = substr($content, $first_lf + 1);
+            }
+            return $content;
         }
-        return $content;
+
+        return '';
     }
 
     /**
