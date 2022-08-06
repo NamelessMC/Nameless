@@ -308,7 +308,7 @@ if (Input::exists()) {
                     'author' => $user->getDisplayname(),
                 ]),
                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
-                'avatar_url' => $user->getAvatar(null, true),
+                'avatar_url' => $user->getAvatar(128, true),
                 'title' => $topic->topic_title,
                 'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
                 'topic_author_user_id' => $topic_user->data()->id,
