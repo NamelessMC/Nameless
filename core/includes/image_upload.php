@@ -108,7 +108,7 @@ if ($image['file']) {
             }
 
             http_response_code(500);
-            $error = $e->getMessage() ?: 'Unknown error, check logs for more details';
+            $error = $image->getError() ?: 'Unknown error, check logs for more details';
             ErrorHandler::logWarning('Image upload error: ' . $error);
             die($error);
         }
