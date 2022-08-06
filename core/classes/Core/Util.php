@@ -346,12 +346,17 @@ class Util {
             }
         } else {
             if ($module === 'core') {
-                DB::getInstance()->query(
-                    'INSERT INTO `nl2_settings` (`name`, `value`)
-                     VALUES (?, ?)
-                     ON DUPLICATE KEY UPDATE `value` = ?',
-                    [$setting, $new_value, $new_value]
-                );
+                if (DB::getInstance()->query('SELECT * FROM nl2_settings WHERE `name` = ? and `module` IS NULL', [$setting])->count()) {
+                    DB::getInstance()->query(
+                        'UPDATE `nl2_settings` SET `value` = ? WHERE `name` = ? AND `module` IS NULL',
+                        [$new_value, $setting]
+                    );
+                } else {
+                    DB::getInstance()->query(
+                        'INSERT INTO `nl2_settings` (`name`, `value`) VALUES (?, ?)',
+                        [$setting, $new_value]
+                    );
+                }
             } else {
                 DB::getInstance()->query(
                     'INSERT INTO `nl2_settings` (`name`, `value`, `module`)
