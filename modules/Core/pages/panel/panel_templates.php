@@ -46,7 +46,7 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
+            'version_mismatch' => (Util::isCompatible($template->getNamelessVersion(), NAMELESS_VERSION)
                 ? $language->get('admin', 'template_outdated', [
                     'intendedVersion' => Output::getClean($template->getNamelessVersion()),
                     'actualVersion' => NAMELESS_VERSION,
