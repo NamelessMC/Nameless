@@ -116,7 +116,7 @@ class Config {
                 $loc = &$loc[$step];
             }
             // Check if it is a string here so that `null` is not converted to `''`
-            $loc = is_string($value) ? addslashes($value) : $value;
+            $loc = $value === null ? $value : addslashes($value);
         }
 
         static::write((array) $config);
