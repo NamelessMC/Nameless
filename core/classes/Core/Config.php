@@ -12,6 +12,19 @@ class Config {
     private static ?array $_config_cache = null;
 
     /**
+     * @return bool Whether `/core` folder is writable to create `config.php` file in,
+     * or if the file exists and is writable.
+     */
+    public static function writeable(): bool {
+        clearstatcache();
+        if (self::exists()) {
+            return is_writable(ROOT_PATH . '/core/config.php');
+        }
+
+        return is_writable(ROOT_PATH . '/core');
+    }
+
+    /**
      * @return bool Whether config file exists
      */
     public static function exists(): bool {
@@ -32,19 +45,7 @@ class Config {
             throw new RuntimeException('Config file does not exist');
         }
 
-        $config = require(ROOT_PATH . '/core/config.php');
-        if ($config === 1) {
-            // TODO: Legacy < 2.0.0 config file. Remove in 2.0.1, all sites will have been updated or installed with this syntax by then
-            /** @phpstan-ignore-next-line  */
-            if (!isset($conf) || !is_array($conf)) {
-                throw new RuntimeException('Config file is invalid');
-            }
-        } else {
-            $conf = $config;
-        }
-
-        /** @phpstan-ignore-next-line  */
-        return self::$_config_cache = $conf;
+        return self::$_config_cache = require(ROOT_PATH . '/core/config.php');
     }
 
     /**
@@ -53,7 +54,7 @@ class Config {
      * @param array $config New config array to store.
      */
     public static function write(array $config): void {
-        $contents = '<?php' . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
+        $contents = '<?php' . PHP_EOL . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
         if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
             throw new RuntimeException('Failed to write to config file');
         }
@@ -114,7 +115,8 @@ class Config {
             foreach ($path as $step) {
                 $loc = &$loc[$step];
             }
-            $loc = addslashes($value);
+            // Check if it is a string here so that `null` is not converted to `''`
+            $loc = is_string($value) ? addslashes($value) : $value;
         }
 
         static::write((array) $config);
