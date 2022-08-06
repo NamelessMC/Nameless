@@ -9,8 +9,8 @@ class Discord_Module extends Module {
 
         $name = 'Discord Integration';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
-        $module_version = '2.0.0';
-        $nameless_version = '2.0.0';
+        $module_version = '2.0.1';
+        $nameless_version = '2.0.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
