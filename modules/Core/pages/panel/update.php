@@ -70,7 +70,7 @@ if (!is_string($update_check)) {
             'INSTRUCTIONS' => $language->get('admin', 'instructions'),
             'INSTRUCTIONS_VALUE' => Output::getDecoded($update_check->instructions()),
             'UPGRADE_LINK' => URL::build('/panel/upgrade'),
-            'DOWNLOAD_LINK' => $update_check->gitHubLink(),
+            'DOWNLOAD_LINK' => $update_check->upgradeZipLink(),
             'DOWNLOAD' => $language->get('admin', 'download'),
             'INSTALL_CONFIRM' => $language->get('admin', 'install_confirm')
         ]);
