@@ -78,12 +78,23 @@
                                     <label for="inputDefaultServer">{$DEFAULT_SERVER}</label>
                                     <select id="inputDefaultServer" class="form-control" name="default_server">
                                         {if $SERVERS|count > 1}
-                                        <option value="none" {if $DEFAULT_SERVER_VALUE eq 0} selected{/if}>{$NO_DEFAULT_SERVER}</option>
+                                            <option value="none" {if $DEFAULT_SERVER_VALUE eq 0} selected{/if}>{$NO_DEFAULT_SERVER}</option>
                                         {/if}
                                         {if isset($SERVERS) && count($SERVERS)}
-                                        {foreach from=$SERVERS item=server}
-                                        <option value="{$server.id}" {if $server.is_default eq 1} selected{/if}>{$server.name}</option>
-                                        {/foreach}
+                                            {foreach from=$SERVERS item=server}
+                                                <option value="{$server.id}" {if $server.is_default eq 1} selected{/if}>{$server.name}</option>
+                                            {/foreach}
+                                        {/if}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputGroupSyncServer">{$GROUP_SYNC_SERVER}</label>
+                                    <select id="inputGroupSyncServer" class="form-control" name="group_sync_server">
+                                        {if isset($SERVERS) && count($SERVERS)}
+                                            {foreach from=$SERVERS item=server}
+                                                <option value="{$server.id}" {if $GROUP_SYNC_SERVER_VALUE eq $server.id} selected{/if}>{$server.name}</option>
+                                            {/foreach}
                                         {/if}
                                     </select>
                                 </div>
