@@ -746,7 +746,6 @@
     "installer/outgoing_email": "Utgående e-post",
     "installer/password": "Passord",
     "installer/passwords_must_match": "Passordene dine er ikke like.",
-    "installer/pre-release": "beta-utgivelse",
     "installer/proceed": "Fortsett",
     "installer/reload": "Last inn på nytt",
     "installer/reload_page": "Last inn siden på nytt",

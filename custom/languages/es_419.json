@@ -780,7 +780,6 @@
     "installer/outgoing_email": "Correo saliente",
     "installer/password": "Contraseña",
     "installer/passwords_must_match": "La contraseña debe coincidir.",
-    "installer/pre-release": "pre-lanzamiento",
     "installer/proceed": "Siguiente",
     "installer/reload": "Recargar",
     "installer/reload_page": "Recargar pagina",

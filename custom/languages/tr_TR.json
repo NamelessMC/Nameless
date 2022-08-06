@@ -667,7 +667,6 @@
     "installer/outgoing_email": "Giden E-posta",
     "installer/password": "Şifre",
     "installer/passwords_must_match": "Şifreleriniz eşleşmeli",
-    "installer/pre-release": "Ön sürüm",
     "installer/proceed": "İlerle",
     "installer/requirements": "Gereksinimler:",
     "installer/requirements_error": "Yüklemeye devam etmek için gerekli tüm uzantıların kurulu olması ve doğru izinlerin ayarlanmış olması gerekir.",

@@ -32,7 +32,7 @@
 <div style="text-align: center">
     <br/><br/><br/>
 
-    <h1>NamelessMC v2 <sup><span style="font-size: small;">pre-release</span></sup></h1>
+    <h1>NamelessMC v2</h1>
 
     <hr/>
 

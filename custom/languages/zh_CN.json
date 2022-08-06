@@ -789,7 +789,6 @@
     "installer/outgoing_email": "发件箱",
     "installer/password": "密码",
     "installer/passwords_must_match": "您的密码必须匹配",
-    "installer/pre-release": "预览版本",
     "installer/proceed": "继续",
     "installer/reload": "刷新",
     "installer/reload_page": "刷新页面",
