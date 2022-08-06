@@ -237,7 +237,7 @@ class Util {
             return $update_check_response->getError();
         }
 
-        $update_check = new UpdateCheck($update_check_response->json(true));
+        $update_check = new UpdateCheck($update_check_response);
         if ($update_check->hasError()) {
             return $update_check->getErrorMessage();
         }
