@@ -705,7 +705,7 @@
     "installer/installer_information": "L’installateur vous guidera dans le processus d’installation.",
     "installer/installer_now_initialising_database": "L’installateur est en train d’initialiser la base de données. Celaa peut prendre du temps...",
     "installer/installer_upgrading_database": "Veuillez patienter pendant que l’installateur met à jour votre base de données...",
-    "installer/installer_welcome": "Bienvenue sur NamelessMC sous la version 2.0 pre-release.",
+    "installer/installer_welcome": "Bienvenue sur NamelessMC sous la version 2.0",
     "installer/nameless_path": "Chemin d'installation",
     "installer/nameless_path_info": "C'est le chemin d'installation où Nameless est installé, par rapport à votre domaine. Par exemple, si Nameless est installé à exemple.com/forum, cela doit être <strong>forum</strong>. Laisser vide si Nameless n’est pas dans un sous-dossier.",
     "installer/new_installation": "Nouvelle installation &raquo;",

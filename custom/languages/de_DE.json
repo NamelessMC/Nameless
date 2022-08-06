@@ -767,7 +767,6 @@
     "installer/outgoing_email": "Absender Emailadresse",
     "installer/password": "Passwort",
     "installer/passwords_must_match": "Ihre Passwörter müssen übereinstimmen.",
-    "installer/pre-release": "Vorab Version (Pre-Release)",
     "installer/proceed": "Fortfahren",
     "installer/reload": "Neuladen",
     "installer/reload_page": "Seite neuladen",

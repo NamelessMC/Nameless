@@ -814,7 +814,6 @@
     "installer/outgoing_email": "Исходящий адрес электронной почты",
     "installer/password": "Пароль",
     "installer/passwords_must_match": "Ваши пароли должны совпадать.",
-    "installer/pre-release": "предрелиз",
     "installer/proceed": "Продолжить",
     "installer/reload": "Сброс",
     "installer/reload_page": "Перезагрузить страницу",

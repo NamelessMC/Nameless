@@ -775,7 +775,6 @@
     "installer/outgoing_email": "Вихідна адреса електронної пошти",
     "installer/password": "Пароль",
     "installer/passwords_must_match": "Ваші паролі мають співпадати.",
-    "installer/pre-release": "Передреліз",
     "installer/proceed": "Продовжити",
     "installer/reload": "Скидання",
     "installer/reload_page": "Перезавантажити сторінку",
