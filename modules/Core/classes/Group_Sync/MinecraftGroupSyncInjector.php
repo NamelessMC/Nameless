@@ -30,10 +30,18 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function getSelectionOptions(): array {
-        $row = DB::getInstance()->query('SELECT `groups` FROM `nl2_query_results` ORDER BY `id` DESC LIMIT 1')->first();
+        $group_sync_server = Util::getSetting('group_sync_mc_server');
+        if ($group_sync_server === null) {
+            // Backwards compatibility for sites that existed before this setting was added
+            $group_sync_server = DB::getInstance()->get('mc_servers', ['is_default', true])->first()->id;
+        }
+        $row = DB::getInstance()->query(
+            'SELECT `groups` FROM `nl2_query_results` WHERE `server_id` = ? ORDER BY `id` DESC LIMIT 1',
+            [$group_sync_server]
+        )->first();
 
         if ($row === null) {
-            // Plugin is not set up
+            // Plugin is not set up and/or they did not select a server to source groups from/default server
             return [];
         }
 
