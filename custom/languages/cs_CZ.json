@@ -1232,5 +1232,8 @@
     "general/oauth_failed_setup": "Něco se pokazilo. Nastavení OAuth2 je neplatné. Kontaktujte správce",
     "general/oauth_failed": "Něco se pokazilo při pokusu o použití OAuth. Zkuste to prosím znovu.",
     "user/banned_from_registering": "Vaše IP byla zabanována, nemůžete se zaregistrovat.",
-    "general/normal": "Normální"
+    "general/normal": "Normální",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "admin/invalid_recaptcha_settings_info": ""
 }
