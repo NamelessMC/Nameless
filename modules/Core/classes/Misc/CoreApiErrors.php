@@ -26,7 +26,7 @@ class CoreApiErrors {
     public const ERROR_INVALID_EMAIL_ADDRESS = 'core:invalid_email_address';
     public const ERROR_INVALID_USERNAME = 'core:invalid_username';
     public const ERROR_UNABLE_TO_CREATE_ACCOUNT = 'core:unable_to_create_account';
-    public const ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL = 'core:unable_to_send_email';
+    public const ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL = 'core:unable_to_send_registration_email';
 
     public const ERROR_INVALID_INTEGRATION = 'core:invalid_integration';
     public const ERROR_INVALID_CODE = 'core:invalid_code';
