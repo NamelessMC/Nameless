@@ -31,6 +31,7 @@ unset($_SESSION['requirements_validated']);
                 validate_requirement('PHP cURL', function_exists('curl_version'));
                 validate_requirement('PHP Exif', function_exists('exif_imagetype'));
                 validate_requirement('PHP JSON', function_exists('json_decode'));
+                validate_requirement('Core folder writeable', Config::writeable());
                 ?>
             </div>
         </div>

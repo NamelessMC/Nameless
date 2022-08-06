@@ -150,8 +150,8 @@ class ErrorHandler {
             // TODO: should we skip the 2 frames that are from the "new User()" above?
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
             'CURRENT_URL' => HttpUtils::getProtocol() . '://' . HttpUtils::getHeader('Host') . $_SERVER['REQUEST_URI'],
-            'FRAMES' => $frames,
-            'SKIP_FRAMES' => $skip_frames,
+            'FRAMES' => $frames ?? [],
+            'SKIP_FRAMES' => $skip_frames ?? 0,
             'BACK' => $language->get('general', 'back'),
             'HOME' => $language->get('general', 'home'),
             'HOME_URL' => URL::build('/')
@@ -165,7 +165,7 @@ class ErrorHandler {
      * @return bool Whether the error page should be in plain text rather than a user friendly HTML page.
      */
     private static function shouldUsePlainText(): bool {
-        $route = $_REQUEST['route'];
+        $route = $_REQUEST['route'] ?? '';
         return str_contains($route, '/api/v2/') || str_contains($route, '/queries/');
     }
 
