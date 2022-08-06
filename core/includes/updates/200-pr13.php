@@ -23,6 +23,15 @@ return new class extends UpgradeScript {
 
         $this->runMigrations();
 
+        $this->deleteFiles([
+            'core/classes/Misc/OAuth.php',
+            'core/includes/constants/autoload.php',
+            'core/includes/constants/url.constants.php',
+            'core/integration/run_mcassoc.php',
+            'modules/Forum/hooks/MentionsHook.php',
+            'uploads/upload_image.php'
+        ]);
+
         $this->setVersion('2.0.0');
     }
 };
