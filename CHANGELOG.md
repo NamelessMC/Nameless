@@ -3,6 +3,12 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/18)
 
+### Fixed
+- Fix exception when creating admin user during installation
+- Update upgrade check to use correct URL on Download button
+- Fix invalid call to `getAvatar` on viewing a forum topic
+- Fix not checking if config file would be writable when installing
+
 
 ## [2.0.0](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr13...v2) - 2022-08-05
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/17)
