@@ -1232,5 +1232,8 @@
     "general/oauth_failed_setup": "Etwas ist schief gelaufen. Die OAuth2-Einrichtung ist ungültig. Kontaktiere einen Administrator",
     "general/oauth_failed": "Beim Versuch, OAuth zu verwenden, ist etwas schief gelaufen. Bitte versuch es erneut.",
     "user/banned_from_registering": "Deine IP wurde gesperrt, du kannst dich nicht registrieren.",
-    "general/normal": "Normal"
+    "general/normal": "Normal",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "admin/invalid_recaptcha_settings_info": ""
 }
