@@ -533,11 +533,21 @@ class User {
     }
 
     /**
+     * Log the user out from all other sessions.
+     */
+    public function logoutAllOtherSessions(): void {
+        DB::getInstance()->query('UPDATE nl2_users_session SET `active` = 0 WHERE user_id = ? AND hash != ?', [
+            $this->data()->id,
+            Session::get(Config::get('session.session_name'))
+        ]);
+    }
+
+    /**
      * Log the user out.
      * Deletes their cookies, sessions and database session entry.
      */
     public function logout(): void {
-        $this->_db->update('users_session', ['user_id', $this->data()->id], [
+        $this->_db->update('users_session', [['user_id', $this->data()->id], ['hash', Session::get($this->_sessionName)]], [
             'active' => 0
         ]);
 
@@ -549,7 +559,7 @@ class User {
      * Process logout if user is admin
      */
     public function admLogout(): void {
-        $this->_db->update('users_session', ['user_id', $this->data()->id], [
+        $this->_db->update('users_session', [['user_id', $this->data()->id], ['hash', Session::get($this->_admSessionName)]], [
             'active' => 0
         ]);
 

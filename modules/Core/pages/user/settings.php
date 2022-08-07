@@ -82,10 +82,7 @@ if (isset($_GET['do'])) {
                             ]);
 
                             // Logout all other sessions for this user
-                            DB::getInstance()->query('UPDATE nl2_users_session SET `active` = 0 WHERE user_id = ? AND hash != ?', [
-                                $user->data()->id,
-                                Session::get(Config::get('session.session_name'))
-                            ]);
+                            $user->logoutAllOtherSessions();
 
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
@@ -372,10 +369,7 @@ if (isset($_GET['do'])) {
                             ]);
 
                             // Logout all other sessions for this user
-                            DB::getInstance()->query('UPDATE nl2_users_session SET `active` = 0 WHERE user_id = ? AND hash != ?', [
-                                $user->data()->id,
-                                Session::get(Config::get('session.session_name'))
-                            ]);
+                            $user->logoutAllOtherSessions();
 
                             $success = $language->get('user', 'password_changed_successfully');
 
