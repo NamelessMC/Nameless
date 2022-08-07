@@ -338,7 +338,8 @@ class Validate {
                             throw new Exception('Invalid rate limit configuration');
                         }
 
-                        $session = $_SESSION["rate_limit_{$item}"];
+                        $key = "rate_limit_{$item}";
+                        $session = $_SESSION[$key];
                         $time = date('U');
                         $limit_end = $time + $seconds;
 
@@ -358,13 +359,13 @@ class Validate {
 
                             if ($diff <= 0) {
                                 // Reset
-                                $_SESSION["rate_limit_{$item}"] = [1, $limit_end];
+                                $_SESSION[$key] = [1, $limit_end];
                                 break;
                             }
 
-                            $_SESSION["rate_limit_{$item}"] = [$count, $expires];
+                            $_SESSION[$key] = [$count, $expires];
                         } else {
-                            $_SESSION["rate_limit_{$item}"] = [1, $limit_end];
+                            $_SESSION[$key] = [1, $limit_end];
                         }
 
                         break;
