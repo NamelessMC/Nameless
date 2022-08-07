@@ -252,7 +252,7 @@
     "admin/group_sync": "Group Sync",
     "admin/group_sync_info": "You can configure the API to automatically update a user's website group when their integration group is changed. Simply enter the integration group name\/ID and the website group it will be synchronised with the below rules.",
     "admin/group_sync_logs": "Group Sync Changes",
-    "admin/group_sync_server": "Select a Minecraft server to source group sync groups from",
+    "admin/group_sync_server": "Select a Minecraft server to use for group sync",
     "admin/group_sync_plugin_not_set_up": "In-game plugin is not set up",
     "admin/group_sync_rule_created_successfully": "The group sync rule has been created successfully.",
     "admin/group_sync_rule_deleted_successfully": "The group sync rule has been deleted successfully.",
