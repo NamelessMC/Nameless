@@ -132,6 +132,10 @@ class Language {
             'name' => 'Vietnamese',
             'htmlCode' => 'vi',
         ],
+        'hr_HR' => [
+            'name' => 'Croatian',
+            'htmlCode' =>'hr',
+        ],
     ];
 
     /**
