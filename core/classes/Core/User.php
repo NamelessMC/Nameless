@@ -73,14 +73,14 @@ class User {
 
         if ($user === null) {
             if (Session::exists($this->_sessionName)) {
-                $hashCheck = DB::getInstance()->get('users_session', [['hash', Session::get($this->_sessionName)], ['active', 1]]);
-                if ($hashCheck->count() && $this->find($hashCheck->first()->user_id, $field)) {
+                $hash = Session::get($this->_sessionName);
+                if ($this->find($hash, 'hash')) {
                     $this->_isLoggedIn = true;
                 }
             }
             if (Session::exists($this->_admSessionName)) {
-                $user = Session::get($this->_admSessionName);
-                if ($user == $this->data()->id && $this->find($user, $field)) {
+                $hash = Session::get($this->_admSessionName);
+                if ($this->find($hash, 'hash')) {
                     $this->_isAdmLoggedIn = true;
                 }
             }
@@ -107,7 +107,11 @@ class User {
                 return true;
             }
 
-            $data = $this->_db->get('users', [$field, $value]);
+            if ($field != 'hash') {
+                $data = $this->_db->get('users', [$field, $value]);
+            } else {
+                $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id=user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
+            }
 
             if ($data->count()) {
                 $this->_data = new UserData($data->first());
