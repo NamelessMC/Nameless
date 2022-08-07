@@ -54,7 +54,6 @@ class DeleteUserHook {
             $db->delete('reports_comments', ['commenter_id', $params['user_id']]);
 
             // User sessions
-            $db->delete('users_admin_session', ['user_id', $params['user_id']]);
             $db->delete('users_session', ['user_id', $params['user_id']]);
 
             // Profile fields

@@ -549,7 +549,9 @@ class User {
      * Process logout if user is admin
      */
     public function admLogout(): void {
-        $this->_db->delete('users_admin_session', ['user_id', $this->data()->id]);
+        $this->_db->update('users_session', ['user_id', $this->data()->id], [
+            'active' => 0
+        ]);
 
         Session::delete($this->_admSessionName);
         Cookie::delete($this->_cookieName . '_adm');

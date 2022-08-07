@@ -521,43 +521,6 @@ try {
     $errors[] = 'Unable to convert users: ' . $e->getMessage();
 }
 
-// User admin session -> user profile wall replies
-// User admin sessions
-try {
-    $old = $conn->get('nl1_users_admin_session', ['id', '<>', 0]);
-    if ($old->count()) {
-        $old = $old->results();
-
-        foreach ($old as $item) {
-            DB::getInstance()->insert('users_admin_session', [
-                'id' => $item->id,
-                'user_id' => $item->user_id,
-                'hash' => $item->hash
-            ]);
-        }
-    }
-} catch (Exception $e) {
-    $errors[] = 'Unable to convert user admin sessions: ' . $e->getMessage();
-}
-
-// User sessions
-try {
-    $old = $conn->get('nl1_users_session', ['id', '<>', 0]);
-    if ($old->count()) {
-        $old = $old->results();
-
-        foreach ($old as $item) {
-            DB::getInstance()->insert('users_session', [
-                'id' => $item->id,
-                'user_id' => $item->user_id,
-                'hash' => $item->hash
-            ]);
-        }
-    }
-} catch (Exception $e) {
-    $errors[] = 'Unable to convert user sessions: ' . $e->getMessage();
-}
-
 // Username history
 try {
     $old = $conn->get('nl1_users_username_history', ['id', '<>', 0]);
