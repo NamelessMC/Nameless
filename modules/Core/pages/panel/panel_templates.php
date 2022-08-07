@@ -46,13 +46,10 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            'version_mismatch' => (($template->getNamelessVersion() != NAMELESS_VERSION)
-                ? $language->get('admin', 'template_outdated', [
-                    'intendedVersion' => Output::getClean($template->getNamelessVersion()),
-                    'actualVersion' => NAMELESS_VERSION,
-                ])
-                : false
-            ),
+            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), NAMELESS_VERSION) ? $language->get('admin', 'template_outdated', [
+                'intendedVersion' => Output::getClean($template->getNamelessVersion()),
+                'actualVersion' => NAMELESS_VERSION,
+            ]) : false,
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
             'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),
