@@ -81,6 +81,11 @@ class Validate {
      */
     public const NOT_START_WITH = 'not_start_with';
 
+    /**
+     * @var string Set a rate limit
+     */
+    public const RATE_LIMIT = 'rate_limit';
+
     private DB $_db;
 
     private ?string $_message = null;
@@ -112,6 +117,7 @@ class Validate {
      * @param array $items subset of inputs to be validated
      *
      * @return Validate New instance of Validate.
+     * @throws Exception If provided configuration for a rule is invalid - not if a provided value is invalid!
      */
     public static function check(array $source, array $items = []): Validate {
         $validator = new Validate();
@@ -318,6 +324,51 @@ class Validate {
                             break;
                         }
                         break;
+
+                    case self::RATE_LIMIT:
+                        if (is_array($rule_value) && count($rule_value) === 2) {
+                            // If array treat as [limit, seconds]
+                            [$limit, $seconds] = $rule_value;
+                        } else if (is_int($rule_value)) {
+                            // If integer default seconds to 60
+                            [$limit, $seconds] = [$rule_value, 60];
+                        }
+
+                        if (!isset($limit) || !isset($seconds)) {
+                            throw new Exception('Invalid rate limit configuration');
+                        }
+
+                        $key = "rate_limit_{$item}";
+                        $session = $_SESSION[$key];
+                        $time = date('U');
+                        $limit_end = $time + $seconds;
+
+                        if (isset($session) && is_array($session) && count($session) === 2) {
+                            [$count, $expires] = $session;
+                            $diff = $expires - $time;
+
+                            if (++$count >= $limit && $diff > 0) {
+                                $validator->addError([
+                                    'field' => $item,
+                                    'rule' => self::RATE_LIMIT,
+                                    'fallback' => "$item has reached the rate limit which expires in $diff seconds.",
+                                    'meta' => ['expires' => $diff],
+                                ]);
+                                break;
+                            }
+
+                            if ($diff <= 0) {
+                                // Reset
+                                $_SESSION[$key] = [1, $limit_end];
+                                break;
+                            }
+
+                            $_SESSION[$key] = [$count, $expires];
+                        } else {
+                            $_SESSION[$key] = [1, $limit_end];
+                        }
+
+                        break;
                 }
             }
         }
@@ -379,7 +430,7 @@ class Validate {
         // Loop all errors to convert and get their custom messages
         foreach ($this->_to_convert as $error) {
 
-            $message = $this->getMessage($error['field'], $error['rule'], $error['fallback']);
+            $message = $this->getMessage($error['field'], $error['rule'], $error['fallback'], $error['meta']);
 
             // If there is no generic `message()` set or the translated message is not equal to generic message
             // we can continue without worrying about duplications
@@ -409,10 +460,11 @@ class Validate {
      * @param string $field name of field to search for.
      * @param string $rule rule which check failed. should be from the constants defined above.
      * @param string $fallback fallback default message if custom message and generic message are not supplied.
+     * @param ?array $meta optional meta to provide to message.
      *
      * @return string Message for this field and rule.
      */
-    private function getMessage(string $field, string $rule, string $fallback): string {
+    private function getMessage(string $field, string $rule, string $fallback, ?array $meta = []): string {
 
         // No custom messages defined for this field
         if (!isset($this->_messages[$field])) {
@@ -434,6 +486,11 @@ class Validate {
         // Array of custom messages supplied, but none of their rules matches this rule
         if (!array_key_exists($rule, $this->_messages[$field])) {
             return $this->_message ?? $fallback;
+        }
+
+        // If the message is a callback function, provide it with meta
+        if (is_callable($this->_messages[$field][$rule])) {
+            return $this->_messages[$field][$rule]($meta);
         }
 
         // Rule-specific custom message was supplied
