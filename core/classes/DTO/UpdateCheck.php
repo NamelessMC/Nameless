@@ -9,18 +9,24 @@
  */
 class UpdateCheck {
 
-    private array $_response;
+    private ?string $_raw_response;
+    private ?array $_response;
 
-    public function __construct(array $response) {
-        $this->_response = $response;
+    public function __construct(HttpClient $update_check_response) {
+        $this->_raw_response = $update_check_response->contents();
+        $this->_response = json_decode($this->_raw_response, true);
     }
 
     public function hasError(): bool {
-        return !count($this->_response) || $this->_response['error'];
+        return $this->_response === null || !count($this->_response) || $this->_response['error'];
     }
 
     public function getErrorMessage(): string {
-        return $this->_response['message'] ?? 'Invalid response from server: ' . json_encode($this->_response);
+        if (isset($this->_response['message'])) {
+            return 'Error from server: ' . $this->_response['message'];
+        }
+
+         return 'Invalid response from server: ' . $this->_raw_response;
     }
 
     public function updateAvailable(): bool {
