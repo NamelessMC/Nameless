@@ -798,6 +798,7 @@
     "general/previous": "Previous",
     "general/privacy_policy": "Privacy Policy",
     "general/profile": "Profile",
+    "general/rate_limit": "Please try again in {{expires}} seconds",
     "general/register": "Register",
     "general/remove": "Remove",
     "general/report": "Report",
