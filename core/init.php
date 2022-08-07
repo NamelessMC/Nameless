@@ -276,16 +276,6 @@ if ($page != 'install') {
         }
     }
 
-    // Panel template
-    $cache->setCache('templatecache');
-    $template = $cache->retrieve('panel_default');
-
-    if (!$template) {
-        define('PANEL_TEMPLATE', 'Default');
-    } else {
-        define('PANEL_TEMPLATE', $template);
-    }
-
     // Smarty
     $securityPolicy = new Smarty_Security($smarty);
     $securityPolicy->php_modifiers = [

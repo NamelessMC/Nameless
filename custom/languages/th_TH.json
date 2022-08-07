@@ -580,7 +580,6 @@
     "admin/verify_delete_announcement": "คุณแน่ใจหรือไม่ว่าต้องการลบประกาศนี้",
     "admin/verify_with_mcassoc": "อัปเดตการตั้งค่าการลงทะเบียนเสร็จเรียบร้อยแล้ว",
     "admin/view_all_modules": "ชม modules ทั้งหมด",
-    "admin/view_all_panel_templates": "ดู panel templates ทั้งหมด",
     "admin/view_all_templates": "ดู Template ทั้งหมด",
     "admin/view_page": "เยี่ยมชม Page หรือไม่",
     "admin/view_site": "ชม Site",

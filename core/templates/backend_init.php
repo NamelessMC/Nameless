@@ -11,15 +11,11 @@
 
 const BACK_END = true;
 
-$template_path = ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE;
+$template_path = ROOT_PATH . '/custom/panel_templates/Default';
 $smarty->setTemplateDir($template_path);
 $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
-if (file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/template.php')) {
-    require(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/template.php');
-} else {
-    require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
-}
+require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
 
 $cache->setCache('backgroundcache');
 $logo_image = $cache->retrieve('logo_image');

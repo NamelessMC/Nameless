@@ -337,7 +337,6 @@
     "admin/page_url_maximum_255": "Le chemin d’accès de la page doit comporter au maximum 255 caractères.",
     "admin/page_url_minimum_2": "Le chemin de la page doit être d’au moins 2 caractères.",
     "admin/page_url_required": "Un chemin de page est nécessaire.",
-    "admin/panel_templates": "Panel Modèles",
     "admin/parent_server": "Serveur parent",
     "admin/parent_server_help": "Un serveur parent est généralement l’instance Bungee à laquelle le serveur est connecté, le cas échéant.",
     "admin/permissions": "Permissions",

@@ -7,8 +7,7 @@ if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
 }
 
 $namelessmc_modules = [];
-$namelessmc_fe_templates = [];
-$namelessmc_panel_templates = [];
+$namelessmc_templates = [];
 
 // Get all modules
 $modules = DB::getInstance()->get('modules', ['id', '<>', 0])->results();
@@ -50,29 +49,10 @@ foreach ($templates_query as $fe_template) {
         require_once($template_path);
     }
 
-    $namelessmc_fe_templates[$fe_template->name] = [
+    $namelessmc_templates[$fe_template->name] = [
         'name' => $fe_template->name,
         'enabled' => (bool)$fe_template->enabled,
         'is_default' => (bool)$fe_template->is_default,
-        'author' => $template->getAuthor(),
-        'template_version' => $template->getVersion(),
-        'namelessmc_version' => $template->getNamelessVersion(),
-    ];
-}
-
-$panel_templates_query = DB::getInstance()->get('panel_templates', ['id', '<>', 0])->results();
-foreach ($panel_templates_query as $panel_template) {
-
-    $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', Output::getClean($panel_template->name), 'template.php']);
-
-    if (file_exists($template_path)) {
-        require_once($template_path);
-    }
-
-    $namelessmc_panel_templates[$panel_template->name] = [
-        'name' => $panel_template->name,
-        'enabled' => (bool)$panel_template->enabled,
-        'is_default' => (bool)$panel_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),
@@ -213,10 +193,7 @@ $data = [
             ),
         ],
         'modules' => $namelessmc_modules,
-        'templates' => [
-            'front_end' => $namelessmc_fe_templates,
-            'panel' => $namelessmc_panel_templates,
-        ],
+        'templates' => $namelessmc_templates,
         'integrations' => $integrations,
         'oauth_providers' => $oauth_providers,
     ],
