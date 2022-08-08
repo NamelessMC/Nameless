@@ -87,7 +87,7 @@ switch ($_POST['type']) {
             !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
             && !mkdir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
         ) {
-            Session::flash('profile_banner_error', 'uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
+            Session::flash('profile_banner_error', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/profile_images']));
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
         }
 
@@ -111,7 +111,7 @@ if ($image['file']) {
     try {
         if (!$image->upload()) {
             if (Input::get('type') === 'profile_banner') {
-                Session::flash('profile_banner_error', $image->getError());
+                Session::flash('profile_banner_error', $image->getError() ?: $language->get('api', 'unknown_error'));
                 Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
             }
 
