@@ -9,13 +9,16 @@ class PhinxAdapter {
      * @throws RuntimeException If these numbers don't match.
      */
     public static function ensureUpToDate(): void {
-        $migration_files = array_map(static function ($file_name) {
-            [$version, $migration_name] = explode('_', $file_name, 2);
-            $migration_name = str_replace(['.php', '_'], '', ucwords($migration_name, '_'));
-            return $version . '_' . $migration_name;
-        }, array_filter(scandir(__DIR__ . '/../../migrations'), static function ($file_name) {
-            return !in_array($file_name, ['.', '..', 'phinx.php']);
-        }));
+        $migration_files = array_map(
+            static function ($file_name) {
+                [$version, $migration_name] = explode('_', $file_name, 2);
+                $migration_name = str_replace(['.php', '_'], '', ucwords($migration_name, '_'));
+                return $version . '_' . $migration_name;
+            },
+            array_filter(scandir(__DIR__ . '/../../migrations'), static function ($file_name) {
+                return !in_array($file_name, ['.', '..', 'phinx.php']);
+            }),
+        );
 
         $migration_database_entries = array_map(static function ($row) {
             return $row->version . '_' . $row->migration_name;
