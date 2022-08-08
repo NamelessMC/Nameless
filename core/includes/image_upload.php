@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -80,6 +80,14 @@ switch ($_POST['type']) {
 
     case 'profile_banner':
         if (!$user->hasPermission('usercp.profile_banner')) {
+            Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+        }
+
+        if (
+            !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            && !mkdir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+        ) {
+            Session::flash('profile_banner_error', 'uploads/profile_images folder not writable! <a href="' . URL::build('/profile/' . Output::getClean($user->data()->username)) . '">Back</a>');
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
         }
 
