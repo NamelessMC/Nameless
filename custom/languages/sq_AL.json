@@ -1235,5 +1235,6 @@
     "user/x_replies": "",
     "user/banned_from_registering": "",
     "user/group_has_been_added": "",
-    "user/group_has_been_removed": ""
+    "user/group_has_been_removed": "",
+    "admin/account_verification": ""
 }
