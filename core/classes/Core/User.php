@@ -110,7 +110,7 @@ class User {
             if ($field != 'hash') {
                 $data = $this->_db->get('users', [$field, $value]);
             } else {
-                $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id=user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
+                $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
             }
 
             if ($data->count()) {
@@ -326,7 +326,8 @@ class User {
                 'user_id' => $this->data()->id,
                 'hash' => $hash,
                 'remember_me' => $remember,
-                'active' => 1
+                'active' => 1,
+                'login_method' => $method
             ]);
 
             if ($remember) {
