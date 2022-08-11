@@ -13,7 +13,7 @@ if ($user->isLoggedIn()) {
     if (Input::exists()) {
         if (Token::check()) {
             Log::getInstance()->log(Log::Action('user/logout'));
-            // $user->admLogout();
+            $user->admLogout();
             $user->logout();
 
             Session::flash('home', $language->get('user', 'successfully_logged_out'));
