@@ -117,7 +117,8 @@ class DefaultRevamp_Template extends TemplateBase {
             'loggedIn' => $this->_user->isLoggedIn() ? '1' : '0',
             'cookie' => defined('COOKIE_NOTICE') ? '1' : '0',
             'loadingTime' => Util::getSetting('page_loading') === '1' ? PAGE_LOAD_TIME : '',
-            'route' => $route
+            'route' => $route,
+            'csrfToken' => Token::get(),
         ];
 
         if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
@@ -136,7 +137,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->addJSScript($JSVars);
 
         $this->addJSFiles([
-            $this->_template['path'] . 'js/core/core.js' => [],
+            $this->_template['path'] . 'js/core/core.js?v=202' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
             $this->_template['path'] . 'js/core/pages.js' => [],
             $this->_template['path'] . 'js/scripts.js' => [],

@@ -770,6 +770,8 @@
     "general/links": "Links",
     "general/loading": "Loading...",
     "general/log_out": "Log Out",
+    "general/log_out_click": "Click here to log out",
+    "general/log_out_complete": "Logout successful. Click {{linkStart}}here{{linkEnd}} to continue.",
     "general/more": "More",
     "general/next": "Next",
     "general/no": "No",
