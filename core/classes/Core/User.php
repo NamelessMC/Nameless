@@ -6,7 +6,7 @@
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener
- * @version 2.0.0-pr13
+ * @version 2.0.2
  * @license MIT
  */
 class User {
@@ -301,7 +301,7 @@ class User {
      * @param string|null $username Their username (or email, depending on $method).
      * @param string|null $password Their password.
      * @param bool $remember Whether to keep them logged in or not.
-     * @param string $method What column to check for their details in. Can be either `username` or `email`.
+     * @param string $method What column to check for their details in. Can be either `username` or `email` or `oauth`.
      *
      * @return bool True/false on success or failure respectfully.
      */
@@ -326,7 +326,7 @@ class User {
                 'hash' => $hash,
                 'remember_me' => $remember,
                 'active' => 1,
-                'login_method' => $method
+                'login_method' => $is_admin ? 'admin' : $method
             ]);
 
             Session::put($sessionName, $hash);
