@@ -320,7 +320,6 @@ class User {
         } else if ($this->checkCredentials($username, $password, $method) === true) {
             // Valid credentials
             $hash = SecureRandom::alphanumeric();
-            Session::put($sessionName, $hash);
 
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
@@ -329,6 +328,8 @@ class User {
                 'active' => 1,
                 'login_method' => $method
             ]);
+
+            Session::put($sessionName, $hash);
 
             if ($remember) {
                 $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
