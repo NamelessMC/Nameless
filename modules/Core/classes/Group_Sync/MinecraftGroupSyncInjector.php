@@ -26,18 +26,13 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function shouldEnable(): bool {
-        return count($this->getSelectionOptions()) > 0;
+        return Util::getSetting('group_sync_mc_server') != 0 && count($this->getSelectionOptions()) > 0;
     }
 
     public function getSelectionOptions(): array {
-        $group_sync_server = Util::getSetting('group_sync_mc_server');
-        if ($group_sync_server === null) {
-            // Backwards compatibility for sites that existed before this setting was added
-            $group_sync_server = DB::getInstance()->get('mc_servers', ['is_default', true])->first()->id;
-        }
         $row = DB::getInstance()->query(
             'SELECT `groups` FROM `nl2_query_results` WHERE `server_id` = ? ORDER BY `id` DESC LIMIT 1',
-            [$group_sync_server]
+            [Util::getSetting('group_sync_mc_server')]
         )->first();
 
         if ($row === null) {

@@ -92,6 +92,7 @@
                                     <label for="inputGroupSyncServer">{$GROUP_SYNC_SERVER}</label>
                                     <select id="inputGroupSyncServer" class="form-control" name="group_sync_server">
                                         {if isset($SERVERS) && count($SERVERS)}
+                                            <option value="none" {if $GROUP_SYNC_SERVER_VALUE eq 0}selected{/if}>{$NO_GROUP_SYNC_SERVER}</option>
                                             {foreach from=$SERVERS item=server}
                                                 <option value="{$server.id}" {if $GROUP_SYNC_SERVER_VALUE eq $server.id} selected{/if}>{$server.name}</option>
                                             {/foreach}

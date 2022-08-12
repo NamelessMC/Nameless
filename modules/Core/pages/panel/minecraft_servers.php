@@ -533,9 +533,7 @@ if (isset($_GET['action'])) {
                 }
 
                 // Group sync server
-                if ($new_group_sync_server > 0) {
-                    Util::setSetting('group_sync_mc_server', $new_group_sync_server);
-                }
+                Util::setSetting('group_sync_mc_server', $new_group_sync_server);
 
                 // External query
                 $external_query_id = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
@@ -648,6 +646,7 @@ if (isset($_GET['action'])) {
         'NO_DEFAULT_SERVER' => $language->get('admin', 'no_default_server'),
         'GROUP_SYNC_SERVER' => $language->get('admin', 'group_sync_server'),
         'GROUP_SYNC_SERVER_VALUE' => $group_sync_server,
+        'NO_GROUP_SYNC_SERVER' => $language->get('admin', 'no_group_sync_server'),
         'QUERY_INTERVAL' => $language->get('admin', 'query_interval'),
         'QUERY_INTERVAL_VALUE' => $query_interval,
         'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
