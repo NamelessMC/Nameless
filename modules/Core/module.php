@@ -1602,6 +1602,7 @@ class Core_Module extends Module {
 
     public function getDebugInfo(): array {
         $servers = [];
+        $group_sync_server_id = Util::getSetting('group_sync_mc_server');
         foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
             $servers[(int)$server->id] = [
                 'id' => (int)$server->id,
@@ -1611,6 +1612,7 @@ class Core_Module extends Module {
                 'port' => $server->port,
                 'query_port' => $server->query_port,
                 'bedrock' => (bool)$server->bedrock,
+                'group_sync_server' => $server->id == $group_sync_server_id,
             ];
         }
 
