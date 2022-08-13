@@ -3,6 +3,36 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/18)
 
+## [2.0.2](https://github.com/NamelessMC/Nameless/compare/v2.0.1...v2.0.2) - 2022-08-13
+
+### Added
+- Add ability to rate limit via Validate class
+- Add base for Croatian translation
+- Allow selecting an MC server to use for group sync options
+- Display each OAuth provider's redirect URL
+
+### Changed
+- Removed mentions of "pre-release" from installer
+- Make update check more resilient to API being down
+- Better module/template version check
+- Display PHP version in die() when version is not acceptable
+- Better missing/extra migration exception page
+- Rework user sessions system
+- Rework tab initialisation
+- Rework logout
+- Rework two factor authentication disabling
+
+### Fixed
+- Fix image upload error message
+- Fix non-string config values not saving properly
+- Fix API error name
+- Fix active language file value
+- Fix several profile image issues
+- Fix OAuth page being stored as last page location
+- Fix exception when user ID is null in email errors table
+
+## [2.0.1](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2.0.1) - 2022-08-05
+
 ### Fixed
 - Fix exception when creating admin user during installation
 - Update upgrade check to use correct URL on Download button
@@ -10,7 +40,7 @@
 - Fix not checking if config file would be writable when installing
 
 
-## [2.0.0](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr13...v2) - 2022-08-05
+## [2.0.0](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr13...v2.0.0) - 2022-08-05
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/17)
 
 ### Added

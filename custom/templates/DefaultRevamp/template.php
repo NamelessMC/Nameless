@@ -25,8 +25,8 @@ class DefaultRevamp_Template extends TemplateBase {
     public function __construct($cache, $smarty, $language, $user, $pages) {
         $template = [
             'name' => 'DefaultRevamp',
-            'version' => '2.0.1',
-            'nl_version' => '2.0.1',
+            'version' => '2.0.2',
+            'nl_version' => '2.0.2',
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 
@@ -139,7 +139,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->addJSFiles([
             $this->_template['path'] . 'js/core/core.js?v=202' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
-            $this->_template['path'] . 'js/core/pages.js' => [],
+            $this->_template['path'] . 'js/core/pages.js?v=202' => [],
             $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
