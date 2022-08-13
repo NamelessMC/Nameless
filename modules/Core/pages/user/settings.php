@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -80,6 +80,10 @@ if (isset($_GET['do'])) {
                                 'tfa_enabled' => true,
                                 'tfa_type' => 1
                             ]);
+
+                            // Logout all other sessions for this user
+                            $user->logoutAllOtherSessions();
+
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
@@ -364,6 +368,9 @@ if (isset($_GET['do'])) {
                                 'pass_method' => 'default'
                             ]);
 
+                            // Logout all other sessions for this user
+                            $user->logoutAllOtherSessions();
+
                             $success = $language->get('user', 'password_changed_successfully');
 
                         } else {
@@ -410,7 +417,7 @@ if (isset($_GET['do'])) {
 
                                     // Update email
                                     $user->update([
-                                        'email' => Output::getClean($_POST['email'])
+                                        'email' => $_POST['email']
                                     ]);
 
                                     Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
