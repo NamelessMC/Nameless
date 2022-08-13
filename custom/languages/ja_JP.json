@@ -1223,5 +1223,17 @@
     "user/integration_unlinked": "{{integration}}のアカウントは正常にリンク解除されました。",
     "user/integration_username_already_linked": "{{integration}}のユーザー名は、すでに他のユーザーとリンクしています。",
     "api/integration_username_already_linked": "{{integration}}のユーザー名は、すでに他のユーザーとリンクしています。",
-    "user/avatar_set_successfully": "アバター設定に成功。"
+    "user/avatar_set_successfully": "アバター設定に成功。",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "general/normal": "",
+    "general/oauth_failed": "",
+    "admin/pre_custom_page_create_hook_info": "",
+    "admin/pre_custom_page_edit_hook_info": "",
+    "admin/render_custom_page_hook_info": "",
+    "admin/render_custom_page_edit_hook_info": "",
+    "user/banned_from_registering": "",
+    "admin/invalid_recaptcha_settings_info": "",
+    "general/oauth_failed_setup": "",
+    "general/user_object": ""
 }
