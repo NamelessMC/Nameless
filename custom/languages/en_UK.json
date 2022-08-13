@@ -1192,6 +1192,8 @@
     "user/successfully_logged_out": "You have been logged out successfully.",
     "user/terms_and_conditions": "Terms and Conditions",
     "user/tfa_code": "If your device does not have a camera, or you are unable to scan the QR code, please input the following code:",
+    "user/tfa_disable_click": "Please click here to disable two factor authentication.",
+    "user/tfa_disabled": "Two factor authentication has been disabled.",
     "user/tfa_enter_code": "Please enter the code displaying within your authentication app:",
     "user/tfa_scan_code": "Please scan the following code within your authentication app:",
     "user/tfa_successful": "Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.",
