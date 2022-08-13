@@ -17,7 +17,7 @@ if ($user->isLoggedIn()) {
             $user->logout();
 
             Session::flash('home', $language->get('user', 'successfully_logged_out'));
-die($language->get('general', 'log_out_complete', ['linkStart' => '<a href="' . URL::build('/') . '">', 'linkEnd' => '</a>']));
+            die($language->get('general', 'log_out_complete', ['linkStart' => '<a href="' . URL::build('/') . '">', 'linkEnd' => '</a>']));
         }
 
         echo $language->get('general', 'invalid_token') . '<hr />';
