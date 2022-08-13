@@ -797,7 +797,6 @@
     "installer/outgoing_email": "Dirección de correo electrónico de salida",
     "installer/password": "Contraseña",
     "installer/passwords_must_match": "Sus contraseñas deben coincidir.",
-    "installer/pre-release": "antes del lanzamiento",
     "installer/proceed": "Proceder",
     "installer/reload": "Recargar",
     "installer/reload_page": "Recargar la página",

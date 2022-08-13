@@ -65,6 +65,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         $group_sync_log = [];
+        $should_group_sync = $serverId == Util::getSetting('group_sync_mc_server');
 
         try {
             $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -73,9 +74,12 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                 if ($integrationUser->exists()) {
                     $this->updateUsername($integrationUser, $player);
-                    $log = $this->updateGroups($integrationUser, $player);
-                    if (count($log)) {
-                        $group_sync_log[] = $log;
+
+                    if ($should_group_sync) {
+                        $log = $this->updateGroups($integrationUser, $player);
+                        if (count($log)) {
+                            $group_sync_log[] = $log;
+                        }
                     }
 
                     if (isset($player['placeholders']) && count($player['placeholders'])) {

@@ -132,6 +132,10 @@ class Language {
             'name' => 'Vietnamese',
             'htmlCode' => 'vi',
         ],
+        'hr_HR' => [
+            'name' => 'Croatian',
+            'htmlCode' =>'hr',
+        ],
     ];
 
     /**
@@ -184,7 +188,7 @@ class Language {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . '__lng__.json';
         }
 
-        $this->_activeLanguageFile = $path;
+        $this->_activeLanguageFile = str_replace('__lng__', $this->_activeLanguage, $path);
 
         // HTML language definition
         if (!defined('HTML_LANG')) {
@@ -198,7 +202,7 @@ class Language {
 
         $this->_i18n = new i18next(
             $this->_activeLanguage,
-            $this->_activeLanguageFile,
+            $path,
             'en_UK'
         );
     }
@@ -250,13 +254,12 @@ class Language {
      * @param string $value New value to set for term.
      */
     public function set(string $section, string $term, string $value): void {
-        $editing_file = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $this->_activeLanguage . '.json']);
-        $json = json_decode(file_get_contents($editing_file), true);
+        $json = json_decode(file_get_contents($this->_activeLanguageFile), true);
 
         $json[$section . '/' . $term] = $value;
 
         ksort($json);
-        file_put_contents($editing_file, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+        file_put_contents($this->_activeLanguageFile, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
     }
 
     /**

@@ -54,12 +54,15 @@ if (Input::exists()) {
                 unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
             }
 
+            $rate_limit = [5, 60]; // 5 attempts in 60 seconds - TODO allow this to be customised?
+
             if ($login_method == 'email') {
                 $to_validate = [
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true
+                        Validate::IS_ACTIVE => true,
+                        Validate::RATE_LIMIT => $rate_limit,
                     ],
                     'password' => [
                         Validate::REQUIRED => true
@@ -70,7 +73,8 @@ if (Input::exists()) {
                     'username' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true
+                        Validate::IS_ACTIVE => true,
+                        Validate::RATE_LIMIT => $rate_limit,
                     ],
                     'password' => [
                         Validate::REQUIRED => true
@@ -82,12 +86,14 @@ if (Input::exists()) {
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
-                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account')
+                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
+                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'username' => [
                     Validate::REQUIRED => ($login_method == 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
-                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account')
+                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
+                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'password' => $language->get('user', 'must_input_password')
             ]);

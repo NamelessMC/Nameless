@@ -496,6 +496,12 @@ if (isset($_GET['action'])) {
                 $new_default = 0;
             }
 
+            if (isset($_POST['group_sync_server']) && is_numeric($_POST['group_sync_server'])) {
+                $new_group_sync_server = $_POST['group_sync_server'];
+            } else {
+                $new_group_sync_server = 0;
+            }
+
             if (isset($_POST['external_query']) && $_POST['external_query'] == 1) {
                 $external = 1;
             } else {
@@ -525,6 +531,9 @@ if (isset($_GET['action'])) {
                         ]);
                     }
                 }
+
+                // Group sync server
+                Util::setSetting('group_sync_mc_server', $new_group_sync_server);
 
                 // External query
                 $external_query_id = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
@@ -600,6 +609,9 @@ if (isset($_GET['action'])) {
     $status_page = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
     $status_page = $status_page[0]->value;
 
+    $group_sync_server = DB::getInstance()->get('settings', ['name', 'group_sync_mc_server'])->results();
+    $group_sync_server = $group_sync_server[0]->value;
+
     // Query interval
     $cache->setCache('server_query_cache');
     if ($cache->isCached('query_interval')) {
@@ -632,6 +644,9 @@ if (isset($_GET['action'])) {
         'DEFAULT_SERVER' => $language->get('admin', 'default_server'),
         'DEFAULT_SERVER_VALUE' => $default,
         'NO_DEFAULT_SERVER' => $language->get('admin', 'no_default_server'),
+        'GROUP_SYNC_SERVER' => $language->get('admin', 'group_sync_server'),
+        'GROUP_SYNC_SERVER_VALUE' => $group_sync_server,
+        'NO_GROUP_SYNC_SERVER' => $language->get('admin', 'no_group_sync_server'),
         'QUERY_INTERVAL' => $language->get('admin', 'query_interval'),
         'QUERY_INTERVAL_VALUE' => $query_interval,
         'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),

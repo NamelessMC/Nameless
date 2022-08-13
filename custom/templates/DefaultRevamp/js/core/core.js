@@ -25,6 +25,17 @@ function copy(element) {
     });
 }
 
+$(document).ready(function () {
+    $('[data-action="logout"]').click(function () {
+        const url = $(this).data('link');
+        $.post(url, {
+            token: csrfToken
+        }).done(function () {
+            window.location.reload();
+        });
+    });
+});
+
 $(function () {
     $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
@@ -49,8 +60,7 @@ $(function () {
         $(this).closest('.message').transition('fade');
     });
 
-    $('.menu .item').tab();
-
+    $('.tabular.menu .item').tab();
 });
 
 $(function () {

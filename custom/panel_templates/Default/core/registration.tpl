@@ -164,17 +164,23 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="client-id-discord">Client ID</label>
+                                            <label for="client-id-{$provider_name}">{$CLIENT_ID}</label>
                                             <input type="text" name="client-id-{$provider_name}" class="form-control"
-                                                id="client-id-{$provider_name}" placeholder="Client ID"
-                                                value="{$provider_data['client_id']}">
+                                                   id="client-id-{$provider_name}" placeholder="Client ID"
+                                                   value="{$provider_data['client_id']}">
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="client-secret-discord">Client Secret</label>
+                                            <label for="client-secret-{$provider_name}">{$CLIENT_SECRET}</label>
                                             <input type="password" name="client-secret-{$provider_name}"
-                                                class="form-control" id="client-secret-{$provider_name}"
-                                                placeholder="Client Secret" value="{$provider_data['client_secret']}">
+                                                   class="form-control" id="client-secret-{$provider_name}"
+                                                   placeholder="Client Secret" value="{$provider_data['client_secret']}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="client-url-{$provider_name}">{$REDIRECT_URL}</label>
+                                            <input type="text" class="form-control" id="client-url-{$provider_name}"
+                                                   readonly value="{$OAUTH_URL|replace:'{{provider}}':$provider_name}">
                                         </div>
                                     </div>
                                 </div>

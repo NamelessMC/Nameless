@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -83,6 +83,14 @@ switch ($_POST['type']) {
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
         }
 
+        if (
+            !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            && !mkdir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+        ) {
+            Session::flash('profile_banner_error', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/profile_images']));
+            Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+        }
+
         $folder = implode(DIRECTORY_SEPARATOR, ['profile_images', $user->data()->id]);
         break;
 
@@ -103,12 +111,12 @@ if ($image['file']) {
     try {
         if (!$image->upload()) {
             if (Input::get('type') === 'profile_banner') {
-                Session::flash('profile_banner_error', $image->getError());
+                Session::flash('profile_banner_error', $image->getError() ?: $language->get('api', 'unknown_error'));
                 Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
             }
 
             http_response_code(500);
-            $error = $e->getMessage() ?: 'Unknown error, check logs for more details';
+            $error = $image->getError() ?: 'Unknown error, check logs for more details';
             ErrorHandler::logWarning('Image upload error: ' . $error);
             die($error);
         }

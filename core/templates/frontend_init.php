@@ -12,7 +12,7 @@
 const FRONT_END = true;
 
 // Set current page URL in session, provided it's not the login page
-if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && (!isset($_GET['route']) || !str_contains($_GET['route'], '/queries'))) {
+if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && PAGE != 'oauth' && (!isset($_GET['route']) || !str_contains($_GET['route'], '/queries'))) {
     if (FRIENDLY_URLS === true) {
         $split = explode('?', $_SERVER['REQUEST_URI']);
 

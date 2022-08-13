@@ -815,7 +815,6 @@
     "installer/outgoing_email": "送信用メールアドレス",
     "installer/password": "パスワード",
     "installer/passwords_must_match": "パスワードが一致していません。",
-    "installer/pre-release": "プレリリース",
     "installer/proceed": "続行",
     "installer/reload": "再読み込み",
     "installer/reload_page": "ページを再読み込み",

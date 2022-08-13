@@ -203,7 +203,6 @@
     "installer/no": "Όχι",
     "installer/outgoing_email": "Εξερχόμενο Email",
     "installer/passwords_must_match": "Οι κωδικοί πρόσβασης πρέπει να ταιριάζουν.",
-    "installer/pre-release": "προδηµοσιεύσει",
     "installer/proceed": "συνεχίζω",
     "installer/requirements": "Απαιτήσεις:",
     "installer/requirements_error": "Πρέπει να έχετε όλες τις απαιτούμενες επεκτάσεις εγκατεστημένες, και να έχουν οριστεί σωστά δικαιώματα, προκειμένου να προχωρήσει με την εγκατάσταση.",

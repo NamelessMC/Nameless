@@ -237,7 +237,7 @@ class Util {
             return $update_check_response->getError();
         }
 
-        $update_check = new UpdateCheck($update_check_response->json(true));
+        $update_check = new UpdateCheck($update_check_response);
         if ($update_check->hasError()) {
             return $update_check->getErrorMessage();
         }
@@ -522,6 +522,21 @@ class Util {
         }
 
         return [$before, $after];
+    }
+
+    /**
+     * Determine whether a module/template version is compatible with the current NamelessMC version.
+     * This ignores patch versions, and only checks major and minor versions.
+     * For example, 2.0.0 and 2.0.1 are compatible, but 2.0.0 and 2.1.0 are not.
+     * @param string $version Version of module/template to check
+     * @param string $nameless_version Current NamelessMC version
+     * @return bool Whether they are compatible or not
+     */
+    public static function isCompatible(string $version, string $nameless_version): bool {
+        [$major, $minor, ] = explode('.', $version);
+        [$nameless_major, $nameless_minor, ] = explode('.', $nameless_version);
+
+        return $major == $nameless_major && $minor == $nameless_minor;
     }
 
 }

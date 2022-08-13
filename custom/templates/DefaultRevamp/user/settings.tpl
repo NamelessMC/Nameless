@@ -168,11 +168,14 @@
             <div class="ui segment">
                 <h3 class="ui header">{$TWO_FACTOR_AUTH}</h3>
                 {if isset($ENABLE)}
-                <a class="ui positive button" href="{$ENABLE_LINK}">{$ENABLE}</a>
+                    <a class="ui positive button" href="{$ENABLE_LINK}">{$ENABLE}</a>
                 {elseif isset($FORCED)}
-                <button class="ui negative button" disabled>{$DISABLE}</button>
+                    <button class="ui negative button" disabled>{$DISABLE}</button>
                 {else}
-                <a class="ui negative button" href="{$DISABLE_LINK}">{$DISABLE}</a>
+                    <form class="ui form" action="{$DISABLE_LINK}" method="post">
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <input type="submit" value="{$DISABLE}" class="ui negative button">
+                    </form>
                 {/if}
             </div>
             {if isset($CUSTOM_AVATARS)}
