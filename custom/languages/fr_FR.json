@@ -1228,7 +1228,6 @@
     "user/nickname_required": "",
     "installer/hostname_error": "",
     "installer/not_upgrading": "",
-    "installer/pre-release": "",
     "installer/step_admin_account": "",
     "installer/step_conversion": "",
     "installer/step_database_config": "",
