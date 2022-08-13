@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -78,7 +78,7 @@ if (isset($_GET['do'])) {
             'BACK_LINK' => URL::build('/panel/core/emails/errors'),
             'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
             'USERNAME' => $language->get('user', 'username'),
-            'USERNAME_VALUE' => Output::getClean($user->idToName($error->user_id)),
+            'USERNAME_VALUE' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : $language->get('general', 'deleted_user'),
             'DATE' => $language->get('general', 'date'),
             'DATE_VALUE' => date(DATE_FORMAT, $error->at),
             'TYPE' => $language->get('admin', 'type'),
@@ -186,7 +186,7 @@ if (isset($_GET['do'])) {
             $template_errors[] = [
                 'type' => $type,
                 'date' => date(DATE_FORMAT, $error->at),
-                'user' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : '',
+                'user' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : $language->get('general', 'deleted_user'),
                 'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $error->id),
                 'id' => $error->id
             ];
