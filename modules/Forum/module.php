@@ -20,8 +20,8 @@ class Forum_Module extends Module {
 
         $name = 'Forum';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.1';
-        $nameless_version = '2.0.1';
+        $module_version = '2.0.2';
+        $nameless_version = '2.0.2';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 

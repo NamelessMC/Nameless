@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -132,11 +132,11 @@ if ($page != 'install') {
     // Do they need logging in (checked remember me)?
     if (Cookie::exists(Config::get('remember.cookie_name')) && !Session::exists(Config::get('session.session_name'))) {
         $hash = Cookie::get(Config::get('remember.cookie_name'));
-        $hashCheck = DB::getInstance()->get('users_session', ['hash', $hash]);
+        $hashCheck = DB::getInstance()->get('users_session', [['hash', $hash], ['active', true]]);
 
         if ($hashCheck->count()) {
             $user = new User($hashCheck->first()->user_id);
-            $user->login();
+            $user->login(null, $hash, true, 'hash');
         }
     }
 

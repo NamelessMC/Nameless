@@ -76,10 +76,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                             ]
                                         );
 
-                                        // Requery to update banner
-                                        $user = new User();
-                                        $profile_user = new User($profile, 'username');
-                                        $query = $profile_user->data();
+                                        // Refresh to update banner
+                                        Redirect::to($profile_user->getProfileURL());
                                     }
                                 }
                             }
@@ -402,7 +400,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
                     if ($user->hasPermission('modcp.profile_banner_reset')) {
-                        DB::getInstance()->update('users', $query->id, [
+                        $profile_user->update([
                             'banner' => null
                         ]);
                     }
@@ -514,7 +512,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     $banners[] = [
                         'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
                         'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
-                        'active' => $user->data()->banner == $image
+                        'active' => $user->data()->banner == $user->data()->id . '/' . $image
                     ];
                 }
             }

@@ -57,8 +57,6 @@ if (page !== '') {
             });
         });
     } else if (page === 'profile') {
-        $('.menu.tabular .item').tab();
-
         function showBannerSelect() {
             $('#imageModal').modal({
                 onVisible: function () {

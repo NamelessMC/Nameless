@@ -66,8 +66,15 @@
                             {if isset($dropdown.separator)}
                             <div class="ui divider"></div>
                             {else}
-                            <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">{$dropdown.icon}
-                                {$dropdown.title}</a>
+                                {if isset($dropdown.action)}
+                                    <a class="item" href="#" data-link="{$dropdown.link}" data-action="{$dropdown.action}">
+                                        {$dropdown.icon} {$dropdown.title}
+                                    </a>
+                                {else}
+                                    <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">
+                                        {$dropdown.icon} {$dropdown.title}
+                                    </a>
+                                {/if}
                             {/if}
                             {/foreach}
                         </div>

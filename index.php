@@ -26,7 +26,7 @@ if (defined('DEBUGGING') && DEBUGGING) {
 
 // Ensure PHP version >= 7.4
 if (PHP_VERSION_ID < 70400) {
-    die('NamelessMC is not compatible with PHP versions older than 7.4');
+    die('NamelessMC is not compatible with PHP versions older than 7.4, you are running PHP ' . PHP_VERSION);
 }
 
 // Start page load timer

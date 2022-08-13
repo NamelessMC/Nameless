@@ -6,7 +6,7 @@
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener
- * @version 2.0.0-pr13
+ * @version 2.0.2
  * @license MIT
  */
 class User {
@@ -73,14 +73,14 @@ class User {
 
         if ($user === null) {
             if (Session::exists($this->_sessionName)) {
-                $user = Session::get($this->_sessionName);
-                if ($this->find($user, $field)) {
+                $hash = Session::get($this->_sessionName);
+                if ($this->find($hash, 'hash')) {
                     $this->_isLoggedIn = true;
                 }
             }
             if (Session::exists($this->_admSessionName)) {
-                $user = Session::get($this->_admSessionName);
-                if ($user == $this->data()->id && $this->find($user, $field)) {
+                $hash = Session::get($this->_admSessionName);
+                if ($this->find($hash, 'hash')) {
                     $this->_isAdmLoggedIn = true;
                 }
             }
@@ -107,7 +107,11 @@ class User {
                 return true;
             }
 
-            $data = $this->_db->get('users', [$field, $value]);
+            if ($field != 'hash') {
+                $data = $this->_db->get('users', [$field, $value]);
+            } else {
+                $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
+            }
 
             if ($data->count()) {
                 $this->_data = new UserData($data->first());
@@ -297,7 +301,7 @@ class User {
      * @param string|null $username Their username (or email, depending on $method).
      * @param string|null $password Their password.
      * @param bool $remember Whether to keep them logged in or not.
-     * @param string $method What column to check for their details in. Can be either `username` or `email`.
+     * @param string $method What column to check for their details in. Can be either `username` or `email` or `oauth`.
      *
      * @return bool True/false on success or failure respectfully.
      */
@@ -307,29 +311,27 @@ class User {
 
     private function _commonLogin(?string $username, ?string $password, bool $remember, string $method, bool $is_admin): bool {
         $sessionName = $is_admin ? $this->_admSessionName : $this->_sessionName;
-        if (!$username && !$password && $this->exists()) {
-            Session::put($sessionName, $this->data()->id);
+        if (!$username && $method == 'hash' && $this->exists()) {
+            // Logged in using hash from cookie
+            Session::put($sessionName, $password);
             if (!$is_admin) {
                 $this->_isLoggedIn = true;
             }
         } else if ($this->checkCredentials($username, $password, $method) === true) {
             // Valid credentials
-            Session::put($sessionName, $this->data()->id);
+            $hash = SecureRandom::alphanumeric();
+
+            $this->_db->insert('users_session', [
+                'user_id' => $this->data()->id,
+                'hash' => $hash,
+                'remember_me' => $remember,
+                'active' => 1,
+                'login_method' => $is_admin ? 'admin' : $method
+            ]);
+
+            Session::put($sessionName, $hash);
 
             if ($remember) {
-                $hash = SecureRandom::alphanumeric();
-                $table = $is_admin ? 'users_admin_session' : 'users_session';
-                $hashCheck = $this->_db->get($table, ['user_id', $this->data()->id]);
-
-                if (!$hashCheck->count()) {
-                    $this->_db->insert($table, [
-                        'user_id' => $this->data()->id,
-                        'hash' => $hash
-                    ]);
-                } else {
-                    $hash = $hashCheck->first()->hash;
-                }
-
                 $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
                 Cookie::put($cookieName, $hash, $expiry, HttpUtils::getProtocol() === 'https', true);
@@ -533,11 +535,23 @@ class User {
     }
 
     /**
+     * Log the user out from all other sessions.
+     */
+    public function logoutAllOtherSessions(): void {
+        DB::getInstance()->query('UPDATE nl2_users_session SET `active` = 0 WHERE user_id = ? AND hash != ?', [
+            $this->data()->id,
+            Session::get(Config::get('session.session_name'))
+        ]);
+    }
+
+    /**
      * Log the user out.
      * Deletes their cookies, sessions and database session entry.
      */
     public function logout(): void {
-        $this->_db->delete('users_session', ['user_id', $this->data()->id]);
+        $this->_db->update('users_session', [['user_id', $this->data()->id], ['hash', Session::get($this->_sessionName)]], [
+            'active' => 0
+        ]);
 
         Session::delete($this->_sessionName);
         Cookie::delete($this->_cookieName);
@@ -547,7 +561,9 @@ class User {
      * Process logout if user is admin
      */
     public function admLogout(): void {
-        $this->_db->delete('users_admin_session', ['user_id', $this->data()->id]);
+        $this->_db->update('users_session', [['user_id', $this->data()->id], ['hash', Session::get($this->_admSessionName)]], [
+            'active' => 0
+        ]);
 
         Session::delete($this->_admSessionName);
         Cookie::delete($this->_cookieName . '_adm');
