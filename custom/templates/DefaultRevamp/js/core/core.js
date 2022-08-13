@@ -49,8 +49,7 @@ $(function () {
         $(this).closest('.message').transition('fade');
     });
 
-    $('.menu .item').tab();
-
+    $('.tabular.menu .item').tab();
 });
 
 $(function () {
