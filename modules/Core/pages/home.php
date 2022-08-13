@@ -32,10 +32,12 @@ if (Session::exists('home_error')) {
 }
 
 $home_type = Util::getSetting('home_type');
+$forum_enabled = Util::isModuleEnabled('Forum');
 
 $smarty->assign('HOME_TYPE', $home_type);
+$smarty->assign('FORUM_ENABLED', $forum_enabled);
 
-if ($home_type === 'news') {
+if ($home_type === 'news' && $forum_enabled) {
     foreach ($front_page_modules as $module) {
         require(ROOT_PATH . '/' . $module);
     }

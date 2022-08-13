@@ -65,9 +65,11 @@
                 </div>
             </div>
             {foreachelse}
-            <div class="ui segment red">
-                {$NO_NEWS}
-            </div>
+                {if $FORUM_ENABLED}
+                    <div class="ui segment red">
+                        {$NO_NEWS}
+                    </div>
+                {/if}
             {/foreach}
             {elseif $HOME_TYPE === 'custom'}
             {$CUSTOM_HOME_CONTENT}
