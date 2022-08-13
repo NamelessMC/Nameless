@@ -190,6 +190,10 @@ $smarty->assign([
         'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
         'docLinkEnd' => '</a>'
     ]),
+    'REDIRECT_URL' => $language->get('admin', 'redirect_url'),
+    'CLIENT_ID' => $language->get('admin', 'client_id'),
+    'CLIENT_SECRET' => $language->get('admin', 'client_secret'),
+    'OAUTH_URL' => URL::getSelfURL() . ltrim(URL::build('/oauth/', 'provider={{provider}}'), '/'),
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
