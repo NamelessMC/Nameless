@@ -134,6 +134,7 @@ if ($user->isLoggedIn()) {
                 'title' => $language->get('general', 'log_out'),
                 'link' => URL::build('/logout'),
                 'target' => '',
+                'action' => 'logout',
             ],
         ],
     ];
