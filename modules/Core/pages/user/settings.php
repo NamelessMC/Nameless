@@ -127,14 +127,31 @@ if (isset($_GET['do'])) {
     } else {
         if ($_GET['do'] == 'disable_tfa') {
             // Disable TFA
-            $user->update([
-                'tfa_enabled' => false,
-                'tfa_type' => 0,
-                'tfa_secret' => null,
-                'tfa_complete' => false
-            ]);
+            // TODO - https://github.com/NamelessMC/Nameless/issues/3017
+            if (Input::exists()) {
+                if (Token::check()) {
+                    $user->update([
+                        'tfa_enabled' => false,
+                        'tfa_type' => 0,
+                        'tfa_secret' => null,
+                        'tfa_complete' => false
+                    ]);
 
-            Redirect::to(URL::build('/user/settings'));
+                    Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
+                    Redirect::to(URL::build('/user/settings'));
+                }
+
+                echo $language->get('general', 'invalid_token') . '<hr />';
+            }
+
+            echo '
+            <form method="post" action="" id="tfa_disable">
+              <input type="hidden" name="token" value="' . Token::get() . '">
+            </form>
+            <a href="javascript:void(0)" onclick="document.getElementById(\'tfa_disable\').submit();">' . $language->get('user', 'tfa_disable_click') . '</a>
+            ';
+
+            return;
         }
     }
 
