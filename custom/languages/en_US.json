@@ -1222,5 +1222,18 @@
     "admin/https_port_80": "You appear as if you are using HTTPS on port 80, which is almost definitely not true. If you use Cloudflare, make sure to set TLS encryption mode to Full (strict). If you run your own proxy, please configure it to send the X-Forwarded-Port header.",
     "admin/group_sync_no_results_warning": "Group sync rules are setup but no changes were reported. This could indicate a misconfiguration.",
     "installer/config_write_failed": "Failed to write to config file: {{message}}",
-    "installer/database_connection_failed": "Failed to connect to the database:<br>{{message}}"
+    "installer/database_connection_failed": "Failed to connect to the database:<br>{{message}}",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "user/avatar_set_successfully": "",
+    "admin/invalid_recaptcha_settings_info": "",
+    "admin/render_custom_page_edit_hook_info": "",
+    "general/normal": "",
+    "user/banned_from_registering": "",
+    "general/oauth_failed_setup": "",
+    "admin/render_custom_page_hook_info": "",
+    "admin/pre_custom_page_create_hook_info": "",
+    "admin/pre_custom_page_edit_hook_info": "",
+    "general/oauth_failed": "",
+    "general/user_object": ""
 }
