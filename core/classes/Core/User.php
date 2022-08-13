@@ -1034,6 +1034,15 @@ class User {
     }
 
     /**
+     * Can the user bypass private profiles?
+     *
+     * @return bool Whether the user can bypass private profiles
+     */
+    public function canBypassPrivateProfile(): bool {
+        return Util::getSetting('private_profile') === '1' && $this->hasPermission('profile.private.bypass');
+    }
+
+    /**
      * Is the profile page set to private?
      *
      * @return bool Whether their profile is set to private or not.
