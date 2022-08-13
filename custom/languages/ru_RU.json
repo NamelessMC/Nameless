@@ -1235,5 +1235,7 @@
     "general/oauth_failed": "Что то пошло не так при использовании OAuth. Попробуйте ещё раз.",
     "user/group_has_been_removed": "",
     "user/group_has_been_added": "",
-    "admin/invalid_recaptcha_settings_info": ""
+    "admin/invalid_recaptcha_settings_info": "",
+    "admin/client_id": "ID Клиента",
+    "admin/client_secret": "Секрет Клиента"
 }
