@@ -1228,5 +1228,12 @@
     "admin/pre_custom_page_edit_hook_info": "Voor op na gemaakte pagina aanpassing",
     "admin/render_custom_page_hook_info": "Op maat gemaakte pagina weergeven",
     "admin/render_custom_page_edit_hook_info": "Op maat gemaakte pagina aanpassing weergeven",
-    "general/user_object": "Gebruikersobject"
+    "general/user_object": "Gebruikersobject",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "general/normal": "",
+    "user/banned_from_registering": "",
+    "admin/invalid_recaptcha_settings_info": "",
+    "general/oauth_failed_setup": "",
+    "general/oauth_failed": ""
 }
