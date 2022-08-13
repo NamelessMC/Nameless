@@ -1232,5 +1232,8 @@
     "user/banned_from_registering": "Ваш IP был заблокирован, вы не можете зарегистрироваться.",
     "admin/render_custom_page_edit_hook_info": "Изменить прогружённую кастомную страницу",
     "general/oauth_failed_setup": "Что то пошло не так. OAuth2 настройка не верная. Сообщите администратору",
-    "general/oauth_failed": "Что то пошло не так при использовании OAuth. Попробуйте ещё раз."
+    "general/oauth_failed": "Что то пошло не так при использовании OAuth. Попробуйте ещё раз.",
+    "user/group_has_been_removed": "",
+    "user/group_has_been_added": "",
+    "admin/invalid_recaptcha_settings_info": ""
 }

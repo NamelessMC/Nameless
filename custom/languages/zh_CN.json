@@ -1228,5 +1228,12 @@
     "admin/debugging_enabled": "启用调试，敏感信息可能会暴露给未经授权的访问者。 调试只能用于开发，不能用于公共站点。",
     "general/default": "默认",
     "admin/debug_link_info": "重要 - 仅与您信任的人分享此链接！",
-    "admin/group_name": "权限组名称"
+    "admin/group_name": "权限组名称",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "admin/invalid_recaptcha_settings_info": "",
+    "general/normal": "",
+    "general/oauth_failed_setup": "",
+    "general/oauth_failed": "",
+    "user/banned_from_registering": ""
 }

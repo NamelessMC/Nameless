@@ -1223,5 +1223,17 @@
     "admin/require_integration": "Kullanıcıların entegrasyonu bağlamasını ve doğrulamasını zorunlu kılın",
     "admin/placeholders_info": "Yer tutucular, NamelessMC Spigot eklentisinin, profillerinde ve forum gönderilerinde gösterebilmeleri için web sitenize her oyuncu hakkında istatistik göndermesine izin verir.",
     "admin/custom_content": "Özel içerik",
-    "admin/warning_hook_info": "Kullanıcı uyarıldı"
+    "admin/warning_hook_info": "Kullanıcı uyarıldı",
+    "admin/pre_custom_page_create_hook_info": "",
+    "admin/pre_custom_page_edit_hook_info": "",
+    "admin/render_custom_page_hook_info": "",
+    "admin/render_custom_page_edit_hook_info": "",
+    "general/user_object": "",
+    "user/group_has_been_added": "",
+    "user/group_has_been_removed": "",
+    "user/banned_from_registering": "",
+    "general/normal": "",
+    "admin/invalid_recaptcha_settings_info": "",
+    "general/oauth_failed_setup": "",
+    "general/oauth_failed": ""
 }
