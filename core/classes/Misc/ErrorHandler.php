@@ -126,8 +126,8 @@ class ErrorHandler {
             'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
             'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . $site_name,
             'SITE_NAME' => $site_name,
-            'BOOTSTRAP' => $path . 'vendor/bootstrap/dist/css/bootstrap.min.css',
-            'BOOTSTRAP_JS' => $path . 'vendor/bootstrap/dist/js/bootstrap.min.js',
+            'SEMANTIC_JS' => '/custom/templates/DefaultRevamp/js/fomantic.min.js',
+            'SEMANTIC_CSS' => '/custom/templates/DefaultRevamp/css/fomantic.min.css',
             'CUSTOM' => $path . 'css/custom.css',
             'FONT_AWESOME' => $path . 'vendor/@fortawesome/fontawesome-free/css/all.min.css',
             'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
@@ -157,7 +157,7 @@ class ErrorHandler {
             'HOME_URL' => URL::build('/')
         ]);
 
-        $smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl');
+        $smarty->display(ROOT_PATH . '/core/includes/error.tpl');
         die();
     }
 
