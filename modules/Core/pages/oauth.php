@@ -4,11 +4,15 @@ const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (!isset($_GET['provider'], $_GET['code'])) {
-    if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
-        ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
-        Session::flash('home_error', $language->get('general', 'oauth_failed'));
-        Redirect::to(URL::build('/'));
-    }
+    ErrorHandler::logWarning('No provider or code set when accessing OAuth');
+    Session::flash('home_error', $language->get('general', 'oauth_failed'));
+    Redirect::to(URL::build('/'));
+}
+
+if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
+    ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
+    Session::flash('home_error', $language->get('general', 'oauth_failed'));
+    Redirect::to(URL::build('/'));
 }
 
 if (!Session::exists('oauth_method')) {
