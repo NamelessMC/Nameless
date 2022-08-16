@@ -1245,5 +1245,6 @@
     "general/log_out_click": "Clicca qui per disconnetterti",
     "general/log_out_complete": "Disconnessione effettuata. Clicca {{linkStart}}qui{{linkEnd}} per continuare.",
     "general/rate_limit": "Riprova tra {{expires}} secondi",
-    "user/tfa_disabled": "L’autenticazione a due fattori è stata disattivata."
+    "user/tfa_disabled": "L’autenticazione a due fattori è stata disattivata.",
+    "general/oauth_no_data": "Nessun dato OAuth individuato, assicurati di accedere a questa pagina dal collegamento OAuth."
 }
