@@ -148,14 +148,19 @@ if (Input::exists()) {
 
             if (isset($edit_title)) {
                 // Update title and labels
+                $existing_labels = $post_labels;
                 $post_labels = [];
 
-                // Get all the posted labels and see which ones the user can actually edit
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    $post_labels = getAccessibleLabels($_POST['topic_label'], $user_groups);
-                }
+                //
+                //  This is quite a mess but let me try to explain.
+                //
+                //  1. We get all the topic labels for this topic
+                //  2. We filter all the labels the user has access to
+                //  3. Check which labels already exist on the forum that the user DOESN'T have access to
+                //  4. Get all the newly posted labels and add the labels that already existed and the user doesn't have access to, to the labels array
+                //  5. Save the labels
+                //
 
-                // Get a list of all the topic labels that could be applied to this forum
                 $all_forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
                 $forum_labels = array_reduce($all_forum_labels, function (&$prev, $lbl) use ($forum_id) {
                     $forum_ids = explode(',', $lbl->fids);
@@ -164,15 +169,19 @@ if (Input::exists()) {
                     }
                     return $prev;
                 });
-
-                // Check if the user has access to any of the labels. If they don't, then they shouldn't be touching the labels
                 $accessible_labels = getAccessibleLabels($forum_labels, $user_groups);
-                if (isset($accessible_labels) && count(getAccessibleLabels($forum_labels, $user_groups))) {
-                    DB::getInstance()->update('topics', $topic_id, [
-                        'topic_title' => Input::get('title'),
-                        'labels' => implode(',', $post_labels)
-                    ]);
+                $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
+
+                // Get all the posted labels and see which ones the user can actually edit
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                    $post_labels = getAccessibleLabels($_POST['topic_label'], $user_groups);
                 }
+
+                $post_labels = array_merge($existing_inaccessible_labels, $post_labels);
+                DB::getInstance()->update('topics', $topic_id, [
+                    'topic_title' => Input::get('title'),
+                    'labels' => implode(',', $post_labels)
+                ]);
 
                 Log::getInstance()->log(Log::Action('forums/topic/edit'), Input::get('title'));
             }
