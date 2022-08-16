@@ -1245,5 +1245,6 @@
     "general/log_out_click": "Kliknutím sem sa odhlásite",
     "general/log_out_complete": "Odhlásenie bolo úspešné. Ak chcete pokračovať, kliknite {{linkStart}}sem{{linkEnd}}.",
     "general/rate_limit": "Skúste to znova o {{expires}} sekúnd",
-    "user/tfa_disable_click": "Kliknutím sem zakážete dvojfaktorové overenie."
+    "user/tfa_disable_click": "Kliknutím sem zakážete dvojfaktorové overenie.",
+    "general/oauth_no_data": "Nezistili sa žiadne OAuth údaje, uistite sa, že na túto stránku pristupujete cez OAuth presmerovanie."
 }
