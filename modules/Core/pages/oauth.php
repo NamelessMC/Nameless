@@ -5,7 +5,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (!isset($_GET['provider'], $_GET['code'])) {
     ErrorHandler::logWarning('No provider or code set when accessing OAuth');
-    Session::flash('home_error', $language->get('general', 'oauth_failed'));
+    Session::flash('home_error', $language->get('general', 'oauth_no_data'));
     Redirect::to(URL::build('/'));
 }
 
