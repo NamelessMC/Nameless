@@ -67,7 +67,6 @@ $forum_id = $post_editing[0]->forum_id;
 
 // Get user group IDs
 $user_groups = $user->getAllGroupIds();
-
 // Check permissions before proceeding
 if ($user->data()->id == $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
@@ -75,6 +74,25 @@ if ($user->data()->id == $post_editing[0]->post_creator && !$forum->canEditTopic
 
 if ($user->data()->id != $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
+}
+
+/**
+ * @param array $labels  of label ids
+ * @param array $user_groups array of a user their group ids
+ * @return array An array of the ids of the labels the user has access to
+ */
+function getAccessibleLabels(array $labels, array $user_groups): array {
+    return array_reduce($labels, function(&$prev, $topic_label) use ($user_groups) {
+        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->first();
+        if ($label) {
+            $label_group_ids = explode(',', $label->gids);
+            $hasPerm = array_reduce($user_groups, fn($prev, $group_id) => $prev || in_array($group_id, $label_group_ids));
+            if ($hasPerm) {
+                $prev[] = $label->id;
+            }
+        }
+        return is_array($prev) ? $prev : [];
+    });
 }
 
 // Deal with input
@@ -132,31 +150,29 @@ if (Input::exists()) {
                 // Update title and labels
                 $post_labels = [];
 
+                // Get all the posted labels and see which ones the user can actually edit
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
-                        if (count($label)) {
-                            $lgroups = explode(',', $label[0]->gids);
-
-                            $hasperm = false;
-                            foreach ($user_groups as $group_id) {
-                                if (in_array($group_id, $lgroups)) {
-                                    $hasperm = true;
-                                    break;
-                                }
-                            }
-
-                            if ($hasperm) {
-                                $post_labels[] = $label[0]->id;
-                            }
-                        }
-                    }
+                    $post_labels = getAccessibleLabels($_POST['topic_label'], $user_groups);
                 }
 
-                DB::getInstance()->update('topics', $topic_id, [
-                    'topic_title' => Input::get('title'),
-                    'labels' => implode(',', $post_labels)
-                ]);
+                // Get a list of all the topic labels that could be applied to this forum
+                $all_forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
+                $forum_labels = array_reduce($all_forum_labels, function (&$prev, $lbl) use ($forum_id) {
+                    $forum_ids = explode(',', $lbl->fids);
+                    if (in_array($forum_id, $forum_ids)) {
+                        $prev[] = $lbl->id;
+                    }
+                    return $prev;
+                });
+
+                // Check if the user has access to any of the labels. If they don't, then they shouldn't be touching the labels
+                $accessible_labels = getAccessibleLabels($forum_labels, $user_groups);
+                if (isset($accessible_labels) && count(getAccessibleLabels($forum_labels, $user_groups))) {
+                    DB::getInstance()->update('topics', $topic_id, [
+                        'topic_title' => Input::get('title'),
+                        'labels' => implode(',', $post_labels)
+                    ]);
+                }
 
                 Log::getInstance()->log(Log::Action('forums/topic/edit'), Input::get('title'));
             }

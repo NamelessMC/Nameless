@@ -10,7 +10,7 @@
  */
 
 // Uncomment to enable debugging
-// define('DEBUGGING', 1);
+define('DEBUGGING', 1);
 
 header('X-Frame-Options: SAMEORIGIN');
 
