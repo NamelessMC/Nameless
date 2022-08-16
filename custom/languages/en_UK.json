@@ -791,6 +791,7 @@
     "general/oauth_message_continue": "Continue registering with {{provider}}",
     "general/oauth_failed_setup": "Something went wrong. The OAuth2 setup is invalid. Contact an administrator",
     "general/oauth_failed": "Something went wrong while trying to use OAuth. Please try again.",
+    "general/oauth_no_data": "No OAuth data detected, ensure you are accessing this page via an OAuth redirect.",
     "general/offline": "Offline",
     "general/online": "Online",
     "general/online_guests": "Online Guests",
