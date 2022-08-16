@@ -596,14 +596,14 @@
     "api/unknown_error": "Unbekannter Fehler",
     "api/user_already_active": "Dein Konto wurde bereits aktiviert.",
     "api/username_updated": "Benutzername erfolgreich aktualisiert",
-    "emails/change_password_message": "Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert haben, kannst du diese E-Mail bedenkenlos löschen.",
+    "emails/change_password_message": "Um dein Passwort zurückzusetzen, klicke bitte auf den folgenden Link. Wenn du dies nicht selbst angefordert hast, kannst du diese E-Mail bedenkenlos löschen.",
     "emails/change_password_subject": "Passwort vergessen",
     "emails/forum_topic_reply_message": "{{author}} hat auf ein Thema geantwortet, dem du folgst. Content: {{content}}",
     "emails/forum_topic_reply_subject": "{{author}} hat geantwortet {{topic}}",
     "emails/greeting": "Hey,",
     "emails/register_message": "Danke für deine Registration! Um deine Registration abzuschließen klicke auf folgenden Link:",
     "emails/register_subject": "Account verifizieren",
-    "emails/thanks": "Liebe Grüße,",
+    "emails/thanks": "Mit freundlichen Grüßen",
     "errors/403_back": "Zurück",
     "errors/403_content": "Du hast keine Berechtigung diese Seite zu sehen.",
     "errors/403_home": "Startseite",
@@ -736,7 +736,7 @@
     "installer/database_username": "Datenbank Benutzername",
     "installer/disabled": "Deaktiviert",
     "installer/email_address": "Email Addresse",
-    "installer/email_invalid": "Ihre E-Mail ist ungültig.",
+    "installer/email_invalid": "Deine E-Mail-Adresse ist ungültig.",
     "installer/enabled": "Aktiviert",
     "installer/enter_admin_details": "Bitte geben Sie die Details für das Admin-Konto ein.",
     "installer/finish": "Abschliessen",
@@ -1245,5 +1245,6 @@
     "general/rate_limit": "Bitte versuche es in {{expires}} Sekunden erneut",
     "user/tfa_disable_click": "Bitte klicke hier, um die Zwei-Faktor-Authentifizierung zu deaktivieren.",
     "user/tfa_disabled": "Die Zwei-Faktor-Authentifizierung wurde deaktiviert.",
-    "admin/client_secret": "Client Secret"
+    "admin/client_secret": "Client Secret",
+    "general/oauth_no_data": "Es wurden keine OAuth-Daten erkannt. Stelle sicher, dass diese Seite über eine OAuth-Umleitung zugreifen."
 }
