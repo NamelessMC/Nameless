@@ -894,7 +894,7 @@
     "user/follow": "Segui",
     "user/forgot_password": "Ha dimenticato la password?",
     "user/forgot_password_change_successful": "La tua password è stata cambiata con successo. Ora puoi accedere.",
-    "user/forgot_password_email_sent": "Se esiste un account con quell'indirizzo e-mail, è stata inviata un'e-mail contenente ulteriori istruzioni. Se non riesci a trovarlo, prova a controllare la tua cartella di posta indesiderata.",
+    "user/forgot_password_email_sent": "Se esiste un account con l'indirizzo specificato, verrà inviata un'e-mail contenente ulteriori istruzioni. Se non riesci a trovarla, prova a controllare la tua cartella di posta indesiderata.",
     "user/forgot_password_instructions": "Inserisci il tuo indirizzo e-mail in modo che possiamo inviarti ulteriori istruzioni sulla reimpostazione della password.",
     "user/gif_avatar": "Carica .gif come avatar personalizzato",
     "user/guest": "Ospite",
