@@ -1245,5 +1245,6 @@
     "user/tfa_disable_click": "Klikněte sem pro zakázání dvoufaktorového ověřování.",
     "admin/client_id": "ID klienta",
     "admin/client_secret": "Tajný klíč klienta",
-    "user/tfa_disabled": "Dvoufaktorové ověřování bylo zakázáno."
+    "user/tfa_disabled": "Dvoufaktorové ověřování bylo zakázáno.",
+    "general/oauth_no_data": "Nebyla zjištěna žádná data OAuth, ujistěte se, že jste se na tuto stránku dostali přesměrováním OAuth."
 }
