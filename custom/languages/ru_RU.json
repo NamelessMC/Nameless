@@ -1245,5 +1245,6 @@
     "admin/no_group_sync_server": "Нет сервера для синхронизации групп",
     "general/log_out_click": "Нажмите сюда чтобы выйти",
     "general/log_out_complete": "Выход успешен. Нажмите {{linkStart}}сюда{{linkEnd}} чтобы продолжить.",
-    "general/rate_limit": "Попробуйте ещё через {{expires}} секунд"
+    "general/rate_limit": "Попробуйте ещё через {{expires}} секунд",
+    "general/oauth_no_data": "Не обнаружено OAuth даты, проверьте вы посещаете эту страницу через OAuth редирект."
 }
