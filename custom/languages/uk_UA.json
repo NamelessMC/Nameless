@@ -1082,7 +1082,7 @@
     "user/group_has_been_added": "Групу {{group}} додано до користувача {{user}}",
     "admin/user_group_added_hook_info": "Група користувачів додана",
     "admin/user_group_removed_hook_info": "Група користувачів видалена",
-    "admin/bedrock": "Бежрок?",
+    "admin/bedrock": "Бедрок?",
     "admin/announcement_hook_info": "Створення оголошення",
     "admin/announcement_order": "Ордер",
     "admin/ban_hook_info": "Користувача забанено",

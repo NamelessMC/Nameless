@@ -240,7 +240,7 @@
     "admin/group_sync": "グループ同期",
     "admin/group_sync_info": "連携グループが変更されたときに、ユーザーのウェブサイトグループを自動的に更新するように、APIを設定することができます。連携グループ名/IDとウェブサイトグループを入力するだけで、以下のルールで同期されます。",
     "admin/group_sync_logs": "グループ同期の変更",
-    "admin/group_sync_plugin_not_set_up": "ゲーム内のプラグインが設定されていません",
+    "admin/group_sync_plugin_not_set_up": "ゲーム内プラグインが設定されていないか、グループ同期サーバーが選択されていません",
     "admin/group_sync_rule_created_successfully": "グループ同期ルールが正常に作成されました。",
     "admin/group_sync_rule_deleted_successfully": "グループ同期ルールが正常に削除されました。",
     "admin/group_sync_rules_updated_successfully": "グループ同期ルールが正常に更新されました。",
@@ -1233,7 +1233,11 @@
     "admin/render_custom_page_hook_info": "",
     "admin/render_custom_page_edit_hook_info": "",
     "user/banned_from_registering": "",
-    "admin/invalid_recaptcha_settings_info": "",
+    "admin/invalid_recaptcha_settings_info": "シークレットウィンドウやプライベートウィンドウでログインや登録のテストを行い、Captchaが機能していることを確認してください！",
     "general/oauth_failed_setup": "",
-    "general/user_object": ""
+    "general/user_object": "",
+    "admin/group_sync_server": "グループ同期に使用するMinecraftサーバーを選択",
+    "admin/no_group_sync_server": "グループ同期サーバーなし",
+    "admin/client_id": "クライアントID",
+    "admin/client_secret": "クライアントシークレット"
 }
