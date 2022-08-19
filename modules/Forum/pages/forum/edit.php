@@ -76,25 +76,6 @@ if ($user->data()->id != $post_editing[0]->post_creator && !($forum->canModerate
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
-/**
- * @param array $labels  of label ids
- * @param array $user_groups array of a user their group ids
- * @return array An array of the ids of the labels the user has access to
- */
-function getAccessibleLabels(array $labels, array $user_groups): array {
-    return array_reduce($labels, function(&$prev, $topic_label) use ($user_groups) {
-        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->first();
-        if ($label) {
-            $label_group_ids = explode(',', $label->gids);
-            $hasPerm = array_reduce($user_groups, fn($prev, $group_id) => $prev || in_array($group_id, $label_group_ids));
-            if ($hasPerm) {
-                $prev[] = $label->id;
-            }
-        }
-        return is_array($prev) ? $prev : [];
-    });
-}
-
 // Deal with input
 if (Input::exists()) {
     // Check token
@@ -169,12 +150,12 @@ if (Input::exists()) {
                     }
                     return $prev;
                 });
-                $accessible_labels = getAccessibleLabels($forum_labels, $user_groups);
+                $accessible_labels = Forum::getAccessibleLabels($forum_labels, $user_groups);
                 $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
 
                 // Get all the posted labels and see which ones the user can actually edit
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    $post_labels = getAccessibleLabels($_POST['topic_label'], $user_groups);
+                    $post_labels = Forum::getAccessibleLabels($_POST['topic_label'], $user_groups);
                 }
 
                 $post_labels = array_merge($existing_inaccessible_labels, $post_labels);

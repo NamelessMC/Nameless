@@ -668,4 +668,23 @@ class Forum {
 
         return $ret;
     }
+
+    /**
+     * @param array $labels  of label ids
+     * @param array $user_groups array of a user their group ids
+     * @return array An array of the ids of the labels the user has access to
+     */
+    static function getAccessibleLabels(array $labels, array $user_groups): array {
+        return array_reduce($labels, function(&$prev, $topic_label) use ($user_groups) {
+            $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->first();
+            if ($label) {
+                $label_group_ids = explode(',', $label->gids);
+                $hasPerm = array_reduce($user_groups, fn($prev, $group_id) => $prev || in_array($group_id, $label_group_ids));
+                if ($hasPerm) {
+                    $prev[] = $label->id;
+                }
+            }
+            return is_array($prev) ? $prev : [];
+        });
+    }
 }
