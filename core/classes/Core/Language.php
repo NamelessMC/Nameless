@@ -134,7 +134,11 @@ class Language {
         ],
         'hr_HR' => [
             'name' => 'Croatian',
-            'htmlCode' =>'hr',
+            'htmlCode' => 'hr',
+        ],
+        'id_ID' => [
+            'name' => 'Indonesian',
+            'htmlCode' => 'id',
         ],
     ];
 
