@@ -16,7 +16,7 @@
     "discord_integration/discord_database_error": "La base de datos de Nameless Link no funciona actualmente. Por favor, inténtelo más tarde.",
     "discord_integration/discord_guild_id": "ID del servidor de Discord",
     "discord_integration/discord_id_help": "Para obtener información sobre dónde encontrar IDs de Discord, por favor lea {{linkStart}}esto.{{linkEnd}}",
-    "discord_integration/discord_id_length": "Por favor, asegúrate de que la ID del servidor de Discord tiene 18 caracteres.",
+    "discord_integration/discord_id_length": "Por favor, asegúrate de que tu ID de servidor de Discord tiene entre {{min}} y {{max}} dígitos.",
     "discord_integration/discord_id_numeric": "Por favor, asegúrese de que su ID del servidor de Discord es numérica (sólo números).",
     "discord_integration/discord_id_set": "ID de Discord establecida con éxito",
     "discord_integration/discord_id_taken": "Esa ID de Discord ya ha sido tomada.",

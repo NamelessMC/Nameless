@@ -1236,7 +1236,7 @@
     "user/group_has_been_added": "Skupina {{group}} bola pridaná používateľovi {{user}}",
     "user/group_has_been_removed": "Skupina {{group}} bola odobraná používateľovi {{user}}",
     "admin/invalid_recaptcha_settings_info": "Zvážte testovanie prihlásenia/registrácie v inkognito/súkromnom okne, aby ste sa uistili, že vaša Captcha funguje!",
-    "admin/client_secret": "Secret klienta",
+    "admin/client_secret": "Tajný kľúč klienta",
     "user/tfa_disabled": "Dvojfaktorové overovanie bolo zakázané.",
     "admin/client_id": "ID klienta",
     "admin/group_sync_server": "Vyberte Minecraft server, ktorý chcete použiť na synchronizáciu skupín",
@@ -1245,5 +1245,6 @@
     "general/log_out_click": "Kliknutím sem sa odhlásite",
     "general/log_out_complete": "Odhlásenie bolo úspešné. Ak chcete pokračovať, kliknite {{linkStart}}sem{{linkEnd}}.",
     "general/rate_limit": "Skúste to znova o {{expires}} sekúnd",
-    "user/tfa_disable_click": "Kliknutím sem zakážete dvojfaktorové overenie."
+    "user/tfa_disable_click": "Kliknutím sem zakážete dvojfaktorové overenie.",
+    "general/oauth_no_data": "Nezistili sa žiadne OAuth údaje, uistite sa, že na túto stránku pristupujete cez OAuth presmerovanie."
 }
