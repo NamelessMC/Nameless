@@ -66,6 +66,9 @@ try {
 
         case 'link':
             Redirect::to(URL::build('/user/oauth/'));
+
+        case 'link_integration':
+            Redirect::to(URL::build('/user/connections/'));
     }
 }
 
@@ -144,4 +147,36 @@ if (Session::get('oauth_method') === 'link') {
     Session::delete('oauth_method');
 
     Redirect::to(URL::build('/user/oauth'));
+}
+
+// link user integration
+if (Session::get('oauth_method') === 'link_integration') {
+    $integration = Integrations::getInstance()->getIntegration($provider_name);
+    if ($integration == null) {
+        Session::flash('connections_error', $language->get('general', 'oauth_failed_setup'));
+    }
+
+    // Allow the user integration to access the data from the oauth response
+    Session::put('oauth_register_data', json_encode([
+        'provider' => $provider_name,
+        'id' => $provider_id,
+        'email' => $oauth_user['email'],
+        'data' => $oauth_user
+    ]));
+
+    // Link the user integration
+    $integration->successfulRegistration($user);
+
+    // Link their oauth details if its not linked already
+    if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+        NamelessOAuth::getInstance()->saveUserProvider(
+            $user->data()->id,
+            $provider_name,
+            $provider_id,
+        );
+    }
+
+    Session::delete('oauth_register_data');
+    Session::delete('oauth_method');
+    Redirect::to(URL::build('/user/connections'));
 }

@@ -20,12 +20,24 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function onLinkRequest(User $user) {
-        $token = uniqid('', true);
+        $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
+        if ($link_method == 'oauth') {
+            // Link with oauth
+            Session::put('oauth_method', 'link_integration');
 
-        $integrationUser = new IntegrationUser($this);
-        $integrationUser->linkIntegration($user, null, null, false, $token);
+            $providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+            $provider = $providers['discord'];
 
-        Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
+            Redirect::to($provider['url']);
+        } else {
+            // Discord bot linking
+            $token = uniqid('', true);
+
+            $integrationUser = new IntegrationUser($this);
+            $integrationUser->linkIntegration($user, null, null, false, $token);
+
+            Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
+        }
     }
 
     public function onVerifyRequest(User $user) {
@@ -122,7 +134,12 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function allowLinking(): bool {
-        return Discord::isBotSetup();
+        $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
+        if ($link_method == 'oauth') {
+            return NamelessOAuth::getInstance()->isEnabled('discord');
+        } else {
+            return Discord::isBotSetup();
+        }
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
