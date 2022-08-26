@@ -670,11 +670,13 @@ class Forum {
     }
 
     /**
+     * Get an array returned of accessible labels when providing group ids
+     *
      * @param array $labels  of label ids
      * @param array $user_groups array of a user their group ids
      * @return array An array of the ids of the labels the user has access to
      */
-    static function getAccessibleLabels(array $labels, array $user_groups): array {
+    public static function getAccessibleLabels(array $labels, array $user_groups): array {
         return array_reduce($labels, function(&$prev, $topic_label) use ($user_groups) {
             $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->first();
             if ($label) {
