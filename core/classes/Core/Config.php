@@ -42,7 +42,7 @@ class Config {
         }
 
         if (!self::exists()) {
-            throw new RuntimeException('Config file does not exist');
+            throw new RuntimeException('Config file does not exist. If this happened during installation, please restart the installation in a new private/incognito browser window.');
         }
 
         return self::$_config_cache = require(ROOT_PATH . '/core/config.php');
