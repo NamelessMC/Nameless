@@ -163,7 +163,7 @@ class DB {
     }
 
     /**
-     * Perform a DELTE query on the database.
+     * Perform a DELETE query on the database.
      *
      * @param string $table The table to delete from.
      * @param array $where The where clause.
