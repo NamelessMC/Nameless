@@ -113,8 +113,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
-        $pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
-
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));
 
