@@ -822,7 +822,6 @@
     "general/status": "Status",
     "general/submit": "Submit",
     "general/success": "Success",
-    "general/toggle_dark_mode": "Toggle dark mode",
     "general/total_online": "Total Online",
     "general/total_online_staff": "Total online staff: {{count}}",
     "general/total_online_users": "Total online users: {{count}}",
