@@ -108,6 +108,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]
                             );
 
+                            EventHandler::executeEvent('userNewProfilePost', [
+                                'username' => $user->getDisplayname(true),
+                                'content' => $language->get("user", "x_posted_on_y_profile", [
+                                    "poster" => $user->getDisplayname(),
+                                    "user" => $query->username
+                                ]),
+                                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('post'))),
+                                'avatar_url' => $user->getAvatar(128, true),
+                                'title' => $language->get("user", "new_profile_post"),
+                                'url' => URL::getSelfURL() . 'profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())
+                            ]);
+
                             if ($query->id !== $user->data()->id) {
                                 // Alert user
                                 Alert::create(
@@ -177,6 +189,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     'content' => Input::get('reply')
                                 ]
                             );
+
+                            EventHandler::executeEvent('userProfilePostReply', [
+                                'username' => $user->getDisplayname(true),
+                                'content' => $language->get("user", "x_replied_on_y_profile", [
+                                    "replier" => $user->getDisplayname(),
+                                    "user" => $query->username
+                                ]),
+                                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('reply'))),
+                                'avatar_url' => $user->getAvatar(128, true),
+                                'title' => $language->get("user", "profile_post_reply"),
+                                'url' => URL::getSelfURL() . 'profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post'])
+                            ]);
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
                                 Alert::create(

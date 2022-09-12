@@ -478,6 +478,14 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('userNewProfilePost',
+            $language->get('admin', 'user_new_profile_post_hook_info')
+        );
+
+        EventHandler::registerEvent('userProfilePostReply',
+            $language->get('admin', 'user_profile_post_reply_hook_info')
+        );
+
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
