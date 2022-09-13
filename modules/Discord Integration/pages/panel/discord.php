@@ -123,7 +123,7 @@ $smarty->assign([
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
     'BOT_SETUP' => Discord::getLanguageTerm('discord_bot_setup'),
     'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),
-    'DISCORD_GUILD_ID_VALUE' => Input::get('discord_guild_id') ?? Discord::getGuildId(),
+    'DISCORD_GUILD_ID_VALUE' => Discord::getGuildId(),
     'ID_INFO' => Discord::getLanguageTerm('discord_id_help', [
         'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498" target="_blank">',
         'linkEnd' => '</a>',
