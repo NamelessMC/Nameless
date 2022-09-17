@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.0.2
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
@@ -165,6 +165,7 @@ class DiscordIntegration extends IntegrationBase {
                 if ($this->validateIdentifier($discord_id) && $this->validateUsername($username)) {
                     $integrationUser = new IntegrationUser($this);
                     $integrationUser->linkIntegration($user, $discord_id, $username, true);
+                    $integrationUser->verifyIntegration();
                 }
             }
         }
