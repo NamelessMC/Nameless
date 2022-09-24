@@ -177,6 +177,29 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
+
+        MemberList::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
+        MemberList::getInstance()->registerListProvider(new HighestReactionScoresMemberListProvider($forum_language));
+
+        MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+            return [
+                $forum_language->get('forum', 'posts_title') =>
+                    DB::getInstance()->query(
+                        'SELECT COUNT(post_content) AS `count` FROM nl2_posts WHERE post_creator = ?',
+                        [$member->data()->id]
+                    )->first()->count,
+            ];
+        });
+
+        MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+            return [
+                $forum_language->get('forum', 'reaction_score') =>
+                    DB::getInstance()->query(
+                        'SELECT COUNT(user_received) AS `count` FROM nl2_forums_reactions WHERE reaction_id = 1 AND user_received = ?',
+                        [$member->data()->id]
+                    )->first()->count,
+            ];
+        });
     }
 
     public function onInstall() {

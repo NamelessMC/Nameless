@@ -38,6 +38,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
+        $pages->add('Core', '/queries/member_list', 'queries/member_list.php');
         $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
@@ -56,6 +57,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/status', 'pages/status.php', 'status');
         $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
+        $pages->add('Core', '/members', 'pages/members.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
@@ -94,6 +96,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
         $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
+        $pages->add('Core', '/panel/core/members', 'pages/panel/members.php');
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
@@ -633,6 +636,15 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
+
+        MemberList::getInstance()->registerListProvider(new NewMembersListProvider($language));
+        MemberList::getInstance()->registerListProvider(new StaffMembersListProvider($language));
+
+        MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
+            return [
+                $language->get('general', 'joined') => date('d M Y', $member->data()->joined),
+            ];
+        });
     }
 
     public static function getDashboardGraphs(): array {
@@ -697,6 +709,7 @@ class Core_Module extends Module {
             'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
             'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
+            'admincp.core.members' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'members'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
@@ -892,6 +905,24 @@ class Core_Module extends Module {
             }
 
             $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
+        }
+
+        if (count(MemberList::getInstance()->allEnabledLists()) > 0) {
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('members_order')) {
+                $members_order = 5;
+                $cache->store('members_order', 5);
+            } else {
+                $members_order = $cache->retrieve('members_order');
+            }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('members_icon')) {
+                $members_icon = '';
+            } else {
+                $members_icon = $cache->retrieve('members_icon');
+            }
+            $navs[0]->add('members', $language->get('general', 'members'), URL::build('/members'), 'top', null, $members_order, $members_icon);
         }
 
         // Check page type (frontend or backend)
@@ -1211,6 +1242,17 @@ class Core_Module extends Module {
                     }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('admincp.core.members')) {
+                    if (!$cache->isCached('members_icon')) {
+                        $icon = '<i class="nav-icon fas fa-list"></i>';
+                        $cache->store('members_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('members_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('core_configuration', 'members', $language->get('admin', 'member_list'), URL::build('/panel/core/members'), 'top', null, $icon, $order);
                 }
             }
 
