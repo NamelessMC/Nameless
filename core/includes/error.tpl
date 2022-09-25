@@ -17,6 +17,23 @@
 </head>
 
 <body>
+    {if $DETAILED_ERROR}
+        <div class="ui inverted borderless menu" style="border-radius: 0;">
+            <span class="blue item">
+                <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">&nbsp;
+                NamelessMC Exception
+            </span>
+            <div class="right menu">
+                <a class="item" target="_blank" href="https://discord.gg/nameless">
+                    <i class="life ring icon"></i>NamelessMC Support
+                </a>
+                <a class="item" target="_blank" href="https://docs.namelessmc.com">
+                    <i class="book icon"></i>NamelessMC Docs
+                </a>
+            </div>
+        </div>
+    {/if}
+
     <div class="ui container one column grid">
         <div class="row {if !$DETAILED_ERROR}three column{/if}">
             {if !$DETAILED_ERROR}
