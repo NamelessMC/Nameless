@@ -39,7 +39,7 @@
                     <p>{$FATAL_ERROR_MESSAGE_USER}</p>
 
                     <div class="btn-group" role="group" aria-label="...">
-                        <button href="#" class="ui button primary" onclick="history.go(-1)">
+                        <button class="ui button primary" onclick="history.go(-1)">
                             {$BACK}
                         </button>
                         <a href="{$HOME_URL}" class="ui button success">
@@ -64,10 +64,9 @@
 
         <div class="row">
             <div class="ui bottom attached tab segment active" id="stack" data-tab="stack" style="border-radius: 3px;">
-                <div class="ui tab secondary vertical menu left floated" style="max-height: 950px; overflow-y: scroll;">
+                <div class="ui tab secondary vertical menu left floated" id="tablinks-container" style="max-height: 950px; overflow-y: scroll;">
                     {foreach from=$FRAMES item=frame}
-                        <button class="tablinks item" id="button-{$frame['number']}"
-                                onclick="openFrame({$frame['number']})">
+                        <button class="tablinks item" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
                             <h5>Frame #{$frame['number']}</h5>
                             <sub>{$frame['file']}:{$frame['line']}</sub>
                         </button>
@@ -89,7 +88,7 @@
             </div>
 
             <div class="ui bottom attached tab segment active" id="sql" data-tab="sql" style="border: 1px solid #d4d4d5; border-radius: 3px;">
-                <div class="ui tab secondary vertical menu left floated" style="max-height: 950px; overflow-y: scroll;">
+                <div class="ui tab secondary vertical menu left floated" id="sql-tablinks-container" style="max-height: 950px; overflow-y: scroll;">
                     {foreach from=$ERROR_SQL_STACK item=$stack}
                         <button class="sql-tablinks item" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
                             <h5>Query #{$stack['number']}</h5>
@@ -161,6 +160,17 @@
     .sql-tabcontent {
         float: left;
         width: 80%;
+    }
+
+    @media (max-width: 1198px) {
+        .tabcontent,
+        .sql-tabcontent {
+            width: 100%;
+        }
+
+        .tablinks, .sql-tablinks {
+            width: 100% !important;
+        }
     }
 
     /* Force SQL query to not overflow */
@@ -249,9 +259,23 @@
         // from the fomantic active class
         document.getElementById('sql').classList.remove('active');
 
+        // handle expanding width of tablinks on mobile
+        checkWidth();
+        window.addEventListener('resize', checkWidth);
+
         openFrame({$FRAMES|count + $SKIP_FRAMES});
         openSqlFrame({$ERROR_SQL_STACK|count});
     });
+
+    function checkWidth() {
+        if (window.matchMedia("(max-width: 1198px)").matches) {
+            document.getElementById('tablinks-container').classList.add('fluid');
+            document.getElementById('sql-tablinks-container').classList.add('fluid');
+        } else {
+            document.getElementById('tablinks-container').classList.remove('fluid');
+            document.getElementById('sql-tablinks-container').classList.remove('fluid');
+        }
+    }
 
     function openFrame(id) {
         hideAllFrames();
