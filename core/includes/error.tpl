@@ -30,7 +30,7 @@
                     <h3>{$ERROR_FILE}</h3>
                     <a href="{$CURRENT_URL}">{$CURRENT_URL}</a>
                     {if $CAN_GENERATE_DEBUG}
-                        <button class="ui primary right floated button" id="show_debug_modal" onclick="showDebugModal()">
+                        <button style="margin-top: -7px;" class="ui primary right floated button" id="show_debug_modal" onclick="showDebugModal()">
                             {$DEBUG_LINK}
                         </button>
                     {/if}
