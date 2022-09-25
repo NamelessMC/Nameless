@@ -63,7 +63,7 @@
         </div>
 
         <div class="row">
-            <div class="ui bottom attached tab segment active" id="stack" data-tab="stack">
+            <div class="ui bottom attached tab segment active" id="stack" data-tab="stack" style="border-radius: 3px;">
                 <div class="ui tab secondary vertical menu left floated" style="max-height: 950px; overflow-y: scroll;">
                     {foreach from=$FRAMES item=frame}
                         <button class="tablinks item" id="button-{$frame['number']}"
@@ -74,48 +74,43 @@
                     {/foreach}
                 </div>
 
-                <div class="code">
-                    {foreach from=$FRAMES item=frame}
-                        <div id="frame-{$frame['number']}" class="tabcontent">
-                            <h5><strong>{$frame['file']}</strong></h5>
+                {foreach from=$FRAMES item=frame}
+                    <div id="frame-{$frame['number']}" class="tabcontent">
+                        <h5>{$frame['file']}</h5>
 
-                            {if $frame['code'] != ''}
-                                <pre data-line="{$frame['highlight_line']}"
-                                     data-start="{$frame['start_line']}"><code class="language-php line-numbers">{$frame['code']}</code></pre>
-                            {else}
-                                <pre class="text-center">Cannot read file.</pre>
-                            {/if}
-                        </div>
-                    {/foreach}
-                </div>
+                        {if $frame['code'] != ''}
+                            <pre data-line="{$frame['highlight_line']}"
+                                 data-start="{$frame['start_line']}"><code class="language-php line-numbers">{$frame['code']}</code></pre>
+                        {else}
+                            <pre class="text-center">Cannot read file.</pre>
+                        {/if}
+                    </div>
+                {/foreach}
             </div>
 
-            <div class="ui bottom attached tab segment active" id="sql" data-tab="sql">
+            <div class="ui bottom attached tab segment active" id="sql" data-tab="sql" style="border: 1px solid #d4d4d5; border-radius: 3px;">
                 <div class="ui tab secondary vertical menu left floated" style="max-height: 950px; overflow-y: scroll;">
                     {foreach from=$ERROR_SQL_STACK item=$stack}
-                        <button class="sql-tablinks item" id="sql-button-{$stack['number']}"
-                            onclick="openSqlFrame({$stack['number']})">
+                        <button class="sql-tablinks item" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
                             <h5>Query #{$stack['number']}</h5>
                             <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
                         </button>
                     {/foreach}
                 </div>
 
-                <div class="code">
-                    {foreach from=$ERROR_SQL_STACK item=$stack}
-                        <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
-                            <h5><strong>{$stack['frame']['file']}</strong></h5>
-                            <h5><strong>{$stack['sql_query']}</strong></h5>
+                {foreach from=$ERROR_SQL_STACK item=$stack}
+                    <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
+                        <h5>{$stack['frame']['file']}</h5>
+                        {$stack['sql_query']}
 
-                            {if $stack['frame']['code'] != ''}
-                                <pre data-line="{$stack['frame']['highlight_line']}"
-                                    data-start="{$stack['frame']['start_line']}"><code class="language-php line-numbers">{$stack['frame']['code']}</code></pre>
-                            {else}
-                                <pre class="text-center">Cannot read file.</pre>
-                            {/if}
-                        </div>
-                    {/foreach}
-                </div>
+                        {if $stack['frame']['code'] != ''}
+                            <pre data-line="{$stack['frame']['highlight_line']}"
+                                data-start="{$stack['frame']['start_line']}"><code class="language-php line-numbers">{$stack['frame']['code']}</code></pre>
+                        {else}
+                            <pre class="text-center">Cannot read file.</pre>
+                        {/if}
+                    </div>
+                {/foreach}
             </div>
         </div>
 
@@ -133,10 +128,16 @@
                 {$DEBUG_LINK_INFO}
             </div>
             <div class="actions">
-                <button type="button" class="ui button" data-dismiss="modal">{$CANCEL}</button>
-                <button class="ui button green" id="generate_debug_url" onclick="generateUrl()">
-                    Generate
-                </button>
+                <div class="actions">
+                    <div class="ui button cancel">
+                        <i class="remove icon"></i>
+                        {$CANCEL}
+                    </div>
+                    <div class="ui button green" id="generate_debug_url" onclick="generateUrl()">
+                        <i class="checkmark icon"></i>
+                        Generate
+                    </div>
+                </div>
             </div>
         </div>
     {/if}
@@ -146,9 +147,13 @@
     {literal}
 
     /* Style the buttons that are used to open the tab content */
-    .tab button {
+    .tablinks, .sql-tablinks {
         text-align: left;
         cursor: pointer;
+    }
+
+    .tablinks:hover, .sql-tablinks:hover {
+        background-color: rgb(247, 247, 247) !important;
     }
 
     /* Style the tab content */
@@ -156,6 +161,11 @@
     .sql-tabcontent {
         float: left;
         width: 80%;
+    }
+
+    /* Force SQL query to not overflow */
+    .sql-tabcontent > pre {
+        overflow-y: scroll;
     }
 
     /* TODO: might be nice to have some padding inside the code container so the code isnt right at the top/right/bottom */
@@ -235,8 +245,8 @@
             line.style.width = line.parentNode.scrollWidth + "px";
         }
 
-        // Jank fix for prism not highlighting the tabs which are "display: hidden;"
-        // from the bootstrap active class
+        // Fix prism not highlighting the tabs which are "display: hidden;"
+        // from the fomantic active class
         document.getElementById('sql').classList.remove('active');
 
         openFrame({$FRAMES|count + $SKIP_FRAMES});

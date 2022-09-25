@@ -104,6 +104,8 @@ class ErrorHandler {
                     $i--;
                 }
             }
+
+            $sql_frames = QueryRecorder::getInstance()->getSqlStack();
         }
 
         if (defined('LANGUAGE')) {
@@ -147,8 +149,7 @@ class ErrorHandler {
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
-            // TODO: should we skip the 2 frames that are from the "new User()" above?
-            'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
+            'ERROR_SQL_STACK' => $sql_frames ?? [],
             'CURRENT_URL' => HttpUtils::getProtocol() . '://' . HttpUtils::getHeader('Host') . $_SERVER['REQUEST_URI'],
             'FRAMES' => $frames ?? [],
             'SKIP_FRAMES' => $skip_frames ?? 0,
