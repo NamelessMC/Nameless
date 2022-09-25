@@ -154,7 +154,12 @@ class ErrorHandler {
             'SKIP_FRAMES' => $skip_frames ?? 0,
             'BACK' => $language->get('general', 'back'),
             'HOME' => $language->get('general', 'home'),
-            'HOME_URL' => URL::build('/')
+            'HOME_URL' => URL::build('/'),
+            'GENERATE' => $language->get('general', 'generate'),
+            'GENERATE_DEBUG_LINK' => $language->get('general', 'generate_debug_link'),
+            'CANNOT_READ_FILE' => $language->get('general', 'cannot_read_file'),
+            'FRAME' => $language->get('general', 'frame'),
+            'QUERY' => $language->get('general', 'query'),
         ]);
 
         $smarty->display(ROOT_PATH . '/core/includes/error.tpl');

@@ -67,7 +67,7 @@
                 <div class="ui tab secondary vertical menu left floated" id="tablinks-container" style="max-height: 950px; overflow-y: scroll;">
                     {foreach from=$FRAMES item=frame}
                         <button class="tablinks item" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
-                            <h5>Frame #{$frame['number']}</h5>
+                            <h5>{$FRAME} #{$frame['number']}</h5>
                             <sub>{$frame['file']}:{$frame['line']}</sub>
                         </button>
                     {/foreach}
@@ -81,7 +81,7 @@
                             <pre data-line="{$frame['highlight_line']}"
                                  data-start="{$frame['start_line']}"><code class="language-php line-numbers">{$frame['code']}</code></pre>
                         {else}
-                            <pre class="text-center">Cannot read file.</pre>
+                            <pre class="text-center">{$CANNOT_READ_FILE}</pre>
                         {/if}
                     </div>
                 {/foreach}
@@ -91,7 +91,7 @@
                 <div class="ui tab secondary vertical menu left floated" id="sql-tablinks-container" style="max-height: 950px; overflow-y: scroll;">
                     {foreach from=$ERROR_SQL_STACK item=$stack}
                         <button class="sql-tablinks item" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
-                            <h5>Query #{$stack['number']}</h5>
+                            <h5>{$QUERY} #{$stack['number']}</h5>
                             <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
                         </button>
                     {/foreach}
@@ -106,7 +106,7 @@
                             <pre data-line="{$stack['frame']['highlight_line']}"
                                 data-start="{$stack['frame']['start_line']}"><code class="language-php line-numbers">{$stack['frame']['code']}</code></pre>
                         {else}
-                            <pre class="text-center">Cannot read file.</pre>
+                            <pre class="text-center">{$CANNOT_READ_FILE}</pre>
                         {/if}
                     </div>
                 {/foreach}
@@ -121,7 +121,7 @@
         <div class="ui modal tiny" id="debug_link_modal">
             <i class="close icon"></i>
             <div class="header">
-                Generate a debug link
+                {$GENERATE_DEBUG_LINK}
             </div>
             <div class="content">
                 {$DEBUG_LINK_INFO}
@@ -134,7 +134,7 @@
                     </div>
                     <div class="ui button green" id="generate_debug_url" onclick="generateUrl()">
                         <i class="checkmark icon"></i>
-                        Generate
+                        {$GENERATE}
                     </div>
                 </div>
             </div>

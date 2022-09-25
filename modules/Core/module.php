@@ -762,6 +762,8 @@ class Core_Module extends Module {
             $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
+        throw new Exception('test');
+
         // Validate user hook
         $validate_action = Util::getSetting('validate_user_action');
         $validate_action = json_decode($validate_action, true);
