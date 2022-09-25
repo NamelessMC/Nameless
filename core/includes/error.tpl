@@ -23,7 +23,7 @@
                 <div class="column"></div>
             {/if}
             <div class="ui message {if !$DETAILED_ERROR}column center aligned{/if}"
-                 style="{if $CAN_GENERATE_DEBUG}padding-bottom: 20px;{/if} margin-top: 30px; width: 100%;">
+                 style="{if $CAN_GENERATE_DEBUG}padding-bottom: 20px;{/if} margin-top: 30px; width: 100%; overflow-wrap: break-word;">
                 {if $DETAILED_ERROR}
                     <h2>Uncaught <i>{$ERROR_TYPE}</i></h2>
                     <h2><kbd>{$ERROR_STRING}</kbd></h2>
@@ -75,7 +75,7 @@
 
                 {foreach from=$FRAMES item=frame}
                     <div id="frame-{$frame['number']}" class="tabcontent">
-                        <h5>{$frame['file']}</h5>
+                        <h5 style="overflow: scroll !important;">{$frame['file']}</h5>
 
                         {if $frame['code'] != ''}
                             <pre data-line="{$frame['highlight_line']}"
@@ -99,7 +99,7 @@
 
                 {foreach from=$ERROR_SQL_STACK item=$stack}
                     <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
-                        <h5>{$stack['frame']['file']}</h5>
+                        <h5 style="overflow: scroll !important;">{$stack['frame']['file']}</h5>
                         {$stack['sql_query']}
 
                         {if $stack['frame']['code'] != ''}
