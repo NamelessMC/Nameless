@@ -10,7 +10,7 @@
 
     <meta name="author" content="{$SITE_NAME}">
 
-    <link rel="stylesheet" href="{$SEMANTIC_CSS}">
+    <link rel="stylesheet" href="{$FOMANTIC_CSS}">
     <link rel="stylesheet" href="{$FONT_AWESOME}">
     <link rel="stylesheet" href="{$PRISM_CSS}">
     <link rel="stylesheet" href="{$TOAST_CSS}">
@@ -217,7 +217,7 @@
 </style>
 
 <script src="{$JQUERY}"></script>
-<script src="{$SEMANTIC_JS}"></script>
+<script src="{$FOMANTIC_JS}"></script>
 <script src="{$PRISM_JS}"></script>
 <script src="{$TOAST_JS}"></script>
 
