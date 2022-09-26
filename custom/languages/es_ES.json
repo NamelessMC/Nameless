@@ -1241,5 +1241,10 @@
     "admin/redirect_url": "Redirigir la URL",
     "general/log_out_click": "Haga clic aquí para cerrar la sesión",
     "admin/client_id": "Identificación del cliente",
-    "admin/client_secret": "Cliente secreto"
+    "admin/client_secret": "Cliente secreto",
+    "general/log_out_complete": "Has cerrado sesión correctamente. Haga clic en {{linkStart}}aquí{{linkEnd}} para continuar.",
+    "general/oauth_no_data": "No se han detectado datos OAuth, asegúrese de que está accediendo a esta página a través de una redirección OAuth.",
+    "user/tfa_disable_click": "Por favor, haga clic aquí para desactivar la autenticación de dos factores.",
+    "general/rate_limit": "Por favor, inténtelo de nuevo en {{expires}} segundos",
+    "user/tfa_disabled": "Se ha desactivado la autenticación de dos factores."
 }
