@@ -289,7 +289,7 @@
     "admin/keywords": "Ключевые слова",
     "admin/layout": "Макет",
     "admin/leaderboard_settings": "Настройки таблицы лидеров",
-    "admin/leave_port_empty_for_srv": "Вы можете оставить порт пустым, если он равен 25565 или если ваш домен использует запись SRV",
+    "admin/leave_port_empty_for_srv": "Вы можете оставить порт пустым, если он равен 25565 или если ваш домен использует запись SRV.",
     "admin/left": "Слево",
     "admin/light": "Светлая",
     "admin/link_location_required": "Требуется указать расположение ссылки.",

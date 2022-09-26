@@ -276,7 +276,7 @@
     "admin/keywords": "Ключові слова",
     "admin/layout": "Макет",
     "admin/leaderboard_settings": "Налаштування таблиці лідерів",
-    "admin/leave_port_empty_for_srv": "Ви можете залишити порт порожнім, якщо він дорівнює 25565 або якщо ваш домен використовує запис SRV",
+    "admin/leave_port_empty_for_srv": "Ви можете залишити порт порожнім, якщо він дорівнює 25565 або якщо ваш домен використовує запис SRV.",
     "admin/left": "Ліворуч",
     "admin/light": "Світла",
     "admin/link_location_required": "Потрібно вказати розташування посилання.",
