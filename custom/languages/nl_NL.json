@@ -1242,5 +1242,8 @@
     "admin/redirect_url": "Doorstuur URL",
     "general/log_out_complete": "Je bent uitgelogd. Klik {{linkStart}}hier{{linkEnd}} om door te gaan.",
     "general/rate_limit": "Probeer opnieuw over {{expires}} seconden",
-    "user/tfa_disabled": "Tweetrapsauthenticatie is uitgeschakeld."
+    "user/tfa_disabled": "Tweetrapsauthenticatie is uitgeschakeld.",
+    "general/oauth_no_data": "Geen OAuth data gedetecteerd, verzeker dat je deze pagina opvraagt via een OAuth omleiding.",
+    "admin/client_id": "Cliënt ID",
+    "admin/client_secret": "Cliënt Geheim"
 }
