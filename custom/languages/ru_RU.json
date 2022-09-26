@@ -630,7 +630,7 @@
     "admin/widget_updated": "Виджет обновлён.",
     "admin/widgets": "Виджеты",
     "admin/x_directory_not_writable": "Каталог {{directory}} не доступен для записи!",
-    "admin/youtube_url": "Ютуб URL",
+    "admin/youtube_url": "Youtube URL",
     "api/account_validated": "Учетная запись успешно подтверждена",
     "api/finish_registration_email": "Пожалуйста, проверьте свою электронную почту, чтобы завершить регистрацию.",
     "api/finish_registration_link": "Пожалуйста, нажмите на следующую ссылку, чтобы завершить регистрацию:",
