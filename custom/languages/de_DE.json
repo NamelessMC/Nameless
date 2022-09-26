@@ -273,7 +273,7 @@
     "admin/ip_address": "IP Addresse",
     "admin/keywords": "Keywörter",
     "admin/leaderboard_settings": "Bestenliste Einstellungen",
-    "admin/leave_port_empty_for_srv": "Du kannst den Port leer lass, wenn dieser 25565 ist oder ob Deine Domain einen SRV-Record verwendet",
+    "admin/leave_port_empty_for_srv": "Du kannst den Port leer lassen, wenn dieser 25565 ist oder deine Domain einen SRV-Record verwendet.",
     "admin/left": "Links",
     "admin/link_location_required": "Ein Linkstandort ist erforderlich.",
     "admin/log_file_not_found": "Log-Datei nicht gefunden.",
