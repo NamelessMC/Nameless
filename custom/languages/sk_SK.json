@@ -1136,7 +1136,6 @@
     "api/integration_identifier_already_linked": "Identifikátor {{integration}} je už prepojený s iným používateľom.",
     "general/connect": "Pripojiť",
     "general/internet_explorer_info": "Internet Explorer nie je podporovaný. Inovujte na modernejší prehliadač.",
-    "general/toggle_dark_mode": "Prepnúť tmavý režim",
     "installer/not_upgrading": "Neaktualizuje sa",
     "moderator/staff_cp": "StaffCP",
     "user/connections": "Prepojenia",

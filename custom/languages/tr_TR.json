@@ -1206,7 +1206,6 @@
     "admin/https_port_80": "80 numaralı bağlantı noktasında HTTPS kullanıyormuş gibi görünüyorsunuz, bu neredeyse kesinlikle doğru değil. Cloudflare kullanıyorsanız TLS şifreleme modunu Tam (strict) olarak ayarladığınızdan emin olun. Kendi proxy'nizi çalıştırıyorsanız, lütfen onu X-Forwarded-Port başlığını gönderecek şekilde yapılandırın.",
     "admin/viewing_integrations_for_x": "{{user}} için kullanıcı entegrasyonları görüntüleniyor",
     "admin/user_verify_integration_hook_info": "Kullanıcı doğrulama entegrasyonu",
-    "general/toggle_dark_mode": "Karanlık moda geç",
     "admin/test_email_suggest_3": "Bir SMTP sunucusu kurun. {{docLinkStart}}Daha fazlasını okuyun »{{docLinkEnd}}",
     "general/default": "Varsayılan",
     "general/olive": "Zeytin Yeşili",

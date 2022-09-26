@@ -1144,7 +1144,6 @@
     "general/connect": "Verbinden",
     "general/internet_explorer_header": "Internet Explorer",
     "general/oauth_message_continue": "Registrierung bei {{provider}} fortsetzen",
-    "general/toggle_dark_mode": "Dunkelmodus umschalten",
     "installer/not_upgrading": "Keine Aufwertung",
     "installer/session_doesnt_exist": "Sitzung kann nicht erkannt werden. Das Speichern von Sitzungen ist eine Voraussetzung für die Verwendung von Nameless. Bitte versuch es erneut, nachdem du die Cookies in deinem Webbrowser gelöscht hast. Sollte das Problem weiterhin bestehen, wenden Sie sich bitte an deinen Webhoster.",
     "user/integration_identifier_already_linked": "Die Integration {{integration}} ist bereits mit einem anderen Benutzer verknüpft.",

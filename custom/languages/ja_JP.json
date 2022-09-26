@@ -1204,7 +1204,6 @@
     "user/not_connected": "未接続",
     "user/overview": "概要",
     "admin/debug_link_info": "重要 - このリンクは信頼できる人のみに共有してください！",
-    "general/toggle_dark_mode": "ダークモードに切り替え",
     "admin/viewing_integrations_for_x": "{{user}} のユーザー連携を表示",
     "admin/api_disabled": "APIが無効",
     "general/internet_explorer_header": "Internet Explorer",

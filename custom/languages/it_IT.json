@@ -1103,7 +1103,6 @@
     "admin/placeholder_leaderboard_enable_info": "Le classifiche funzionano meglio con placeholders numeroci (come monete, uccisioni, blocchi minati, ecc.). Se attivi una classifica per un placeholder testuale non puoi aspettarti che l’ordine sia come lo vuoi.",
     "admin/seo": "SEO",
     "admin/seo_settings_updated_successfully": "Impostazioni SEO aggiornate correttamente.",
-    "general/toggle_dark_mode": "Tema scuro",
     "general/unlink": "Scollega",
     "log/info_forums_lock": "Bloccato",
     "general/offline": "Offline",
