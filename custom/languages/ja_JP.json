@@ -290,7 +290,7 @@
     "admin/keywords": "キーワード",
     "admin/layout": "レイアウト",
     "admin/leaderboard_settings": "リーダーボードの設定",
-    "admin/leave_port_empty_for_srv": "ポートが25565の場合、またはドメインがSRVレコードを使用している場合、ポートを空にすることができます",
+    "admin/leave_port_empty_for_srv": "ポートが25565の場合、またはドメインがSRVレコードを使用している場合は、ポートを空にすることができます。",
     "admin/left": "左",
     "admin/light": "ライト",
     "admin/link_location_required": "リンクの場所が必要です。",
