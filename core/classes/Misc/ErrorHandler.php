@@ -117,6 +117,12 @@ class ErrorHandler {
 
         $path = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/';
         $site_name = defined('SITE_NAME') ? Output::getClean(SITE_NAME) : 'NamelessMC';
+        $pdo_driver = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
+        if (str_contains($pdo_driver, 'MariaDB')) {
+            $pdo_driver = 'MariaDB';
+        } else {
+            $pdo_driver = 'MySQL';
+        }
 
         $smarty = new Smarty();
 
@@ -160,6 +166,12 @@ class ErrorHandler {
             'CANNOT_READ_FILE' => $language->get('general', 'cannot_read_file'),
             'FRAME' => $language->get('general', 'frame'),
             'QUERY' => $language->get('general', 'query'),
+            'NAMELESS_VERSION' => NAMELESS_VERSION,
+            'PHP_VERSION' => PHP_VERSION,
+            'NAMELESSMC_SUPPORT' => $language->get('general', 'namelessmc_support'),
+            'NAMELESSMC_DOCS' => $language->get('general', 'namelessmc_documentation'),
+            'PDO_DRIVER' => $pdo_driver,
+            'DRIVER_VERSION' => DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION),
         ]);
 
         $smarty->display(ROOT_PATH . '/core/includes/error.tpl');

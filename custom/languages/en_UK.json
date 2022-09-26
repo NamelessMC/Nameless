@@ -856,6 +856,8 @@
     "general/grey": "Grey",
     "general/deleted_user": "Deleted User",
     "general/query": "Query",
+    "general/namelessmc_support": "NamelessMC Support",
+    "general/namelessmc_documentation": "NamelessMC Docs",
     "installer/back": "Back",
     "installer/cache_writable": "Cache Writable",
     "installer/character_set": "Character Set",

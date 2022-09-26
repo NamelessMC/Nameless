@@ -18,17 +18,25 @@
 
 <body>
     {if $DETAILED_ERROR}
-        <div class="ui inverted borderless menu" style="border-radius: 0;">
-            <span class="blue item">
-                <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">&nbsp;
-                NamelessMC Exception
+        <div class="ui inverted menu" style="border-radius: 0;">
+            <span class="item">
+                <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">
             </span>
-            <div class="right menu">
+            <span class="item">
+                v{$NAMELESS_VERSION}
+            </span>
+            <span class="item">
+                PHP {$PHP_VERSION}
+            </span>
+            <span class="item">
+                {$PDO_DRIVER} {$DRIVER_VERSION}
+            </span>
+            <div class="right borderless menu">
                 <a class="item" target="_blank" href="https://discord.gg/nameless">
-                    <i class="life ring icon"></i>NamelessMC Support
+                    <i class="life ring icon"></i>{$NAMELESSMC_SUPPORT}
                 </a>
                 <a class="item" target="_blank" href="https://docs.namelessmc.com">
-                    <i class="book icon"></i>NamelessMC Docs
+                    <i class="book icon"></i>{$NAMELESSMC_DOCS}
                 </a>
             </div>
         </div>
@@ -81,7 +89,7 @@
 
         <div class="row">
             <div class="ui bottom attached tab segment active" id="stack" data-tab="stack" style="border-radius: 3px;">
-                <div class="ui tab secondary vertical menu left floated" id="tablinks-container" style="max-height: 950px; overflow-y: scroll;">
+                <div class="ui tab secondary vertical menu left floated" id="tablinks-container" style="min-height: 920px; max-height: 920px; overflow-y: scroll;">
                     {foreach from=$FRAMES item=frame}
                         <button class="tablinks item" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
                             <h5>{$FRAME} #{$frame['number']}</h5>
@@ -105,7 +113,7 @@
             </div>
 
             <div class="ui bottom attached tab segment active" id="sql" data-tab="sql" style="border: 1px solid #d4d4d5; border-radius: 3px;">
-                <div class="ui tab secondary vertical menu left floated" id="sql-tablinks-container" style="max-height: 950px; overflow-y: scroll;">
+                <div class="ui tab secondary vertical menu left floated" id="sql-tablinks-container" style="min-height: 920px; max-height: 920px; overflow-y: scroll;">
                     {foreach from=$ERROR_SQL_STACK item=$stack}
                         <button class="sql-tablinks item" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
                             <h5>{$QUERY} #{$stack['number']}</h5>
