@@ -1235,7 +1235,6 @@
     "admin/pre_custom_page_create_hook_info": "",
     "admin/pre_custom_page_edit_hook_info": "",
     "general/social": "",
-    "general/toggle_dark_mode": "",
     "admin/client_secret": "Client Secret",
     "admin/client_id": "Client ID",
     "admin/group_sync_server": "Vælg en Minecraft-server, der skal bruges til gruppesynkronisering"
