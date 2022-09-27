@@ -18,12 +18,12 @@
 
 <body>
     {if $DETAILED_ERROR}
-        <div class="ui inverted menu" style="border-radius: 0;">
+        <div class="ui inverted borderless menu" style="border-radius: 0;">
             <span class="item">
-                <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">
+                <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">&nbsp;
             </span>
             <span class="item">
-                v{$NAMELESS_VERSION}
+                NamelessMC {$NAMELESS_VERSION}
             </span>
             <span class="item">
                 PHP {$PHP_VERSION}
@@ -31,7 +31,7 @@
             <span class="item">
                 {$PDO_DRIVER} {$DRIVER_VERSION}
             </span>
-            <div class="right borderless menu">
+            <div class="right menu">
                 <a class="item" target="_blank" href="https://discord.gg/nameless">
                     <i class="life ring icon"></i>{$NAMELESSMC_SUPPORT}
                 </a>
@@ -50,9 +50,12 @@
             <div class="ui message {if !$DETAILED_ERROR}column center aligned{/if}"
                  style="{if $CAN_GENERATE_DEBUG}padding-bottom: 20px;{/if} margin-top: 30px; width: 100%; overflow-wrap: break-word;">
                 {if $DETAILED_ERROR}
-                    <h2>Uncaught <i>{$ERROR_TYPE}</i></h2>
-                    <h2><kbd>{$ERROR_STRING}</kbd></h2>
-                    <h3>{$ERROR_FILE}</h3>
+                    <div class="ui large header">Uncaught <i>{$ERROR_TYPE}</i></div>
+                    <p></p>
+                    <div class="ui large header"><kbd>{$ERROR_STRING}</kbd></div>
+                    <p></p>
+                    <div class="ui medium header">{$ERROR_FILE}</div>
+                    <p></p>
                     <a href="{$CURRENT_URL}">{$CURRENT_URL}</a>
                     {if $CAN_GENERATE_DEBUG}
                         <button style="margin-top: -7px;" class="ui primary right floated button" id="show_debug_modal" onclick="showDebugModal()">
@@ -89,7 +92,7 @@
 
         <div class="row">
             <div class="ui bottom attached tab segment active" id="stack" data-tab="stack" style="border-radius: 3px;">
-                <div class="ui tab secondary vertical menu left floated" id="tablinks-container" style="min-height: 920px; max-height: 920px; overflow-y: scroll;">
+                <div class="ui tab secondary vertical menu left floated tablinks-container" id="tablinks-container">
                     {foreach from=$FRAMES item=frame}
                         <button class="tablinks item" id="button-{$frame['number']}" onclick="openFrame({$frame['number']})">
                             <h5>{$FRAME} #{$frame['number']}</h5>
@@ -101,6 +104,7 @@
                 {foreach from=$FRAMES item=frame}
                     <div id="frame-{$frame['number']}" class="tabcontent">
                         <h5 style="overflow: scroll !important;">{$frame['file']}</h5>
+                        <div class="ui divider"></div>
 
                         {if $frame['code'] != ''}
                             <pre data-line="{$frame['highlight_line']}"
@@ -113,7 +117,7 @@
             </div>
 
             <div class="ui bottom attached tab segment active" id="sql" data-tab="sql" style="border: 1px solid #d4d4d5; border-radius: 3px;">
-                <div class="ui tab secondary vertical menu left floated" id="sql-tablinks-container" style="min-height: 920px; max-height: 920px; overflow-y: scroll;">
+                <div class="ui tab secondary vertical menu left floated tablinks-container" id="sql-tablinks-container">
                     {foreach from=$ERROR_SQL_STACK item=$stack}
                         <button class="sql-tablinks item" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
                             <h5>{$QUERY} #{$stack['number']}</h5>
@@ -125,6 +129,7 @@
                 {foreach from=$ERROR_SQL_STACK item=$stack}
                     <div id="sql-frame-{$stack['number']}" class="sql-tabcontent">
                         <h5 style="overflow: scroll !important;">{$stack['frame']['file']}</h5>
+                        <div class="ui divider"></div>
                         {$stack['sql_query']}
 
                         {if $stack['frame']['code'] != ''}
@@ -187,6 +192,12 @@
         width: 80%;
     }
 
+    .tablinks-container {
+        min-height: 920px !important;
+        max-height: 920px;
+        overflow-y: scroll;
+    }
+
     @media (max-width: 1198px) {
         .tabcontent,
         .sql-tabcontent {
@@ -195,6 +206,10 @@
 
         .tablinks, .sql-tablinks {
             width: 100% !important;
+        }
+
+        .tablinks-container {
+            min-height: 0;
         }
     }
 
