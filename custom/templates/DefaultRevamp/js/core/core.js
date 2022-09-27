@@ -8,18 +8,30 @@ function redirect(url) {
 }
 
 function copy(element) {
-    navigator.clipboard.writeText($(element).text());
-    $('body').toast({
-        showIcon: 'checkmark',
-        message: copied,
-        class: 'success',
-        progressUp: true,
-        displayTime: 6000,
-        showProgress: 'bottom',
-        pauseOnHover: false,
-        position: 'bottom left',
-    });
-}
+    if (navigator.clipboard !== undefined) {
+        $('body').toast({
+            showIcon: 'checkmark',
+            message: copied,
+            class: 'success',
+            progressUp: true,
+            displayTime: 6000,
+            showProgress: 'bottom',
+            pauseOnHover: false,
+            position: 'bottom left',
+        });
+        navigator.clipboard.writeText($(element).text());
+    } else {
+        $('body').toast({
+            showIcon: 'checkmark',
+            message: $(element).text(),
+            class: 'success',
+            progressUp: true,
+            displayTime: 6000,
+            showProgress: 'bottom',
+            pauseOnHover: false,
+            position: 'bottom left',
+        });
+    }
 
 $(document).ready(function () {
     $('[data-action="logout"]').click(function () {
