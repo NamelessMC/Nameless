@@ -22,15 +22,6 @@
             <span class="item">
                 <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">&nbsp;
             </span>
-            <span class="item">
-                NamelessMC {$NAMELESS_VERSION}
-            </span>
-            <span class="item">
-                PHP {$PHP_VERSION}
-            </span>
-            <span class="item">
-                {$PDO_DRIVER} {$DRIVER_VERSION}
-            </span>
             <div class="right menu">
                 <a class="item" target="_blank" href="https://discord.gg/nameless">
                     <i class="life ring icon"></i>{$NAMELESSMC_SUPPORT}
