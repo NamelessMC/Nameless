@@ -762,8 +762,6 @@ class Core_Module extends Module {
             $widgets->add(new StatsWidget($smarty, $language, $cache));
         }
 
-        throw new InvalidArgumentException('Configuration class should not be used for the Core module');
-
         // Validate user hook
         $validate_action = Util::getSetting('validate_user_action');
         $validate_action = json_decode($validate_action, true);
