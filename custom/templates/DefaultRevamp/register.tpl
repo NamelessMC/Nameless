@@ -4,7 +4,9 @@
 <h2 class="ui header">
     {$CREATE_AN_ACCOUNT}
     {if $OAUTH_FLOW}
-    <div class="sub header">{$OAUTH_MESSAGE_CONTINUE}</div>
+    <div class="sub header">
+        {$OAUTH_MESSAGE_CONTINUE} <a href="{$OAUTH_CANCEL_REGISTER_URL}">({$CANCEL})</a>
+    </div>
     {/if}
 </h2>
 
