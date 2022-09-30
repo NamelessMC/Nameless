@@ -69,13 +69,13 @@ class NamelessOAuthProvider extends AbstractProvider {
      * Check a provider response for errors.
      *
      * @throws IdentityProviderException
-     * @param  ResponseInterface @response
+     * @param  ResponseInterface $response
      * @param  array $data Parsed response data
      * @return void
      */
     protected function checkResponse(ResponseInterface $response, $data) {
         if ($response->getStatusCode() >= 400) {
-            throw NamelessIdentityProviderException::clientException($response, $data);
+            throw NamelessOAuthIdentityProviderException::clientException($response, $data);
         }
     }
 
@@ -87,6 +87,6 @@ class NamelessOAuthProvider extends AbstractProvider {
      * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
      */
     protected function createResourceOwner(array $response, AccessToken $token) {
-        return new NamelessResourceOwner($response);
+        return new NamelessOAuthResourceOwner($response);
     }
 }
