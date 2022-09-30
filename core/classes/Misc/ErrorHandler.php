@@ -162,6 +162,12 @@ class ErrorHandler {
             'QUERY' => $language->get('general', 'query'),
             'NAMELESSMC_SUPPORT' => $language->get('general', 'namelessmc_support'),
             'NAMELESSMC_DOCS' => $language->get('general', 'namelessmc_documentation'),
+            'DEBUG_TOAST_CLICK' => $language->get('admin', 'debug_link_toast', [
+                'linkStart' => '<u><a href="{url}" target="_blank">',
+                'linkEnd' => '</a></u>',
+            ]),
+            'DEBUG_CANNOT_GENERATE' => $language->get('general', 'debug_link_cannot_generate'),
+            'DEBUG_COPIED' => $language->get('general', 'debug_link_copied'),
         ]);
 
         $smarty->display(ROOT_PATH . '/core/includes/error.tpl');

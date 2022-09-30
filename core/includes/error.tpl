@@ -329,7 +329,7 @@
             $('#debug_link_modal').modal('show');
         }
 
-        const generateUrl = () => {
+        function generateUrl() {
             const generate_debug_url = $('#generate_debug_url');
             generate_debug_url.addClass('loading');
             generate_debug_url.prop('disabled', true);
@@ -342,40 +342,32 @@
                     if (!url.startsWith('https://debug.namelessmc.com/')) {
                         $('#show_debug_modal').addClass('red');
 
-                        console.error(url);
-                        $('body').toast({
-                            showIcon: 'fa-solid fa-circle-info move-right',
-                            message: 'Could not create debug link. Check console for information.',
-                            class: 'error',
-                            progressUp: true,
-                            displayTime: 10000,
-                            pauseOnHover: true,
-                            position: 'bottom right',
-                        });
+                        console.error('Debug link generation failure: ' + url);
+
+                        toast('{$DEBUG_CANNOT_GENERATE}', 'error');
                     } else {
-                        if (navigator.clipboard !== undefined) {
-                            $('body').toast({
-                                showIcon: 'fa-solid fa-circle-info move-right',
-                                message: 'Copied debug link to your clipboard.',
-                                progressUp: true,
-                                displayTime: 10000,
-                                pauseOnHover: true,
-                                position: 'bottom right',
-                            });
+                        if (window.isSecureContext) {
                             navigator.clipboard.writeText(url);
+
+                            toast('{$DEBUG_COPIED}', '', 5000);
                         } else {
-                            $('body').toast({
-                                showIcon: 'fa-solid fa-circle-info move-right',
-                                message: '<a href="' + url + '" target="_blank">Click here</a> to view the debug link.',
-                                progressUp: true,
-                                displayTime: 10000,
-                                pauseOnHover: true,
-                                position: 'bottom right',
-                            });
+                            toast('{$DEBUG_TOAST_CLICK}'.replaceAll({literal}'{url}'{/literal}, url));
                         }
                     }
                 });
-            };
+            }
+
+            function toast(message, type = '', time = 0) {
+                $('body').toast({
+                    showIcon: 'fa-solid fa-circle-info move-right',
+                    message: message,
+                    class: type,
+                    displayTime: time,
+                    showProgress: time !== 0 ? 'bottom' : false,
+                    closeIcon: time === 0,
+                    position: 'bottom right',
+                });
+            }
         {/if}
 </script>
 
