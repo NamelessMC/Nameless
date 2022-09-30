@@ -7,6 +7,28 @@ function redirect(url) {
     window.location.href = url;
 }
 
+function copy(element) {
+    const target = $(element);
+
+    if (window.isSecureContext) {
+        navigator.clipboard.writeText(target.text());
+    } else {
+        target.select();
+        document.execCommand('copy');
+    }
+
+    $('body').toast({
+        showIcon: 'checkmark',
+        message: copied,
+        class: 'success',
+        progressUp: true,
+        displayTime: 6000,
+        showProgress: 'bottom',
+        pauseOnHover: false,
+        position: 'bottom left',
+    });
+}
+
 $(document).ready(function () {
     $('[data-action="logout"]').click(function () {
         const url = $(this).data('link');
