@@ -492,6 +492,13 @@ class Core_Module extends Module {
             'icon' => 'fab fa-google',
         ]);
 
+        NamelessOAuth::getInstance()->registerProvider('namelessmc', 'Core', [
+            'class' => NamelessOAuthProvider::class,
+            'user_id_name' => 'id',
+            'scope_id_name' => 'identify',
+            'icon' => 'fab fa-browser',
+        ]);
+
         // Captcha
         $captchaPublicKey = Util::getSetting('recaptcha_key', '');
         $captchaPrivateKey = Util::getSetting('recaptcha_secret', '');
@@ -576,6 +583,8 @@ class Core_Module extends Module {
         if (defined('MINECRAFT') && MINECRAFT === true) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
+
+        Integrations::getInstance()->registerIntegration(new NamelessIntegration($language));
 
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
