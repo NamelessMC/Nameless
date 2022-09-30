@@ -127,7 +127,7 @@ class Input {
                 'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
               ],
               external_plugins: {
-                'spoiler': '" . URL::build('/core/assets/plugins/tinymce_spoiler/plugin.min.js') . "',
+                'spoiler': '/core/assets/plugins/tinymce_spoiler/plugin.min.js',
               },
               toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample " . ($admin ? "code" : "") . " hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
