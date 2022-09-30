@@ -8,10 +8,10 @@
  *
  * @return string JSON Array
  */
-class AddIntegrationEndpoint extends KeyAuthEndpoint {
+class LinkIntegrationEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'users/{user}/integrations/add';
+        $this->_route = 'users/{user}/integrations/link';
         $this->_module = 'Core';
         $this->_description = 'Link a integration to user';
         $this->_method = 'POST';

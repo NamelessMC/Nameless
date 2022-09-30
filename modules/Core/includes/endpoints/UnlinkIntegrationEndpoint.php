@@ -5,12 +5,12 @@
  *
  * @return string JSON Array
  */
-class RemoveIntegrationEndpoint extends KeyAuthEndpoint {
+class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'users/{user}/integrations/remove';
+        $this->_route = 'users/{user}/integrations/unlink';
         $this->_module = 'Core';
-        $this->_description = 'Remove integration from user';
+        $this->_description = 'Unlink integration from user';
         $this->_method = 'POST';
     }
 
