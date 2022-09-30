@@ -259,6 +259,9 @@ class AssetTree {
             'js' => [
                 'vendor/fomantic-ui/dist/semantic.min.js',
             ],
+            'after' => [
+                self::JQUERY,
+            ]
         ],
     ];
 }
