@@ -150,9 +150,16 @@
         }
 
         function copyURL() {
-            let url = document.getElementById("InputAPIURL");
-            url.select();
-            document.execCommand("copy");
+            const url = document.getElementById("InputAPIURL");
+
+            if (window.isSecureContext) {
+                navigator.clipboard.writeText(url.value);
+            } else {
+                url.select();
+                document.execCommand("copy");
+                url.setSelectionRange(0, 0);
+                url.blur();
+            }
 
             // Toast
             $('body').toast({
