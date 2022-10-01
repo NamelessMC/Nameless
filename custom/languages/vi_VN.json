@@ -708,7 +708,6 @@
     "general/status": "Trạng thái",
     "general/submit": "Gửi đi",
     "general/success": "Thành công",
-    "general/toggle_dark_mode": "Chuyển đổi chế độ tối",
     "general/total_online": "Tổng số trực tuyến",
     "general/total_online_staff": "Tổng số nhân viên trực tuyến: {{count}}",
     "general/total_online_users": "Tổng số người dùng trực tuyến: {{count}}",

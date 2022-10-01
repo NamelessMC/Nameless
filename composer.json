@@ -3,6 +3,11 @@
     "description": "NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.",
     "type": "project",
     "license": "MIT",
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
+    },
     "require": {
         "php": ">=7.4",
         "jdorn/sql-formatter": "^1.2",

@@ -970,6 +970,10 @@ select {
     }
 }
 
+#darkmode {
+    display: inline-block;
+}
+
 .darkmode-toggle {
     opacity: 0;
     position: absolute;

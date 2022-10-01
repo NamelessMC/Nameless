@@ -1164,7 +1164,6 @@
     "general/deleted_user": "",
     "installer/database_configured": "",
     "admin/debugging_enabled": "",
-    "general/toggle_dark_mode": "",
     "user/user_has_unlinked_integration": "",
     "installer/config_write_failed": "",
     "installer/database_connection_failed": "",

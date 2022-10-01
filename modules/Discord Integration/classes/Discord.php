@@ -15,11 +15,6 @@ class Discord {
     private static bool $_is_bot_setup;
 
     /**
-     * @var string|null The ID of this website's Discord server
-     */
-    private static ?string $_guild_id;
-
-    /**
      * @var Language Instance of Language class for translations
      */
     private static Language $_discord_integration_language;
@@ -151,11 +146,7 @@ class Discord {
      * @return string|null Discord guild ID for this site
      */
     public static function getGuildId(): ?string {
-        if (!isset(self::$_guild_id)) {
-            self::$_guild_id = (string) Util::getSetting('discord');
-        }
-
-        return self::$_guild_id;
+        return Util::getSetting('discord');
     }
 
     /**

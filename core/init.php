@@ -87,7 +87,7 @@ if ($page != 'install') {
     // These options don't make sense when making requests to IP addresses anyway
     if ($host !== null) {
         if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
-            if (defined('FORCE_WWW') && !str_contains(host, 'www.')) {
+            if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
                 Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
             } else {
                 Redirect::to('https://.' . $host . $_SERVER['REQUEST_URI']);

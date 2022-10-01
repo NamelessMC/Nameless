@@ -1146,7 +1146,6 @@
     "general/offline": "Offline",
     "general/online": "Online",
     "general/player_count": "{{onlinePlayers}}/{{totalPlayers}}",
-    "general/toggle_dark_mode": "Přepnout tmavý režim",
     "admin/oauth_info": "Nastavte poskytovatele OAuth pro umožnění přihlašování pomocí účtů na sociálních sítích. {{docLinkStart}}Pro více informací si přečtěte dokumentaci{{docLinkEnd}}.",
     "admin/require_integration": "Vyžaduje uživatele si propojit a ověřit integraci",
     "admin/unlink_account_confirm": "Opravdu chcete vynuceně zrušit propojení tohoto poskytovatele od tohoto uživatele?",
