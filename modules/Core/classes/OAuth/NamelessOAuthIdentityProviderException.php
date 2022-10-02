@@ -27,7 +27,7 @@ class NamelessOAuthIdentityProviderException extends IdentityProviderException {
      * @return IdentityProviderException
      */
     protected static function fromResponse(ResponseInterface $response, $message = null) {
-        @phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return new static($message, $response->getStatusCode(), (string) $response->getBody());
     }
 }
