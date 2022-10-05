@@ -3,6 +3,11 @@
 const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
+    Session::delete('oauth_register_data');
+    Redirect::to(URL::build('/register'));
+}
+
 if (!isset($_GET['provider'], $_GET['code'])) {
     if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
         ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
