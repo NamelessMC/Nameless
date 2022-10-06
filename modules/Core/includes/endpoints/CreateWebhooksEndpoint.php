@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @param string $name The name of the webhook
+ * @param string $url The url of the webhook
+ * @param string $type The webhook type
+ * @param array $events A list of events the webhook should receive
+ *
+ * @return string JSON Array
+ */
 class CreateWebhooksEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
@@ -10,6 +18,7 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API  $api): void {
+        // Validation
         $api->validateParams($_POST, ['name', 'url', 'type', 'events']);
         $validation = Validate::check($_POST, [
             'name' => [
@@ -30,13 +39,14 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
             'url' => CoreApiErrors::ERROR_WEBHOOK_URL_INCORRECT_LENGTH
         ]);
 
+        // If it didn't pass, throw the errors
         if (!$validation->passed()) {
-            $errors = $validation->errors();
-            foreach ($errors as $error) {
+            foreach ($validation->errors() as $error) {
                 $api->throwError($error);
             }
         }
 
+        // Insert into database
         $name = $_POST['name'];
         $url = $_POST['url'];
         $type = $_POST['type'];
@@ -49,6 +59,8 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
             'events' => json_encode($events)
         ]);
 
+        // Clear cache so the webhooks are refreshed
+
         // Annoying that there isn't a global way to get the nameless cache
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('hooks');
@@ -56,6 +68,7 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
             $cache->erase('hooks');
         }
 
+        // Return status message
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'webhook_added')]);
     }
 }
