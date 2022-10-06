@@ -37,4 +37,9 @@ class CoreApiErrors {
 
     public const ERROR_INTEGRATION_IDENTIFIER_ERRORS = 'core:integration_identifier_errors';
     public const ERROR_INTEGRATION_USERNAME_ERRORS = 'core:integration_username_errors';
+
+    public const ERROR_WEBHOOK_NAME_INCORRECT_LENGTH = 'core:webhook_name_incorrect_length';
+    public const ERROR_WEBHOOK_URL_INCORRECT_LENGTH = 'core:webhook_url_incorrect_length';
+    public const ERROR_WEBHOOK_INVALID_TYPE = 'core:webhook_type_invalid';
+    public const ERROR_WEBHOOK_INVALID_EVENT = 'core:webhook_event_invalid';
 }
