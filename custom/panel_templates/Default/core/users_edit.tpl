@@ -150,6 +150,10 @@
                                         {/foreach}
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputPassword">{$PASSWORD}</label>
+                                    <input type="password" name="password" class="form-control" id="inputPassword">
+                                </div>
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="hidden" name="action" value="update">
                                 <input type="submit" value="{$SUBMIT}" class="btn btn-primary">

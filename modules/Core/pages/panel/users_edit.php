@@ -170,6 +170,15 @@ if (Input::exists()) {
                         'theme_id' => $new_template
                     ]);
 
+                    // Password?
+                    if (Input::get('password') !== null) {
+                        $password = Input::get('password');
+                        $encrypted_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
+                        $view_user->update([
+                            'password' => $encrypted_password
+                        ]);
+                    }
+
                     $group_sync_log = [];
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
@@ -361,7 +370,8 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
-    'TEMPLATES' => $templates
+    'TEMPLATES' => $templates,
+    'PASSWORD' => $language->get('user', 'change_password')
 ]);
 
 $template->assets()->include([
