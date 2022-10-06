@@ -40,11 +40,8 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         ]);
 
         // If it didn't pass, throw the errors
-        if (!$validation->passed()) {
-            foreach ($validation->errors() as $error) {
-                $api->throwError($error);
-            }
-        }
+        if (!$validation->passed())
+            $api->throwError($validation->errors()[0]);
 
         // Insert into database
         $name = $_POST['name'];
