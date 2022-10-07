@@ -19,7 +19,6 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
 
     public function execute(Nameless2API  $api): void {
         // Validation
-        $api->validateParams($_POST, ['name', 'url', 'type', 'events']);
         $validation = Validate::check($_POST, [
             'name' => [
                 Validate::REQUIRED => true,
