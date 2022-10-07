@@ -220,7 +220,7 @@ if (Input::exists()) {
 
                 Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 Redirect::to(URL::build('/panel/users'));
-        } else if ((Input::get('action') == 'change_password') && $user_query->id > 1) {
+        } else if ((Input::get('action') == 'change_password') && $user_query->id > 1 && !$view_user->canViewStaffCP()) {
             $validation = Validate::check($_POST, [
                 'password' => [
                     Validate::REQUIRED => true,
