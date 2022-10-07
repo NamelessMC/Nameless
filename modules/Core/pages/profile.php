@@ -117,7 +117,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]),
                                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('post'))),
                                 'avatar_url' => $user->getAvatar(128, true),
-                                'title' => $default_language->get("user", "new_profile_post"),
+                                'title' => $default_language->get('user', 'new_profile_post'),
                                 'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/')
                             ]);
 
@@ -200,7 +200,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]),
                                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('reply'))),
                                 'avatar_url' => $user->getAvatar(128, true),
-                                'title' => $default_language->get("user", "profile_post_reply"),
+                                'title' => $default_language->get('user', 'profile_post_reply'),
                                 'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post'])), '/')
                             ]);
 
