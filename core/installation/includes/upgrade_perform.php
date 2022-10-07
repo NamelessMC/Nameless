@@ -650,12 +650,17 @@ DB::getInstance()->insert('modules', [
     'name' => 'Cookie Consent',
     'enabled' => true,
 ]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Minecraft Integration',
+    'enabled' => true,
+]);
 $cache->setCache('modulescache');
 $cache->store('enabled_modules', [
     ['name' => 'Core', 'priority' => 1],
     ['name' => 'Forum', 'priority' => 4],
     ['name' => 'Discord Integration', 'priority' => 7],
     ['name' => 'Cookie Consent', 'priority' => 10],
+    ['name' => 'Minecraft Integration', 'priority' => 13],
 ]);
 $cache->store('module_core', true);
 $cache->store('module_forum', true);

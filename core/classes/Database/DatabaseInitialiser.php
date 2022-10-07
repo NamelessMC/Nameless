@@ -99,6 +99,11 @@ class DatabaseInitialiser {
             'enabled' => true,
         ]);
 
+        $this->_db->insert('modules', [
+            'name' => 'Minecraft Integration',
+            'enabled' => true,
+        ]);
+
         $this->_cache->setCache('modulescache');
         $this->_cache->store('enabled_modules', [
             [
@@ -116,6 +121,10 @@ class DatabaseInitialiser {
             [
                 'name' => 'Cookie Consent',
                 'priority' => 10
+            ],
+            [
+                'name' => 'Discord Integration',
+                'priority' => 13
             ],
         ]);
 

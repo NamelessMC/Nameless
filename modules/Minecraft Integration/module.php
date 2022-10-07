@@ -3,9 +3,11 @@
 class Minecraft_Module extends Module {
 
     private Language $_language;
+    private Language $_minecraft_language;
 
-    public function __construct(Language $language, Pages $pages, Endpoints $endpoints) {
+    public function __construct(Language $language, Language $minecraft_language, Pages $pages, Endpoints $endpoints) {
         $this->_language = $language;
+        $this->_minecraft_language = $minecraft_language;
 
         $name = 'Minecraft Integration';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
