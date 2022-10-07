@@ -108,15 +108,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]
                             );
 
+                            $default_language = new Language('core', DEFAULT_LANGUAGE);
                             EventHandler::executeEvent('userNewProfilePost', [
                                 'username' => $user->getDisplayname(true),
-                                'content' => $language->get("user", "x_posted_on_y_profile", [
-                                    "poster" => $user->getDisplayname(),
-                                    "user" => $query->username
+                                'content' => $default_language->get('user', 'x_posted_on_y_profile', [
+                                    'poster' => $user->getDisplayname(),
+                                    'user' => $query->username
                                 ]),
                                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('post'))),
                                 'avatar_url' => $user->getAvatar(128, true),
-                                'title' => $language->get("user", "new_profile_post"),
+                                'title' => $default_language->get("user", "new_profile_post"),
                                 'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/')
                             ]);
 
@@ -190,15 +191,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]
                             );
 
+                            $default_language = new Language('core', DEFAULT_LANGUAGE);
                             EventHandler::executeEvent('userProfilePostReply', [
                                 'username' => $user->getDisplayname(true),
-                                'content' => $language->get("user", "x_replied_on_y_profile", [
-                                    "replier" => $user->getDisplayname(),
-                                    "user" => $query->username
+                                'content' => $default_language->get('user', 'x_replied_on_y_profile', [
+                                    'replier' => $user->getDisplayname(),
+                                    'user' => $query->username
                                 ]),
                                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('reply'))),
                                 'avatar_url' => $user->getAvatar(128, true),
-                                'title' => $language->get("user", "profile_post_reply"),
+                                'title' => $default_language->get("user", "profile_post_reply"),
                                 'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post'])), '/')
                             ]);
 
