@@ -2,7 +2,7 @@
 /**
  * Queries Minecraft servers using the external querying API.
  *
- * @package NamelessMC\Minecraft
+ * @package Modules\Minecaft Integration\Misc
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT

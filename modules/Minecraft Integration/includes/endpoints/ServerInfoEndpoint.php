@@ -4,7 +4,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
         $this->_route = 'minecraft/server-info';
-        $this->_module = 'Core';
+        $this->_module = 'Minecraft Integration';
         $this->_description = 'Update the Minecraft server information NamelessMC tracks';
         $this->_method = 'POST';
     }

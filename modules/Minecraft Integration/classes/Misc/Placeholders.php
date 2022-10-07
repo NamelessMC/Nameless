@@ -2,7 +2,7 @@
 /**
  * Manages registering and retrieving PAPI placeholders.
  *
- * @package NamelessMC\Misc
+ * @package Modules\Minecaft Integration\Misc
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT

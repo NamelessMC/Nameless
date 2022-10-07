@@ -2,7 +2,7 @@
 /**
  * MinecraftIntegration class
  *
- * @package Modules\Core\Integrations
+ * @package Modules\Minecaft Integration\Integrations
  * @author Partydragen
  * @version 2.0.0-pr13
  * @license MIT

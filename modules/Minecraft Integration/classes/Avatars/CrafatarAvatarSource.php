@@ -2,7 +2,7 @@
 /**
  * Crafatar avatar source class
  *
- * @package Modules\Core\Avatars
+ * @package Modules\Minecaft Integration\Avatars
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT

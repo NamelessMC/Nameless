@@ -6,7 +6,7 @@ use xPaw\MinecraftQuery;
 /**
  * Abstraction over xPaw\MinecraftQuery & xPaw\MinecraftPing to make them fit with our needs.
  *
- * @package NamelessMC\Minecraft
+ * @package Modules\Minecaft Integration\Misc
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT

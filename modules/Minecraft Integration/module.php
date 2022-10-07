@@ -17,6 +17,10 @@ class Minecraft_Module extends Module {
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/queries/server', 'queries/server.php');
         $pages->add('Core', '/queries/servers', 'queries/servers.php');
+        $pages->add('Core', '/status', 'pages/status.php', 'status');
+        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+
+        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
 
         // Panel
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
@@ -60,6 +64,7 @@ class Minecraft_Module extends Module {
 
     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
+            'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
             'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
@@ -103,6 +108,28 @@ class Minecraft_Module extends Module {
             }
 
             $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+        }
+
+        $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+
+        // Only add leaderboard link if there is at least one enabled placeholder
+        if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('leaderboards_order')) {
+                $leaderboards_order = 4;
+                $cache->store('leaderboards_order', 4);
+            } else {
+                $leaderboards_order = $cache->retrieve('leaderboards_order');
+            }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('leaderboards_icon')) {
+                $leaderboards_icon = '';
+            } else {
+                $leaderboards_icon = $cache->retrieve('leaderboards_icon');
+            }
+
+            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         if (defined('FRONT_END')) {

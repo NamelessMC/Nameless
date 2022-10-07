@@ -2,7 +2,7 @@
 /**
  * Represents a Minecraft profile.
  *
- * @package NamelessMC\Minecraft
+ * @package Modules\Minecaft Integration\Misc
  * @see ProfileUtils
  * @author Daniel Fanara
  * @author Samerton

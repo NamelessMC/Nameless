@@ -50,8 +50,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/privacy', 'pages/privacy.php');
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
-        $pages->add('Core', '/status', 'pages/status.php', 'status');
-        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
@@ -59,7 +57,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
         $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
-        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
         $pages->add('Core', '/user/connections', 'pages/user/connections.php');
 
@@ -647,7 +644,6 @@ class Core_Module extends Module {
             'admincp.core.terms' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'privacy_and_terms'),
             'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
-            'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.modules' => $language->get('admin', 'modules'),
@@ -743,7 +739,6 @@ class Core_Module extends Module {
 
         if ($cache->isCached('pre_validation_default')) {
             $group_id = $cache->retrieve('pre_validation_default');
-
         } else {
             $group_id = DB::getInstance()->get('groups', ['default_group', '1'])->results();
             $group_id = $group_id[0]->id;
@@ -779,28 +774,6 @@ class Core_Module extends Module {
                     ]);
                 }
             }
-        }
-
-        $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
-
-        // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
-            $cache->setCache('navbar_order');
-            if (!$cache->isCached('leaderboards_order')) {
-                $leaderboards_order = 4;
-                $cache->store('leaderboards_order', 4);
-            } else {
-                $leaderboards_order = $cache->retrieve('leaderboards_order');
-            }
-
-            $cache->setCache('navbar_icons');
-            if (!$cache->isCached('leaderboards_icon')) {
-                $leaderboards_icon = '';
-            } else {
-                $leaderboards_icon = $cache->retrieve('leaderboards_icon');
-            }
-
-            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         // Check page type (frontend or backend)

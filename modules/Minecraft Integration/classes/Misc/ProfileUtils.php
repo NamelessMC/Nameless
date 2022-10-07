@@ -2,7 +2,7 @@
 /**
  * Provides methods to generate a MinecraftProfile from a username or UUID.
  *
- * @package NamelessMC\Minecraft
+ * @package Modules\Minecaft Integration\Misc
  * @see MinecraftProfile
  * @author Daniel Fanara
  * @author Samerton
