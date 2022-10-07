@@ -55,8 +55,8 @@
                                                     href="{$RESEND_ACTIVATION_EMAIL_LINK}">{$RESEND_ACTIVATION_EMAIL}</a>{/if}
                                                 {if isset($VALIDATE_USER)}<a class="dropdown-item" href="#"
                                                     onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
-                                                <a class="dropdown-item" href="#"
-                                                   onclick="logoutUser()">{$FORCE_LOGOUT}</a>
+                                                {if isset($IS_NON_STAFF)}<a class="dropdown-item" href="#"
+                                                   onclick="logoutUser()">{$FORCE_LOGOUT}</a>{/if}
                                             </div>
                                         </div>
                                         {/if}
