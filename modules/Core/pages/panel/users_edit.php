@@ -243,7 +243,7 @@ if (Input::exists()) {
                 $view_user->update([
                     'password' => $encrypted_password
                 ]);
-                Session::flash('edit_user_success', $language->get('user', 'password_changed_successfully'));
+                Session::flash('edit_user_success', $language->get('admin', 'user_password_changed_successfully'));
             } else {
                 Session::flash('edit_user_error', implode('\n', $validation->errors()));
             }

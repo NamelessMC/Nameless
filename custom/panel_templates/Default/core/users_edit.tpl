@@ -152,6 +152,9 @@
                                         {/foreach}
                                     </select>
                                 </div>
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="hidden" name="action" value="update">
+                                <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                             </form>
                         </div>
                     </div>
