@@ -55,6 +55,8 @@
                                                     href="{$RESEND_ACTIVATION_EMAIL_LINK}">{$RESEND_ACTIVATION_EMAIL}</a>{/if}
                                                 {if isset($VALIDATE_USER)}<a class="dropdown-item" href="#"
                                                     onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
+                                                {if isset($CHANGE_PASSWORD)}<a class="dropdown-item" href="#"
+                                                    onclick="changePassword()">{$CHANGE_PASSWORD}</a> {/if}
                                             </div>
                                         </div>
                                         {/if}
@@ -150,15 +152,7 @@
                                         {/foreach}
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputPassword">{$PASSWORD}</label>
-                                    <input type="password" name="password" class="form-control" id="inputPassword">
-                                </div>
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="hidden" name="action" value="update">
-                                <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                             </form>
-
                         </div>
                     </div>
 
@@ -202,6 +196,40 @@
             </div>
         </div>
         {/if}
+        {if isset($CHANGE_PASSWORD)}
+            <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{$CHANGE_PASSWORD}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" method="post">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="inputPassword">{$NEW_PASSWORD}</label>
+                                    <input type="password" name="password" id="inputPassword" placeholder="{$PASSWORD}"
+                                           autocomplete="off" tabindex="2" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPasswordAgain">{$CONFIRM_NEW_PASSWORD}</label>
+                                    <input type="password" name="password_again" id="inputPasswordAgain"
+                                           placeholder="{$CONFIRM_PASSWORD}" autocomplete="off" tabindex="3" class="form-control">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="hidden" name="action" value="change_password">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{$BACK}</button>
+                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {/if}
 
         <!-- End Wrapper -->
     </div>
@@ -222,6 +250,12 @@
         {if isset($VALIDATE_USER)}
             function validateUser() {
                 $('#validateUserForm').submit();
+            }
+        {/if}
+
+        {if isset($CHANGE_PASSWORD)}
+            function changePassword() {
+                $('#passwordModal').modal().show();
             }
         {/if}
     
