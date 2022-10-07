@@ -650,6 +650,8 @@
     "admin/user": "User",
     "admin/user_deleted": "User deleted successfully.",
     "admin/user_id": "User ID",
+    "admin/user_force_logout": "Force logout",
+    "admin/user_force_logout_successfully": "All the user their sessions have been logged out.",
     "admin/user_integration_updated_successfully": "User integration updated successfully.",
     "admin/user_link_integration_hook_info": "User link integration",
     "admin/user_management": "User Management",

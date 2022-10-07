@@ -43,7 +43,7 @@
                                 <div class="col-md-3">
                                     <span class="float-md-right">
                                         {if isset($DELETE_USER) || isset($RESEND_ACTIVATION_EMAIL) ||
-                                        isset($VALIDATE_USER)}
+                                        isset($VALIDATE_USER) || isset($IS_NON_STAFF)}
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-toggle="dropdown" aria-haspopup="true"
@@ -55,6 +55,8 @@
                                                     href="{$RESEND_ACTIVATION_EMAIL_LINK}">{$RESEND_ACTIVATION_EMAIL}</a>{/if}
                                                 {if isset($VALIDATE_USER)}<a class="dropdown-item" href="#"
                                                     onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
+                                                <a class="dropdown-item" href="#"
+                                                   onclick="logoutUser()">{$FORCE_LOGOUT}</a>
                                             </div>
                                         </div>
                                         {/if}
@@ -205,6 +207,9 @@
     <form style="display:none" action="{$VALIDATE_USER_LINK}" method="post" id="validateUserForm">
         <input type="hidden" name="token" value="{$TOKEN}" />
     </form>
+    <form style="display:none" action="{$LOGOUT_USER_LINK}" method="post" id="logoutUserForm">
+        <input type="hidden" name="token" value="{$TOKEN}" />
+    </form>
 
     {include file='scripts.tpl'}
 
@@ -214,16 +219,23 @@
                 $('#deleteModal').modal().show();
             }
         {/if}
-    
+
         {if isset($VALIDATE_USER)}
             function validateUser() {
                 $('#validateUserForm').submit();
             }
         {/if}
-    
+
+        {if isset($IS_NON_STAFF)}
+            function logoutUser() {
+                $('#logoutUserForm').submit();
+            }
+        {/if}
+
         $(document).ready(() => {
             $('#inputGroups').select2({ placeholder: "{$NO_ITEM_SELECTED}" });
         })
+
     </script>
 
 </body>

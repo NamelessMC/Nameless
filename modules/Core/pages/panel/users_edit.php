@@ -60,6 +60,9 @@ if (isset($_GET['action'])) {
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
         }
+    } else if ($_GET['action'] == 'force_logout') {
+        $view_user->logoutAllOtherSessions();
+        Session::flash('edit_user_success', $language->get('admin', 'user_force_logout_successfully'));
     } else {
         throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
     }
@@ -282,6 +285,14 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
     ]);
 }
 
+if (!$view_user->canViewStaffCP()) {
+    $smarty->assign([
+        'IS_NON_STAFF' => true,
+        'LOGOUT_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=force_logout'),
+        'FORCE_LOGOUT' => $language->get('admin', 'user_force_logout')
+    ]);
+}
+
 $limit_groups = false;
 if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
     $smarty->assign([
@@ -361,7 +372,7 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
-    'TEMPLATES' => $templates
+    'TEMPLATES' => $templates,
 ]);
 
 $template->assets()->include([
