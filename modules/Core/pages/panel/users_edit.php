@@ -60,7 +60,7 @@ if (isset($_GET['action'])) {
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
         }
-    } else if ($_GET['action'] == 'force_logout') {
+    } else if ($_GET['action'] == 'force_logout' && !$view_user->canViewStaffCP()) {
         $view_user->logoutAllOtherSessions();
         Session::flash('edit_user_success', $language->get('admin', 'user_force_logout_successfully'));
     } else {
