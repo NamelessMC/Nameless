@@ -1153,7 +1153,6 @@
     "general/links": "链接",
     "general/oauth_message_continue": "继续使用 {{provider}} 注册",
     "general/reported_by": "由 {{author}} 举报",
-    "general/toggle_dark_mode": "切换深色模式",
     "user/integration_required_to_continue": "您需要链接并验证必须的链接账号才能继续使用本网站。",
     "user/no_providers": "没有配置 OAuth 提供者。",
     "user/oauth_already_linked": "已经有一个 NamelessMC 用户绑定了本 {{provider}} 账号。",
