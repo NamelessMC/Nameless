@@ -194,6 +194,14 @@
                     <input type="submit" class="ui primary button" value="{$SUBMIT}">
                 </form>
             </div>
+            <div class="ui segment">
+                <h3 class="ui header">{$REMOVE_AVATAR}</h3>
+                <form class="ui form" action="" method="post" id="form-reset-avatar">
+                    <input type="hidden" name="action" value="reset_avatar">
+                    <input type="hidden" name="token" value="{$TOKEN}">
+                    <input type="submit" value="{$REMOVE}" class="ui red button">
+                </form>
+            </div>
             {/if}
         </div>
     </div>
