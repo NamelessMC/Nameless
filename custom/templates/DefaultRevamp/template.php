@@ -40,14 +40,7 @@ class DefaultRevamp_Template extends TemplateBase {
             AssetTree::FONT_AWESOME,
             AssetTree::JQUERY,
             AssetTree::JQUERY_COOKIE,
-        ]);
-
-        $this->addCSSFiles([
-            $template['path'] . 'css/fomantic.min.css' => [],
-        ]);
-
-        $this->addJSFiles([
-            $template['path'] . 'js/fomantic.min.js' => [],
+            AssetTree::FOMANTIC_UI,
         ]);
 
         $smarty->assign('TEMPLATE', $template);

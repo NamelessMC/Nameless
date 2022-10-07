@@ -1143,7 +1143,6 @@
     "admin/viewing_integrations_for_x": "Viewing user integrations for {{user}}",
     "general/connect": "Connect",
     "general/internet_explorer_info": "Internet Explorer is not supported. Please upgrade to a more modern browser.",
-    "general/toggle_dark_mode": "Toggle dark mode",
     "installer/not_upgrading": "Not upgrading",
     "user/connections": "Connections",
     "user/integration_identifier_already_linked": "{{integration}} identifier is already linked to another user.",

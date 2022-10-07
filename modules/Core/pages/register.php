@@ -461,9 +461,13 @@ foreach (ProfileField::all() as $field) {
 $oauth_flow = Session::exists('oauth_register_data');
 if ($oauth_flow) {
     $data = json_decode(Session::get('oauth_register_data'), true);
-    $smarty->assign('OAUTH_MESSAGE_CONTINUE', $language->get('general', 'oauth_message_continue', [
-        'provider' => ucfirst($data['provider'])
-    ]));
+    $smarty->assign([
+        'OAUTH_MESSAGE_CONTINUE' => $language->get('general', 'oauth_message_continue', [
+            'provider' => ucfirst($data['provider'])
+        ]),
+        'CANCEL' => $language->get('general', 'cancel'),
+        'OAUTH_CANCEL_REGISTER_URL' => URL::build('/oauth', 'action=cancel_registration'),
+    ]);
 }
 
 // Assign Smarty variables

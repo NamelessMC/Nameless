@@ -25,7 +25,7 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $language->get('installer', 'install'); ?> &bull; NamelessMC</title>
-    <link rel="stylesheet" href="custom/templates/DefaultRevamp/css/fomantic.min.css">
+    <link rel="stylesheet" href="core/assets/vendor/fomantic-ui/dist/semantic.min.css">
 
     <style>
 

@@ -49,5 +49,7 @@
     "discord_integration\/unable_to_set_discord_id": "Unable to set Discord ID.",
     "discord_integration\/unable_to_update_discord_bot_username": "Unable to update Discord bot username.",
     "discord_integration\/unable_to_update_discord_roles": "Unable to update Discord roles list.",
-    "discord_integration\/unable_to_update_discord_username": "Unable to update Discord username."
+    "discord_integration\/unable_to_update_discord_username": "Unable to update Discord username.",
+    "discord_integration\/discord_bot": "Discord Bot",
+    "discord_integration\/integration_link_method": "Discord integration link method"
 }

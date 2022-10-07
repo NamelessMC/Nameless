@@ -19,7 +19,7 @@ $image = (new \Bulletproof\Image($_FILES))
 if ($image['file']) {
     if (!$image->upload()) {
         http_response_code(500);
-        $error = $e->getMessage() ?: 'Unknown error, check logs for more details';
+        $error = $image->getError() ?: 'Unknown error, check logs for more details';
         ErrorHandler::logWarning('TinyMCE image upload error: ' . $error);
         die($error);
     }
