@@ -114,7 +114,7 @@ if (Session::get('oauth_method') === 'login') {
     }
 
     // Make sure user is not banned
-    if (!$user->data()->isbanned == 1) {
+    if ($user->data()->isbanned == 1) {
         Session::flash('oauth_error', $language->get('user', 'account_banned'));
         Redirect::to(URL::build('/login'));
     }
