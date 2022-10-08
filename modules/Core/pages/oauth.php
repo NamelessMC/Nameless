@@ -108,6 +108,7 @@ if (Session::get('oauth_method') === 'login') {
     $user = new User($user_id);
 
     // Make sure user is validated
+    if (!$user->isValidated()) {
         Session::flash('oauth_error', $language->get('user', 'inactive_account'));
         Redirect::to(URL::build('/login'));
     }
