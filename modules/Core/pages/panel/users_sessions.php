@@ -49,7 +49,7 @@ foreach ($sessions as $session) {
         'active' => $session->active,
         'device' => $session->device_name,
         'method' => $session->login_method,
-        'logout_link' => URL::build('/panel/users/sessions/','id=' . $view_user->data()->id . '&action=logout&hash=' . $session->hash)
+        'logout_link' => URL::build('/panel/users/sessions/', 'id=' . $view_user->data()->id . '&action=logout&hash=' . $session->hash)
     ];
 }
 
