@@ -823,6 +823,8 @@
     "general/search": "Search",
     "general/server_offline": "The server is currently offline.",
     "general/server_status": "Server Status",
+    "general/session": "Session",
+    "general/sessions": "Sessions",
     "general/sign_in": "Log In",
     "general/social": "Social",
     "general/spoiler": "Spoiler",
