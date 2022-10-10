@@ -65,7 +65,7 @@
                                         {foreach $SESSIONS as $session}
                                             <tr>
                                                 <td>
-                                                    {$session.hash}
+                                                    <code>{$session.hash}</code>
                                                 </td>
                                                 <td>
                                                     {$session.device}

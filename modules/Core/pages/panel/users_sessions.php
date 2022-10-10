@@ -34,11 +34,7 @@ if (!$view_user->exists()) {
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'logout' && isset($_GET['hash'])) {
         $hash = $_GET['hash'];
-        DB::getInstance()->update('users_session', [
-            'hash',
-            '=',
-            $hash
-        ], [
+        DB::getInstance()->update('users_session', ['hash', $hash], [
             'active' => 0
         ]);
         $success = $language->get('admin', 'logout_session_successfully');

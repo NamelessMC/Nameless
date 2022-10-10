@@ -330,12 +330,9 @@ class User {
 
             $osName = $dd->getOs('name');
             $osVersion = $dd->getOs('version');
-            $osPlatform = $dd->getOs('platform');
-            $device = $dd->getDeviceName();
-            $brand = $dd->getBrandName();
-            $model = $dd->getModel();
-
-            $deviceString = trim($brand . ' ' . $model . ' ' . $device . ' (' . $osName . ' ' . $osVersion . ' ' . $osPlatform . ')');
+            $browserName = $dd->getClient('name');
+            $browserVersion = $dd->getClient('version');
+            $deviceString = $osName . ' ' . $osVersion . ' - ' . $browserName . ' ' . $browserVersion;
 
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
