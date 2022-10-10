@@ -48,9 +48,25 @@ $timeago = new TimeAgo(TIMEZONE);
 $sessions = DB::getInstance()->query('SELECT * FROM nl2_users_session WHERE user_id = ?', [$view_user->data()->id])->results();
 $user_sessions_list = [];
 
+$cache->setCache('ip_location_results');
 foreach ($sessions as $session) {
+    if ($session->ip && $cache->retrieve($session->ip)) {
+        $location = $cache->retrieve($session->ip);
+    } else if ($session->ip) {
+        $response = HttpClient::get('http://ip-api.com/json/' . $session->ip);
+        if (!$response->hasError()) {
+            $json = $response->json();
+            if ($json->status == 'success') {
+                $location = $json->city . ', ' . $json->city;
+            } else {
+                $location = 'Unknown';
+            }
+            $cache->store($session->ip, $location);
+        }
+    }
+    $ip = $session->ip . ($location ? ' (' . $location . ')' : '');
     $user_sessions_list[] = [
-        'ip' => Output::getClean($session->ip) ?? $language->get('admin', 'unknown'),
+        'ip' => $session->ip ? $ip : $language->get('admin', 'unknown'),
         'active' => Output::getClean($session->active),
         'device' => Output::getClean($session->device_name),
         'method' => Output::getClean($session->login_method),
