@@ -340,7 +340,8 @@ class User {
                 'remember_me' => $remember,
                 'active' => 1,
                 'login_method' => $is_admin ? 'admin' : $method,
-                'device_name' => $deviceString
+                'device_name' => $deviceString,
+                'ip' => HttpUtils::getRemoteAddress()
             ]);
 
             Session::put($sessionName, $hash);

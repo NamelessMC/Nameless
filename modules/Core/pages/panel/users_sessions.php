@@ -43,8 +43,10 @@ if (isset($_GET['action'])) {
 
 $sessions = DB::getInstance()->query('SELECT * FROM nl2_users_session WHERE user_id = ?', [$view_user->data()->id])->results();
 $user_sessions_list = [];
+$cache->setCache('geo_ip_results');
 foreach ($sessions as $session) {
     $user_sessions_list[] = [
+        'ip' => $session->ip,
         'hash' => $session->hash,
         'active' => $session->active,
         'device' => $session->device_name,
@@ -63,7 +65,8 @@ $smarty->assign([
     'ACTIVE' => $language->get('admin', 'active'),
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
-    'LOGOUT' => $language->get('general', 'log_out')
+    'LOGOUT' => $language->get('general', 'log_out'),
+    'IP_ADDRESS' => $language->get('admin', 'ip_address')
 ]);
 
 $smarty->assign([

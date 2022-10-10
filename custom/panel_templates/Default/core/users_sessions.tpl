@@ -56,6 +56,7 @@
                                         <tr>
                                             <th>{$SESSION}</th>
                                             <th>{$DEVICE}</th>
+                                            <th>{$IP_ADDRESS}</th>
                                             <th>{$ACTIVE}</th>
                                             <th>{$LOGIN_METHOD}</th>
                                             <th></th>
@@ -69,6 +70,9 @@
                                                 </td>
                                                 <td>
                                                     {$session.device}
+                                                </td>
+                                                <td>
+                                                    {$session.ip}
                                                 </td>
                                                 <td>
                                                     {if $session.active}
