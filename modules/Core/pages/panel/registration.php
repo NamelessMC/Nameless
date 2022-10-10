@@ -99,7 +99,8 @@ if (Input::exists()) {
         }
 
         if (!count($errors)) {
-            $success = $language->get('admin', 'registration_settings_updated');
+            Session::flash('registration_settings', $language->get('admin', 'registration_settings_updated'));
+            Redirect::to(URL::build('/panel/core/registration'));
         }
     } else {
         // Invalid token
@@ -109,6 +110,10 @@ if (Input::exists()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('registration_settings')) {
+    $success = Session::flash('registration_settings');
+}
 
 if (isset($success)) {
     $smarty->assign([
