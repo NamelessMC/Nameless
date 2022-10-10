@@ -38,7 +38,7 @@ if (Input::exists()) {
             DB::getInstance()->update('users_session', ['id', $id], [
                 'active' => 0
             ]);
-            $success = $language->get('admin', 'logout_session_successfully');
+            $success = $language->get('general', 'logout_session_successfully');
         }
     } else {
         $errors[] = $language->get('general', 'invalid_token');
@@ -50,14 +50,14 @@ $user_sessions_list = [];
 
 foreach ($sessions as $session) {
     $user_sessions_list[] = [
-        'ip' => $session->ip ?? $language->get('admin', 'unknown'),
-        'active' => $session->active,
-        'device' => $session->device_name,
-        'method' => $session->login_method,
-        'id' => $session->id,
+        'ip' => Output::getClean($session->ip) ?? $language->get('admin', 'unknown'),
+        'active' => Output::getClean($session->active),
+        'device' => Output::getClean($session->device_name),
+        'method' => Output::getClean($session->login_method),
+        'id' => Output::getClean($session->id),
 
-        'last_seen_short' => $session->last_seen ? $timeago->inWords($session->last_seen, $language) : $language->get('admin', 'unknown'),
-        'last_seen_long' => $session->last_seen ? date(DATE_FORMAT, $session->last_seen) : $language->get('admin', 'unknown'),
+        'last_seen_short' => $session->last_seen ? $timeago->inWords(Output::getClean($session->last_seen), $language) : $language->get('admin', 'unknown'),
+        'last_seen_long' => $session->last_seen ? date(DATE_FORMAT, Output::getClean($session->last_seen)) : $language->get('admin', 'unknown'),
     ];
 }
 
@@ -66,7 +66,7 @@ $smarty->assign([
         'user' =>  Output::getClean($view_user->data()->username),
     ]),
     'SESSIONS' => $user_sessions_list,
-    'DEVICE' => $language->get('admin', 'device'),
+    'DEVICE' => $language->get('general', 'device'),
     'ACTIVE' => $language->get('admin', 'active'),
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
