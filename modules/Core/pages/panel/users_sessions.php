@@ -50,14 +50,14 @@ $user_sessions_list = [];
 
 foreach ($sessions as $session) {
     $user_sessions_list[] = [
-        'ip' => $session->ip,
+        'ip' => $session->ip ?? $language->get('admin', 'unknown'),
         'active' => $session->active,
         'device' => $session->device_name,
         'method' => $session->login_method,
         'id' => $session->id,
 
-        'last_seen_short' => $timeago->inWords($session->last_seen, $language),
-        'last_seen_long' => date(DATE_FORMAT, $session->last_seen),
+        'last_seen_short' => $session->last_seen ? $timeago->inWords($session->last_seen, $language) : $language->get('admin', 'unknown'),
+        'last_seen_long' => $session->last_seen ? date(DATE_FORMAT, $session->last_seen) : $language->get('admin', 'unknown'),
     ];
 }
 
@@ -72,7 +72,7 @@ $smarty->assign([
     'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
     'LOGOUT' => $language->get('general', 'log_out'),
     'IP_ADDRESS' => $language->get('admin', 'ip_address'),
-    'LAST_SEEN' => $language->get('user', 'last_seen'),
+    'LAST_SEEN' => $language->get('admin', 'last_seen'),
 ]);
 
 $smarty->assign([

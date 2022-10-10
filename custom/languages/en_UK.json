@@ -320,6 +320,7 @@
     "admin/is_verified": "Is Verified?",
     "admin/keywords": "Keywords",
     "admin/layout": "Layout",
+    "admin/last_seen": "Last Seen",
     "admin/leaderboard_settings": "Leaderboard Settings",
     "admin/leave_port_empty_for_srv": "You can leave the port empty if it is 25565, or if your domain uses an SRV record.",
     "admin/left": "Left",
