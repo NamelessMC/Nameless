@@ -28,7 +28,8 @@
         "astrotomic/php-twemoji": "^0.2",
         "samerton/i18next": "^1.0",
         "robmorgan/phinx": "^0.12.10",
-        "symfony/http-foundation": "^5.4"
+        "symfony/http-foundation": "^5.4",
+        "matomo/device-detector": "^6.0"
     },
     "require-dev": {
         "phpstan/phpstan": "1.6.9",

@@ -321,12 +321,29 @@ class User {
             // Valid credentials
             $hash = SecureRandom::alphanumeric();
 
+            // Detect device
+            $userAgent = $_SERVER['HTTP_USER_AGENT'];
+            $clientHints = \DeviceDetector\ClientHints::factory($_SERVER);
+            $dd = new \DeviceDetector\DeviceDetector($userAgent, $clientHints);
+            $dd->skipBotDetection();
+            $dd->parse();
+
+            $osName = $dd->getOs('name');
+            $osVersion = $dd->getOs('version');
+            $osPlatform = $dd->getOs('platform');
+            $device = $dd->getDeviceName();
+            $brand = $dd->getBrandName();
+            $model = $dd->getModel();
+
+            $deviceString = trim($brand . ' ' . $model . ' ' . $device . ' (' . $osName . ' ' . $osVersion . ' ' . $osPlatform . ')');
+
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
                 'hash' => $hash,
                 'remember_me' => $remember,
                 'active' => 1,
-                'login_method' => $is_admin ? 'admin' : $method
+                'login_method' => $is_admin ? 'admin' : $method,
+                'device_name' => $deviceString
             ]);
 
             Session::put($sessionName, $hash);
