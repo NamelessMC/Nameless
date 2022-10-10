@@ -31,27 +31,33 @@ if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 
-if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'logout' && isset($_GET['hash'])) {
-        $hash = $_GET['hash'];
-        DB::getInstance()->update('users_session', ['hash', $hash], [
-            'active' => 0
-        ]);
-        $success = $language->get('admin', 'logout_session_successfully');
+if (Input::exists()) {
+    if (Token::check()) {
+        if ($_POST['action'] == 'logout' && isset($_POST['sid'])) {
+            $id = $_POST['sid'];
+            DB::getInstance()->update('users_session', ['id', $id], [
+                'active' => 0
+            ]);
+            $success = $language->get('admin', 'logout_session_successfully');
+        }
+    } else {
+        $errors[] = $language->get('general', 'invalid_token');
     }
 }
-
+$timeago = new TimeAgo(TIMEZONE);
 $sessions = DB::getInstance()->query('SELECT * FROM nl2_users_session WHERE user_id = ?', [$view_user->data()->id])->results();
 $user_sessions_list = [];
-$cache->setCache('geo_ip_results');
+
 foreach ($sessions as $session) {
     $user_sessions_list[] = [
         'ip' => $session->ip,
-        'hash' => $session->hash,
         'active' => $session->active,
         'device' => $session->device_name,
         'method' => $session->login_method,
-        'logout_link' => URL::build('/panel/users/sessions/', 'id=' . $view_user->data()->id . '&action=logout&hash=' . $session->hash)
+        'id' => $session->id,
+
+        'last_seen_short' => $timeago->inWords($session->last_seen, $language),
+        'last_seen_long' => date(DATE_FORMAT, $session->last_seen),
     ];
 }
 
@@ -60,13 +66,13 @@ $smarty->assign([
         'user' =>  Output::getClean($view_user->data()->username),
     ]),
     'SESSIONS' => $user_sessions_list,
-    'SESSION' => $language->get('admin', 'session'),
     'DEVICE' => $language->get('admin', 'device'),
     'ACTIVE' => $language->get('admin', 'active'),
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
     'LOGOUT' => $language->get('general', 'log_out'),
-    'IP_ADDRESS' => $language->get('admin', 'ip_address')
+    'IP_ADDRESS' => $language->get('admin', 'ip_address'),
+    'LAST_SEEN' => $language->get('user', 'last_seen'),
 ]);
 
 $smarty->assign([

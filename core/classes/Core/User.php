@@ -76,12 +76,14 @@ class User {
                 $hash = Session::get($this->_sessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isLoggedIn = true;
+                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
             if (Session::exists($this->_admSessionName)) {
                 $hash = Session::get($this->_admSessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isAdmLoggedIn = true;
+                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
         } else {
