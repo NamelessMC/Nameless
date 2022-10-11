@@ -675,7 +675,7 @@
     "admin/view_site": "View Site",
     "admin/viewing_email_error": "Viewing error",
     "admin/viewing_integrations_for_x": "Viewing user integrations for {{user}}",
-    "admin/viewing_sessions_for_x": "Viewing user sessions for {{user}}",
+    "admin/viewing_sessions_for_x": "Viewing login sessions for {{user}}",
     "admin/viewing_query_error": "Viewing Query Error",
     "admin/views_x": "Views: {{views}}",
     "admin/warning": "Warning",
