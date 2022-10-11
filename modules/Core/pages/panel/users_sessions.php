@@ -36,7 +36,7 @@ if (Input::exists()) {
         if ($_POST['action'] == 'logout' && isset($_POST['sid'])) {
             $id = $_POST['sid'];
             DB::getInstance()->update('users_session', ['id', $id], [
-                'active' => 0
+                'active' => false
             ]);
             $success = $language->get('general', 'logout_session_successfully');
         }
