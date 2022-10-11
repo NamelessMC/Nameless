@@ -44,7 +44,7 @@ if (Input::exists()) {
         // Facebook URL
         Util::setSetting('fb_url', Input::get('fburl'));
 
-        Session::flash('social_media', $language->get('admin', 'social_media_settings_updated'));
+        Session::flash('social_success', $language->get('admin', 'social_media_settings_updated'));
         Redirect::to(URL::build('/panel/core/social_media'));
     } else {
         // Invalid token
@@ -55,8 +55,8 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('social_media')) {
-    $success = Session::flash('social_media');
+if (Session::exists('social_success')) {
+    $success = Session::flash('social_success');
 }
 
 if (isset($success)) {
