@@ -44,7 +44,8 @@ if (Input::exists()) {
         // Facebook URL
         Util::setSetting('fb_url', Input::get('fburl'));
 
-        $success = $language->get('admin', 'social_media_settings_updated');
+        Session::flash('social_success', $language->get('admin', 'social_media_settings_updated'));
+        Redirect::to(URL::build('/panel/core/social_media'));
     } else {
         // Invalid token
         $errors[] = $language->get('general', 'invalid_token');
@@ -53,6 +54,10 @@ if (Input::exists()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('social_success')) {
+    $success = Session::flash('social_success');
+}
 
 if (isset($success)) {
     $smarty->assign([
