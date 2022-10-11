@@ -71,7 +71,6 @@ foreach ($sessions as $session) {
         'device' => Output::getClean($session->device_name),
         'method' => Output::getClean($session->login_method),
         'id' => Output::getClean($session->id),
-
         'last_seen_short' => $session->last_seen ? $timeago->inWords(Output::getClean($session->last_seen), $language) : $language->get('admin', 'unknown'),
         'last_seen_long' => $session->last_seen ? date(DATE_FORMAT, Output::getClean($session->last_seen)) : $language->get('admin', 'unknown'),
     ];
