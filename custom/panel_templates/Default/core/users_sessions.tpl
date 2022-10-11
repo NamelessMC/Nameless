@@ -82,7 +82,7 @@
                                                     {/if}
                                                 </td>
                                                 <td>
-                                                    {$session.method}
+                                                    {$session.method|ucfirst}
                                                 </td>
                                                 <td class="text-right">
                                                     {if $session.active}
