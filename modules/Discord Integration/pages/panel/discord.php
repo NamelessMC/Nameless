@@ -43,7 +43,7 @@ if (Input::exists()) {
 
             if ($validation->passed()) {
                 Util::setSetting('discord', Input::get('discord_guild_id'));
-                
+
                 Util::setSetting('integration_link_method', Input::get('integration_link_method'), 'Discord Integration');
                 $success = Discord::getLanguageTerm('discord_settings_updated');
 
@@ -69,7 +69,8 @@ if (Input::exists()) {
         }
 
         if (!count($errors)) {
-            $success = Discord::getLanguageTerm('discord_settings_updated');
+            Session::flash('discord_success', Discord::getLanguageTerm('discord_settings_updated'));
+            Redirect::to(URL::build('/panel/discord'));
         }
     } else {
         // Invalid token
@@ -79,6 +80,10 @@ if (Input::exists()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('discord_success')) {
+    $success = Session::flash('discord');
+}
 
 if (isset($success)) {
     $smarty->assign([
