@@ -56,7 +56,8 @@ if (isset($_GET['do'])) {
                 'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
-                'ERROR_TITLE' => $language->get('general', 'error')
+                'ERROR_TITLE' => $language->get('general', 'error'),
+                'TOKEN' => Token::get(),
             ]);
 
             if (isset($errors) && count($errors)) {
@@ -64,11 +65,6 @@ if (isset($_GET['do'])) {
                     'ERRORS' => $errors
                 ]);
             }
-
-            // Load modules + template
-
-            // Display template
-
         } else {
             // Validate code to see if it matches the secret
             if (Input::exists()) {
@@ -88,11 +84,8 @@ if (isset($_GET['do'])) {
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
                         }
-
-                        $error = $language->get('user', 'invalid_tfa');
-                    } else {
-                        $error = $language->get('user', 'invalid_tfa');
                     }
+                    $error = $language->get('user', 'invalid_tfa');
                 } else {
                     $error = $language->get('general', 'invalid_token');
                 }
@@ -111,11 +104,6 @@ if (isset($_GET['do'])) {
                 'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
                 'ERROR_TITLE' => $language->get('general', 'error')
             ]);
-
-            // Load modules + template
-
-            // Display template
-
         }
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
         require(ROOT_PATH . '/core/templates/cc_navbar.php');

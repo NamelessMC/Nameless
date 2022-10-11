@@ -47,7 +47,10 @@
                     {$TFA_CODE_TEXT} <strong>{$TFA_CODE}</strong>
                 </div>
                 <a class="ui primary button" href="{$LINK}">{$NEXT}</a>
-                <a class="ui red button" href="{$CANCEL_LINK}">{$CANCEL}</a>
+                <form class="ui form" action="{$CANCEL_LINK}" method="post">
+                    <input type="hidden" name="token" value="{$TOKEN}">
+                    <input type="submit" value="{$CANCEL}" class="ui red button">
+                </form>
                 {else}
                 <form class="ui form" action="" method="post" id="form-tfa-code">
                     <div class="field">
@@ -56,7 +59,10 @@
                     </div>
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input type="submit" class="ui primary button" value="{$SUBMIT}">
-                    <a class="ui negative button" href="{$CANCEL_LINK}">{$CANCEL}</a>
+                    <form class="ui form" action="{$CANCEL_LINK}" method="post">
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                        <input type="submit" value="{$CANCEL}" class="ui negative button">
+                    </form>
                 </form>
                 {/if}
             </div>

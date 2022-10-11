@@ -447,7 +447,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($profile_user->isPrivateProfile() && $user->canPrivateProfile()) {
+    if ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
             'CAN_VIEW' => false

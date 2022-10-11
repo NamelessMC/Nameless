@@ -27,9 +27,10 @@ class NamelessOAuth extends Instanceable {
      * @param string $name The name of the provider (Discord, Google, etc).
      * @param string $module Name of the module which registered this provider.
      * @param array $data Metadata about the provider: class, user_id_name, scope_id_name, icon
+     * @param array $extra_options Extra options to pass to the provider constructor. Example: keycloak needs some specific options
      */
-    public function registerProvider(string $name, string $module, array $data): void {
-        $this->_providers[$name] = array_merge(['module' => $module], $data);
+    public function registerProvider(string $name, string $module, array $data, array $extra_options = []): void {
+        $this->_providers[$name] = array_merge(['module' => $module, 'extra_options' => $extra_options], $data);
     }
 
     /**
@@ -90,6 +91,10 @@ class NamelessOAuth extends Instanceable {
      * @return AbstractProvider The provider instance
      */
     public function getProviderInstance(string $provider): AbstractProvider {
+        if (!array_key_exists($provider, $this->_providers)) {
+            throw new RuntimeException("Unknown provider: $provider");
+        }
+
         [$clientId, $clientSecret] = $this->getCredentials($provider);
         $url = rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', "provider=" . urlencode($provider), 'non-friendly');
         $options = [
@@ -98,11 +103,9 @@ class NamelessOAuth extends Instanceable {
             'redirectUri' => $url,
         ];
 
-        if (array_key_exists($provider, $this->_providers)) {
-            return $this->_provider_instances[$provider] ??= new $this->_providers[$provider]['class']($options);
-        }
+        $options = array_merge($options, $this->_providers[$provider]['extra_options']);
 
-        throw new RuntimeException("Unknown provider: $provider");
+        return $this->_provider_instances[$provider] ??= new $this->_providers[$provider]['class']($options);
     }
 
     /**
