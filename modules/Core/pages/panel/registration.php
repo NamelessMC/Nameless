@@ -99,7 +99,7 @@ if (Input::exists()) {
         }
 
         if (!count($errors)) {
-            Session::flash('registration_settings', $language->get('admin', 'registration_settings_updated'));
+            Session::flash('registration_success', $language->get('admin', 'registration_settings_updated'));
             Redirect::to(URL::build('/panel/core/registration'));
         }
     } else {
@@ -111,8 +111,8 @@ if (Input::exists()) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if (Session::exists('registration_settings')) {
-    $success = Session::flash('registration_settings');
+if (Session::exists('registration_success')) {
+    $success = Session::flash('registration_success');
 }
 
 if (isset($success)) {
