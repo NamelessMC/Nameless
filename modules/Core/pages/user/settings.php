@@ -606,7 +606,7 @@ if (isset($_GET['do'])) {
         'ENABLED' => $language->get('user', 'enabled'),
         'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
-        'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0'
+        'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
     ]);
 
     if (defined('CUSTOM_AVATARS')) {
@@ -616,7 +616,8 @@ if (isset($_GET['do'])) {
             'BROWSE' => $language->get('general', 'browse'),
             'UPLOAD_NEW_PROFILE_IMAGE' => $language->get('user', 'upload_new_avatar'),
             'REMOVE_AVATAR' => $language->get('user', 'remove_avatar'),
-            'REMOVE' => $language->get('general', 'remove')
+            'REMOVE' => $language->get('general', 'remove'),
+            'HAS_CUSTOM_AVATAR' => $user->data()->has_avatar
         ]);
     }
 
