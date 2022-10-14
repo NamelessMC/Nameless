@@ -693,6 +693,7 @@
     "admin/trusted_proxies_not_configured": "{{linkStart}}Trusted proxies{{linkEnd}} are not configured, IP bans may not work properly.",
     "admin/https_port_80": "You appear as if you are using HTTPS on port 80, which is almost definitely not true. If you use Cloudflare, make sure to set TLS encryption mode to Full (strict). If you run your own proxy, please configure it to send the X-Forwarded-Port header.",
     "admin/debugging_enabled": "Debugging is enabled, sensitive information may be exposed to unauthorised visitors. Debugging should only be used for development, not on public sites.",
+    "admin/require_minecraft_username_on_registration": "Require Minecraft Username on registration?",
     "api/account_validated": "Account validated successfully",
     "api/finish_registration_email": "Please check your emails to complete registration.",
     "api/finish_registration_link": "Please click on the following link to complete registration:",

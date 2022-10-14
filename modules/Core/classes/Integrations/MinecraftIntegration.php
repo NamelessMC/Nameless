@@ -135,6 +135,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+            return;
+        }
+
         $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 
         $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $username_value, null, null, 1);
@@ -145,6 +149,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function afterRegistrationValidation() {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+            return;
+        }
+
         $username = Input::get('username');
 
         // Validate username
@@ -166,6 +174,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function successfulRegistration(User $user) {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+            return;
+        }
+        
         $code = SecureRandom::alphanumeric();
 
         $integrationUser = new IntegrationUser($this);
