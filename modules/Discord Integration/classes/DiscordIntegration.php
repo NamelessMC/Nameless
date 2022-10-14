@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.0.2
+ * @version 2.1.0
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
@@ -15,6 +15,7 @@ class DiscordIntegration extends IntegrationBase {
         $this->_name = 'Discord';
         $this->_icon = 'fab fa-discord';
         $this->_language = $language;
+        $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_integrations/discord.php';
 
         parent::__construct();
     }

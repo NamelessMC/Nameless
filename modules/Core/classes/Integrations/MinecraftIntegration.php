@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.1.0
  * @license MIT
  */
 class MinecraftIntegration extends IntegrationBase {
@@ -16,6 +16,7 @@ class MinecraftIntegration extends IntegrationBase {
         $this->_name = 'Minecraft';
         $this->_icon = 'fas fa-cubes';
         $this->_language = $language;
+        $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_integrations/minecraft.php';
 
         parent::__construct();
     }

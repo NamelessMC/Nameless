@@ -2,7 +2,7 @@
 /*
  *  Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -56,17 +56,23 @@ if (!isset($_GET['integration'])) {
         $errors = [];
 
         if (Token::check()) {
-            DB::getInstance()->update('integrations', $integration->data()->id, [
-                'enabled' => Output::getClean(Input::get('enabled')),
-                'can_unlink' => Output::getClean(Input::get('can_unlink')),
-                'required' => Output::getClean(Input::get('required'))
-            ]);
+            if (Input::get('action') === 'general_settings') {
+                DB::getInstance()->update('integrations', $integration->data()->id, [
+                    'enabled' => Output::getClean(Input::get('enabled')),
+                    'can_unlink' => Output::getClean(Input::get('can_unlink')),
+                    'required' => Output::getClean(Input::get('required'))
+                ]);
 
-            Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
-            Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+                Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
+                Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+            }
         } else {
             $errors[] = $language->get('general', 'invalid_token');
         }
+    }
+
+    if ($integration->getSettings() !== null && file_exists($integration->getSettings())) {
+        require_once($integration->getSettings());
     }
 
     $smarty->assign([
