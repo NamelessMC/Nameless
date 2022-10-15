@@ -84,11 +84,8 @@ if (isset($_GET['do'])) {
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
                         }
-
-                        $error = $language->get('user', 'invalid_tfa');
-                    } else {
-                        $error = $language->get('user', 'invalid_tfa');
                     }
+                    $error = $language->get('user', 'invalid_tfa');
                 } else {
                     $error = $language->get('general', 'invalid_token');
                 }

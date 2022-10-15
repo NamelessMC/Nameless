@@ -65,7 +65,7 @@ if (!isset($_GET['view'])) {
             Util::setSetting('username_sync', $username_sync);
 
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
-
+            Redirect::to(URL::build('/panel/core/api'));
             //Log::getInstance()->log(Log::Action('admin/api/change'));
         } else {
             $errors[] = $language->get('general', 'invalid_token');

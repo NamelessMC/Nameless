@@ -107,6 +107,18 @@ if (Session::get('oauth_method') === 'login') {
     $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
     $user = new User($user_id);
 
+    // Make sure user is validated
+    if (!$user->isValidated()) {
+        Session::flash('oauth_error', $language->get('user', 'inactive_account'));
+        Redirect::to(URL::build('/login'));
+    }
+
+    // Make sure user is not banned
+    if ($user->data()->isbanned == 1) {
+        Session::flash('oauth_error', $language->get('user', 'account_banned'));
+        Redirect::to(URL::build('/login'));
+    }
+
     // If the user has 2FA enabled, ask for those credentials
     if ($user->data()->tfa_enabled == 1 && $user->data()->tfa_complete == 1) {
         $_SESSION['user_id'] = $user_id;
