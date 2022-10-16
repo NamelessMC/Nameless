@@ -57,7 +57,7 @@ foreach ($sessions as $session) {
         if (!$response->hasError()) {
             $json = $response->json();
             if ($json->status == 'success') {
-                $location = $json->city . ', ' . $json->city;
+                $location = $json->city . ', ' . $json->country;
             } else {
                 $location = 'Unknown';
             }
