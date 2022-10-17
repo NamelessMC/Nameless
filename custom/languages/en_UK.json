@@ -656,6 +656,7 @@
     "admin/user_unlink_integration_hook_info": "User unlink integration",
     "admin/user_updated_successfully": "User updated successfully.",
     "admin/user_validated_successfully": "User validated successfully.",
+    "admin/user_password_changed_successfully": "User password changed successfully",
     "admin/user_verify_integration_hook_info": "User verify integration",
     "admin/users": "Users",
     "admin/uuid": "UUID",
