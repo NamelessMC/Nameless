@@ -1219,6 +1219,8 @@
     "user/unblock_user": "Unblock User",
     "user/upload": "Upload",
     "user/upload_new_avatar": "Upload a new avatar",
+    "user/avatar_removed_successfully": "Avatar removed successfully",
+    "user/remove_avatar": "Remove avatar",
     "user/upload_profile_banner": "Upload Profile Banner",
     "user/user_blocked": "User blocked.",
     "user/user_cp": "Account",
