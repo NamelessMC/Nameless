@@ -71,12 +71,18 @@ if (!isset($_GET['integration'])) {
         }
     }
 
-    if ($integration->getSettings() !== null && file_exists($integration->getSettings())) {
-        require_once($integration->getSettings());
+    if ($integration->getSettings() !== null) {
+        if (file_exists($integration->getSettings())) {
+            require_once($integration->getSettings());
+        } else {
+            $errors[] = $language->get('admin', 'integration_settings_does_not_exist', [
+                'integration' => Output::getClean($integration->getName())
+            ]);
+        }
     }
 
     $smarty->assign([
-        'EDITING_INTEGRATION' => $language->get('admin', 'editing_integration_x', ['integration' => $integration->getName()]),
+        'EDITING_INTEGRATION' => $language->get('admin', 'editing_integration_x', ['integration' => Output::getClean($integration->getName())]),
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/integrations'),
         'ENABLED' => $language->get('admin', 'enabled'),
