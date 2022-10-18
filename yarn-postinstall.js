@@ -66,6 +66,10 @@ const publicAssets = {
     'dist/css/select2.min.css',
   ],
   'tinymce': [
+    'icons',
+    'plugins',
+    'skins',
+    'themes',
     'tinymce.min.js',
   ],
 };
