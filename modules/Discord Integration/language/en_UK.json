@@ -51,5 +51,5 @@
     "discord_integration\/unable_to_update_discord_roles": "Unable to update Discord roles list.",
     "discord_integration\/unable_to_update_discord_username": "Unable to update Discord username.",
     "discord_integration\/discord_bot": "Discord Bot",
-    "discord_integration\/integration_link_method": "Discord integration link method"
+    "discord_integration\/link_method": "Link method"
 }
