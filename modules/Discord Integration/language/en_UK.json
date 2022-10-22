@@ -15,7 +15,7 @@
     "discord_integration\/discord_communication_error": "There was an error while communicating with the Discord Bot. Please ensure the bot is running and your Bot URL is correct.",
     "discord_integration\/discord_database_error": "The Nameless Link database is currently down. Please try again later.",
     "discord_integration\/discord_guild_id": "Discord Server ID",
-    "discord_integration\/discord_id_confirm": "Please run the command \"\/verify {{token}}\" in Discord to finish linking your Discord account.",
+    "discord_integration\/discord_id_confirm": "Please run the command \"\/verify token:{{token}}\" in Discord to finish linking your Discord account.",
     "discord_integration\/discord_id_help": "For information on where to find Discord IDs, please read {{linkStart}}this.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Please ensure your Discord Server ID is between {{min}} and {{max}} digits long.",
     "discord_integration\/discord_id_numeric": "Please ensure your Discord Server ID is numeric (Numbers only).",
