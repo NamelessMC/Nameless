@@ -2,7 +2,7 @@
 {include file='navbar.tpl'}
 
 <h2 class="ui header">
-    Account
+    {$TITLE}
 </h2>
 
 {if isset($ERROR)}

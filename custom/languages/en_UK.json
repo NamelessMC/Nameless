@@ -1126,6 +1126,7 @@
     "user/last_seen_x": "Last Seen: {{lastSeenAt}}",
     "user/latest_profile_posts": "Latest Profile Posts",
     "user/leave_conversation": "Leave Conversation",
+    "user/like": "Like",
     "user/max_pm_10_users": "You can only send a message to a maximum of 10 users",
     "user/mcname_already_exists": "Your Minecraft username already exists.",
     "user/mcname_lookup_error": "There has been an error communicating with Mojang's servers to verify your username. Please try again later.",
