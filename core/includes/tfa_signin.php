@@ -35,7 +35,7 @@ $smarty->assign([
     'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-];
+]);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
