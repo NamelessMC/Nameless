@@ -39,7 +39,6 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
-                            <form action="" method="POST">
                                 <h4>{$REQUIREMENTS}</h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped">
