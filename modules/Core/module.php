@@ -478,6 +478,30 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('userNewProfilePost',
+            $language->get('admin', 'user_new_profile_post_hook_info'),
+            [
+                'username' => $language->get('user', 'username'),
+                'content' => $language->get('general', 'content'),
+                'content_full' => $language->get('general', 'full_content'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'title' => $language->get('user', 'new_profile_post_title'),
+                'url' => $language->get('general', 'url')
+            ]
+        );
+
+        EventHandler::registerEvent('userProfilePostReply',
+            $language->get('admin', 'user_profile_post_reply_hook_info'),
+            [
+                'username' => $language->get('user', 'username'),
+                'content' => $language->get('general', 'content'),
+                'content_full' => $language->get('general', 'full_content'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'title' => $language->get('user', 'profile_post_reply_title'),
+                'url' => $language->get('general', 'url')
+            ]
+        );
+
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
