@@ -39,17 +39,22 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 
             $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
+                $posts = implode(',', array_column($posts_to_move, 'id'));
+                DB::getInstance()->query(
+                    "UPDATE nl2_posts SET `topic_id` = ? WHERE `id` IN ($posts)",
+                    [Input::get('merge')]
+                );
 
-                foreach ($posts_to_move as $post_to_move) {
-                    DB::getInstance()->update('posts', $post_to_move->id, [
-                        'topic_id' => Input::get('merge')
-                    ]);
-                }
+                $newTopic = DB::getInstance()->get('topics', ['id', Input::get('merge')])->first();
+
                 DB::getInstance()->delete('topics', ['id', $topic_id]);
                 Log::getInstance()->log(Log::Action('forums/merge'));
                 // Update latest posts in categories
-                $forum->updateForumLatestPosts();
-                $forum->updateTopicLatestPosts();
+                $forum->updateForumLatestPosts($forum_id);
+                if ($newTopic->forum_id != $forum_id) {
+                    $forum->updateForumLatestPosts($newTopic->forum_id);
+                }
+                $forum->updateTopicLatestPosts(intval(Input::get('merge')));
 
                 Redirect::to(URL::build('/forum/topic/' . urlencode(Input::get('merge'))));
 

@@ -1,9 +1,8 @@
 <?php
-
 /*
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.2
  *
  *  License: MIT
  *
@@ -51,21 +50,37 @@ class ProfilePostsWidget extends WidgetBase {
         if ($this->_cache->isCached('profile_posts_' . $user_id)) {
             $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
         } else {
-            $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
+            if ($this->_user->isLoggedIn()) {
+                if ($this->_user->hasPermission('profile.private.bypass')) {
+                    $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY `time` DESC LIMIT 5')->results();
+                } else {
+                    $posts = DB::getInstance()->query(
+                        <<<SQL
+                        SELECT *
+                        FROM nl2_user_profile_wall_posts
+                        WHERE `user_id` NOT IN (
+                            SELECT `id` FROM nl2_users WHERE `private_profile` = 1
+                        )
+                        AND EXISTS (SELECT `id` FROM nl2_blocked_users WHERE `user_blocked_id` = `user_id`) = 0
+                        ORDER BY `time` DESC LIMIT 5
+                        SQL,
+                    )->results();
+                }
+            } else {
+                $posts = DB::getInstance()->query(
+                    <<<SQL
+                        SELECT *
+                        FROM nl2_user_profile_wall_posts
+                        WHERE `user_id` NOT IN (
+                            SELECT `id` FROM nl2_users WHERE `private_profile` = 1
+                        )
+                        ORDER BY `time` DESC LIMIT 5
+                        SQL,
+                )->results();
+            }
+
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
-
-                if ($this->_user->isLoggedIn()) {
-                    if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) {
-                        continue;
-                    }
-                    if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) {
-                        continue;
-                    }
-                } else if ($post_author->isPrivateProfile()) {
-                    continue;
-                }
-
                 $post_user = new User($post->user_id);
                 $link = rtrim($post_user->getProfileURL(), '/');
 
