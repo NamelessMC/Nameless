@@ -54,7 +54,7 @@ class LatestPostsWidget extends WidgetBase {
 
         } else {
             // Generate latest posts
-            $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0));
+            $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0), 5);
 
             $n = 0;
             // Calculate the number of discussions to display (5 max)
@@ -74,7 +74,7 @@ class LatestPostsWidget extends WidgetBase {
                 $forum_name = Output::getPurified($forum_name[0]->forum_title);
 
                 // Get the number of replies
-                $posts = $db->get('posts', ['topic_id', $discussion->id])->count();
+                $posts = $db->query('SELECT COUNT(*) as c FROM nl2_posts WHERE `topic_id` = ? AND `deleted` = 0', [$discussion->id])->first()->c;
 
                 // Is there a label?
                 if ($discussion->label != 0) {
