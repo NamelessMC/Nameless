@@ -396,7 +396,6 @@ class Forum {
      * @param int $forum_id The forum ID to update
      */
     public function updateForumLatestPosts(int $forum_id): void {
-        echo "Checking latest posts for $forum_id<br />";
         $latest_post = $this->_db->query(
             <<<SQL
                 SELECT `created`, 
