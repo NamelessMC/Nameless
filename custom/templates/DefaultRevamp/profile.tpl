@@ -110,7 +110,7 @@
                                 {if isset($LOGGED_IN_USER)}
                                 {if $post.user_id ne $VIEWER_ID}
                                 <a href="{if $post.reactions_link !== " #"}{$post.reactions_link}{else}#{/if}"
-                                    data-toggle="popup">Like
+                                    data-toggle="popup">{$LIKE}
                                     {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' !=
                                     0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
                                 {/if}
