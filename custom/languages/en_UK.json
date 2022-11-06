@@ -709,6 +709,7 @@
     "api/unknown_error": "Unknown error",
     "api/user_already_active": "Your account has already been activated.",
     "api/username_updated": "Username updated successfully",
+    "api/webhook_added": "The webhook has been created",
     "emails/change_password_message": "To reset your password, please click the following link. If you did not request this yourself, you can safely delete this email.",
     "emails/change_password_subject": "Forgot password",
     "emails/forum_topic_reply_message": "{{author}} has replied to a topic you follow. Content: {{content}}",
