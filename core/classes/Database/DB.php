@@ -163,7 +163,7 @@ class DB {
     }
 
     /**
-     * Perform a DELTE query on the database.
+     * Perform a DELETE query on the database.
      *
      * @param string $table The table to delete from.
      * @param array $where The where clause.
@@ -201,7 +201,7 @@ class DB {
 
             if ($this->_statement->execute()) {
                 // Only fetch the results if this is a SELECT query.
-                if ($isSelect || str_starts_with(strtoupper($sql), 'SELECT')) {
+                if ($isSelect || str_starts_with(strtoupper(ltrim($sql)), 'SELECT')) {
                     $this->_results = $this->_statement->fetchAll(PDO::FETCH_OBJ);
                 }
                 $this->_count = $this->_statement->rowCount();
@@ -209,6 +209,8 @@ class DB {
                 print_r($this->_pdo->errorInfo());
                 $this->_error = true;
             }
+        } else {
+            $this->_results = [];
         }
 
         return $this;

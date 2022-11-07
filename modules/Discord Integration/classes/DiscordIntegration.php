@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.1.0
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
@@ -15,17 +15,30 @@ class DiscordIntegration extends IntegrationBase {
         $this->_name = 'Discord';
         $this->_icon = 'fab fa-discord';
         $this->_language = $language;
+        $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_integrations/discord.php';
 
         parent::__construct();
     }
 
     public function onLinkRequest(User $user) {
-        $token = uniqid('', true);
+        $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
+        if ($link_method == 'oauth') {
+            // Link with oauth
+            Session::put('oauth_method', 'link_integration');
 
-        $integrationUser = new IntegrationUser($this);
-        $integrationUser->linkIntegration($user, null, null, false, $token);
+            $providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+            $provider = $providers['discord'];
 
-        Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
+            Redirect::to($provider['url']);
+        } else {
+            // Discord bot linking
+            $token = uniqid('', true);
+
+            $integrationUser = new IntegrationUser($this);
+            $integrationUser->linkIntegration($user, null, null, false, $token);
+
+            Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
+        }
     }
 
     public function onVerifyRequest(User $user) {
@@ -122,7 +135,12 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function allowLinking(): bool {
-        return Discord::isBotSetup();
+        $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
+        if ($link_method == 'oauth') {
+            return NamelessOAuth::getInstance()->isEnabled('discord');
+        } else {
+            return Discord::isBotSetup();
+        }
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
@@ -148,6 +166,7 @@ class DiscordIntegration extends IntegrationBase {
                 if ($this->validateIdentifier($discord_id) && $this->validateUsername($username)) {
                     $integrationUser = new IntegrationUser($this);
                     $integrationUser->linkIntegration($user, $discord_id, $username, true);
+                    $integrationUser->verifyIntegration();
                 }
             }
         }

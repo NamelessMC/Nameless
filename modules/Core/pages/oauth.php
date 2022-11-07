@@ -3,12 +3,21 @@
 const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
+    Session::delete('oauth_register_data');
+    Redirect::to(URL::build('/register'));
+}
+
 if (!isset($_GET['provider'], $_GET['code'])) {
-    if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
-        ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
-        Session::flash('home_error', $language->get('general', 'oauth_failed'));
-        Redirect::to(URL::build('/'));
-    }
+    ErrorHandler::logWarning('No provider or code set when accessing OAuth');
+    Session::flash('home_error', $language->get('general', 'oauth_no_data'));
+    Redirect::to(URL::build('/'));
+}
+
+if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
+    ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
+    Session::flash('home_error', $language->get('general', 'oauth_failed'));
+    Redirect::to(URL::build('/'));
 }
 
 if (!Session::exists('oauth_method')) {
@@ -62,6 +71,9 @@ try {
 
         case 'link':
             Redirect::to(URL::build('/user/oauth/'));
+
+        case 'link_integration':
+            Redirect::to(URL::build('/user/connections/'));
     }
 }
 
@@ -94,6 +106,18 @@ if (Session::get('oauth_method') === 'login') {
 
     $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
     $user = new User($user_id);
+
+    // Make sure user is validated
+    if (!$user->isValidated()) {
+        Session::flash('oauth_error', $language->get('user', 'inactive_account'));
+        Redirect::to(URL::build('/login'));
+    }
+
+    // Make sure user is not banned
+    if ($user->data()->isbanned == 1) {
+        Session::flash('oauth_error', $language->get('user', 'account_banned'));
+        Redirect::to(URL::build('/login'));
+    }
 
     // If the user has 2FA enabled, ask for those credentials
     if ($user->data()->tfa_enabled == 1 && $user->data()->tfa_complete == 1) {
@@ -140,4 +164,36 @@ if (Session::get('oauth_method') === 'link') {
     Session::delete('oauth_method');
 
     Redirect::to(URL::build('/user/oauth'));
+}
+
+// link user integration
+if (Session::get('oauth_method') === 'link_integration') {
+    $integration = Integrations::getInstance()->getIntegration($provider_name);
+    if ($integration == null) {
+        Session::flash('connections_error', $language->get('general', 'oauth_failed_setup'));
+    }
+
+    // Allow the user integration to access the data from the oauth response
+    Session::put('oauth_register_data', json_encode([
+        'provider' => $provider_name,
+        'id' => $provider_id,
+        'email' => $oauth_user['email'],
+        'data' => $oauth_user
+    ]));
+
+    // Link the user integration
+    $integration->successfulRegistration($user);
+
+    // Link their oauth details if its not linked already
+    if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+        NamelessOAuth::getInstance()->saveUserProvider(
+            $user->data()->id,
+            $provider_name,
+            $provider_id,
+        );
+    }
+
+    Session::delete('oauth_register_data');
+    Session::delete('oauth_method');
+    Redirect::to(URL::build('/user/connections'));
 }

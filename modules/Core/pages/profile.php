@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -108,6 +108,19 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]
                             );
 
+                            $default_language = new Language('core', DEFAULT_LANGUAGE);
+                            EventHandler::executeEvent('userNewProfilePost', [
+                                'username' => $user->getDisplayname(true),
+                                'content' => $default_language->get('user', 'x_posted_on_y_profile', [
+                                    'poster' => $user->getDisplayname(),
+                                    'user' => $query->username
+                                ]),
+                                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('post'))),
+                                'avatar_url' => $user->getAvatar(128, true),
+                                'title' => $default_language->get('user', 'new_profile_post'),
+                                'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/')
+                            ]);
+
                             if ($query->id !== $user->data()->id) {
                                 // Alert user
                                 Alert::create(
@@ -177,6 +190,19 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     'content' => Input::get('reply')
                                 ]
                             );
+
+                            $default_language = new Language('core', DEFAULT_LANGUAGE);
+                            EventHandler::executeEvent('userProfilePostReply', [
+                                'username' => $user->getDisplayname(true),
+                                'content' => $default_language->get('user', 'x_replied_on_y_profile', [
+                                    'replier' => $user->getDisplayname(),
+                                    'user' => $query->username
+                                ]),
+                                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('reply'))),
+                                'avatar_url' => $user->getAvatar(128, true),
+                                'title' => $default_language->get('user', 'profile_post_reply'),
+                                'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post'])), '/')
+                            ]);
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
                                 Alert::create(
@@ -447,7 +473,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($profile_user->isPrivateProfile() && $user->canPrivateProfile()) {
+    if ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
             'CAN_VIEW' => false
@@ -576,7 +602,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayname())]),
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
-        'REACTIONS_TITLE' => $language->get('user', 'likes'),
+        'LIKE' => $language->get('user', 'like'),
         //'REACTIONS' => $reactions,
         'CLOSE' => $language->get('general', 'close'),
         'REPLIES_TITLE' => $language->get('user', 'replies'),

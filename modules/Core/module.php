@@ -113,8 +113,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
-        $pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
-
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));
 
@@ -480,6 +478,30 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('userNewProfilePost',
+            $language->get('admin', 'user_new_profile_post_hook_info'),
+            [
+                'username' => $language->get('user', 'username'),
+                'content' => $language->get('general', 'content'),
+                'content_full' => $language->get('general', 'full_content'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'title' => $language->get('user', 'new_profile_post_title'),
+                'url' => $language->get('general', 'url')
+            ]
+        );
+
+        EventHandler::registerEvent('userProfilePostReply',
+            $language->get('admin', 'user_profile_post_reply_hook_info'),
+            [
+                'username' => $language->get('user', 'username'),
+                'content' => $language->get('general', 'content'),
+                'content_full' => $language->get('general', 'full_content'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'title' => $language->get('user', 'profile_post_reply_title'),
+                'url' => $language->get('general', 'url')
+            ]
+        );
+
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
@@ -789,7 +811,7 @@ class Core_Module extends Module {
 
         // Check for updates
         if ($user->isLoggedIn()) {
-            if ((defined('PANEL_PAGE') && PANEL_PAGE !== 'update') && $user->hasPermission('admincp.update')) {
+            if (!(defined('PANEL_PAGE') && PANEL_PAGE === 'update') && $user->hasPermission('admincp.update')) {
                 $cache->setCache('update_check');
                 if ($cache->isCached('update_check')) {
                     $update_check = $cache->retrieve('update_check');

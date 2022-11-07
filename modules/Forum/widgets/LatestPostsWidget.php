@@ -3,7 +3,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -32,6 +32,7 @@ class LatestPostsWidget extends WidgetBase {
         $this->_name = 'Latest Posts';
         $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display latest posts from your forum.';
+        $this->_settings = ROOT_PATH . '/modules/Forum/widgets/admin/latest_posts.php';
         $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign([
@@ -57,11 +58,10 @@ class LatestPostsWidget extends WidgetBase {
             $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0));
 
             $n = 0;
-            // Calculate the number of discussions to display (5 max)
-            if (count($discussions) <= 5) {
+            // Calculate the number of discussions to display
+            $limit = Util::getSetting('latest_posts_limit', 5, 'Forum');
+            if (count($discussions) <= $limit) {
                 $limit = count($discussions);
-            } else {
-                $limit = 5;
             }
 
             $template_array = [];

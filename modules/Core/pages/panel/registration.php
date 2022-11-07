@@ -99,7 +99,8 @@ if (Input::exists()) {
         }
 
         if (!count($errors)) {
-            $success = $language->get('admin', 'registration_settings_updated');
+            Session::flash('registration_success', $language->get('admin', 'registration_settings_updated'));
+            Redirect::to(URL::build('/panel/core/registration'));
         }
     } else {
         // Invalid token
@@ -109,6 +110,10 @@ if (Input::exists()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('registration_success')) {
+    $success = Session::flash('registration_success');
+}
 
 if (isset($success)) {
     $smarty->assign([
@@ -193,7 +198,7 @@ $smarty->assign([
     'REDIRECT_URL' => $language->get('admin', 'redirect_url'),
     'CLIENT_ID' => $language->get('admin', 'client_id'),
     'CLIENT_SECRET' => $language->get('admin', 'client_secret'),
-    'OAUTH_URL' => URL::getSelfURL() . ltrim(URL::build('/oauth/', 'provider={{provider}}'), '/'),
+    'OAUTH_URL' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider={{provider}}', 'non-friendly'),
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),

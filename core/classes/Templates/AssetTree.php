@@ -84,6 +84,10 @@ class AssetTree {
      * @var string TinyMCE Spoiler plugin. Used individually when posts will be shown but not created (home page for example)
      */
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
+    /**
+     * @var string Fomantic-UI bundle v2.8 (CSS + JS)
+     */
+    public const FOMANTIC_UI = 'FOMANTIC_UI';
 
     /**
      * @var mixed Tree of all available assets, with their applicable CSS/JS files.
@@ -100,7 +104,7 @@ class AssetTree {
                 'vendor/bootstrap/dist/css/bootstrap.min.css',
             ],
             'js' => [
-                'vendor/bootstrap/dist/js/bootstrap.bundle.js',
+                'vendor/bootstrap/dist/js/bootstrap.bundle.min.js',
             ],
             'after' => [
                 self::JQUERY_UI,
@@ -247,6 +251,17 @@ class AssetTree {
             'depends' => [
                 self::JQUERY,
             ],
+        ],
+        self::FOMANTIC_UI => [
+            'css' => [
+                'vendor/fomantic-ui/dist/semantic.min.css',
+            ],
+            'js' => [
+                'vendor/fomantic-ui/dist/semantic.min.js',
+            ],
+            'after' => [
+                self::JQUERY,
+            ]
         ],
     ];
 }

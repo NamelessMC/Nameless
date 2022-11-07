@@ -69,16 +69,18 @@ class OnlineUsersWidget extends WidgetBase {
 
             foreach ($online as $item) {
                 $online_user = new User($item->id);
-                $users[] = [
-                    'profile' => $online_user->getProfileURL(),
-                    'style' => $online_user->getGroupStyle(),
-                    'username' => $online_user->getDisplayname(true),
-                    'nickname' => $online_user->getDisplayname(),
-                    'avatar' => $online_user->getAvatar(),
-                    'id' => Output::getClean($online_user->data()->id),
-                    'title' => Output::getClean($online_user->data()->user_title),
-                    'group' => $online_user->getMainGroup()->group_html
-                ];
+                if ($online_user->exists()) {
+                    $users[] = [
+                        'profile' => $online_user->getProfileURL(),
+                        'style' => $online_user->getGroupStyle(),
+                        'username' => $online_user->getDisplayname(true),
+                        'nickname' => $online_user->getDisplayname(),
+                        'avatar' => $online_user->getAvatar(),
+                        'id' => Output::getClean($online_user->data()->id),
+                        'title' => Output::getClean($online_user->data()->user_title),
+                        'group' => $online_user->getMainGroup()->group_html
+                    ];
+                }
             }
 
             $this->_smarty->assign([
