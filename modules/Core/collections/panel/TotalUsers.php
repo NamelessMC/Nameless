@@ -34,11 +34,11 @@ class TotalUsersItem extends CollectionItemBase {
 
     public function getContent(): string {
         // Get the number of total users
-        $users_query = DB::getInstance()->get('users', ['id', '<>', 0])->results();
+        $users_query = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_users')->first()->c;
 
         $this->_smarty->assign([
             'TITLE' => $this->_language->get('admin', 'total_users'),
-            'VALUE' => count($users_query)
+            'VALUE' => $users_query
         ]);
 
         return $this->_smarty->fetch('collections/dashboard_stats/total_users.tpl');
