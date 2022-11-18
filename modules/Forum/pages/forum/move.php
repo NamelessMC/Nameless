@@ -44,22 +44,24 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
 
             $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
-
                 DB::getInstance()->update('topics', $topic->id, [
-                    'forum_id' => Input::get('forum')
+                    'forum_id' => intval(Input::get('forum'))
                 ]);
-                foreach ($posts_to_move as $post_to_move) {
-                    DB::getInstance()->update('posts', $post_to_move->id, [
-                        'forum_id' => Input::get('forum')
-                    ]);
-                }
+                $posts = implode(',', array_column($posts_to_move, 'id'));
+                DB::getInstance()->query(
+                    "UPDATE nl2_posts SET `forum_id` = ? WHERE `id` IN ($posts)",
+                    [intval(Input::get('forum'))]
+                );
 
                 //TODO: Topic name & and Forums name
                 Log::getInstance()->log(Log::Action('forums/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('forum')));
 
                 // Update latest posts in categories
-                $forum->updateForumLatestPosts();
-                $forum->updateTopicLatestPosts();
+                $forum->updateForumLatestPosts(intval(Input::get('forum')));
+                if (Input::get('forum') != $forum_id) {
+                    $forum->updateForumLatestPosts($forum_id);
+                }
+                $forum->updateTopicLatestPosts($topic->id);
 
                 Redirect::to(URL::build('/forum/topic/' . $topic_id));
 
