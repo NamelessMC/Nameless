@@ -48,6 +48,30 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
             Redirect::to(URL::build('/forum/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
         }
 
+        // First get any forums where this user is the last user who posted
+        $latest_forums = [];
+        $latest_forums_query = DB::getInstance()->query('SELECT `id` FROM nl2_forums WHERE `last_user_posted` = ?', [$banned_user->data()->id]);
+        if ($latest_forums_query->count()) {
+            $latest_forums = array_map(fn($latest_forum) => $latest_forum->id, $latest_forums_query->results());
+        }
+
+        // Now get any topics where this user is the last user who posted
+        $latest_topics = [];
+        $latest_topics_query = DB::getInstance()->query(
+            <<<SQL
+            SELECT `id`
+            FROM nl2_topics
+            WHERE `topic_creator` <> ?
+              AND `topic_last_user` = ?
+            SQL,
+            [
+                $banned_user->data()->id,
+                $banned_user->data()->id,
+            ]);
+        if ($latest_topics_query->count()) {
+            $latest_topics = array_map(fn($latest_topic) => $latest_topic->id, $latest_topics_query->results());
+        }
+
         // Delete all posts from the user
         DB::getInstance()->delete('posts', ['post_creator', $post->post_creator]);
 
@@ -69,6 +93,18 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         DB::getInstance()->update('users', $post->post_creator, [
             'isbanned' => true,
         ]);
+
+        if (count($latest_forums)) {
+            foreach ($latest_forums as $latest_forum) {
+                $forum->updateForumLatestPosts($latest_forum);
+            }
+        }
+
+        if (count($latest_topics)) {
+            foreach ($latest_topics as $latest_topic) {
+                $forum->updateTopicLatestPosts($latest_topic);
+            }
+        }
 
         // Redirect
         Session::flash('spam_info', $language->get('moderator', 'user_marked_as_spam'));
