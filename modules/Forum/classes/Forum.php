@@ -48,7 +48,7 @@ class Forum {
                 SELECT *
                 FROM `nl2_forums`
                 WHERE `parent` = 0
-                  AND `id` IN 
+                  AND `id` IN
                       (SELECT `forum_id`
                        FROM nl2_forums_permissions
                        WHERE `group_id` IN ($groups_in)
@@ -72,7 +72,7 @@ class Forum {
                         SELECT f.*
                         FROM nl2_forums AS f
                         WHERE f.parent = ?
-                          AND f.id IN 
+                          AND f.id IN
                               (SELECT fp.forum_id
                                FROM nl2_forums_permissions AS fp
                                WHERE fp.group_id IN ($groups_in)
@@ -328,8 +328,8 @@ class Forum {
 
         return DB::getInstance()->query(
             "SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id
-            FROM nl2_topics topics 
-            LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) 
+            FROM nl2_topics topics
+            LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0)
             WHERE topics.deleted = 0 AND topics.forum_id IN (' . $all_topics_forums_string . ') ORDER BY topics.topic_reply_date DESC LIMIT $limit",
         )->results();
     }
@@ -399,7 +399,7 @@ class Forum {
         echo "Checking latest posts for $forum_id<br />";
         $latest_post = $this->_db->query(
             <<<SQL
-                SELECT `created`, 
+                SELECT `created`,
                        `post_date`,
                        `post_creator`,
                        `topic_id`
@@ -434,7 +434,7 @@ class Forum {
     public function updateTopicLatestPosts(int $topic_id): void {
         $latest_post = $this->_db->query(
             <<<SQL
-                SELECT `created`, 
+                SELECT `created`,
                        `post_date`,
                        `post_creator`
                 FROM nl2_posts
