@@ -58,7 +58,7 @@ if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
     }
 
     // Update latest posts in forums
-    $forum->updateForumLatestPosts();
+    $forum->updateForumLatestPosts($topic->forum_id);
 
 }
 Redirect::to(URL::build('/forum'));
