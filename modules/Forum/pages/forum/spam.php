@@ -67,7 +67,8 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
             [
                 $banned_user->data()->id,
                 $banned_user->data()->id,
-            ]);
+            ]
+        );
         if ($latest_topics_query->count()) {
             $latest_topics = array_map(fn($latest_topic) => $latest_topic->id, $latest_topics_query->results());
         }
