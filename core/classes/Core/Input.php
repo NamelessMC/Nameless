@@ -116,6 +116,7 @@ class Input {
 
         $js .= "
             tinymce.init({
+              verify_html: " . ($admin ? 'false' : 'true') . ",
               selector: '#$name',
               browser_spellcheck: true,
               contextmenu: false,
