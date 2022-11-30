@@ -11,7 +11,7 @@
     "admin/adding_server": "Adding Server",
     "admin/admin_dir_still_exists": "Warning! The \/modules\/Core\/pages\/admin directory still exists. Please remove this directory.",
     "admin/administrator": "Administrator",
-    "admin/administrator_permission_warning": "Members with this permission will have every permission. It can be dangerous this permission to grant.",
+    "admin/administrator_permission_warning": "Members with this permission will have every permission. It is dangerous to grant this permission, even if the user is trustworthy!",
     "admin/all_logs": "All Logs",
     "admin/allow_custom_avatars": "Allow custom user avatars?",
     "admin/announcement_hook_info": "Announcement creation",
