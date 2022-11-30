@@ -674,7 +674,7 @@ class Core_Module extends Module {
 
         // Permissions
         PermissionHandler::registerPermissions($language->get('admin', 'administrator'), [
-            'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_info'),
+            'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_warning'),
         ]);
 
         // AdminCP
