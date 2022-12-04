@@ -44,23 +44,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
-            if (strpos($item, 'is required') !== false) {
+            if (str_contains($item, 'is required')) {
                 display_error($language->get('installer', 'input_required'));
-            } else if (strpos($item, 'minimum') !== false) {
+            } else if (str_contains($item, 'minimum')) {
                 display_error($language->get('installer', 'input_minimum', [
                     'minUsername' => $username_min,
                     'minEmail' => $email_min,
                     'minPassword' => $password_min,
                 ]));
-            } else if (strpos($item, 'maximum') !== false) {
+            } else if (str_contains($item, 'maximum')) {
                 display_error($language->get('installer', 'input_maximum', [
                     'maxUsername' => $username_max,
                     'maxEmail' => $email_max,
                     'maxPassword' => $password_max,
                 ]));
-            } else if (strpos($item, 'must match') !== false) {
+            } else if (str_contains($item, 'must match')) {
                 display_error($language->get('installer', 'passwords_must_match'));
-            } else if (strpos($item, 'not a valid email') !== false) {
+            } else if (str_contains($item, 'not a valid email')) {
                 display_error($language->get('installer', 'email_invalid'));
             }
         }
