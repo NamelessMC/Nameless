@@ -449,6 +449,7 @@ class Forum {
                 'topic_last_user' => $latest_post->post_creator,
             ]);
         } else {
+            // Undefined variable $forum_id, what should we do?
             $this->_db->update('forums', $forum_id, [
                 'last_post_date' => null,
                 'last_user_posted' => null,
