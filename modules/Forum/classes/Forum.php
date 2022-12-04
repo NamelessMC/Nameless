@@ -144,8 +144,7 @@ class Forum {
                                       AND (`topic_creator` = ? OR `sticky` = 1)
                                       AND `deleted` = 0
                                 SQL,
-                                [$item->id],
-                                $user_id
+                                [$item->id, $user_id],
                             )->first()->count;
 
                             $posts = $this->_db->query(
