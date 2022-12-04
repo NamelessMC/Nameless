@@ -22,7 +22,7 @@ final class GroupSyncManager extends Instanceable {
      */
     public function registerInjector(GroupSyncInjector $injector): void {
         if (in_array($injector->getColumnName(), $this->getColumnNames())) {
-            throw new RuntimeException("GroupSyncInjector column name {$injector->getColumnName()} already taken, {get_class($injector)} tried to use it as well.");
+            throw new RuntimeException("GroupSyncInjector column name {$injector->getColumnName()} already taken.");
         }
 
         $this->_injectors[$injector->getColumnName()] = $injector;
