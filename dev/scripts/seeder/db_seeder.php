@@ -3,7 +3,7 @@ if (PHP_SAPI !== 'cli') {
     die('This script must be run from the command line.');
 }
 
-const ROOT_PATH = __DIR__ . '/../../..';
+define('ROOT_PATH', __DIR__ . '/../..');
 require 'vendor/autoload.php';
 
 $classes = [
