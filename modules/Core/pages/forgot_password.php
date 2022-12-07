@@ -24,7 +24,6 @@ if (!isset($_GET['c'])) {
     if (Input::exists()) {
         if (Token::check()) {
 
-            $rate_limit = [1, 60]; // 1 attempt every 60 seconds
             $validation = Validate::check([
                 'email' => [
                     Validate::REQUIRED => true,
