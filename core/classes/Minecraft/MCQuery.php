@@ -395,7 +395,7 @@ class MCQuery {
      * @return string The closest Minecraft colour code to the given RGB value
      */
     private static function getColor(string $rgb): string {
-        if (!str_contains($rgb, '#')) {
+        if (strpos($rgb, '#') === 0) {
             $rgb = substr($rgb, 1);
         }
 
