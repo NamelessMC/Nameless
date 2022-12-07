@@ -32,7 +32,7 @@ if (!isset($_GET['c'])) {
             ])->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta)
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta)
                 ]
             ]);
 
