@@ -27,7 +27,7 @@ if (!isset($_GET['c'])) {
             $validation = Validate::check([
                 'email' => [
                     Validate::REQUIRED => true,
-                    Validate::RATE_LIMIT => [2, 60] // 1 attempt every 60 seconds
+                    Validate::RATE_LIMIT => [2, 60] // 2 attempts every 60 seconds
                 ]
             ])->messages([
                 'email' => [
