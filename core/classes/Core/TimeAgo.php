@@ -59,7 +59,7 @@ class TimeAgo {
             $timeDifference < (($this->_secondsPerMinute * 89) + 29)
         ) {
             // between 44mins30secs and 1hour29mins29secs
-            $key = 'about_1_hour';
+            $key = 'more_then_1_hour';
         } else if (
             $timeDifference > (
                 ($this->_secondsPerMinute * 89) +
@@ -75,7 +75,7 @@ class TimeAgo {
             // between 1hour29mins30secs and 23hours59mins29secs
             $replace = floor($timeDifference / $this->_secondsPerHour);
             if ($replace == 1) {
-                $key = 'about_1_hour';
+                $key = 'more_then_1_hour';
                 unset($replace);
             } else {
                 $key = '_hours';
@@ -128,7 +128,7 @@ class TimeAgo {
             )
         ) {
             // between 29days23hours59mins30secs and 59days23hours59mins29secs
-            $key = 'about_1_month';
+            $key = 'more_then_1_hour';
         } else if (
             $timeDifference > (
                 ($this->_secondsPerDay * 59) +
@@ -153,7 +153,7 @@ class TimeAgo {
             $timeDifference < ($this->_secondsPerYear * 2)
         ) {
             // between 1year and 2years (minus 1sec)
-            $key = 'about_1_year';
+            $key = 'more_then_1_hour';
         } else {
             // 2years or more
             $replace = floor($timeDifference / $this->_secondsPerYear);
