@@ -11,18 +11,27 @@ class Widgets {
 
     private DB $_db;
     private Cache $_cache;
+    private Language $_language;
+    private Smarty $_smarty;
 
     private array $_widgets = [];
     private array $_enabled = [];
     private string $_name;
 
-    public function __construct(Cache $cache, string $name = 'core') {
+    public function __construct(
+        Cache $cache,
+        Language $language,
+        Smarty $smarty,
+        string $name = 'core'
+    ) {
         // Assign name to use in cache file
         $this->_name = $name;
         $this->_cache = $cache;
         $this->_cache->setCache($this->_name . '-widgets');
 
         $this->_db = DB::getInstance();
+        $this->_language = $language;
+        $this->_smarty = $smarty;
 
         $enabled = $this->_cache->retrieve('enabled');
         if ($enabled != null && count($enabled)) {
@@ -119,18 +128,18 @@ class Widgets {
                     $ret[] = $item->display();
                 } catch (Exception $e) {
                     ErrorHandler::logWarning('Unable to load widget ' . $item->getName() . ': ' . $e->getMessage());
-                    // TODO: can we get localisation in here somehow?
-                    if ($smarty = $item->getSmarty()) {
-                        $smarty->assign([
-                            'WIDGET_ERROR_TITLE' => 'Unable to load widget',
-                            'WIDGET_ERROR_CONTENT' => 'There was a problem loading the widget ' . Output::getClean($item->getName()),
-                            'WIDGET_ERROR_MESSAGE' => $e->getMessage(),
-                            'WIDGET_NAME' => Output::getClean($item->getName()),
-                        ]);
-                        $ret[] = $smarty->fetch('widgets/widget_error.tpl');
-                    } else {
-                        $ret[] = 'Unable to load widget ' . Output::getClean($item->getName());
-                    }
+                    $this->_smarty->assign([
+                        'WIDGET_ERROR_TITLE' => $this->_language->get('general', 'unable_to_load_widget'),
+                        'WIDGET_ERROR_CONTENT' =>
+                            $this->_language->get(
+                                'general',
+                                'problem_loading_widget',
+                                ['widget' => Output::getClean($item->getName())]
+                            ),
+                        'WIDGET_ERROR_MESSAGE' => $e->getMessage(),
+                        'WIDGET_NAME' => Output::getClean($item->getName()),
+                    ]);
+                    $ret[] = $this->_smarty->fetch('widgets/widget_error.tpl');
                 }
             }
         }
