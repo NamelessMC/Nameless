@@ -114,8 +114,24 @@ class Widgets {
                 && ((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages()))
                     || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
             ) {
-                $item->initialise();
-                $ret[] = $item->display();
+                try {
+                    $item->initialise();
+                    $ret[] = $item->display();
+                } catch (Exception $e) {
+                    ErrorHandler::logWarning('Unable to load widget ' . $item->getName() . ': ' . $e->getMessage());
+                    // TODO: can we get localisation in here somehow?
+                    if ($smarty = $item->getSmarty()) {
+                        $smarty->assign([
+                            'WIDGET_ERROR_TITLE' => 'Unable to load widget',
+                            'WIDGET_ERROR_CONTENT' => 'There was a problem loading the widget ' . Output::getClean($item->getName()),
+                            'WIDGET_ERROR_MESSAGE' => $e->getMessage(),
+                            'WIDGET_NAME' => Output::getClean($item->getName()),
+                        ]);
+                        $ret[] = $smarty->fetch('widgets/widget_error.tpl');
+                    } else {
+                        $ret[] = 'Unable to load widget ' . Output::getClean($item->getName());
+                    }
+                }
             }
         }
 
