@@ -37,7 +37,7 @@ Here are some things you should know when contributing:
       ```console
       vendor/bin/phinx migrate -c core/migrations/phinx.php
       ```
-      
+
 ## Versioning
 As of NamelessMC 2.0.0 (to be released at time of writing), we use a unique versioning system.
 Similar to [semver](https://semver.org), we follow the `major.minor.patch` versioning pattern, however there are a few things to note:
@@ -64,3 +64,11 @@ Deprecations rule of thumb:
 - We might deprecate methods, classes or constants within a minor release.
 - These will get tagged with `@deprecated` and will be announced.
 - When something is marked as deprecated, it will not be removed until at least the next major release.
+
+## Backporting
+
+* Security fixes and bug fixes should always be backported, if possible.
+* Enhancements should usually be backported. New features should rarely be backported. Changes involving language files should be avoided, Weblate only updates the development branch.
+* Changes should be as small as possible to reduce conflicts.
+* Squash when merging. This makes backporting easier. If you think your changes deserve multiple commits, consider splitting them into multiple pull requests.
+* Mark the pull request with the appropriate milestone. [@Derkades](https://github.com/Derkades) keeps an eye on merged PRs and cherry-pick changes to the appropriate release branch.
