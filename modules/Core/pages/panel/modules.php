@@ -28,6 +28,7 @@ if (!isset($_GET['action'])) {
     $modules = DB::getInstance()->get('modules', ['id', '<>', 0])->results();
     $enabled_modules = Module::getModules();
 
+    $errors = [];
     $template_array = [];
 
     foreach ($modules as $item) {
@@ -45,7 +46,21 @@ if (!isset($_GET['action'])) {
                 continue;
             }
 
-            require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
+            try {
+                require_once ROOT_PATH . '/modules/' . $item->name . '/init.php';
+            } catch (Exception $e) {
+                $term = 'unable_to_load_module';
+
+                if ($e->getMessage() == 'Translation file not found') {
+                    $term = 'unable_to_load_outdated_module';
+                }
+
+                $errors[] = $language->get('admin', $term, [
+                    'message' => $e->getMessage(),
+                    'module' => Output::getClean($item->name),
+                ]);
+                continue;
+            }
         }
 
         $template_array[] = [
@@ -64,7 +79,11 @@ if (!isset($_GET['action'])) {
         ];
     }
 
-    // Get templates from Nameless website
+    if (count($errors)) {
+        Session::put('admin_modules_errors', $errors);
+    }
+
+    // Get modules from Nameless website
     $cache->setCache('all_templates');
     if ($cache->isCached('all_modules')) {
         $all_modules = $cache->retrieve('all_modules');
@@ -273,6 +292,7 @@ if (!isset($_GET['action'])) {
             $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
             define('MODULE_INSTALL', true);
+            $errors = [];
 
             foreach ($directories as $directory) {
                 $folders = explode('/', $directory);
@@ -283,20 +303,38 @@ if (!isset($_GET['action'])) {
                     if (!count($exists)) {
                         $module = null;
 
-                        require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
+                        try {
+                            require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
-                        /** @phpstan-ignore-next-line */
-                        if ($module instanceof Module) {
-                            DB::getInstance()->insert('modules', [
-                                'name' => $folders[count($folders) - 1]
+                            /** @phpstan-ignore-next-line */
+                            if ($module instanceof Module) {
+                                DB::getInstance()->insert('modules', [
+                                    'name' => $folders[count($folders) - 1]
+                                ]);
+                                $module->onInstall();
+                            }
+                        } catch (Exception $e) {
+                            $term = 'unable_to_load_module';
+
+                            if ($e->getMessage() == 'Translation file not found') {
+                                $term = 'unable_to_load_outdated_module';
+                            }
+
+                            $errors[] = $language->get('admin', $term, [
+                                'message' => $e->getMessage(),
+                                'module' => Output::getClean($folders[count($folders) - 1]),
                             ]);
-                            $module->onInstall();
                         }
                     }
                 }
             }
 
-            Session::flash('admin_modules', $language->get('admin', 'modules_installed_successfully'));
+            if (count($errors)) {
+                Session::put('admin_modules_errors', $errors);
+            } else {
+                Session::flash('admin_modules', $language->get('admin', 'modules_installed_successfully'));
+            }
+
         } else {
             Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
         }
@@ -311,6 +349,10 @@ if (Session::exists('admin_modules')) {
 
 if (Session::exists('admin_modules_error')) {
     $errors = [Session::flash('admin_modules_error')];
+}
+
+if (Session::exists('admin_modules_errors')) {
+    $errors = Session::flash('admin_modules_errors');
 }
 
 if (isset($success)) {

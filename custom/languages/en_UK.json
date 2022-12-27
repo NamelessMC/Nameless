@@ -622,6 +622,8 @@
     "admin/unable_to_enable_module": "Unable to enable incompatible module.",
     "admin/unable_to_enable_module_dependencies": "Unable to enable module since it depends on the module {{module}}, which is not enabled.",
     "admin/unable_to_enable_template": "Unable to enable incompatible template.",
+    "admin/unable_to_load_module": "Error {{message}} in module {{module}}.",
+    "admin/unable_to_load_outdated_module": "Unable to load outdated module {{module}}.",
     "admin/unable_to_load_sitemap_file_x": "Unable to load sitemap file {{file}}",
     "admin/unable_to_retrieve_modules": "Unable to retrieve modules",
     "admin/unable_to_retrieve_nameless_news": "Unable to retrieve the latest news",
