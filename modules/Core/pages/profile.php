@@ -91,9 +91,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             'post' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
-                                Validate::MAX => 10000
-                            ]
-                        ])->message($language->get('user', 'invalid_wall_post'));
+                                Validate::MAX => 10000,
+                                Validate::RATE_LIMIT => 3,
+                            ],
+                        ])
+                            ->message($language->get('user', 'invalid_wall_post'))
+                            ->messages([
+                                'post' => [
+                                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
+                                ]
+                            ]);
 
                         if ($validation->passed()) {
                             // Validation successful
@@ -167,9 +174,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 Validate::MAX => 10000
                             ],
                             'post' => [
-                                Validate::REQUIRED => true
+                                Validate::REQUIRED => true,
+                                Validate::RATE_LIMIT => 3,
                             ]
-                        ])->message($language->get('user', 'invalid_wall_post'));
+                        ])
+                            ->message($language->get('user', 'invalid_wall_post'))
+                            ->messages([
+                                'post' => [
+                                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
+                                ]
+                            ]);
 
                         if ($validation->passed()) {
                             // Validation successful
@@ -276,7 +290,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         }
 
                         // Validation failed
-                        $error = $validation->errors();
+                        $error = $validation->errors()[0];
                     } else {
                         $error = $language->get('general', 'invalid_token');
                     }
