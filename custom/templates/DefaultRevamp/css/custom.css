@@ -365,6 +365,10 @@ body.pushable>.pusher {
     right: 1rem;
 }
 
+#profile a.ui.circular.image.avatar img {
+    max-height: 35px;
+}
+
 /*
    *  [ FORUM SEARCH ]
    */
