@@ -74,10 +74,14 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         }
 
         // Delete all posts from the user
-        DB::getInstance()->delete('posts', ['post_creator', $post->post_creator]);
+        DB::getInstance()->query('UPDATE nl2_posts SET `deleted` = 1 WHERE `post_creator` = ?', [$post->post_creator]);
 
         // Delete all topics from the user
-        DB::getInstance()->delete('topics', ['topic_creator', $post->post_creator]);
+        DB::getInstance()->query(
+            'UPDATE nl2_posts SET `deleted` = 1 WHERE `topic_id` IN (SELECT `id` FROM nl2_topics WHERE `topic_creator` = ?)',
+            [$post->post_creator]
+        );
+        DB::getInstance()->query('UPDATE nl2_topics SET `deleted` = 1 WHERE `topic_creator` = ?', [$post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
