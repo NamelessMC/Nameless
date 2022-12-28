@@ -38,11 +38,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpstan/phpstan": "*",
-    "squizlabs/php_codesniffer": "*",
-    "friendsofphp/php-cs-fixer": "*",
-    "vimeo/psalm": "*",
-    "phpmd/phpmd": "*",
+    "phpstan/phpstan": "1.6.9",
     "maximebf/debugbar": "^1.18",
     "junker/debugbar-smarty": "^0.2",
     "hannesvdvreken/guzzle-debugbar": "^3.0",
