@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Abstract class for modules create custom avatar sources.
  *
@@ -18,7 +20,9 @@ abstract class AvatarSourceBase {
 
     /**
      * A map of `NamelessMC perspective name` => `Avatar source route`,
-     * as not all avatar sources will have the same name, and subsequentally route, for each perspective.
+     * as not all avatar sources will have the same name, and subsequently route, for each perspective.
+     *
+     * @var array<string, string> $_perspectives_map
      */
     protected array $_perspectives_map = [];
 
@@ -43,14 +47,14 @@ abstract class AvatarSourceBase {
     /**
      * Get "NamelessMC names" of supported perspectives for this avatar source.
      *
-     * @return array Array of perspective names.
+     * @return string[] Array of perspective names.
      */
     public function getPerspectives(): array {
         return array_keys($this->_perspectives_map);
     }
 
     /**
-     * Get the URL for this users avatar.
+     * Get the URL for this user's avatar.
      *
      * @param string $uuid UUID of avatar to get.
      * @param string $perspective Perspective to render avatar with.
@@ -104,6 +108,6 @@ abstract class AvatarSourceBase {
         }
 
         $class = static::class;
-        throw new InvalidArgumentException("Attempted to get invalid perspective of: {$perspective} on {$class}");
+        throw new InvalidArgumentException("Attempted to get invalid perspective of: $perspective on $class");
     }
 }

@@ -48,7 +48,7 @@
                                     </span>
                             </div>
                         </div>
-                        <hr />
+                        <hr/>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -103,9 +103,9 @@
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-  function showDeleteModal() {
-    $('#deleteModal').modal().show();
-  }
+    function showDeleteModal() {
+        $('#deleteModal').modal().show();
+    }
 </script>
 
 </body>

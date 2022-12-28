@@ -1,6 +1,6 @@
 name: Bug Report
 description: Inform us of any bugs/issues you may have found
-labels: ["bug"]
+labels: [ "bug" ]
 body:
   - type: textarea
     attributes:

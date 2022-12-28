@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel users page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
     require_once(ROOT_PATH . '/403.php');
@@ -18,7 +34,10 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
 }
 
-$view_user = new User($_GET['id']);
+try {
+    $view_user = new User($_GET['id']);
+} catch (GuzzleException $ignored) {
+}
 if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
@@ -34,15 +53,21 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
+
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'validate') {
-        if (Token::check()) {
-            // Validate the user
-            if ($user_query->active == 0) {
-                $view_user->update([
-                    'active' => true,
-                    'reset_code' => ''
-                ]);
+    if ($_GET['action'] === 'validate') {
+        try {
+            if (Token::check()) {
+                // Validate the user
+                if ($user_query->active === false) {
+                    try {
+                        $view_user->update([
+                            'active' => true,
+                            'reset_code' => ''
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
+                }
 
                 EventHandler::executeEvent('validateUser', [
                     'user_id' => $user_query->id,
@@ -52,8 +77,9 @@ if (isset($_GET['action'])) {
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
             }
+        } catch (Exception $ignored) {
         }
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+    } else if ($_GET['action'] === 'resend_email' && $user_query->active === false) {
         require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
         if (sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
@@ -64,154 +90,158 @@ if (isset($_GET['action'])) {
         throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
     }
 
-    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
+    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode((string)$user_query->id)));
 }
 
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        if (Input::get('action') === 'update') {
-            // Update a user's settings
-            $signature = Input::get('signature');
-            $_POST['signature'] = strip_tags(Input::get('signature'));
+    try {
+        if (Token::check()) {
+            if (Input::get('action') === 'update') {
+                // Update a user's settings
+                $signature = Input::get('signature');
+                $_POST['signature'] = strip_tags(Input::get('signature'));
 
-            $validation = Validate::check($_POST, [
-                'email' => [
-                    Validate::REQUIRED => true,
-                    Validate::UNIQUE => [
-                        'users',
-                        'id:' . $view_user->data()->id // ignore current user
-                    ],
-                    Validate::MIN => 4,
-                    Validate::MAX => 50
-                ],
-                'signature' => [
-                    Validate::MAX => 900
-                ],
-                'ip' => [
-                    Validate::MAX => 256
-                ],
-                'title' => [
-                    Validate::MAX => 64
-                ],
-                'username' => [
-                    Validate::REQUIRED => true,
-                    Validate::UNIQUE => [
-                        'users',
-                        'id:' . $view_user->data()->id // ignore current user
-                    ],
-                    Validate::MIN => 3,
-                    Validate::MAX => 20
-                ],
-                'nickname' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 3,
-                    Validate::MAX => 20
-                ]
-            ])->messages([
-                'email' => [
-                    Validate::REQUIRED => $language->get('user', 'email_required'),
-                    Validate::UNIQUE => $language->get('user', 'email_already_exists')
-                ],
-                'title' => $language->get('admin', 'title_max_64'),
-                'username' => [
-                    Validate::REQUIRED => $language->get('user', 'mcname_required'),
-                    Validate::UNIQUE => $language->get('user', 'username_already_exists'),
-                    Validate::MIN => $language->get('user', 'mcname_minimum_3'),
-                    Validate::MAX => $language->get('user', 'mcname_maximum_20')
-                ],
-                'nickname' => [
-                    Validate::REQUIRED => $language->get('user', 'username_required'),
-                    Validate::MIN => $language->get('user', 'username_minimum_3'),
-                    Validate::MAX => $language->get('user', 'username_maximum_20')
-                ]
-            ]);
-
-            // Does user have any groups selected
-            $passed = false;
-            if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                $passed = true;
-            }
-
-            if ($validation->passed() && $passed) {
                 try {
-                    $private_profile_active = Util::getSetting('private_profile');
-                    $private_profile = 0;
-
-                    if ($private_profile_active) {
-                        $private_profile = Input::get('privateProfile');
-                    }
-
-                    // Template
-                    $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
-
-                    if (count($new_template)) {
-                        $new_template = $new_template[0]->id;
-                    } else {
-                        $new_template = $user_query->theme_id;
-                    }
-
-                    // Nicknames?
-                    $username = Input::get('username');
-                    if (Util::getSetting('displaynames') === '1') {
-                        $nickname = Input::get('nickname');
-                    } else {
-                        $nickname = Input::get('username');
-                    }
-
-                    $view_user->update([
-                        'nickname' => Output::getClean($nickname),
-                        'email' => Output::getClean(Input::get('email')),
-                        'username' => Output::getClean($username),
-                        'user_title' => Output::getClean(Input::get('title')),
-                        'signature' => $signature,
-                        'private_profile' => $private_profile,
-                        'theme_id' => $new_template
+                    $validation = Validate::check($_POST, [
+                        'email' => [
+                            Validate::REQUIRED => true,
+                            Validate::UNIQUE => [
+                                'users',
+                                'id:' . $view_user->data()->id // ignore current user
+                            ],
+                            Validate::MIN => 4,
+                            Validate::MAX => 50
+                        ],
+                        'signature' => [
+                            Validate::MAX => 900
+                        ],
+                        'ip' => [
+                            Validate::MAX => 256
+                        ],
+                        'title' => [
+                            Validate::MAX => 64
+                        ],
+                        'username' => [
+                            Validate::REQUIRED => true,
+                            Validate::UNIQUE => [
+                                'users',
+                                'id:' . $view_user->data()->id // ignore current user
+                            ],
+                            Validate::MIN => 3,
+                            Validate::MAX => 20
+                        ],
+                        'nickname' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 3,
+                            Validate::MAX => 20
+                        ]
+                    ])->messages([
+                        'email' => [
+                            Validate::REQUIRED => $language->get('user', 'email_required'),
+                            Validate::UNIQUE => $language->get('user', 'email_already_exists')
+                        ],
+                        'title' => $language->get('admin', 'title_max_64'),
+                        'username' => [
+                            Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                            Validate::UNIQUE => $language->get('user', 'username_already_exists'),
+                            Validate::MIN => $language->get('user', 'mcname_minimum_3'),
+                            Validate::MAX => $language->get('user', 'mcname_maximum_20')
+                        ],
+                        'nickname' => [
+                            Validate::REQUIRED => $language->get('user', 'username_required'),
+                            Validate::MIN => $language->get('user', 'username_minimum_3'),
+                            Validate::MAX => $language->get('user', 'username_maximum_20')
+                        ]
                     ]);
+                } catch (Exception $ignored) {
+                }
 
-                    $group_sync_log = [];
-                    if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-                        if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                            $user_group_ids = $view_user->getAllGroupIds();
-                            $form_groups = $_POST['groups'] ?? [];
+                // Does user have any groups selected
+                $passed = false;
+                if ($view_user->data()->id === 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+                    $passed = true;
+                }
 
-                            // Check for new groups to give them which they don't already have
-                            foreach ($form_groups as $group_id) {
-                                if (!in_array($group_id, $user_group_ids)) {
-                                    $view_user->addGroup($group_id);
-                                }
-                            }
+                if ($passed && $validation->passed()) {
+                    try {
+                        $private_profile_active = Util::getSetting('private_profile');
+                        $private_profile = 0;
 
-                            // Check for groups they had, but weren't in the $_POST groups
-                            foreach ($user_group_ids as $group_id) {
-                                if (!in_array($group_id, $form_groups)) {
-                                    $view_user->removeGroup($group_id);
-                                }
-                            }
-
-                            // Dispatch groupsync with all of their groups
-                            GroupSyncManager::getInstance()->broadcastChange(
-                                $view_user,
-                                NamelessMCGroupSyncInjector::class,
-                                $view_user->getAllGroupIds(),
-                            );
+                        if ($private_profile_active) {
+                            $private_profile = Input::get('privateProfile');
                         }
+
+                        // Template
+                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+
+                        if (count($new_template)) {
+                            $new_template = $new_template[0]->id;
+                        } else {
+                            $new_template = $user_query->theme_id;
+                        }
+
+                        // Nicknames?
+                        $username = Input::get('username');
+                        if (Util::getSetting('displaynames') === '1') {
+                            $nickname = Input::get('nickname');
+                        } else {
+                            $nickname = Input::get('username');
+                        }
+
+                        $view_user->update([
+                            'nickname' => Output::getClean($nickname),
+                            'email' => Output::getClean(Input::get('email')),
+                            'username' => Output::getClean($username),
+                            'user_title' => Output::getClean(Input::get('title')),
+                            'signature' => $signature,
+                            'private_profile' => $private_profile,
+                            'theme_id' => $new_template
+                        ]);
+
+                        $group_sync_log = [];
+                        if ($user->hasPermission('admincp.groups.self') || $view_user->data()->id !== $user->data()->id) {
+                            if ($view_user->data()->id === 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+                                $user_group_ids = $view_user->getAllGroupIds();
+                                $form_groups = $_POST['groups'] ?? [];
+
+                                // Check for new groups to give them which they don't already have
+                                foreach ($form_groups as $group_id) {
+                                    if (!in_array($group_id, $user_group_ids, true)) {
+                                        $view_user->addGroup($group_id);
+                                    }
+                                }
+
+                                // Check for groups they had, but weren't in the $_POST groups
+                                foreach ($user_group_ids as $group_id) {
+                                    if (!in_array($group_id, $form_groups, true)) {
+                                        $view_user->removeGroup($group_id);
+                                    }
+                                }
+
+                                // Dispatch group sync with all of their groups
+                                GroupSyncManager::getInstance()->broadcastChange(
+                                    $view_user,
+                                    NamelessMCGroupSyncInjector::class,
+                                    $view_user->getAllGroupIds(),
+                                );
+                            }
+                        }
+
+                        Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+                        Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode((string)$user_query->id)));
+                    } catch (Exception $e) {
+                        $errors[] = $e->getMessage();
                     }
-
-                    Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
+                } else {
+                    $errors = $validation->errors();
+                    if (!$passed) {
+                        $errors[] = $language->get('admin', 'select_user_group');
+                    }
                 }
-            } else {
-                $errors = $validation->errors();
-                if (!$passed) {
-                    $errors[] = $language->get('admin', 'select_user_group');
-                }
-            }
 
-        } else if ((Input::get('action') == 'delete') && $user_query->id > 1) {
+            } else if ((int)$user_query->id > 1 && (Input::get('action') === 'delete')) {
                 EventHandler::executeEvent('deleteUser', [
                     'user_id' => $user_query->id,
                     'username' => $user_query->username,
@@ -220,36 +250,38 @@ if (Input::exists()) {
 
                 Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 Redirect::to(URL::build('/panel/users'));
-        } else if ((Input::get('action') == 'change_password') && $user_query->id > 1 && !$view_user->canViewStaffCP()) {
-            $validation = Validate::check($_POST, [
-                'password' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 6
-                ],
-                'password_again' => [
-                    Validate::MATCHES => 'password'
-                ]
-            ])->messages([
-                'password' => [
-                    Validate::REQUIRED => $language->get('user', 'password_required'),
-                    Validate::MIN => $language->get('user', 'password_minimum_6')
-                ],
-                'password_again' => $language->get('user', 'passwords_dont_match')
-            ]);
-
-            if ($validation->passed()) {
-                $password = Input::get('password');
-                $encrypted_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
-                $view_user->update([
-                    'password' => $encrypted_password
+            } else if ((int)$user_query->id > 1 && (Input::get('action') === 'change_password') && !$view_user->canViewStaffCP()) {
+                $validation = Validate::check($_POST, [
+                    'password' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 6
+                    ],
+                    'password_again' => [
+                        Validate::MATCHES => 'password'
+                    ]
+                ])->messages([
+                    'password' => [
+                        Validate::REQUIRED => $language->get('user', 'password_required'),
+                        Validate::MIN => $language->get('user', 'password_minimum_6')
+                    ],
+                    'password_again' => $language->get('user', 'passwords_dont_match')
                 ]);
-                Session::flash('edit_user_success', $language->get('admin', 'user_password_changed_successfully'));
-            } else {
-                Session::flash('edit_user_error', implode('\n', $validation->errors()));
+
+                if ($validation->passed()) {
+                    $password = Input::get('password');
+                    $encrypted_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
+                    $view_user->update([
+                        'password' => $encrypted_password
+                    ]);
+                    Session::flash('edit_user_success', $language->get('admin', 'user_password_changed_successfully'));
+                } else {
+                    Session::flash('edit_user_error', implode('\n', $validation->errors()));
+                }
             }
+        } else {
+            $errors[] = $language->get('general', 'invalid_token');
         }
-    } else {
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (GuzzleException|Exception $ignored) {
     }
 }
 
@@ -286,16 +318,16 @@ if (isset($warnings) && count($warnings)) {
     ]);
 }
 
-if ($user_query->active == 0) {
+if ($user_query->active === false) {
     $smarty->assign([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
-        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=validate'),
+        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode((string)$user_query->id) . '&action=validate'),
         'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
-        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=resend_email')
+        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode((string)$user_query->id) . '&action=resend_email')
     ]);
 }
 
-if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
+if ($user_query->id !== '1' && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -310,7 +342,7 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
 }
 
 $limit_groups = false;
-if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
+if ($user_query->id === '1' || ($user_query->id === $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
     $smarty->assign([
         'CANT_EDIT_GROUP' => $language->get('admin', 'cant_modify_root_user')
     ]);
@@ -336,7 +368,7 @@ foreach ($groups as $group) {
     // Only show groups whose ID is not their main group and whose order is HIGHER than their main group. A main group simply means this $user's group with LOWEST order
     // TODO: Probably can make this into the mysql query
     if ($limit_groups) {
-        if ((!($group->id == $view_user->getMainGroup()->id)) && ($view_user->getMainGroup()->order < $group->order)) {
+        if ((!($group->id === $view_user->getMainGroup()->id)) && ($view_user->getMainGroup()->order < $group->order)) {
             $filtered_groups[] = $group;
         }
     } else {
@@ -362,7 +394,7 @@ $smarty->assign([
     'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
-    'USER_ID' => Output::getClean($user_query->id),
+    'USER_ID' => Output::getClean((string)$user_query->id),
     'DISPLAYNAMES' => Util::getSetting('displaynames') === '1',
     'USERNAME' => $language->get('user', 'username'),
     'USERNAME_VALUE' => Output::getClean($user_query->username),
@@ -374,7 +406,7 @@ $smarty->assign([
     'USER_TITLE_VALUE' => Output::getClean($user_query->user_title),
     'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
     'PRIVATE_PROFILE_VALUE' => $user_query->private_profile,
-    'PRIVATE_PROFILE_ENABLED' => ($private_profile == 1),
+    'PRIVATE_PROFILE_ENABLED' => ($private_profile === '1'),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),
     'SIGNATURE' => $language->get('user', 'signature'),
@@ -402,4 +434,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/users_edit.tpl', $smarty);
+try {
+    $template->displayTemplate('core/users_edit.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

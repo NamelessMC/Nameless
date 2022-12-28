@@ -1,12 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param string $integration The Integration Name
- * @param string $identifier The id of the integration account
- * @param string $username The username of the integration account
- * @param bool $verified Is the integration account verified
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class LinkIntegrationEndpoint extends KeyAuthEndpoint {
 
@@ -17,6 +15,10 @@ class LinkIntegrationEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     *
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['integration', 'identifier', 'username']);
 
@@ -26,7 +28,7 @@ class LinkIntegrationEndpoint extends KeyAuthEndpoint {
         }
 
         $integration_user = $user->getIntegration($integration->getName());
-        if ($integration_user != null) {
+        if ($integration_user !== null) {
             $api->throwError(CoreApiErrors::ERROR_INTEGRATION_ALREADY_LINKED);
         }
 

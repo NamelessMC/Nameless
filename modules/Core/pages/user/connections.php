@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  UserCP connections
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -20,39 +33,42 @@ $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (Input::exists()) {
-    if (Token::check()) {
+    try {
+        if (Token::check()) {
 
-        // Get Integration
-        $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
-        if ($integration === null) {
-            Redirect::to(URL::build('/user/connections'));
-        }
-
-        if (Input::get('action') === 'link') {
-            // Link Integration
-            $integration->onLinkRequest($user);
-
-        } else if (Input::get('action') === 'unlink') {
-            // Unlink Integration
-            if ($integration->data()->can_unlink) {
-                $integration->onUnlinkRequest($user);
+            // Get Integration
+            $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
+            if ($integration === null) {
+                Redirect::to(URL::build('/user/connections'));
             }
 
-        } else if (Input::get('action') === 'verify') {
-            // Verify Integration
-            $integration->onVerifyRequest($user);
+            if (Input::get('action') === 'link') {
+                // Link Integration
+                $integration->onLinkRequest($user);
 
-        }
+            } else if (Input::get('action') === 'unlink') {
+                // Unlink Integration
+                if ($integration->data()->can_unlink) {
+                    $integration->onUnlinkRequest($user);
+                }
 
-        // Reload page if there is no errors, Else show errors
-        if (!$integration->getErrors()) {
-            Redirect::to(URL::build('/user/connections'));
+            } else if (Input::get('action') === 'verify') {
+                // Verify Integration
+                $integration->onVerifyRequest($user);
+
+            }
+
+            // Reload page if there is no errors, Else show errors
+            if (!$integration->getErrors()) {
+                Redirect::to(URL::build('/user/connections'));
+            } else {
+                $errors = $integration->getErrors();
+            }
         } else {
-            $errors = $integration->getErrors();
+            // Invalid token
+            $errors[] = $language->get('general', 'invalid_token');
         }
-    } else {
-        // Invalid token
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
@@ -68,10 +84,10 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
 
     // Check if user is linked to this integration
     $integrationUser = $user->getIntegration($integration->getName());
-    if ($integrationUser != null) {
+    if ($integrationUser !== null) {
         $connected = true;
         $username = Output::getClean($integrationUser->data()->username);
-        $verified = Output::getClean($integrationUser->isVerified());
+        $verified = Output::getClean((string)$integrationUser->isVerified());
     }
 
     $integrations_list[] = [
@@ -132,4 +148,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('user/connections.tpl', $smarty);
+try {
+    $template->displayTemplate('user/connections.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

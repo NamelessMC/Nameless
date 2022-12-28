@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Represents a custom profile field.
  *
@@ -9,7 +11,7 @@
  */
 class ProfileField {
 
-    public int $id;
+    public string $id;
     public string $name;
     public int $type;
     public bool $public;
@@ -19,6 +21,9 @@ class ProfileField {
     public bool $forum_posts;
     public bool $editable;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;
@@ -32,6 +37,7 @@ class ProfileField {
     }
 
     /**
+     *
      * @return array<int, ProfileField>
      */
     public static function all(): array {
@@ -46,6 +52,7 @@ class ProfileField {
     /**
      * @param string $value
      * @param string $column
+     *
      * @return array<int, ProfileField>|ProfileField
      */
     public static function find(string $value, string $column = 'id') {

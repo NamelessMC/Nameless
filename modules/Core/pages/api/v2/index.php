@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  Additions by Aberdeener
  *
@@ -8,6 +9,18 @@
  *
  *  License: MIT
  *
+ * @var Language $language
+ * @var string $route
+ * @var Endpoints $endpoints
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var array $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Headers

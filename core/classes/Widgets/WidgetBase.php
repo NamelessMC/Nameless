@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base Widget class
  *
@@ -20,9 +22,36 @@ abstract class WidgetBase {
     protected ?bool $_requires_cookies = false;
     protected ?Smarty $_smarty = null;
 
+    /**
+     * @param array $pages
+     * @param bool|null $requires_cookies
+     */
     public function __construct(array $pages = [], ?bool $requires_cookies = false) {
         $this->_pages = $pages;
         $this->_requires_cookies = $requires_cookies;
+    }
+
+    /**
+     * Get the data (location, order, pages) for a widget.
+     *
+     * @param string $name The widget to get data for.
+     * @return object|null Widgets data.
+     */
+    protected static function getData(string $name): ?object {
+        return DB::getInstance()->query('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
+    }
+
+    /**
+     * Parse the widgets JSON pages string into an array.
+     *
+     * @param object|null $data The widget data to get pages from.
+     * @return array The parsed pages array.
+     */
+    protected static function parsePages(?object $data): array {
+        if (isset($data->pages)) {
+            return json_decode($data->pages, true) ?? [];
+        }
+        return [];
     }
 
     /**
@@ -55,10 +84,8 @@ abstract class WidgetBase {
     /**
      * Render this widget to be displayed on a template page.
      *
-     * @throws Exception
-     * @throws SmartyException
-     *
      * @return string Content/HTML of this widget.
+     * @throws SmartyException
      */
     public function display(): string {
         if (defined('COOKIE_CHECK') && $this->_requires_cookies && !COOKIES_ALLOWED) {
@@ -120,27 +147,4 @@ abstract class WidgetBase {
      * Generate this widget's `$_content`.
      */
     abstract public function initialise(): void;
-
-    /**
-     * Get the data (location, order, pages) for a widget.
-     *
-     * @param string $name The widget to get data for.
-     * @return object|null Widgets data.
-     */
-    protected static function getData(string $name): ?object {
-        return DB::getInstance()->query('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
-    }
-
-    /**
-     * Parse the widgets JSON pages string into an array.
-     *
-     * @param object|null $data The widget data to get pages from.
-     * @return array The parsed pages array.
-     */
-    protected static function parsePages(?object $data): array {
-        if (isset($data->pages)) {
-            return json_decode($data->pages, true) ?? [];
-        }
-        return [];
-    }
 }

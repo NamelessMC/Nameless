@@ -5,7 +5,7 @@
         <h2 class="ui header">{$NOT_FOUND}</h2>
         <div class="ui divider"></div>
         <div class="ui buttons">
-            <button class="ui primary button" onclick="javascript:history.go(-1)">{$BACK}</button>
+            <button class="ui primary button" onclick="history.go(-1)">{$BACK}</button>
             <div class="or"></div>
             <a class="ui positive button" href="{$SITE_HOME}">{$HOME}</a>
         </div>

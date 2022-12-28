@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel reports page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!$user->handlePanelPageLoad('modcp.reports')) {
     require_once(ROOT_PATH . '/403.php');
@@ -20,7 +36,7 @@ const PANEL_PAGE = 'reports';
 $page_title = $language->get('moderator', 'reports');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['id'])) {
     // Get all reports
@@ -33,9 +49,9 @@ if (!isset($_GET['id'])) {
             $url = URL::build('/panel/users/reports/');
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
-            $url = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']));
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [$_GET['uid']])->results();
+            $url = URL::build('/panel/users/reports/', 'uid=' . urlencode((string)$_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((string)$_GET['uid']));
         }
 
         $smarty->assign([
@@ -49,9 +65,9 @@ if (!isset($_GET['id'])) {
             $url = URL::build('/panel/users/reports/', 'view=closed&');
             $change_view_link = URL::build('/panel/users/reports');
         } else {
-            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
-            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']));
+            $report_query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [$_GET['uid']])->results();
+            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((string)$_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . urlencode((string)$_GET['uid']));
         }
 
         $smarty->assign([
@@ -67,7 +83,7 @@ if (!isset($_GET['id'])) {
                 Redirect::to($url);
             }
 
-            if ($_GET['p'] == 1) {
+            if ($_GET['p'] === '1') {
                 // Avoid bug in pagination class
                 Redirect::to($url);
             }
@@ -90,15 +106,21 @@ if (!isset($_GET['id'])) {
             $comments = count($comments);
 
             $user_reported = null;
-            if ($report->reported_id != 0) {
-                $reported_user = new User($report->reported_id);
+            if ($report->reported_id !== '0') {
+                try {
+                    $reported_user = new User($report->reported_id);
+                } catch (GuzzleException $ignored) {
+                }
 
                 if ($reported_user->exists()) {
                     // Reported user exists
-                    $user_reported = $reported_user->getDisplayname();
+                    $user_reported = $reported_user->getDisplayName();
                     $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
                     $user_style = $reported_user->getGroupStyle();
-                    $user_avatar = $reported_user->getAvatar();
+                    try {
+                        $user_avatar = $reported_user->getAvatar();
+                    } catch (GuzzleException $ignored) {
+                    }
                 }
             }
 
@@ -110,39 +132,43 @@ if (!isset($_GET['id'])) {
                 $user_avatar = AvatarSource::getAvatarFromUUID($report->reported_uuid ?? $report->reported_mcname);
             }
 
-            $updated_by_user = new User($report->updated_by);
+            try {
+                $updated_by_user = new User($report->updated_by);
+            } catch (GuzzleException $ignored) {
+            }
 
-            $reports[] = [
-                'id' => $report->id,
-                'type' => $report->type,
-                'user_reported' => $user_reported,
-                'user_profile' => $user_profile,
-                'user_reported_style' => $user_style,
-                'user_reported_avatar' => $user_avatar,
-                'reported_at' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
-                'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
-                'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
-                'updated_by' => $updated_by_user->getDisplayname(),
-                'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
-                'updated_by_style' => $updated_by_user->getGroupStyle(),
-                'updated_by_avatar' => $updated_by_user->getAvatar(),
-                'updated_at' => ($report->updated ? $timeago->inWords($report->updated, $language) : $timeago->inWords($report->date_updated, $language)),
-                'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
-                'comments' => $comments
-            ];
+            try {
+                $reports[] = [
+                    'id' => $report->id,
+                    'type' => $report->type,
+                    'user_reported' => $user_reported,
+                    'user_profile' => $user_profile,
+                    'user_reported_style' => $user_style,
+                    'user_reported_avatar' => $user_avatar,
+                    'reported_at' => ($report->reported ? $time_ago->inWords($report->reported, $language) : $time_ago->inWords($report->date_reported, $language)),
+                    'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
+                    'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
+                    'updated_by' => $updated_by_user->getDisplayName(),
+                    'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
+                    'updated_by_style' => $updated_by_user->getGroupStyle(),
+                    'updated_by_avatar' => $updated_by_user->getAvatar(),
+                    'updated_at' => ($report->updated ? $time_ago->inWords($report->updated, $language) : $time_ago->inWords($report->date_updated, $language)),
+                    'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
+                    'comments' => $comments
+                ];
+            } catch (GuzzleException $ignored) {
+            }
         }
 
         $smarty->assign('PAGINATION', $pagination);
+    } else if (!isset($_GET['view'])) {
+        $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
     } else {
-        if (!isset($_GET['view'])) {
-            $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
-        } else {
-            $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
-        }
+        $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
     }
 
     if (isset($_GET['uid'])) {
-        $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname((int)$_GET['uid'])));
+        $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname($_GET['uid'])));
     }
 
     // Smarty variables
@@ -159,29 +185,31 @@ if (!isset($_GET['id'])) {
     ]);
 
     $template_file = 'core/users_reports.tpl';
-} else {
-    // Get report by ID
-    if (!isset($_GET['action'])) {
-        $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
-        if (!count($report)) {
-            Redirect::to(URL::build('/panel/users/reports'));
-        }
-        $report = $report[0];
+} else if (!isset($_GET['action'])) {
+    $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
+    if (!count($report)) {
+        Redirect::to(URL::build('/panel/users/reports'));
+    }
+    $report = $report[0];
 
-        // Check input
-        if (Input::exists()) {
-            $errors = [];
+    // Check input
+    if (Input::exists()) {
+        $errors = [];
 
-            // Check token
+        // Check token
+        try {
             if (Token::check()) {
                 // Valid token
-                $validation = Validate::check($_POST, [
-                    'content' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 1,
-                        Validate::MAX => 10000
-                    ]
-                ])->message($language->get('moderator', 'report_comment_invalid'));
+                try {
+                    $validation = Validate::check($_POST, [
+                        'content' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 10000
+                        ]
+                    ])->message($language->get('moderator', 'report_comment_invalid'));
+                } catch (Exception $ignored) {
+                }
 
                 if ($validation->passed()) {
                     DB::getInstance()->insert('reports_comments', [
@@ -207,59 +235,83 @@ if (!isset($_GET['id'])) {
                 // Invalid token
                 $errors[] = $language->get('general', 'invalid_token');
             }
+        } catch (Exception $ignored) {
+        }
+    }
+
+    // Get comments
+    $comments = DB::getInstance()->get('reports_comments', ['report_id', $report->id])->results();
+    $smarty_comments = [];
+    foreach ($comments as $comment) {
+        try {
+            $comment_user = new User($comment->commenter_id);
+        } catch (GuzzleException $ignored) {
         }
 
-        // Get comments
-        $comments = DB::getInstance()->get('reports_comments', ['report_id', $report->id])->results();
-        $smarty_comments = [];
-        foreach ($comments as $comment) {
-            $comment_user = new User($comment->commenter_id);
-
+        try {
             $smarty_comments[] = [
-                'username' => $comment_user->getDisplayname(),
+                'username' => $comment_user->getDisplayName(),
                 'profile' => URL::build('/panel/user/' . urlencode($comment->commenter_id . '-' . $comment_user->data()->username)),
                 'style' => $comment_user->getGroupStyle(),
                 'avatar' => $comment_user->getAvatar(),
                 'content' => Output::getPurified($comment->comment_content),
                 'date' => ($comment->date ? date(DATE_FORMAT, $comment->date) : date(DATE_FORMAT, strtotime($comment->comment_date))),
-                'date_friendly' => ($comment->date ? $timeago->inWords($comment->date, $language) : $timeago->inWords($comment->comment_date, $language))
+                'date_friendly' => ($comment->date ? $time_ago->inWords($comment->date, $language) : $time_ago->inWords($comment->comment_date, $language))
             ];
+        } catch (GuzzleException $ignored) {
         }
+    }
 
-        if (!$report->reported_id) {
-            $integration = Integrations::getInstance()->getIntegration('Minecraft');
-            if ($integration != null) {
-                $reported_user = new IntegrationUser($integration, $report->reported_uuid, 'identifier');
-                if ($reported_user->exists()) {
+    if (!$report->reported_id) {
+        $integration = Integrations::getInstance()->getIntegration('Minecraft');
+        if ($integration !== null) {
+            $reported_user = new IntegrationUser($integration, $report->reported_uuid, 'identifier');
+            if ($reported_user->exists()) {
+                try {
                     $reported_user = $reported_user->getUser();
+                } catch (GuzzleException $ignored) {
+                }
 
-                    $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
-                    $reported_user_style = $reported_user->getGroupStyle();
+                $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
+                $reported_user_style = $reported_user->getGroupStyle();
+                try {
                     $reported_user_avatar = $reported_user->getAvatar();
-                } else {
-                    $reported_user_profile = '#';
-                    $reported_user_style = '';
-                    $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                } catch (GuzzleException $ignored) {
                 }
             } else {
                 $reported_user_profile = '#';
                 $reported_user_style = '';
                 $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
             }
-
-            $reported_user_name = Output::getClean($report->reported_mcname);
         } else {
-            $reported_user = new User($report->reported_id);
-
-            $reported_user_name = $reported_user->getDisplayname();
-            $reported_user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
-            $reported_user_style = $reported_user->getGroupStyle();
-            $reported_user_avatar = $reported_user->getAvatar();
+            $reported_user_profile = '#';
+            $reported_user_style = '';
+            $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
         }
 
-        $reporter_user = new User($report->reporter_id);
+        $reported_user_name = Output::getClean($report->reported_mcname);
+    } else {
+        try {
+            $reported_user = new User($report->reported_id);
+        } catch (GuzzleException $ignored) {
+        }
 
-        // Smarty variables
+        $reported_user_name = $reported_user->getDisplayName();
+        $reported_user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
+        $reported_user_style = $reported_user->getGroupStyle();
+        try {
+            $reported_user_avatar = $reported_user->getAvatar();
+        } catch (GuzzleException $ignored) {
+        }
+    }
+
+    try {
+        $reporter_user = new User($report->reporter_id);
+    } catch (GuzzleException $ignored) {
+    }
+
+    // Smarty variables
+    try {
         $smarty->assign([
             'REPORTS_LINK' => URL::build('/panel/users/reports'),
             'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
@@ -269,11 +321,11 @@ if (!isset($_GET['id'])) {
             'REPORTED_USER_STYLE' => $reported_user_style,
             'REPORTED_USER_AVATAR' => $reported_user_avatar,
             'REPORT_DATE' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
-            'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
+            'REPORT_DATE_FRIENDLY' => ($report->reported ? $time_ago->inWords($report->reported, $language) : $time_ago->inWords($report->date_reported, $language)),
             'CONTENT_LINK' => $report->link,
             'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
             'REPORT_CONTENT' => Output::getPurified($report->report_reason),
-            'REPORTER_USER' => $reporter_user->getDisplayname(),
+            'REPORTER_USER' => $reporter_user->getDisplayName(),
             'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . urlencode($report->reporter_id . '-' . $reporter_user->data()->username)),
             'REPORTER_USER_STYLE' => $reporter_user->getGroupStyle(),
             'REPORTER_USER_AVATAR' => $reporter_user->getAvatar(),
@@ -286,96 +338,103 @@ if (!isset($_GET['id'])) {
             'WEBSITE' => $language->get('general', 'origin_website'),
             'API' => $language->get('general', 'origin_api'),
         ]);
+    } catch (GuzzleException $ignored) {
+    }
 
-        // Close/reopen link
-        if ($report->status == 0) {
-            $smarty->assign([
-                'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . urlencode($report->id)),
-                'CLOSE_REPORT' => $language->get('moderator', 'close_report')
-            ]);
-        } else {
-            $smarty->assign([
-                'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . urlencode($report->id)),
-                'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
-            ]);
-        }
-
-        $template_file = 'core/users_reports_view.tpl';
+    // Close/reopen link
+    if ($report->status === '0') {
+        $smarty->assign([
+            'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . urlencode($report->id)),
+            'CLOSE_REPORT' => $language->get('moderator', 'close_report')
+        ]);
     } else {
-        if ($_GET['action'] == 'close') {
-            // Close report
-            if (is_numeric($_GET['id'])) {
-                // Get report
-                $report = DB::getInstance()->get('reports', ['id', $_GET['id']]);
-                if ($report->count()) {
-                    $report = $report->first();
+        $smarty->assign([
+            'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . urlencode($report->id)),
+            'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
+        ]);
+    }
 
+    $template_file = 'core/users_reports_view.tpl';
+} else {
+    if ($_GET['action'] === 'close') {
+        // Close report
+        if (is_numeric($_GET['id'])) {
+            // Get report
+            $report = DB::getInstance()->get('reports', ['id', $_GET['id']]);
+            if ($report->count()) {
+                $report = $report->first();
+
+                try {
                     if (!Token::check()) {
                         Session::flash('report_error', $language->get('general', 'invalid_token'));
                         die();
                     }
-
-                    DB::getInstance()->update('reports', $report->id, [
-                        'status' => 1,
-                        'date_updated' => date('Y-m-d H:i:s'),
-                        'updated' => date('U'),
-                        'updated_by' => $user->data()->id
-                    ]);
-
-                    DB::getInstance()->insert('reports_comments', [
-                        'report_id' => $report->id,
-                        'commenter_id' => $user->data()->id,
-                        'comment_date' => date('Y-m-d H:i:s'),
-                        'date' => date('U'),
-                        'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => $user->getDisplayname()])
-                    ]);
+                } catch (Exception $ignored) {
                 }
 
-                Session::flash('report_success', $language->get('moderator', 'report_closed'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
+                DB::getInstance()->update('reports', $report->id, [
+                    'status' => 1,
+                    'date_updated' => date('Y-m-d H:i:s'),
+                    'updated' => date('U'),
+                    'updated_by' => $user->data()->id
+                ]);
+
+                DB::getInstance()->insert('reports_comments', [
+                    'report_id' => $report->id,
+                    'commenter_id' => $user->data()->id,
+                    'comment_date' => date('Y-m-d H:i:s'),
+                    'date' => date('U'),
+                    'comment_content' => $language->get('moderator', 'x_closed_report', ['user' => $user->getDisplayName()])
+                ]);
             }
 
-            Redirect::to(URL::build('/panel/users/reports'));
-        }
-
-        if ($_GET['action'] == 'open') {
-            // Reopen report
-            if (is_numeric($_GET['id'])) {
-                // Get report
-                $report = DB::getInstance()->get('reports', ['id', $_GET['id']]);
-                if ($report->count()) {
-                    $report = $report->first();
-
-                    if (!Token::check()) {
-                        Session::flash('report_error', $language->get('general', 'invalid_token'));
-                        die();
-                    }
-
-                    DB::getInstance()->update('reports', $report->id, [
-                        'status' => false,
-                        'date_updated' => date('Y-m-d H:i:s'),
-                        'updated' => date('U'),
-                        'updated_by' => $user->data()->id
-                    ]);
-
-                    DB::getInstance()->insert('reports_comments', [
-                        'report_id' => $report->id,
-                        'commenter_id' => $user->data()->id,
-                        'comment_date' => date('Y-m-d H:i:s'),
-                        'date' => date('U'),
-                        'comment_content' => $language->get('moderator', 'x_reopened_report', ['user' => $user->getDisplayname()])
-                    ]);
-                }
-
-                Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
-            }
-
-            Redirect::to(URL::build('/panel/users/reports'));
+            Session::flash('report_success', $language->get('moderator', 'report_closed'));
+            Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
         }
 
         Redirect::to(URL::build('/panel/users/reports'));
     }
+
+    if ($_GET['action'] === 'open') {
+        // Reopen report
+        if (is_numeric($_GET['id'])) {
+            // Get report
+            $report = DB::getInstance()->get('reports', ['id', $_GET['id']]);
+            if ($report->count()) {
+                $report = $report->first();
+
+                try {
+                    if (!Token::check()) {
+                        Session::flash('report_error', $language->get('general', 'invalid_token'));
+                        die();
+                    }
+                } catch (Exception $ignored) {
+                }
+
+                DB::getInstance()->update('reports', $report->id, [
+                    'status' => false,
+                    'date_updated' => date('Y-m-d H:i:s'),
+                    'updated' => date('U'),
+                    'updated_by' => $user->data()->id
+                ]);
+
+                DB::getInstance()->insert('reports_comments', [
+                    'report_id' => $report->id,
+                    'commenter_id' => $user->data()->id,
+                    'comment_date' => date('Y-m-d H:i:s'),
+                    'date' => date('U'),
+                    'comment_content' => $language->get('moderator', 'x_reopened_report', ['user' => $user->getDisplayName()])
+                ]);
+            }
+
+            Session::flash('report_success', $language->get('moderator', 'report_reopened'));
+            Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
+        }
+
+        Redirect::to(URL::build('/panel/users/reports'));
+    }
+
+    Redirect::to(URL::build('/panel/users/reports'));
 }
 
 // Load modules + template
@@ -418,4 +477,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

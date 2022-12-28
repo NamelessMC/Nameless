@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,7 +9,23 @@
  *  License: MIT
  *
  *  Forum search page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!isset($forum) || (!$forum instanceof Forum)) {
     $forum = new Forum();
@@ -16,32 +34,38 @@ if (!isset($forum) || (!$forum instanceof Forum)) {
 const PAGE = 'forum';
 
 // Initialise
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
 
 if (!isset($_GET['s'])) {
     if (Input::exists()) {
-        if (Token::check()) {
-            $validation = Validate::check($_POST, [
-                'forum_search' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 3,
-                    Validate::MAX => 128
-                ]
-            ]);
+        try {
+            if (Token::check()) {
+                try {
+                    $validation = Validate::check($_POST, [
+                        'forum_search' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 3,
+                            Validate::MAX => 128
+                        ]
+                    ]);
+                } catch (Exception $ignored) {
+                }
 
-            if ($validation->passed()) {
-                $search = str_replace(' ', '+', Output::getClean(Input::get('forum_search')));
-                $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
+                if ($validation->passed()) {
+                    $search = str_replace(' ', '+', Output::getClean(Input::get('forum_search')));
+                    $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
-                Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
+                    Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
+                }
+
+                $error = $forum_language->get('forum', 'invalid_search_query', ['min' => 3, 'max' => 128]);
+            } else {
+                $error = $language->get('general', 'invalid_token');
             }
-
-            $error = $forum_language->get('forum', 'invalid_search_query', ['min' => 3, 'max' => 128]);
-        } else {
-            $error = $language->get('general', 'invalid_token');
+        } catch (Exception $ignored) {
         }
     }
 } else {
@@ -54,13 +78,13 @@ if (!isset($_GET['s'])) {
         $p = 1;
     }
 
-    if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
+    if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] !== $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
         Session::flash('search_error', $forum_language->get('forum', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_forum_search']))]));
         Redirect::to(URL::build('/forum/search'));
     }
 
-    $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
-    if (!$cache->isCached('result')) {
+    $cache->setCacheName($search . '-' . rtrim(implode('-', $user_groups), '-'));
+    if (!$cache->hasCashedData('result')) {
         // Execute search
         $search_topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
         $search_posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
@@ -72,10 +96,10 @@ if (!isset($_GET['s'])) {
             // Check permissions
             $perms = DB::getInstance()->get('forums_permissions', ['forum_id', $result->forum_id])->results();
             foreach ($perms as $perm) {
-                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
+                if ($perm->view === '1' && $perm->view_other_topics === '1' && in_array($perm->group_id, $user_groups, true)) {
                     if (isset($result->topic_id)) {
                         // Post
-                        if (!isset($results[$result->id]) && $result->deleted == 0) {
+                        if (!isset($results[$result->id]) && $result->deleted === '0') {
                             // Get associated topic
                             $topic = DB::getInstance()->get('topics', ['id', $result->topic_id])->results();
                             if (count($topic) && $topic[0]->deleted === 0) {
@@ -92,33 +116,29 @@ if (!isset($_GET['s'])) {
                                 break;
                             }
 
-                            break;
-                        } else {
-                            break;
                         }
-                    } else {
-                        // Topic, get associated post
-                        $post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
-                        if ($post->count()) {
-                            $post = $post->first();
-                            if (!isset($results[$post->id]) && $post->deleted == 0) {
-                                $results[$post->id] = [
-                                    'post_id' => $post->id,
-                                    'topic_id' => $result->id,
-                                    'topic_title' => $result->topic_title,
-                                    'post_author' => $post->post_creator,
-                                    'post_date' => $post->post_date,
-                                    'post_content' => $post->post_content
-                                ];
-
-                                break;
-                            }
-
-                            break;
-                        } else {
-                            break;
-                        }
+                        break;
                     }
+
+                    // Topic, get associated post
+                    $post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
+                    if ($post->count()) {
+                        $post = $post->first();
+                        if (!isset($results[$post->id]) && $post->deleted === '0') {
+                            $results[$post->id] = [
+                                'post_id' => $post->id,
+                                'topic_id' => $result->id,
+                                'topic_title' => $result->topic_title,
+                                'post_author' => $post->post_creator,
+                                'post_date' => $post->post_date,
+                                'post_content' => $post->post_content
+                            ];
+
+                            break;
+                        }
+
+                    }
+                    break;
 
                 }
             }
@@ -127,7 +147,7 @@ if (!isset($_GET['s'])) {
         $results = array_values($results);
         $cache->store('result', $results, 60);
 
-        if (!isset($_SESSION['last_forum_search_query']) || $_SESSION['last_forum_search_query'] != $_GET['s']) {
+        if (!isset($_SESSION['last_forum_search_query']) || $_SESSION['last_forum_search_query'] !== $_GET['s']) {
             $_SESSION['last_forum_search'] = date('U');
             $_SESSION['last_forum_search_query'] = $_GET['s'];
         }
@@ -170,19 +190,26 @@ if (isset($_GET['s'])) {
             // Purify post content
             $content = EventHandler::executeEvent('renderPost', ['content' => $results->data[$n]['post_content']])['content'];
 
-            $post_user = new User($results->data[$n]['post_author']);
-            $posts[$n] = [
-                'post_author' => $post_user->getDisplayname(),
-                'post_author_id' => Output::getClean($results->data[$n]['post_author']),
-                'post_author_avatar' => $post_user->getAvatar(25),
-                'post_author_profile' => $post_user->getProfileURL(),
-                'post_author_style' => $post_user->getGroupStyle(),
-                'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
-                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
-                'content' => $content,
-                'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
-            ];
+            try {
+                $post_user = new User($results->data[$n]['post_author']);
+            } catch (GuzzleException $e) {
+            }
+
+            try {
+                $posts[$n] = [
+                    'post_author' => $post_user->getDisplayName(),
+                    'post_author_id' => Output::getClean($results->data[$n]['post_author']),
+                    'post_author_avatar' => $post_user->getAvatar(25),
+                    'post_author_profile' => $post_user->getProfileURL(),
+                    'post_author_style' => $post_user->getGroupStyle(),
+                    'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
+                    'post_date_friendly' => $time_ago->inWords($results->data[$n]['post_date'], $language),
+                    'content' => $content,
+                    'topic_title' => Output::getClean($results->data[$n]['topic_title']),
+                    'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
+                ];
+            } catch (GuzzleException $e) {
+            }
             $n++;
         }
 
@@ -200,7 +227,7 @@ if (isset($_GET['s'])) {
         'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
         'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
         'NEW_SEARCH_URL' => URL::build('/forum/search'),
-        'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
+        'SEARCH_TERM' => (Output::getClean($_GET['s']))
     ]);
 
     // Load modules + template
@@ -212,15 +239,16 @@ if (isset($_GET['s'])) {
     require(ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
-    $template->displayTemplate('forum/search_results.tpl', $smarty);
+    try {
+        $template->displayTemplate('forum/search_results.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 } else {
     // Search bar
     if (isset($error)) {
         $smarty->assign('ERROR', $error);
-    } else {
-        if (Session::exists('search_error')) {
-            $smarty->assign('ERROR', Session::flash('search_error'));
-        }
+    } else if (Session::exists('search_error')) {
+        $smarty->assign('ERROR', Session::flash('search_error'));
     }
 
     $smarty->assign([
@@ -241,5 +269,8 @@ if (isset($_GET['s'])) {
     require(ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
-    $template->displayTemplate('forum/search.tpl', $smarty);
+    try {
+        $template->displayTemplate('forum/search.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 }

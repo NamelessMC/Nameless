@@ -1,9 +1,18 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * TODO: Document this file.
+ *
+ * @package NamelessMC\DTO
+ * @author Unknown
+ * @version 2.1.0
+ * @license MIT
+ */
 class IntegrationUserData {
 
-    public int $id;
-    public int $integration_id;
+    public string $id;
+    public string $integration_id;
     public string $user_id;
     public ?string $identifier;
     public ?string $username;
@@ -13,6 +22,9 @@ class IntegrationUserData {
     public bool $show_publicly;
     public int $last_sync;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->integration_id = $row->integration_id;

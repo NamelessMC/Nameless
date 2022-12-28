@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.2
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel API page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails')) {
@@ -22,30 +35,33 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (isset($_GET['do'])) {
     if (in_array($_GET['do'], ['delete', 'purge'])) {
-        if (Token::check()) {
-            if ($_GET['do'] == 'purge') {
-                // Purge all errors
+        try {
+            if (Token::check()) {
+                if ($_GET['do'] === 'purge') {
+                    // Purge all errors
 
-                DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
+                    DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
 
-                Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
+                    Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
+                    Redirect::to(URL::build('/panel/core/emails/errors'));
+                }
+
+                if ($_GET['do'] === 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+
+                    DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
+
+                    Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
+                    Redirect::to(URL::build('/panel/core/emails/errors'));
+                }
+            } else {
+                Session::flash('emails_errors_error', $language->get('general', 'invalid_token'));
                 Redirect::to(URL::build('/panel/core/emails/errors'));
             }
-
-            if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
-
-                DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
-
-                Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
-                Redirect::to(URL::build('/panel/core/emails/errors'));
-            }
-        } else {
-            Session::flash('emails_errors_error', $language->get('general', 'invalid_token'));
-            Redirect::to(URL::build('/panel/core/emails/errors'));
+        } catch (Exception $ignored) {
         }
     }
 
-    if ($_GET['do'] == 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
+    if ($_GET['do'] === 'view' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Check the error exists
         $error = DB::getInstance()->get('email_errors', ['id', $_GET['id']])->results();
         if (!count($error)) {
@@ -96,22 +112,22 @@ if (isset($_GET['do'])) {
             'CLOSE' => $language->get('general', 'close')
         ]);
 
-        if ($error->type == Email::REGISTRATION) {
+        if ((int)$error->type === Email::REGISTRATION) {
             $user_validated = DB::getInstance()->get('users', ['id', $error->user_id])->results();
             if (count($user_validated)) {
                 $user_validated = $user_validated[0];
-                if ($user_validated->active == 0) {
+                if ($user_validated->active === '0') {
                     $smarty->assign([
                         'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($error->user_id) . '&amp;action=validate'),
                         'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
                     ]);
                 }
             }
-        } else if ($error->type == Email::API_REGISTRATION) {
+        } else if ((int)$error->type === Email::API_REGISTRATION) {
             $user_error = DB::getInstance()->get('users', ['id', $error->user_id])->results();
             if (count($user_error)) {
                 $user_error = $user_error[0];
-                if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
+                if ($user_error->active === '0' && !is_null($user_error->reset_code)) {
                     $smarty->assign([
                         'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
                         'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
@@ -135,11 +151,12 @@ if (isset($_GET['do'])) {
             Redirect::to(URL::build('/panel/core/emails/errors'));
         }
 
-        if ($_GET['p'] == 1) {
+        if ($_GET['p'] === '1') {
             // Avoid bug in pagination class
             Redirect::to(URL::build('/panel/core/emails/errors'));
         }
-        $p = $_GET['p'];
+
+        $p = (int)$_GET['p'];
     } else {
         $p = 1;
     }
@@ -251,4 +268,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

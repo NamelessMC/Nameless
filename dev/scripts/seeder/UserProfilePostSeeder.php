@@ -1,5 +1,14 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class UserProfilePostSeeder extends Seeder {
 
     public array $tables = [
@@ -8,13 +17,19 @@ class UserProfilePostSeeder extends Seeder {
         'nl2_user_profile_wall_posts_reactions',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
         $this->times(500, function () use ($db, $faker, $users) {
             $user = $faker->randomElement($users);
             $author = $faker->randomElement($users);
-            while ($user->id == $author->id) {
+            while ($user->id === $author->id) {
                 $author = $faker->randomElement($users);
             }
 

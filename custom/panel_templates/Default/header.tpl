@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html{if "HTML_CLASS"|defined} {$smarty.const.HTML_CLASS}{/if} lang="{if "
     HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}" {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq
-    true} dir="rtl" {/if}>
+true} dir="rtl" {/if}>
 
-    <head>
-        <!-- Standard Meta -->
-        <meta charset="{if " LANG_CHARSET"|defined}{$smarty.const.LANG_CHARSET}{else}utf-8{/if}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="{if " LANG_CHARSET"|defined}{$smarty.const.LANG_CHARSET}{else}utf-8{/if}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
+    <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 
-        {if isset($FAVICON)}
-        <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
-        {/if}
+    {if isset($FAVICON)}
+        <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon"/>
+    {/if}
 
-        {foreach from=$TEMPLATE_CSS item=css}
+    {foreach from=$TEMPLATE_CSS item=css}
         {$css}
-        {/foreach}
+    {/foreach}
 
-        {if isset($DEBUGBAR_JS)}
+    {if isset($DEBUGBAR_JS)}
         {$DEBUGBAR_JS}
-        {/if}
+    {/if}
 
-    </head>
+</head>

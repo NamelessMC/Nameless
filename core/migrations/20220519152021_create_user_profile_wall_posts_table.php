@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateUserProfileWallPostsTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateUserProfileWallPostsTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_user_profile_wall_posts');
 
         $table

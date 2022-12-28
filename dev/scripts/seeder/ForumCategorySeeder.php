@@ -1,11 +1,29 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class ForumCategorySeeder extends Seeder {
 
+    /**
+     * @var string[]
+     */
     public array $tables = [
         'nl2_forums',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $order = 1;
         $this->times(5, static function () use ($db, $faker, &$order) {
@@ -19,7 +37,7 @@ class ForumCategorySeeder extends Seeder {
             ]);
 
             $forum_id = $db->lastId();
-            foreach (ForumSubforumSeeder::GROUP_PERMISSIONS as $group => $permissions) {
+            foreach (ForumSubForumSeeder::GROUP_PERMISSIONS as $group => $permissions) {
                 $db->insert('forums_permissions', [
                     'forum_id' => $forum_id,
                     'group_id' => $group,

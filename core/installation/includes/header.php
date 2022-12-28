@@ -1,4 +1,18 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ *
+ * @var Language $language
+ * @var string $language_html
+ */
+
 $readme = file(ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
@@ -18,13 +32,15 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
 ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo $language_html; ?>">
+<html lang="<?php
+echo $language_html; ?>">
 
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $language->get('installer', 'install'); ?> &bull; NamelessMC</title>
+    <title><?php
+        echo $language->get('installer', 'install'); ?> &bull; NamelessMC</title>
     <link rel="stylesheet" href="core/assets/vendor/fomantic-ui/dist/semantic.min.css">
 
     <style>
@@ -63,10 +79,7 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
         }
 
         .ui.grid {
-            margin-top: -0.5rem;
-            margin-bottom: -0.5rem;
-            margin-left: -0.5rem;
-            margin-right: -0.5rem;
+            margin: -0.5rem;
         }
 
         .ui.grid > .column:not(.row) {
@@ -98,11 +111,12 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
     <div class="ui inverted vertical masthead very padded segment">
         <div class="ui center aligned text container">
             <h2 class="ui inverted icon header">
-                <img class="ui image" src="core/assets/img/namelessmc_logo.png">
+                <img class="ui image" src="core/assets/img/namelessmc_logo.png" alt="nameless logo">
                 <div class="content">
                     NamelessMC Installer
                     <div class="sub header">
-                        <?php echo $subheader; ?>
+                        <?php
+                        echo $subheader; ?>
                     </div>
                 </div>
             </h2>

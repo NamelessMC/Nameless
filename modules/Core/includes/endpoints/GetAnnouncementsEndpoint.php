@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @return string JSON Array of the latest announcements
+ * TODO: Add description
  */
 class GetAnnouncementsEndpoint extends NoAuthEndpoint {
 
@@ -12,6 +13,11 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
         $guest_announcements = [];
 
@@ -24,8 +30,8 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
                 'id' => $announcement->id,
                 'header' => $announcement->header,
                 'message' => $announcement->message,
-                'pages' => json_decode($announcement->pages),
-                'groups' => array_map('intval', json_decode($announcement->groups)),
+                'pages' => json_decode($announcement->pages, true),
+                'groups' => array_map('intval', json_decode($announcement->groups, true)),
             ];
         }
 

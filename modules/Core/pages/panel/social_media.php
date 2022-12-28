@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel social media page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.social_media')) {
@@ -24,31 +37,34 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        // Update database values
-        // Youtube URL
-        Util::setSetting('youtube_url', Input::get('youtubeurl'));
+    try {
+        if (Token::check()) {
+            // Update database values
+            // Youtube URL
+            Util::setSetting('youtube_url', Input::get('youtubeurl'));
 
-        // Twitter URL
-        Util::setSetting('twitter_url', Input::get('twitterurl'));
+            // Twitter URL
+            Util::setSetting('twitter_url', Input::get('twitterurl'));
 
-        // Twitter dark theme
-        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
-            $theme = 'dark';
+            // Twitter dark theme
+            if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] === '1') {
+                $theme = 'dark';
+            } else {
+                $theme = 'light';
+            }
+
+            Util::setSetting('twitter_style', $theme);
+
+            // Facebook URL
+            Util::setSetting('fb_url', Input::get('fburl'));
+
+            Session::flash('social_success', $language->get('admin', 'social_media_settings_updated'));
+            Redirect::to(URL::build('/panel/core/social_media'));
         } else {
-            $theme = 'light';
+            // Invalid token
+            $errors[] = $language->get('general', 'invalid_token');
         }
-
-        Util::setSetting('twitter_style', $theme);
-
-        // Facebook URL
-        Util::setSetting('fb_url', Input::get('fburl'));
-
-        Session::flash('social_success', $language->get('admin', 'social_media_settings_updated'));
-        Redirect::to(URL::build('/panel/core/social_media'));
-    } else {
-        // Invalid token
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
@@ -102,4 +118,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/social_media.tpl', $smarty);
+try {
+    $template->displayTemplate('core/social_media.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

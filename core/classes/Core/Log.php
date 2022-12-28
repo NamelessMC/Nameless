@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Log handling class
  *
@@ -10,7 +12,7 @@
 class Log extends Instanceable {
 
     /**
-     * @var array Mapping of log Actions to their language key
+     * @var array Mapping of log Actions to their language key.
      */
     private static array $_actions = [
         'admin' => [
@@ -175,17 +177,24 @@ class Log extends Instanceable {
         ]
     ];
 
-    private DB $_db;
+
+    /**
+     * @var ?DB $_db ;
+     */
+    private static ?DB $_db;
 
     public function __construct() {
-        $this->_db = DB::getInstance();
+        if (!isset(self::$_db)) {
+            self::$_db = DB::getInstance();
+        }
     }
 
     /**
      * Get an action from the Action array.
      *
      * @param string $path The path to the action.
-     * @return string|array The keys
+     *
+     * @return string|array The keys.
      */
     public static function Action(string $path) {
         $path = explode('/', $path);
@@ -203,23 +212,24 @@ class Log extends Instanceable {
     /**
      * Logs an action.
      *
-     * @param string $action The action being logged
-     * @param string $info Some more information about what the action is about
-     * @param ?int $user The User ID who is doing the action
+     * @param string $action The action being logged.
+     * @param string $info Some more information about what the action is about.
+     * @param ?string $user_id The User ID who is doing the action.
+     *
      * @return bool Return true or false if inserted into the database.
      */
-    public function log(string $action, string $info = '', ?int $user = null): bool {
-        if ($user === null) {
+    public function log(string $action, string $info = '', ?string $user_id = null): bool {
+        if ($user_id === null) {
             $userTemp = new User();
-            $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
+            $user_id = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);
         }
 
         $ip = HttpUtils::getRemoteAddress();
 
-        return $this->_db->insert('logs', [
+        return self::$_db->insert('logs', [
             'time' => date('U'),
             'action' => $action,
-            'user_id' => $user,
+            'user_id' => $user_id,
             'ip' => $ip,
             'info' => $info,
         ]);

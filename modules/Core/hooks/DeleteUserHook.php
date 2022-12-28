@@ -1,14 +1,19 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
- *
- *  Delete user event listener for Core module
- */
+declare(strict_types=1);
 
+/**
+ * Delete user event listener for Core module
+ *
+ * @package Core\Hooks
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
+ */
 class DeleteUserHook {
 
+    /**
+     * @param array $params
+     */
     public static function execute(array $params = []): void {
         if (isset($params['user_id']) && $params['user_id'] > 1) {
             $db = DB::getInstance();

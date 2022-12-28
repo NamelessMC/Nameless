@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
@@ -9,13 +11,40 @@
  *  Core module file
  */
 
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
+use League\OAuth2\Client\Provider\Google;
+
+/**
+ * TODO: Add description
+ */
 class Core_Module extends Module {
 
+    /**
+     * @var array<string, array<string, string>> $_dashboard_graph
+     */
     private static array $_dashboard_graph = [];
+
+    /**
+     * @var array<string, string> $_notices
+     */
     private static array $_notices = [];
+
+    /**
+     * @var array<int, array<string, string> $_user_actions
+     */
     private static array $_user_actions = [];
     private Language $_language;
 
+    /**
+     * @param Language $language
+     * @param Pages $pages
+     * @param User $user
+     * @param Navigation $navigation
+     * @param Cache $cache
+     * @param Endpoints $endpoints
+     * @throws ReflectionException
+     */
     public function __construct(Language $language, Pages $pages, User $user, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
 
@@ -117,15 +146,15 @@ class Core_Module extends Module {
         $pages->addAjaxScript(URL::build('/queries/servers'));
 
         // "More" dropdown
-        $cache->setCache('navbar_icons');
-        if ($cache->isCached('more_dropdown_icon')) {
+        $cache->setCacheName('navbar_icons');
+        if ($cache->hasCashedData('more_dropdown_icon')) {
             $icon = $cache->retrieve('more_dropdown_icon');
         } else {
             $icon = '';
         }
 
-        $cache->setCache('navbar_order');
-        if ($cache->isCached('more_dropdown_order')) {
+        $cache->setCacheName('navbar_order');
+        if ($cache->hasCashedData('more_dropdown_order')) {
             $order = $cache->retrieve('more_dropdown_order');
         } else {
             $order = 2500;
@@ -137,7 +166,7 @@ class Core_Module extends Module {
         $custom_pages = DB::getInstance()->get('custom_pages', ['id', '<>', 0])->results();
         if (count($custom_pages)) {
             $more = [];
-            $cache->setCache('navbar_order');
+            $cache->setCacheName('navbar_order');
 
             if ($user->isLoggedIn()) {
                 // Check all groups
@@ -147,7 +176,7 @@ class Core_Module extends Module {
                     $redirect = null;
 
                     // Get redirect URL if enabled
-                    if ($custom_page->redirect == 1) {
+                    if ($custom_page->redirect === '1') {
                         $redirect = $custom_page->link;
                     }
 
@@ -157,10 +186,10 @@ class Core_Module extends Module {
                         $custom_page_permissions = DB::getInstance()->get('custom_pages_permissions', ['group_id', $user_group])->results();
                         if (count($custom_page_permissions)) {
                             foreach ($custom_page_permissions as $permission) {
-                                if ($permission->page_id == $custom_page->id) {
-                                    if ($permission->view == 1) {
+                                if ($permission->page_id === $custom_page->id) {
+                                    if ($permission->view === '1') {
                                         // Check cache for order
-                                        if (!$cache->isCached($custom_page->id . '_order')) {
+                                        if (!$cache->hasCashedData($custom_page->id . '_order')) {
                                             // Create cache entry now
                                             $page_order = 200;
                                             $cache->store($custom_page->id . '_order', 200);
@@ -220,17 +249,17 @@ class Core_Module extends Module {
                     foreach ($custom_pages as $custom_page) {
                         $redirect = null;
 
-                        if ($custom_page->redirect == 1) {
+                        if ($custom_page->redirect === '1') {
                             $redirect = Output::getClean($custom_page->link);
                         }
 
                         $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                         foreach ($custom_page_permissions as $permission) {
-                            if ($permission->page_id == $custom_page->id) {
-                                if ($permission->view == 1) {
+                            if ($permission->page_id === $custom_page->id) {
+                                if ($permission->view === '1') {
                                     // Check cache for order
-                                    if (!$cache->isCached($custom_page->id . '_order')) {
+                                    if (!$cache->hasCashedData($custom_page->id . '_order')) {
                                         // Create cache entry now
                                         $page_order = 200;
                                         $cache->store($custom_page->id . '_order', 200);
@@ -287,7 +316,7 @@ class Core_Module extends Module {
 
             if (count($more)) {
                 foreach ($more as $item) {
-                    $navigation->addItemToDropdown('more_dropdown', $item['id'], $item['title'], $item['url'], 'top', ($item['target']) ? '_blank' : null, $item['icon'] ?? '', $item['order']);
+                    $navigation->addItemToDropdown('more_dropdown', $item['id'] ?? '', $item['title'] ?? '', $item['url'], 'top', ($item['target']) ? '_blank' : null, $item['icon'] ?? '', $item['order']);
                 }
             }
         }
@@ -510,7 +539,7 @@ class Core_Module extends Module {
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
-            'class' => \League\OAuth2\Client\Provider\Google::class,
+            'class' => Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
             'icon' => 'fab fa-google',
@@ -542,7 +571,7 @@ class Core_Module extends Module {
         GroupSyncManager::getInstance()->registerInjector(new NamelessMCGroupSyncInjector);
         GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
 
-        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
+        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value): ?User {
             $lookup_data = explode(':', $value);
             if (count($lookup_data) === 1) {
                 // assume it is a namelessmc user id
@@ -570,7 +599,7 @@ class Core_Module extends Module {
                 [$integration_lookup_type, $integration_name, $lookup_value] = $lookup_data;
 
                 $integration = Integrations::getInstance()->getIntegration($integration_name);
-                if ($integration != null) {
+                if ($integration !== null) {
                     if ($integration_lookup_type === 'integration_id') {
                         $integrationUser = new IntegrationUser($integration, $lookup_value, 'identifier');
                         if ($integrationUser->exists()) {
@@ -594,6 +623,7 @@ class Core_Module extends Module {
             }
 
             $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, $value);
+            return null;
         });
 
         // Minecraft Integration
@@ -605,7 +635,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
@@ -621,7 +651,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
         EventHandler::registerListener('renderCustomPage', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderCustomPage', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis');
         EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
@@ -635,14 +665,26 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
     }
 
+    /**
+     *
+     * @return array
+     */
     public static function getDashboardGraphs(): array {
         return self::$_dashboard_graph;
     }
 
+    /**
+     *
+     * @return array
+     */
     public static function getNotices(): array {
         return self::$_notices;
     }
 
+    /**
+     *
+     * @return array
+     */
     public static function getUserActions(): array {
         $return = self::$_user_actions;
 
@@ -653,23 +695,54 @@ class Core_Module extends Module {
         return $return;
     }
 
-    public function onInstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onInstall(): void {
         // Not necessary for Core
     }
 
-    public function onUninstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onUninstall(): void {
         // Not necessary for Core
     }
 
-    public function onEnable() {
+    /**
+     *
+     * @return void
+     */
+    public function onEnable(): void {
         // Not necessary for Core
     }
 
-    public function onDisable() {
+    /**
+     *
+     * @return void
+     */
+    public function onDisable(): void {
         // Not necessary for Core
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase|null $template Active template to render.
+     *
+     * @throws DebugBarException
+     * @throws GuzzleException
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
         $language = $this->_language;
 
         // Permissions
@@ -756,7 +829,7 @@ class Core_Module extends Module {
         // Widgets - only load if on a widget staffcp page or the frontend
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
-            $cache->setCache('social_media');
+            $cache->setCacheName('social_media');
             $fb_url = Util::getSetting('fb_url');
             if ($fb_url) {
                 $widgets->add(new FacebookWidget($smarty, $fb_url));
@@ -790,16 +863,16 @@ class Core_Module extends Module {
         $validate_action = Util::getSetting('validate_user_action');
         $validate_action = json_decode($validate_action, true);
 
-        if ($validate_action['action'] == 'promote') {
+        if ($validate_action['action'] === 'promote') {
             EventHandler::registerListener('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
         // Define default group pre validation
-        $cache->setCache('pre_validation_default');
+        $cache->setCacheName('pre_validation_default');
         $group_id = null;
 
-        if ($cache->isCached('pre_validation_default')) {
+        if ($cache->hasCashedData('pre_validation_default')) {
             $group_id = $cache->retrieve('pre_validation_default');
 
         } else {
@@ -810,39 +883,40 @@ class Core_Module extends Module {
         define('PRE_VALIDATED_DEFAULT', $group_id);
 
         // Check for updates
-        if ($user->isLoggedIn()) {
-            if (!(defined('PANEL_PAGE') && PANEL_PAGE === 'update') && $user->hasPermission('admincp.update')) {
-                $cache->setCache('update_check');
-                if ($cache->isCached('update_check')) {
-                    $update_check = $cache->retrieve('update_check');
-                } else {
-                    $update_check = Util::updateCheck();
-                    $cache->store('update_check', $update_check, 3600);
-                }
+        if (!(defined('PANEL_PAGE') && PANEL_PAGE === 'update')
+            && $user->isLoggedIn()
+            && $user->hasPermission('admincp.update')) {
 
-                if (!is_string($update_check) && $update_check->updateAvailable()) {
-                    $smarty->assign([
-                        'NEW_UPDATE' => $update_check->isUrgent()
-                            ? $language->get('admin', 'new_urgent_update_available')
-                            : $language->get('admin', 'new_update_available'),
-                        'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
-                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
-                            'version' => Output::getClean(NAMELESS_VERSION)
-                        ]),
-                        'NEW_VERSION' => $language->get('admin', 'new_version_x', [
-                            'version' => Output::getClean($update_check->version())
-                        ]),
-                        'NAMELESS_UPDATE' => $language->get('admin', 'update'),
-                        'NAMELESS_UPDATE_LINK' => URL::build('/panel/update')
-                    ]);
-                }
+            $cache->setCacheName('update_check');
+            if ($cache->hasCashedData('update_check')) {
+                $update_check = $cache->retrieve('update_check');
+            } else {
+                $update_check = Util::updateCheck();
+                $cache->store('update_check', $update_check, 3600);
+            }
+
+            if (!is_string($update_check) && $update_check->updateAvailable()) {
+                $smarty->assign([
+                    'NEW_UPDATE' => $update_check->isUrgent()
+                        ? $language->get('admin', 'new_urgent_update_available')
+                        : $language->get('admin', 'new_update_available'),
+                    'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
+                    'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
+                        'version' => Output::getClean(NAMELESS_VERSION)
+                    ]),
+                    'NEW_VERSION' => $language->get('admin', 'new_version_x', [
+                        'version' => Output::getClean($update_check->version())
+                    ]),
+                    'NAMELESS_UPDATE' => $language->get('admin', 'update'),
+                    'NAMELESS_UPDATE_LINK' => URL::build('/panel/update')
+                ]);
             }
         }
 
         if (defined('MINECRAFT') && MINECRAFT === true) {
             // Status page?
-            $cache->setCache('status_page');
-            if ($cache->isCached('enabled')) {
+            $cache->setCacheName('status_page');
+            if ($cache->hasCashedData('enabled')) {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
@@ -851,18 +925,18 @@ class Core_Module extends Module {
 
             }
 
-            if ($status_enabled == 1) {
+            if ($status_enabled === 1) {
                 // Add status link to navbar
-                $cache->setCache('navbar_order');
-                if (!$cache->isCached('status_order')) {
+                $cache->setCacheName('navbar_order');
+                if (!$cache->hasCashedData('status_order')) {
                     $status_order = 3;
                     $cache->store('status_order', 3);
                 } else {
                     $status_order = $cache->retrieve('status_order');
                 }
 
-                $cache->setCache('navbar_icons');
-                if (!$cache->isCached('status_icon')) {
+                $cache->setCacheName('navbar_icons');
+                if (!$cache->hasCashedData('status_icon')) {
                     $icon = '';
                 } else {
                     $icon = $cache->retrieve('status_icon');
@@ -876,16 +950,16 @@ class Core_Module extends Module {
 
         // Only add leaderboard link if there is at least one enabled placeholder
         if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
-            $cache->setCache('navbar_order');
-            if (!$cache->isCached('leaderboards_order')) {
+            $cache->setCacheName('navbar_order');
+            if (!$cache->hasCashedData('leaderboards_order')) {
                 $leaderboards_order = 4;
                 $cache->store('leaderboards_order', 4);
             } else {
                 $leaderboards_order = $cache->retrieve('leaderboards_order');
             }
 
-            $cache->setCache('navbar_icons');
-            if (!$cache->isCached('leaderboards_icon')) {
+            $cache->setCacheName('navbar_icons');
+            if (!$cache->hasCashedData('leaderboards_icon')) {
                 $leaderboards_icon = '';
             } else {
                 $leaderboards_icon = $cache->retrieve('leaderboards_icon');
@@ -899,14 +973,14 @@ class Core_Module extends Module {
             // Minecraft integration?
             if (defined('MINECRAFT') && MINECRAFT === true) {
                 // Query main server
-                $cache->setCache('mc_default_server');
+                $cache->setCacheName('mc_default_server');
 
                 // Already cached?
-                if ($cache->isCached('default_query')) {
+                if ($cache->hasCashedData('default_query')) {
                     $result = $cache->retrieve('default_query');
                     $default = $cache->retrieve('default');
                 } else {
-                    if ($cache->isCached('default')) {
+                    if ($cache->hasCashedData('default')) {
                         $default = $cache->retrieve('default');
                         $sub_servers = $cache->retrieve('default_sub');
                     } else {
@@ -949,44 +1023,26 @@ class Core_Module extends Module {
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true);
 
-                            if (isset($result['status_value']) && $result['status_value'] == 1) {
-                                $result['status'] = $language->get('general', 'online');
-
-                                if ($result['player_count'] == 1) {
-                                    $result['status_full'] = $language->get('general', 'currently_1_player_online');
-                                    $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
-                                } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                }
-
-                            } else {
-                                $result['status'] = $language->get('general', 'offline');
-                                $result['status_full'] = $language->get('general', 'server_offline');
-                                $result['server_offline'] = $language->get('general', 'server_offline');
-                            }
-
                         } else {
                             $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
 
-                            if (isset($result['status_value']) && $result['status_value'] == 1) {
-                                $result['status'] = $language->get('general', 'online');
+                        }
 
-                                if ($result['player_count'] == 1) {
-                                    $result['status_full'] = $language->get('general', 'currently_1_player_online');
-                                    $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
-                                } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                }
+                        if (isset($result['status_value']) && $result['status_value'] === '1') {
+                            $result['status'] = $language->get('general', 'online');
 
+                            if ($result['player_count'] === '1') {
+                                $result['status_full'] = $language->get('general', 'currently_1_player_online');
+                                $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                             } else {
-                                $result['status'] = $language->get('general', 'offline');
-                                $result['status_full'] = $language->get('general', 'server_offline');
-                                $result['server_offline'] = $language->get('general', 'server_offline');
-
+                                $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
                             }
 
+                        } else {
+                            $result['status'] = $language->get('general', 'offline');
+                            $result['status_full'] = $language->get('general', 'server_offline');
+                            $result['server_offline'] = $language->get('general', 'server_offline');
                         }
 
                         // Cache for 1 minute
@@ -1002,9 +1058,9 @@ class Core_Module extends Module {
 
                 if (!is_null($default) && isset($default->ip)) {
                     $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
-                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
+                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port !== '25565' ? ':' . $default->port : '')) . '</span>',
                     ]));
-                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
+                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port !== '25565' ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
                     $smarty->assign('COPIED', $language->get('general', 'copied'));
                 } else {
@@ -1016,34 +1072,33 @@ class Core_Module extends Module {
 
             }
 
-            if (defined('PAGE') && PAGE == 'user_query') {
+            if (defined('PAGE') && PAGE === 'user_query') {
                 // Collection
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
-                $timeago = new TimeAgo(TIMEZONE);
+                $time_ago = new TimeAgo(TIMEZONE);
 
                 if ($user_id) {
                     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
                     if (count($user_query)) {
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
-                            'registeredAt' => $timeago->inWords($user_query->joined, $language),
+                            'registeredAt' => $time_ago->inWords($user_query->joined, $language),
                         ]));
                     }
                 }
             }
-
         } else {
             // Navigation
-            $cache->setCache('panel_sidebar');
-            if (!$cache->isCached('dashboard_order')) {
+            $cache->setCacheName('panel_sidebar');
+            if (!$cache->hasCashedData('dashboard_order')) {
                 $order = 1;
                 $cache->store('dashboard_order', 1);
             } else {
                 $order = $cache->retrieve('dashboard_order');
             }
 
-            if (!$cache->isCached('dashboard_icon')) {
+            if (!$cache->hasCashedData('dashboard_icon')) {
                 $icon = '<i class="nav-icon fas fa-home"></i>';
                 $cache->store('dashboard_icon', $icon);
             } else {
@@ -1054,14 +1109,14 @@ class Core_Module extends Module {
             $navs[2]->add('dashboard', $language->get('admin', 'dashboard'), URL::build('/panel'), 'top', null, $order, $icon);
 
             if ($user->hasPermission('admincp.core')) {
-                if (!$cache->isCached('configuration_order')) {
+                if (!$cache->hasCashedData('configuration_order')) {
                     $order = 2;
                     $cache->store('configuration_order', 2);
                 } else {
                     $order = $cache->retrieve('configuration_order');
                 }
 
-                if (!$cache->isCached('configuration_icon')) {
+                if (!$cache->hasCashedData('configuration_icon')) {
                     $icon = '<i class="nav-icon fas fa-wrench"></i>';
                     $cache->store('configuration_icon', $icon);
                 } else {
@@ -1071,7 +1126,7 @@ class Core_Module extends Module {
                 $navs[2]->addDropdown('core_configuration', $language->get('admin', 'configuration'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.core.general')) {
-                    if (!$cache->isCached('general_settings_icon')) {
+                    if (!$cache->hasCashedData('general_settings_icon')) {
                         $icon = '<i class="nav-icon fas fa-cogs"></i>';
                         $cache->store('general_settings_icon', $icon);
                     } else {
@@ -1082,7 +1137,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.api')) {
-                    if (!$cache->isCached('api_icon')) {
+                    if (!$cache->hasCashedData('api_icon')) {
                         $icon = '<i class="nav-icon fas fa-code"></i>';
                         $cache->store('api_icon', $icon);
                     } else {
@@ -1093,7 +1148,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.seo')) {
-                    if (!$cache->isCached('seo_icon')) {
+                    if (!$cache->hasCashedData('seo_icon')) {
                         $icon = '<i class="nav-icon fas fa-globe"></i>';
                         $cache->store('seo_icon', $icon);
                     } else {
@@ -1104,7 +1159,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.avatars')) {
-                    if (!$cache->isCached('avatars_icon')) {
+                    if (!$cache->hasCashedData('avatars_icon')) {
                         $icon = '<i class="nav-icon fas fa-image"></i>';
                         $cache->store('avatars_icon', $icon);
                     } else {
@@ -1115,7 +1170,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.fields')) {
-                    if (!$cache->isCached('custom_profile_fields_icon')) {
+                    if (!$cache->hasCashedData('custom_profile_fields_icon')) {
                         $icon = '<i class="nav-icon fas fa-id-card"></i>';
                         $cache->store('custom_profile_fields_icon', $icon);
                     } else {
@@ -1126,7 +1181,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.debugging')) {
-                    if (!$cache->isCached('debugging_icon')) {
+                    if (!$cache->hasCashedData('debugging_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
                         $cache->store('debugging_icon', $icon);
                     } else {
@@ -1137,7 +1192,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.emails')) {
-                    if (!$cache->isCached('email_icon')) {
+                    if (!$cache->hasCashedData('email_icon')) {
                         $icon = '<i class="nav-icon fas fa-envelope"></i>';
                         $cache->store('email_icon', $icon);
                     } else {
@@ -1148,7 +1203,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.navigation')) {
-                    if (!$cache->isCached('navigation_icon')) {
+                    if (!$cache->hasCashedData('navigation_icon')) {
                         $icon = '<i class="nav-icon fas fa-bars"></i>';
                         $cache->store('navigation_icon', $icon);
                     } else {
@@ -1159,7 +1214,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.terms')) {
-                    if (!$cache->isCached('privacy_and_terms_icon')) {
+                    if (!$cache->hasCashedData('privacy_and_terms_icon')) {
                         $icon = '<i class="nav-icon fas fa-file-alt"></i>';
                         $cache->store('privacy_and_terms_icon', $icon);
                     } else {
@@ -1170,7 +1225,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.reactions')) {
-                    if (!$cache->isCached('reactions_icon')) {
+                    if (!$cache->hasCashedData('reactions_icon')) {
                         $icon = '<i class="nav-icon fas fa-smile"></i>';
                         $cache->store('reactions_icon', $icon);
                     } else {
@@ -1181,7 +1236,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
-                    if (!$cache->isCached('registration_icon')) {
+                    if (!$cache->hasCashedData('registration_icon')) {
                         $icon = '<i class="nav-icon fas fa-user-plus"></i>';
                         $cache->store('registration_icon', $icon);
                     } else {
@@ -1192,7 +1247,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.social_media')) {
-                    if (!$cache->isCached('social_media_icon')) {
+                    if (!$cache->hasCashedData('social_media_icon')) {
                         $icon = '<i class="nav-icon fas fa-users"></i>';
                         $cache->store('social_media_icon', $icon);
                     } else {
@@ -1203,7 +1258,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.hooks')) {
-                    if (!$cache->isCached('hooks_icon')) {
+                    if (!$cache->hasCashedData('hooks_icon')) {
                         $icon = '<i class="nav-icon fas fa-link"></i>';
                         $cache->store('hooks_icon', $icon);
                     } else {
@@ -1215,14 +1270,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.core.announcements')) {
-                if (!$cache->isCached('announcements_order')) {
+                if (!$cache->hasCashedData('announcements_order')) {
                     $order = 4;
                     $cache->store('announcements_order', 4);
                 } else {
                     $order = $cache->retrieve('announcements_order');
                 }
 
-                if (!$cache->isCached('announcements_icon')) {
+                if (!$cache->hasCashedData('announcements_icon')) {
                     $icon = '<i class="nav-icon fas fa-bullhorn"></i>';
                     $cache->store('announcements_icon', $icon);
                 } else {
@@ -1233,14 +1288,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.integrations')) {
-                if (!$cache->isCached('integrations_order')) {
+                if (!$cache->hasCashedData('integrations_order')) {
                     $order = 5;
                     $cache->store('integrations_order', 5);
                 } else {
                     $order = $cache->retrieve('integrations_order');
                 }
 
-                if (!$cache->isCached('integrations_icon')) {
+                if (!$cache->hasCashedData('integrations_icon')) {
                     $icon = '<i class="nav-icon fas fa-plug"></i>';
                     $cache->store('integrations_icon', $icon);
                 } else {
@@ -1251,7 +1306,7 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.integrations.edit')) {
-                if (!$cache->isCached('user_integrations_icon')) {
+                if (!$cache->hasCashedData('user_integrations_icon')) {
                     $icon = '<i class="nav-icon fas fa-link"></i>';
                     $cache->store('user_integrations_icon', $icon);
                 } else {
@@ -1262,7 +1317,7 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.minecraft')) {
-                if (!$cache->isCached('minecraft_icon')) {
+                if (!$cache->hasCashedData('minecraft_icon')) {
                     $icon = '<i class="nav-icon fas fa-cubes"></i>';
                     $cache->store('minecraft_icon', $icon);
                 } else {
@@ -1273,14 +1328,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')) {
-                if (!$cache->isCached('layout_order')) {
+                if (!$cache->hasCashedData('layout_order')) {
                     $order = 6;
                     $cache->store('layout_order', 6);
                 } else {
                     $order = $cache->retrieve('layout_order');
                 }
 
-                if (!$cache->isCached('layout_icon')) {
+                if (!$cache->hasCashedData('layout_icon')) {
                     $icon = '<i class="nav-icon fas fa-object-group"></i>';
                     $cache->store('layout_icon', $icon);
                 } else {
@@ -1290,7 +1345,7 @@ class Core_Module extends Module {
                 $navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.styles.images')) {
-                    if (!$cache->isCached('images_icon')) {
+                    if (!$cache->hasCashedData('images_icon')) {
                         $icon = '<i class="nav-icon fas fa-images"></i>';
                         $cache->store('images_icon', $icon);
                     } else {
@@ -1301,7 +1356,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.styles.panel_templates')) {
-                    if (!$cache->isCached('panel_templates_icon')) {
+                    if (!$cache->hasCashedData('panel_templates_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
                         $cache->store('panel_templates_icon', $icon);
                     } else {
@@ -1312,7 +1367,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.styles')) {
-                    if (!$cache->isCached('templates_icon')) {
+                    if (!$cache->hasCashedData('templates_icon')) {
                         $icon = '<i class="nav-icon fas fa-paint-brush"></i>';
                         $cache->store('templates_icon', $icon);
                     } else {
@@ -1323,7 +1378,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.widgets')) {
-                    if (!$cache->isCached('widgets_icon')) {
+                    if (!$cache->hasCashedData('widgets_icon')) {
                         $icon = '<i class="nav-icon fas fa-th"></i>';
                         $cache->store('widgets_icon', $icon);
                     } else {
@@ -1335,14 +1390,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.modules')) {
-                if (!$cache->isCached('modules_order')) {
+                if (!$cache->hasCashedData('modules_order')) {
                     $order = 7;
                     $cache->store('modules_order', 7);
                 } else {
                     $order = $cache->retrieve('modules_order');
                 }
 
-                if (!$cache->isCached('modules_icon')) {
+                if (!$cache->hasCashedData('modules_icon')) {
                     $icon = '<i class="nav-icon fas fa-puzzle-piece"></i>';
                     $cache->store('modules_icon', $icon);
                 } else {
@@ -1353,14 +1408,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.pages')) {
-                if (!$cache->isCached('pages_order')) {
+                if (!$cache->hasCashedData('pages_order')) {
                     $order = 8;
                     $cache->store('pages_order', 8);
                 } else {
                     $order = $cache->retrieve('pages_order');
                 }
 
-                if (!$cache->isCached('pages_icon')) {
+                if (!$cache->hasCashedData('pages_icon')) {
                     $icon = '<i class="nav-icon fas fa-file"></i>';
                     $cache->store('pages_icon', $icon);
                 } else {
@@ -1371,14 +1426,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.groups')) {
-                if (!$cache->isCached('groups_order')) {
+                if (!$cache->hasCashedData('groups_order')) {
                     $order = 3;
                     $cache->store('groups_order', 3);
                 } else {
                     $order = $cache->retrieve('groups_order');
                 }
 
-                if (!$cache->isCached('groups_icon')) {
+                if (!$cache->hasCashedData('groups_icon')) {
                     $icon = '<i class="nav-icon fas fa-address-book"></i>';
                     $cache->store('group_icon', $icon);
                 } else {
@@ -1389,14 +1444,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.users')) {
-                if (!$cache->isCached('users_order')) {
+                if (!$cache->hasCashedData('users_order')) {
                     $order = 11;
                     $cache->store('users_order', 11);
                 } else {
                     $order = $cache->retrieve('users_order');
                 }
 
-                if (!$cache->isCached('users_icon')) {
+                if (!$cache->hasCashedData('users_icon')) {
                     $icon = '<i class="nav-icon fas fa-user-circle"></i>';
                     $cache->store('users_icon', $icon);
                 } else {
@@ -1405,7 +1460,7 @@ class Core_Module extends Module {
 
                 $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
 
-                if (!$cache->isCached('user_icon')) {
+                if (!$cache->hasCashedData('user_icon')) {
                     $icon = '<i class="nav-icon fas fa-users"></i>';
                     $cache->store('user_icon', $icon);
                 } else {
@@ -1415,7 +1470,7 @@ class Core_Module extends Module {
                 $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
 
                 if ($user->hasPermission('modcp.ip_lookup')) {
-                    if (!$cache->isCached('ip_lookup_icon')) {
+                    if (!$cache->hasCashedData('ip_lookup_icon')) {
                         $icon = '<i class="nav-icon fas fa-binoculars"></i>';
                         $cache->store('ip_lookup_icon', $icon);
                     } else {
@@ -1426,7 +1481,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('modcp.punishments')) {
-                    if (!$cache->isCached('punishments_icon')) {
+                    if (!$cache->hasCashedData('punishments_icon')) {
                         $icon = '<i class="nav-icon fas fa-gavel"></i>';
                         $cache->store('punishments_icon', $icon);
                     } else {
@@ -1437,7 +1492,7 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
-                    if (!$cache->isCached('reports_icon')) {
+                    if (!$cache->hasCashedData('reports_icon')) {
                         $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
                         $cache->store('reports_icon', $icon);
                     } else {
@@ -1449,14 +1504,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.security')) {
-                if (!$cache->isCached('security_order')) {
+                if (!$cache->hasCashedData('security_order')) {
                     $order = 9;
                     $cache->store('security_order', 9);
                 } else {
                     $order = $cache->retrieve('security_order');
                 }
 
-                if (!$cache->isCached('security_icon')) {
+                if (!$cache->hasCashedData('security_icon')) {
                     $icon = '<i class="nav-icon fas fa-lock"></i>';
                     $cache->store('security_icon', $icon);
                 } else {
@@ -1467,14 +1522,14 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.update')) {
-                if (!$cache->isCached('update_order')) {
+                if (!$cache->hasCashedData('update_order')) {
                     $order = 10;
                     $cache->store('update_order', 10);
                 } else {
                     $order = $cache->retrieve('update_order');
                 }
 
-                if (!$cache->isCached('update_icon')) {
+                if (!$cache->hasCashedData('update_icon')) {
                     $icon = '<i class="nav-icon fas fa-download"></i>';
                     $cache->store('update_icon', $icon);
                 } else {
@@ -1485,11 +1540,11 @@ class Core_Module extends Module {
             }
 
             // Notices
-            $cache->setCache('notices_cache');
+            $cache->setCacheName('notices_cache');
 
             // Email errors?
             if ($user->hasPermission('admincp.core.emails')) {
-                if ($cache->isCached('email_errors')) {
+                if ($cache->hasCashedData('email_errors')) {
                     $email_errors = $cache->retrieve('email_errors');
                 } else {
                     $email_errors = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_email_errors')->first()->c;
@@ -1501,10 +1556,10 @@ class Core_Module extends Module {
                 }
             }
 
-            if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
+            if (defined('PANEL_PAGE') && PANEL_PAGE === 'dashboard') {
                 // Dashboard graph
-                $cache->setCache('dashboard_graph');
-                if ($cache->isCached('core_data')) {
+                $cache->setCacheName('dashboard_graph');
+                if ($cache->hasCashedData('core_data')) {
                     $data = $cache->retrieve('core_data');
 
                 } else {
@@ -1596,16 +1651,13 @@ class Core_Module extends Module {
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
-    public static function addNotice($url, $text): void {
+    /**
+     * @param string $url
+     * @param string $text
+     * @return void
+     */
+    public static function addNotice(string $url, string $text): void {
         self::$_notices[$url] = $text;
-    }
-
-    public static function addDataToDashboardGraph($title, $data): void {
-        if (isset(self::$_dashboard_graph[$title])) {
-            self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
-        } else {
-            self::$_dashboard_graph[$title] = $data;
-        }
     }
 
     /**
@@ -1632,10 +1684,35 @@ class Core_Module extends Module {
         return $data;
     }
 
-    public static function addUserAction($title, $link): void {
+    /**
+     * @param string $title
+     * @param string[] $data
+     *
+     * @return void
+     */
+    public static function addDataToDashboardGraph(string $title, array $data): void {
+        if (isset(self::$_dashboard_graph[$title])) {
+            self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
+        } else {
+            self::$_dashboard_graph[$title] = $data;
+        }
+    }
+
+    /**
+     * @param string $title
+     * @param string $link
+     *
+     * @return void
+     */
+    public static function addUserAction(string $title, string $link): void {
         self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     public function getDebugInfo(): array {
         $servers = [];
         $group_sync_server_id = Util::getSetting('group_sync_mc_server');
@@ -1648,7 +1725,7 @@ class Core_Module extends Module {
                 'port' => $server->port,
                 'query_port' => $server->query_port,
                 'bedrock' => (bool)$server->bedrock,
-                'group_sync_server' => $server->id == $group_sync_server_id,
+                'group_sync_server' => (string)$server->id === $group_sync_server_id,
             ];
         }
 

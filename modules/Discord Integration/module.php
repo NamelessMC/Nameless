@@ -1,9 +1,18 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * TODO: Add description
+ */
 class Discord_Module extends Module {
 
     private Language $_language;
 
+    /**
+     * @param Language $language
+     * @param Pages $pages
+     * @param Endpoints $endpoints
+     */
     public function __construct(Language $language, Pages $pages, Endpoints $endpoints) {
         $this->_language = $language;
 
@@ -48,19 +57,49 @@ class Discord_Module extends Module {
         EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
-    public function onInstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onInstall(): void {
     }
 
-    public function onUninstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onUninstall(): void {
     }
 
-    public function onDisable() {
+    /**
+     *
+     * @return void
+     */
+    public function onDisable(): void {
     }
 
-    public function onEnable() {
+    /**
+     *
+     * @return void
+     */
+    public function onEnable(): void {
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase|null $template Active template to render.
+     *
+     * @throws Exception
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
         PermissionHandler::registerPermissions($this->getName(), [
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
@@ -70,10 +109,10 @@ class Discord_Module extends Module {
         }
 
         if (!defined('FRONT_END')) {
-            $cache->setCache('panel_sidebar');
+            $cache->setCacheName('panel_sidebar');
 
             if ($user->hasPermission('admincp.discord')) {
-                if (!$cache->isCached('discord_icon')) {
+                if (!$cache->hasCashedData('discord_icon')) {
                     $icon = '<i class="nav-icon fab fa-discord"></i>';
                     $cache->store('discord_icon', $icon);
                 } else {
@@ -85,6 +124,11 @@ class Discord_Module extends Module {
         }
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array<string, string> Debug information for this module.
+     */
     public function getDebugInfo(): array {
         return [
             'guild_id' => Discord::getGuildId(),

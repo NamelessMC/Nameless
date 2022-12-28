@@ -45,7 +45,7 @@
                                 <span class="float-md-right"><a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a></span>
                             </div>
                         </div>
-                        <hr />
+                        <hr/>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}

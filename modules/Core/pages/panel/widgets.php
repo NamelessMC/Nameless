@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel widgets page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.widgets')) {
@@ -64,70 +77,76 @@ if (!isset($_GET['action'])) {
 
     $template_file = 'core/widgets.tpl';
 } else {
-    if ($_GET['action'] == 'enable') {
+    if ($_GET['action'] === 'enable') {
         // Enable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             die('Invalid widget!');
         }
 
-        if (Token::check($_POST['token'])) {
-            // Get widget name
-            $name = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
+        try {
+            if (Token::check($_POST['token'])) {
+                // Get widget name
+                $name = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
 
-            if (count($name)) {
-                $name = Output::getClean($name[0]->name);
-                $widget = $widgets->getWidget($name);
+                if (count($name)) {
+                    $name = Output::getClean($name[0]->name);
+                    $widget = $widgets->getWidget($name);
 
-                if (!is_null($widget)) {
-                    DB::getInstance()->update('widgets', $_GET['w'], [
-                        'enabled' => true
-                    ]);
+                    if (!is_null($widget)) {
+                        DB::getInstance()->update('widgets', $_GET['w'], [
+                            'enabled' => true
+                        ]);
 
-                    $widgets->enable($widget);
+                        $widgets->enable($widget);
 
-                    Session::flash('admin_widgets', $language->get('admin', 'widget_enabled'));
+                        Session::flash('admin_widgets', $language->get('admin', 'widget_enabled'));
+                    }
                 }
-            }
 
-        } else {
-            Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
+            } else {
+                Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
+            }
+        } catch (Exception $ignored) {
         }
 
         Redirect::to(URL::build('/panel/core/widgets'));
     }
 
-    if ($_GET['action'] == 'disable') {
+    if ($_GET['action'] === 'disable') {
         // Disable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             die('Invalid widget!');
         }
 
-        if (Token::check($_POST['token'])) {
-            // Get widget name
-            $name = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
-            if (count($name)) {
-                $name = Output::getClean($name[0]->name);
-                $widget = $widgets->getWidget($name);
+        try {
+            if (Token::check($_POST['token'])) {
+                // Get widget name
+                $name = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
+                if (count($name)) {
+                    $name = Output::getClean($name[0]->name);
+                    $widget = $widgets->getWidget($name);
 
-                if (!is_null($widget)) {
-                    DB::getInstance()->update('widgets', $_GET['w'], [
-                        'enabled' => false
-                    ]);
+                    if (!is_null($widget)) {
+                        DB::getInstance()->update('widgets', $_GET['w'], [
+                            'enabled' => false
+                        ]);
 
-                    $widgets->disable($widget);
+                        $widgets->disable($widget);
 
-                    Session::flash('admin_widgets', $language->get('admin', 'widget_disabled'));
+                        Session::flash('admin_widgets', $language->get('admin', 'widget_disabled'));
+                    }
                 }
-            }
 
-        } else {
-            Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
+            } else {
+                Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
+            }
+        } catch (Exception $ignored) {
         }
 
         Redirect::to(URL::build('/panel/core/widgets'));
     }
 
-    if ($_GET['action'] == 'edit') {
+    if ($_GET['action'] === 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
@@ -143,33 +162,36 @@ if (!isset($_GET['action'])) {
         $active_pages = json_decode($widget->pages, true);
 
         if (Input::exists()) {
-            if (Token::check()) {
-                try {
-                    // Updated pages list
-                    if (isset($_POST['pages']) && count($_POST['pages'])) {
-                        $active_pages = $_POST['pages'];
-                    } else {
-                        $active_pages = [];
+            try {
+                if (Token::check()) {
+                    try {
+                        // Updated pages list
+                        if (isset($_POST['pages']) && count($_POST['pages'])) {
+                            $active_pages = $_POST['pages'];
+                        } else {
+                            $active_pages = [];
+                        }
+
+                        $active_pages_string = json_encode($active_pages);
+
+                        $order = ($_POST['order'] ?? 10);
+
+                        $location = Input::get('location');
+                        if (!in_array($location, ['left', 'right'])) {
+                            $location = 'right';
+                        }
+
+                        DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
+
+                        Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
+                        Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
+                    } catch (Exception $e) {
+                        $errors = [$e->getMessage()];
                     }
-
-                    $active_pages_string = json_encode($active_pages);
-
-                    $order = ($_POST['order'] ?? 10);
-
-                    $location = Input::get('location');
-                    if (!in_array($location, ['left', 'right'])) {
-                        $location = 'right';
-                    }
-
-                    DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
-
-                    Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
-                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
-                } catch (Exception $e) {
-                    $errors = [$e->getMessage()];
+                } else {
+                    $errors = [$language->get('general', 'invalid_token')];
                 }
-            } else {
-                $errors = [$language->get('general', 'invalid_token')];
+            } catch (Exception $ignored) {
             }
         }
 
@@ -177,7 +199,7 @@ if (!isset($_GET['action'])) {
             $active_pages = [];
         }
 
-        if ($widgets->getWidget($widget->name)->getSettings() != null) {
+        if ($widgets->getWidget($widget->name)->getSettings() !== null) {
             $smarty->assign(
                 [
                     'SETTINGS' => $language->get('admin', 'settings'),
@@ -217,42 +239,40 @@ if (!isset($_GET['action'])) {
         );
 
         $template_file = 'core/widgets_edit.tpl';
-    } else {
-        if ($_GET['action'] == 'settings') {
-            // Ensure widget exists
-            if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
-                Redirect::to(URL::build('/panel/core/widgets'));
-            }
-
-            $widget = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
-            if (!count($widget)) {
-                Redirect::to(URL::build('/panel/core/widgets'));
-            }
-            $widget = $widget[0];
-
-            if (
-                $widgets->getWidget($widget->name)->getSettings() === null
-                || !file_exists($widgets->getWidget($widget->name)->getSettings())
-            ) {
-                Redirect::to(URL::build('/admin/widgets'));
-            }
-
-            require_once($widgets->getWidget($widget->name)->getSettings());
-
-            $smarty->assign(
-                [
-                    'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
-                        'widget' => Text::bold(Output::getClean($widget->name))
-                    ]),
-                    'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id))
-                ]
-            );
-
-            $template_file = 'core/widget_settings.tpl';
-        } else {
-            Redirect::to('/panel/core/widgets');
+    } else if ($_GET['action'] === 'settings') {
+        // Ensure widget exists
+        if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
+            Redirect::to(URL::build('/panel/core/widgets'));
         }
+
+        $widget = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
+        if (!count($widget)) {
+            Redirect::to(URL::build('/panel/core/widgets'));
+        }
+        $widget = $widget[0];
+
+        if (
+            $widgets->getWidget($widget->name)->getSettings() === null
+            || !file_exists($widgets->getWidget($widget->name)->getSettings())
+        ) {
+            Redirect::to(URL::build('/admin/widgets'));
+        }
+
+        require_once($widgets->getWidget($widget->name)->getSettings());
+
+        $smarty->assign(
+            [
+                'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
+                    'widget' => Text::bold(Output::getClean($widget->name))
+                ]),
+                'BACK' => $language->get('general', 'back'),
+                'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id))
+            ]
+        );
+
+        $template_file = 'core/widget_settings.tpl';
+    } else {
+        Redirect::to('/panel/core/widgets');
     }
 }
 
@@ -299,4 +319,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

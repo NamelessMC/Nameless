@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -11,7 +12,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-if (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING'])) {
+if (isset($_SERVER['NAMELESS_DEBUGGING']) || getenv('NAMELESS_DEBUGGING')) {
     define('DEBUGGING', 1);
 }
 
@@ -29,7 +30,7 @@ require(ROOT_PATH . '/core/init.php');
 
 // Disable error reporting
 error_reporting(0);
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
 
 // Set default timezone to prevent potential issues
 date_default_timezone_set('Europe/London');
@@ -44,7 +45,10 @@ if (isset($_SESSION['installer_language'])
     $language_short_code = 'en_UK';
 }
 
-$language = new Language('core', $language_short_code);
+try {
+    $language = new Language('core', $language_short_code);
+} catch (Exception $ignored) {
+}
 
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);

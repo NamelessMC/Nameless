@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Manages registering and retrieving PAPI placeholders.
  *
@@ -9,14 +11,19 @@
  */
 class Placeholders extends Instanceable {
 
-    private DB $_db;
+    /**
+     * @var ?DB $_db
+     */
+    private static ?DB $_db;
 
     private array $_all_placeholders;
 
     public function __construct() {
-        $this->_db = DB::getInstance();
+        if (!isset(self::$_db)) {
+            self::$_db = DB::getInstance();
+        }
 
-        $placeholders_query = $this->_db->get('placeholders_settings', ['name', '<>', ''])->results();
+        $placeholders_query = self::$_db->get('placeholders_settings', ['name', '<>', ''])->results();
         $placeholders = [];
 
         foreach ($placeholders_query as $placeholder) {
@@ -56,12 +63,12 @@ class Placeholders extends Instanceable {
     /**
      * Create a new row in nl2_placeholders_settings if a row with the "server_id" of $server_id and "name" of $name does not exist (this lets the same placeholder name be used across multiple NamelessMC plugin servers).
      *
-     * @param int $server_id ID of the server this placeholder resides on
+     * @param string $server_id ID of the server this placeholder resides on
      *
      * @param string $name Name of placeholder
      */
-    public function registerPlaceholder(int $server_id, string $name): void {
-        $this->_db->query('INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
+    public function registerPlaceholder(string $server_id, string $name): void {
+        self::$_db->query('INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
     }
 
     /**
@@ -74,7 +81,7 @@ class Placeholders extends Instanceable {
     public function loadUserPlaceholders(string $uuid): array {
         $binUuid = hex2bin(str_replace('-', '', $uuid));
 
-        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
+        $placeholder_query = self::$_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
 
         if (!$placeholder_query->count()) {
             return [];
@@ -114,17 +121,17 @@ class Placeholders extends Instanceable {
     /**
      * Get leaderboard data for a specific leaderboard.
      *
-     * @param int $server_id Server ID to get this placeholder from.
+     * @param string $server_id Server ID to get this placeholder from.
      * @param string $placeholder_name Unique name of placeholder to get data for.
      *
      * @return array Array of leaderboard data.
      */
-    public function getLeaderboardData(int $server_id, string $placeholder_name): array {
+    public function getLeaderboardData(string $server_id, string $placeholder_name): array {
 
         $sort = $this->getPlaceholder($server_id, sha1($placeholder_name))->leaderboard_sort;
 
         // We have to add 0 to value so mysql converts from the TEXT field to an integer value
-        $leaderboard_data = $this->_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? AND server_id = ? ORDER BY value + 0 {$sort} LIMIT 50", [$placeholder_name, $server_id]);
+        $leaderboard_data = self::$_db->query("SELECT * FROM nl2_users_placeholders WHERE name = ? AND server_id = ? ORDER BY value + 0 $sort LIMIT 50", [$placeholder_name, $server_id]);
 
         if (!$leaderboard_data->count()) {
             return [];
@@ -136,14 +143,14 @@ class Placeholders extends Instanceable {
     /**
      * Get placeholder data by server id and  name of placeholder.
      *
-     * @param int $server_id Server ID to get this placeholder from, if it exists across multiple.
+     * @param string $server_id Server ID to get this placeholder from, if it exists across multiple.
      * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
      *
      * @return object|null This placeholder's data, null if not exist.
      */
-    public function getPlaceholder(int $server_id, string $placeholder_name): ?object {
+    public function getPlaceholder(string $server_id, string $placeholder_name): ?object {
         foreach ($this->_all_placeholders as $placeholder) {
-            if ($placeholder->server_id == $server_id && $placeholder->safe_name == $placeholder_name) {
+            if ($placeholder->server_id === $server_id && $placeholder->safe_name === $placeholder_name) {
                 return $placeholder;
             }
         }

@@ -1,9 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * No params
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class ListUsersEndpoint extends KeyAuthEndpoint {
 
@@ -14,12 +13,17 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
         $query = 'SELECT u.id, u.username, u.isbanned AS banned, u.active FROM nl2_users u';
         $where = [];
         $params = [];
 
-        $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
+        $operator = isset($_GET['operator']) && $_GET['operator'] === 'OR'
             ? ' OR '
             : ' AND ';
 
@@ -36,11 +40,11 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         }
 
         if (isset($_GET['banned'])) {
-            $where[] = '`u`.`isbanned` = ' . ($_GET['banned'] == 'true' ? '1' : '0');
+            $where[] = '`u`.`isbanned` = ' . ($_GET['banned'] === 'true' ? '1' : '0');
         }
 
         if (isset($_GET['active'])) {
-            $where[] = '`u`.`active` = ' . ($_GET['active'] == 'true' ? '1' : '0');
+            $where[] = '`u`.`active` = ' . ($_GET['active'] === 'true' ? '1' : '0');
         }
 
         // Build where string
@@ -61,13 +65,13 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
 
         $base_url = URL::getSelfURL() . 'index.php?route=/api/v2/users&';
         if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
-            $limit = (int) $_GET['limit'];
+            $limit = (int)$_GET['limit'];
             if ($limit >= 1) {
                 $query .= ' LIMIT ' . $limit;
                 $return_array['limit'] = $limit;
 
                 if (isset($_GET['offset']) && is_numeric($_GET['offset'])) {
-                    $offset = (int) $_GET['offset'];
+                    $offset = (int)$_GET['offset'];
                     $query .= ' OFFSET ' . $offset;
                     $return_array['offset'] = $offset;
                     $return_array['next_page'] = $base_url . 'limit=' . $limit . '&offset=' . ($offset + $limit);
@@ -94,9 +98,9 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
                     'integration' => Output::getClean($integration->name),
                     'identifier' => Output::getClean($integration->identifier),
                     'username' => Output::getClean($integration->username),
-                    'verified' => (bool) $integration->verified,
+                    'verified' => (bool)$integration->verified,
                     'linked_date' => $integration->date,
-                    'show_publicly' => (bool) $integration->show_publicly,
+                    'show_publicly' => (bool)$integration->show_publicly,
                 ];
             }
 

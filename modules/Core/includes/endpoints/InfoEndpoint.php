@@ -1,9 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * No params
- *
- * @return string JSON Array of NamelessMC information
+ * TODO: Add description
  */
 class InfoEndpoint extends KeyAuthEndpoint {
 
@@ -14,10 +13,12 @@ class InfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
-
         $site_id = Util::getSetting('unique_id');
-
         if ($site_id === null) {
             $api->throwError(Nameless2API::ERROR_NO_SITE_UID);
         }

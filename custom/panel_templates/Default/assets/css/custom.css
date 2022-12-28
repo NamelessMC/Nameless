@@ -336,7 +336,7 @@ body {
 }
 
 @media (max-width: 768px) {
-    .sidebar.toggled+#content-wrapper {
+    .sidebar.toggled + #content-wrapper {
         margin-left: 0 !important;
     }
 }
@@ -440,7 +440,7 @@ footer.sticky-footer {
     color: rgba(0, 0, 0) !important;
 }
 
-.custom-switch>.custom-control-label::before {
+.custom-switch > .custom-control-label::before {
     /* slightly larger than default */
     top: 0.20rem;
     height: 1.1rem;

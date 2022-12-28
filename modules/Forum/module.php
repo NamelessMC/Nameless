@@ -1,19 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
- *
- *  License: MIT
- *
- *  Forum module file
- */
+declare(strict_types=1);
 
+/**
+ * Forum module file
+ *
+ * @package Modules\Forum
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
+ */
 class Forum_Module extends Module {
 
     private Language $_language;
     private Language $_forum_language;
 
+    /**
+     * @param Language $language
+     * @param Language $forum_language
+     * @param Pages $pages
+     */
     public function __construct(Language $language, Language $forum_language, Pages $pages) {
         $this->_language = $language;
         $this->_forum_language = $forum_language;
@@ -167,7 +172,7 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPost', 'ContentHook::purify');
         EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis');
         EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
 
@@ -179,23 +184,51 @@ class Forum_Module extends Module {
         EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
-    public function onInstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onInstall(): void {
         // Not necessary for Forum
     }
 
-    public function onUninstall() {
-
+    /**
+     *
+     * @return void
+     */
+    public function onUninstall(): void {
+        // Not necessary for Forum
     }
 
-    public function onEnable() {
+    /**
+     *
+     * @return void
+     */
+    public function onEnable(): void {
         // No actions necessary
     }
 
-    public function onDisable() {
+    /**
+     *
+     * @return void
+     */
+    public function onDisable(): void {
         // No actions necessary
     }
 
-    public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param list{Navigation, array, array} $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase|null $template Active template to render.
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
         // AdminCP
         PermissionHandler::registerPermissions('Forum', [
             'admincp.forums' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_forum_language->get('forum', 'forum')
@@ -205,24 +238,24 @@ class Forum_Module extends Module {
         $pages->registerSitemapMethod([Forum_Sitemap::class, 'generateSitemap']);
 
         // Add link to navbar
-        $cache->setCache('nav_location');
-        if (!$cache->isCached('forum_location')) {
+        $cache->setCacheName('nav_location');
+        if (!$cache->hasCashedData('forum_location')) {
             $link_location = 1;
             $cache->store('forum_location', 1);
         } else {
             $link_location = $cache->retrieve('forum_location');
         }
 
-        $cache->setCache('navbar_order');
-        if (!$cache->isCached('forum_order')) {
+        $cache->setCacheName('navbar_order');
+        if (!$cache->hasCashedData('forum_order')) {
             $forum_order = 2;
             $cache->store('forum_order', 2);
         } else {
             $forum_order = $cache->retrieve('forum_order');
         }
 
-        $cache->setCache('navbar_icons');
-        if (!$cache->isCached('forum_icon')) {
+        $cache->setCacheName('navbar_icons');
+        if (!$cache->hasCashedData('forum_icon')) {
             $icon = '';
         } else {
             $icon = $cache->retrieve('forum_icon');
@@ -264,7 +297,7 @@ class Forum_Module extends Module {
                 ]);
             }
 
-            if (defined('PAGE') && PAGE == 'user_query') {
+            if (defined('PAGE') && PAGE === 'user_query') {
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
                 if ($user_id) {
@@ -275,129 +308,134 @@ class Forum_Module extends Module {
                 }
             }
 
-        } else {
-            if (defined('BACK_END')) {
-                if ($user->hasPermission('admincp.forums')) {
-                    $cache->setCache('panel_sidebar');
-                    if (!$cache->isCached('forum_order')) {
-                        $order = 12;
-                        $cache->store('forum_order', 12);
-                    } else {
-                        $order = $cache->retrieve('forum_order');
-                    }
-
-                    if (!$cache->isCached('forum_settings_icon')) {
-                        $icon = '<i class="nav-icon fas fa-cogs"></i>';
-                        $cache->store('forum_settings_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('forum_settings_icon');
-                    }
-
-                    $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
-                    $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
-
-                    if (!$cache->isCached('forum_icon')) {
-                        $icon = '<i class="nav-icon fas fa-comments"></i>';
-                        $cache->store('forum_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('forum_icon');
-                    }
-
-                    $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.2, $icon);
-
-                    if (!$cache->isCached('forum_label_icon')) {
-                        $icon = '<i class="nav-icon fas fa-tags"></i>';
-                        $cache->store('forum_label_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('forum_label_icon');
-                    }
-
-                    $navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.3, $icon);
+        } else if (defined('BACK_END')) {
+            if ($user->hasPermission('admincp.forums')) {
+                $cache->setCacheName('panel_sidebar');
+                if (!$cache->hasCashedData('forum_order')) {
+                    $order = 12;
+                    $cache->store('forum_order', 12);
+                } else {
+                    $order = $cache->retrieve('forum_order');
                 }
 
-                if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
-                    // Dashboard graph
+                if (!$cache->hasCashedData('forum_settings_icon')) {
+                    $icon = '<i class="nav-icon fas fa-cogs"></i>';
+                    $cache->store('forum_settings_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('forum_settings_icon');
+                }
 
-                    // Get data for topics and posts
-                    $start_time = strtotime('7 days ago');
-                    $latest_topics = DB::getInstance()->query(
-                        <<<SQL
+                $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order);
+                $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
+
+                if (!$cache->hasCashedData('forum_icon')) {
+                    $icon = '<i class="nav-icon fas fa-comments"></i>';
+                    $cache->store('forum_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('forum_icon');
+                }
+
+                $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.2, $icon);
+
+                if (!$cache->hasCashedData('forum_label_icon')) {
+                    $icon = '<i class="nav-icon fas fa-tags"></i>';
+                    $cache->store('forum_label_icon', $icon);
+                } else {
+                    $icon = $cache->retrieve('forum_label_icon');
+                }
+
+                $navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.3, $icon);
+            }
+
+            if (defined('PANEL_PAGE') && PANEL_PAGE === 'dashboard') {
+                // Dashboard graph
+
+                // Get data for topics and posts
+                $start_time = strtotime('7 days ago');
+                $latest_topics = DB::getInstance()->query(
+                    <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`topic_date`), '%Y-%m-%d') d, COUNT(*) c
                             FROM nl2_topics
                             WHERE `topic_date` > ?
                             AND `deleted` = 0
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`topic_date`), '%Y-%m-%d')
                         SQL,
-                        [$start_time],
-                    );
-                    $latest_topics_count = $latest_topics->count();
-                    $latest_topics = $latest_topics->results();
+                    [$start_time],
+                );
+                $latest_topics_count = $latest_topics->count();
+                $latest_topics = $latest_topics->results();
 
-                    $latest_posts = DB::getInstance()->query(
-                        <<<SQL
+                $latest_posts = DB::getInstance()->query(
+                    <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                             FROM nl2_posts
                             WHERE `created` > ?
                             AND `deleted` = 0
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
                         SQL,
-                        [$start_time],
-                    );
-                    $latest_posts_count = $latest_posts->count();
-                    $latest_posts = $latest_posts->results();
+                    [$start_time],
+                );
+                $latest_posts_count = $latest_posts->count();
+                $latest_posts = $latest_posts->results();
 
-                    $cache->setCache('dashboard_graph');
-                    if ($cache->isCached('forum_data')) {
-                        $data = $cache->retrieve('forum_data');
+                $cache->setCacheName('dashboard_graph');
+                if ($cache->hasCashedData('forum_data')) {
+                    $data = $cache->retrieve('forum_data');
 
-                    } else {
-                        $data = [];
+                } else {
+                    $data = [];
 
-                        $data['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
-                        $data['datasets']['topics']['colour'] = '#00931D';
-                        $data['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
-                        $data['datasets']['posts']['colour'] = '#ffde0a';
+                    $data['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
+                    $data['datasets']['topics']['colour'] = '#00931D';
+                    $data['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
+                    $data['datasets']['posts']['colour'] = '#ffde0a';
 
-                        if (count($latest_topics)) {
-                            foreach ($latest_topics as $day) {
-                                $data['_' . $day->d] = ['topics' => $day->c];
-                            }
+                    if (count($latest_topics)) {
+                        foreach ($latest_topics as $day) {
+                            $data['_' . $day->d] = ['topics' => $day->c];
                         }
-
-                        if (count($latest_posts)) {
-                            foreach ($latest_posts as $day) {
-                                if (isset($data['_' . $day->d])) {
-                                    $data['_' . $day->d]['posts'] = $day->c;
-                                } else {
-                                    $data['_' . $day->d] = ['posts' => $day->c];
-                                }
-                            }
-                        }
-
-                        $data = Core_Module::fillMissingGraphDays($data, 'topics');
-                        $data = Core_Module::fillMissingGraphDays($data, 'posts');
-
-                        // Sort by date
-                        ksort($data);
-
-                        $cache->store('forum_data', $data, 120);
-
                     }
 
-                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
+                    if (count($latest_posts)) {
+                        foreach ($latest_posts as $day) {
+                            $day_d = '_' . $day->d;
 
-                    // Dashboard stats
-                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, $latest_topics_count));
+                            if (isset($data[$day_d])) {
+                                $data[$day_d]['posts'] = $day->c;
+                            } else {
+                                $data[$day_d] = ['posts' => $day->c];
+                            }
+                        }
+                    }
 
-                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, $latest_posts_count));
+                    $data = Core_Module::fillMissingGraphDays($data, 'topics');
+                    $data = Core_Module::fillMissingGraphDays($data, 'posts');
+
+                    // Sort by date
+                    ksort($data);
+
+                    $cache->store('forum_data', $data, 120);
 
                 }
+
+                Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
+
+                // Dashboard stats
+                require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
+                CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, $latest_topics_count));
+
+                require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
+                CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, $latest_posts_count));
+
             }
         }
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     public function getDebugInfo(): array {
         return [];
     }

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel hooks page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.hooks')) {
@@ -54,55 +67,61 @@ if (!isset($_GET['action'])) {
             // Create new hook
             if (Input::exists()) {
                 $errors = [];
-                if (Token::check()) {
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'hook_name' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 3,
-                            Validate::MAX => 128
-                        ],
-                        'hook_url' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 10,
-                            Validate::MAX => 2048
-                        ]
-                    ])->messages([
-                        'hook_name' => $language->get('admin', 'invalid_hook_name'),
-                        'hook_url' => $language->get('admin', 'invalid_hook_url')
-                    ]);
-
-                    if ($validation->passed()) {
-                        $events = [];
-                        if (isset($_POST['events']) && count($_POST['events'])) {
-                            foreach ($_POST['events'] as $event => $value) {
-                                $events[] = $event;
-                            }
-
-                            // Save to database
-                            DB::getInstance()->insert('hooks', [
-                                'name' => $_POST['hook_name'],
-                                'action' => $_POST['hook_type'],
-                                'url' => $_POST['hook_url'],
-                                'events' => json_encode($events)
+                try {
+                    if (Token::check()) {
+                        // Validate input
+                        try {
+                            $validation = Validate::check($_POST, [
+                                'hook_name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 3,
+                                    Validate::MAX => 128
+                                ],
+                                'hook_url' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 10,
+                                    Validate::MAX => 2048
+                                ]
+                            ])->messages([
+                                'hook_name' => $language->get('admin', 'invalid_hook_name'),
+                                'hook_url' => $language->get('admin', 'invalid_hook_url')
                             ]);
-
-                            $cache->setCache('hooks');
-                            if ($cache->isCached('hooks')) {
-                                $cache->erase('hooks');
-                            }
-
-                            Session::flash('admin_hooks', $language->get('admin', 'hook_created'));
-                            Redirect::to(URL::build('/panel/core/hooks'));
+                        } catch (Exception $ignored) {
                         }
 
-                        $errors[] = $language->get('admin', 'invalid_hook_events');
+                        if ($validation->passed()) {
+                            $events = [];
+                            if (isset($_POST['events']) && count($_POST['events'])) {
+                                foreach ($_POST['events'] as $event => $value) {
+                                    $events[] = $event;
+                                }
+
+                                // Save to database
+                                DB::getInstance()->insert('hooks', [
+                                    'name' => $_POST['hook_name'],
+                                    'action' => $_POST['hook_type'],
+                                    'url' => $_POST['hook_url'],
+                                    'events' => json_encode($events)
+                                ]);
+
+                                $cache->setCacheName('hooks');
+                                if ($cache->hasCashedData('hooks')) {
+                                    $cache->erase('hooks');
+                                }
+
+                                Session::flash('admin_hooks', $language->get('admin', 'hook_created'));
+                                Redirect::to(URL::build('/panel/core/hooks'));
+                            }
+
+                            $errors[] = $language->get('admin', 'invalid_hook_events');
+                        } else {
+                            $errors = $validation->errors();
+                        }
                     } else {
-                        $errors = $validation->errors();
+                        // Invalid token
+                        $errors[] = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    // Invalid token
-                    $errors[] = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -138,54 +157,60 @@ if (!isset($_GET['action'])) {
 
             if (Input::exists()) {
                 $errors = [];
-                if (Token::check()) {
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'hook_name' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 3,
-                            Validate::MAX => 128
-                        ],
-                        'hook_url' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 10,
-                            Validate::MAX => 2048
-                        ]
-                    ])->messages([
-                        'hook_name' => $language->get('admin', 'invalid_hook_name'),
-                        'hook_url' => $language->get('admin', 'invalid_hook_url')
-                    ]);
-
-                    if ($validation->passed()) {
-                        $events = [];
-                        if (isset($_POST['events']) && count($_POST['events'])) {
-                            foreach ($_POST['events'] as $event => $value) {
-                                $events[] = $event;
-                            }
-
-                            // Save to database
-                            DB::getInstance()->update('hooks', $hook->id, [
-                                'name' => Output::getClean($_POST['hook_name']),
-                                'action' => Output::getClean($_POST['hook_type']),
-                                'url' => Output::getClean($_POST['hook_url']),
-                                'events' => json_encode($events)
+                try {
+                    if (Token::check()) {
+                        // Validate input
+                        try {
+                            $validation = Validate::check($_POST, [
+                                'hook_name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 3,
+                                    Validate::MAX => 128
+                                ],
+                                'hook_url' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 10,
+                                    Validate::MAX => 2048
+                                ]
+                            ])->messages([
+                                'hook_name' => $language->get('admin', 'invalid_hook_name'),
+                                'hook_url' => $language->get('admin', 'invalid_hook_url')
                             ]);
-
-                            $cache->setCache('hooks');
-                            if ($cache->isCached('hooks')) {
-                                $cache->erase('hooks');
-                            }
-                            Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
-                            Redirect::to(URL::build('/panel/core/hooks'));
+                        } catch (Exception $ignored) {
                         }
 
-                        $errors[] = $language->get('admin', 'invalid_hook_events');
+                        if ($validation->passed()) {
+                            $events = [];
+                            if (isset($_POST['events']) && count($_POST['events'])) {
+                                foreach ($_POST['events'] as $event => $value) {
+                                    $events[] = $event;
+                                }
+
+                                // Save to database
+                                DB::getInstance()->update('hooks', $hook->id, [
+                                    'name' => Output::getClean($_POST['hook_name']),
+                                    'action' => Output::getClean($_POST['hook_type']),
+                                    'url' => Output::getClean($_POST['hook_url']),
+                                    'events' => json_encode($events)
+                                ]);
+
+                                $cache->setCacheName('hooks');
+                                if ($cache->hasCashedData('hooks')) {
+                                    $cache->erase('hooks');
+                                }
+                                Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
+                                Redirect::to(URL::build('/panel/core/hooks'));
+                            }
+
+                            $errors[] = $language->get('admin', 'invalid_hook_events');
+                        } else {
+                            $errors = $validation->errors();
+                        }
                     } else {
-                        $errors = $validation->errors();
+                        // Invalid token
+                        $errors[] = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    // Invalid token
-                    $errors[] = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -214,20 +239,24 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/hooks'));
             }
 
-            if (Token::check()) {
-                DB::getInstance()->delete('hooks', ['id', $_GET['id']]);
+            try {
+                if (Token::check()) {
+                    DB::getInstance()->delete('hooks', ['id', $_GET['id']]);
 
-                $cache->setCache('hooks');
-                if ($cache->isCached('hooks')) {
-                    $cache->erase('hooks');
+                    $cache->setCacheName('hooks');
+                    if ($cache->hasCashedData('hooks')) {
+                        $cache->erase('hooks');
+                    }
+
+                    Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
+                } else {
+                    Session::flash('admin_hooks_error', $language->get('general', 'invalid_token'));
                 }
-
-                Session::flash('admin_hooks', $language->get('admin', 'hook_deleted'));
-            } else {
-                Session::flash('admin_hooks_error', $language->get('general', 'invalid_token'));
+            } catch (Exception $ignored) {
             }
 
             Redirect::to(URL::build('/panel/core/hooks'));
+            break;
 
         default:
             Redirect::to(URL::build('/panel/core/hooks'));
@@ -278,4 +307,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

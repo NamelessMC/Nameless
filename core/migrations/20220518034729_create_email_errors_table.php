@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateEmailErrorsTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateEmailErrorsTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_email_errors');
 
         $table

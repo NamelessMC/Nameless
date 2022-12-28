@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel Minecraft Authme page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.authme')) {
@@ -25,102 +38,92 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        if (isset($_POST['enable_authme'])) {
-            // Either enable or disable Authme integration
-            DB::getInstance()->update('settings', ['name', 'authme'], [
-                'value' => Input::get('enable_authme')
-            ]);
+    try {
+        if (Token::check()) {
+            if (isset($_POST['enable_authme'])) {
+                // Either enable or disable Authme integration
+                DB::getInstance()->update('settings', ['name', 'authme'], [
+                    'value' => Input::get('enable_authme')
+                ]);
 
-        } else {
-            // AuthMe config settings
-            $validation = Validate::check($_POST, [
-                'hashing_algorithm' => [
-                    Validate::REQUIRED => true
-                ],
-                'db_address' => [
-                    Validate::REQUIRED => true
-                ],
-                'db_name' => [
-                    Validate::REQUIRED => true
-                ],
-                'db_username' => [
-                    Validate::REQUIRED => true
-                ],
-                'db_table' => [
-                    Validate::REQUIRED => true
-                ]
-            ])->message($language->get('admin', 'enter_authme_db_details'));
+            } else {
+                // AuthMe config settings
+                try {
+                    $validation = Validate::check($_POST, [
+                        'hashing_algorithm' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'db_address' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'db_name' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'db_username' => [
+                            Validate::REQUIRED => true
+                        ],
+                        'db_table' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ])->message($language->get('admin', 'enter_authme_db_details'));
+                } catch (Exception $ignored) {
+                }
 
-            if ($validation->passed()) {
-                $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
-                $authme_db_id = $authme_db[0]->id;
-                $authme_db = json_decode($authme_db[0]->value);
+                if ($validation->passed()) {
+                    $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
+                    $authme_db_id = $authme_db[0]->id;
+                    $authme_db = json_decode($authme_db[0]->value, true);
 
-                if (isset($_POST['db_password'])) {
-                    $password = $_POST['db_password'];
-                } else {
-                    if (isset($authme_db->password) && !empty($authme_db->password)) {
+                    if (isset($_POST['db_password'])) {
+                        $password = $_POST['db_password'];
+                    } else if (isset($authme_db->password) && !empty($authme_db->password)) {
                         $password = $authme_db->password;
                     } else {
                         $password = '';
                     }
+
+                    $result = [
+                        'address' => Output::getClean(Input::get('db_address')),
+                        'port' => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
+                        'db' => Output::getClean(Input::get('db_name')),
+                        'user' => Output::getClean(Input::get('db_username')),
+                        'pass' => $password,
+                        'table' => Output::getClean(Input::get('db_table')),
+                        'hash' => Output::getClean(Input::get('hashing_algorithm')),
+                        'sync' => Input::get('authme_sync')
+                    ];
+
+                    $cache->setCacheName('authme_cache');
+                    $cache->store('authme', $result);
+
+                    DB::getInstance()->update('settings', $authme_db_id, [
+                        'value' => json_encode($result)
+                    ]);
+
+                } else {
+                    $errors = $validation->errors();
                 }
-
-                $result = [
-                    'address' => Output::getClean(Input::get('db_address')),
-                    'port' => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
-                    'db' => Output::getClean(Input::get('db_name')),
-                    'user' => Output::getClean(Input::get('db_username')),
-                    'pass' => $password,
-                    'table' => Output::getClean(Input::get('db_table')),
-                    'hash' => Output::getClean(Input::get('hashing_algorithm')),
-                    'sync' => Input::get('authme_sync')
-                ];
-
-                $cache->setCache('authme_cache');
-                $cache->store('authme', $result);
-
-                DB::getInstance()->update('settings', $authme_db_id, [
-                    'value' => json_encode($result)
-                ]);
-
-            } else {
-                $errors = $validation->errors();
             }
-        }
 
-    } else {
-        // Invalid token
-        $errors[] = $language->get('general', 'invalid_token');
+        } else {
+            // Invalid token
+            $errors[] = $language->get('general', 'invalid_token');
+        }
+    } catch (Exception $ignored) {
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
 // Is Authme enabled?
 $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
 $authme_enabled = $authme_enabled[0]->value;
 
-if ($authme_enabled == '1') {
+if ($authme_enabled === '1') {
     // Retrieve Authme database details
     $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
-    $authme_db = json_decode($authme_db[0]->value);
+    $authme_db = json_decode($authme_db[0]->value, true);
 
     $smarty->assign([
         'AUTHME_DB_DETAILS' => ($authme_db ?: []),
@@ -148,7 +151,7 @@ $smarty->assign([
     'AUTHME_INFO' => $language->get('admin', 'authme_integration_info'),
     'INFO' => $language->get('general', 'info'),
     'ENABLE_AUTHME' => $language->get('admin', 'enable_authme'),
-    'ENABLE_AUTHME_VALUE' => ($authme_enabled == '1'),
+    'ENABLE_AUTHME_VALUE' => ($authme_enabled === '1'),
     'AUTHME' => $language->get('admin', 'authme_integration'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft')
 ]);
@@ -158,4 +161,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('integrations/minecraft/minecraft_authme.tpl', $smarty);
+try {
+    $template->displayTemplate('integrations/minecraft/minecraft_authme.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

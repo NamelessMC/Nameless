@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base class Captcha providers should extend.
  *
@@ -73,7 +75,7 @@ abstract class CaptchaBase {
     /**
      * Is captcha enabled for a given key?
      *
-     * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc)
+     * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc.)
      * @return bool Whether captcha is enabled or not
      */
     public static function isCaptchaEnabled(string $key = 'recaptcha'): bool {
@@ -125,7 +127,7 @@ abstract class CaptchaBase {
      * @param string $secret The secret key to validate
      * @return bool Whether the private key is valid or not
      */
-    abstract public function validateSecret(string $secret) : bool;
+    abstract public function validateSecret(string $secret): bool;
 
     /**
      * Validate if the public key is valid or not
@@ -133,7 +135,7 @@ abstract class CaptchaBase {
      * @param string $key The public key to validate
      * @return bool Whether the public key is valid or not
      */
-    abstract public function validateKey(string $key) : bool;
+    abstract public function validateKey(string $key): bool;
 
     /**
      * Get form input HTML to display

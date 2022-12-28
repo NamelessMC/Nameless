@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel API page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.terms')) {
@@ -23,79 +36,71 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        $validation = Validate::check($_POST, [
-            'privacy' => [
-                Validate::REQUIRED => true,
-                Validate::MAX => 100000
-            ],
-            'terms' => [
-                Validate::REQUIRED => true,
-                Validate::MAX => 100000
-            ]
-        ])->messages([
-            'privacy' => $language->get('admin', 'privacy_policy_error'),
-            'terms' => $language->get('admin', 'terms_error')
-        ]);
-
-        if ($validation->passed()) {
+    try {
+        if (Token::check()) {
             try {
-                $privacy_id = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
-                if (count($privacy_id)) {
-                    $privacy_id = $privacy_id[0]->id;
+                $validation = Validate::check($_POST, [
+                    'privacy' => [
+                        Validate::REQUIRED => true,
+                        Validate::MAX => 100000
+                    ],
+                    'terms' => [
+                        Validate::REQUIRED => true,
+                        Validate::MAX => 100000
+                    ]
+                ])->messages([
+                    'privacy' => $language->get('admin', 'privacy_policy_error'),
+                    'terms' => $language->get('admin', 'terms_error')
+                ]);
+            } catch (Exception $ignored) {
+            }
 
-                    DB::getInstance()->update('privacy_terms', $privacy_id, [
-                        'value' => Input::get('privacy')
-                    ]);
-                } else {
-                    DB::getInstance()->insert('privacy_terms', [
-                        'name' => 'privacy',
-                        'value' => Input::get('privacy')
-                    ]);
+            if ($validation->passed()) {
+                try {
+                    $privacy_id = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
+                    if (count($privacy_id)) {
+                        $privacy_id = $privacy_id[0]->id;
+
+                        DB::getInstance()->update('privacy_terms', $privacy_id, [
+                            'value' => Input::get('privacy')
+                        ]);
+                    } else {
+                        DB::getInstance()->insert('privacy_terms', [
+                            'name' => 'privacy',
+                            'value' => Input::get('privacy')
+                        ]);
+                    }
+
+                    $terms_id = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
+                    if (count($terms_id)) {
+                        $terms_id = $terms_id[0]->id;
+
+                        DB::getInstance()->update('privacy_terms', $terms_id, [
+                            'value' => Input::get('terms')
+                        ]);
+                    } else {
+                        DB::getInstance()->insert('privacy_terms', [
+                            'name' => 'terms',
+                            'value' => Input::get('terms')
+                        ]);
+                    }
+
+                    $success = $language->get('admin', 'terms_updated');
+                } catch (Exception $e) {
+                    $errors[] = $e->getMessage();
                 }
-
-                $terms_id = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
-                if (count($terms_id)) {
-                    $terms_id = $terms_id[0]->id;
-
-                    DB::getInstance()->update('privacy_terms', $terms_id, [
-                        'value' => Input::get('terms')
-                    ]);
-                } else {
-                    DB::getInstance()->insert('privacy_terms', [
-                        'name' => 'terms',
-                        'value' => Input::get('terms')
-                    ]);
-                }
-
-                $success = $language->get('admin', 'terms_updated');
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
+            } else {
+                $errors = $validation->errors();
             }
         } else {
-            $errors = $validation->errors();
+            $errors[] = $language->get('general', 'invalid_token');
         }
-    } else {
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
 // Get privacy policy + terms
 $site_terms = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
@@ -119,9 +124,9 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'PRIVACY_POLICY' => $language->get('general', 'privacy_policy'),
-    'PRIVACY_POLICY_VALUE' => Output::getPurified($site_privacy),
+    'PRIVACY_POLICY_VALUE' => Output::getPurified((string)$site_privacy),
     'TERMS_AND_CONDITIONS' => $language->get('user', 'terms_and_conditions'),
-    'TERMS_AND_CONDITIONS_VALUE' => Output::getPurified($site_terms)
+    'TERMS_AND_CONDITIONS_VALUE' => Output::getPurified((string)$site_terms)
 ]);
 
 $template->onPageLoad();
@@ -129,4 +134,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/privacy_and_terms.tpl', $smarty);
+try {
+    $template->displayTemplate('core/privacy_and_terms.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

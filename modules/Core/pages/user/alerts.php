@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  User alerts page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -19,7 +32,7 @@ const PAGE = 'cc_alerts';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['view'])) {
     if (!isset($_GET['action'])) {
@@ -39,7 +52,7 @@ if (!isset($_GET['view'])) {
             // Only display 30 alerts
             // Get date
             $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
-            $alerts[$n]->date_nice = $timeago->inWords($alerts[$n]->created, $language);
+            $alerts[$n]->date_nice = $time_ago->inWords($alerts[$n]->created, $language);
             $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . urlencode($alerts[$n]->id));
 
             $alerts_limited[] = $alerts[$n];
@@ -74,34 +87,38 @@ if (!isset($_GET['view'])) {
         require(ROOT_PATH . '/core/templates/footer.php');
 
         // Display template
-        $template->displayTemplate('user/alerts.tpl', $smarty);
+        try {
+            $template->displayTemplate('user/alerts.tpl', $smarty);
+        } catch (SmartyException $ignored) {
+        }
 
-    } else {
-        if ($_GET['action'] == 'purge') {
+    } else if ($_GET['action'] === 'purge') {
+        try {
             if (Token::check()) {
                 DB::getInstance()->delete('alerts', ['user_id', $user->data()->id]);
             } else {
                 Session::flash('alerts_error', $language->get('general', 'invalid_token'));
             }
-
-            Redirect::to(URL::build('/user/alerts'));
+        } catch (Exception $ignored) {
         }
+
+        Redirect::to(URL::build('/user/alerts'));
     }
 
 } else {
-    // Redirect to alert, mark as read
+    // Redirect to alert, mark as read.
     if (!is_numeric($_GET['view'])) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    // Check the alert belongs to the user..
+    // Check the alert belongs to the user.
     $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
 
-    if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
+    if (!count($alert) || $alert[0]->user_id !== $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    if ($alert[0]->read == 0) {
+    if ($alert[0]->read === '0') {
         DB::getInstance()->update('alerts', $alert[0]->id, [
             'read' => true,
         ]);

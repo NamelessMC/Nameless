@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Provides static methods for cleansing user input before storing in the database.
  *
@@ -18,7 +20,8 @@ class Output {
      * Returns a clean version of an inputted string.
      * Will remove HTML, convert HTML entities, and strip slashes.
      *
-     * @param ?string $input The string which will be cleaned
+     * @param ?string $input The string which will be cleaned.
+     *
      * @return ?string Cleaned version of string.
      */
     public static function getClean(?string $input): ?string {
@@ -29,6 +32,7 @@ class Output {
      * Returns a decoded version of a clean string.
      *
      * @param ?string $input Contains the clean string which will be decoded.
+     *
      * @return ?string Decoded string.
      */
     public static function getDecoded(?string $input): ?string {
@@ -83,8 +87,9 @@ class Output {
     /**
      * urlencode() a string without encoding slashes
      *
-     * @param string $input String to encode
-     * @return string Encoded string
+     * @param string $input String to encode.
+     *
+     * @return string Encoded string.
      */
     public static function urlEncodeAllowSlashes(string $input): string {
         return str_replace('%2F', '/', urlencode($input));

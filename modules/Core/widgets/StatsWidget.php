@@ -1,19 +1,27 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
- *
- *  License: MIT
- *
- *  Statistics Widget // By Xemah // https://xemah.me
- */
+declare(strict_types=1);
 
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Statistics Widget
+ *
+ * @package Core\Widgets
+ * @author Samerton
+ * @author Xemah
+ * @version 2.0.2
+ * @license MIT
+ */
 class StatsWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
@@ -32,10 +40,16 @@ class StatsWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     *
+     * @throws GuzzleException
+     * @throws SmartyException
+     */
     public function initialise(): void {
-        $this->_cache->setCache('statistics');
+        $this->_cache->setCacheName('statistics');
 
-        if ($this->_cache->isCached('statistics')) {
+        if ($this->_cache->hasCashedData('statistics')) {
             $users_query = $this->_cache->retrieve('statistics');
             $users_registered = $users_query['users_registered'];
             $latest_member = $users_query['latest_member'];
@@ -49,8 +63,8 @@ class StatsWidget extends WidgetBase {
                 'style' => $latest_user->getGroupStyle(),
                 'profile' => $latest_user->getProfileURL(),
                 'avatar' => $latest_user->getAvatar(),
-                'username' => $latest_user->getDisplayname(true),
-                'nickname' => $latest_user->getDisplayname(),
+                'username' => $latest_user->getDisplayName(true),
+                'nickname' => $latest_user->getDisplayName(),
                 'id' => Output::getClean($users_query)
             ];
 
@@ -65,14 +79,14 @@ class StatsWidget extends WidgetBase {
 
         }
 
-        if (!$this->_cache->isCached('online_users')) {
+        if (!$this->_cache->hasCashedData('online_users')) {
             $online_users = DB::getInstance()->query('SELECT COUNT(*) as c FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->first()->c;
             $this->_cache->store('online_users', $online_users, 60);
         } else {
             $online_users = $this->_cache->retrieve('online_users');
         }
 
-        if (!$this->_cache->isCached('online_guests')) {
+        if (!$this->_cache->hasCashedData('online_guests')) {
             try {
                 $online_guests = DB::getInstance()->query('SELECT COUNT(*) as c FROM nl2_online_guests WHERE last_seen > ?', [strtotime('-5 minutes')])->first()->c;
                 $this->_cache->store('online_guests', $online_guests, 60);
@@ -85,15 +99,15 @@ class StatsWidget extends WidgetBase {
         }
 
         if (Util::isModuleEnabled('Forum')) {
-            $this->_cache->setCache('forum_stats');
-            if (!$this->_cache->isCached('total_topics')) {
+            $this->_cache->setCacheName('forum_stats');
+            if (!$this->_cache->hasCashedData('total_topics')) {
                 $total_topics = DB::getInstance()->query('SELECT COUNT(*) as c FROM nl2_topics WHERE deleted = 0')->first()->c;
                 $this->_cache->store('total_topics', $total_topics, 60);
             } else {
                 $total_topics = $this->_cache->retrieve('total_topics');
             }
 
-            if (!$this->_cache->isCached('total_posts')) {
+            if (!$this->_cache->hasCashedData('total_posts')) {
                 $total_posts = DB::getInstance()->query('SELECT COUNT(*) as c FROM nl2_posts WHERE deleted = 0')->first()->c;
                 $this->_cache->store('total_posts', $total_posts, 60);
             } else {

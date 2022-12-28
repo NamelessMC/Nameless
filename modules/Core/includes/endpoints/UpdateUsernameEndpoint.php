@@ -1,10 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @param int $id The NamelessMC user to update
- * @param string $username The new username of the user
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class UpdateUsernameEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +13,12 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['username']);
 

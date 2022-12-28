@@ -1,17 +1,21 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Twitter Widget
  *
- *  License: MIT
- *
- *  Twitter Widget
+ * @package Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class TwitterWidget extends WidgetBase {
 
+    /**
+     * @param Smarty $smarty
+     * @param string|null $twitter
+     * @param string|null $theme
+     */
     public function __construct(Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
         // Get widget
         $widget_query = self::getData('Twitter');
@@ -29,12 +33,15 @@ class TwitterWidget extends WidgetBase {
 
         // Generate HTML code for widget
         $this->_content = '
-            <a class="twitter-timeline" ' . (($theme == 'dark') ? 'data-theme="dark" ' : '') . ' data-height="600" href="' . Output::getClean($twitter) . '">Tweets</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" ' . (($theme === 'dark') ? 'data-theme="dark" ' : '') . ' data-height="600" href="' . Output::getClean($twitter) . '">Tweets</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
         <br>
         ';
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         // Do nothing
     }

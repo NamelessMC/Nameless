@@ -1,11 +1,29 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class MinecraftPlaceholderSeeder extends Seeder {
 
+    /**
+     * @var string[]
+     */
     public array $tables = [
         'nl2_placeholders_settings',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $db->query('UPDATE nl2_settings SET value = ? WHERE name = ?', [
             1, 'placeholders',
@@ -13,7 +31,7 @@ class MinecraftPlaceholderSeeder extends Seeder {
 
         $servers = $db->get('mc_servers', ['id', '<>', 0])->results();
 
-        $this->times(5, function() use ($db, $faker, $servers) {
+        $this->times(5, function () use ($db, $faker, $servers) {
             $name = str_replace(' ', '_', $faker->words(2, true));
 
             if ($faker->boolean) {

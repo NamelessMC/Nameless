@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,7 +9,11 @@
  *  License: MIT
  *
  *  Get a list of quotes
+ *
+ * @var User $user
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!$user->isLoggedIn()) {
     die(json_encode(['error' => 'Not logged in']));
@@ -32,16 +38,18 @@ foreach ($_POST['posts'] as $item) {
     $content = $post['content'];
     $content = preg_replace('~<blockquote(.*?)>(.*)</blockquote>~si', '', $content);
 
-    if ($post['topic_id'] == $_POST['topic']) {
-        $post_author = new User($post['creator']);
+    if ($post['topic_id'] === $_POST['topic']) {
+        try {
+            $post_author = new User($post['creator']);
+        } catch (GuzzleException $ignored) {
+        }
         $posts[] = [
             'content' => Output::getPurified($content),
-            'author_username' => $post_author->getDisplayname(),
-            'author_nickname' => $post_author->getDisplayname(true),
+            'author_username' => $post_author->getDisplayName(),
+            'author_nickname' => $post_author->getDisplayName(true),
             'link' => URL::build('/forum/topic/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
         ];
     }
 }
-
 
 die(json_encode($posts));

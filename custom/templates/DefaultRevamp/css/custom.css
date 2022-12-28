@@ -7,7 +7,7 @@ body {
     background: #f3f6fa;
 }
 
-body.pushable>.pusher {
+body.pushable > .pusher {
     background: #f3f6fa;
 }
 
@@ -96,7 +96,7 @@ body.pushable>.pusher {
 }
 
 @media (max-width: 768px) {
-    .ui.masthead .ui.grid .ui.row .column>* {
+    .ui.masthead .ui.grid .ui.row .column > * {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
@@ -120,8 +120,8 @@ body.pushable>.pusher {
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
 }
 
-.ui.segment .ui.list .list>.item .header,
-.ui.segment .ui.list>.item .header {
+.ui.segment .ui.list .list > .item .header,
+.ui.segment .ui.list > .item .header {
     display: inline-block;
 }
 
@@ -499,11 +499,11 @@ body.pushable>.pusher {
    *  -[ GRID ]-
    */
 
-.ui.grid+.grid {
+.ui.grid + .grid {
     margin-top: 0.3rem;
 }
 
-.ui.row+.row {
+.ui.row + .row {
     padding-top: 0.3rem;
 }
 
@@ -610,7 +610,7 @@ body.pushable>.pusher {
    *  [ MESSAGE ]
    */
 
-.ui.message>.close.icon {
+.ui.message > .close.icon {
     right: .8em;
 }
 
@@ -622,20 +622,20 @@ body.pushable>.pusher {
     margin-bottom: 1rem;
 }
 
-#update-message>a {
+#update-message > a {
     color: inherit;
     transition: all .2s ease;
 }
 
-#update-message>a:hover {
+#update-message > a:hover {
     filter: contrast(2);
 }
 
-#update-message>a>.icon {
+#update-message > a > .icon {
     margin-right: .5em;
 }
 
-#update-message>a>.icon:not(.close) {
+#update-message > a > .icon:not(.close) {
     display: block;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
@@ -686,8 +686,8 @@ body.pushable>.pusher {
     float: right;
 }
 
-[class*="right floated"]+.ui.segment,
-[class*="res right floated"]+.ui.segment {
+[class*="right floated"] + .ui.segment,
+[class*="res right floated"] + .ui.segment {
     margin-top: 1rem;
 }
 
@@ -952,8 +952,8 @@ select {
     margin-top: 4px;
 }
 
-.ui.checkbox input:checked~.box:after,
-.ui.checkbox input:checked~label:after {
+.ui.checkbox input:checked ~ .box:after,
+.ui.checkbox input:checked ~ label:after {
     margin-top: 4px;
 }
 
@@ -1015,7 +1015,7 @@ select {
 }
 
 .fa-sun {
-    color:#f39c00;
+    color: #f39c00;
 }
 
 /*
@@ -1023,8 +1023,8 @@ select {
    */
 
 body.dark,
-body.dark>.pusher,
-body.dark .ui.pointing.dropdown>.menu:after {
+body.dark > .pusher,
+body.dark .ui.pointing.dropdown > .menu:after {
     background: #222;
 }
 
@@ -1055,7 +1055,7 @@ body.dark .ui.modal {
     border: none;
 }
 
-body.dark .ui.modal>.content {
+body.dark .ui.modal > .content {
     background-color: #303030;
     border: 1px solid rgba(0, 0, 0, 0.125);
     color: #fff;
@@ -1063,8 +1063,8 @@ body.dark .ui.modal>.content {
     box-shadow: none;
 }
 
-body.dark .ui.modal>.actions,
-body.dark .ui.modal>.header {
+body.dark .ui.modal > .actions,
+body.dark .ui.modal > .header {
     color: rgba(255, 255, 255, 0.6);
     background-color: #444;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
@@ -1094,7 +1094,7 @@ body.dark .ui.button.red {
 
 body.dark .ui.image.label,
 body.dark .ui.selection.dropdown,
-body.dark .ui.selection.visible.dropdown>.text:not(.default) {
+body.dark .ui.selection.visible.dropdown > .text:not(.default) {
     background-color: #282828;
     color: #fff;
 }
@@ -1145,70 +1145,70 @@ body.dark .ui.card .content.header {
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-body.dark .ui.card>.content>.description,
-body.dark .ui.cards>.card>.content>.description,
-body.dark .ui.card>.content>.description .list .right.floated,
-body.dark .ui.card>.content>.header a,
+body.dark .ui.card > .content > .description,
+body.dark .ui.cards > .card > .content > .description,
+body.dark .ui.card > .content > .description .list .right.floated,
+body.dark .ui.card > .content > .header a,
 body.dark .ui.segment a,
 body.dark .ui.checkbox label,
-body.dark .ui.checkbox+label,
-body.dark .ui.list .list>.item .description,
-body.dark .ui.list>.item .description,
+body.dark .ui.checkbox + label,
+body.dark .ui.list .list > .item .description,
+body.dark .ui.list > .item .description,
 body.dark .ui.vertical.menu .item.active,
 body.dark .ui.vertical.menu .item:hover,
 body.dark #user-popup .description,
-body.dark .ui.search.dropdown.active>input.search,
-body.dark .ui.search.selection.dropdown>input.search,
-body.dark .ui.selection.dropdown .menu>.message,
+body.dark .ui.search.dropdown.active > input.search,
+body.dark .ui.search.selection.dropdown > input.search,
+body.dark .ui.selection.dropdown .menu > .message,
 body.dark .ui.attached.tabular.menu .item.active,
 body.dark .ui.threaded.comments .comment .text {
     color: #fff;
 }
 
 body.dark .ui.card .meta,
-.ui.cards>.card .meta,
+.ui.cards > .card .meta,
 body.dark .ui.header,
 body.dark .ui.header .sub.header,
-body.dark .ui.card>.content>.header,
-body.dark .ui.cards>.card>.content>.header,
+body.dark .ui.card > .content > .header,
+body.dark .ui.cards > .card > .content > .header,
 body.dark .ui.secondary.menu .item:not(.active),
-body.dark .ui.card>.content>.description .list .item .text,
-body.dark .ui.card>.extra,
-body.dark .ui.cards>.card>.extra,
-body.dark .ui.pointing.dropdown>.menu>.header,
-body.dark .ui.dropdown .menu>.item,
+body.dark .ui.card > .content > .description .list .item .text,
+body.dark .ui.card > .extra,
+body.dark .ui.cards > .card > .extra,
+body.dark .ui.pointing.dropdown > .menu > .header,
+body.dark .ui.dropdown .menu > .item,
 body.dark .ui.breadcrumb .icon.divider,
 body.dark .ui.vertical.menu .item,
 body.dark .ui.segment,
-body.dark .ui.form .field>label,
-body.dark .ui.list .list>.item .header,
-body.dark .ui.list>.item .header,
+body.dark .ui.form .field > label,
+body.dark .ui.list .list > .item .header,
+body.dark .ui.list > .item .header,
 body.dark .ui.attached.tabular.menu .item,
 body.dark .ui.comments .comment .metadata,
 body.dark .ui.comments .comment .actions a,
-body.dark .ui.card>.extra a:not(.ui),
-body.dark .ui.cards>.card>.extra a:not(.ui),
+body.dark .ui.card > .extra a:not(.ui),
+body.dark .ui.cards > .card > .extra a:not(.ui),
 body.dark .ui.relaxed.list .item .content,
 body.dark .ui.horizontal.divider,
-body.dark .ui.dropdown .menu>.header:not(.ui),
+body.dark .ui.dropdown .menu > .header:not(.ui),
 body.dark .ui.link.list.list .active.item,
 body.dark .ui.link.list.list .active.item a:not(.ui) {
     color: rgba(255, 255, 255, 0.6) !important;
 }
 
-body.dark .ui.menu .ui.dropdown .menu>.item:hover {
+body.dark .ui.menu .ui.dropdown .menu > .item:hover {
     background-color: rgba(0, 0, 0, .05) !important;
 }
 
 body.dark .ui.secondary.inverted.menu .popup .list a.item,
-body.dark .ui.pointing.dropdown>.menu>.item {
+body.dark .ui.pointing.dropdown > .menu > .item {
     color: rgba(255, 255, 255, 0.6) !important;
 }
 
-body.dark .ui.menu .ui.dropdown .menu>.item:hover,
-body.dark .ui.dropdown .menu>.item:hover,
-body.dark .ui.menu .ui.dropdown .menu>.item.active,
-body.dark .ui.list>.item a.header,
+body.dark .ui.menu .ui.dropdown .menu > .item:hover,
+body.dark .ui.dropdown .menu > .item:hover,
+body.dark .ui.menu .ui.dropdown .menu > .item.active,
+body.dark .ui.list > .item a.header,
 body.dark .ui.link.list.list .active.item a:not(.ui):hover {
     color: #fff !important;
 }
@@ -1368,16 +1368,16 @@ body.dark .tox .tox-collection--list .tox-collection__item--active {
     background-color: #666;
 }
 
-body.dark .ui.cards>.green.card,
+body.dark .ui.cards > .green.card,
 body.dark .ui.green.card,
-body.dark .ui.green.cards>.card {
+body.dark .ui.green.cards > .card {
     -webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #178f2b, 0 1px 3px 0 #d4d4d5;
     box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #178f2b, 0 1px 3px 0 #d4d4d5;
 }
 
-body.dark .ui.cards>.red.card,
+body.dark .ui.cards > .red.card,
 body.dark .ui.red.card,
-body.dark .ui.red.cards>.card {
+body.dark .ui.red.cards > .card {
     -webkit-box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #db2828, 0 1px 3px 0 #d4d4d5;
     box-shadow: 0 0 0 1px #d4d4d5, 0 5px 0 0 #db2828, 0 1px 3px 0 #d4d4d5;
 }

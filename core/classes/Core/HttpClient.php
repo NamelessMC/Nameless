@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
 
+use DebugBar\DataCollector\TimeDataCollector;
+use DebugBar\DebugBarException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use GuzzleHttp\Profiling\Debugbar\Profiler;
+use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -22,6 +25,10 @@ class HttpClient {
     private ?ResponseInterface $_response;
     private string $_error;
 
+    /**
+     * @param ResponseInterface|null $response
+     * @param string $error
+     */
     private function __construct(?ResponseInterface $response, string $error) {
         $this->_response = $response;
         $this->_error = $error;
@@ -33,7 +40,9 @@ class HttpClient {
      *
      * @param string $url URL to send request to.
      * @param array $options Options to set with the GuzzleClient.
+     *
      * @return HttpClient New HttpClient instance.
+     * @throws DebugBarException
      */
     public static function get(string $url, array $options = []): HttpClient {
         $guzzleClient = self::createClient($options);
@@ -54,13 +63,40 @@ class HttpClient {
     }
 
     /**
+     * Make a new Guzzle Client instance and attach it to the debug bar to display requests.
+     *
+     * @param array $options Options to provide Guzzle instance.
+     *
+     * @return Client New Guzzle instance.
+     * @throws DebugBarException
+     */
+    public static function createClient(array $options = []): Client {
+        $debugBar = DebugBarHelper::getInstance()->getDebugBar();
+        $stack = HandlerStack::create();
+
+        if ($debugBar !== null) {
+            $collector = $debugBar->getCollector('time');
+            if ($collector instanceof TimeDataCollector) {
+                $stack->unshift(new ProfilingMiddleware(new Profiler($collector)));
+            }
+        }
+
+        return new Client(array_merge([
+            'timeout' => 5.0,
+            'handler' => $stack,
+        ], $options));
+    }
+
+    /**
      * Make a POST request to a URL.
      * Failures will automatically be logged along with the error.
      *
      * @param string $url URL to send request to.
      * @param string|array $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
      * @param array $options Options to set with the GuzzleClient.
+     *
      * @return HttpClient New HttpClient instance.
+     * @throws DebugBarException
      */
     public static function post(string $url, $data, array $options = []): HttpClient {
         $guzzleClient = self::createClient($options);
@@ -84,25 +120,14 @@ class HttpClient {
     }
 
     /**
-     * Make a new Guzzle Client instance and attach it to the debug bar to display requests.
+     * Get the response body as a decoded JSON object
      *
-     * @param array $options Options to provide Guzzle instance.
-     * @return Client New Guzzle instance.
+     * @param bool $assoc Whether to decode the JSON as a PHP array if true or PHP object.
+     *
+     * @return mixed The response body
      */
-    public static function createClient(array $options = []): Client {
-        $debugBar = DebugBarHelper::getInstance()->getDebugBar();
-        $stack = HandlerStack::create();
-
-        if ($debugBar !== null) {
-            $stack->unshift(new ProfilingMiddleware(
-                new Profiler($debugBar->getCollector('time'))
-            ));
-        }
-
-        return new Client(array_merge([
-            'timeout' => 5.0,
-            'handler' => $stack,
-        ], $options));
+    public function json(bool $assoc = false) {
+        return json_decode($this->contents(), $assoc);
     }
 
     /**
@@ -112,16 +137,6 @@ class HttpClient {
      */
     public function contents(): string {
         return $this->_response->getBody()->getContents();
-    }
-
-    /**
-     * Get the response body as a decoded JSON object
-     *
-     * @param bool $assoc Whether to decode the JSON as a PHP array if true or PHP object.
-     * @return mixed The response body
-     */
-    public function json(bool $assoc = false) {
-        return json_decode($this->contents(), $assoc);
     }
 
     /**

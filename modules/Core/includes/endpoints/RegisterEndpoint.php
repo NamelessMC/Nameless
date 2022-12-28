@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param string $username The username of the new user to create
- * @param string $email The email of the new user
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class RegisterEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +15,10 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['username', 'email']);
 
@@ -42,13 +46,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $integrations = Integrations::getInstance();
 
             foreach ($_POST['integrations'] as $integration_name => $item) {
-                if (!isset($item['identifier']) || !isset($item['username'])) {
+                if (!isset($item['identifier'], $item['username'])) {
                     continue;
                 }
 
                 // Require successful validation if integration is required
                 $integration = $integrations->getIntegration($integration_name);
-                if ($integration != null) {
+                if ($integration !== null) {
                     // Validate username and make sure username is unique
                     if (!$integration->validateUsername($item['username'])) {
                         $api->throwError(CoreApiErrors::ERROR_INTEGRATION_USERNAME_ERRORS, $integration->getErrors());
@@ -74,6 +78,49 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             // Register user + send link to verify account
             $this->createUser($api, $_POST['username'], $_POST['email'], true);
         }
+    }
+
+    /**
+     * Sends verification email upon new registration
+     *
+     * For internal API use only
+     *
+     * @param string $username The username of the new user to create
+     * @param string $email The email of the new user
+     *
+     * @throws Exception
+     * @see Nameless2API::register()
+     */
+    private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
+        // Generate random code
+        $code = SecureRandom::alphanumeric();
+
+        // Create user
+        $user_id = $this->createUser($api, $username, $email, false, $code);
+        $user_id = $user_id['user_id'];
+
+        // Get link + template
+        $link = URL::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
+
+        $sent = Email::send(
+            ['email' => $email, 'name' => $username],
+            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
+            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
+            Email::getReplyTo()
+        );
+
+        if (isset($sent['error'])) {
+            $api->getDb()->insert('email_errors', [
+                'type' => Email::API_REGISTRATION,
+                'content' => $sent['error'],
+                'at' => date('U'),
+                'user_id' => $user_id
+            ]);
+
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL);
+        }
+
+        $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
     }
 
     /**
@@ -115,7 +162,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
             } else {
                 $default_group = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache');
-                $default_group = json_decode($default_group);
+                $default_group = json_decode($default_group, true);
                 $default_group = unserialize($default_group->default_group->data);
             }
 
@@ -145,7 +192,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 $integrations = Integrations::getInstance();
 
                 foreach ($_POST['integrations'] as $integration_name => $item) {
-                    if (!isset($item['identifier']) || !isset($item['username'])) {
+                    if (!isset($item['identifier'], $item['username'])) {
                         continue;
                     }
 
@@ -161,9 +208,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,
-                    'username' => $user->getDisplayname(),
+                    'username' => $user->getDisplayName(),
                     'content' => $api->getLanguage()->get('user', 'user_x_has_registered', [
-                        'user' => $user->getDisplayname(),
+                        'user' => $user->getDisplayName(),
                     ]),
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
@@ -179,48 +226,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
         } catch (Exception $e) {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage());
+        } catch (GuzzleException $ignored) {
         }
-    }
-
-    /**
-     * Sends verification email upon new registration
-     *
-     * For internal API use only
-     *
-     * @param string $username The username of the new user to create
-     * @param string $email The email of the new user
-     * @see Nameless2API::register()
-     *
-     */
-    private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
-        // Generate random code
-        $code = SecureRandom::alphanumeric();
-
-        // Create user
-        $user_id = $this->createUser($api, $username, $email, false, $code);
-        $user_id = $user_id['user_id'];
-
-        // Get link + template
-        $link = URL::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
-
-        $sent = Email::send(
-            ['email' => $email, 'name' => $username],
-            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
-            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
-            Email::getReplyTo()
-        );
-
-        if (isset($sent['error'])) {
-            $api->getDb()->insert('email_errors', [
-                    'type' => Email::API_REGISTRATION,
-                    'content' => $sent['error'],
-                    'at' => date('U'),
-                    'user_id' => $user_id
-            ]);
-
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL);
-        }
-
-        $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
+        return [];
     }
 }

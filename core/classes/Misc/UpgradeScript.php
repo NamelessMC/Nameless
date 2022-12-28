@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Used for abstracting common tasks done during upgrades.
  *
@@ -18,10 +20,11 @@ abstract class UpgradeScript {
     }
 
     /**
-     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesn't exist
+     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesn't exist.
      *
-     * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
-     * @return UpgradeScript|null Instance of UpgradeScript from file
+     * @param string $current_version Current NamelessMC version. (ie: `2.0.0-pr12`, `2.0.0`)
+     *
+     * @return UpgradeScript|null Instance of UpgradeScript from file.
      */
     public static function get(string $current_version): ?UpgradeScript {
         $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
@@ -34,25 +37,16 @@ abstract class UpgradeScript {
     }
 
     /**
-     * Execute this UpgradeScript
+     * Execute this UpgradeScript.
      */
     abstract public function run(): void;
 
     /**
-     * Logs a message to the screen and the warning-log.log file.
-     *
-     * @param string $message Message to log
-     */
-    protected function log(string $message): void {
-        echo $message . '<br/>';
-        ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $message);
-    }
-
-    /**
      * Run a single database query
      *
-     * @param Closure $query Function which returns the query
-     * @return mixed The result of the closure, if any
+     * @param Closure $query Function which returns the query.
+     *
+     * @return mixed The result of the closure, if any.
      */
     protected function databaseQuery(Closure $query) {
         return $this->databaseQueries([$query])[0];
@@ -61,8 +55,9 @@ abstract class UpgradeScript {
     /**
      * Run multiple queries
      *
-     * @param Closure[] $queries Array of queries to execute one after another
-     * @return array Results from queries in order
+     * @param Closure[] $queries Array of queries to execute one after another.
+     *
+     * @return array Results from queries in order.
      */
     protected function databaseQueries(array $queries): array {
         $results = [];
@@ -80,20 +75,30 @@ abstract class UpgradeScript {
     }
 
     /**
+     * Logs a message to the screen and the warning-log.log file.
+     *
+     * @param string $message Message to log
+     */
+    protected function log(string $message): void {
+        echo $message . '<br/>';
+        ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $message);
+    }
+
+    /**
      * Delete one or more folders or files in a path
      *
-     * @param string $path Prefix path to append to each of the files in `$files` array
-     * @param array $files Name of folders/files in `$path` to delete. Use `*` for all folders/files
-     * @param bool $recursive Whether to recursively delete
+     * @param string $path Prefix path to append to each of the files in `$files` array.
+     * @param array $files Name of folders/files in `$path` to delete. Use `*` for all folders/files.
+     * @param bool $recursive Whether to recursively delete.
      */
     protected function deleteFilesInPath(string $path, array $files, bool $recursive = false): void {
-        if (in_array('*', $files)) {
+        if (in_array('*', $files, true)) {
             $files = scandir($path);
         }
 
         foreach ($files as $file) {
 
-            if ($file[0] == '.') {
+            if ($file[0] === '.') {
                 continue;
             }
 
@@ -121,7 +126,7 @@ abstract class UpgradeScript {
      * @param string|array $paths Path to folder or file to delete
      */
     protected function deleteFiles($paths): void {
-        foreach ((array) $paths as $path) {
+        foreach ((array)$paths as $path) {
             $path = ROOT_PATH . '/' . $path;
             if (!file_exists($path)) {
                 $this->log("'$path' does not exist, cannot delete.");
@@ -151,7 +156,7 @@ abstract class UpgradeScript {
     /**
      * Update the version of this NamelessMC website in the database.
      *
-     * @param string $version Version to set
+     * @param string $version Version to set.
      */
     protected function setVersion(string $version): void {
         Util::setSetting('nameless_version', $version);

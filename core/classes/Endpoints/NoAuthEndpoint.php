@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Allows an endpoint to not require any authorisation.
  *
@@ -9,6 +11,11 @@
  */
 class NoAuthEndpoint extends EndpointBase {
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return bool
+     */
     final public function isAuthorised(Nameless2API $api): bool {
         return true;
     }

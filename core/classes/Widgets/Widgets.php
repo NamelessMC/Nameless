@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Widget management class
  *
@@ -9,7 +11,10 @@
  */
 class Widgets {
 
-    private DB $_db;
+    /**
+     * @var ?DB $_db
+     */
+    private static ?DB $_db;
     private Cache $_cache;
     private Language $_language;
     private Smarty $_smarty;
@@ -18,23 +23,31 @@ class Widgets {
     private array $_enabled = [];
     private string $_name;
 
+    /**
+     * @param Cache $cache
+     * @param Language $language
+     * @param Smarty $smarty
+     * @param string $name
+     */
     public function __construct(
-        Cache $cache,
+        Cache    $cache,
         Language $language,
-        Smarty $smarty,
-        string $name = 'core'
+        Smarty   $smarty,
+        string   $name = 'core'
     ) {
         // Assign name to use in cache file
         $this->_name = $name;
         $this->_cache = $cache;
-        $this->_cache->setCache($this->_name . '-widgets');
+        $this->_cache->setCacheName($this->_name . '-widgets');
 
-        $this->_db = DB::getInstance();
+        if (!isset(self::$_db)) {
+            self::$_db = DB::getInstance();
+        }
         $this->_language = $language;
         $this->_smarty = $smarty;
 
         $enabled = $this->_cache->retrieve('enabled');
-        if ($enabled != null && count($enabled)) {
+        if ($enabled !== null && count($enabled)) {
             $this->_enabled = $enabled;
         }
     }
@@ -49,6 +62,16 @@ class Widgets {
     }
 
     /**
+     * Get the name of this collection of widgets.
+     * Not used internally.
+     *
+     * @return string Name of this instance.
+     */
+    public function getName(): string {
+        return $this->_name;
+    }
+
+    /**
      * Enable a widget.
      *
      * @param WidgetBase $widget Instance of widget to enable.
@@ -56,14 +79,14 @@ class Widgets {
     public function enable(WidgetBase $widget): void {
         // Add widget to enabled widget list
         $this->_enabled[$widget->getName()] = true;
-        $this->_cache->setCache($this->_name . '-widgets');
+        $this->_cache->setCacheName($this->_name . '-widgets');
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
-        $widget_id = $this->_db->get('widgets', ['name', $widget->getName()]);
+        $widget_id = self::$_db->get('widgets', ['name', $widget->getName()]);
         if ($widget_id->count()) {
             $widget_id = $widget_id->first();
-            $this->_db->update('widgets', $widget_id->id, [
+            self::$_db->update('widgets', $widget_id->id, [
                 'enabled' => true
             ]);
         }
@@ -76,14 +99,14 @@ class Widgets {
      */
     public function disable(WidgetBase $widget): void {
         unset($this->_enabled[$widget->getName()]);
-        $this->_cache->setCache($this->_name . '-widgets');
+        $this->_cache->setCacheName($this->_name . '-widgets');
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
-        $widget_id = $this->_db->get('widgets', ['name', $widget->getName()]);
+        $widget_id = self::$_db->get('widgets', ['name', $widget->getName()]);
         if ($widget_id->count()) {
             $widget_id = $widget_id->first();
-            $this->_db->update('widgets', $widget_id->id, [
+            self::$_db->update('widgets', $widget_id->id, [
                 'enabled' => false,
             ]);
         }
@@ -94,14 +117,10 @@ class Widgets {
      *
      * @param string $name Name of widget to get.
      *
-     * @return WidgetBase|null Instance of widget with same name, null if it doesnt exist.
+     * @return WidgetBase|null Instance of widget with same name, null if it doesn't exist.
      */
     public function getWidget(string $name): ?WidgetBase {
-        if (array_key_exists($name, $this->_widgets)) {
-            return $this->_widgets[$name];
-        }
-
-        return null;
+        return $this->_widgets[$name] ?? null;
     }
 
     /**
@@ -110,6 +129,7 @@ class Widgets {
      * @param string $location Either `left` or `right`.
      *
      * @return array List of HTML to be displayed.
+     * @throws SmartyException
      */
     public function getWidgets(string $location = 'right'): array {
         $ret = [];
@@ -118,10 +138,9 @@ class Widgets {
 
         foreach ($widgets as $item) {
             if (array_key_exists($item->getName(), $this->_enabled)
-                && $item->getLocation() == $location
-                && is_array($item->getPages())
-                && ((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages()))
-                    || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
+                && $item->getLocation() === $location
+                && ((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages(), true))
+                    || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages(), true))
             ) {
                 try {
                     $item->initialise();
@@ -181,15 +200,5 @@ class Widgets {
      */
     public function isEnabled(WidgetBase $widget): bool {
         return array_key_exists($widget->getName(), $this->_enabled);
-    }
-
-    /**
-     * Get the name of this collection of widgets.
-     * Not used internally.
-     *
-     * @return string Name of this instance.
-     */
-    public function getName(): string {
-        return $this->_name;
     }
 }

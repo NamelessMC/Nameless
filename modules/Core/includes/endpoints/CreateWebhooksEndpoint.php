@@ -1,12 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @param string $name The name of the webhook
- * @param string $url The url of the webhook
- * @param string $type The webhook type
- * @param array $events A list of events the webhook should receive
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class CreateWebhooksEndpoint extends KeyAuthEndpoint {
 
@@ -17,7 +13,13 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API  $api): void {
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function execute(Nameless2API $api): void {
         // Validation
         $validation = Validate::check($_POST, [
             'name' => [
@@ -52,9 +54,10 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         if (!in_array($type, ['normal', 'discord'])) {
             $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_TYPE);
         }
-        if (!array_reduce($events, function ($prev, $curr) {
-            $available_events = array_keys(EventHandler::getEvents());
-            if (!in_array($curr, $available_events)) $prev = false;
+        if (!array_reduce($events, static function ($prev, $curr) {
+            if (!array_key_exists($curr, EventHandler::getEvents())) {
+                $prev = false;
+            }
             return $prev;
         }, true)) {
             $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_EVENT);
@@ -70,8 +73,8 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         // Clear cache so the webhooks are refreshed
 
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
-        $cache->setCache('hooks');
-        if ($cache->isCached('hooks')) {
+        $cache->setCacheName('hooks');
+        if ($cache->hasCashedData('hooks')) {
             $cache->erase('hooks');
         }
 

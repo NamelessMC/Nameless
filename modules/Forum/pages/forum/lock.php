@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,9 @@
  *  License: MIT
  *
  *  Lock/unlock a topic
+ *
+ * @var User $user
+ * @var Language $language
  */
 
 $forum = new Forum();
@@ -25,9 +29,12 @@ if ($user->isLoggedIn()) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     }
 
-    if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
-        Session::flash('failure_post', $language->get('general', 'invalid_token'));
-        Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+    try {
+        if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
+            Session::flash('failure_post', $language->get('general', 'invalid_token'));
+            Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+        }
+    } catch (Exception $ignored) {
     }
 
     $forum_id = $topic[0]->forum_id;
@@ -35,7 +42,7 @@ if ($user->isLoggedIn()) {
     if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         $locked_status = $topic[0]->locked;
 
-        if ($locked_status == 1) {
+        if ($locked_status === 1) {
             $locked_status = 0;
         } else {
             $locked_status = 1;
@@ -44,7 +51,7 @@ if ($user->isLoggedIn()) {
         DB::getInstance()->update('topics', $topic_id, [
             'locked' => $locked_status
         ]);
-        Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));
+        Log::getInstance()->log(Log::Action('forums/topic/lock'), ($locked_status === 1) ? $language->get('log', 'info_forums_lock') : $language->get('log', 'info_forums_unlock'));
 
         Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
 

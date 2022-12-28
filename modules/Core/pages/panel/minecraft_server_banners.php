@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr0
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel Minecraft server banners page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.banners')) {
@@ -51,36 +64,36 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
 
     $template_file = 'integrations/minecraft/minecraft_server_banners.tpl';
 
+} else if (isset($_GET['server'])) {
+    // View
+    // Get server
+    $server = DB::getInstance()->get('mc_servers', ['id', $_GET['server']])->results();
+    if (!count($server)) {
+        Redirect::to(URL::build('/panel/minecraft/banners'));
+    }
+    $server = $server[0];
+
+    $smarty->assign([
+        'BACK' => $language->get('general', 'back'),
+        'BACK_LINK' => URL::build('/panel/minecraft/banners'),
+        'SERVER_NAME' => Output::getClean($server->name),
+        'BANNER_URL' => URL::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
+        'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/')
+    ]);
+
+    $template_file = 'integrations/minecraft/minecraft_server_banners_view.tpl';
+
 } else {
-    if (isset($_GET['server'])) {
-        // View
-        // Get server
-        $server = DB::getInstance()->get('mc_servers', ['id', $_GET['server']])->results();
-        if (!count($server)) {
-            Redirect::to(URL::build('/panel/minecraft/banners'));
-        }
-        $server = $server[0];
+    // Edit
+    // Get server
+    $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
+    if (!count($server)) {
+        Redirect::to(URL::build('/panel/minecraft/banners'));
+    }
 
-        $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/banners'),
-            'SERVER_NAME' => Output::getClean($server->name),
-            'BANNER_URL' => URL::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
-            'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/')
-        ]);
-
-        $template_file = 'integrations/minecraft/minecraft_server_banners_view.tpl';
-
-    } else {
-        // Edit
-        // Get server
-        $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
-        if (!count($server)) {
-            Redirect::to(URL::build('/panel/minecraft/banners'));
-        }
-
-        if (Input::exists()) {
-            // Check token
+    if (Input::exists()) {
+        // Check token
+        try {
             if (Token::check()) {
                 // Valid token
                 try {
@@ -100,64 +113,51 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
                 // Invalid token
                 $errors = [$language->get('general', 'invalid_token')];
             }
-
-            // Re-query
-            $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
+        } catch (Exception $ignored) {
         }
 
-        $server = $server[0];
-
-        $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'banners']);
-        $images = scandir($image_path);
-        $template_images = [];
-
-        // Only display jpeg, png, jpg, gif
-        $allowed_exts = ['gif', 'png', 'jpg', 'jpeg'];
-        $n = 1;
-
-        foreach ($images as $image) {
-            $ext = pathinfo($image, PATHINFO_EXTENSION);
-            if (!in_array($ext, $allowed_exts)) {
-                continue;
-            }
-            $template_images[] = [
-                'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/banners/' . $image,
-                'value' => $image,
-                'selected' => ($server->banner_background == $image),
-                'n' => $n
-            ];
-            $n++;
-        }
-
-        $smarty->assign([
-            'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/banners'),
-            'SERVER_NAME' => Output::getClean($server->name),
-            'BANNER_BACKGROUND' => $language->get('admin', 'banner_background'),
-            'BANNER_BACKGROUND_VALUE' => Output::getClean($server->banner_background),
-            'IMAGES' => $template_images
-        ]);
-
-        $template_file = 'integrations/minecraft/minecraft_server_banners_edit.tpl';
+        // Re-query
+        $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
     }
+
+    $server = $server[0];
+
+    $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'banners']);
+    $images = scandir($image_path);
+    $template_images = [];
+
+    // Only display jpeg, png, jpg, gif
+    $allowed_extensions = ['gif', 'png', 'jpg', 'jpeg'];
+    $n = 1;
+
+    foreach ($images as $image) {
+        $extension = pathinfo($image, PATHINFO_EXTENSION);
+        if (!in_array($extension, $allowed_extensions, true)) {
+            continue;
+        }
+        $template_images[] = [
+            'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/banners/' . $image,
+            'value' => $image,
+            'selected' => ($server->banner_background === $image),
+            'n' => $n
+        ];
+        $n++;
+    }
+
+    $smarty->assign([
+        'BACK' => $language->get('general', 'back'),
+        'BACK_LINK' => URL::build('/panel/minecraft/banners'),
+        'SERVER_NAME' => Output::getClean($server->name),
+        'BANNER_BACKGROUND' => $language->get('admin', 'banner_background'),
+        'BANNER_BACKGROUND_VALUE' => Output::getClean($server->banner_background),
+        'IMAGES' => $template_images
+    ]);
+
+    $template_file = 'integrations/minecraft/minecraft_server_banners_edit.tpl';
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -176,4 +176,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

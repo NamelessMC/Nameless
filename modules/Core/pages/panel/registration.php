@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel registration page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.registration')) {
@@ -25,24 +38,21 @@ if (Input::exists()) {
     $errors = [];
 
     // Check token
-    if (Token::check()) {
-        // Valid token
-        // Process input
-        if (isset($_POST['enable_registration'])) {
-            // Either enable or disable registration
-            DB::getInstance()->update('settings', ['name', 'registration_enabled'], [
-                'value' => Input::get('enable_registration')
-            ]);
-        } else {
-            // Registration settings
-
-            if (Input::get('action') == 'oauth') {
-
+    try {
+        if (Token::check()) {
+            // Valid token
+            // Process input
+            if (isset($_POST['enable_registration'])) {
+                // Either enable or disable registration
+                DB::getInstance()->update('settings', ['name', 'registration_enabled'], [
+                    'value' => Input::get('enable_registration')
+                ]);
+            } else if (Input::get('action') === 'oauth') {
                 foreach (array_keys(NamelessOAuth::getInstance()->getProviders()) as $provider_name) {
-                    $client_id = Input::get("client-id-{$provider_name}");
-                    $client_secret = Input::get("client-secret-{$provider_name}");
+                    $client_id = Input::get("client-id-$provider_name");
+                    $client_secret = Input::get("client-secret-$provider_name");
                     if ($client_id && $client_secret) {
-                        NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
+                        NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable-$provider_name") === 'on' ? 1 : 0);
                     } else {
                         NamelessOAuth::getInstance()->setEnabled($provider_name, 0);
                     }
@@ -52,7 +62,7 @@ if (Input::exists()) {
 
             } else {
                 // Email verification
-                Util::setSetting('email_verification', (isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
+                Util::setSetting('email_verification', (isset($_POST['verification']) && $_POST['verification'] === 'on') ? '1' : '0');
 
                 // Registration disabled message
                 Util::setSetting('registration_disabled_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Website registration is disabled.');
@@ -61,11 +71,11 @@ if (Input::exists()) {
                 Util::setSetting('recaptcha_type', Input::get('captcha_type'));
 
                 // Validate captcha key and secret key
-                if (!empty(Input::get('recaptcha_key')) || !empty(Input::get('recaptcha_secret')) || Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                if (!empty(Input::get('recaptcha_key')) || !empty(Input::get('recaptcha_secret')) || Input::get('enable_recaptcha') === '1' || (int)Input::get('enable_recaptcha_login') === 1) {
                     CaptchaBase::setActiveProvider(Input::get('captcha_type'));
 
                     $provider = CaptchaBase::getActiveProvider();
-                    if ($provider->validateSecret(Input::get('recaptcha_secret')) == false || $provider->validateKey(Input::get('recaptcha')) == false) {
+                    if ($provider->validateSecret(Input::get('recaptcha_secret')) === false || $provider->validateKey(Input::get('recaptcha')) === false) {
                         $captcha_warning = $language->get('admin', 'invalid_recaptcha_settings', [
                             'recaptchaProvider' => Text::bold(Input::get('captcha_type'))
                         ]);
@@ -79,11 +89,11 @@ if (Input::exists()) {
                     Util::setSetting('recaptcha_secret', '');
                 }
 
-                Util::setSetting('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] == '1') ? '1' : '0');
-                Util::setSetting('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] == '1') ? '1' : '0');
+                Util::setSetting('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] === '1') ? '1' : '0');
+                Util::setSetting('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] === '1') ? '1' : '0');
 
                 // Config value
-                if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
+                if (Input::get('enable_recaptcha') === '1' || Input::get('enable_recaptcha_login') === '1') {
                     if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                         Config::set('core.captcha', true);
                     } else {
@@ -96,15 +106,16 @@ if (Input::exists()) {
                 $new_value = json_encode(['action' => $validation_action['action'] ?? 'promote', 'group' => $_POST['promote_group']]);
                 Util::setSetting('validate_user_action', $new_value);
             }
-        }
 
-        if (!count($errors)) {
-            Session::flash('registration_success', $language->get('admin', 'registration_settings_updated'));
-            Redirect::to(URL::build('/panel/core/registration'));
+            if (!count($errors)) {
+                Session::flash('registration_success', $language->get('admin', 'registration_settings_updated'));
+                Redirect::to(URL::build('/panel/core/registration'));
+            }
+        } else {
+            // Invalid token
+            $errors[] = $language->get('general', 'invalid_token');
         }
-    } else {
-        // Invalid token
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
@@ -153,7 +164,7 @@ $active_option_name = $active_option ?: '';
 foreach ($all_captcha_options as $option) {
     $captcha_options[] = [
         'value' => $option->getName(),
-        'active' => $option->getName() == $active_option_name
+        'active' => $option->getName() === $active_option_name
     ];
 }
 
@@ -216,4 +227,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/registration.tpl', $smarty);
+try {
+    $template->displayTemplate('core/registration.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

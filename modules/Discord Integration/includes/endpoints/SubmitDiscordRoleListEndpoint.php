@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @param string $roles An array of Discord Roles with their name and ID
- *
- * @return string JSON Array
+ * @package Modules\Discord Integration
+ * @author Unknown
+ * @version 2.1.0
+ * @license MIT
  */
 class SubmitDiscordRoleListEndpoint extends KeyAuthEndpoint {
 
@@ -14,12 +16,14 @@ class SubmitDiscordRoleListEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws Exception
+     */
     public function execute(Nameless2API $api): void {
-        $roles = [];
-
-        if ($_POST['roles'] != null) {
-            $roles = $_POST['roles'];
-        }
+        $roles = $_POST['roles'] ?? [];
 
         try {
             Discord::saveRoles($roles);

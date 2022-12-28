@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.2
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel auth page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if ($user->isLoggedIn()) {
     if (!$user->canViewStaffCP()) {
@@ -30,41 +46,48 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with any input
 if (Input::exists()) {
-    if (Token::check()) {
-        // Validate input
-        $validation = Validate::check($_POST, [
-            'password' => [
-                    Validate::REQUIRED => true
-                ]
-            ]
-        );
-
-        if ($validation->passed()) {
-            $user = new User();
-            $login = $user->adminLogin($user->data()->email, Input::get('password'), 'email');
-
-            if ($login) {
-                // Get IP
-                $ip = HttpUtils::getRemoteAddress();
-
-                // Create log
-                Log::getInstance()->log(Log::Action('admin/login'));
-
-                // Redirect to a certain page?
-                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                    Redirect::back();
-                } else {
-                    Redirect::to(URL::build('/panel'));
-                }
+    try {
+        if (Token::check()) {
+            // Validate input
+            try {
+                $validation = Validate::check($_POST, [
+                        'password' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ]
+                );
+            } catch (Exception $ignored) {
             }
 
+            if ($validation->passed()) {
+                $user = new User();
+                try {
+                    $login = $user->adminLogin($user->data()->email, Input::get('password'));
+                } catch (GuzzleException $ignored) {
+                }
+
+                if ($login) {
+                    // Get IP
+                    $ip = HttpUtils::getRemoteAddress();
+
+                    // Create log
+                    Log::getInstance()->log(Log::Action('admin/login'));
+
+                    // Redirect to a certain page?
+                    if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) !== '=') {
+                        Redirect::back();
+                    } else {
+                        Redirect::to(URL::build('/panel'));
+                    }
+                }
+
+            }
             Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
         } else {
-            Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
+            // Invalid token
+            Session::flash('adm_auth_error', $language->get('general', 'invalid_token'));
         }
-    } else {
-        // Invalid token
-        Session::flash('adm_auth_error', $language->get('general', 'invalid_token'));
+    } catch (Exception $ignored) {
     }
 }
 
@@ -88,4 +111,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('auth.tpl', $smarty);
+try {
+    $template->displayTemplate('auth.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

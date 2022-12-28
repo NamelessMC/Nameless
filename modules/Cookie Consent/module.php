@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
@@ -9,11 +10,19 @@
  *  Cookie Consent module file
  */
 
+/**
+ * TODO: Add description
+ */
 class CookieConsent_Module extends Module {
 
     private Language $_language;
     private Language $_cookie_language;
 
+    /**
+     * @param Language $language
+     * @param Language $cookie_language
+     * @param Pages $pages
+     */
     public function __construct(Language $language, Language $cookie_language, Pages $pages) {
         $this->_language = $language;
         $this->_cookie_language = $cookie_language;
@@ -33,26 +42,57 @@ class CookieConsent_Module extends Module {
 
         // Cookies
         define('COOKIE_CHECK', true);
-        define('COOKIES_ALLOWED', Cookie::exists('cookieconsent_status') && Cookie::get('cookieconsent_status') == 'allow');
+        define('COOKIES_ALLOWED', Cookie::exists('cookieconsent_status') && Cookie::get('cookieconsent_status') === 'allow');
     }
 
-    public function onInstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onInstall(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onUninstall() {
+    /**
+     *
+     * @return void
+     */
+    public function onUninstall(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onEnable() {
+    /**
+     *
+     * @return void
+     */
+    public function onEnable(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onDisable() {
+
+    /**
+     *
+     * @return void
+     */
+    public function onDisable(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase|null $template Active template to render.
+     *
+     * @return void
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
         $language = $this->_language;
 
         // AdminCP
@@ -65,8 +105,8 @@ class CookieConsent_Module extends Module {
 
         if (defined('FRONT_END')) {
             // Add cookie page link
-            $cache->setCache('cookie_consent_module_cache');
-            if (!$cache->isCached('options')) {
+            $cache->setCacheName('cookie_consent_module_cache');
+            if (!$cache->hasCashedData('options')) {
                 $options = ['type' => 'opt-in', 'position' => 'bottom-right'];
                 $cache->store('options', $options);
             } else {
@@ -109,18 +149,18 @@ class CookieConsent_Module extends Module {
         }
 
         if (defined('BACK_END')) {
-            $cache->setCache('panel_sidebar');
+            $cache->setCacheName('panel_sidebar');
 
             // StaffCP link
             if ($user->hasPermission('admincp.cookies')) {
-                if (!$cache->isCached('cookie_order')) {
+                if (!$cache->hasCashedData('cookie_order')) {
                     $order = 10;
                     $cache->store('cookie_order', 10);
                 } else {
                     $order = $cache->retrieve('cookie_order');
                 }
 
-                if (!$cache->isCached('cookie_icon')) {
+                if (!$cache->hasCashedData('cookie_icon')) {
                     $icon = '<i class="nav-icon fas fa-cookie-bite"></i>';
                     $cache->store('cookie_icon', $icon);
                 } else {
@@ -133,6 +173,11 @@ class CookieConsent_Module extends Module {
         }
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     public function getDebugInfo(): array {
         return [];
     }

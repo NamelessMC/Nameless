@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Integrations class
  *
@@ -17,22 +19,22 @@ class Integrations extends Instanceable {
     /**
      * Register an integration to the integration list.
      *
-     * @param IntegrationBase $integration Instance of intagration to register.
+     * @param IntegrationBase $integration Instance of integration to register.
      */
     public function registerIntegration(IntegrationBase $integration): void {
         $this->_integrations[$integration->getName()] = $integration;
     }
 
     /**
-     * Get a integration by name.
+     * Get an integration by name.
      *
      * @param string $name Name of integration to get.
      *
-     * @return IntegrationBase|null Instance of integration with same name, null if it doesnt exist.
+     * @return IntegrationBase|null Instance of integration with same name, null if it doesn't exist.
      */
     public function getIntegration(string $name): ?IntegrationBase {
         foreach ($this->_integrations as $integration) {
-            if (strcasecmp($name, $integration->getName()) == 0) {
+            if (strcasecmp($name, $integration->getName()) === 0) {
                 return $integration;
             }
         }

@@ -1,6 +1,6 @@
-$(function(){
+$(function () {
     $('.spoiler-text').hide();
-    $('.spoiler-toggle').click(function(){
+    $('.spoiler-toggle').click(function () {
         $(this).next().toggle();
     });
 });

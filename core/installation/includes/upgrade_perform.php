@@ -1,4 +1,14 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ */
 
 if (!defined('UPGRADE')) {
     die();
@@ -50,7 +60,7 @@ try {
 // Custom pages
 try {
     $old = $conn->get('nl1_custom_pages', ['id', '<>', 0]);
-    if ($old->count()) {
+    if ($old !== false && $old->count()) {
         $old = $old->results();
 
         foreach ($old as $item) {
@@ -167,7 +177,7 @@ try {
                 'name' => $item->name,
                 'group_html' => $item->group_html,
                 'admin_cp' => (($item->staff) ? 1 : 0),
-                'default_group' => (($item->id == 1) ? 1 : 0),
+                'default_group' => (($item->id === 1) ? 1 : 0),
                 'permissions' => '{}',
             ]);
         }
@@ -284,15 +294,11 @@ try {
                     'updated' => $item->created,
                     'last_reply_user' => $item->user_id
                 ];
-            } else {
-                if ($private_messages[$item->pm_id]['created'] > $item->created) {
-                    $private_messages[$item->pm_id]['created'] = $item->created;
-                } else {
-                    if ($private_messages[$item->pm_id]['updated'] < $item->created) {
-                        $private_messages[$item->pm_id]['updated'] = $item->created;
-                        $private_messages[$item->pm_id]['last_reply_user'] = $item->user_id;
-                    }
-                }
+            } else if ($private_messages[$item->pm_id]['created'] > $item->created) {
+                $private_messages[$item->pm_id]['created'] = $item->created;
+            } else if ($private_messages[$item->pm_id]['updated'] < $item->created) {
+                $private_messages[$item->pm_id]['updated'] = $item->created;
+                $private_messages[$item->pm_id]['last_reply_user'] = $item->user_id;
             }
 
             DB::getInstance()->insert('private_messages_replies', [
@@ -630,7 +636,7 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
     ]);
 }
 
-$cache->setCache('languagecache');
+$cache->setCacheName('languagecache');
 $cache->store('language', 'en_UK');
 
 // Modules
@@ -650,7 +656,7 @@ DB::getInstance()->insert('modules', [
     'name' => 'Cookie Consent',
     'enabled' => true,
 ]);
-$cache->setCache('modulescache');
+$cache->setCacheName('modulescache');
 $cache->store('enabled_modules', [
     ['name' => 'Core', 'priority' => 1],
     ['name' => 'Forum', 'priority' => 4],
@@ -909,7 +915,7 @@ DB::getInstance()->insert('templates', [
     'is_default' => true,
 ]);
 
-$cache->setCache('templatecache');
+$cache->setCacheName('templatecache');
 $cache->store('default', 'DefaultRevamp');
 
 DB::getInstance()->insert('panel_templates', [
@@ -938,14 +944,14 @@ DB::getInstance()->insert('widgets', [
     'pages' => '["index","forum"]'
 ]);
 
-$cache->setCache('Core-widgets');
+$cache->setCacheName('Core-widgets');
 $cache->store('enabled', [
     'Online Staff' => 1,
     'Online Users' => 1,
     'Statistics' => 1
 ]);
 
-$cache->setCache('backgroundcache');
+$cache->setCacheName('backgroundcache');
 $cache->store('banner_image', 'uploads/template_banners/homepage_bg_trimmed.jpg');
 
 unset($_SESSION['db_address'], $_SESSION['db_port'], $_SESSION['db_username'], $_SESSION['db_password'], $_SESSION['db_name']);

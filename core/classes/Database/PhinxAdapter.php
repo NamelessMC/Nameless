@@ -1,5 +1,14 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Database class.
+ *
+ * @package NamelessMC\Database
+ * @author Unknown
+ * @version 2.1.0
+ * @license MIT
+ */
 class PhinxAdapter {
 
     /**

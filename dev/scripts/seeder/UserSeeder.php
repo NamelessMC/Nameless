@@ -1,5 +1,14 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class UserSeeder extends Seeder {
 
     public array $tables = [
@@ -8,6 +17,12 @@ class UserSeeder extends Seeder {
         'nl2_users_integrations',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     public function run(DB $db, \Faker\Generator $faker): void {
         $password = password_hash('password', PASSWORD_BCRYPT, ['cost' => 13]);
 
@@ -62,7 +77,7 @@ class UserSeeder extends Seeder {
                 'gravatar' => $faker->boolean(20) ? 1 : 0,
                 'topic_updates' => $faker->boolean(40) ? 1 : 0,
                 'private_profile' => $faker->boolean(40) ? 1 : 0,
-                'last_online' => $this->since($joined, $faker)->format('U'),
+                'last_online' => $this->since((int)$joined, $faker)->format('U'),
                 'joined' => $joined,
                 'user_title' => $faker->boolean(20) ? $faker->text(60) : null,
                 'night_mode' => $faker->boolean ? 1 : 0,
@@ -74,7 +89,7 @@ class UserSeeder extends Seeder {
             $db->insert('users_groups', [
                 'user_id' => $user_id,
                 'group_id' => $active ? 1 : 4,
-                'received' => $this->since($joined, $faker)->format('U'),
+                'received' => $this->since((int)$joined, $faker)->format('U'),
                 'expire' => 0,
             ]);
 
@@ -82,7 +97,7 @@ class UserSeeder extends Seeder {
                 $db->insert('users_groups', [
                     'user_id' => $user_id,
                     'group_id' => 2,
-                    'received' => $this->since($joined, $faker)->format('U'),
+                    'received' => $this->since((int)$joined, $faker)->format('U'),
                     'expire' => 0,
                 ]);
             }

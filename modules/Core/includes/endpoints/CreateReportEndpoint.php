@@ -1,13 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param string $reporter The NamelessMC ID of the user who is creating the report
- * @param string $reported The NamelessMC ID of the user who is getting reported (optional, required if reported_username/reported_uid not provided)
- * @param string $content The content of the report
- * @param string $reported_username The username of the reported user (optional, required if reported not provided)
- * @param string $reported_uid A unique ID for the reported user (optional, required if reported not provided)
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class CreateReportEndpoint extends KeyAuthEndpoint {
 
@@ -18,6 +15,10 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     *
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['reporter', 'content']);
 
@@ -40,26 +41,26 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported']]);
+        $user_reported_id = $api->getDb()->get('users', ['id', $_POST['reported']]);
         if (!$user_reported_id->count()) {
             $user_reported_id = null;
         } else {
             $user_reported_id = $user_reported_id->first()->id;
         }
 
-        if ($user_reporting_data->id == $user_reported_id) {
+        if ($user_reporting_data->id === $user_reported_id) {
             $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
         }
 
         // Ensure user has not already reported the same player, and the report is open
         $user_reports = $api->getDb()->get('reports', ['reporter_id', $user_reporting_data->id])->results();
         foreach ($user_reports as $report) {
-            if ($report->status == 1) {
+            if ($report->status === '1') {
                 continue;
             }
             if ((
-                $report->reported_id != null && $report->reported_id == $user_reported_id)
-                || (isset($_POST['reported_uid']) && $report->reported_uuid == $_POST['reported_uid'])
+                    $report->reported_id !== null && $report->reported_id === $user_reported_id)
+                || (isset($_POST['reported_uid']) && $report->reported_uuid === $_POST['reported_uid'])
             ) {
                 $api->throwError(CoreApiErrors::ERROR_OPEN_REPORT_ALREADY);
             }
@@ -68,7 +69,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $reported_user = new User($user_reported_id);
         if ($reported_user->exists()) {
             $integrationUser = $reported_user->getIntegration('Minecraft');
-            if ($integrationUser != null) {
+            if ($integrationUser !== null) {
                 $reported_uuid = $integrationUser->data()->identifier;
             }
         }
@@ -79,8 +80,8 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             'reported_id' => $user_reported_id,
             'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
-            'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
-            'reported_uuid' => $_POST['reported_uid'] ? $_POST['reported_uid'] : $reported_uuid ?? 'none',
+            'reported_mcname' => $_POST['reported_username'] ?: $reported_user->getDisplayName(),
+            'reported_uuid' => $_POST['reported_uid'] ?: $reported_uuid ?? 'none',
         ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);

@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateOauthUsersTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateOauthUsersTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_oauth_users', ['id' => false, 'primary_key' => ['user_id', 'provider', 'provider_id']]);
 
         $table

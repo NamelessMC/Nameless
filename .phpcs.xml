@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="NamelessMC Coding Standards">
-    <description>A custom ruleset for the Kirki project based on the WordPress Coding Standards and PHPCompatibility.</description>
+    <description>A custom ruleset for the Kirki project based on the WordPress Coding Standards and PHPCompatibility.
+    </description>
 
     <!-- Only check PHP files. -->
     <arg name="extensions" value="php"/>

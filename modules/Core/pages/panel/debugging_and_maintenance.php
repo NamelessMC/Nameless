@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel debugging + maintenance page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.debugging')) {
@@ -24,38 +37,44 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        // Valid token
-        // Validate message
-        $validation = Validate::check($_POST, [
-            'message' => [
-                Validate::MAX => 1024
-            ]
-        ])->message($language->get('admin', 'maintenance_message_max_1024'));
+    try {
+        if (Token::check()) {
+            // Valid token
+            // Validate message
+            try {
+                $validation = Validate::check($_POST, [
+                    'message' => [
+                        Validate::MAX => 1024
+                    ]
+                ])->message($language->get('admin', 'maintenance_message_max_1024'));
+            } catch (Exception $ignored) {
+            }
 
-        if ($validation->passed()) {
-            // Update database
-            // Is debug mode enabled or not?
-            Util::setSetting('error_reporting', (isset($_POST['enable_debugging']) && $_POST['enable_debugging']) ? '1' : '0');
+            if ($validation->passed()) {
+                // Update database
+                // Is debug mode enabled or not?
+                Util::setSetting('error_reporting', (isset($_POST['enable_debugging']) && $_POST['enable_debugging'] === '1') ? '1' : '0');
 
-            // Maintenance mode
-            Util::setSetting('maintenance', (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance']) ? '1' : '0');
-            Util::setSetting('maintenance_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Maintenance mode is enabled.');
+                // Maintenance mode
+                Util::setSetting('maintenance', (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance'] === '1') ? '1' : '0');
+                Util::setSetting('maintenance_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Maintenance mode is enabled.');
 
-            // Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
+                // Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
 
-            // Page load timer
-            Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1 ? '1' : '0');
+                // Page load timer
+                Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] === '1' ? '1' : '0');
 
-            // Reload to update debugging
-            Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
-            Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
+                // Reload to update debugging
+                Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
+                Redirect::to(URL::build('/panel/core/debugging_and_maintenance'));
+            }
+
+            $errors = $validation->errors();
+        } else {
+            // Invalid token
+            $errors[] = $language->get('general', 'invalid_token');
         }
-
-        $errors = $validation->errors();
-    } else {
-        // Invalid token
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
@@ -114,4 +133,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/debugging_and_maintenance.tpl', $smarty);
+try {
+    $template->displayTemplate('core/debugging_and_maintenance.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

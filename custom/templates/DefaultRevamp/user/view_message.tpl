@@ -6,23 +6,23 @@
 </h2>
 
 {if isset($ERROR)}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <div class="header">{$ERROR_TITLE}</div>
-        {$ERROR}
+    <div class="ui error icon message">
+        <i class="x icon"></i>
+        <div class="content">
+            <div class="header">{$ERROR_TITLE}</div>
+            {$ERROR}
+        </div>
     </div>
-</div>
 {/if}
 
 {if isset($MESSAGE_SENT)}
-<div class="ui success icon message">
-    <i class="check icon"></i>
-    <div class="content">
-        <div class="header">{$SUCCESS_TITLE}</div>
-        {$MESSAGE_SENT}
+    <div class="ui success icon message">
+        <i class="check icon"></i>
+        <div class="content">
+            <div class="header">{$SUCCESS_TITLE}</div>
+            {$MESSAGE_SENT}
+        </div>
     </div>
-</div>
 {/if}
 
 <div class="ui stackable grid" id="view-message">
@@ -41,25 +41,25 @@
             <div class="res right floated">
                 <a class="ui small primary button" href="{$BACK_LINK}">{$BACK}</a>
                 <button class="ui small negative button" type="button" data-toggle="modal"
-                    data-target="#modal-leave">{$LEAVE_CONVERSATION}</button>
+                        data-target="#modal-leave">{$LEAVE_CONVERSATION}</button>
             </div>
             {foreach from=$MESSAGES item=message}
-            <div class="ui fluid card" id="message">
-                <div class="content">
-                    <img class="ui left floated mini circular image" src="{$message.author_avatar}">
-                    <div class="header">
-                        <a href="{$message.author_profile}" data-poload="{$USER_INFO_URL}{$message.author_id}"
-                            style="{$message.author_style}">{$message.author_username}</a>
-                    </div>
-                    <div class="meta">
+                <div class="ui fluid card" id="message">
+                    <div class="content">
+                        <img class="ui left floated mini circular image" src="{$message.author_avatar}">
+                        <div class="header">
+                            <a href="{$message.author_profile}" data-poload="{$USER_INFO_URL}{$message.author_id}"
+                               style="{$message.author_style}">{$message.author_username}</a>
+                        </div>
+                        <div class="meta">
                         <span data-toggle="tooltip"
-                            data-content="{$message.message_date_full}">{$message.message_date}</span>
-                    </div>
-                    <div class="description forum_post">
-                        {$message.content}
+                              data-content="{$message.message_date_full}">{$message.message_date}</span>
+                        </div>
+                        <div class="description forum_post">
+                            {$message.content}
+                        </div>
                     </div>
                 </div>
-            </div>
             {/foreach}
             {$PAGINATION}
             <div class="ui segment">

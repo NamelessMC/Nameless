@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel Minecraft page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft')) {
@@ -22,39 +35,28 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     // Check token
-    if (Token::check()) {
-        // Valid token
-        // Process input
-        if (isset($_POST['enable_minecraft'])) {
-            // Either enable or disable Minecraft integration
-            DB::getInstance()->update('settings', ['name', 'mc_integration'], [
-                'value' => Input::get('enable_minecraft')
-            ]);
+    try {
+        if (Token::check()) {
+            // Valid token
+            // Process input
+            if (isset($_POST['enable_minecraft'])) {
+                // Either enable or disable Minecraft integration
+                DB::getInstance()->update('settings', ['name', 'mc_integration'], [
+                    'value' => Input::get('enable_minecraft')
+                ]);
+            }
+
+        } else {
+            // Invalid token
+            $errors = [$language->get('general', 'invalid_token')];
+
         }
-
-    } else {
-        // Invalid token
-        $errors = [$language->get('general', 'invalid_token')];
-
+    } catch (Exception $ignored) {
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
 // Check if Minecraft integration is enabled
 $minecraft_enabled = MINECRAFT;
@@ -71,7 +73,7 @@ $smarty->assign([
     'MINECRAFT_ENABLED' => $minecraft_enabled
 ]);
 
-if ($minecraft_enabled == 1) {
+if ($minecraft_enabled === true) {
     if ($user->hasPermission('admincp.minecraft.authme')) {
         $smarty->assign([
             'AUTHME' => $language->get('admin', 'authme_integration'),
@@ -100,7 +102,7 @@ if ($minecraft_enabled == 1) {
         ]);
     }
 
-    if ($user->hasPermission('admincp.minecraft.banners') && function_exists('exif_imagetype')) {
+    if (function_exists('exif_imagetype') && $user->hasPermission('admincp.minecraft.banners')) {
         $smarty->assign([
             'BANNERS' => $language->get('admin', 'server_banners'),
             'BANNERS_LINK' => URL::build('/panel/minecraft/banners')
@@ -120,4 +122,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('integrations/minecraft/minecraft.tpl', $smarty);
+try {
+    $template->displayTemplate('integrations/minecraft/minecraft.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

@@ -1,4 +1,17 @@
-<?php require(__DIR__ . '/includes/header.php'); ?>
+<?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ */
+
+require(__DIR__ . '/includes/header.php');
+?>
 
     <div class="main-content">
         <div class="ui container">

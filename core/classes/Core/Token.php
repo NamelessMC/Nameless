@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Validates and generates CSRF tokens.
  *
@@ -8,6 +10,25 @@
  * @license MIT
  */
 class Token {
+
+    /**
+     * Check if token in session matches current token.
+     *
+     * @param string|null $token Contains the form token which will be checked against the session variable.
+     *
+     * @return bool Whether token matches.
+     * @throws Exception
+     */
+    public static function check(string $token = null): bool {
+        if ($token === null) {
+            $token = Input::get('token');
+        }
+
+        $tokenName = Config::get('session.token_name');
+
+        // Check the token matches
+        return Session::exists($tokenName) && $token === Session::get($tokenName);
+    }
 
     /**
      * Get current form token.
@@ -34,24 +55,5 @@ class Token {
     public static function generate(): void {
         // Generate random token using md5
         Session::put(Config::get('session.token_name'), md5(uniqid('', true)));
-    }
-
-    /**
-     * Check if token in session matches current token.
-     *
-     * @param string|null $token Contains the form token which will be checked against the session variable.
-     *
-     * @return bool Whether token matches.
-     * @throws Exception
-     */
-    public static function check(string $token = null): bool {
-        if ($token === null) {
-            $token = Input::get('token');
-        }
-
-        $tokenName = Config::get('session.token_name');
-
-        // Check the token matches
-        return Session::exists($tokenName) && $token === Session::get($tokenName);
     }
 }

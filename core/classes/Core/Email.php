@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -32,6 +34,7 @@ class Email {
      * @param string $subject Subject of the email.
      * @param string $message Message of the email.
      * @param array $reply_to Array containing `'email'` and `'name'` strings for the reply-to address.
+     *
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
     public static function send(array $recipient, string $subject, string $message, array $reply_to) {
@@ -42,7 +45,7 @@ class Email {
             'replyto' => $reply_to,
         ];
 
-        if (Util::getSetting('phpmailer') == '1') {
+        if (Util::getSetting('phpmailer') === '1') {
             return self::sendMailer($email);
         }
 
@@ -50,54 +53,13 @@ class Email {
     }
 
     /**
-     * Get reply to array for send()
-     * @return array Array with reply-to email address and name
-     */
-    public static function getReplyTo(): array {
-        return [
-            'email' => Util::getSetting('incoming_email'),
-            'name' => SITE_NAME
-        ];
-    }
-
-    /**
-     * Send an email using PHP's `mail()` function.
-     *
-     * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
-     * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
-     */
-    private static function sendPHP(array $email) {
-        error_clear_last();
-
-        $outgoing_email = Util::getSetting('outgoing_email');
-        $incoming_email = Util::getSetting('incoming_email');
-
-        $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';
-        $encoded_message = base64_encode($email['message']);
-        $encoded_from = '=?UTF-8?B?' . base64_encode(SITE_NAME) . '?= <' . $outgoing_email . '>';
-
-        if (mail($email['to']['email'], $encoded_subject, $encoded_message, [
-            'From' => $encoded_from,
-            'Reply-To' => $incoming_email,
-            'MIME-Version' => '1.0',
-            'Content-type' => 'text/html; charset=UTF-8',
-            'Content-Transfer-Encoding' => 'base64',
-        ])) {
-            return true;
-        }
-
-        return [
-            'error' => error_get_last()['message'] ?? 'Unknown error'
-        ];
-    }
-
-    /**
      * Send an email using the PHPMailer library.
      *
+     * @param array $email Array of email data to send.
+     *
+     * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      * @see PHPMailer
      *
-     * @param array $email Array of email data to send.
-     * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendMailer(array $email) {
         // Initialise PHPMailer
@@ -120,7 +82,7 @@ class Email {
             $mail->Username = Config::get('email.username', '');
             $mail->Password = Config::get('email.password', '');
 
-            // set from email ("outgoing email" seting)
+            // set from email ("outgoing email" setting)
             $mail->setFrom(Config::get('email.email', ''), Config::get('email.name', ''));
 
             // add a "to" address
@@ -151,6 +113,50 @@ class Email {
     }
 
     /**
+     * Send an email using PHP's `mail()` function.
+     *
+     * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
+     *
+     * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
+     */
+    private static function sendPHP(array $email) {
+        error_clear_last();
+
+        $outgoing_email = Util::getSetting('outgoing_email');
+        $incoming_email = Util::getSetting('incoming_email');
+
+        $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';
+        $encoded_message = base64_encode($email['message']);
+        $encoded_from = '=?UTF-8?B?' . base64_encode(SITE_NAME) . '?= <' . $outgoing_email . '>';
+
+        if (mail($email['to']['email'], $encoded_subject, $encoded_message, [
+            'From' => $encoded_from,
+            'Reply-To' => $incoming_email,
+            'MIME-Version' => '1.0',
+            'Content-type' => 'text/html; charset=UTF-8',
+            'Content-Transfer-Encoding' => 'base64',
+        ])) {
+            return true;
+        }
+
+        return [
+            'error' => error_get_last()['message'] ?? 'Unknown error'
+        ];
+    }
+
+    /**
+     * Get reply to array for send()
+     *
+     * @return array Array with reply-to email address and name
+     */
+    public static function getReplyTo(): array {
+        return [
+            'email' => Util::getSetting('incoming_email'),
+            'name' => SITE_NAME
+        ];
+    }
+
+    /**
      * Add a custom placeholder/variable for email messages.
      *
      * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
@@ -165,6 +171,7 @@ class Email {
      *
      * @param string $email Name of email to format.
      * @param Language $viewing_language Instance of Language class to use for translations.
+     *
      * @return string Formatted email.
      */
     public static function formatEmail(string $email, Language $viewing_language): string {

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,12 +8,18 @@
  *  License: MIT
  *
  *  Frontend template initialisation
+ *
+ * @var Language $language
+ * @var Smarty $smarty
+ * @var User $user
+ * @var Cache $cache
+ * @var string $page_title
  */
 
 const FRONT_END = true;
 
 // Set current page URL in session, provided it's not the login page
-if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && PAGE != 'maintenance' && PAGE != 'oauth' && (!isset($_GET['route']) || !str_contains($_GET['route'], '/queries'))) {
+if (defined('PAGE') && PAGE !== 'login' && PAGE !== 'register' && (int)PAGE !== 404 && PAGE !== 'maintenance' && PAGE !== 'oauth' && (!isset($_GET['route']) || !str_contains($_GET['route'], '/queries'))) {
     if (FRIENDLY_URLS === true) {
         $split = explode('?', $_SERVER['REQUEST_URI']);
 
@@ -33,7 +40,7 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 }
 
 // Check if any integrations is required before user can continue
-if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
+if (defined('PAGE') && PAGE !== 'cc_connections' && $user->isLoggedIn()) {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
         if ($integration->data()->required) {
             $integrationUser = $user->getIntegration($integration->getName());
@@ -45,11 +52,11 @@ if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
     }
 }
 
-if (defined('PAGE') && PAGE != 404) {
-    // Auto unset signin tfa variables if set
-    if (!str_contains($_GET['route'], '/queries/') && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
-        unset($_SESSION['remember'], $_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
-    }
+// Auto unset signin tfa variables if set
+if (defined('PAGE') && PAGE !== 404
+    && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))
+    && !str_contains($_GET['route'], '/queries/')) {
+    unset($_SESSION['remember'], $_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
 }
 
 $template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
@@ -68,7 +75,7 @@ if ($user->isLoggedIn()) {
     $warnings = DB::getInstance()->get('infractions', ['punished', $user->data()->id])->results();
     if (count($warnings)) {
         foreach ($warnings as $warning) {
-            if ($warning->revoked == 0 && $warning->acknowledged == 0) {
+            if ($warning->revoked === 0 && $warning->acknowledged === 0) {
                 $smarty->assign([
                     'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
                     'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
@@ -82,12 +89,12 @@ if ($user->isLoggedIn()) {
 
     // Does the account need verifying?
     // Get default group ID
-    $cache->setCache('default_group');
-    if ($cache->isCached('default_group')) {
+    $cache->setCacheName('default_group');
+    if ($cache->hasCashedData('default_group')) {
         $default_group = $cache->retrieve('default_group');
     } else {
         try {
-            $default_group = Group::find(1, 'default_group')->id;
+            $default_group = Group::find('1', 'default_group')->id;
         } catch (Exception $e) {
             $default_group = 1;
         }
@@ -97,7 +104,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Page metadata
-if (isset($_GET['route']) && $_GET['route'] != '/') {
+if (isset($_GET['route']) && $_GET['route'] !== '/') {
     $route = rtrim($_GET['route'], '/');
 } else {
     $route = '/';
@@ -120,7 +127,7 @@ if (!defined('PAGE_DESCRIPTION')) {
 
 $smarty->assign('TITLE', $page_title);
 
-$cache->setCache('backgroundcache');
+$cache->setCacheName('backgroundcache');
 
 $banner_image = $cache->retrieve('banner_image');
 

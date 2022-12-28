@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,10 @@
  *  License: MIT
  *
  *  Backend template initialisation
+ *
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var string $page_title
  */
 
 const BACK_END = true;
@@ -21,7 +26,7 @@ if (file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/temp
     require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
 }
 
-$cache->setCache('backgroundcache');
+$cache->setCacheName('backgroundcache');
 $logo_image = $cache->retrieve('logo_image');
 
 if (!empty($logo_image)) {

@@ -1,55 +1,66 @@
 {
-    "name": "namelessmc/nameless",
-    "description": "NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.",
-    "type": "project",
-    "license": "MIT",
-    "config": {
-        "platform": {
-            "php": "7.4"
-        }
-    },
-    "require": {
-        "php": ">=7.4",
-        "jdorn/sql-formatter": "^1.2",
-        "smarty/smarty": "^4.1",
-        "ezyang/htmlpurifier": "^4.14",
-        "samayo/bulletproof": "^4.0",
-        "phpmailer/phpmailer": "^6.6",
-        "evert/sitemap-php": "^1.2",
-        "robthree/twofactorauth": "^1.8",
-        "league/oauth2-client": "^2.6",
-        "wohali/oauth2-discord-new": "^1.1",
-        "league/oauth2-google": "^4.0",
-        "guzzlehttp/guzzle": "^7.4",
-        "xpaw/php-minecraft-query": "^4.0",
-        "games647/minecraft-banner-generator": "^0.4.1",
-        "symfony/polyfill-php80": "^v1.25",
-        "ircmaxell/password-compat": "^1.0",
-        "astrotomic/php-twemoji": "^0.2",
-        "samerton/i18next": "^1.0",
-        "robmorgan/phinx": "^0.12.10",
-        "symfony/http-foundation": "^5.4"
-    },
-    "require-dev": {
-        "phpstan/phpstan": "1.6.9",
-        "maximebf/debugbar": "^1.18",
-        "junker/debugbar-smarty": "^0.2",
-        "hannesvdvreken/guzzle-debugbar": "^3.0",
-        "fakerphp/faker": "^1.19"
-    },
-    "autoload": {
-        "classmap": [
-            "core/classes",
-            "modules/Cookie Consent/classes",
-            "modules/Core/classes",
-            "modules/Core/hooks",
-            "modules/Core/widgets",
-            "modules/Discord Integration/classes",
-            "modules/Discord Integration/hooks",
-            "modules/Discord Integration/widgets",
-            "modules/Forum/classes",
-            "modules/Forum/hooks",
-            "modules/Forum/widgets"
-        ]
+  "name": "namelessmc/nameless",
+  "description": "NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.",
+  "type": "project",
+  "license": "MIT",
+  "config": {
+    "platform": {
+      "php": "7.4"
     }
+  },
+  "require": {
+    "php": ">=7.4",
+    "jdorn/sql-formatter": "^1.2",
+    "smarty/smarty": "^4.1",
+    "ezyang/htmlpurifier": "^4.14",
+    "samayo/bulletproof": "^4.0",
+    "phpmailer/phpmailer": "^6.6",
+    "evert/sitemap-php": "^1.2",
+    "robthree/twofactorauth": "^1.8",
+    "league/oauth2-client": "^2.6",
+    "wohali/oauth2-discord-new": "^1.1",
+    "league/oauth2-google": "^4.0",
+    "guzzlehttp/guzzle": "^7.4",
+    "xpaw/php-minecraft-query": "^4.0",
+    "games647/minecraft-banner-generator": "^0.4.1",
+    "symfony/polyfill-php80": "^v1.25",
+    "ircmaxell/password-compat": "^1.0",
+    "astrotomic/php-twemoji": "^0.2",
+    "samerton/i18next": "^1.0",
+    "robmorgan/phinx": "^0.12.10",
+    "symfony/http-foundation": "^5.4",
+    "ext-json": "*",
+    "ext-gd": "*",
+    "ext-pdo": "*",
+    "ext-exif": "*",
+    "ext-dom": "*",
+    "ext-mysqli": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "phpstan/phpstan": "*",
+    "squizlabs/php_codesniffer": "*",
+    "friendsofphp/php-cs-fixer": "*",
+    "vimeo/psalm": "*",
+    "phpmd/phpmd": "*",
+    "maximebf/debugbar": "^1.18",
+    "junker/debugbar-smarty": "^0.2",
+    "hannesvdvreken/guzzle-debugbar": "^3.0",
+    "fakerphp/faker": "^1.19"
+  },
+  "autoload": {
+    "classmap": [
+      "core/classes",
+      "modules/Cookie Consent/classes",
+      "modules/Core/classes",
+      "modules/Core/hooks",
+      "modules/Core/widgets",
+      "modules/Discord Integration/classes",
+      "modules/Discord Integration/hooks",
+      "modules/Discord Integration/widgets",
+      "modules/Forum/classes",
+      "modules/Forum/hooks",
+      "modules/Forum/widgets"
+    ]
+  }
 }

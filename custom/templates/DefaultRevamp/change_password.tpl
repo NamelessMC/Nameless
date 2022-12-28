@@ -7,17 +7,17 @@
 </h2>
 
 {if isset($ERROR)}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <div class="header">{$ERROR_TITLE}</div>
-        <ul class="list">
-            {foreach from=$ERROR item=error}
-            <li>{$error}</li>
-            {/foreach}
-        </ul>
+    <div class="ui error icon message">
+        <i class="x icon"></i>
+        <div class="content">
+            <div class="header">{$ERROR_TITLE}</div>
+            <ul class="list">
+                {foreach from=$ERROR item=error}
+                    <li>{$error}</li>
+                {/foreach}
+            </ul>
+        </div>
     </div>
-</div>
 {/if}
 
 <div class="ui padded segment" id="change-password">
@@ -32,12 +32,12 @@
                     <div class="field">
                         <label for="inputPassword">{$PASSWORD}</label>
                         <input type="password" name="password" id="inputPassword" placeholder="{$PASSWORD}"
-                            autocomplete="off" tabindex="2">
+                               autocomplete="off" tabindex="2">
                     </div>
                     <div class="field">
                         <label for="inputPasswordAgain">{$CONFIRM_PASSWORD}</label>
                         <input type="password" name="password_again" id="inputPasswordAgain"
-                            placeholder="{$CONFIRM_PASSWORD}" autocomplete="off" tabindex="3">
+                               placeholder="{$CONFIRM_PASSWORD}" autocomplete="off" tabindex="3">
                     </div>
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input type="submit" class="ui primary button" value="{$SUBMIT}" tabindex="4">

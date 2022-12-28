@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel IP lookup page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('modcp.ip_lookup')) {
@@ -24,7 +37,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['uid'])) {
-    $user_id = (int)$_GET['uid'];
+    $user_id = $_GET['uid'];
 
     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
     if (!count($user_query)) {
@@ -45,7 +58,7 @@ if (isset($_GET['uid'])) {
             ];
         }
 
-        if (count($user_ips) == 1) {
+        if (count($user_ips) === 1) {
             $count_accounts = $language->get('moderator', '1_ip_with_name', [
                 'user' => Text::bold(Output::getClean($user_query->username))
             ]);
@@ -69,52 +82,52 @@ if (isset($_GET['uid'])) {
 
         $template_file = 'core/users_ip_lookup.tpl';
     }
-} else {
-    if (isset($_GET['ip'])) {
-        // IP has been specified
-        // Get accounts with this IP
-        $ip_accounts = DB::getInstance()->get('users_ips', ['ip', Output::getClean($_GET['ip'])])->results();
+} else if (isset($_GET['ip'])) {
+    // IP has been specified
+    // Get accounts with this IP
+    $ip_accounts = DB::getInstance()->get('users_ips', ['ip', Output::getClean($_GET['ip'])])->results();
 
-        if (!count($ip_accounts)) {
-            $errors = [$language->get('moderator', 'no_accounts_with_that_ip')];
+    if (!count($ip_accounts)) {
+        $errors = [$language->get('moderator', 'no_accounts_with_that_ip')];
 
-            $template_file = 'core/users_ip_lookup.tpl';
-        } else {
-            $accounts = [];
-
-            foreach ($ip_accounts as $account) {
-                $username = DB::getInstance()->get('users', ['id', $account->user_id])->results();
-
-                if (count($username)) {
-                    $accounts[] = [
-                        'username' => Output::getClean($username[0]->username),
-                        'nickname' => Output::getClean($username[0]->nickname),
-                        'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
-                        'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($account->user_id)),
-                        'style' => $user->getGroupStyle()
-                    ];
-                }
-            }
-
-            if (count($ip_accounts) == 1) {
-                $count_accounts = $language->get('moderator', '1_account_with_ip', ['address' => Output::getClean($_GET['ip'])]);
-            } else {
-                $count_accounts = $language->get('moderator', 'count_accounts_with_ip', ['count' => count($ip_accounts), 'address' => Output::getClean($_GET['ip'])]);
-            }
-
-            $smarty->assign([
-                'IP_SEARCH' => true,
-                'ACCOUNTS' => $accounts,
-                'COUNT_ACCOUNTS' => $count_accounts,
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/users/ip_lookup')
-            ]);
-
-            $template_file = 'core/users_ip_lookup_results.tpl';
-        }
+        $template_file = 'core/users_ip_lookup.tpl';
     } else {
-        if (Input::exists()) {
-            // Check token
+        $accounts = [];
+
+        foreach ($ip_accounts as $account) {
+            $username = DB::getInstance()->get('users', ['id', $account->user_id])->results();
+
+            if (count($username)) {
+                $accounts[] = [
+                    'username' => Output::getClean($username[0]->username),
+                    'nickname' => Output::getClean($username[0]->nickname),
+                    'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
+                    'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($account->user_id)),
+                    'style' => $user->getGroupStyle()
+                ];
+            }
+        }
+
+        if (count($ip_accounts) === 1) {
+            $count_accounts = $language->get('moderator', '1_account_with_ip', ['address' => Output::getClean($_GET['ip'])]);
+        } else {
+            $count_accounts = $language->get('moderator', 'count_accounts_with_ip', ['count' => count($ip_accounts), 'address' => Output::getClean($_GET['ip'])]);
+        }
+
+        $smarty->assign([
+            'IP_SEARCH' => true,
+            'ACCOUNTS' => $accounts,
+            'COUNT_ACCOUNTS' => $count_accounts,
+            'BACK' => $language->get('general', 'back'),
+            'BACK_LINK' => URL::build('/panel/users/ip_lookup')
+        ]);
+
+        $template_file = 'core/users_ip_lookup_results.tpl';
+    }
+} else {
+    if (Input::exists()) {
+        // Check token
+        try {
             if (Token::check()) {
                 // Search
                 $query = DB::getInstance()->get('users', ['username', Output::getClean(Input::get('search'))])->results();
@@ -139,10 +152,11 @@ if (isset($_GET['uid'])) {
             } else {
                 $errors = [$language->get('general', 'invalid_token')];
             }
+        } catch (Exception $ignored) {
         }
-
-        $template_file = 'core/users_ip_lookup.tpl';
     }
+
+    $template_file = 'core/users_ip_lookup.tpl';
 }
 
 if (isset($success)) {
@@ -175,4 +189,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

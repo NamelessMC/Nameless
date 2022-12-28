@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,13 +8,17 @@
  *  License: MIT
  *
  *  Panel navbar
+ *
+ * @var Smarty $smarty
+ * @var Navigation $staffcp_nav
+ * @var Language $language
  */
 
 // Assign to Smarty variables
 $smarty->assign([
     'SITE_NAME' => Output::getClean(SITE_NAME),
     'PANEL_INDEX' => URL::build('/panel'),
-    'NAV_LINKS' => $staffcp_nav->returnNav('top'),
+    'NAV_LINKS' => $staffcp_nav->returnNav(),
     'VIEW_SITE' => $language->get('admin', 'view_site'),
     'PAGE_LOAD_TIME' => PAGE_LOAD_TIME,
     'SUPPORT' => $language->get('admin', 'support'),

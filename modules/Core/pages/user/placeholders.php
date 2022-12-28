@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  User placeholders page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -25,7 +38,7 @@ const PAGE = 'cc_placeholders';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 $placeholders_list = [];
 
@@ -34,7 +47,7 @@ foreach ($user->getPlaceholders() as $placeholder) {
         'name' => $placeholder->name,
         'friendly_name' => $placeholder->friendly_name,
         'value' => $placeholder->value,
-        'last_updated' => ucfirst($timeago->inWords($placeholder->last_updated, $language)),
+        'last_updated' => ucfirst($time_ago->inWords($placeholder->last_updated, $language)),
         'show_on_profile' => $placeholder->show_on_profile,
         'show_on_forum' => $placeholder->show_on_forum
     ];
@@ -64,4 +77,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('user/placeholders.tpl', $smarty);
+try {
+    $template->displayTemplate('user/placeholders.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

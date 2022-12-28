@@ -1,21 +1,22 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Partydragen
- *  Updated by BrightSkyz
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Discord Widget
+/**
+ * @package Modules\Discord Integration
+ * @author Partydragen
+ * @author BrightSkyz
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class DiscordWidget extends WidgetBase {
 
     private Cache $_cache;
     private ?string $_guild_id;
 
+    /**
+     * @param Cache $cache
+     * @param Smarty $smarty
+     */
     public function __construct(Cache $cache, Smarty $smarty) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
@@ -35,6 +36,11 @@ class DiscordWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     *
+     * @throws Exception
+     */
     public function initialise(): void {
         // Generate HTML code for widget
         // If there is no Guild ID set, display error message
@@ -44,8 +50,8 @@ class DiscordWidget extends WidgetBase {
         }
 
         // First, check to see if the Discord server has the widget enabled.
-        $this->_cache->setCache('social_media');
-        if ($this->_cache->isCached('discord_widget_check')) {
+        $this->_cache->setCacheName('social_media');
+        if ($this->_cache->hasCashedData('discord_widget_check')) {
             $result = $this->_cache->retrieve('discord_widget_check');
 
         } else {
@@ -72,7 +78,7 @@ class DiscordWidget extends WidgetBase {
             // No, it isn't: display the widget
             // Check cache for theme
             $theme = 'dark';
-            if ($this->_cache->isCached('discord_widget_theme')) {
+            if ($this->_cache->hasCashedData('discord_widget_theme')) {
                 $theme = $this->_cache->retrieve('discord_widget_theme');
             }
 

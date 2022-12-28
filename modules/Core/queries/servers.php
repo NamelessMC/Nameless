@@ -1,36 +1,48 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Unknown
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  TODO: Add description
+ *
+ * @var Cache $cache
+ * @var Language $language
+ */
+
+
 // Check cache to see when servers were last queried
-$cache->setCache('server_query_cache');
-if ($cache->isCached('query_interval')) {
+use GuzzleHttp\Exception\GuzzleException;
+
+$cache->setCacheName('server_query_cache');
+if ($cache->hasCashedData('query_interval')) {
     $query_interval = $cache->retrieve('query_interval');
-    if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
-        // Interval ok
-    } else {
+    if (!is_numeric($query_interval) || $query_interval > 60 || $query_interval < 5) {
         // Default to 10
         $query_interval = 10;
-
         $cache->store('query_interval', $query_interval);
     }
+
 } else {
     // Default to 10
     $query_interval = 10;
-
     $cache->store('query_interval', $query_interval);
 }
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
     $key = Util::getSetting('unique_id');
-    if ($key === null || $_GET['key'] != $key) {
+    if ($key === null || $_GET['key'] !== $key) {
         die();
     }
-} else {
-    if ($cache->isCached('last_query')) {
-        $last_query = $cache->retrieve('last_query');
-        if ($last_query > strtotime($query_interval . ' minutes ago')) {
-            // No need to re-query
-            die('1');
-        }
+} else if ($cache->hasCashedData('last_query')) {
+    $last_query = $cache->retrieve('last_query');
+    if ($last_query > strtotime($query_interval . ' minutes ago')) {
+        // No need to re-query
+        die('1');
     }
 }
 
@@ -54,7 +66,10 @@ if (count($servers)) {
             'pre' => $server->pre,
             'name' => $server->name
         ];
-        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
+        try {
+            $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
+        } catch (GuzzleException $e) {
+        }
 
         if ($server->parent_server > 0) {
             $result['parent_server'] = $server->parent_server;

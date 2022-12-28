@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Contains data about all the registered pages in the application.
  *
@@ -99,9 +101,9 @@ class Pages {
 
     /**
      * Register a method for sitemap generation.
+     * @param callable $method Array callable of the sitemap class and method to execute.
      * @see \SitemapPHP\Sitemap
      *
-     * @param callable $method Array callable of the sitemap class and method to execute.
      */
     public function registerSitemapMethod(callable $method): void {
         $this->_sm_methods[] = $method;
@@ -119,12 +121,13 @@ class Pages {
     /**
      * Get page by ID
      *
-     * @param int $page_id ID of page to find.
+     * @param string $page_id ID of page to find.
+     *
      * @return array Page information.
      */
-    public function getPageById(int $page_id): ?array {
+    public function getPageById(string $page_id): ?array {
         foreach ($this->_pages as $key => $page) {
-            if ($page['id'] == $page_id) {
+            if ($page['id'] === $page_id) {
                 $page['key'] = $key;
                 return $page;
             }
@@ -137,11 +140,12 @@ class Pages {
      * Get page by URL.
      *
      * @param string $url URL of page to find.
+     *
      * @return array Page information.
      */
     public function getPageByURL(string $url): ?array {
         foreach ($this->_pages as $key => $page) {
-            if ($key == $url) {
+            if ($key === $url) {
                 $page['key'] = $key;
                 return $page;
             }
@@ -152,9 +156,9 @@ class Pages {
 
     /**
      * Get the page details the user currently viewing.
+     * @return array Details of current page.
      * @deprecated  Not used internally. Will be removed in 2.1.0
      *
-     * @return array Details of current page.
      */
     public function getActivePage(): array {
         return $this->_active_page;

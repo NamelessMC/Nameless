@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Symfony\Component\HttpFoundation\IpUtils;
 
@@ -67,7 +68,7 @@ class HttpUtils {
                 // Extract the optional 'for=<address>' bit
                 foreach (explode(';', trim($part1)) as $part2) {
                     $part2 = explode('=', $part2);
-                    if (count($part2) != 2) {
+                    if (count($part2) !== 2) {
                         die("Invalid Forwarded header");
                     }
 
@@ -87,53 +88,20 @@ class HttpUtils {
     }
 
     /**
-     * Get the protocol used by client's HTTP request, using proxy headers if necessary.
+     * Checks whether the client making the request is a trusted proxy.
      *
-     * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
+     * @return bool Whether the client is a trusted proxy or not.
      */
-    public static function getProtocol(): string {
-        $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
-        if ($x_forwarded_proto !== null) {
-            if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
-                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($proto) . '".');
+    private static function isTrustedProxy(): bool {
+        $trusted_proxies = self::getTrustedProxies();
+
+        foreach ($trusted_proxies as $trustedProxy) {
+            if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
+                return true;
             }
-            return $x_forwarded_proto;
         }
 
-        if (isset($_SERVER['HTTPS'])) {
-            return $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
-        }
-
-        return 'http';
-    }
-
-    /**
-     * Get port used by client's HTTP request, using proxy headers if necessary.
-     *
-     * @return ?int Port number, or null when using the CLI
-     */
-    public static function getPort(): ?int {
-        $x_forwarded_port = self::getHeader('X-Forwarded-Port');
-        if ($x_forwarded_port !== null) {
-            return (int) $x_forwarded_port;
-        }
-
-        if (isset($_SERVER['SERVER_PORT'])) {
-            return (int) $_SERVER['SERVER_PORT'];
-        }
-
-        return null;
-    }
-
-    /**
-     * Determine whether the trusted proxies config option is set to a valid value or not.
-     *
-     * @return bool Whether the trusted proxies option is configured or not
-     */
-    public static function isTrustedProxiesConfigured(): bool {
-        $config_proxies = Config::get('core.trustedProxies');
-        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
-        return ($config_proxies !== false && is_array($config_proxies)) || $env_proxies !== false;
+        return false;
     }
 
     /**
@@ -162,20 +130,18 @@ class HttpUtils {
     }
 
     /**
-     * Checks whether the client making the request is a trusted proxy.
-     *
-     * @return bool Whether the client is a trusted proxy or not.
+     * Get header value
+     * @param string $header_name Header name
+     * @return ?string Header value, or null if header is not present in request
      */
-    private static function isTrustedProxy(): bool {
-        $trusted_proxies = self::getTrustedProxies();
-
-        foreach ($trusted_proxies as $trustedProxy) {
-            if (IpUtils::checkIp($_SERVER['REMOTE_ADDR'], $trustedProxy)) {
-                return true;
+    public static function getHeader(string $header_name): ?string {
+        $headers = getallheaders();
+        foreach ($headers as $key => $value) {
+            if (strcasecmp($key, $header_name) === 0) {
+                return $value;
             }
         }
-
-        return false;
+        return null;
     }
 
     /**
@@ -216,18 +182,49 @@ class HttpUtils {
     }
 
     /**
-     * Get header value
-     * @param string $header_name Header name
-     * @return ?string Header value, or null if header is not present in request
+     * Get the protocol used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
      */
-    public static function getHeader(string $header_name): ?string {
-        $headers = getallheaders();
-        foreach ($headers as $key => $value) {
-            if (strcasecmp($key, $header_name) === 0) {
-                return $value;
+    public static function getProtocol(): string {
+        $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
+        if ($x_forwarded_proto !== null) {
+            if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
+                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($x_forwarded_proto) . '"');
             }
+            return $x_forwarded_proto;
         }
-        return null;
+
+        if (isset($_SERVER['HTTPS'])) {
+            return $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+        }
+
+        return 'http';
+    }
+
+    /**
+     * Get port used by client's HTTP request, using proxy headers if necessary.
+     *
+     * @return ?int Port number, or null when using the CLI
+     */
+    public static function getPort(): ?int {
+        $x_forwarded_port = self::getHeader('X-Forwarded-Port');
+        if ($x_forwarded_port !== null) {
+            return (int)$x_forwarded_port;
+        }
+
+        return $_SERVER['SERVER_PORT'] ?? null;
+    }
+
+    /**
+     * Determine whether the trusted proxies config option is set to a valid value or not.
+     *
+     * @return bool Whether the trusted proxies option is configured or not
+     */
+    public static function isTrustedProxiesConfigured(): bool {
+        $config_proxies = Config::get('core.trustedProxies');
+        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        return ($config_proxies !== false && is_array($config_proxies)) || $env_proxies !== false;
     }
 
 }

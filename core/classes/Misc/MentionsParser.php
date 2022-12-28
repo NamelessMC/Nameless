@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Handles parsing username mentions in forum posts.
  *
@@ -13,29 +17,31 @@ class MentionsParser {
     /**
      * Parse the given HTML to include @username tags.
      *
-     * @param int $author_id User ID of post creator.
+     * @param string $author_id User ID of post creator.
      * @param string $value Post content.
      * @param ?string $link Link back to post.
      * @param ?array $alert_short Short alert info, leave null to not alert user.
      * @param ?array $alert_full Full alert info, leave null to not alert user.
      *
      * @return string Parsed post content.
+     * @throws GuzzleException
+     * @throws Exception If the language file cannot be found.
      */
-    public static function parse(int $author_id, string $value, string $link = null, array $alert_short = null, array $alert_full = null): string {
+    public static function parse(string $author_id, string $value, string $link = null, array $alert_short = null, array $alert_full = null): string {
         if (preg_match_all('/@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
             $matches = $matches[1];
 
             foreach ($matches as $possible_username) {
                 $user = null;
 
-                while (($possible_username != '') && !$user) {
+                while (($possible_username !== '') && !$user) {
                     $user = new User($possible_username, 'nickname');
 
                     if ($user->exists()) {
                         $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
 
                         // Check if user is blocked by OP
-                        if ($link && ($alert_full && $alert_short) && ($user->data()->id != $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
+                        if ($link && ($alert_full && $alert_short) && ($user->data()->id !== $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
                             Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
                             break;
                         }

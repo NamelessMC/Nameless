@@ -1,4 +1,20 @@
 <?php
+declare(strict_types=1);
+
+/**
+ *  Made by Unknown
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  TODO: Add description
+ *
+ * @var User $user
+ */
+
+
+use GuzzleHttp\Exception\GuzzleException;
 
 header('Content-type: application/json;charset=utf-8');
 
@@ -12,11 +28,14 @@ $users = DB::getInstance()->query(
 )->results();
 
 $users_json = [];
-foreach ($users as $user) {
-    $users_json[] = [
-        'nickname' => $user->nickname,
-        'avatar_url' => AvatarSource::getAvatarFromUserData($user, false, 20, true)
-    ];
+foreach ($users as $user_data) {
+    try {
+        $users_json[] = [
+            'nickname' => $user_data->nickname,
+            'avatar_url' => AvatarSource::getAvatarFromUserData($user_data, false, 20, true)
+        ];
+    } catch (GuzzleException $ignored) {
+    }
 }
 
 die(json_encode($users_json));

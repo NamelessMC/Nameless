@@ -2,49 +2,49 @@
 
 <body id="page-top">
 
-    <!-- Wrapper -->
-    <div id="wrapper">
+<!-- Wrapper -->
+<div id="wrapper">
 
-        <!-- Sidebar -->
-        {include file='sidebar.tpl'}
+    <!-- Sidebar -->
+    {include file='sidebar.tpl'}
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
 
-            <!-- Main content -->
-            <div id="content">
+        <!-- Main content -->
+        <div id="content">
 
-                <!-- Topbar -->
-                {include file='navbar.tpl'}
+            <!-- Topbar -->
+            {include file='navbar.tpl'}
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">{$DASHBOARD}</h1>
-                    </div>
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">{$DASHBOARD}</h1>
+                </div>
 
-                    <!-- Update Notification -->
-                    {include file='includes/update.tpl'}
+                <!-- Update Notification -->
+                {include file='includes/update.tpl'}
 
-                    {if isset($DIRECTORY_WARNING)}
+                {if isset($DIRECTORY_WARNING)}
                     <div class="alert alert-warning">
                         {$DIRECTORY_WARNING}
                     </div>
-                    {/if} {if count($DASHBOARD_STATS)} {assign var="i" value=0}
+                {/if} {if count($DASHBOARD_STATS)} {assign var="i" value=0}
                     <div class="row">
-                        {foreach from=$DASHBOARD_STATS item=stat} {if $i % 4 eq 0}
+                    {foreach from=$DASHBOARD_STATS item=stat} {if $i % 4 eq 0}
+                        </div>
+                        <div class="row">
+                    {/if} {$stat->getContent()} {assign var="i" value=$i+1} {/foreach}
                     </div>
-                    <div class="row">
-                        {/if} {$stat->getContent()} {assign var="i" value=$i+1} {/foreach}
-                    </div>
-                    {/if}
+                {/if}
 
-                    <div class="row">
-                        <div class="col-md-9">
-                            {if count($GRAPHS)}
+                <div class="row">
+                    <div class="col-md-9">
+                        {if count($GRAPHS)}
                             <!-- Area Chart -->
                             <div class="card shadow mb-4 statistics">
                                 <!-- Card Header - Dropdown -->
@@ -60,122 +60,128 @@
                                     </div>
                                 </div>
                             </div>
-                            {/if}
-                            {if count($MAIN_ITEMS)} {assign var="i" value=0} {assign var="counter" value=0}
-                                <div class="row justify-content-md-center">
-                                    {foreach from=$MAIN_ITEMS item=item}
-                                        {assign var="width" value=(12*$item->getWidth())|round:1}
-                                        {assign var="counter" value=($counter+$width)}
+                        {/if}
+                        {if count($MAIN_ITEMS)} {assign var="i" value=0} {assign var="counter" value=0}
+                            <div class="row justify-content-md-center">
+                            {foreach from=$MAIN_ITEMS item=item}
+                                {assign var="width" value=(12*$item->getWidth())|round:1}
+                                {assign var="counter" value=($counter+$width)}
 
-                                        {if $counter > 12} {assign var="counter" value=0}
-                                            </div>
-                                            <br />
-                                            <div class="row justify-content-md-center">
-                                        {/if}
-                                        <div class="col-md-6 col-lg-{$width}">
-                                            {$item->getContent()}
-                                        </div>
-                                        {assign var="i" value=$i+1}
-                                    {/foreach}
+                                {if $counter > 12} {assign var="counter" value=0}
+                                    </div>
+                                    <br/>
+                                    <div class="row justify-content-md-center">
+                                {/if}
+                                <div class="col-md-6 col-lg-{$width}">
+                                    {$item->getContent()}
                                 </div>
-                            {/if}
+                                {assign var="i" value=$i+1}
+                            {/foreach}
+                            </div>
+                        {/if}
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div
+                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-white"><i class="far fa-newspaper"></i>
+                                    {$NAMELESS_NEWS}</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                {if isset($NO_NEWS)}
+                                    <div class="alert alert-warning">{$NO_NEWS}</div>
+                                {else} {foreach from=$NEWS item=item name=newsarray}
+                                    <a href="#" onclick="confirmLeaveSite('{$item.url}')">{$item.title}</a>
+                                    <br/>
+                                    <small>{$item.author} | <span data-toggle="tooltip"
+                                                                  data-title="{$item.date}">{$item.date_friendly}</span></small>
+                                    {if not
+                                    $smarty.foreach.newsarray.last}
+                                        <hr/>
+                                    {/if} {/foreach} {/if}
+                            </div>
                         </div>
 
-                        <div class="col-md-3">
+                        {if isset($SERVER_COMPATIBILITY)}
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
-                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-white"><i class="far fa-newspaper"></i>
-                                        {$NAMELESS_NEWS}</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    {if isset($NO_NEWS)}
-                                    <div class="alert alert-warning">{$NO_NEWS}</div>
-                                    {else} {foreach from=$NEWS item=item name=newsarray}
-                                    <a href="#" onclick="confirmLeaveSite('{$item.url}')">{$item.title}</a>
-                                    <br /><small>{$item.author} | <span data-toggle="tooltip"
-                                            data-title="{$item.date}">{$item.date_friendly}</span></small> {if not
-                                    $smarty.foreach.newsarray.last}
-                                    <hr />{/if} {/foreach} {/if}
-                                </div>
-                            </div>
-
-                            {if isset($SERVER_COMPATIBILITY)}
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
+                                        class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-white"><i class="fas fa-wrench"></i>
                                         {$SERVER_COMPATIBILITY}</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     {$NAMELESS_VERSION}
-                                    <hr />
+                                    <hr/>
                                     {foreach from=$COMPAT_SUCCESS item=item}
-                                    <i class="fas fa-check-circle text-success"></i> {$item}
-                                    <br />
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        {$item}
+                                        <br/>
                                     {/foreach}
                                     {if count($COMPAT_WARNINGS)}
-                                    <hr />
-                                    {foreach from=$COMPAT_WARNINGS item=item}
-                                    <i class="fas fa-check-circle text-warning"></i> {$item}
-                                    <br />
-                                    {/foreach}
+                                        <hr/>
+                                        {foreach from=$COMPAT_WARNINGS item=item}
+                                            <i class="fas fa-check-circle text-warning"></i>
+                                            {$item}
+                                            <br/>
+                                        {/foreach}
                                     {/if}
                                     {if count($COMPAT_ERRORS)}
-                                    <hr />
-                                    {foreach from=$COMPAT_ERRORS item=item}
-                                    <i class="fas fa-times-circle text-danger"></i> {$item}
-                                    <br />
-                                    {/foreach}
+                                        <hr/>
+                                        {foreach from=$COMPAT_ERRORS item=item}
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            {$item}
+                                            <br/>
+                                        {/foreach}
                                     {/if}
                                 </div>
                             </div>
-                            {/if}
+                        {/if}
 
-                        </div>
-
-                        <!-- End Row -->
                     </div>
 
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
-
-                    <!-- End Page Content -->
+                    <!-- End Row -->
                 </div>
 
-                <!-- End Main Content -->
+                <!-- Spacing -->
+                <div style="height:1rem;"></div>
+
+                <!-- End Page Content -->
             </div>
 
-            {include file='footer.tpl'}
-
-            <!-- End Content Wrapper -->
+            <!-- End Main Content -->
         </div>
 
-        <!-- Confirm leave site modal -->
-        <div class="modal fade" id="confirmLeaveSiteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        {$CONFIRM_LEAVE_SITE}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <a href="#" id="leaveSiteA" class="btn btn-primary" target="_blank">{$YES}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {include file='footer.tpl'}
 
-        <!-- End Wrapper -->
+        <!-- End Content Wrapper -->
     </div>
 
-    {include file='scripts.tpl'}
+    <!-- Confirm leave site modal -->
+    <div class="modal fade" id="confirmLeaveSiteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {$CONFIRM_LEAVE_SITE}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                    <a href="#" id="leaveSiteA" class="btn btn-primary" target="_blank">{$YES}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {if count($GRAPHS)}
+    <!-- End Wrapper -->
+</div>
+
+{include file='scripts.tpl'}
+
+{if count($GRAPHS)}
     <script type="text/javascript">
         Chart.defaults.global.defaultFontFamily = 'Nunito,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 
@@ -191,7 +197,7 @@
                 data: {
                     labels: [
                         {foreach from=$graph.keys key=key item=item}
-                            '{$item}',
+                        '{$item}',
                         {/foreach}
                     ],
                     datasets: [
@@ -212,7 +218,7 @@
                             pointBorderWidth: 2,
                             data: [
                                 {foreach from=$dataset.data item=data name=ds}
-                                    {$data}{if not $smarty.foreach.ds.last}, {/if}
+                                {$data}{if not $smarty.foreach.ds.last}, {/if}
                                 {/foreach}
                             ]
                         },
@@ -234,11 +240,11 @@
                         }],
                         yAxes: [
                             {foreach from=$graph.axes key=key item=axis}
-                                {
-                                    id: '{$key}',
-                                    type: 'linear',
-                                    position: '{$axis}'
-                                },
+                            {
+                                id: '{$key}',
+                                type: 'linear',
+                                position: '{$axis}'
+                            },
                             {/foreach}
                         ]
                     },
@@ -265,19 +271,19 @@
             let chart = new Chart(canvas, graphs[i]);
         }
 
-        $(function() {
+        $(function () {
             drawChart(0);
         });
     </script>
-    {/if}
+{/if}
 
-    <script type="text/javascript">
-        function confirmLeaveSite(url) {
-            $('#leaveSiteURL').html(url);
-            $('#leaveSiteA').attr('href', url);
-            $('#confirmLeaveSiteModal').modal().show();
-        }
-    </script>
+<script type="text/javascript">
+    function confirmLeaveSite(url) {
+        $('#leaveSiteURL').html(url);
+        $('#leaveSiteA').attr('href', url);
+        $('#confirmLeaveSiteModal').modal().show();
+    }
+</script>
 
 </body>
 

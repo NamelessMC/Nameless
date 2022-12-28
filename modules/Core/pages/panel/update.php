@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel update page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use DebugBar\DebugBarException;
 
 if (!$user->handlePanelPageLoad('admincp.update')) {
     require_once(ROOT_PATH . '/403.php');
@@ -15,8 +31,8 @@ if (!$user->handlePanelPageLoad('admincp.update')) {
 }
 
 if (isset($_GET['recheck'])) {
-    $cache->setCache('update_check');
-    if ($cache->isCached('update_check')) {
+    $cache->setCacheName('update_check');
+    if ($cache->hasCashedData('update_check')) {
         $cache->erase('update_check');
     }
 
@@ -30,27 +46,16 @@ $page_title = $language->get('admin', 'update');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
-
-$cache->setCache('update_check');
-if ($cache->isCached('update_check')) {
+$cache->setCacheName('update_check');
+if ($cache->hasCashedData('update_check')) {
     $update_check = $cache->retrieve('update_check');
 } else {
-    $update_check = Util::updateCheck();
+    try {
+        $update_check = Util::updateCheck();
+    } catch (DebugBarException $ignored) {
+    }
     $cache->store('update_check', $update_check, 3600);
 }
 
@@ -109,4 +114,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/update.tpl', $smarty);
+try {
+    $template->displayTemplate('core/update.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

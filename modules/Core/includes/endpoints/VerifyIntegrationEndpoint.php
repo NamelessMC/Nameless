@@ -1,12 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param string $integration The Integration Name
- * @param string $code Used to verify they own the account
- * @param string $identifier The id of the integration account
- * @param string $username The username of the integration account
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
 
@@ -17,6 +15,12 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['integration', 'code', 'identifier', 'username']);
 

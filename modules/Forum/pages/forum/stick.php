@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
@@ -7,6 +8,10 @@
  *  License: MIT
  *
  *  Stick/unstick a topic
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Language $forum_language
  */
 
 $forum = new Forum();
@@ -17,12 +22,8 @@ if (!$user->isLoggedIn()) {
 }
 
 // Ensure a topic is set via URL parameters
-if (isset($_GET['tid'])) {
-    if (is_numeric($_GET['tid'])) {
-        $topic_id = $_GET['tid'];
-    } else {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
-    }
+if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
+    $topic_id = $_GET['tid'];
 } else {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
@@ -34,16 +35,19 @@ if (!count($topic)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
 
-if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
-    Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+try {
+    if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
+        Session::flash('failure_post', $language->get('general', 'invalid_token'));
+        Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+    }
+} catch (Exception $ignored) {
 }
 
 $forum_id = $topic[0]->forum_id;
 
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     // Get current status
-    if ($topic[0]->sticky == 0) {
+    if ($topic[0]->sticky === '0') {
         $sticky = 1;
         $status = $forum_language->get('forum', 'topic_stuck');
     } else {
@@ -55,7 +59,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         'sticky' => $sticky
     ]);
 
-    Log::getInstance()->log(($sticky == 1) ? Log::Action('forums/topic/stick') : Log::Action('forums/topic/unstick'), $topic[0]->topic_title);
+    Log::getInstance()->log(($sticky === 1) ? Log::Action('forums/topic/stick') : Log::Action('forums/topic/unstick'), $topic[0]->topic_title);
 
     Session::flash('success_post', $status);
 }

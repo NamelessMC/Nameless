@@ -1,15 +1,17 @@
 <?php
+declare(strict_types=1);
+
 /**
- * Represents a group.
+ * TODO: Document this file.
  *
  * @package NamelessMC\DTO
- * @author Aberdeener
- * @version 2.0.0-pr13
+ * @author Unknown
+ * @version 2.1.0
  * @license MIT
  */
 class Group {
 
-    public int $id;
+    public string $id;
     public string $name;
     public string $group_html;
     public ?string $group_username_color;
@@ -22,6 +24,9 @@ class Group {
     public bool $force_tfa;
     public bool $deleted;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;
@@ -38,6 +43,7 @@ class Group {
     }
 
     /**
+     *
      * @return array<int, Group>
      */
     public static function all(): array {
@@ -52,6 +58,7 @@ class Group {
     /**
      * @param string $value
      * @param string $column
+     *
      * @return Group|null
      */
     public static function find(string $value, string $column = 'id'): ?Group {

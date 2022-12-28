@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Helps build URLs which match the site's URL configuration.
  *
@@ -15,6 +17,7 @@ class URL {
      * @param string $url Contains the URL which will be formatted.
      * @param string $params Contains string with URL parameters.
      * @param ?string $force Determines whether to force a URL type (optional, can be either "friendly" or "non-friendly").
+     *
      * @return string Assembled URL, false on failure.
      */
     public static function build(string $url, string $params = '', ?string $force = null): string {
@@ -35,7 +38,7 @@ class URL {
             throw new InvalidArgumentException('Invalid force string: ' . $force);
         }
 
-        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly') == true)) {
+        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS === true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly'))) {
             // Friendly URLs are enabled
             return self::buildFriendly($url, $params);
         }
@@ -49,16 +52,17 @@ class URL {
      * Internal class use only. All external calls should use `build()`.
      *
      * @param string $url Contains the URL which will be formatted
-     * @param string $params URL paramaters to append to end.
+     * @param string $params URL parameters to append to end.
+     *
      * @return string Assembled URL.
      */
     private static function buildFriendly(string $url, string $params): string {
         // Check for params
-        if ($params != '') {
+        if ($params !== '') {
             $params = '?' . $params;
         }
 
-        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) === '/') ? '' : '/') . $params;
     }
 
     /**
@@ -66,21 +70,41 @@ class URL {
      * Internal class use only. All external calls should use `build()`.
      *
      * @param string $url Contains the URL which will be formatted
-     * @param string $params URL paramaters to append to end.
+     * @param string $params URL parameters to append to end.
+     *
      * @return string Assembled URL.
      */
     private static function buildNonFriendly(string $url, string $params): string {
-        if ($params != '') {
-            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
+        if ($params !== '') {
+            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) === '/') ? '' : '/') . '&' . $params;
         }
 
-        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/');
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) === '/') ? '' : '/');
+    }
+
+    /**
+     * Is a URL internal or external? Accepts full URL and also just a path.
+     *
+     * @param string $url URL/path to check.
+     *
+     * @return bool Whether URL is external or not.
+     */
+    public static function isExternalURL(string $url): bool {
+        if ($url[0] === '/' && $url[1] !== '/') {
+            return false;
+        }
+
+        $parsed = parse_url($url);
+
+        return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/'))
+            === str_replace('www.', '', $parsed['host']));
     }
 
     /**
      * Get the server name.
      *
      * @param bool $show_protocol Whether to show http(s) at front or not.
+     *
      * @return string Compiled URL.
      */
     public static function getSelfURL(bool $show_protocol = true): string {
@@ -114,27 +138,11 @@ class URL {
     }
 
     /**
-     * Is a URL internal or external? Accepts full URL and also just a path.
-     *
-     * @param string $url URL/path to check.
-     *
-     * @return bool Whether URL is external or not.
-     */
-    public static function isExternalURL(string $url): bool {
-        if ($url[0] == '/' && $url[1] != '/') {
-            return false;
-        }
-
-        $parsed = parse_url($url);
-
-        return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
-    }
-
-    /**
      * Add target and rel attributes to external links only.
      * From https://stackoverflow.com/a/53461987
      *
      * @param string $data Data to replace.
+     *
      * @return string Replaced string.
      */
     public static function replaceAnchorsWithText(string $data): string {

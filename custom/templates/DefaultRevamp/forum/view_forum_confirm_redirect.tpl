@@ -11,7 +11,7 @@
                     <a class="ui primary button" href="{$FORUM_INDEX}">{$NO}</a>
                     <div class="or"></div>
                     <a class="ui positive button" href="{$REDIRECT_URL}" target="_blank"
-                        rel="noopener nofollow">{$YES}</a>
+                       rel="noopener nofollow">{$YES}</a>
                 </div>
             </div>
         </div>

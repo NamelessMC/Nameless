@@ -10,7 +10,8 @@
 <form action="" method="post">
     <div class="form-group">
         <label for="inputPostLimit">{$LATEST_POSTS_LIMIT}</label>
-        <input id="inputPostLimit" name="limit" type="number" min="1" class="form-control" placeholder="{$LATEST_POSTS_LIMIT}" value="{$LATEST_POSTS_LIMIT_VALUE}">
+        <input id="inputPostLimit" name="limit" type="number" min="1" class="form-control"
+               placeholder="{$LATEST_POSTS_LIMIT}" value="{$LATEST_POSTS_LIMIT_VALUE}">
     </div>
     <div type="form-group">
         <input type="hidden" name="token" value="{$TOKEN}">

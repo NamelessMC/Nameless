@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateIpBansTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateIpBansTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_ip_bans');
 
         $table

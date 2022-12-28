@@ -1,20 +1,25 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Online users widget
  *
- *  License: MIT
- *
- *  Online users widget
+ * @package Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class OnlineUsersWidget extends WidgetBase {
-
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Cache $cache
+     * @param Smarty $smarty
+     * @param Language $language
+     */
     public function __construct(Cache $cache, Smarty $smarty, Language $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -34,20 +39,26 @@ class OnlineUsersWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     *
+     * @throws GuzzleException
+     * @throws SmartyException
+     */
     public function initialise(): void {
-        $this->_cache->setCache('online_members');
+        $this->_cache->setCacheName('online_members');
 
-        if ($this->_cache->isCached('users')) {
+        if ($this->_cache->hasCashedData('users')) {
             $online = $this->_cache->retrieve('users');
             $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
         } else {
-            if ($this->_cache->isCached('include_staff_in_users')) {
+            if ($this->_cache->hasCashedData('include_staff_in_users')) {
                 $include_staff = $this->_cache->retrieve('include_staff_in_users');
             } else {
                 $include_staff = 0;
                 $this->_cache->store('include_staff_in_users', 0);
             }
-            if ($this->_cache->isCached('show_nickname_instead')) {
+            if ($this->_cache->hasCashedData('show_nickname_instead')) {
                 $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
             } else {
                 $use_nickname_show = 0;
@@ -57,7 +68,7 @@ class OnlineUsersWidget extends WidgetBase {
             if ($include_staff) {
                 $online = DB::getInstance()->query('SELECT id FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->results();
             } else {
-                $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0', [])->results();
+                $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0')->results();
             }
 
             $this->_cache->store('users', $online, 120);
@@ -73,10 +84,10 @@ class OnlineUsersWidget extends WidgetBase {
                     $users[] = [
                         'profile' => $online_user->getProfileURL(),
                         'style' => $online_user->getGroupStyle(),
-                        'username' => $online_user->getDisplayname(true),
-                        'nickname' => $online_user->getDisplayname(),
+                        'username' => $online_user->getDisplayName(true),
+                        'nickname' => $online_user->getDisplayName(),
                         'avatar' => $online_user->getAvatar(),
-                        'id' => Output::getClean($online_user->data()->id),
+                        'id' => Output::getClean((string)$online_user->data()->id),
                         'title' => Output::getClean($online_user->data()->user_title),
                         'group' => $online_user->getMainGroup()->group_html
                     ];

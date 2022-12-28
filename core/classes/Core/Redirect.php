@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Redirect class
  *
@@ -9,22 +11,6 @@
  * @license MIT
  */
 class Redirect {
-
-    /**
-     * Redirect the user to the specified location.
-     *
-     * @param string $location Path or URL to redirect to
-     * @return never
-     */
-    public static function to(string $location): void {
-        if (!headers_sent()) {
-            header("Location: $location");
-        } else {
-            // `attribute data-cfasync="false"` fixes Cloudflare caching issues
-            echo '<script data-cfasync="false">window.location.replace("' . Output::getClean($location) . '");</script>';
-        }
-        die();
-    }
 
     /**
      * Attempt to redirect the user to the previous page.
@@ -41,5 +27,22 @@ class Redirect {
         }
 
         self::to(URL::build('/'));
+    }
+
+    /**
+     * Redirect the user to the specified location.
+     *
+     * @param string $location Path or URL to redirect to
+     *
+     * @return never
+     */
+    public static function to(string $location): void {
+        if (!headers_sent()) {
+            header("Location: $location");
+        } else {
+            // `attribute data-cfasync="false"` fixes Cloudflare caching issues
+            echo '<script data-cfasync="false">window.location.replace("' . Output::getClean($location) . '");</script>';
+        }
+        die();
     }
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Template asset management class.
@@ -34,6 +35,35 @@ class AssetResolver extends AssetTree {
     }
 
     /**
+     * Validate that an asset name is valid.
+     * This checks that it exists in the asset tree, and that it has not already been resolved.
+     *
+     * @param string $assetName The asset name to validate.
+     *
+     * @return bool False if the asset name is invalid, true otherwise.
+     * @throws InvalidArgumentException If the asset name is invalid or if it has already been resolved.
+     */
+    private function validateAsset(string $assetName, bool $throw = true): bool {
+        if (!array_key_exists($assetName, parent::ASSET_TREE)) {
+            if ($throw) {
+                throw new InvalidArgumentException('Asset "' . $assetName . '" is not defined');
+            }
+
+            return false;
+        }
+
+        if (array_key_exists($assetName, $this->_assets)) {
+            if ($throw) {
+                throw new InvalidArgumentException('Asset "' . $assetName . '" has already been resolved');
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Resolve all the assets as an array of CSS file and JS files to add to
      * the template as `link` or `script` elements respectively.
      *
@@ -43,7 +73,7 @@ class AssetResolver extends AssetTree {
         $css = [];
         $js = [];
 
-        $assets = Util::determineOrder(array_map(static function(string $key, array $value) {
+        $assets = Util::determineOrder(array_map(static function (string $key, array $value) {
             return [
                 'name' => $key,
                 'after' => $value['depends'] ?? $value['after'] ?? [],
@@ -81,7 +111,7 @@ class AssetResolver extends AssetTree {
 
         // Unideal solution to get the correct light/dark Prism dependency
         if ($name === parent::TINYMCE) {
-            $prism = defined('DARK_MODE') && DARK_MODE
+            $prism = defined('DARK_MODE') && DARK_MODE === true
                 ? parent::PRISM_DARK
                 : parent::PRISM_LIGHT;
 
@@ -102,44 +132,17 @@ class AssetResolver extends AssetTree {
             }
         }
 
-        if (!in_array($name, $this->_assets)) {
+        if (!in_array($name, $this->_assets, true)) {
             $this->_assets[$name] = $asset;
         }
-    }
-
-    /**
-     * Validate that an asset name is valid.
-     * This checks that it exists in the asset tree, and that it has not already been resolved.
-     *
-     * @param string $assetName The asset name to validate.
-     * @return bool False if the asset name is invalid, true otherwise.
-     * @throws InvalidArgumentException If the asset name is invalid or if it has already been resolved.
-     */
-    private function validateAsset(string $assetName, bool $throw = true): bool {
-        if (!array_key_exists($assetName, parent::ASSET_TREE)) {
-            if ($throw) {
-                throw new InvalidArgumentException('Asset "' . $assetName . '" is not defined');
-            }
-
-            return false;
-        }
-
-        if (array_key_exists($assetName, $this->_assets)) {
-            if ($throw) {
-                throw new InvalidArgumentException('Asset "' . $assetName . '" has already been resolved');
-            }
-
-            return false;
-        }
-
-        return true;
     }
 
     /**
      * Build an HTML tag for the given asset.
      *
      * @param string $file The file to build the path for.
-     * @param string $type The type of the file, either 'css' or 'js'
+     * @param string $type The type of the file, either 'css' or 'js'.
+     *
      * @return string Script or Link HTML tag with a URL to the asset.
      */
     private function buildPath(string $file, string $type): string {

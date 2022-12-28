@@ -6,17 +6,17 @@
 </h2>
 
 {if isset($ERROR)}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <div class="header">Error</div>
-        <ul class="list">
-            {foreach from=$ERROR item=error}
-            <li>{$error}</li>
-            {/foreach}
-        </ul>
+    <div class="ui error icon message">
+        <i class="x icon"></i>
+        <div class="content">
+            <div class="header">Error</div>
+            <ul class="list">
+                {foreach from=$ERROR item=error}
+                    <li>{$error}</li>
+                {/foreach}
+            </ul>
+        </div>
     </div>
-</div>
 {/if}
 
 <div class="ui padded segment" id="new-topic">
@@ -27,20 +27,21 @@
                     <div class="field">
                         <label for="title">{$TOPIC_TITLE}</label>
                         <input type="text" id="title" name="title" placeholder="{$TOPIC_TITLE}" maxlength="64"
-                            value="{$TOPIC_VALUE}">
+                               value="{$TOPIC_VALUE}">
                     </div>
                     {if count($LABELS)}
-                    <div class="inline fields labels">
-                        {foreach from=$LABELS item=label}
-                        <div class="field">
-                            <div class="ui checkbox">
-                                <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}" {if
-                                    $label.checked} checked{/if} hidden>
-                                <label for="{$label.id}">{$label.html}</label>
-                            </div>
+                        <div class="inline fields labels">
+                            {foreach from=$LABELS item=label}
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="topic_label[]" id="{$label.id}"
+                                               value="{$label.id}" {if
+                                        $label.checked} checked{/if} hidden>
+                                        <label for="{$label.id}">{$label.html}</label>
+                                    </div>
+                                </div>
+                            {/foreach}
                         </div>
-                        {/foreach}
-                    </div>
                     {/if}
                     <div class="field">
                         <label for="reply">{$CONTENT_LABEL}</label>

@@ -4,7 +4,7 @@
         <div class="description">
             <p>{$COOKIE_NOTICE_BODY}</p>
             {if $COOKIE_DECISION_MADE}
-            <a class="ui fluid blue button" href="{$COOKIE_URL}">{$COOKIE_NOTICE_CONFIGURE}</a>
+                <a class="ui fluid blue button" href="{$COOKIE_URL}">{$COOKIE_NOTICE_CONFIGURE}</a>
             {/if}
         </div>
     </div>

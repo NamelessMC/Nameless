@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Handles rendering the exception page as well as logging errors.
  *
@@ -24,6 +26,8 @@ class ErrorHandler {
      * @param string $error_file Path of file which this error was thrown at.
      * @param int $error_line Line of $error_file which error occurred at.
      * @return bool False if error reporting is disabled, true otherwise.
+     *
+     * @throws SmartyException
      */
     public static function catchError(int $error_number, string $error_string, string $error_file, int $error_line): bool {
         if (!(error_reporting() & $error_number)) {
@@ -34,7 +38,7 @@ class ErrorHandler {
         switch ($error_number) {
             case E_USER_ERROR:
                 // Pass execution to new error handler.
-                // Since we registered an exception handler, I dont think this will ever be called,
+                // Since we registered an exception handler, I don't think this will ever be called,
                 // simply a precaution.
                 self::catchException(null, $error_string, $error_file, $error_line);
                 break;
@@ -64,6 +68,8 @@ class ErrorHandler {
      * @param string|null $error_string Main error message to be shown on top of page. Used when $exception is null.
      * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
+     *
+     * @throws SmartyException
      */
     public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void {
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
@@ -74,7 +80,7 @@ class ErrorHandler {
         // Create a log entry for viewing in staffcp
         self::logError('fatal', $error_file . '(' . $error_line . '): ' . $error_string);
 
-        // If this is an API request, print the error in plaintext and dont render the whole error trace page
+        // If this is an API request, print the error in plaintext and don't render the whole error trace page
         if (self::shouldUsePlainText()) {
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
@@ -87,15 +93,15 @@ class ErrorHandler {
 
             $skip_frames = 0;
 
-            // Loop all frames in the exception trace & get relevent information
-            if ($exception != null) {
+            // Loop all frames in the exception trace & get relevant information
+            if ($exception !== null) {
 
                 $i = count($exception->getTrace());
 
                 foreach ($exception->getTrace() as $frame) {
 
                     // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
-                    if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
+                    if (end($frames)['file'] === $frame['file'] && end($frames)['line'] === $frame['line']) {
                         ++$skip_frames;
                         continue;
                     }
@@ -163,7 +169,7 @@ class ErrorHandler {
             'NAMELESSMC_SUPPORT' => $language->get('general', 'namelessmc_support'),
             'NAMELESSMC_DOCS' => $language->get('general', 'namelessmc_documentation'),
             'DEBUG_TOAST_CLICK' => $language->get('admin', 'debug_link_toast', [
-                'linkStart' => '<u><a href="{url}" target="_blank">',
+                'linkStart' => '<u><!--suppress HtmlUnknownTarget --><a href="{url}" target="_blank">',
                 'linkEnd' => '</a></u>',
             ]),
             'DEBUG_CANNOT_GENERATE' => $language->get('general', 'debug_link_cannot_generate'),
@@ -172,14 +178,6 @@ class ErrorHandler {
 
         $smarty->display(ROOT_PATH . '/core/includes/error.tpl');
         die();
-    }
-
-    /**
-     * @return bool Whether the error page should be in plain text rather than a user friendly HTML page.
-     */
-    private static function shouldUsePlainText(): bool {
-        $route = $_REQUEST['route'] ?? '';
-        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/');
     }
 
     /**
@@ -194,7 +192,9 @@ class ErrorHandler {
         try {
             if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
                 if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
-                    mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
+                    if (!mkdir($concurrentDirectory = ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs') && !is_dir($concurrentDirectory)) {
+                        throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                    }
                     $dir_exists = true;
                 }
             } else {
@@ -209,8 +209,16 @@ class ErrorHandler {
     }
 
     /**
+     * @return bool Whether the error page should be in plain text rather than a user-friendly HTML page.
+     */
+    private static function shouldUsePlainText(): bool {
+        $route = $_REQUEST['route'] ?? '';
+        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/');
+    }
+
+    /**
      * Returns frame array from specified information.
-     * Leaving number as null will use Exception trace count + 1 (for most recent frame)
+     * Leaving a number as NULL will use Exception trace count + 1 (for most recent frame)
      *
      * @param Throwable|null $exception Exception object caught and whose trace to count. If null, $number will be used for frame number.
      * @param string $frame_file Path to file which was referenced in this frame.
@@ -222,7 +230,7 @@ class ErrorHandler {
         $lines = file($frame_file);
 
         return [
-            'number' => is_null($number) ? (is_null($exception) ? 1 : count($exception->getTrace()) + 1) : $number,
+            'number' => $number ?? ($exception === null ? 1 : count($exception->getTrace()) + 1),
             'file' => $frame_file,
             'line' => $frame_line,
             'start_line' => (is_array($lines) && count($lines) >= self::LINE_BUFFER && ($frame_line - self::LINE_BUFFER > 0)) ? ($frame_line - self::LINE_BUFFER) : 1,
@@ -239,7 +247,7 @@ class ErrorHandler {
      * @return string Truncated string from this file.
      */
     private static function parseFile($lines, int $error_line): string {
-        if ($lines == false || count($lines) < 1) {
+        if ($lines === false || count($lines) < 1) {
             return '';
         }
 
@@ -260,6 +268,8 @@ class ErrorHandler {
     /**
      * Called at end of every execution on page load.
      * If an error exists, and the type is fatal, pass execution to catchException().
+     *
+     * @throws SmartyException
      */
     public static function catchShutdownError(): void {
         $error = error_get_last();

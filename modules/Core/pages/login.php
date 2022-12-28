@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
@@ -7,9 +8,25 @@
  *  License: MIT
  *
  *  Login page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
  */
 
 // Set page name variable
+use GuzzleHttp\Exception\GuzzleException;
+use RobThree\Auth\TwoFactorAuth;
+
 const PAGE = 'login';
 $page_title = $language->get('general', 'sign_in');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
@@ -28,242 +45,248 @@ $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
 // Deal with input
 if (Input::exists()) {
     // Check form token
-    if (Token::check()) {
-        // Valid token
-        if (!isset($_SESSION['tfa']) && $captcha) {
-            $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
-        } else {
-            $captcha_passed = true;
-        }
+    try {
+        if (Token::check()) {
+            // Valid token
+            if (!isset($_SESSION['tfa']) && $captcha) {
+                $captcha_passed = CaptchaBase::getActiveProvider()->validateToken($_POST);
+            } else {
+                $captcha_passed = true;
+            }
 
-        if ($captcha_passed) {
-            if (isset($_SESSION['password'])) {
-                if (isset($_SESSION['username'])) {
-                    $_POST['username'] = $_SESSION['username'];
-                    unset($_SESSION['username']);
-                } else {
-                    if (isset($_SESSION['email'])) {
+            if ($captcha_passed) {
+                if (isset($_SESSION['password'])) {
+                    if (isset($_SESSION['username'])) {
+                        $_POST['username'] = $_SESSION['username'];
+                        unset($_SESSION['username']);
+                    } else if (isset($_SESSION['email'])) {
                         $_POST['email'] = $_SESSION['email'];
                         unset($_SESSION['email']);
                     }
+
+                    $_POST['remember'] = $_SESSION['remember'];
+                    $_POST['password'] = $_SESSION['password'];
+
+                    unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
                 }
 
-                $_POST['remember'] = $_SESSION['remember'];
-                $_POST['password'] = $_SESSION['password'];
+                $rate_limit = [5, 60]; // 5 attempts in 60 seconds - TODO allow this to be customised?
 
-                unset($_SESSION['remember'], $_SESSION['password'], $_SESSION['tfa']);
-            }
-
-            $rate_limit = [5, 60]; // 5 attempts in 60 seconds - TODO allow this to be customised?
-
-            if ($login_method == 'email') {
-                $to_validate = [
-                    'email' => [
-                        Validate::REQUIRED => true,
-                        Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true,
-                        Validate::RATE_LIMIT => $rate_limit,
-                    ],
-                    'password' => [
-                        Validate::REQUIRED => true
-                    ]
-                ];
-            } else {
-                $to_validate = [
-                    'username' => [
-                        Validate::REQUIRED => true,
-                        Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true,
-                        Validate::RATE_LIMIT => $rate_limit,
-                    ],
-                    'password' => [
-                        Validate::REQUIRED => true
-                    ]
-                ];
-            }
-
-            $validation = Validate::check($_POST, $to_validate)->messages([
-                'email' => [
-                    Validate::REQUIRED => $language->get('user', 'must_input_email'),
-                    Validate::IS_BANNED => $language->get('user', 'account_banned'),
-                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
-                ],
-                'username' => [
-                    Validate::REQUIRED => ($login_method == 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
-                    Validate::IS_BANNED => $language->get('user', 'account_banned'),
-                    Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
-                ],
-                'password' => $language->get('user', 'must_input_password')
-            ]);
-
-            // Check if validation passed
-            if ($validation->passed()) {
-                if ($login_method == 'email') {
-                    $username = Input::get('email');
-                    $method_field = 'email';
+                if ($login_method === 'email') {
+                    $to_validate = [
+                        'email' => [
+                            Validate::REQUIRED => true,
+                            Validate::IS_BANNED => true,
+                            Validate::IS_ACTIVE => true,
+                            Validate::RATE_LIMIT => $rate_limit,
+                        ],
+                        'password' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ];
                 } else {
-                    $username = Input::get('username');
-                    if (($login_method == 'email_or_username') && str_contains(Input::get('username'), '@')) {
+                    $to_validate = [
+                        'username' => [
+                            Validate::REQUIRED => true,
+                            Validate::IS_BANNED => true,
+                            Validate::IS_ACTIVE => true,
+                            Validate::RATE_LIMIT => $rate_limit,
+                        ],
+                        'password' => [
+                            Validate::REQUIRED => true
+                        ]
+                    ];
+                }
+
+                try {
+                    $validation = Validate::check($_POST, $to_validate)->messages([
+                        'email' => [
+                            Validate::REQUIRED => $language->get('user', 'must_input_email'),
+                            Validate::IS_BANNED => $language->get('user', 'account_banned'),
+                            Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
+                            Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
+                        ],
+                        'username' => [
+                            Validate::REQUIRED => ($login_method === 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
+                            Validate::IS_BANNED => $language->get('user', 'account_banned'),
+                            Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
+                            Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
+                        ],
+                        'password' => $language->get('user', 'must_input_password')
+                    ]);
+                } catch (Exception $ignored) {
+                }
+
+                // Check if validation passed
+                if ($validation->passed()) {
+                    if ($login_method === 'email') {
+                        $username = Input::get('email');
                         $method_field = 'email';
                     } else {
-                        $method_field = 'username';
-                    }
-                }
-
-                $user_query = new User($username, $method_field);
-                if ($user_query->exists()) {
-                    if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
-                        // Verify password first
-                        if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
-                            if (!isset($_POST['tfa_code'])) {
-                                if ($user_query->data()->tfa_type == 0) {
-                                    // Emails
-                                    // TODO
-
-                                } else {
-                                    // App
-                                    require(ROOT_PATH . '/core/includes/tfa_signin.php');
-                                    die();
-                                }
-                            } else {
-                                // Validate code
-                                if ($user_query->data()->tfa_type == 1) {
-                                    // App
-                                    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
-
-                                    if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
-                                        Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
-                                        require(ROOT_PATH . '/core/includes/tfa_signin.php');
-                                        die();
-                                    }
-                                } else {
-                                    // Email
-                                    // TODO
-                                }
-                            }
+                        $username = Input::get('username');
+                        if (($login_method === 'email_or_username') && str_contains(Input::get('username'), '@')) {
+                            $method_field = 'email';
                         } else {
-                            $return_error = [$language->get('user', 'incorrect_details')];
+                            $method_field = 'username';
                         }
                     }
 
-                    if (!isset($return_error)) {
+                    try {
+                        $user_query = new User($username, $method_field);
+                    } catch (GuzzleException $ignored) {
+                    }
 
-                        // Validation passed
-                        // Initialise user class
-                        $user = new User();
-
-                        // Did the user check 'remember me'?
-                        $remember = Input::get('remember') == 1;
-
-                        $cache->setCache('authme_cache');
-                        $authme_db = $cache->retrieve('authme');
-
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
-
-                            // Sync AuthMe password
+                    if ($user_query->exists()) {
+                        if ($user_query->data()->tfa_enabled === true && $user_query->data()->tfa_complete === true) {
+                            // Verify password first
                             try {
-                                $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
+                                if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
+                                    if (!isset($_POST['tfa_code'])) {
+                                        if ($user_query->data()->tfa_type === 0) {
+                                            // Emails
+                                            // TODO
 
-                                if ($authme_conn->connect_errno) {
-                                    // Connection error
-                                    // Continue anyway, and use already stored password
-                                } else {
-                                    // Success, check user exists in database and validate password
-                                    if ($method_field == 'email') {
-                                        $field = 'email';
+                                        } else {
+                                            // App
+                                            require(ROOT_PATH . '/core/includes/tfa_signin.php');
+                                            die();
+                                        }
+                                    } else if ($user_query->data()->tfa_type === 1) {
+                                        // App
+                                        $tfa = new TwoFactorAuth('NamelessMC');
+
+                                        if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
+                                            Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
+                                            require(ROOT_PATH . '/core/includes/tfa_signin.php');
+                                            die();
+                                        }
                                     } else {
-                                        $field = 'realname';
+                                        // Email
+                                        // TODO
                                     }
+                                } else {
+                                    $return_error = [$language->get('user', 'incorrect_details')];
+                                }
+                            } catch (GuzzleException $ignored) {
+                            }
+                        }
 
-                                    $stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
-                                    if ($stmt) {
-                                        $stmt->bind_param('s', $username);
-                                        $stmt->execute();
-                                        $stmt->bind_result($password);
+                        if (!isset($return_error)) {
 
-                                        while ($stmt->fetch()) {
-                                            // Retrieve result
+                            // Validation passed
+                            // Initialise user class
+                            $user = new User();
+
+                            // Did the user check 'remember me'?
+                            $remember = Input::get('remember') === '1';
+
+                            $cache->setCacheName('authme_cache');
+                            $authme_db = $cache->retrieve('authme');
+
+                            if (defined("MINECRAFT") && MINECRAFT === true && $authme_db['sync'] === '1' && Util::getSetting('authme') === '1') {
+
+                                // Sync AuthMe password
+                                try {
+                                    $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
+
+                                    if ($authme_conn->connect_errno) {
+                                        // Connection error
+                                        // Continue anyway, and use already stored password
+                                    } else {
+                                        // Success, check user exists in database and validate password
+                                        if ($method_field === 'email') {
+                                            $field = 'email';
+                                        } else {
+                                            $field = 'realname';
                                         }
 
-                                        $stmt->free_result();
-                                        $stmt->close();
+                                        $stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
+                                        if ($stmt) {
+                                            $stmt->bind_param('s', $username);
+                                            $stmt->execute();
+                                            $stmt->bind_result($password);
 
-                                        switch ($authme_db['hash']) {
-                                            case 'sha256':
-                                                $exploded = explode('$', $password);
-                                                $salt = $exploded[2];
-
-                                                $password = $salt . '$' . $exploded[3];
-
-                                                break;
-
-                                            case 'pbkdf2':
-                                                $exploded = explode('$', $password);
-
-                                                $iterations = $exploded[1];
-                                                $salt = $exploded[2];
-                                                $pass = $exploded[3];
-
-                                                $password = $iterations . '$' . $salt . '$' . $pass;
-
-                                                break;
-                                        }
-
-                                        // Update password
-                                        if (!is_null($password)) {
-                                            if ($method_field == 'email') {
-                                                $user_id = $user->emailToId($username);
-                                            } else {
-                                                $user_id = $user->nameToId($username);
+                                            while ($stmt->fetch()) {
+                                                // Retrieve result
                                             }
 
-                                            DB::getInstance()->update('users', $user_id, [
-                                                'password' => $password,
-                                                'pass_method' => $authme_db['hash']
-                                            ]);
+                                            $stmt->free_result();
+                                            $stmt->close();
+
+                                            switch ($authme_db['hash']) {
+                                                case 'sha256':
+                                                    $exploded = explode('$', $password);
+                                                    $salt = $exploded[2];
+
+                                                    $password = $salt . '$' . $exploded[3];
+
+                                                    break;
+
+                                                case 'pbkdf2':
+                                                    [$iterations, $salt, $pass] = explode('$', $password);
+                                                    $password = $iterations . '$' . $salt . '$' . $pass;
+
+                                                    break;
+                                            }
+
+                                            // Update password
+                                            if (!is_null($password)) {
+                                                if ($method_field === 'email') {
+                                                    $user_id = $user->emailToId($username);
+                                                } else {
+                                                    $user_id = $user->nameToId($username);
+                                                }
+
+                                                DB::getInstance()->update('users', $user_id, [
+                                                    'password' => $password,
+                                                    'pass_method' => $authme_db['hash']
+                                                ]);
+                                            }
                                         }
                                     }
+                                } catch (Exception $e) {
+                                    // Error, continue as we can use the already stored password
                                 }
-                            } catch (Exception $e) {
-                                // Error, continue as we can use the already stored password
                             }
-                        }
 
-                        $login = $user->login($username, Input::get('password'), $remember, $method_field);
-
-                        // Successful login?
-                        if ($login) {
-                            // Yes
-                            Log::getInstance()->log(Log::Action('user/login'));
-
-                            // Redirect to a certain page?
-                            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                                Redirect::back();
-                            } else {
-                                Session::flash('home', $language->get('user', 'successful_login'));
-                                Redirect::to(URL::build('/'));
+                            try {
+                                $login = $user->login($username, Input::get('password'), $remember, $method_field);
+                            } catch (GuzzleException|Exception $ignored) {
                             }
-                        }
 
-                        // No, output error
+                            // Successful login?
+                            if ($login) {
+                                // Yes
+                                Log::getInstance()->log(Log::Action('user/login'));
+
+                                // Redirect to a certain page?
+                                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) !== '=') {
+                                    Redirect::back();
+                                } else {
+                                    Session::flash('home', $language->get('user', 'successful_login'));
+                                    Redirect::to(URL::build('/'));
+                                }
+                            }
+
+                            // No, output error
+                            $return_error = [$language->get('user', 'incorrect_details')];
+                        }
+                    } else {
                         $return_error = [$language->get('user', 'incorrect_details')];
                     }
                 } else {
-                    $return_error = [$language->get('user', 'incorrect_details')];
+                    // Validation failed
+                    $return_error = $validation->errors();
                 }
             } else {
-                // Validation failed
-                $return_error = $validation->errors();
+                // reCAPTCHA failed
+                $return_error = [$language->get('user', 'invalid_recaptcha')];
             }
         } else {
-            // reCAPTCHA failed
-            $return_error = [$language->get('user', 'invalid_recaptcha')];
+            // Invalid token
+            $return_error = [$language->get('general', 'invalid_token')];
         }
-    } else {
-        // Invalid token
-        $return_error = [$language->get('general', 'invalid_token')];
+    } catch (GuzzleException|Exception $ignored) {
     }
 }
 
@@ -272,9 +295,9 @@ Session::put('oauth_method', 'login');
 
 // Sign in template
 // Generate content
-if ($login_method == 'email') {
+if ($login_method === 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
-} else if ($login_method == 'email_or_username') {
+} else if ($login_method === 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
 } else if (MINECRAFT) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
@@ -283,7 +306,7 @@ if ($login_method == 'email') {
 }
 
 $smarty->assign([
-    'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
+    'USERNAME_INPUT' => ($login_method === 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
     'PASSWORD' => $language->get('user', 'password'),
     'REMEMBER_ME' => $language->get('user', 'remember_me'),
     'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),
@@ -334,4 +357,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('login.tpl', $smarty);
+try {
+    $template->displayTemplate('login.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

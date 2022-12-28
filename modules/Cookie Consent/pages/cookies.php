@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
@@ -7,6 +8,17 @@
  *  License: MIT
  *
  *  Site cookies page
+ *
+ * @var Language $cookie_language
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var array $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Always define page name
@@ -34,4 +46,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('cookies.tpl', $smarty);
+try {
+    $template->displayTemplate('cookies.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

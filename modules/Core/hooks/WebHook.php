@@ -1,14 +1,24 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
- *
- *  Webhook handler class
- */
+declare(strict_types=1);
 
+use DebugBar\DebugBarException;
+
+/**
+ * Webhook handler class
+ *
+ * @package Core\Hooks
+ * @author Partydragen
+ * @version 2.0.0
+ * @license MIT
+ */
 class WebHook {
 
+    /**
+     * @param array $params
+     *
+     * @return void
+     * @throws DebugBarException
+     */
     public static function execute(array $params = []): void {
         $return = $params;
         unset($return['webhook']);

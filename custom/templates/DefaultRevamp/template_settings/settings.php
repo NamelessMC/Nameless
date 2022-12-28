@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,38 +8,46 @@
  *  License: MIT
  *
  *  DefaultRevamp template settings
+ *
+ * @var Language $language
+ * @var Cache $cache
+ * @var Smarty $smarty
+ * @var TemplateBase $current_template
  */
 
 if (Input::exists()) {
-    if (Token::check()) {
-        $cache->setCache('template_settings');
+    try {
+        if (Token::check()) {
+            $cache->setCacheName('template_settings');
 
-        if (isset($_POST['darkMode'])) {
-            $cache->store('darkMode', $_POST['darkMode']);
+            if (isset($_POST['darkMode'])) {
+                $cache->store('darkMode', $_POST['darkMode']);
+            }
+
+            if (isset($_POST['navbarColour'])) {
+                $cache->store('navbarColour', $_POST['navbarColour']);
+            }
+
+            Util::setSetting('home_custom_content', Input::get('home_custom_content'));
+
+            Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
+        } else {
+            $errors = [$language->get('general', 'invalid_token')];
         }
-
-        if (isset($_POST['navbarColour'])) {
-            $cache->store('navbarColour', $_POST['navbarColour']);
-        }
-
-        Util::setSetting('home_custom_content', Input::get('home_custom_content'));
-
-        Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
-    } else {
-        $errors = [$language->get('general', 'invalid_token')];
+    } catch (Exception $ignored) {
     }
 }
 
 // Get values
-$cache->setCache('template_settings');
-if ($cache->isCached('darkMode')) {
+$cache->setCacheName('template_settings');
+if ($cache->hasCashedData('darkMode')) {
     $darkMode = $cache->retrieve('darkMode');
 } else {
     $darkMode = '0';
     $cache->store('darkMode', $darkMode);
 }
 
-if ($cache->isCached('navbarColour')) {
+if ($cache->hasCashedData('navbarColour')) {
     $navbarColour = $cache->retrieve('navbarColour');
 } else {
     $navbarColour = 'white';
@@ -49,67 +58,67 @@ $nav_colours = [
     [
         'value' => 'white',
         'name' => $language->get('general', 'default'),
-        'selected' => ($navbarColour == 'white')
+        'selected' => ($navbarColour === 'white')
     ],
     [
         'value' => 'red',
         'name' => $language->get('general', 'red'),
-        'selected' => ($navbarColour == 'red')
+        'selected' => ($navbarColour === 'red')
     ],
     [
         'value' => 'orange',
         'name' => $language->get('general', 'orange'),
-        'selected' => ($navbarColour == 'orange')
+        'selected' => ($navbarColour === 'orange')
     ],
     [
         'value' => 'yellow',
         'name' => $language->get('general', 'yellow'),
-        'selected' => ($navbarColour == 'yellow')
+        'selected' => ($navbarColour === 'yellow')
     ],
     [
         'value' => 'olive',
         'name' => $language->get('general', 'olive'),
-        'selected' => ($navbarColour == 'olive')
+        'selected' => ($navbarColour === 'olive')
     ],
     [
         'value' => 'green',
         'name' => $language->get('general', 'green'),
-        'selected' => ($navbarColour == 'green')
+        'selected' => ($navbarColour === 'green')
     ],
     [
         'value' => 'teal',
         'name' => $language->get('general', 'teal'),
-        'selected' => ($navbarColour == 'teal')
+        'selected' => ($navbarColour === 'teal')
     ],
     [
         'value' => 'blue',
         'name' => $language->get('general', 'blue'),
-        'selected' => ($navbarColour == 'blue')
+        'selected' => ($navbarColour === 'blue')
     ],
     [
         'value' => 'violet',
         'name' => $language->get('general', 'violet'),
-        'selected' => ($navbarColour == 'violet')
+        'selected' => ($navbarColour === 'violet')
     ],
     [
         'value' => 'purple',
         'name' => $language->get('general', 'purple'),
-        'selected' => ($navbarColour == 'purple')
+        'selected' => ($navbarColour === 'purple')
     ],
     [
         'value' => 'pink',
         'name' => $language->get('general', 'pink'),
-        'selected' => ($navbarColour == 'pink')
+        'selected' => ($navbarColour === 'pink')
     ],
     [
         'value' => 'brown',
         'name' => $language->get('general', 'brown'),
-        'selected' => ($navbarColour == 'brown')
+        'selected' => ($navbarColour === 'brown')
     ],
     [
         'value' => 'grey',
         'name' => $language->get('general', 'grey'),
-        'selected' => ($navbarColour == 'grey')
+        'selected' => ($navbarColour === 'grey')
     ],
 ];
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Secure random token generation
@@ -17,7 +18,6 @@ class SecureRandom {
      * @throws Exception If an appropriate source of randomness cannot be found.
      */
     public static function alphanumeric(int $num_bytes = 32): string {
-        return preg_replace('/(\+|\/|\=)*/', '', base64_encode(random_bytes($num_bytes)));
+        return preg_replace('#([+/=])*#', '', base64_encode(random_bytes($num_bytes)));
     }
-
 }

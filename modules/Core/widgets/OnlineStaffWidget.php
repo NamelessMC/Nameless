@@ -1,20 +1,26 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Online staff widget
  *
- *  License: MIT
- *
- *  Online staff widget
+ * @package Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class OnlineStaffWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         // Get widget
         $widget_query = self::getData('Online Staff');
@@ -33,13 +39,17 @@ class OnlineStaffWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     * @throws GuzzleException|SmartyException
+     */
     public function initialise(): void {
-        $this->_cache->setCache('online_members');
+        $this->_cache->setCacheName('online_members');
 
-        if ($this->_cache->isCached('staff')) {
+        if ($this->_cache->hasCashedData('staff')) {
             $online = $this->_cache->retrieve('staff');
         } else {
-            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', [])->results();
+            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1')->results();
             $this->_cache->store('staff', $online, 120);
         }
 
@@ -53,10 +63,10 @@ class OnlineStaffWidget extends WidgetBase {
                     $staff_members[] = [
                         'profile' => $staff_user->getProfileURL(),
                         'style' => $staff_user->getGroupStyle(),
-                        'username' => $staff_user->getDisplayname(true),
-                        'nickname' => $staff_user->getDisplayname(),
+                        'username' => $staff_user->getDisplayName(true),
+                        'nickname' => $staff_user->getDisplayName(),
                         'avatar' => $staff_user->getAvatar(),
-                        'id' => Output::getClean($staff_user->data()->id),
+                        'id' => $staff_user->data()->id,
                         'group' => $staff_user->getMainGroup()->group_html,
                         'group_order' => $staff_user->getMainGroup()->order
                     ];

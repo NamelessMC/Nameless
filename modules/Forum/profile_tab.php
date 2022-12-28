@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,13 @@
  *  License: MIT
  *
  *  Forum module - forum profile tab
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Language $forum_language
+ * @var TimeAgo $time_ago
+ * @var array $query
  */
 
 if (!isset($forum) || (!$forum instanceof Forum)) {
@@ -33,7 +41,7 @@ if (!count($latest_posts)) {
     $permissions = [];
     $topic_titles = [];
     foreach ($latest_posts as $latest_post) {
-        if ($n == 5) {
+        if ($n === 5) {
             break;
         }
 
@@ -42,11 +50,9 @@ if (!count($latest_posts)) {
             $permission = false;
             $forum_permissions = DB::getInstance()->get('forums_permissions', ['forum_id', $latest_post->forum_id])->results();
             foreach ($forum_permissions as $forum_permission) {
-                if (in_array($forum_permission->group_id, $groups)) {
-                    if ($forum_permission->view == 1 && $forum_permission->view_other_topics == 1) {
-                        $permission = true;
-                        break;
-                    }
+                if ($forum_permission->view === '1' && $forum_permission->view_other_topics === '1' && in_array($forum_permission->group_id, $groups, true)) {
+                    $permission = true;
+                    break;
                 }
             }
             $permissions[$latest_post->forum_id] = $permission;
@@ -54,12 +60,12 @@ if (!count($latest_posts)) {
             $permission = $permissions[$latest_post->forum_id];
         }
 
-        if ($permission != true) {
+        if ($permission !== true) {
             continue;
         }
 
         // Check the post isn't deleted
-        if ($latest_post->deleted == 1) {
+        if ($latest_post->deleted === '1') {
             continue;
         }
 
@@ -76,10 +82,10 @@ if (!count($latest_posts)) {
         }
 
         if (is_null($latest_post->created)) {
-            $date_friendly = $timeago->inWords($latest_post->post_date, $language);
+            $date_friendly = $time_ago->inWords($latest_post->post_date, $language);
             $date_full = date(DATE_FORMAT, strtotime($latest_post->post_date));
         } else {
-            $date_friendly = $timeago->inWords($latest_post->created, $language);
+            $date_friendly = $time_ago->inWords($latest_post->created, $language);
             $date_full = date(DATE_FORMAT, $latest_post->created);
         }
 
@@ -97,7 +103,7 @@ if (!count($latest_posts)) {
 
 // Smarty
 $smarty->assign([
-    'PF_LATEST_POSTS' => (isset($posts)) ? $posts : [],
+    'PF_LATEST_POSTS' => $posts ?? [],
     'PF_LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
     'FORUM_TAB_TITLE' => $forum_language->get('forum', 'forum')
 ]);

@@ -1,11 +1,29 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class ForumPostSeeder extends Seeder {
 
+    /**
+     * @var string[]
+     */
     public array $tables = [
         'nl2_posts',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $topics = $db->get('topics', ['id', '<>', '0'])->results();
         $users = $db->get('users', ['id', '<>', '0'])->results();

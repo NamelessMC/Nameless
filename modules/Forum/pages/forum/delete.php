@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
@@ -7,6 +8,9 @@
  *  License: MIT
  *
  *  Delete topic
+ *
+ * @var User $user
+ * @var Language $language
  */
 
 if (!$user->isLoggedIn()) {
@@ -32,9 +36,12 @@ if (!count($topic)) {
     Redirect::to(URL::build('/forum'));
 }
 
-if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
-    Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+try {
+    if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
+        Session::flash('failure_post', $language->get('general', 'invalid_token'));
+        Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+    }
+} catch (Exception $ignored) {
 }
 
 $topic = $topic[0];

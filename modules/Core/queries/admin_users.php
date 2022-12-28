@@ -1,5 +1,20 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Unknown
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  TODO: Add description
+ *
+ * @var User $user
+ */
+
 // Returns set of users for the StaffCP Users tab
+use GuzzleHttp\Exception\GuzzleException;
+
 header('Content-type: application/json;charset=utf-8');
 
 if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
@@ -10,14 +25,14 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
+$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users')->first()->total;
 $query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
 $limit = '';
 $params = [];
 
-if (isset($_GET['search']) && $_GET['search']['value'] != '') {
+if (isset($_GET['search']) && (string)$_GET['search']['value'] !== '') {
     $where .= ' WHERE u.username LIKE ? OR u.nickname LIKE ? OR u.email LIKE ?';
     array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
@@ -26,10 +41,10 @@ if (isset($_GET['order']) && count($_GET['order'])) {
     $orderBy = [];
 
     for ($i = 0, $j = count($_GET['order']); $i < $j; $i++) {
-        $column = (int)$_GET['order'][$i]['column'];
+        $column = $_GET['order'][$i]['column'];
         $requestColumn = $_GET['columns'][$column];
 
-        $column = array_search($requestColumn['data'], $sortColumns);
+        $column = array_search($requestColumn['data'], $sortColumns, true);
 
         if ($column) {
             $dir = $_GET['order'][$i]['dir'] === 'asc' ?
@@ -49,8 +64,8 @@ if (isset($_GET['order']) && count($_GET['order'])) {
     $order .= ' ORDER BY username ASC';
 }
 
-if (isset($_GET['start']) && $_GET['length'] != -1) {
-    $limit .= ' LIMIT ' . (int)$_GET['start'] . ', ' . (int)$_GET['length'];
+if (isset($_GET['start']) && $_GET['length'] !== '-1') {
+    $limit .= ' LIMIT ' . $_GET['start'] . ', ' . $_GET['length'];
 } else {
     // default 10
     $limit .= ' LIMIT 10';
@@ -66,11 +81,14 @@ $groups = [];
 
 if (count($results)) {
     foreach ($results as $result) {
-        $img = AvatarSource::getAvatarFromUserData($result, true, 30, true);
+        try {
+            $img = AvatarSource::getAvatarFromUserData($result, true, 30, true);
+        } catch (GuzzleException $e) {
+        }
 
         $obj = new stdClass();
         $obj->id = $result->id;
-        $obj->username = "<img src='{$img}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
+        $obj->username = "<img src='$img' style='padding-right: 5px; max-height: 30px;' alt=\"username\">" . Output::getClean($result->username) . "</img>";
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group

@@ -1,6 +1,6 @@
 <?php
-
-/*
+declare(strict_types=1);
+/**
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -8,6 +8,18 @@
  *  License: MIT
  *
  *  User OAuth page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -21,16 +33,19 @@ $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (Input::exists()) {
-    if (Token::check()) {
-        $provider_name = Input::get('provider');
+    try {
+        if (Token::check()) {
+            $provider_name = Input::get('provider');
 
-        if (Input::get('action') === 'unlink') {
-            NamelessOAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
-            Session::flash('oauth_success', $language->get('user', 'oauth_unlinked'));
+            if (Input::get('action') === 'unlink') {
+                NamelessOAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
+                Session::flash('oauth_success', $language->get('user', 'oauth_unlinked'));
+            }
+        } else {
+            // Invalid token
+            Session::flash('oauth_error', $language->get('general', 'invalid_token'));
         }
-    } else {
-        // Invalid token
-        Session::flash('oauth_error', $language->get('general', 'invalid_token'));
+    } catch (Exception $ignored) {
     }
 }
 
@@ -44,9 +59,9 @@ foreach ($user_providers as $user_provider) {
     $user_providers_template[$user_provider->provider] = $user_provider;
 }
 
-$oauth_messsages = [];
+$oauth_messages = [];
 foreach ($providers as $name => $data) {
-    $oauth_messsages[$name] = [
+    $oauth_messages[$name] = [
         'unlink_confirm' => $language->get('user', 'oauth_unlink_confirm', ['provider' => ucfirst($name)]),
         'link_confirm' => $language->get('user', 'oauth_link_confirm', ['provider' => ucfirst($name)]),
     ];
@@ -78,7 +93,7 @@ $smarty->assign([
     'OAUTH' => $language->get('admin', 'oauth'),
     'LINK' => $language->get('general', 'link'),
     'UNLINK' => $language->get('general', 'unlink'),
-    'OAUTH_MESSAGES' => $oauth_messsages,
+    'OAUTH_MESSAGES' => $oauth_messages,
 ]);
 
 // Load modules + template
@@ -92,4 +107,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('user/oauth.tpl', $smarty);
+try {
+    $template->displayTemplate('user/oauth.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

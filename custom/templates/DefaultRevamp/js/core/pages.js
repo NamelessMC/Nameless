@@ -66,12 +66,13 @@ if (page !== '') {
                 }
             }).modal('show');
         }
+
         $(function () {
             let postElem = window.location.hash;
             if (postElem) {
                 postElem = $(postElem.slice(0, -1));
                 setTimeout(function () {
-                    $('html, body').animate({ scrollTop: postElem.offset().top - 15 }, 800);
+                    $('html, body').animate({scrollTop: postElem.offset().top - 15}, 800);
                 }, 100);
                 postElem.delay(600).effect('highlight', {}, 800);
             }
@@ -80,14 +81,14 @@ if (page !== '') {
         $('.ui.search').dropdown({
             minCharacters: 3
         });
-    } else if (route.indexOf("/forum/topic/") != -1) {
+    } else if (route.indexOf("/forum/topic/") !== -1) {
         $(function () {
             const postId = window.location.hash.replace('#post-', '');
             const postElem = '#topic-post[post-id=\'' + postId + '\']';
 
             if (postId) {
                 setTimeout(function () {
-                    $('html, body').animate({ scrollTop: $(postElem).offset().top - 15 }, 800);
+                    $('html, body').animate({scrollTop: $(postElem).offset().top - 15}, 800);
                     $('> .ui.segment', postElem).effect("highlight", {}, 800);
                 }, 100);
             }

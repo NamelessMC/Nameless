@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Email Mass Message page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
@@ -24,50 +37,56 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        $validate = Validate::check($_POST, [
-            'subject' => [
-                Validate::REQUIRED => true,
-                Validate::MIN => 1,
-            ],
-            'content' => [
-                Validate::REQUIRED => true,
-                Validate::MIN => 1,
-                Validate::MAX => 75000
-            ]
-        ]);
-
-        if ($validate->passed()) {
-
-            $users = DB::getInstance()->get('users', ['id', '<>', 0])->results();
-
-            $reply_to = Email::getReplyTo();
-
-            foreach ($users as $email_user) {
-                $sent = Email::send(
-                    ['email' => $email_user->email, 'name' => $email_user->username],
-                    Input::get('subject'),
-                    str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Output::getPurified(Input::get('content'))),
-                    $reply_to
-                );
-
-                if (isset($sent['error'])) {
-                    DB::getInstance()->insert('email_errors', [
-                        'type' => Email::MASS_MESSAGE,
-                        'content' => $sent['error'],
-                        'at' => date('U'),
-                        'user_id' => $user->data()->id
-                    ]);
-                }
+    try {
+        if (Token::check()) {
+            try {
+                $validate = Validate::check($_POST, [
+                    'subject' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 1,
+                    ],
+                    'content' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 1,
+                        Validate::MAX => 75000
+                    ]
+                ]);
+            } catch (Exception $ignored) {
             }
 
-            Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
+            if ($validate->passed()) {
 
+                $users = DB::getInstance()->get('users', ['id', '<>', 0])->results();
+
+                $reply_to = Email::getReplyTo();
+
+                foreach ($users as $email_user) {
+                    $sent = Email::send(
+                        ['email' => $email_user->email, 'name' => $email_user->username],
+                        Input::get('subject'),
+                        str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Output::getPurified(Input::get('content'))),
+                        $reply_to
+                    );
+
+                    if (isset($sent['error'])) {
+                        DB::getInstance()->insert('email_errors', [
+                            'type' => Email::MASS_MESSAGE,
+                            'content' => $sent['error'],
+                            'at' => date('U'),
+                            'user_id' => $user->data()->id
+                        ]);
+                    }
+                }
+
+                Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
+
+            } else {
+                $errors = $validate->errors();
+            }
         } else {
-            $errors = $validate->errors();
+            $errors[] = $language->get('general', 'invalid_token');
         }
-    } else {
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
@@ -130,4 +149,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

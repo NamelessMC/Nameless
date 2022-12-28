@@ -1,6 +1,17 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ * @var Language $language
+ */
 
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+if (!isset($_SESSION['admin_setup']) || !$_SESSION['admin_setup']) {
     Redirect::to('?step=admin_account_setup');
 }
 
@@ -16,10 +27,8 @@ if (!empty($available_converters)) {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    if (!empty($converters)) {
-
+if (($_SERVER['REQUEST_METHOD'] === 'POST') && !empty($converters)) {
+    try {
         $validation = Validate::check($_POST, [
             'db_address' => [
                 Validate::REQUIRED => true,
@@ -34,67 +43,77 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Validate::REQUIRED => true,
             ],
         ]);
+    } catch (Exception $ignored) {
+    }
 
-        if (!$validation->passed()) {
-            $error = $language->get('installer', 'database_error');
-        } else {
-            if (!isset($_POST['converter']) || !in_array($_POST['converter'], $converters)) {
-                $error = $language->get('installer', 'unable_to_load_converter');
-            } else {
-                try {
-                    $conn = DB::getCustomInstance(
-                        Input::get('db_address'),
-                        Input::get('db_name'),
-                        Input::get('db_username'),
-                        Input::get('db_password'),
-                        Input::get('db_port')
-                    );
+    if (isset($validation) && !$validation->passed()) {
+        $error = $language->get('installer', 'database_error');
+    } else if (!isset($_POST['converter']) || !in_array($_POST['converter'], $converters, true)) {
+        $error = $language->get('installer', 'unable_to_load_converter');
+    } else {
+        try {
+            $conn = DB::getCustomInstance(
+                Input::get('db_address'),
+                Input::get('db_name'),
+                Input::get('db_username'),
+                Input::get('db_password'),
+                Input::get('db_port')
+            );
 
-                    $converter_dir = ROOT_PATH . '/custom/converters/' . $_POST['converter'];
+            $converter_dir = ROOT_PATH . '/custom/converters/' . $_POST['converter'];
 
-                    $converter_dirs = glob(ROOT_PATH . '/custom/converters/*', GLOB_ONLYDIR);
+            $converter_dirs = glob(ROOT_PATH . '/custom/converters/*', GLOB_ONLYDIR);
 
-                    if (!in_array($converter_dir, $converter_dirs)) {
-                        throw new InvalidArgumentException("Invalid converter");
-                    }
-
-                    require_once($converter_dir . '/converter.php');
-
-                    if (!isset($error)) {
-                        Redirect::to('?step=finish');
-                    }
-                } catch (PDOException $e) {
-                    $error = $language->get('installer', 'database_connection_failed', ['message' => $e->getMessage()]);
-                }
+            if (!in_array($converter_dir, $converter_dirs, true)) {
+                throw new InvalidArgumentException("Invalid converter");
             }
+
+            require_once($converter_dir . '/converter.php');
+
+            if (!isset($error)) {
+                Redirect::to('?step=finish');
+            }
+        } catch (PDOException $e) {
+            $error = $language->get('installer', 'database_connection_failed', ['message' => $e->getMessage()]);
         }
     }
 }
 
 ?>
 
-<?php if (isset($error)) { ?>
+<?php
+if (isset($error)) { ?>
     <div class="ui error message">
-        <?php echo $error; ?>
+        <?php
+
+        echo $error; ?>
     </div>
-<?php } ?>
+    <?php
+
+} ?>
 
 <form action="" method="post">
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language->get('installer', 'convert'); ?>
+                <?php
+
+                echo $language->get('installer', 'convert'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <?php if (!empty($converters)) { ?>
+            <?php
+
+            if (!empty($converters)) { ?>
                 <div class="ui centered grid">
                     <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                         <div class="ui form">
                             <?php
+
                             $converter_options = [];
                             foreach ($converters as $converter) {
-                                $converter_options[Output::getClean($converter)] = str_replace('_', ' ', Output::getClean($converter));
+                                $clean = Output::getClean($converter);
+                                $converter_options[$clean] = str_replace('_', ' ', $clean);
                             }
                             create_field('select', $language->get('installer', 'converter'), 'converter', 'inputConverter', '', $converter_options);
                             create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', '127.0.0.1');
@@ -106,23 +125,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
                 </div>
-            <?php } else { ?>
-                <p><?php echo $language->get('installer', 'no_converters_available'); ?></p>
-            <?php } ?>
+                <?php
+
+            } else { ?>
+                <p><?php
+
+                    echo $language->get('installer', 'no_converters_available'); ?></p>
+                <?php
+
+            } ?>
         </div>
         <div class="ui secondary right aligned segment">
             <a href="?step=conversion" class="ui small button">
-                <?php echo $language->get('installer', 'back'); ?>
+                <?php
+
+                echo $language->get('installer', 'back'); ?>
             </a>
-            <?php if (!empty($converters)) { ?>
+            <?php
+
+            if (!empty($converters)) { ?>
                 <button type="submit" class="ui small primary button">
-                    <?php echo $language->get('installer', 'proceed'); ?>
+                    <?php
+
+                    echo $language->get('installer', 'proceed'); ?>
                 </button>
-            <?php } else { ?>
+                <?php
+
+            } else { ?>
                 <a href="?step=finish" class="ui small primary button">
-                    <?php echo $language->get('installer', 'proceed'); ?>
+                    <?php
+
+                    echo $language->get('installer', 'proceed'); ?>
                 </a>
-            <?php } ?>
+                <?php
+
+            } ?>
         </div>
     </div>
 </form>

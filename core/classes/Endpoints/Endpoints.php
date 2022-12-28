@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Endpoint management class.
  *
@@ -14,15 +16,6 @@ class Endpoints {
 
     /** @var EndpointBase[] */
     private iterable $_endpoints = [];
-
-    /**
-     * Get all registered Endpoints
-     *
-     * @return EndpointBase[] All endpoints.
-     */
-    public function getAll(): iterable {
-        return $this->_endpoints;
-    }
 
     /**
      * Find an endpoint which matches this request and `execute()` it.
@@ -81,11 +74,20 @@ class Endpoints {
     }
 
     /**
+     * Get all registered Endpoints
+     *
+     * @return EndpointBase[] All endpoints.
+     */
+    public function getAll(): iterable {
+        return $this->_endpoints;
+    }
+
+    /**
      * Recursively scan, preload and register EndpointBase classes in a folder.
      *
+     * @param string $path Path to scan from.
      * @see EndpointBase
      *
-     * @param string $path Path to scan from.
      */
     public function loadEndpoints(string $path): void {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));

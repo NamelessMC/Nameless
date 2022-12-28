@@ -14,14 +14,14 @@
                         <label for="name">{$MERGE_INSTRUCTIONS}</label>
                         <select name="merge" id="InputTopic">
                             {foreach from=$TOPICS item=topic}
-                            <option value="{$topic->id}">{$topic->topic_title|escape}</option>
+                                <option value="{$topic->id}">{$topic->topic_title|escape}</option>
                             {/foreach}
                         </select>
                     </div>
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input type="submit" class="ui primary button" value="{$SUBMIT}">
                     <a class="ui negative button" href="{$CANCEL_LINK}"
-                        onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>
+                       onclick="return confirm('{$CONFIRM_CANCEL}')">{$CANCEL}</a>
                 </form>
             </div>
         </div>

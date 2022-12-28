@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Input class
@@ -9,44 +10,6 @@
  * @license MIT
  */
 class Input {
-
-    /**
-     * Check that specified input type exists.
-     *
-     * @param string $type Check for either POST or GET submission (optional, defaults to POST)
-     * @return bool Whether it exists or not.
-     */
-    public static function exists(string $type = 'post'): bool {
-        switch ($type) {
-            case 'post';
-                // Check the $_POST variable
-                return !empty($_POST);
-            case 'get';
-                // Check the $_GET variable
-                return !empty($_GET);
-            default:
-                // Otherwise, return false
-                return false;
-        }
-    }
-
-    /**
-     * Get input with specified name.
-     *
-     * @param string $item Name of element containing input to get.
-     * @return mixed Value of element in input.
-     */
-    public static function get(string $item) {
-        if (isset($_POST[$item])) {
-            return $_POST[$item];
-        }
-
-        if (isset($_GET[$item])) {
-            return $_GET[$item];
-        }
-
-        return '';
-    }
 
     /**
      * Create a new TinyMCE instance
@@ -61,7 +24,7 @@ class Input {
      */
     public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false, bool $admin = false): string {
         if (
-            (defined('DARK_MODE') && DARK_MODE) ||
+            (defined('DARK_MODE') && DARK_MODE === true) ||
             (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
         ) {
             $skin = 'oxide-dark';
@@ -92,7 +55,7 @@ class Input {
                                                     results.push({
                                                         value: '@' + user.nickname,
                                                         text: user.nickname,
-                                                        icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\">'
+                                                        icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\" alt=\"user avatar\">'
                                                     });
                                                 }
 
@@ -142,7 +105,7 @@ class Input {
                   });
                 },
                 '
-            : '') . "
+                : '') . "
               images_upload_handler: function (blobInfo, success, failure, progress) {
                   let xhr, formData;
 
@@ -184,11 +147,43 @@ class Input {
                 },
                 " . ($admin ? 'valid_children: "+body[style],+body[link],+*[*]",' : '') . "
                 extended_valid_elements: " . ($admin ?
-                    '"script[src|async|defer|type|charset],+@[data-options]"'
+                '"script[src|async|defer|type|charset],+@[data-options]"'
                 : 'undefined') . "
             });
         ";
 
         return $js;
+    }
+
+    /**
+     * Check that specified input type exists.
+     *
+     * @param string $type Check for either POST or GET submission. (optional, defaults to POST)
+     *
+     * @return bool Whether it exists or not.
+     */
+    public static function exists(string $type = 'post'): bool {
+        switch ($type) {
+            case 'post';
+                // Check the $_POST variable
+                return !empty($_POST);
+            case 'get';
+                // Check the $_GET variable
+                return !empty($_GET);
+            default:
+                // Otherwise, return false
+                return false;
+        }
+    }
+
+    /**
+     * Get input with specified name.
+     *
+     * @param string $item Name of element containing input to get.
+     *
+     * @return mixed Value of element in input.
+     */
+    public static function get(string $item) {
+        return $_POST[$item] ?? $_GET[$item] ?? '';
     }
 }

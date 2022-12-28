@@ -1,18 +1,36 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class MinecraftPlaceholderDataSeeder extends Seeder {
 
+    /**
+     * @var string[]
+     */
     public array $tables = [
         'nl2_users_placeholders',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $placeholders = $db->get('placeholders_settings', ['server_id', '<>', 0])->results();
         $users = $db->get('users', ['id', '<>', 0])->results();
         $saved = [];
         $user_uuids = [];
 
-        $this->times(1000, function() use ($db, $faker, $placeholders, $users, &$saved, &$user_uuids) {
+        $this->times(1000, function () use ($db, $faker, $placeholders, $users, &$saved, &$user_uuids) {
             $placeholder = $faker->randomElement($placeholders);
             $user = $faker->randomElement($users);
 
@@ -23,7 +41,7 @@ class MinecraftPlaceholderDataSeeder extends Seeder {
                 $uuid = $user_uuids[$user->id];
             }
 
-            if (in_array($placeholder->server_id.$uuid.$placeholder->name, $saved)) {
+            if (in_array($placeholder->server_id . $uuid . $placeholder->name, $saved, true)) {
                 return;
             }
 
@@ -35,7 +53,7 @@ class MinecraftPlaceholderDataSeeder extends Seeder {
                 'last_updated' => $this->since($user->joined, $faker)->format('U'),
             ]);
 
-            $saved[] = $placeholder->server_id.$uuid.$placeholder->name;
+            $saved[] = $placeholder->server_id . $uuid . $placeholder->name;
         });
     }
 }

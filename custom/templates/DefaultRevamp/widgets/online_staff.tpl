@@ -3,20 +3,20 @@
         <h4 class="ui header">{$ONLINE_STAFF}</h4>
         <div class="description">
             {if isset($ONLINE_STAFF_LIST)}
-            {foreach from=$ONLINE_STAFF_LIST name=online_staff_arr item=user}
-            <div class="ui relaxed list">
-                <div class="item">
-                    <img class="ui mini circular image" src="{$user.avatar}" alt="{$user.username}">
-                    <div class="content">
-                        <a class="" href="{$user.profile}" data-poload="{$USER_INFO_URL}{$user.id}"
-                            style="{$user.style}">{$user.nickname}</a>
-                        {$user.group}
+                {foreach from=$ONLINE_STAFF_LIST name=online_staff_arr item=user}
+                    <div class="ui relaxed list">
+                        <div class="item">
+                            <img class="ui mini circular image" src="{$user.avatar}" alt="{$user.username}">
+                            <div class="content">
+                                <a class="" href="{$user.profile}" data-poload="{$USER_INFO_URL}{$user.id}"
+                                   style="{$user.style}">{$user.nickname}</a>
+                                {$user.group}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {/foreach}
+                {/foreach}
             {else}
-            {$NO_STAFF_ONLINE}
+                {$NO_STAFF_ONLINE}
             {/if}
         </div>
     </div>

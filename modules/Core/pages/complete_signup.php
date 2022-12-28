@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,7 +9,22 @@
  *  License: MIT
  *
  *  API signup completion
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 $page = 'complete_signup';
 const PAGE = 'complete_signup';
@@ -29,63 +46,79 @@ if (Util::getSetting('use_api') !== '1') {
 }
 
 if (!$user->isLoggedIn()) {
-    $target_user = new User($_GET['c'], 'reset_code');
+    try {
+        $target_user = new User($_GET['c'], 'reset_code');
+    } catch (GuzzleException $ignored) {
+    }
+
     if ($target_user->exists()) {
         if (Input::exists()) {
-            if (Token::check()) {
-                // Validate input
-                $validation = Validate::check($_POST, [
-                    'password' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 6
-                    ],
-                    'password_again' => [
-                        Validate::MATCHES => 'password'
-                    ],
-                    't_and_c' => [
-                        Validate::REQUIRED => true,
-                        Validate::AGREE => true
-                    ]
-                ])->messages([
-                    'password' => [
-                        Validate::REQUIRED => $language->get('user', 'password_required'),
-                        Validate::MIN => $language->get('user', 'password_minimum_6')
-                    ],
-                    'password_again' => $language->get('user', 'passwords_dont_match'),
-                    't_and_c' => $language->get('user', 'accept_terms')
-                ]);
+            try {
+                if (Token::check()) {
+                    // Validate input
+                    try {
+                        $validation = Validate::check($_POST, [
+                            'password' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 6
+                            ],
+                            'password_again' => [
+                                Validate::MATCHES => 'password'
+                            ],
+                            't_and_c' => [
+                                Validate::REQUIRED => true,
+                                Validate::AGREE => true
+                            ]
+                        ])->messages([
+                            'password' => [
+                                Validate::REQUIRED => $language->get('user', 'password_required'),
+                                Validate::MIN => $language->get('user', 'password_minimum_6')
+                            ],
+                            'password_again' => $language->get('user', 'passwords_dont_match'),
+                            't_and_c' => $language->get('user', 'accept_terms')
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
 
-                if ($validation->passed()) {
-                    // Complete registration
-                    // Hash password
-                    $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                    if ($validation->passed()) {
+                        // Complete registration
+                        // Hash password
+                        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
 
-                    $target_user->update([
-                        'password' => $password,
-                        'reset_code' => null,
-                        'last_online' => date('U'),
-                        'active' => true,
-                    ]);
+                        try {
+                            $target_user->update([
+                                'password' => $password,
+                                'reset_code' => null,
+                                'last_online' => date('U'),
+                                'active' => true,
+                            ]);
+                        } catch (Exception $ignored) {
+                        }
 
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
-                    EventHandler::executeEvent('validateUser', [
-                        'user_id' => $target_user->data()->id,
-                        'username' => $target_user->getDisplayname(),
-                        'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $target_user->getDisplayname()]),
-                        'avatar_url' => $target_user->getAvatar(128, true),
-                        'url' => URL::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
-                        'language' => $default_language
-                    ]);
+                        $default_language = new Language('core', DEFAULT_LANGUAGE);
+                        try {
+                            EventHandler::executeEvent('validateUser', [
+                                'user_id' => $target_user->data()->id,
+                                'username' => $target_user->getDisplayName(),
+                                'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $target_user->getDisplayName()]),
+                                'avatar_url' => $target_user->getAvatar(128, true),
+                                'url' => URL::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
+                                'language' => $default_language
+                            ]);
+                        } catch (GuzzleException $ignored) {
+                        }
 
-                    Session::flash('home', $language->get('user', 'validation_complete'));
-                    Redirect::to(URL::build('/'));
+                        Session::flash('home', $language->get('user', 'validation_complete'));
+                        Redirect::to(URL::build('/'));
+                    }
+
+                    // Errors
+                    $errors = $validation->errors();
+
+                } else {
+                    $errors[] = $language->get('general', 'invalid_token');
                 }
-
-                // Errors
-                $errors = $validation->errors();
-
-            } else {
-                $errors[] = $language->get('general', 'invalid_token');
+            } catch (Exception $ignored) {
             }
         }
     } else {
@@ -122,4 +155,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
-$template->displayTemplate('complete_signup.tpl', $smarty);
+try {
+    $template->displayTemplate('complete_signup.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

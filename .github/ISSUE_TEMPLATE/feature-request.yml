@@ -1,6 +1,6 @@
 name: Feature request
 description: Suggest a feature we can add to NamelessMC
-labels: ["enhancement"]
+labels: [ "enhancement" ]
 body:
   - type: textarea
     attributes:

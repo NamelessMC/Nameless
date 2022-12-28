@@ -1,14 +1,19 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
- *
- *  Clone group event listener handler class
- */
+declare(strict_types=1);
 
+/**
+ * Clone group event listener handler class
+ *
+ * @package Core\Hooks
+ * @author Partydragen
+ * @version 2.0.0
+ * @license MIT
+ */
 class CloneGroupHook {
 
+    /**
+     * @param array $params
+     */
     public static function execute(array $params = []): void {
 
         // Clone group permissions for custom pages
@@ -19,7 +24,7 @@ class CloneGroupHook {
 
             $inserts = [];
             foreach ($permissions as $permission) {
-                $inserts[] = '('.$permission->page_id.',' . $new_group_id . ',' . $permission->view . ')';
+                $inserts[] = '(' . $permission->page_id . ',' . $new_group_id . ',' . $permission->view . ')';
             }
 
             $query = 'INSERT INTO nl2_custom_pages_permissions (page_id, group_id, view) VALUES ';

@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateUuidCacheTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateUuidCacheTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_uuid_cache');
 
         $table

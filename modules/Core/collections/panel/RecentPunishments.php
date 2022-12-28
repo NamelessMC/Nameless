@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -9,15 +11,25 @@
  *  Recent punishments dashboard collection item
  */
 
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * TODO: Add description
+ */
 class RecentPunishmentsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
     private Language $_language;
     private Cache $_cache;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_main_items_collection');
-        if ($cache->isCached('recent_punishments')) {
+        $cache->setCacheName('dashboard_main_items_collection');
+        if ($cache->hasCashedData('recent_punishments')) {
             $from_cache = $cache->retrieve('recent_punishments');
             $order = $from_cache['order'] ?? 1;
 
@@ -34,13 +46,19 @@ class RecentPunishmentsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
+    /**
+     *
+     * @return string
+     * @throws SmartyException
+     * @throws GuzzleException
+     */
     public function getContent(): string {
         // Get recent punishments
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
-        $this->_cache->setCache('dashboard_main_items_collection');
+        $this->_cache->setCacheName('dashboard_main_items_collection');
 
-        if ($this->_cache->isCached('recent_punishments_data')) {
+        if ($this->_cache->hasCashedData('recent_punishments_data')) {
             $data = $this->_cache->retrieve('recent_punishments_data');
         } else {
             $query = DB::getInstance()->query('SELECT * FROM nl2_infractions ORDER BY `infraction_date` DESC LIMIT 5');
@@ -84,29 +102,29 @@ class RecentPunishmentsItem extends CollectionItemBase {
                     }
 
                     $data[] = [
-                        'url' => URL::build('/panel/users/punishments/', 'user=' . urlencode($punished_user->data()->id)),
-                        'punished_username' => $punished_user->getDisplayname(true),
-                        'punished_nickname' => $punished_user->getDisplayname(),
+                        'url' => URL::build('/panel/users/punishments/', 'user=' . urlencode((string)$punished_user->data()->id)),
+                        'punished_username' => $punished_user->getDisplayName(true),
+                        'punished_nickname' => $punished_user->getDisplayName(),
                         'punished_style' => $punished_user->getGroupStyle(),
                         'punished_avatar' => $punished_user->getAvatar(),
-                        'punished_profile' => URL::build('/panel/user/' . urlencode($punished_user->data()->id) . '-' . urlencode($punished_user->data()->username)),
-                        'staff_username' => $staff_user->getDisplayname(true),
-                        'staff_nickname' => $staff_user->getDisplayname(),
+                        'punished_profile' => URL::build('/panel/user/' . urlencode((string)$punished_user->data()->id) . '-' . urlencode($punished_user->data()->username)),
+                        'staff_username' => $staff_user->getDisplayName(true),
+                        'staff_nickname' => $staff_user->getDisplayName(),
                         'staff_style' => $staff_user->getGroupStyle(),
                         'staff_avatar' => $staff_user->getAvatar(),
-                        'staff_profile' => URL::build('/panel/user/' . urlencode($staff_user->data()->id) . '-' . urlencode($staff_user->data()->username)),
-                        'time' => ($item->created ? $timeago->inWords($item->created, $this->_language) : $timeago->inWords($item->infraction_date, $this->_language)),
+                        'staff_profile' => URL::build('/panel/user/' . urlencode((string)$staff_user->data()->id) . '-' . urlencode($staff_user->data()->username)),
+                        'time' => ($item->created ? $time_ago->inWords($item->created, $this->_language) : $time_ago->inWords($item->infraction_date, $this->_language)),
                         'time_full' => ($item->created ? date(DATE_FORMAT, $item->created) : date(DATE_FORMAT, strtotime($item->infraction_date))),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->reason),
                         'acknowledged' => $item->acknowledged,
                         'revoked' => $item->revoked,
-                        'revoked_by_username' => ($revoked_by_user ? $revoked_by_user->getDisplayname(true) : ''),
-                        'revoked_by_nickname' => ($revoked_by_user ? $revoked_by_user->getDisplayname() : ''),
+                        'revoked_by_username' => ($revoked_by_user ? $revoked_by_user->getDisplayName(true) : ''),
+                        'revoked_by_nickname' => ($revoked_by_user ? $revoked_by_user->getDisplayName() : ''),
                         'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupStyle() : ''),
                         'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
-                        'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . urlencode($revoked_by_user->data()->id) . '-' . urlencode($revoked_by_user->data()->username)) : ''),
-                        'revoked_at' => $timeago->inWords($item->revoked_at, $this->_language)
+                        'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . urlencode((string)$revoked_by_user->data()->id) . '-' . urlencode($revoked_by_user->data()->username)) : ''),
+                        'revoked_at' => $time_ago->inWords($item->revoked_at, $this->_language)
                     ];
                 }
             }
@@ -131,6 +149,10 @@ class RecentPunishmentsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');
     }
 
+    /**
+     *
+     * @return float
+     */
     public function getWidth(): float {
         return 0.33; // 1/3 width
     }

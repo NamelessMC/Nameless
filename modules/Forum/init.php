@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,10 +8,15 @@
  *  License: MIT
  *
  *  Forum initialisation file
+ *
+ * @var Cache $cache
+ * @var Language $language
+ * @var Pages $pages
+ * @var Navigation $cc_nav
  */
 
 // Ensure module has been installed
-$cache->setCache('modulescache');
+$cache->setCacheName('modulescache');
 $module_installed = $cache->retrieve('module_forum');
 if (!$module_installed) {
     // Hasn't been installed
@@ -27,7 +33,10 @@ if (!$module_installed) {
 const FORUM = true;
 
 // Initialise forum language
-$forum_language = new Language(ROOT_PATH . '/modules/Forum/language');
+try {
+    $forum_language = new Language(ROOT_PATH . '/modules/Forum/language');
+} catch (Exception $ignored) {
+}
 
 /*
  *  Temp methods for front page module, profile page tab + admin sidebar; likely to change in the future

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel avatars page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.avatars')) {
@@ -22,42 +35,43 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Input
 if (Input::exists()) {
-    if (Token::check()) {
-        if (isset($_POST['avatar_source'])) {
-            try {
-                Util::setSetting('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
-                Util::setSetting('default_avatar_type', Input::get('default_avatar'));
-                Util::setSetting('avatar_site', Input::get('avatar_source'));
-                Util::setSetting('avatar_type', Input::get('avatar_perspective'));
+    try {
+        if (Token::check()) {
+            if (isset($_POST['avatar_source'])) {
+                try {
+                    Util::setSetting('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
+                    Util::setSetting('default_avatar_type', Input::get('default_avatar'));
+                    Util::setSetting('avatar_site', Input::get('avatar_source'));
+                    Util::setSetting('avatar_type', Input::get('avatar_perspective'));
 
-                $cache->setCache('avatar_settings_cache');
-                $cache->store('custom_avatars', $custom_avatars);
-                $cache->store('default_avatar_type', Input::get('default_avatar'));
-                $cache->store('avatar_source', Input::get('avatar_source'));
-                $cache->store('avatar_perspective', Input::get('avatar_perspective'));
-            } catch (Exception $e) {
-                $errors = [$e->getMessage()];
-            }
-        } else {
-            if (isset($_POST['avatar'])) {
+                    $cache->setCacheName('avatar_settings_cache');
+                    $cache->store('custom_avatars', $custom_avatars);
+                    $cache->store('default_avatar_type', Input::get('default_avatar'));
+                    $cache->store('avatar_source', Input::get('avatar_source'));
+                    $cache->store('avatar_perspective', Input::get('avatar_perspective'));
+                } catch (Exception $e) {
+                    $errors = [$e->getMessage()];
+                }
+            } else if (isset($_POST['avatar'])) {
                 // Selecting a new default avatar
                 try {
                     Util::setSetting('custom_default_avatar', Input::get('avatar'));
-                    $cache->setCache('avatar_settings_cache');
+                    $cache->setCacheName('avatar_settings_cache');
                     $cache->store('default_avatar_image', Input::get('avatar'));
                 } catch (Exception $e) {
                     $errors = [$e->getMessage()];
                 }
             }
+
+            //Log::getInstance()->log(Log::Action('admin/core/avatar'));
+
+            Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
+            Redirect::to(URL::build('/panel/core/avatars'));
+
+        } else {
+            $errors = [$language->get('general', 'invalid_token')];
         }
-
-        //Log::getInstance()->log(Log::Action('admin/core/avatar'));
-
-        Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
-        Redirect::to(URL::build('/panel/core/avatars'));
-
-    } else {
-        $errors = [$language->get('general', 'invalid_token')];
+    } catch (Exception $ignored) {
     }
 }
 
@@ -90,16 +104,17 @@ $images = scandir($image_path);
 $template_images = [];
 
 // Only display jpeg, png, jpg, gif
-$allowed_exts = ['gif', 'png', 'jpg', 'jpeg'];
+$allowed_extensions = ['gif', 'png', 'jpg', 'jpeg'];
 
 if (count($images)) {
     foreach ($images as $image) {
-        $ext = pathinfo($image, PATHINFO_EXTENSION);
-        if (!in_array($ext, $allowed_exts)) {
+        $extension = pathinfo($image, PATHINFO_EXTENSION);
+        if (!in_array($extension, $allowed_extensions, true)) {
             continue;
         }
 
-        $template_images[(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/avatars/defaults/' . Output::getClean($image)] = Output::getClean($image);
+        $cleaned_image = Output::getClean($image);
+        $template_images[(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/avatars/defaults/' . $cleaned_image] = $cleaned_image;
     }
 }
 
@@ -141,4 +156,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/avatars.tpl', $smarty);
+try {
+    $template->displayTemplate('core/avatars.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

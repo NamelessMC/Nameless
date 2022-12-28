@@ -1,9 +1,25 @@
 <?php
-if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
+declare(strict_types=1);
+
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ *
+ * @var Language $language
+ */
+
+use GuzzleHttp\Exception\GuzzleException;
+
+if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup']) {
     Redirect::to('?step=conversion');
 }
 
-if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
+if (!isset($_SESSION['site_initialized']) || !$_SESSION['site_initialized']) {
     Redirect::to('?step=site_configuration');
 }
 
@@ -11,7 +27,7 @@ function display_error(string $message) {
     echo "<div class=\"ui error message\">$message</div>";
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username_min = 3;
     $username_max = 20;
     $email_min = 4;
@@ -19,30 +35,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password_min = 6;
     $password_max = 30;
 
-    $validation = Validate::check($_POST, [
-        'username' => [
-            Validate::REQUIRED => true,
-            Validate::MIN => $username_min,
-            Validate::MAX => $username_max,
-        ],
-        'email' => [
-            Validate::REQUIRED => true,
-            Validate::MIN => $email_min,
-            Validate::MAX => $email_max,
-            Validate::EMAIL => true,
-        ],
-        'password' => [
-            Validate::REQUIRED => true,
-            Validate::MIN => $password_min,
-            Validate::MAX => $password_max,
-        ],
-        'password_again' => [
-            Validate::REQUIRED => true,
-            Validate::MATCHES => 'password',
-        ],
-    ]);
+    try {
+        $validation = Validate::check($_POST, [
+            'username' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => $username_min,
+                Validate::MAX => $username_max,
+            ],
+            'email' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => $email_min,
+                Validate::MAX => $email_max,
+                Validate::EMAIL => true,
+            ],
+            'password' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => $password_min,
+                Validate::MAX => $password_max,
+            ],
+            'password_again' => [
+                Validate::REQUIRED => true,
+                Validate::MATCHES => 'password',
+            ],
+        ]);
+    } catch (Exception $ignored) {
+    }
 
-    if (!$validation->passed()) {
+    if (isset($validation) && !$validation->passed()) {
         foreach ($validation->errors() as $item) {
             if (strpos($item, 'is required') !== false) {
                 display_error($language->get('installer', 'input_required'));
@@ -104,12 +123,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
-            DatabaseInitialiser::runPostUser();
+            DatabaseInitializer::runPostUser();
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
             if ($login) {
                 $_SESSION['admin_setup'] = true;
-                $user->addGroup(2);
+                $user->addGroup('2');
 
                 Redirect::to('?step=conversion');
             }
@@ -118,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display_error($language->get('installer', 'unable_to_login'));
         } catch (Exception $e) {
             display_error($language->get('installer', 'unable_to_create_account') . ': ' . $e->getMessage());
+        } catch (GuzzleException $ignored) {
         }
     }
 }
@@ -127,11 +147,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language->get('installer', 'creating_admin_account'); ?>
+                <?php
+                echo $language->get('installer', 'creating_admin_account'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language->get('installer', 'enter_admin_details'); ?></p>
+            <p><?php
+                echo $language->get('installer', 'enter_admin_details'); ?></p>
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
@@ -147,7 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="ui right aligned secondary segment">
             <button type="submit" class="ui small primary button">
-                <?php echo $language->get('installer', 'proceed'); ?>
+                <?php
+                echo $language->get('installer', 'proceed'); ?>
             </button>
         </div>
     </div>

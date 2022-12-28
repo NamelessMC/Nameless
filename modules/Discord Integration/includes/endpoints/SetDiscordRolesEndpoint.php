@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param int $user The NamelessMC user ID to edit
- * @param string $roles An array of Discord Role ID to give to the user
- *
- * @return string JSON Array
+ * @package Modules\Discord Integration
+ * @author Unknown
+ * @version 2.1.0
+ * @license MIT
  */
 class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +18,13 @@ class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws GuzzleException
+     * @throws Exception
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['user']);
 

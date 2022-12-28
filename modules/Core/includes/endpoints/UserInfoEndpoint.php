@@ -1,11 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @param int $id NamelessMC ID of user to view
- * @param string $username The NamelessMC username of the user to view
- * @param string $uuid The Minecraft UUID of the user
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class UserInfoEndpoint extends KeyAuthEndpoint {
 
@@ -16,13 +13,19 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
         $query = 'SELECT nl2_users.id, nl2_users.username, nl2_languages.short_code as `locale`, nl2_users.nickname as displayname, nl2_users.joined as registered_timestamp, nl2_users.last_online as last_online_timestamp, nl2_users.isbanned as banned, nl2_users.active as validated, nl2_users.user_title as user_title FROM nl2_users LEFT JOIN nl2_languages ON nl2_users.language_id = nl2_languages.id';
 
         // Ensure the user exists
-        $results = $api->getDb()->query($query . ' WHERE nl2_users.id = ?', [(int) $user->data()->id]);
+        $results = $api->getDb()->query($query . ' WHERE nl2_users.id = ?', [$user->data()->id]);
 
         $return = $results->first();
         $return->exists = true;
@@ -55,11 +58,11 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
                 'name' => $group->name,
                 'staff' => (bool)$group->staff,
                 'order' => (int)$group->order,
-                'ingame_rank_name' => Util::getIngameRankName($group->id),
+                'ingame_rank_name' => Util::getInGameRankName($group->id),
             ];
 
             if ($discord_enabled) {
-                $group_array['discord_role_id'] = (int)Discord::getDiscordRoleId($api->getDb(), $group->id);
+                $group_array['discord_role_id'] = Discord::getDiscordRoleId($api->getDb(), $group->id);
             }
 
             $groups_array[] = $group_array;
@@ -76,9 +79,9 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
                 'integration' => Output::getClean($key),
                 'identifier' => Output::getClean($integrationUser->data()->identifier),
                 'username' => Output::getClean($integrationUser->data()->username),
-                'verified' => (bool) $integrationUser->isVerified(),
+                'verified' => $integrationUser->isVerified(),
                 'linked_date' => $integrationUser->data()->date,
-                'show_publicly' => (bool) $integrationUser->data()->show_publicly,
+                'show_publicly' => (bool)$integrationUser->data()->show_publicly,
             ];
         }
         $return->integrations = $integrations_array;

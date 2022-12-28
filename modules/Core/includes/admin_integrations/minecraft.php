@@ -1,18 +1,37 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Unknown
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr13
+ *
+ *  License: MIT
+ *
+ *  TODO: Add description
+ *
+ * @var Language $language
+ * @var Smarty $smarty
+ * @var IntegrationBase $integration
+ * @var string[] $errors
+ */
+
 if (Input::exists()) {
-    if (Token::check()) {
-        if (Input::get('action') === 'integration_settings') {
-            $premium_account = isset($_POST['premium_account']) && $_POST['premium_account'] == 'on' ? '1' : '0';
-            Util::setSetting('uuid_linking', $premium_account);
+    try {
+        if (Token::check()) {
+            if (Input::get('action') === 'integration_settings') {
+                $premium_account = isset($_POST['premium_account']) && $_POST['premium_account'] === 'on' ? '1' : '0';
+                Util::setSetting('uuid_linking', $premium_account);
 
-            $username_registration = isset($_POST['username_registration']) && $_POST['username_registration'] == 'on' ? '1' : '0';
-            Util::setSetting('mc_username_registration', $username_registration, 'Minecraft Integration');
+                $username_registration = isset($_POST['username_registration']) && $_POST['username_registration'] === 'on' ? '1' : '0';
+                Util::setSetting('mc_username_registration', $username_registration, 'Minecraft Integration');
 
-            Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
-            Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+                Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
+                Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+            }
+        } else {
+            $errors[] = $language->get('general', 'invalid_token');
         }
-    } else {
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 

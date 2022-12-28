@@ -38,7 +38,7 @@
                     <div class="card-body">
 
                         <button onclick="showPurgeModal()" class="btn btn-warning">{$PURGE_QUERY_ERRORS}</button>
-                        <hr />
+                        <hr/>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
@@ -127,8 +127,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
                     <form action="{$PURGE_QUERY_ERRORS_LINK}" method="post" style="display: inline">
-                        <input type="hidden" name="token" value="{$TOKEN}" />
-                        <input type="submit" class="btn btn-primary" value="{$YES}" />
+                        <input type="hidden" name="token" value="{$TOKEN}"/>
+                        <input type="submit" class="btn btn-primary" value="{$YES}"/>
                     </form>
                 </div>
             </div>
@@ -141,14 +141,14 @@
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-  function showDeleteModal(link) {
-    $('#deleteLink').attr('href', link);
-    $('#deleteModal').modal().show();
-  }
+    function showDeleteModal(link) {
+        $('#deleteLink').attr('href', link);
+        $('#deleteModal').modal().show();
+    }
 
-  function showPurgeModal() {
-    $('#purgeModal').modal().show();
-  }
+    function showPurgeModal() {
+        $('#purgeModal').modal().show();
+    }
 </script>
 
 </body>

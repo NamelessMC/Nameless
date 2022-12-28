@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreatePanelTemplatesTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreatePanelTemplatesTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_panel_templates');
 
         $table

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Handles registering and triggering events.
  *
@@ -23,6 +25,26 @@ class EventHandler {
     }
 
     /**
+     * Register an event listener for a module.
+     * This must be called in the module's constructor.
+     *
+     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
+     * @param callable $callback Listener callback to execute.
+     * @param int $priority Execution priority - higher gets executed first
+     */
+    public static function registerListener(string $event, callable $callback, int $priority = 10): void {
+        if (!isset(self::$_events[$event])) {
+            // Silently create event if it doesn't exist, maybe throw exception instead?
+            self::registerEvent($event, $event);
+        }
+
+        self::$_events[$event]['listeners'][] = [
+            'callback' => $callback,
+            'priority' => $priority,
+        ];
+    }
+
+    /**
      * Register an event.
      * This must be called in the module's constructor.
      *
@@ -35,9 +57,9 @@ class EventHandler {
     public static function registerEvent(
         string $event,
         string $description,
-        array $params = [],
-        bool $return = false,
-        bool $internal = false
+        array  $params = [],
+        bool   $return = false,
+        bool   $internal = false
     ): void {
         // Don't re-register if the event already exists, just update the params and description.
         // This is to "fix" when registerListener is called for an event that has not been registered yet.
@@ -65,26 +87,6 @@ class EventHandler {
     }
 
     /**
-     * Register an event listener for a module.
-     * This must be called in the module's constructor.
-     *
-     * @param string $event Event name to hook into (must be registered with `registerEvent()`).
-     * @param callable $callback Listener callback to execute.
-     * @param int $priority Execution priority - higher gets executed first
-     */
-    public static function registerListener(string $event, callable $callback, int $priority = 10): void {
-        if (!isset(self::$_events[$event])) {
-            // Silently create event if it doesn't exist, maybe throw exception instead?
-            self::registerEvent($event, $event);
-        }
-
-        self::$_events[$event]['listeners'][] = [
-            'callback' => $callback,
-            'priority' => $priority,
-        ];
-    }
-
-    /**
      * Execute an event.
      *
      * @param string $event Event name to call.
@@ -92,7 +94,7 @@ class EventHandler {
      *
      * @return array|null Response of hook, can be any type or null when event does not exist
      */
-    public static function executeEvent(string $event, array $params = []) {
+    public static function executeEvent(string $event, array $params = []): ?array {
         if (!isset(self::$_events[$event])) {
             return null;
         }
@@ -105,7 +107,7 @@ class EventHandler {
         if (isset(self::$_events[$event]['listeners'])) {
             $listeners = self::$_events[$event]['listeners'];
 
-            usort($listeners, static function($a, $b) {
+            usort($listeners, static function ($a, $b) {
                 return $b['priority'] <=> $a['priority'];
             });
 
@@ -120,11 +122,11 @@ class EventHandler {
 
         // Execute user made Discord webhooks
         foreach (self::$_webhooks as $webhook) {
-            if (in_array($event, $webhook['events'])) {
+            if (in_array($event, $webhook['events'], true)) {
                 // Since forum events are specific to certain hooks, we need to
                 // check that this hook is enabled for the event.
                 if (isset($params['available_hooks'])) {
-                    if (in_array($webhook['id'], $params['available_hooks'])) {
+                    if (in_array($webhook['id'], $params['available_hooks'], true)) {
                         $params['webhook'] = $webhook['url'];
                         call_user_func($webhook['action'], $params);
                     }
@@ -162,6 +164,7 @@ class EventHandler {
      * Not used internally, currently for WebSend.
      *
      * @param string $event Name of event to get data for.
+     *
      * @returns array Event data.
      */
     public static function getEvent(string $event): array {

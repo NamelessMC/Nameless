@@ -1,6 +1,7 @@
 # Security Policy
 
-We endeavour to respond to and patch high-severity security vulnerabilities as soon as we possibly can, however we are currently unable to provide a guaranteed timeframe for a course of action.
+We endeavour to respond to and patch high-severity security vulnerabilities as soon as we possibly can, however we are
+currently unable to provide a guaranteed timeframe for a course of action.
 
 ## Supported Versions
 

@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
+/**
+ * TODO: Add description
+ */
+
 if (PHP_SAPI !== 'cli') {
     die('This script must be run from the command line.');
 }
 
-define('ROOT_PATH', __DIR__ . '/../..');
+const ROOT_PATH = __DIR__ . '/../..';
 require 'vendor/autoload.php';
 
 $classes = [
@@ -50,7 +55,7 @@ if ($wipe) {
     $db->query('SET FOREIGN_KEY_CHECKS = 0');
     foreach ($seeders as $seeder) {
         foreach ($seeder->tables as $table) {
-            $db->query("TRUNCATE {$table}");
+            $db->query("TRUNCATE $table");
         }
     }
     print '🧨 Deleted existing data!' . PHP_EOL;

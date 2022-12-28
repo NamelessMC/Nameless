@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,9 +8,26 @@
  *  License: MIT
  *
  *  User "following topics" page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
+ * @var string $route
  */
 
 // Must be logged in
+use GuzzleHttp\Exception\GuzzleException;
+
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
 }
@@ -20,13 +38,14 @@ $page_title = $forum_language->get('forum', 'following_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
-if (Input::exists() && Input::get('action') == 'purge') {
-    if (Token::check(Input::get('token'))) {
+try {
+    if (Input::exists() && Input::get('action') === 'purge' && Token::check(Input::get('token'))) {
         DB::getInstance()->query('DELETE FROM nl2_topics_following WHERE user_id = ?', [$user->data()->id]);
         Session::flash('success_post', $forum_language->get('forum', 'all_topics_unfollowed'));
     }
+} catch (Exception $ignored) {
 }
 
 $groups = '(';
@@ -60,37 +79,46 @@ foreach ($results->data as $nValue) {
 
     // Topic author/last poster
     if (!array_key_exists($topic->topic_creator, $authors)) {
-        $authors[$topic->topic_creator] = new User($topic->topic_creator);
+        try {
+            $authors[$topic->topic_creator] = new User($topic->topic_creator);
+        } catch (GuzzleException $ignored) {
+        }
     }
     if (!array_key_exists($topic->topic_last_user, $authors)) {
-        $authors[$topic->topic_last_user] = new User($topic->topic_last_user);
+        try {
+            $authors[$topic->topic_last_user] = new User($topic->topic_last_user);
+        } catch (GuzzleException $ignored) {
+        }
     }
 
     $last_post = DB::getInstance()->query('SELECT id FROM nl2_posts WHERE deleted = 0 AND topic_id = ? ORDER BY created DESC LIMIT 1', [$topic->id])->first();
 
-    $template_array[] = [
-        'topic_title' => Output::getClean($topic->topic_title),
-        'topic_date' => $timeago->inWords($topic->topic_date, $language),
-        'topic_date_full' => date(DATE_FORMAT, $topic->topic_date),
-        'topic_author_id' => Output::getClean($authors[$topic->topic_creator]->data()->id),
-        'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayname(),
-        'topic_author_username' => $authors[$topic->topic_creator]->getDisplayname(true),
-        'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(),
-        'topic_author_style' => $authors[$topic->topic_creator]->getGroupStyle(),
-        'topic_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
-        'reply_author_id' => Output::getClean($authors[$topic->topic_last_user]->data()->id),
-        'reply_author_nickname' => $authors[$topic->topic_last_user]->getDisplayname(),
-        'reply_author_username' => $authors[$topic->topic_last_user]->getDisplayname(true),
-        'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
-        'reply_author_style' => $authors[$topic->topic_last_user]->getGroupStyle(),
-        'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
-        'reply_date' => $timeago->inWords($topic->topic_reply_date, $language),
-        'reply_date_full' => date(DATE_FORMAT, $topic->topic_reply_date),
-        'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
-        'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
-        'unread' => $topic->existing_alerts == 1,
-        'unfollow_link' => URL::build('/forum/topic/' . $topic->id, 'action=unfollow&return=list')
-    ];
+    try {
+        $template_array[] = [
+            'topic_title' => Output::getClean($topic->topic_title),
+            'topic_date' => $time_ago->inWords($topic->topic_date, $language),
+            'topic_date_full' => date(DATE_FORMAT, $topic->topic_date),
+            'topic_author_id' => Output::getClean((string)$authors[$topic->topic_creator]->data()->id),
+            'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayName(),
+            'topic_author_username' => $authors[$topic->topic_creator]->getDisplayName(true),
+            'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(),
+            'topic_author_style' => $authors[$topic->topic_creator]->getGroupStyle(),
+            'topic_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_creator]->getDisplayName(true))),
+            'reply_author_id' => Output::getClean((string)$authors[$topic->topic_last_user]->data()->id),
+            'reply_author_nickname' => $authors[$topic->topic_last_user]->getDisplayName(),
+            'reply_author_username' => $authors[$topic->topic_last_user]->getDisplayName(true),
+            'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
+            'reply_author_style' => $authors[$topic->topic_last_user]->getGroupStyle(),
+            'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayName(true))),
+            'reply_date' => $time_ago->inWords($topic->topic_reply_date, $language),
+            'reply_date_full' => date(DATE_FORMAT, $topic->topic_reply_date),
+            'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
+            'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
+            'unread' => $topic->existing_alerts === '1',
+            'unfollow_link' => URL::build('/forum/topic/' . $topic->id, 'action=unfollow&return=list')
+        ];
+    } catch (GuzzleException $ignored) {
+    }
 }
 
 if (Session::exists('success_post')) {
@@ -124,4 +152,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/following_topics.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/following_topics.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

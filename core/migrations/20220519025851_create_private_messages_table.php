@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreatePrivateMessagesTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreatePrivateMessagesTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_private_messages');
 
         $table

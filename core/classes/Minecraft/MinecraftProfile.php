@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Represents a Minecraft profile.
  *
@@ -27,6 +29,7 @@ class MinecraftProfile {
     }
 
     /**
+     *
      * @return string The player's username.
      */
     public function getUsername(): string {
@@ -34,6 +37,7 @@ class MinecraftProfile {
     }
 
     /**
+     *
      * @return string The player's UUID.
      */
     public function getUUID(): string {
@@ -41,6 +45,7 @@ class MinecraftProfile {
     }
 
     /**
+     *
      * @return array The player's properties listed on their mojang profile.
      */
     public function getProperties(): array {
@@ -48,7 +53,8 @@ class MinecraftProfile {
     }
 
     /**
-     * @return array Returns an array with keys of 'properties, usernname and uuid'.
+     *
+     * @return array Returns an array with keys of 'properties, username and uuid'.
      */
     public function getProfileAsArray(): array {
         return [

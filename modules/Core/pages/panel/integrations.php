@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.1.0
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel integrations page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.integrations.edit')) {
@@ -55,19 +68,22 @@ if (!isset($_GET['integration'])) {
     if (Input::exists()) {
         $errors = [];
 
-        if (Token::check()) {
-            if (Input::get('action') === 'general_settings') {
-                DB::getInstance()->update('integrations', $integration->data()->id, [
-                    'enabled' => Output::getClean(Input::get('enabled')),
-                    'can_unlink' => Output::getClean(Input::get('can_unlink')),
-                    'required' => Output::getClean(Input::get('required'))
-                ]);
+        try {
+            if (Token::check()) {
+                if (Input::get('action') === 'general_settings') {
+                    DB::getInstance()->update('integrations', $integration->data()->id, [
+                        'enabled' => Output::getClean(Input::get('enabled')),
+                        'can_unlink' => Output::getClean(Input::get('can_unlink')),
+                        'required' => Output::getClean(Input::get('required'))
+                    ]);
 
-                Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
-                Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+                    Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
+                    Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+                }
+            } else {
+                $errors[] = $language->get('general', 'invalid_token');
             }
-        } else {
-            $errors[] = $language->get('general', 'invalid_token');
+        } catch (Exception $ignored) {
         }
     }
 
@@ -137,4 +153,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

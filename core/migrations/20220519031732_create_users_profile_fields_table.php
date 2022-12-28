@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateUsersProfileFieldsTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateUsersProfileFieldsTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_users_profile_fields');
 
         $table

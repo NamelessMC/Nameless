@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * CookieConsent module main class
  *
@@ -26,7 +28,7 @@ class CookieConsent {
             isset($options['position'])
             && in_array($options['position'], ['top', 'top_static', 'bottom-left', 'bottom-right'])
         ) {
-            if ($options['position'] == 'top_static') {
+            if ($options['position'] === 'top_static') {
                 $script_options['position'] = 'bottom-right';
             } else {
                 $script_options['position'] = $options['position'];

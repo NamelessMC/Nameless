@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Validates an array of data.
  * Often used for POST requests.
@@ -86,7 +88,11 @@ class Validate {
      */
     public const RATE_LIMIT = 'rate_limit';
 
-    private DB $_db;
+
+    /**
+     * @var ?DB $_db ;
+     */
+    private static ?DB $_db;
 
     private ?string $_message = null;
     private array $_messages = [];
@@ -105,8 +111,8 @@ class Validate {
             $host = null;
         }
 
-        if (!empty($host)) {
-            $this->_db = DB::getInstance();
+        if (!empty($host) && !isset(self::$_db)) {
+            self::$_db = DB::getInstance();
         }
     }
 
@@ -134,12 +140,12 @@ class Validate {
                 $item = Output::getClean($item);
 
                 // Required rule
-                if ($rule === self::REQUIRED ) {
+                if ($rule === self::REQUIRED) {
                     $missing = false;
                     // If the item is HTML array syntax, check if it exists within the subarray.
                     // Otherwise, check if it's empty.
                     if (str_contains($item, '[') && str_ends_with($item, ']')) {
-                        preg_match('/\[(.*?)\]/', $item, $matches);
+                        preg_match('/\[(.*?)]/', $item, $matches);
                         $array = explode('[', $item)[0];
                         if (empty($source[$array][$matches[1]])) {
                             $missing = true;
@@ -187,7 +193,7 @@ class Validate {
                         break;
 
                     case self::MATCHES:
-                        if ($value != $source[$rule_value]) {
+                        if ($value !== $source[$rule_value]) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MATCHES,
@@ -197,7 +203,7 @@ class Validate {
                         break;
 
                     case self::AGREE:
-                        if ($value != 1) {
+                        if ($value !== '1') {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AGREE,
@@ -210,7 +216,7 @@ class Validate {
                         if (is_array($rule_value)) {
                             $table = $rule_value[0];
                             [$ignore_col, $ignore_val] = explode(':', $rule_value[1]);
-                            $check = $validator->_db->query('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
+                            $check = self::$_db->query('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
                                 $item,
                                 $value,
                                 $ignore_col,
@@ -218,7 +224,7 @@ class Validate {
                             ]);
                         } else {
                             $table = $rule_value;
-                            $check = $validator->_db->get($table, [$item, $value]);
+                            $check = self::$_db->get($table, [$item, $value]);
                         }
                         if ($check->count()) {
                             $validator->addError([
@@ -240,7 +246,7 @@ class Validate {
                         break;
 
                     case self::TIMEZONE:
-                        if (!in_array($value, DateTimeZone::listIdentifiers())) {
+                        if (!in_array($value, DateTimeZone::listIdentifiers(), true)) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::TIMEZONE,
@@ -250,13 +256,13 @@ class Validate {
                         break;
 
                     case self::IS_ACTIVE:
-                        $check = $validator->_db->get('users', [$item, $value]);
+                        $check = self::$_db->get('users', [$item, $value]);
                         if (!$check->count()) {
                             break;
                         }
 
-                        $isuseractive = $check->first()->active;
-                        if ($isuseractive == 0) {
+                        $isUserActive = $check->first()->active;
+                        if ($isUserActive === 0) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::IS_ACTIVE,
@@ -266,13 +272,13 @@ class Validate {
                         break;
 
                     case self::IS_BANNED:
-                        $check = $validator->_db->get('users', [$item, $value]);
+                        $check = self::$_db->get('users', [$item, $value]);
                         if (!$check->count()) {
                             break;
                         }
 
-                        $isuserbanned = $check->first()->isbanned;
-                        if ($isuserbanned == 1) {
+                        $isUserBanned = $check->first()->isbanned;
+                        if ($isUserBanned === 1) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::IS_BANNED,
@@ -313,16 +319,15 @@ class Validate {
 
                     case self::NOT_START_WITH:
                         $denied_values = is_string($rule_value) ? [$rule_value] : $rule_value;
-                        foreach ($denied_values as $denied_value) {
-                            if (str_starts_with($value, $denied_value)) {
-                                $validator->addError([
-                                    'field' => $item,
-                                    'rule' => self::NOT_START_WITH,
-                                    'fallback' => "$item must not start with $denied_value."
-                                ]);
-                            }
-                            break;
+                        $denied_value = $denied_values[0];
+                        if (str_starts_with($value, $denied_value)) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::NOT_START_WITH,
+                                'fallback' => "$item must not start with $denied_value."
+                            ]);
                         }
+
                         break;
 
                     case self::RATE_LIMIT:
@@ -334,11 +339,11 @@ class Validate {
                             [$limit, $seconds] = [$rule_value, 60];
                         }
 
-                        if (!isset($limit) || !isset($seconds)) {
+                        if (!isset($limit, $seconds)) {
                             throw new Exception('Invalid rate limit configuration');
                         }
 
-                        $key = "rate_limit_{$item}";
+                        $key = "rate_limit_$item";
                         $session = $_SESSION[$key];
                         $time = date('U');
                         $limit_end = $time + $seconds;
@@ -434,13 +439,13 @@ class Validate {
 
             // If there is no generic `message()` set or the translated message is not equal to generic message
             // we can continue without worrying about duplications
-            if ($this->_message === null || ($message != $this->_message && !in_array($message, $this->_errors))) {
+            if ($this->_message === null || ($message !== $this->_message && !in_array($message, $this->_errors, true))) {
                 $this->_errors[] = $message;
                 continue;
             }
 
             // If this new error is the generic message AND it has not already been added, add it
-            if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
+            if ($message === $this->_message && !in_array($this->_message, $this->_errors, true)) {
                 $this->_errors[] = $this->_message;
             }
         }

@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class NullablePostDate extends AbstractMigration
-{
+final class NullablePostDate extends AbstractMigration {
     /**
      * Change Method.
      *
@@ -16,8 +15,7 @@ final class NullablePostDate extends AbstractMigration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change(): void
-    {
+    public function change(): void {
         $table = $this->table('nl2_posts');
 
         $table->changeColumn('post_date', 'datetime', ['null' => true, 'default' => null]);

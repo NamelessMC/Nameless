@@ -1,6 +1,17 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ * @var Language $language
+ */
 
-if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+if (!isset($_SESSION['database_initialized']) || !$_SESSION['database_initialized']) {
     Redirect::to('?step=database_configuration');
 }
 
@@ -8,29 +19,32 @@ if ($_SESSION['action'] !== 'upgrade') {
     Redirect::to('?step=site_configuration');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['not_upgrading'])) {
         $_SESSION['action'] = 'install';
         Redirect::to('?step=site_configuration');
     }
 
-    $validation = Validate::check($_POST, [
-        'db_address' => [
-            Validate::REQUIRED => true
-        ],
-        'db_port' => [
-            Validate::REQUIRED => true
-        ],
-        'db_username' => [
-            Validate::REQUIRED => true
-        ],
-        'db_name' => [
-            Validate::REQUIRED => true
-        ],
-    ]);
+    try {
+        $validation = Validate::check($_POST, [
+            'db_address' => [
+                Validate::REQUIRED => true
+            ],
+            'db_port' => [
+                Validate::REQUIRED => true
+            ],
+            'db_username' => [
+                Validate::REQUIRED => true
+            ],
+            'db_name' => [
+                Validate::REQUIRED => true
+            ],
+        ]);
+    } catch (Exception $ignored) {
+    }
 
-    if (!$validation->passed()) {
+    if (isset($validation) && !$validation->passed()) {
 
         $error = $language->get('installer', 'database_error');
 
@@ -62,25 +76,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 ?>
 
-<?php if (isset($error)) { ?>
+<?php
+if (isset($error)) { ?>
     <div class="ui error message">
-        <?php echo $error; ?>
+        <?php
+
+        echo $error; ?>
     </div>
-<?php } ?>
+    <?php
+
+} ?>
 
 <div class="ui segments">
     <div class="ui secondary segment">
         <h4 class="ui header">
-            <?php echo $language->get('installer', 'upgrade'); ?>
+            <?php
+
+            echo $language->get('installer', 'upgrade'); ?>
         </h4>
     </div>
     <div class="ui segment">
-        <p><?php echo $language->get('installer', 'input_v1_details'); ?></p>
+        <p><?php
+
+            echo $language->get('installer', 'input_v1_details'); ?></p>
         <form action="" method="post" id="upgrade_db">
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php
+
                         create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', '127.0.0.1');
                         create_field('text', $language->get('installer', 'database_port'), 'db_port', 'inputDBPort', '3306');
                         create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername', 'root');
@@ -97,10 +121,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="hidden" name="not_upgrading" value="not_upgrading">
         </form>
         <button type="submit" form="not_upgrading" class="ui small info button">
-            <?php echo $language->get('installer', 'not_upgrading'); ?>
+            <?php
+
+            echo $language->get('installer', 'not_upgrading'); ?>
         </button>
         <button type="submit" form="upgrade_db" class="ui small primary button">
-            <?php echo $language->get('installer', 'proceed'); ?>
+            <?php
+
+            echo $language->get('installer', 'proceed'); ?>
         </button>
     </div>
 </div>

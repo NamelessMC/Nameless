@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel groups page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.groups')) {
@@ -31,6 +44,38 @@ if (Session::exists('admin_groups_error')) {
     $errors = [Session::flash('admin_groups_error')];
 }
 
+/**
+ * Get the validation.
+ *
+ * @param Language $language
+ *
+ * @return Validate
+ */
+function getValidation(Language $language): Validate {
+    try {
+        $validation = Validate::check($_POST, [
+            'groupname' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::MAX => 20
+            ],
+            'html' => [
+                Validate::MAX => 1024
+            ]
+        ])->messages([
+            'groupname' => [
+                Validate::REQUIRED => $language->get('admin', 'group_name_required'),
+                Validate::MIN => $language->get('admin', 'group_name_minimum'),
+                Validate::MAX => $language->get('admin', 'group_name_maximum')
+            ],
+            'html' => $language->get('admin', 'html_maximum')
+        ]);
+    } catch (Exception $ignored) {
+    }
+
+    return $validation;
+}
+
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'new':
@@ -38,85 +83,72 @@ if (isset($_GET['action'])) {
 
                 $errors = [];
 
-                if (Token::check()) {
-                    $validation = Validate::check($_POST, [
-                        'groupname' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 2,
-                            Validate::MAX => 20
-                        ],
-                        'html' => [
-                            Validate::MAX => 1024
-                        ]
-                    ])->messages([
-                        'groupname' => [
-                            Validate::REQUIRED => $language->get('admin', 'group_name_required'),
-                            Validate::MIN => $language->get('admin', 'group_name_minimum'),
-                            Validate::MAX => $language->get('admin', 'group_name_maximum')
-                        ],
-                        'html' => $language->get('admin', 'html_maximum')
-                    ]);
+                try {
+                    if (Token::check()) {
+                        $validation = getValidation($language);
 
-                    if ($validation->passed()) {
-                        try {
-                            if (isset($_POST['default']) && $_POST['default'] == 1) {
-                                $default = 1;
-                            } else {
-                                $default = 0;
-                            }
-
-                            // If this is the new default group, update old default group
-                            $default_group = Group::find(1, 'default_group');
-                            if (!$default_group && $default == 0) {
-                                $default = 1;
-                            }
-
-                            $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
-                            if (count($last_group_order)) {
-                                $last_group_order = $last_group_order[0]->order;
-                            } else {
-                                $last_group_order = 0;
-                            }
-
-                            DB::getInstance()->insert('groups', [
-                                'name' => Input::get('groupname'),
-                                'group_html' => Input::get('html'),
-                                'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
-                                'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-                                'admin_cp' => Input::get('staffcp'),
-                                'staff' => Input::get('staff'),
-                                'default_group' => $default,
-                                'order' => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
-                                'force_tfa' => Input::get('tfa'),
-                                'permissions' => '{}',
-                            ]);
-
-                            $group_id = DB::getInstance()->lastId();
-
-                            if ($default == 1) {
-                                if ($default_group && $default_group->id != $group_id) {
-                                    DB::getInstance()->update('groups', $default_group->id, [
-                                        'default_group' => false
-                                    ]);
+                        if ($validation->passed()) {
+                            try {
+                                if (isset($_POST['default']) && $_POST['default'] === '1') {
+                                    $default = 1;
+                                } else {
+                                    $default = 0;
                                 }
 
-                                $cache->setCache('default_group');
-                                $cache->store('default_group', $group_id);
+                                // If this is the new default group, update old default group
+                                $default_group = Group::find("1", 'default_group');
+                                if (!$default_group && $default === 0) {
+                                    $default = 1;
+                                }
+
+                                $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
+                                if (count($last_group_order)) {
+                                    $last_group_order = $last_group_order[0]->order;
+                                } else {
+                                    $last_group_order = 0;
+                                }
+
+                                DB::getInstance()->insert('groups', [
+                                    'name' => Input::get('groupname'),
+                                    'group_html' => Input::get('html'),
+                                    'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
+                                    'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
+                                    'admin_cp' => Input::get('staffcp'),
+                                    'staff' => Input::get('staff'),
+                                    'default_group' => $default,
+                                    'order' => (Input::get('order') === '5' ? $last_group_order + 1 : Input::get('order')),
+                                    'force_tfa' => Input::get('tfa'),
+                                    'permissions' => '{}',
+                                ]);
+
+                                $group_id = DB::getInstance()->lastId();
+
+                                if ($default === 1) {
+                                    if ($default_group && $default_group->id !== $group_id) {
+                                        DB::getInstance()->update('groups', $default_group->id, [
+                                            'default_group' => false
+                                        ]);
+                                    }
+
+                                    $cache->setCacheName('default_group');
+                                    $cache->store('default_group', $group_id);
+                                }
+
+                                $cache->setCacheName('groups_tfa_' . $group_id);
+                                $cache->store('enabled', Input::get('tfa'));
+
+                                Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
+                                Redirect::to(URL::build('/panel/core/groups'));
+                            } catch (Exception $e) {
+                                $errors[] = $e->getMessage();
                             }
-
-                            $cache->setCache('groups_tfa_' . $group_id);
-                            $cache->store('enabled', Input::get('tfa'));
-
-                            Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
-                            Redirect::to(URL::build('/panel/core/groups'));
-                        } catch (Exception $e) {
-                            $errors[] = $e->getMessage();
+                        } else {
+                            $errors = $validation->errors();
                         }
                     } else {
-                        $errors = $validation->errors();
+                        $errors[] = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $errors[] = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -153,7 +185,7 @@ if (isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
-            if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
+            if ($group->id === 2 || ((in_array($group->id, $user->getAllGroupIds(), true)) && !$user->hasPermission('admincp.groups.self'))) {
                 $smarty->assign([
                     'OWN_GROUP' => $language->get('admin', 'cant_edit_this_group'),
                     'INFO' => $language->get('general', 'info')
@@ -170,84 +202,66 @@ if (isset($_GET['action'])) {
 
             if (Input::exists()) {
                 $errors = [];
-                if (Token::check()) {
-                    if (Input::get('action') == 'update') {
-                        $validation = Validate::check($_POST, [
-                            'groupname' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 2,
-                                Validate::MAX => 20
-                            ],
-                            'html' => [
-                                Validate::MAX => 1024
-                            ]
-                        ])->messages([
-                            'groupname' => [
-                                Validate::REQUIRED => $language->get('admin', 'group_name_required'),
-                                Validate::MIN => $language->get('admin', 'group_name_minimum'),
-                                Validate::MAX => $language->get('admin', 'group_name_maximum')
-                            ],
-                            'html' => $language->get('admin', 'html_maximum')
-                        ]);
+                try {
+                    if (Token::check()) {
+                        if (Input::get('action') === 'update') {
+                            $validation = getValidation($language);
 
-                        if ($validation->passed()) {
-                            try {
-                                if (isset($_POST['default']) && $_POST['default'] == 1) {
-                                    $default = 1;
-                                    $cache->setCache('default_group');
-                                    $cache->store('default_group', $_GET['group']);
-                                } else {
-                                    $default = 0;
-                                }
+                            if ($validation->passed()) {
+                                try {
+                                    if (isset($_POST['default']) && $_POST['default'] === '1') {
+                                        $default = 1;
+                                        $cache->setCacheName('default_group');
+                                        $cache->store('default_group', $_GET['group']);
+                                    } else {
+                                        $default = 0;
+                                    }
 
-                                // If this is the new default group, update old default group
-                                $default_group = Group::find(1, 'default_group');
-                                if ($default_group && $default == 1 && $default_group->id != $_GET['group']) {
-                                    DB::getInstance()->update('groups', $default_group->id, [
-                                        'default_group' => false
-                                    ]);
-                                } else {
-                                    if (!$default_group && $default == 0) {
+                                    // If this is the new default group, update old default group
+                                    $default_group = Group::find('1', 'default_group');
+                                    if ($default_group && $default === 1 && $default_group->id !== $_GET['group']) {
+                                        DB::getInstance()->update('groups', $default_group->id, [
+                                            'default_group' => false
+                                        ]);
+                                    } else if (!$default_group && $default === 0) {
                                         $default = 1;
                                     }
+
+                                    if ($group->id === 2) {
+                                        $staff_cp = 1;
+                                    } else {
+                                        $staff_cp = Input::get('staffcp');
+                                    }
+
+                                    DB::getInstance()->update('groups', $_GET['group'], [
+                                        'name' => Input::get('groupname'),
+                                        'group_html' => Input::get('html'),
+                                        'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
+                                        'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
+                                        'admin_cp' => $staff_cp,
+                                        'staff' => Input::get('staff'),
+                                        'default_group' => $default,
+                                        'order' => Input::get('order'),
+                                        'force_tfa' => Input::get('tfa')
+                                    ]);
+
+                                    $cache->setCacheName('groups_tfa_' . $_GET['group']);
+                                    $cache->store('enabled', Input::get('tfa'));
+
+                                    Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
+                                    Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($_GET['group'])));
+                                } catch (Exception $e) {
+                                    $errors[] = $e->getMessage();
                                 }
-
-                                if ($group->id == 2) {
-                                    $staff_cp = 1;
-                                } else {
-                                    $staff_cp = Input::get('staffcp');
-                                }
-
-                                DB::getInstance()->update('groups', $_GET['group'], [
-                                    'name' => Input::get('groupname'),
-                                    'group_html' => Input::get('html'),
-                                    'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
-                                    'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-                                    'admin_cp' => $staff_cp,
-                                    'staff' => Input::get('staff'),
-                                    'default_group' => $default,
-                                    'order' => Input::get('order'),
-                                    'force_tfa' => Input::get('tfa')
-                                ]);
-
-                                $cache->setCache('groups_tfa_' . $_GET['group']);
-                                $cache->store('enabled', Input::get('tfa'));
-
-                                Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($_GET['group'])));
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
+                            } else {
+                                $errors = $validation->errors();
                             }
-                        } else {
-                            $errors = $validation->errors();
-                        }
-                    } else {
-                        if (Input::get('action') == 'delete') {
+                        } else if (Input::get('action') === 'delete') {
                             try {
-                                $default_group = Group::find(1, 'default_group');
+                                $default_group = Group::find("1", 'default_group');
 
                                 if ($default_group) {
-                                    if ($group->id == 2 || $default_group->id == Input::get('id') || $group->admin_cp == 1) {
+                                    if ($group->admin_cp === true || $default_group->id === Input::get('id')) {
                                         // Can't delete default group/admin group
                                         Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
                                     } else {
@@ -262,9 +276,10 @@ if (isset($_GET['action'])) {
                                 $errors[] = $e->getMessage();
                             }
                         }
+                    } else {
+                        $errors[] = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $errors[] = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -313,85 +328,72 @@ if (isset($_GET['action'])) {
 
             if (Input::exists()) {
                 $errors = [];
-                if (Token::check()) {
-                    if (Input::get('action') == 'update') {
-                        $validation = Validate::check($_POST, [
-                            'groupname' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 2,
-                                Validate::MAX => 20
-                            ],
-                            'html' => [
-                                Validate::MAX => 1024
-                            ]
-                        ])->messages([
-                            'groupname' => [
-                                Validate::REQUIRED => $language->get('admin', 'group_name_required'),
-                                Validate::MIN => $language->get('admin', 'group_name_minimum'),
-                                Validate::MAX => $language->get('admin', 'group_name_maximum')
-                            ],
-                            'html' => $language->get('admin', 'html_maximum')
-                        ]);
+                try {
+                    if (Token::check()) {
+                        if (Input::get('action') === 'update') {
+                            $validation = getValidation($language);
 
-                        if ($validation->passed()) {
-                            try {
-                                if (isset($_POST['default']) && $_POST['default'] == 1) {
-                                    $default = 1;
-                                } else {
-                                    $default = 0;
-                                }
-
-                                // If this is the new default group, update old default group
-                                $default_group = Group::find(1, 'default_group');
-                                if (!$default_group && $default == 0) {
-                                    $default = 1;
-                                }
-
-                                DB::getInstance()->insert('groups', [
-                                    'name' => Input::get('groupname'),
-                                    'group_html' => Input::get('html'),
-                                    'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
-                                    'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
-                                    'admin_cp' => Input::get('staff'),
-                                    'staff' => Input::get('staff'),
-                                    'permissions' => $group->permissions,
-                                    'default_group' => $default,
-                                    'order' => Input::get('order'),
-                                    'force_tfa' => Input::get('tfa')
-                                ]);
-
-                                $group_id = DB::getInstance()->lastId();
-
-                                EventHandler::executeEvent('cloneGroup', [
-                                    'group_id' => $group_id,
-                                    'cloned_group_id' => $group->id,
-                                ]);
-
-                                if ($default == 1) {
-                                    if ($default_group && $default_group->id != $group_id) {
-                                        DB::getInstance()->update('groups', $default_group->id, [
-                                            'default_group' => false
-                                        ]);
+                            if ($validation->passed()) {
+                                try {
+                                    if (isset($_POST['default']) && $_POST['default'] === '1') {
+                                        $default = 1;
+                                    } else {
+                                        $default = 0;
                                     }
 
-                                    $cache->setCache('default_group');
-                                    $cache->store('default_group', $group_id);
+                                    // If this is the new default group, update old default group
+                                    $default_group = Group::find('1', 'default_group');
+                                    if (!$default_group && $default === 0) {
+                                        $default = 1;
+                                    }
+
+                                    DB::getInstance()->insert('groups', [
+                                        'name' => Input::get('groupname'),
+                                        'group_html' => Input::get('html'),
+                                        'group_username_color' => ($_POST['username_style'] ? Input::get('username_style') : null),
+                                        'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
+                                        'admin_cp' => Input::get('staff'),
+                                        'staff' => Input::get('staff'),
+                                        'permissions' => $group->permissions,
+                                        'default_group' => $default,
+                                        'order' => Input::get('order'),
+                                        'force_tfa' => Input::get('tfa')
+                                    ]);
+
+                                    $group_id = DB::getInstance()->lastId();
+
+                                    EventHandler::executeEvent('cloneGroup', [
+                                        'group_id' => $group_id,
+                                        'cloned_group_id' => $group->id,
+                                    ]);
+
+                                    if ($default === 1) {
+                                        if ($default_group && $default_group->id !== $group_id) {
+                                            DB::getInstance()->update('groups', $default_group->id, [
+                                                'default_group' => false
+                                            ]);
+                                        }
+
+                                        $cache->setCacheName('default_group');
+                                        $cache->store('default_group', $group_id);
+                                    }
+
+                                    $cache->setCacheName('groups_tfa_' . $group_id ?? '');
+                                    $cache->store('enabled', Input::get('tfa'));
+
+                                    Session::flash('admin_groups', $language->get('admin', 'group_cloned_successfully'));
+                                    Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group_id)));
+                                } catch (Exception $e) {
+                                    $errors[] = $e->getMessage();
                                 }
-
-                                $cache->setCache('groups_tfa_' . $group_id);
-                                $cache->store('enabled', Input::get('tfa'));
-
-                                Session::flash('admin_groups', $language->get('admin', 'group_cloned_successfully'));
-                                Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group_id)));
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
+                            } else {
+                                $errors = $validation->errors();
                             }
-                        } else {
-                            $errors = $validation->errors();
                         }
+                    } else {
+                        $errors[] = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $errors[] = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -399,7 +401,7 @@ if (isset($_GET['action'])) {
                 'GROUP_TITLE' => $language->get('admin', 'cloning_group', [
                     'group' => Output::getClean($group->name)
                 ]),
-                'GROUP_ID' => Output::getClean($group->id),
+                'GROUP_ID' => Output::getClean((string)$group->id),
                 'NAME' => $language->get('admin', 'name'),
                 'GROUP_HTML' => $language->get('admin', 'group_html'),
                 'GROUP_HTML_VALUE' => Output::getClean($group->group_html),
@@ -440,34 +442,37 @@ if (isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
-            if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
+            if ($group->id === 2 || ((in_array($group->id, $user->getAllGroupIds(), true)) && !$user->hasPermission('admincp.groups.self'))) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
             if (Input::exists()) {
                 $errors = [];
 
-                if (Token::check()) {
-                    // Token valid
-                    // Build new JSON object for permissions
-                    $perms = [];
-                    if (isset($_POST['permissions']) && count($_POST['permissions'])) {
-                        foreach ($_POST['permissions'] as $permission => $value) {
-                            $perms[$permission] = 1;
+                try {
+                    if (Token::check()) {
+                        // Token valid
+                        // Build new JSON object for permissions
+                        $perms = [];
+                        if (isset($_POST['permissions']) && count($_POST['permissions'])) {
+                            foreach ($_POST['permissions'] as $permission => $value) {
+                                $perms[$permission] = 1;
+                            }
                         }
-                    }
-                    $perms_json = json_encode($perms);
+                        $perms_json = json_encode($perms);
 
-                    try {
-                        DB::getInstance()->update('groups', $group->id, ['permissions' => $perms_json]);
+                        try {
+                            DB::getInstance()->update('groups', $group->id, ['permissions' => $perms_json]);
 
-                        Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
-                        Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)));
-                    } catch (Exception $e) {
-                        $errors[] = $e->getMessage();
+                            Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
+                            Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)));
+                        } catch (Exception $e) {
+                            $errors[] = $e->getMessage();
+                        }
+                    } else {
+                        $errors[] = $language->get('general', 'invalid_token');
                     }
-                } else {
-                    $errors[] = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -487,16 +492,19 @@ if (isset($_GET['action'])) {
 
         case 'order':
             // Get groups
-            if (isset($_POST['groups']) && Token::check($_POST['token'])) {
-                $groups = json_decode($_POST['groups'])->groups;
+            try {
+                if (isset($_POST['groups']) && Token::check($_POST['token'])) {
+                    $groups = json_decode($_POST['groups'], true)->groups;
 
-                $i = 1;
-                foreach ($groups as $item) {
-                    DB::getInstance()->update('groups', $item, [
-                        'order' => $i
-                    ]);
-                    $i++;
+                    $i = 1;
+                    foreach ($groups as $item) {
+                        DB::getInstance()->update('groups', $item, [
+                            'order' => $i
+                        ]);
+                        $i++;
+                    }
                 }
+            } catch (Exception $ignored) {
             }
             die('Complete');
         default:
@@ -506,11 +514,11 @@ if (isset($_GET['action'])) {
     $groups_template = [];
     foreach (Group::all() as $group) {
         $groups_template[] = [
-            'id' => Output::getClean($group->id),
+            'id' => Output::getClean((string)$group->id),
             'order' => $group->order,
             'name' => Output::getClean($group->name),
-            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
-            'clone_link' => URL::build('/panel/core/groups/', 'action=clone&group=' . urlencode($group->id)),
+            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode((string)$group->id)),
+            'clone_link' => URL::build('/panel/core/groups/', 'action=clone&group=' . urlencode((string)$group->id)),
             'users' => DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_users_groups WHERE group_id = ?', [$group->id])->first()->c,
             'staff' => $group->staff
         ];
@@ -567,4 +575,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

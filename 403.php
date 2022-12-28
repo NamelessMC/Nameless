@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,17 @@
  *  License: MIT
  *
  *  403 Forbidden page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Smarty $smarty
+ * @var array $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
@@ -38,4 +50,7 @@ $smarty->assign(
 );
 
 // Display template
-$template->displayTemplate('403.tpl', $smarty);
+try {
+    $template->displayTemplate('403.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

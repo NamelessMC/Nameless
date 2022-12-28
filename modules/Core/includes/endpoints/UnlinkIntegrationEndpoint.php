@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param string $integration The Integration Name
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
 
@@ -14,6 +15,13 @@ class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['integration']);
 
@@ -23,7 +31,7 @@ class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
         }
 
         $integration_user = $user->getIntegration($integration->getName());
-        if ($integration_user == null) {
+        if ($integration_user === null) {
             $api->throwError(CoreApiErrors::ERROR_INTEGRATION_NOT_LINKED);
         }
 

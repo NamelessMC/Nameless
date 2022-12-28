@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Template asset tree.
@@ -81,7 +82,7 @@ class AssetTree {
      */
     public const TINYMCE = 'TINYMCE';
     /**
-     * @var string TinyMCE Spoiler plugin. Used individually when posts will be shown but not created (home page for example)
+     * @var string TinyMCE Spoiler plugin. Used individually when posts will be shown but not created. (home page for example)
      */
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
     /**

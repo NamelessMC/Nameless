@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base for hook implementations
  *
@@ -7,13 +9,12 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-
 abstract class HookBase {
     /**
      * Ensure a set of parameters has all the required fields
      *
-     * @param array $params Array of parameters to check
-     * @param array $required_params Array of required parameter keys
+     * @param array<string, string> $params Array of parameters to check
+     * @param array<string, string> $required_params Array of required parameter keys
      *
      * @return bool Whether $params contains all of $required_params
      */

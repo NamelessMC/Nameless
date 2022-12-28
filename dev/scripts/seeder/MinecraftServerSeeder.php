@@ -1,12 +1,28 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class MinecraftServerSeeder extends Seeder {
 
+    /**
+     * @var string[]
+     */
     public array $tables = [
         'nl2_mc_servers',
     ];
 
-    // Disclaimer: These are randomly picked servers, not endorsements/opinionated.
+    /**
+     * These are randomly picked servers, not endorsements/opinionated.
+     *
+     * @var string[]
+     */
     private array $_mc_server_ips = [
         'hypixel.net',
         'us.mineplex.com',
@@ -15,6 +31,12 @@ class MinecraftServerSeeder extends Seeder {
         'server.minewind.com',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $default_id = $faker->randomElement([1, 2, 3, 4, 5]);
 

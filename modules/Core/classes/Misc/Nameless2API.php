@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * NamelessMC API v2 class
  *
@@ -10,9 +14,6 @@
  */
 class Nameless2API {
 
-    private DB $_db;
-    private Language $_language;
-
     public const ERROR_API_DISABLED = 'nameless:api_is_disabled';
     public const ERROR_UNKNOWN_ERROR = 'nameless:unknown_error';
     public const ERROR_NOT_AUTHORIZED = 'nameless:not_authorized';
@@ -23,6 +24,11 @@ class Nameless2API {
     public const ERROR_INVALID_POST_CONTENTS = 'nameless:invalid_post_contents';
     public const ERROR_INVALID_GET_CONTENTS = 'nameless:invalid_get_contents';
     public const ERROR_NO_SITE_UID = 'nameless:no_site_uid';
+    /**
+     * @var ?DB $_db ;
+     */
+    private static ?DB $_db;
+    private Language $_language;
 
     /**
      * Create an instance of the API class and forward the request to the Endpoints class.
@@ -33,7 +39,9 @@ class Nameless2API {
      */
     public function __construct(string $route, Language $api_language, Endpoints $endpoints) {
         try {
-            $this->_db = DB::getInstance();
+            if (!isset(self::$_db)) {
+                self::$_db = DB::getInstance();
+            }
 
             // Ensure API is actually enabled
             if (!Util::getSetting('use_api')) {
@@ -60,6 +68,13 @@ class Nameless2API {
     }
 
     /**
+     * @return ?DB The database instance
+     */
+    public function getDb(): ?DB {
+        return self::$_db;
+    }
+
+    /**
      * Throw an error to the client
      *
      * @param string $error The namespaced error code
@@ -75,10 +90,29 @@ class Nameless2API {
     }
 
     /**
-     * @return DB The database instance
+     * Return an array of data to the client.
+     *
+     * @param array $array Array of data to be returned
+     * @param int $status HTTP status code
+     * @return never
      */
-    public function getDb(): DB {
-        return $this->_db;
+    public function returnArray(array $array, int $status = 200): void {
+        http_response_code($status);
+
+        die(self::encodeJson($array));
+    }
+
+    /**
+     * Encode a value as json, with pretty printing enabled if DEBUGGING is defined.
+     * @param mixed $value Object to encode
+     * @return string|false JSON encoded string on success or false on failure.
+     */
+    private static function encodeJson($value) {
+        if (defined('DEBUGGING')) {
+            return json_encode($value, JSON_PRETTY_PRINT);
+        }
+
+        return json_encode($value);
     }
 
     /**
@@ -86,7 +120,9 @@ class Nameless2API {
      *
      * @param string $column The column to lookup
      * @param string $value The value to lookup in the specified column
+     *
      * @return User The resolved user
+     * @throws GuzzleException
      */
     public function getUser(string $column, string $value): User {
         $user = new User(Output::getClean($value), Output::getClean($column));
@@ -106,22 +142,9 @@ class Nameless2API {
     }
 
     /**
-     * Return an array of data to the client.
-     *
-     * @param array $array Array of data to be returned
-     * @param int $status HTTP status code
-     * @return never
-     */
-    public function returnArray(array $array, int $status = 200): void {
-        http_response_code($status);
-
-        die(self::encodeJson($array));
-    }
-
-    /**
      * Validate input data
      *
-     * @param array $input The input array
+     * @param array|null $input The input array
      * @param array $required_fields Array of required fields
      * @param string $type Whether to check `post` or `get` input
      * @return bool True if the input is valid, false if not
@@ -142,18 +165,4 @@ class Nameless2API {
         }
         return true;
     }
-
-    /**
-     * Encode a value as json, with pretty printing enabled if DEBUGGING is defined.
-     * @param mixed $value Object to encode
-     * @return string|false JSON encoded string on success or false on failure.
-     */
-    private static function encodeJson($value) {
-        if (defined('DEBUGGING')) {
-            return json_encode($value, JSON_PRETTY_PRINT);
-        }
-
-        return json_encode($value);
-    }
-
 }

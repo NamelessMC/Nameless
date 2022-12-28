@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base class templates should extend to add functionality.
  *
@@ -10,12 +12,12 @@
 abstract class TemplateBase {
 
     /**
-     * @var string The template name
+     * @var string The template name.
      */
     protected string $_name = '';
 
     /**
-     * @var string The template version
+     * @var string The template version.
      */
     protected string $_version = '';
 
@@ -25,7 +27,7 @@ abstract class TemplateBase {
     protected string $_nameless_version = '';
 
     /**
-     * @var string The template author name (supports HTML)
+     * @var string The template author name. (supports HTML)
      */
     protected string $_author = '';
 
@@ -46,6 +48,12 @@ abstract class TemplateBase {
      */
     protected array $_js = [];
 
+    /**
+     * @param string $name
+     * @param string $version
+     * @param string $nameless_version
+     * @param string $author
+     */
     public function __construct(string $name, string $version, string $nameless_version, string $author) {
         $this->_name = $name;
         $this->_version = $version;
@@ -57,10 +65,6 @@ abstract class TemplateBase {
      * Handle page loading.
      */
     abstract public function onPageLoad();
-
-    public function assets(): AssetResolver {
-        return $this->_assets_resolver ??= new AssetResolver();
-    }
 
     /**
      * Add list of CSS files to be loaded on each page load.
@@ -171,6 +175,8 @@ abstract class TemplateBase {
 
     /**
      * Render this template with Smarty engine.
+     *
+     * @throws SmartyException
      */
     public function displayTemplate(string $template, Smarty $smarty): void {
         [$css, $js] = $this->assets()->compile();
@@ -196,6 +202,14 @@ abstract class TemplateBase {
     }
 
     /**
+     *
+     * @return AssetResolver
+     */
+    public function assets(): AssetResolver {
+        return $this->_assets_resolver ??= new AssetResolver();
+    }
+
+    /**
      * Get all internal CSS styles.
      *
      * @return array Array of strings of CSS.
@@ -213,6 +227,10 @@ abstract class TemplateBase {
         return $this->_js;
     }
 
+    /**
+     *
+     * @throws SmartyException
+     */
     public function getTemplate(string $template, Smarty $smarty): string {
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),

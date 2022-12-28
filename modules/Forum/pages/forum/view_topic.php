@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,13 +8,30 @@
  *  License: MIT
  *
  *  View topic page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
+ * @var string $route
  */
 
 // Set the page name for the active link in navbar
+use GuzzleHttp\Exception\GuzzleException;
+
 const PAGE = 'forum';
 
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Get topic ID
 $tid = explode('/', $route);
@@ -44,7 +62,7 @@ if (!$list) {
 $topic = DB::getInstance()->get('topics', ['id', $tid])->results();
 $topic = $topic[0];
 
-if ($topic->deleted == 1) {
+if ($topic->deleted === '1') {
     require_once(ROOT_PATH . '/404.php');
     die();
 }
@@ -61,12 +79,10 @@ if ($user->isLoggedIn()) {
     $user_id = 0;
 }
 
-if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $user_groups)) {
-    // Only allow viewing stickied topics
-    if ($topic->sticky == 0) {
-        require_once(ROOT_PATH . '/403.php');
-        die();
-    }
+// Only allow viewing stickied topics
+if ($topic->topic_creator !== $user_id && $topic->sticky === '0' && !$forum->canViewOtherTopics($topic->forum_id, $user_groups)) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
 }
 
 // Get page
@@ -75,11 +91,13 @@ if (isset($_GET['p'])) {
         Redirect::to(URL::build('/forum'));
     }
 
-    if ($_GET['p'] <= 1) {
+    $page = (int)$_GET['p'];
+    if ($page <= 1) {
         // Avoid bug in pagination class
         Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)));
     }
-    $p = $_GET['p'];
+
+    $p = $page;
 } else {
     $p = 1;
 }
@@ -90,13 +108,13 @@ if (isset($_GET['pid'])) {
     if (count($posts)) {
         $i = 0;
         while ($i < count($posts)) {
-            if ($posts[$i]->id == $_GET['pid']) {
+            if ($posts[$i]->id === $_GET['pid']) {
                 $output = $i + 1;
                 break;
             }
             $i++;
         }
-        if (ceil($output / 10) != $p) {
+        if ((int)ceil($output / 10) !== $p) {
             Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
         } else {
             Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
@@ -110,29 +128,32 @@ if (isset($_GET['pid'])) {
 // Follow/unfollow
 if (isset($_GET['action'])) {
     if ($user->isLoggedIn()) {
-        if (Token::check($_POST['token'])) {
-            switch ($_GET['action']) {
-                case 'follow':
-                    $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', [$tid, $user->data()->id]);
-                    if (!$already_following->count()) {
-                        DB::getInstance()->insert('topics_following', [
-                            'topic_id' => $tid,
-                            'user_id' => $user->data()->id,
-                            'existing_alerts' => 0
-                        ]);
-                        Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
-                    }
-                    break;
-                case 'unfollow':
-                    $delete = DB::getInstance()->query('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', [$tid, $user->data()->id]);
-                    Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
-                    if (isset($_GET['return']) && $_GET['return'] == 'list') {
-                        Redirect::to(URL::build('/user/following_topics'));
-                    }
-                    break;
+        try {
+            if (Token::check($_POST['token'])) {
+                switch ($_GET['action']) {
+                    case 'follow':
+                        $already_following = DB::getInstance()->query('SELECT id FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', [$tid, $user->data()->id]);
+                        if (!$already_following->count()) {
+                            DB::getInstance()->insert('topics_following', [
+                                'topic_id' => $tid,
+                                'user_id' => $user->data()->id,
+                                'existing_alerts' => 0
+                            ]);
+                            Session::flash('success_post', $forum_language->get('forum', 'now_following_topic'));
+                        }
+                        break;
+                    case 'unfollow':
+                        $delete = DB::getInstance()->query('DELETE FROM nl2_topics_following WHERE topic_id = ? AND user_id = ?', [$tid, $user->data()->id]);
+                        Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
+                        if (isset($_GET['return']) && $_GET['return'] === 'list') {
+                            Redirect::to(URL::build('/user/following_topics'));
+                        }
+                        break;
+                }
+            } else {
+                Session::flash('failure_post', $language->get('general', 'invalid_token'));
             }
-        } else {
-            Session::flash('failure_post', $language->get('general', 'invalid_token'));
+        } catch (Exception $ignored) {
         }
     }
 
@@ -146,7 +167,7 @@ if (count($page_metadata)) {
     $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
     $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
-    define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
+    define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean((string)$p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 } else {
     $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/view_topic'])->results();
@@ -155,7 +176,7 @@ if (count($page_metadata)) {
         $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
         $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
 
-        define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
+        define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean((string)$p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
     }
 }
@@ -167,22 +188,25 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Get first post
 $first_post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$tid])->first();
 
-$topic_user = new User($topic->topic_creator);
+try {
+    $topic_user = new User((string)$topic->topic_creator);
+} catch (GuzzleException $ignored) {
+}
 
 $smarty->assign([
     'TOPIC_TITLE' => Output::getClean($topic->topic_title),
-    'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayname(),
-    'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayname(true),
+    'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayName(),
+    'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayName(true),
     'TOPIC_AUTHOR_PROFILE' => $topic_user->getProfileURL(),
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupStyle(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
-    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords($first_post->last_edited, $language) : null),
+    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $time_ago->inWords($first_post->last_edited, $language) : null),
     'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
 
 // Is there a label?
-if ($topic->label != 0) { // yes
+if ($topic->label !== '0') { // yes
     // Get label
     $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic->label])->results();
     if (count($label)) {
@@ -229,7 +253,7 @@ $posts = $forum->getPosts($tid);
 // Can the user post a reply in this topic?
 if ($user->isLoggedIn()) {
     // Topic locked?
-    if ($topic->locked == 0 || $forum->canModerateForum($topic->forum_id, $user_groups)) {
+    if ($topic->locked === '0' || $forum->canModerateForum($topic->forum_id, $user_groups)) {
         $can_reply = $forum->canPostReply($topic->forum_id, $user_groups);
     } else {
         $can_reply = false;
@@ -240,152 +264,164 @@ if ($user->isLoggedIn()) {
 
 // Quick reply
 if (Input::exists()) {
-    if (!$user->isLoggedIn() || !$can_reply) {
+    if (!$can_reply || !$user->isLoggedIn()) {
         Redirect::to(URL::build('/forum'));
     }
-    if (Token::check()) {
-        $validate = Validate::check($_POST, [
-            'content' => [
-                Validate::REQUIRED => true,
-                Validate::MIN => 2,
-                Validate::MAX => 50000
-            ]
-        ])->messages([
-            'content' => [
-                Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
-                Validate::MIN => $forum_language->get('forum', 'content_min_2'),
-                Validate::MAX => $forum_language->get('forum', 'content_max_50000')
-            ]
-        ]);
+    try {
+        if (Token::check()) {
+            try {
+                $validate = Validate::check($_POST, [
+                    'content' => [
+                        Validate::REQUIRED => true,
+                        Validate::MIN => 2,
+                        Validate::MAX => 50000
+                    ]
+                ])->messages([
+                    'content' => [
+                        Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+                        Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                        Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+                    ]
+                ]);
+            } catch (Exception $ignored) {
+            }
 
-        if ($validate->passed()) {
-            $content = Input::get('content');
+            if ($validate->passed()) {
+                $content = Input::get('content');
 
-            DB::getInstance()->insert('posts', [
-                'forum_id' => $topic->forum_id,
-                'topic_id' => $tid,
-                'post_creator' => $user->data()->id,
-                'post_content' => $content,
-                'post_date' => date('Y-m-d H:i:s'),
-                'created' => date('U')
-            ]);
+                DB::getInstance()->insert('posts', [
+                    'forum_id' => $topic->forum_id,
+                    'topic_id' => $tid,
+                    'post_creator' => $user->data()->id,
+                    'post_content' => $content,
+                    'post_date' => date('Y-m-d H:i:s'),
+                    'created' => date('U')
+                ]);
 
-            // Get last post ID
-            $last_post_id = DB::getInstance()->lastId();
-            $content = EventHandler::executeEvent('prePostCreate', [
-                'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
-                'content' => $content,
-                'user' => $user,
-            ])['content'];
+                // Get last post ID
+                $last_post_id = DB::getInstance()->lastId();
+                $content = EventHandler::executeEvent('prePostCreate', [
+                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayName()],
+                    'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
+                    'content' => $content,
+                    'user' => $user,
+                ])['content'];
 
-            DB::getInstance()->update('posts', $last_post_id, [
-                'post_content' => $content
-            ]);
+                DB::getInstance()->update('posts', $last_post_id, [
+                    'post_content' => $content
+                ]);
 
-            DB::getInstance()->update('forums', $topic->forum_id, [
-                'last_topic_posted' => $tid,
-                'last_user_posted' => $user->data()->id,
-                'last_post_date' => date('U')
-            ]);
-            DB::getInstance()->update('topics', $tid, [
-                'topic_last_user' => $user->data()->id,
-                'topic_reply_date' => date('U')
-            ]);
+                DB::getInstance()->update('forums', $topic->forum_id, [
+                    'last_topic_posted' => $tid,
+                    'last_user_posted' => $user->data()->id,
+                    'last_post_date' => date('U')
+                ]);
+                DB::getInstance()->update('topics', $tid, [
+                    'topic_last_user' => $user->data()->id,
+                    'topic_reply_date' => date('U')
+                ]);
 
-            // Execute hooks and pass $available_hooks
-            // TODO: This gets hooks only for this specific forum, not any of its parents...
-            $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
-            $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
-            $available_hooks = json_decode($available_hooks[0]->hooks);
-            EventHandler::executeEvent('topicReply', [
-                'user_id' => $user->data()->id,
-                'username' => $user->data()->username,
-                'nickname' => $user->data()->nickname,
-                'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
-                    'topic' => $topic->topic_title,
-                    'author' => $user->getDisplayname(),
-                ]),
-                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
-                'avatar_url' => $user->getAvatar(128, true),
-                'title' => $topic->topic_title,
-                'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
-                'topic_author_user_id' => $topic_user->data()->id,
-                'topic_author_username' => $topic_user->data()->username,
-                'topic_author_nickname' => $topic_user->data()->nickname,
-                'topic_id' => $tid,
-                'post_id' => $last_post_id,
-                'available_hooks' => $available_hooks === null ? [] : $available_hooks
-            ]);
+                // Execute hooks and pass $available_hooks
+                // TODO: This gets hooks only for this specific forum, not any of its parents...
+                try {
+                    $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
+                } catch (Exception $ignored) {
+                }
+                $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
+                $available_hooks = json_decode($available_hooks[0]->hooks, true);
+                try {
+                    EventHandler::executeEvent('topicReply', [
+                        'user_id' => $user->data()->id,
+                        'username' => $user->data()->username,
+                        'nickname' => $user->data()->nickname,
+                        'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
+                            'topic' => $topic->topic_title,
+                            'author' => $user->getDisplayName(),
+                        ]),
+                        'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
+                        'avatar_url' => $user->getAvatar(128, true),
+                        'title' => $topic->topic_title,
+                        'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
+                        'topic_author_user_id' => $topic_user->data()->id,
+                        'topic_author_username' => $topic_user->data()->username,
+                        'topic_author_nickname' => $topic_user->data()->nickname,
+                        'topic_id' => $tid,
+                        'post_id' => $last_post_id,
+                        'available_hooks' => $available_hooks ?? []
+                    ]);
+                } catch (GuzzleException $ignored) {
+                }
 
-            // Alerts + Emails
-            $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
-            if (count($users_following)) {
-                $users_following_info = [];
-                foreach ($users_following as $user_following) {
-                    if ($user_following->user_id != $user->data()->id) {
-                        if ($user_following->existing_alerts == 0) {
-                            Alert::create(
-                                $user_following->user_id,
-                                'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
-                            );
-                            DB::getInstance()->update('topics_following', $user_following->id, [
-                                'existing_alerts' => 1
+                // Alerts + Emails
+                $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
+                if (count($users_following)) {
+                    $users_following_info = [];
+                    foreach ($users_following as $user_following) {
+                        if ($user_following->user_id !== $user->data()->id) {
+                            if ($user_following->existing_alerts === '0') {
+                                Alert::create(
+                                    $user_following->user_id,
+                                    'new_reply',
+                                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                    URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+                                );
+                                DB::getInstance()->update('topics_following', $user_following->id, [
+                                    'existing_alerts' => 1
+                                ]);
+                            }
+                            $user_info = DB::getInstance()->get('users', ['id', $user_following->user_id])->results();
+                            if ($user_info[0]->topic_updates) {
+                                $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
+                            }
+                        }
+                    }
+                    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
+                    $html = file_get_contents($path);
+
+                    $message = str_replace(
+                        ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
+                        [
+                            Output::getClean(SITE_NAME),
+                            $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
+                            $language->get('emails', 'greeting'),
+                            $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
+                            rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                            $language->get('emails', 'thanks')
+                        ],
+                        $html
+                    );
+                    $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
+
+                    $reply_to = Email::getReplyTo();
+                    foreach ($users_following_info as $user_info) {
+                        $sent = Email::send(
+                            ['email' => $user_info['email'], 'name' => $user_info['username']],
+                            $subject,
+                            $message,
+                            $reply_to
+                        );
+
+                        if (isset($sent['error'])) {
+                            DB::getInstance()->insert('email_errors', [
+                                'type' => Email::FORUM_TOPIC_REPLY,
+                                'content' => $sent['error'],
+                                'at' => date('U'),
+                                'user_id' => ($user->data()->id)
                             ]);
                         }
-                        $user_info = DB::getInstance()->get('users', ['id', $user_following->user_id])->results();
-                        if ($user_info[0]->topic_updates) {
-                            $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
-                        }
                     }
                 }
-                $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
-                $html = file_get_contents($path);
-
-                $message = str_replace(
-                    ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
-                    [
-                        Output::getClean(SITE_NAME),
-                        $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
-                        $language->get('emails', 'greeting'),
-                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
-                        $language->get('emails', 'thanks')
-                    ],
-                    $html
-                );
-                $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
-
-                $reply_to = Email::getReplyTo();
-                foreach ($users_following_info as $user_info) {
-                    $sent = Email::send(
-                        ['email' => $user_info['email'], 'name' => $user_info['username']],
-                        $subject,
-                        $message,
-                        $reply_to
-                    );
-
-                    if (isset($sent['error'])) {
-                        DB::getInstance()->insert('email_errors', [
-                            'type' => Email::FORUM_TOPIC_REPLY,
-                            'content' => $sent['error'],
-                            'at' => date('U'),
-                            'user_id' => ($user->data()->id)
-                        ]);
-                    }
-                }
+                Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+                Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+            } else {
+                $error = $validate->errors();
             }
-            Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
-            Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
         } else {
-            $error = $validate->errors();
+            $error = [$language->get('general', 'invalid_token')];
         }
-    } else {
-        $error = [$language->get('general', 'invalid_token')];
+    } catch (Exception $ignored) {
     }
 }
 
@@ -395,16 +431,14 @@ if ($user->isLoggedIn()) {
 }
 
 // View count
-if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
+if ((defined('COOKIE_CHECK') && COOKIES_ALLOWED) || $user->isLoggedIn()) {
     if (!Cookie::exists('nl-topic-' . $tid)) {
         DB::getInstance()->increment('topics', $tid, 'topic_views');
         Cookie::put('nl-topic-' . $tid, 'true', 3600);
     }
-} else {
-    if (!Session::exists('nl-topic-' . $tid)) {
-        DB::getInstance()->increment('topics', $tid, 'topic_views');
-        Session::put('nl-topic-' . $tid, 'true');
-    }
+} else if (!Session::exists('nl-topic-' . $tid)) {
+    DB::getInstance()->increment('topics', $tid, 'topic_views');
+    Session::put('nl-topic-' . $tid, 'true');
 }
 
 if ($user->isLoggedIn()) {
@@ -430,32 +464,30 @@ $breadcrumbs = [
         'link' => URL::build('/forum/view/' . urlencode($forum_parent[0]->id) . '-' . $forum->titleToURL($forum_parent[0]->forum_title))
     ]
 ];
-if (!empty($parent_category) && $parent_category[0]->parent == 0) {
+if (!empty($parent_category) && $parent_category[0]->parent === '0') {
     // Category
     $breadcrumbs[] = [
         'id' => $parent_category[0]->id,
         'forum_title' => Output::getClean($parent_category[0]->forum_title),
         'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
     ];
-} else {
-    if (!empty($parent_category)) {
-        // Parent forum, get its category
+} else if (!empty($parent_category)) {
+    // Parent forum, get its category
+    $breadcrumbs[] = [
+        'id' => $parent_category[0]->id,
+        'forum_title' => Output::getClean($parent_category[0]->forum_title),
+        'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+    ];
+    $parent = false;
+    while (!$parent) {
+        $parent_category = DB::getInstance()->get('forums', ['id', $parent_category[0]->parent])->results();
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
             'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         ];
-        $parent = false;
-        while ($parent == false) {
-            $parent_category = DB::getInstance()->get('forums', ['id', $parent_category[0]->parent])->results();
-            $breadcrumbs[] = [
-                'id' => $parent_category[0]->id,
-                'forum_title' => Output::getClean($parent_category[0]->forum_title),
-                'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
-            ];
-            if ($parent_category[0]->parent == 0) {
-                $parent = true;
-            }
+        if ($parent_category[0]->parent === '0') {
+            $parent = true;
         }
     }
 }
@@ -485,24 +517,23 @@ if (isset($error) && count($error)) {
 // Display "new reply" button and "mod actions" if the user has access to them
 
 // Can the user post a reply?
-if ($user->isLoggedIn() && $can_reply) {
+if ($can_reply && $user->isLoggedIn()) {
     $smarty->assign('CAN_REPLY', true);
 
     // Is the topic locked?
-    if ($topic->locked != 1) { // Not locked
+    if ($topic->locked !== '1') { // Not locked
         $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
-    } else { // Locked
-        if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
-            // Can post anyway
-            $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
-        } else {
-            // Can't post
-            $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'topic_locked'));
-        }
+        // Locked
+    } else if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+        // Can post anyway
+        $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
+    } else {
+        // Can't post
+        $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'topic_locked'));
     }
 }
 
-if ($topic->locked == 1) {
+if ($topic->locked === '1') {
     $smarty->assign('LOCKED', true);
 }
 
@@ -512,7 +543,7 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
         'LOCK_URL' => URL::build('/forum/lock/', 'tid=' . urlencode($tid)),
-        'LOCK' => (($topic->locked == 1) ? $forum_language->get('forum', 'unlock_topic') : $forum_language->get('forum', 'lock_topic')),
+        'LOCK' => (($topic->locked === '1') ? $forum_language->get('forum', 'unlock_topic') : $forum_language->get('forum', 'lock_topic')),
         'MERGE_URL' => URL::build('/forum/merge/', 'tid=' . urlencode($tid)),
         'MERGE' => $forum_language->get('forum', 'merge_topic'),
         'DELETE_URL' => URL::build('/forum/delete/', 'tid=' . urlencode($tid)),
@@ -523,7 +554,7 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
         'MOVE_URL' => URL::build('/forum/move/', 'tid=' . urlencode($tid)),
         'MOVE' => $forum_language->get('forum', 'move_topic'),
         'STICK_URL' => URL::build('/forum/stick/', 'tid=' . urlencode($tid)),
-        'STICK' => (($topic->sticky == 1) ? $forum_language->get('forum', 'unstick_topic') : $forum_language->get('forum', 'stick_topic')),
+        'STICK' => (($topic->sticky === '1') ? $forum_language->get('forum', 'unstick_topic') : $forum_language->get('forum', 'stick_topic')),
         'MARK_AS_SPAM' => $language->get('moderator', 'mark_as_spam'),
         'CONFIRM_SPAM_POST' => $language->get('moderator', 'confirm_spam')
     ]);
@@ -553,7 +584,10 @@ $smarty->assign('PAGINATION', $pagination);
 $replies = [];
 // Display the correct number of posts
 foreach ($results->data as $n => $nValue) {
-    $post_creator = new User($nValue->post_creator);
+    try {
+        $post_creator = new User($nValue->post_creator);
+    } catch (GuzzleException $ignored) {
+    }
     if (!$post_creator->exists()) {
         continue;
     }
@@ -565,7 +599,7 @@ foreach ($results->data as $n => $nValue) {
     // Panel heading content
     $url = URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
 
-    if ($n != 0) {
+    if ((int)$n !== 0) {
         $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
     } else {
         $heading = Output::getClean($topic->topic_title);
@@ -584,25 +618,21 @@ foreach ($results->data as $n => $nValue) {
                 'URL' => URL::build('/forum/edit/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $forum_language->get('forum', 'edit')
             ];
-        } else {
-            if ($user->data()->id == $nValue->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
-                if ($topic->locked != 1) { // Can't edit if topic is locked
-                    $buttons['edit'] = [
-                        'URL' => URL::build('/forum/edit/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
-                        'TEXT' => $forum_language->get('forum', 'edit')
-                    ];
-                }
-            }
+        } else if ($topic->locked !== '1' && $user->data()->id === $nValue->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) { // Can't edit if topic is locked
+            $buttons['edit'] = [
+                'URL' => URL::build('/forum/edit/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'TEXT' => $forum_language->get('forum', 'edit')
+            ];
         }
 
         // Delete button
-        if ($user->data()->id != $nValue->post_creator && $moderate = $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+        if ($user->data()->id !== $nValue->post_creator && $moderate = $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             $buttons['spam'] = [
                 'URL' => URL::build('/forum/spam/'),
                 'TEXT' => $language->get('moderator', 'spam')
             ];
         }
-        if ($moderate || $user->data()->id == $nValue->post_creator) {
+        if ($moderate || $user->data()->id === $nValue->post_creator) {
             $buttons['delete'] = [
                 'URL' => URL::build('/forum/delete_post/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $language->get('general', 'delete'),
@@ -610,7 +640,7 @@ foreach ($results->data as $n => $nValue) {
             ];
         }
 
-        if ($user->data()->id != $nValue->post_creator) {
+        if ($user->data()->id !== $nValue->post_creator) {
             // Report button
             $buttons['report'] = [
                 'URL' => URL::build('/forum/report/'),
@@ -621,7 +651,7 @@ foreach ($results->data as $n => $nValue) {
 
         // Quote button
         if ($can_reply) {
-            if ($topic->locked != 1 || $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+            if ($topic->locked !== '1' || $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
                 $buttons['quote'] = [
                     'TEXT' => $forum_language->get('forum', 'quote')
                 ];
@@ -635,7 +665,7 @@ foreach ($results->data as $n => $nValue) {
     // User integrations
     $user_integrations = [];
     foreach ($post_creator->getIntegrations() as $key => $integrationUser) {
-        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+        if ($integrationUser->data()->username !== null && $integrationUser->data()->show_publicly) {
             $fields[] = [
                 'name' => Output::getClean($key),
                 'value' => Output::getClean($integrationUser->data()->username)
@@ -671,25 +701,29 @@ foreach ($results->data as $n => $nValue) {
                     $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
                     $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
 
-                    if ($reaction[0]->type == 2) {
+                    if ($reaction[0]->type === '2') {
                         $total_karma++;
-                    } else {
-                        if ($reaction[0]->type == 0) {
-                            $total_karma--;
-                        }
+                    } else if ($reaction[0]->type === '0') {
+                        $total_karma--;
                     }
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
 
-                $reaction_user = new User($item->user_given);
-                $post_reactions[$item->reaction_id]['users'][] = [
-                    'username' => $reaction_user->getDisplayname(true),
-                    'nickname' => $reaction_user->getDisplayname(),
-                    'style' => $reaction_user->getGroupStyle(),
-                    'avatar' => $reaction_user->getAvatar(),
-                    'profile' => $reaction_user->getProfileURL()
-                ];
+                try {
+                    $reaction_user = new User($item->user_given);
+                } catch (GuzzleException $ignored) {
+                }
+                try {
+                    $post_reactions[$item->reaction_id]['users'][] = [
+                        'username' => $reaction_user->getDisplayName(true),
+                        'nickname' => $reaction_user->getDisplayName(),
+                        'style' => $reaction_user->getGroupStyle(),
+                        'avatar' => $reaction_user->getAvatar(),
+                        'profile' => $reaction_user->getProfileURL()
+                    ];
+                } catch (GuzzleException $ignored) {
+                }
             }
         }
     }
@@ -699,47 +733,50 @@ foreach ($results->data as $n => $nValue) {
 
     // Get post date
     if (is_null($nValue->created)) {
-        $post_date_rough = $timeago->inWords($nValue->post_date, $language);
+        $post_date_rough = $time_ago->inWords($nValue->post_date, $language);
         $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords($nValue->created, $language);
+        $post_date_rough = $time_ago->inWords($nValue->created, $language);
         $post_date = date(DATE_FORMAT, $nValue->created);
     }
 
-    $replies[] = [
-        'url' => $url,
-        'heading' => $heading,
-        'id' => $nValue->id,
-        'user_id' => $post_creator->data()->id,
-        'avatar' => $post_creator->getAvatar(),
-        'integrations' => $user_integrations,
-        'username' => $post_creator->getDisplayname(),
-        'mcname' => $post_creator->getDisplayname(true),
-        'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
-        'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
-        'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
-        'user_title' => Output::getClean($post_creator->data()->user_title),
-        'profile' => $post_creator->getProfileURL(),
-        'user_style' => $post_creator->getGroupStyle(),
-        'user_groups' => $user_groups_html,
-        'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
-        'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
-        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
-        'user_registered_full' => date('d M Y', $post_creator->data()->joined),
-        'user_reputation' => $post_creator->data()->reputation,
-        'post_date_rough' => $post_date_rough,
-        'post_date' => $post_date,
-        'buttons' => $buttons,
-        'content' => $content,
-        'signature' => Output::getPurified(Text::renderEmojis($signature)),
-        'fields' => (empty($fields) ? [] : $fields),
-        'edited' => is_null($nValue->last_edited)
-            ? null
-            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
-        'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
-        'post_reactions' => $post_reactions,
-        'karma' => $total_karma
-    ];
+    try {
+        $replies[] = [
+            'url' => $url,
+            'heading' => $heading,
+            'id' => $nValue->id,
+            'user_id' => $post_creator->data()->id,
+            'avatar' => $post_creator->getAvatar(),
+            'integrations' => $user_integrations,
+            'username' => $post_creator->getDisplayName(),
+            'mcname' => $post_creator->getDisplayName(true),
+            'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $time_ago->inWords($post_creator->data()->last_online, $language)]),
+            'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
+            'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
+            'user_title' => Output::getClean($post_creator->data()->user_title),
+            'profile' => $post_creator->getProfileURL(),
+            'user_style' => $post_creator->getGroupStyle(),
+            'user_groups' => $user_groups_html,
+            'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
+            'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
+            'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $time_ago->inWords($post_creator->data()->joined, $language)]),
+            'user_registered_full' => date('d M Y', $post_creator->data()->joined),
+            'user_reputation' => $post_creator->data()->reputation,
+            'post_date_rough' => $post_date_rough,
+            'post_date' => $post_date,
+            'buttons' => $buttons,
+            'content' => $content,
+            'signature' => Output::getPurified(Text::renderEmojis($signature)),
+            'fields' => (empty($fields) ? [] : $fields),
+            'edited' => is_null($nValue->last_edited)
+                ? null
+                : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $time_ago->inWords($nValue->last_edited, $language)]),
+            'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
+            'post_reactions' => $post_reactions,
+            'karma' => $total_karma
+        ];
+    } catch (GuzzleException $ignored) {
+    }
 }
 
 $smarty->assign('REPLIES', $replies);
@@ -762,7 +799,7 @@ if ($user->isLoggedIn()) {
     if ($is_user_following->count()) {
         $is_user_following = $is_user_following->first();
 
-        if ($is_user_following->existing_alerts == 1) {
+        if ($is_user_following->existing_alerts === '1') {
             DB::getInstance()->update('topics_following', $is_user_following->id, [
                 'existing_alerts' => 0
             ]);
@@ -786,9 +823,9 @@ $smarty->assign('REACTIONS_TEXT', $language->get('user', 'reactions'));
 $content = null;
 
 // Quick reply
-if ($user->isLoggedIn() && $can_reply) {
-    if ($forum->canModerateForum($forum_parent[0]->id, $user_groups) || $topic->locked != 1) {
-        if ($topic->locked == 1) {
+if ($can_reply && $user->isLoggedIn()) {
+    if ($topic->locked !== '1' || $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+        if ($topic->locked === '1') {
             $smarty->assign('TOPIC_LOCKED_NOTICE', $forum_language->get('forum', 'topic_locked_notice'));
         }
 
@@ -801,10 +838,8 @@ if ($user->isLoggedIn() && $can_reply) {
             'SUBMIT' => $language->get('general', 'submit')
         ]);
     }
-} else {
-    if ($topic->locked == 1) {
-        $smarty->assign('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
-    }
+} else if ($topic->locked === '1') {
+    $smarty->assign('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
 }
 
 // Assign Smarty language variables
@@ -816,7 +851,7 @@ $smarty->assign([
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
     'STARTED_BY' => $forum_language->get('forum', 'started_by_x', [
-        'author' => '<a href="' . $topic_user->getProfileURL() . '" style="' . $topic_user->getGroupStyle() . '">' . $topic_user->getDisplayname() . '</a>',
+        'author' => '<a href="' . $topic_user->getProfileURL() . '" style="' . $topic_user->getGroupStyle() . '">' . $topic_user->getDisplayName() . '</a>',
     ]),
     'SUCCESS' => $language->get('general', 'success'),
     'ERROR' => $language->get('general', 'error')
@@ -950,4 +985,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/view_topic.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/view_topic.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr10
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel images page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.images')) {
@@ -22,24 +35,24 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Reset background
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'reset_banner') {
-        $cache->setCache('backgroundcache');
+    if ($_GET['action'] === 'reset_banner') {
+        $cache->setCacheName('backgroundcache');
         $cache->store('banner_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
     }
 
-    if ($_GET['action'] == 'reset_logo') {
-        $cache->setCache('backgroundcache');
+    if ($_GET['action'] === 'reset_logo') {
+        $cache->setCacheName('backgroundcache');
         $cache->store('logo_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
     }
 
-    if ($_GET['action'] == 'reset_favicon') {
-        $cache->setCache('backgroundcache');
+    if ($_GET['action'] === 'reset_favicon') {
+        $cache->setCacheName('backgroundcache');
         $cache->store('favicon_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
@@ -50,32 +63,31 @@ if (isset($_GET['action'])) {
 // Deal with input
 if (Input::exists()) {
     // Check token
-    if (Token::check()) {
-        // Valid token
-        $cache->setCache('backgroundcache');
+    try {
+        if (Token::check()) {
+            // Valid token
+            $cache->setCacheName('backgroundcache');
 
-        if (isset($_POST['banner'])) {
-            $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
+            if (isset($_POST['banner'])) {
+                $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
 
-            Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
+                Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
 
-        } else {
-            if (isset($_POST['logo'])) {
+            } else if (isset($_POST['logo'])) {
                 $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
 
                 Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
 
-            } else {
-                if (isset($_POST['favicon'])) {
-                    $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
+            } else if (isset($_POST['favicon'])) {
+                $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
 
-                    Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
+                Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
 
-                }
             }
-        }
 
-        Redirect::to(URL::build('/panel/core/images'));
+            Redirect::to(URL::build('/panel/core/images'));
+        }
+    } catch (Exception $ignored) {
     }
 
     // Invalid token
@@ -104,15 +116,15 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get banner from cache
-$cache->setCache('backgroundcache');
-if (!$cache->isCached('banner_image')) {
+$cache->setCacheName('backgroundcache');
+if (!$cache->hasCashedData('banner_image')) {
     $cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     $banner_image = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg';
 } else {
     $banner_image = $cache->retrieve('banner_image');
 }
 
-if ($banner_image == '') {
+if ($banner_image === '') {
     $banner_img = $language->get('general', 'none');
 } else {
     $banner_img = Output::getClean($banner_image);
@@ -121,7 +133,7 @@ if ($banner_image == '') {
 // Get logo from cache
 $logo_image = $cache->retrieve('logo_image');
 
-if ($logo_image == '') {
+if ($logo_image === '') {
     $logo_img = $language->get('general', 'none');
 } else {
     $logo_img = Output::getClean($logo_image);
@@ -130,14 +142,14 @@ if ($logo_image == '') {
 // Get favicon from cache
 $favicon_image = $cache->retrieve('favicon_image');
 
-if ($favicon_image == '') {
+if ($favicon_image === '') {
     $favicon_img = $language->get('general', 'none');
 } else {
     $favicon_img = Output::getClean($favicon_image);
 }
 
 // Only display jpeg, png, jpg, gif
-$allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
+$allowed_extensions = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
 $images = scandir($image_path);
@@ -146,14 +158,14 @@ $template_banner_images = [];
 $n = 1;
 
 foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions, true)) {
         continue;
     }
     $template_banner_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image,
         'value' => $image,
-        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
+        'selected' => ($banner_image === (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
         'n' => $n
     ];
     $n++;
@@ -166,14 +178,14 @@ $logo_images = [];
 $n = 1;
 
 foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions, true)) {
         continue;
     }
     $logo_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image,
         'value' => $image,
-        'selected' => ($logo_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
+        'selected' => ($logo_image === (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
         'n' => $n
     ];
     $n++;
@@ -186,14 +198,14 @@ $favicon_images = [];
 $n = 1;
 
 foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions, true)) {
         continue;
     }
     $favicon_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image,
         'value' => $image,
-        'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image),
+        'selected' => ($favicon_image === (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image),
         'n' => $n
     ];
     $n++;
@@ -263,4 +275,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/images.tpl', $smarty);
+try {
+    $template->displayTemplate('core/images.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

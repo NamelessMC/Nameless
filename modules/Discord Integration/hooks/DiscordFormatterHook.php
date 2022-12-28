@@ -1,19 +1,24 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0 pre-13
- *
- *  Discord formatter hook
- */
+declare(strict_types=1);
 
+/**
+ * @package Modules\Core\Integrations
+ * @author Partydragen
+ * @version 2.0.0 pre-13
+ * @license MIT
+ */
 class DiscordFormatterHook extends HookBase {
 
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
     public static function format(array $params = []): array {
         $data = $params['data'];
         $format = $params['format'];
 
-        if ($data['event'] == 'registerUser') {
+        if ($data['event'] === 'registerUser') {
             $format['username'] = SITE_NAME;
             $format['content'] = '';
             $format['embeds'] = [[
@@ -26,7 +31,7 @@ class DiscordFormatterHook extends HookBase {
             ]];
 
             $params['format'] = $format;
-        } else if ($data['event'] == 'createAnnouncement') {
+        } else if ($data['event'] === 'createAnnouncement') {
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $data['message']));
             if (mb_strlen($content) > 512) {
                 $content = mb_substr($content, 0, 512) . '...';
@@ -40,7 +45,7 @@ class DiscordFormatterHook extends HookBase {
             ]];
 
             $params['format'] = $format;
-        } else if ($data['event'] == 'userGroupAdded') {
+        } else if ($data['event'] === 'userGroupAdded') {
             $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
@@ -48,7 +53,7 @@ class DiscordFormatterHook extends HookBase {
             ]];
 
             $params['format'] = $format;
-        } else if ($data['event'] == 'userGroupRemoved') {
+        } else if ($data['event'] === 'userGroupRemoved') {
             $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[

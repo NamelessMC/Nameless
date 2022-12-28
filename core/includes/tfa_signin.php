@@ -1,21 +1,31 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
- *  Two Factor Auth signin page
+ *  Two-Factor Auth signin page
+ *
+ * @var Language $language
+ * @var Smarty $smarty
+ * @var User $user
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var array $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
-// Two Factor Auth signin
+// Two-Factor Auth sign in
 if (isset($_POST['username'])) {
     $_SESSION['username'] = $_POST['username'];
-} else {
-    if (isset($_POST['email'])) {
-        $_SESSION['email'] = $_POST['email'];
-    }
+} else if (isset($_POST['email'])) {
+    $_SESSION['email'] = $_POST['email'];
 }
 
 $_SESSION['password'] = $_POST['password'];
@@ -46,4 +56,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('tfa.tpl', $smarty);
+try {
+    $template->displayTemplate('tfa.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

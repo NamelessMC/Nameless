@@ -44,7 +44,7 @@ $(function () {
     $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
     $('.ui.dropdown:not(.search):not(.upward)').dropdown();
-    $('.ui.dropdown.upward:not(.search)').dropdown({ direction: 'upward' });
+    $('.ui.dropdown.upward:not(.search)').dropdown({direction: 'upward'});
 
     $('[data-toggle="tooltip"]').popup({
         hoverable: true
@@ -75,8 +75,9 @@ $(function () {
 
 $(function () {
     const cachedUsers = {};
+    const dataPoload = $('*[data-poload]');
 
-    $('*[data-poload]').mouseenter(function () {
+    dataPoload.mouseenter(function () {
         const elem = this;
         $.get(
             $(elem).data('poload'),
@@ -98,11 +99,13 @@ $(function () {
         );
     });
 
-    $('*[data-poload]').popup({
+    dataPoload.popup({
         hoverable: true,
         html: '<i class="circle notch loading icon"></i>',
-        delay: { show: 500, hide: 200 },
-        onShow: function (e) { this.html(cachedUsers[$(e).data('poload')].html) }
+        delay: {show: 500, hide: 200},
+        onShow: function (e) {
+            this.html(cachedUsers[$(e).data('poload')].html)
+        }
     });
 
     const timezone = document.getElementById('timezone');

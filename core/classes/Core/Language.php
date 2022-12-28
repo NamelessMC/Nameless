@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+use samerton\i18next\i18next;
+
 /**
  * Provides utilities for retrieving/handling language strings.
  *
@@ -7,13 +11,10 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-
-use samerton\i18next\i18next;
-
 class Language {
 
     /**
-     * @var array Metadata about different languages available
+     * @var array Metadata about different languages available.
      */
     public const LANGUAGES = [
         'zh_TW' => [
@@ -162,29 +163,12 @@ class Language {
     private i18next $_i18n;
 
     /**
-     * Return the current active language code.
-     *
-     * @return string Active language name.
-     */
-    public function getActiveLanguage(): string {
-        return $this->_activeLanguage;
-    }
-
-    /**
-     * Return the path to the active language file.
-     *
-     * @return string Active language path.
-     */
-    public function getActiveLanguageFile(): string {
-        return $this->_activeLanguageFile;
-    }
-
-    /**
      * Construct Language class
      *
      * @param string $module Path to the custom language files to use, "core" by default for builtin language files.
      * @param string|null $active_language The translation to use.
-     * @throws RuntimeException If the language file cannot be found.
+     *
+     * @throws RuntimeException|Exception If the language file cannot be found.
      */
     public function __construct(string $module = 'core', string $active_language = null) {
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
@@ -216,11 +200,66 @@ class Language {
     }
 
     /**
+     * Attempt to get a language code from browser headers for setting an automatic language for guests.
+     * If the Intl extension is loaded, it uses the builtin <code>Locale::acceptFromHttp(...)</code> method.
+     *
+     * @param string $header <code>HTTP_ACCEPT_LANGUAGE</code> header.
+     *
+     * @return false|string The browsers preferred language, or false if there is no valid-preferred language.
+     */
+    public static function acceptFromHttp(string $header) {
+        // If the Intl extension is enabled, use the Locale::acceptFromHttp class
+        if (
+            extension_loaded('intl') &&
+            class_exists(Locale::class) &&
+            method_exists(Locale::class, 'acceptFromHttp')
+        ) {
+            return Locale::acceptFromHttp($header);
+        }
+
+        $prefLocales = array_reduce(
+            explode(',', $header),
+            static function ($res, $el) {
+                [$lang, $weight] = array_merge(explode(';q=', $el), [1]);
+                $res[$lang] = (float)$weight;
+                return $res;
+            }, []
+        );
+
+        foreach ($prefLocales as $locale) {
+            if (array_key_exists($locale, self::LANGUAGES)) {
+                return $locale;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the current active language code.
+     *
+     * @return string Active language name.
+     */
+    public function getActiveLanguage(): string {
+        return $this->_activeLanguage;
+    }
+
+    /**
+     * Return the path to the active language file.
+     *
+     * @return string Active language path.
+     */
+    public function getActiveLanguageFile(): string {
+        return $this->_activeLanguageFile;
+    }
+
+    /**
      * Return a term in the currently active language
      *
      * @param string $section Section name.
      * @param ?string $term The term to translate.
      * @param array $variables Any variables to pass through to the translation.
+     *
      * @return string Translated phrase.
      */
     public function get(string $section, ?string $term = null, array $variables = []): string {
@@ -267,41 +306,6 @@ class Language {
         $json[$section . '/' . $term] = $value;
 
         ksort($json);
-        file_put_contents($this->_activeLanguageFile, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
-    }
-
-    /**
-     * Attempt to get a language code from browser headers for setting an automatic language for guests.
-     * If the Intl extension is loaded, it uses the builtin <code>Locale::acceptFromHttp(...)</code> method.
-     *
-     * @param string $header <code>HTTP_ACCEPT_LANGUAGE</code> header.
-     * @return false|string The browsers preferred language, or false if there is no valid preferred language.
-     */
-    public static function acceptFromHttp(string $header) {
-        // If the Intl extension is enabled, use the Locale::acceptFromHttp class
-        if (
-            extension_loaded('intl') &&
-            class_exists(Locale::class) &&
-            method_exists(Locale::class, 'acceptFromHttp')
-        ) {
-            return Locale::acceptFromHttp($header);
-        }
-
-        $prefLocales = array_reduce(
-            explode(',', $header),
-            static function ($res, $el) {
-                [$lang, $weight] = array_merge(explode(';q=', $el), [1]);
-                $res[$lang] = (float) $weight;
-                return $res;
-            }, []
-        );
-
-        foreach ($prefLocales as $locale) {
-            if (array_key_exists($locale, self::LANGUAGES)) {
-                return $locale;
-            }
-        }
-
-        return false;
+        file_put_contents($this->_activeLanguageFile, json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 }

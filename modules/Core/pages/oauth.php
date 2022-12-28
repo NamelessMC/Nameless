@@ -1,9 +1,40 @@
 <?php
+declare(strict_types=1);
+
+/**
+ *  Made by Unknown
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.2
+ *
+ *  License: MIT
+ *
+ *  TODO: Add description
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $provider_name
+ * @var AccessToken $token
+ */
+
+use GuzzleHttp\Exception\GuzzleException;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use League\OAuth2\Client\Token\AccessToken;
+use RobThree\Auth\TwoFactorAuth;
 
 const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
+if (isset($_GET['action']) && $_GET['action'] === 'cancel_registration') {
     Session::delete('oauth_register_data');
     Redirect::to(URL::build('/register'));
 }
@@ -27,11 +58,14 @@ if (!Session::exists('oauth_method')) {
 }
 
 // If they are filling in 2FA. We've already retrieved their user. We can skip the other steps in this case
-if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
-    $user = new User($_SESSION['user_id']);
+if (isset($_SESSION['user_id'], $_POST['tfa_code'])) {
+    try {
+        $user = new User($_SESSION['user_id']);
+    } catch (GuzzleException $ignored) {
+    }
 
     // Continue the 2FA process
-    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+    $tfa = new TwoFactorAuth('NamelessMC');
     if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
         require(ROOT_PATH . '/core/includes/tfa_signin.php');
@@ -40,14 +74,17 @@ if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
     unset($_SESSION['user_id']);
 
     // Log the user in if 2FA passed
-    if ($user->login(
-        $user->data()->id,
-        '', true, 'oauth'
-    )) {
-        Log::getInstance()->log(Log::Action('user/login'));
-        Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
-        Session::delete('oauth_method');
-        Redirect::to(URL::build('/'));
+    try {
+        if ($user->login(
+            (string)$user->data()->id,
+            '', true, 'oauth'
+        )) {
+            Log::getInstance()->log(Log::Action('user/login'));
+            Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
+            Session::delete('oauth_method');
+            Redirect::to(URL::build('/'));
+        }
+    } catch (GuzzleException|Exception $ignored) {
     }
 }
 
@@ -57,20 +94,23 @@ try {
     $token = $provider->getAccessToken('authorization_code', [
         'code' => $_GET['code']
     ]);
-} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+} catch (IdentityProviderException $e) {
     Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
     ErrorHandler::logWarning('An error occurred while handling an OAuth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
 
     $method = Session::get('oauth_method');
-    switch($method) {
+    switch ($method) {
         case 'register':
             Redirect::to(URL::build('/register'));
+            break;
 
         case 'login':
             Redirect::to(URL::build('/login'));
+            break;
 
         case 'link':
             Redirect::to(URL::build('/user/oauth/'));
+            break;
 
         case 'link_integration':
             Redirect::to(URL::build('/user/connections/'));
@@ -105,7 +145,10 @@ if (Session::get('oauth_method') === 'login') {
     }
 
     $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
-    $user = new User($user_id);
+    try {
+        $user = new User($user_id);
+    } catch (GuzzleException $ignored) {
+    }
 
     // Make sure user is validated
     if (!$user->isValidated()) {
@@ -114,13 +157,13 @@ if (Session::get('oauth_method') === 'login') {
     }
 
     // Make sure user is not banned
-    if ($user->data()->isbanned == 1) {
+    if ($user->data()->isbanned === true) {
         Session::flash('oauth_error', $language->get('user', 'account_banned'));
         Redirect::to(URL::build('/login'));
     }
 
     // If the user has 2FA enabled, ask for those credentials
-    if ($user->data()->tfa_enabled == 1 && $user->data()->tfa_complete == 1) {
+    if ($user->data()->tfa_enabled === '1' && $user->data()->tfa_complete === '1') {
         $_SESSION['user_id'] = $user_id;
         if (!isset($_POST['tfa_code'])) {
             require(ROOT_PATH . '/core/includes/tfa_signin.php');
@@ -129,19 +172,22 @@ if (Session::get('oauth_method') === 'login') {
     }
 
     // Log the user in
-    if ((new User())->login(
-        NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
-        '', true, 'oauth'
-    )) {
-        Log::getInstance()->log(Log::Action('user/login'));
-        Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
-        Session::delete('oauth_method');
+    try {
+        if ((new User())->login(
+            NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
+            '', true, 'oauth'
+        )) {
+            Log::getInstance()->log(Log::Action('user/login'));
+            Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
+            Session::delete('oauth_method');
 
-        if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-            Redirect::back();
+            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) !== '=') {
+                Redirect::back();
+            }
+
+            Redirect::to(URL::build('/'));
         }
-
-        Redirect::to(URL::build('/'));
+    } catch (GuzzleException|Exception $ignored) {
     }
 
     throw new RuntimeException('Failed to login user with OAuth');
@@ -155,7 +201,7 @@ if (Session::get('oauth_method') === 'link') {
     }
 
     NamelessOAuth::getInstance()->saveUserProvider(
-        $user->data()->id,
+        (string)$user->data()->id,
         $provider_name,
         $provider_id,
     );
@@ -169,7 +215,7 @@ if (Session::get('oauth_method') === 'link') {
 // link user integration
 if (Session::get('oauth_method') === 'link_integration') {
     $integration = Integrations::getInstance()->getIntegration($provider_name);
-    if ($integration == null) {
+    if ($integration === null) {
         Session::flash('connections_error', $language->get('general', 'oauth_failed_setup'));
     }
 
@@ -184,10 +230,10 @@ if (Session::get('oauth_method') === 'link_integration') {
     // Link the user integration
     $integration->successfulRegistration($user);
 
-    // Link their oauth details if its not linked already
+    // Link their oauth details if it's not linked already
     if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         NamelessOAuth::getInstance()->saveUserProvider(
-            $user->data()->id,
+            (string)$user->data()->id,
             $provider_name,
             $provider_id,
         );

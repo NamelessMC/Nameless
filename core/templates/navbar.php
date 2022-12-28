@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,9 +8,17 @@
  *  License: MIT
  *
  *  Navbar generation
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Navigation $navigation
+ * @var Announcements $announcements
  */
 
 // User area - DEPRECATED, will be removed at some point
+use GuzzleHttp\Exception\GuzzleException;
+
 $user_area = [];
 $user_area_left = [];
 
@@ -22,14 +31,14 @@ if ($user->isLoggedIn()) {
         'link' => URL::build('/user'),
         'title' => $language->get('user', 'user_cp')
     ];
-    if (defined('PAGE') && PAGE == 'usercp') {
+    if (defined('PAGE') && PAGE === 'usercp') {
         $user_area['usercp']['active'] = true;
     }
 
     $user_area_left['account'] = [
         'target' => '',
         'link' => '',
-        'title' => $user->getDisplayname(),
+        'title' => $user->getDisplayName(),
         'items' => [
             'profile' => [
                 'link' => $user->getProfileURL(),
@@ -110,34 +119,37 @@ if ($user->isLoggedIn()) {
         ];
     }
 
-    $user_section['account'] = [
-        'title' => $user->getDisplayname(),
-        'icon' => '<img src="' . $user->getAvatar() . '">',
-        'link' => '',
-        'meta' => '',
-        'target' => '',
-        'items' => [
-            'profile' => [
-                'title' => $language->get('user', 'profile'),
-                'link' => $user->getProfileURL(),
-                'target' => '',
+    try {
+        $user_section['account'] = [
+            'title' => $user->getDisplayName(),
+            'icon' => '<img src="' . $user->getAvatar() . '">',
+            'link' => '',
+            'meta' => '',
+            'target' => '',
+            'items' => [
+                'profile' => [
+                    'title' => $language->get('user', 'profile'),
+                    'link' => $user->getProfileURL(),
+                    'target' => '',
+                ],
+                'user' => [
+                    'title' => $language->get('user', 'user_cp'),
+                    'link' => URL::build('/user'),
+                    'target' => '',
+                ],
+                'separator_1' => [
+                    'separator' => true
+                ],
+                'logout' => [
+                    'title' => $language->get('general', 'log_out'),
+                    'link' => URL::build('/logout'),
+                    'target' => '',
+                    'action' => 'logout',
+                ],
             ],
-            'user' => [
-                'title' => $language->get('user', 'user_cp'),
-                'link' => URL::build('/user'),
-                'target' => '',
-            ],
-            'separator_1' => [
-                'separator' => true
-            ],
-            'logout' => [
-                'title' => $language->get('general', 'log_out'),
-                'link' => URL::build('/logout'),
-                'target' => '',
-                'action' => 'logout',
-            ],
-        ],
-    ];
+        ];
+    } catch (GuzzleException $ignored) {
+    }
 } else {
     $user_area_left['account'] = [
         'target' => '',
@@ -179,7 +191,7 @@ if ($user->isLoggedIn()) {
 $smarty->assign([
     'NAVBAR_INVERSE' => '',
     'SITE_NAME' => Output::getClean(SITE_NAME),
-    'NAV_LINKS' => $navigation->returnNav('top'),
+    'NAV_LINKS' => $navigation->returnNav(),
     'USER_AREA' => $user_area,
     'USER_DROPDOWN' => $user_area_left,
     'USER_SECTION' => $user_section,

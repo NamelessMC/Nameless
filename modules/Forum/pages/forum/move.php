@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,20 @@
  *  License: MIT
  *
  *  Move a topic
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
  */
 
 const PAGE = 'forum';
@@ -28,15 +43,18 @@ $forum_id = $topic[0]->forum_id;
 $topic = $topic[0];
 
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
-    if (Input::exists()) {
-        if (Token::check()) {
-            $validation = Validate::check($_POST, [
-                'forum' => [
-                    Validate::REQUIRED => true
-                ]
-            ]);
+    try {
+        if (Input::exists() && Token::check()) {
+            try {
+                $validation = Validate::check($_POST, [
+                    'forum' => [
+                        Validate::REQUIRED => true
+                    ]
+                ]);
+            } catch (Exception $ignored) {
+            }
 
-            // Ensure forum we're moving to exists
+            // Ensure forum we're moving to exist
             $forum_moving_to = DB::getInstance()->get('forums', ['id', Input::get('forum')])->results();
             if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));
@@ -57,8 +75,8 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 Log::getInstance()->log(Log::Action('forums/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('forum')));
 
                 // Update latest posts in categories
-                $forum->updateForumLatestPosts(intval(Input::get('forum')));
-                if (Input::get('forum') != $forum_id) {
+                $forum->updateForumLatestPosts(Input::get('forum'));
+                if (Input::get('forum') !== $forum_id) {
                     $forum->updateForumLatestPosts($forum_id);
                 }
                 $forum->updateTopicLatestPosts($topic->id);
@@ -70,6 +88,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             }
             die();
         }
+    } catch (Exception $ignored) {
     }
 } else {
     Redirect::to(URL::build('/forum'));
@@ -145,4 +164,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/move.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/move.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

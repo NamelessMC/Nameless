@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel seo page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use SitemapPHP\Sitemap;
 
 if (!$user->handlePanelPageLoad('admincp.core.seo')) {
     require_once(ROOT_PATH . '/403.php');
@@ -20,7 +36,7 @@ const PANEL_PAGE = 'seo';
 $page_title = $language->get('admin', 'seo');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -30,7 +46,9 @@ if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
     if (!is_writable(ROOT_PATH . '/cache')) {
         $errors[] = $language->get('admin', 'cache_not_writable');
     } else {
-        mkdir(ROOT_PATH . '/cache/sitemaps');
+        if (!mkdir($concurrentDirectory = ROOT_PATH . '/cache/sitemaps') && !is_dir($concurrentDirectory)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+        }
         file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
     }
 }
@@ -38,64 +56,63 @@ if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
 if (!isset($_GET['metadata'])) {
     // Deal with input
     if (Input::exists()) {
-        if (Token::check(Input::get('token'))) {
-            if (Input::get('type') == 'sitemap') {
+        try {
+            if (Token::check(Input::get('token'))) {
+                if (Input::get('type') === 'sitemap') {
 
-                $sitemap = new \SitemapPHP\Sitemap(rtrim(URL::getSelfURL(), '/'));
-                $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
+                    $sitemap = new Sitemap(rtrim(URL::getSelfURL(), '/'));
+                    $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
-                $methods = $pages->getSitemapMethods();
-                foreach ($methods as $method) {
-                    if (!class_exists($method[0])) {
-                        $errors[] = $language->get('admin', 'unable_to_load_sitemap_file_x', ['file' => Output::getClean($method[0])]);
-                        continue;
+                    $methods = $pages->getSitemapMethods();
+                    foreach ($methods as $method) {
+                        if (!class_exists($method[0])) {
+                            $errors[] = $language->get('admin', 'unable_to_load_sitemap_file_x', ['file' => Output::getClean($method[0])]);
+                            continue;
+                        }
+
+                        $method($sitemap, $cache);
                     }
 
-                    $method($sitemap, $cache);
-                }
+                    $sitemap->createSitemapIndex(rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
 
-                $sitemap->createSitemapIndex(rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/');
+                    $cache->setCacheName('sitemap_cache');
+                    $cache->store('updated', date(DATE_FORMAT));
 
-                $cache->setCache('sitemap_cache');
-                $cache->store('updated', date(DATE_FORMAT));
-
-                $success = $language->get('admin', 'sitemap_generated');
-            } else {
-                if (Input::get('type') == 'google_analytics') {
+                    $success = $language->get('admin', 'sitemap_generated');
+                } else if (Input::get('type') === 'google_analytics') {
                     Util::setSetting('ga_script', Input::get('analyticsid'));
                     $success = $language->get('admin', 'seo_settings_updated_successfully');
                 }
+            } else {
+                $errors[] = $language->get('general', 'invalid_token');
             }
-        } else {
-            $errors[] = $language->get('general', 'invalid_token');
+        } catch (Exception $ignored) {
         }
     }
 
     if (!is_writable(ROOT_PATH . '/cache/sitemaps')) {
         $errors[] = $language->get('admin', 'sitemap_not_writable');
-    } else {
-        if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
-            $cache->setCache('sitemap_cache');
-            if ($cache->isCached('updated')) {
-                $updated = $cache->retrieve('updated');
-                $updated = $timeago->inWords($updated, $language);
-            } else {
-                $updated = $language->get('admin', 'unknown');
-            }
-
-            $smarty->assign([
-                'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', [
-                    'generatedAt' => Text::bold($updated)
-                ]),
-                'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
-                'SITEMAP_FULL_LINK' => rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
-                'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
-                'LINK' => $language->get('admin', 'sitemap_link')
-            ]);
-
+    } else if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
+        $cache->setCacheName('sitemap_cache');
+        if ($cache->hasCashedData('updated')) {
+            $updated = $cache->retrieve('updated');
+            $updated = $time_ago->inWords($updated, $language);
         } else {
-            $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
+            $updated = $language->get('admin', 'unknown');
         }
+
+        $smarty->assign([
+            'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', [
+                'generatedAt' => Text::bold($updated)
+            ]),
+            'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
+            'SITEMAP_FULL_LINK' => rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
+            'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
+            'LINK' => $language->get('admin', 'sitemap_link')
+        ]);
+
+    } else {
+        $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
     }
 
     $template_file = 'core/seo.tpl';
@@ -107,43 +124,46 @@ if (!isset($_GET['metadata'])) {
 
     $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $page['key']])->results();
     if (Input::exists()) {
-        if (Token::check(Input::get('token'))) {
-            if (isset($_POST['description'])) {
-                if (strlen($_POST['description']) > 500) {
-                    $errors[] = $language->get('admin', 'description_max_500');
+        try {
+            if (Token::check(Input::get('token'))) {
+                if (isset($_POST['description'])) {
+                    if (strlen($_POST['description']) > 500) {
+                        $errors[] = $language->get('admin', 'description_max_500');
+                    } else {
+                        $description = $_POST['description'];
+                    }
                 } else {
-                    $description = $_POST['description'];
+                    $description = null;
+                }
+
+                $keywords = $_POST['keywords'] ?? null;
+
+                if (!count($errors)) {
+                    if (count($page_metadata)) {
+                        $page_id = $page_metadata[0]->id;
+
+                        DB::getInstance()->update('page_descriptions', $page_id, [
+                            'description' => $description,
+                            'tags' => $keywords
+                        ]);
+
+                    } else {
+                        DB::getInstance()->insert('page_descriptions', [
+                            'page' => $page['key'],
+                            'description' => $description,
+                            'tags' => $keywords
+                        ]);
+                    }
+
+                    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $page['key']])->results();
+
+                    $success = $language->get('admin', 'metadata_updated_successfully');
+
                 }
             } else {
-                $description = null;
+                $errors[] = $language->get('general', 'invalid_token');
             }
-
-            $keywords = $_POST['keywords'] ?? null;
-
-            if (!count($errors)) {
-                if (count($page_metadata)) {
-                    $page_id = $page_metadata[0]->id;
-
-                    DB::getInstance()->update('page_descriptions', $page_id, [
-                        'description' => $description,
-                        'tags' => $keywords
-                    ]);
-
-                } else {
-                    DB::getInstance()->insert('page_descriptions', [
-                        'page' => $page['key'],
-                        'description' => $description,
-                        'tags' => $keywords
-                    ]);
-                }
-
-                $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $page['key']])->results();
-
-                $success = $language->get('admin', 'metadata_updated_successfully');
-
-            }
-        } else {
-            $errors[] = $language->get('general', 'invalid_token');
+        } catch (Exception $ignored) {
         }
     }
 
@@ -208,4 +228,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel Minecraft query errors page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.query_errors')) {
@@ -22,12 +35,15 @@ $page_title = $language->get('admin', 'query_errors');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['id'])) {
-    if (isset($_GET['action']) && $_GET['action'] == 'purge') {
-        if (Token::check()) {
-            DB::getInstance()->delete('query_errors', ['id', '<>', 0]);
-            Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
-        } else {
-            Session::flash('panel_query_errors_error', $language->get('general', 'invalid_token'));
+    if (isset($_GET['action']) && $_GET['action'] === 'purge') {
+        try {
+            if (Token::check()) {
+                DB::getInstance()->delete('query_errors', ['id', '<>', 0]);
+                Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
+            } else {
+                Session::flash('panel_query_errors_error', $language->get('general', 'invalid_token'));
+            }
+        } catch (Exception $ignored) {
         }
 
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
@@ -88,7 +104,7 @@ if (!isset($_GET['id'])) {
     }
     $query_error = $query_error[0];
 
-    if ($_GET['action'] == 'delete') {
+    if ($_GET['action'] === 'delete') {
         DB::getInstance()->delete('query_errors', ['id', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
@@ -169,4 +185,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

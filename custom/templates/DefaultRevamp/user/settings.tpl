@@ -6,29 +6,29 @@
 </h2>
 
 {if !empty($SUCCESS)}
-<div class="ui success icon message">
-    <i class="check icon"></i>
-    <div class="content">
-        <div class="header">{$SUCCESS_TITLE}</div>
-        {$SUCCESS}
+    <div class="ui success icon message">
+        <i class="check icon"></i>
+        <div class="content">
+            <div class="header">{$SUCCESS_TITLE}</div>
+            {$SUCCESS}
+        </div>
     </div>
-</div>
 {/if}
 
 {if (isset($ERRORS) || isset($ERROR))}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <ul class="list">
-            {foreach from=$ERRORS item=error}
-            <li>{$error}</li>
-            {/foreach}
-            {if isset($ERROR)}
-            <li>{$ERROR}</li>
-            {/if}
-        </ul>
+    <div class="ui error icon message">
+        <i class="x icon"></i>
+        <div class="content">
+            <ul class="list">
+                {foreach from=$ERRORS item=error}
+                    <li>{$error}</li>
+                {/foreach}
+                {if isset($ERROR)}
+                    <li>{$ERROR}</li>
+                {/if}
+            </ul>
+        </div>
     </div>
-</div>
 {/if}
 
 <div class="ui stackable grid" id="user-settings">
@@ -41,88 +41,91 @@
                 <h3 class="ui header">{$SETTINGS}</h3>
                 <form class="ui form" action="" method="post" id="form-user-settings">
                     {nocache}
-                    {foreach from=$PROFILE_FIELDS key=name item=field}
-                    <div class="field">
-                        {if !isset($field.disabled)}
-                        <label for="input{$field.id}">{$field.name}{if $field.required}<super style="color: red;">*
-                            </super>
-                            {/if}</label>
-                        {if $field.type == "text"}
-                        <input type="text" name="{if $name == 'nickname'}nickname{else}profile_fields[{$field.id}]{/if}"
-                            id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
-                        {elseif $field.type == "textarea"}
-                        <textarea name="profile_fields[{$field.id}]" id="input{$field.id}"
-                            placeholder="{$field.description}">{$field.value}</textarea>
-                        {elseif $field.type == "date"}
-                        <input type="date" name="profile_fields[{$field.id}]" id="input{$field.id}"
-                            value="{$field.value}">
+                        {foreach from=$PROFILE_FIELDS key=name item=field}
+                            <div class="field">
+                                {if !isset($field.disabled)}
+                                    <label for="input{$field.id}">{$field.name}{if $field.required}
+                                            <super style="color: red;">*
+                                            </super>
+                                        {/if}</label>
+                                    {if $field.type == "text"}
+                                        <input type="text"
+                                               name="{if $name == 'nickname'}nickname{else}profile_fields[{$field.id}]{/if}"
+                                               id="input{$field.id}" value="{$field.value}"
+                                               placeholder="{$field.description}">
+                                    {elseif $field.type == "textarea"}
+                                        <textarea name="profile_fields[{$field.id}]" id="input{$field.id}"
+                                                  placeholder="{$field.description}">{$field.value}</textarea>
+                                    {elseif $field.type == "date"}
+                                        <input type="date" name="profile_fields[{$field.id}]" id="input{$field.id}"
+                                               value="{$field.value}">
+                                    {/if}
+                                {/if}
+                            </div>
+                        {/foreach}
+                        {if isset($TOPIC_UPDATES)}
+                            <div class="field">
+                                <label for="inputTopicUpdates">{$TOPIC_UPDATES}</label>
+                                <select class="ui fluid dropdown" name="topicUpdates" id="inputTopicUpdates">
+                                    <option value="1" {if ($TOPIC_UPDATES_ENABLED==true)} selected {/if}>{$ENABLED}</option>
+                                    <option value="0" {if ($TOPIC_UPDATES_ENABLED==false)} selected {/if}>{$DISABLED}</option>
+                                </select>
+                            </div>
                         {/if}
+                        {if isset($PRIVATE_PROFILE)}
+                            <div class="field">
+                                <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
+                                <select class="ui fluid dropdown" name="privateProfile" id="inputPrivateProfile">
+                                    <option value="1" {if ($PRIVATE_PROFILE_ENABLED==true)} selected {/if}>{$ENABLED}</option>
+                                    <option value="0" {if ($PRIVATE_PROFILE_ENABLED==false)} selected {/if}>{$DISABLED}</option>
+                                </select>
+                            </div>
                         {/if}
-                    </div>
-                    {/foreach}
-                    {if isset($TOPIC_UPDATES)}
-                    <div class="field">
-                        <label for="inputTopicUpdates">{$TOPIC_UPDATES}</label>
-                        <select class="ui fluid dropdown" name="topicUpdates" id="inputTopicUpdates">
-                            <option value="1" {if ($TOPIC_UPDATES_ENABLED==true)} selected {/if}>{$ENABLED}</option>
-                            <option value="0" {if ($TOPIC_UPDATES_ENABLED==false)} selected {/if}>{$DISABLED}</option>
-                        </select>
-                    </div>
-                    {/if}
-                    {if isset($PRIVATE_PROFILE)}
-                    <div class="field">
-                        <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
-                        <select class="ui fluid dropdown" name="privateProfile" id="inputPrivateProfile">
-                            <option value="1" {if ($PRIVATE_PROFILE_ENABLED==true)} selected {/if}>{$ENABLED}</option>
-                            <option value="0" {if ($PRIVATE_PROFILE_ENABLED==false)} selected {/if}>{$DISABLED}</option>
-                        </select>
-                    </div>
-                    {/if}
-                    {if isset($CUSTOM_AVATARS)}
-                    <div class="field">
-                        <label for="inputGravatar">{$GRAVATAR}</label>
-                        <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">
-                            <option value="0" {if ($GRAVATAR_VALUE=='0' )} selected {/if}>{$DISABLED}</option>
-                            <option value="1" {if ($GRAVATAR_VALUE=='1' )} selected {/if}>{$ENABLED}</option>
-                        </select>
-                    </div>
-                    {/if}
-                    <div class="field">
-                        <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
-                        <select class="ui fluid dropdown" name="language" id="inputLanguage">
-                            {foreach from=$LANGUAGES item=language}
-                            <option value="{$language.name}" {if $language.active==true} selected{/if}>{$language.name}
-                            </option>
-                            {/foreach}
-                        </select>
-                    </div>
-                    {if count($TEMPLATES) > 1}
-                    <div class="field">
-                        <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
-                        <select class="ui fluid dropdown" name="template" id="inputTemplate">
-                            {foreach from=$TEMPLATES item=template}
-                            <option value="{$template.id}" {if $template.active==true} selected{/if}>{$template.name}
-                            </option>
-                            {/foreach}
-                        </select>
-                    </div>
-                    {/if}
-                    <div class="field">
-                        <label for="inputTimezone">{$TIMEZONE}</label>
-                        <select class="ui fluid dropdown" name="timezone" id="inputTimezone">
-                            {foreach from=$TIMEZONES key=KEY item=ITEM}
-                            <option value="{$KEY}" {if $SELECTED_TIMEZONE eq $KEY} selected{/if}>
-                                ({$ITEM.offset}) {$ITEM.name} &middot; ({$ITEM.time})
-                            </option>
-                            {/foreach}
-                        </select>
-                    </div>
-                    {if isset($SIGNATURE)}
-                    <div class="field">
-                        <label for="inputSignature">{$SIGNATURE}</label>
-                        <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
-                    </div>
-                    {/if}
+                        {if isset($CUSTOM_AVATARS)}
+                            <div class="field">
+                                <label for="inputGravatar">{$GRAVATAR}</label>
+                                <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">
+                                    <option value="0" {if ($GRAVATAR_VALUE=='0' )} selected {/if}>{$DISABLED}</option>
+                                    <option value="1" {if ($GRAVATAR_VALUE=='1' )} selected {/if}>{$ENABLED}</option>
+                                </select>
+                            </div>
+                        {/if}
+                        <div class="field">
+                            <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
+                            <select class="ui fluid dropdown" name="language" id="inputLanguage">
+                                {foreach from=$LANGUAGES item=language}
+                                    <option value="{$language.name}" {if $language.active==true} selected{/if}>{$language.name}
+                                    </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        {if count($TEMPLATES) > 1}
+                            <div class="field">
+                                <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
+                                <select class="ui fluid dropdown" name="template" id="inputTemplate">
+                                    {foreach from=$TEMPLATES item=template}
+                                        <option value="{$template.id}" {if $template.active==true} selected{/if}>{$template.name}
+                                        </option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        {/if}
+                        <div class="field">
+                            <label for="inputTimezone">{$TIMEZONE}</label>
+                            <select class="ui fluid dropdown" name="timezone" id="inputTimezone">
+                                {foreach from=$TIMEZONES key=KEY item=ITEM}
+                                    <option value="{$KEY}" {if $SELECTED_TIMEZONE eq $KEY} selected{/if}>
+                                        ({$ITEM.offset}) {$ITEM.name} &middot; ({$ITEM.time})
+                                    </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        {if isset($SIGNATURE)}
+                            <div class="field">
+                                <label for="inputSignature">{$SIGNATURE}</label>
+                                <textarea name="signature" id="inputSignature">{$SIGNATURE_VALUE}</textarea>
+                            </div>
+                        {/if}
                     {/nocache}
                     <input type="hidden" name="action" value="settings">
                     <input type="hidden" name="token" value="{$TOKEN}">
@@ -179,30 +182,30 @@
                 {/if}
             </div>
             {if isset($CUSTOM_AVATARS)}
-            <div class="ui segment">
-                <h3 class="ui header">{$UPLOAD_NEW_PROFILE_IMAGE}</h3>
-                <form class="ui form" action="{$CUSTOM_AVATARS_SCRIPT}" method="post" enctype="multipart/form-data"
-                    id="form-user-avatar">
-                    <div class="field">
-                        <label class="ui default button" display="inline block">
-                            {$BROWSE}
-                            <input type="file" name="file" hidden />
-                        </label>
-                    </div>
-                    <input type="hidden" name="type" value="avatar">
-                    <input type="hidden" name="token" value="{$TOKEN}">
-                    <input type="submit" class="ui primary button" value="{$SUBMIT}">
-                </form>
-            </div>
-                {if $HAS_CUSTOM_AVATAR}
                 <div class="ui segment">
-                    <h3 class="ui header">{$REMOVE_AVATAR}</h3>
-                    <form class="ui form" action="" method="post" id="form-reset-avatar">
-                        <input type="hidden" name="action" value="reset_avatar">
+                    <h3 class="ui header">{$UPLOAD_NEW_PROFILE_IMAGE}</h3>
+                    <form class="ui form" action="{$CUSTOM_AVATARS_SCRIPT}" method="post" enctype="multipart/form-data"
+                          id="form-user-avatar">
+                        <div class="field">
+                            <label class="ui default button" display="inline block">
+                                {$BROWSE}
+                                <input type="file" name="file" hidden/>
+                            </label>
+                        </div>
+                        <input type="hidden" name="type" value="avatar">
                         <input type="hidden" name="token" value="{$TOKEN}">
-                        <input type="submit" value="{$REMOVE}" class="ui red button">
+                        <input type="submit" class="ui primary button" value="{$SUBMIT}">
                     </form>
                 </div>
+                {if $HAS_CUSTOM_AVATAR}
+                    <div class="ui segment">
+                        <h3 class="ui header">{$REMOVE_AVATAR}</h3>
+                        <form class="ui form" action="" method="post" id="form-reset-avatar">
+                            <input type="hidden" name="action" value="reset_avatar">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <input type="submit" value="{$REMOVE}" class="ui red button">
+                        </form>
+                    </div>
                 {/if}
             {/if}
         </div>

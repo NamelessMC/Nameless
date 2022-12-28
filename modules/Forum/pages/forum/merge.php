@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,20 @@
  *  License: MIT
  *
  *  Merge two topics together
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
  */
 
 const PAGE = 'forum';
@@ -29,13 +44,16 @@ $forum_id = DB::getInstance()->query('SELECT forum_id FROM nl2_topics WHERE id =
 $forum_id = $forum_id->forum_id;
 
 if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
-    if (Input::exists()) {
-        if (Token::check()) {
-            $validation = Validate::check($_POST, [
-                'merge' => [
-                    Validate::REQUIRED => true
-                ]
-            ]);
+    try {
+        if (Input::exists() && Token::check()) {
+            try {
+                $validation = Validate::check($_POST, [
+                    'merge' => [
+                        Validate::REQUIRED => true
+                    ]
+                ]);
+            } catch (Exception $ignored) {
+            }
 
             $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
@@ -51,10 +69,10 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 Log::getInstance()->log(Log::Action('forums/merge'));
                 // Update latest posts in categories
                 $forum->updateForumLatestPosts($forum_id);
-                if ($newTopic->forum_id != $forum_id) {
+                if ($newTopic->forum_id !== $forum_id) {
                     $forum->updateForumLatestPosts($newTopic->forum_id);
                 }
-                $forum->updateTopicLatestPosts(intval(Input::get('merge')));
+                $forum->updateTopicLatestPosts(Input::get('merge'));
 
                 Redirect::to(URL::build('/forum/topic/' . urlencode(Input::get('merge'))));
 
@@ -63,6 +81,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             }
             die();
         }
+    } catch (Exception $ignored) {
     }
 } else {
     Redirect::to(URL::build('/forum'));
@@ -94,4 +113,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/merge.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/merge.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

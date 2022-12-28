@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel reactions page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
@@ -34,6 +47,42 @@ if (Session::exists('api_reactions_error')) {
     $smarty->assign([
         'ERRORS' => [Session::flash('api_reactions_error')],
         'ERRORS_TITLE' => $language->get('general', 'error')
+    ]);
+}
+
+/**
+ * Validate the POST (input) data.
+ *
+ * @param Language $language
+ *
+ * @return Validate
+ * @throws Exception
+ */
+function validateInput(Language $language): Validate {
+    return Validate::check($_POST, [
+        'name' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 1,
+            Validate::MAX => 16
+        ],
+        'html' => [
+            Validate::REQUIRED => true,
+            Validate::MIN => 1,
+            Validate::MAX => 255
+        ],
+        'type' => [
+            Validate::REQUIRED => true
+        ]
+    ])->messages([
+        'name' => [
+            Validate::REQUIRED => $language->get('admin', 'name_required'),
+            Validate::MAX => $language->get('admin', 'name_maximum_16')
+        ],
+        'html' => [
+            Validate::REQUIRED => $language->get('admin', 'html_required'),
+            Validate::MAX => $language->get('admin', 'html_maximum_255')
+        ],
+        'type' => $language->get('admin', 'type_required')
     ]);
 }
 
@@ -81,43 +130,22 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
     ]);
 
     $template_file = 'core/reactions.tpl';
-} else {
-    if (isset($_GET['action'])) {
-        switch ($_GET['action']) {
-            case 'new':
-                if (Input::exists()) {
-                    $errors = [];
+} else if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'new':
+            if (Input::exists()) {
+                $errors = [];
+                try {
                     if (Token::check()) {
                         // Validate input
-                        $validation = Validate::check($_POST, [
-                            'name' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 1,
-                                Validate::MAX => 16
-                            ],
-                            'html' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 1,
-                                Validate::MAX => 255
-                            ],
-                            'type' => [
-                                Validate::REQUIRED => true
-                            ]
-                        ])->messages([
-                            'name' => [
-                                Validate::REQUIRED => $language->get('admin', 'name_required'),
-                                Validate::MAX => $language->get('admin', 'name_maximum_16')
-                            ],
-                            'html' => [
-                                Validate::REQUIRED => $language->get('admin', 'html_required'),
-                                Validate::MAX => $language->get('admin', 'html_maximum_255')
-                            ],
-                            'type' => $language->get('admin', 'type_required')
-                        ]);
+                        try {
+                            $validation = validateInput($language);
+                        } catch (Exception $ignored) {
+                        }
 
                         if ($validation->passed()) {
                             // Check enabled status
-                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                            if (isset($_POST['enabled']) && $_POST['enabled'] === 'on') {
                                 $enabled = 1;
                             } else {
                                 $enabled = 0;
@@ -153,37 +181,40 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         // Invalid token
                         $errors[] = $language->get('general', 'token');
                     }
+                } catch (Exception $ignored) {
                 }
+            }
 
-                $smarty->assign([
-                    'CANCEL' => $language->get('general', 'cancel'),
-                    'CANCEL_LINK' => URL::build('/panel/core/reactions'),
-                    'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                    'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                    'YES' => $language->get('general', 'yes'),
-                    'NO' => $language->get('general', 'no'),
-                    'CREATING_REACTION' => $language->get('admin', 'creating_reaction'),
-                    'NAME' => $language->get('admin', 'name'),
-                    'NAME_VALUE' => Output::getClean(Input::get('name')),
-                    'HTML' => $language->get('admin', 'html'),
-                    'HTML_VALUE' => Output::getClean(Input::get('html')),
-                    'TYPE' => $language->get('admin', 'type'),
-                    'POSITIVE' => $language->get('admin', 'positive'),
-                    'NEGATIVE' => $language->get('admin', 'negative'),
-                    'NEUTRAL' => $language->get('admin', 'neutral'),
-                    'ENABLED' => $language->get('admin', 'enabled')
-                ]);
+            $smarty->assign([
+                'CANCEL' => $language->get('general', 'cancel'),
+                'CANCEL_LINK' => URL::build('/panel/core/reactions'),
+                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+                'YES' => $language->get('general', 'yes'),
+                'NO' => $language->get('general', 'no'),
+                'CREATING_REACTION' => $language->get('admin', 'creating_reaction'),
+                'NAME' => $language->get('admin', 'name'),
+                'NAME_VALUE' => Output::getClean(Input::get('name')),
+                'HTML' => $language->get('admin', 'html'),
+                'HTML_VALUE' => Output::getClean(Input::get('html')),
+                'TYPE' => $language->get('admin', 'type'),
+                'POSITIVE' => $language->get('admin', 'positive'),
+                'NEGATIVE' => $language->get('admin', 'negative'),
+                'NEUTRAL' => $language->get('admin', 'neutral'),
+                'ENABLED' => $language->get('admin', 'enabled')
+            ]);
 
-                $template_file = 'core/reactions_new.tpl';
+            $template_file = 'core/reactions_new.tpl';
 
-                break;
+            break;
 
-            case 'delete':
-                // Check reaction is specified
-                if (!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])) {
-                    Redirect::to(URL::build('/panel/core/reactions'));
-                }
+        case 'delete':
+            // Check reaction is specified
+            if (!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])) {
+                Redirect::to(URL::build('/panel/core/reactions'));
+            }
 
+            try {
                 if (Token::check($_POST['token'])) {
                     // Delete reaction
                     DB::getInstance()->delete('reactions', ['id', $_GET['reaction']]);
@@ -192,58 +223,41 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 } else {
                     Session::flash('api_reactions_error', $language->get('general', 'invalid_token'));
                 }
+            } catch (Exception $ignored) {
+            }
 
-                // Redirect
-                Redirect::to(URL::build('/panel/core/reactions'));
-
-            default:
-                Redirect::to(URL::build('/panel/core/reactions'));
-        }
-    } else {
-        // Get reaction
-        $reaction = DB::getInstance()->get('reactions', ['id', $_GET['id']])->results();
-        if (!count($reaction)) {
-            // Reaction doesn't exist
+            // Redirect
             Redirect::to(URL::build('/panel/core/reactions'));
-        }
+            break;
 
-        $reaction = $reaction[0];
+        default:
+            Redirect::to(URL::build('/panel/core/reactions'));
+    }
+} else {
+    // Get reaction
+    $reaction = DB::getInstance()->get('reactions', ['id', $_GET['id']])->results();
+    if (!count($reaction)) {
+        // Reaction doesn't exist
+        Redirect::to(URL::build('/panel/core/reactions'));
+    }
 
-        // Deal with input
-        if (Input::exists()) {
-            $errors = [];
+    $reaction = $reaction[0];
 
+    // Deal with input
+    if (Input::exists()) {
+        $errors = [];
+
+        try {
             if (Token::check()) {
                 // Validate input
-                $validation = Validate::check($_POST, [
-                    'name' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 1,
-                        Validate::MAX => 16
-                    ],
-                    'html' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 1,
-                        Validate::MAX => 255
-                    ],
-                    'type' => [
-                        Validate::REQUIRED => true
-                    ]
-                ])->messages([
-                    'name' => [
-                        Validate::REQUIRED => $language->get('admin', 'name_required'),
-                        Validate::MAX => $language->get('admin', 'name_maximum_16')
-                    ],
-                    'html' => [
-                        Validate::REQUIRED => $language->get('admin', 'html_required'),
-                        Validate::MAX => $language->get('admin', 'html_maximum_255')
-                    ],
-                    'type' => $language->get('admin', 'type_required')
-                ]);
+                try {
+                    $validation = validateInput($language);
+                } catch (Exception $ignored) {
+                }
 
                 if ($validation->passed()) {
                     // Check enabled status
-                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                    if (isset($_POST['enabled']) && $_POST['enabled'] === 'on') {
                         $enabled = 1;
                     } else {
                         $enabled = 0;
@@ -279,34 +293,35 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 // Invalid token
                 $errors[] = $language->get('general', 'invalid_token');
             }
+        } catch (Exception $ignored) {
         }
-
-        $smarty->assign([
-            'CANCEL' => $language->get('general', 'cancel'),
-            'CANCEL_LINK' => URL::build('/panel/core/reactions'),
-            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-            'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-            'YES' => $language->get('general', 'yes'),
-            'NO' => $language->get('general', 'no'),
-            'DELETE' => $language->get('general', 'delete'),
-            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction=' . urlencode($reaction->id)),
-            'CONFIRM_DELETE' => $language->get('admin', 'confirm_delete_reaction'),
-            'EDITING_REACTION' => $language->get('admin', 'editing_reaction'),
-            'NAME' => $language->get('admin', 'name'),
-            'NAME_VALUE' => Output::getClean($reaction->name),
-            'HTML' => $language->get('admin', 'html'),
-            'HTML_VALUE' => Output::getClean($reaction->html),
-            'TYPE' => $language->get('admin', 'type'),
-            'POSITIVE' => $language->get('admin', 'positive'),
-            'NEUTRAL' => $language->get('admin', 'neutral'),
-            'NEGATIVE' => $language->get('admin', 'negative'),
-            'TYPE_VALUE' => $reaction->type,
-            'ENABLED' => $language->get('admin', 'enabled'),
-            'ENABLED_VALUE' => $reaction->enabled
-        ]);
-
-        $template_file = 'core/reactions_edit.tpl';
     }
+
+    $smarty->assign([
+        'CANCEL' => $language->get('general', 'cancel'),
+        'CANCEL_LINK' => URL::build('/panel/core/reactions'),
+        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+        'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+        'YES' => $language->get('general', 'yes'),
+        'NO' => $language->get('general', 'no'),
+        'DELETE' => $language->get('general', 'delete'),
+        'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction=' . urlencode($reaction->id)),
+        'CONFIRM_DELETE' => $language->get('admin', 'confirm_delete_reaction'),
+        'EDITING_REACTION' => $language->get('admin', 'editing_reaction'),
+        'NAME' => $language->get('admin', 'name'),
+        'NAME_VALUE' => Output::getClean($reaction->name),
+        'HTML' => $language->get('admin', 'html'),
+        'HTML_VALUE' => Output::getClean($reaction->html),
+        'TYPE' => $language->get('admin', 'type'),
+        'POSITIVE' => $language->get('admin', 'positive'),
+        'NEUTRAL' => $language->get('admin', 'neutral'),
+        'NEGATIVE' => $language->get('admin', 'negative'),
+        'TYPE_VALUE' => $reaction->type,
+        'ENABLED' => $language->get('admin', 'enabled'),
+        'ENABLED_VALUE' => $reaction->enabled
+    ]);
+
+    $template_file = 'core/reactions_edit.tpl';
 }
 
 if (isset($errors) && count($errors)) {
@@ -331,4 +346,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

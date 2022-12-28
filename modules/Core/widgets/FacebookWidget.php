@@ -1,17 +1,20 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Facebook Widget
  *
- *  License: MIT
- *
- *  Facebook Widget
+ * @package Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class FacebookWidget extends WidgetBase {
 
+    /**
+     * @param Smarty $smarty
+     * @param string|null $fb_url
+     */
     public function __construct(Smarty $smarty, ?string $fb_url = '') {
         $this->_smarty = $smarty;
 
@@ -31,7 +34,7 @@ class FacebookWidget extends WidgetBase {
         $this->_content = '
             <div id="fb-root"></div>
             <script>(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
+                let js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) return;
                 js = d.createElement(s); js.id = id;
                 js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10";
@@ -41,6 +44,9 @@ class FacebookWidget extends WidgetBase {
             <div class="fb-page" data-href="' . Output::getClean($fb_url) . '" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="' . Output::getClean($fb_url) . '" class="fb-xfbml-parse-ignore"><a href="' . Output::getClean($fb_url) . '">' . Output::getClean(SITE_NAME) . '</a></blockquote></div>';
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         // Do nothing
     }

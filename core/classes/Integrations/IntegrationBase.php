@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base class integrations need to extend.
  *
@@ -7,39 +9,39 @@
  * @version 2.1.0
  * @license MIT
  */
-
 abstract class IntegrationBase {
 
-    private DB $_db;
-    private IntegrationData $_data;
+    /**
+     * @var ?DB $_db
+     */
+    private static ?DB $_db;
     protected string $_icon;
-    private array $_errors = [];
     protected Language $_language;
     protected ?string $_settings = null;
-
     protected string $_name;
     protected ?int $_order;
+    private IntegrationData $_data;
+    private array $_errors = [];
 
     public function __construct() {
-        $this->_db = DB::getInstance();
+        if (!isset(self::$_db)) {
+            self::$_db = DB::getInstance();
+        }
 
-        $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name]);
+        $integration = self::$_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name]);
         if ($integration->count()) {
             $integration = $integration->first();
-
-            $this->_data = new IntegrationData($integration);
-            $this->_order = $integration->order;
         } else {
             // Register integration to database
-            $this->_db->query('INSERT INTO nl2_integrations (name) VALUES (?)', [
+            self::$_db->query('INSERT INTO nl2_integrations (name) VALUES (?)', [
                 $this->_name
             ]);
 
-            $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
+            $integration = self::$_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
 
-            $this->_data = new IntegrationData($integration);
-            $this->_order = $integration->order;
         }
+        $this->_data = new IntegrationData($integration);
+        $this->_order = $integration->order;
     }
 
     /**
@@ -79,21 +81,21 @@ abstract class IntegrationBase {
     }
 
     /**
-     * Get the display order of this integration.
-     *
-     * @return int Display order of integration.
-     */
-    public function getOrder(): ?int {
-        return $this->_order;
-    }
-
-    /**
      * Get the integration data.
      *
      * @return IntegrationData This integration's data.
      */
     public function data(): IntegrationData {
         return $this->_data;
+    }
+
+    /**
+     * Get the display order of this integration.
+     *
+     * @return int Display order of integration.
+     */
+    public function getOrder(): ?int {
+        return $this->_order;
     }
 
     /**
@@ -156,21 +158,21 @@ abstract class IntegrationBase {
      * Validate username when it being linked or updated.
      *
      * @param string $username The username value to validate.
-     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
      */
-    abstract public function validateUsername(string $username, int $integration_user_id = 0): bool;
+    abstract public function validateUsername(string $username, string $integration_user_id = '0'): bool;
 
     /**
      * Validate identifier when it being linked or updated.
      *
      * @param string $identifier The identifier value to validate.
-     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
      */
-    abstract public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool;
+    abstract public function validateIdentifier(string $identifier, string $integration_user_id = '0'): bool;
 
     /**
      * Called when register page being loaded

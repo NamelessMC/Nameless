@@ -1,12 +1,14 @@
 <?php
+declare(strict_types=1);
 
 use DebugBar\DataCollector\ConfigCollector;
 use DebugBar\DataCollector\MemoryCollector;
+use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
 use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\DebugBar;
-use DebugBar\DataCollector\PDO\PDOCollector;
+use DebugBar\DebugBarException;
 use Junker\DebugBar\Bridge\SmartyCollector;
 
 /**
@@ -23,6 +25,7 @@ class DebugBarHelper extends Instanceable {
 
     /**
      * Enable the PHPDebugBar + add the PDO Collector
+     * @throws DebugBarException
      */
     public function enable(Smarty $smarty): void {
         $debugbar = new DebugBar();
@@ -47,6 +50,10 @@ class DebugBarHelper extends Instanceable {
         $this->_debugBar = $debugbar;
     }
 
+    /**
+     *
+     * @return DebugBar|null
+     */
     public function getDebugBar(): ?DebugBar {
         return $this->_debugBar;
     }

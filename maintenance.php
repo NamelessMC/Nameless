@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,17 @@
  *  License: MIT
  *
  *  Maintenance Mode page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var array $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 $pages = new Pages();
@@ -39,4 +51,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 $template->onPageLoad();
 
 // Display template
-$template->displayTemplate('maintenance.tpl', $smarty);
+try {
+    $template->displayTemplate('maintenance.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

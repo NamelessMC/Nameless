@@ -45,7 +45,9 @@
                             <div class="form-group custom-control custom-switch">
                                 <input type="hidden" name="premium" value="1">
                                 <input type="hidden" name="enable_premium_accounts" value="0">
-                                <input id="inputPremiumAccounts" name="enable_premium_accounts" type="checkbox" class="custom-control-input js-check-change" value="1" {if $FORCE_PREMIUM_ACCOUNTS_VALUE} checked{/if}/>
+                                <input id="inputPremiumAccounts" name="enable_premium_accounts" type="checkbox"
+                                       class="custom-control-input js-check-change"
+                                       value="1" {if $FORCE_PREMIUM_ACCOUNTS_VALUE} checked{/if}/>
                                 <label for="inputPremiumAccounts" class="custom-control-label">
                                     {$FORCE_PREMIUM_ACCOUNTS}
                                 </label>
@@ -53,17 +55,18 @@
                         </form>
 
                         {if $FORCE_PREMIUM_ACCOUNTS_VALUE}
-                            <hr />
+                            <hr/>
                             <div class="card shadow border-left-primary">
                                 <div class="card-body">
                                     <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
                                     {$MCASSOC_INFO}
                                 </div>
                             </div>
-                            <br />
+                            <br/>
                             <form action="" method="post">
                                 <div class="form-group custom-control custom-switch">
-                                    <input id="use_mcassoc" name="use_mcassoc" type="checkbox" class="custom-control-input" {if $USE_MCASSOC_VALUE} checked{/if}/>
+                                    <input id="use_mcassoc" name="use_mcassoc" type="checkbox"
+                                           class="custom-control-input" {if $USE_MCASSOC_VALUE} checked{/if}/>
                                     <label for="use_mcassoc" class="custom-control-label">
                                         {$USE_MCASSOC}
                                     </label>
@@ -78,7 +81,7 @@
                                     <input type="text" class="form-control" name="mcassoc_instance"
                                            id="mcassoc_instance" value="{$MCASSOC_INSTANCE_VALUE}"
                                            placeholder="{$MCASSOC_INSTANCE}">
-                                    <br />
+                                    <br/>
                                     <a href="#" onclick="generateInstance();">{$MCASSOC_INSTANCE_HELP}</a>
                                 </div>
                                 <div class="form-group">
@@ -111,15 +114,15 @@
 {include file='scripts.tpl'}
 
 <script type="text/javascript">
-  function generateInstance() {
-    var text = "";
-    var possible = "abcdef0123456789";
-    // thanks SO 1349426
-    for (var i = 0; i < 32; i++)
-      text += (possible.charAt(Math.floor(Math.random() * possible.length)));
+    function generateInstance() {
+        let text = "";
+        const possible = "abcdef0123456789";
+        // thanks, SO 1349426
+        for (let i = 0; i < 32; i++)
+            text += (possible.charAt(Math.floor(Math.random() * possible.length)));
 
-    document.getElementById("mcassoc_instance").setAttribute("value", text);
-  }
+        document.getElementById("mcassoc_instance").setAttribute("value", text);
+    }
 </script>
 
 </body>

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel debugging + errors page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.errors')) {
@@ -20,13 +33,16 @@ const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'error_logs');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
-    if (Token::check()) {
-        file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
-        Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
-        Redirect::to(URL::build('/panel/core/errors'));
-    } else {
-        Session::flash('error_log_error', $language->get('general', 'invalid_token'));
+if (isset($_GET['log'], $_GET['do']) && $_GET['do'] === 'purge') {
+    try {
+        if (Token::check()) {
+            file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
+            Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
+            Redirect::to(URL::build('/panel/core/errors'));
+        } else {
+            Session::flash('error_log_error', $language->get('general', 'invalid_token'));
+        }
+    } catch (Exception $ignored) {
     }
 }
 
@@ -68,7 +84,7 @@ if (isset($_GET['log'])) {
     }
 
     if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
+        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])) ?? '')));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
@@ -122,7 +138,13 @@ require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 if (!isset($_GET['log'])) {
-    $template->displayTemplate('core/errors.tpl', $smarty);
+    try {
+        $template->displayTemplate('core/errors.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 } else {
-    $template->displayTemplate('core/errors_view.tpl', $smarty);
+    try {
+        $template->displayTemplate('core/errors_view.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 }

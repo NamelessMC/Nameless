@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Allows classes to extend this to make singleton instances easily.
@@ -9,7 +10,6 @@
  * @license MIT
  */
 class Instanceable {
-
     /**
      * Stores instances of classes with their class name as key.
      *
@@ -22,9 +22,8 @@ class Instanceable {
      *
      * @return static Instance of the class this was called on.
      */
-    final public static function getInstance() {
-        /** @phpstan-ignore-next-line  */
+    final public static function getInstance(): Instanceable {
+        /** @phpstan-ignore-next-line */
         return self::$_instances[static::class] ??= new static();
     }
-
 }

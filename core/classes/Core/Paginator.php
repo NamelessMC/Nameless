@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Helps paginate data to an HTML table easily.
  *
@@ -72,7 +74,7 @@ class Paginator {
 
         $return = [];
 
-        for ($i = ($this->_page != 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++) {
+        for ($i = ($this->_page !== 1 ? (($this->_page - 1) * $limit) : 0); $i < ($this->_page * $limit); $i++) {
             if (!isset($data[$i])) {
                 break;
             }
@@ -96,12 +98,13 @@ class Paginator {
      *
      * @param int $links Number of links to be shown on each page.
      * @param string $href URL prefix to use when next page is clicked.
+     *
      * @return string Generated HTML to display in template.
      */
     public function generate(int $links, string $href = '?'): string {
         $href .= '&';
 
-        $last = ceil($this->_total / $this->_limit);
+        $last = (int)ceil($this->_total / $this->_limit);
 
         $start = (($this->_page - $links) > 0) ? $this->_page - $links : 1;
         $end = (($this->_page + $links) < $last) ? $this->_page + $links : $last;
@@ -113,14 +116,14 @@ class Paginator {
         }
 
         if (empty($this->_class['ul'])) {
-            $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
+            $class = str_replace('{x}', ($this->_page === 1 ? ' disabled ' : ''), ($this->_class['a']));
 
-            $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">' . $this->_leftContent . '</a>';
+            $html .= '<a class="' . $class . '" href="' . (($this->_page === 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">' . $this->_leftContent . '</a>';
         } else {
-            $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
+            $class = str_replace('{x}', ($this->_page === 1) ? ' disabled' : '', $this->_class['li']);
 
-            $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
-            if ($this->_page == 1) {
+            $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page === 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
+            if ($this->_page === 1) {
                 $html .= '#';
             } else {
                 $html .= $href . 'p=' . ($this->_page - 1);
@@ -140,11 +143,11 @@ class Paginator {
 
         for ($i = $start; $i <= $end; $i++) {
             if (empty($this->_class['ul'])) {
-                $class = str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']);
+                $class = str_replace('{x}', ($this->_page === $i) ? ' active ' : '', $this->_class['a']);
                 $html .= '<a class="' . $class . '" href="' . $href . 'p=' . $i . '">' . $i . '</a>';
             } else {
-                $class = str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['li']);
-                $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == $i) ? ' active ' : '', $this->_class['a']) . '" href="' . $href . 'p=' . $i . '">' . $i . '</a></li>';
+                $class = str_replace('{x}', ($this->_page === $i) ? ' active ' : '', $this->_class['li']);
+                $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page === $i) ? ' active ' : '', $this->_class['a']) . '" href="' . $href . 'p=' . $i . '">' . $i . '</a></li>';
             }
         }
 
@@ -159,10 +162,10 @@ class Paginator {
         }
 
         if (empty($this->_class['ul'])) {
-            $html .= '<a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page == $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">' . $this->_rightContent . '</a>';
+            $html .= '<a class="' . str_replace('{x}', ($this->_page === $last) ? ' disabled ' : '', $this->_class['a']) . '" href="' . (($this->_page === $last) ? '#' : $href . 'p=' . ($this->_page + 1)) . '">' . $this->_rightContent . '</a>';
         } else {
-            $html .= '<li class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page == $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
-            if ($this->_page == $last) {
+            $html .= '<li class="' . str_replace('{x}', ($this->_page === $last) ? ' disabled ' : '', $this->_class['li']) . '"><a class="' . str_replace('{x}', ($this->_page === $last) ? ' disabled ' : '', $this->_class['a']) . '" href="';
+            if ($this->_page === $last) {
                 $html .= '#';
             } else {
                 $html .= $href . 'p=' . ($this->_page + 1);
@@ -181,11 +184,11 @@ class Paginator {
 
     /**
      * Set values of instance variables, alternative function (as they are set in getLimited()).
-     * @deprecated Not used internally. Will be removed in 2.1.0
-     *
      * @param int $total
      * @param int $limit
      * @param int $page
+     * @deprecated Not used internally. Will be removed in 2.1.0
+     *
      */
     public function setValues(int $total, int $limit, int $page): void {
         $this->_total = $total;

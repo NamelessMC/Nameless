@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -9,7 +10,16 @@
  *  Register email
  */
 
-function sendRegisterEmail(Language $language, string $email_address, string $username, int $user_id, string $code): bool {
+/**
+ * @param Language $language
+ * @param string $email_address
+ * @param string $username
+ * @param string $user_id
+ * @param string $code
+ *
+ * @return bool
+ */
+function sendRegisterEmail(Language $language, string $email_address, string $username, string $user_id, string $code): bool {
     $link = rtrim(URL::getSelfURL(), '/') . URL::build('/validate/', 'c=' . urlencode($code));
 
     $sent = Email::send(

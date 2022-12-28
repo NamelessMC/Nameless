@@ -1,21 +1,30 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Latest Posts Widget
  *
- *  License: MIT
- *
- *  Latest Posts Widget
+ * @package Modules\Forum
+ * @author Samerton
+ * @version 2.1.0
+ * @license MIT
  */
-
 class LatestPostsWidget extends WidgetBase {
 
     private Language $_language;
     private Cache $_cache;
     private User $_user;
 
+    /**
+     * @param string $latest_posts_language
+     * @param string $by_language
+     * @param Smarty $smarty
+     * @param Cache $cache
+     * @param User $user
+     * @param Language $language
+     */
     public function __construct(string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -41,16 +50,22 @@ class LatestPostsWidget extends WidgetBase {
         ]);
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     *
+     * @throws GuzzleException
+     * @throws SmartyException
+     */
     public function initialise(): void {
         $forum = new Forum();
         $db = DB::getInstance();
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
         // Get user group IDs
         $user_groups = $this->_user->getAllGroupIds();
 
-        $this->_cache->setCache('forum_discussions_' . rtrim(implode('-', $user_groups), '-'));
-        if ($this->_cache->isCached('discussions')) {
+        $this->_cache->setCacheName('forum_discussions_' . rtrim(implode('-', $user_groups), '-'));
+        if ($this->_cache->hasCashedData('discussions')) {
             $template_array = $this->_cache->retrieve('discussions');
 
         } else {
@@ -59,7 +74,7 @@ class LatestPostsWidget extends WidgetBase {
 
             $n = 0;
             // Calculate the number of discussions to display
-            $limit = Util::getSetting('latest_posts_limit', 5, 'Forum');
+            $limit = Util::getSetting('latest_posts_limit', '5', 'Forum');
             if (count($discussions) <= $limit) {
                 $limit = count($discussions);
             }
@@ -77,7 +92,7 @@ class LatestPostsWidget extends WidgetBase {
                 $posts = $db->query('SELECT COUNT(*) as c FROM nl2_posts WHERE `topic_id` = ? AND `deleted` = 0', [$discussion->id])->first()->c;
 
                 // Is there a label?
-                if ($discussion->label != 0) {
+                if ($discussion->label !== '0') {
                     // Get label
                     $label = $db->get('forums_topic_labels', ['id', $discussion->label])->results();
                     if (count($label)) {
@@ -103,10 +118,10 @@ class LatestPostsWidget extends WidgetBase {
                 $template_array[] = [
                     'topic_title' => Output::getClean($discussion->topic_title),
                     'topic_id' => $discussion->id,
-                    'topic_created_rough' => $timeago->inWords($discussion->topic_date, $this->_language),
+                    'topic_created_rough' => $time_ago->inWords($discussion->topic_date, $this->_language),
                     'topic_created' => date(DATE_FORMAT, $discussion->topic_date),
-                    'topic_created_username' => $topic_creator->getDisplayname(),
-                    'topic_created_mcname' => $topic_creator->getDisplayname(true),
+                    'topic_created_username' => $topic_creator->getDisplayName(),
+                    'topic_created_mcname' => $topic_creator->getDisplayName(true),
                     'topic_created_style' => $topic_creator->getGroupStyle(),
                     'topic_created_user_id' => Output::getClean($discussion->topic_creator),
                     'locked' => $discussion->locked,
@@ -115,10 +130,10 @@ class LatestPostsWidget extends WidgetBase {
                     'views' => $discussion->topic_views,
                     'posts' => $posts,
                     'last_reply_avatar' => $last_reply_user->getAvatar(64),
-                    'last_reply_rough' => $timeago->inWords($discussion->topic_reply_date, $this->_language),
+                    'last_reply_rough' => $time_ago->inWords($discussion->topic_reply_date, $this->_language),
                     'last_reply' => date(DATE_FORMAT, $discussion->topic_reply_date),
-                    'last_reply_username' => $last_reply_user->getDisplayname(),
-                    'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+                    'last_reply_username' => $last_reply_user->getDisplayName(),
+                    'last_reply_mcname' => $last_reply_user->getDisplayName(true),
                     'last_reply_style' => $last_reply_user->getGroupStyle(),
                     'last_reply_user_id' => Output::getClean($discussion->topic_last_user),
                     'label' => $label,

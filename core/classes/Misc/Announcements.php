@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Announcement management class for creating and getting announcements.
  *
@@ -11,65 +15,11 @@ class Announcements {
 
     private Cache $_cache;
 
+    /**
+     * @param Cache $cache
+     */
     public function __construct(Cache $cache) {
         $this->_cache = $cache;
-    }
-
-    /**
-     * Get all announcements matching the param filters.
-     * If they have a cookie set for an announcement, it will be skipped.
-     *
-     * @param string|null $page Name of the page they're viewing.
-     * @param string|null $custom_page Title of custom page they're viewing.
-     * @param array $user_groups All this user's groups.
-     *
-     * @return Announcement[] Array of announcements they should see on this specific page with their groups.
-     */
-    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): iterable {
-        $announcements = [];
-
-        foreach ($this->getAll() as $announcement) {
-            if (Cookie::exists('announcement-' . $announcement->id)) {
-                continue;
-            }
-
-            $pages = json_decode($announcement->pages, true);
-            $groups = json_decode($announcement->groups, true);
-
-            if ($page === 'api' || in_array($page, $pages) || in_array($custom_page, $pages)) {
-                foreach ($user_groups as $group) {
-                    if (in_array($group, $groups)) {
-                        $announcements[] = $announcement;
-                        break;
-                    }
-                }
-            }
-        }
-
-        return $announcements;
-    }
-
-    /**
-     * Get all announcements for listing in StaffCP.
-     *
-     * @return Announcement[] All announcements.
-     */
-    public function getAll(): iterable {
-        $this->_cache->setCache('custom_announcements');
-
-        if ($this->_cache->isCached('custom_announcements')) {
-            return $this->_cache->retrieve('custom_announcements');
-        }
-
-        $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
-        $announcements = [];
-        foreach ($rows as $row) {
-            $announcements[] = new Announcement($row);
-        }
-
-        $this->_cache->store('custom_announcements', $announcements);
-
-        return $this->_cache->retrieve('custom_announcements');
     }
 
     /**
@@ -99,7 +49,7 @@ class Announcements {
      * @return string Comma seperated list of page names.
      */
     public static function getPagesCsv(?string $pages_json = null): ?string {
-        $pages = json_decode($pages_json);
+        $pages = json_decode($pages_json, false);
 
         if (!$pages) {
             return null;
@@ -109,9 +59,66 @@ class Announcements {
     }
 
     /**
+     * Get all announcements matching the param filters.
+     * If they have a cookie set for an announcement, it will be skipped.
+     *
+     * @param string|null $page Name of the page they're viewing.
+     * @param string|null $custom_page Title of custom page they're viewing.
+     * @param array $user_groups All this user's groups.
+     *
+     * @return Announcement[] Array of announcements they should see on this specific page with their groups.
+     */
+    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): iterable {
+        $announcements = [];
+
+        foreach ($this->getAll() as $announcement) {
+            if (Cookie::exists('announcement-' . $announcement->id)) {
+                continue;
+            }
+
+            $pages = json_decode($announcement->pages, true);
+            $groups = json_decode($announcement->groups, true);
+
+            if ($page === 'api' || in_array($page, $pages, true) || in_array($custom_page, $pages, true)) {
+                foreach ($user_groups as $group) {
+                    if (in_array($group, $groups, true)) {
+                        $announcements[] = $announcement;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $announcements;
+    }
+
+    /**
+     * Get all announcements for listing in StaffCP.
+     *
+     * @return Announcement[] All announcements.
+     */
+    public function getAll(): iterable {
+        $this->_cache->setCacheName('custom_announcements');
+
+        if ($this->_cache->hasCashedData('custom_announcements')) {
+            return $this->_cache->retrieve('custom_announcements');
+        }
+
+        $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
+        $announcements = [];
+        foreach ($rows as $row) {
+            $announcements[] = new Announcement($row);
+        }
+
+        $this->_cache->store('custom_announcements', $announcements);
+
+        return $this->_cache->retrieve('custom_announcements');
+    }
+
+    /**
      * Edit an existing announcement.
      *
-     * @param int $id ID of announcement to edit.
+     * @param string $id ID of announcement to edit.
      * @param array<string> $pages Array of page names this announcement should be on.
      * @param array<int> $groups Array of group IDs this announcement should be visible to.
      * @param string $text_colour Hex code of text colour to use.
@@ -122,7 +129,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
+    public function edit(string $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         DB::getInstance()->update('custom_announcements', $id, [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
@@ -145,9 +152,9 @@ class Announcements {
      * Used when creating or editing announcements.
      */
     public function resetCache(): void {
-        $this->_cache->setCache('custom_announcements');
+        $this->_cache->setCacheName('custom_announcements');
 
-        if ($this->_cache->isCached('custom_announcements')) {
+        if ($this->_cache->hasCashedData('custom_announcements')) {
             $this->_cache->erase('custom_announcements');
         }
 
@@ -167,6 +174,8 @@ class Announcements {
      * @param string $header Header text to show at top of announcement.
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
+     *
+     * @throws GuzzleException
      */
     public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         DB::getInstance()->insert('custom_announcements', [

@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,21 @@
  *  License: MIT
  *
  *  Panel forum labels page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
+ * @var string $route
  */
 
 // Can the user view the panel?
@@ -81,63 +97,69 @@ if (!isset($_GET['action'])) {
             // Deal with input
             if (Input::exists()) {
                 // Check token
-                if (Token::check()) {
-                    // Valid token
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'label_name' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 32
-                        ],
-                        'label_id' => [
-                            Validate::REQUIRED => true
-                        ]
-                    ])->message($forum_language->get('forum', 'label_creation_error'));
-
-                    if ($validation->passed()) {
-                        // Create string containing selected forum IDs
-                        $forum_string = '';
-                        if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
-                            // Turn array of inputted forums into string of forums
-                            foreach ($_POST['label_forums'] as $item) {
-                                $forum_string .= $item . ',';
-                            }
-                        }
-
-                        $forum_string = rtrim($forum_string, ',');
-
-                        $group_string = '';
-                        if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
-                            foreach ($_POST['label_groups'] as $item) {
-                                $group_string .= $item . ',';
-                            }
-                        }
-
-                        $group_string = rtrim($group_string, ',');
-
+                try {
+                    if (Token::check()) {
+                        // Valid token
+                        // Validate input
                         try {
-                            DB::getInstance()->insert('forums_topic_labels', [
-                                'fids' => $forum_string,
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'label' => Input::get('label_id'),
-                                'gids' => $group_string
-                            ]);
+                            $validation = Validate::check($_POST, [
+                                'label_name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 32
+                                ],
+                                'label_id' => [
+                                    Validate::REQUIRED => true
+                                ]
+                            ])->message($forum_language->get('forum', 'label_creation_error'));
+                        } catch (Exception $ignored) {
+                        }
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
-                            Redirect::to(URL::build('/panel/forums/labels'));
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                        if ($validation->passed()) {
+                            // Create string containing selected forum IDs
+                            $forum_string = '';
+                            if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
+                                // Turn array of inputted forums into string of forums
+                                foreach ($_POST['label_forums'] as $item) {
+                                    $forum_string .= $item . ',';
+                                }
+                            }
+
+                            $forum_string = rtrim($forum_string, ',');
+
+                            $group_string = '';
+                            if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
+                                foreach ($_POST['label_groups'] as $item) {
+                                    $group_string .= $item . ',';
+                                }
+                            }
+
+                            $group_string = rtrim($group_string, ',');
+
+                            try {
+                                DB::getInstance()->insert('forums_topic_labels', [
+                                    'fids' => $forum_string,
+                                    'name' => Output::getClean(Input::get('label_name')),
+                                    'label' => Input::get('label_id'),
+                                    'gids' => $group_string
+                                ]);
+
+                                Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
+                                Redirect::to(URL::build('/panel/forums/labels'));
+                            } catch (Exception $e) {
+                                $errors = [$e->getMessage()];
+                            }
+
+                        } else {
+                            // Validation errors
+                            $errors = $validation->errors();
                         }
 
                     } else {
-                        // Validation errors
-                        $errors = $validation->errors();
+                        // Invalid token
+                        $errors = [$language->get('general', 'invalid_token')];
                     }
-
-                } else {
-                    // Invalid token
-                    $errors = [$language->get('general', 'invalid_token')];
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -172,7 +194,7 @@ if (!isset($_GET['action'])) {
 
             foreach (Group::all() as $item) {
                 $template_groups[] = [
-                    'id' => Output::getClean($item->id),
+                    'id' => Output::getClean((string)$item->id),
                     'name' => Output::getClean($item->name)
                 ];
             }
@@ -218,63 +240,69 @@ if (!isset($_GET['action'])) {
             // Deal with input
             if (Input::exists()) {
                 // Check token
-                if (Token::check()) {
-                    // Valid token
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'label_name' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 32
-                        ],
-                        'label_id' => [
-                            Validate::REQUIRED => true
-                        ]
-                    ])->message($forum_language->get('forum', 'label_creation_error'));
-
-                    if ($validation->passed()) {
-                        // Create string containing selected forum IDs
-                        $forum_string = '';
-                        if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
-                            foreach ($_POST['label_forums'] as $item) {
-                                // Turn array of inputted forums into string of forums
-                                $forum_string .= $item . ',';
-                            }
-                        }
-
-                        $forum_string = rtrim($forum_string, ',');
-
-                        $group_string = '';
-                        if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
-                            foreach ($_POST['label_groups'] as $item) {
-                                $group_string .= $item . ',';
-                            }
-                        }
-
-                        $group_string = rtrim($group_string, ',');
-
+                try {
+                    if (Token::check()) {
+                        // Valid token
+                        // Validate input
                         try {
-                            DB::getInstance()->update('forums_topic_labels', $label->id, [
-                                'fids' => $forum_string,
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'label' => Input::get('label_id'),
-                                'gids' => $group_string
-                            ]);
+                            $validation = Validate::check($_POST, [
+                                'label_name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 32
+                                ],
+                                'label_id' => [
+                                    Validate::REQUIRED => true
+                                ]
+                            ])->message($forum_language->get('forum', 'label_creation_error'));
+                        } catch (Exception $ignored) {
+                        }
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                        if ($validation->passed()) {
+                            // Create string containing selected forum IDs
+                            $forum_string = '';
+                            if (isset($_POST['label_forums']) && count($_POST['label_forums'])) {
+                                foreach ($_POST['label_forums'] as $item) {
+                                    // Turn array of inputted forums into string of forums
+                                    $forum_string .= $item . ',';
+                                }
+                            }
+
+                            $forum_string = rtrim($forum_string, ',');
+
+                            $group_string = '';
+                            if (isset($_POST['label_groups']) && count($_POST['label_groups'])) {
+                                foreach ($_POST['label_groups'] as $item) {
+                                    $group_string .= $item . ',';
+                                }
+                            }
+
+                            $group_string = rtrim($group_string, ',');
+
+                            try {
+                                DB::getInstance()->update('forums_topic_labels', $label->id, [
+                                    'fids' => $forum_string,
+                                    'name' => Output::getClean(Input::get('label_name')),
+                                    'label' => Input::get('label_id'),
+                                    'gids' => $group_string
+                                ]);
+
+                                Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
+                                Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
+                            } catch (Exception $e) {
+                                $errors = [$e->getMessage()];
+                            }
+
+                        } else {
+                            // Validation errors
+                            $errors = $validation->errors();
                         }
 
                     } else {
-                        // Validation errors
-                        $errors = $validation->errors();
+                        // Invalid token
+                        $errors = [$language->get('general', 'invalid_token')];
                     }
-
-                } else {
-                    // Invalid token
-                    $errors = [$language->get('general', 'invalid_token')];
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -287,7 +315,7 @@ if (!isset($_GET['action'])) {
                     $template_array[] = [
                         'id' => Output::getClean($item->id),
                         'name' => str_replace('{x}', Output::getClean($item->name), Output::getPurified($item->html)),
-                        'selected' => ($label->label == $item->id)
+                        'selected' => ($label->label === $item->id)
                     ];
                 }
             }
@@ -304,7 +332,7 @@ if (!isset($_GET['action'])) {
                     $template_forums[] = [
                         'id' => Output::getClean($item->id),
                         'name' => Output::getClean($item->forum_title),
-                        'selected' => (in_array($item->id, $enabled_forums))
+                        'selected' => (in_array($item->id, $enabled_forums, true))
                     ];
                 }
             }
@@ -317,9 +345,9 @@ if (!isset($_GET['action'])) {
 
             foreach (Group::all() as $item) {
                 $template_groups[] = [
-                    'id' => Output::getClean($item->id),
+                    'id' => Output::getClean((string)$item->id),
                     'name' => Output::getClean($item->name),
-                    'selected' => (in_array($item->id, $groups))
+                    'selected' => (in_array($item->id, $groups, true))
                 ];
             }
 
@@ -352,16 +380,20 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/forums/labels'));
             }
 
-            if (Token::check($_POST['token'])) {
-                // Delete the label
-                DB::getInstance()->delete('forums_topic_labels', ['id', $_GET['lid']]);
-                Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
+            try {
+                if (Token::check($_POST['token'])) {
+                    // Delete the label
+                    DB::getInstance()->delete('forums_topic_labels', ['id', $_GET['lid']]);
+                    Session::flash('forum_labels', $forum_language->get('forum', 'label_deleted_successfully'));
 
-            } else {
-                Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
+                } else {
+                    Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
+                }
+            } catch (Exception $ignored) {
             }
 
             Redirect::to(URL::build('/panel/forums/labels'));
+            break;
 
         case 'types':
             // List label types
@@ -377,7 +409,7 @@ if (!isset($_GET['action'])) {
                         'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified($label->html)),
                         'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
                         'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid=' . Output::getClean($label->id)),
-                        'usages' => (int) $label->count,
+                        'usages' => (int)$label->count,
                     ];
                 }
             }
@@ -406,44 +438,50 @@ if (!isset($_GET['action'])) {
             // Deal with input
             if (Input::exists()) {
                 // Check token
-                if (Token::check()) {
-                    // Valid token
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'label_name' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 32
-                        ],
-                        'label_html' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 1024
-                        ]
-                    ])->message($forum_language->get('forum', 'label_type_creation_error'));
-
-                    if ($validation->passed()) {
+                try {
+                    if (Token::check()) {
+                        // Valid token
+                        // Validate input
                         try {
-                            DB::getInstance()->insert('forums_labels', [
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'html' => Input::get('label_html')
-                            ]);
+                            $validation = Validate::check($_POST, [
+                                'label_name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 32
+                                ],
+                                'label_html' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 1024
+                                ]
+                            ])->message($forum_language->get('forum', 'label_type_creation_error'));
+                        } catch (Exception $ignored) {
+                        }
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_type_creation_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+                        if ($validation->passed()) {
+                            try {
+                                DB::getInstance()->insert('forums_labels', [
+                                    'name' => Output::getClean(Input::get('label_name')),
+                                    'html' => Input::get('label_html')
+                                ]);
 
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                                Session::flash('forum_labels', $forum_language->get('forum', 'label_type_creation_success'));
+                                Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+
+                            } catch (Exception $e) {
+                                $errors = [$e->getMessage()];
+                            }
+
+                        } else {
+                            // Validation errors
+                            $errors = $validation->errors();
                         }
 
                     } else {
-                        // Validation errors
-                        $errors = $validation->errors();
+                        // Invalid token
+                        $errors = [$language->get('general', 'invalid_token')];
                     }
-
-                } else {
-                    // Invalid token
-                    $errors = [$language->get('general', 'invalid_token')];
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -487,43 +525,49 @@ if (!isset($_GET['action'])) {
             // Deal with input
             if (Input::exists()) {
                 // Check token
-                if (Token::check()) {
-                    // Valid token
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'label_name' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 32
-                        ],
-                        'label_html' => [
-                            Validate::REQUIRED => true,
-                            Validate::MIN => 1,
-                            Validate::MAX => 1024
-                        ]
-                    ])->message($forum_language->get('forum', 'label_type_creation_error'));
-
-                    if ($validation->passed()) {
+                try {
+                    if (Token::check()) {
+                        // Valid token
+                        // Validate input
                         try {
-                            DB::getInstance()->update('forums_labels', $label->id, [
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'html' => Input::get('label_html')
-                            ]);
+                            $validation = Validate::check($_POST, [
+                                'label_name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 32
+                                ],
+                                'label_html' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 1024
+                                ]
+                            ])->message($forum_language->get('forum', 'label_type_creation_error'));
+                        } catch (Exception $ignored) {
+                        }
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                        if ($validation->passed()) {
+                            try {
+                                DB::getInstance()->update('forums_labels', $label->id, [
+                                    'name' => Output::getClean(Input::get('label_name')),
+                                    'html' => Input::get('label_html')
+                                ]);
+
+                                Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
+                                Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
+                            } catch (Exception $e) {
+                                $errors = [$e->getMessage()];
+                            }
+
+                        } else {
+                            // Validation errors
+                            $errors = $validation->errors();
                         }
 
                     } else {
-                        // Validation errors
-                        $errors = $validation->errors();
+                        // Invalid token
+                        $errors = [$language->get('general', 'invalid_token')];
                     }
-
-                } else {
-                    // Invalid token
-                    $errors = [$language->get('general', 'invalid_token')];
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -555,23 +599,27 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
             }
 
-            if (Token::check($_POST['token'])) {
-                // Make sure label type is not in use
-                $count = DB::getInstance()->query('SELECT COUNT(id) AS count FROM nl2_forums_topic_labels WHERE nl2_forums_topic_labels.label = ?', [$_GET['lid']])->first()->count;
+            try {
+                if (Token::check($_POST['token'])) {
+                    // Make sure label type is not in use
+                    $count = DB::getInstance()->query('SELECT COUNT(id) AS count FROM nl2_forums_topic_labels WHERE nl2_forums_topic_labels.label = ?', [$_GET['lid']])->first()->count;
 
-                if ($count < 1) {
-                    // Delete the label
-                    DB::getInstance()->delete('forums_labels', ['id', $_GET['lid']]);
-                    Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
+                    if ($count < 1) {
+                        // Delete the label
+                        DB::getInstance()->delete('forums_labels', ['id', $_GET['lid']]);
+                        Session::flash('forum_labels', $forum_language->get('forum', 'label_type_deleted_successfully'));
+                    } else {
+                        Session::flash('forum_labels_error', $forum_language->get('forum', 'label_type_in_use'));
+                    }
+
                 } else {
-                    Session::flash('forum_labels_error', $forum_language->get('forum', 'label_type_in_use'));
+                    Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
                 }
-
-            } else {
-                Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
+            } catch (Exception $ignored) {
             }
 
             Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+            break;
 
         default:
             Redirect::to(URL::build('/panel/forums/labels'));
@@ -619,4 +667,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

@@ -6,13 +6,13 @@
 </h2>
 
 {if isset($ERROR)}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <div class="header">{$ERROR_TITLE}</div>
-        {$ERROR}
+    <div class="ui error icon message">
+        <i class="x icon"></i>
+        <div class="content">
+            <div class="header">{$ERROR_TITLE}</div>
+            {$ERROR}
+        </div>
     </div>
-</div>
 {/if}
 
 <div class="ui stackable grid" id="new-message">
@@ -27,7 +27,7 @@
                     <div class="field">
                         <label for="inputTitle">{$MESSAGE_TITLE}</label>
                         <input type="text" name="title" id="inputTitle" placeholder="{$MESSAGE_TITLE}"
-                            value="{$MESSAGE_TITLE_VALUE}">
+                               value="{$MESSAGE_TITLE_VALUE}">
                     </div>
                     <div class="field">
                         <label for="InputTo">{$TO}</label>
@@ -37,9 +37,9 @@
                             <div class="default text">{$TO}</div>
                             <div class="menu">
                                 {if count($ALL_USERS) > 0}
-                                {foreach from=$ALL_USERS item="username"}
-                                <div class="item" data-value="{$username}">{$username}</div>
-                                {/foreach}
+                                    {foreach from=$ALL_USERS item="username"}
+                                        <div class="item" data-value="{$username}">{$username}</div>
+                                    {/foreach}
                                 {/if}
                             </div>
                         </div>

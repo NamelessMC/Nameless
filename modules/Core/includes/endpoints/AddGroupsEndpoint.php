@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * @param int $user NamelessMC ID of user to add groups to
- * @param array $groups ID of group ids
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class AddGroupsEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +15,10 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     *
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api, User $user): void {
         $groups = $_POST['groups'];
         if ($groups === null || !count($groups)) {

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Contains namespaced API error messages for the Core module.
  * These have no versioning, and are not meant to be used by any other modules.

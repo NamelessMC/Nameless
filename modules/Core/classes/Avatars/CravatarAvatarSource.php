@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Cravatar avatar source class
  *
@@ -18,6 +20,15 @@ class CravatarAvatarSource extends AvatarSourceBase {
         ];
     }
 
+    /**
+     * Get raw URL with placeholders to format.
+     * - `{identifier} = UUID / username`
+     * - `{size} = size in pixels`
+     *
+     * @param string $perspective Perspective to use in url.
+     *
+     * @return string URL with placeholders to format.
+     */
     public function getUrlToFormat(string $perspective): string {
         return $this->_base_url . $this->getRelativePerspective($perspective) . '/{identifier}/{size}.png';
     }

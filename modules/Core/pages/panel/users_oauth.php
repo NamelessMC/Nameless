@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel users page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
     require_once(ROOT_PATH . '/403.php');
@@ -21,25 +37,25 @@ const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if (isset($_GET['action']) && $_GET['action'] === 'delete') {
-    if (Input::exists()) {
-        if (Token::check(Input::get('token'))) {
-            if (isset($_POST['provider_name'], $_POST['user_id'])) {
-
-                NamelessOAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
-
-                Session::flash('oauth_success', $language->get('admin', 'unlink_account_success', ['provider' => ucfirst($_POST['provider_name'])]));
-            }
+if (isset($_GET['action']) && $_GET['action'] === 'delete' && Input::exists()) {
+    try {
+        if (isset($_POST['provider_name'], $_POST['user_id']) && Token::check(Input::get('token'))) {
+            NamelessOAuth::getInstance()->unlinkProviderForUser($_POST['user_id'], $_POST['provider_name']);
+            Session::flash('oauth_success', $language->get('admin', 'unlink_account_success', ['provider' => ucfirst($_POST['provider_name'])]));
         }
-        die();
+    } catch (Exception $ignored) {
     }
+    die();
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
 }
 
-$view_user = new User($_GET['id']);
+try {
+    $view_user = new User($_GET['id']);
+} catch (GuzzleException $ignored) {
+}
 if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
@@ -72,7 +88,7 @@ $smarty->assign([
         'user' => Text::bold(Output::getClean($user_query->nickname))
     ]),
     'USER_ID' => $user_query->id,
-    'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query->id)),
+    'BACK_LINK' => URL::build('/panel/user/' . urlencode((string)$user_query->id)),
     'BACK' => $language->get('general', 'back'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'ARE_YOU_SURE_MESSAGE' => $language->get('admin', 'unlink_account_confirm'),
@@ -96,4 +112,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/users_oauth.tpl', $smarty);
+try {
+    $template->displayTemplate('core/users_oauth.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

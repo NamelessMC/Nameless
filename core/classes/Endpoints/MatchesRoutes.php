@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Contains methods for matching API requests with endpoint routes.
  *
@@ -15,6 +17,7 @@ trait MatchesRoutes {
      *
      * @param EndpointBase $endpoint Endpoint to attempt to match.
      * @param string $route Route to match.
+     *
      * @return array|false Array of variables to pass to the endpoint, or false if the route does not match.
      */
     private function matchRoute(EndpointBase $endpoint, string $route) {
@@ -49,11 +52,21 @@ trait MatchesRoutes {
         return $route_vars;
     }
 
-    private function isVariable(string $type) : bool {
+    /**
+     * @param string $type
+     *
+     * @return bool
+     */
+    private function isVariable(string $type): bool {
         return str_starts_with($type, '{') && str_ends_with($type, '}');
     }
 
-    private function stripVariable(string $type) : string {
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    private function stripVariable(string $type): string {
         return substr($type, 1, -1);
     }
 }

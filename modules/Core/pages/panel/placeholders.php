@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr12
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel placeholders page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.placeholders')) {
@@ -31,41 +44,44 @@ if (isset($_GET['leaderboard'])) {
     $placeholder_safe_name = $_GET['leaderboard'];
     $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
 
-    if ($placeholder != null) {
+    if ($placeholder !== null) {
 
         $template_file = 'integrations/minecraft/placeholders_leaderboard.tpl';
 
         if (Input::exists()) {
 
-            if (Token::check()) {
+            try {
+                if (Token::check()) {
 
-                $enabled = Input::get('leaderboard_enabled') == 'on' ? 1 : 0;
-                $title_input = Input::get('leaderboard_title');
-                $title = $title_input == '' ? null : $title_input;
-                $sort = Input::get('leaderboard_sort');
+                    $enabled = Input::get('leaderboard_enabled') === 'on' ? 1 : 0;
+                    $title_input = Input::get('leaderboard_title');
+                    $title = $title_input === '' ? null : $title_input;
+                    $sort = Input::get('leaderboard_sort');
 
-                try {
-                    DB::getInstance()->query('UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?', [
-                        $enabled,
-                        $title,
-                        $sort,
-                        $placeholder->name,
-                        $placeholder->server_id
-                    ]);
+                    try {
+                        DB::getInstance()->query('UPDATE nl2_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?', [
+                            $enabled,
+                            $title,
+                            $sort,
+                            $placeholder->name,
+                            $placeholder->server_id
+                        ]);
 
-                    Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-                    Redirect::to(URL::build('/panel/minecraft/placeholders'));
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
-                    $errors[] = 'Enabled - ' . $enabled;
-                    $errors[] = 'Title - ' . Output::getClean($title);
-                    $errors[] = 'Sort - ' . Output::getClean($sort);
-                    $errors[] = 'Name - ' . Output::getClean($placeholder->name);
-                    $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
+                        Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
+                        Redirect::to(URL::build('/panel/minecraft/placeholders'));
+                    } catch (Exception $e) {
+                        $errors[] = $e->getMessage();
+                        $errors[] = 'Enabled - ' . $enabled;
+                        $errors[] = 'Title - ' . Output::getClean($title);
+                        $errors[] = 'Sort - ' . Output::getClean($sort);
+                        $errors[] = 'Name - ' . Output::getClean($placeholder->name);
+                        $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
+                    }
+
+                } else {
+                    $errors[] = $language->get('general', 'invalid_token');
                 }
-
-            } else {
-                $errors[] = $language->get('general', 'invalid_token');
+            } catch (Exception $ignored) {
             }
         }
 
@@ -100,39 +116,42 @@ if (isset($_GET['leaderboard'])) {
 
     if (Input::exists()) {
 
-        if (Token::check()) {
-            // Update placeholders value
-            Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
+        try {
+            if (Token::check()) {
+                // Update placeholders value
+                Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] === 'on') ? '1' : '0');
 
-            foreach ($all_placeholders as $placeholder) {
-                try {
+                foreach ($all_placeholders as $placeholder) {
+                    try {
 
-                    $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
-                    $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
-                    $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
-                    $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                        $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
+                        $friendly_name = $friendly_name_input === '' ? null : $friendly_name_input;
+                        $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) === 'on' ? 1 : 0;
+                        $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) === 'on' ? 1 : 0;
 
-                    DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
-                        $friendly_name,
-                        $show_on_profile,
-                        $show_on_forum,
-                        $placeholder->name,
-                        $placeholder->server_id
-                    ]);
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
-                    // $errors[] = 'Enabled - ' . $enabled;
-                    // $errors[] = 'Title - ' . Output::getClean($title);
-                    // $errors[] = 'Sort - ' . Output::getClean($sort);
-                    $errors[] = 'Name - ' . Output::getClean($placeholder->name);
-                    $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
+                        DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
+                            $friendly_name,
+                            $show_on_profile,
+                            $show_on_forum,
+                            $placeholder->name,
+                            $placeholder->server_id
+                        ]);
+                    } catch (Exception $e) {
+                        $errors[] = $e->getMessage();
+                        // $errors[] = 'Enabled - ' . $enabled;
+                        // $errors[] = 'Title - ' . Output::getClean($title);
+                        // $errors[] = 'Sort - ' . Output::getClean($sort);
+                        $errors[] = 'Name - ' . Output::getClean($placeholder->name);
+                        $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
+                    }
                 }
-            }
 
-            Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
-            Redirect::to(URL::build('/panel/minecraft/placeholders'));
-        } else {
-            $errors[] = $language->get('general', 'invalid_token');
+                Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
+                Redirect::to(URL::build('/panel/minecraft/placeholders'));
+            } else {
+                $errors[] = $language->get('general', 'invalid_token');
+            }
+        } catch (Exception $ignored) {
         }
     }
 
@@ -189,4 +208,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

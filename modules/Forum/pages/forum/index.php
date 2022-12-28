@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,16 +8,32 @@
  *  License: MIT
  *
  *  Forum index page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
  */
 
 // Always define page name
+use GuzzleHttp\Exception\GuzzleException;
+
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'forum');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Initialise
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Get user group IDs
 $groups = $user->getAllGroupIds();
@@ -57,9 +74,9 @@ $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
 
 // Get forums
 $cache_name = 'forum_forums_' . rtrim(implode('-', $groups), '-');
-$cache->setCache($cache_name);
+$cache->setCacheName($cache_name);
 
-if ($cache->isCached('forums')) {
+if ($cache->hasCashedData('forums')) {
     $forums = $cache->retrieve('forums');
 } else {
     $forums = $forum->listAllForums($groups, ($user->isLoggedIn() ? $user->data()->id : 0));
@@ -69,26 +86,32 @@ if ($cache->isCached('forums')) {
         foreach ($forums as $key => $item) {
             $forums[$key]['link'] = URL::build('/forum/view/' . urlencode($key) . '-' . $forum->titleToURL($item['title']));
             if (isset($item['subforums']) && count($item['subforums'])) {
-                foreach ($item['subforums'] as $subforum_id => $subforum) {
-                    if (isset($subforum->last_post)) {
-                        $last_post_user = new User($forums[$key]['subforums'][$subforum_id]->last_post->post_creator);
+                foreach ($item['subforums'] as $sub_forum_id => $sub_forum) {
+                    if (isset($sub_forum->last_post)) {
+                        try {
+                            $last_post_user = new User($forums[$key]['subforums'][$sub_forum_id]->last_post->post_creator);
+                        } catch (GuzzleException $ignored) {
+                        }
 
-                        $forums[$key]['subforums'][$subforum_id]->last_post->avatar = $last_post_user->getAvatar(64);
-                        $forums[$key]['subforums'][$subforum_id]->last_post->user_style = $last_post_user->getGroupStyle();
-                        $forums[$key]['subforums'][$subforum_id]->last_post->username = $last_post_user->getDisplayname();
-                        $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
+                        try {
+                            $forums[$key]['subforums'][$sub_forum_id]->last_post->avatar = $last_post_user->getAvatar(64);
+                        } catch (GuzzleException $ignored) {
+                        }
+                        $forums[$key]['subforums'][$sub_forum_id]->last_post->user_style = $last_post_user->getGroupStyle();
+                        $forums[$key]['subforums'][$sub_forum_id]->last_post->username = $last_post_user->getDisplayName();
+                        $forums[$key]['subforums'][$sub_forum_id]->last_post->profile = $last_post_user->getProfileURL();
 
-                        if (is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)) {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language);
-                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
+                        if (is_null($forums[$key]['subforums'][$sub_forum_id]->last_post->created)) {
+                            $forums[$key]['subforums'][$sub_forum_id]->last_post->date_friendly = $time_ago->inWords($forums[$key]['subforums'][$sub_forum_id]->last_post->post_date, $language);
+                            $forums[$key]['subforums'][$sub_forum_id]->last_post->post_date = date(DATE_FORMAT, strtotime($forums[$key]['subforums'][$sub_forum_id]->last_post->post_date));
                         } else {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->created, $language);
-                            $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, $forums[$key]['subforums'][$subforum_id]->last_post->created);
+                            $forums[$key]['subforums'][$sub_forum_id]->last_post->date_friendly = $time_ago->inWords($forums[$key]['subforums'][$sub_forum_id]->last_post->created, $language);
+                            $forums[$key]['subforums'][$sub_forum_id]->last_post->post_date = date(DATE_FORMAT, $forums[$key]['subforums'][$sub_forum_id]->last_post->created);
                         }
                     }
 
-                    if ($forums[$key]['subforums'][$subforum_id]->redirect_forum == 1 && URL::isExternalURL($forums[$key]['subforums'][$subforum_id]->redirect_url)) {
-                        $forums[$key]['subforums'][$subforum_id]->redirect_confirm = $forum_language->get('forum', 'forum_redirect_warning', ['url' => $forums[$key]['subforums'][$subforum_id]->redirect_to]);
+                    if ($forums[$key]['subforums'][$sub_forum_id]->redirect_forum === '1' && URL::isExternalURL($forums[$key]['subforums'][$sub_forum_id]->redirect_url)) {
+                        $forums[$key]['subforums'][$sub_forum_id]->redirect_confirm = $forum_language->get('forum', 'forum_redirect_warning', ['url' => $forums[$key]['subforums'][$sub_forum_id]->redirect_to]);
                     }
                 }
             }
@@ -112,11 +135,17 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-$smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-$smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+try {
+    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets());
+} catch (SmartyException $ignored) {
+}
 
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/forum_index.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/forum_index.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

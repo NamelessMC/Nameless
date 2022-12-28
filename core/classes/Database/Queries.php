@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Provides simpler abstractions over common database queries.
  *
@@ -9,16 +11,15 @@
  * @deprecated Use DB class. Will be removed in 2.1.0
  */
 class Queries {
-
-    private DB $_db;
+    /**
+     * @var ?DB $_db
+     */
+    private static ?DB $_db;
 
     public function __construct() {
-        $this->_db = DB::getInstance();
-    }
-
-    private function warnDeprecated() {
-        $caller = debug_backtrace()[1];
-        ErrorHandler::logWarning('Deprecated Queries class used in ' . $caller['file'] . ' line ' . $caller['line'] . '. Please report this issue.');
+        if (!isset(self::$_db)) {
+            self::$_db = DB::getInstance();
+        }
     }
 
     /**
@@ -29,8 +30,17 @@ class Queries {
      * to:   DB::getInstance()->get($1)->results()
      */
     public function getWhere(string $table, array $where): array {
-        self::warnDeprecated();
-        return $this->_db->get($table, $where)->results();
+        $this->warnDeprecated();
+        return self::$_db->get($table, $where)->results();
+    }
+
+    /**
+     *
+     * @return void
+     */
+    private function warnDeprecated(): void {
+        $caller = debug_backtrace()[1];
+        ErrorHandler::logWarning('Deprecated Queries class used in ' . $caller['file'] . ' line ' . $caller['line'] . '. Please report this issue.');
     }
 
     /**
@@ -41,8 +51,8 @@ class Queries {
      * to:   DB::getInstance()->orderAll($1)->results()
      */
     public function orderAll(string $table, string $order, string $sort = null): array {
-        self::warnDeprecated();
-        return $this->_db->orderAll($table, $order, $sort)->results();
+        $this->warnDeprecated();
+        return self::$_db->orderAll($table, $order, $sort)->results();
     }
 
     /**
@@ -53,22 +63,8 @@ class Queries {
      * to:   DB::getInstance()->orderWhere($1)->results()
      */
     public function orderWhere(string $table, string $where, string $order, string $sort = null): array {
-        self::warnDeprecated();
-        return $this->_db->orderWhere($table, $where, $order, $sort)->results();
-    }
-
-    /**
-     * @deprecated Use DB::getInstance()->update(...) with identical parameters instead. Will be removed in 2.1.0
-     *
-     * find and replace
-     * from: \$queries->update\((.*)\)
-     * to:   DB::getInstance()->update($1)
-     */
-    public function update(string $table, $where, array $fields = []): void {
-        self::warnDeprecated();
-        if (!$this->_db->update($table, $where, $fields)) {
-            throw new RuntimeException('There was a problem performing that action.');
-        }
+        $this->warnDeprecated();
+        return self::$_db->orderWhere($table, $where, $order, $sort)->results();
     }
 
     /**
@@ -79,8 +75,8 @@ class Queries {
      * to:   DB::getInstance()->insert($1)
      */
     public function create(string $table, array $fields = []): void {
-        self::warnDeprecated();
-        if (!$this->_db->insert($table, $fields)) {
+        $this->warnDeprecated();
+        if (!self::$_db->insert($table, $fields)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -93,8 +89,8 @@ class Queries {
      * to:   DB::getInstance()->delete($1)
      */
     public function delete(string $table, array $where): void {
-        self::warnDeprecated();
-        if (!$this->_db->delete($table, $where)) {
+        $this->warnDeprecated();
+        if (!self::$_db->delete($table, $where)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -106,9 +102,9 @@ class Queries {
      * from: \$queries->increment\((.*)\)
      * to:   DB::getInstance()->increment($1)
      */
-    public function increment(string $table, int $id, string $field): void {
-        self::warnDeprecated();
-        if (!$this->_db->increment($table, $id, $field)) {
+    public function increment(string $table, string $id, string $field): void {
+        $this->warnDeprecated();
+        if (!self::$_db->increment($table, $id, $field)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -121,8 +117,8 @@ class Queries {
      * to:   DB::getInstance()->createTable($1)
      */
     public function createTable(string $table, string $columns): void {
-        self::warnDeprecated();
-        if (!$this->_db->createTable($table, $columns)) {
+        $this->warnDeprecated();
+        if (!self::$_db->createTable($table, $columns)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -130,16 +126,16 @@ class Queries {
     /**
      * Get the last inserted ID
      *
+     * @return string|false
      * @deprecated Use DB::getInstance()->lastId() instead. Will be removed in 2.1.0
      * find and replace
      * from: \$queries->getLastId\(\)
      * to:   DB::getInstance()->lastId()
      *
-     * @return string|false
      */
     public function getLastId() {
-        self::warnDeprecated();
-        return $this->_db->lastId();
+        $this->warnDeprecated();
+        return self::$_db->lastId();
     }
 
     /**
@@ -150,8 +146,8 @@ class Queries {
      * to:   DB::getInstance()->addColumn($1)
      */
     public function addColumn(string $table, string $column, string $attributes): void {
-        self::warnDeprecated();
-        if (!$this->_db->addColumn($table, $column, $attributes)) {
+        $this->warnDeprecated();
+        if (!self::$_db->addColumn($table, $column, $attributes)) {
             throw new RuntimeException('There was a problem performing that action.');
         }
     }
@@ -164,14 +160,19 @@ class Queries {
      * to:   DB::getInstance()->showTables($1)
      */
     public function tableExists(string $table) {
-        self::warnDeprecated();
-        return $this->_db->showTables($table);
+        $this->warnDeprecated();
+        return self::$_db->showTables($table);
     }
 
     /**
      * Used in upgrade scripts to add permissions to a group. For example, if a new staffcp page has been added.
+     *
+     * @param string $group_id
+     * @param string $permission
+     *
+     * @return void
      */
-    public function addPermissionGroup(int $group_id, string $permission): void {
+    public function addPermissionGroup(string $group_id, string $permission): void {
         $group = Group::find($group_id);
         if ($group) {
             $permissions = $group->permissions;
@@ -179,8 +180,22 @@ class Queries {
             if (is_array($permissions)) {
                 $permissions[$permission] = 1;
                 $perms_json = json_encode($permissions);
-                $this->_db->update('groups', $group_id, ['permissions' => $perms_json]);
+                self::$_db->update('groups', $group_id, ['permissions' => $perms_json]);
             }
+        }
+    }
+
+    /**
+     * @deprecated Use DB::getInstance()->update(...) with identical parameters instead. Will be removed in 2.1.0
+     *
+     * find and replace
+     * from: \$queries->update\((.*)\)
+     * to:   DB::getInstance()->update($1)
+     */
+    public function update(string $table, $where, array $fields = []): void {
+        $this->warnDeprecated();
+        if (!self::$_db->update($table, $where, $fields)) {
+            throw new RuntimeException('There was a problem performing that action.');
         }
     }
 

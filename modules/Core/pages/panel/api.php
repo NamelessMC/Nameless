@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,19 @@
  *  License: MIT
  *
  *  Panel API page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Endpoints $endpoints
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.api')) {
@@ -24,59 +38,65 @@ if (!isset($_GET['view'])) {
     if (Input::exists()) {
         $errors = [];
 
-        if (Token::check()) {
-            if (isset($_POST['action']) && $_POST['action'] == 'regen') {
-                // Regenerate new API key
-                // Generate new key
-                $new_api_key = SecureRandom::alphanumeric();
+        try {
+            if (Token::check()) {
+                if (isset($_POST['action']) && $_POST['action'] === 'regen') {
+                    // Regenerate new API key
+                    // Generate new key
+                    $new_api_key = SecureRandom::alphanumeric();
 
-                $plugin_api = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
-                $plugin_api = $plugin_api[0]->id;
+                    $plugin_api = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
+                    $plugin_api = $plugin_api[0]->id;
 
-                // Update key
+                    // Update key
+                    DB::getInstance()->update(
+                        'settings',
+                        $plugin_api,
+                        [
+                            'value' => $new_api_key
+                        ]
+                    );
+
+                    // Cache
+                    file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
+
+                    // Redirect
+                    Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
+                    Redirect::to(URL::build('/panel/core/api'));
+                }
+
+                $plugin_id = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
+                $plugin_id = $plugin_id[0]->id;
                 DB::getInstance()->update(
                     'settings',
-                    $plugin_api,
+                    $plugin_id,
                     [
-                        'value' => $new_api_key
+                        'value' => Input::get('enable_api')
                     ]
                 );
 
-                // Cache
-                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
+                // Update Username sync
+                $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] === 'on' ? '1' : '0';
+                Util::setSetting('username_sync', $username_sync);
 
-                // Redirect
-                Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
+                Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/core/api'));
+                //Log::getInstance()->log(Log::Action('admin/api/change'));
+            } else {
+                $errors[] = $language->get('general', 'invalid_token');
             }
-
-            $plugin_id = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
-            $plugin_id = $plugin_id[0]->id;
-            DB::getInstance()->update(
-                'settings',
-                $plugin_id,
-                [
-                    'value' => Input::get('enable_api')
-                ]
-            );
-
-            // Update Username sync
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
-            Util::setSetting('username_sync', $username_sync);
-
-            Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
-            Redirect::to(URL::build('/panel/core/api'));
-            //Log::getInstance()->log(Log::Action('admin/api/change'));
-        } else {
-            $errors[] = $language->get('general', 'invalid_token');
+        } catch (Exception $ignored) {
         }
     }
-} else {
-    // Group sync
-    if (Input::exists()) {
+// Group sync
+} else if (Input::exists()) {
+    try {
         if (Token::check()) {
-            if ($_POST['action'] == 'create') {
-                $validation = GroupSyncManager::getInstance()->makeValidator($_POST, $language);
+            if ($_POST['action'] === 'create') {
+                try {
+                    $validation = GroupSyncManager::getInstance()->makeValidator($_POST, $language);
+                } catch (Exception $ignored) {
+                }
 
                 $errors = [];
 
@@ -105,64 +125,64 @@ if (!isset($_GET['view'])) {
                 } else {
                     $errors = $validation->errors();
                 }
-            } else {
-                if ($_POST['action'] == 'update') {
+            } else if ($_POST['action'] === 'update') {
 
-                    $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+                $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
-                    foreach ($_POST['existing'] as $group_sync_id => $values) {
-                        $errors = [];
+                foreach ($_POST['existing'] as $group_sync_id => $values) {
+                    $errors = [];
 
+                    try {
                         $validator = GroupSyncManager::getInstance()->makeValidator($values, $language);
+                    } catch (Exception $ignored) {
+                    }
 
-                        if (!$validator->passed()) {
-                            $errors = $validator->errors();
-                        } else {
-                            $external = false;
-                            foreach ($values as $column => $group) {
-                                if (
-                                    $group
-                                    && $group !== 0
-                                    && $column != $namelessmc_injector->getColumnName()
-                                ) {
-                                    $external = true;
-                                }
-                            }
-
-                            if (!$external) {
-                                $errors[] = $language->get('admin', 'at_least_one_external');
+                    if (!$validator->passed()) {
+                        $errors = $validator->errors();
+                    } else {
+                        $external = false;
+                        foreach ($values as $column => $group) {
+                            if (
+                                $group
+                                && $group !== 0
+                                && (string)$column !== $namelessmc_injector->getColumnName()
+                            ) {
+                                $external = true;
                             }
                         }
 
-                        if (!count($errors)) {
-                            try {
-                                DB::getInstance()->update('group_sync', $group_sync_id, $values);
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
-                            }
+                        if (!$external) {
+                            $errors[] = $language->get('admin', 'at_least_one_external');
                         }
                     }
 
                     if (!count($errors)) {
-                        Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
-                    }
-                } else {
-                    if ($_POST['action'] == 'delete') {
-                        if (isset($_POST['id'])) {
-                            try {
-                                DB::getInstance()->delete('group_sync', ['id', $_POST['id']]);
-                                Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
-                            } catch (Exception $e) {
-                                // Redirect anyway
-                            }
+                        try {
+                            DB::getInstance()->update('group_sync', $group_sync_id, $values);
+                        } catch (Exception $e) {
+                            $errors[] = $e->getMessage();
                         }
-                        die();
                     }
                 }
+
+                if (!count($errors)) {
+                    Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
+                }
+            } else if ($_POST['action'] === 'delete') {
+                if (isset($_POST['id'])) {
+                    try {
+                        DB::getInstance()->delete('group_sync', ['id', $_POST['id']]);
+                        Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
+                    } catch (Exception $e) {
+                        // Redirect anyway
+                    }
+                }
+                die();
             }
         } else {
             $errors[] = [$language->get('general', 'invalid_token')];
         }
+    } catch (Exception $ignored) {
     }
 }
 
@@ -242,89 +262,83 @@ if (!isset($_GET['view'])) {
     );
 
     $template_file = 'core/api.tpl';
-} else {
-
-    if ($_GET['view'] == 'group_sync') {
-
-        $group_sync_values = [];
-        foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
-            $rule_values = [];
-            foreach (get_object_vars($rule) as $column => $value) {
-                $rule_values[$column] = $value;
-            }
-            $group_sync_values[] = $rule_values;
+} else if ($_GET['view'] === 'group_sync') {
+    $group_sync_values = [];
+    foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
+        $rule_values = [];
+        foreach (get_object_vars($rule) as $column => $value) {
+            $rule_values[$column] = $value;
         }
-
-        $smarty->assign(
-            [
-                'PARENT_PAGE' => PARENT_PAGE,
-                'DASHBOARD' => $language->get('admin', 'dashboard'),
-                'CONFIGURATION' => $language->get('admin', 'configuration'),
-                'API' => $language->get('admin', 'api'),
-                'PAGE' => PANEL_PAGE,
-                'INFO' => $language->get('general', 'info'),
-                'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/api'),
-                'TOKEN' => Token::get(),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'GROUP_SYNC_VALUES' => $group_sync_values,
-                'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
-                'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
-                'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
-                'LANGUAGE' => $language,
-                'DELETE' => $language->get('general', 'delete'),
-                'NEW_RULE' => $language->get('admin', 'new_rule'),
-                'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
-                'NONE' => $language->get('general', 'none'),
-                'DISABLED' => $language->get('admin', 'disabled')
-            ]
-        );
-
-        $template_file = 'core/api_group_sync.tpl';
-    } else {
-        if ($_GET['view'] == 'api_endpoints') {
-
-            $endpoints_array = [];
-            // TODO: sort nicely
-            foreach ($endpoints->getAll() as $endpoint) {
-                $endpoints_array[] = [
-                    'route' => $endpoint->getRoute(),
-                    'module' => $endpoint->getModule(),
-                    'description' => $endpoint->getDescription(),
-                    'method' => $endpoint->getMethod(),
-                    'auth_type' => $endpoint->getAuthType(),
-                ];
-            }
-
-            $smarty->assign(
-                [
-                    'PARENT_PAGE' => PARENT_PAGE,
-                    'DASHBOARD' => $language->get('admin', 'dashboard'),
-                    'CONFIGURATION' => $language->get('admin', 'configuration'),
-                    'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-                    'PAGE' => PANEL_PAGE,
-                    'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/api'),
-                    'ROUTE' => $language->get('admin', 'route'),
-                    'DESCRIPTION' => $language->get('admin', 'description'),
-                    'MODULE' => $language->get('admin', 'module'),
-                    'METHOD' => $language->get('admin', 'method'),
-                    'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info', [
-                        'docLinkStart' => '<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">',
-                        'docLinkEnd' => '</a>'
-                    ]),
-                    'ENDPOINTS_ARRAY' => $endpoints_array,
-                    'TYPE' => $language->get('admin', 'type'),
-                    'TRANSFORMERS' => $language->get('admin', 'transformers'),
-                    'TRANSFORMERS_ARRAY' => Endpoints::getAllTransformers(),
-                ]
-            );
-
-            $template_file = 'core/api_endpoints.tpl';
-        }
+        $group_sync_values[] = $rule_values;
     }
+
+    $smarty->assign(
+        [
+            'PARENT_PAGE' => PARENT_PAGE,
+            'DASHBOARD' => $language->get('admin', 'dashboard'),
+            'CONFIGURATION' => $language->get('admin', 'configuration'),
+            'API' => $language->get('admin', 'api'),
+            'PAGE' => PANEL_PAGE,
+            'INFO' => $language->get('general', 'info'),
+            'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
+            'BACK' => $language->get('general', 'back'),
+            'BACK_LINK' => URL::build('/panel/core/api'),
+            'TOKEN' => Token::get(),
+            'SUBMIT' => $language->get('general', 'submit'),
+            'GROUP_SYNC_VALUES' => $group_sync_values,
+            'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
+            'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
+            'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
+            'LANGUAGE' => $language,
+            'DELETE' => $language->get('general', 'delete'),
+            'NEW_RULE' => $language->get('admin', 'new_rule'),
+            'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
+            'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+            'NONE' => $language->get('general', 'none'),
+            'DISABLED' => $language->get('admin', 'disabled')
+        ]
+    );
+
+    $template_file = 'core/api_group_sync.tpl';
+} else if ($_GET['view'] === 'api_endpoints') {
+
+    $endpoints_array = [];
+    // TODO: sort nicely
+    foreach ($endpoints->getAll() as $endpoint) {
+        $endpoints_array[] = [
+            'route' => $endpoint->getRoute(),
+            'module' => $endpoint->getModule(),
+            'description' => $endpoint->getDescription(),
+            'method' => $endpoint->getMethod(),
+            'auth_type' => $endpoint->getAuthType(),
+        ];
+    }
+
+    $smarty->assign(
+        [
+            'PARENT_PAGE' => PARENT_PAGE,
+            'DASHBOARD' => $language->get('admin', 'dashboard'),
+            'CONFIGURATION' => $language->get('admin', 'configuration'),
+            'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+            'PAGE' => PANEL_PAGE,
+            'BACK' => $language->get('general', 'back'),
+            'BACK_LINK' => URL::build('/panel/core/api'),
+            'ROUTE' => $language->get('admin', 'route'),
+            'DESCRIPTION' => $language->get('admin', 'description'),
+            'MODULE' => $language->get('admin', 'module'),
+            'METHOD' => $language->get('admin', 'method'),
+            'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info', [
+                'docLinkStart' => '<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">',
+                'docLinkEnd' => '</a>'
+            ]),
+            'ENDPOINTS_ARRAY' => $endpoints_array,
+            'TYPE' => $language->get('admin', 'type'),
+            'TRANSFORMERS' => $language->get('admin', 'transformers'),
+            'TRANSFORMERS_ARRAY' => Endpoints::getAllTransformers(),
+        ]
+    );
+
+    $template_file = 'core/api_endpoints.tpl';
 }
 
 $template->onPageLoad();
@@ -332,4 +346,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

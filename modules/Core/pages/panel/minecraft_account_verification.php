@@ -1,12 +1,25 @@
 <?php
-/*
- *	Made by Samerton
+declare(strict_types=1);
+/**
+ *    Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
  *  Panel Minecraft account verification page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.verification')) {
@@ -24,87 +37,79 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Handle input
 if (Input::exists()) {
     $errors = [];
-    if (Token::check()) {
-        if (!isset($_POST['premium'])) {
-            $use_mcassoc = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
-            $use_mcassoc = $use_mcassoc[0]->id;
+    try {
+        if (Token::check()) {
+            if (!isset($_POST['premium'])) {
+                $use_mcassoc = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
+                $use_mcassoc = $use_mcassoc[0]->id;
 
-            if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
-                $validation = Validate::check($_POST, [
-                    'mcassoc_key' => [
-                        Validate::REQUIRED => true,
-                        Validate::MAX => 128
-                    ],
-                    'mcassoc_instance' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 32,
-                        Validate::MAX => 32
-                    ]
-                ])->message($language->get('admin', 'mcassoc_error'));
+                if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] === 'on') {
+                    try {
+                        $validation = Validate::check($_POST, [
+                            'mcassoc_key' => [
+                                Validate::REQUIRED => true,
+                                Validate::MAX => 128
+                            ],
+                            'mcassoc_instance' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 32,
+                                Validate::MAX => 32
+                            ]
+                        ])->message($language->get('admin', 'mcassoc_error'));
+                    } catch (Exception $ignored) {
+                    }
 
-                if ($validation->passed()) {
-                    // Update settings
-                    $mcassoc_key = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
-                    $mcassoc_key = $mcassoc_key[0]->id;
+                    if ($validation->passed()) {
+                        // Update settings
+                        $mcassoc_key = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
+                        $mcassoc_key = $mcassoc_key[0]->id;
 
-                    $mcassoc_instance = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
-                    $mcassoc_instance = $mcassoc_instance[0]->id;
+                        $mcassoc_instance = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
+                        $mcassoc_instance = $mcassoc_instance[0]->id;
 
-                    DB::getInstance()->update('settings', $use_mcassoc, ['value' => 1]);
-                    DB::getInstance()->update('settings', $mcassoc_key, ['value' => Input::get('mcassoc_key')]);
-                    DB::getInstance()->update('settings', $mcassoc_instance, ['value' => Input::get('mcassoc_instance')]);
+                        DB::getInstance()->update('settings', $use_mcassoc, ['value' => 1]);
+                        DB::getInstance()->update('settings', $mcassoc_key, ['value' => Input::get('mcassoc_key')]);
+                        DB::getInstance()->update('settings', $mcassoc_instance, ['value' => Input::get('mcassoc_instance')]);
 
-                    $success = $language->get('admin', 'updated_mcassoc_successfully');
+                        $success = $language->get('admin', 'updated_mcassoc_successfully');
+
+                    } else {
+                        $errors = $validation->errors();
+                    }
 
                 } else {
-                    $errors = $validation->errors();
+                    DB::getInstance()->update('settings', $use_mcassoc, ['value' => 0]);
+                    $success = $language->get('admin', 'updated_mcassoc_successfully');
                 }
 
             } else {
-                DB::getInstance()->update('settings', $use_mcassoc, ['value' => 0]);
-                $success = $language->get('admin', 'updated_mcassoc_successfully');
+                $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
+                $uuid_linking = $uuid_linking[0]->id;
+
+                if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] === '1') {
+                    $use_premium = 1;
+                } else {
+                    $use_premium = 0;
+                }
+
+                DB::getInstance()->update('settings', $uuid_linking, ['value' => $use_premium]);
             }
 
         } else {
-            $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-            $uuid_linking = $uuid_linking[0]->id;
-
-            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1) {
-                $use_premium = 1;
-            } else {
-                $use_premium = 0;
-            }
-
-            DB::getInstance()->update('settings', $uuid_linking, ['value' => $use_premium]);
+            $errors[] = $language->get('general', 'invalid_token');
         }
-
-    } else {
-        $errors[] = $language->get('general', 'invalid_token');
+    } catch (Exception $ignored) {
     }
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
 // Get UUID linking settings
 $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
 $uuid_linking = $uuid_linking[0]->value;
 
-if ($uuid_linking == '1') {
+if ($uuid_linking === '1') {
     // Get mcassoc settings
     $use_mcassoc = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
     $use_mcassoc = $use_mcassoc[0]->value;
@@ -122,7 +127,7 @@ if ($uuid_linking == '1') {
             'linkEnd' => '</a>'
         ]),
         'USE_MCASSOC' => $language->get('admin', 'verify_with_mcassoc'),
-        'USE_MCASSOC_VALUE' => ($use_mcassoc == '1'),
+        'USE_MCASSOC_VALUE' => ($use_mcassoc === '1'),
         'MCASSOC_KEY' => $language->get('admin', 'mcassoc_key'),
         'MCASSOC_KEY_VALUE' => $mcassoc_key,
         'MCASSOC_INSTANCE' => $language->get('admin', 'mcassoc_instance'),
@@ -142,7 +147,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ACCOUNT_VERIFICATION' => $language->get('admin', 'account_verification'),
     'FORCE_PREMIUM_ACCOUNTS' => $language->get('admin', 'force_premium_accounts'),
-    'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking == '1')
+    'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking === '1')
 ]);
 
 $template->onPageLoad();
@@ -150,4 +155,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('integrations/minecraft/minecraft_account_verification.tpl', $smarty);
+try {
+    $template->displayTemplate('integrations/minecraft/minecraft_account_verification.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

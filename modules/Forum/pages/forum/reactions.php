@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,8 @@
  *  License: MIT
  *
  *  React to a post
+ *
+ * @var User $user
  */
 
 $forum = new Forum();
@@ -43,43 +46,46 @@ if (Input::exists()) {
         Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
     }
 
-    if (Token::check()) {
-        // Check if the user has already reacted to this post
-        $user_reacted = DB::getInstance()->get('forums_reactions', ['post_id', $post->id])->results();
-        if (count($user_reacted)) {
-            foreach ($user_reacted as $reaction) {
-                if ($reaction->user_given == $user->data()->id) {
-                    if ($reaction->reaction_id == $_POST['reaction']) {
-                        // Undo reaction
-                        DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
-                    } else {
-                        // Change reaction
-                        DB::getInstance()->update('forums_reactions', $reaction->id, [
-                            'reaction_id' => $_POST['reaction'],
-                            'time' => date('U')
-                        ]);
-                    }
+    try {
+        if (Token::check()) {
+            // Check if the user has already reacted to this post
+            $user_reacted = DB::getInstance()->get('forums_reactions', ['post_id', $post->id])->results();
+            if (count($user_reacted)) {
+                foreach ($user_reacted as $reaction) {
+                    if ($reaction->user_given === $user->data()->id) {
+                        if ($reaction->reaction_id === $_POST['reaction']) {
+                            // Undo reaction
+                            DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
+                        } else {
+                            // Change reaction
+                            DB::getInstance()->update('forums_reactions', $reaction->id, [
+                                'reaction_id' => $_POST['reaction'],
+                                'time' => date('U')
+                            ]);
+                        }
 
-                    $changed = true;
-                    break;
+                        $changed = true;
+                        break;
+                    }
                 }
             }
+
+            if (!isset($changed)) {
+                // Input new reaction
+                DB::getInstance()->insert('forums_reactions', [
+                    'post_id' => $post->id,
+                    'user_received' => $post->post_creator,
+                    'user_given' => $user->data()->id,
+                    'reaction_id' => $_POST['reaction'],
+                    'time' => date('U')
+                ]);
+
+                Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
+            }
+
+            // Redirect
         }
-
-        if (!isset($changed)) {
-            // Input new reaction
-            DB::getInstance()->insert('forums_reactions', [
-                'post_id' => $post->id,
-                'user_received' => $post->post_creator,
-                'user_given' => $user->data()->id,
-                'reaction_id' => $_POST['reaction'],
-                'time' => date('U')
-            ]);
-
-            Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
-        }
-
-        // Redirect
+    } catch (Exception $ignored) {
     }
     Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
 } else {

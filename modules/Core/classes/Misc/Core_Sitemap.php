@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Core module sitemap class.
  *
@@ -7,10 +9,17 @@
  * @version 2.0.0-pr8
  * @license MIT
  */
+
 use SitemapPHP\Sitemap;
 
+/**
+ * TODO: Add description
+ */
 class Core_Sitemap {
 
+    /**
+     * @param Sitemap $sitemap
+     */
     public static function generateSitemap(Sitemap $sitemap): void {
 
         // Core pages

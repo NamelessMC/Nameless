@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,27 +8,34 @@
  *  License: MIT
  *
  *  Online users widget settings
+ *
+ * @var Language $language
+ * @var Cache $cache
+ * @var Smarty $smarty
  */
 
 // Check input
-$cache->setCache('online_members');
+$cache->setCacheName('online_members');
 
 if (Input::exists()) {
-    if (Token::check()) {
-        if (isset($_POST['staff']) && $_POST['staff'] == 1) {
-            $cache->store('include_staff_in_users', 1);
-        } else {
-            $cache->store('include_staff_in_users', 0);
-        }
-        if (isset($_POST['nickname']) && $_POST['nickname'] == 1) {
-            $cache->store('show_nickname_instead', 1);
-        } else {
-            $cache->store('show_nickname_instead', 0);
-        }
+    try {
+        if (Token::check()) {
+            if (isset($_POST['staff']) && $_POST['staff'] === '1') {
+                $cache->store('include_staff_in_users', 1);
+            } else {
+                $cache->store('include_staff_in_users', 0);
+            }
+            if (isset($_POST['nickname']) && $_POST['nickname'] === '1') {
+                $cache->store('show_nickname_instead', 1);
+            } else {
+                $cache->store('show_nickname_instead', 0);
+            }
 
-        $success = $language->get('admin', 'widget_updated');
-    } else {
-        $errors = [$language->get('general', 'invalid_token')];
+            $success = $language->get('admin', 'widget_updated');
+        } else {
+            $errors = [$language->get('general', 'invalid_token')];
+        }
+    } catch (Exception $ignored) {
     }
 }
 

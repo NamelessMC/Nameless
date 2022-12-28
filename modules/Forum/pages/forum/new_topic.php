@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,9 +8,25 @@
  *  License: MIT
  *
  *  New topic page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $custom_usernames
  */
 
 // Always define page name
+use GuzzleHttp\Exception\GuzzleException;
+
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'new_topic');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
@@ -25,7 +42,7 @@ if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
 
-$fid = (int)$_GET['fid'];
+$fid = $_GET['fid'];
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -39,7 +56,7 @@ if (!$list) {
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
 if (!$can_reply) {
-    Redirect::to(URL::build('/forum/view/' . urlencode($fid)));
+    Redirect::to(URL::build('/forum/view/' . urlencode((string)$fid)));
 }
 
 $current_forum = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE id = ?', [$fid])->first();
@@ -57,19 +74,19 @@ if (count($forum_labels)) {
     foreach ($forum_labels as $label) {
         $forum_ids = explode(',', $label->fids);
 
-        if (in_array($fid, $forum_ids)) {
+        if (in_array($fid, $forum_ids, true)) {
             // Check permissions
-            $lgroups = explode(',', $label->gids);
+            $l_groups = explode(',', $label->gids);
 
-            $hasperm = false;
+            $has_perm = false;
             foreach ($user_groups as $group_id) {
-                if (in_array($group_id, $lgroups)) {
-                    $hasperm = true;
+                if (in_array($group_id, $l_groups, true)) {
+                    $has_perm = true;
                     break;
                 }
             }
 
-            if (!$hasperm) {
+            if (!$has_perm) {
                 continue;
             }
 
@@ -84,7 +101,7 @@ if (count($forum_labels)) {
             $labels[] = [
                 'id' => $label->id,
                 'html' => $label_html,
-                'checked' => in_array($label->id, $selected_labels)
+                'checked' => in_array($label->id, $selected_labels, true)
             ];
         }
     }
@@ -92,143 +109,145 @@ if (count($forum_labels)) {
 
 // Deal with any inputted data
 if (Input::exists()) {
-    if (Token::check()) {
-        // Check post limits
-        $last_post = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1')->results();
-        if (count($last_post)) {
-            if ($last_post[0]->created > strtotime('-30 seconds')) {
+    try {
+        if (Token::check()) {
+            // Check post limits
+            $last_post = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1')->results();
+            if (count($last_post) && $last_post[0]->created > strtotime('-30 seconds')) {
                 $spam_check = true;
             }
-        }
 
-        if (!isset($spam_check)) {
-            // Spam check passed
-            $validate = Validate::check($_POST, [
-                'title' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 2,
-                    Validate::MAX => 64
-                ],
-                'content' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 2,
-                    Validate::MAX => 50000
-                ]
-            ])->messages([
-                'title' => [
-                    Validate::REQUIRED => $forum_language->get('forum', 'title_required'),
-                    Validate::MIN => $forum_language->get('forum', 'title_min_2'),
-                    Validate::MAX => $forum_language->get('forum', 'title_max_64')
-                ],
-                'content' => [
-                    Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
-                    Validate::MIN => $forum_language->get('forum', 'content_min_2'),
-                    Validate::MAX => $forum_language->get('forum', 'content_max_50000')
-                ]
-            ]);
-
-            if ($validate->passed()) {
-                $post_labels = [];
-
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
-                        if (count($label)) {
-                            $lgroups = explode(',', $label[0]->gids);
-
-                            $hasperm = false;
-                            foreach ($user_groups as $group_id) {
-                                if (in_array($group_id, $lgroups)) {
-                                    $hasperm = true;
-                                    break;
-                                }
-                            }
-
-                            if ($hasperm) {
-                                $post_labels[] = $label[0]->id;
-                            }
-                        }
-                    }
-                } else {
-                    if (count($default_labels)) {
-                        $post_labels = $default_labels;
-                    }
+            if (!isset($spam_check)) {
+                // Spam check passed
+                try {
+                    $validate = Validate::check($_POST, [
+                        'title' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 64
+                        ],
+                        'content' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 2,
+                            Validate::MAX => 50000
+                        ]
+                    ])->messages([
+                        'title' => [
+                            Validate::REQUIRED => $forum_language->get('forum', 'title_required'),
+                            Validate::MIN => $forum_language->get('forum', 'title_min_2'),
+                            Validate::MAX => $forum_language->get('forum', 'title_max_64')
+                        ],
+                        'content' => [
+                            Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+                            Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                            Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+                        ]
+                    ]);
+                } catch (Exception $ignored) {
                 }
 
-                DB::getInstance()->insert('topics', [
-                    'forum_id' => $fid,
-                    'topic_title' => Input::get('title'),
-                    'topic_creator' => $user->data()->id,
-                    'topic_last_user' => $user->data()->id,
-                    'topic_date' => date('U'),
-                    'topic_reply_date' => date('U'),
-                    'labels' => implode(',', $post_labels)
-                ]);
-                $topic_id = DB::getInstance()->lastId();
+                if ($validate->passed()) {
+                    $post_labels = [];
 
-                $content = Input::get('content');
+                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                        foreach ($_POST['topic_label'] as $topic_label) {
+                            $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
+                            if (count($label)) {
+                                $l_groups = explode(',', $label[0]->gids);
 
-                DB::getInstance()->insert('posts', [
-                    'forum_id' => $fid,
-                    'topic_id' => $topic_id,
-                    'post_creator' => $user->data()->id,
-                    'post_content' => $content,
-                    'post_date' => date('Y-m-d H:i:s'),
-                    'created' => date('U')
-                ]);
+                                $has_perm = false;
+                                foreach ($user_groups as $group_id) {
+                                    if (in_array($group_id, $l_groups, true)) {
+                                        $has_perm = true;
+                                        break;
+                                    }
+                                }
 
-                // Get last post ID
-                $last_post_id = DB::getInstance()->lastId();
-                $content = EventHandler::executeEvent('preTopicCreate', [
-                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                    'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                    'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
-                    'content' => $content,
-                    'user' => $user,
-                ])['content'];
+                                if ($has_perm) {
+                                    $post_labels[] = $label[0]->id;
+                                }
+                            }
+                        }
+                    } else if (count($default_labels)) {
+                        $post_labels = $default_labels;
+                    }
 
-                DB::getInstance()->update('posts', $last_post_id, [
-                    'post_content' => $content
-                ]);
+                    DB::getInstance()->insert('topics', [
+                        'forum_id' => $fid,
+                        'topic_title' => Input::get('title'),
+                        'topic_creator' => $user->data()->id,
+                        'topic_last_user' => $user->data()->id,
+                        'topic_date' => date('U'),
+                        'topic_reply_date' => date('U'),
+                        'labels' => implode(',', $post_labels)
+                    ]);
+                    $topic_id = DB::getInstance()->lastId();
 
-                DB::getInstance()->update('forums', $fid, [
-                    'last_post_date' => date('U'),
-                    'last_user_posted' => $user->data()->id,
-                    'last_topic_posted' => $topic_id
-                ]);
+                    $content = Input::get('content');
 
-                Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
+                    DB::getInstance()->insert('posts', [
+                        'forum_id' => $fid,
+                        'topic_id' => $topic_id,
+                        'post_creator' => $user->data()->id,
+                        'post_content' => $content,
+                        'post_date' => date('Y-m-d H:i:s'),
+                        'created' => date('U')
+                    ]);
 
-                // Execute hooks and pass $available_hooks
-                $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
-                $available_hooks = DB::getInstance()->get('forums', ['id', $fid])->results();
-                $available_hooks = json_decode($available_hooks[0]->hooks);
-                EventHandler::executeEvent('newTopic', [
-                    'user_id' => Output::getClean($user->data()->id),
-                    'username' => $user->getDisplayname(true),
-                    'nickname' => $user->getDisplayname(),
-                    'content' => $default_forum_language->get('forum', 'new_topic_text', [
-                        'forum' => $forum_title,
-                        'author' => $user->getDisplayname(),
-                    ]),
-                    'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
-                    'avatar_url' => $user->getAvatar(128, true),
-                    'title' => Input::get('title'),
-                    'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
-                    'available_hooks' => $available_hooks === null ? [] : $available_hooks
-                ]);
+                    // Get last post ID
+                    $last_post_id = DB::getInstance()->lastId();
+                    $content = EventHandler::executeEvent('preTopicCreate', [
+                        'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayName()],
+                        'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                        'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
+                        'content' => $content,
+                        'user' => $user,
+                    ])['content'];
 
-                Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+                    DB::getInstance()->update('posts', $last_post_id, [
+                        'post_content' => $content
+                    ]);
 
-                Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))));
+                    DB::getInstance()->update('forums', $fid, [
+                        'last_post_date' => date('U'),
+                        'last_user_posted' => $user->data()->id,
+                        'last_topic_posted' => $topic_id
+                    ]);
+
+                    Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
+
+                    // Execute hooks and pass $available_hooks
+                    $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
+                    $available_hooks = DB::getInstance()->get('forums', ['id', $fid])->results();
+                    $available_hooks = json_decode($available_hooks[0]->hooks, true);
+                    EventHandler::executeEvent('newTopic', [
+                        'user_id' => Output::getClean((string)$user->data()->id),
+                        'username' => $user->getDisplayName(true),
+                        'nickname' => $user->getDisplayName(),
+                        'content' => $default_forum_language->get('forum', 'new_topic_text', [
+                            'forum' => $forum_title,
+                            'author' => $user->getDisplayName(),
+                        ]),
+                        'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
+                        'avatar_url' => $user->getAvatar(128, true),
+                        'title' => Input::get('title'),
+                        'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                        'available_hooks' => $available_hooks ?? []
+                    ]);
+
+                    Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
+
+                    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))));
+                } else {
+                    $error = $validate->errors();
+                }
             } else {
-                $error = $validate->errors();
+                $error = [$forum_language->get('forum', 'spam_wait', ['count' => (strtotime($last_post[0]->post_date) - strtotime('-30 seconds'))])];
             }
         } else {
-            $error = [$forum_language->get('forum', 'spam_wait', ['count' => (strtotime($last_post[0]->post_date) - strtotime('-30 seconds'))])];
+            $error = [$language->get('general', 'invalid_token')];
         }
-    } else {
-        $error = [$language->get('general', 'invalid_token')];
+    } catch (GuzzleException|Exception $ignored) {
     }
 }
 
@@ -293,4 +312,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/new_topic.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/new_topic.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

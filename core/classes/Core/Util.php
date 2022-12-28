@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-use Astrotomic\Twemoji\Twemoji;
+use DebugBar\DebugBarException;
 
 /**
  * Contains misc utility methods.
@@ -60,10 +61,8 @@ class Util {
                 if (!self::recursiveRemoveDirectory($file)) {
                     return false;
                 }
-            } else {
-                if (!unlink($file)) {
-                    return false;
-                }
+            } else if (!unlink($file)) {
+                return false;
             }
         }
 
@@ -76,6 +75,7 @@ class Util {
      * Get an array containing all timezone lists.
      *
      * @return array All timezones.
+     * @throws Exception
      */
     public static function listTimezones(): array {
         // Array to contain timezones
@@ -98,7 +98,7 @@ class Util {
             $offsets[] = $current->getOffset();
 
             // Format timezone offset
-            $offset = 'GMT ' . (int)($current->getOffset() / 3600) . ':' . str_pad(abs((int)($current->getOffset() % 3600 / 60)), 2, 0);
+            $offset = 'GMT ' . (int)($current->getOffset() / 3600) . ':' . str_pad((string)abs((int)($current->getOffset() % 3600 / 60)), 2, '0');
 
             // Prettify timezone name
             $name = Output::getClean(str_replace(['/', '_'], [', ', ' '], $timezone));
@@ -115,9 +115,10 @@ class Util {
     /**
      * Is a URL internal or external? Accepts full URL and also just a path.
      *
-     * @deprecated Use `URL::isExternalURL` instead. Will be removed in 2.1.0
      * @param string $url URL/path to check.
+     *
      * @return bool Whether URL is external or not.
+     * @deprecated Use `URL::isExternalURL` instead. Will be removed in 2.1.0
      */
     public static function isExternalURL(string $url): bool {
         return URL::isExternalURL($url);
@@ -126,16 +127,18 @@ class Util {
     /**
      * Determine whether the trusted proxies config option is set to a valid value or not.
      *
-     * @deprecated Use `HttpUtils::isTrustedProxiesConfigured`. Will be removed in 2.1.0
      * @return bool Whether the trusted proxies option is configured or not
+     * @deprecated Use `HttpUtils::isTrustedProxiesConfigured`. Will be removed in 2.1.0
+     *
      */
     public static function isTrustedProxiesConfigured(): bool {
         return HttpUtils::isTrustedProxiesConfigured();
     }
 
     /**
-     * @deprecated Use `HttpUtils::getTrustedProxies`. Will be removed in 2.1.0
      * @return array List of trusted proxy networks according to config file and environment
+     * @deprecated Use `HttpUtils::getTrustedProxies`. Will be removed in 2.1.0
+     *
      */
     public static function getTrustedProxies(): array {
         return HttpUtils::getTrustedProxies();
@@ -144,8 +147,9 @@ class Util {
     /**
      * Get the client's true IP address, using proxy headers if necessary.
      *
-     * @deprecated Use `HttpUtils::getRemoteAddress`. Will be removed in 2.1.0
      * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
+     * @deprecated Use `HttpUtils::getRemoteAddress`. Will be removed in 2.1.0
+     *
      */
     public static function getRemoteAddress(): ?string {
         return HttpUtils::getRemoteAddress();
@@ -154,8 +158,9 @@ class Util {
     /**
      * Get the protocol used by client's HTTP request, using proxy headers if necessary.
      *
-     * @deprecated Use `HttpUtils::getProtocol`. Will be removed in 2.1.0
      * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
+     * @deprecated Use `HttpUtils::getProtocol`. Will be removed in 2.1.0
+     *
      */
     public static function getProtocol(): string {
         return HttpUtils::getProtocol();
@@ -164,8 +169,9 @@ class Util {
     /**
      * Get port used by client's HTTP request, using proxy headers if necessary.
      *
-     * @deprecated Use `HttpUtils::getPort`. Will be removed in 2.1.0
      * @return ?int Port number, or null when using the CLI
+     * @deprecated Use `HttpUtils::getPort`. Will be removed in 2.1.0
+     *
      */
     public static function getPort(): ?int {
         return HttpUtils::getPort();
@@ -174,9 +180,10 @@ class Util {
     /**
      * Get the server name.
      *
-     * @deprecated Use `URL::getSelfURL` instead. Will be removed in 2.1.0
      * @param bool $show_protocol Whether to show http(s) at front or not.
+     *
      * @return string Compiled URL.
+     * @deprecated Use `URL::getSelfURL` instead. Will be removed in 2.1.0
      */
     public static function getSelfURL(bool $show_protocol = true): string {
         return URL::getSelfURL($show_protocol);
@@ -185,9 +192,10 @@ class Util {
     /**
      * URL-ify a string
      *
-     * @deprecated Use `Text::urlSafe` instead. Will be removed in 2.1.0
      * @param string|null $string $string String to URLify
-     * @return string Url-ified string. (I dont know what this means)
+     *
+     * @return string Urlified string.
+     * @deprecated Use `Text::urlSafe` instead. Will be removed in 2.1.0
      */
     public static function stringToURL(string $string = null): string {
         return Text::urlSafe($string);
@@ -211,6 +219,7 @@ class Util {
      * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
+     *
      * @return string Trimmed string.
      */
     public static function truncate(string $text, int $length = 750, array $options = []): string {
@@ -221,6 +230,7 @@ class Util {
      * Check for Nameless updates.
      *
      * @return string|UpdateCheck Object with information about any updates, or error message.
+     * @throws DebugBarException
      */
     public static function updateCheck() {
         $uid = self::getSetting('unique_id');
@@ -255,51 +265,6 @@ class Util {
     }
 
     /**
-     * Get the latest Nameless news.
-     *
-     * @return string NamelessMC news in JSON.
-     */
-    public static function getLatestNews(): string {
-        $news = HttpClient::get('https://namelessmc.com/news');
-
-        if ($news->hasError()) {
-            return json_encode([
-                'error' => $news->getError()
-            ]);
-        }
-
-        return $news->contents();
-    }
-
-    /**
-     * Add target and rel attributes to external links only.
-     * From https://stackoverflow.com/a/53461987
-     *
-     * @deprecated Use `URL::replaceAnchorsWithText`. Will be removed in 2.1.0
-     * @param string $data Data to replace.
-     * @return string Replaced string.
-     */
-    public static function replaceAnchorsWithText(string $data): string {
-        return URL::replaceAnchorsWithText($data);
-    }
-
-    private static function getSettingsCache(?string $module): ?array {
-        $cache_name = $module !== null ? $module : 'core';
-
-        if (self::$_cached_settings === null ||
-                !isset(self::$_cached_settings[$cache_name])) {
-            return null;
-        }
-
-        return self::$_cached_settings[$cache_name];
-    }
-
-    private static function setSettingsCache(?string $module, array $cache): void {
-        $cache_name = $module !== null ? $module : 'core';
-        self::$_cached_settings[$cache_name] = $cache;
-    }
-
-    /**
      * Get a setting from the database table `nl2_settings`.
      *
      * @param string $setting Setting to check.
@@ -330,6 +295,33 @@ class Util {
     }
 
     /**
+     * @param string|null $module
+     *
+     * @return array|null
+     */
+    private static function getSettingsCache(?string $module): ?array {
+        $cache_name = $module ?? 'core';
+
+        if (self::$_cached_settings === null ||
+            !isset(self::$_cached_settings[$cache_name])) {
+            return null;
+        }
+
+        return self::$_cached_settings[$cache_name];
+    }
+
+    /**
+     * @param string|null $module
+     * @param array $cache
+     *
+     * @return void
+     */
+    private static function setSettingsCache(?string $module, array $cache): void {
+        $cache_name = $module ?? 'core';
+        self::$_cached_settings[$cache_name] = $cache;
+    }
+
+    /**
      * Modify a setting in the database table `nl2_settings`.
      *
      * @param string $setting Setting name.
@@ -338,33 +330,31 @@ class Util {
      *                       to 'Core' for global settings.
      */
     public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
-        if ($new_value == null) {
+        if ($new_value === null) {
             if ($module === 'core') {
                 DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
             } else {
                 DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` = ?', [$setting, $module]);
             }
-        } else {
-            if ($module === 'core') {
-                if (DB::getInstance()->query('SELECT * FROM nl2_settings WHERE `name` = ? and `module` IS NULL', [$setting])->count()) {
-                    DB::getInstance()->query(
-                        'UPDATE `nl2_settings` SET `value` = ? WHERE `name` = ? AND `module` IS NULL',
-                        [$new_value, $setting]
-                    );
-                } else {
-                    DB::getInstance()->query(
-                        'INSERT INTO `nl2_settings` (`name`, `value`) VALUES (?, ?)',
-                        [$setting, $new_value]
-                    );
-                }
+        } else if ($module === 'core') {
+            if (DB::getInstance()->query('SELECT * FROM nl2_settings WHERE `name` = ? and `module` IS NULL', [$setting])->count()) {
+                DB::getInstance()->query(
+                    'UPDATE `nl2_settings` SET `value` = ? WHERE `name` = ? AND `module` IS NULL',
+                    [$new_value, $setting]
+                );
             } else {
                 DB::getInstance()->query(
-                    'INSERT INTO `nl2_settings` (`name`, `value`, `module`)
-                     VALUES (?, ?, ?)
-                     ON DUPLICATE KEY UPDATE `value` = ?',
-                    [$setting, $new_value, $module, $new_value]
+                    'INSERT INTO `nl2_settings` (`name`, `value`) VALUES (?, ?)',
+                    [$setting, $new_value]
                 );
             }
+        } else {
+            DB::getInstance()->query(
+                'INSERT INTO `nl2_settings` (`name`, `value`, `module`)
+                    VALUES (?, ?, ?)
+                    ON DUPLICATE KEY UPDATE `value` = ?',
+                [$setting, $new_value, $module, $new_value]
+            );
         }
 
         $cache = self::getSettingsCache($module);
@@ -380,12 +370,42 @@ class Util {
     }
 
     /**
+     * Get the latest Nameless news.
+     *
+     * @return string NamelessMC news in JSON.
+     * @throws DebugBarException
+     */
+    public static function getLatestNews(): string {
+        $news = HttpClient::get('https://namelessmc.com/news');
+
+        if ($news->hasError()) {
+            return json_encode([
+                'error' => $news->getError()
+            ]);
+        }
+
+        return $news->contents();
+    }
+
+    /**
+     * Add target and rel attributes to external links only.
+     * From https://stackoverflow.com/a/53461987
+     *
+     * @param string $data Data to replace.
+     * @return string Replaced string.
+     * @deprecated Use `URL::replaceAnchorsWithText`. Will be removed in 2.1.0
+     */
+    public static function replaceAnchorsWithText(string $data): string {
+        return URL::replaceAnchorsWithText($data);
+    }
+
+    /**
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
      * @param int $website_group_id ID of website group to search for.
      * @return string|null Name of in-game rank or null if rule is not set up.
      */
-    public static function getIngameRankName(int $website_group_id): ?string {
+    public static function getInGameRankName(int $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
         $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
 
@@ -403,16 +423,16 @@ class Util {
      * @return bool Whether this module is enabled or not.
      */
     public static function isModuleEnabled(string $name): bool {
-        if (in_array($name, self::$_enabled_modules)) {
+        if (in_array($name, self::$_enabled_modules, true)) {
             return true;
         }
 
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
-        $cache->setCache('modulescache');
+        $cache->setCacheName('modulescache');
 
         $enabled_modules = $cache->retrieve('enabled_modules');
 
-        if (in_array($name, array_column($enabled_modules, 'name'))) {
+        if (in_array($name, array_column($enabled_modules, 'name'), true)) {
             self::$_enabled_modules[] = $name;
             return true;
         }
@@ -423,9 +443,9 @@ class Util {
     /**
      * Replace native emojis with their Twemoji equivalent.
      *
-     * @deprecated Use `Text::renderEmojis` instead. Will be removed in 2.1.0
      * @param string $text Text to parse
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
+     * @deprecated Use `Text::renderEmojis` instead. Will be removed in 2.1.0
      */
     public static function renderEmojis(string $text): string {
         return Text::renderEmojis($text);
@@ -435,9 +455,9 @@ class Util {
      * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
      * since we want as little HTML in the translation strings as possible.
      *
-     * @deprecated Use `Text::bold` instead. Will be removed in 2.1.0
      * @param string $text Text to wrap
      * @return string Text wrapped in `<strong>` tags
+     * @deprecated Use `Text::bold` instead. Will be removed in 2.1.0
      */
     public static function bold(string $text): string {
         return Text::bold($text);
@@ -486,7 +506,7 @@ class Util {
                 $before_after = self::findBeforeAfter($order, $nValue);
 
                 if (!array_diff($item['after'], $before_after[0]) && !array_diff($item['before'], $before_after[1])) {
-                    array_splice($order, $n + 1, 0, $item['name']);
+                    array_splice($order, ($n + 1), 0, $item['name']);
                     continue 2;
                 }
             }
@@ -512,12 +532,10 @@ class Util {
         foreach ($items as $item) {
             if ($found) {
                 $after[] = $item;
+            } else if ($item === $current) {
+                $found = true;
             } else {
-                if ($item == $current) {
-                    $found = true;
-                } else {
-                    $before[] = $item;
-                }
+                $before[] = $item;
             }
         }
 
@@ -533,10 +551,9 @@ class Util {
      * @return bool Whether they are compatible or not
      */
     public static function isCompatible(string $version, string $nameless_version): bool {
-        [$major, $minor, ] = explode('.', $version);
-        [$nameless_major, $nameless_minor, ] = explode('.', $nameless_version);
+        [$major, $minor,] = explode('.', $version);
+        [$nameless_major, $nameless_minor,] = explode('.', $nameless_version);
 
-        return $major == $nameless_major && $minor == $nameless_minor;
+        return $major === $nameless_major && $minor === $nameless_minor;
     }
-
 }

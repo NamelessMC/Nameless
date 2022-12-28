@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -9,15 +11,25 @@
  *  Recent reports dashboard collection item
  */
 
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * TODO: Add description
+ */
 class RecentReportsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
     private Language $_language;
     private Cache $_cache;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_main_items_collection');
-        if ($cache->isCached('recent_reports')) {
+        $cache->setCacheName('dashboard_main_items_collection');
+        if ($cache->hasCashedData('recent_reports')) {
             $from_cache = $cache->retrieve('recent_reports');
             $order = $from_cache['order'] ?? 3;
 
@@ -34,13 +46,18 @@ class RecentReportsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
+    /**
+     * @return string
+     * @throws SmartyException
+     * @throws GuzzleException
+     */
     public function getContent(): string {
         // Get recent reports
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
-        $this->_cache->setCache('dashboard_main_items_collection');
+        $this->_cache->setCacheName('dashboard_main_items_collection');
 
-        if ($this->_cache->isCached('recent_reports_data')) {
+        if ($this->_cache->hasCashedData('recent_reports_data')) {
             $data = $this->_cache->retrieve('recent_reports_data');
         } else {
             $query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE `status` = 0 ORDER BY `date_reported` DESC LIMIT 5');
@@ -72,17 +89,17 @@ class RecentReportsItem extends CollectionItemBase {
 
                     $data[] = [
                         'url' => URL::build('/panel/users/reports/', 'id=' . urlencode($item->id)),
-                        'reporter_username' => $reporter_user->getDisplayname(true),
-                        'reporter_nickname' => $reporter_user->getDisplayname(),
+                        'reporter_username' => $reporter_user->getDisplayName(true),
+                        'reporter_nickname' => $reporter_user->getDisplayName(),
                         'reporter_style' => $reporter_user->getGroupStyle(),
                         'reporter_avatar' => $reporter_user->getAvatar(),
-                        'reporter_profile' => URL::build('/panel/user/' . urlencode($reporter_user->data()->id) . '-' . urlencode($reporter_user->data()->username)),
-                        'reported_username' => $reported_user->getDisplayname(true),
-                        'reported_nickname' => $reported_user->getDisplayname(),
+                        'reporter_profile' => URL::build('/panel/user/' . urlencode((string)$reporter_user->data()->id) . '-' . urlencode($reporter_user->data()->username)),
+                        'reported_username' => $reported_user->getDisplayName(true),
+                        'reported_nickname' => $reported_user->getDisplayName(),
                         'reported_style' => $reported_user->getGroupStyle(),
                         'reported_avatar' => $reported_user->getAvatar(),
-                        'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
-                        'time' => $timeago->inWords($item->date_reported, $this->_language),
+                        'reported_profile' => URL::build('/panel/user/' . urlencode((string)$reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
+                        'time' => $time_ago->inWords($item->date_reported, $this->_language),
                         'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->report_reason),
@@ -111,6 +128,10 @@ class RecentReportsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_reports.tpl');
     }
 
+    /**
+     *
+     * @return float
+     */
     public function getWidth(): float {
         return 0.33; // 1/3 width
     }

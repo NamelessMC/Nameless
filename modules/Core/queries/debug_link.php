@@ -1,6 +1,21 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Unknown
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
+ *
+ *  License: MIT
+ *
+ *  TODO: Add description
+ *
+ * @var User $user
+ * @var TemplateBase $template
+ */
 
 // Can user generate the debug link?
+use DebugBar\DebugBarException;
+
 if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
     require_once(ROOT_PATH . '/403.php');
     die();
@@ -17,7 +32,7 @@ $enabled_modules = Module::getModules();
 foreach ($modules as $item) {
     $exists = false;
     foreach ($enabled_modules as $enabled_item) {
-        if ($enabled_item->getName() == $item->name) {
+        if ($enabled_item->getName() === (string)$item->name) {
             $exists = true;
             $module = $enabled_item;
             break;
@@ -32,8 +47,9 @@ foreach ($modules as $item) {
         require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
-    $namelessmc_modules[$module->getName()] = [
-        'name' => $module->getName(),
+    $module_name = $module->getName();
+    $namelessmc_modules[$module_name] = [
+        'name' => $module_name,
         'enabled' => Util::isModuleEnabled($module->getName()),
         'author' => $module->getAuthor(),
         'module_version' => $module->getVersion(),
@@ -93,14 +109,14 @@ $group_sync['rules'] = [];
 foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
     $rules = [];
     foreach (get_object_vars($rule) as $column => $value) {
-        if ($column == 'id') {
+        if ($column === 'id') {
             $rules[$column] = (int)$value;
         } else {
             $rules[$column] = $value;
         }
     }
 
-    $group_sync['rules'][(int)$rule->id] = $rules;
+    $group_sync['rules'][$rule->id] = $rules;
 }
 
 $webhooks = [];
@@ -109,7 +125,7 @@ foreach (DB::getInstance()->query('SELECT `id`, `name`, `action`, `events` FROM 
         'id' => (int)$webhook->id,
         'name' => $webhook->name,
         'action' => (int)$webhook->action,
-        'events' => json_decode($webhook->events),
+        'events' => json_decode($webhook->events, true),
     ];
 }
 
@@ -118,13 +134,13 @@ foreach (DB::getInstance()->query('SELECT `id`, `forum_title`, `hooks` FROM nl2_
     $forum_hooks[] = [
         'forum_id' => (int)$forum->id,
         'title' => $forum->forum_title,
-        'hooks' => array_map(static fn($hook) => (int)$hook, json_decode($forum->hooks)),
+        'hooks' => array_map(static fn($hook) => (int)$hook, json_decode($forum->hooks, true)),
     ];
 }
 
 $groups = [];
 foreach (Group::all() as $group) {
-    $groups[(int)$group->id] = [
+    $groups[$group->id] = [
         'id' => (int)$group->id,
         'name' => $group->name,
         'group_html' => $group->group_html,
@@ -141,12 +157,12 @@ foreach (Group::all() as $group) {
 $integrations = [];
 foreach (Integrations::getInstance()->getAll() as $integration) {
     $integrations[$integration->getName()] = [
-        'id' => (int) $integration->data()->id,
+        'id' => (int)$integration->data()->id,
         'name' => $integration->data()->name,
-        'enabled' => (bool) $integration->data()->enabled,
-        'can_unlink' => (bool) $integration->data()->can_unlink,
-        'required' => (bool) $integration->data()->required,
-        'order' => (int) $integration->data()->order
+        'enabled' => (bool)$integration->data()->enabled,
+        'can_unlink' => (bool)$integration->data()->can_unlink,
+        'required' => (bool)$integration->data()->required,
+        'order' => (int)$integration->data()->order
     ];
 }
 
@@ -159,7 +175,7 @@ foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $data
         'class' => $data['class'],
         'user_id_name' => $data['user_id_name'],
         'scope_id_name' => $data['scope_id_name'],
-        'enabled' => in_array($provider_name, $providers_available),
+        'enabled' => in_array($provider_name, $providers_available, true),
         'client_id' => NamelessOAuth::getInstance()->getCredentials($provider_name)[0],
     ];
 }
@@ -186,14 +202,14 @@ $data = [
     'namelessmc' => [
         'version' => $namelessmc_version,
         'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
-        'update_checked' => (int) Util::getSetting('version_checked'),
+        'update_checked' => (int)Util::getSetting('version_checked'),
         'settings' => [
             'phpmailer' => Util::getSetting('phpmailer') === '1',
             'api_enabled' => Util::getSetting('use_api') === '1',
             'email_verification' => Util::getSetting('email_verification') === '1',
             'login_method' => Util::getSetting('login_method'),
             'captcha_type' => Util::getSetting('recaptcha_type'),
-            'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
+            'captcha_login' => !(Util::getSetting('recaptcha_login') === 'false'), // dont ask
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [
@@ -232,7 +248,7 @@ $data = [
         'php_modules' => get_loaded_extensions(),
         'host_os' => PHP_OS,
         'host_kernel_version' => php_uname('r'),
-        'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
+        'official_docker_image' => (bool)getenv('NAMELESSMC_METRICS_DOCKER') === true,
         'disk_total_space' => disk_total_space('./'),
         'disk_free_space' => disk_free_space('./'),
         'memory_total_space' => ini_get('memory_limit'),
@@ -242,11 +258,14 @@ $data = [
     ],
 ];
 
-$result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT), [
-    'headers' => [
-        'Content-Type' => 'application/json',
-        'User-Agent' => 'NamelessMC/' . $namelessmc_version,
-    ],
-])->json(true);
+try {
+    $result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT), [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'User-Agent' => 'NamelessMC/' . $namelessmc_version,
+        ],
+    ])->json(true);
+} catch (DebugBarException $ignored) {
+}
 
 die('https://debug.namelessmc.com/' . $result['key']);

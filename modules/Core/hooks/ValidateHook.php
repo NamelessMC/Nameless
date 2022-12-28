@@ -1,14 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
- *
- *  Validate user event listener handler class
- */
+declare(strict_types=1);
 
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Validate user event listener handler class
+ *
+ * @package Core\Hooks
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
+ */
 class ValidateHook {
 
+    /**
+     * @param array $params
+     *
+     * @return void
+     * @throws GuzzleException
+     */
     public static function execute(array $params = []): void {
         if (!defined('VALIDATED_DEFAULT') || VALIDATED_DEFAULT === null) {
             define('VALIDATED_DEFAULT', 1);

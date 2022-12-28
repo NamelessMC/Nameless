@@ -1,16 +1,39 @@
 <?php
+declare(strict_types=1);
 
-class DatabaseInitialiser {
+/**
+ * Database class.
+ *
+ * @package NamelessMC\Database
+ * @author Unknown
+ * @version 2.1.0
+ * @license MIT
+ */
+class DatabaseInitializer {
+    /**
+     * @var ?DB $_db
+     */
+    private static ?DB $_db;
 
-    private DB $_db;
+    /**
+     * @var Cache
+     */
     private Cache $_cache;
 
     private function __construct() {
-        $this->_db = DB::getInstance();
+        if (!isset(self::$_db)) {
+            self::$_db = DB::getInstance();
+        }
+
         $this->_cache = new Cache();
     }
 
-    public static function runPreUser() {
+    /**
+     *
+     * @return void
+     * @throws Exception
+     */
+    public static function runPreUser(): void {
         $instance = new self();
         $instance->initialiseGroups();
         $instance->initialiseLanguages();
@@ -22,13 +45,12 @@ class DatabaseInitialiser {
         $instance->initialiseWidgets();
     }
 
-    public static function runPostUser() {
-        $instance = new self();
-        $instance->initialiseForum();
-    }
-
+    /**
+     *
+     * @return void
+     */
     private function initialiseGroups(): void {
-        $this->_db->insert('groups', [
+        self::$_db->insert('groups', [
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
             'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}',
@@ -36,7 +58,7 @@ class DatabaseInitialiser {
             'order' => 3
         ]);
 
-        $this->_db->insert('groups', [
+        self::$_db->insert('groups', [
             'name' => 'Admin',
             'group_html' => '<span class="badge badge-danger">Admin</span>',
             'group_username_color' => '#ff0000',
@@ -47,7 +69,7 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        $this->_db->insert('groups', [
+        self::$_db->insert('groups', [
             'name' => 'Moderator',
             'group_html' => '<span class="badge badge-primary">Moderator</span>',
             'admin_cp' => true,
@@ -56,7 +78,7 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        $this->_db->insert('groups', [
+        self::$_db->insert('groups', [
             'name' => 'Unconfirmed Member',
             'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
             'group_username_color' => '#6c757d',
@@ -65,41 +87,49 @@ class DatabaseInitialiser {
         ]);
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseLanguages(): void {
         foreach (Language::LANGUAGES as $short_code => $meta) {
-            $this->_db->insert('languages', [
+            self::$_db->insert('languages', [
                 'name' => $meta['name'],
                 'short_code' => $short_code,
-                'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0
+                'is_default' => (Session::get('default_language') === $short_code) ? 1 : 0
             ]);
         }
 
-        $this->_cache->setCache('languagecache');
+        $this->_cache->setCacheName('languagecache');
         $this->_cache->store('language', Session::get('default_language'));
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseModules(): void {
-        $this->_db->insert('modules', [
+        self::$_db->insert('modules', [
             'name' => 'Core',
             'enabled' => true,
         ]);
 
-        $this->_db->insert('modules', [
+        self::$_db->insert('modules', [
             'name' => 'Forum',
             'enabled' => true,
         ]);
 
-        $this->_db->insert('modules', [
+        self::$_db->insert('modules', [
             'name' => 'Discord Integration',
             'enabled' => true,
         ]);
 
-        $this->_db->insert('modules', [
+        self::$_db->insert('modules', [
             'name' => 'Cookie Consent',
             'enabled' => true,
         ]);
 
-        $this->_cache->setCache('modulescache');
+        $this->_cache->setCacheName('modulescache');
         $this->_cache->store('enabled_modules', [
             [
                 'name' => 'Core',
@@ -123,8 +153,12 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseIntegrations(): void {
-        $this->_db->insert('integrations', [
+        self::$_db->insert('integrations', [
             'name' => 'Minecraft',
             'enabled' => true,
             'can_unlink' => false,
@@ -132,7 +166,7 @@ class DatabaseInitialiser {
         ]);
 
         // TODO: should this be in the DiscordIntegration module...?
-        $this->_db->insert('integrations', [
+        self::$_db->insert('integrations', [
             'name' => 'Discord',
             'enabled' => true,
             'can_unlink' => true,
@@ -140,22 +174,26 @@ class DatabaseInitialiser {
         ]);
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseReactions(): void {
-        $this->_db->insert('reactions', [
+        self::$_db->insert('reactions', [
             'name' => 'Like',
             'html' => '<i class="fas fa-thumbs-up text-success"></i>',
             'enabled' => true,
             'type' => 2
         ]);
 
-        $this->_db->insert('reactions', [
+        self::$_db->insert('reactions', [
             'name' => 'Dislike',
             'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
             'enabled' => true,
             'type' => 0
         ]);
 
-        $this->_db->insert('reactions', [
+        self::$_db->insert('reactions', [
             'name' => 'Meh',
             'html' => '<i class="fas fa-meh text-warning"></i>',
             'enabled' => true,
@@ -163,6 +201,11 @@ class DatabaseInitialiser {
         ]);
     }
 
+    /**
+     *
+     * @return void
+     * @throws Exception
+     */
     private function initialiseSettings(): void {
         Util::setSetting('registration_enabled', '1');
         Util::setSetting('displaynames', '0');
@@ -187,7 +230,7 @@ class DatabaseInitialiser {
         Util::setSetting('error_reporting', '0');
         Util::setSetting('page_loading', '0');
         Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
-        Util::setSetting('use_api', 0);
+        Util::setSetting('use_api', '0');
         Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
         Util::setSetting('external_query', '0');
         Util::setSetting('followers', '0');
@@ -195,7 +238,7 @@ class DatabaseInitialiser {
         Util::setSetting('timezone', 'Europe/London');
         Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
-        Util::setSetting('authme', 0);
+        Util::setSetting('authme', '0');
         Util::setSetting('default_avatar_type', 'minecraft');
         Util::setSetting('private_profile', '1');
         Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
@@ -204,41 +247,45 @@ class DatabaseInitialiser {
         Util::setSetting('status_page', '0');
         Util::setSetting('placeholders', '0');
 
-        $this->_db->insert('privacy_terms', [
+        self::$_db->insert('privacy_terms', [
             'name' => 'terms',
             'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
         ]);
 
-        $this->_db->insert('privacy_terms', [
+        self::$_db->insert('privacy_terms', [
             'name' => 'cookies',
             'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
         ]);
 
-        $this->_db->insert('privacy_terms', [
+        self::$_db->insert('privacy_terms', [
             'name' => 'privacy',
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
         $nameless_terms = 'This website uses "Nameless" website software. The ' .
-                        '"Nameless" software creators will not be held responsible for any content ' .
-                        'that may be experienced whilst browsing this site, nor are they responsible ' .
-                        'for any loss of data which may come about, for example a hacking attempt. ' .
-                        'The website is run independently from the software creators, and any content' .
-                        ' is the responsibility of the website administration.';
+            '"Nameless" software creators will not be held responsible for any content ' .
+            'that may be experienced whilst browsing this site, nor are they responsible ' .
+            'for any loss of data which may come about, for example a hacking attempt. ' .
+            'The website is run independently from the software creators, and any content' .
+            ' is the responsibility of the website administration.';
         Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseTemplates(): void {
-        $this->_db->insert('templates', [
+        self::$_db->insert('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
             'is_default' => true,
         ]);
 
-        $this->_cache->setCache('templatecache');
+        $this->_cache->setCacheName('templatecache');
         $this->_cache->store('default', 'DefaultRevamp');
 
-        $this->_db->insert('panel_templates', [
+        self::$_db->insert('panel_templates', [
             'name' => 'Default',
             'enabled' => true,
             'is_default' => true,
@@ -250,30 +297,34 @@ class DatabaseInitialiser {
             $config_path = '/' . trim($config_path, '/');
         }
 
-        $this->_cache->setCache('backgroundcache');
+        $this->_cache->setCacheName('backgroundcache');
         $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseWidgets(): void {
-        $this->_db->insert('widgets', [
+        self::$_db->insert('widgets', [
             'name' => 'Online Staff',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $this->_db->insert('widgets', [
+        self::$_db->insert('widgets', [
             'name' => 'Online Users',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $this->_db->insert('widgets', [
+        self::$_db->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
             'pages' => '["index","forum"]'
         ]);
 
-        $this->_cache->setCache('Core-widgets');
+        $this->_cache->setCacheName('Core-widgets');
         $this->_cache->store('enabled', [
             'Online Staff' => 1,
             'Online Users' => 1,
@@ -281,15 +332,28 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initialiseForum() {
-        $this->_db->insert('forums', [
+    /**
+     *
+     * @return void
+     */
+    public static function runPostUser(): void {
+        $instance = new self();
+        $instance->initialiseForum();
+    }
+
+    /**
+     *
+     * @return void
+     */
+    private function initialiseForum(): void {
+        self::$_db->insert('forums', [
             'forum_title' => 'Category',
             'forum_description' => 'The first forum category!',
             'forum_order' => 1,
             'forum_type' => 'category'
         ]);
 
-        $this->_db->insert('forums', [
+        self::$_db->insert('forums', [
             'forum_title' => 'Forum',
             'forum_description' => 'The first discussion forum!',
             'forum_order' => 2,
@@ -298,7 +362,7 @@ class DatabaseInitialiser {
             'news' => 1
         ]);
 
-        $this->_db->insert('topics', [
+        self::$_db->insert('topics', [
             'forum_id' => 2,
             'topic_title' => 'Welcome to NamelessMC!',
             'topic_creator' => 1,
@@ -308,7 +372,7 @@ class DatabaseInitialiser {
             'label' => null
         ]);
 
-        $this->_db->insert('posts', [
+        self::$_db->insert('posts', [
             'forum_id' => 2,
             'topic_id' => 1,
             'post_creator' => 1,
@@ -325,7 +389,7 @@ class DatabaseInitialiser {
         ]);
 
         // Must be updated afterwards due of foreign key
-        $this->_db->update('forums', 2, [
+        self::$_db->update('forums', 2, [
             'last_post_date' => date('U'),
             'last_user_posted' => 1,
             'last_topic_posted' => 1,
@@ -334,46 +398,46 @@ class DatabaseInitialiser {
         // Permissions
         for ($i = 0; $i < 4; $i++) {
             for ($n = 1; $n < 3; $n++) {
-                $this->_db->insert('forums_permissions', [
+                self::$_db->insert('forums_permissions', [
                     'group_id' => $i,
                     'forum_id' => $n,
                     'view' => true,
-                    'create_topic' => ($i == 0 ? 0 : 1),
-                    'edit_topic' => ($i == 0 ? 0 : 1),
-                    'create_post' => ($i == 0 ? 0 : 1),
+                    'create_topic' => ($i === 0 ? 0 : 1),
+                    'edit_topic' => ($i === 0 ? 0 : 1),
+                    'create_post' => ($i === 0 ? 0 : 1),
                     'view_other_topics' => true,
-                    'moderate' => (($i == 2 || $i == 3) ? 1 : 0)
+                    'moderate' => (($i === 2 || $i === 3) ? 1 : 0)
                 ]);
             }
         }
 
         // Forum Labels
-        $this->_db->insert('forums_labels', [
+        self::$_db->insert('forums_labels', [
             'name' => 'Default',
             'html' => '<span class="badge badge-default">{x}</span>'
         ]);
 
-        $this->_db->insert('forums_labels', [
+        self::$_db->insert('forums_labels', [
             'name' => 'Primary',
             'html' => '<span class="badge badge-primary">{x}</span>'
         ]);
 
-        $this->_db->insert('forums_labels', [
+        self::$_db->insert('forums_labels', [
             'name' => 'Success',
             'html' => '<span class="badge badge-success">{x}</span>'
         ]);
 
-        $this->_db->insert('forums_labels', [
+        self::$_db->insert('forums_labels', [
             'name' => 'Info',
             'html' => '<span class="badge badge-info">{x}</span>'
         ]);
 
-        $this->_db->insert('forums_labels', [
+        self::$_db->insert('forums_labels', [
             'name' => 'Warning',
             'html' => '<span class="badge badge-warning">{x}</span>'
         ]);
 
-        $this->_db->insert('forums_labels', [
+        self::$_db->insert('forums_labels', [
             'name' => 'Danger',
             'html' => '<span class="badge badge-danger">{x}</span>'
         ]);

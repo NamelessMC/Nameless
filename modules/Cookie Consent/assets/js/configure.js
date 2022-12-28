@@ -1,4 +1,4 @@
 function configureCookies() {
-  $.removeCookie('cookieconsent_status', { path: '/' });
-  window.location.reload();
+    $.removeCookie('cookieconsent_status', {path: '/'});
+    window.location.reload();
 }

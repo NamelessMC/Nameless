@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Coldfire
  *  https://coldfiredzn.com
  *
@@ -10,15 +11,30 @@
  *  License: MIT
  *
  *  Default template
+ *
+ * @var Language $language
+ * @var Smarty $smarty
  */
 
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
+    /**
+     * Default Panel template
+     *
+     * @package NamelessMC\Custom
+     * @author Coldfire
+     * @version 2.0.0
+     * @license MIT
+     */
     class Default_Panel_Template extends TemplateBase {
-
         private Language $_language;
 
-        // Constructor - set template name, version, Nameless version and author here
+        /**
+         * @param string $name
+         * @param string $version
+         * @param string $nameless_version
+         * @param string $author
+         */
         public function __construct(Smarty $smarty, Language $language) {
             $this->_language = $language;
 
@@ -136,7 +152,11 @@ if (!class_exists('Default_Panel_Template')) {
             $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo.png');
         }
 
-        public function onPageLoad() {
+        /**
+         *
+         * @return void
+         */
+        public function onPageLoad(): void {
             $page_load = microtime(true) - PAGE_START_TIME;
             define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
@@ -376,7 +396,7 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'authme') {
+                        } else if (MINECRAFT_PAGE === 'authme') {
 
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
@@ -388,7 +408,7 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'verification') {
+                        } else if (MINECRAFT_PAGE === 'verification') {
 
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
@@ -400,11 +420,11 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'servers') {
+                        } else if (MINECRAFT_PAGE === 'servers') {
                             $this->assets()->include([
                                 AssetTree::JQUERY_UI,
                             ]);
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
+                        } else if (MINECRAFT_PAGE === 'query_errors') {
                             $this->addCSSStyle('
                             .error_log {
                                 width: 100%;
@@ -420,20 +440,18 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
-                            if (isset($_GET['edit'])) {
-                                $this->assets()->include([
-                                    AssetTree::IMAGE_PICKER,
-                                ]);
+                        } else if ((MINECRAFT_PAGE === 'server_banners') && isset($_GET['edit'])) {
+                            $this->assets()->include([
+                                AssetTree::IMAGE_PICKER,
+                            ]);
 
-                                $this->addCSSStyle('
-                                .thumbnails li img{
-                                    width: 200px;
-                                }
-                                ');
-
-                                $this->addJSScript('$(".image-picker").imagepicker();');
+                            $this->addCSSStyle('
+                            .thumbnails li img{
+                                width: 200px;
                             }
+                            ');
+
+                            $this->addJSScript('$(".image-picker").imagepicker();');
                         }
 
                         break;

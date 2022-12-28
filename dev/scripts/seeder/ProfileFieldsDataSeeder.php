@@ -1,11 +1,29 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * Seeder class.
+ *
+ * @package NamelessMC\Seeder
+ * @author Tadgh Boyle
+ * @version 2.1.0
+ * @license MIT
+ */
 class ProfileFieldsDataSeeder extends Seeder {
 
+    /**
+     * @var string[]
+     */
     public array $tables = [
         'nl2_users_profile_fields',
     ];
 
+    /**
+     * @param DB $db
+     * @param \Faker\Generator $faker
+     *
+     * @return void
+     */
     protected function run(DB $db, \Faker\Generator $faker): void {
         $profile_fields = $db->get('profile_fields', ['id', '<>', 0])->results();
 
@@ -30,7 +48,7 @@ class ProfileFieldsDataSeeder extends Seeder {
                 $db->insert('users_profile_fields', [
                     'user_id' => $user->id,
                     'field_id' => $profile_field->id,
-                    'value' => $value,
+                    'value' => $value ?? null,
                     'updated' => $this->since($user->joined, $faker)->format('U'),
                 ]);
             }

@@ -1,4 +1,9 @@
 <?php
+declare(strict_types=1);
+
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * MinecraftIntegration class
  *
@@ -12,6 +17,9 @@ class MinecraftIntegration extends IntegrationBase {
     protected Language $_language;
     private string $_uuid;
 
+    /**
+     * @param Language $language
+     */
     public function __construct(Language $language) {
         $this->_name = 'Minecraft';
         $this->_icon = 'fas fa-cubes';
@@ -21,14 +29,24 @@ class MinecraftIntegration extends IntegrationBase {
         parent::__construct();
     }
 
+    /**
+     * @param string $verification_code
+     * @return void
+     */
     private function flashVerifyCommand(string $verification_code): void {
         $verification_command = Output::getClean(Util::getSetting('minecraft_verify_command', '/verify'));
         $message = $this->_language->get('user', 'validate_account_command', ['command' => $verification_command . ' ' . $verification_code]);
         Session::flash('connections_success', $message);
     }
 
-    public function onLinkRequest(User $user) {
-        $username = $user->data()->username;
+    /**
+     * Called when user wants to link their account from user connections page, Does not need to be verified
+     *
+     * @throws Exception|GuzzleException
+     */
+    public function onLinkRequest(User $user): void {
+        $data = $user->data();
+        $username = $data === null ? null : $data->username;
 
         // Validate username
         if (!$this->validateUsername($username)) {
@@ -54,68 +72,98 @@ class MinecraftIntegration extends IntegrationBase {
         $this->flashVerifyCommand($code);
     }
 
-    public function onVerifyRequest(User $user) {
-        $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
+    /**
+     * Called when user wants to continue to verify their integration user from connections page
+     */
+    public function onVerifyRequest(User $user): void {
+        $integrationUser = new IntegrationUser($this, (string)$user->data()->id, 'user_id');
         $this->flashVerifyCommand($integrationUser->data()->code);
     }
 
-    public function onUnlinkRequest(User $user) {
-        $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
+    /**
+     * Called when user wants to unlink their integration user from connections page
+     *
+     * @throws GuzzleException
+     */
+    public function onUnlinkRequest(User $user): void {
+        $integrationUser = new IntegrationUser($this, (string)$user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
 
         Session::flash('connections_success', $this->_language->get('user', 'integration_unlinked', ['integration' => Output::getClean($this->_name)]));
     }
 
-    public function onSuccessfulVerification(IntegrationUser $integrationUser) {
+    /**
+     * Called when the user have successfully validated the ownership of the account
+     */
+    public function onSuccessfulVerification(IntegrationUser $integrationUser): void {
         // Nothing to do here
     }
 
-    public function validateUsername(string $username, int $integration_user_id = 0): bool {
-        $validation = Validate::check(['username' => $username], [
+    /**
+     * Validate username when it being linked or updated.
+     *
+     * @param string $username The username value to validate.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool Whether this validation passed or not.
+     * @throws Exception
+     */
+    public function validateUsername(string $username, string $integration_user_id = '0'): bool {
+        return $this->validateField('username', $username, [
             'username' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 3,
                 Validate::MAX => 20
             ]
-        ])->messages([
+        ], [
             'username' => [
                 Validate::REQUIRED => $this->_language->get('admin', 'integration_username_required', ['integration' => $this->getName()]),
                 Validate::MIN => $this->_language->get('user', 'mcname_minimum_3'),
                 Validate::MAX => $this->_language->get('user', 'mcname_maximum_20')
             ]
-        ]);
-
-        if (count($validation->errors())) {
-            // Validation errors
-            foreach ($validation->errors() as $error) {
-                $this->addError($error);
-            }
-        } else {
-            // Ensure identifier doesn't already exist
-            $exists = DB::getInstance()->query("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND username = ? AND id <> ?", [$this->data()->id, $username, $integration_user_id]);
-            if ($exists->count()) {
-                $this->addError($this->_language->get('user', 'integration_username_already_linked', ['integration' => $this->getName()]));
-                return false;
-            }
-        }
-
-        return $validation->passed();
+        ], $integration_user_id);
     }
 
-    public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool {
-        $validation = Validate::check(['identifier' => $identifier], [
+
+    /**
+     * Validate identifier when it being linked or updated.
+     *
+     * @param string $identifier The identifier value to validate.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool Whether this validation passed or not.
+     * @throws Exception
+     */
+    public function validateIdentifier(string $identifier, string $integration_user_id = '0'): bool {
+        return $this->validateField('identifier', $identifier, [
             'identifier' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 32,
                 Validate::MAX => 32
             ]
-        ])->messages([
+        ], [
             'identifier' => [
                 Validate::REQUIRED => $this->_language->get('admin', 'integration_identifier_required', ['integration' => $this->getName()]),
                 Validate::MIN => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
                 Validate::MAX => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
             ]
-        ]);
+        ], $integration_user_id);
+    }
+
+    /**
+     * Validate a value when it being linked or updated.
+     *
+     * @param string $field The field name to validate.
+     * @param string $value The value to validate.
+     * @param array $rules The validation rules to apply.
+     * @param array $messages The validation error messages to use.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool Whether this validation passed or not.
+     * @throws Exception
+     */
+    public function validateField(string $field, string $value, array $rules, array $messages, string $integration_user_id = '0'): bool {
+        $validation = Validate::check([$field => $value], $rules)->messages($messages);
 
         if (count($validation->errors())) {
             // Validation errors
@@ -123,10 +171,11 @@ class MinecraftIntegration extends IntegrationBase {
                 $this->addError($error);
             }
         } else {
-            // Ensure identifier doesn't already exist
-            $exists = DB::getInstance()->query("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND identifier = ? AND id <> ?", [$this->data()->id, $identifier, $integration_user_id]);
+            // Ensure value doesn't already exist
+            $exists = DB::getInstance()->query("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND $field = ? AND id <> ?", [$this->data()->id, $value, $integration_user_id]);
             if ($exists->count()) {
-                $this->addError($this->_language->get('user', 'integration_identifier_already_linked', ['integration' => $this->getName()]));
+                $error_message = $this->_language->get('user', "integration_{$field}_already_linked", ['integration' => $this->getName()]);
+                $this->addError($error_message);
                 return false;
             }
         }
@@ -134,8 +183,11 @@ class MinecraftIntegration extends IntegrationBase {
         return $validation->passed();
     }
 
-    public function onRegistrationPageLoad(Fields $fields) {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+    /**
+     * Called when register page being loaded
+     */
+    public function onRegistrationPageLoad(Fields $fields): void {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') !== '1') {
             return;
         }
 
@@ -144,12 +196,20 @@ class MinecraftIntegration extends IntegrationBase {
         $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $username_value, null, null, 1);
     }
 
-    public function beforeRegistrationValidation(Validate $validate) {
+    /**
+     * Called before registration validation
+     */
+    public function beforeRegistrationValidation(Validate $validate): void {
         // Nothing to do here
     }
 
-    public function afterRegistrationValidation() {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+    /**
+     * Called after registration validation
+     *
+     * @throws Exception
+     */
+    public function afterRegistrationValidation(): void {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') !== '1') {
             return;
         }
 
@@ -173,17 +233,27 @@ class MinecraftIntegration extends IntegrationBase {
         }
     }
 
-    public function successfulRegistration(User $user) {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+    /**
+     * Called when user is successfully registered
+     *
+     * @throws Exception|GuzzleException
+     */
+    public function successfulRegistration(User $user): void {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') !== '1') {
             return;
         }
-        
+
         $code = SecureRandom::alphanumeric();
 
         $integrationUser = new IntegrationUser($this);
         $integrationUser->linkIntegration($user, $this->_uuid, Input::get('username'), false, $code);
     }
 
+    /**
+     * Called when user integration is requested to be synced.
+     *
+     * @throws DebugBarException
+     */
     public function syncIntegrationUser(IntegrationUser $integration_user): bool {
         $profile = ProfileUtils::getProfile($integration_user->data()->identifier);
 
@@ -208,13 +278,14 @@ class MinecraftIntegration extends IntegrationBase {
      *
      * @param string $username
      * @return array
+     * @throws DebugBarException
      */
     public function getUuidByUsername(string $username): array {
         if (Util::getSetting('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
-        } else {
-            return ProfileUtils::getOfflineModeUuid($username);
         }
+
+        return ProfileUtils::getOfflineModeUuid($username);
     }
 
     /**
@@ -222,6 +293,7 @@ class MinecraftIntegration extends IntegrationBase {
      *
      * @param string $username
      * @return array
+     * @throws DebugBarException
      */
     public function getOnlineModeUuid(string $username): array {
         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
@@ -229,16 +301,14 @@ class MinecraftIntegration extends IntegrationBase {
         $mcname_result = $profile ? $profile->getProfileAsArray() : [];
         if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
             // Valid
-            $result = [
+            return [
                 'uuid' => $mcname_result['uuid'],
                 'username' => $mcname_result['username']
             ];
-
-            return $result;
-        } else {
-            // Invalid
-            $this->addError($this->_language->get('user', 'invalid_mcname'));
         }
+
+        // Invalid
+        $this->addError($this->_language->get('user', 'invalid_mcname'));
 
         return [];
     }

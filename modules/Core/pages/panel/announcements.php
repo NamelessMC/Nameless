@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel announcements page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!$user->handlePanelPageLoad('admincp.core.announcements')) {
     require_once(ROOT_PATH . '/403.php');
@@ -19,6 +35,40 @@ const PARENT_PAGE = 'announcements';
 const PANEL_PAGE = 'announcements';
 $page_title = $language->get('admin', 'announcements');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
+
+/**
+ * Validate the POST (input) data.
+ *
+ * @param Language $language
+ *
+ * @return Validate
+ * @throws Exception
+ */
+function validateInput(Language $language): Validate {
+    return Validate::check($_POST, [
+        'header' => [
+            Validate::REQUIRED => true
+        ],
+        'message' => [
+            Validate::REQUIRED => true
+        ],
+        'background_colour' => [
+            Validate::REQUIRED => true
+        ],
+        'text_colour' => [
+            Validate::REQUIRED => true
+        ],
+        'order' => [
+            Validate::REQUIRED => true,
+            Validate::NUMERIC => true
+        ]
+    ])->messages([
+        'header' => $language->get('admin', 'header_required'),
+        'message' => $language->get('admin', 'message_required'),
+        'background_colour' => $language->get('admin', 'background_colour_required'),
+        'text_colour' => $language->get('admin', 'text_colour_required')
+    ]);
+}
 
 if (!isset($_GET['action'])) {
     // View all announcements
@@ -56,67 +106,52 @@ if (!isset($_GET['action'])) {
             // Create new hook
             if (Input::exists()) {
                 $errors = [];
-                if (Token::check()) {
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'header' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'message' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'background_colour' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'text_colour' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'order' => [
-                            Validate::REQUIRED => true,
-                            Validate::NUMERIC => true
-                        ]
-                    ])->messages([
-                        'header' => $language->get('admin', 'header_required'),
-                        'message' => $language->get('admin', 'message_required'),
-                        'background_colour' => $language->get('admin', 'background_colour_required'),
-                        'text_colour' => $language->get('admin', 'text_colour_required')
-                    ]);
-
-                    if ($validation->passed()) {
-                        $all_groups = [];
-                        if (Input::get('perm-view-0')) {
-                            $all_groups[] = '0';
+                try {
+                    if (Token::check()) {
+                        // Validate input
+                        try {
+                            $validation = validateInput($language);
+                        } catch (Exception $ignored) {
                         }
-                        foreach (Group::all() as $group) {
-                            if (Input::get('perm-view-' . $group->id)) {
-                                $all_groups[] = $group->id;
+
+                        if ($validation->passed()) {
+                            $all_groups = [];
+                            if (Input::get('perm-view-0')) {
+                                $all_groups[] = '0';
                             }
+                            foreach (Group::all() as $group) {
+                                if (Input::get('perm-view-' . $group->id)) {
+                                    $all_groups[] = $group->id;
+                                }
+                            }
+                            $pages = [];
+                            foreach (Input::get('pages') as $page) {
+                                $pages[] = $page;
+                            }
+                            if (!$announcements->create($user, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'), Input::get('order'))) {
+                                Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
+                            } else {
+                                Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
+                            }
+                            Redirect::to(URL::build('/panel/core/announcements'));
                         }
-                        $pages = [];
-                        foreach (Input::get('pages') as $page) {
-                            $pages[] = $page;
-                        }
-                        if (!$announcements->create($user, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'), Input::get('order'))) {
-                            Session::flash('announcement_error', $language->get('admin', 'creating_announcement_failure'));
-                        } else {
-                            Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
-                        }
-                        Redirect::to(URL::build('/panel/core/announcements'));
-                    }
 
-                    $errors = $validation->errors();
-                } else {
-                    // Invalid token
-                    $errors[] = $language->get('general', 'invalid_token');
+                        $errors = $validation->errors();
+                    } else {
+                        // Invalid token
+                        $errors[] = $language->get('general', 'invalid_token');
+                    }
+                } catch (GuzzleException|Exception $ignored) {
                 }
             }
 
             $groups = [];
             foreach (Group::all() as $group) {
+                $permView = 'perm-view-' . $group->id;
                 $groups[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
-                    'allowed' => (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
+                    'allowed' => (isset($_POST[$permView]) && $_POST['perm-view-' . $group->id] === '1')
                 ];
             }
 
@@ -131,7 +166,7 @@ if (!isset($_GET['action'])) {
                 'ORDER_VALUE' => ((isset($_POST['order']) && $_POST['order']) ? Output::getClean(Input::get('order')) : 1),
                 'CLOSABLE_VALUE' => ((isset($_POST['closable']) && $_POST['closable']) ? Output::getClean(Input::get('closable')) : ''),
                 'GROUPS_VALUE' => $groups,
-                'GUEST_PERMISSIONS' => (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
+                'GUEST_PERMISSIONS' => (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] === '1')
             ]);
 
             $template_file = 'core/announcements_form.tpl';
@@ -152,70 +187,51 @@ if (!isset($_GET['action'])) {
 
             if (Input::exists()) {
                 $errors = [];
-                if (Token::check()) {
-                    // Validate input
-                    $validation = Validate::check($_POST, [
-                        'header' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'message' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'background_colour' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'text_colour' => [
-                            Validate::REQUIRED => true
-                        ],
-                        'order' => [
-                            Validate::REQUIRED => true,
-                            Validate::NUMERIC => true
-                        ]
-                    ])->messages([
-                        'header' => $language->get('admin', 'header_required'),
-                        'message' => $language->get('admin', 'message_required'),
-                        'background_colour' => $language->get('admin', 'background_colour_required'),
-                        'text_colour' => $language->get('admin', 'text_colour_required')
-                    ]);
+                try {
+                    if (Token::check()) {
+                        // Validate input
+                        $validation = validateInput($language);
 
-                    if ($validation->passed()) {
-                        $all_groups = [];
-                        if (Input::get('perm-view-0')) {
-                            $all_groups[] = '0';
-                        }
-                        foreach (Group::all() as $group) {
-                            if (Input::get('perm-view-' . $group->id)) {
-                                $all_groups[] = $group->id;
+                        if ($validation->passed()) {
+                            $all_groups = [];
+                            if (Input::get('perm-view-0')) {
+                                $all_groups[] = '0';
                             }
+                            foreach (Group::all() as $group) {
+                                if (Input::get('perm-view-' . $group->id)) {
+                                    $all_groups[] = $group->id;
+                                }
+                            }
+                            $pages = [];
+                            foreach (Input::get('pages') as $page) {
+                                $pages[] = $page;
+                            }
+                            if (!$announcements->edit($announcement->id, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'), Input::get('order'))) {
+                                Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
+                            } else {
+                                Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
+                            }
+                            Redirect::to(URL::build('/panel/core/announcements'));
                         }
-                        $pages = [];
-                        foreach (Input::get('pages') as $page) {
-                            $pages[] = $page;
-                        }
-                        if (!$announcements->edit($announcement->id, $pages, $all_groups, Input::get('text_colour'), Input::get('background_colour'), Input::get('icon'), Input::get('closable'), Input::get('header'), Input::get('message'), Input::get('order'))) {
-                            Session::flash('announcement_error', $language->get('admin', 'editing_announcement_failure'));
-                        } else {
-                            Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
-                        }
-                        Redirect::to(URL::build('/panel/core/announcements'));
-                    }
 
-                    $errors = $validation->errors();
-                } else {
-                    // Invalid token
-                    $errors[] = $language->get('general', 'invalid_token');
+                        $errors = $validation->errors();
+                    } else {
+                        // Invalid token
+                        $errors[] = $language->get('general', 'invalid_token');
+                    }
+                } catch (Exception $ignored) {
                 }
             }
 
-            $announcement_pages = json_decode($announcement->pages);
-            $guest_permissions = in_array('0', json_decode($announcement->groups));
+            $announcement_pages = json_decode($announcement->pages, true);
+            $guest_permissions = in_array('0', json_decode($announcement->groups, true), true);
 
             $groups = [];
             foreach (Group::all() as $group) {
                 $groups[$group->id] = [
                     'name' => $group->name,
                     'id' => $group->id,
-                    'allowed' => in_array($group->id, json_decode($announcement->groups))
+                    'allowed' => in_array($group->id, json_decode($announcement->groups, true), true)
                 ];
             }
 
@@ -227,8 +243,8 @@ if (!isset($_GET['action'])) {
                 'BACKGROUND_COLOUR_VALUE' => Output::getClean($announcement->background_colour),
                 'TEXT_COLOUR_VALUE' => Output::getClean($announcement->text_colour),
                 'ICON_VALUE' => Output::getClean($announcement->icon),
-                'ORDER_VALUE' => Output::getClean($announcement->order),
-                'CLOSABLE_VALUE' => Output::getClean($announcement->closable),
+                'ORDER_VALUE' => $announcement->order,
+                'CLOSABLE_VALUE' => Output::getClean((string)$announcement->closable),
                 'GROUPS_VALUE' => $groups,
                 'GUEST_PERMISSIONS' => $guest_permissions,
             ]);
@@ -239,27 +255,33 @@ if (!isset($_GET['action'])) {
         case 'delete':
             // Delete Announcement
             if (Input::exists()) {
-                if (Token::check(Input::get('token'))) {
-                    if (isset($_POST['id'])) {
-                        DB::getInstance()->delete('custom_announcements', ['id', $_POST['id']]);
+                try {
+                    if (Token::check(Input::get('token'))) {
+                        if (isset($_POST['id'])) {
+                            DB::getInstance()->delete('custom_announcements', ['id', $_POST['id']]);
 
-                        $announcements->resetCache();
-                        Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
+                            $announcements->resetCache();
+                            Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
+                        }
+                    } else {
+                        Session::flash('announcement_error', $language->get('general', 'invalid_token'));
                     }
-                } else {
-                    Session::flash('announcement_error', $language->get('general', 'invalid_token'));
+                } catch (Exception $ignored) {
                 }
             }
             die();
 
         case 'order':
             if (isset($_GET['announcements'])) {
-                if (!Token::check()) {
-                    Session::flash('announcement_error', $language->get('general', 'invalid_token'));
-                    die('Invalid Token');
+                try {
+                    if (!Token::check()) {
+                        Session::flash('announcement_error', $language->get('general', 'invalid_token'));
+                        die('Invalid Token');
+                    }
+                } catch (Exception $ignored) {
                 }
 
-                $announcements_list = json_decode($_GET['announcements'])->announcements;
+                $announcements_list = json_decode($_GET['announcements'], true)->announcements;
 
                 $i = 1;
                 foreach ($announcements_list as $item) {
@@ -339,4 +361,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

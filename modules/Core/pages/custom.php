@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr13
@@ -7,6 +8,20 @@
  *  License: MIT
  *
  *  Custom page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
+ * @var string $route
  */
 
 // Get page info from URL
@@ -24,8 +39,8 @@ if ($user->isLoggedIn()) {
     $groups = $user->getAllGroupIds();
     foreach ($groups as $group) {
         foreach ($perms as $perm) {
-            if ($perm->group_id == $group) {
-                if ($perm->view == 1) {
+            if ($perm->group_id === (string)$group) {
+                if ($perm->view === '1') {
                     $can_view = 1;
                     break 2;
                 }
@@ -36,8 +51,8 @@ if ($user->isLoggedIn()) {
     }
 } else {
     foreach ($perms as $perm) {
-        if ($perm->group_id == 0) {
-            if ($perm->view == 1) {
+        if ($perm->group_id === '0') {
+            if ($perm->view === '1') {
                 $can_view = 1;
             }
 
@@ -63,7 +78,7 @@ $page_title = Output::getClean($custom_page->title);
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->include([
-    DARK_MODE
+    DARK_MODE === true
         ? AssetTree::PRISM_DARK
         : AssetTree::PRISM_LIGHT,
     AssetTree::TINYMCE_SPOILER,
@@ -77,11 +92,14 @@ $content = EventHandler::executeEvent('renderCustomPage', [
     'skip_purify' => $custom_page->all_html ?? false
 ])['content'];
 
-$smarty->assign([
-    'WIDGETS_LEFT' => $widgets->getWidgets('left'),
-    'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => $content,
-]);
+try {
+    $smarty->assign([
+        'WIDGETS_LEFT' => $widgets->getWidgets('left'),
+        'WIDGETS_RIGHT' => $widgets->getWidgets(),
+        'CONTENT' => $content,
+    ]);
+} catch (SmartyException $ignored) {
+}
 
 $template->onPageLoad();
 
@@ -89,7 +107,13 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 if ($custom_page->basic) {
-    $template->displayTemplate('custom_basic.tpl', $smarty);
+    try {
+        $template->displayTemplate('custom_basic.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 } else {
-    $template->displayTemplate('custom.tpl', $smarty);
+    try {
+        $template->displayTemplate('custom.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 }

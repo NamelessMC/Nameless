@@ -24,61 +24,61 @@ version: '3.2'
 
 services:
 
-    web:
-        image: namelessmc/nginx:dev
-        ports: ['8080:8080']
-        volumes:
-            - type: bind
-              source: .
-              target: /data
-        user: '1000' # set this to your user id!
-        depends_on: [php]
-        environment:
-            PHP_FPM: php:9000
+  web:
+    image: namelessmc/nginx:dev
+    ports: [ '8080:8080' ]
+    volumes:
+      - type: bind
+        source: .
+        target: /data
+    user: '1000' # set this to your user id!
+    depends_on: [ php ]
+    environment:
+      PHP_FPM: php:9000
 
-    php:
-        image: namelessmc/php:dev
-        volumes:
-            - type: bind
-              source: .
-              target: /data
-        user: '1000' # set this to your user id!
-        environment:
-            NAMELESS_HOSTNAME: localhost
-            NAMELESS_DATABASE_ADDRESS: db
-            NAMELESS_DATABASE_NAME: nameless
-            NAMELESS_DATABASE_USERNAME: nameless
-            NAMELESS_DATABASE_PASSWORD: nameless
-            NAMELESS_FRIENDLY_URLS: 'true'
-            NAMELESS_SITE_NAME: 'Development'
-            NAMELESS_SITE_CONTACT_EMAIL: admin@namelessmc.com
-            NAMELESS_SITE_OUTGOING_EMAIL: admin@namelessmc.com
-            NAMELESS_ADMIN_USERNAME: admin
-            NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
-            NAMELESS_ADMIN_PASSWORD: password
-            NAMELESS_DEBUGGING: 'enabled'
-            NAMELESS_AUTO_INSTALL: 'yes please'
-            NAMELESS_ALWAYS_INSTALL_DEPENDENCIES: 'yes please'
-            NAMELESS_EMAIL_VERIFICATION: '0'
+  php:
+    image: namelessmc/php:dev
+    volumes:
+      - type: bind
+        source: .
+        target: /data
+    user: '1000' # set this to your user id!
+    environment:
+      NAMELESS_HOSTNAME: localhost
+      NAMELESS_DATABASE_ADDRESS: db
+      NAMELESS_DATABASE_NAME: nameless
+      NAMELESS_DATABASE_USERNAME: nameless
+      NAMELESS_DATABASE_PASSWORD: nameless
+      NAMELESS_FRIENDLY_URLS: 'true'
+      NAMELESS_SITE_NAME: 'Development'
+      NAMELESS_SITE_CONTACT_EMAIL: admin@namelessmc.com
+      NAMELESS_SITE_OUTGOING_EMAIL: admin@namelessmc.com
+      NAMELESS_ADMIN_USERNAME: admin
+      NAMELESS_ADMIN_EMAIL: admin@namelessmc.com
+      NAMELESS_ADMIN_PASSWORD: password
+      NAMELESS_DEBUGGING: 'enabled'
+      NAMELESS_AUTO_INSTALL: 'yes please'
+      NAMELESS_ALWAYS_INSTALL_DEPENDENCIES: 'yes please'
+      NAMELESS_EMAIL_VERIFICATION: '0'
 
-    db:
-        image: mariadb
-        volumes:
-          - type: bind
-            source: /opt/namelessmc
-            target: /var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: nameless
-            MYSQL_USER: nameless
-            MYSQL_PASSWORD: nameless
-            MYSQL_DATABASE: nameless
+  db:
+    image: mariadb
+    volumes:
+      - type: bind
+        source: /opt/namelessmc
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: nameless
+      MYSQL_USER: nameless
+      MYSQL_PASSWORD: nameless
+      MYSQL_DATABASE: nameless
 
-    phpmyadmin:
-        image: phpmyadmin
-        ports: ['8181:80']
-        depends_on: [db]
-        environment:
-            PMA_HOST: db
-            PMA_ABSOLUTE_URI: http://localhost:8080
-            PMA_USER: nameless
-            PMA_PASSWORD: nameless
+  phpmyadmin:
+    image: phpmyadmin
+    ports: [ '8181:80' ]
+    depends_on: [ db ]
+    environment:
+      PMA_HOST: db
+      PMA_ABSOLUTE_URI: http://localhost:8080
+      PMA_USER: nameless
+      PMA_PASSWORD: nameless

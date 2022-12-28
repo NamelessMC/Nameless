@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,7 +9,14 @@
  *  License: MIT
  *
  *  Minecraft server banner
+ *
+ * @var Language $language
+ * @var string[] $directories
+ * @var Cache $cache
  */
+
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
 
 const PAGE = 'banner';
 
@@ -16,93 +25,94 @@ if (!function_exists('exif_imagetype')) {
 }
 
 // Minecraft integration?
-if (defined('MINECRAFT') && MINECRAFT === true) {
-    if (isset($directories[count($directories) - 1]) && !empty($directories[count($directories) - 1])) {
-        // Server specified
-        $banner = $directories[count($directories) - 1];
+if (defined('MINECRAFT') && MINECRAFT === true
+    && isset($directories[count($directories) - 1]) && !empty($directories[count($directories) - 1])) {
+    // Server specified
+    $banner = $directories[count($directories) - 1];
 
-        if (substr($banner, -4) === '.png') {
-            $banner = substr($banner, 0, -4);
-        }
+    if (substr($banner, -4) === '.png') {
+        $banner = substr($banner, 0, -4);
+    }
 
-        $banner = urldecode($banner);
+    $banner = urldecode($banner);
 
-        $server = DB::getInstance()->get('mc_servers', ['name', $banner])->results();
+    $server = DB::getInstance()->get('mc_servers', ['name', $banner])->results();
 
-        if (!count($server)) {
-            die('Invalid server');
-        }
+    if (!count($server)) {
+        die('Invalid server');
+    }
 
-        $server = $server[0];
+    $server = $server[0];
 
-        $display_ip = $server->ip;
-        if (!is_null($server->port) && $server->port != 25565) {
-            $display_ip .= ':' . $server->port;
-        }
+    $display_ip = $server->ip;
+    if (!is_null($server->port) && $server->port !== 25565) {
+        $display_ip .= ':' . $server->port;
+    }
 
-        $full_ip = [
-            'ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port),
-            'pre' => $server->pre,
-            'name' => $server->name
-        ];
+    $full_ip = [
+        'ip' => $server->ip . (is_null($server->port) ? ':' . 25565 : ':' . $server->port),
+        'pre' => $server->pre,
+        'name' => $server->name
+    ];
 
-        $cache->setCache('banner_cache_' . urlencode($server->name));
-        if (!$cache->isCached('image')) {
-            // Internal or external query?
-            $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-            if (count($query_type)) {
-                if ($query_type[0]->value == '1') {
-                    $query_type = 'external';
-                } else {
-                    $query_type = 'internal';
-                }
-            } else {
-                $query_type = 'internal';
-            }
-
-            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
-
-            // Do we need to query for favicon?
-            if (!$cache->isCached('favicon')) {
-                $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip'], $server->bedrock), 'data:image/png;base64')));
-
-                imageAlphaBlending($favicon, true);
-                imageSaveAlpha($favicon, true);
-
-                // Cache the favicon for 1 hour
-                imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
-
-                $cache->store('favicon', 'true', 3600);
-            } else {
-                $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
-            }
-
-            // remove ".png" from ending (lib expects file name w/o extension)
-            if (substr($server->banner_background, -4) === '.png') {
-                $background = substr($server->banner_background, 0, -4);
-            }
-
-            if ($query['status_value'] === 1) {
-                $image = MinecraftBanner\ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $background, 5);
-            } else {
-                $image = MinecraftBanner\ServerBanner::server($display_ip, '§4Offline Server', '?', '?', $favicon, $background, -1);
-            }
-
-            header('Content-type: image/png');
-
-            imagepng($image, ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
-            imagepng($image);
-
-            imagedestroy($favicon);
-            imagedestroy($image);
-
-            // Cache for 2 minutes
-            $cache->store('image', 'true', 120);
+    $cache->setCacheName('banner_cache_' . urlencode($server->name));
+    if (!$cache->hasCashedData('image')) {
+        // Internal or external query?
+        $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
+        if (count($query_type) && (string)$query_type[0]->value === '1') {
+            $query_type = 'external';
         } else {
-            header('Content-Type: image/png');
-            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
-            imagepng($im);
-            imagedestroy($im);
+            $query_type = 'internal';
         }
+
+        try {
+            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
+        } catch (GuzzleException $ignored) {
+        }
+
+        // Do we need to query for favicon?
+        if (!$cache->hasCashedData('favicon')) {
+            try {
+                $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip'], $server->bedrock), 'data:image/png;base64')));
+            } catch (DebugBarException $ignored) {
+            }
+
+            imageAlphaBlending($favicon, true);
+            imageSaveAlpha($favicon, true);
+
+            // Cache the favicon for 1 hour
+            imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+
+            $cache->store('favicon', 'true', 3600);
+        } else {
+            $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+        }
+
+        // remove ".png" from ending (lib expects file name w/o extension)
+        if (substr($server->banner_background, -4) === '.png') {
+            $background = substr($server->banner_background, 0, -4);
+        }
+
+        if (isset($query) && $query['status_value'] === '1') {
+            $image = MinecraftBanner\ServerBanner::server($display_ip, $query['motd'], $query['player_count'], $query['player_count_max'], $favicon, $background ?? '', 5);
+        } else {
+            $image = MinecraftBanner\ServerBanner::server($display_ip, '§4Offline Server', -1, -1, $favicon, $background ?? '', -1);
+        }
+
+        header('Content-type: image/png');
+
+        imagepng($image, ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+        imagepng($image);
+
+        imagedestroy($favicon);
+        imagedestroy($image);
+
+        // Cache for 2 minutes
+        $cache->store('image', 'true', 120);
+    } else {
+        header('Content-Type: image/png');
+        $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+        imagepng($im);
+        imagedestroy($im);
     }
 }

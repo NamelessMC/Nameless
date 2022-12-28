@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr11
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel profile fields page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.fields')) {
@@ -24,78 +37,84 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'new') {
+    if ($_GET['action'] === 'new') {
         // New field
         if (Input::exists()) {
             $errors = [];
 
-            if (Token::check()) {
-                // Validate input
-                $validation = Validate::check($_POST, [
-                    'name' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 2,
-                        Validate::MAX => 16
-                    ],
-                    'type' => [
-                        Validate::REQUIRED => true
-                    ]
-                ])->message($language->get('admin', 'profile_field_error'));
-
-                if ($validation->passed()) {
-                    // Input into database
+            try {
+                if (Token::check()) {
+                    // Validate input
                     try {
-                        // Get whether required/public/editable/forum post options are enabled or not
-                        if (isset($_POST['required']) && $_POST['required'] == 'on') {
-                            $required = 1;
-                        } else {
-                            $required = 0;
+                        $validation = Validate::check($_POST, [
+                            'name' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 2,
+                                Validate::MAX => 16
+                            ],
+                            'type' => [
+                                Validate::REQUIRED => true
+                            ]
+                        ])->message($language->get('admin', 'profile_field_error'));
+                    } catch (Exception $ignored) {
+                    }
+
+                    if ($validation->passed()) {
+                        // Input into database
+                        try {
+                            // Get whether required/public/editable/forum post options are enabled or not
+                            if (isset($_POST['required']) && $_POST['required'] === 'on') {
+                                $required = 1;
+                            } else {
+                                $required = 0;
+                            }
+
+                            if (isset($_POST['public']) && $_POST['public'] === 'on') {
+                                $public = 1;
+                            } else {
+                                $public = 0;
+                            }
+
+                            if (isset($_POST['forum']) && $_POST['forum'] === 'on') {
+                                $forum_posts = 1;
+                            } else {
+                                $forum_posts = 0;
+                            }
+
+                            if (isset($_POST['editable']) && $_POST['editable'] === 'on') {
+                                $editable = 1;
+                            } else {
+                                $editable = 0;
+                            }
+
+                            // Insert into database
+                            DB::getInstance()->insert('profile_fields', [
+                                'name' => Input::get('name'),
+                                'type' => Input::get('type'),
+                                'public' => $public,
+                                'required' => $required,
+                                'description' => Input::get('description'),
+                                'forum_posts' => $forum_posts,
+                                'editable' => $editable
+                            ]);
+
+                            //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
+
+                            // Redirect
+                            Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
+                            Redirect::to(URL::build('/panel/core/profile_fields'));
+                        } catch (Exception $e) {
+                            $errors[] = $e->getMessage();
                         }
-
-                        if (isset($_POST['public']) && $_POST['public'] == 'on') {
-                            $public = 1;
-                        } else {
-                            $public = 0;
-                        }
-
-                        if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
-                            $forum_posts = 1;
-                        } else {
-                            $forum_posts = 0;
-                        }
-
-                        if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
-                            $editable = 1;
-                        } else {
-                            $editable = 0;
-                        }
-
-                        // Insert into database
-                        DB::getInstance()->insert('profile_fields', [
-                            'name' => Input::get('name'),
-                            'type' => Input::get('type'),
-                            'public' => $public,
-                            'required' => $required,
-                            'description' => Input::get('description'),
-                            'forum_posts' => $forum_posts,
-                            'editable' => $editable
-                        ]);
-
-                        //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
-
-                        // Redirect
-                        Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
-                        Redirect::to(URL::build('/panel/core/profile_fields'));
-                    } catch (Exception $e) {
-                        $errors[] = $e->getMessage();
+                    } else {
+                        // Display errors
+                        $errors = $validation->errors();
                     }
                 } else {
-                    // Display errors
-                    $errors = $validation->errors();
+                    // Invalid token
+                    $errors[] = $language->get('admin', 'invalid_token');
                 }
-            } else {
-                // Invalid token
-                $errors[] = $language->get('admin', 'invalid_token');
+            } catch (Exception $ignored) {
             }
         }
 
@@ -126,59 +145,62 @@ if (isset($_GET['action'])) {
 
         $template_file = 'core/profile_fields_create.tpl';
 
-    } else {
-        if ($_GET['action'] == 'edit') {
-            if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/groups'));
-            }
-            $id = (int)$_GET['id'];
+    } else if ($_GET['action'] === 'edit') {
+        if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+            Redirect::to(URL::build('/panel/core/groups'));
+        }
 
-            $field = ProfileField::find($id);
+        $id = $_GET['id'];
+        $field = ProfileField::find($id);
 
-            if (!$field) {
-                Redirect::to(URL::build('/panel/core/profile_fields'));
-            }
+        if (!$field) {
+            Redirect::to(URL::build('/panel/core/profile_fields'));
+        }
 
-            if (Input::exists()) {
-                $errors = [];
+        if (Input::exists()) {
+            $errors = [];
 
+            try {
                 if (Token::check()) {
-                    if (Input::get('action') == 'update') {
+                    if (Input::get('action') === 'update') {
                         // Validate input
-                        $validation = Validate::check($_POST, [
-                            'name' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 2,
-                                Validate::MAX => 16
-                            ],
-                            'type' => [
-                                Validate::REQUIRED => true
-                            ]
-                        ])->message($language->get('admin', 'profile_field_error'));
+                        try {
+                            $validation = Validate::check($_POST, [
+                                'name' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 2,
+                                    Validate::MAX => 16
+                                ],
+                                'type' => [
+                                    Validate::REQUIRED => true
+                                ]
+                            ])->message($language->get('admin', 'profile_field_error'));
+                        } catch (Exception $ignored) {
+                        }
 
                         if ($validation->passed()) {
                             // Update database
                             try {
                                 // Get whether required/public/editable/forum post options are enabled or not
-                                if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                                if (isset($_POST['required']) && $_POST['required'] === 'on') {
                                     $required = 1;
                                 } else {
                                     $required = 0;
                                 }
 
-                                if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                                if (isset($_POST['public']) && $_POST['public'] === 'on') {
                                     $public = 1;
                                 } else {
                                     $public = 0;
                                 }
 
-                                if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                                if (isset($_POST['forum']) && $_POST['forum'] === 'on') {
                                     $forum_posts = 1;
                                 } else {
                                     $forum_posts = 0;
                                 }
 
-                                if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                                if (isset($_POST['editable']) && $_POST['editable'] === 'on') {
                                     $editable = 1;
                                 } else {
                                     $editable = 0;
@@ -199,7 +221,7 @@ if (isset($_GET['action'])) {
 
                                 // Redirect
                                 Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)));
+                                Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode((string)$field->id)));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -208,60 +230,59 @@ if (isset($_GET['action'])) {
                             $errors = $validation->errors();
                         }
 
-                    } else {
-                        if (Input::get('action') == 'delete') {
-                            // Delete field
-                            DB::getInstance()->delete('profile_fields', ['id', (int)$_POST['id']]);
+                    } else if (Input::get('action') === 'delete') {
+                        // Delete field
+                        DB::getInstance()->delete('profile_fields', ['id', $_POST['id']]);
 
-                            Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
-                            Redirect::to(URL::build('/panel/core/profile_fields'));
-                        }
+                        Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
+                        Redirect::to(URL::build('/panel/core/profile_fields'));
                     }
                 } else {
                     $errors[] = $language->get('general', 'invalid_token');
                 }
+            } catch (Exception $ignored) {
             }
-
-            $smarty->assign([
-                'EDITING_PROFILE_FIELD' => $language->get('admin', 'editing_profile_field'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'DELETE' => $language->get('general', 'delete'),
-                'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-                'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
-                'YES' => $language->get('general', 'yes'),
-                'NO' => $language->get('general', 'no'),
-                'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
-                'DELETE_LINK' => URL::build('/panel/core/profile_fields/'),
-                'TOKEN' => Token::get(),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'FIELD_ID' => Output::getClean($field->id),
-                'FIELD_NAME' => $language->get('admin', 'field_name'),
-                'FIELD_NAME_VALUE' => Output::getClean($field->name),
-                'TYPE' => $language->get('admin', 'type'),
-                'TYPES' => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
-                'TYPE_VALUE' => $field->type,
-                'DESCRIPTION' => $language->get('admin', 'description'),
-                'DESCRIPTION_VALUE' => Output::getPurified($field->description),
-                'REQUIRED' => $language->get('admin', 'required'),
-                'REQUIRED_VALUE' => $field->required,
-                'EDITABLE' => $language->get('admin', 'editable'),
-                'EDITABLE_VALUE' => $field->editable,
-                'PUBLIC' => $language->get('admin', 'public'),
-                'PUBLIC_VALUE' => $field->public,
-                'DISPLAY_FIELD_ON_FORUM' => $language->get('admin', 'display_field_on_forum'),
-                'DISPLAY_FIELD_ON_FORUM_VALUE' => $field->forum_posts,
-                'INFO' => $language->get('general', 'info'),
-                'EDITABLE_HELP' => $language->get('admin', 'profile_field_editable_help'),
-                'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
-                'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
-                'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
-            ]);
-
-            $template_file = 'core/profile_fields_edit.tpl';
-        } else {
-            Redirect::to(URL::build('/panel/core/profile_fields'));
         }
+
+        $smarty->assign([
+            'EDITING_PROFILE_FIELD' => $language->get('admin', 'editing_profile_field'),
+            'CANCEL' => $language->get('general', 'cancel'),
+            'DELETE' => $language->get('general', 'delete'),
+            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+            'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+            'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
+            'YES' => $language->get('general', 'yes'),
+            'NO' => $language->get('general', 'no'),
+            'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
+            'DELETE_LINK' => URL::build('/panel/core/profile_fields/'),
+            'TOKEN' => Token::get(),
+            'SUBMIT' => $language->get('general', 'submit'),
+            'FIELD_ID' => Output::getClean($field->id),
+            'FIELD_NAME' => $language->get('admin', 'field_name'),
+            'FIELD_NAME_VALUE' => Output::getClean($field->name),
+            'TYPE' => $language->get('admin', 'type'),
+            'TYPES' => [1 => $language->get('admin', 'text'), 2 => $language->get('admin', 'textarea'), 3 => $language->get('admin', 'date')],
+            'TYPE_VALUE' => $field->type,
+            'DESCRIPTION' => $language->get('admin', 'description'),
+            'DESCRIPTION_VALUE' => Output::getPurified($field->description),
+            'REQUIRED' => $language->get('admin', 'required'),
+            'REQUIRED_VALUE' => $field->required,
+            'EDITABLE' => $language->get('admin', 'editable'),
+            'EDITABLE_VALUE' => $field->editable,
+            'PUBLIC' => $language->get('admin', 'public'),
+            'PUBLIC_VALUE' => $field->public,
+            'DISPLAY_FIELD_ON_FORUM' => $language->get('admin', 'display_field_on_forum'),
+            'DISPLAY_FIELD_ON_FORUM_VALUE' => $field->forum_posts,
+            'INFO' => $language->get('general', 'info'),
+            'EDITABLE_HELP' => $language->get('admin', 'profile_field_editable_help'),
+            'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
+            'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
+            'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
+        ]);
+
+        $template_file = 'core/profile_fields_edit.tpl';
+    } else {
+        Redirect::to(URL::build('/panel/core/profile_fields'));
     }
 } else {
     $template_fields = [];
@@ -282,9 +303,9 @@ if (isset($_GET['action'])) {
         }
 
         $template_fields[] = [
-            'edit_link' => URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)),
+            'edit_link' => URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode((string)$field->id)),
             'name' => Output::getClean($field->name),
-            'type' => $type,
+            'type' => $type ?? '',
             'required' => $field->required,
             'editable' => $field->editable,
             'public' => $field->public,
@@ -339,4 +360,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

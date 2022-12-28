@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateUsersPlaceholdersTable extends AbstractMigration
-{
-    public function change(): void
-    {
+final class CreateUsersPlaceholdersTable extends AbstractMigration {
+    public function change(): void {
         $table = $this->table('nl2_users_placeholders', ['id' => false, 'primary_key' => ['server_id', 'uuid', 'name']]);
 
         $table

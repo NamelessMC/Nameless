@@ -1,10 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @param int $id NamelessMC ID of group to view
- * @param string $name The NamelessMC NAME of the group to view
- *
- * @return string JSON Array
+ * TODO: Add description
  */
 class GroupInfoEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +13,10 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
         $query = 'SELECT id, name, staff, `order` FROM nl2_groups';
         $where = '';
@@ -32,18 +34,16 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
                 $where .= 'OR id = ?';
                 $params = [$_GET['id']];
             }
-        } else {
-            if (isset($_GET['name'])) {
-                $where .= ' WHERE name = null ';
-                if (is_array($_GET['name'])) {
-                    foreach ($_GET['name'] as $value) {
-                        $where .= 'OR name = ? ';
-                        $params[] = $value;
-                    }
-                } else {
-                    $where .= 'OR name = ?';
-                    $params = [$_GET['name']];
+        } else if (isset($_GET['name'])) {
+            $where .= ' WHERE name = null ';
+            if (is_array($_GET['name'])) {
+                foreach ($_GET['name'] as $value) {
+                    $where .= 'OR name = ? ';
+                    $params[] = $value;
                 }
+            } else {
+                $where .= 'OR name = ?';
+                $params = [$_GET['name']];
             }
         }
 
@@ -56,11 +56,11 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
                 'name' => $group->name,
                 'staff' => (bool)$group->staff,
                 'order' => (int)$group->order,
-                'ingame_rank_name' => Util::getIngameRankName($group->id)
+                'ingame_rank_name' => Util::getInGameRankName($group->id)
             ];
 
             if (Util::isModuleEnabled('Discord Integration')) {
-                $group_array['discord_role_id'] = (int)Discord::getDiscordRoleId($api->getDb(), $group->id);
+                $group_array['discord_role_id'] = Discord::getDiscordRoleId($api->getDb(), $group->id);
             }
 
             $groups_array[] = $group_array;

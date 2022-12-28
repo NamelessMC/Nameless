@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,19 +8,32 @@
  *  License: MIT
  *
  *  Status page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
  */
 
-$cache->setCache('status_page');
-if ($cache->isCached('enabled')) {
+$cache->setCacheName('status_page');
+if ($cache->hasCashedData('enabled')) {
     $status_enabled = $cache->retrieve('enabled');
 
 } else {
     $status_enabled = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
-    $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
+    $status_enabled = $status_enabled[0]->value === '1' ? 1 : 0;
     $cache->store('enabled', $status_enabled);
 }
 
-if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
+if (!defined('MINECRAFT') || MINECRAFT !== true || (int)$status_enabled !== 1) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -52,4 +66,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('status.tpl', $smarty);
+try {
+    $template->displayTemplate('status.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

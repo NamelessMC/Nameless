@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base class endpoints need to extend.
  *
@@ -79,8 +81,8 @@ abstract class EndpointBase {
      * - KeyAuthEndpoint to return true if the API key in header is valid
      *
      * @param Nameless2API $api Instance of Nameless2API.
+     *
      * @return bool
      */
     abstract public function isAuthorised(Nameless2API $api): bool;
-
 }

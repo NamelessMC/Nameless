@@ -1,24 +1,29 @@
 <?php
+declare(strict_types=1);
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Recent posts dashboard collection item
  *
- *  License: MIT
- *
- *  Recent topics dashboard collection item
+ * @package Modules\Forum
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class RecentTopicsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
     private Language $_language;
     private int $_topics;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     * @param int $topics
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache, int $topics) {
-        $cache->setCache('dashboard_stats_collection');
-        if ($cache->isCached('recent_topics')) {
+        $cache->setCacheName('dashboard_stats_collection');
+        if ($cache->hasCashedData('recent_topics')) {
             $from_cache = $cache->retrieve('recent_topics');
             $order = $from_cache['order'] ?? 3;
 
@@ -35,6 +40,11 @@ class RecentTopicsItem extends CollectionItemBase {
         $this->_topics = $topics;
     }
 
+    /**
+     *
+     * @return string
+     * @throws SmartyException
+     */
     public function getContent(): string {
         $this->_smarty->assign([
             'TITLE' => $this->_language->get('forum', 'recent_topics'),

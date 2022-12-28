@@ -1,8 +1,17 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * TODO: Document this file.
+ *
+ * @package NamelessMC\DTO
+ * @author Unknown
+ * @version 2.1.0
+ * @license MIT
+ */
 class Announcement {
 
-    public int $id;
+    public string $id;
     public string $pages;
     public string $groups;
     public string $text_colour;
@@ -13,6 +22,9 @@ class Announcement {
     public string $message;
     public int $order;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->pages = $row->pages;
@@ -26,7 +38,12 @@ class Announcement {
         $this->order = $row->order;
     }
 
-    public static function find(int $id): ?Announcement {
+    /**
+     * @param string $id
+     *
+     * @return Announcement|null
+     */
+    public static function find(string $id): ?Announcement {
         $row = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements WHERE id = ?', [$id])->results();
         return $row
             ? new Announcement($row[0])

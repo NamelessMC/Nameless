@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,19 @@
  *  License: MIT
  *
  *  UserCP overview
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
  */
 
 // Must be logged in
@@ -20,7 +34,7 @@ $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $user_details = [
-    $language->get('user', 'username') => $user->getDisplayname(true),
+    $language->get('user', 'username') => $user->getDisplayName(true),
     $language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
     $language->get('admin', 'registered') => date(DATE_FORMAT, $user->data()->joined)
 ];
@@ -186,4 +200,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('user/index.tpl', $smarty);
+try {
+    $template->displayTemplate('user/index.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

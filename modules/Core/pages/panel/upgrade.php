@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
@@ -27,8 +28,8 @@ if ($version) {
         $upgradeScript->run();
     }
 
-    $cache->setCache('update_check');
-    if ($cache->isCached('update_check')) {
+    $cache->setCacheName('update_check');
+    if ($cache->hasCashedData('update_check')) {
         $cache->erase('update_check');
     }
 }

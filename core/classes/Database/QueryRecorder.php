@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Records PDO queries to display on exception page.
  *
@@ -33,7 +35,7 @@ class QueryRecorder extends Instanceable {
             return;
         }
 
-        $backtrace = $this->lastReleventBacktrace();
+        $backtrace = $this->lastRelevantBacktrace();
 
         $this->_query_stack[] = [
             'number' => $this->_query_stack_num,
@@ -49,7 +51,7 @@ class QueryRecorder extends Instanceable {
      *
      * @return array debug_backtrace entry
      */
-    private function lastReleventBacktrace(): array {
+    private function lastRelevantBacktrace(): array {
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
         $current_file = $last_file = $backtrace[0]['file'];
@@ -72,6 +74,7 @@ class QueryRecorder extends Instanceable {
      *
      * @param string $sql Raw SQL query
      * @param array $params Bound parameters
+     *
      * @return string Compiled + syntax highlighted SQL query
      */
     private function compileQuery(string $sql, array $params): string {
@@ -82,7 +85,7 @@ class QueryRecorder extends Instanceable {
         $i = 0;
         foreach ($split as $section) {
 
-            if ($section == '') {
+            if ($section === '') {
                 continue;
             }
 

@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel index page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use DebugBar\DebugBarException;
 
 if (!$user->handlePanelPageLoad()) {
     require_once(ROOT_PATH . '/403.php');
@@ -36,14 +52,14 @@ if (count($dashboard_graphs)) {
             'keys' => []
         ];
 
-        foreach ($dashboard_graph['datasets'] as $dskey => $dataset) {
+        foreach ($dashboard_graph['datasets'] as $ds_key => $dataset) {
             $label = explode('/', $dataset['label']);
-            $varname = $label[0];
+            $variable_name = $label[0];
             $axis = 'y' . ($dataset['axis'] ?? 1);
             $axis_side = ($dataset['axis_side'] ?? 'left');
 
-            $graph['datasets'][$dskey] = [
-                'label' => ${$varname}->get($label[1], $label[2]),
+            $graph['datasets'][$ds_key] = [
+                'label' => ${$variable_name}->get($label[1], $label[2]),
                 'axis' => $axis,
                 'colour' => ($dataset['colour'] ?? '#000')
             ];
@@ -60,8 +76,8 @@ if (count($dashboard_graphs)) {
                 $graph['keys'][$date] = $date;
             }
 
-            foreach ($values as $valuekey => $value) {
-                $graph['datasets'][$valuekey]['data'][$date] = $value;
+            foreach ($values as $value_key => $value) {
+                $graph['datasets'][$value_key]['data'][$date] = $value;
             }
         }
 
@@ -71,18 +87,21 @@ if (count($dashboard_graphs)) {
 
 $dashboard_graphs = null;
 
-$cache->setCache('nameless_news');
-if ($cache->isCached('news')) {
+$cache->setCacheName('nameless_news');
+if ($cache->hasCashedData('news')) {
     $news = $cache->retrieve('news');
 
 } else {
-    $news_query = Util::getLatestNews();
-    $news_query = json_decode($news_query);
+    try {
+        $news_query = Util::getLatestNews();
+    } catch (DebugBarException $ignored) {
+    }
+    $news_query = json_decode($news_query, true);
 
     $news = [];
 
     if (!is_null($news_query) && !isset($news_query->error) && count($news_query)) {
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
         $i = 0;
 
@@ -90,12 +109,12 @@ if ($cache->isCached('news')) {
             $news[] = [
                 'title' => Output::getClean($item->title),
                 'date' => Output::getClean($item->date),
-                'date_friendly' => $timeago->inWords($item->date, $language),
+                'date_friendly' => $time_ago->inWords($item->date, $language),
                 'author' => Output::getClean($item->author),
                 'url' => Output::getClean($item->url)
             ];
 
-            if (++$i == 5) {
+            if (++$i === 5) {
                 break;
             }
         }
@@ -217,12 +236,10 @@ if (is_dir(ROOT_PATH . '/modules/Core/pages/admin')) {
     $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
     ]);
-} else {
-    if (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
-        $smarty->assign([
-            'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
-        ]);
-    }
+} else if (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
+    $smarty->assign([
+        'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
+    ]);
 }
 
 $smarty->assign([
@@ -251,4 +268,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('index.tpl', $smarty);
+try {
+    $template->displayTemplate('index.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

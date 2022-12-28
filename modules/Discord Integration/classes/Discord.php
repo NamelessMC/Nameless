@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+use DebugBar\DebugBarException;
+
 /**
  * Discord utility class
  *
@@ -41,6 +45,8 @@ class Discord {
      * @param array $added Array of Discord role IDs to add
      * @param array $removed Array of Discord role IDs to remove
      * @return bool Whether the request was successful or not
+     *
+     * @throws Exception
      */
     public static function updateDiscordRoles(User $user, array $added, array $removed): bool {
         if (!self::isBotSetup()) {
@@ -62,11 +68,11 @@ class Discord {
 
         $result = self::discordBotRequest('/roleChange', $json);
 
-        if ($result == 'fullsuccess') {
+        if ($result === 'fullsuccess') {
             return true;
         }
 
-        if ($result == 'partsuccess') {
+        if ($result === 'partsuccess') {
             Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'), $user->data()->id);
             return true;
         }
@@ -84,7 +90,7 @@ class Discord {
      * @return bool Whether the Discord bot is set up properly
      */
     public static function isBotSetup(): bool {
-        return self::$_is_bot_setup ??= Util::getSetting('discord_integration');
+        return self::$_is_bot_setup ??= (Util::getSetting('discord_integration') === '1');
     }
 
     /**
@@ -126,13 +132,13 @@ class Discord {
     }
 
     /**
-     * Create a JSON objec to send to the Discord bot.
+     * Create a JSON object to send to the Discord bot.
      *
-     * @param int $user_id Discord user ID to affect
+     * @param string $user_id Discord user ID to affect
      * @param array $change_arr Array of Discord role IDs to add or remove (compiled with `assembleGroupArray`)
      * @return string JSON object to send to the Discord bot
      */
-    private static function assembleJson(int $user_id, array $change_arr): string {
+    private static function assembleJson(string $user_id, array $change_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
             'guild_id' => trim(self::getGuildId()),
@@ -154,7 +160,9 @@ class Discord {
      *
      * @param string $url URL of the Discord bot instance
      * @param string|null $body Body of the request
+     *
      * @return false|string Response from the Discord bot or false if the request failed
+     * @throws DebugBarException
      */
     private static function discordBotRequest(string $url = '/status', ?string $body = null) {
         $client = HttpClient::post(BOT_URL . $url, $body);
@@ -166,7 +174,7 @@ class Discord {
 
         $response = $client->contents();
 
-        if (in_array($response, self::VALID_RESPONSES)) {
+        if (in_array($response, self::VALID_RESPONSES, true)) {
             return $response;
         }
 
@@ -180,7 +188,9 @@ class Discord {
      *
      * @param string $term Term to search for
      * @param array $variables Variables to replace in the term
+     *
      * @return string Language term from the language file
+     * @throws Exception
      */
     public static function getLanguageTerm(string $term, array $variables = []): string {
         if (!isset(self::$_discord_integration_language)) {
@@ -194,11 +204,13 @@ class Discord {
      * Parse errors from a request to the Discord bot.
      *
      * @param mixed $result Result of the Discord bot request
+     *
      * @return array Array of errors during a request to the Discord bot
+     * @throws Exception
      */
     private static function parseErrors($result): array {
         if ($result === false) {
-            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc.)
             // OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
             return [
                 self::getLanguageTerm('discord_communication_error'),
@@ -206,7 +218,7 @@ class Discord {
             ];
         }
 
-        if (in_array($result, self::VALID_RESPONSES)) {
+        if (in_array($result, self::VALID_RESPONSES, true)) {
             return [self::getLanguageTerm('discord_bot_error_' . $result)];
         }
 

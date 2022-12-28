@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Allows easy read/write to configuration values for a module stored in the database.
  *
@@ -12,6 +14,9 @@ class Configuration {
 
     private string $_module;
 
+    /**
+     * @param string $module
+     */
     public function __construct(string $module) {
         if ($module === 'Core') {
             throw new InvalidArgumentException('Configuration class should not be used for the Core module');
@@ -21,11 +26,11 @@ class Configuration {
     }
 
     /**
-     * Get a configuration value
+     * Get a configuration value.
      *
-     * @param string $setting Setting name
+     * @param string $setting Setting name.
      *
-     * @return mixed The configuration value
+     * @return mixed The configuration value.
      */
     public function get(string $setting) {
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . '_settings';
@@ -39,10 +44,10 @@ class Configuration {
     }
 
     /**
-     * Set configuration value
+     * Set configuration value.
      *
-     * @param string $setting Setting name
-     * @param mixed $value New value
+     * @param string $setting Setting name.
+     * @param mixed $value New value.
      */
     public function set(string $setting, $value): void {
         $table = 'nl2_' . preg_replace('/[^A-Za-z0-9_]+/', '', $this->_module) . '_settings';

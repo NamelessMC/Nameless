@@ -45,12 +45,12 @@
                                 <span class="float-md-right"><a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a></span>
                             </div>
                         </div>
-                        <hr />
+                        <hr/>
 
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
 
-                        <img src="{$BANNER_PATH}" alt="{$SERVER_NAME}" style="margin-bottom: 15px" />
+                        <img src="{$BANNER_PATH}" alt="{$SERVER_NAME}" style="margin-bottom: 15px"/>
                         <p><code>{$BANNER_URL}</code></p>
 
                     </div>

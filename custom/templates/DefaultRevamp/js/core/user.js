@@ -2,7 +2,7 @@
 if (!('Notification' in window))
     window.Notification = null;
 
-if (loggedIn == 1) {
+if (loggedIn === 1) {
 
     let countPms = 0;
     let countAlerts = 0;
@@ -24,15 +24,17 @@ if (loggedIn == 1) {
 
     function notifyAlerts(data) {
         if (data.value > 0) {
-            toastr.options.onclick = function () { redirect(URLBuild('user/alerts')) };
-            toastr.info(data.value == 1 ? newAlert1 : newAlertsX.replace("{{count}}", data.value));
+            toastr.options.onclick = function () {
+                redirect(URLBuild('user/alerts'))
+            };
+            toastr.info(data.value === 1 ? newAlert1 : newAlertsX.replace("{{count}}", data.value));
 
             if (window.isSecureContext) {
                 if (Notification.permission !== "granted") {
                     Notification.requestPermission();
                 } else {
                     const notification = new Notification(siteName, {
-                        body: data.value == 1 ? newAlert1 : newAlertsX.replace("{{count}}", data.value),
+                        body: data.value === 1 ? newAlert1 : newAlertsX.replace("{{count}}", data.value),
                     });
                     notification.onclick = function () {
                         window.open(URLBuild('user/alerts', true));
@@ -60,11 +62,15 @@ if (loggedIn == 1) {
 
     function notifyPMs(data) {
         if (data.value > 0) {
-            if (data.value == 1) {
-                toastr.options.onclick = function () { redirect(URLBuild('user/messaging')) };
+            if (data.value === 1) {
+                toastr.options.onclick = function () {
+                    redirect(URLBuild('user/messaging'))
+                };
                 toastr.info(newMessage1);
             } else {
-                toastr.options.onclick = function () { redirect(URLBuild('user/messaging')) };
+                toastr.options.onclick = function () {
+                    redirect(URLBuild('user/messaging'))
+                };
                 toastr.info(newMessagesX.replace("{{count}}", data.value));
             }
             if (window.isSecureContext) {
@@ -72,7 +78,7 @@ if (loggedIn == 1) {
                     Notification.requestPermission();
                 } else {
                     const notification = new Notification(siteName, {
-                        body: data.value == 1 ? newMessage1 : newMessagesX.replace("{{count}}", data.value),
+                        body: data.value === 1 ? newMessage1 : newMessagesX.replace("{{count}}", data.value),
                     });
                     notification.onclick = function () {
                         window.open(URLBuild('user/messaging', true));

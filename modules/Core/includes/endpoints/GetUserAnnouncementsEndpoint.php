@@ -1,9 +1,8 @@
 <?php
+declare(strict_types=1);
 
 /**
- * @param int $id NamelessMC ID of the user whose announcements to view
- *
- * @return string JSON Array of the latest announcements
+ * TODO: Add description
  */
 class GetUserAnnouncementsEndpoint extends KeyAuthEndpoint {
 
@@ -14,6 +13,12 @@ class GetUserAnnouncementsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api, User $user): void {
         $user_announcements = [];
 
@@ -26,8 +31,8 @@ class GetUserAnnouncementsEndpoint extends KeyAuthEndpoint {
                 'id' => $announcement->id,
                 'header' => $announcement->header,
                 'message' => $announcement->message,
-                'pages' => json_decode($announcement->pages),
-                'groups' => array_map('intval', json_decode($announcement->groups)),
+                'pages' => json_decode($announcement->pages, true),
+                'groups' => array_map('intval', json_decode($announcement->groups, true)),
             ];
         }
 

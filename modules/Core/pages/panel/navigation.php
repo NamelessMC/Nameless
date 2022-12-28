@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,6 +8,18 @@
  *  License: MIT
  *
  *  Panel navigation page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.navigation')) {
@@ -24,40 +37,43 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check()) {
-        // Valid token
-        // Update cache
-        $cache->setCache('navbar_order');
-        if (isset($_POST['inputOrder']) && count($_POST['inputOrder'])) {
-            foreach ($_POST['inputOrder'] as $key => $item) {
-                if (is_numeric($item) && $item > 0) {
-                    $cache->store($key . '_order', $item);
-                }
-            }
-        }
-
-        // Icons
-        $cache->setCache('navbar_icons');
-        if (isset($_POST['inputIcon']) && count($_POST['inputIcon'])) {
-            foreach ($_POST['inputIcon'] as $key => $item) {
-                if (is_numeric($key)) {
-                    // Custom page?
-                    $custom_page = DB::getInstance()->get('custom_pages', ['id', $key])->results();
-                    if (count($custom_page)) {
-                        DB::getInstance()->update('custom_pages', $key, [
-                            'icon' => $item
-                        ]);
+    try {
+        if (Token::check()) {
+            // Valid token
+            // Update cache
+            $cache->setCacheName('navbar_order');
+            if (isset($_POST['inputOrder']) && count($_POST['inputOrder'])) {
+                foreach ($_POST['inputOrder'] as $key => $item) {
+                    if (is_numeric($item) && $item > 0) {
+                        $cache->store($key . '_order', $item);
                     }
                 }
-                $cache->store($key . '_icon', $item);
             }
+
+            // Icons
+            $cache->setCacheName('navbar_icons');
+            if (isset($_POST['inputIcon']) && count($_POST['inputIcon'])) {
+                foreach ($_POST['inputIcon'] as $key => $item) {
+                    if (is_numeric($key)) {
+                        // Custom page?
+                        $custom_page = DB::getInstance()->get('custom_pages', ['id', $key])->results();
+                        if (count($custom_page)) {
+                            DB::getInstance()->update('custom_pages', $key, [
+                                'icon' => $item
+                            ]);
+                        }
+                    }
+                    $cache->store($key . '_icon', $item);
+                }
+            }
+
+            $language->set('general', 'more', Output::getClean(Input::get('dropdown_name')));
+
+            // Reload to update info
+            Session::flash('navigation_success', $language->get('admin', 'navigation_settings_updated_successfully'));
+            Redirect::to(URL::build('/panel/core/navigation'));
         }
-
-        $language->set('general', 'more', Output::getClean(Input::get('dropdown_name')));
-
-        // Reload to update info
-        Session::flash('navigation_success', $language->get('admin', 'navigation_settings_updated_successfully'));
-        Redirect::to(URL::build('/panel/core/navigation'));
+    } catch (Exception $ignored) {
     }
 
     // Invalid token
@@ -95,7 +111,7 @@ $smarty->assign([
         'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
         'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>'
     ]),
-    'NAV_ITEMS' => $navigation->returnNav('top'),
+    'NAV_ITEMS' => $navigation->returnNav(),
     'NAVBAR_ORDER' => $language->get('admin', 'navbar_order'),
     'NAVBAR_ICON' => $language->get('admin', 'navbar_icon'),
     'DROPDOWN_ITEMS' => $language->get('admin', 'dropdown_items'),
@@ -108,4 +124,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/navigation.tpl', $smarty);
+try {
+    $template->displayTemplate('core/navigation.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

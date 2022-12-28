@@ -12,7 +12,7 @@
     <div class="custom-control custom-switch">
         <input type="hidden" name="dark_mode" value="0">
         <input onclick="switchTheme()" id="dark_mode" name="dark_mode" type="checkbox" class="custom-control-input"
-            value="1">
+               value="1">
         <label class="custom-control-label" for="dark_mode">
             {$MODE_TOGGLE}
         </label>
@@ -24,23 +24,23 @@
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+               aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 {if $NOTICES|count > 0}
-                <span class="badge badge-danger badge-counter">{$NOTICES|count}</span>
+                    <span class="badge badge-danger badge-counter">{$NOTICES|count}</span>
                 {/if}
             </a>
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
+                 aria-labelledby="alertsDropdown">
                 {if $NOTICES|count eq 0}
-                <span class="dropdown-item d-flex align-items-center">{$NO_NOTICES}</span>
+                    <span class="dropdown-item d-flex align-items-center">{$NO_NOTICES}</span>
                 {else}
-                {foreach from=$NOTICES key=url item=notice}
-                <a href="{$url}" class="dropdown-item d-flex align-items-center"
-                    style="color:#6c757d!important">{$notice}</a>
-                {/foreach}
+                    {foreach from=$NOTICES key=url item=notice}
+                        <a href="{$url}" class="dropdown-item d-flex align-items-center"
+                           style="color:#6c757d!important">{$notice}</a>
+                    {/foreach}
                 {/if}
             </div>
         </li>

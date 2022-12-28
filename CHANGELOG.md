@@ -1,17 +1,20 @@
 # NamelessMC v2 Changelog
 
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2)
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/18)
 
 ## [2.0.2](https://github.com/NamelessMC/Nameless/compare/v2.0.1...v2.0.2) - 2022-08-13
 
 ### Added
+
 - Add ability to rate limit via Validate class
 - Add base for Croatian translation
 - Allow selecting an MC server to use for group sync options
 - Display each OAuth provider's redirect URL
 
 ### Changed
+
 - Removed mentions of "pre-release" from installer
 - Make update check more resilient to API being down
 - Better module/template version check
@@ -23,6 +26,7 @@
 - Rework two factor authentication disabling
 
 ### Fixed
+
 - Fix image upload error message
 - Fix non-string config values not saving properly
 - Fix API error name
@@ -34,16 +38,18 @@
 ## [2.0.1](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2.0.1) - 2022-08-05
 
 ### Fixed
+
 - Fix exception when creating admin user during installation
 - Update upgrade check to use correct URL on Download button
 - Fix invalid call to `getAvatar` on viewing a forum topic
 - Fix not checking if config file would be writable when installing
 
-
 ## [2.0.0](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr13...v2.0.0) - 2022-08-05
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/17)
 
 ### Added
+
 - Translation updates
 - Add info about OAuth providers to debug link
 - Respect light/dark mode for captcha popups
@@ -53,6 +59,7 @@
 - Block banned IPs from registering
 
 ### Changed
+
 - Better Discord widget error display
 - Light/dark mode for StaffCP statistics graph
 - Hide StaffCP stats on mobile
@@ -63,7 +70,7 @@
 - Only track queries when debug mode is enabled, this gives performance increases of ~15%
 - Allow server to send correct Minecraft verify command
 - Use `return [...` in config files instead of `$conf = [...`
-  - Backwards compatibility will be removed in 2.0.1 to ensure all sites have been updated
+    - Backwards compatibility will be removed in 2.0.1 to ensure all sites have been updated
 - Use case insensitive header handling
 - "OR" in login page is no longer hardcoded
 - Better TinyMCE image uploading errors + logging
@@ -73,6 +80,7 @@
 - Only show source code option in staffcp pages in text editor
 
 ### Fixed
+
 - Fix MariaDB version detection
 - Fix editing topic title not showing up
 - Fix MC banner image listing
@@ -97,7 +105,7 @@
 - Fix avatar related exception on maintenance mode page
 - Fix `Timeago` values being globally cached for all users on news posts
 - Use `.png` instead of `.svg` for default fallback avatar links
-  - Using `.svg` would break on Discord embeds
+    - Using `.svg` would break on Discord embeds
 - Fix forum signature overflow
 - Fix Oauth login when maintenance mode is enabled
 - Fix `createAnnouncement` webhook
@@ -116,10 +124,12 @@
 - Handle OAuth2 errors properly during login/registration
 - Fix exception when trying to login with non-existent oauth account
 - Add slashes to saved config values
-  - Passwords with slashes would escape the strings
+    - Passwords with slashes would escape the strings
 
 ### Deprecated
+
 *These will be removed in 2.1.0*
+
 - The entire `Queries` class has been deprecated, read each of the methods' documentation for more information
 - Using `Config::get('path/to/value')` syntax is deprecated. Use `Config::get('path.to.value')` instead
 - `Hash::unique()`, use `SecureRandom::alphanumeric()` instead
@@ -141,13 +151,15 @@
 - `Util::bold()` is deprecated, use `Text::bold()` instead
 
 ### Breaking Changes
+
 - "Advanced" event listeners have been removed.
 
-
 ## [2.0.0 pr-13](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr12...v2.0.0-pr13) - 2022-06-04
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/14)
 
 ### Added
+
 - Discord + Google OAuth support
 - New user verification system
 - New cookie consent module
@@ -158,6 +170,7 @@
 - API additions including new ban user endpoint
 
 ### Changed
+
 - Contact page removed
 - Update to Font Awesome 6
 - Use Guzzle for HTTP requests
@@ -170,16 +183,18 @@
 - Removed CKEditor
 
 ### Fixed
+
 - PHP 8 improvements
 - Fix issue using certain characters in URLs
 - Frontend and backend template updates
 - Many more bugfixes
 
-
 ## [2.0.0 pr-12](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr11...v2.0.0-pr12) - 2021-09-10
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/16)
 
 ### Added
+
 - Add Thai translation
 - Add new administrator permission for full access
 - Add new forum settings page including link location option
@@ -190,6 +205,7 @@
 - Add `reported_username` and `reported_uid` fields to createReport endpoint
 
 ### Changed
+
 - Increase max length of custom pages URL + title
 - Convert many GET requests to POST
 - Discord sync rework
@@ -204,6 +220,7 @@
 - Convert forum queries to DB query()
 
 ### Fixed
+
 - Display non-alphanumeric characters in forum URLs
 - General placeholder fixes
 - General Authme fixes
@@ -222,11 +239,12 @@
 - Exclude `.DS_Store` files from endpoint scan
 - PHP 8 improvements
 
-
 ## [2.0.0 pr-11](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr10...v2.0.0-pr11) - 2021-06-27
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/15)
 
 ### Added
+
 - Add Danish translation
 - Add support for upward dropdowns in Default Revamp template
 - Add Default Revamp dark mode support for top attached headers
@@ -235,6 +253,7 @@
 - Add method to set multiple config values at once
 
 ### Changed
+
 - Validate email port before updating config in StaffCP
 - Remove extra column from nl2_query_results
 - Change placeholder tables primary keys
@@ -243,6 +262,7 @@
 - Add index on `nl2_posts.topic_id` column
 
 ### Fixed
+
 - Fix StaffCP Minecraft integration section
 - Fix invalid language during installation
 - Add SSL check before activating secure cookies
@@ -250,8 +270,8 @@
 - Fix invalid token with AuthMe login
 - Fix profile settings when forum is disabled
 
-
 ## [2.0.0 pr-10](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr9...v2.0.0-pr10) - 2021-08-25
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/13)
 
 - Add ability to upload favicon
@@ -275,11 +295,12 @@
 - Translation updates
 - PHP 8 improvements
 
-
 ## [2.0.0 pr-9](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr8...v2.0.0-pr9) - 2020-12-30
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/12)
 
 ### Added
+
 - Add new panel template
 - Add Default Revamp settings including dark mode
 - Add player heads to server status widget
@@ -296,9 +317,11 @@
 - Translation updates
 
 ### Changed
+
 - Make groups field in serverInfo endpoint optional
 
 ### Fixed
+
 - Fix multibyte character string length checks
 - Fix widgets intended for homepage showing on all pages
 - Fix validateUser hook sending empty Discord message
@@ -313,11 +336,12 @@
 - Fix error if user has no group
 - PHP 8 improvements
 
-
 ## [2.0.0 pr-8](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr7...v2.0.0-pr8) - 2020-12-25
+
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/4)
 
 ### Added
+
 - Add Discord rank sync
 - Add Chinese (Simplified), French, Russian, Spanish (ES) and Turkish translations
 - Update existing translations
@@ -344,6 +368,7 @@
 - Add hCaptcha
 
 ### Changed
+
 - Remove legacy v1 API
 - Remove old Default template
 - New installer
@@ -353,14 +378,15 @@
 - Start PHP 8 compatibility - still a work in progress
 
 ### Fixed
+
 - Many bugfixes
 - Fix same-site redirect forums showing redirect warning
 - Fix MCAssoc integration
 
-
 ## [2.0.0 pr-7](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr6...v2.0.0-pr7) - 2020-01-05
 
 ### Added
+
 - Add Italian translation
 - Add support for custom plural forms in languages
 - Add API method to return list of usernames + their UUIDs
@@ -377,6 +403,7 @@
 - Add last seen, online to view topic and subforum descriptions to view forum
 
 ### Changed
+
 - Update Czech translation
 - Update Dutch translation
 - Update German translation
@@ -414,6 +441,7 @@
 - Remove old code
 
 ### Fixed
+
 - Fix search bar showing in wrong place if no topics in forum
 - Fix Default Revamp delete post button
 - Fix Default Revamp delete profile post button
@@ -459,10 +487,10 @@
 - Fix More dropdown only showing if a custom page is adding to it
 - Prevent fatal error with insufficient forum permissions
 
-
 ## [2.0.0 pr-6](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr5...v2.0.0-pr6) - 2019-03-10
 
 ### Added
+
 - Add Lithuanian and Polish languages
 - Allow popover hover in StaffCP
 - Add forum drag reordering
@@ -481,6 +509,7 @@
 - Add author IDs to messaging template variables
 
 ### Changed
+
 - Translation updates
 - Update nav ordering
 - Rename UserCP to Account
@@ -494,6 +523,7 @@
 - Change front end editor
 
 ### Fixed
+
 - Fix panel user edit Markdown issue
 - Fixed install language
 - Fix v1 upgrader issue
@@ -540,10 +570,10 @@
 - Fix incorrect last online date for users registered through the API
 - Only show PM suggested user list after 3 characters typed
 
-
 ## [2.0.0 pr-5](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr4...v2.0.0-pr5) - 2018-10-08
 
 ### Added
+
 - New staff panel
 - RTL language support
 - API rank sync
@@ -558,17 +588,19 @@
 - User popovers
 
 ### Changed
+
 - Template + module system changes
 - Translation updates
 
 ### Fixed
+
 - Many bugfixes
 - Auto close spoilers
-
 
 ## [2.0.0 pr-4](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr3...v2.0.0-pr4) - 2018-05-30
 
 ### Added
+
 - Update + add new translations
 - Add new core permission system
 - Add missing permissions to installer update script
@@ -601,6 +633,7 @@
 - Add missing editor emoji file
 
 ### Changed
+
 - Update route check
 - Update DataTables
 - Allow spaces in alphanumeric check
@@ -628,6 +661,7 @@
 - Update nginx example config
 
 ### Fixed
+
 - Fix ' in database details not being entered into config correctly
 - Remove non-alphanumeric characters from forum URLs
 - Fix subforums not loading
@@ -718,10 +752,10 @@
 - Remove more user data upon account deletion
 - Fix update execute issues
 
-
 ## [2.0.0 pr-3](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr2...v2.0.0-pr3) - 2017-10-06
 
 ### Added
+
 - Add Romanian and Swedish translations
 - Add missing profile post term to all languages
 - Update Minecraft server banners and allow custom backgrounds
@@ -748,6 +782,7 @@
 - Allow editing/deleting profile wall posts
 
 ### Changed
+
 - Update existing translations
 - Update Bootstrap version to v4 alpha 6
 - Only display 5 forum posts on profile pages
@@ -770,6 +805,7 @@
 - Track topic views via session if cookies are disabled
 
 ### Fixed
+
 - Fix server banner issues
 - Add missing font file
 - Fix white screen if no avatar is uploaded
@@ -812,10 +848,10 @@
 - Fix incorrect pagination link
 - Move AdminCP navbar contents into container
 
-
 ## [2.0.0 pr-2](https://github.com/NamelessMC/Nameless/compare/v2.0.0-pr1...v2.0.0-pr2) - 2017-06-07
 
 ### Added
+
 - Add forum labels
 - Add maintenance mode
 - Allow installer translations
@@ -840,6 +876,7 @@
 - Allow logging in whilst in maintenance mode
 
 ### Changed
+
 - Remove unnecessary header template file
 - Minor forum updates
 - Update Mojang API URL
@@ -869,6 +906,7 @@
 - Update installer and configuration methods
 
 ### Fixed
+
 - Fix issue with editing user in AdminCP
 - Prevent non-moderators replying to locked topics
 - Prevent signature image overflow
@@ -899,6 +937,6 @@
 - Update installer
 - Fix AdminCP -> Minecraft PHP notice
 
-
 ## [2.0.0 pr-1](https://github.com/NamelessMC/Nameless/compare/v1.0.15...v2.0.0-pr1) - 2016-12-30
+
 - Initial release

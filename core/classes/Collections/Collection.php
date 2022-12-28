@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Base Collection class
  *
@@ -9,45 +11,51 @@
  */
 class Collection {
 
-    /** @var CollectionItemBase[] */
+    /**
+     * @var CollectionItemBase[]
+     */
     private array $_items;
+
+    /**
+     * @var CollectionItemBase[]
+     */
+    private array $_enabled_items;
 
     public function __construct() {
         $this->_items = [];
+        $this->_enabled_items = [];
     }
 
+    /**
+     * @param CollectionItemBase $item
+     * @return void
+     */
     public function addItem(CollectionItemBase $item): void {
         $this->_items[] = $item;
+        if ($item->isEnabled()) {
+            $this->_enabled_items[] = $item;
+        }
     }
 
     /**
      * @return CollectionItemBase[]
      */
     public function getEnabledItems(): array {
-        $items = [];
-
-        foreach ($this->_items as $item) {
-            if ($item->isEnabled()) {
-                $items[] = $item;
-            }
-        }
-
-        uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
+        uasort($this->_enabled_items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
-        return $items;
+        return $this->_enabled_items;
     }
 
     /**
      * @return CollectionItemBase[]
      */
     public function getAllItems(): array {
-        $items = $this->_items;
-        uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
+        uasort($this->_items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
-        return $items;
+        return $this->_items;
     }
 }

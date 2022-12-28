@@ -1,5 +1,7 @@
 <?php
-/*
+declare(strict_types=1);
+
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr9
@@ -7,7 +9,21 @@
  *  License: MIT
  *
  *  Panel security page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use GuzzleHttp\Exception\GuzzleException;
 
 if (!$user->handlePanelPageLoad('admincp.security')) {
     require_once(ROOT_PATH . '/403.php');
@@ -17,8 +33,8 @@ if (!$user->handlePanelPageLoad('admincp.security')) {
 const PAGE = 'panel';
 const PARENT_PAGE = 'security';
 const PANEL_PAGE = 'security';
-// Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
-define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
+// Define the sort column #, as for group_sync we don't show IP (since its from MC server or Discord bot)
+define('SORT', (isset($_GET['view']) && $_GET['view'] === 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -85,12 +101,15 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs as $log) {
-                $target_user = new User($log->user_id);
+                try {
+                    $target_user = new User($log->user_id);
+                } catch (GuzzleException $ignored) {
+                }
 
                 $rows[] = [
                     0 => [
                         'content' => $target_user->exists()
-                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayName(true))) . '">' . Output::getClean($target_user->getDisplayName()) . '</a>'
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
@@ -123,12 +142,15 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs as $log) {
-                $target_user = new User($log->user_id);
+                try {
+                    $target_user = new User($log->user_id);
+                } catch (GuzzleException $ignored) {
+                }
 
                 $rows[] = [
                     0 => [
                         'content' => $target_user->exists()
-                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayName(true))) . '">' . Output::getClean($target_user->getDisplayName()) . '</a>'
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
@@ -163,12 +185,15 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs as $log) {
-                $target_user = new User($log->user_id);
+                try {
+                    $target_user = new User($log->user_id);
+                } catch (GuzzleException $ignored) {
+                }
 
                 $rows[] = [
                     0 => [
                         'content' => $target_user->exists()
-                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayName(true))) . '">' . Output::getClean($target_user->getDisplayName()) . '</a>'
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
@@ -201,7 +226,10 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs_set as $log) {
-                $target_user = new User($log->user_id);
+                try {
+                    $target_user = new User($log->user_id);
+                } catch (GuzzleException $ignored) {
+                }
 
                 $removed = '';
                 foreach (json_decode($log->info, true)['removed'] as $r) {
@@ -218,7 +246,7 @@ if (!isset($_GET['view'])) {
                 $rows[] = [
                     0 => [
                         'content' => $target_user->exists()
-                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
+                            ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayName(true))) . '">' . Output::getClean($target_user->getDisplayName()) . '</a>'
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
@@ -259,16 +287,19 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs as $log) {
-                if ($log->user_id != 0) {
-                    $target_user = new User($log->user_id);
+                if ($log->user_id !== '0') {
+                    try {
+                        $target_user = new User($log->user_id);
+                    } catch (GuzzleException $ignored) {
+                    }
                 }
 
                 $rows[] = [
                     0 => [
-                        'content' => $log->user_id == 0
+                        'content' => $log->user_id === '0'
                             ? $language->get('general', 'none')
-                            : ($target_user->exists() ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayname(true))) . '">' . Output::getClean($target_user->getDisplayname()) . '</a>'
-                            : $language->get('general', 'deleted_user'))
+                            : ($target_user->exists() ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayName(true))) . '">' . Output::getClean($target_user->getDisplayName()) . '</a>'
+                                : $language->get('general', 'deleted_user'))
                     ],
                     1 => [
                         'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
@@ -305,21 +336,7 @@ if (!isset($_GET['view'])) {
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-if (isset($success)) {
-    $smarty->assign([
-        'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
-    ]);
-}
-
-if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
-    ]);
-}
+Module::loadPageWithMessages($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template, $language, $success ?? null, $errors ?? null);
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -335,4 +352,7 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+try {
+    $template->displayTemplate($template_file, $smarty);
+} catch (SmartyException $ignored) {
+}

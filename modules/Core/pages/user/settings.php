@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.2
@@ -7,9 +8,26 @@
  *  License: MIT
  *
  *  UserCP settings
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var array $errors
  */
 
 // Must be logged in
+use GuzzleHttp\Exception\GuzzleException;
+use RobThree\Auth\TwoFactorAuth;
+use RobThree\Auth\TwoFactorAuthException;
+
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
 }
@@ -22,43 +40,55 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Forum enabled?
 $forum_enabled = Util::isModuleEnabled('Forum');
 
-// Two factor auth?
+// Two-factor auth?
 if (isset($_GET['do'])) {
-    if ($_GET['do'] == 'enable_tfa') {
+    if ($_GET['do'] === 'enable_tfa') {
 
         // Ensure TFA is currently disabled
-        if ($user->data()->tfa_enabled == 1) {
+        if ($user->data()->tfa_enabled === true) {
             Redirect::to(URL::build('/user/settings'));
         }
 
-        $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
+        try {
+            $tfa = new TwoFactorAuth(Output::getClean(SITE_NAME));
+        } catch (TwoFactorAuthException $ignored) {
+        }
 
         if (!isset($_GET['s'])) {
             // Generate secret
-            $secret = $tfa->createSecret();
+            try {
+                $secret = $tfa->createSecret();
+            } catch (TwoFactorAuthException $ignored) {
+            }
 
-            $user->update([
-                'tfa_secret' => $secret
-            ]);
+            try {
+                $user->update([
+                    'tfa_secret' => $secret
+                ]);
+            } catch (Exception $ignored) {
+            }
 
             if (Session::exists('force_tfa_alert')) {
                 $errors[] = Session::get('force_tfa_alert');
             }
 
             // Assign Smarty variables
-            $smarty->assign([
-                'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-                'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
-                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $secret),
-                'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
-                'TFA_CODE' => chunk_split($secret, 4, ' '),
-                'NEXT' => $language->get('general', 'next'),
-                'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
-                'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
-                'ERROR_TITLE' => $language->get('general', 'error'),
-                'TOKEN' => Token::get(),
-            ]);
+            try {
+                $smarty->assign([
+                    'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+                    'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
+                    'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $secret),
+                    'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
+                    'TFA_CODE' => chunk_split($secret, 4, ' '),
+                    'NEXT' => $language->get('general', 'next'),
+                    'LINK' => URL::build('/user/settings/', 'do=enable_tfa&amp;s=2'),
+                    'CANCEL' => $language->get('general', 'cancel'),
+                    'CANCEL_LINK' => URL::build('/user/settings/', 'do=disable_tfa'),
+                    'ERROR_TITLE' => $language->get('general', 'error'),
+                    'TOKEN' => Token::get(),
+                ]);
+            } catch (TwoFactorAuthException $ignored) {
+            }
 
             if (isset($errors) && count($errors)) {
                 $smarty->assign([
@@ -68,14 +98,17 @@ if (isset($_GET['do'])) {
         } else {
             // Validate code to see if it matches the secret
             if (Input::exists()) {
-                if (Token::check()) {
-                    if (isset($_POST['tfa_code'])) {
-                        if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
-                            $user->update([
-                                'tfa_complete' => true,
-                                'tfa_enabled' => true,
-                                'tfa_type' => 1
-                            ]);
+                try {
+                    if (Token::check()) {
+                        if (isset($_POST['tfa_code']) && $tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
+                            try {
+                                $user->update([
+                                    'tfa_complete' => true,
+                                    'tfa_enabled' => true,
+                                    'tfa_type' => 1
+                                ]);
+                            } catch (Exception $ignored) {
+                            }
 
                             // Logout all other sessions for this user
                             $user->logoutAllOtherSessions();
@@ -84,10 +117,11 @@ if (isset($_GET['do'])) {
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
                         }
+                        $error = $language->get('user', 'invalid_tfa');
+                    } else {
+                        $error = $language->get('general', 'invalid_token');
                     }
-                    $error = $language->get('user', 'invalid_tfa');
-                } else {
-                    $error = $language->get('general', 'invalid_token');
+                } catch (Exception $ignored) {
                 }
             }
 
@@ -110,339 +144,369 @@ if (isset($_GET['do'])) {
         $template->onPageLoad();
         require(ROOT_PATH . '/core/templates/navbar.php');
         require(ROOT_PATH . '/core/templates/footer.php');
-        $template->displayTemplate('user/tfa.tpl', $smarty);
+        try {
+            $template->displayTemplate('user/tfa.tpl', $smarty);
+        } catch (SmartyException $ignored) {
+        }
 
-    } else {
-        if ($_GET['do'] == 'disable_tfa') {
-            // Disable TFA
-            // TODO - https://github.com/NamelessMC/Nameless/issues/3017
-            if (Input::exists()) {
+    } else if ($_GET['do'] === 'disable_tfa') {
+        // Disable TFA
+        // TODO - https://github.com/NamelessMC/Nameless/issues/3017
+        if (Input::exists()) {
+            try {
                 if (Token::check()) {
-                    $user->update([
-                        'tfa_enabled' => false,
-                        'tfa_type' => 0,
-                        'tfa_secret' => null,
-                        'tfa_complete' => false
-                    ]);
+                    try {
+                        $user->update([
+                            'tfa_enabled' => false,
+                            'tfa_type' => 0,
+                            'tfa_secret' => null,
+                            'tfa_complete' => false
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
 
                     Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
                     Redirect::to(URL::build('/user/settings'));
                 }
-
-                echo $language->get('general', 'invalid_token') . '<hr />';
+            } catch (Exception $ignored) {
             }
 
-            echo '
-            <form method="post" action="" id="tfa_disable">
-              <input type="hidden" name="token" value="' . Token::get() . '">
-            </form>
-            <a href="javascript:void(0)" onclick="document.getElementById(\'tfa_disable\').submit();">' . $language->get('user', 'tfa_disable_click') . '</a>
-            ';
-
-            return;
+            echo $language->get('general', 'invalid_token') . '<hr />';
         }
+
+        echo '
+        <form method="post" action="" id="tfa_disable">
+          <input type="hidden" name="token" value="' . Token::get() . '">
+        </form>
+        <a href="javascript:void(0)" onclick="document.getElementById(\'tfa_disable\').submit();">' . $language->get('user', 'tfa_disable_click') . '</a>
+        ';
+
+        return;
     }
 
 } else {
     // Handle input
     if (Input::exists()) {
-        if (Token::check()) {
-            if (Input::get('action') == 'settings') {
-                $to_validate = [
-                    'signature' => [
-                        'max' => 900
-                    ],
-                    'timezone' => [
-                        'timezone' => true,
-                    ]
-                ];
-
-                // Permission to use nickname?
-                if ($user->hasPermission('usercp.nickname')) {
-                    $to_validate['nickname'] = [
-                        Validate::REQUIRED => true,
-                        Validate::UNIQUE => [
-                            'users',
-                            'id:' . $user->data()->id // ignore current user
+        try {
+            if (Token::check()) {
+                if (Input::get('action') === 'settings') {
+                    $to_validate = [
+                        'signature' => [
+                            'max' => 900
                         ],
-                        Validate::MIN => 3,
-                        Validate::MAX => 20
+                        'timezone' => [
+                            'timezone' => true,
+                        ]
                     ];
 
-                    $displayname = Output::getClean(Input::get('nickname'));
-                } else {
-                    $displayname = $user->data()->username;
-                }
-
-                // Get a list of required profile fields
-                $profile_fields = $user->getProfileFields(true);
-                foreach ($profile_fields as $field) {
-                    if (!$field->editable && $field->value != null) {
-                        continue;
-                    }
-
-                    if ($field->required) {
-                        $to_validate["profile_fields[{$field->id}]"] = [
-                            'required' => true,
+                    // Permission to use nickname?
+                    if ($user->hasPermission('usercp.nickname')) {
+                        $to_validate['nickname'] = [
+                            Validate::REQUIRED => true,
+                            Validate::UNIQUE => [
+                                'users',
+                                'id:' . $user->data()->id // ignore current user
+                            ],
+                            Validate::MIN => 3,
+                            Validate::MAX => 20
                         ];
+
+                        $display_name = Output::getClean(Input::get('nickname'));
+                    } else {
+                        $display_name = $user->data()->username;
                     }
-                    $to_validate["profile_fields[{$field->id}]"]['max'] = (is_null($field->length) ? 1024 : $field->length);
-                }
 
-
-                $validation = Validate::check(
-                    $_POST, $to_validate
-                )->messages([
-                    'signature' => $language->get('user', 'signature_max_900'),
-                    'nickname' => [
-                        Validate::REQUIRED => $language->get('user', 'nickname_required'),
-                        Validate::UNIQUE => $language->get('user', 'nickname_already_exists'),
-                        Validate::MIN => $language->get('user', 'nickname_minimum_3'),
-                        Validate::MAX => $language->get('user', 'nickname_maximum_20')
-                    ],
-                    'timezone' => $language->get('general', 'invalid_timezone'),
-                    // fallback message for required profile fields
-                    '*' => static function ($field) use ($language) {
-                        // get the id from between the square brackets
-                        $id = substr($field, strpos($field, '[') + 1, -1);
-
-                        $field = ProfileField::find($id);
-                        if (!$field) {
-                            return null;
+                    // Get a list of required profile fields
+                    $profile_fields = $user->getProfileFields(true);
+                    foreach ($profile_fields as $field) {
+                        if (!$field->editable && $field->value !== null) {
+                            continue;
                         }
 
-                        return $language->get('user', 'field_is_required', [
-                            'field' => Output::getClean($field->name),
-                        ]);
-                    },
-                ]);
+                        if ($field->required) {
+                            $to_validate["profile_fields[$field->id]"] = [
+                                'required' => true,
+                            ];
+                        }
+                        $to_validate["profile_fields[$field->id]"]['max'] = (is_null($field->length) ? 1024 : $field->length);
+                    }
 
-                if ($validation->passed()) {
+
                     try {
-                        // Update language, template and timezone
-                        $new_language_results = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
+                        $validation = Validate::check(
+                            $_POST, $to_validate
+                        )->messages([
+                            'signature' => $language->get('user', 'signature_max_900'),
+                            'nickname' => [
+                                Validate::REQUIRED => $language->get('user', 'nickname_required'),
+                                Validate::UNIQUE => $language->get('user', 'nickname_already_exists'),
+                                Validate::MIN => $language->get('user', 'nickname_minimum_3'),
+                                Validate::MAX => $language->get('user', 'nickname_maximum_20')
+                            ],
+                            'timezone' => $language->get('general', 'invalid_timezone'),
+                            // fallback message for required profile fields
+                            '*' => static function ($field) use ($language) {
+                                // get the id from between the square brackets
+                                $id = substr($field, strpos($field, '[') + 1, -1);
 
-                        if (count($new_language_results)) {
-                            $new_language = $new_language_results[0]->id;
-                            $language = new Language('core', $new_language_results[0]->short_code);
-                        } else {
-                            $new_language = $user->data()->language_id;
-                        }
+                                $field = ProfileField::find($id);
+                                if (!$field) {
+                                    return null;
+                                }
 
-                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+                                return $language->get('user', 'field_is_required', [
+                                    'field' => Output::getClean($field->name),
+                                ]);
+                            },
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
 
-                        if (count($new_template)) {
-                            $new_template = $new_template[0]->id;
-                        } else {
-                            $new_template = $user->data()->theme_id;
-                        }
+                    if ($validation->passed()) {
+                        try {
+                            // Update language, template and timezone
+                            $new_language_results = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
 
-                        // Check permissions
-                        $available_templates = $user->getUserTemplates();
-
-                        foreach ($available_templates as $available_template) {
-                            if ($available_template->id == $new_template) {
-                                $can_update = true;
-                                break;
-                            }
-                        }
-
-                        if (!isset($can_update)) {
-                            $new_template = $user->data()->theme_id;
-                        }
-
-                        $timezone = Input::get('timezone');
-
-                        if ($user->hasPermission('usercp.signature')) {
-                            $signature = Input::get('signature');
-                        } else {
-                            $signature = '';
-                        }
-
-                        // Private profiles enabled?
-                        $private_profiles = Util::getSetting('private_profile');
-                        if ($private_profiles === '1') {
-                            if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
-                                $privateProfile = 1;
+                            if (count($new_language_results)) {
+                                $new_language = $new_language_results[0]->id;
+                                $language = new Language('core', $new_language_results[0]->short_code);
                             } else {
-                                $privateProfile = 0;
-                            }
-                        } else {
-                            $privateProfile = $user->data()->private_profile;
-                        }
-
-                        $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
-
-                        $data = [
-                            'language_id' => $new_language,
-                            'timezone' => $timezone,
-                            'signature' => $signature,
-                            'nickname' => $displayname,
-                            'private_profile' => $privateProfile,
-                            'theme_id' => $new_template,
-                            'gravatar' => $gravatar
-                        ];
-
-                        // Is forum enabled? Update topic Updates
-                        if ($forum_enabled) {
-                            $topicUpdates = Input::get('topicUpdates');
-
-                            $data['topic_updates'] = $topicUpdates;
-                        }
-
-                        $user->update($data);
-
-                        Log::getInstance()->log(Log::Action('user/ucp/update'));
-
-                        foreach ($_POST['profile_fields'] as $field_id => $value) {
-                            // Check field exists
-                            $field = ProfileField::find($field_id);
-                            if (!$field) {
-                                continue;
+                                $new_language = $user->data()->language_id;
                             }
 
-                            $user_profile_fields = $user->getProfileFields(true);
-                            if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
-                                // Update field value if it has changed
-                                if ($value !== $user_profile_fields[$field->id]->value) {
-                                    DB::getInstance()->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                            $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+
+                            if (count($new_template)) {
+                                $new_template = $new_template[0]->id;
+                            } else {
+                                $new_template = $user->data()->theme_id;
+                            }
+
+                            // Check permissions
+                            $available_templates = $user->getUserTemplates();
+
+                            foreach ($available_templates as $available_template) {
+                                if ($available_template->id === $new_template) {
+                                    $can_update = true;
+                                    break;
+                                }
+                            }
+
+                            if (!isset($can_update)) {
+                                $new_template = $user->data()->theme_id;
+                            }
+
+                            $timezone = Input::get('timezone');
+
+                            if ($user->hasPermission('usercp.signature')) {
+                                $signature = Input::get('signature');
+                            } else {
+                                $signature = '';
+                            }
+
+                            // Private profiles enabled?
+                            $private_profiles = Util::getSetting('private_profile');
+                            if ($private_profiles === '1') {
+                                if ($_POST['privateProfile'] === '1' && $user->canPrivateProfile()) {
+                                    $privateProfile = 1;
+                                } else {
+                                    $privateProfile = 0;
+                                }
+                            } else {
+                                $privateProfile = $user->data()->private_profile;
+                            }
+
+                            $data = [
+                                'language_id' => $new_language,
+                                'timezone' => $timezone,
+                                'signature' => $signature,
+                                'nickname' => $display_name,
+                                'private_profile' => $privateProfile,
+                                'theme_id' => $new_template,
+                                'gravatar' => $_POST['gravatar']
+                            ];
+
+                            // Is forum enabled? Update topic Updates
+                            if ($forum_enabled) {
+                                $topicUpdates = Input::get('topicUpdates');
+
+                                $data['topic_updates'] = $topicUpdates;
+                            }
+
+                            $user->update($data);
+
+                            Log::getInstance()->log(Log::Action('user/ucp/update'));
+
+                            foreach ($_POST['profile_fields'] as $field_id => $value) {
+                                // Check field exists
+                                $field = ProfileField::find($field_id);
+                                if (!$field) {
+                                    continue;
+                                }
+
+                                $user_profile_fields = $user->getProfileFields(true);
+                                if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
+                                    // Update field value if it has changed
+                                    if ($value !== $user_profile_fields[$field->id]->value) {
+                                        DB::getInstance()->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
+                                            'value' => $value,
+                                            'updated' => date('U'),
+                                        ]);
+                                    }
+                                } else {
+                                    // Create new field value
+                                    DB::getInstance()->insert('users_profile_fields', [
+                                        'user_id' => $user->data()->id,
+                                        'field_id' => $field->id,
                                         'value' => $value,
                                         'updated' => date('U'),
                                     ]);
                                 }
-                            } else {
-                                // Create new field value
-                                DB::getInstance()->insert('users_profile_fields', [
-                                    'user_id' => $user->data()->id,
-                                    'field_id' => $field->id,
-                                    'value' => $value,
-                                    'updated' => date('U'),
-                                ]);
                             }
+
+                            Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
+                            Redirect::to(URL::build('/user/settings'));
+
+                        } catch (Exception $e) {
+                            Session::flash('settings_error', $e->getMessage());
                         }
-
-                        Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
-                        Redirect::to(URL::build('/user/settings'));
-
-                    } catch (Exception $e) {
-                        Session::flash('settings_error', $e->getMessage());
-                    }
-
-                } else {
-                    $errors = $validation->errors();
-                }
-            } else if (Input::get('action') == 'password') {
-                // Change password
-                $validation = Validate::check($_POST, [
-                    'old_password' => [
-                        Validate::REQUIRED => true
-                    ],
-                    'new_password' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 6
-                    ],
-                    'new_password_again' => [
-                        Validate::REQUIRED => true,
-                        Validate::MATCHES => 'new_password'
-                    ]
-                ])->messages([
-                    'old_password' => $language->get('user', 'password_required') . '<br />',
-                    'new_password' => [
-                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
-                        Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />'
-                    ],
-                    'new_password_again' => [
-                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
-                        Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
-                    ]
-                ]);
-
-                if ($validation->passed()) {
-                    // Update password
-                    // Check old password matches
-                    $old_password = Input::get('old_password');
-                    if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
-
-                        // Hash new password
-                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
-
-                        // Update password
-                        $user->update([
-                            'password' => $new_password,
-                            'pass_method' => 'default'
-                        ]);
-
-                        // Logout all other sessions for this user
-                        $user->logoutAllOtherSessions();
-
-                        $success = $language->get('user', 'password_changed_successfully');
 
                     } else {
-                        // Invalid current password
-                        Session::flash('settings_error', $language->get('user', 'incorrect_password'));
+                        $errors = $validation->errors();
                     }
-                } else {
-                    $errors = $validation->errors();
-                }
-            } else if (Input::get('action') == 'email') {
-                // Change password
-                $validation = Validate::check($_POST, [
-                    'password' => [
-                        Validate::REQUIRED => true
-                    ],
-                    'email' => [
-                        Validate::REQUIRED => true,
-                        Validate::EMAIL => true,
-                    ]
-                ])->messages([
-                    'password' => [
-                        Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
-                    ],
-                    'email' => [
-                        Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
-                        Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
-                    ]
-                ]);
+                } else if (Input::get('action') === 'password') {
+                    // Change password
+                    try {
+                        $validation = Validate::check($_POST, [
+                            'old_password' => [
+                                Validate::REQUIRED => true
+                            ],
+                            'new_password' => [
+                                Validate::REQUIRED => true,
+                                Validate::MIN => 6
+                            ],
+                            'new_password_again' => [
+                                Validate::REQUIRED => true,
+                                Validate::MATCHES => 'new_password'
+                            ]
+                        ])->messages([
+                            'old_password' => $language->get('user', 'password_required') . '<br />',
+                            'new_password' => [
+                                Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
+                                Validate::MIN => $language->get('user', 'password_minimum_6') . '<br />'
+                            ],
+                            'new_password_again' => [
+                                Validate::REQUIRED => $language->get('user', 'password_required') . '<br />',
+                                Validate::MATCHES => $language->get('user', 'passwords_dont_match') . '<br />'
+                            ]
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
 
-                if ($validation->passed()) {
-                    // Check email doesn't exist
-                    $email_query = DB::getInstance()->get('users', ['email', $_POST['email']])->results();
-                    if (count($email_query)) {
-                        if ($email_query[0]->id != $user->data()->id) {
+                    if ($validation->passed()) {
+                        // Update password
+                        // Check old password matches
+                        $old_password = Input::get('old_password');
+                        try {
+                            if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
+
+                                // Hash new password
+                                $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
+
+                                // Update password
+                                try {
+                                    $user->update([
+                                        'password' => $new_password,
+                                        'pass_method' => 'default'
+                                    ]);
+                                } catch (Exception $ignored) {
+                                }
+
+                                // Logout all other sessions for this user
+                                $user->logoutAllOtherSessions();
+
+                                $success = $language->get('user', 'password_changed_successfully');
+
+                            } else {
+                                // Invalid current password
+                                Session::flash('settings_error', $language->get('user', 'incorrect_password'));
+                            }
+                        } catch (GuzzleException $ignored) {
+                        }
+                    } else {
+                        $errors = $validation->errors();
+                    }
+                } else if (Input::get('action') === 'email') {
+                    // Change password
+                    try {
+                        $validation = Validate::check($_POST, [
+                            'password' => [
+                                Validate::REQUIRED => true
+                            ],
+                            'email' => [
+                                Validate::REQUIRED => true,
+                                Validate::EMAIL => true,
+                            ]
+                        ])->messages([
+                            'password' => [
+                                Validate::REQUIRED => $language->get('user', 'password_required') . '<br />'
+                            ],
+                            'email' => [
+                                Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
+                                Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                            ]
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
+
+                    if ($validation->passed()) {
+                        // Check email doesn't exist
+                        $email_query = DB::getInstance()->get('users', ['email', $_POST['email']])->results();
+                        if (count($email_query) && $email_query[0]->id !== $user->data()->id) {
                             $error = $language->get('user', 'email_already_exists');
                         }
-                    }
 
-                    if (!isset($error)) {
-                        // Check password matches
-                        $password = Input::get('password');
-                        if ($user->checkCredentials($user->data()->username, $password, 'username')) {
+                        if (!isset($error)) {
+                            // Check password matches
+                            $password = Input::get('password');
+                            try {
+                                if ($user->checkCredentials($user->data()->username, $password, 'username')) {
 
-                            // Update email
-                            $user->update([
-                                'email' => $_POST['email']
-                            ]);
+                                    // Update email
+                                    try {
+                                        $user->update([
+                                            'email' => $_POST['email']
+                                        ]);
+                                    } catch (Exception $ignored) {
+                                    }
 
-                            Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
-                            Redirect::to(URL::build('/user/settings'));
+                                    Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
+                                    Redirect::to(URL::build('/user/settings'));
+                                }
+                            } catch (GuzzleException $ignored) {
+                            }
+
+                            // Invalid password
+                            Session::flash('settings_error', $language->get('user', 'incorrect_password'));
                         }
-
-                        // Invalid password
-                        Session::flash('settings_error', $language->get('user', 'incorrect_password'));
+                    } else {
+                        $errors = $validation->errors();
                     }
-                } else {
-                    $errors = $validation->errors();
+                } else if (Input::get('action') === 'reset_avatar') {
+                    try {
+                        $user->update([
+                            'has_avatar' => false,
+                        ]);
+                    } catch (Exception $ignored) {
+                    }
+                    Session::flash('settings_success', $language->get('user', 'avatar_removed_successfully'));
+                    Redirect::to(URL::build('/user/settings')); // To ensure that their reset avatar shows up. Otherwise, their old avatar is still shown for this request
                 }
-            } else if (Input::get('action') == 'reset_avatar') {
-                $user->update([
-                    'has_avatar' => false,
-                ]);
-                Session::flash('settings_success', $language->get('user', 'avatar_removed_successfully'));
-                Redirect::to(URL::build('/user/settings')); // To ensure that their reset avatar shows up. Otherwise their old avatar is still shown for this request
+            } else {
+                // Invalid form token
+                Session::flash('settings_error', $language->get('general', 'invalid_token'));
             }
-        } else {
-            // Invalid form token
-            Session::flash('settings_error', $language->get('general', 'invalid_token'));
+        } catch (Exception $ignored) {
         }
     }
 
@@ -467,7 +531,7 @@ if (isset($_GET['do'])) {
     foreach ($language_query as $item) {
         $languages[] = [
             'name' => Output::getClean($item->name),
-            'active' => $user->data()->language_id == $item->id
+            'active' => $user->data()->language_id === $item->id
         ];
     }
 
@@ -504,7 +568,7 @@ if (isset($_GET['do'])) {
         // Skip this field if it's not editable, and it is already set.
         // This fixes when a field is made after someone registers,
         // the next time they edit their profile, they will have to set it.
-        if (!$field->editable && $field->value != null) {
+        if (!$field->editable && $field->value !== null) {
             continue;
         }
 
@@ -575,36 +639,39 @@ if (isset($_GET['do'])) {
     }
 
     // Language values
-    $smarty->assign([
-        'SETTINGS' => $language->get('user', 'profile_settings'),
-        'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
-        'LANGUAGES' => $languages,
-        'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
-        'TEMPLATES' => $templates,
-        'PROFILE_FIELDS' => $custom_fields_template,
-        'SUBMIT' => $language->get('general', 'submit'),
-        'TOKEN' => Token::get(),
-        'SUCCESS' => ($success ?? false),
-        'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
-        'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
-        'NEW_PASSWORD' => $language->get('user', 'new_password'),
-        'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
-        'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-        'TIMEZONE' => $language->get('user', 'timezone'),
-        'TIMEZONES' => Util::listTimezones(),
-        'SELECTED_TIMEZONE' => $user->data()->timezone,
-        'CURRENT_EMAIL' => Output::getClean($user->data()->email),
-        'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
-        'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
-        'SUCCESS_TITLE' => $language->get('general', 'success'),
-        'ERROR_TITLE' => $language->get('general', 'error'),
-        'HELP' => $language->get('general', 'help'),
-        'INFO' => $language->get('general', 'info'),
-        'ENABLED' => $language->get('user', 'enabled'),
-        'DISABLED' => $language->get('user', 'disabled'),
-        'GRAVATAR' => $language->get('user', 'gravatar'),
-        'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
-    ]);
+    try {
+        $smarty->assign([
+            'SETTINGS' => $language->get('user', 'profile_settings'),
+            'ACTIVE_LANGUAGE' => $language->get('user', 'active_language'),
+            'LANGUAGES' => $languages,
+            'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
+            'TEMPLATES' => $templates,
+            'PROFILE_FIELDS' => $custom_fields_template,
+            'SUBMIT' => $language->get('general', 'submit'),
+            'TOKEN' => Token::get(),
+            'SUCCESS' => ($success ?? false),
+            'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
+            'CURRENT_PASSWORD' => $language->get('user', 'current_password'),
+            'NEW_PASSWORD' => $language->get('user', 'new_password'),
+            'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
+            'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+            'TIMEZONE' => $language->get('user', 'timezone'),
+            'TIMEZONES' => Util::listTimezones(),
+            'SELECTED_TIMEZONE' => $user->data()->timezone,
+            'CURRENT_EMAIL' => Output::getClean($user->data()->email),
+            'CHANGE_EMAIL_ADDRESS' => $language->get('user', 'change_email_address'),
+            'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
+            'SUCCESS_TITLE' => $language->get('general', 'success'),
+            'ERROR_TITLE' => $language->get('general', 'error'),
+            'HELP' => $language->get('general', 'help'),
+            'INFO' => $language->get('general', 'info'),
+            'ENABLED' => $language->get('user', 'enabled'),
+            'DISABLED' => $language->get('user', 'disabled'),
+            'GRAVATAR' => $language->get('user', 'gravatar'),
+            'GRAVATAR_VALUE' => $user->data()->gravatar === true ? '1' : '0',
+        ]);
+    } catch (Exception $ignored) {
+    }
 
     if (defined('CUSTOM_AVATARS')) {
         $smarty->assign([
@@ -618,7 +685,7 @@ if (isset($_GET['do'])) {
         ]);
     }
 
-    if ($user->data()->tfa_enabled == 1) {
+    if ($user->data()->tfa_enabled === true) {
         $smarty->assign('DISABLE', $language->get('user', 'disable'));
         foreach ($user->getGroups() as $group) {
             if ($group->force_tfa) {
@@ -649,5 +716,8 @@ if (isset($_GET['do'])) {
     require(ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
-    $template->displayTemplate('user/settings.tpl', $smarty);
+    try {
+        $template->displayTemplate('user/settings.tpl', $smarty);
+    } catch (SmartyException $ignored) {
+    }
 }

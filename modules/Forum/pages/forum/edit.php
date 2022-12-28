@@ -1,5 +1,6 @@
 <?php
-/*
+declare(strict_types=1);
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0-pr8
@@ -7,6 +8,19 @@
  *  License: MIT
  *
  *  Edit post page
+ *
+ * @var User $user
+ * @var Language $language
+ * @var Announcements $announcements
+ * @var Smarty $smarty
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var array $cc_nav
+ * @var array $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Language $forum_language
  */
 
 // Always define page name
@@ -40,7 +54,7 @@ if (!count($post_editing)) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
 
-if ($post_editing[0]->id == $post_id) {
+if (isset($post_id) && $post_editing[0]->id === $post_id) {
     $edit_title = true;
 
     /*
@@ -68,115 +82,118 @@ $forum_id = $post_editing[0]->forum_id;
 // Get user group IDs
 $user_groups = $user->getAllGroupIds();
 // Check permissions before proceeding
-if ($user->data()->id == $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
+if ($user->data()->id === $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
-if ($user->data()->id != $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
+if ($user->data()->id !== $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
     Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
 }
 
 // Deal with input
 if (Input::exists()) {
     // Check token
-    if (Token::check()) {
-        // Valid token, check input
-        $to_validate = [
-            'content' => [
-                Validate::REQUIRED => true,
-                Validate::MIN => 2,
-                Validate::MAX => 50000
-            ]
-        ];
-        // Add title to validation if we need to
-        if (isset($edit_title)) {
-            $to_validate['title'] = [
-                Validate::REQUIRED => true,
-                Validate::MIN => 2,
-                Validate::MAX => 64
+    try {
+        if (Token::check()) {
+            // Valid token, check input
+            $to_validate = [
+                'content' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 2,
+                    Validate::MAX => 50000
+                ]
             ];
-        }
-
-        $validation = Validate::check($_POST, $to_validate)->messages([
-            'content' => [
-                Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
-                Validate::MIN => $forum_language->get('forum', 'content_min_2'),
-                Validate::MAX => $forum_language->get('forum', 'content_max_50000')
-            ],
-            'title' => [
-                Validate::REQUIRED => $forum_language->get('forum', 'title_required'),
-                Validate::MIN => $forum_language->get('forum', 'title_min_2'),
-                Validate::MAX => $forum_language->get('forum', 'title_max_64')
-            ]
-        ]);
-
-        if ($validation->passed()) {
-            // Valid post content
-            $content = EventHandler::executeEvent(isset($edit_title) ? 'preTopicEdit' : 'prePostEdit', [
-                'content' => Input::get('content'),
-                'post_id' => $post_id,
-                'topic_id' => $topic_id,
-                'user' => $user,
-            ])['content'];
-
-            // Update post content
-            DB::getInstance()->update('posts', $post_id, [
-                'post_content' => $content,
-                'last_edited' => date('U')
-            ]);
-
-            Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
-
+            // Add title to validation if we need to
             if (isset($edit_title)) {
-                // Update title and labels
-                $existing_labels = $post_labels;
-                $post_labels = [];
-
-                //
-                //  This is quite a mess but let me try to explain.
-                //
-                //  1. We get all the topic labels for this topic
-                //  2. We filter all the labels the user has access to
-                //  3. Check which labels already exist on the forum that the user DOESN'T have access to
-                //  4. Get all the newly posted labels and add the labels that already existed and the user doesn't have access to, to the labels array
-                //  5. Save the labels
-                //
-
-                $all_forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
-                $forum_labels = array_reduce($all_forum_labels, function (&$prev, $lbl) use ($forum_id) {
-                    $forum_ids = explode(',', $lbl->fids);
-                    if (in_array($forum_id, $forum_ids)) {
-                        $prev[] = $lbl->id;
-                    }
-                    return $prev;
-                });
-                $accessible_labels = Forum::getAccessibleLabels($forum_labels, $user_groups);
-                $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
-
-                // Get all the posted labels and see which ones the user can actually edit
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    $post_labels = Forum::getAccessibleLabels($_POST['topic_label'], $user_groups);
-                }
-
-                $post_labels = array_merge($existing_inaccessible_labels, $post_labels);
-                DB::getInstance()->update('topics', $topic_id, [
-                    'topic_title' => Input::get('title'),
-                    'labels' => implode(',', $post_labels)
-                ]);
-
-                Log::getInstance()->log(Log::Action('forums/topic/edit'), Input::get('title'));
+                $to_validate['title'] = [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 2,
+                    Validate::MAX => 64
+                ];
             }
 
-            // Display success message and redirect
-            Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-            Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . ($post_id)));
-        }
+            $validation = Validate::check($_POST, $to_validate)->messages([
+                'content' => [
+                    Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
+                    Validate::MIN => $forum_language->get('forum', 'content_min_2'),
+                    Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+                ],
+                'title' => [
+                    Validate::REQUIRED => $forum_language->get('forum', 'title_required'),
+                    Validate::MIN => $forum_language->get('forum', 'title_min_2'),
+                    Validate::MAX => $forum_language->get('forum', 'title_max_64')
+                ]
+            ]);
 
-        // Error handling
-        $errors = $validation->errors();
-    } else {
-        // Bad token
-        $errors = [$language->get('general', 'invalid_token')];
+            if ($validation->passed()) {
+                // Valid post content
+                $content = EventHandler::executeEvent(isset($edit_title) ? 'preTopicEdit' : 'prePostEdit', [
+                    'content' => Input::get('content'),
+                    'post_id' => $post_id,
+                    'topic_id' => $topic_id,
+                    'user' => $user,
+                ])['content'];
+
+                // Update post content
+                DB::getInstance()->update('posts', $post_id, [
+                    'post_content' => $content,
+                    'last_edited' => date('U')
+                ]);
+
+                Log::getInstance()->log(Log::Action('forums/post/edit'), $post_id);
+
+                if (isset($edit_title)) {
+                    // Update title and labels
+                    $existing_labels = $post_labels;
+                    $post_labels = [];
+
+                    //
+                    //  This is quite a mess but let me try to explain.
+                    //
+                    //  1. We get all the topic labels for this topic
+                    //  2. We filter all the labels the user has access to
+                    //  3. Check which labels already exist on the forum that the user DOESN'T have access to
+                    //  4. Get all the newly posted labels and add the labels that already existed and the user doesn't have access to, to the labels array
+                    //  5. Save the labels
+                    //
+
+                    $all_forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
+                    $forum_labels = array_reduce($all_forum_labels, static function (&$prev, $lbl) use ($forum_id) {
+                        $forum_ids = explode(',', $lbl->fids);
+                        if (in_array($forum_id, $forum_ids, true)) {
+                            $prev[] = $lbl->id;
+                        }
+                        return $prev;
+                    });
+                    $accessible_labels = Forum::getAccessibleLabels($forum_labels, $user_groups);
+                    $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
+
+                    // Get all the posted labels and see which ones the user can actually edit
+                    if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                        $post_labels = Forum::getAccessibleLabels($_POST['topic_label'], $user_groups);
+                    }
+
+                    $post_labels = array_merge($existing_inaccessible_labels, $post_labels);
+                    DB::getInstance()->update('topics', $topic_id, [
+                        'topic_title' => Input::get('title'),
+                        'labels' => implode(',', $post_labels)
+                    ]);
+
+                    Log::getInstance()->log(Log::Action('forums/topic/edit'), Input::get('title'));
+                }
+
+                // Display success message and redirect
+                Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
+                Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . ($post_id)));
+            }
+
+            // Error handling
+            $errors = $validation->errors();
+        } else {
+            // Bad token
+            $errors = [$language->get('general', 'invalid_token')];
+        }
+    } catch (Exception $ignored) {
     }
 }
 
@@ -203,18 +220,18 @@ if (isset($edit_title, $post_labels)) {
         foreach ($forum_labels as $label) {
             $forum_ids = explode(',', $label->fids);
 
-            if (in_array($forum_id, $forum_ids)) {
+            if (in_array($forum_id, $forum_ids, true)) {
                 // Check permissions
-                $lgroups = explode(',', $label->gids);
+                $l_groups = explode(',', $label->gids);
                 $perms = false;
 
                 foreach ($user_groups as $group) {
-                    if (in_array($group, $lgroups)) {
+                    if (in_array($group, $l_groups, true)) {
                         $perms = true;
                     }
                 }
 
-                if ($perms == false) {
+                if (!$perms) {
                     continue;
                 }
 
@@ -228,7 +245,7 @@ if (isset($edit_title, $post_labels)) {
 
                 $labels[] = [
                     'id' => $label->id,
-                    'active' => in_array($label->id, $post_labels),
+                    'active' => in_array($label->id, $post_labels, true),
                     'html' => $label_html
                 ];
             }
@@ -269,4 +286,7 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('forum/forum_edit_post.tpl', $smarty);
+try {
+    $template->displayTemplate('forum/forum_edit_post.tpl', $smarty);
+} catch (SmartyException $ignored) {
+}

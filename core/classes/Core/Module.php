@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Module base class as well as management class.
  *
@@ -21,14 +23,23 @@ abstract class Module {
     private array $_load_before;
     private array $_load_after;
 
+    /**
+     * @param Module $module
+     * @param string $name
+     * @param string $author
+     * @param string $version
+     * @param string $nameless_version
+     * @param array $load_before
+     * @param array $load_after
+     */
     public function __construct(
         Module $module,
         string $name,
         string $author,
         string $version,
         string $nameless_version,
-        array $load_before = [],
-        array $load_after = []
+        array  $load_before = [],
+        array  $load_after = []
     ) {
         self::$_modules[] = $module;
         $this->_name = $name;
@@ -52,13 +63,45 @@ abstract class Module {
      * @param Pages $pages Instance of pages class.
      * @param Cache $cache Instance of cache to pass.
      * @param Smarty $smarty Instance of smarty to pass.
-     * @param Navigation[] $navs Array of loaded navigation menus.
+     * @param list{Navigation, array, array} $navs Array of loaded navigation menus.
      * @param Widgets $widgets Instance of widget class to pass.
      * @param TemplateBase $template Template to pass.
      */
-    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void {
+    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, TemplateBase $template): void {
         foreach (self::getModules() as $module) {
             $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
+        }
+    }
+
+    /**
+     * Calls the `onPageLoad()` function for all registered modules, and assigns success and error messages to the template.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param list{array, array, array} $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param TemplateBase $template Template to pass.
+     * @param Language $language Language instance for translating success and error messages.
+     * @param string|null $success_message Success message to pass to the template.
+     * @param string[]|null $error_messages Array of error messages to pass to the template.
+     */
+    public static function loadPageWithMessages(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, TemplateBase $template, Language $language, ?string $success_message, ?array $error_messages): void {
+        foreach (self::getModules() as $module) {
+            $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
+        }
+
+        if (isset($success_message)) {
+            $smarty->assign([
+                'SUCCESS' => $success_message,
+                'SUCCESS_TITLE' => $language->get('general', 'success')
+            ]);
+        } else if (isset($error_messages) && count($error_messages)) {
+            $smarty->assign([
+                'ERRORS' => $error_messages,
+                'ERRORS_TITLE' => $language->get('general', 'error')
+            ]);
         }
     }
 
@@ -91,7 +134,7 @@ abstract class Module {
         $failed = [];
 
         foreach (self::getModules() as $module) {
-            if ($module->getName() == 'Core') {
+            if ($module->getName() === 'Core') {
                 continue;
             }
 
@@ -110,6 +153,10 @@ abstract class Module {
         return ['modules' => $module_order, 'failed' => $failed];
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName(): string {
         return $this->_name;
     }
@@ -132,13 +179,29 @@ abstract class Module {
         return $this->_load_before;
     }
 
-    abstract public function onInstall();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onInstall(): void;
 
-    abstract public function onUninstall();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onUninstall(): void;
 
-    abstract public function onEnable();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onEnable(): void;
 
-    abstract public function onDisable();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onDisable(): void;
 
     /**
      * Get debug information to display on the external debug link page.

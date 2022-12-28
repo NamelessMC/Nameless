@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Provides static methods to get and set configuration values from the `core/config.php` file.
  *
@@ -9,9 +11,13 @@
  */
 class Config {
 
+    /**
+     * @var array<string, mixed>|null
+     */
     private static ?array $_config_cache = null;
 
     /**
+     *
      * @return bool Whether `/core` folder is writable to create `config.php` file in,
      * or if the file exists and is writable.
      */
@@ -25,43 +31,11 @@ class Config {
     }
 
     /**
-     * @return bool Whether config file exists
+     *
+     * @return bool Whether config file exists.
      */
     public static function exists(): bool {
         return file_exists(ROOT_PATH . '/core/config.php');
-    }
-
-    /**
-     * Read `core/config.php` file and load into cache
-     *
-     * @return array The entire config array
-     */
-    public static function all(): array {
-        if (self::$_config_cache !== null) {
-            return self::$_config_cache;
-        }
-
-        if (!self::exists()) {
-            throw new RuntimeException('Config file does not exist. If this happened during installation, please restart the installation in a new private/incognito browser window.');
-        }
-
-        return self::$_config_cache = require(ROOT_PATH . '/core/config.php');
-    }
-
-    /**
-     * Overwrite new `core/config.php` file.
-     *
-     * @param array $config New config array to store.
-     */
-    public static function write(array $config): void {
-        $contents = '<?php' . PHP_EOL . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
-        if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
-            throw new RuntimeException('Failed to write to config file');
-        }
-        if (function_exists('opcache_invalidate')) {
-            opcache_invalidate(ROOT_PATH . '/core/config.php', true);
-        }
-        self::$_config_cache = $config;
     }
 
     /**
@@ -69,8 +43,8 @@ class Config {
      *
      * @param string $path `.` seperated path of key to get from config file.
      * @param mixed $fallback Value to return if option is not present in config file. If set to null, false is returned.
-     * @return false|mixed Returns false if key doesn't exist, otherwise returns the value.
      *
+     * @return false|string|int|bool|array<string, string|int|bool> Returns false if key doesn't exist, otherwise returns the value.
      * @throws RuntimeException If the config file is not found.
      */
     public static function get(string $path, $fallback = null) {
@@ -91,6 +65,9 @@ class Config {
         }
 
         if (!isset($not_matched)) {
+            /**
+             * @var array<string, string|int|bool> $config
+             */
             return $config;
         }
 
@@ -98,36 +75,56 @@ class Config {
     }
 
     /**
-     * Write a value to `core/config.php` file.
+     * Read `core/config.php` file and load into cache
      *
-     * @param string $key `.` seperated path of key to set.
-     * @param mixed $value Value to set under $key.
+     * @return array<string, mixed> The entire config array
      */
-    public static function set(string $key, $value): void {
-        $config = self::all();
-
-        $path = self::parsePath($key);
-
-        if (!is_array($path)) {
-            $config[$key] = $value;
-        } else {
-            $loc = &$config;
-            foreach ($path as $step) {
-                $loc = &$loc[$step];
-            }
-            // Check if it is a string here so that `null` is not converted to `''`
-            $loc = !is_string($value) ? $value : addslashes($value);
+    public static function all(): array {
+        if (self::$_config_cache !== null) {
+            return self::$_config_cache;
         }
 
-        static::write((array) $config);
+        if (!self::exists()) {
+            throw new RuntimeException('Config file does not exist. If this happened during installation, please restart the installation in a new private/incognito browser window.');
+        }
+
+        return self::$_config_cache = require(ROOT_PATH . '/core/config.php');
     }
 
     /**
-     * Write multiple values to `core/config.php` file.
+     * Parse a string path to an array of config paths.
+     * Will log a warning if a legacy path (using `/` is used).
      *
-     * @param array $values Array of key/value pairs
+     * @param string $path Path to parse.
+     * @return string|string[] Path split into sections or plain string if no section separator was found.
      */
-    public static function setMultiple(array $values): void {
+    private static function parsePath(string $path) {
+        if (str_contains($path, '.')) {
+            return explode('.', $path);
+        }
+
+        // TODO: Remove for 2.1.0
+        if (str_contains($path, '/')) {
+            ErrorHandler::logWarning("Legacy config path: $path. Please use periods to separate paths.");
+            return explode('/', $path);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Write a value or multiple values to the `core/config.php` file.
+     *
+     * @param string|array $key If a string, the `.` separated path of the key to set. If an array, a list of key/value pairs to set.
+     * @param string|int|bool $value (optional) The value to set under $key, if $key is a string.
+     */
+    public static function set($key, $value = null): void {
+        if (is_array($key)) {
+            $values = $key;
+        } else {
+            $values = [$key => $value];
+        }
+
         $config = self::all();
 
         foreach ($values as $key => $value) {
@@ -144,35 +141,30 @@ class Config {
             }
         }
 
-        static::write((array) $config);
+        static::write((array)$config);
     }
 
     /**
-     * Parse a string path to an array of config paths.
-     * Will log a warning if a legacy path (using `/` is used).
+     * Overwrite new `core/config.php` file.
      *
-     * @param string $path Path to parse.
-     * @return string|array Path split into sections or plain string if no section seperator was found.
+     * @param array<string, mixed> $config New config array to store.
      */
-    private static function parsePath(string $path) {
-        if (str_contains($path, '.')) {
-            return explode('.', $path);
+    public static function write(array $config): void {
+        $contents = '<?php' . PHP_EOL . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
+        if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
+            throw new RuntimeException('Failed to write to config file');
         }
-
-        // TODO: Remove for 2.1.0
-        if (str_contains($path, '/')) {
-            ErrorHandler::logWarning("Legacy config path: {$path}. Please use periods to seperate paths.");
-            return explode('/', $path);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate(ROOT_PATH . '/core/config.php', true);
         }
-
-        return $path;
+        self::$_config_cache = $config;
     }
 
     /**
      * Converts an array to a string to be inserted into the config file, with shorthand array syntax.
      *
      * @link https://gist.github.com/Bogdaan/ffa287f77568fcbb4cffa0082e954022
-     * @param array $config Config array to convert to string.
+     * @param array<string, mixed> $config Config array to convert to string.
      * @return string PHP code for the config array
      */
     private static function arrayToString(array $config): string {

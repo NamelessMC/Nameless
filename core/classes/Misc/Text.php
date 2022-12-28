@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use Astrotomic\Twemoji\Twemoji;
 
@@ -29,6 +30,7 @@ class Text {
      * @param string $text String to truncate.
      * @param int $length Length of returned string, including ellipsis.
      * @param array $options An array of html attributes and options.
+     *
      * @return string Trimmed string.
      */
     public static function truncate(string $text, int $length = 750, array $options = []): string {
@@ -36,7 +38,7 @@ class Text {
             'ending' => '...', 'exact' => true, 'html' => false
         ];
         $options = array_merge($default, $options);
-        extract($options);
+        extract($options, EXTR_OVERWRITE);
 
         if ($html) {
             if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
@@ -48,15 +50,13 @@ class Text {
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
             foreach ($tags as $tag) {
-                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
-                    if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
+                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/', $tag[2])) {
+                    if (preg_match('/<\w+[^>]*>/', $tag[0])) {
                         array_unshift($openTags, $tag[2]);
-                    } else {
-                        if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
-                            $pos = array_search($closeTag[1], $openTags);
-                            if ($pos !== false) {
-                                array_splice($openTags, $pos, 1);
-                            }
+                    } else if (preg_match('/<\/(\w+)[^>]*>/', $tag[0], $closeTag)) {
+                        $pos = array_search($closeTag[1], $openTags, true);
+                        if ($pos !== false) {
+                            array_splice($openTags, $pos, 1);
                         }
                     }
                 }
@@ -95,19 +95,19 @@ class Text {
             $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
         }
         if (!$exact) {
-            $spacepos = mb_strrpos($truncate, ' ');
+            $spacePos = mb_strrpos($truncate, ' ');
             if ($html) {
-                $bits = mb_substr($truncate, $spacepos);
+                $bits = mb_substr($truncate, $spacePos);
                 preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
                 if (!empty($droppedTags)) {
                     foreach ($droppedTags as $closingTag) {
-                        if (!in_array($closingTag[1], $openTags)) {
+                        if (!in_array($closingTag[1], $openTags, true)) {
                             array_unshift($openTags, $closingTag[1]);
                         }
                     }
                 }
             }
-            $truncate = mb_substr($truncate, 0, $spacepos);
+            $truncate = mb_substr($truncate, 0, $spacePos);
         }
         $truncate .= $ending;
 
@@ -123,8 +123,9 @@ class Text {
     /**
      * URL-ify a string
      *
-     * @param string|null $string $string String to URLify
-     * @return string Url-ified string. (I dont know what this means)
+     * @param string|null $string $string String to URLify.
+     *
+     * @return string Urlified string.
      * @deprecated This should no longer be used because it doesn't work well for non-latin languages. Just use urlencode() instead. Will be removed in 2.1.0
      */
     public static function urlSafe(string $string = null): string {
@@ -140,8 +141,9 @@ class Text {
      * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
      * since we want as little HTML in the translation strings as possible.
      *
-     * @param string $text Text to wrap
-     * @return string Text wrapped in `<strong>` tags
+     * @param string $text Text to wrap.
+     *
+     * @return string Text wrapped in `<strong>` tags.
      */
     public static function bold(string $text): string {
         return '<strong>' . $text . '</strong>';
@@ -150,7 +152,8 @@ class Text {
     /**
      * Replace native emojis with their Twemoji equivalent.
      *
-     * @param string $text Text to parse
+     * @param string $text Text to parse.
+     *
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
      */
     public static function renderEmojis(string $text): string {

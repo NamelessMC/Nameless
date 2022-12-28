@@ -1,4 +1,16 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ *
+ * @var Language $language
+ */
 
 $scripts = [
     '
@@ -8,13 +20,15 @@ $scripts = [
                 if (response.success) {
                     window.location.replace(response.redirect_url);
                 } else {
-                    $("#info").html(response.message);
+                    const info = $("#info");
+                    info.html(response.message);
                     if (response.errors) {
-                      $("#info").after(`<div class="ui inverted red segment">${response.errors.join("<br />")}</div>`);
+                      info.after(`<div class="ui inverted red segment">${response.errors.join("<br />")}</div>`);
                     }
                     if (response.redirect_url) {
-                        $("#continue-button").attr("href", response.redirect_url);
-                        $("#continue-button").removeClass("disabled");
+                        const button = $("#continue-button");
+                        button.attr("href", response.redirect_url);
+                        button.removeClass("disabled");
                     }
                 }
             });
@@ -28,18 +42,24 @@ $scripts = [
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language->get('installer', 'upgrade'); ?>
+                <?php
+
+                echo $language->get('installer', 'upgrade'); ?>
             </h4>
         </div>
         <div class="ui segment">
             <span id="info">
                 <i class="blue circular notched circle loading icon"></i>
-                <?php echo $language->get('installer', 'installer_upgrading_database'); ?>
+                <?php
+
+                echo $language->get('installer', 'installer_upgrading_database'); ?>
             </span>
         </div>
         <div class="ui right aligned secondary segment">
             <a href="#" class="ui primary disabled button" id="continue-button">
-                <?php echo $language->get('installer', 'continue'); ?>
+                <?php
+
+                echo $language->get('installer', 'continue'); ?>
             </a>
         </div>
     </div>

@@ -1,6 +1,17 @@
 <?php
+declare(strict_types=1);
+/**
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
+ *
+ *  License: MIT
+ *
+ *  TODO: Description
+ * @var Language $language
+ */
 
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+if (!isset($_SESSION['admin_setup']) || !$_SESSION['admin_setup']) {
     Redirect::to('?step=admin_account_setup');
 }
 
@@ -17,45 +28,64 @@ try {
 
 ?>
 
-<?php if (isset($error)) { ?>
+<?php
+if (isset($error)) { ?>
 
     <div class="ui error message">
-        <?php echo $error; ?> <a href="?step=finish"><?php echo $language->get('installer', 'reload_page'); ?></a>
+        <?php
+
+        echo $error; ?> <a href="?step=finish"><?php
+
+            echo $language->get('installer', 'reload_page'); ?></a>
     </div>
 
-<?php } else { ?>
+    <?php
+
+} else { ?>
 
     <div class="ui segments">
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language->get('installer', 'finish'); ?>
+                <?php
+
+                echo $language->get('installer', 'finish'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language->get('installer', 'finish_message'); ?></p>
-            <p><?php echo $language->get('installer', 'support_message', [
-                'websiteLinkStart' => '<a href="https://namelessmc.com" target="_blank">',
-                'websiteLinkEnd' => '</a>',
-                'discordLinkStart' => '<a href="https://discord.gg/nameless" target="_blank">',
-                'discordLinkEnd' => '</a>',
-                'githubLinkStart' => '<a href="https://github.com/NamelessMC/Nameless/" target="_blank">',
-                'githubLinkEnd' => '</a>'
-            ]); ?></p>
+            <p><?php
+
+                echo $language->get('installer', 'finish_message'); ?></p>
+            <p><?php
+
+                echo $language->get('installer', 'support_message', [
+                    'websiteLinkStart' => '<a href="https://namelessmc.com" target="_blank">',
+                    'websiteLinkEnd' => '</a>',
+                    'discordLinkStart' => '<a href="https://discord.gg/nameless" target="_blank">',
+                    'discordLinkEnd' => '</a>',
+                    'githubLinkStart' => '<a href="https://github.com/NamelessMC/Nameless/" target="_blank">',
+                    'githubLinkEnd' => '</a>'
+                ]); ?></p>
         </div>
         <div class="ui secondary segment">
             <h4 class="ui header">
-                <?php echo $language->get('installer', 'credits'); ?>
+                <?php
+
+                echo $language->get('installer', 'credits'); ?>
             </h4>
         </div>
         <div class="ui segment">
-            <p><?php echo $language->get('installer', 'credits_message', [
-                'contribLinkStart' => '<a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">',
-                'contribLinkEnd' => '</a>'
-            ]); ?></p>
+            <p><?php
+
+                echo $language->get('installer', 'credits_message', [
+                    'contribLinkStart' => '<a href="https://github.com/NamelessMC/Nameless/graphs/contributors" target="_blank">',
+                    'contribLinkEnd' => '</a>'
+                ]); ?></p>
         </div>
         <div class="ui secondary right aligned segment">
             <a href="index.php?route=/panel" class="ui small primary button">
-                <?php echo $language->get('installer', 'finish'); ?>
+                <?php
+
+                echo $language->get('installer', 'finish'); ?>
             </a>
         </div>
     </div>
