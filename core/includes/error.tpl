@@ -111,7 +111,7 @@
                 <div class="ui tab secondary vertical menu left floated tablinks-container" id="sql-tablinks-container">
                     {foreach from=$ERROR_SQL_STACK item=$stack}
                         <button class="sql-tablinks item" id="sql-button-{$stack['number']}" onclick="openSqlFrame({$stack['number']})">
-                            <h5>{$QUERY} #{$stack['number']}</h5>
+                            <h5>{$SQL_QUERY} #{$stack['number']}</h5>
                             <sub>{$stack['frame']['file']}:{$stack['frame']['line']}</sub>
                         </button>
                     {/foreach}

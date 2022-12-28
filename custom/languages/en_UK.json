@@ -865,7 +865,7 @@
     "general/brown": "Brown",
     "general/grey": "Grey",
     "general/deleted_user": "Deleted User",
-    "general/query": "Query",
+    "general/sql_query": "SQL Query",
     "general/namelessmc_support": "NamelessMC Support",
     "general/namelessmc_documentation": "NamelessMC Docs",
     "installer/back": "Back",

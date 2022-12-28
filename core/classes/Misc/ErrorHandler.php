@@ -159,7 +159,7 @@ class ErrorHandler {
             'GENERATE_DEBUG_LINK' => $language->get('general', 'generate_debug_link'),
             'CANNOT_READ_FILE' => $language->get('general', 'cannot_read_file'),
             'FRAME' => $language->get('general', 'frame'),
-            'QUERY' => $language->get('general', 'query'),
+            'SQL_QUERY' => $language->get('general', 'sql_query'),
             'NAMELESSMC_SUPPORT' => $language->get('general', 'namelessmc_support'),
             'NAMELESSMC_DOCS' => $language->get('general', 'namelessmc_documentation'),
             'DEBUG_TOAST_CLICK' => $language->get('admin', 'debug_link_toast', [
