@@ -34,8 +34,7 @@
         "ext-pdo": "*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "phpstan/phpstan": "*",
+        "phpstan/phpstan": "1.6.9",
         "maximebf/debugbar": "^1.18",
         "junker/debugbar-smarty": "^0.2",
         "hannesvdvreken/guzzle-debugbar": "^3.0",
