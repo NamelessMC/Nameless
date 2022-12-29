@@ -178,7 +178,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage());
         }
 
-        return ['user_id' => $user_id] ?? [];
+        return ['user_id' => $user_id];
     }
 
     /**
