@@ -10,9 +10,14 @@
  */
 final class GroupSyncManager extends Instanceable {
 
-    /** @var GroupSyncInjector[] */
+    /**
+     * @var GroupSyncInjector[]
+     */
     private iterable $_injectors = [];
-    /** @var GroupSyncInjector[] */
+
+    /**
+     * @var GroupSyncInjector[]
+     */
     private iterable $_enabled_injectors;
 
     /**

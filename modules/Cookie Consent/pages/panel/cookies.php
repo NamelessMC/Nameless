@@ -1,12 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr12
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel cookies page
+ * Panel cookies page
+ *
+ * @var Language $language
+ * @var Language $cookie_language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.cookies')) {

@@ -87,7 +87,7 @@ interface GroupSyncInjector {
      *
      * @see Validate
      *
-     * @return array Validation rules
+     * @return array<string, mixed> Validation rules
      */
     public function getValidationRules(): array;
 
@@ -98,7 +98,8 @@ interface GroupSyncInjector {
      * Can return an empty array to use automatically generated messages.
      *
      * @param Language $language The logged-in user's language to use for translations.
-     * @return array Validation error messages
+     *
+     * @return array<string, string> Validation error messages
      */
     public function getValidationMessages(Language $language): array;
 
@@ -110,6 +111,7 @@ interface GroupSyncInjector {
      *
      * @param User $user Instance of affected NamelessMC user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
+     *
      * @return bool Whether the group was successfully added or not
      */
     public function addGroup(User $user, $group_id): bool;
@@ -119,6 +121,7 @@ interface GroupSyncInjector {
      *
      * @param User $user Instance of affected NamelessMC user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
+     *
      * @return bool Whether the group was successfully removed or not
      */
     public function removeGroup(User $user, $group_id): bool;

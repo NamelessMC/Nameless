@@ -133,23 +133,31 @@ abstract class IntegrationBase {
 
     /**
      * Called when user wants to link their account from user connections page, Does not need to be verified
+     *
+     * @param User $user
      */
-    abstract public function onLinkRequest(User $user);
+    abstract public function onLinkRequest(User $user): void;
 
     /**
      * Called when user wants to continue to verify their integration user from connections page
+     *
+     * @param User $user
      */
-    abstract public function onVerifyRequest(User $user);
+    abstract public function onVerifyRequest(User $user): void;
 
     /**
      * Called when user wants to unlink their integration user from connections page
+     *
+     * @param User $user
      */
-    abstract public function onUnlinkRequest(User $user);
+    abstract public function onUnlinkRequest(User $user): void;
 
     /**
      * Called when the user have successfully validated the ownership of the account
+     *
+     * @param IntegrationUser $integrationUser
      */
-    abstract public function onSuccessfulVerification(IntegrationUser $integrationUser);
+    abstract public function onSuccessfulVerification(IntegrationUser $integrationUser): void;
 
     /**
      * Validate username when it being linked or updated.
@@ -173,26 +181,36 @@ abstract class IntegrationBase {
 
     /**
      * Called when register page being loaded
+     *
+     * @param Fields $fields
      */
-    abstract public function onRegistrationPageLoad(Fields $fields);
+    abstract public function onRegistrationPageLoad(Fields $fields): void;
 
     /**
      * Called before registration validation
+     *
+     * @param Validate $validate
      */
-    abstract public function beforeRegistrationValidation(Validate $validate);
+    abstract public function beforeRegistrationValidation(Validate $validate): void;
 
     /**
      * Called after registration validation
      */
-    abstract public function afterRegistrationValidation();
+    abstract public function afterRegistrationValidation(): void;
 
     /**
      * Called when user is successfully registered
+     *
+     * @param User $user
      */
-    abstract public function successfulRegistration(User $user);
+    abstract public function successfulRegistration(User $user): void;
 
     /**
      * Called when user integration is requested to be synced.
+     *
+     * @param IntegrationUser $integration_user
+     *
+     * @return bool
      */
     abstract public function syncIntegrationUser(IntegrationUser $integration_user): bool;
 }

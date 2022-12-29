@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
  *  NamelessMC version 2.0.0
@@ -9,11 +9,25 @@
  *  Cookie Consent module file
  */
 
+/**
+ * TODO: Add description
+ *
+ * @package NamelessMC\Cookie Consent
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
+ */
 class CookieConsent_Module extends Module {
 
     private Language $_language;
     private Language $_cookie_language;
 
+    /**
+     * @param Language $language
+     * @param Language $cookie_language
+     * @param Pages $pages
+     */
     public function __construct(Language $language, Language $cookie_language, Pages $pages) {
         $this->_language = $language;
         $this->_cookie_language = $cookie_language;
@@ -33,26 +47,54 @@ class CookieConsent_Module extends Module {
 
         // Cookies
         define('COOKIE_CHECK', true);
-        define('COOKIES_ALLOWED', Cookie::exists('cookieconsent_status') && Cookie::get('cookieconsent_status') == 'allow');
+        define('COOKIES_ALLOWED', Cookie::exists('cookieconsent_status') && Cookie::get('cookieconsent_status') === 'allow');
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onInstall(): void {
         // Not necessary for CookieConsent
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onUninstall(): void {
         // Not necessary for CookieConsent
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onEnable(): void{
         // Not necessary for CookieConsent
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onDisable(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param ?TemplateBase $template Active template to render.
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
         $language = $this->_language;
 
         // AdminCP
@@ -133,6 +175,11 @@ class CookieConsent_Module extends Module {
         }
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     public function getDebugInfo(): array {
         return [];
     }
