@@ -22,7 +22,7 @@ abstract class UpgradeScript {
      * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesn't exist
      *
      * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
-     * @return UpgradeScript|null Instance of UpgradeScript from file
+     * @return ?UpgradeScript Instance of UpgradeScript from file
      */
     public static function get(string $current_version): ?UpgradeScript {
         $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';

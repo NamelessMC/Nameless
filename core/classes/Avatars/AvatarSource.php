@@ -169,7 +169,7 @@ class AvatarSource {
     /**
      * Find an avatar source instance by its name.
      *
-     * @return AvatarSourceBase|null Instance if found, null if not found.
+     * @return ?AvatarSourceBase Instance if found, null if not found.
      */
     public static function getSourceByName(string $name): ?AvatarSourceBase {
         foreach (self::getAllSources() as $source) {

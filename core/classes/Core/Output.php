@@ -39,7 +39,7 @@ class Output {
      * Returns a purified version of an inputted string with HTMLPurifier.
      * Will not remove any HTML tags.
      *
-     * @param string|null $input String which will be purified.
+     * @param ?string $input String which will be purified.
      * @param bool $escape_invalid Should invalid HTML be escaped instead of fully removed?
      *
      * @return string Purified string.

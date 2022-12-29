@@ -49,7 +49,7 @@ class DebugBarHelper extends Instanceable {
 
     /**
      *
-     * @return DebugBar|null
+     * @return ?DebugBar
      */
     public function getDebugBar(): ?DebugBar {
         return $this->_debugBar;

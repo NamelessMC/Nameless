@@ -25,12 +25,12 @@ abstract class CaptchaBase {
     protected string $_name;
 
     /**
-     * @var string|null This captcha providers public key.
+     * @var ?string This captcha providers public key.
      */
     protected ?string $_publicKey;
 
     /**
-     * @var string|null This captcha providers private key.
+     * @var ?string This captcha providers private key.
      */
     protected ?string $_privateKey;
 
@@ -138,7 +138,7 @@ abstract class CaptchaBase {
     /**
      * Get form input HTML to display
      *
-     * @return string|null HTML to display
+     * @return ?string HTML to display
      */
     abstract public function getHtml(): ?string;
 
@@ -153,7 +153,7 @@ abstract class CaptchaBase {
      * Get JavaScript on submit function
      *
      * @param string $id ID attribute of form
-     * @return string|null JS for submit function
+     * @return ?string JS for submit function
      */
     abstract public function getJavascriptSubmit(string $id): ?string;
 }

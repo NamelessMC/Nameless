@@ -91,7 +91,7 @@ class EventHandler {
      * @param string $event Event name to call.
      * @param array $params Params to pass to the event's function.
      *
-     * @return array|null Response of hook, can be any type or null when event does not exist
+     * @return ?array Response of hook, can be any type or null when event does not exist
      */
     public static function executeEvent(string $event, array $params = []): ?array {
         if (!isset(self::$_events[$event])) {

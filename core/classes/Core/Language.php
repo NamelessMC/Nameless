@@ -183,7 +183,7 @@ class Language {
      * Construct Language class
      *
      * @param string $module Path to the custom language files to use, "core" by default for builtin language files.
-     * @param string|null $active_language The translation to use.
+     * @param ?string $active_language The translation to use.
      *
      * @throws RuntimeException|Exception If the language file cannot be found.
      */
@@ -236,7 +236,7 @@ class Language {
      * Get a closure that can be used to get a pluralised term in the currently active language,
      * or null if the active language does not support pluralisation.
      *
-     * @return Closure(int, array<string>)|null Closure or null if not available.
+     * @return ?Closure(int, array<string>) Closure or null if not available.
      */
     public function getPluralForm(): ?Closure {
         if ($this->_activeLanguage === 'ru_RU' || $this->_activeLanguage === 'uk_UA') {

@@ -123,7 +123,7 @@ class Text {
     /**
      * URL-ify a string
      *
-     * @param string|null $string $string String to URLify
+     * @param ?string $string $string String to URLify
      * @return string Url-ified string. (I dont know what this means)
      * @deprecated This should no longer be used because it doesn't work well for non-latin languages. Just use urlencode() instead. Will be removed in 2.1.0
      */

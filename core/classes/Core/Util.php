@@ -187,7 +187,7 @@ class Util {
      * URL-ify a string
      *
      * @deprecated Use `Text::urlSafe` instead. Will be removed in 2.1.0
-     * @param string|null $string $string String to URLify
+     * @param ?string $string $string String to URLify
      * @return string Url-ified string
      */
     public static function stringToURL(string $string = null): string {
@@ -287,9 +287,9 @@ class Util {
     }
 
     /**
-     * @param string|null $module
+     * @param ?string $module
      *
-     * @return array|null
+     * @return ?array
      */
     private static function getSettingsCache(?string $module): ?array {
         $cache_name = $module ?? 'core';
@@ -303,7 +303,7 @@ class Util {
     }
 
     /**
-     * @param string|null $module
+     * @param ?string $module
      * @param array $cache
      *
      * @return void
@@ -347,7 +347,7 @@ class Util {
      * Modify a setting in the database table `nl2_settings`.
      *
      * @param string $setting Setting name.
-     * @param string|null $new_value New setting value, or null to delete
+     * @param ?string $new_value New setting value, or null to delete
      * @param string $module Module name to keep settings separate from other modules. Set module
      *                       to 'Core' for global settings.
      */
@@ -397,7 +397,7 @@ class Util {
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
      * @param string $website_group_id ID of website group to search for.
-     * @return string|null Name of in-game rank or null if rule is not set up.
+     * @return ?string Name of in-game rank or null if rule is not set up.
      */
     public static function getIngameRankName(string $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);

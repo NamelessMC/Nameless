@@ -115,7 +115,7 @@ class Validate {
      * Validate an array of inputs.
      *
      * @param array<string, string> $source inputs (eg: $_POST)
-     * @param array<string, array<string, string>> $items subset of inputs to be validated
+     * @param array<string, array<string, array|string|int>> $items subset of inputs to be validated
      *
      * @return Validate New instance of Validate.
      * @throws Exception If provided configuration for a rule is invalid - not if a provided value is invalid!
@@ -166,9 +166,8 @@ class Validate {
 
                 // The post array does include this value, continue validating
                 switch ($rule) {
-
                     case self::MIN:
-                        if (mb_strlen($value) < $rule_value) {
+                        if (mb_strlen($value) < (int)$rule_value) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MIN,
@@ -178,7 +177,7 @@ class Validate {
                         break;
 
                     case self::MAX:
-                        if (mb_strlen($value) > $rule_value) {
+                        if (mb_strlen($value) > (int)$rule_value) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MAX,
@@ -335,6 +334,10 @@ class Validate {
                             [$limit, $seconds] = [$rule_value, 60];
                         }
 
+                        /**
+                         * @var int|mixed $limit
+                         * @var int|mixed $seconds
+                         */
                         if (!isset($limit, $seconds)) {
                             throw new Exception('Invalid rate limit configuration');
                         }

@@ -137,7 +137,7 @@ class Placeholders extends Instanceable {
      * @param string $server_id Server ID to get this placeholder from, if it exists across multiple.
      * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
      *
-     * @return object|null This placeholder's data, null if not exist.
+     * @return ?object This placeholder's data, null if not exist.
      */
     public function getPlaceholder(string $server_id, string $placeholder_name): ?object {
         foreach ($this->_all_placeholders as $placeholder) {

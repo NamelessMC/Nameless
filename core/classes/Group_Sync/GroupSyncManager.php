@@ -237,7 +237,7 @@ final class GroupSyncManager extends Instanceable {
      *
      * @param string $class Class name to get injector from
      *
-     * @return GroupSyncInjector|null Instance of injector, null if it doesn't exist
+     * @return ?GroupSyncInjector Instance of injector, null if it doesn't exist
      * or isn't enabled
      */
     public function getInjectorByClass(string $class): ?GroupSyncInjector {

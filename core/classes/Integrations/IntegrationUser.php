@@ -19,11 +19,11 @@ class IntegrationUser {
 
     /**
      * @param IntegrationBase $integration
-     * @param string|null $value
+     * @param ?string $value
      * @param string $field
-     * @param $query_data
+     * @param ?object $query_data
      */
-    public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id', $query_data = null) {
+    public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id', ?object $query_data = null) {
         $this->_db = DB::getInstance();
         $this->_integration = $integration;
 
@@ -102,10 +102,10 @@ class IntegrationUser {
      * Save a new user linked to a specific integration.
      *
      * @param User $user The user to link
-     * @param string|null $identifier The id of the integration account
-     * @param string|null $username The username of the integration account
+     * @param ?string $identifier The id of the integration account
+     * @param ?string $username The username of the integration account
      * @param bool $verified Verified the ownership of the integration account
-     * @param string|null $code (optional) The verification code to verify the ownership
+     * @param ?string $code (optional) The verification code to verify the ownership
      *
      * @throws GuzzleException
      */

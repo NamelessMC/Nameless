@@ -8,7 +8,7 @@
  *
  * TODO: Add description
  *
- * @var Language $language
+ * @var array $language
  */
 
 if (PHP_SAPI !== 'cli') {

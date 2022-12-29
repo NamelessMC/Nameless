@@ -41,9 +41,9 @@ class Paginator {
     private string $_rightContent;
 
     /**
-     * @param array|null $class Optional array of class names, if provided the required element keys are ul, li and a
-     * @param string|null $leftContent Optional string to display in "previous" button, default &laquo;
-     * @param string|null $rightContent Optional string to display in "next" button, default &raquo;
+     * @param ?array $class Optional array of class names, if provided the required element keys are ul, li and a
+     * @param ?string $leftContent Optional string to display in "previous" button, default &laquo;
+     * @param ?string $rightContent Optional string to display in "next" button, default &raquo;
      */
     public function __construct(?array $class = [], ?string $leftContent = null, ?string $rightContent = null) {
         if (!is_array($class) || !count($class)) {

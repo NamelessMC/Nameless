@@ -34,7 +34,8 @@ if (PHP_VERSION_ID < 70400) {
 // Start page load timer
 define('PAGE_START_TIME', microtime(true));
 
-if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
+if (!is_dir(__DIR__ . '/vendor')
+    || !is_dir(__DIR__ . '/core/assets/vendor')) {
     die(
     "Your installation is missing the 'vendor' or 'core/assets/vendor' directory.<br>
         <br>

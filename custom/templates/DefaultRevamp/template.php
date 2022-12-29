@@ -7,12 +7,6 @@
  * License: MIT
  *
  * DefaultRevamp Template
- *
- * @var Cache $cache
- * @var Smarty  $smarty
- * @var Language $language
- * @var User $user
- * @var Pages $pages
  */
 
 /**
@@ -166,5 +160,12 @@ class DefaultRevamp_Template extends TemplateBase {
     }
 }
 
+/**
+ * @var Cache $cache
+ * @var Smarty  $smarty
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ */
 $template = new DefaultRevamp_Template($cache, $smarty, $language, $user, $pages);
 $template_pagination = ['div' => 'ui mini pagination menu', 'a' => '{x}item'];

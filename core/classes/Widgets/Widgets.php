@@ -101,7 +101,7 @@ class Widgets {
      *
      * @param string $name Name of widget to get.
      *
-     * @return WidgetBase|null Instance of widget with same name, null if it doesnt exist.
+     * @return ?WidgetBase Instance of widget with same name, null if it doesnt exist.
      */
     public function getWidget(string $name): ?WidgetBase {
         return $this->_widgets[$name] ?? null;

@@ -28,7 +28,7 @@ class Integrations extends Instanceable {
      *
      * @param string $name Name of integration to get.
      *
-     * @return IntegrationBase|null Instance of integration with same name, null if it doesn't exist.
+     * @return ?IntegrationBase Instance of integration with same name, null if it doesn't exist.
      */
     public function getIntegration(string $name): ?IntegrationBase {
         foreach ($this->_integrations as $integration) {

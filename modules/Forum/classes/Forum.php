@@ -645,7 +645,7 @@ class Forum {
     /**
      * Get posts on a specific topic.
      *
-     * @param int|null $tid The topic ID to check.
+     * @param ?int $tid The topic ID to check.
      * @return array|false Array of topics or false on failure.
      */
     public function getPosts(int $tid = null) {

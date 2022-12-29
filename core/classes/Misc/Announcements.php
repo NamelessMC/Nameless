@@ -25,8 +25,8 @@ class Announcements {
      * Get all announcements matching the param filters.
      * If they have a cookie set for an announcement, it will be skipped.
      *
-     * @param string|null $page Name of the page they're viewing.
-     * @param string|null $custom_page Title of custom page they're viewing.
+     * @param ?string $page Name of the page they're viewing.
+     * @param ?string $custom_page Title of custom page they're viewing.
      * @param array $user_groups All this user's groups.
      *
      * @return Announcement[] Array of announcements they should see on this specific page with their groups.
@@ -100,7 +100,7 @@ class Announcements {
     /**
      * Get prettified output of the pages a specific announcement is on.
      *
-     * @param string|null $pages_json JSON array of pages to implode.
+     * @param ?string $pages_json JSON array of pages to implode.
      *
      * @return string Comma seperated list of page names.
      */

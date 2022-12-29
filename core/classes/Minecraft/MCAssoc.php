@@ -124,7 +124,7 @@ class MCAssoc {
 
     /**
      * @param string $input
-     * @param int|null $time
+     * @param ?int $time
      *
      * @return mixed
      */

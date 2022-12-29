@@ -23,7 +23,7 @@ abstract class WidgetBase {
 
     /**
      * @param array $pages
-     * @param bool|null $requires_cookies
+     * @param ?bool $requires_cookies
      */
     public function __construct(array $pages = [], ?bool $requires_cookies = false) {
         $this->_pages = $pages;
@@ -130,7 +130,7 @@ abstract class WidgetBase {
      * Get the data (location, order, pages) for a widget.
      *
      * @param string $name The widget to get data for.
-     * @return object|null Widgets data.
+     * @return ?object Widgets data.
      */
     protected static function getData(string $name): ?object {
         return DB::getInstance()->query('SELECT `location`, `order`, `pages` FROM nl2_widgets WHERE `name` = ?', [$name])->first();
@@ -139,7 +139,7 @@ abstract class WidgetBase {
     /**
      * Parse the widgets JSON pages string into an array.
      *
-     * @param object|null $data The widget data to get pages from.
+     * @param ?object $data The widget data to get pages from.
      * @return array The parsed pages array.
      */
     protected static function parsePages(?object $data): array {

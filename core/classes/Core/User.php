@@ -19,12 +19,12 @@ class User {
     private DB $_db;
 
     /**
-     * @var UserData|null The user's data. Basically just the row from `nl2_users` where the user ID is the key.
+     * @var ?UserData The user's data. Basically just the row from `nl2_users` where the user ID is the key.
      */
     private ?UserData $_data;
 
     /**
-     * @var array<int, Group> The user's groups.
+     * @var array<string, Group> The user's groups.
      */
     private array $_groups = [];
 
@@ -69,7 +69,7 @@ class User {
     private bool $_isAdmLoggedIn = false;
 
     /**
-     * @param string|null $user_id
+     * @param ?string $user_id
      * @param string $field
      *
      * @throws GuzzleException
@@ -102,7 +102,7 @@ class User {
      * Find a user by unique identifier (username, ID, email, etc).
      * Loads instance variables for this class.
      *
-     * @param string|null $value Unique identifier.
+     * @param ?string $value Unique identifier.
      * @param string $field What column to check for their unique identifier in.
      *
      * @return bool True/false on success or failure respectfully.
@@ -309,8 +309,8 @@ class User {
     /**
      * Log the user in.
      *
-     * @param string|null $username Their username (or email, depending on $method).
-     * @param string|null $password Their password.
+     * @param ?string $username Their username (or email, depending on $method).
+     * @param ?string $password Their password.
      * @param bool $remember Whether to keep them logged in or not.
      * @param string $method What column to check for their details in. Can be either `username` or `email` or `oauth`.
      *
@@ -418,8 +418,8 @@ class User {
     /**
      * Handle StaffCP logins.
      *
-     * @param string|null $username Their username (or email, depending on $method).
-     * @param string|null $password Their password.
+     * @param ?string $username Their username (or email, depending on $method).
+     * @param ?string $password Their password.
      * @param string $method What column to check for their details in. Can be either `username` or `email`.
      *
      * @return bool True/false on success or failure respectfully.
@@ -638,7 +638,7 @@ class User {
      *
      * @param string $integrationName Integration name
      *
-     * @return IntegrationUser|null Their integration user  if connected otherwise null.
+     * @return ?IntegrationUser Their integration user  if connected otherwise null.
      */
     public function getIntegration(string $integrationName): ?IntegrationUser {
         return $this->getIntegrations()[$integrationName] ?? null;
@@ -698,7 +698,7 @@ class User {
      *
      * @param string $group_id ID of group to set as main group.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param array|null $group_data Load data from existing query.
+     * @param ?array $group_data Load data from existing query.
      * @return false|void
      */
     public function setGroup(string $group_id, int $expire = 0, array $group_data = null) {
@@ -876,7 +876,7 @@ class User {
      *
      * @param string $pm_id ID of PM to find.
      * @param string $user_id ID of user to check permission for.
-     * @return array|null Array of info about PM, null on failure.
+     * @return ?array Array of info about PM, null on failure.
      */
     public function getPM(string $pm_id, string $user_id): ?array {
         // Get the PM - is the user the author?
@@ -922,7 +922,7 @@ class User {
      * Check the user's permission to see if they can view this staffCP page or not.
      * If they cannot, this will handle appropriate redirection.
      *
-     * @param string|null $permission Permission required for this page.
+     * @param ?string $permission Permission required for this page.
      * @return bool
      */
     public function handlePanelPageLoad(string $permission = null): bool {

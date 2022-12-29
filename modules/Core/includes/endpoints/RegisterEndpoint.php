@@ -85,7 +85,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @param string $username The username of the new user to create
      * @param string $email The email of the new user
      * @param bool $return
-     * @param string|null $code The reset token/temp password of the new user
+     * @param ?string $code The reset token/temp password of the new user
      *
      * @return array
      */
@@ -174,14 +174,11 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             if ($return) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);
             }
-
-            return ['user_id' => $user_id];
-
         } catch (Exception $e) {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage());
         }
 
-        return [];
+        return ['user_id' => $user_id] ?? [];
     }
 
     /**
@@ -191,6 +188,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * @param string $username The username of the new user to create
      * @param string $email The email of the new user
+     * @throws Exception
      * @see Nameless2API::register()
      *
      */

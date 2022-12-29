@@ -56,7 +56,7 @@ class Group {
     /**
      * @param string $value
      * @param string $column
-     * @return Group|null
+     * @return ?Group
      */
     public static function find(string $value, string $column = 'id'): ?Group {
         $row = DB::getInstance()->get('groups', [$column, $value])->first();

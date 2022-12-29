@@ -26,7 +26,7 @@ class DB {
      * @param string $username
      * @param string $password
      * @param int $port
-     * @param string|null $force_charset
+     * @param ?string $force_charset
      * @param string $prefix
      */
     private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
@@ -55,7 +55,7 @@ class DB {
      * @param string $username
      * @param string $password
      * @param int $port
-     * @param string|null $force_charset
+     * @param ?string $force_charset
      * @param string $prefix
      *
      * @return DB
@@ -133,7 +133,7 @@ class DB {
     /**
      * Get the first row of the result.
      *
-     * @return object|null The result object, or null if no result was returned.
+     * @return ?object The result object, or null if no result was returned.
      */
     public function first(): ?object {
         return $this->results()[0] ?? null;

@@ -8,6 +8,8 @@ Twitter:    @jamiebicknell
 Modified by Samerton for NamelessMC
 */
 
+use DebugBar\DebugBarException;
+
 require '../../vendor/autoload.php';
 
 $cache = new Cache();
@@ -21,9 +23,10 @@ $view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
  * @param string $user
  * @param Cache $cache
  *
- * @return false|string
+ * @return string
+ * @throws DebugBarException
  */
-function get_skin(string $user, Cache $cache) {
+function get_skin(string $user, Cache $cache): string {
 
     // Check cache
     $cache->setCache('avatarCache_' . $user);

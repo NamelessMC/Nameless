@@ -38,9 +38,9 @@ class Navigation {
      * @param string $title Item title.
      * @param string $link HTML href attribute, can be linked built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
-     * @param string|null $target HTML target attribute (eg '_blank').
+     * @param ?string $target HTML target attribute (eg '_blank').
      * @param float $order Nav item order (default 10).
-     * @param string|null $icon Icon to prepend to nav item.
+     * @param ?string $icon Icon to prepend to nav item.
      */
     public function add(
         string $name,
@@ -139,7 +139,7 @@ class Navigation {
      * @param string $title Item title.
      * @param string $link HTML href attribute, can be linked built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
-     * @param string|null $target HTML target attribute (eg '_blank')
+     * @param ?string $target HTML target attribute (eg '_blank')
      * @param string $icon Icon to prepend to nav item
      * @param int $order Nav item order
      */

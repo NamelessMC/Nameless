@@ -62,10 +62,10 @@ class ErrorHandler {
      * If this is called manually, the error_string, error_file and error_line must be manually provided,
      * and a single trace frame will be generated for it.
      *
-     * @param Throwable|null $exception Exception/Error to catch and render trace from. If null, other variables will be used to render trace.
-     * @param string|null $error_string Main error message to be shown on top of page. Used when $exception is null.
-     * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
-     * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
+     * @param ?Throwable $exception Exception/Error to catch and render trace from. If null, other variables will be used to render trace.
+     * @param ?string $error_string Main error message to be shown on top of page. Used when $exception is null.
+     * @param ?string $error_file Path to most recent frame's file. Used when $exception is null.
+     * @param ?int $error_line Line in $error_file which caused Exception. Used when $exception is null.
      *
      * @throws SmartyException
      */
@@ -217,10 +217,10 @@ class ErrorHandler {
      * Returns frame array from specified information.
      * Leaving number than null will use Exception trace count + 1 (for most recent frame)
      *
-     * @param Throwable|null $exception Exception object caught and whose trace to count. If null, $number will be used for frame number.
+     * @param ?Throwable $exception Exception object caught and whose trace to count. If null, $number will be used for frame number.
      * @param string $frame_file Path to file which was referenced in this frame.
      * @param int $frame_line Line number of $frame_file which Exception was thrown at.
-     * @param int|null $number Higher number = more recent frame. If null, will use $exception trace count + 1.
+     * @param ?int $number Higher number = more recent frame. If null, will use $exception trace count + 1.
      * @return array This frame in an array form.
      */
     public static function parseFrame(?Throwable $exception, string $frame_file, int $frame_line, ?int $number = null): array {

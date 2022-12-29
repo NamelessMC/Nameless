@@ -33,9 +33,9 @@ class Fields {
      * @param string $label The label for this field.
      * @param bool $required Require user to fill this field.
      * @param string|array $value Default value for this field.
-     * @param string|null $placeholder Field placeholder.
-     * @param string|null $info Field information.
-     * @param int|null $order Field order.
+     * @param ?string $placeholder Field placeholder.
+     * @param ?string $info Field information.
+     * @param ?int $order Field order.
      */
     public function add(string $key, int $type, string $label, bool $required = false, $value = '', ?string $placeholder = null, ?string $info = null, ?int $order = null): void {
         $this->_fields[$key] = [

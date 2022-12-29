@@ -19,7 +19,7 @@ class ProfileUtils {
      *
      * @param string $identifier Either the player's Username or UUID.
      *
-     * @return MinecraftProfile|null Returns null if fetching of profile failed. Else returns completed user profile.
+     * @return ?MinecraftProfile Returns null if fetching of profile failed. Else returns completed user profile.
      * @throws DebugBarException
      */
     public static function getProfile(string $identifier): ?MinecraftProfile {

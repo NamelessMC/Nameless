@@ -39,7 +39,7 @@ class Token {
     /**
      * Check if token in session matches current token.
      *
-     * @param string|null $token Contains the form token which will be checked against the session variable.
+     * @param ?string $token Contains the form token which will be checked against the session variable.
      *
      * @return bool Whether token matches.
      * @throws Exception

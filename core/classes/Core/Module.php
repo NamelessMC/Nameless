@@ -86,7 +86,7 @@ abstract class Module {
      * @param Smarty $smarty Instance of smarty to pass.
      * @param Navigation[] $navs Array of loaded navigation menus.
      * @param Widgets $widgets Instance of widget class to pass.
-     * @param TemplateBase|null $template Active template to render.
+     * @param ?TemplateBase $template Active template to render.
      */
     abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
 

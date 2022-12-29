@@ -41,7 +41,7 @@ class Announcement {
     /**
      * @param string $id
      *
-     * @return Announcement|null
+     * @return ?Announcement
      */
     public static function find(string $id): ?Announcement {
         $row = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements WHERE id = ?', [$id])->results();

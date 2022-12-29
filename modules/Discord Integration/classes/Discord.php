@@ -143,7 +143,7 @@ class Discord {
     }
 
     /**
-     * @return string|null Discord guild ID for this site
+     * @return ?string Discord guild ID for this site
      */
     public static function getGuildId(): ?string {
         return Util::getSetting('discord');
@@ -153,7 +153,7 @@ class Discord {
      * Make a request to the Discord bot.
      *
      * @param string $url URL of the Discord bot instance
-     * @param string|null $body Body of the request
+     * @param ?string $body Body of the request
      * @return false|string Response from the Discord bot or false if the request failed
      */
     private static function discordBotRequest(string $url = '/status', ?string $body = null) {

@@ -24,7 +24,7 @@ class HttpClient {
     private string $_error;
 
     /**
-     * @param ResponseInterface|null $response
+     * @param ?ResponseInterface $response
      * @param string $error
      */
     private function __construct(?ResponseInterface $response, string $error) {
