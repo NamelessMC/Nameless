@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Validates an array of data.
  * Often used for POST requests.
@@ -113,8 +114,8 @@ class Validate {
     /**
      * Validate an array of inputs.
      *
-     * @param array $source inputs (eg: $_POST)
-     * @param array $items subset of inputs to be validated
+     * @param array<string, string> $source inputs (eg: $_POST)
+     * @param array<string, array<string, string>> $items subset of inputs to be validated
      *
      * @return Validate New instance of Validate.
      * @throws Exception If provided configuration for a rule is invalid - not if a provided value is invalid!
@@ -139,7 +140,7 @@ class Validate {
                     // If the item is HTML array syntax, check if it exists within the subarray.
                     // Otherwise, check if it's empty.
                     if (str_contains($item, '[') && str_ends_with($item, ']')) {
-                        preg_match('/\[(.*?)\]/', $item, $matches);
+                        preg_match('/\[(.*?)]/', $item, $matches);
                         $array = explode('[', $item)[0];
                         if (empty($source[$array][$matches[1]])) {
                             $missing = true;
@@ -187,7 +188,7 @@ class Validate {
                         break;
 
                     case self::MATCHES:
-                        if ($value != $source[$rule_value]) {
+                        if ($value !== $source[$rule_value]) {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MATCHES,
@@ -197,7 +198,7 @@ class Validate {
                         break;
 
                     case self::AGREE:
-                        if ($value != 1) {
+                        if ($value !== '1') {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AGREE,
@@ -255,8 +256,8 @@ class Validate {
                             break;
                         }
 
-                        $isuseractive = $check->first()->active;
-                        if ($isuseractive == 0) {
+                        $is_user_active = $check->first()->active;
+                        if ($is_user_active === '0') {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::IS_ACTIVE,
@@ -271,8 +272,8 @@ class Validate {
                             break;
                         }
 
-                        $isuserbanned = $check->first()->isbanned;
-                        if ($isuserbanned == 1) {
+                        $is_user_banned = $check->first()->isbanned;
+                        if ($is_user_banned === '1') {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::IS_BANNED,
@@ -334,7 +335,7 @@ class Validate {
                             [$limit, $seconds] = [$rule_value, 60];
                         }
 
-                        if (!isset($limit) || !isset($seconds)) {
+                        if (!isset($limit, $seconds)) {
                             throw new Exception('Invalid rate limit configuration');
                         }
 
@@ -434,13 +435,13 @@ class Validate {
 
             // If there is no generic `message()` set or the translated message is not equal to generic message
             // we can continue without worrying about duplications
-            if ($this->_message === null || ($message != $this->_message && !in_array($message, $this->_errors))) {
+            if ($this->_message === null || ($message !== $this->_message && !in_array($message, $this->_errors))) {
                 $this->_errors[] = $message;
                 continue;
             }
 
             // If this new error is the generic message AND it has not already been added, add it
-            if ($message == $this->_message && !in_array($this->_message, $this->_errors)) {
+            if ($message === $this->_message && !in_array($this->_message, $this->_errors)) {
                 $this->_errors[] = $this->_message;
             }
         }

@@ -119,9 +119,9 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'PRIVACY_POLICY' => $language->get('general', 'privacy_policy'),
-    'PRIVACY_POLICY_VALUE' => Output::getPurified($site_privacy),
+    'PRIVACY_POLICY_VALUE' => Output::getPurified((string)$site_privacy),
     'TERMS_AND_CONDITIONS' => $language->get('user', 'terms_and_conditions'),
-    'TERMS_AND_CONDITIONS_VALUE' => Output::getPurified($site_terms)
+    'TERMS_AND_CONDITIONS_VALUE' => Output::getPurified((string)$site_terms)
 ]);
 
 $template->onPageLoad();

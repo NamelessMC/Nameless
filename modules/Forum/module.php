@@ -179,19 +179,19 @@ class Forum_Module extends Module {
         EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
-    public function onInstall() {
+    public function onInstall(): void {
         // Not necessary for Forum
     }
 
-    public function onUninstall() {
+    public function onUninstall(): void {
 
     }
 
-    public function onEnable() {
+    public function onEnable(): void {
         // No actions necessary
     }
 
-    public function onDisable() {
+    public function onDisable(): void {
         // No actions necessary
     }
 

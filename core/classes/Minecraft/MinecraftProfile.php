@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a Minecraft profile.
  *
@@ -48,7 +49,7 @@ class MinecraftProfile {
     }
 
     /**
-     * @return array Returns an array with keys of 'properties, usernname and uuid'.
+     * @return array Returns an array with keys of 'properties, username and uuid'.
      */
     public function getProfileAsArray(): array {
         return [

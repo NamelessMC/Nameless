@@ -1,4 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var string $language_html
+ * @var Language $language
+ */
+
 $readme = file(ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
@@ -63,10 +76,7 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
         }
 
         .ui.grid {
-            margin-top: -0.5rem;
-            margin-bottom: -0.5rem;
-            margin-left: -0.5rem;
-            margin-right: -0.5rem;
+            margin: -0.5rem;
         }
 
         .ui.grid > .column:not(.row) {

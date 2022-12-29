@@ -24,7 +24,7 @@ if (!isset($_GET['c'])) {
     if (Input::exists()) {
         if (Token::check()) {
 
-            $validation = Validate::check([
+            $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
                     Validate::RATE_LIMIT => [2, 60] // 2 attempts every 60 seconds
@@ -47,7 +47,7 @@ if (!isset($_GET['c'])) {
                     $link = rtrim(URL::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
 
                     $sent = Email::send(
-                        ['email' => $target_user->data()->email, 'name' => $target_user->getDisplayname()],
+                        ['email' => $target_user->data()->email, 'name' => $target_user->getDisplayName()],
                         SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                         str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
                         Email::getReplyTo()

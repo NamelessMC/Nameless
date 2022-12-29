@@ -1,4 +1,13 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ */
 
 if (!defined('ROOT_PATH')) {
     define('ROOT_PATH', __DIR__ . '/../..');

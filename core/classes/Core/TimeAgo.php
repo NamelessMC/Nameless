@@ -23,12 +23,15 @@ class TimeAgo {
     private int $_secondsPerYear = 31104000;
     private string $_timezone;
 
+    /**
+     * @param string $timezone
+     */
     public function __construct(string $timezone) {
         $this->_timezone = $timezone;
     }
 
     /**
-     * @param string|int $past Past time
+     * @param string|int $past Passed time
      * @param Language $language
      * @return string Time ago string
      */
@@ -73,8 +76,8 @@ class TimeAgo {
             )
         ) {
             // between 1hour29mins30secs and 23hours59mins29secs
-            $replace = floor($timeDifference / $this->_secondsPerHour);
-            if ($replace == 1) {
+            $replace = (int)floor($timeDifference / $this->_secondsPerHour);
+            if ($replace === 1) {
                 $key = 'about_1_hour';
                 unset($replace);
             } else {
@@ -140,9 +143,9 @@ class TimeAgo {
             $timeDifference < $this->_secondsPerYear
         ) {
             // between 59days23hours59mins30secs and 1year (minus 1sec)
-            $replace = round($timeDifference / $this->_secondsPerMonth);
+            $replace = (int)round($timeDifference / $this->_secondsPerMonth);
             // if months is 1, then set it to 2, because we are "past" 1 month
-            if ($replace == 1) {
+            if ($replace === 1) {
                 $replace = 2;
             }
 
@@ -182,6 +185,12 @@ class TimeAgo {
         return $term;
     }
 
+    /**
+     * @param string $past
+     * @param string $now
+     *
+     * @return array{years: int, months: int, days: int, hours: int, minutes: int, seconds: int}
+     */
     public function dateDifference(string $past, string $now = 'now'): array {
         // initializes the placeholders for the different "times"
         $seconds = 0;

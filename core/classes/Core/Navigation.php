@@ -1,6 +1,6 @@
 <?php
 /**
- * Repesents a single navigation menu.
+ * Represents a single navigation menu.
  *
  * @package NamelessMC\Core
  * @author Samerton
@@ -24,6 +24,9 @@ class Navigation {
      */
     private bool $_panel;
 
+    /**
+     * @param bool $panel
+     */
     public function __construct(bool $panel = false) {
         $this->_panel = $panel;
     }
@@ -33,7 +36,7 @@ class Navigation {
      *
      * @param string $name Unique name for the navbar item, if the page name equals this the item will display as active.
      * @param string $title Item title.
-     * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
+     * @param string $link HTML href attribute, can be linked built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
      * @param string|null $target HTML target attribute (eg '_blank').
      * @param float $order Nav item order (default 10).
@@ -48,7 +51,7 @@ class Navigation {
         float $order = 10,
         ?string $icon = ''
     ): void {
-        if ($this->_panel && $location == 'top') {
+        if ($this->_panel && $location === 'top') {
             // Discard order
             // TODO: only a temporary solution to the link conflict issue in the StaffCP
             if (count($this->_topNavbar)) {
@@ -93,7 +96,7 @@ class Navigation {
      * @param string $icon Icon to prepend to nav item.
      */
     public function addDropdown(string $name, string $title, string $location = 'top', int $order = 10, string $icon = ''): void {
-        if ($this->_panel && $location == 'top') {
+        if ($this->_panel && $location === 'top') {
             // Discard order
             // TODO: only a temporary solution to the link conflict issue in the StaffCP
             if (count($this->_topNavbar)) {
@@ -107,7 +110,7 @@ class Navigation {
         }
 
         // Add the dropdown
-        if ($location == 'top') {
+        if ($location === 'top') {
             // Navbar
             $this->_topNavbar[$name] = [
                 'type' => 'dropdown',
@@ -134,7 +137,7 @@ class Navigation {
      * @param string $dropdown Name of dropdown to add item to.
      * @param string $name Unique name for the item, if the page name equals this the item will display as active.
      * @param string $title Item title.
-     * @param string $link HTML href attribute, can be link built with URL class or hyperlink.
+     * @param string $link HTML href attribute, can be linked built with URL class or hyperlink.
      * @param string $location Location to add item to, either 'top' or 'footer' (defaults to 'top').
      * @param string|null $target HTML target attribute (eg '_blank')
      * @param string $icon Icon to prepend to nav item
@@ -142,7 +145,7 @@ class Navigation {
      */
     public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10): void {
         // Add the item
-        if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
+        if ($location === 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
             $this->_topNavbar[$dropdown]['items'][$name] = [
                 'title' => $title,
@@ -171,11 +174,11 @@ class Navigation {
      */
     public function returnNav(string $location = 'top'): array {
         $return = []; // String to return
-        if ($location == 'top') {
+        if ($location === 'top') {
             if (count($this->_topNavbar)) {
                 foreach ($this->_topNavbar as $key => $item) {
                     $return[$key] = $item;
-                    if (defined('PAGE') && PAGE == $key) {
+                    if (defined('PAGE') && PAGE === $key) {
                         $return[$key]['active'] = true;
                     }
 
@@ -204,7 +207,7 @@ class Navigation {
         } else if (count($this->_footerNav)) {
             foreach ($this->_footerNav as $key => $item) {
                 $return[$key] = $item;
-                if (defined('PAGE') && PAGE == $key) {
+                if (defined('PAGE') && PAGE === $key) {
                     $return[$key]['active'] = true;
                 }
 

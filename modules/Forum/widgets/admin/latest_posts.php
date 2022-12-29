@@ -25,7 +25,7 @@ if (Input::exists()) {
 
 $smarty->assign([
     'LATEST_POSTS_LIMIT' => $forum_language->get('forum', 'latest_posts_limit'),
-    'LATEST_POSTS_LIMIT_VALUE' => Util::getSetting('latest_posts_limit', 5, 'Forum'),
+    'LATEST_POSTS_LIMIT_VALUE' => Util::getSetting('latest_posts_limit', '5', 'Forum'),
     'INFO' => $language->get('general', 'info'),
     'WIDGET_CACHED' => $forum_language->get('forum', 'latest_posts_widget_cached'),
     'SETTINGS_TEMPLATE' => 'forum/widgets/latest_posts.tpl'

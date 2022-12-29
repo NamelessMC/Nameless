@@ -227,8 +227,8 @@ if (!isset($_GET['action'])) {
                 'BACKGROUND_COLOUR_VALUE' => Output::getClean($announcement->background_colour),
                 'TEXT_COLOUR_VALUE' => Output::getClean($announcement->text_colour),
                 'ICON_VALUE' => Output::getClean($announcement->icon),
-                'ORDER_VALUE' => Output::getClean($announcement->order),
-                'CLOSABLE_VALUE' => Output::getClean($announcement->closable),
+                'ORDER_VALUE' => Output::getClean((string)$announcement->order),
+                'CLOSABLE_VALUE' => Output::getClean((string)$announcement->closable),
                 'GROUPS_VALUE' => $groups,
                 'GUEST_PERMISSIONS' => $guest_permissions,
             ]);

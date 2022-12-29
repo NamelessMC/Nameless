@@ -172,7 +172,7 @@ if (isset($_GET['s'])) {
 
             $post_user = new User($results->data[$n]['post_author']);
             $posts[$n] = [
-                'post_author' => $post_user->getDisplayname(),
+                'post_author' => $post_user->getDisplayName(),
                 'post_author_id' => Output::getClean($results->data[$n]['post_author']),
                 'post_author_avatar' => $post_user->getAvatar(25),
                 'post_author_profile' => $post_user->getProfileURL(),

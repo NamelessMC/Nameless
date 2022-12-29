@@ -1,8 +1,14 @@
 <?php
-/*
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
  * there is NO SUPPORT offered for this script.
  * this script is provided AS IS and without any warranty.
- * this script was made with the primary goal of making the install process automatic for hosting providers + our API test suite.
+ * this script was made with the primary goal of making the installation process automatic for hosting providers + our API test suite.
  */
 
 function getEnvVar(string $name, string $fallback = null, array $valid_values = null) {
@@ -19,7 +25,7 @@ function getEnvVar(string $name, string $fallback = null, array $valid_values = 
         print("ℹ️  Environment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL);
     }
 
-    if ($valid_values != null && !in_array($value, $valid_values)) {
+    if ($valid_values !== null && !in_array($value, $valid_values)) {
         print("⚠️  Environment variable '$name' has invalid value");
         exit(1);
     }
@@ -39,7 +45,7 @@ if (!isset($argv[1]) || $argv[1] !== '--iSwearIKnowWhatImDoing') {
 print(PHP_EOL);
 
 $reinstall = false;
-if (isset($argv[2]) && $argv[2] == '--reinstall') {
+if (isset($argv[2]) && $argv[2] === '--reinstall') {
     $reinstall = true;
     print('🧨 Reinstall mode enabled! ' . PHP_EOL . PHP_EOL);
 }
@@ -152,7 +158,7 @@ Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK')
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
-DatabaseInitialiser::runPreUser();
+DatabaseInitializer::runPreUser();
 
 Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
@@ -202,7 +208,7 @@ if ($profile !== null) {
     }
 }
 
-DatabaseInitialiser::runPostUser();
+DatabaseInitializer::runPostUser();
 
 print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
 print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);

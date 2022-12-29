@@ -36,7 +36,7 @@ class Text {
             'ending' => '...', 'exact' => true, 'html' => false
         ];
         $options = array_merge($default, $options);
-        extract($options);
+        extract($options, EXTR_OVERWRITE);
 
         if ($html) {
             if (mb_strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
@@ -48,11 +48,11 @@ class Text {
 
             preg_match_all('/(<\/?([\w+]+)[^>]*>)?([^<>]*)/', $text, $tags, PREG_SET_ORDER);
             foreach ($tags as $tag) {
-                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/s', $tag[2])) {
-                    if (preg_match('/<[\w]+[^>]*>/s', $tag[0])) {
+                if (!preg_match('/img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param/', $tag[2])) {
+                    if (preg_match('/<\w+[^>]*>/', $tag[0])) {
                         array_unshift($openTags, $tag[2]);
                     } else {
-                        if (preg_match('/<\/([\w]+)[^>]*>/s', $tag[0], $closeTag)) {
+                        if (preg_match('/<\/(\w+)[^>]*>/', $tag[0], $closeTag)) {
                             $pos = array_search($closeTag[1], $openTags);
                             if ($pos !== false) {
                                 array_splice($openTags, $pos, 1);
@@ -95,9 +95,9 @@ class Text {
             $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
         }
         if (!$exact) {
-            $spacepos = mb_strrpos($truncate, ' ');
+            $space_pos = mb_strrpos($truncate, ' ');
             if ($html) {
-                $bits = mb_substr($truncate, $spacepos);
+                $bits = mb_substr($truncate, $space_pos);
                 preg_match_all('/<\/([a-z]+)>/', $bits, $droppedTags, PREG_SET_ORDER);
                 if (!empty($droppedTags)) {
                     foreach ($droppedTags as $closingTag) {
@@ -107,7 +107,7 @@ class Text {
                     }
                 }
             }
-            $truncate = mb_substr($truncate, 0, $spacepos);
+            $truncate = mb_substr($truncate, 0, $space_pos);
         }
         $truncate .= $ending;
 

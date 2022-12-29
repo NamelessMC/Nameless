@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Allows an endpoint to require an API key to be present (and valid) in the request.
  *

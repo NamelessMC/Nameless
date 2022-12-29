@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base Collection class
  *
@@ -16,6 +17,11 @@ class Collection {
         $this->_items = [];
     }
 
+    /**
+     * @param CollectionItemBase $item
+     *
+     * @return void
+     */
     public function addItem(CollectionItemBase $item): void {
         $this->_items[] = $item;
     }

@@ -131,7 +131,7 @@ if (isset($_GET['action'])) {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
-            $id = (int)$_GET['id'];
+            $id = $_GET['id'];
 
             $field = ProfileField::find($id);
 

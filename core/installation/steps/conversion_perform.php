@@ -1,6 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
 
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] !== true) {
     Redirect::to('?step=admin_account_setup');
 }
 
@@ -16,10 +27,8 @@ if (!empty($available_converters)) {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($converters)) {
-
         $validation = Validate::check($_POST, [
             'db_address' => [
                 Validate::REQUIRED => true,
@@ -94,7 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <?php
                             $converter_options = [];
                             foreach ($converters as $converter) {
-                                $converter_options[Output::getClean($converter)] = str_replace('_', ' ', Output::getClean($converter));
+                                $cleaned_converter = Output::getClean($converter);
+                                $converter_options[$cleaned_converter] = str_replace('_', ' ', $cleaned_converter);
                             }
                             create_field('select', $language->get('installer', 'converter'), 'converter', 'inputConverter', '', $converter_options);
                             create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', '127.0.0.1');

@@ -1,14 +1,28 @@
 <?php
-/*
- *  Made by Samerton | Revamped by Xemah
- *    https://github.com/NamelessMC/Nameless/
- *    NamelessMC version 2.0.0
+/**
+ * Made by Samerton | Revamped by Xemah
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0
  *
- *    License: MIT
+ * License: MIT
  *
- *    DefaultRevamp Template
+ * DefaultRevamp Template
+ *
+ * @var Cache $cache
+ * @var Smarty  $smarty
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
  */
 
+/**
+ * TODO: Add description
+ *
+ * @package NamelessMC\Core
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
+ */
 class DefaultRevamp_Template extends TemplateBase {
 
     private array $_template;
@@ -22,6 +36,13 @@ class DefaultRevamp_Template extends TemplateBase {
     /** @var Pages */
     private Pages $_pages;
 
+    /**
+     * @param Cache $cache
+     * @param Smarty  $smarty
+     * @param Language $language
+     * @param User $user
+     * @param Pages $pages
+     */
     public function __construct($cache, $smarty, $language, $user, $pages) {
         $template = [
             'name' => 'DefaultRevamp',
@@ -52,14 +73,14 @@ class DefaultRevamp_Template extends TemplateBase {
         $smartyDarkMode = false;
         $smartyNavbarColour = '';
 
-        if (defined('DARK_MODE') && DARK_MODE == '1') {
+        if (defined('DARK_MODE') && DARK_MODE === true) {
             $smartyDarkMode = true;
         }
 
         if ($cache->isCached('navbarColour')) {
             $navbarColour = $cache->retrieve('navbarColour');
 
-            if ($navbarColour != 'white') {
+            if ($navbarColour !== 'white') {
                 $smartyNavbarColour = $navbarColour . ' inverted';
             }
         }
@@ -75,7 +96,10 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->_pages = $pages;
     }
 
-    public function onPageLoad() {
+    /**
+     * Handle page loading.
+     */
+    public function onPageLoad(): void {
         $page_load = microtime(true) - PAGE_START_TIME;
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
@@ -106,7 +130,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'noPlayersOnline' => $this->_language->get('general', 'no_players_online'),
             'offline' => $this->_language->get('general', 'offline'),
             'confirmDelete' => $this->_language->get('general', 'confirm_deletion'),
-            'debugging' => (defined('DEBUGGING') && DEBUGGING == 1) ? '1' : '0',
+            'debugging' => (defined('DEBUGGING') && DEBUGGING === true) ? '1' : '0',
             'loggedIn' => $this->_user->isLoggedIn() ? '1' : '0',
             'cookie' => defined('COOKIE_NOTICE') ? '1' : '0',
             'loadingTime' => Util::getSetting('page_loading') === '1' ? PAGE_LOAD_TIME : '',
@@ -114,7 +138,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+        if (PAGE === 'profile' || strpos($route, '/forum/topic/') !== false) {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);
@@ -123,7 +147,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
+            $JSVars .= ($i === 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
             $i++;
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Management of input fields
  *
@@ -50,7 +51,7 @@ class Fields {
     }
 
     /**
-     * Add a option to a field.
+     * Add an option to a field.
      *
      * @param string $field Add the option to this field.
      * @param string $value Field value.

@@ -303,7 +303,7 @@ if (Input::exists()) {
                         if ($cache->isCached('default_group')) {
                             $default_group = $cache->retrieve('default_group');
                         } else {
-                            $default_group = Group::find(1, 'default_group')->id;
+                            $default_group = Group::find('1', 'default_group')->id;
 
                             $cache->store('default_group', $default_group);
                         }

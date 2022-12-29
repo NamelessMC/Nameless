@@ -1,4 +1,14 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ */
+
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
     '"Nameless" software creators will not be held responsible for any content ' .
     'that may be experienced whilst browsing this site, nor are they responsible ' .
@@ -6,7 +16,13 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
     'The website is run independently from the software creators, and any content' .
     ' is the responsibility of the website administration.';
 
-function create_step($name, $icon, $child_steps = []) {
+/**
+ * @param string $name
+ * @param string $icon
+ * @param array $child_steps
+
+ */
+function create_step(string $name, string $icon, array $child_steps = []) {
 
     global $step;
 
@@ -32,13 +48,24 @@ function create_step($name, $icon, $child_steps = []) {
 
 }
 
-function create_field($type, $label, $name, $id, $value = '', $options = [], $fallback = false) {
+/**
+ * @param string $type
+ * @param string $label
+ * @param string $name
+ * @param string $id
+ * @param string $value
+ * @param array $options
+ * @param bool $fallback
+ *
+ * @return void
+ */
+function create_field(string $type, string $label, string $name, string $id, string $value = '', array $options = [], bool $fallback = false): void {
 
-    if ($type == 'select') {
+    if ($type === 'select') {
 
         $options_markup = '';
         foreach ($options as $option_value => $option_label) {
-            $selected = ($value == $option_value ? ' selected' : ($fallback ? ($value == $option_label ? ' selected' : '') : ''));
+            $selected = ($value === $option_value ? ' selected' : ($fallback ? ($value === $option_label ? ' selected' : '') : ''));
             $option_value = ($fallback ? $option_label : $option_value);
             $options_markup .= "<option value=\"$option_value\"$selected>$option_label</option>" . PHP_EOL;
         }
@@ -65,9 +92,14 @@ function create_field($type, $label, $name, $id, $value = '', $options = [], $fa
 
 }
 
-function validate_requirement($text, $condition) {
-
-    if ($condition == true) {
+/**
+ * @param string $text
+ * @param bool $condition
+ *
+ * @return void
+ */
+function validate_requirement(string $text, bool $condition): void {
+    if ($condition === true) {
         echo "
             <div class=\"ui small positive message\">
                 <i class=\"check icon\"></i>
@@ -84,11 +116,10 @@ function validate_requirement($text, $condition) {
     }
 
     if (!isset($_SESSION['requirements_validated'])) {
-        $_SESSION['requirements_validated'] = $condition;
+        $_SESSION['requirements_validated'] = true;
     } else {
-        if ($_SESSION['requirements_validated'] == 'true') {
+        if ($_SESSION['requirements_validated'] === true) {
             $_SESSION['requirements_validated'] = $condition;
         }
     }
-
 }

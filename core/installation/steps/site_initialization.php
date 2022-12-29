@@ -1,10 +1,22 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
 
-if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] == true) {
+
+if (isset($_SESSION['site_initialized']) && $_SESSION['site_initialized'] === true) {
     Redirect::to('?step=admin_account_setup');
 }
 
-if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] !== true) {
     Redirect::to('?step=database_configuration');
 }
 

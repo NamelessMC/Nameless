@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Widget management class
  *
@@ -18,6 +19,12 @@ class Widgets {
     private array $_enabled = [];
     private string $_name;
 
+    /**
+     * @param Cache $cache
+     * @param Language $language
+     * @param Smarty $smarty
+     * @param string $name
+     */
     public function __construct(
         Cache $cache,
         Language $language,
@@ -34,7 +41,7 @@ class Widgets {
         $this->_smarty = $smarty;
 
         $enabled = $this->_cache->retrieve('enabled');
-        if ($enabled != null && count($enabled)) {
+        if ($enabled !== null && count($enabled)) {
             $this->_enabled = $enabled;
         }
     }
@@ -97,11 +104,7 @@ class Widgets {
      * @return WidgetBase|null Instance of widget with same name, null if it doesnt exist.
      */
     public function getWidget(string $name): ?WidgetBase {
-        if (array_key_exists($name, $this->_widgets)) {
-            return $this->_widgets[$name];
-        }
-
-        return null;
+        return $this->_widgets[$name] ?? null;
     }
 
     /**
@@ -110,6 +113,7 @@ class Widgets {
      * @param string $location Either `left` or `right`.
      *
      * @return array List of HTML to be displayed.
+     * @throws SmartyException
      */
     public function getWidgets(string $location = 'right'): array {
         $ret = [];
@@ -118,7 +122,7 @@ class Widgets {
 
         foreach ($widgets as $item) {
             if (array_key_exists($item->getName(), $this->_enabled)
-                && $item->getLocation() == $location
+                && $item->getLocation() === $location
                 && is_array($item->getPages())
                 && ((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages()))
                     || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))

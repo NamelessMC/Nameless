@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Report creation class
  *
@@ -19,6 +22,8 @@ class Report {
      * @param User $user_reporting User making the report.
      * @param User $reported_user User being reported.
      * @param array $data Array containing report data.
+     *
+     * @throws GuzzleException
      */
     public static function create(Language $language, User $user_reporting, User $reported_user, array $data): void {
         $db = DB::getInstance();
@@ -39,7 +44,7 @@ class Report {
             $groups = '(';
             foreach ($moderator_groups as $group) {
                 if (is_numeric($group->id)) {
-                    $groups .= ((int)$group->id) . ',';
+                    $groups .= $group->id . ',';
                 }
             }
             $groups = rtrim($groups, ',') . ')';
@@ -57,7 +62,7 @@ class Report {
             'username' => $data['reported_mcname'],
             'content' => $language->get('general', 'reported_by', ['author' => $user_reporting->data()->username]),
             'content_full' => $data['report_reason'],
-            'avatar_url' => $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? AvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
+            'avatar_url' => $data['reported_id'] === '0' ? null : ($data['reported_uuid'] !== null ? AvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
             'title' => $language->get('general', 'view_report'),
             'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
         ]);

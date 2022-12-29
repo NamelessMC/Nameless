@@ -1,4 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ * @var string $nameless_terms
+ */
+
 require(__DIR__ . '/includes/functions.php');
 
 if (!defined('DEFAULT_LANGUAGE')) {
@@ -10,7 +23,7 @@ if (!defined('MINECRAFT')) {
 }
 
 if (isset($_GET['do'])) {
-    $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
+    $_SESSION['action'] = ($_GET['do'] === 'upgrade' ? 'upgrade' : 'install');
 
     Redirect::to('?step=requirements_validation');
 }
@@ -23,7 +36,7 @@ if (isset($_GET['step'])) {
 
 }
 
-if (isset($step) && $step == 'ajax_initialise') {
+if (isset($step) && $step === 'ajax_initialise') {
     require(__DIR__ . '/steps/' . $step . '.php');
     die();
 }

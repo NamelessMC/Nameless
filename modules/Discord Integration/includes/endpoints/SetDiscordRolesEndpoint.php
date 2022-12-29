@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $user The NamelessMC user ID to edit
+ * @param string $user The NamelessMC user ID to edit
  * @param string $roles An array of Discord Role ID to give to the user
  *
  * @return string JSON Array

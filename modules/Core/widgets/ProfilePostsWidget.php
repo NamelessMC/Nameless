@@ -86,7 +86,7 @@ class ProfilePostsWidget extends WidgetBase {
 
                 $posts_array[] = [
                     'avatar' => $post_author->getAvatar(),
-                    'username' => $post_author->getDisplayname(),
+                    'username' => $post_author->getDisplayName(),
                     'username_style' => $post_author->getGroupStyle(),
                     'content' => Text::truncate(strip_tags($post->content), 20),
                     'link' => $link . '/#post-' . $post->id,

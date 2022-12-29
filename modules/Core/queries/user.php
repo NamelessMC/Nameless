@@ -29,8 +29,8 @@ if (!is_numeric($_GET['id'])) {
             die(json_encode(['html' => 'User not found']));
         }
 
-        $username = $target_user->getDisplayname(true);
-        $nickname = $target_user->getDisplayname();
+        $username = $target_user->getDisplayName(true);
+        $nickname = $target_user->getDisplayName();
         $profile = $target_user->getProfileURL();
         $avatar = $target_user->getAvatar();
         $style = $target_user->getGroupStyle();

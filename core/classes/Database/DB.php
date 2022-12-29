@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Creates a singleton connection to the database with credentials from the config file.
  *
@@ -10,7 +11,6 @@
 class DB {
 
     private static ?DB $_instance = null;
-
     private string $_prefix;
     private ?string $_force_charset;
     protected PDO $_pdo;
@@ -20,6 +20,15 @@ class DB {
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
+    /**
+     * @param string $host
+     * @param string $database
+     * @param string $username
+     * @param string $password
+     * @param int $port
+     * @param string|null $force_charset
+     * @param string $prefix
+     */
     private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
         $this->_force_charset = $force_charset;
         $this->_prefix = $prefix;
@@ -40,6 +49,17 @@ class DB {
         $this->_query_recorder = QueryRecorder::getInstance();
     }
 
+    /**
+     * @param string $host
+     * @param string $database
+     * @param string $username
+     * @param string $password
+     * @param int $port
+     * @param string|null $force_charset
+     * @param string $prefix
+     *
+     * @return DB
+     */
     public static function getCustomInstance(
         string $host,
         string $database,
@@ -52,6 +72,10 @@ class DB {
         return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
     }
 
+    /**
+     *
+     * @return DB
+     */
     public static function getInstance(): DB {
         if (self::$_instance) {
             return self::$_instance;
@@ -181,7 +205,7 @@ class DB {
      * @param bool $isSelect Whether the statement is a select, defaults to null
      * @return static This DB instance.
      */
-    public function query(string $sql, array $params = [], bool $isSelect = null) {
+    public function query(string $sql, array $params = [], bool $isSelect = null): DB {
         $this->_error = false;
         if ($this->_statement = $this->_pdo->prepare($sql)) {
             $x = 1;
@@ -206,7 +230,7 @@ class DB {
                 }
                 $this->_count = $this->_statement->rowCount();
             } else {
-                print_r($this->_pdo->errorInfo());
+                // print_r($this->_pdo->errorInfo());
                 $this->_error = true;
             }
         } else {
@@ -220,7 +244,7 @@ class DB {
      * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
-    public function selectQuery(string $sql, array $params = []) {
+    public function selectQuery(string $sql, array $params = []): DB {
         return $this->query($sql, $params);
     }
 
@@ -228,7 +252,7 @@ class DB {
      * @deprecated Use query() instead. Will be removed in 2.1.0
      * @return static
      */
-    public function createQuery(string $sql, array $params = []) {
+    public function createQuery(string $sql, array $params = []): DB {
         return $this->query($sql, $params);
     }
 
@@ -238,6 +262,7 @@ class DB {
      * @param string $action The action to perform (SELECT, DELETE).
      * @param string $table The table to perform the action on.
      * @param array $where The where clause.
+     *
      * @return static|false This instance if successful, false otherwise.
      */
     private function action(string $action, string $table, array $where = []) {
@@ -316,11 +341,11 @@ class DB {
      * Increment a numeric column value by 1.
      *
      * @param string $table The table to use.
-     * @param int $id The id of the row to increment a column in.
+     * @param string $id The id of the row to increment a column in.
      * @param string $field The field to increment.
      * @return bool Whether an error occurred or not.
      */
-    public function increment(string $table, int $id, string $field): bool {
+    public function increment(string $table, string $id, string $field): bool {
         $table = $this->_prefix . $table;
 
         return !$this->query("UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?", [$id])->error();
@@ -330,11 +355,11 @@ class DB {
      * Decrement a numeric column value by 1.
      *
      * @param string $table The table to use.
-     * @param int $id The id of the row to decrement a column in.
+     * @param string $id The id of the row to decrement a column in.
      * @param string $field The field to increment.
      * @return bool Whether an error occurred or not.
      */
-    public function decrement(string $table, int $id, string $field): bool {
+    public function decrement(string $table, string $id, string $field): bool {
         $table = $this->_prefix . $table;
 
         return !$this->query("UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?", [$id])->error();

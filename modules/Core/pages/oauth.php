@@ -104,7 +104,7 @@ if (Session::get('oauth_method') === 'login') {
         Redirect::to(URL::build('/login'));
     }
 
-    $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
+    $user_id = (string)NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
     $user = new User($user_id);
 
     // Make sure user is validated
@@ -130,7 +130,7 @@ if (Session::get('oauth_method') === 'login') {
 
     // Log the user in
     if ((new User())->login(
-        NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
+        (string)NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
         '', true, 'oauth'
     )) {
         Log::getInstance()->log(Log::Action('user/login'));

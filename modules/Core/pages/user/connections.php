@@ -71,7 +71,7 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
     if ($integrationUser != null) {
         $connected = true;
         $username = Output::getClean($integrationUser->data()->username);
-        $verified = Output::getClean($integrationUser->isVerified());
+        $verified = Output::getClean((string)$integrationUser->isVerified());
     }
 
     $integrations_list[] = [

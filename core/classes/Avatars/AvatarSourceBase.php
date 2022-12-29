@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Abstract class for modules create custom avatar sources.
  *
@@ -18,7 +19,7 @@ abstract class AvatarSourceBase {
 
     /**
      * A map of `NamelessMC perspective name` => `Avatar source route`,
-     * as not all avatar sources will have the same name, and subsequentally route, for each perspective.
+     * as not all avatar sources will have the same name, and subsequently route, for each perspective.
      */
     protected array $_perspectives_map = [];
 
@@ -50,7 +51,7 @@ abstract class AvatarSourceBase {
     }
 
     /**
-     * Get the URL for this users avatar.
+     * Get the URL for this users' avatar.
      *
      * @param string $uuid UUID of avatar to get.
      * @param string $perspective Perspective to render avatar with.

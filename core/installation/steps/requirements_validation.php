@@ -1,4 +1,15 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
 
 if (!isset($_SESSION['action'])) {
     Redirect::to('install.php');
@@ -36,7 +47,7 @@ unset($_SESSION['requirements_validated']);
             </div>
         </div>
     </div>
-    <?php if (isset($_SESSION['requirements_validated']) && $_SESSION['requirements_validated'] == true) { ?>
+    <?php if (isset($_SESSION['requirements_validated']) && $_SESSION['requirements_validated'] === true) { ?>
         <div class="ui right aligned secondary segment">
             <a href="?step=general_configuration" class="ui small primary button">
                 <?php echo $language->get('installer', 'proceed'); ?>

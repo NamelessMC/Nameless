@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of user to view
+ * @param string $id NamelessMC ID of user to view
  * @param string $username The NamelessMC username of the user to view
  * @param string $uuid The Minecraft UUID of the user
  *

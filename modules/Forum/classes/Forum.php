@@ -28,10 +28,10 @@ class Forum {
      * Get an array of forums a user can access, including topic information
      *
      * @param array $groups Users groups
-     * @param int $user_id User ID
+     * @param string $user_id User ID
      * @return array Array of forums a user can access
      */
-    public function listAllForums(array $groups = [0], int $user_id = 0): array {
+    public function listAllForums(array $groups = [0], string $user_id = '0'): array {
         if (in_array(0, $groups)) {
             $user_id = 0;
         }
@@ -206,11 +206,11 @@ class Forum {
     /**
      * Determine if a forum exists (in the context of a specific user)
      *
-     * @param int $forum_id ID of the forum
+     * @param string $forum_id ID of the forum
      * @param array $groups Array of groups the user is in
      * @return bool Whether the forum exists or not
      */
-    public function forumExist(int $forum_id, array $groups = [0]): bool {
+    public function forumExist(string $forum_id, array $groups = [0]): bool {
         $exists = $this->_db->get('forums', ['id', $forum_id])->results();
         if (count($exists)) {
             return $this->hasPermission($forum_id, 'view', $groups);
@@ -222,12 +222,12 @@ class Forum {
     /**
      * Determines if any groups have permission to do a certain action on a forum
      *
-     * @param int $forum_id ID of the forum
+     * @param string $forum_id ID of the forum
      * @param string $required_permission Required permission
      * @param array $groups Array of groups the user is in
      * @return bool Whether the groups have permission or not
      */
-    private function hasPermission(int $forum_id, string $required_permission, array $groups): bool {
+    private function hasPermission(string $forum_id, string $required_permission, array $groups): bool {
         $cache_key = 'forum_permissions_' . $forum_id . '_' . $required_permission . '_' . implode('_', $groups);
         if (isset(self::$_permission_cache[$cache_key])) {
             return true;
@@ -253,9 +253,13 @@ class Forum {
         return '';
     }
 
-    // Returns true/false depending on whether the current user can view a forum
-    // Params: $forum_id (integer) - forum id to check, $groups (array) - user groups
-    public function canViewOtherTopics(int $forum_id, array $groups = [0]): bool {
+    /**
+     * @param string $forum_id To check
+     * @param array $groups User groups
+     *
+     * @return bool True/False depending on whether the current user can view a forum
+     */
+    public function canViewOtherTopics(string $forum_id, array $groups = [0]): bool {
         $cache_key = 'topics_view_' . $forum_id . '_' . implode('_', $groups);
         if (isset(self::$_permission_cache[$cache_key])) {
             return true;
@@ -283,19 +287,19 @@ class Forum {
      * Get the newest x topics this user/group can view
      *
      * @param array $groups Array of groups the user is in
-     * @param int $user_id User ID
+     * @param string $user_id User ID
      * @param int $limit Limit of topics to return, default 50
      * @return array Latest topics
      */
-    public function getLatestDiscussions(array $groups = [0], int $user_id = 0, int $limit = 50): array {
+    public function getLatestDiscussions(array $groups = [0], string $user_id = '0', int $limit = 50): array {
         if (!$user_id) {
-            $user_id = 0;
+            $user_id = '0';
         }
 
         $all_topics_forums = DB::getInstance()->query('SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_topics = 1')->results();
 
         $own_topics_forums = [];
-        if ($user_id > 0) {
+        if ($user_id !== '0') {
             $own_topics_forums = DB::getInstance()->query('SELECT forum_id FROM nl2_forums_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_topics = 0')->results();
         }
 
@@ -337,10 +341,10 @@ class Forum {
     /**
      * Determine if a topic exists or not.
      *
-     * @param int $topic_id The topic ID
+     * @param string $topic_id The topic ID
      * @return bool Whether the topic exists or not
      */
-    public function topicExist(int $topic_id): bool {
+    public function topicExist(string $topic_id): bool {
         // Does the topic exist?
         $exists = $this->_db->get('topics', ['id', $topic_id])->results();
         return count($exists) > 0;
@@ -349,53 +353,53 @@ class Forum {
     /**
      * Determine if the groups can view the forum or not.
      *
-     * @param int $forum_id The forum ID
+     * @param string $forum_id The forum ID
      * @param array $groups The user's groups
      * @return bool Whether the groups can view the forum or not
      */
-    public function canViewForum(int $forum_id, array $groups = [0]): bool {
+    public function canViewForum(string $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'view', $groups);
     }
 
     /**
      * Determine if the groups can post topics in the forum or not.
      *
-     * @param int $forum_id The forum ID
+     * @param string $forum_id The forum ID
      * @param array $groups The user's groups
      * @return bool Whether the groups can post topics in the forum or not
      */
-    public function canPostTopic(int $forum_id, array $groups = [0]): bool {
+    public function canPostTopic(string $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'create_topic', $groups);
     }
 
     /**
      * Determine if the groups can post replies in the forum or not.
      *
-     * @param int $forum_id The forum ID
+     * @param string $forum_id The forum ID
      * @param array $groups The user's groups
      * @return bool Whether the groups can post replies in the forum or not
      */
-    public function canPostReply(int $forum_id, array $groups = [0]): bool {
+    public function canPostReply(string $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'create_post', $groups);
     }
 
     /**
      * Determine if the groups can edit [psts] in the forum or not.
      *
-     * @param int $forum_id The forum ID
+     * @param string $forum_id The forum ID
      * @param array $groups The user's groups
      * @return bool Whether the groups can edit posts in the forum or not
      */
-    public function canEditTopic(int $forum_id, array $groups = [0]): bool {
+    public function canEditTopic(string $forum_id, array $groups = [0]): bool {
         return $this->hasPermission($forum_id, 'edit_topic', $groups);
     }
 
     /**
      * Update the database with the new latest forum posts.
      *
-     * @param int $forum_id The forum ID to update
+     * @param string $forum_id The forum ID to update
      */
-    public function updateForumLatestPosts(int $forum_id): void {
+    public function updateForumLatestPosts(string $forum_id): void {
         $latest_post = $this->_db->query(
             <<<SQL
                 SELECT `created`, 
@@ -428,9 +432,10 @@ class Forum {
     /**
      * Update the database with the new latest forum topic posts.
      *
-     * @param int $topic_id The topic ID to update
+     * @param string $forum_id The forum ID to update
+     * @param string $topic_id The topic ID to update
      */
-    public function updateTopicLatestPosts(int $topic_id): void {
+    public function updateTopicLatestPosts(string $forum_id, string $topic_id): void {
         $latest_post = $this->_db->query(
             <<<SQL
                 SELECT `created`, 
@@ -461,10 +466,10 @@ class Forum {
     /**
      * Get the title of a specific forum.
      *
-     * @param int $forum_id The forum ID to get the title of.
+     * @param string $forum_id The forum ID to get the title of.
      * @return string The forum title.
      */
-    public function getForumTitle(int $forum_id): string {
+    public function getForumTitle(string $forum_id): string {
         $data = $this->_db->get('forums', ['id', $forum_id])->results();
         return $data[0]->forum_title;
     }
@@ -472,10 +477,10 @@ class Forum {
     /**
      * Get data of a specific post.
      *
-     * @param int $post_id The post ID to data about.
+     * @param string $post_id The post ID to data about.
      * @return array|false The post data or false on failure.
      */
-    public function getIndividualPost(int $post_id) {
+    public function getIndividualPost(string $post_id) {
         $data = $this->_db->get('posts', ['id', $post_id])->results();
         if (count($data)) {
             return [
@@ -570,12 +575,12 @@ class Forum {
     /**
      * Determine if groups have permission to moderate a forum.
      *
-     * @param int|null $forum_id The forum ID to check.
+     * @param ?string $forum_id The forum ID to check.
      * @param array $groups The groups to check.
      * @return bool Whether the groups can moderate the forum.
      */
-    public function canModerateForum(int $forum_id = null, array $groups = [0]): bool {
-        if (!$forum_id || in_array(0, $groups)) {
+    public function canModerateForum(?string $forum_id = null, array $groups = [0]): bool {
+        if (!is_numeric($forum_id)|| in_array(0, $groups)) {
             return false;
         }
 
@@ -602,10 +607,10 @@ class Forum {
     /**
      * Get a user's post count
      *
-     * @param int|null $user_id User ID to check
+     * @param ?string $user_id User ID to check
      * @return int Number of posts
      */
-    public function getPostCount(int $user_id = null): int {
+    public function getPostCount(string $user_id = null): int {
         if ($user_id) {
             if (isset(self::$_count_cache["posts_$user_id"])) {
                 return self::$_count_cache["posts_$user_id"];
@@ -621,10 +626,10 @@ class Forum {
     /**
      * Get a user's topic count
      *
-     * @param int|null $user_id User ID to check
+     * @param ?string $user_id User ID to check
      * @return int Number of topics
      */
-    public function getTopicCount(int $user_id = null): int {
+    public function getTopicCount(string $user_id = null): int {
         if ($user_id) {
             if (isset(self::$_count_cache["topics_$user_id"])) {
                 return self::$_count_cache["topics_$user_id"];
@@ -667,19 +672,19 @@ class Forum {
     /**
      * Get any subforums at any level for a forum
      *
-     * @param int $forum_id The forum ID
+     * @param string $forum_id The forum ID
      * @param array $groups The user groups
      * @param int $depth The depth of the subforums to get
      * @param ?bool $onlyOwnTopics Whether to only get forums in which the user can only view their own topics (default false)
-     * @param ?int $user_id Current user ID (default 0) - only used if $onlyOwnTopics is true
+     * @param ?string $user_id Current user ID (default 0) - only used if $onlyOwnTopics is true
      * @return array Subforums at any level for a forum
      */
     public function getAnySubforums(
-        int $forum_id,
+        string $forum_id,
         array $groups = [0],
         int $depth = 0,
         ?bool $onlyOwnTopics = false,
-        ?int $user_id = 0
+        ?string $user_id = '0'
     ): array {
         if ($depth == 10) {
             return [];

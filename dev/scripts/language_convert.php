@@ -1,4 +1,16 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
+
 if (PHP_SAPI !== 'cli') {
     die('This script must be run from the command line.');
 }
@@ -9,7 +21,7 @@ if (!isset($argv[1])) {
 }
 
 $in = null;
-if (isset($argv[1], $argv[2]) && $argv[1] == '--in') {
+if (isset($argv[1], $argv[2]) && $argv[1] === '--in') {
     $in = $argv[2];
 
     if (!is_dir($in)) {
@@ -24,7 +36,7 @@ if (isset($argv[1], $argv[2]) && $argv[1] == '--in') {
 }
 
 $out = null;
-if (isset($argv[3], $argv[4]) && $argv[3] == '--out') {
+if (isset($argv[3], $argv[4]) && $argv[3] === '--out') {
     $out = $argv[4];
 
     if (!is_dir($out)) {

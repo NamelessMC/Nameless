@@ -36,19 +36,19 @@ class CookieConsent_Module extends Module {
         define('COOKIES_ALLOWED', Cookie::exists('cookieconsent_status') && Cookie::get('cookieconsent_status') == 'allow');
     }
 
-    public function onInstall() {
+    public function onInstall(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onUninstall() {
+    public function onUninstall(): void {
         // Not necessary for CookieConsent
     }
 
-    public function onEnable() {
+    public function onEnable(): void{
         // Not necessary for CookieConsent
     }
 
-    public function onDisable() {
+    public function onDisable(): void {
         // Not necessary for CookieConsent
     }
 

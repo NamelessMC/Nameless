@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of group to view
+ * @param string $id NamelessMC ID of group to view
  * @param string $name The NamelessMC NAME of the group to view
  *
  * @return string JSON Array

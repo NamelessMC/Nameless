@@ -1,12 +1,16 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Generate footer
+ * Generate footer
+ *
+ * @var Smarty $smarty\
+ * @var Language $language
+ * @var Navigation $navigation
  */
 
 // Get social media icons if enabled
@@ -15,7 +19,7 @@ $social_media_icons = [];
 
 // Facebook
 $social_media = Util::getSetting('fb_url');
-if ($social_media != null) {
+if ($social_media !== null) {
     $social_media_icons[] = [
         'short' => 'fb',
         'long' => 'facebook',
@@ -26,7 +30,7 @@ if ($social_media != null) {
 
 // Twitter
 $social_media = Util::getSetting('twitter_url');
-if ($social_media != null) {
+if ($social_media !== null) {
     $social_media_icons[] = [
         'short' => 'tw',
         'long' => 'twitter',
@@ -37,7 +41,7 @@ if ($social_media != null) {
 
 // Youtube
 $social_media = Util::getSetting('youtube_url');
-if ($social_media != null) {
+if ($social_media !== null) {
     $social_media_icons[] = [
         'short' => 'gp',
         'long' => 'youtube',

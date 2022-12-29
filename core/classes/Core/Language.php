@@ -1,4 +1,7 @@
 <?php
+
+use samerton\i18next\i18next;
+
 /**
  * Provides utilities for retrieving/handling language strings.
  *
@@ -7,9 +10,6 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-
-use samerton\i18next\i18next;
-
 class Language {
 
     /**
@@ -184,7 +184,8 @@ class Language {
      *
      * @param string $module Path to the custom language files to use, "core" by default for builtin language files.
      * @param string|null $active_language The translation to use.
-     * @throws RuntimeException If the language file cannot be found.
+     *
+     * @throws RuntimeException|Exception If the language file cannot be found.
      */
     public function __construct(string $module = 'core', string $active_language = null) {
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
@@ -275,7 +276,7 @@ class Language {
      * If the Intl extension is loaded, it uses the builtin <code>Locale::acceptFromHttp(...)</code> method.
      *
      * @param string $header <code>HTTP_ACCEPT_LANGUAGE</code> header.
-     * @return false|string The browsers preferred language, or false if there is no valid preferred language.
+     * @return false|string The browsers preferred language, or false if there is no valid-preferred language.
      */
     public static function acceptFromHttp(string $header) {
         // If the Intl extension is enabled, use the Locale::acceptFromHttp class

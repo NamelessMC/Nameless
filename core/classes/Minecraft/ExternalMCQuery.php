@@ -1,4 +1,7 @@
 <?php
+
+use DebugBar\DebugBarException;
+
 /**
  * Queries Minecraft servers using the external querying API.
  *
@@ -15,7 +18,9 @@ class ExternalMCQuery {
      * @param string $ip IP to query
      * @param int $port Port to query, `25565` by default.
      * @param bool $bedrock Whether this is a Bedrock server or not.
+     *
      * @return object|false Query result, false on failure.
+     * @throws DebugBarException
      */
     public static function query(string $ip, int $port = 25565, bool $bedrock = false) {
         $client = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
@@ -32,7 +37,9 @@ class ExternalMCQuery {
      *
      * @param string $ip Server's IP.
      * @param bool $bedrock Whether this is a Bedrock server or not.
+     *
      * @return string|false Server's favicon, false on failure.
+     * @throws DebugBarException
      */
     public static function getFavicon(string $ip, bool $bedrock = false) {
         $query_ip = explode(':', $ip);

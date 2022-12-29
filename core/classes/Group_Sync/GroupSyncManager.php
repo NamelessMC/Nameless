@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
  *
@@ -22,6 +23,7 @@ final class GroupSyncManager extends Instanceable {
      */
     public function registerInjector(GroupSyncInjector $injector): void {
         if (in_array($injector->getColumnName(), $this->getColumnNames())) {
+            $class = get_class($injector);
             throw new RuntimeException("GroupSyncInjector column name {$injector->getColumnName()} already taken, {$class} tried to use it as well.");
         }
 
@@ -66,6 +68,7 @@ final class GroupSyncManager extends Instanceable {
      * @param Language $language Language to use for error messages
      *
      * @return Validate New `Validate` instance
+     * @throws Exception
      */
     public function makeValidator(array $source, Language $language): Validate {
         return Validate::check(
@@ -94,11 +97,11 @@ final class GroupSyncManager extends Instanceable {
     /**
      * Get all injectors which should be enabled.
      *
-     * Injectors will only considered be enabled if:
+     * Injectors will only considered enabled if:
      * - Their parent module is enabled.
      * - The `shouldEnable()` method in the injector returns true.
      *
-     * Keeps a cache for the duration of the request incase
+     * Keeps a cache for the duration of the request in case
      * any `shouldEnable()` method is intensive to execute.
      *
      * @return GroupSyncInjector[] Enabled injectors
@@ -109,8 +112,8 @@ final class GroupSyncManager extends Instanceable {
 
             foreach ($this->_injectors as $injector) {
                 if (
-                    Util::isModuleEnabled($injector->getModule())
-                    && $injector->shouldEnable()
+                    $injector->shouldEnable()
+                    && Util::isModuleEnabled($injector->getModule())
                 ) {
                     $this->_enabled_injectors[$injector->getColumnName()] = $injector;
                 }
@@ -163,8 +166,8 @@ final class GroupSyncManager extends Instanceable {
         // Get all group sync rules where this injector is not null
         $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
         foreach ($rules as $rule) {
-            if ($rule->website_group_id == PRE_VALIDATED_DEFAULT) {
-                // Require atleast 1 group if default group is synced
+            if ($rule->website_group_id === PRE_VALIDATED_DEFAULT) {
+                // Require at least 1 group if default group is synced
                 if (count($group_ids) === 0) {
                     return [];
                 }
@@ -176,8 +179,7 @@ final class GroupSyncManager extends Instanceable {
         foreach ($rules as $rule) {
 
             foreach ($this->getEnabledInjectors() as $injector) {
-
-                if ($injector == $sending_injector) {
+                if ($injector === $sending_injector) {
                     continue;
                 }
 
@@ -203,7 +205,7 @@ final class GroupSyncManager extends Instanceable {
                 if (in_array($sending_group_id, $group_ids)) {
                     // TODO: add bot status of "nochange" @ https://canary.discord.com/channels/246705793066467328/434751012428054530/995503906350174290
                     // Attempt to add group if this group id was sent in the broadcastChange() method
-                    // and if they don't have the namelessmc equivilant of it
+                    // and if they don't have the namelessmc equivalent of it
                     if ($injector->addGroup($user, $injector_group_id)) {
                         $modified[$injector_column][] = $injector_group_id;
                         $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
@@ -211,7 +213,7 @@ final class GroupSyncManager extends Instanceable {
                 } else {
                     foreach ($rules as $item) {
                         if (in_array($item->{$sending_injector->getColumnName()}, $group_ids)) {
-                            if ($item->{$namelessmc_column} == $rule->{$namelessmc_column}) {
+                            if ($item->{$namelessmc_column} === $rule->{$namelessmc_column}) {
                                 continue 2;
                             }
                         }

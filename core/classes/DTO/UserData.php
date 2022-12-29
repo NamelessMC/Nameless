@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents data which belongs to a user.
  *
@@ -9,7 +10,7 @@
  */
 class UserData {
 
-    public int $id;
+    public string $id;
     public string $username;
     public string $nickname;
     public string $password;
@@ -29,8 +30,8 @@ class UserData {
     public bool $private_profile;
     public ?int $last_online;
     public ?string $user_title;
-    public ?int $theme_id;
-    public ?int $language_id;
+    public ?string $theme_id;
+    public ?string $language_id;
     public int $warning_points;
     public ?bool $night_mode;
     public bool $tfa_enabled;
@@ -41,6 +42,9 @@ class UserData {
     public string $timezone;
     public ?string $avatar_updated;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->username = $row->username;

@@ -1,14 +1,17 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  UserCP navbar generation
+ * UserCP navbar generation
+ *
+ * @var Smarty $smarty
+ * @var Navigation $cc_nav
  */
 
 $smarty->assign([
-    'CC_NAV_LINKS' => $cc_nav->returnNav('top')
+    'CC_NAV_LINKS' => $cc_nav->returnNav()
 ]);

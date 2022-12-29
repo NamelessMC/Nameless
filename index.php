@@ -1,16 +1,18 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Main index file
+ * Main index file
+ *
+ * @var Pages $pages
  */
 
 // Uncomment to enable debugging
-// define('DEBUGGING', 1);
+// define('DEBUGGING', true);
 
 header('X-Frame-Options: SAMEORIGIN');
 
@@ -18,9 +20,9 @@ if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || is
     define('DEBUGGING', true);
 }
 
-if (defined('DEBUGGING') && DEBUGGING) {
-    ini_set('display_startup_errors', 1);
-    ini_set('display_errors', 1);
+if (defined('DEBUGGING') && DEBUGGING === true) {
+    ini_set('display_startup_errors', "1");
+    ini_set('display_errors', '1');
     error_reporting(-1);
 }
 
@@ -34,7 +36,7 @@ define('PAGE_START_TIME', microtime(true));
 
 if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
     die(
-        "Your installation is missing the 'vendor' or 'core/assets/vendor' directory.<br>
+    "Your installation is missing the 'vendor' or 'core/assets/vendor' directory.<br>
         <br>
         Please use the 'nameless-deps-dist.zip' file, not a source code zip file.<br>
         <br>
@@ -47,7 +49,7 @@ const ROOT_PATH = __DIR__;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
+if (isset($_GET['route']) && $_GET['route'] === '/rewrite_test') {
     require_once('rewrite_test.php');
     die();
 }
@@ -72,7 +74,7 @@ if (HttpUtils::getProtocol() === 'https') {
     ini_set('session.cookie_secure', 'On');
 }
 
-ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_httponly', '1');
 ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR . $tmp_dir . PATH_SEPARATOR . '/proc/stat');
 
 // Get the directory the user is trying to access
@@ -85,8 +87,8 @@ $lim = count($directories);
 require(ROOT_PATH . '/core/init.php');
 
 // Get page to load from URL
-if (!isset($_GET['route']) || $_GET['route'] == '/') {
-    if (((!isset($_GET['route']) || ($_GET['route'] != '/')) && count($directories) > 1)) {
+if (!isset($_GET['route']) || $_GET['route'] === '/') {
+    if (((!isset($_GET['route']) || ($_GET['route'] !== '/')) && count($directories) > 1)) {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage

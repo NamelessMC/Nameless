@@ -48,16 +48,16 @@ class Discord_Module extends Module {
         EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
-    public function onInstall() {
+    public function onInstall(): void {
     }
 
-    public function onUninstall() {
+    public function onUninstall(): void {
     }
 
-    public function onDisable() {
+    public function onDisable(): void {
     }
 
-    public function onEnable() {
+    public function onEnable(): void {
     }
 
     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {

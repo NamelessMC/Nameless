@@ -19,7 +19,7 @@ class ValidateHook {
             return;
         }
 
-        $validate_user->setGroup(VALIDATED_DEFAULT);
+        $validate_user->setGroup((string)VALIDATED_DEFAULT);
 
         GroupSyncManager::getInstance()->broadcastChange(
             $validate_user,

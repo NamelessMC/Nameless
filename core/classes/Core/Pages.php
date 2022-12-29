@@ -30,9 +30,9 @@ class Pages {
     private array $_ajax_requests = [];
 
     /**
-     * @var int ID of last created page.
+     * @var string ID of last created page.
      */
-    private int $_id = 1;
+    private string $_id = '1';
 
     /**
      * Defines a page and assigns it to a module.
@@ -119,12 +119,12 @@ class Pages {
     /**
      * Get page by ID
      *
-     * @param int $page_id ID of page to find.
+     * @param string $page_id ID of page to find.
      * @return array Page information.
      */
-    public function getPageById(int $page_id): ?array {
+    public function getPageById(string $page_id): ?array {
         foreach ($this->_pages as $key => $page) {
-            if ($page['id'] == $page_id) {
+            if ((string)$page['id'] === $page_id) {
                 $page['key'] = $key;
                 return $page;
             }
@@ -141,7 +141,7 @@ class Pages {
      */
     public function getPageByURL(string $url): ?array {
         foreach ($this->_pages as $key => $page) {
-            if ($key == $url) {
+            if ($key === $url) {
                 $page['key'] = $key;
                 return $page;
             }

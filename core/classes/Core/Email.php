@@ -42,7 +42,7 @@ class Email {
             'replyto' => $reply_to,
         ];
 
-        if (Util::getSetting('phpmailer') == '1') {
+        if (Util::getSetting('phpmailer') === '1') {
             return self::sendMailer($email);
         }
 
@@ -120,7 +120,7 @@ class Email {
             $mail->Username = Config::get('email.username', '');
             $mail->Password = Config::get('email.password', '');
 
-            // set from email ("outgoing email" seting)
+            // set from email ("outgoing email" setting)
             $mail->setFrom(Config::get('email.email', ''), Config::get('email.name', ''));
 
             // add a "to" address

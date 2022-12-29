@@ -106,7 +106,7 @@ class Queries {
      * from: \$queries->increment\((.*)\)
      * to:   DB::getInstance()->increment($1)
      */
-    public function increment(string $table, int $id, string $field): void {
+    public function increment(string $table, string $id, string $field): void {
         self::warnDeprecated();
         if (!$this->_db->increment($table, $id, $field)) {
             throw new RuntimeException('There was a problem performing that action.');
@@ -170,8 +170,13 @@ class Queries {
 
     /**
      * Used in upgrade scripts to add permissions to a group. For example, if a new staffcp page has been added.
+     *
+     * @param string $group_id
+     * @param string $permission
+     *
+     * @return void
      */
-    public function addPermissionGroup(int $group_id, string $permission): void {
+    public function addPermissionGroup(string $group_id, string $permission): void {
         $group = Group::find($group_id);
         if ($group) {
             $permissions = $group->permissions;

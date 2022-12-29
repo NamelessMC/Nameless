@@ -1,14 +1,26 @@
 <?php
 
+/**
+ * TODO: Add description
+ *
+ * @package NamelessMC\Core
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
+ */
 class IntegrationData {
 
-    public int $id;
+    public string $id;
     public string $name;
     public bool $enabled;
     public bool $can_unlink;
     public bool $required;
     public int $order;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;

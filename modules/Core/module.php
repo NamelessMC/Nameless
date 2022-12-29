@@ -653,19 +653,19 @@ class Core_Module extends Module {
         return $return;
     }
 
-    public function onInstall() {
+    public function onInstall(): void {
         // Not necessary for Core
     }
 
-    public function onUninstall() {
+    public function onUninstall(): void {
         // Not necessary for Core
     }
 
-    public function onEnable() {
+    public function onEnable(): void {
         // Not necessary for Core
     }
 
-    public function onDisable() {
+    public function onDisable(): void {
         // Not necessary for Core
     }
 

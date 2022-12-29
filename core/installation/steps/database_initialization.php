@@ -1,5 +1,17 @@
 <?php
-if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] == true) {
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
+
+if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] === true) {
     Redirect::to('?step=site_configuration');
 }
 

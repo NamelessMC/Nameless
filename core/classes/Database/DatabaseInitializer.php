@@ -1,6 +1,15 @@
 <?php
 
-class DatabaseInitialiser {
+/**
+ * TODO: Add description
+ *
+ * @package NamelessMC\Core
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
+ */
+class DatabaseInitializer {
 
     private DB $_db;
     private Cache $_cache;
@@ -10,7 +19,12 @@ class DatabaseInitialiser {
         $this->_cache = new Cache();
     }
 
-    public static function runPreUser() {
+    /**
+     *
+     * @return void
+     * @throws Exception
+     */
+    public static function runPreUser(): void {
         $instance = new self();
         $instance->initialiseGroups();
         $instance->initialiseLanguages();
@@ -22,11 +36,19 @@ class DatabaseInitialiser {
         $instance->initialiseWidgets();
     }
 
-    public static function runPostUser() {
+    /**
+     *
+     * @return void
+     */
+    public static function runPostUser(): void {
         $instance = new self();
         $instance->initialiseForum();
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseGroups(): void {
         $this->_db->insert('groups', [
             'name' => 'Member',
@@ -65,12 +87,16 @@ class DatabaseInitialiser {
         ]);
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseLanguages(): void {
         foreach (Language::LANGUAGES as $short_code => $meta) {
             $this->_db->insert('languages', [
                 'name' => $meta['name'],
                 'short_code' => $short_code,
-                'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0
+                'is_default' => (Session::get('default_language') === $short_code) ? 1 : 0
             ]);
         }
 
@@ -78,6 +104,10 @@ class DatabaseInitialiser {
         $this->_cache->store('language', Session::get('default_language'));
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseModules(): void {
         $this->_db->insert('modules', [
             'name' => 'Core',
@@ -123,6 +153,10 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseIntegrations(): void {
         $this->_db->insert('integrations', [
             'name' => 'Minecraft',
@@ -140,6 +174,10 @@ class DatabaseInitialiser {
         ]);
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseReactions(): void {
         $this->_db->insert('reactions', [
             'name' => 'Like',
@@ -163,6 +201,11 @@ class DatabaseInitialiser {
         ]);
     }
 
+    /**
+     *
+     * @return void
+     * @throws Exception
+     */
     private function initialiseSettings(): void {
         Util::setSetting('registration_enabled', '1');
         Util::setSetting('displaynames', '0');
@@ -187,7 +230,7 @@ class DatabaseInitialiser {
         Util::setSetting('error_reporting', '0');
         Util::setSetting('page_loading', '0');
         Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
-        Util::setSetting('use_api', 0);
+        Util::setSetting('use_api', '0');
         Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
         Util::setSetting('external_query', '0');
         Util::setSetting('followers', '0');
@@ -195,7 +238,7 @@ class DatabaseInitialiser {
         Util::setSetting('timezone', 'Europe/London');
         Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
-        Util::setSetting('authme', 0);
+        Util::setSetting('authme', '0');
         Util::setSetting('default_avatar_type', 'minecraft');
         Util::setSetting('private_profile', '1');
         Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
@@ -228,6 +271,10 @@ class DatabaseInitialiser {
         Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseTemplates(): void {
         $this->_db->insert('templates', [
             'name' => 'DefaultRevamp',
@@ -254,6 +301,10 @@ class DatabaseInitialiser {
         $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     }
 
+    /**
+     *
+     * @return void
+     */
     private function initialiseWidgets(): void {
         $this->_db->insert('widgets', [
             'name' => 'Online Staff',
@@ -281,7 +332,11 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initialiseForum() {
+    /**
+     *
+     * @return void
+     */
+    private function initialiseForum(): void {
         $this->_db->insert('forums', [
             'forum_title' => 'Category',
             'forum_description' => 'The first forum category!',
@@ -338,11 +393,11 @@ class DatabaseInitialiser {
                     'group_id' => $i,
                     'forum_id' => $n,
                     'view' => true,
-                    'create_topic' => ($i == 0 ? 0 : 1),
-                    'edit_topic' => ($i == 0 ? 0 : 1),
-                    'create_post' => ($i == 0 ? 0 : 1),
+                    'create_topic' => ($i === 0 ? 0 : 1),
+                    'edit_topic' => ($i === 0 ? 0 : 1),
+                    'create_post' => ($i === 0 ? 0 : 1),
                     'view_other_topics' => true,
-                    'moderate' => (($i == 2 || $i == 3) ? 1 : 0)
+                    'moderate' => (($i === 2 || $i === 3) ? 1 : 0)
                 ]);
             }
         }

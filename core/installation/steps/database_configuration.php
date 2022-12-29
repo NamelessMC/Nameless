@@ -1,14 +1,26 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ * @var string $db_charset
+ */
 
-if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] == true) {
+if (isset($_SESSION['database_initialized']) && $_SESSION['database_initialized'] === true) {
     Redirect::to('?step=site_configuration');
 }
 
-if (!isset($_SESSION['hostname'], $_SESSION['install_path']) || !isset($_SESSION['friendly_urls'])) {
+if (!isset($_SESSION['hostname'], $_SESSION['install_path'], $_SESSION['friendly_urls'])) {
     Redirect::to('?step=general_configuration');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validation = Validate::check($_POST, [
         'db_address' => [
             Validate::REQUIRED => true,

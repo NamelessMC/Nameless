@@ -20,7 +20,7 @@ $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $user_details = [
-    $language->get('user', 'username') => $user->getDisplayname(true),
+    $language->get('user', 'username') => $user->getDisplayName(true),
     $language->get('admin', 'group') => Output::getClean($user->getMainGroup()->name),
     $language->get('admin', 'registered') => date(DATE_FORMAT, $user->data()->joined)
 ];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a custom profile field.
  *
@@ -9,7 +10,7 @@
  */
 class ProfileField {
 
-    public int $id;
+    public string $id;
     public string $name;
     public int $type;
     public bool $public;
@@ -19,6 +20,9 @@ class ProfileField {
     public bool $forum_posts;
     public bool $editable;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;

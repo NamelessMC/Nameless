@@ -70,7 +70,15 @@ class MinecraftIntegration extends IntegrationBase {
         // Nothing to do here
     }
 
-    public function validateUsername(string $username, int $integration_user_id = 0): bool {
+    /**
+     * Validate username when it being linked or updated.
+     *
+     * @param string $username The username value to validate.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool Whether this validation passed or not.
+     */
+    public function validateUsername(string $username, string $integration_user_id = '0'): bool {
         $validation = Validate::check(['username' => $username], [
             'username' => [
                 Validate::REQUIRED => true,
@@ -102,7 +110,15 @@ class MinecraftIntegration extends IntegrationBase {
         return $validation->passed();
     }
 
-    public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool {
+    /**
+     * Validate identifier when it being linked or updated.
+     *
+     * @param string $identifier The identifier value to validate.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
+     *
+     * @return bool Whether this validation passed or not.
+     */
+    public function validateIdentifier(string $identifier, string $integration_user_id = '0'): bool {
         $validation = Validate::check(['identifier' => $identifier], [
             'identifier' => [
                 Validate::REQUIRED => true,

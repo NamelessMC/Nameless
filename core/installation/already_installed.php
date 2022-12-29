@@ -1,4 +1,17 @@
-<?php require(__DIR__ . '/includes/header.php'); ?>
+<?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ */
+
+
+require(__DIR__ . '/includes/header.php');
+?>
 
     <div class="main-content">
         <div class="ui container">

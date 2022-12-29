@@ -43,9 +43,9 @@ class NamelessOAuth extends Instanceable {
     }
 
     /**
-     * Determine if OAuth is available if at least one provider is setup.
+     * Determine if OAuth is available if at least one provider is set up.
      *
-     * @return bool If any provider is setup
+     * @return bool If any provider is set up
      */
     public function isAvailable(): bool {
         foreach (array_keys($this->_providers) as $provider) {
@@ -115,7 +115,7 @@ class NamelessOAuth extends Instanceable {
      * @return bool If the provider is enabled
      */
     public function isEnabled(string $provider): bool {
-        return $this->_db->get('oauth', ['provider', $provider])->first()->enabled == '1';
+        return $this->_db->get('oauth', ['provider', $provider])->first()->enabled === '1';
     }
 
     /**
@@ -129,11 +129,11 @@ class NamelessOAuth extends Instanceable {
     }
 
     /**
-     * Determine if a provider is setup.
+     * Determine if a provider is set up.
      * A provider is considered setup if it has a client ID and a client secret set.
      *
      * @param string $provider The provider name
-     * @return bool If the provider is setup
+     * @return bool If the provider is set up
      */
     public function isSetup(string $provider): bool {
         if (!$this->isEnabled($provider)) {
@@ -233,10 +233,10 @@ class NamelessOAuth extends Instanceable {
     /**
      * Get an array of provider names and provider user IDs for a specific user
      *
-     * @param int $user_id The NamelessMC user ID
+     * @param string $user_id The NamelessMC user ID
      * @return array The array
      */
-    public function getAllProvidersForUser(int $user_id): array {
+    public function getAllProvidersForUser(string $user_id): array {
         return $this->_db->query(
             'SELECT * FROM nl2_oauth_users WHERE user_id = ?',
             [$user_id]
@@ -246,10 +246,10 @@ class NamelessOAuth extends Instanceable {
     /**
      * Delete a user's provider data.
      *
-     * @param int $user_id The provider name
+     * @param string $user_id The provider name
      * @param string $provider The provider user ID
      */
-    public function unlinkProviderForUser(int $user_id, string $provider): void {
+    public function unlinkProviderForUser(string $user_id, string $provider): void {
         $this->_db->query(
             'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
             [$user_id, $provider]

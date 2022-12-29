@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a group.
  *
@@ -9,7 +10,7 @@
  */
 class Group {
 
-    public int $id;
+    public string $id;
     public string $name;
     public string $group_html;
     public ?string $group_username_color;
@@ -22,6 +23,9 @@ class Group {
     public bool $force_tfa;
     public bool $deleted;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;

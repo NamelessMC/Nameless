@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base Widget class
  *
@@ -20,6 +21,10 @@ abstract class WidgetBase {
     protected ?bool $_requires_cookies = false;
     protected ?Smarty $_smarty = null;
 
+    /**
+     * @param array $pages
+     * @param bool|null $requires_cookies
+     */
     public function __construct(array $pages = [], ?bool $requires_cookies = false) {
         $this->_pages = $pages;
         $this->_requires_cookies = $requires_cookies;

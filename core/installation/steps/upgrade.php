@@ -1,6 +1,18 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
 
-if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] != true) {
+
+if (!isset($_SESSION['database_initialized']) || $_SESSION['database_initialized'] !== true) {
     Redirect::to('?step=database_configuration');
 }
 
@@ -8,7 +20,7 @@ if ($_SESSION['action'] !== 'upgrade') {
     Redirect::to('?step=site_configuration');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['not_upgrading'])) {
         $_SESSION['action'] = 'install';

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 Title:      Minecraft Avatar
 URL:        http://github.com/jamiebicknell/Minecraft-Avatar
 Author:     Jamie Bicknell
@@ -17,7 +17,13 @@ $user = $_GET['u'] ?? '';
 $view = isset($_GET['v']) ? $_GET['v'][0] : 'f';
 $view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
-function get_skin($user, $cache) {
+/**
+ * @param string $user
+ * @param Cache $cache
+ *
+ * @return false|string
+ */
+function get_skin(string $user, Cache $cache) {
 
     // Check cache
     $cache->setCache('avatarCache_' . $user);
@@ -48,15 +54,14 @@ function get_skin($user, $cache) {
     $output .= '9od++pvX8fdMAcj3/QJ9iJsAFPQCxHSnQt8vMJ3v2wCYpkhkAOR7vG7q4aCXoMoSgG8hFAuc/grMdAD4B/kHl9da7';
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
-    if ($user != '') {
+    if ($user !== '') {
 
         $json = HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->json();
 
         if (isset($json->properties[0]->value)) {
             $texture = base64_decode($json->properties[0]->value);
 
-            $json_texture = json_decode($texture);
-
+            $json_texture = json_decode($texture, true);
             if (isset($json_texture->textures->SKIN->url)) {
                 $output = HttpClient::get($json_texture->textures->SKIN->url)->contents();
             }
@@ -72,7 +77,7 @@ function get_skin($user, $cache) {
 
 $skin = get_skin($user, $cache);
 
-if ($skin != 'cached') {
+if ($skin !== 'cached') {
     // Image not cached
     $im = imagecreatefromstring($skin);
     $av = imagecreatetruecolor($size, $size);

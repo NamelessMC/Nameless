@@ -79,7 +79,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             'reported_id' => $user_reported_id,
             'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
-            'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
+            'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayName(),
             'reported_uuid' => $_POST['reported_uid'] ? $_POST['reported_uid'] : $reported_uuid ?? 'none',
         ]);
 

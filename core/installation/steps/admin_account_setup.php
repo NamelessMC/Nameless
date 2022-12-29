@@ -1,17 +1,32 @@
 <?php
-if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
+
+if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] === true) {
     Redirect::to('?step=conversion');
 }
 
-if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
+if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] !== true) {
     Redirect::to('?step=site_configuration');
 }
 
-function display_error(string $message) {
+/**
+ * @param string $message
+ */
+function display_error(string $message): void {
     echo "<div class=\"ui error message\">$message</div>";
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username_min = 3;
     $username_max = 20;
     $email_min = 4;
@@ -104,12 +119,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
-            DatabaseInitialiser::runPostUser();
+            DatabaseInitializer::runPostUser();
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);
             if ($login) {
                 $_SESSION['admin_setup'] = true;
-                $user->addGroup(2);
+                $user->addGroup('2');
 
                 Redirect::to('?step=conversion');
             }

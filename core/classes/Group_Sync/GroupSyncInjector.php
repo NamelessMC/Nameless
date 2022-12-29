@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides a baseline for custom group sync injectors.
  *
@@ -53,7 +54,7 @@ interface GroupSyncInjector {
     /**
      * Get the message to display in place of the group dropdown on the Group Sync page.
      *
-     * @param Language $language The logged in user's language to use for translations.
+     * @param Language $language The logged-in user's language to use for translations.
      * @return string Not enabled message
      */
     public function getNotEnabledMessage(Language $language): string;
@@ -104,7 +105,7 @@ interface GroupSyncInjector {
     /**
      * Add this group to the user on your service.
      *
-     * Can do anything in here (go for a walk, call your API, write a book, etc),
+     * Can do anything in here (go for a walk, call your API, write a book, etc.),
      * as long as the user gets the group applied on your service!
      *
      * @param User $user Instance of affected NamelessMC user.

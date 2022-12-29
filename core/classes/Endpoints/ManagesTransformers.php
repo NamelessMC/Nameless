@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Contains methods to register + apply API route binding transformers.
  *
@@ -29,6 +30,8 @@ trait ManagesTransformers {
      * @param string $type The name of the transformer. This is used to identify the transformer when binding.
      * @param string $module The name of the module that registered the transformer.
      * @param Closure(Nameless2API, string): mixed $transformer Function which converts the value in the URL to the desired type.
+     *
+     * @throws ReflectionException
      */
     public static function registerTransformer(string $type, string $module, Closure $transformer): void {
         if (isset(self::$_transformers[$type])) {

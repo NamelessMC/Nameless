@@ -1,18 +1,18 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Installer
+ * Installer
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-if (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING'])) {
-    define('DEBUGGING', 1);
+if (isset($_SERVER['NAMELESS_DEBUGGING']) || getenv('NAMELESS_DEBUGGING')) {
+    define('DEBUGGING', true);
 }
 
 // Definitions
@@ -29,7 +29,7 @@ require(ROOT_PATH . '/core/init.php');
 
 // Disable error reporting
 error_reporting(0);
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
 
 // Set default timezone to prevent potential issues
 date_default_timezone_set('Europe/London');

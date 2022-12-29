@@ -1,6 +1,9 @@
 <?php
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
- * Represents a integration user
+ * Represents an integration user
  *
  * @package NamelessMC\Integrations
  * @author Partydragen
@@ -14,6 +17,12 @@ class IntegrationUser {
     private User $_user;
     private IntegrationBase $_integration;
 
+    /**
+     * @param IntegrationBase $integration
+     * @param string|null $value
+     * @param string $field
+     * @param $query_data
+     */
     public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id', $query_data = null) {
         $this->_db = DB::getInstance();
         $this->_integration = $integration;
@@ -44,6 +53,7 @@ class IntegrationUser {
      * Get the NamelessMC User that belong to this integration user
      *
      * @return User NamelessMC User that belong to this integration user
+     * @throws GuzzleException
      */
     public function getUser(): User {
         return $this->_user ??= new User($this->data()->user_id);
@@ -96,6 +106,8 @@ class IntegrationUser {
      * @param string|null $username The username of the integration account
      * @param bool $verified Verified the ownership of the integration account
      * @param string|null $code (optional) The verification code to verify the ownership
+     *
+     * @throws GuzzleException
      */
     public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, string $code = null): void {
         $this->_db->query(
@@ -117,9 +129,9 @@ class IntegrationUser {
         EventHandler::executeEvent('linkIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
+            'username' => $user->getDisplayName(),
             'content' => $default_language->get('user', 'user_has_linked_integration', [
-                'user' => $user->getDisplayname(),
+                'user' => $user->getDisplayName(),
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
@@ -148,9 +160,9 @@ class IntegrationUser {
         EventHandler::executeEvent('verifyIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
+            'username' => $user->getDisplayName(),
             'content' => $default_language->get('user', 'user_has_verified_integration', [
-                'user' => $user->getDisplayname(),
+                'user' => $user->getDisplayName(),
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),
@@ -179,9 +191,9 @@ class IntegrationUser {
         EventHandler::executeEvent('unlinkIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
+            'username' => $user->getDisplayName(),
             'content' => $default_language->get('user', 'user_has_unlinked_integration', [
-                'user' => $user->getDisplayname(),
+                'user' => $user->getDisplayName(),
                 'integration' => $this->_integration->getName(),
             ]),
             'avatar_url' => $user->getAvatar(128, true),

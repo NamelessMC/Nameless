@@ -1,24 +1,39 @@
 <?php
-/*
- *  Made by Coldfire
- *  https://coldfiredzn.com
+/**
+ * Made by Coldfire
+ * https://coldfiredzn.com
  *
- *  For NamelessMC
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ * For NamelessMC
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0
  *
- *  License: MIT
+ * License: MIT
  *
- *  Default template
+ * Default template
+ *
+ * @var Smarty $smarty
+ * @var Language $language
  */
 
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
+
+    /**
+     * TODO: Add description
+     *
+     * @package NamelessMC\Core
+     * @author Coldfire
+     * @version 2.0.0
+     * @license MIT
+     */
     class Default_Panel_Template extends TemplateBase {
 
         private Language $_language;
 
-        // Constructor - set template name, version, Nameless version and author here
+        /**
+         * @param Smarty $smarty
+         * @param Language $language
+         */
         public function __construct(Smarty $smarty, Language $language) {
             $this->_language = $language;
 
@@ -136,7 +151,10 @@ if (!class_exists('Default_Panel_Template')) {
             $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo.png');
         }
 
-        public function onPageLoad() {
+        /**
+         * Handle page loading.
+         */
+        public function onPageLoad(): void {
             $page_load = microtime(true) - PAGE_START_TIME;
             define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
@@ -376,7 +394,7 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'authme') {
+                        } else if (MINECRAFT_PAGE === 'authme') {
 
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
@@ -388,7 +406,7 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'verification') {
+                        } else if (MINECRAFT_PAGE === 'verification') {
 
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
@@ -400,11 +418,11 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'servers') {
+                        } else if (MINECRAFT_PAGE === 'servers') {
                             $this->assets()->include([
                                 AssetTree::JQUERY_UI,
                             ]);
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
+                        } else if (MINECRAFT_PAGE === 'query_errors') {
                             $this->addCSSStyle('
                             .error_log {
                                 width: 100%;
@@ -420,7 +438,7 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
+                        } else if (MINECRAFT_PAGE === 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->assets()->include([
                                     AssetTree::IMAGE_PICKER,

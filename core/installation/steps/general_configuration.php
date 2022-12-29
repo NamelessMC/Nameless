@@ -1,9 +1,21 @@
 <?php
-if (!isset($_SESSION['requirements_validated']) || $_SESSION['requirements_validated'] != true) {
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
+
+if (!isset($_SESSION['requirements_validated']) || $_SESSION['requirements_validated'] !== true) {
     Redirect::to('?step=requirements_validation');
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (str_starts_with($_POST['hostname'], 'http://') || str_starts_with($_POST['hostname'], 'https://')) {
         $error = $language->get('installer', 'hostname_error');
     } else {
@@ -17,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $requestPathParts = explode('/', $_SERVER['REQUEST_URI']);
             array_pop($requestPathParts); // remove /install.php
             $path = implode('/', $requestPathParts);
-            if (substr($path, 0, 1) == "/") {
+            if ($path[0] === "/") {
                 $path = substr($path, 1);
             }
             $_SESSION['install_path'] = $path;
@@ -46,12 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
-                        <div <?php if (getenv('NAMELESS_HOSTNAME_HIDE') !== false) echo 'style="display: none"' ?>>
+                        <div <?php if (getenv('NAMELESS_HOSTNAME_HIDE') !== false) { echo 'style="display: none"'; } ?>>
                             <?php create_field('text', $language->get('installer', 'host'), 'hostname', 'inputHostname', getenv('NAMELESS_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
                             <p><?php echo $language->get('installer', 'host_help'); ?></p>
                             <div class="ui divider"></div>
                         </div>
-                        <div <?php if (getenv('NAMELESS_FRIENDLY_URLS_HIDE') !== false) echo 'style="display: none"' ?>>
+                        <div <?php if (getenv('NAMELESS_FRIENDLY_URLS_HIDE') !== false) { echo 'style="display: none"'; } ?>>
                             <?php create_field('select', $language->get('installer', 'friendly_urls'), 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', [
                                 'true' => $language->get('installer', 'enabled'),
                                 'false' => $language->get('installer', 'disabled'),

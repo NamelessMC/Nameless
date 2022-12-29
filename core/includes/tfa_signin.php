@@ -1,15 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.1.0
  *
- *  License: MIT
+ * License: MIT
  *
- *  Two Factor Auth signin page
+ * Two-Factor Auth signin page
+ *
+ * @var Language $language
+ * @var Pages $pages
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
-// Two Factor Auth signin
+// Two-Factor Auth signin
 if (isset($_POST['username'])) {
     $_SESSION['username'] = $_POST['username'];
 } else {

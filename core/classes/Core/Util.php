@@ -1,6 +1,6 @@
 <?php
 
-use Astrotomic\Twemoji\Twemoji;
+use DebugBar\DebugBarException;
 
 /**
  * Contains misc utility methods.
@@ -76,6 +76,7 @@ class Util {
      * Get an array containing all timezone lists.
      *
      * @return array All timezones.
+     * @throws Exception
      */
     public static function listTimezones(): array {
         // Array to contain timezones
@@ -98,7 +99,7 @@ class Util {
             $offsets[] = $current->getOffset();
 
             // Format timezone offset
-            $offset = 'GMT ' . (int)($current->getOffset() / 3600) . ':' . str_pad(abs((int)($current->getOffset() % 3600 / 60)), 2, 0);
+            $offset = 'GMT ' . (int)($current->getOffset() / 3600) . ':' . str_pad((string)abs((int)($current->getOffset() % 3600 / 60)), 2, '0');
 
             // Prettify timezone name
             $name = Output::getClean(str_replace(['/', '_'], [', ', ' '], $timezone));
@@ -187,7 +188,7 @@ class Util {
      *
      * @deprecated Use `Text::urlSafe` instead. Will be removed in 2.1.0
      * @param string|null $string $string String to URLify
-     * @return string Url-ified string. (I dont know what this means)
+     * @return string Url-ified string
      */
     public static function stringToURL(string $string = null): string {
         return Text::urlSafe($string);
@@ -221,6 +222,7 @@ class Util {
      * Check for Nameless updates.
      *
      * @return string|UpdateCheck Object with information about any updates, or error message.
+     * @throws DebugBarException
      */
     public static function updateCheck() {
         $uid = self::getSetting('unique_id');
@@ -258,6 +260,7 @@ class Util {
      * Get the latest Nameless news.
      *
      * @return string NamelessMC news in JSON.
+     * @throws DebugBarException
      */
     public static function getLatestNews(): string {
         $news = HttpClient::get('https://namelessmc.com/news');
@@ -283,8 +286,13 @@ class Util {
         return URL::replaceAnchorsWithText($data);
     }
 
+    /**
+     * @param string|null $module
+     *
+     * @return array|null
+     */
     private static function getSettingsCache(?string $module): ?array {
-        $cache_name = $module !== null ? $module : 'core';
+        $cache_name = $module ?? 'core';
 
         if (self::$_cached_settings === null ||
                 !isset(self::$_cached_settings[$cache_name])) {
@@ -294,8 +302,14 @@ class Util {
         return self::$_cached_settings[$cache_name];
     }
 
+    /**
+     * @param string|null $module
+     * @param array $cache
+     *
+     * @return void
+     */
     private static function setSettingsCache(?string $module, array $cache): void {
-        $cache_name = $module !== null ? $module : 'core';
+        $cache_name = $module ?? 'core';
         self::$_cached_settings[$cache_name] = $cache;
     }
 
@@ -338,7 +352,7 @@ class Util {
      *                       to 'Core' for global settings.
      */
     public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
-        if ($new_value == null) {
+        if ($new_value === null) {
             if ($module === 'core') {
                 DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
             } else {
@@ -382,10 +396,10 @@ class Util {
     /**
      * Get in-game rank name from a website group ID, uses Group Sync rules.
      *
-     * @param int $website_group_id ID of website group to search for.
+     * @param string $website_group_id ID of website group to search for.
      * @return string|null Name of in-game rank or null if rule is not set up.
      */
-    public static function getIngameRankName(int $website_group_id): ?string {
+    public static function getIngameRankName(string $website_group_id): ?string {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
         $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
 
@@ -513,7 +527,7 @@ class Util {
             if ($found) {
                 $after[] = $item;
             } else {
-                if ($item == $current) {
+                if ($item === $current) {
                     $found = true;
                 } else {
                     $before[] = $item;
@@ -536,7 +550,7 @@ class Util {
         [$major, $minor, ] = explode('.', $version);
         [$nameless_major, $nameless_minor, ] = explode('.', $nameless_version);
 
-        return $major == $nameless_major && $minor == $nameless_minor;
+        return $major === $nameless_major && $minor === $nameless_minor;
     }
 
 }

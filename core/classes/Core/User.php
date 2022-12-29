@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Represents a user, logged in or not.
  *
@@ -65,13 +68,19 @@ class User {
      */
     private bool $_isAdmLoggedIn = false;
 
-    public function __construct(string $user = null, string $field = 'id') {
+    /**
+     * @param string|null $user_id
+     * @param string $field
+     *
+     * @throws GuzzleException
+     */
+    public function __construct(string $user_id = null, string $field = 'id') {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('session.session_name');
         $this->_cookieName = Config::get('remember.cookie_name');
         $this->_admSessionName = Config::get('session.admin_name');
 
-        if ($user === null) {
+        if ($user_id === null) {
             if (Session::exists($this->_sessionName)) {
                 $hash = Session::get($this->_sessionName);
                 if ($this->find($hash, 'hash')) {
@@ -85,7 +94,7 @@ class User {
                 }
             }
         } else {
-            $this->find($user, $field);
+            $this->find($user_id, $field);
         }
     }
 
@@ -97,6 +106,7 @@ class User {
      * @param string $field What column to check for their unique identifier in.
      *
      * @return bool True/false on success or failure respectfully.
+     * @throws GuzzleException
      */
     public function find(string $value = null, string $field = 'id'): bool {
         if ($value) {
@@ -107,7 +117,7 @@ class User {
                 return true;
             }
 
-            if ($field != 'hash') {
+            if ($field !== 'hash') {
                 $data = $this->_db->get('users', [$field, $value]);
             } else {
                 $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
@@ -134,12 +144,12 @@ class User {
                 } else {
                     // Get default group
                     // TODO: Use PRE_VALIDATED_DEFAULT ?
-                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', [])->first();
+                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1')->first();
                     if ($default_group) {
                         $default_group_id = $default_group->id;
                     } else {
-                        $default_group_id = 1; // default to 1
-                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', [])->first();
+                        $default_group_id = '1'; // default to 1
+                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1')->first();
                     }
 
                     $this->addGroup($default_group_id, 0, $default_group);
@@ -155,13 +165,14 @@ class User {
     /**
      * Add a group to this user.
      *
-     * @param int $group_id ID of group to give.
+     * @param string $group_id ID of group to give.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param object|null $group_data Load data from existing query.
+     * @param ?object $group_data Load data from existing query.
      *
      * @return bool True on success, false if they already have it.
+     * @throws GuzzleException
      */
-    public function addGroup(int $group_id, int $expire = 0, $group_data = null): bool {
+    public function addGroup(string $group_id, int $expire = 0, ?object $group_data = null): bool {
         if (array_key_exists($group_id, $this->_groups)) {
             return false;
         }
@@ -199,7 +210,7 @@ class User {
     }
 
     /**
-     * Get the currently logged in user's data.
+     * Get the currently logged-in user's data.
      *
      * @return UserData This user's data.
      */
@@ -262,11 +273,11 @@ class User {
     /**
      * Get a user's username from their ID.
      *
-     * @param int $id Their ID.
+     * @param string $id Their ID.
      *
      * @return ?string Their username, null on failure.
      */
-    public function idToName(int $id): ?string {
+    public function idToName(string $id): ?string {
         $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
@@ -280,11 +291,11 @@ class User {
     /**
      * Get a user's nickname from their ID.
      *
-     * @param int $id Their ID.
+     * @param string $id Their ID.
      *
      * @return ?string Their nickname, null on failure.
      */
-    public function idToNickname(int $id): ?string {
+    public function idToNickname(string $id): ?string {
         $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
@@ -304,14 +315,25 @@ class User {
      * @param string $method What column to check for their details in. Can be either `username` or `email` or `oauth`.
      *
      * @return bool True/false on success or failure respectfully.
+     * @throws Exception
      */
     public function login(?string $username = null, ?string $password = null, bool $remember = false, string $method = 'email'): bool {
         return $this->_commonLogin($username, $password, $remember, $method, false);
     }
 
+    /**
+     * @param ?string $username
+     * @param ?string$password
+     * @param bool $remember
+     * @param string $method
+     * @param bool $is_admin
+     *
+     * @return bool
+     * @throws Exception|GuzzleException
+     */
     private function _commonLogin(?string $username, ?string $password, bool $remember, string $method, bool $is_admin): bool {
         $sessionName = $is_admin ? $this->_admSessionName : $this->_sessionName;
-        if (!$username && $method == 'hash' && $this->exists()) {
+        if (!$username && $method === 'hash' && $this->exists()) {
             // Logged in using hash from cookie
             Session::put($sessionName, $password);
             if (!$is_admin) {
@@ -360,6 +382,7 @@ class User {
      * @param string $method Column to search for user with. Can be `email` or `username` or `oauth`. If it is `oauth`, then the request will be granted.
      *
      * @return bool True if correct, false otherwise.
+     * @throws GuzzleException
      */
     public function checkCredentials(string $username, string $password, string $method = 'email'): bool {
         $user = $this->find($username, $method === 'oauth' ? 'id' : $method);
@@ -372,16 +395,16 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
-                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
+                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) === $salt . $pass);
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-                    return ($hashed == hex2bin($pass));
+                    return ($hashed === hex2bin($pass));
 
                 case 'modernbb':
                 case 'sha1':
-                    return (sha1($password) == $this->data()->password);
+                    return (sha1($password) === $this->data()->password);
 
                 default:
                     // Default to bcrypt
@@ -400,6 +423,7 @@ class User {
      * @param string $method What column to check for their details in. Can be either `username` or `email`.
      *
      * @return bool True/false on success or failure respectfully.
+     * @throws Exception
      */
     public function adminLogin(?string $username = null, ?string $password = null, string $method = 'email'): bool {
         return $this->_commonLogin($username, $password, true, $method, true);
@@ -411,7 +435,7 @@ class User {
      * @param bool $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
-    public function getDisplayname(bool $username = false): string {
+    public function getDisplayName(bool $username = false): string {
         if ($username) {
             return Output::getClean($this->data()->username);
         }
@@ -491,12 +515,13 @@ class User {
      * @param bool $full Whether to use full site URL or not, for external loading - ie discord webhooks.
      *
      * @return string URL to their avatar image.
+     * @throws GuzzleException
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
         $data_obj = (object) $this->data();
 
         $integrationUser = $this->getIntegration('Minecraft');
-        if ($integrationUser != null) {
+        if ($integrationUser !== null) {
             $data_obj->uuid = $integrationUser->data()->identifier;
         } else {
             $data_obj->uuid = '';
@@ -522,11 +547,11 @@ class User {
         foreach ($groups as $group) {
             $permissions = json_decode($group->permissions, true) ?? [];
 
-            if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
+            if (isset($permissions['administrator']) && $permissions['administrator'] === true) {
                 return true;
             }
 
-            if (isset($permissions[$permission]) && $permissions[$permission] == 1) {
+            if (isset($permissions[$permission]) && $permissions[$permission] === true) {
                 return true;
             }
         }
@@ -594,7 +619,7 @@ class User {
                 $integrations_list = [];
                 foreach ($integrations_query as $item) {
                     $integration = $integrations->getIntegration($item->integration_name);
-                    if ($integration != null) {
+                    if ($integration !== null) {
                         $integrationUser = new IntegrationUser($integration, $this->data()->id, 'user_id', $item);
 
                         $integrations_list[$item->integration_name] = $integrationUser;
@@ -631,14 +656,14 @@ class User {
     }
 
     /**
-     * Get the currently logged in user's placeholders.
+     * Get the currently logged-in user's placeholders.
      *
      * @return array Their placeholders.
      */
     public function getPlaceholders(): array {
         return $this->_placeholders ??= (function (): array {
             $integrationUser = $this->getIntegration('Minecraft');
-            if ($integrationUser != null) {
+            if ($integrationUser !== null) {
                 return Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
             }
 
@@ -658,7 +683,7 @@ class User {
     }
 
     /**
-     * Get this user's main group (with highest order).
+     * Get this user's main group (with the highest order).
      *
      * @return Group The group
      */
@@ -671,17 +696,17 @@ class User {
     /**
      * Set a group to user and remove all other groups
      *
-     * @param int $group_id ID of group to set as main group.
+     * @param string $group_id ID of group to set as main group.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
      * @param array|null $group_data Load data from existing query.
      * @return false|void
      */
-    public function setGroup(int $group_id, int $expire = 0, array $group_data = null) {
-        if ($this->data()->id == 1) {
+    public function setGroup(string $group_id, int $expire = 0, array $group_data = null) {
+        if ($this->data()->id === '1') {
             return false;
         }
-        $this->_db->query('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
 
+        $this->_db->query('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
         $this->_db->query(
             'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
             [
@@ -706,16 +731,17 @@ class User {
     /**
      * Remove a group from the user.
      *
-     * @param int|null $group_id ID of group to remove.
+     * @param ?string $group_id ID of group to remove.
      *
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
+     * @throws GuzzleException
      */
-    public function removeGroup(?int $group_id): bool {
+    public function removeGroup(?string $group_id): bool {
         if (!array_key_exists($group_id, $this->_groups)) {
             return false;
         }
 
-        if ($group_id == 2 && $this->data()->id == 1) {
+        if ($group_id === '2' && $this->data()->id === '1') {
             return false;
         }
 
@@ -773,9 +799,9 @@ class User {
      *
      * @param string $username Username to get ID for.
      *
-     * @return ?int ID on success, null on failure.
+     * @return ?string ID on success, null on failure.
      */
-    public function nameToId(string $username): ?int {
+    public function nameToId(string $username): ?string {
         $data = $this->_db->get('users', ['username', $username]);
 
         if ($data->count()) {
@@ -790,9 +816,9 @@ class User {
      * Return an ID from an email.
      *
      * @param string $email Email to get ID for.
-     * @return ?int ID on success, false on failure.
+     * @return ?string ID on success, false on failure.
      */
-    public function emailToId(string $email): ?int {
+    public function emailToId(string $email): ?string {
         $data = $this->_db->get('users', ['email', $email]);
 
         if ($data->count()) {
@@ -806,10 +832,10 @@ class User {
     /**
      * Get a list of PMs a user has access to.
      *
-     * @param int $user_id ID of user to get PMs for.
+     * @param string $user_id ID of user to get PMs for.
      * @return array Array of PMs.
      */
-    public function listPMs(int $user_id): array {
+    public function listPMs(string $user_id): array {
         $return = []; // Array to return containing info of PMs
 
         // Get a list of PMs which the user is in
@@ -848,11 +874,11 @@ class User {
     /**
      * Get a specific private message, and see if the user actually has permission to view it
      *
-     * @param int $pm_id ID of PM to find.
-     * @param int $user_id ID of user to check permission for.
+     * @param string $pm_id ID of PM to find.
+     * @param string $user_id ID of user to check permission for.
      * @return array|null Array of info about PM, null on failure.
      */
-    public function getPM(int $pm_id, int $user_id): ?array {
+    public function getPM(string $pm_id, string $user_id): ?array {
         // Get the PM - is the user the author?
         $data = $this->_db->get('private_messages', ['id', $pm_id]);
         if ($data->count()) {
@@ -862,7 +888,7 @@ class User {
             // Does the user have permission to view the PM?
             $pms = $this->_db->get('private_messages_users', ['pm_id', $pm_id])->results();
             foreach ($pms as $pm) {
-                if ($pm->user_id == $user_id) {
+                if ($pm->user_id === $user_id) {
                     $has_permission = true;
                     $pm_user_id = $pm->id;
                     break;
@@ -874,7 +900,7 @@ class User {
             }
 
             // Set message to "read"
-            if ($pm->read == 0) {
+            if ($pm->read === 0) {
                 $this->_db->update('private_messages_users', $pm_user_id, [
                     'read' => true,
                 ]);
@@ -904,7 +930,7 @@ class User {
         if (FRIENDLY_URLS === true) {
             $split = explode('?', $_SERVER['REQUEST_URI']);
 
-            if ($split != null && count($split) > 1) {
+            if ($split !== null && count($split) > 1) {
                 $_SESSION['last_page'] = URL::build($split[0], $split[1]);
             } else {
                 $_SESSION['last_page'] = URL::build($split[0]);
@@ -929,7 +955,7 @@ class User {
             Redirect::to(URL::build('/panel/auth'));
         }
 
-        return !($permission != null && !$this->hasPermission($permission));
+        return !($permission !== null && !$this->hasPermission($permission));
     }
 
     /**
@@ -940,7 +966,7 @@ class User {
     public function canViewStaffCP(): bool {
         if (isset($this->_groups) && count($this->_groups)) {
             foreach ($this->_groups as $group) {
-                if ($group->admin_cp == 1) {
+                if ($group->admin_cp === true) {
                     return true;
                 }
             }
@@ -989,19 +1015,19 @@ class User {
     /**
      * Is a user blocked?
      *
-     * @param int $user ID of first user
-     * @param int $blocked ID of user who may or may not be blocked
+     * @param string $user_id ID of first user
+     * @param string $blocked_id ID of user who may or may not be blocked
      *
      * @return bool Whether they are blocked or not.
      */
-    public function isBlocked(int $user, int $blocked): bool {
-        if ($user && $blocked) {
-            $possible_users = $this->_db->get('blocked_users', ['user_id', $user]);
+    public function isBlocked(string $user_id, string $blocked_id): bool {
+        if ($user_id && $blocked_id) {
+            $possible_users = $this->_db->get('blocked_users', ['user_id', $user_id]);
             if ($possible_users->count()) {
                 $possible_users = $possible_users->results();
 
                 foreach ($possible_users as $possible_user) {
-                    if ($possible_user->user_blocked_id == $blocked) {
+                    if ($possible_user->user_blocked_id === $blocked_id) {
                         return true;
                     }
                 }
@@ -1014,7 +1040,7 @@ class User {
     /**
      * Get this user's profile views.
      *
-     * @return int Numer of profile views they have
+     * @return int Number of profile views they have
      */
     public function getProfileViews(): int {
         if ($this->exists()) {
@@ -1067,12 +1093,12 @@ class User {
     }
 
     /**
-     * Save/update this users placeholders.
+     * Save/update these users placeholders.
      *
-     * @param int $server_id Server ID from staffcp -> integrations to assoc these placeholders with.
+     * @param string $server_id Server ID from staffcp -> integrations to assoc these placeholders with.
      * @param array $placeholders Key/value array of placeholders name/value from API endpoint.
      */
-    public function savePlaceholders(int $server_id, array $placeholders): void {
+    public function savePlaceholders(string $server_id, array $placeholders): void {
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser === null || !$integrationUser->getIntegration()->isEnabled()) {
             return;

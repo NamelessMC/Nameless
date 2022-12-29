@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class templates should extend to add functionality.
  *
@@ -46,6 +47,12 @@ abstract class TemplateBase {
      */
     protected array $_js = [];
 
+    /**
+     * @param string $name
+     * @param string $version
+     * @param string $nameless_version
+     * @param string $author
+     */
     public function __construct(string $name, string $version, string $nameless_version, string $author) {
         $this->_name = $name;
         $this->_version = $version;
@@ -58,6 +65,10 @@ abstract class TemplateBase {
      */
     abstract public function onPageLoad();
 
+    /**
+     *
+     * @return AssetResolver
+     */
     public function assets(): AssetResolver {
         return $this->_assets_resolver ??= new AssetResolver();
     }
@@ -213,6 +224,13 @@ abstract class TemplateBase {
         return $this->_js;
     }
 
+    /**
+     * @param string $template
+     * @param Smarty $smarty
+     *
+     * @return string
+     * @throws SmartyException
+     */
     public function getTemplate(string $template, Smarty $smarty): string {
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id The NamelessMC user's ID
+ * @param string $id The NamelessMC user's ID
  * @param string $code The NamelessMC user's reset code, used to verify they own the account
  *
  * @return string JSON Array

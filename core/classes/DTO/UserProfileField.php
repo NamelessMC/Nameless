@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a custom profile field which belongs to a user.
  *
@@ -11,8 +12,11 @@ class UserProfileField extends ProfileField {
 
     public ?string $value;
     public ?int $updated;
-    public ?int $upf_id;
+    public ?string $upf_id;
 
+    /**
+     * @param object $row
+     */
     public function __construct(object $row) {
         parent::__construct($row);
         $this->value = $row->value;
@@ -21,6 +25,9 @@ class UserProfileField extends ProfileField {
     }
 
 
+    /**
+     * @return false|string
+     */
     public function updated() {
         return date(DATE_FORMAT, $this->updated);
     }

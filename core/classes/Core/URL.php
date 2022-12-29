@@ -35,7 +35,7 @@ class URL {
             throw new InvalidArgumentException('Invalid force string: ' . $force);
         }
 
-        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly') == true)) {
+        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS === true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly') === true)) {
             // Friendly URLs are enabled
             return self::buildFriendly($url, $params);
         }
@@ -49,16 +49,16 @@ class URL {
      * Internal class use only. All external calls should use `build()`.
      *
      * @param string $url Contains the URL which will be formatted
-     * @param string $params URL paramaters to append to end.
+     * @param string $params URL parameters to append to end.
      * @return string Assembled URL.
      */
     private static function buildFriendly(string $url, string $params): string {
         // Check for params
-        if ($params != '') {
+        if ($params !== '') {
             $params = '?' . $params;
         }
 
-        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) === '/') ? '' : '/') . $params;
     }
 
     /**
@@ -66,15 +66,15 @@ class URL {
      * Internal class use only. All external calls should use `build()`.
      *
      * @param string $url Contains the URL which will be formatted
-     * @param string $params URL paramaters to append to end.
+     * @param string $params URL parameters to append to end.
      * @return string Assembled URL.
      */
     private static function buildNonFriendly(string $url, string $params): string {
-        if ($params != '') {
-            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/') . '&' . $params;
+        if ($params !== '') {
+            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) === '/') ? '' : '/') . '&' . $params;
         }
 
-        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) == '/') ? '' : '/');
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/index.php?route=' . $url . ((substr($url, -1) === '/') ? '' : '/');
     }
 
     /**
@@ -121,13 +121,13 @@ class URL {
      * @return bool Whether URL is external or not.
      */
     public static function isExternalURL(string $url): bool {
-        if ($url[0] == '/' && $url[1] != '/') {
+        if ($url[0] === '/' && $url[1] !== '/') {
             return false;
         }
 
         $parsed = parse_url($url);
 
-        return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) == str_replace('www.', '', $parsed['host']));
+        return !(str_replace('www.', '', rtrim(self::getSelfURL(false), '/')) === str_replace('www.', '', $parsed['host']));
     }
 
     /**

@@ -42,7 +42,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
         // If bot url and username is empty then its setup for the first time
         if (empty(BOT_URL) && empty(BOT_USERNAME)) {
-            Util::setSetting('discord_integration', 1);
+            Util::setSetting('discord_integration', '1');
         }
 
         if (isset($_POST['bot_user_id'])) {

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  403 Forbidden page
+ * 403 Forbidden page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');

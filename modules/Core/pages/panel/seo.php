@@ -30,7 +30,10 @@ if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
     if (!is_writable(ROOT_PATH . '/cache')) {
         $errors[] = $language->get('admin', 'cache_not_writable');
     } else {
-        mkdir(ROOT_PATH . '/cache/sitemaps');
+        if (!mkdir($concurrentDirectory = ROOT_PATH . '/cache/sitemaps') && !is_dir($concurrentDirectory)) {
+            throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+        }
+
         file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
     }
 }

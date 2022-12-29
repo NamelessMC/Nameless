@@ -107,7 +107,7 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
 
         if (count($latest_topics)) {
             foreach ($latest_topics as $latest_topic) {
-                $forum->updateTopicLatestPosts($latest_topic);
+                $forum->updateTopicLatestPosts($forum_id, $latest_topic);
             }
         }
 

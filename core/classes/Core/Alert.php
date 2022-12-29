@@ -12,13 +12,13 @@ class Alert {
     /**
      * Creates an alert for the specified user.
      *
-     * @param int $user_id Contains the ID of the user who we are creating the alert for.
+     * @param string $user_id Contains the ID of the user who we are creating the alert for.
      * @param string $type Contains the alert type, eg 'tag' for user tagging.
      * @param array $text_short Contains the alert text in short form for the dropdown.
      * @param array $text Contains full information about the alert.
      * @param string $link Contains link to view the alert, defaults to #.
      */
-    public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
+    public static function create(string $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
         $db = DB::getInstance();
 
         $language = $db->query('SELECT nl2_languages.short_code AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_id]);
@@ -42,15 +42,15 @@ class Alert {
     /**
      * Get user alerts.
      *
-     * @param int $user_id Contains the ID of the user who we are getting alerts for.
+     * @param string $user_id Contains the ID of the user who we are getting alerts for.
      * @param bool $all Do we want to get all alerts (including read), or not; defaults to false).
      *
      * @return array All their alerts.
      */
-    public static function getAlerts(int $user_id, bool $all = false): array {
+    public static function getAlerts(string $user_id, bool $all = false): array {
         $db = DB::getInstance();
 
-        if ($all == true) {
+        if ($all === true) {
             return $db->get('alerts', ['user_id', $user_id])->results();
         }
 
@@ -60,15 +60,15 @@ class Alert {
     /**
      * Get a users unread messages.
      *
-     * @param int $user_id The ID of the user who we are getting messages for.
+     * @param string $user_id The ID of the user who we are getting messages for.
      * @param bool $all Get all alerts (including read), or not. Defaults to false.
      *
      * @return array All their messages matching the $all filter.
      */
-    public static function getPMs(int $user_id, bool $all = false): array {
+    public static function getPMs(string $user_id, bool $all = false): array {
         $db = DB::getInstance();
 
-        if ($all == true) {
+        if ($all === true) {
             $pms_access = $db->get('private_messages_users', ['user_id', $user_id])->results();
             $pms = [];
 
@@ -99,7 +99,7 @@ class Alert {
         $unread = [];
 
         foreach ($pms as $pm) {
-            if ($pm->read == 0) {
+            if ($pm->read === 0) {
                 $pm_full = $db->get('private_messages', ['id', $pm->pm_id])->results();
 
                 if (!count($pm_full)) {

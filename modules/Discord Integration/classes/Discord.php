@@ -84,7 +84,7 @@ class Discord {
      * @return bool Whether the Discord bot is set up properly
      */
     public static function isBotSetup(): bool {
-        return self::$_is_bot_setup ??= Util::getSetting('discord_integration');
+        return self::$_is_bot_setup ??= (bool)Util::getSetting('discord_integration');
     }
 
     /**
@@ -111,10 +111,10 @@ class Discord {
      * Get the associated NamelessMC group ID for a Discord role.
      *
      * @param DB $db Instance of DB class
-     * @param int $nameless_group_id The ID of the NamelessMC group
+     * @param string $nameless_group_id The ID of the NamelessMC group
      * @return null|int The Discord role ID for the NamelessMC group
      */
-    public static function getDiscordRoleId(DB $db, int $nameless_group_id): ?int {
+    public static function getDiscordRoleId(DB $db, string $nameless_group_id): ?int {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
         $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), $nameless_group_id]);
@@ -126,13 +126,13 @@ class Discord {
     }
 
     /**
-     * Create a JSON objec to send to the Discord bot.
+     * Create a JSON object to send to the Discord bot.
      *
-     * @param int $user_id Discord user ID to affect
+     * @param string $user_id Discord user ID to affect
      * @param array $change_arr Array of Discord role IDs to add or remove (compiled with `assembleGroupArray`)
      * @return string JSON object to send to the Discord bot
      */
-    private static function assembleJson(int $user_id, array $change_arr): string {
+    private static function assembleJson(string $user_id, array $change_arr): string {
         // TODO cache or define() website api key and discord guild id
         return json_encode([
             'guild_id' => trim(self::getGuildId()),

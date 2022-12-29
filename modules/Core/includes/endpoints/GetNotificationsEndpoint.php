@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id The NamelessMC ID of the user to get notifications for
+ * @param string $id The NamelessMC ID of the user to get notifications for
  * @param string $username NamelessMC sername of the user to get notifications for
  *
  * @return string JSON Array

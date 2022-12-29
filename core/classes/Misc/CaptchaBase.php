@@ -73,7 +73,7 @@ abstract class CaptchaBase {
     /**
      * Is captcha enabled for a given key?
      *
-     * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc)
+     * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc.)
      * @return bool Whether captcha is enabled or not
      */
     public static function isCaptchaEnabled(string $key = 'recaptcha'): bool {

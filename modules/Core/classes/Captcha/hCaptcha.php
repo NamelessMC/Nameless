@@ -37,7 +37,7 @@ class hCaptcha extends CaptchaBase {
     }
 
     public function getHtml(): string {
-        if (defined('DARK_MODE') && DARK_MODE == 1) {
+        if (defined('DARK_MODE') && DARK_MODE === true) {
             return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '" data-theme="dark"></div>';
         } else {
             return '<div class="h-captcha" data-sitekey="' . $this->getPublicKey() . '"></div>';

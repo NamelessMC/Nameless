@@ -12,6 +12,9 @@ class Configuration {
 
     private string $_module;
 
+    /**
+     * @param string $module
+     */
     public function __construct(string $module) {
         if ($module === 'Core') {
             throw new InvalidArgumentException('Configuration class should not be used for the Core module');

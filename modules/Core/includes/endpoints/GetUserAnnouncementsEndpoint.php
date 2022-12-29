@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of the user whose announcements to view
+ * @param string $id NamelessMC ID of the user whose announcements to view
  *
  * @return string JSON Array of the latest announcements
  */

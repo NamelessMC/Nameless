@@ -25,7 +25,7 @@ if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
     Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
 }
 
-$fid = (int)$_GET['fid'];
+$fid = $_GET['fid'];
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -180,7 +180,7 @@ if (Input::exists()) {
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
-                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayName()],
                     'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                     'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                     'content' => $content,
@@ -205,11 +205,11 @@ if (Input::exists()) {
                 $available_hooks = json_decode($available_hooks[0]->hooks);
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
-                    'username' => $user->getDisplayname(true),
-                    'nickname' => $user->getDisplayname(),
+                    'username' => $user->getDisplayName(true),
+                    'nickname' => $user->getDisplayName(),
                     'content' => $default_forum_language->get('forum', 'new_topic_text', [
                         'forum' => $forum_title,
-                        'author' => $user->getDisplayname(),
+                        'author' => $user->getDisplayName(),
                     ]),
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),

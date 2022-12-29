@@ -81,7 +81,7 @@ if (!isset($_GET['action'])) {
             'participants' => $participants,
             'link' => URL::build('/user/messaging/', 'action=view&amp;message=' . urlencode($nValue['id'])),
             'last_message_user_id' => Output::getClean($nValue['user_updated']),
-            'last_message_user' => $target_user->getDisplayname(),
+            'last_message_user' => $target_user->getDisplayName(),
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
             'last_message_user_style' => $target_user->getGroupStyle(),
@@ -447,7 +447,7 @@ if (!isset($_GET['action'])) {
             $template_array[] = [
                 'id' => $nValue->id,
                 'author_id' => $nValue->author_id,
-                'author_username' => $target_user->getDisplayname(),
+                'author_username' => $target_user->getDisplayName(),
                 'author_profile' => $target_user->getProfileURL(),
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupStyle(),

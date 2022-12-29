@@ -28,10 +28,14 @@
         "astrotomic/php-twemoji": "^0.2",
         "samerton/i18next": "^1.0",
         "robmorgan/phinx": "^0.12.10",
-        "symfony/http-foundation": "^5.4"
+        "symfony/http-foundation": "^5.4",
+        "ext-json": "*",
+        "ext-gd": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "1.6.9",
+        "roave/security-advisories": "dev-latest",
+        "phpstan/phpstan": "*",
         "maximebf/debugbar": "^1.18",
         "junker/debugbar-smarty": "^0.2",
         "hannesvdvreken/guzzle-debugbar": "^3.0",

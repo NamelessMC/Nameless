@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Endpoint management class.
  *

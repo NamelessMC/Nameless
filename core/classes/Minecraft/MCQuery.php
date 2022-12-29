@@ -1,5 +1,7 @@
 <?php
 
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
 use xPaw\MinecraftPing;
 use xPaw\MinecraftQuery;
 
@@ -41,18 +43,20 @@ class MCQuery {
      * @param string $type Type of query to use (`internal` or `external`).
      * @param bool $bedrock Whether this is a Bedrock server or not.
      * @param Language $language Query language object.
+     *
      * @return array Array containing query result.
+     * @throws GuzzleException
      */
     public static function singleQuery(array $ip, string $type, bool $bedrock, Language $language): array {
         try {
             $query_ip = explode(':', $ip['ip']);
-            if ($type == 'internal') {
+            if ($type === 'internal') {
                 // Internal query
-                if (count($query_ip) == 1 || (strlen($query_ip[1]) == 2 && empty($query_ip[1]))) {
+                if (count($query_ip) === 1 || (strlen($query_ip[1]) === 2)) {
                     $query_ip[1] = 25565;
                 }
 
-                if (count($query_ip) != 2) {
+                if (count($query_ip) !== 2) {
                     return [
                         'error' => true,
                         'value' => 'split IP by : must contain exactly two components'
@@ -62,7 +66,7 @@ class MCQuery {
                 if (!$bedrock) {
                     $ping = new MinecraftPing($query_ip[0], $query_ip[1], 5);
 
-                    if ($ip['pre'] == 1) {
+                    if ($ip['pre'] === 1) {
                         $query = $ping->QueryOldPre17();
                     } else {
                         $query = $ping->Query();
@@ -167,8 +171,10 @@ class MCQuery {
      * Formats a list of players into something useful for the frontend.
      *
      * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
+     *
      * @return array Array of formatted players
-     **/
+     * @throws GuzzleException
+     */
     private static function formatPlayerList(array $player_list): array {
         $formatted = [];
 
@@ -209,7 +215,9 @@ class MCQuery {
      * @param string $type Type of query to use (internal or external)
      * @param Language $language Query language object
      * @param bool $accumulate Whether to return as one accumulated result or not
+     *
      * @return array Array containing query result
+     * @throws DebugBarException
      */
     public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate): array {
         $to_return = [];
@@ -231,7 +239,7 @@ class MCQuery {
                     } else {
                         $ping = new MinecraftPing($query_ip[0], ($query_ip[1] ?? 25565), 5);
 
-                        if ($server['pre'] == 1) {
+                        if ($server['pre'] === 1) {
                             $query = $ping->QueryOldPre17();
                         } else {
                             $query = $ping->Query();
@@ -260,7 +268,7 @@ class MCQuery {
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
                         ];
                     } else {
-                        if ($status == 0) {
+                        if ($status === 0) {
                             $status = 1;
                         }
                         $total_count += $query['Players'];
@@ -276,7 +284,7 @@ class MCQuery {
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                         ];
                     } else {
-                        if ($status == 0) {
+                        if ($status === 0) {
                             $status = 1;
                         }
                         $total_count += $query['players']['online'];
@@ -318,7 +326,7 @@ class MCQuery {
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
                         ];
                     } else {
-                        if ($status == 0) {
+                        if ($status === 0) {
                             $status = 1;
                         }
                         $total_count += $query->response->players->online;
@@ -337,10 +345,10 @@ class MCQuery {
         if ($accumulate === true) {
             $to_return = [
                 'status_value' => $status,
-                'status' => $status == 1
+                'status' => $status === 1
                     ? $language->get('general', 'online')
                     : $language->get('general', 'offline'),
-                'status_full' => $status == 1
+                'status_full' => $status === 1
                     ? $language->get('general', 'currently_x_players_online', ['count' => $total_count])
                     : $language->get('general', 'server_offline'),
                 'player_count' => $total_count,

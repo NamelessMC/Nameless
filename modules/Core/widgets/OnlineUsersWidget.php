@@ -73,8 +73,8 @@ class OnlineUsersWidget extends WidgetBase {
                     $users[] = [
                         'profile' => $online_user->getProfileURL(),
                         'style' => $online_user->getGroupStyle(),
-                        'username' => $online_user->getDisplayname(true),
-                        'nickname' => $online_user->getDisplayname(),
+                        'username' => $online_user->getDisplayName(true),
+                        'nickname' => $online_user->getDisplayName(),
                         'avatar' => $online_user->getAvatar(),
                         'id' => Output::getClean($online_user->data()->id),
                         'title' => Output::getClean($online_user->data()->user_title),

@@ -1,3 +1,19 @@
+<?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var string $installer_language
+ * @var array $languages
+ * @var array $scripts
+ */
+?>
+
 <div class="ui very padded inverted vertical footer segment">
     <div class="ui container">
         <div class="ui middle aligned grid">
@@ -42,7 +58,7 @@
             'url': 'install.php?language=' + language,
             'type': 'GET',
             'success': function (data) {
-                if (data == 'OK') {
+                if (data === 'OK') {
                     window.location.reload();
                 }
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles registering and triggering events.
  *
@@ -92,7 +93,7 @@ class EventHandler {
      *
      * @return array|null Response of hook, can be any type or null when event does not exist
      */
-    public static function executeEvent(string $event, array $params = []) {
+    public static function executeEvent(string $event, array $params = []): ?array {
         if (!isset(self::$_events[$event])) {
             return null;
         }

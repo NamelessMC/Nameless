@@ -53,8 +53,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
                     $target_user = new User($item->id);
                     $data[] = [
                         'url' => URL::build('/panel/user/' . urlencode($item->id) . '-' . urlencode($item->username)),
-                        'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
+                        'username' => $target_user->getDisplayName(true),
+                        'nickname' => $target_user->getDisplayName(),
                         'style' => $target_user->getGroupStyle(),
                         'avatar' => $target_user->getAvatar(),
                         'groups' => $target_user->getAllGroupHtml(),

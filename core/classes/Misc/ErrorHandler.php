@@ -24,6 +24,8 @@ class ErrorHandler {
      * @param string $error_file Path of file which this error was thrown at.
      * @param int $error_line Line of $error_file which error occurred at.
      * @return bool False if error reporting is disabled, true otherwise.
+     *
+     * @throws SmartyException
      */
     public static function catchError(int $error_number, string $error_string, string $error_file, int $error_line): bool {
         if (!(error_reporting() & $error_number)) {
@@ -64,6 +66,8 @@ class ErrorHandler {
      * @param string|null $error_string Main error message to be shown on top of page. Used when $exception is null.
      * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
      * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
+     *
+     * @throws SmartyException
      */
     public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void {
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
@@ -88,14 +92,14 @@ class ErrorHandler {
             $skip_frames = 0;
 
             // Loop all frames in the exception trace & get relevent information
-            if ($exception != null) {
+            if ($exception !== null) {
 
                 $i = count($exception->getTrace());
 
                 foreach ($exception->getTrace() as $frame) {
 
                     // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
-                    if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
+                    if (end($frames)['file'] === $frame['file'] && end($frames)['line'] === $frame['line']) {
                         ++$skip_frames;
                         continue;
                     }
@@ -194,8 +198,9 @@ class ErrorHandler {
         try {
             if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
                 if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
-                    mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
-                    $dir_exists = true;
+                    if (mkdir($concurrentDirectory = ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs') || is_dir($concurrentDirectory)) {
+                        $dir_exists = true;
+                    }
                 }
             } else {
                 $dir_exists = true;
@@ -210,7 +215,7 @@ class ErrorHandler {
 
     /**
      * Returns frame array from specified information.
-     * Leaving number as null will use Exception trace count + 1 (for most recent frame)
+     * Leaving number than null will use Exception trace count + 1 (for most recent frame)
      *
      * @param Throwable|null $exception Exception object caught and whose trace to count. If null, $number will be used for frame number.
      * @param string $frame_file Path to file which was referenced in this frame.
@@ -239,7 +244,7 @@ class ErrorHandler {
      * @return string Truncated string from this file.
      */
     private static function parseFile($lines, int $error_line): string {
-        if ($lines == false || count($lines) < 1) {
+        if ($lines === false || count($lines) < 1) {
             return '';
         }
 

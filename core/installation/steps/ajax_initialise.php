@@ -1,10 +1,22 @@
 <?php
-if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
+
+if (isset($_POST['perform']) && $_POST['perform'] === 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
             $message = PhinxAdapter::migrate();
 
-            $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
+            $redirect_url = (($_SESSION['action'] === 'install') ? '?step=site_configuration' : '?step=upgrade');
 
             $json = [
                 'message' => $language->get('installer', 'database_configured'),
@@ -19,7 +31,7 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
         } else {
             if ($_GET['initialise'] === 'site') {
-                DatabaseInitialiser::runPreUser();
+                DatabaseInitializer::runPreUser();
 
                 $json = [
                     'success' => true,

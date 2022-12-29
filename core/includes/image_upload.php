@@ -1,15 +1,20 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.2
  *
- *  License: MIT
+ * License: MIT
  *
- *  Image uploads
+ * Image uploads
+ *
+ * @var User $user
+ * @var Language $language
  */
 
 // Initialisation
+use Bulletproof\Image;
+
 $page = 'image_uploads';
 const ROOT_PATH = '../..';
 
@@ -50,7 +55,7 @@ if ($_POST['type'] === 'favicon') {
     $image_extensions[] = 'ico';
 }
 
-$image = (new \Bulletproof\Image($_FILES))
+$image = (new Image($_FILES))
         ->setSize(1, 2097152 /* 2MB */)
         ->setDimension(2000, 2000) // 2k x 2k pixel maximum
         ->setMime($image_extensions);
@@ -84,8 +89,9 @@ switch ($_POST['type']) {
         }
 
         if (
-            !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
-            && !mkdir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            !is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            && !mkdir($concurrentDirectory = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            && !is_dir($concurrentDirectory)
         ) {
             Session::flash('profile_banner_error', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/profile_images']));
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));

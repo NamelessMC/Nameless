@@ -1,4 +1,13 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ */
 
 if (!defined('UPGRADE')) {
     die();
@@ -167,7 +176,7 @@ try {
                 'name' => $item->name,
                 'group_html' => $item->group_html,
                 'admin_cp' => (($item->staff) ? 1 : 0),
-                'default_group' => (($item->id == 1) ? 1 : 0),
+                'default_group' => (($item->id === '1') ? 1 : 0),
                 'permissions' => '{}',
             ]);
         }

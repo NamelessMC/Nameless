@@ -1,12 +1,18 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Navbar generation
+ * Navbar generation
+ *
+ * @var Smarty $smarty
+ * @var User $user
+ * @var Language $language
+ * @var Navigation $navigation
+ * @var Announcements $announcements
  */
 
 // User area - DEPRECATED, will be removed at some point
@@ -22,14 +28,14 @@ if ($user->isLoggedIn()) {
         'link' => URL::build('/user'),
         'title' => $language->get('user', 'user_cp')
     ];
-    if (defined('PAGE') && PAGE == 'usercp') {
+    if (defined('PAGE') && PAGE === 'usercp') {
         $user_area['usercp']['active'] = true;
     }
 
     $user_area_left['account'] = [
         'target' => '',
         'link' => '',
-        'title' => $user->getDisplayname(),
+        'title' => $user->getDisplayName(),
         'items' => [
             'profile' => [
                 'link' => $user->getProfileURL(),
@@ -111,7 +117,7 @@ if ($user->isLoggedIn()) {
     }
 
     $user_section['account'] = [
-        'title' => $user->getDisplayname(),
+        'title' => $user->getDisplayName(),
         'icon' => '<img src="' . $user->getAvatar() . '">',
         'link' => '',
         'meta' => '',
@@ -179,7 +185,7 @@ if ($user->isLoggedIn()) {
 $smarty->assign([
     'NAVBAR_INVERSE' => '',
     'SITE_NAME' => Output::getClean(SITE_NAME),
-    'NAV_LINKS' => $navigation->returnNav('top'),
+    'NAV_LINKS' => $navigation->returnNav(),
     'USER_AREA' => $user_area,
     'USER_DROPDOWN' => $user_area_left,
     'USER_SECTION' => $user_section,

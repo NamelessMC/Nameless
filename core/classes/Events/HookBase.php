@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base for hook implementations
  *
@@ -7,7 +8,6 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-
 abstract class HookBase {
     /**
      * Ensure a set of parameters has all the required fields

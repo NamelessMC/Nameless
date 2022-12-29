@@ -21,6 +21,15 @@ abstract class Module {
     private array $_load_before;
     private array $_load_after;
 
+    /**
+     * @param Module $module
+     * @param string $name
+     * @param string $author
+     * @param string $version
+     * @param string $nameless_version
+     * @param array $load_before
+     * @param array $load_after
+     */
     public function __construct(
         Module $module,
         string $name,
@@ -91,7 +100,7 @@ abstract class Module {
         $failed = [];
 
         foreach (self::getModules() as $module) {
-            if ($module->getName() == 'Core') {
+            if ($module->getName() === 'Core') {
                 continue;
             }
 
@@ -110,6 +119,10 @@ abstract class Module {
         return ['modules' => $module_order, 'failed' => $failed];
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName(): string {
         return $this->_name;
     }
@@ -132,13 +145,29 @@ abstract class Module {
         return $this->_load_before;
     }
 
-    abstract public function onInstall();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onInstall(): void;
 
-    abstract public function onUninstall();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onUninstall(): void;
 
-    abstract public function onEnable();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onEnable(): void;
 
-    abstract public function onDisable();
+    /**
+     *
+     * @return void
+     */
+    abstract public function onDisable(): void;
 
     /**
      * Get debug information to display on the external debug link page.

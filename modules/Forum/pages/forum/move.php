@@ -57,11 +57,11 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 Log::getInstance()->log(Log::Action('forums/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('forum')));
 
                 // Update latest posts in categories
-                $forum->updateForumLatestPosts(intval(Input::get('forum')));
+                $forum->updateForumLatestPosts(Input::get('forum'));
                 if (Input::get('forum') != $forum_id) {
                     $forum->updateForumLatestPosts($forum_id);
                 }
-                $forum->updateTopicLatestPosts($topic->id);
+                $forum->updateTopicLatestPosts($forum_id, $topic->id);
 
                 Redirect::to(URL::build('/forum/topic/' . $topic_id));
 

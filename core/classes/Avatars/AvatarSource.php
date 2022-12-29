@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *
@@ -9,6 +12,9 @@
  */
 class AvatarSource {
 
+    /**
+     * @var AvatarSourceBase[] $_sources
+     */
     protected static array $_sources = [];
 
     protected static AvatarSourceBase $_active_source;
@@ -36,6 +42,7 @@ class AvatarSource {
      * @param bool $full Whether to return the full URL or just the path
      *
      * @return string Full URL of avatar image.
+     * @throws GuzzleException
      */
     public static function getAvatarFromUserData(object $data, bool $allow_gifs = false, int $size = 128, bool $full = false): string {
         // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
@@ -45,23 +52,23 @@ class AvatarSource {
             }
 
             if ($data->has_avatar) {
-                $exts = ['png', 'jpg', 'jpeg'];
+                $extensions = ['png', 'jpg', 'jpeg'];
 
                 if ($allow_gifs) {
-                    $exts[] = 'gif';
+                    $extensions[] = 'gif';
                 }
 
-                foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
+                foreach ($extensions as $extension) {
+                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $extension)) {
                         // We don't check the validity here since we know the file exists for sure
-                        return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . urlencode($data->avatar_updated);
+                        return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $extension . '?v=' . urlencode($data->avatar_updated);
                     }
                 }
             }
         }
 
         // Fallback to default avatar image if it is set and the avatar type is custom
-        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
+        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE === 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
             if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
                 // We don't check the validity here since we know the file exists for sure
                 return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
@@ -69,8 +76,8 @@ class AvatarSource {
         }
 
         // Attempt to get their MC avatar if Minecraft integration is enabled
-        if (defined('MINECRAFT') && MINECRAFT) {
-            if ($data->uuid != null && $data->uuid != 'none') {
+        if (defined('MINECRAFT') && MINECRAFT === true) {
+            if ($data->uuid !== null && $data->uuid !== 'none') {
                 $uuid = $data->uuid;
             } else {
                 $uuid = $data->username;
@@ -96,7 +103,9 @@ class AvatarSource {
      * Determine if a URL is a valid image URL for avatars.
      *
      * @param string $url URL to check
+     *
      * @return bool Whether the URL is a valid image URL
+     * @throws GuzzleException
      */
     private static function validImageUrl(string $url): bool {
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
@@ -131,7 +140,7 @@ class AvatarSource {
 
     /**
      * Set the active source to the source by name.
-     * Fallsback to Cravatar if name was not found.
+     * Fallback to Cravatar if name was not found.
      *
      * @param string $name Name of source to set as active.
      */
@@ -158,13 +167,13 @@ class AvatarSource {
     }
 
     /**
-     * Find an avatar source instance by it's name.
+     * Find an avatar source instance by its name.
      *
      * @return AvatarSourceBase|null Instance if found, null if not found.
      */
     public static function getSourceByName(string $name): ?AvatarSourceBase {
         foreach (self::getAllSources() as $source) {
-            if (strtolower($source->getName()) == strtolower($name)) {
+            if (strtolower($source->getName()) === strtolower($name)) {
                 return $source;
             }
         }
@@ -223,7 +232,7 @@ class AvatarSource {
 
     /**
      * Get key value array of all registered sources and their available perspectives.
-     * Used for autoupdating dropdown selector in staffcp.
+     * Used for auto updating dropdown selector in staffcp.
      *
      * @return array<string, array<string>> Array of source => [] perspectives.
      */

@@ -1,4 +1,7 @@
 <?php
+
+use DebugBar\DebugBarException;
+
 /**
  * Provides methods to generate a MinecraftProfile from a username or UUID.
  *
@@ -15,7 +18,9 @@ class ProfileUtils {
      * Get a MinecraftProfile from a username or UUID.
      *
      * @param string $identifier Either the player's Username or UUID.
+     *
      * @return MinecraftProfile|null Returns null if fetching of profile failed. Else returns completed user profile.
+     * @throws DebugBarException
      */
     public static function getProfile(string $identifier): ?MinecraftProfile {
         if (strlen($identifier) <= 16) {
@@ -42,7 +47,9 @@ class ProfileUtils {
      * Get a Minecraft UUID from a Minecraft username.
      *
      * @param string $username Minecraft username.
+     *
      * @return array (Key => Value) "username" => Minecraft username (properly capitalized) "uuid" => Minecraft UUID or null
+     * @throws DebugBarException
      */
     private static function getUUIDFromUsername(string $username): ?array {
         if (strlen($username) > 16) {
@@ -53,11 +60,11 @@ class ProfileUtils {
 
         // Verification, API will return 204 status code if username is invalid
         if (!$result->hasError() && $result->getStatus() === 200) {
-            $ress = json_decode($result->contents(), true);
-            if ($ress['name'] != null && $ress['id'] != null) {
+            $decoded_result = json_decode($result->contents(), true);
+            if ($decoded_result['name'] !== null && $decoded_result['id'] !== null) {
                 return [
-                    'username' => $ress['name'],
-                    'uuid' => $ress['id']
+                    'username' => $decoded_result['name'],
+                    'uuid' => $decoded_result['id']
                 ];
             }
         }
@@ -66,7 +73,7 @@ class ProfileUtils {
     }
 
     /**
-     * Generate an offline minecraft UUID v3 based on the case sensitive player name.
+     * Generate an offline minecraft UUID v3 based on the case-sensitive player name.
      *
      * @param string $username
      * @return array
@@ -89,8 +96,7 @@ class ProfileUtils {
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
     public static function formatUUID(string $uuid): string {
-        $uid = "";
-        $uid .= substr($uuid, 0, 8)."-";
+        $uid = substr($uuid, 0, 8) . "-";
         $uid .= substr($uuid, 8, 4)."-";
         $uid .= substr($uuid, 12, 4)."-";
         $uid .= substr($uuid, 16, 4)."-";

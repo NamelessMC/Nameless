@@ -1,12 +1,12 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Rewrite test
+ * Rewrite test
  */
 ?>
 <html lang="en">
@@ -39,7 +39,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <?php
-            if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
+            if (isset($_GET['route']) && $_GET['route'] === '/rewrite_test') {
                 echo '<div class="alert alert-success">Rewrite enabled!</div>';
 
             } else {

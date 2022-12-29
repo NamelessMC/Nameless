@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Used for abstracting common tasks done during upgrades.
  *
@@ -93,7 +94,7 @@ abstract class UpgradeScript {
 
         foreach ($files as $file) {
 
-            if ($file[0] == '.') {
+            if ($file[0] === '.') {
                 continue;
             }
 

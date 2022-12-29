@@ -1,6 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ */
 
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
+if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] !== true) {
     Redirect::to('?step=admin_account_setup');
 }
 

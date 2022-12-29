@@ -50,7 +50,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         $user_integrations_list[$key] = [
             'identifier' => Output::getClean($integrationUser->data()->identifier),
             'username' => Output::getClean($integrationUser->data()->username),
-            'verified' => Output::getClean($integrationUser->isVerified())
+            'verified' => Output::getClean((string)$integrationUser->isVerified())
         ];
     }
 
@@ -116,7 +116,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         }
 
                         Session::flash('integrations_success', $language->get('admin', 'link_account_success', [
-                            'user' => $view_user->getDisplayname(true),
+                            'user' => $view_user->getDisplayName(true),
                             'integration' => Output::getClean($integrationUser->getIntegration()->getName()),
                         ]));
                         Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
@@ -195,7 +195,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'USERNAME_VALUE' => Output::getClean($integrationUser->data()->username),
                 'IDENTIFIER_VALUE' => Output::getClean($integrationUser->data()->identifier),
                 'IS_VERIFIED' => $language->get('admin', 'is_verified'),
-                'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
+                'VERIFIED_VALUE' => Output::getClean((string)$integrationUser->isVerified()),
                 'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
                 'USERNAME' =>  $language->get('admin', 'integration_username', ['integration' => Output::getClean($integration->getName())]),
                 'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),

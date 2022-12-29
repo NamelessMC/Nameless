@@ -37,15 +37,7 @@ class Input {
      * @return mixed Value of element in input.
      */
     public static function get(string $item) {
-        if (isset($_POST[$item])) {
-            return $_POST[$item];
-        }
-
-        if (isset($_GET[$item])) {
-            return $_GET[$item];
-        }
-
-        return '';
+        return $_POST[$item] ?? $_GET[$item] ?? '';
     }
 
     /**
@@ -61,7 +53,7 @@ class Input {
      */
     public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false, bool $admin = false): string {
         if (
-            (defined('DARK_MODE') && DARK_MODE) ||
+            (defined('DARK_MODE') && DARK_MODE === true) ||
             (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
         ) {
             $skin = 'oxide-dark';

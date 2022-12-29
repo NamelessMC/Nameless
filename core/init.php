@@ -1,12 +1,12 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.2
  *
- *  License: MIT
+ * License: MIT
  *
- *  Initialisation file
+ * Initialisation file
  */
 
 // Nameless error handling
@@ -46,7 +46,9 @@ foreach ($writable_check_paths as $path) {
 
 if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
     try {
-        mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
+        if (!mkdir($concurrentDirectory = ROOT_PATH . '/cache/templates_c', 0777, true) && !is_dir($concurrentDirectory)) {
+            throw new Exception();
+        }
     } catch (Exception $e) {
         die('Unable to create <strong>/cache</strong> directories, please check your file permissions.');
     }
@@ -57,28 +59,29 @@ if (!Config::exists()) {
 }
 
 // If we're accessing the upgrade script don't initialise further
-if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
+if (isset($_GET['route']) && rtrim($_GET['route'], '/') === '/panel/upgrade') {
     $pages = new Pages();
     $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
     return;
 }
 
-if ($page != 'install') {
+if ($page !== 'install') {
     /*
      * Initialise
      */
 
     // Friendly URLs?
-    define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
+    define('FRIENDLY_URLS', Config::get('core.friendly') === true);
 
     // Set up cache
     $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
-    if (Config::get('core.force_https')) {
+    if (Config::get('core.force_https') === true) {
         define('FORCE_SSL', true);
     }
-    if (Config::get('core.force_www')) {
+
+    if (Config::get('core.force_www') === true) {
         define('FORCE_WWW', true);
     }
 
@@ -103,20 +106,20 @@ if ($page != 'install') {
     // Error reporting
     if (!defined('DEBUGGING')) {
         if (Util::getSetting('error_reporting') === '1') {
-            ini_set('display_startup_errors', 1);
-            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', '1');
+            ini_set('display_errors', '1');
             error_reporting(-1);
-            define('DEBUGGING', 1);
+            define('DEBUGGING', true);
         } else {
             // Disable by default
             error_reporting(0);
-            ini_set('display_errors', 0);
+            ini_set('display_errors', '0');
         }
     }
 
     $smarty = new Smarty();
 
-    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+    if ((defined('DEBUGGING') && DEBUGGING === true) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
         define('PHPDEBUGBAR', true);
         DebugBarHelper::getInstance()->enable($smarty);
     }
@@ -330,13 +333,13 @@ if ($page != 'install') {
 
     // Avatars
     $cache->setCache('avatar_settings_cache');
-    if ($cache->isCached('custom_avatars') && $cache->retrieve('custom_avatars') == 1) {
+    if ($cache->isCached('custom_avatars') && (int)$cache->retrieve('custom_avatars') === 1) {
         define('CUSTOM_AVATARS', true);
     }
 
     if ($cache->isCached('default_avatar_type')) {
         define('DEFAULT_AVATAR_TYPE', $cache->retrieve('default_avatar_type'));
-        if (DEFAULT_AVATAR_TYPE == 'custom' && $cache->isCached('default_avatar_image')) {
+        if (DEFAULT_AVATAR_TYPE === 'custom' && $cache->isCached('default_avatar_image')) {
             define('DEFAULT_AVATAR_IMAGE', $cache->retrieve('default_avatar_image'));
         } else {
             define('DEFAULT_AVATAR_IMAGE', '');
@@ -418,7 +421,7 @@ if ($page != 'install') {
     $enabled_modules = $cache->retrieve('enabled_modules');
 
     foreach ($enabled_modules as $module) {
-        if ($module['name'] == 'Core') {
+        if ($module['name'] === 'Core') {
             $core_exists = true;
             break;
         }
@@ -478,19 +481,19 @@ if ($page != 'install') {
             $hooks = DB::getInstance()->get('hooks', ['id', '<>', 0])->results();
             if (count($hooks)) {
                 foreach ($hooks as $hook) {
-                    if ($hook->action != 1 && $hook->action != 2) {
+                    if ($hook->action !== '1' && $hook->action !== '2') {
                         continue;
                     }
 
                     // TODO: more extendable webhook system, #2676
-                    if ($hook->action == 2 && !class_exists(DiscordHook::class)) {
+                    if ($hook->action === '2' && !class_exists(DiscordHook::class)) {
                         continue;
                     }
 
                     $hook_array[] = [
                         'id' => $hook->id,
                         'url' => Output::getClean($hook->url),
-                        'action' => $hook->action == 1 ? 'WebHook::execute' : 'DiscordHook::execute',
+                        'action' => $hook->action === '1' ? 'WebHook::execute' : 'DiscordHook::execute',
                         'events' => json_decode($hook->events, true)
                     ];
                 }
@@ -509,7 +512,7 @@ if ($page != 'install') {
         Debugging::setCanGenerateDebugLink($user->hasPermission('admincp.core.debugging'));
 
         // Ensure a user is not banned
-        if ($user->data()->isbanned == 1) {
+        if ($user->data()->isbanned === true) {
             $user->logout();
             Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
             Redirect::to(URL::build('/'));
@@ -547,7 +550,7 @@ if ($page != 'install') {
             if (count($user_ip_logged) > 1) {
                 foreach ($user_ip_logged as $user_ip) {
                     // Check to see if it's been logged by the current user
-                    if ($user_ip->user_id == $user->data()->id) {
+                    if ($user_ip->user_id === $user->data()->id) {
                         // Already logged for this user
                         $already_logged = true;
                         break;
@@ -563,7 +566,7 @@ if ($page != 'install') {
                 }
             } else {
                 // Does the entry already belong to the current user?
-                if ($user_ip_logged[0]->user_id != $user->data()->id) {
+                if ($user_ip_logged[0]->user_id !== $user->data()->id) {
                     DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
                         'ip' => $ip
@@ -582,8 +585,8 @@ if ($page != 'install') {
 
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
-            if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
-                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa') && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+            if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') !== '/logout') {
+                if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
                 }
@@ -600,8 +603,8 @@ if ($page != 'install') {
 
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', [
-            'username' => $user->getDisplayname(true),
-            'nickname' => $user->getDisplayname(),
+            'username' => $user->getDisplayName(true),
+            'nickname' => $user->getDisplayName(),
             'profile' => $user->getProfileURL(),
             'panel_profile' => URL::build('/panel/user/' . urlencode($user->data()->id) . '-' . urlencode($user->data()->username)),
             'username_style' => $user->getGroupStyle(),
@@ -619,7 +622,7 @@ if ($page != 'install') {
         }
     } else {
         // Perform tasks for guests
-        if (!$_SESSION['checked'] || (isset($_SESSION['checked']) && $_SESSION['checked'] <= strtotime('-5 minutes'))) {
+        if (!$_SESSION['checked'] || ($_SESSION['checked'] <= strtotime('-5 minutes'))) {
             $already_online = DB::getInstance()->get('online_guests', ['ip', $ip])->results();
 
             $date = date('U');
@@ -638,12 +641,12 @@ if ($page != 'install') {
     $cache->setCache('template_settings');
     $darkMode = $cache->isCached('darkMode') ? $cache->retrieve('darkMode') : '0';
     if ($user->isLoggedIn()) {
-        $darkMode = $user->data()->night_mode !== null ? $user->data()->night_mode : $darkMode;
+        $darkMode = $user->data()->night_mode ?? $darkMode;
     } else {
         if (Cookie::exists('night_mode')) {
             $darkMode = Cookie::get('night_mode');
         }
     }
 
-    define('DARK_MODE', $darkMode);
+    define('DARK_MODE', (bool)$darkMode);
 }

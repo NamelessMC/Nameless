@@ -111,7 +111,7 @@ if (!isset($_GET['step'])) {
                 // TODO: which group should they be set to?
                 // VALIDATED_DEFAULT
                 // PRE_VALIDATED_DEFAULT
-                $new_user->setGroup(1);
+                $new_user->setGroup('1');
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
                 $integrationUser = new IntegrationUser($integration);

@@ -161,9 +161,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
 
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,
-                    'username' => $user->getDisplayname(),
+                    'username' => $user->getDisplayName(),
                     'content' => $api->getLanguage()->get('user', 'user_x_has_registered', [
-                        'user' => $user->getDisplayname(),
+                        'user' => $user->getDisplayName(),
                     ]),
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
@@ -180,6 +180,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         } catch (Exception $e) {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage());
         }
+
+        return [];
     }
 
     /**

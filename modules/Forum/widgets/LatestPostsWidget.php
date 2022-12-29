@@ -59,7 +59,7 @@ class LatestPostsWidget extends WidgetBase {
 
             $n = 0;
             // Calculate the number of discussions to display
-            $limit = Util::getSetting('latest_posts_limit', 5, 'Forum');
+            $limit = Util::getSetting('latest_posts_limit', '5', 'Forum');
             if (count($discussions) <= $limit) {
                 $limit = count($discussions);
             }
@@ -105,8 +105,8 @@ class LatestPostsWidget extends WidgetBase {
                     'topic_id' => $discussion->id,
                     'topic_created_rough' => $timeago->inWords($discussion->topic_date, $this->_language),
                     'topic_created' => date(DATE_FORMAT, $discussion->topic_date),
-                    'topic_created_username' => $topic_creator->getDisplayname(),
-                    'topic_created_mcname' => $topic_creator->getDisplayname(true),
+                    'topic_created_username' => $topic_creator->getDisplayName(),
+                    'topic_created_mcname' => $topic_creator->getDisplayName(true),
                     'topic_created_style' => $topic_creator->getGroupStyle(),
                     'topic_created_user_id' => Output::getClean($discussion->topic_creator),
                     'locked' => $discussion->locked,
@@ -117,8 +117,8 @@ class LatestPostsWidget extends WidgetBase {
                     'last_reply_avatar' => $last_reply_user->getAvatar(64),
                     'last_reply_rough' => $timeago->inWords($discussion->topic_reply_date, $this->_language),
                     'last_reply' => date(DATE_FORMAT, $discussion->topic_reply_date),
-                    'last_reply_username' => $last_reply_user->getDisplayname(),
-                    'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+                    'last_reply_username' => $last_reply_user->getDisplayName(),
+                    'last_reply_mcname' => $last_reply_user->getDisplayName(true),
                     'last_reply_style' => $last_reply_user->getGroupStyle(),
                     'last_reply_user_id' => Output::getClean($discussion->topic_last_user),
                     'label' => $label,

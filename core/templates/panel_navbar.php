@@ -1,12 +1,16 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel navbar
+ * Panel navbar
+ *
+ * @var Smarty $smarty
+ * @var Navigation $staffcp_nav
+ * @var Language $language
  */
 
 // Assign to Smarty variables

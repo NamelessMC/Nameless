@@ -13,6 +13,12 @@ class CollectionManager {
     /** @var Collection[] */
     private static array $_collections = [];
 
+    /**
+     * @param string $collection
+     * @param CollectionItemBase $item
+     *
+     * @return void
+     */
     public static function addItemToCollection(string $collection, CollectionItemBase $item): void {
         if (!isset(self::$_collections[$collection])) {
             self::$_collections[$collection] = new Collection();
@@ -23,6 +29,7 @@ class CollectionManager {
 
     /**
      * @param string $collection
+     *
      * @return CollectionItemBase[]
      */
     public static function getFullCollection(string $collection): array {
@@ -33,6 +40,7 @@ class CollectionManager {
 
     /**
      * @param string $collection
+     *
      * @return CollectionItemBase[]
      */
     public static function getEnabledCollection(string $collection): array {

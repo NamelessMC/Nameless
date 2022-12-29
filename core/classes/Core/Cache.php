@@ -12,12 +12,12 @@ class Cache {
     /**
      * The path to the cache file folder
      */
-    private string $_cachepath = 'cache/';
+    private string $_cache_path = 'cache/';
 
     /**
      * The name of the default cache file
      */
-    private string $_cachename = 'default';
+    private string $_cache_name = 'default';
 
     /**
      * The cache file extension
@@ -49,12 +49,12 @@ class Cache {
      * @return Cache
      */
     public function setCache(string $name): Cache {
-        $this->_cachename = $name;
+        $this->_cache_name = $name;
         return $this;
     }
 
     /**
-     * Check whether data is accociated with a key
+     * Check whether data is associated with a key
      *
      * @param string $key The key to check
      * @return bool
@@ -97,7 +97,7 @@ class Cache {
     public function getCacheDir(): string {
         if ($this->_checkCacheDir()) {
             $filename = $this->getCache();
-            $filename = preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
+            $filename = preg_replace('/[^0-9a-z._\-]/i', '', strtolower($filename));
             return $this->getCachePath() . $this->_getHash($filename) . $this->getExtension();
         }
 
@@ -110,7 +110,7 @@ class Cache {
      * @return bool
      */
     private function _checkCacheDir(): bool {
-        if (!is_dir($this->getCachePath()) && !mkdir($this->getCachePath(), 0775, true)) {
+        if (!is_dir($this->getCachePath()) && !mkdir($concurrentDirectory = $this->getCachePath(), 0775, true) && !is_dir($concurrentDirectory)) {
             throw new RuntimeException('Unable to create cache directory ' . $this->getCachePath());
         }
 
@@ -128,7 +128,7 @@ class Cache {
      * @return string The path to the cache file folder
      */
     public function getCachePath(): string {
-        return $this->_cachepath;
+        return $this->_cache_path;
     }
 
     /**
@@ -138,7 +138,7 @@ class Cache {
      * @return Cache
      */
     public function setCachePath(string $path): Cache {
-        $this->_cachepath = $path;
+        $this->_cache_path = $path;
         return $this;
     }
 
@@ -148,7 +148,7 @@ class Cache {
      * @return string Cache name
      */
     public function getCache(): string {
-        return $this->_cachename;
+        return $this->_cache_name;
     }
 
     /**

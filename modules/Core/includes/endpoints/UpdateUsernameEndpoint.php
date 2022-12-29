@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id The NamelessMC user to update
+ * @param string $id The NamelessMC user to update
  * @param string $username The new username of the user
  *
  * @return string JSON Array

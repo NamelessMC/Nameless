@@ -66,7 +66,7 @@ if (isset($_GET['action'])) {
                             }
 
                             // If this is the new default group, update old default group
-                            $default_group = Group::find(1, 'default_group');
+                            $default_group = Group::find('1', 'default_group');
                             if (!$default_group && $default == 0) {
                                 $default = 1;
                             }
@@ -201,7 +201,7 @@ if (isset($_GET['action'])) {
                                 }
 
                                 // If this is the new default group, update old default group
-                                $default_group = Group::find(1, 'default_group');
+                                $default_group = Group::find('1', 'default_group');
                                 if ($default_group && $default == 1 && $default_group->id != $_GET['group']) {
                                     DB::getInstance()->update('groups', $default_group->id, [
                                         'default_group' => false
@@ -244,7 +244,7 @@ if (isset($_GET['action'])) {
                     } else {
                         if (Input::get('action') == 'delete') {
                             try {
-                                $default_group = Group::find(1, 'default_group');
+                                $default_group = Group::find('1', 'default_group');
 
                                 if ($default_group) {
                                     if ($group->id == 2 || $default_group->id == Input::get('id') || $group->admin_cp == 1) {
@@ -342,7 +342,7 @@ if (isset($_GET['action'])) {
                                 }
 
                                 // If this is the new default group, update old default group
-                                $default_group = Group::find(1, 'default_group');
+                                $default_group = Group::find('1', 'default_group');
                                 if (!$default_group && $default == 0) {
                                     $default = 1;
                                 }

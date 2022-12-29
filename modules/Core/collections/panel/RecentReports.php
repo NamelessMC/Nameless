@@ -72,13 +72,13 @@ class RecentReportsItem extends CollectionItemBase {
 
                     $data[] = [
                         'url' => URL::build('/panel/users/reports/', 'id=' . urlencode($item->id)),
-                        'reporter_username' => $reporter_user->getDisplayname(true),
-                        'reporter_nickname' => $reporter_user->getDisplayname(),
+                        'reporter_username' => $reporter_user->getDisplayName(true),
+                        'reporter_nickname' => $reporter_user->getDisplayName(),
                         'reporter_style' => $reporter_user->getGroupStyle(),
                         'reporter_avatar' => $reporter_user->getAvatar(),
                         'reporter_profile' => URL::build('/panel/user/' . urlencode($reporter_user->data()->id) . '-' . urlencode($reporter_user->data()->username)),
-                        'reported_username' => $reported_user->getDisplayname(true),
-                        'reported_nickname' => $reported_user->getDisplayname(),
+                        'reported_username' => $reported_user->getDisplayName(true),
+                        'reported_nickname' => $reported_user->getDisplayName(),
                         'reported_style' => $reported_user->getGroupStyle(),
                         'reported_avatar' => $reported_user->getAvatar(),
                         'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),

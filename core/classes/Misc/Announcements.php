@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Announcement management class for creating and getting announcements.
  *
@@ -11,6 +14,9 @@ class Announcements {
 
     private Cache $_cache;
 
+    /**
+     * @param Cache $cache
+     */
     public function __construct(Cache $cache) {
         $this->_cache = $cache;
     }
@@ -99,7 +105,7 @@ class Announcements {
      * @return string Comma seperated list of page names.
      */
     public static function getPagesCsv(?string $pages_json = null): ?string {
-        $pages = json_decode($pages_json);
+        $pages = json_decode($pages_json, false);
 
         if (!$pages) {
             return null;
@@ -111,7 +117,7 @@ class Announcements {
     /**
      * Edit an existing announcement.
      *
-     * @param int $id ID of announcement to edit.
+     * @param string $id ID of announcement to edit.
      * @param array<string> $pages Array of page names this announcement should be on.
      * @param array<int> $groups Array of group IDs this announcement should be visible to.
      * @param string $text_colour Hex code of text colour to use.
@@ -122,7 +128,7 @@ class Announcements {
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
      */
-    public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
+    public function edit(string $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         DB::getInstance()->update('custom_announcements', $id, [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
@@ -167,6 +173,8 @@ class Announcements {
      * @param string $header Header text to show at top of announcement.
      * @param string $message Main text to show in announcement.
      * @param int $order Order of this announcement to use for sorting.
+     *
+     * @throws GuzzleException
      */
     public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
         DB::getInstance()->insert('custom_announcements', [

@@ -1,12 +1,16 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Backend template initialisation
+ * Backend template initialisation
+ *
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var string $page_title
  */
 
 const BACK_END = true;

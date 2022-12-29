@@ -1,10 +1,11 @@
 <?php
 
+use DebugBar\DebugBarException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use GuzzleHttp\Profiling\Debugbar\Profiler;
+use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -22,6 +23,10 @@ class HttpClient {
     private ?ResponseInterface $_response;
     private string $_error;
 
+    /**
+     * @param ResponseInterface|null $response
+     * @param string $error
+     */
     private function __construct(?ResponseInterface $response, string $error) {
         $this->_response = $response;
         $this->_error = $error;
@@ -32,8 +37,10 @@ class HttpClient {
      * Failures will automatically be logged along with the error.
      *
      * @param string $url URL to send request to.
-     * @param array $options Options to set with the GuzzleClient.
+     * @param array<string, mixed> $options Options to set with the GuzzleClient.
+     *
      * @return HttpClient New HttpClient instance.
+     * @throws DebugBarException
      */
     public static function get(string $url, array $options = []): HttpClient {
         $guzzleClient = self::createClient($options);
@@ -59,8 +66,10 @@ class HttpClient {
      *
      * @param string $url URL to send request to.
      * @param string|array $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
-     * @param array $options Options to set with the GuzzleClient.
+     * @param array<string, mixed> $options Options to set with the GuzzleClient.
+     *
      * @return HttpClient New HttpClient instance.
+     * @throws DebugBarException
      */
     public static function post(string $url, $data, array $options = []): HttpClient {
         $guzzleClient = self::createClient($options);
@@ -86,8 +95,10 @@ class HttpClient {
     /**
      * Make a new Guzzle Client instance and attach it to the debug bar to display requests.
      *
-     * @param array $options Options to provide Guzzle instance.
+     * @param array<string, mixed> $options Options to provide Guzzle instance.
+     *
      * @return Client New Guzzle instance.
+     * @throws DebugBarException
      */
     public static function createClient(array $options = []): Client {
         $debugBar = DebugBarHelper::getInstance()->getDebugBar();

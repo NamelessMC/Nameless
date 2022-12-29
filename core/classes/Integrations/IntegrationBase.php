@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class integrations need to extend.
  *
@@ -7,7 +8,6 @@
  * @version 2.1.0
  * @license MIT
  */
-
 abstract class IntegrationBase {
 
     private DB $_db;
@@ -27,8 +27,6 @@ abstract class IntegrationBase {
         if ($integration->count()) {
             $integration = $integration->first();
 
-            $this->_data = new IntegrationData($integration);
-            $this->_order = $integration->order;
         } else {
             // Register integration to database
             $this->_db->query('INSERT INTO nl2_integrations (name) VALUES (?)', [
@@ -37,9 +35,10 @@ abstract class IntegrationBase {
 
             $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
 
-            $this->_data = new IntegrationData($integration);
-            $this->_order = $integration->order;
         }
+
+        $this->_data = new IntegrationData($integration);
+        $this->_order = $integration->order;
     }
 
     /**
@@ -156,21 +155,21 @@ abstract class IntegrationBase {
      * Validate username when it being linked or updated.
      *
      * @param string $username The username value to validate.
-     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
      */
-    abstract public function validateUsername(string $username, int $integration_user_id = 0): bool;
+    abstract public function validateUsername(string $username, string $integration_user_id = '0'): bool;
 
     /**
      * Validate identifier when it being linked or updated.
      *
      * @param string $identifier The identifier value to validate.
-     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
      */
-    abstract public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool;
+    abstract public function validateIdentifier(string $identifier, string $integration_user_id = '0'): bool;
 
     /**
      * Called when register page being loaded

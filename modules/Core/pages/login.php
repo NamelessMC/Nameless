@@ -160,7 +160,7 @@ if (Input::exists()) {
                         $cache->setCache('authme_cache');
                         $authme_db = $cache->retrieve('authme');
 
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
+                        if (defined("MINECRAFT") && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
 
                             // Sync AuthMe password
                             try {

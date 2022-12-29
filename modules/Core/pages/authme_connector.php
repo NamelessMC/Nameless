@@ -210,7 +210,8 @@ if (Input::exists()) {
                         // Success, check user exists in database and validate password
                         $stmt = $authme_conn->prepare('SELECT password, ip FROM ' . $authme_db['table'] . ' WHERE realname = ?');
                         if ($stmt) {
-                            $stmt->bind_param('s', Input::get('username'));
+                            $input_username = Input::get('username');
+                            $stmt->bind_param('s', $input_username);
                             $stmt->execute();
                             $stmt->bind_result($password, $ip);
 

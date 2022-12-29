@@ -171,8 +171,8 @@ $topic_user = new User($topic->topic_creator);
 
 $smarty->assign([
     'TOPIC_TITLE' => Output::getClean($topic->topic_title),
-    'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayname(),
-    'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayname(true),
+    'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayName(),
+    'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayName(true),
     'TOPIC_AUTHOR_PROFILE' => $topic_user->getProfileURL(),
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupStyle(),
     'TOPIC_ID' => $topic->id,
@@ -273,7 +273,7 @@ if (Input::exists()) {
             // Get last post ID
             $last_post_id = DB::getInstance()->lastId();
             $content = EventHandler::executeEvent('prePostCreate', [
-                'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayName()],
                 'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                 'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                 'content' => $content,
@@ -305,7 +305,7 @@ if (Input::exists()) {
                 'nickname' => $user->data()->nickname,
                 'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
                     'topic' => $topic->topic_title,
-                    'author' => $user->getDisplayname(),
+                    'author' => $user->getDisplayName(),
                 ]),
                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
                 'avatar_url' => $user->getAvatar(128, true),
@@ -684,8 +684,8 @@ foreach ($results->data as $n => $nValue) {
 
                 $reaction_user = new User($item->user_given);
                 $post_reactions[$item->reaction_id]['users'][] = [
-                    'username' => $reaction_user->getDisplayname(true),
-                    'nickname' => $reaction_user->getDisplayname(),
+                    'username' => $reaction_user->getDisplayName(true),
+                    'nickname' => $reaction_user->getDisplayName(),
                     'style' => $reaction_user->getGroupStyle(),
                     'avatar' => $reaction_user->getAvatar(),
                     'profile' => $reaction_user->getProfileURL()
@@ -713,8 +713,8 @@ foreach ($results->data as $n => $nValue) {
         'user_id' => $post_creator->data()->id,
         'avatar' => $post_creator->getAvatar(),
         'integrations' => $user_integrations,
-        'username' => $post_creator->getDisplayname(),
-        'mcname' => $post_creator->getDisplayname(true),
+        'username' => $post_creator->getDisplayName(),
+        'mcname' => $post_creator->getDisplayName(true),
         'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
         'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
@@ -816,7 +816,7 @@ $smarty->assign([
     'INSERT_QUOTES' => $forum_language->get('forum', 'insert_quotes'),
     'FORUM_TITLE' => Output::getClean($forum_parent[0]->forum_title),
     'STARTED_BY' => $forum_language->get('forum', 'started_by_x', [
-        'author' => '<a href="' . $topic_user->getProfileURL() . '" style="' . $topic_user->getGroupStyle() . '">' . $topic_user->getDisplayname() . '</a>',
+        'author' => '<a href="' . $topic_user->getProfileURL() . '" style="' . $topic_user->getGroupStyle() . '">' . $topic_user->getDisplayName() . '</a>',
     ]),
     'SUCCESS' => $language->get('general', 'success'),
     'ERROR' => $language->get('general', 'error')

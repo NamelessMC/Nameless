@@ -67,7 +67,7 @@ class HttpUtils {
                 // Extract the optional 'for=<address>' bit
                 foreach (explode(';', trim($part1)) as $part2) {
                     $part2 = explode('=', $part2);
-                    if (count($part2) != 2) {
+                    if (count($part2) !== 2) {
                         die("Invalid Forwarded header");
                     }
 
@@ -95,7 +95,7 @@ class HttpUtils {
         $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
         if ($x_forwarded_proto !== null) {
             if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
-                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($proto) . '".');
+                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($x_forwarded_proto) . '"');
             }
             return $x_forwarded_proto;
         }
@@ -118,11 +118,7 @@ class HttpUtils {
             return (int) $x_forwarded_port;
         }
 
-        if (isset($_SERVER['SERVER_PORT'])) {
-            return (int) $_SERVER['SERVER_PORT'];
-        }
-
-        return null;
+        return $_SERVER['SERVER_PORT'] ?? null;
     }
 
     /**
