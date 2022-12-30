@@ -1,4 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var User $user
+ * @var Cache $cache
+ */
+
 // Toggle dark/light mode
 header('Content-type: application/json;charset=utf-8');
 
@@ -6,11 +19,12 @@ header('Content-type: application/json;charset=utf-8');
 $cache->setCache('template_settings');
 $darkMode = $cache->isCached('darkMode') ? $cache->retrieve('darkMode') : '0';
 
+// TODO: Why are the values reversed?
 if (!$user->isLoggedIn()) {
     if (Cookie::exists('night_mode')) {
-        $darkMode = Cookie::get('night_mode') == '1' ? '0' : '1';
+        $darkMode = Cookie::get('night_mode') === '1' ? '0' : '1';
     } else {
-        $darkMode = $darkMode != '1' ? '1' : '0';
+        $darkMode = $darkMode === '1' ? '0' : '1';
     }
 
     Cookie::put(
@@ -24,9 +38,9 @@ if (!$user->isLoggedIn()) {
     }
 
     if ($user->data()->night_mode === null) {
-        $darkMode = $darkMode != '1' ? '1' : '0';
+        $darkMode = $darkMode === '1' ? '0' : '1';
     } else {
-        $darkMode = $user->data()->night_mode == '1' ? '0' : '1';
+        $darkMode = $user->data()->night_mode === true ? '0' : '1';
     }
 
     $user->update([

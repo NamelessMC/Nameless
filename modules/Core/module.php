@@ -1,21 +1,44 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
- *
- *  License: MIT
- *
- *  Core module file
- */
 
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
+use League\OAuth2\Client\Provider\Google;
+
+/**
+ * Core module file
+ *
+ * @package Modules\Core
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
+ */
 class Core_Module extends Module {
 
+    /**
+     * @var array<string, mixed>
+     */
     private static array $_dashboard_graph = [];
+
+    /**
+     * @var array<string, string>
+     */
     private static array $_notices = [];
+
+    /**
+     * @var array{title: string, link: string}
+     */
     private static array $_user_actions = [];
     private Language $_language;
 
+    /**
+     * @param Language $language
+     * @param Pages $pages
+     * @param User $user
+     * @param Navigation $navigation
+     * @param Cache $cache
+     * @param Endpoints $endpoints
+     * @throws ReflectionException
+     */
     public function __construct(Language $language, Pages $pages, User $user, Navigation $navigation, Cache $cache, Endpoints $endpoints) {
         $this->_language = $language;
 
@@ -147,7 +170,7 @@ class Core_Module extends Module {
                     $redirect = null;
 
                     // Get redirect URL if enabled
-                    if ($custom_page->redirect == 1) {
+                    if ($custom_page->redirect === '1') {
                         $redirect = $custom_page->link;
                     }
 
@@ -157,8 +180,8 @@ class Core_Module extends Module {
                         $custom_page_permissions = DB::getInstance()->get('custom_pages_permissions', ['group_id', $user_group])->results();
                         if (count($custom_page_permissions)) {
                             foreach ($custom_page_permissions as $permission) {
-                                if ($permission->page_id == $custom_page->id) {
-                                    if ($permission->view == 1) {
+                                if ($permission->page_id === $custom_page->id) {
+                                    if ($permission->view === '1') {
                                         // Check cache for order
                                         if (!$cache->isCached($custom_page->id . '_order')) {
                                             // Create cache entry now
@@ -220,15 +243,15 @@ class Core_Module extends Module {
                     foreach ($custom_pages as $custom_page) {
                         $redirect = null;
 
-                        if ($custom_page->redirect == 1) {
+                        if ($custom_page->redirect === '1') {
                             $redirect = Output::getClean($custom_page->link);
                         }
 
                         $pages->addCustom(Output::urlEncodeAllowSlashes($custom_page->url), Output::getClean($custom_page->title), !$custom_page->basic);
 
                         foreach ($custom_page_permissions as $permission) {
-                            if ($permission->page_id == $custom_page->id) {
-                                if ($permission->view == 1) {
+                            if ($permission->page_id === $custom_page->id) {
+                                if ($permission->view === '1') {
                                     // Check cache for order
                                     if (!$cache->isCached($custom_page->id . '_order')) {
                                         // Create cache entry now
@@ -510,7 +533,7 @@ class Core_Module extends Module {
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
-            'class' => \League\OAuth2\Client\Provider\Google::class,
+            'class' => Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
             'icon' => 'fab fa-google',
@@ -570,7 +593,7 @@ class Core_Module extends Module {
                 [$integration_lookup_type, $integration_name, $lookup_value] = $lookup_data;
 
                 $integration = Integrations::getInstance()->getIntegration($integration_name);
-                if ($integration != null) {
+                if ($integration !== null) {
                     if ($integration_lookup_type === 'integration_id') {
                         $integrationUser = new IntegrationUser($integration, $lookup_value, 'identifier');
                         if ($integrationUser->exists()) {
@@ -605,7 +628,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
@@ -621,7 +644,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
         EventHandler::registerListener('renderCustomPage', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderCustomPage', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis');
         EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
@@ -635,41 +658,84 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
     }
 
+    /**
+     *
+     * @return array<string, mixed>
+     */
     public static function getDashboardGraphs(): array {
         return self::$_dashboard_graph;
     }
 
+    /**
+     *
+     * @return array<string, string>
+     */
     public static function getNotices(): array {
         return self::$_notices;
     }
 
+    /**
+     *
+     * @return array{title: string, link: string}
+     */
     public static function getUserActions(): array {
         $return = self::$_user_actions;
 
-        uasort($return, static function ($a, $b) {
+        uasort($return, static function (array $a, array $b) {
             return $a['title'] > $b['title'];
         });
 
         return $return;
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onInstall(): void {
         // Not necessary for Core
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onUninstall(): void {
         // Not necessary for Core
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onEnable(): void {
         // Not necessary for Core
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onDisable(): void {
         // Not necessary for Core
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param ?TemplateBase $template Active template to render.
+     *
+     * @throws DebugBarException
+     * @throws GuzzleException
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
         $language = $this->_language;
 
         // Permissions
@@ -790,7 +856,7 @@ class Core_Module extends Module {
         $validate_action = Util::getSetting('validate_user_action');
         $validate_action = json_decode($validate_action, true);
 
-        if ($validate_action['action'] == 'promote') {
+        if ($validate_action['action'] === 'promote') {
             EventHandler::registerListener('validateUser', 'ValidateHook::execute');
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
@@ -844,14 +910,13 @@ class Core_Module extends Module {
             $cache->setCache('status_page');
             if ($cache->isCached('enabled')) {
                 $status_enabled = $cache->retrieve('enabled');
-
             } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
+                $status_enabled = Util::getSetting('status_page');
                 $cache->store('enabled', $status_enabled);
 
             }
 
-            if ($status_enabled == 1) {
+            if ($status_enabled === '1') {
                 // Add status link to navbar
                 $cache->setCache('navbar_order');
                 if (!$cache->isCached('status_order')) {
@@ -949,44 +1014,24 @@ class Core_Module extends Module {
 
                             $result = MCQuery::multiQuery($servers, $query_type, $language, true);
 
-                            if (isset($result['status_value']) && $result['status_value'] == 1) {
-                                $result['status'] = $language->get('general', 'online');
-
-                                if ($result['player_count'] == 1) {
-                                    $result['status_full'] = $language->get('general', 'currently_1_player_online');
-                                    $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
-                                } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                }
-
-                            } else {
-                                $result['status'] = $language->get('general', 'offline');
-                                $result['status_full'] = $language->get('general', 'server_offline');
-                                $result['server_offline'] = $language->get('general', 'server_offline');
-                            }
-
                         } else {
                             $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
 
-                            if (isset($result['status_value']) && $result['status_value'] == 1) {
-                                $result['status'] = $language->get('general', 'online');
+                        }
+                        if (isset($result['status_value']) && $result['status_value'] === 1) {
+                            $result['status'] = $language->get('general', 'online');
 
-                                if ($result['player_count'] == 1) {
-                                    $result['status_full'] = $language->get('general', 'currently_1_player_online');
-                                    $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
-                                } else {
-                                    $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                    $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
-                                }
-
+                            if ($result['player_count'] === 1) {
+                                $result['status_full'] = $language->get('general', 'currently_1_player_online');
+                                $result['x_players_online'] = $language->get('general', 'currently_1_player_online');
                             } else {
-                                $result['status'] = $language->get('general', 'offline');
-                                $result['status_full'] = $language->get('general', 'server_offline');
-                                $result['server_offline'] = $language->get('general', 'server_offline');
-
+                                $result['status_full'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
+                                $result['x_players_online'] = $language->get('general', 'currently_x_players_online', ['count' => $result['player_count']]);
                             }
-
+                        } else {
+                            $result['status'] = $language->get('general', 'offline');
+                            $result['status_full'] = $language->get('general', 'server_offline');
+                            $result['server_offline'] = $language->get('general', 'server_offline');
                         }
 
                         // Cache for 1 minute
@@ -1002,9 +1047,9 @@ class Core_Module extends Module {
 
                 if (!is_null($default) && isset($default->ip)) {
                     $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
-                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
+                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port !== 25565 ? ':' . $default->port : '')) . '</span>',
                     ]));
-                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
+                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port !== 25565 ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
                     $smarty->assign('COPIED', $language->get('general', 'copied'));
                 } else {
@@ -1016,7 +1061,7 @@ class Core_Module extends Module {
 
             }
 
-            if (defined('PAGE') && PAGE == 'user_query') {
+            if (defined('PAGE') && PAGE === 'user_query') {
                 // Collection
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
@@ -1501,7 +1546,7 @@ class Core_Module extends Module {
                 }
             }
 
-            if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
+            if (defined('PANEL_PAGE') && PANEL_PAGE === 'dashboard') {
                 // Dashboard graph
                 $cache->setCache('dashboard_graph');
                 if ($cache->isCached('core_data')) {
@@ -1596,11 +1641,21 @@ class Core_Module extends Module {
         EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
-    public static function addNotice($url, $text): void {
+    /**
+     * @param string $url
+     * @param string $text
+     * @return void
+     */
+    public static function addNotice(string $url, string $text): void {
         self::$_notices[$url] = $text;
     }
 
-    public static function addDataToDashboardGraph($title, $data): void {
+    /**
+     * @param string $title
+     * @param array $data
+     * @return void
+     */
+    public static function addDataToDashboardGraph(string $title, array $data): void {
         if (isset(self::$_dashboard_graph[$title])) {
             self::$_dashboard_graph[$title] = array_merge_recursive(self::$_dashboard_graph[$title], $data);
         } else {
@@ -1611,15 +1666,15 @@ class Core_Module extends Module {
     /**
      * Fill missing days in an array containing graph data
      *
-     * @param array $data Initial data to display on graph
+     * @param array<string, mixed> $data Initial data to display on graph
      * @param string $key Key to output data under
-     * @return array Formatted data under $key
+     *
+     * @return array<string, mixed> Formatted data under $key
      */
     public static function fillMissingGraphDays(array $data, string $key): array {
         $start = new DateTime('-7 days');
         $end = new DateTime('+1 day');
         $interval = new DateInterval('P1D');
-
         $dates = new DatePeriod($start, $interval, $end);
 
         foreach ($dates as $date) {
@@ -1632,10 +1687,21 @@ class Core_Module extends Module {
         return $data;
     }
 
-    public static function addUserAction($title, $link): void {
+    /**
+     * @param string $title
+     * @param string $link
+     *
+     * @return void
+     */
+    public static function addUserAction(string $title, string $link): void {
         self::$_user_actions[] = ['title' => $title, 'link' => $link];
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     public function getDebugInfo(): array {
         $servers = [];
         $group_sync_server_id = Util::getSetting('group_sync_mc_server');
@@ -1648,7 +1714,7 @@ class Core_Module extends Module {
                 'port' => $server->port,
                 'query_port' => $server->query_port,
                 'bedrock' => (bool)$server->bedrock,
-                'group_sync_server' => $server->id == $group_sync_server_id,
+                'group_sync_server' => $server->id === $group_sync_server_id,
             ];
         }
 

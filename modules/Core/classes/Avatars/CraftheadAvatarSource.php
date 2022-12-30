@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Crafthead avatar source class
  *

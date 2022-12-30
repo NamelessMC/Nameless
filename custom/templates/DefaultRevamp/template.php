@@ -6,14 +6,15 @@
  *
  * License: MIT
  *
- * DefaultRevamp Template
+ * TODO: Add description
  */
 
 /**
- * TODO: Add description
+ * DefaultRevamp Template
  *
  * @package NamelessMC\Core
  * @author Samerton
+ * @author Xemah  (https://xemah.me)
  * @version 2.0.0
  * @license MIT
  */
@@ -37,7 +38,7 @@ class DefaultRevamp_Template extends TemplateBase {
      * @param User $user
      * @param Pages $pages
      */
-    public function __construct($cache, $smarty, $language, $user, $pages) {
+    public function __construct(Cache $cache, Smarty $smarty, Language $language, User $user, Pages $pages) {
         $template = [
             'name' => 'DefaultRevamp',
             'version' => '2.0.2',

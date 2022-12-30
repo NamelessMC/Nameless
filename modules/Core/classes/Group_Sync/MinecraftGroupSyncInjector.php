@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Minecraft group sync injector implementation.
  *

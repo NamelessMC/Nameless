@@ -1,4 +1,16 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var User $user
+ */
+
 // Returns set of users for the StaffCP Users tab
 header('Content-type: application/json;charset=utf-8');
 
@@ -10,14 +22,14 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
+$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users')->first()->total;
 $query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
 $limit = '';
 $params = [];
 
-if (isset($_GET['search']) && $_GET['search']['value'] != '') {
+if (isset($_GET['search']) && $_GET['search']['value'] !== '') {
     $where .= ' WHERE u.username LIKE ? OR u.nickname LIKE ? OR u.email LIKE ?';
     array_push($params, '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%', '%' . $_GET['search']['value'] . '%');
 }
@@ -49,7 +61,7 @@ if (isset($_GET['order']) && count($_GET['order'])) {
     $order .= ' ORDER BY username ASC';
 }
 
-if (isset($_GET['start']) && $_GET['length'] != -1) {
+if (isset($_GET['start']) && $_GET['length'] !== '-1') {
     $limit .= ' LIMIT ' . (int)$_GET['start'] . ', ' . (int)$_GET['length'];
 } else {
     // default 10

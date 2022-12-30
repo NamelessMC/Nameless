@@ -451,7 +451,7 @@ if (isset($_GET['do'])) {
                     'has_avatar' => false,
                 ]);
                 Session::flash('settings_success', $language->get('user', 'avatar_removed_successfully'));
-                Redirect::to(URL::build('/user/settings')); // To ensure that their reset avatar shows up. Otherwise their old avatar is still shown for this request
+                Redirect::to(URL::build('/user/settings')); // To ensure that their reset avatar shows up. Otherwise, their old avatar is still shown for this request
             }
         } else {
             // Invalid form token
@@ -616,7 +616,7 @@ if (isset($_GET['do'])) {
         'ENABLED' => $language->get('user', 'enabled'),
         'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
-        'GRAVATAR_VALUE' => $user->data()->gravatar === '1' ? '1' : '0',
+        'GRAVATAR_VALUE' => $user->data()->gravatar === true ? '1' : '0',
     ]);
 
     if (defined('CUSTOM_AVATARS')) {

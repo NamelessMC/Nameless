@@ -1,4 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var User $user
+ */
+
+
 // Searchable user list
 if (!$user->isLoggedIn()) {
     die(json_encode(['error' => 'Unauthenticated']));

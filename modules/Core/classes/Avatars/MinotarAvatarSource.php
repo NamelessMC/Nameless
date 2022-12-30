@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Minotar avatar source class
  *

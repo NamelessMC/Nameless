@@ -1,4 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var User $user
+ */
+
+use Bulletproof\Image;
 
 if (!$user->isLoggedIn()) {
     http_response_code(400);
@@ -10,7 +23,7 @@ if (!Token::check()) {
     die('Invalid token');
 }
 
-$image = (new \Bulletproof\Image($_FILES))
+$image = (new Image($_FILES))
     ->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'post_images']))
     ->setSize(10, 10000000 /* 10MB */)
     ->setDimension(10000, 10000)

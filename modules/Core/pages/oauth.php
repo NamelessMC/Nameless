@@ -8,12 +8,17 @@
  *
  * TODO: Add description
  *
+ * @var Language $language
+ * @var string $provider_name
  */
+
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use RobThree\Auth\TwoFactorAuth;
 
 const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
+if (isset($_GET['action']) && $_GET['action'] === 'cancel_registration') {
     Session::delete('oauth_register_data');
     Redirect::to(URL::build('/register'));
 }
@@ -37,11 +42,11 @@ if (!Session::exists('oauth_method')) {
 }
 
 // If they are filling in 2FA. We've already retrieved their user. We can skip the other steps in this case
-if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
+if (isset($_SESSION['user_id'], $_POST['tfa_code'])) {
     $user = new User($_SESSION['user_id']);
 
     // Continue the 2FA process
-    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+    $tfa = new TwoFactorAuth('NamelessMC');
     if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
         require(ROOT_PATH . '/core/includes/tfa_signin.php');
@@ -67,7 +72,7 @@ try {
     $token = $provider->getAccessToken('authorization_code', [
         'code' => $_GET['code']
     ]);
-} catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+} catch (IdentityProviderException $e) {
     Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
     ErrorHandler::logWarning('An error occurred while handling an OAuth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
 
@@ -124,13 +129,13 @@ if (Session::get('oauth_method') === 'login') {
     }
 
     // Make sure user is not banned
-    if ($user->data()->isbanned == 1) {
+    if ($user->data()->isbanned === true) {
         Session::flash('oauth_error', $language->get('user', 'account_banned'));
         Redirect::to(URL::build('/login'));
     }
 
     // If the user has 2FA enabled, ask for those credentials
-    if ($user->data()->tfa_enabled == 1 && $user->data()->tfa_complete == 1) {
+    if ($user->data()->tfa_enabled === true && $user->data()->tfa_complete === true) {
         $_SESSION['user_id'] = $user_id;
         if (!isset($_POST['tfa_code'])) {
             require(ROOT_PATH . '/core/includes/tfa_signin.php');
@@ -147,7 +152,7 @@ if (Session::get('oauth_method') === 'login') {
         Session::flash('home', $language->get('user', 'oauth_login_success', ['provider' => ucfirst($provider_name)]));
         Session::delete('oauth_method');
 
-        if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+        if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) !== '=') {
             Redirect::back();
         }
 
@@ -179,7 +184,7 @@ if (Session::get('oauth_method') === 'link') {
 // link user integration
 if (Session::get('oauth_method') === 'link_integration') {
     $integration = Integrations::getInstance()->getIntegration($provider_name);
-    if ($integration == null) {
+    if ($integration === null) {
         Session::flash('connections_error', $language->get('general', 'oauth_failed_setup'));
     }
 
@@ -194,7 +199,7 @@ if (Session::get('oauth_method') === 'link_integration') {
     // Link the user integration
     $integration->successfulRegistration($user);
 
-    // Link their oauth details if its not linked already
+    // Link their oauth details if it's not linked already
     if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         NamelessOAuth::getInstance()->saveUserProvider(
             $user->data()->id,

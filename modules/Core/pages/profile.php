@@ -1,6 +1,6 @@
 <?php
-/*
- *	Made by Samerton
+/**
+ * Made by Samerton
  * https://github.com/NamelessMC/Nameless/
  * NamelessMC version 2.1.0
  *
@@ -8,7 +8,17 @@
  *
  * User profile page
  *
- *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $group
  */
 
 // Always define page name
@@ -17,7 +27,7 @@ const PAGE = 'profile';
 $time_ago = new TimeAgo(TIMEZONE);
 
 $profile = explode('/', rtrim($_GET['route'], '/'));
-if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
+if (!isset($_GET['error']) && count($profile) >= 3 && ($profile[count($profile) - 1] !== 'profile' || $profile[count($profile) - 2] === 'profile')) {
     // User specified
     $md_profile = $profile[count($profile) - 1];
 
@@ -47,7 +57,7 @@ $template->addCSSStyle(
     }'
 );
 
-if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
+if (!isset($_GET['error']) && count($profile) >= 3 && ($profile[count($profile) - 1] !== 'profile' || $profile[count($profile) - 2] === 'profile')) {
     // User specified
     $profile = $profile[count($profile) - 1];
 
@@ -62,7 +72,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         if (isset($_POST['action'])) {
             switch ($_POST['action']) {
                 case 'banner':
-                    if ($user->data()->username == $profile) {
+                    if ($user->data()->username === $profile) {
                         if (Token::check()) {
                             // Update banner
                             if (isset($_POST['banner'])) {
@@ -220,7 +230,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($profile_user->getDisplayName(true)) . '/#post-' . urlencode($_POST['post'])), '/')
                             ]);
 
-                            if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
+                            if ($post[0]->author_id !== $query->id && $query->id !== $user->data()->id) {
                                 Alert::create(
                                     $query->id,
                                     'profile_post',
@@ -241,9 +251,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     URL::build('/profile/' . urlencode($profile_user->getDisplayName(true)) . '/#post-' . urlencode($_POST['post']))
                                 );
                             } else {
-                                if ($post[0]->author_id != $user->data()->id) {
+                                if ($post[0]->author_id !== $user->data()->id) {
                                     // Alert post author
-                                    if ($post[0]->author_id == $query->id) {
+                                    if ($post[0]->author_id === $query->id) {
                                         Alert::create(
                                             $query->id,
                                             'profile_post_reply',
@@ -327,7 +337,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post_id']])->results();
                             if (count($post)) {
                                 $post = $post[0];
-                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
+                                if ($user->canViewStaffCP() || $post->author_id === $user->data()->id) {
                                     if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
                                         try {
                                             DB::getInstance()->update('user_profile_wall_posts', $_POST['post_id'], [
@@ -354,7 +364,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post_id']])->results();
                             if (count($post)) {
                                 $post = $post[0];
-                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
+                                if ($user->canViewStaffCP() || $post->author_id === $user->data()->id) {
                                     try {
                                         DB::getInstance()->delete('user_profile_wall_posts', ['id', $_POST['post_id']]);
                                         DB::getInstance()->delete('user_profile_wall_posts_replies', ['post_id', $_POST['post_id']]);
@@ -376,7 +386,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             $post = DB::getInstance()->get('user_profile_wall_posts_replies', ['id', $_POST['post_id']])->results();
                             if (count($post)) {
                                 $post = $post[0];
-                                if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
+                                if ($user->canViewStaffCP() || $post->author_id === $user->data()->id) {
                                     try {
                                         DB::getInstance()->delete('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
                                     } catch (Exception $e) {
@@ -408,7 +418,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 // Can't like our own post
-                if ($post[0]->author_id == $user->data()->id) {
+                if ($post[0]->author_id === $user->data()->id) {
                     Redirect::to($profile_user->getProfileURL());
                 }
 
@@ -416,7 +426,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 $post_likes = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $_GET['post']])->results();
                 if (count($post_likes)) {
                     foreach ($post_likes as $like) {
-                        if ($like->user_id == $user->data()->id) {
+                        if ($like->user_id === $user->data()->id) {
                             $has_liked = $like->id;
                             break;
                         }
@@ -462,7 +472,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             Redirect::to($profile_user->getProfileURL());
         }
 
-        if ($_GET['p'] == 1) {
+        if ($_GET['p'] === '1') {
             // Avoid bug in pagination class
             Redirect::to($profile_user->getProfileURL());
         }
@@ -472,10 +482,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // View count
-    // Check if user is logged in and the viewer is not the owner of this profile.
-    if (($user->isLoggedIn() && $user->data()->id != $query->id)
-        // If no one is logged in check if they have accepted the cookies.
-        || (!$user->isLoggedIn() && (defined('COOKIE_CHECK') && COOKIES_ALLOWED))
+    // Check if user has accepted cookies and isn't logged in
+    // If no one has accepted cookies in check if the user is logged in and the viewer is not the owner of this profile.
+    if (((defined('COOKIE_CHECK') && COOKIES_ALLOWED === true) && !$user->isLoggedIn())
+        ||($user->isLoggedIn() && $user->data()->id !== $query->id)
     ) {
         if (!Cookie::exists('nl-profile-' . $query->id)) {
             DB::getInstance()->increment('users', $query->id, 'profile_views');
@@ -517,7 +527,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             ]);
         }
 
-        if ($user->data()->id == $query->id) {
+        if ($user->data()->id === $query->id) {
             // Custom profile banners
             $banners = [];
 
@@ -525,18 +535,18 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $images = scandir($image_path);
 
             // Only display jpeg, png, jpg, gif
-            $allowed_exts = ['gif', 'png', 'jpg', 'jpeg'];
+            $allowed_extensions = ['gif', 'png', 'jpg', 'jpeg'];
 
             foreach ($images as $image) {
-                $ext = pathinfo($image, PATHINFO_EXTENSION);
-                if (!in_array($ext, $allowed_exts)) {
+                $extension = pathinfo($image, PATHINFO_EXTENSION);
+                if (!in_array($extension, $allowed_extensions)) {
                     continue;
                 }
 
                 $banners[] = [
                     'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($image),
                     'name' => Output::getClean($image),
-                    'active' => $user->data()->banner == $image
+                    'active' => $user->data()->banner === $image
                 ];
             }
 
@@ -546,15 +556,15 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 $images = scandir($image_path);
 
                 foreach ($images as $image) {
-                    $ext = pathinfo($image, PATHINFO_EXTENSION);
-                    if (!in_array($ext, $allowed_exts)) {
+                    $extension = pathinfo($image, PATHINFO_EXTENSION);
+                    if (!in_array($extension, $allowed_extensions)) {
                         continue;
                     }
 
                     $banners[] = [
                         'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
                         'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
-                        'active' => $user->data()->banner == $user->data()->id . '/' . $image
+                        'active' => $user->data()->banner === $user->data()->id . '/' . $image
                     ];
                 }
             }
@@ -664,7 +674,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $reactions_query = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $nValue->id])->results();
             if (count($reactions_query)) {
-                if (count($reactions_query) == 1) {
+                if (count($reactions_query) === 1) {
                     $reactions['count'] = $language->get('user', '1_reaction');
                 } else {
                     $reactions['count'] = $language->get('user', 'x_reactions', ['count' => count($reactions_query)]);
@@ -674,14 +684,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     // Get reaction name and icon
                     // TODO
                     /*
-                    $reaction_name = DB::getInstance()->get('reactions', array('id', $reaction->reaction_id))->results();
+                        $reaction_name = DB::getInstance()->get('reactions', array('id', $reaction->reaction_id))->results();
 
-                    if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
-                    $reaction_html = $reaction_name[0]->html;
-                    $reaction_name = Output::getClean($reaction_name[0]->name);
-                    *
- *
- */
+                        if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
+                        $reaction_html = $reaction_name[0]->html;
+                        $reaction_name = Output::getClean($reaction_name[0]->name);
+                    */
 
                     $target_user = new User($reaction->user_id);
                     $reactions['reactions'][] = [
@@ -702,7 +710,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $replies_query = DB::getInstance()->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $nValue->id, 'time', 'ASC')->results();
             if (count($replies_query)) {
-                if (count($replies_query) == 1) {
+                if (count($replies_query) === 1) {
                     $replies['count'] = $language->get('user', '1_reply');
                 } else {
                     $replies['count'] = $language->get('user', 'x_replies', ['count' => count($replies_query)]);
@@ -720,7 +728,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'time_friendly' => $time_ago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified(Output::getDecoded($reply->content)),
-                        'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
+                        'self' => (($user->isLoggedIn() && $user->data()->id === $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
                     ];
                 }
@@ -743,8 +751,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
-                'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
+                'self' => $user->isLoggedIn() && $user->data()->id === $nValue->author_id,
+                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id !== $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
             ];
         }
     } else {
@@ -793,7 +801,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // User Integrations
     $user_integrations = [];
     foreach ($profile_user->getIntegrations() as $key => $integrationUser) {
-        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+        if ($integrationUser->data()->username !== null && $integrationUser->data()->show_publicly) {
             $fields[] = [
                 'title' => Output::getClean($key),
                 'type' => 'text',
@@ -859,7 +867,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Assign profile tabs
     $smarty->assign('TABS', $tabs);
 
-    if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn() && $user->data()->username == $profile) {
+    if (isset($directories[1]) && !empty($directories[1]) && !isset($_GET['error']) && $user->isLoggedIn() && $user->data()->username === $profile) {
         // Script for banner selector
         $template->assets()->include([
             AssetTree::IMAGE_PICKER,
@@ -876,7 +884,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $template->onPageLoad();
 
     $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets());
 
     require(ROOT_PATH . '/core/templates/navbar.php');
     require(ROOT_PATH . '/core/templates/footer.php');
@@ -897,7 +905,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $template->onPageLoad();
 
         $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-        $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+        $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets());
 
         require(ROOT_PATH . '/core/templates/navbar.php');
         require(ROOT_PATH . '/core/templates/footer.php');

@@ -110,7 +110,7 @@ class Pages {
     /**
      * Get registered sitemap methods.
      *
-     * @return array<array<class-string, string>> Array of sitemap methods.
+     * @return array<callable> Array of sitemap methods.
      */
     public function getSitemapMethods(): array {
         return $this->_sm_methods;
@@ -120,6 +120,7 @@ class Pages {
      * Get page by ID
      *
      * @param string $page_id ID of page to find.
+     *
      * @return array Page information.
      */
     public function getPageById(string $page_id): ?array {
@@ -137,6 +138,7 @@ class Pages {
      * Get page by URL.
      *
      * @param string $url URL of page to find.
+     *
      * @return array Page information.
      */
     public function getPageByURL(string $url): ?array {

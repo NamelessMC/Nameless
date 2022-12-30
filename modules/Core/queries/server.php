@@ -1,4 +1,17 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Cache $cache
+ * @var Language $language
+ */
+
 // Check server ID is specified
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die();

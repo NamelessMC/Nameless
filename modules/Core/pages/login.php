@@ -8,7 +8,18 @@
  *
  * Login page
  *
- *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $route
+ * @var array<int, string> $front_page_modules
  */
 
 // Set page name variable
@@ -58,7 +69,7 @@ if (Input::exists()) {
 
             $rate_limit = [5, 60]; // 5 attempts in 60 seconds - TODO allow this to be customised?
 
-            if ($login_method == 'email') {
+            if ($login_method === 'email') {
                 $to_validate = [
                     'email' => [
                         Validate::REQUIRED => true,
@@ -89,25 +100,25 @@ if (Input::exists()) {
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'username' => [
-                    Validate::REQUIRED => ($login_method == 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
+                    Validate::REQUIRED => ($login_method === 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'password' => $language->get('user', 'must_input_password')
             ]);
 
             // Check if validation passed
             if ($validation->passed()) {
-                if ($login_method == 'email') {
+                if ($login_method === 'email') {
                     $username = Input::get('email');
                     $method_field = 'email';
                 } else {
                     $username = Input::get('username');
-                    if (($login_method == 'email_or_username') && str_contains(Input::get('username'), '@')) {
+                    if (($login_method === 'email_or_username') && str_contains(Input::get('username'), '@')) {
                         $method_field = 'email';
                     } else {
                         $method_field = 'username';
@@ -116,11 +127,11 @@ if (Input::exists()) {
 
                 $user_query = new User($username, $method_field);
                 if ($user_query->exists()) {
-                    if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
+                    if ($user_query->data()->tfa_enabled === true && $user_query->data()->tfa_complete === true) {
                         // Verify password first
                         if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
                             if (!isset($_POST['tfa_code'])) {
-                                if ($user_query->data()->tfa_type == 0) {
+                                if ($user_query->data()->tfa_type === false) {
                                     // Emails
                                     // TODO
 
@@ -131,7 +142,7 @@ if (Input::exists()) {
                                 }
                             } else {
                                 // Validate code
-                                if ($user_query->data()->tfa_type == 1) {
+                                if ($user_query->data()->tfa_type === true) {
                                     // App
                                     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
@@ -157,12 +168,11 @@ if (Input::exists()) {
                         $user = new User();
 
                         // Did the user check 'remember me'?
-                        $remember = Input::get('remember') == 1;
-
+                        $remember = Input::get('remember') === '1';
                         $cache->setCache('authme_cache');
                         $authme_db = $cache->retrieve('authme');
 
-                        if (defined("MINECRAFT") && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
+                        if (defined("MINECRAFT") && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] === '1') {
 
                             // Sync AuthMe password
                             try {
@@ -173,7 +183,7 @@ if (Input::exists()) {
                                     // Continue anyway, and use already stored password
                                 } else {
                                     // Success, check user exists in database and validate password
-                                    if ($method_field == 'email') {
+                                    if ($method_field === 'email') {
                                         $field = 'email';
                                     } else {
                                         $field = 'realname';
@@ -202,12 +212,7 @@ if (Input::exists()) {
                                                 break;
 
                                             case 'pbkdf2':
-                                                $exploded = explode('$', $password);
-
-                                                $iterations = $exploded[1];
-                                                $salt = $exploded[2];
-                                                $pass = $exploded[3];
-
+                                                [$iterations, $salt, $pass] = explode('$', $password);
                                                 $password = $iterations . '$' . $salt . '$' . $pass;
 
                                                 break;
@@ -215,7 +220,7 @@ if (Input::exists()) {
 
                                         // Update password
                                         if (!is_null($password)) {
-                                            if ($method_field == 'email') {
+                                            if ($method_field === 'email') {
                                                 $user_id = $user->emailToId($username);
                                             } else {
                                                 $user_id = $user->nameToId($username);
@@ -241,7 +246,7 @@ if (Input::exists()) {
                             Log::getInstance()->log(Log::Action('user/login'));
 
                             // Redirect to a certain page?
-                            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                            if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) !== '=') {
                                 Redirect::back();
                             } else {
                                 Session::flash('home', $language->get('user', 'successful_login'));
@@ -274,9 +279,9 @@ Session::put('oauth_method', 'login');
 
 // Sign in template
 // Generate content
-if ($login_method == 'email') {
+if ($login_method === 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
-} else if ($login_method == 'email_or_username') {
+} else if ($login_method === 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
 } else if (MINECRAFT) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
@@ -285,7 +290,7 @@ if ($login_method == 'email') {
 }
 
 $smarty->assign([
-    'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
+    'USERNAME_INPUT' => ($login_method === 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
     'PASSWORD' => $language->get('user', 'password'),
     'REMEMBER_ME' => $language->get('user', 'remember_me'),
     'FORGOT_PASSWORD_URL' => URL::build('/forgot_password'),

@@ -1,20 +1,23 @@
 <?php
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Online staff widget
  *
- *  License: MIT
- *
- *  Online staff widget
+ * @package Modules\Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class OnlineStaffWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         // Get widget
         $widget_query = self::getData('Online Staff');
@@ -33,6 +36,9 @@ class OnlineStaffWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         $this->_cache->setCache('online_members');
 

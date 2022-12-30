@@ -1,27 +1,33 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
- *
- *  License: MIT
- *
- *  Profile Posts Widget
- */
 
+/**
+ * Profile Posts Widget
+ *
+ * @package Modules\Core\Widgets
+ * @author Aberdeener
+ * @version 2.0.2
+ * @license MIT
+ */
 class ProfilePostsWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
     private User $_user;
-    private TimeAgo $_timeago;
+    private TimeAgo $_time_ago;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     * @param User $user
+     * @param TimeAgo $time_ago
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $time_ago) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
-        $this->_timeago = $time_ago;
+        $this->_time_ago = $time_ago;
 
         // Get widget
         $widget_query = self::getData('Latest Profile Posts');
@@ -36,6 +42,9 @@ class ProfilePostsWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         // Generate HTML code for widget
         if ($this->_user->isLoggedIn()) {
@@ -93,7 +102,7 @@ class ProfilePostsWidget extends WidgetBase {
                     'date_ago' => date(DATE_FORMAT, $post->time),
                     'user_id' => $post->author_id,
                     'user_profile_link' => $post_author->getProfileURL(),
-                    'ago' => $this->_timeago->inWords($post->time, $this->_language)
+                    'ago' => $this->_time_ago->inWords($post->time, $this->_language)
                 ];
             }
             $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);

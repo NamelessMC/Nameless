@@ -1,4 +1,15 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var User $user
+ */
 
 header('Content-type: application/json;charset=utf-8');
 
@@ -12,10 +23,10 @@ $users = DB::getInstance()->query(
 )->results();
 
 $users_json = [];
-foreach ($users as $user) {
+foreach ($users as $user_data) {
     $users_json[] = [
-        'nickname' => $user->nickname,
-        'avatar_url' => AvatarSource::getAvatarFromUserData($user, false, 20, true)
+        'nickname' => $user_data->nickname,
+        'avatar_url' => AvatarSource::getAvatarFromUserData($user_data, false, 20, true)
     ];
 }
 

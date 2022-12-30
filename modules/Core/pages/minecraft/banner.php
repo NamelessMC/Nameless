@@ -76,7 +76,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 // Cache the favicon for 1 hour
                 imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
 
-                $cache->store('favicon', 'true', 3600);
+                $cache->store('favicon', true, 3600);
             } else {
                 $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
             }
@@ -101,7 +101,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             imagedestroy($image);
 
             // Cache for 2 minutes
-            $cache->store('image', 'true', 120);
+            $cache->store('image', true, 120);
         } else {
             header('Content-Type: image/png');
             $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');

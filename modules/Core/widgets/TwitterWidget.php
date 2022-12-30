@@ -1,17 +1,20 @@
 <?php
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Statistics Widget
  *
- *  License: MIT
- *
- *  Twitter Widget
+ * @package Modules\Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class TwitterWidget extends WidgetBase {
 
+    /**
+     * @param Smarty $smarty
+     * @param ?string $twitter
+     * @param ?string $theme
+     */
     public function __construct(Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
         // Get widget
         $widget_query = self::getData('Twitter');
@@ -35,6 +38,9 @@ class TwitterWidget extends WidgetBase {
         ';
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         // Do nothing
     }

@@ -990,7 +990,7 @@ class User {
      * @param bool $show_private Whether to only return public fields or not (default `true`).
      * @param bool $only_forum Whether to only return fields which display on forum posts, only if $public is true (default `false`).
      *
-     * @return array<int, UserProfileField> Array of profile fields.
+     * @return array<string, UserProfileField> Array of profile fields.
      */
     public function getProfileFields(bool $show_private = false, bool $only_forum = false): array {
         $rows = DB::getInstance()->query('SELECT pf.*, upf.id as upf_id, upf.value, upf.updated FROM nl2_profile_fields pf LEFT JOIN nl2_users_profile_fields upf ON (pf.id = upf.field_id AND upf.user_id = ?)', [

@@ -1,19 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
- *
- *  License: MIT
- *
- *  Statistics Widget // By Xemah // https://xemah.me
- */
 
+/**
+ * Statistics Widget
+ *
+ * @package Modules\Core\Widgets
+ * @author Samerton
+ * @author Xemah (https://xemah.me)
+ * @version 2.0.2
+ * @license MIT
+ */
 class StatsWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $this->_cache = $cache;
         $this->_smarty = $smarty;
@@ -32,6 +37,9 @@ class StatsWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         $this->_cache->setCache('statistics');
 

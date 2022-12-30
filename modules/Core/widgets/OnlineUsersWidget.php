@@ -1,20 +1,23 @@
 <?php
 
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Online users widget
  *
- *  License: MIT
- *
- *  Online users widget
+ * @package Modules\Core\Widgets
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
  */
-
 class OnlineUsersWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Cache $cache
+     * @param Smarty $smarty
+     * @param Language $language
+     */
     public function __construct(Cache $cache, Smarty $smarty, Language $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -34,6 +37,9 @@ class OnlineUsersWidget extends WidgetBase {
         $this->_order = $widget_query->order;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         $this->_cache->setCache('online_members');
 

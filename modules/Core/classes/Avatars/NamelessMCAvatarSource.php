@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Built-in NamelessMC Avatar class
  *

@@ -7,8 +7,6 @@
  * License: MIT
  *
  * Display either homepage (with news or custom content) or portal
- *
- *
  */
 
 // Home page or portal?

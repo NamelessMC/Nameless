@@ -1,12 +1,19 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr10
  *
- *  License: MIT
+ * License: MIT
  *
- *  Core initialisation file
+ * Core initialisation file
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Endpoints $endpoints
  */
 
 // Ensure module has been installed

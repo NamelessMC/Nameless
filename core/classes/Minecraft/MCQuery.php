@@ -80,8 +80,8 @@ class MCQuery {
                         return [
                             'status_value' => 1,
                             'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query['players']['online']),
-                            'player_count_max' => Output::getClean($query['players']['max']),
+                            'player_count' => (int)Output::getClean($query['players']['online']),
+                            'player_count_max' => (int)Output::getClean($query['players']['max']),
                             'player_list' => $player_list,
                             'format_player_list' => self::formatPlayerList($player_list),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
@@ -99,8 +99,8 @@ class MCQuery {
                     return [
                         'status_value' => 1,
                         'status' => $language->get('general', 'online'),
-                        'player_count' => Output::getClean($query['Players']),
-                        'player_count_max' => Output::getClean($query['MaxPlayers']),
+                        'player_count' => (int)Output::getClean($query['Players']),
+                        'player_count_max' => (int)Output::getClean($query['MaxPlayers']),
                         'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
                         'motd' => $query['HostName'],
                         'version' => $query['Version']
@@ -130,8 +130,8 @@ class MCQuery {
                 return [
                     'status_value' => 1,
                     'status' => $language->get('general', 'online'),
-                    'player_count' => Output::getClean($query->response->players->online),
-                    'player_count_max' => Output::getClean($query->response->players->max),
+                    'player_count' => (int)Output::getClean($query->response->players->online),
+                    'player_count_max' => (int)Output::getClean($query->response->players->max),
                     'player_list' => $player_list,
                     'format_player_list' => self::formatPlayerList($player_list),
                     'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
@@ -263,8 +263,8 @@ class MCQuery {
                             'name' => Output::getClean($server['name']),
                             'status_value' => 1,
                             'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query['Players']),
-                            'player_count_max' => Output::getClean($query['MaxPlayers']),
+                            'player_count' => (int)Output::getClean($query['Players']),
+                            'player_count_max' => (int)Output::getClean($query['MaxPlayers']),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
                         ];
                     } else {
@@ -279,8 +279,8 @@ class MCQuery {
                             'name' => Output::getClean($server['name']),
                             'status_value' => 1,
                             'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query['players']['online']),
-                            'player_count_max' => Output::getClean($query['players']['max']),
+                            'player_count' => (int)Output::getClean($query['players']['online']),
+                            'player_count_max' => (int)Output::getClean($query['players']['max']),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                         ];
                     } else {
@@ -321,15 +321,15 @@ class MCQuery {
                             'name' => Output::getClean($server['name']),
                             'status_value' => 1,
                             'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query->response->players->online),
-                            'player_count_max' => Output::getClean($query->response->players->max),
+                            'player_count' => (int)Output::getClean($query->response->players->online),
+                            'player_count_max' => (int)Output::getClean($query->response->players->max),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
                         ];
                     } else {
                         if ($status === 0) {
                             $status = 1;
                         }
-                        $total_count += $query->response->players->online;
+                        $total_count += (int)$query->response->players->online;
                     }
                 } else if ($accumulate === true) {
                     $to_return[] = [

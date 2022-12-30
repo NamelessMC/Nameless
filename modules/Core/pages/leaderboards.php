@@ -8,7 +8,18 @@
  *
  * Leaderboards page
  *
- *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $route
+ * @var array<int, string> $front_page_modules
  */
 
 $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();

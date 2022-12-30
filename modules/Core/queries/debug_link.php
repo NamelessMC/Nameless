@@ -1,4 +1,16 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var User $user
+ * @var TemplateBase $template
+ */
 
 // Can user generate the debug link?
 if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
@@ -17,7 +29,7 @@ $enabled_modules = Module::getModules();
 foreach ($modules as $item) {
     $exists = false;
     foreach ($enabled_modules as $enabled_item) {
-        if ($enabled_item->getName() == $item->name) {
+        if ($enabled_item->getName() === $item->name) {
             $exists = true;
             $module = $enabled_item;
             break;
@@ -32,8 +44,9 @@ foreach ($modules as $item) {
         require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
-    $namelessmc_modules[$module->getName()] = [
-        'name' => $module->getName(),
+    $module_name = $module->getName();
+    $namelessmc_modules[$module_name] = [
+        'name' => $module_name,
         'enabled' => Util::isModuleEnabled($module->getName()),
         'author' => $module->getAuthor(),
         'module_version' => $module->getVersion(),
@@ -93,7 +106,7 @@ $group_sync['rules'] = [];
 foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
     $rules = [];
     foreach (get_object_vars($rule) as $column => $value) {
-        if ($column == 'id') {
+        if ((string)$column === 'id') {
             $rules[$column] = (int)$value;
         } else {
             $rules[$column] = $value;
@@ -109,6 +122,7 @@ foreach (DB::getInstance()->query('SELECT `id`, `name`, `action`, `events` FROM 
         'id' => (int)$webhook->id,
         'name' => $webhook->name,
         'action' => (int)$webhook->action,
+        // TODO: Does this decode into a sequential or associative array?
         'events' => json_decode($webhook->events),
     ];
 }
@@ -118,6 +132,7 @@ foreach (DB::getInstance()->query('SELECT `id`, `forum_title`, `hooks` FROM nl2_
     $forum_hooks[] = [
         'forum_id' => (int)$forum->id,
         'title' => $forum->forum_title,
+        // TODO: Does this decode into a sequential or associative array?
         'hooks' => array_map(static fn($hook) => (int)$hook, json_decode($forum->hooks)),
     ];
 }
@@ -193,7 +208,7 @@ $data = [
             'email_verification' => Util::getSetting('email_verification') === '1',
             'login_method' => Util::getSetting('login_method'),
             'captcha_type' => Util::getSetting('recaptcha_type'),
-            'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
+            'captcha_login' => !(Util::getSetting('recaptcha_login') === '0'),
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [
@@ -232,7 +247,7 @@ $data = [
         'php_modules' => get_loaded_extensions(),
         'host_os' => PHP_OS,
         'host_kernel_version' => php_uname('r'),
-        'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
+        'official_docker_image' => (bool)getenv('NAMELESSMC_METRICS_DOCKER') === true,
         'disk_total_space' => disk_total_space('./'),
         'disk_free_space' => disk_free_space('./'),
         'memory_total_space' => ini_get('memory_limit'),

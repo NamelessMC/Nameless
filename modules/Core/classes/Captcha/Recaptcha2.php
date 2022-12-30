@@ -76,7 +76,7 @@ class Recaptcha2 extends CaptchaBase {
     /**
      * Get form input HTML to display
      *
-     * @return ?string HTML to display
+     * @return string HTML to display
      */
     public function getHtml(): string {
         if (defined('DARK_MODE') && DARK_MODE === true) {

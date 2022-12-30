@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MCHeads avatar source class
  *

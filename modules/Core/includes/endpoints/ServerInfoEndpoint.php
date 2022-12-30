@@ -181,11 +181,11 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
     /**
      * @param User $user
-     * @param $player
+     * @param array $player
      *
      * @return void
      */
-    private function updatePlaceholders(User $user, $player): void {
+    private function updatePlaceholders(User $user, array $player): void {
         if ($user->exists()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }

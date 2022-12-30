@@ -90,11 +90,11 @@ class CookieConsent_Module extends Module {
      * @param Pages $pages Instance of pages class.
      * @param Cache $cache Instance of cache to pass.
      * @param Smarty $smarty Instance of smarty to pass.
-     * @param Navigation $navs Array of loaded navigation menus.
+     * @param Navigation[] $navs Array of loaded navigation menus.
      * @param Widgets $widgets Instance of widget class to pass.
      * @param ?TemplateBase $template Active template to render.
      */
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template): void {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template): void {
         $language = $this->_language;
 
         // AdminCP

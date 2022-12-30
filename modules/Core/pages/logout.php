@@ -8,7 +8,8 @@
  *
  * Log user out
  *
- *
+ * @var User $user
+ * @var Language $language
  */
 
 if ($user->isLoggedIn()) {

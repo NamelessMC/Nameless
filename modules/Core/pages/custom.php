@@ -18,8 +18,7 @@
  * @var Navigation $staffcp_nav
  * @var Widgets $widgets
  * @var TemplateBase $template
- *
- * TODO: CONTINUE FROM HERE
+ * @var string $route
  */
 
 // Get page info from URL
@@ -37,8 +36,8 @@ if ($user->isLoggedIn()) {
     $groups = $user->getAllGroupIds();
     foreach ($groups as $group) {
         foreach ($perms as $perm) {
-            if ($perm->group_id == $group) {
-                if ($perm->view == 1) {
+            if ($perm->group_id === $group) {
+                if ($perm->view === '1') {
                     $can_view = 1;
                     break 2;
                 }
@@ -49,8 +48,8 @@ if ($user->isLoggedIn()) {
     }
 } else {
     foreach ($perms as $perm) {
-        if ($perm->group_id == 0) {
-            if ($perm->view == 1) {
+        if ($perm->group_id === '0') {
+            if ($perm->view === '1') {
                 $can_view = 1;
             }
 
@@ -87,12 +86,12 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $content = EventHandler::executeEvent('renderCustomPage', [
     'content' => $custom_page->content,
-    'skip_purify' => $custom_page->all_html === '1' ?? false // TODO: Does all_html return 0 or 1?
+    'skip_purify' => $custom_page->all_html === '1'
 ])['content'];
 
 $smarty->assign([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
-    'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
+    'WIDGETS_RIGHT' => $widgets->getWidgets(),
     'CONTENT' => $content,
 ]);
 

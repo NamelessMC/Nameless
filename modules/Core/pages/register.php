@@ -8,7 +8,16 @@
  *
  * Registration page
  *
- *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Ensure user isn't already logged in
@@ -28,7 +37,7 @@ require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 $registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
 $registration_enabled = $registration_enabled[0]->value;
 
-if ($registration_enabled == 0) {
+if ($registration_enabled === '0') {
     // Registration is disabled, display a message
     // Get registration disabled message and assign to Smarty variable
     $registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
@@ -58,14 +67,12 @@ if ($registration_enabled == 0) {
 }
 
 // Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
+if (MINECRAFT === true) {
     // Check if AuthMe is enabled
     $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
     $authme_enabled = $authme_enabled[0]->value;
 
-    if ($authme_enabled == '1') {
+    if ($authme_enabled === '1') {
         // Authme connector
         require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
         die();
@@ -95,11 +102,11 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
 }
 
 // Is UUID linking enabled?
-if ($minecraft == '1') {
+if (MINECRAFT === true) {
     $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
     $uuid_linking = $uuid_linking[0]->value;
 
-    if ($uuid_linking == '1') {
+    if ($uuid_linking === '1') {
         // Do we want to verify the user owns the account?
         $account_verification = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
         $account_verification = $account_verification[0]->value;
@@ -229,7 +236,7 @@ if (Input::exists()) {
                 Redirect::to(URL::build('/'));
             }
 
-            // Check if any integrations wanna modify the validation
+            // Check if any integrations want to modify the validation
             foreach ($integrations->getEnabledIntegrations() as $integration) {
                 $integration->beforeRegistrationValidation($validation);
             }
@@ -247,8 +254,8 @@ if (Input::exists()) {
 
                 // Check if there was any integrations errors
                 if (!isset($integration_errors)) {
-                    // Minecraft user account association
-                    if (isset($account_verification) && $account_verification == '1') {
+                    // Minecraft-user account association
+                    if (isset($account_verification) && $account_verification === '1') {
                         // MCAssoc enabled
                         // Get data from database
                         $mcassoc_site_id = SITE_NAME;
@@ -292,13 +299,12 @@ if (Input::exists()) {
                         // Get default language ID before creating user
                         $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE])->results();
 
-                        if (count($language_id)) {
-                            $language_id = $language_id[0]->id;
-                        } else {
+                        if (!count($language_id)) {
                             // fallback to EnglishUK
                             $language_id = DB::getInstance()->get('languages', ['short_code', 'en_UK'])->results();
-                            $language_id = $language_id[0]->id;
                         }
+
+                        $language_id = $language_id[0]->id;
 
                         // Get default group ID
                         $cache->setCache('default_group');
@@ -390,11 +396,12 @@ if (Input::exists()) {
 
                         Redirect::to(URL::build('/'));
                     }
+
                     die();
-                } else {
-                    // Integrations errors
-                    $errors = $integration_errors;
                 }
+
+                // Integrations errors
+                $errors = $integration_errors;
 
             } else {
                 // Errors

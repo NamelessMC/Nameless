@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Crafatar avatar source class
  *

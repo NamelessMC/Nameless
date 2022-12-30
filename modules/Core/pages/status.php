@@ -8,20 +8,28 @@
  *
  * Status page
  *
- *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 $cache->setCache('status_page');
 if ($cache->isCached('enabled')) {
     $status_enabled = $cache->retrieve('enabled');
-
 } else {
     $status_enabled = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
-    $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
+    $status_enabled = $status_enabled[0]->value;
     $cache->store('enabled', $status_enabled);
 }
 
-if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
+if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled !== '1') {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

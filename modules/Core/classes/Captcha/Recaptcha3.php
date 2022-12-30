@@ -13,8 +13,8 @@ use DebugBar\DebugBarException;
 class Recaptcha3 extends CaptchaBase {
 
     /**
-     * @param string|null $privateKey
-     * @param string|null $publicKey
+     * @param ?string $privateKey
+     * @param ?string $publicKey
      */
     public function __construct(?string $privateKey, ?string $publicKey) {
         $this->_name = 'Recaptcha3';
@@ -100,7 +100,7 @@ class Recaptcha3 extends CaptchaBase {
      * Get JavaScript on submit function
      *
      * @param string $id ID attribute of form
-     * @return ?string JS for submit function
+     * @return string JS for submit function
      */
     public function getJavascriptSubmit(string $id): string {
         return '

@@ -1,20 +1,23 @@
 <?php
 
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Server Status Widget
  *
- *  License: MIT
- *
- *  Profile Posts Widget
+ * @package Modules\Core\Widgets
+ * @author Aberdeener
+ * @version 2.0.0-pr9
+ * @license MIT
  */
-
 class ServerStatusWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $this->_language = $language;
         $this->_smarty = $smarty;
@@ -33,6 +36,9 @@ class ServerStatusWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         // Generate HTML code for widget
         $this->_cache->setCache('server_status_widget');
@@ -45,7 +51,7 @@ class ServerStatusWidget extends WidgetBase {
             $server = DB::getInstance()->query('SELECT * FROM nl2_mc_servers WHERE is_default = 1')->results();
             $server = $server[0];
 
-            if ($server != null) {
+            if ($server !== null) {
                 $server_array_request = HttpClient::get(rtrim(URL::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id));
                 if (!$server_array_request->hasError()) {
                     $server_array = $server_array_request->json(true);

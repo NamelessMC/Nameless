@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $_SESSION['hostname'] = $_POST['hostname'] ?? $_SERVER['SERVER_NAME'];
         $_SESSION['install_path'] = $_POST['install_path'] ?? '';
-        $_SESSION['friendly_urls'] = (bool)$_POST['friendly'] ?? false;
+        $_SESSION['friendly_urls'] = (bool)($_POST['friendly'] ?? false);
 
         if (getenv('NAMELESS_PATH')) {
             $_SESSION['install_path'] = getenv('NAMELESS_PATH');

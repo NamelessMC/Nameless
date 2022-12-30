@@ -8,7 +8,17 @@
  *
  * Forgot password page
  *
- *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $route
  */
 
 const PAGE = 'forgot_password';
@@ -75,7 +85,7 @@ if (!isset($_GET['c'])) {
 
                 $success = $language->get('user', 'forgot_password_email_sent');
             } else {
-                $error = join('<br />', $validation->errors());
+                $error = implode('<br />', $validation->errors());
             }
         } else {
             $error = $language->get('general', 'invalid_token');
@@ -143,7 +153,7 @@ if (!isset($_GET['c'])) {
             ]);
 
             if ($validation->passed()) {
-                if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
+                if (strcasecmp($target_user->data()->email, $_POST['email']) === 0) {
                     $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
                     try {
                         $target_user->update([

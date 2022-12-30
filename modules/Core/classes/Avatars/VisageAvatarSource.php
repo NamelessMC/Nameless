@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Visage avatar source class
  *

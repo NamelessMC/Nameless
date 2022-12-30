@@ -1,11 +1,22 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Cache $cache
+ * @var Language $language
+ */
+
 // Check cache to see when servers were last queried
 $cache->setCache('server_query_cache');
 if ($cache->isCached('query_interval')) {
     $query_interval = $cache->retrieve('query_interval');
-    if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
-        // Interval ok
-    } else {
+    if (!is_numeric($query_interval) || $query_interval > 60 || $query_interval < 5) {
         // Default to 10
         $query_interval = 10;
 
@@ -21,7 +32,7 @@ if ($cache->isCached('query_interval')) {
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
     $key = Util::getSetting('unique_id');
-    if ($key === null || $_GET['key'] != $key) {
+    if ($key === null || $_GET['key'] !== $key) {
         die();
     }
 } else {
@@ -35,7 +46,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = Util::getSetting('external_query', 'use else statement if seting is not present in database');
+$query_type = Util::getSetting('external_query', 'use else statement if setting is not present in database');
 if ($query_type === '1') {
     $query_type = 'external';
 } else {
