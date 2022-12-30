@@ -1,12 +1,15 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  User warning acknowledgement page
+ * User warning acknowledgement page
+ *
+ * @var User $user
+ * @var string $route
  */
 
 if (!$user->isLoggedIn()) {
@@ -24,7 +27,7 @@ if (!is_numeric($wid)) {
 // Ensure warning belongs to user
 $warning = DB::getInstance()->get('infractions', ['id', $wid])->results();
 if (count($warning)) {
-    if ($warning[0]->acknowledged == 0 && $warning[0]->punished == $user->data()->id) {
+    if ($warning[0]->acknowledged === '0' && $warning[0]->punished === $user->data()->id) {
         DB::getInstance()->update('infractions', $warning[0]->id, [
             'acknowledged' => true,
         ]);

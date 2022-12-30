@@ -16,7 +16,7 @@ if (!isset($forum) || (!$forum instanceof Forum)) {
 const PAGE = 'forum';
 
 // Initialise
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -178,7 +178,7 @@ if (isset($_GET['s'])) {
                 'post_author_profile' => $post_user->getProfileURL(),
                 'post_author_style' => $post_user->getGroupStyle(),
                 'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
-                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
+                'post_date_friendly' => $time_ago->inWords($results->data[$n]['post_date'], $language),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
                 'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr12
  *
- *  License: MIT
+ * License: MIT
  *
- *  User placeholders page
+ * User placeholders page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -25,7 +36,7 @@ const PAGE = 'cc_placeholders';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 $placeholders_list = [];
 
@@ -34,7 +45,7 @@ foreach ($user->getPlaceholders() as $placeholder) {
         'name' => $placeholder->name,
         'friendly_name' => $placeholder->friendly_name,
         'value' => $placeholder->value,
-        'last_updated' => ucfirst($timeago->inWords($placeholder->last_updated, $language)),
+        'last_updated' => ucfirst($time_ago->inWords($placeholder->last_updated, $language)),
         'show_on_profile' => $placeholder->show_on_profile,
         'show_on_forum' => $placeholder->show_on_forum
     ];

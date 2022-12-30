@@ -1,15 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Validate user event listener handler class
  *
- *  Validate user event listener handler class
+ * @package Modules\Core\Hooks
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
  */
+class ValidateHook extends HookBase {
 
-class ValidateHook {
+    /**
+     * @param array{user_id: ?string} $params
+     *
+     * @return void
+     * @throws GuzzleException
+     */
+    public static function execute(array $params = ["user_id" => null]): void {
+        if (!parent::validateParams($params, ["user_id"])) {
+            return;
+        }
 
-    public static function execute(array $params = []): void {
         if (!defined('VALIDATED_DEFAULT') || VALIDATED_DEFAULT === null) {
             define('VALIDATED_DEFAULT', 1);
         }

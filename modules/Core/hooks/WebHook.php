@@ -1,15 +1,28 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+
+use DebugBar\DebugBarException;
+
+/**
+ * Webhook handler class
  *
- *  Webhook handler class
+ * @package Modules\Core\Hooks
+ * @author Partydragen
+ * @version 2.0.0
+ * @license MIT
  */
+class WebHook extends HookBase {
 
-class WebHook {
+    /**
+     * @param array{webhook: ?string} $params
+     *
+     * @return void
+     * @throws DebugBarException
+     */
+    public static function execute(array $params = ["webhook" => null]): void {
+        if (!parent::validateParams($params, ["webhook"])) {
+            return;
+        }
 
-    public static function execute(array $params = []): void {
         $return = $params;
         unset($return['webhook']);
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);

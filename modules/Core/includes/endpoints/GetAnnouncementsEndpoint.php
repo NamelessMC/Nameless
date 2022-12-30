@@ -1,7 +1,13 @@
 <?php
 
 /**
- * @return string JSON Array of the latest announcements
+ * TODO: Add description
+ *
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class GetAnnouncementsEndpoint extends NoAuthEndpoint {
 
@@ -12,6 +18,11 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
         $guest_announcements = [];
 
@@ -24,7 +35,9 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
                 'id' => $announcement->id,
                 'header' => $announcement->header,
                 'message' => $announcement->message,
+                // TODO: Does this decode into a sequential or associative array?
                 'pages' => json_decode($announcement->pages),
+                // TODO: Does this decode into a sequential or associative array?
                 'groups' => array_map('intval', json_decode($announcement->groups)),
             ];
         }

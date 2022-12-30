@@ -16,7 +16,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Initialise
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Get user group IDs
 $groups = $user->getAllGroupIds();
@@ -79,10 +79,10 @@ if ($cache->isCached('forums')) {
                         $forums[$key]['subforums'][$subforum_id]->last_post->profile = $last_post_user->getProfileURL();
 
                         if (is_null($forums[$key]['subforums'][$subforum_id]->last_post->created)) {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language);
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $time_ago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->post_date, $language);
                             $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, strtotime($forums[$key]['subforums'][$subforum_id]->last_post->post_date));
                         } else {
-                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $timeago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->created, $language);
+                            $forums[$key]['subforums'][$subforum_id]->last_post->date_friendly = $time_ago->inWords($forums[$key]['subforums'][$subforum_id]->last_post->created, $language);
                             $forums[$key]['subforums'][$subforum_id]->last_post->post_date = date(DATE_FORMAT, $forums[$key]['subforums'][$subforum_id]->last_post->created);
                         }
                     }

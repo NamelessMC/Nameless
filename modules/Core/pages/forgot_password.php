@@ -1,12 +1,14 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Forgot password page
+ * Forgot password page
+ *
+ *
  */
 
 const PAGE = 'forgot_password';

@@ -31,7 +31,9 @@
         "symfony/http-foundation": "^5.4",
         "ext-json": "*",
         "ext-gd": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "ext-dom": "*",
+        "ext-mysqli": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "1.6.9",

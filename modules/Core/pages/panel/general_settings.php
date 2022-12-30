@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr12
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel general settings page
+ * Panel general settings page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.general')) {
@@ -22,7 +33,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if (isset($_GET['do'])) {
-    if ($_GET['do'] == 'installLanguage') {
+    if ($_GET['do'] === 'installLanguage') {
         // Install new language
         $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*');
         foreach ($languages as $item) {
@@ -43,7 +54,7 @@ if (isset($_GET['do'])) {
 
         Session::flash('general_language', $language->get('admin', 'installed_languages'));
     } else {
-        if ($_GET['do'] == 'updateLanguages') {
+        if ($_GET['do'] === 'updateLanguages') {
             $active_language = DB::getInstance()->get('languages', ['is_default', true])->results();
             if (count($active_language)) {
                 DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
@@ -127,20 +138,20 @@ if (Input::exists()) {
             Util::setSetting('private_profile', $_POST['privateProfile'] ? '1' : '0');
 
             // Registration displaynames
-            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
+            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] === 'true') ? '1' : '0');
 
             // Friendly URLs
-            $friendly = Input::get('friendlyURL') == 'true';
+            $friendly = Input::get('friendlyURL') === 'true';
 
             // Force HTTPS?
-            if (Input::get('forceHTTPS') == 'true') {
+            if (Input::get('forceHTTPS') === 'true') {
                 $https = true;
             } else {
                 $https = false;
             }
 
             // Force WWW?
-            if (Input::get('forceWWW') == 'true') {
+            if (Input::get('forceWWW') === 'true') {
                 $www = true;
             } else {
                 $www = false;
@@ -224,8 +235,8 @@ $timezone = $timezone[0]->value;
 $private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
 $private_profile = $private_profile[0]->value;
 
-$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-$displaynames = $displaynames[0]->value;
+$display_names = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
+$display_names = $display_names[0]->value;
 
 $method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
 $method = $method[0]->value;
@@ -280,7 +291,7 @@ $smarty->assign([
     'FORCE_WWW' => $language->get('admin', 'force_www'),
     'FORCE_WWW_VALUE' => (defined('FORCE_WWW')),
     'ENABLE_NICKNAMES' => $language->get('admin', 'enable_nicknames_on_registration'),
-    'ENABLE_NICKNAMES_VALUE' => $displaynames,
+    'ENABLE_NICKNAMES_VALUE' => $display_names,
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),

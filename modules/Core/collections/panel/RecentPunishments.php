@@ -1,20 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Recent punishments dashboard collection item
- */
 
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * Recent punishments dashboard collection item
+ *
+ * @package Modules\Core\Collections
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class RecentPunishmentsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
     private Language $_language;
     private Cache $_cache;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_punishments')) {
@@ -34,9 +40,15 @@ class RecentPunishmentsItem extends CollectionItemBase {
         $this->_cache = $cache;
     }
 
+    /**
+     *
+     * @return string
+     * @throws SmartyException
+     * @throws GuzzleException
+     */
     public function getContent(): string {
         // Get recent punishments
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
@@ -95,7 +107,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'staff_style' => $staff_user->getGroupStyle(),
                         'staff_avatar' => $staff_user->getAvatar(),
                         'staff_profile' => URL::build('/panel/user/' . urlencode($staff_user->data()->id) . '-' . urlencode($staff_user->data()->username)),
-                        'time' => ($item->created ? $timeago->inWords($item->created, $this->_language) : $timeago->inWords($item->infraction_date, $this->_language)),
+                        'time' => ($item->created ? $time_ago->inWords($item->created, $this->_language) : $time_ago->inWords($item->infraction_date, $this->_language)),
                         'time_full' => ($item->created ? date(DATE_FORMAT, $item->created) : date(DATE_FORMAT, strtotime($item->infraction_date))),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->reason),
@@ -106,7 +118,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_style' => ($revoked_by_user ? $revoked_by_user->getGroupStyle() : ''),
                         'revoked_by_avatar' => ($revoked_by_user ? $revoked_by_user->getAvatar() : ''),
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . urlencode($revoked_by_user->data()->id) . '-' . urlencode($revoked_by_user->data()->username)) : ''),
-                        'revoked_at' => $timeago->inWords($item->revoked_at, $this->_language)
+                        'revoked_at' => $time_ago->inWords($item->revoked_at, $this->_language)
                     ];
                 }
             }
@@ -131,6 +143,10 @@ class RecentPunishmentsItem extends CollectionItemBase {
         return $this->_smarty->fetch('collections/dashboard_items/recent_punishments.tpl');
     }
 
+    /**
+     *
+     * @return float
+     */
     public function getWidth(): float {
         return 0.33; // 1/3 width
     }

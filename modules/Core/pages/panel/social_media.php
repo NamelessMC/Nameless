@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel social media page
+ * Panel social media page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.social_media')) {
@@ -33,7 +44,7 @@ if (Input::exists()) {
         Util::setSetting('twitter_url', Input::get('twitterurl'));
 
         // Twitter dark theme
-        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
+        if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] === '1') {
             $theme = 'dark';
         } else {
             $theme = 'light';

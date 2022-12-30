@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr11
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel profile fields page
+ * Panel profile fields page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.fields')) {
@@ -24,7 +35,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'new') {
+    if ($_GET['action'] === 'new') {
         // New field
         if (Input::exists()) {
             $errors = [];
@@ -46,25 +57,25 @@ if (isset($_GET['action'])) {
                     // Input into database
                     try {
                         // Get whether required/public/editable/forum post options are enabled or not
-                        if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                        if (isset($_POST['required']) && $_POST['required'] === 'on') {
                             $required = 1;
                         } else {
                             $required = 0;
                         }
 
-                        if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                        if (isset($_POST['public']) && $_POST['public'] === 'on') {
                             $public = 1;
                         } else {
                             $public = 0;
                         }
 
-                        if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                        if (isset($_POST['forum']) && $_POST['forum'] === 'on') {
                             $forum_posts = 1;
                         } else {
                             $forum_posts = 0;
                         }
 
-                        if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                        if (isset($_POST['editable']) && $_POST['editable'] === 'on') {
                             $editable = 1;
                         } else {
                             $editable = 0;
@@ -127,7 +138,7 @@ if (isset($_GET['action'])) {
         $template_file = 'core/profile_fields_create.tpl';
 
     } else {
-        if ($_GET['action'] == 'edit') {
+        if ($_GET['action'] === 'edit') {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
@@ -143,7 +154,7 @@ if (isset($_GET['action'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    if (Input::get('action') == 'update') {
+                    if (Input::get('action') === 'update') {
                         // Validate input
                         $validation = Validate::check($_POST, [
                             'name' => [
@@ -160,25 +171,25 @@ if (isset($_GET['action'])) {
                             // Update database
                             try {
                                 // Get whether required/public/editable/forum post options are enabled or not
-                                if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                                if (isset($_POST['required']) && $_POST['required'] === 'on') {
                                     $required = 1;
                                 } else {
                                     $required = 0;
                                 }
 
-                                if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                                if (isset($_POST['public']) && $_POST['public'] === 'on') {
                                     $public = 1;
                                 } else {
                                     $public = 0;
                                 }
 
-                                if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                                if (isset($_POST['forum']) && $_POST['forum'] === 'on') {
                                     $forum_posts = 1;
                                 } else {
                                     $forum_posts = 0;
                                 }
 
-                                if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                                if (isset($_POST['editable']) && $_POST['editable'] === 'on') {
                                     $editable = 1;
                                 } else {
                                     $editable = 0;
@@ -209,7 +220,7 @@ if (isset($_GET['action'])) {
                         }
 
                     } else {
-                        if (Input::get('action') == 'delete') {
+                        if (Input::get('action') === 'delete') {
                             // Delete field
                             DB::getInstance()->delete('profile_fields', ['id', (int)$_POST['id']]);
 

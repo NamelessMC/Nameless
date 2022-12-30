@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Minecraft Authme page
+ * Panel Minecraft Authme page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.authme')) {
@@ -55,7 +66,7 @@ if (Input::exists()) {
             if ($validation->passed()) {
                 $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
                 $authme_db_id = $authme_db[0]->id;
-                $authme_db = json_decode($authme_db[0]->value);
+                $authme_db = json_decode($authme_db[0]->value, true);
 
                 if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
@@ -117,9 +128,10 @@ if (isset($errors) && count($errors)) {
 $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
 $authme_enabled = $authme_enabled[0]->value;
 
-if ($authme_enabled == '1') {
+if ($authme_enabled === '1') {
     // Retrieve Authme database details
     $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
+    // TODO: Does this decode into a sequential or associative array?
     $authme_db = json_decode($authme_db[0]->value);
 
     $smarty->assign([
@@ -148,7 +160,7 @@ $smarty->assign([
     'AUTHME_INFO' => $language->get('admin', 'authme_integration_info'),
     'INFO' => $language->get('general', 'info'),
     'ENABLE_AUTHME' => $language->get('admin', 'enable_authme'),
-    'ENABLE_AUTHME_VALUE' => ($authme_enabled == '1'),
+    'ENABLE_AUTHME_VALUE' => ($authme_enabled === '1'),
     'AUTHME' => $language->get('admin', 'authme_integration'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft')
 ]);

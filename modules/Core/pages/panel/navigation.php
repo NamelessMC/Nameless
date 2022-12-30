@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel navigation page
+ * Panel navigation page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.navigation')) {
@@ -95,7 +106,7 @@ $smarty->assign([
         'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
         'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>'
     ]),
-    'NAV_ITEMS' => $navigation->returnNav('top'),
+    'NAV_ITEMS' => $navigation->returnNav(),
     'NAVBAR_ORDER' => $language->get('admin', 'navbar_order'),
     'NAVBAR_ICON' => $language->get('admin', 'navbar_icon'),
     'DROPDOWN_ITEMS' => $language->get('admin', 'dropdown_items'),

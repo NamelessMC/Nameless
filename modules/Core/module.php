@@ -1020,14 +1020,14 @@ class Core_Module extends Module {
                 // Collection
                 $user_id = $smarty->getTemplateVars('USER_ID');
 
-                $timeago = new TimeAgo(TIMEZONE);
+                $time_ago = new TimeAgo(TIMEZONE);
 
                 if ($user_id) {
                     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
                     if (count($user_query)) {
                         $user_query = $user_query[0];
                         $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
-                            'registeredAt' => $timeago->inWords($user_query->joined, $language),
+                            'registeredAt' => $time_ago->inWords($user_query->joined, $language),
                         ]));
                     }
                 }

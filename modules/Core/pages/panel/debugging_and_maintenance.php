@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel debugging + maintenance page
+ * Panel debugging + maintenance page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.debugging')) {
@@ -45,7 +56,7 @@ if (Input::exists()) {
             // Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
 
             // Page load timer
-            Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1 ? '1' : '0');
+            Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] === '1' ? '1' : '0');
 
             // Reload to update debugging
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));

@@ -1,9 +1,13 @@
 <?php
 
 /**
- * No params
+ * TODO: Add description
  *
- * @return string JSON Array of NamelessMC information
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class InfoEndpoint extends KeyAuthEndpoint {
 
@@ -14,6 +18,11 @@ class InfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
 
         $site_id = Util::getSetting('unique_id');

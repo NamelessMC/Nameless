@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * TODO: Add description
+ *
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
+ */
 class BanUserEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
@@ -9,6 +18,13 @@ class BanUserEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     * @throws Exception
+     */
     public function execute(Nameless2API $api, User $user): void {
         $user->update([
             'isbanned' => true,

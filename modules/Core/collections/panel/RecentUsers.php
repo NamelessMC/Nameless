@@ -1,14 +1,13 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Recent users dashboard collection item
- */
 
+/**
+ * Recent users dashboard collection item
+ *
+ * @package Modules\Core\Collections
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class RecentUsersItem extends CollectionItemBase {
 
     private Smarty $_smarty;

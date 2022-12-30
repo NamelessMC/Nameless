@@ -1,14 +1,13 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
- *
- *  License: MIT
- *
- *  Recent reports dashboard collection item
- */
 
+/**
+ * Recent reports dashboard collection item
+ *
+ * @package Modules\Core\Collections
+ * @author Samerton
+ * @version 2.0.0-pr9
+ * @license MIT
+ */
 class RecentReportsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
@@ -36,7 +35,7 @@ class RecentReportsItem extends CollectionItemBase {
 
     public function getContent(): string {
         // Get recent reports
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
@@ -82,7 +81,7 @@ class RecentReportsItem extends CollectionItemBase {
                         'reported_style' => $reported_user->getGroupStyle(),
                         'reported_avatar' => $reported_user->getAvatar(),
                         'reported_profile' => URL::build('/panel/user/' . urlencode($reported_user->data()->id) . '-' . urlencode($reported_user->data()->username)),
-                        'time' => $timeago->inWords($item->date_reported, $this->_language),
+                        'time' => $time_ago->inWords($item->date_reported, $this->_language),
                         'time_full' => date(DATE_FORMAT, strtotime($item->date_reported)),
                         'type' => $item->type,
                         'reason' => Output::getPurified($item->report_reason),

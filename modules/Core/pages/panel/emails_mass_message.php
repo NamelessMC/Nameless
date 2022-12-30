@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Aberdeener
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Email Mass Message page
+ * Email Mass Message page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Partydragen
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  UserCP connections
+ * UserCP connections
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -68,7 +79,7 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
 
     // Check if user is linked to this integration
     $integrationUser = $user->getIntegration($integration->getName());
-    if ($integrationUser != null) {
+    if ($integrationUser !== null) {
         $connected = true;
         $username = Output::getClean($integrationUser->data()->username);
         $verified = Output::getClean((string)$integrationUser->isVerified());

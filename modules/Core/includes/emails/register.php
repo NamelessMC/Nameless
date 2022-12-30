@@ -1,12 +1,12 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Register email
+ * Register email
  */
 
 /**
@@ -15,6 +15,7 @@
  * @param string $username
  * @param string $user_id
  * @param string $code
+ *
  * @return bool
  */
 function sendRegisterEmail(Language $language, string $email_address, string $username, string $user_id, string $code): bool {

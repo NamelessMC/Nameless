@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Authme connector
+ * Authme connector
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 $page_title = $language->get('general', 'register');
@@ -20,7 +31,7 @@ $errors = [];
 if (Input::exists()) {
     if (Token::check()) {
         // Valid token
-        if (isset($_GET['step']) && $_GET['step'] == 2) {
+        if (isset($_GET['step']) && $_GET['step'] === '2') {
             // Step 2
             if (!isset($_SESSION['authme'])) {
                 Redirect::to(URL::build('/register'));
@@ -76,22 +87,19 @@ if (Input::exists()) {
                 // Get default language ID before creating user
                 $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE])->results();
 
-                if (count($language_id)) {
-                    $language_id = $language_id[0]->id;
-                } else {
+                if (!count($language_id)) {
                     // fallback to EnglishUK
                     $language_id = DB::getInstance()->get('languages', ['short_code', 'en_UK'])->results();
-                    $language_id = $language_id[0]->id;
                 }
 
+                $language_id = $language_id[0]->id;
+
                 $ip = HttpUtils::getRemoteAddress();
-                if (filter_var($ip, FILTER_VALIDATE_IP)) {
-                    // Valid IP
-                } else {
+                if (!filter_var($ip, FILTER_VALIDATE_IP)) {
                     $ip = $_SESSION['authme']['ip'];
                 }
 
-                if ($custom_usernames == 'true') {
+                if ($custom_usernames === 'true') { // TODO: Custom usernames is never set?
                     $nickname = Input::get('nickname');
                 } else {
                     $nickname = $_SESSION['authme']['user'];
@@ -222,9 +230,7 @@ if (Input::exists()) {
                             $stmt->free_result();
                             $stmt->close();
 
-                            if (is_null($password)) {
-                                $errors[] = $language->get('user', 'incorrect_details');
-                            } else {
+                            if (!is_null($password)) {
                                 // Validate inputted password against actual password
                                 $valid = false;
 
@@ -242,7 +248,7 @@ if (Input::exists()) {
                                         break;
 
                                     case 'sha1':
-                                        if (sha1($_POST['password']) == $password) {
+                                        if (sha1($_POST['password']) === $password) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Input::get('username'),
@@ -257,7 +263,7 @@ if (Input::exists()) {
                                         $exploded = explode('$', $password);
                                         $salt = $exploded[2];
 
-                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $exploded[3]) {
+                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) === $salt . $exploded[3]) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Input::get('username'),
@@ -269,15 +275,10 @@ if (Input::exists()) {
                                         break;
 
                                     case 'pbkdf2':
-                                        $exploded = explode('$', $password);
-
-                                        $iterations = $exploded[1];
-                                        $salt = $exploded[2];
-                                        $pass = $exploded[3];
-
+                                        [$iterations, $salt, $pass] = explode('$', $password);
                                         $hashed = hash_pbkdf2('sha256', $_POST['password'], $salt, $iterations, 64, true);
 
-                                        if ($hashed == hex2bin($pass)) {
+                                        if ($hashed === hex2bin($pass)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
                                                 'user' => Input::get('username'),
@@ -296,9 +297,9 @@ if (Input::exists()) {
                                 }
 
                                 // Passwords don't match
-                                $errors[] = $language->get('user', 'incorrect_details');
 
                             }
+                            $errors[] = $language->get('user', 'incorrect_details');
 
                         } else {
                             $errors[] = $language->get('user', 'unable_to_connect_to_authme_db');

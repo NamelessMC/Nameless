@@ -1,18 +1,20 @@
 <?php
 /*
  *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.1.0
  *
- *  License: MIT
+ * License: MIT
  *
- *  User profile page
+ * User profile page
+ *
+ *
  */
 
 // Always define page name
 const PAGE = 'profile';
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 $profile = explode('/', rtrim($_GET['route'], '/'));
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
@@ -677,7 +679,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
                     $reaction_html = $reaction_name[0]->html;
                     $reaction_name = Output::getClean($reaction_name[0]->name);
-                    */
+                    *
+ *
+ */
 
                     $target_user = new User($reaction->user_id);
                     $reactions['reactions'][] = [
@@ -713,7 +717,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'style' => $target_user->getGroupStyle(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
-                        'time_friendly' => $timeago->inWords($reply->time, $language),
+                        'time_friendly' => $time_ago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified(Output::getDecoded($reply->content)),
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
@@ -735,7 +739,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'user_style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(500),
                 'content' => Output::getPurified(Output::getDecoded($nValue->content)),
-                'date_rough' => $timeago->inWords($nValue->time, $language),
+                'date_rough' => $time_ago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
@@ -814,7 +818,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'title' => $profile_placeholder->friendly_name,
             'type' => 'text',
             'value' => $profile_placeholder->value,
-            'tooltip' => $language->get('admin', 'placeholders_last_updated_time', ['time' => $timeago->inWords($profile_placeholder->last_updated, $language)]),
+            'tooltip' => $language->get('admin', 'placeholders_last_updated_time', ['time' => $time_ago->inWords($profile_placeholder->last_updated, $language)]),
         ];
     }
 
@@ -822,13 +826,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $fields['registered'] = [
         'title' => $language->get('user', 'registered'),
         'type' => 'text',
-        'value' => $timeago->inWords($query->joined, $language),
+        'value' => $time_ago->inWords($query->joined, $language),
         'tooltip' => date(DATE_FORMAT, $query->joined)
     ];
     $fields['last_seen'] = [
         'title' => $language->get('user', 'last_seen'),
         'type' => 'text',
-        'value' => $timeago->inWords($query->last_online, $language),
+        'value' => $time_ago->inWords($query->last_online, $language),
         'tooltip' => date(DATE_FORMAT, $query->last_online)
     ];
 

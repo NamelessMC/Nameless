@@ -1,19 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Total users dashboard collection item
- */
 
+/**
+ * Total users dashboard collection item
+ *
+ * @package Modules\Core\Collections
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class TotalUsersItem extends CollectionItemBase {
 
     private Smarty $_smarty;
     private Language $_language;
 
+    /**
+     * @param Smarty $smarty
+     * @param Language $language
+     * @param Cache $cache
+     */
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('total_users')) {
@@ -32,6 +36,11 @@ class TotalUsersItem extends CollectionItemBase {
         $this->_language = $language;
     }
 
+    /**
+     *
+     * @return string
+     * @throws SmartyException
+     */
     public function getContent(): string {
         // Get the number of total users
         $users_query = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_users')->first()->c;

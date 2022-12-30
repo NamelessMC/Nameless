@@ -16,7 +16,7 @@ class Redirect {
      * @param string $location Path or URL to redirect to
      * @return never
      */
-    public static function to(string $location): void {
+    public static function to(string $location) {
         if (!headers_sent()) {
             header("Location: $location");
         } else {
@@ -31,7 +31,7 @@ class Redirect {
      *
      * @return never
      */
-    public static function back(): void {
+    public static function back() {
         if (isset($_SESSION['last_page'])) {
             self::to($_SESSION['last_page']);
         }

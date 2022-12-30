@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Minecraft query errors page
+ * Panel Minecraft query errors page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.query_errors')) {
@@ -22,7 +33,7 @@ $page_title = $language->get('admin', 'query_errors');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['id'])) {
-    if (isset($_GET['action']) && $_GET['action'] == 'purge') {
+    if (isset($_GET['action']) && $_GET['action'] === 'purge') {
         if (Token::check()) {
             DB::getInstance()->delete('query_errors', ['id', '<>', 0]);
             Session::flash('panel_query_errors_success', $language->get('admin', 'query_errors_purged_successfully'));
@@ -88,7 +99,7 @@ if (!isset($_GET['id'])) {
     }
     $query_error = $query_error[0];
 
-    if ($_GET['action'] == 'delete') {
+    if ($_GET['action'] === 'delete') {
         DB::getInstance()->delete('query_errors', ['id', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
         Redirect::to(URL::build('/panel/minecraft/query_errors'));

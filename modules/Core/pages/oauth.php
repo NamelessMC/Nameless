@@ -1,4 +1,14 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ */
 
 const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel IP lookup page
+ * Panel IP lookup page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('modcp.ip_lookup')) {
@@ -45,7 +56,7 @@ if (isset($_GET['uid'])) {
             ];
         }
 
-        if (count($user_ips) == 1) {
+        if (count($user_ips) === 1) {
             $count_accounts = $language->get('moderator', '1_ip_with_name', [
                 'user' => Text::bold(Output::getClean($user_query->username))
             ]);
@@ -96,7 +107,7 @@ if (isset($_GET['uid'])) {
                 }
             }
 
-            if (count($ip_accounts) == 1) {
+            if (count($ip_accounts) === 1) {
                 $count_accounts = $language->get('moderator', '1_account_with_ip', ['address' => Output::getClean($_GET['ip'])]);
             } else {
                 $count_accounts = $language->get('moderator', 'count_accounts_with_ip', ['count' => count($ip_accounts), 'address' => Output::getClean($_GET['ip'])]);

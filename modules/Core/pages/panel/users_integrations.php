@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Partydragen
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel users page
+ * Panel users page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
@@ -30,11 +41,12 @@ if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 
-if (!isset($_GET['action']) || !isset($_GET['integration'])) {
+if (!isset($_GET['action'], $_GET['integration'])) {
     $integrations_list = [];
     foreach (Integrations::getInstance()->getAll() as $integration) {
-        $integrations_list[$integration->getName()] = [
-            'name' => Output::getClean($integration->getName()),
+        $integration_name = $integration->getName();
+        $integrations_list[$integration_name] = [
+            'name' => Output::getClean($integration_name),
             'icon' => Output::getClean($integration->getIcon()),
             'link' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=link&integration=' . $integration->getName()),
             'edit' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName())
@@ -77,7 +89,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
     ]);
 
     $template_file = 'core/users_integrations.tpl';
-} else if (isset($_GET['integration'])) {
+} else {
     switch ($_GET['action']) {
         case 'link':
             // Manual linking to integration (Integration User might already exist due of pending completion)
@@ -87,7 +99,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             }
 
             $integrationUser = $view_user->getIntegration($_GET['integration']);
-            if ($integrationUser != null && $integrationUser->data()->username != null && $integrationUser->data()->identifier != null) {
+            if ($integrationUser !== null && $integrationUser->data()->username !== null && $integrationUser->data()->identifier !== null) {
                 Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
             }
 
@@ -158,7 +170,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 $errors = [];
 
                 if (Token::check()) {
-                    if (Input::get('action') == 'details') {
+                    if (Input::get('action') === 'details') {
                         // Update integration user details
                         if ($integration->validateUsername(Input::get('username'), $integrationUser->data()->id) && $integration->validateIdentifier(Input::get('identifier'), $integrationUser->data()->id)) {
                             $integrationUser->update([
@@ -173,7 +185,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             $errors = $integration->getErrors();
                         }
 
-                    } else if (Input::get('action') == 'sync') {
+                    } else if (Input::get('action') === 'sync') {
                         // Sync integration user
                         if ($integration->syncIntegrationUser($integrationUser)) {
                             Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
@@ -211,7 +223,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             if (Input::exists()) {
                 if (Token::check()) {
                     $integrationUser = $view_user->getIntegration($_POST['integration']);
-                    if ($integrationUser != null) {
+                    if ($integrationUser !== null) {
                         $integrationUser->unlinkIntegration();
 
                         Session::flash('integrations_success', $language->get('admin', 'unlink_account_success', [

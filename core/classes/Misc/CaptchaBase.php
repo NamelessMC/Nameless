@@ -74,6 +74,7 @@ abstract class CaptchaBase {
      * Is captcha enabled for a given key?
      *
      * @param string $key Key to lookup in db, defaults to simply recaptcha (for register, contact pages etc.)
+     *
      * @return bool Whether captcha is enabled or not
      */
     public static function isCaptchaEnabled(string $key = 'recaptcha'): bool {
@@ -115,6 +116,7 @@ abstract class CaptchaBase {
      * Validate a Captcha token
      *
      * @param array $post Post body to validate
+     *
      * @return bool Whether the token was valid or not
      */
     abstract public function validateToken(array $post): bool;
@@ -123,6 +125,7 @@ abstract class CaptchaBase {
      * Validate if the private key is valid
      *
      * @param string $secret The secret key to validate
+     *
      * @return bool Whether the private key is valid or not
      */
     abstract public function validateSecret(string $secret) : bool;
@@ -131,6 +134,7 @@ abstract class CaptchaBase {
      * Validate if the public key is valid or not
      *
      * @param string $key The public key to validate
+     *
      * @return bool Whether the public key is valid or not
      */
     abstract public function validateKey(string $key) : bool;

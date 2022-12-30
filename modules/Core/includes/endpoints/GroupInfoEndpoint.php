@@ -1,10 +1,13 @@
 <?php
 
 /**
- * @param string $id NamelessMC ID of group to view
- * @param string $name The NamelessMC NAME of the group to view
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class GroupInfoEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +18,11 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
         $query = 'SELECT id, name, staff, `order` FROM nl2_groups';
         $where = '';

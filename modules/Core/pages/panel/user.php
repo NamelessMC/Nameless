@@ -1,12 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel user page
+ * Panel user page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $route
  */
 
 if (!$user->handlePanelPageLoad()) {
@@ -33,7 +45,7 @@ if (!$view_user->exists()) {
 }
 $user_query = $view_user->data();
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 const PAGE = 'panel';
 const PANEL_PAGE = 'users';
@@ -95,7 +107,7 @@ $smarty->assign([
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
-    'LAST_SEEN_SHORT_VALUE' => $timeago->inWords($user_query->last_online, $language),
+    'LAST_SEEN_SHORT_VALUE' => $time_ago->inWords($user_query->last_online, $language),
     'LAST_SEEN_FULL_VALUE' => date(DATE_FORMAT, $user_query->last_online),
     'DETAILS' => $language->get('admin', 'details'),
     'LINKS' => Core_Module::getUserActions(),

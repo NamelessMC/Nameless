@@ -1,9 +1,13 @@
 <?php
 
 /**
- * No params
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class ListUsersEndpoint extends KeyAuthEndpoint {
 
@@ -14,12 +18,17 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api): void {
         $query = 'SELECT u.id, u.username, u.isbanned AS banned, u.active FROM nl2_users u';
         $where = [];
         $params = [];
 
-        $operator = isset($_GET['operator']) && $_GET['operator'] == 'OR'
+        $operator = isset($_GET['operator']) && $_GET['operator'] === 'OR'
             ? ' OR '
             : ' AND ';
 
@@ -36,11 +45,11 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         }
 
         if (isset($_GET['banned'])) {
-            $where[] = '`u`.`isbanned` = ' . ($_GET['banned'] == 'true' ? '1' : '0');
+            $where[] = '`u`.`isbanned` = ' . ($_GET['banned'] === 'true' ? '1' : '0');
         }
 
         if (isset($_GET['active'])) {
-            $where[] = '`u`.`active` = ' . ($_GET['active'] == 'true' ? '1' : '0');
+            $where[] = '`u`.`active` = ' . ($_GET['active'] === 'true' ? '1' : '0');
         }
 
         // Build where string

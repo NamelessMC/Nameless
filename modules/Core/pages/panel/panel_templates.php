@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel - panel templates page
+ * Panel - panel templates page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.panel_templates')) {
@@ -52,7 +63,7 @@ if (!isset($_GET['action'])) {
             ]) : false,
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
-            'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),
+            'delete_link' => (($item->id === '1' || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),
             'default' => $item->is_default,
             'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
             'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' .urlencode($item->id)) : null)
@@ -81,7 +92,7 @@ if (!isset($_GET['action'])) {
 
         } else {
             $all_templates_query = $all_templates_query->json();
-            $timeago = new TimeAgo(TIMEZONE);
+            $time_ago = new TimeAgo(TIMEZONE);
 
             foreach ($all_templates_query as $item) {
                 $all_templates[] = [
@@ -255,7 +266,7 @@ if (!isset($_GET['action'])) {
                     $template = DB::getInstance()->get('panel_templates', ['id', $item])->results();
                     if (count($template)) {
                         $template = $template[0];
-                        if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
+                        if ($template->name === 'Default' || $template->id === '1' || $template->enabled === '1' || $template->is_default === '1') {
                             Redirect::to(URL::build('/panel/core/panel_templates'));
                         }
 

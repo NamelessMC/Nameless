@@ -55,6 +55,7 @@ interface GroupSyncInjector {
      * Get the message to display in place of the group dropdown on the Group Sync page.
      *
      * @param Language $language The logged-in user's language to use for translations.
+     *
      * @return string Not enabled message
      */
     public function getNotEnabledMessage(Language $language): string;

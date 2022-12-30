@@ -1,12 +1,14 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr12
  *
- *  License: MIT
+ * License: MIT
  *
- *  Login page
+ * Login page
+ *
+ *
  */
 
 // Set page name variable

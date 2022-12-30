@@ -44,7 +44,7 @@ class LatestPostsWidget extends WidgetBase {
     public function initialise(): void {
         $forum = new Forum();
         $db = DB::getInstance();
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
         // Get user group IDs
         $user_groups = $this->_user->getAllGroupIds();
@@ -103,7 +103,7 @@ class LatestPostsWidget extends WidgetBase {
                 $template_array[] = [
                     'topic_title' => Output::getClean($discussion->topic_title),
                     'topic_id' => $discussion->id,
-                    'topic_created_rough' => $timeago->inWords($discussion->topic_date, $this->_language),
+                    'topic_created_rough' => $time_ago->inWords($discussion->topic_date, $this->_language),
                     'topic_created' => date(DATE_FORMAT, $discussion->topic_date),
                     'topic_created_username' => $topic_creator->getDisplayName(),
                     'topic_created_mcname' => $topic_creator->getDisplayName(true),
@@ -115,7 +115,7 @@ class LatestPostsWidget extends WidgetBase {
                     'views' => $discussion->topic_views,
                     'posts' => $posts,
                     'last_reply_avatar' => $last_reply_user->getAvatar(64),
-                    'last_reply_rough' => $timeago->inWords($discussion->topic_reply_date, $this->_language),
+                    'last_reply_rough' => $time_ago->inWords($discussion->topic_reply_date, $this->_language),
                     'last_reply' => date(DATE_FORMAT, $discussion->topic_reply_date),
                     'last_reply_username' => $last_reply_user->getDisplayName(),
                     'last_reply_mcname' => $last_reply_user->getDisplayName(true),

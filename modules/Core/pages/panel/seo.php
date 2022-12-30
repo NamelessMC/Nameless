@@ -1,13 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel seo page
+ * Panel seo page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
+
+use SitemapPHP\Sitemap;
 
 if (!$user->handlePanelPageLoad('admincp.core.seo')) {
     require_once(ROOT_PATH . '/403.php');
@@ -20,7 +33,7 @@ const PANEL_PAGE = 'seo';
 $page_title = $language->get('admin', 'seo');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -42,9 +55,9 @@ if (!isset($_GET['metadata'])) {
     // Deal with input
     if (Input::exists()) {
         if (Token::check(Input::get('token'))) {
-            if (Input::get('type') == 'sitemap') {
+            if (Input::get('type') === 'sitemap') {
 
-                $sitemap = new \SitemapPHP\Sitemap(rtrim(URL::getSelfURL(), '/'));
+                $sitemap = new Sitemap(rtrim(URL::getSelfURL(), '/'));
                 $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
@@ -64,7 +77,7 @@ if (!isset($_GET['metadata'])) {
 
                 $success = $language->get('admin', 'sitemap_generated');
             } else {
-                if (Input::get('type') == 'google_analytics') {
+                if (Input::get('type') === 'google_analytics') {
                     Util::setSetting('ga_script', Input::get('analyticsid'));
                     $success = $language->get('admin', 'seo_settings_updated_successfully');
                 }
@@ -81,7 +94,7 @@ if (!isset($_GET['metadata'])) {
             $cache->setCache('sitemap_cache');
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
-                $updated = $timeago->inWords($updated, $language);
+                $updated = $time_ago->inWords($updated, $language);
             } else {
                 $updated = $language->get('admin', 'unknown');
             }

@@ -1,10 +1,15 @@
 <?php
 
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
- * @param string $user NamelessMC ID of user to view
- * @param array $groups ID of group ids
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class RemoveGroupsEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +20,13 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['groups']);
 

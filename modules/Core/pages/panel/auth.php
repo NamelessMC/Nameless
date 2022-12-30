@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.2
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel auth page
+ * Panel auth page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if ($user->isLoggedIn()) {
@@ -41,7 +52,7 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             $user = new User();
-            $login = $user->adminLogin($user->data()->email, Input::get('password'), 'email');
+            $login = $user->adminLogin($user->data()->email, Input::get('password'));
 
             if ($login) {
                 // Get IP
@@ -51,17 +62,15 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('admin/login'));
 
                 // Redirect to a certain page?
-                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) !== '=') {
                     Redirect::back();
                 } else {
                     Redirect::to(URL::build('/panel'));
                 }
             }
-
-            Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
-        } else {
-            Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
         }
+
+        Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
     } else {
         // Invalid token
         Session::flash('adm_auth_error', $language->get('general', 'invalid_token'));

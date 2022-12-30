@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel users page
+ * Panel users page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
@@ -35,10 +46,10 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'validate') {
+    if ($_GET['action'] === 'validate') {
         if (Token::check()) {
             // Validate the user
-            if ($user_query->active == 0) {
+            if ($user_query->active === false) {
                 $view_user->update([
                     'active' => true,
                     'reset_code' => ''
@@ -53,7 +64,7 @@ if (isset($_GET['action'])) {
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
             }
         }
-    } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
+    } else if ($_GET['action'] === 'resend_email' && $user_query->active === false) {
         require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
         if (sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
@@ -130,14 +141,14 @@ if (Input::exists()) {
 
             // Does user have any groups selected
             $passed = false;
-            if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+            if ($view_user->data()->id === '1' || (isset($_POST['groups']) && count($_POST['groups']))) {
                 $passed = true;
             }
 
-            if ($validation->passed() && $passed) {
+            if ($passed === true && $validation->passed()) {
                 try {
                     $private_profile_active = Util::getSetting('private_profile');
-                    $private_profile = 0;
+                    $private_profile = '0';
 
                     if ($private_profile_active) {
                         $private_profile = Input::get('privateProfile');
@@ -171,8 +182,8 @@ if (Input::exists()) {
                     ]);
 
                     $group_sync_log = [];
-                    if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-                        if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+                    if ($user->hasPermission('admincp.groups.self') || $view_user->data()->id !== $user->data()->id) {
+                        if ($view_user->data()->id === '1' || (isset($_POST['groups']) && count($_POST['groups']))) {
                             $user_group_ids = $view_user->getAllGroupIds();
                             $form_groups = $_POST['groups'] ?? [];
 
@@ -190,7 +201,7 @@ if (Input::exists()) {
                                 }
                             }
 
-                            // Dispatch groupsync with all of their groups
+                            // Dispatch group sync with all of their groups
                             GroupSyncManager::getInstance()->broadcastChange(
                                 $view_user,
                                 NamelessMCGroupSyncInjector::class,
@@ -211,7 +222,7 @@ if (Input::exists()) {
                 }
             }
 
-        } else if ((Input::get('action') == 'delete') && $user_query->id > 1) {
+        } else if ((int)$user_query->id > 1 && (Input::get('action') === 'delete')) {
                 EventHandler::executeEvent('deleteUser', [
                     'user_id' => $user_query->id,
                     'username' => $user_query->username,
@@ -220,7 +231,7 @@ if (Input::exists()) {
 
                 Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 Redirect::to(URL::build('/panel/users'));
-        } else if ((Input::get('action') == 'change_password') && $user_query->id > 1 && !$view_user->canViewStaffCP()) {
+        } else if ((int)$user_query->id > 1 && (Input::get('action') === 'change_password') && !$view_user->canViewStaffCP()) {
             $validation = Validate::check($_POST, [
                 'password' => [
                     Validate::REQUIRED => true,
@@ -286,7 +297,7 @@ if (isset($warnings) && count($warnings)) {
     ]);
 }
 
-if ($user_query->active == 0) {
+if ($user_query->active === false) {
     $smarty->assign([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
         'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=validate'),
@@ -295,7 +306,7 @@ if ($user_query->active == 0) {
     ]);
 }
 
-if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
+if ($user_query->id !== '1' && !$view_user->canViewStaffCP()) {
     $smarty->assign([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -310,7 +321,7 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
 }
 
 $limit_groups = false;
-if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
+if ($user_query->id === '1' || ($user_query->id === $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
     $smarty->assign([
         'CANT_EDIT_GROUP' => $language->get('admin', 'cant_modify_root_user')
     ]);
@@ -336,7 +347,7 @@ foreach ($groups as $group) {
     // Only show groups whose ID is not their main group and whose order is HIGHER than their main group. A main group simply means this $user's group with LOWEST order
     // TODO: Probably can make this into the mysql query
     if ($limit_groups) {
-        if ((!($group->id == $view_user->getMainGroup()->id)) && ($view_user->getMainGroup()->order < $group->order)) {
+        if ((!($group->id === $view_user->getMainGroup()->id)) && ($view_user->getMainGroup()->order < $group->order)) {
             $filtered_groups[] = $group;
         }
     } else {
@@ -374,7 +385,7 @@ $smarty->assign([
     'USER_TITLE_VALUE' => Output::getClean($user_query->user_title),
     'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
     'PRIVATE_PROFILE_VALUE' => $user_query->private_profile,
-    'PRIVATE_PROFILE_ENABLED' => ($private_profile == 1),
+    'PRIVATE_PROFILE_ENABLED' => ($private_profile === '1'),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),
     'SIGNATURE' => $language->get('user', 'signature'),

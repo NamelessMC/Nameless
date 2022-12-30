@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel avatars page
+ * Panel avatars page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.avatars')) {
@@ -99,7 +110,8 @@ if (count($images)) {
             continue;
         }
 
-        $template_images[(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/avatars/defaults/' . Output::getClean($image)] = Output::getClean($image);
+        $cleaned_image = Output::getClean($image);
+        $template_images[(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/avatars/defaults/' . $cleaned_image] = $cleaned_image;
     }
 }
 

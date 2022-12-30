@@ -1,12 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  MCAssoc integration
+ * MCAssoc integration
+ *
+ * @var Language $language
+ * @var Pages $pages
+ * @var User $user
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var MCAssoc $mcassoc
  */
 
 if (!defined('MCASSOC') ||
@@ -34,7 +46,7 @@ $smarty->assign([
 
 if (!isset($_GET['step'])) {
     // Step 1 - MCAssoc
-    if ($custom_usernames == 'true') {
+    if ($custom_usernames === 'true') { // TODO: Custom usernames is never set?
         if (isset($_SESSION['mcassoc']['mcname'])) {
             $username = $_SESSION['mcassoc']['mcname'];
         }
@@ -58,9 +70,9 @@ if (!isset($_GET['step'])) {
     ');
 
 } else {
-    if ($_GET['step'] == 2) {
+    if ($_GET['step'] === '2') {
         // Final step - verify data matches form
-        if ($custom_usernames == 'true') {
+        if ($custom_usernames === 'true') { // TODO: Custom usernames is never set?
             if (isset($_SESSION['mcassoc']['mcname'])) {
                 $username = $_SESSION['mcassoc']['mcname'];
             }
@@ -79,7 +91,7 @@ if (!isset($_GET['step'])) {
         try {
             $data = $mcassoc->unwrapData($_POST['data']);
 
-            if (!$data || $username != $data->username) {
+            if (!$data || $username !== $data->username) {
                 // Does not match MCAssoc
                 $smarty->assign('ERROR', $language->get('user', 'verification_failed'));
                 $smarty->assign('RETRY_LINK', URL::build('/register'));

@@ -20,7 +20,7 @@ $page_title = $forum_language->get('forum', 'following_topics');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 if (Input::exists() && Input::get('action') == 'purge') {
     if (Token::check(Input::get('token'))) {
@@ -70,7 +70,7 @@ foreach ($results->data as $nValue) {
 
     $template_array[] = [
         'topic_title' => Output::getClean($topic->topic_title),
-        'topic_date' => $timeago->inWords($topic->topic_date, $language),
+        'topic_date' => $time_ago->inWords($topic->topic_date, $language),
         'topic_date_full' => date(DATE_FORMAT, $topic->topic_date),
         'topic_author_id' => Output::getClean($authors[$topic->topic_creator]->data()->id),
         'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayName(),
@@ -84,7 +84,7 @@ foreach ($results->data as $nValue) {
         'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
         'reply_author_style' => $authors[$topic->topic_last_user]->getGroupStyle(),
         'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayName(true))),
-        'reply_date' => $timeago->inWords($topic->topic_reply_date, $language),
+        'reply_date' => $time_ago->inWords($topic->topic_reply_date, $language),
         'reply_date_full' => date(DATE_FORMAT, $topic->topic_reply_date),
         'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
         'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),

@@ -1,13 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  Additions by Aberdeener
+/**
+ * Made by Samerton
+ * Additions by Aberdeener
  *
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr12
  *
- *  License: MIT
+ * License: MIT
  *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $route
+ * @var Endpoints $endpoints
  */
 
 // Headers

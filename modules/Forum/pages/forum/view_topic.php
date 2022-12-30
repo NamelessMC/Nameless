@@ -13,7 +13,7 @@
 const PAGE = 'forum';
 
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 // Get topic ID
 $tid = explode('/', $route);
@@ -177,7 +177,7 @@ $smarty->assign([
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupStyle(),
     'TOPIC_ID' => $topic->id,
     'FORUM_ID' => $topic->forum_id,
-    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords($first_post->last_edited, $language) : null),
+    'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $time_ago->inWords($first_post->last_edited, $language) : null),
     'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
 
@@ -699,10 +699,10 @@ foreach ($results->data as $n => $nValue) {
 
     // Get post date
     if (is_null($nValue->created)) {
-        $post_date_rough = $timeago->inWords($nValue->post_date, $language);
+        $post_date_rough = $time_ago->inWords($nValue->post_date, $language);
         $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
     } else {
-        $post_date_rough = $timeago->inWords($nValue->created, $language);
+        $post_date_rough = $time_ago->inWords($nValue->created, $language);
         $post_date = date(DATE_FORMAT, $nValue->created);
     }
 
@@ -715,7 +715,7 @@ foreach ($results->data as $n => $nValue) {
         'integrations' => $user_integrations,
         'username' => $post_creator->getDisplayName(),
         'mcname' => $post_creator->getDisplayName(true),
-        'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
+        'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $time_ago->inWords($post_creator->data()->last_online, $language)]),
         'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
         'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
         'user_title' => Output::getClean($post_creator->data()->user_title),
@@ -724,7 +724,7 @@ foreach ($results->data as $n => $nValue) {
         'user_groups' => $user_groups_html,
         'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
         'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
-        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
+        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $time_ago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
@@ -735,7 +735,7 @@ foreach ($results->data as $n => $nValue) {
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => is_null($nValue->last_edited)
             ? null
-            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
+            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $time_ago->inWords($nValue->last_edited, $language)]),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma

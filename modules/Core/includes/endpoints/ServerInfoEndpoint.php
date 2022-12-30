@@ -1,5 +1,16 @@
 <?php
 
+use GuzzleHttp\Exception\GuzzleException;
+
+/**
+ * TODO: Add description
+ *
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
+ */
 class ServerInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
@@ -9,6 +20,12 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory']);
         if (!isset($_POST['players'])) {
@@ -37,7 +54,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
             if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
                 $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
-                $query_cache = json_decode($query_cache);
+                $query_cache = json_decode($query_cache, true);
                 if (isset($query_cache->query_interval)) {
                     $query_interval = unserialize($query_cache->query_interval->data);
                 } else {
@@ -65,7 +82,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         $group_sync_log = [];
-        $should_group_sync = $serverId == Util::getSetting('group_sync_mc_server');
+        $should_group_sync = $serverId === Util::getSetting('group_sync_mc_server');
 
         try {
             $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -94,8 +111,15 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
     }
 
+    /**
+     * @param IntegrationUser $integrationUser
+     * @param array $player
+     *
+     * @return void
+     * @throws GuzzleException
+     */
     private function updateUsername(IntegrationUser $integrationUser, array $player): void {
-        if ($player['name'] != $integrationUser->data()->username) {
+        if ($player['name'] !== $integrationUser->data()->username) {
             $integrationUser->update([
                 'username' => Output::getClean($player['name'])
             ]);
@@ -103,7 +127,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
         if (Util::getSetting('username_sync')) {
             $user = $integrationUser->getUser();
-            if (!$user->exists() || $player['name'] == $user->data()->username) {
+            if (!$user->exists() || $player['name'] === $user->data()->username) {
                 return;
             }
 
@@ -121,6 +145,13 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
     }
 
+    /**
+     * @param IntegrationUser $integrationUser
+     * @param array $player
+     *
+     * @return array
+     * @throws GuzzleException
+     */
     private function updateGroups(IntegrationUser $integrationUser, array $player): array {
         if (!$integrationUser->isVerified()) {
             return [];
@@ -148,10 +179,15 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         return $log;
     }
 
+    /**
+     * @param User $user
+     * @param $player
+     *
+     * @return void
+     */
     private function updatePlaceholders(User $user, $player): void {
         if ($user->exists()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }
     }
-
 }

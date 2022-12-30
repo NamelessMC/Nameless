@@ -1,4 +1,7 @@
 <?php
+
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * NamelessMC API v2 class
  *
@@ -65,9 +68,10 @@ class Nameless2API {
      * @param string $error The namespaced error code
      * @param mixed $meta Any additional data to return
      * @param int $status HTTP status code
+     *
      * @return never
      */
-    public function throwError(string $error, $meta = null, int $status = 400): void {
+    public function throwError(string $error, $meta = null, int $status = 400) {
         $this->returnArray(
             array_merge(['error' => $error], $meta ? ['meta' => $meta] : []),
             $status
@@ -86,7 +90,9 @@ class Nameless2API {
      *
      * @param string $column The column to lookup
      * @param string $value The value to lookup in the specified column
+     *
      * @return User The resolved user
+     * @throws GuzzleException
      */
     public function getUser(string $column, string $value): User {
         $user = new User(Output::getClean($value), Output::getClean($column));
@@ -112,7 +118,7 @@ class Nameless2API {
      * @param int $status HTTP status code
      * @return never
      */
-    public function returnArray(array $array, int $status = 200): void {
+    public function returnArray(array $array, int $status = 200) {
         http_response_code($status);
 
         die(self::encodeJson($array));
@@ -121,9 +127,10 @@ class Nameless2API {
     /**
      * Validate input data
      *
-     * @param array $input The input array
+     * @param ?array $input The input array
      * @param array $required_fields Array of required fields
      * @param string $type Whether to check `post` or `get` input
+     *
      * @return bool True if the input is valid, false if not
      */
     public function validateParams(?array $input, array $required_fields, string $type = 'post'): bool {
@@ -146,6 +153,7 @@ class Nameless2API {
     /**
      * Encode a value as json, with pretty printing enabled if DEBUGGING is defined.
      * @param mixed $value Object to encode
+     *
      * @return string|false JSON encoded string on success or false on failure.
      */
     private static function encodeJson($value) {

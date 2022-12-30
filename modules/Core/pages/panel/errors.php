@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel debugging + errors page
+ * Panel debugging + errors page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.errors')) {
@@ -20,7 +31,7 @@ const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'error_logs');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
+if (isset($_GET['log'], $_GET['do']) && $_GET['do'] === 'purge') {
     if (Token::check()) {
         file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
         Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));

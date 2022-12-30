@@ -1,12 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel API page
+ * Panel API page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Endpoints $endpoints
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.api')) {
@@ -25,7 +37,7 @@ if (!isset($_GET['view'])) {
         $errors = [];
 
         if (Token::check()) {
-            if (isset($_POST['action']) && $_POST['action'] == 'regen') {
+            if (isset($_POST['action']) && $_POST['action'] === 'regen') {
                 // Regenerate new API key
                 // Generate new key
                 $new_api_key = SecureRandom::alphanumeric();
@@ -61,7 +73,7 @@ if (!isset($_GET['view'])) {
             );
 
             // Update Username sync
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
+            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] === 'on' ? '1' : '0';
             Util::setSetting('username_sync', $username_sync);
 
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
@@ -75,7 +87,7 @@ if (!isset($_GET['view'])) {
     // Group sync
     if (Input::exists()) {
         if (Token::check()) {
-            if ($_POST['action'] == 'create') {
+            if ($_POST['action'] === 'create') {
                 $validation = GroupSyncManager::getInstance()->makeValidator($_POST, $language);
 
                 $errors = [];
@@ -106,7 +118,7 @@ if (!isset($_GET['view'])) {
                     $errors = $validation->errors();
                 }
             } else {
-                if ($_POST['action'] == 'update') {
+                if ($_POST['action'] === 'update') {
 
                     $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
 
@@ -123,7 +135,7 @@ if (!isset($_GET['view'])) {
                                 if (
                                     $group
                                     && $group !== 0
-                                    && $column != $namelessmc_injector->getColumnName()
+                                    && (string)$column !== $namelessmc_injector->getColumnName()
                                 ) {
                                     $external = true;
                                 }
@@ -147,7 +159,7 @@ if (!isset($_GET['view'])) {
                         Session::flash('api_success', $language->get('admin', 'group_sync_rules_updated_successfully'));
                     }
                 } else {
-                    if ($_POST['action'] == 'delete') {
+                    if ($_POST['action'] === 'delete') {
                         if (isset($_POST['id'])) {
                             try {
                                 DB::getInstance()->delete('group_sync', ['id', $_POST['id']]);
@@ -244,7 +256,7 @@ if (!isset($_GET['view'])) {
     $template_file = 'core/api.tpl';
 } else {
 
-    if ($_GET['view'] == 'group_sync') {
+    if ($_GET['view'] === 'group_sync') {
 
         $group_sync_values = [];
         foreach (DB::getInstance()->get('group_sync', ['id', '<>', 0])->results() as $rule) {
@@ -284,7 +296,7 @@ if (!isset($_GET['view'])) {
 
         $template_file = 'core/api_group_sync.tpl';
     } else {
-        if ($_GET['view'] == 'api_endpoints') {
+        if ($_GET['view'] === 'api_endpoints') {
 
             $endpoints_array = [];
             // TODO: sort nicely

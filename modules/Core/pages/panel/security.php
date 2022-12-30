@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel security page
+ * Panel security page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.security')) {
@@ -17,8 +28,8 @@ if (!$user->handlePanelPageLoad('admincp.security')) {
 const PAGE = 'panel';
 const PARENT_PAGE = 'security';
 const PANEL_PAGE = 'security';
-// Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
-define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
+// Define the sort column #, as for group_sync we don't show IP (since its from MC server or Discord bot)
+define('SORT', (isset($_GET['view']) && $_GET['view'] === 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -259,13 +270,13 @@ if (!isset($_GET['view'])) {
             $rows = [];
 
             foreach ($logs as $log) {
-                if ($log->user_id != 0) {
+                if ($log->user_id !== '0') {
                     $target_user = new User($log->user_id);
                 }
 
                 $rows[] = [
                     0 => [
-                        'content' => $log->user_id == 0
+                        'content' => $log->user_id === '0'
                             ? $language->get('general', 'none')
                             : ($target_user->exists() ? '<a style="' . $target_user->getGroupStyle() . '" href="' . URL::build('/panel/user/' . urlencode($log->user_id . '-' . $target_user->getDisplayName(true))) . '">' . Output::getClean($target_user->getDisplayName()) . '</a>'
                             : $language->get('general', 'deleted_user'))

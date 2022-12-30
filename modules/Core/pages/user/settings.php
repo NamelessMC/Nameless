@@ -1,15 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.2
  *
- *  License: MIT
+ * License: MIT
  *
- *  UserCP settings
+ * UserCP settings
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
+use RobThree\Auth\TwoFactorAuth;
+
 if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
 }
@@ -22,16 +35,16 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Forum enabled?
 $forum_enabled = Util::isModuleEnabled('Forum');
 
-// Two factor auth?
+// Two-factor auth?
 if (isset($_GET['do'])) {
-    if ($_GET['do'] == 'enable_tfa') {
+    if ($_GET['do'] === 'enable_tfa') {
 
         // Ensure TFA is currently disabled
-        if ($user->data()->tfa_enabled == 1) {
+        if ($user->data()->tfa_enabled === true) {
             Redirect::to(URL::build('/user/settings'));
         }
 
-        $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
+        $tfa = new TwoFactorAuth(Output::getClean(SITE_NAME));
 
         if (!isset($_GET['s'])) {
             // Generate secret
@@ -113,7 +126,7 @@ if (isset($_GET['do'])) {
         $template->displayTemplate('user/tfa.tpl', $smarty);
 
     } else {
-        if ($_GET['do'] == 'disable_tfa') {
+        if ($_GET['do'] === 'disable_tfa') {
             // Disable TFA
             // TODO - https://github.com/NamelessMC/Nameless/issues/3017
             if (Input::exists()) {
@@ -147,7 +160,7 @@ if (isset($_GET['do'])) {
     // Handle input
     if (Input::exists()) {
         if (Token::check()) {
-            if (Input::get('action') == 'settings') {
+            if (Input::get('action') === 'settings') {
                 $to_validate = [
                     'signature' => [
                         'max' => 900
@@ -169,15 +182,15 @@ if (isset($_GET['do'])) {
                         Validate::MAX => 20
                     ];
 
-                    $displayname = Output::getClean(Input::get('nickname'));
+                    $display_name = Output::getClean(Input::get('nickname'));
                 } else {
-                    $displayname = $user->data()->username;
+                    $display_name = $user->data()->username;
                 }
 
                 // Get a list of required profile fields
                 $profile_fields = $user->getProfileFields(true);
                 foreach ($profile_fields as $field) {
-                    if (!$field->editable && $field->value != null) {
+                    if (!$field->editable && $field->value !== null) {
                         continue;
                     }
 
@@ -241,7 +254,7 @@ if (isset($_GET['do'])) {
                         $available_templates = $user->getUserTemplates();
 
                         foreach ($available_templates as $available_template) {
-                            if ($available_template->id == $new_template) {
+                            if ($available_template->id === $new_template) {
                                 $can_update = true;
                                 break;
                             }
@@ -262,7 +275,7 @@ if (isset($_GET['do'])) {
                         // Private profiles enabled?
                         $private_profiles = Util::getSetting('private_profile');
                         if ($private_profiles === '1') {
-                            if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
+                            if ($_POST['privateProfile'] === '1' && $user->canPrivateProfile()) {
                                 $privateProfile = 1;
                             } else {
                                 $privateProfile = 0;
@@ -271,13 +284,13 @@ if (isset($_GET['do'])) {
                             $privateProfile = $user->data()->private_profile;
                         }
 
-                        $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
+                        $gravatar = $_POST['gravatar'] === '1' ? 1 : 0;
 
                         $data = [
                             'language_id' => $new_language,
                             'timezone' => $timezone,
                             'signature' => $signature,
-                            'nickname' => $displayname,
+                            'nickname' => $display_name,
                             'private_profile' => $privateProfile,
                             'theme_id' => $new_template,
                             'gravatar' => $gravatar
@@ -331,7 +344,7 @@ if (isset($_GET['do'])) {
                 } else {
                     $errors = $validation->errors();
                 }
-            } else if (Input::get('action') == 'password') {
+            } else if (Input::get('action') === 'password') {
                 // Change password
                 $validation = Validate::check($_POST, [
                     'old_password' => [
@@ -384,7 +397,7 @@ if (isset($_GET['do'])) {
                 } else {
                     $errors = $validation->errors();
                 }
-            } else if (Input::get('action') == 'email') {
+            } else if (Input::get('action') === 'email') {
                 // Change password
                 $validation = Validate::check($_POST, [
                     'password' => [
@@ -408,7 +421,7 @@ if (isset($_GET['do'])) {
                     // Check email doesn't exist
                     $email_query = DB::getInstance()->get('users', ['email', $_POST['email']])->results();
                     if (count($email_query)) {
-                        if ($email_query[0]->id != $user->data()->id) {
+                        if ($email_query[0]->id !== $user->data()->id) {
                             $error = $language->get('user', 'email_already_exists');
                         }
                     }
@@ -433,7 +446,7 @@ if (isset($_GET['do'])) {
                 } else {
                     $errors = $validation->errors();
                 }
-            } else if (Input::get('action') == 'reset_avatar') {
+            } else if (Input::get('action') === 'reset_avatar') {
                 $user->update([
                     'has_avatar' => false,
                 ]);
@@ -467,7 +480,7 @@ if (isset($_GET['do'])) {
     foreach ($language_query as $item) {
         $languages[] = [
             'name' => Output::getClean($item->name),
-            'active' => $user->data()->language_id == $item->id
+            'active' => $user->data()->language_id === $item->id
         ];
     }
 
@@ -504,7 +517,7 @@ if (isset($_GET['do'])) {
         // Skip this field if it's not editable, and it is already set.
         // This fixes when a field is made after someone registers,
         // the next time they edit their profile, they will have to set it.
-        if (!$field->editable && $field->value != null) {
+        if (!$field->editable && $field->value !== null) {
             continue;
         }
 
@@ -603,7 +616,7 @@ if (isset($_GET['do'])) {
         'ENABLED' => $language->get('user', 'enabled'),
         'DISABLED' => $language->get('user', 'disabled'),
         'GRAVATAR' => $language->get('user', 'gravatar'),
-        'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
+        'GRAVATAR_VALUE' => $user->data()->gravatar === '1' ? '1' : '0',
     ]);
 
     if (defined('CUSTOM_AVATARS')) {
@@ -618,7 +631,7 @@ if (isset($_GET['do'])) {
         ]);
     }
 
-    if ($user->data()->tfa_enabled == 1) {
+    if ($user->data()->tfa_enabled === true) {
         $smarty->assign('DISABLE', $language->get('user', 'disable'));
         foreach ($user->getGroups() as $group) {
             if ($group->force_tfa) {

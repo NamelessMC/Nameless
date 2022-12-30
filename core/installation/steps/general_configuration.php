@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div <?php if (getenv('NAMELESS_FRIENDLY_URLS_HIDE') !== false) {
                                 echo 'style="display: none"';
-                            } ?>>
+                       } ?>>
                             <?php create_field('select', $language->get('installer', 'friendly_urls'), 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'false', [
                                 'true' => $language->get('installer', 'enabled'),
                                 'false' => $language->get('installer', 'disabled'),

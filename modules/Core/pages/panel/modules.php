@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel modules page
+ * Panel modules page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.modules')) {
@@ -33,7 +44,7 @@ if (!isset($_GET['action'])) {
     foreach ($modules as $item) {
         $exists = false;
         foreach ($enabled_modules as $enabled_item) {
-            if ($enabled_item->getName() == $item->name) {
+            if ($enabled_item->getName() === $item->name) {
                 $exists = true;
                 $module = $enabled_item;
                 break;
@@ -58,8 +69,8 @@ if (!isset($_GET['action'])) {
                 'intendedVersion' => Text::bold(Output::getClean($module->getNamelessVersion())),
                 'actualVersion' => Text::bold(NAMELESS_VERSION)
             ]) : false,
-            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
-            'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
+            'disable_link' => (($module->getName() !== 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
+            'enable_link' => (($module->getName() !== 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
             'enabled' => $item->enabled
         ];
     }
@@ -82,8 +93,9 @@ if (!isset($_GET['action'])) {
             $smarty->assign('WEBSITE_MODULES_ERROR', $all_modules_error);
 
         } else {
+            // TODO: Does this decode into a sequential or associative array?
             $all_modules_query = json_decode($all_modules_query->contents());
-            $timeago = new TimeAgo(TIMEZONE);
+            $time_ago = new TimeAgo(TIMEZONE);
 
             foreach ($all_modules_query as $item) {
                 $all_modules[] = [
@@ -136,9 +148,9 @@ if (!isset($_GET['action'])) {
     ]);
 
 } else {
-    if ($_GET['action'] == 'enable') {
+    if ($_GET['action'] === 'enable') {
         // Enable a module
-        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
+        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] === '1') {
             die('Invalid module!');
         }
 
@@ -212,9 +224,9 @@ if (!isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/modules'));
     }
 
-    if ($_GET['action'] == 'disable') {
+    if ($_GET['action'] === 'disable') {
         // Disable a module
-        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
+        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] === '1') {
             die('Invalid module!');
         }
 
@@ -242,7 +254,7 @@ if (!isset($_GET['action'])) {
             $order = Module::determineModuleOrder();
 
             foreach ($order['modules'] as $key => $item) {
-                if ($item != $name) {
+                if ($item !== $name) {
                     $modules[] = [
                         'name' => $item,
                         'priority' => $key
@@ -267,7 +279,7 @@ if (!isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/modules'));
     }
 
-    if ($_GET['action'] == 'install') {
+    if ($_GET['action'] === 'install') {
         if (Token::check()) {
             // Install any new modules
             $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);

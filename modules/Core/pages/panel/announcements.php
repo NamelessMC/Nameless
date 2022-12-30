@@ -1,12 +1,24 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel announcements page
+ * Panel announcements page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var Announcements $announcements
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.announcements')) {
@@ -113,10 +125,11 @@ if (!isset($_GET['action'])) {
 
             $groups = [];
             foreach (Group::all() as $group) {
+                $perm_view = 'perm-view-' . $group->id;
                 $groups[$group->id] = [
                     'id' => $group->id,
                     'name' => Output::getClean($group->name),
-                    'allowed' => (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1)
+                    'allowed' => (isset($_POST[$perm_view]) && $_POST['perm-view-' . $group->id] === '1')
                 ];
             }
 
@@ -131,7 +144,7 @@ if (!isset($_GET['action'])) {
                 'ORDER_VALUE' => ((isset($_POST['order']) && $_POST['order']) ? Output::getClean(Input::get('order')) : 1),
                 'CLOSABLE_VALUE' => ((isset($_POST['closable']) && $_POST['closable']) ? Output::getClean(Input::get('closable')) : ''),
                 'GROUPS_VALUE' => $groups,
-                'GUEST_PERMISSIONS' => (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1)
+                'GUEST_PERMISSIONS' => (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] === '1')
             ]);
 
             $template_file = 'core/announcements_form.tpl';
@@ -207,7 +220,10 @@ if (!isset($_GET['action'])) {
                 }
             }
 
+            // TODO: Does this decode into a sequential or associative array?
             $announcement_pages = json_decode($announcement->pages);
+
+            // TODO: Does this decode into a sequential or associative array?
             $guest_permissions = in_array('0', json_decode($announcement->groups));
 
             $groups = [];
@@ -215,6 +231,7 @@ if (!isset($_GET['action'])) {
                 $groups[$group->id] = [
                     'name' => $group->name,
                     'id' => $group->id,
+                    // TODO: Does this decode into a sequential or associative array?
                     'allowed' => in_array($group->id, json_decode($announcement->groups))
                 ];
             }
@@ -259,6 +276,7 @@ if (!isset($_GET['action'])) {
                     die('Invalid Token');
                 }
 
+                // TODO: Does this decode into a sequential or associative array?
                 $announcements_list = json_decode($_GET['announcements'])->announcements;
 
                 $i = 1;

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel index page
+ * Panel index page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad()) {
@@ -26,24 +37,24 @@ $dashboard_graphs = Core_Module::getDashboardGraphs();
 $graphs = [];
 
 if (count($dashboard_graphs)) {
-    $i = 0;
+    $count = 0;
     foreach ($dashboard_graphs as $key => $dashboard_graph) {
         $graph = [
-            'id' => $i++,
+            'id' => $count++,
             'title' => $key,
             'datasets' => [],
             'axes' => [],
             'keys' => []
         ];
 
-        foreach ($dashboard_graph['datasets'] as $dskey => $dataset) {
+        foreach ($dashboard_graph['datasets'] as $ds_key => $dataset) {
             $label = explode('/', $dataset['label']);
-            $varname = $label[0];
+            $var_name = $label[0];
             $axis = 'y' . ($dataset['axis'] ?? 1);
             $axis_side = ($dataset['axis_side'] ?? 'left');
 
-            $graph['datasets'][$dskey] = [
-                'label' => ${$varname}->get($label[1], $label[2]),
+            $graph['datasets'][$ds_key] = [
+                'label' => ${$var_name}->get($label[1], $label[2]),
                 'axis' => $axis,
                 'colour' => ($dataset['colour'] ?? '#000')
             ];
@@ -60,8 +71,8 @@ if (count($dashboard_graphs)) {
                 $graph['keys'][$date] = $date;
             }
 
-            foreach ($values as $valuekey => $value) {
-                $graph['datasets'][$valuekey]['data'][$date] = $value;
+            foreach ($values as $value_key => $value) {
+                $graph['datasets'][$value_key]['data'][$date] = $value;
             }
         }
 
@@ -77,25 +88,23 @@ if ($cache->isCached('news')) {
 
 } else {
     $news_query = Util::getLatestNews();
-    $news_query = json_decode($news_query);
-
+    $news_query = json_decode($news_query, true);
     $news = [];
 
     if (!is_null($news_query) && !isset($news_query->error) && count($news_query)) {
-        $timeago = new TimeAgo(TIMEZONE);
-
-        $i = 0;
+        $time_ago = new TimeAgo(TIMEZONE);
+        $count = 0;
 
         foreach ($news_query as $item) {
             $news[] = [
                 'title' => Output::getClean($item->title),
                 'date' => Output::getClean($item->date),
-                'date_friendly' => $timeago->inWords($item->date, $language),
+                'date_friendly' => $time_ago->inWords($item->date, $language),
                 'author' => Output::getClean($item->author),
                 'url' => Output::getClean($item->url)
             ];
 
-            if (++$i == 5) {
+            if (++$count === 5) {
                 break;
             }
         }

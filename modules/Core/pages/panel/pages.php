@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr11
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel custom pages page
+ * Panel custom pages page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.pages')) {
@@ -118,12 +129,12 @@ if (!isset($_GET['action'])) {
                                 $location = 1;
                             }
 
-                            $redirect = intval(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on');
-                            $target = intval(isset($_POST['target']) && $_POST['target'] == 'on');
+                            $redirect = intval(isset($_POST['redirect_page']) && $_POST['redirect_page'] === 'on');
+                            $target = intval(isset($_POST['target']) && $_POST['target'] === 'on');
                             $link = $_POST['redirect_link'] ?? '';
-                            $unsafe = intval(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on');
-                            $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
-                            $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
+                            $unsafe = intval(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] === 'on');
+                            $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] === 'on');
+                            $basic = intval(isset($_POST['basic']) && $_POST['basic'] === 'on');
 
                             $content = EventHandler::executeEvent('preCustomPageCreate', [
                                 'content' => Input::get('content'),
@@ -147,14 +158,15 @@ if (!isset($_GET['action'])) {
 
                             // Permissions
                             $perms = [];
-                            if (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] == 1) {
+                            if (isset($_POST['perm-view-0']) && $_POST['perm-view-0'] === '1') {
                                 $perms[0] = 1;
                             } else {
                                 $perms[0] = 0;
                             }
 
                             foreach (Group::all() as $group) {
-                                if (isset($_POST['perm-view-' . $group->id]) && $_POST['perm-view-' . $group->id] == 1) {
+                                $perm_view = 'perm-view-' . $group->id;
+                                if (isset($_POST[$perm_view]) && $_POST[$perm_view] === '1') {
                                     $perms[$group->id] = 1;
                                 } else {
                                     $perms[$group->id] = 0;
@@ -316,12 +328,12 @@ if (!isset($_GET['action'])) {
                                 $location = 1;
                             }
 
-                            $redirect = intval(isset($_POST['redirect_page']) && $_POST['redirect_page'] == 'on');
-                            $target = intval(isset($_POST['target']) && $_POST['target'] == 'on');
+                            $redirect = intval(isset($_POST['redirect_page']) && $_POST['redirect_page'] === 'on');
+                            $target = intval(isset($_POST['target']) && $_POST['target'] === 'on');
                             $link = $_POST['redirect_link'] ?? '';
-                            $unsafe = intval(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] == 'on');
-                            $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
-                            $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
+                            $unsafe = intval(isset($_POST['unsafe_html']) && $_POST['unsafe_html'] === 'on');
+                            $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] === 'on');
+                            $basic = intval(isset($_POST['basic']) && $_POST['basic'] === 'on');
 
                             $content = EventHandler::executeEvent('preCustomPageEdit', [
                                 'content' => Input::get('content'),
@@ -349,7 +361,7 @@ if (!isset($_GET['action'])) {
                                     $new_pages = [];
                                     if (is_array($pages) && count($pages)) {
                                         foreach ($pages as $widget_page) {
-                                            if ($page->title == $widget_page) {
+                                            if ($page->title === $widget_page) {
                                                 $new_pages[] = Input::get('page_title');
                                             } else {
                                                 $new_pages[] = $widget_page;
@@ -368,7 +380,7 @@ if (!isset($_GET['action'])) {
                                     $new_pages = [];
                                     if (count($pages)) {
                                         foreach ($pages as $announcement_page) {
-                                            if ($page->title == $announcement_page) {
+                                            if ($page->title === $announcement_page) {
                                                 $new_pages[] = Input::get('page_title');
                                             } else {
                                                 $new_pages[] = $announcement_page;
@@ -389,13 +401,13 @@ if (!isset($_GET['action'])) {
                                 $view = 0;
                             }
 
-                            $page_perm_exists = 0;
+                            $page_perm_exists = false;
 
                             $page_perm_query = DB::getInstance()->get('custom_pages_permissions', ['page_id', $page->id])->results();
                             if (count($page_perm_query)) {
                                 foreach ($page_perm_query as $query) {
-                                    if ($query->group_id == 0) {
-                                        $page_perm_exists = 1;
+                                    if ($query->group_id === '0') {
+                                        $page_perm_exists = true;
                                         $update_id = $query->id;
                                         break;
                                     }
@@ -403,8 +415,8 @@ if (!isset($_GET['action'])) {
                             }
 
                             try {
-                                if ($page_perm_exists != 0) { // Permission already exists, update
-                                    // Update the category
+                                if ($page_perm_exists === true) { // Permission already exists, update.
+                                    // Update the category.
                                     DB::getInstance()->update('custom_pages_permissions', $update_id, [
                                         'view' => $view
                                     ]);
@@ -428,12 +440,12 @@ if (!isset($_GET['action'])) {
                                     $view = 0;
                                 }
 
-                                $page_perm_exists = 0;
+                                $page_perm_exists = false;
 
                                 if (count($page_perm_query)) {
                                     foreach ($page_perm_query as $query) {
-                                        if ($query->group_id == $group->id) {
-                                            $page_perm_exists = 1;
+                                        if ($query->group_id === $group->id) {
+                                            $page_perm_exists = true;
                                             $update_id = $query->id;
                                             break;
                                         }
@@ -441,8 +453,8 @@ if (!isset($_GET['action'])) {
                                 }
 
                                 try {
-                                    if ($page_perm_exists != 0) { // Permission already exists, update
-                                        // Update the category
+                                    if ($page_perm_exists === true) { // Permission already exists, update.
+                                        // Update the category.
                                         DB::getInstance()->update('custom_pages_permissions', $update_id, [
                                             'view' => $view
                                         ]);
@@ -476,8 +488,9 @@ if (!isset($_GET['action'])) {
             $group_permissions = DB::getInstance()->query('SELECT id, `name`, group_html, subquery.view AS `view` FROM nl2_groups LEFT JOIN (SELECT `view`, group_id FROM nl2_custom_pages_permissions WHERE page_id = ?) AS subquery ON nl2_groups.id = subquery.group_id ORDER BY `order`', [$page->id])->results();
             $template_array = [];
             foreach ($group_permissions as $group) {
-                $template_array[Output::getClean($group->id)] = [
-                    'id' => Output::getClean($group->id),
+                $cleaned_id = Output::getClean($group->id);
+                $template_array[$cleaned_id] = [
+                    'id' => $cleaned_id,
                     'name' => Output::getClean($group->name),
                     'html' => $group->group_html,
                     'view' => $group->view
@@ -485,10 +498,10 @@ if (!isset($_GET['action'])) {
             }
 
             $guest_permissions = DB::getInstance()->query('SELECT `view` FROM nl2_custom_pages_permissions WHERE group_id = 0 AND page_id = ?', [$page->id])->results();
-            $guest_can_view = 0;
+            $guest_can_view = false;
             if (count($guest_permissions)) {
-                if ($guest_permissions[0]->view == 1) {
-                    $guest_can_view = 1;
+                if ($guest_permissions[0]->view === '1') {
+                    $guest_can_view = true;
                 }
             }
 

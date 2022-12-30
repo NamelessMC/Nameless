@@ -47,9 +47,9 @@ if ($cache->isCached('news')) {
     $cache->store('news', $news, 60);
 }
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 foreach ($news as $key => $item) {
-    $news[$key]['time_ago'] = $timeago->inWords($item['time_ago'], $language);
+    $news[$key]['time_ago'] = $time_ago->inWords($item['time_ago'], $language);
 }
 
 $smarty->assign('LATEST_ANNOUNCEMENTS', $forum_language->get('forum', 'latest_announcements'));

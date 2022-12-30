@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @param string $id The NamelessMC ID of the user to get notifications for
- * @param string $username NamelessMC sername of the user to get notifications for
+ * TODO: Add description
  *
- * @return string JSON Array
- * @see Alert
- *
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class GetNotificationsEndpoint extends KeyAuthEndpoint {
 
@@ -17,6 +18,12 @@ class GetNotificationsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api, User $user): void {
         $return = ['notifications' => []];
 

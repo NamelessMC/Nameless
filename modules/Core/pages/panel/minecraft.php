@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Minecraft page
+ * Panel Minecraft page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft')) {
@@ -56,9 +67,6 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-// Check if Minecraft integration is enabled
-$minecraft_enabled = MINECRAFT;
-
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -68,10 +76,10 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_MINECRAFT_INTEGRATION' => $language->get('admin', 'enable_minecraft_integration'),
-    'MINECRAFT_ENABLED' => $minecraft_enabled
+    'MINECRAFT_ENABLED' => MINECRAFT
 ]);
 
-if ($minecraft_enabled == 1) {
+if (MINECRAFT === true) {
     if ($user->hasPermission('admincp.minecraft.authme')) {
         $smarty->assign([
             'AUTHME' => $language->get('admin', 'authme_integration'),
@@ -100,7 +108,7 @@ if ($minecraft_enabled == 1) {
         ]);
     }
 
-    if ($user->hasPermission('admincp.minecraft.banners') && function_exists('exif_imagetype')) {
+    if (function_exists('exif_imagetype') && $user->hasPermission('admincp.minecraft.banners')) {
         $smarty->assign([
             'BANNERS' => $language->get('admin', 'server_banners'),
             'BANNERS_LINK' => URL::build('/panel/minecraft/banners')

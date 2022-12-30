@@ -1,12 +1,13 @@
 <?php
 
 /**
- * @param string $integration The Integration Name
- * @param string $code Used to verify they own the account
- * @param string $identifier The id of the integration account
- * @param string $username The username of the integration account
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
 
@@ -17,6 +18,12 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws Exception
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['integration', 'code', 'identifier', 'username']);
 

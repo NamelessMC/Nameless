@@ -1,10 +1,13 @@
 <?php
 
 /**
- * @param string $id The NamelessMC user's ID
- * @param string $code The NamelessMC user's reset code, used to verify they own the account
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class VerifyEndpoint extends KeyAuthEndpoint {
 
@@ -15,14 +18,21 @@ class VerifyEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     * @throws Exception
+     */
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['code']);
 
-        if ($user->data()->active || $user->data()->reset_code == '') {
+        if ($user->data()->active || $user->data()->reset_code === '') {
             $api->throwError(CoreApiErrors::ERROR_USER_ALREADY_ACTIVE);
         }
 
-        if ($user->data()->reset_code != $_POST['code']) {
+        if ($user->data()->reset_code !== $_POST['code']) {
             $api->throwError(CoreApiErrors::ERROR_INVALID_CODE);
         }
 

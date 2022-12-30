@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  User alerts page
+ * User alerts page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -19,7 +30,7 @@ const PAGE = 'cc_alerts';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['view'])) {
     if (!isset($_GET['action'])) {
@@ -39,7 +50,7 @@ if (!isset($_GET['view'])) {
             // Only display 30 alerts
             // Get date
             $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
-            $alerts[$n]->date_nice = $timeago->inWords($alerts[$n]->created, $language);
+            $alerts[$n]->date_nice = $time_ago->inWords($alerts[$n]->created, $language);
             $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . urlencode($alerts[$n]->id));
 
             $alerts_limited[] = $alerts[$n];
@@ -77,7 +88,7 @@ if (!isset($_GET['view'])) {
         $template->displayTemplate('user/alerts.tpl', $smarty);
 
     } else {
-        if ($_GET['action'] == 'purge') {
+        if ($_GET['action'] === 'purge') {
             if (Token::check()) {
                 DB::getInstance()->delete('alerts', ['user_id', $user->data()->id]);
             } else {
@@ -97,11 +108,11 @@ if (!isset($_GET['view'])) {
     // Check the alert belongs to the user..
     $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
 
-    if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
+    if (!count($alert) || $alert[0]->user_id !== $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    if ($alert[0]->read == 0) {
+    if ($alert[0]->read === '0') {
         DB::getInstance()->update('alerts', $alert[0]->id, [
             'read' => true,
         ]);

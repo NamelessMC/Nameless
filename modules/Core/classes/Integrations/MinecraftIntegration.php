@@ -1,4 +1,8 @@
 <?php
+
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * MinecraftIntegration class
  *
@@ -12,6 +16,9 @@ class MinecraftIntegration extends IntegrationBase {
     protected Language $_language;
     private string $_uuid;
 
+    /**
+     * @param Language $language
+     */
     public function __construct(Language $language) {
         $this->_name = 'Minecraft';
         $this->_icon = 'fas fa-cubes';
@@ -21,13 +28,26 @@ class MinecraftIntegration extends IntegrationBase {
         parent::__construct();
     }
 
+    /**
+     * @param string $verification_code
+     *
+     * @return void
+     */
     private function flashVerifyCommand(string $verification_code): void {
         $verification_command = Output::getClean(Util::getSetting('minecraft_verify_command', '/verify'));
         $message = $this->_language->get('user', 'validate_account_command', ['command' => $verification_command . ' ' . $verification_code]);
         Session::flash('connections_success', $message);
     }
 
-    public function onLinkRequest(User $user) {
+    /**
+     * Called when user wants to link their account from user connections page, Does not need to be verified
+     *
+     * @param User $user
+     *
+     * @throws DebugBarException
+     * @throws GuzzleException
+     */
+    public function onLinkRequest(User $user): void {
         $username = $user->data()->username;
 
         // Validate username
@@ -54,19 +74,34 @@ class MinecraftIntegration extends IntegrationBase {
         $this->flashVerifyCommand($code);
     }
 
-    public function onVerifyRequest(User $user) {
+    /**
+     * Called when user wants to continue to verify their integration user from connections page
+     *
+     * @param User $user
+     */
+    public function onVerifyRequest(User $user): void {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $this->flashVerifyCommand($integrationUser->data()->code);
     }
 
-    public function onUnlinkRequest(User $user) {
+    /**
+     * Called when user wants to unlink their integration user from connections page
+     *
+     * @param User $user
+     */
+    public function onUnlinkRequest(User $user): void {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
 
         Session::flash('connections_success', $this->_language->get('user', 'integration_unlinked', ['integration' => Output::getClean($this->_name)]));
     }
 
-    public function onSuccessfulVerification(IntegrationUser $integrationUser) {
+    /**
+     * Called when the user have successfully validated the ownership of the account
+     *
+     * @param IntegrationUser $integrationUser
+     */
+    public function onSuccessfulVerification(IntegrationUser $integrationUser): void {
         // Nothing to do here
     }
 
@@ -77,6 +112,7 @@ class MinecraftIntegration extends IntegrationBase {
      * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
+     * @throws Exception
      */
     public function validateUsername(string $username, string $integration_user_id = '0'): bool {
         $validation = Validate::check(['username' => $username], [
@@ -117,6 +153,7 @@ class MinecraftIntegration extends IntegrationBase {
      * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
+     * @throws Exception
      */
     public function validateIdentifier(string $identifier, string $integration_user_id = '0'): bool {
         $validation = Validate::check(['identifier' => $identifier], [
@@ -150,8 +187,13 @@ class MinecraftIntegration extends IntegrationBase {
         return $validation->passed();
     }
 
-    public function onRegistrationPageLoad(Fields $fields) {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+    /**
+     * Called when register page being loaded
+     *
+     * @param Fields $fields
+     */
+    public function onRegistrationPageLoad(Fields $fields): void {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') !== '1') {
             return;
         }
 
@@ -160,12 +202,20 @@ class MinecraftIntegration extends IntegrationBase {
         $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $username_value, null, null, 1);
     }
 
-    public function beforeRegistrationValidation(Validate $validate) {
+    /**
+     * Called before registration validation
+     *
+     * @param Validate $validate
+     */
+    public function beforeRegistrationValidation(Validate $validate): void {
         // Nothing to do here
     }
 
-    public function afterRegistrationValidation() {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+    /**
+     * Called after registration validation
+     */
+    public function afterRegistrationValidation(): void {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') !== '1') {
             return;
         }
 
@@ -189,8 +239,14 @@ class MinecraftIntegration extends IntegrationBase {
         }
     }
 
-    public function successfulRegistration(User $user) {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+    /**
+     * Called when user is successfully registered
+     *
+     * @param User $user
+     * @throws GuzzleException
+     */
+    public function successfulRegistration(User $user): void {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') !== '1') {
             return;
         }
         
@@ -200,6 +256,14 @@ class MinecraftIntegration extends IntegrationBase {
         $integrationUser->linkIntegration($user, $this->_uuid, Input::get('username'), false, $code);
     }
 
+    /**
+     * Called when user integration is requested to be synced.
+     *
+     * @param IntegrationUser $integration_user
+     *
+     * @return bool
+     * @throws DebugBarException
+     */
     public function syncIntegrationUser(IntegrationUser $integration_user): bool {
         $profile = ProfileUtils::getProfile($integration_user->data()->identifier);
 
@@ -223,14 +287,16 @@ class MinecraftIntegration extends IntegrationBase {
      * Get minecraft UUID by username
      *
      * @param string $username
+     *
      * @return array
+     * @throws DebugBarException
      */
     public function getUuidByUsername(string $username): array {
         if (Util::getSetting('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
-        } else {
-            return ProfileUtils::getOfflineModeUuid($username);
         }
+
+        return ProfileUtils::getOfflineModeUuid($username);
     }
 
     /**
@@ -238,6 +304,7 @@ class MinecraftIntegration extends IntegrationBase {
      *
      * @param string $username
      * @return array
+     * @throws DebugBarException
      */
     public function getOnlineModeUuid(string $username): array {
         $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
@@ -245,16 +312,14 @@ class MinecraftIntegration extends IntegrationBase {
         $mcname_result = $profile ? $profile->getProfileAsArray() : [];
         if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
             // Valid
-            $result = [
+            return [
                 'uuid' => $mcname_result['uuid'],
                 'username' => $mcname_result['username']
             ];
-
-            return $result;
-        } else {
-            // Invalid
-            $this->addError($this->_language->get('user', 'invalid_mcname'));
         }
+
+        // Invalid
+        $this->addError($this->_language->get('user', 'invalid_mcname'));
 
         return [];
     }

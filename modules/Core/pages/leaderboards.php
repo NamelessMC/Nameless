@@ -1,12 +1,14 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Aberdeener
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Leaderboards page
+ * Leaderboards page
+ *
+ *
  */
 
 $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
@@ -29,7 +31,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $leaderboard_placeholders_data = [];
 $leaderboard_users = [];
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
@@ -58,7 +60,7 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
         $row_data->username = Output::getClean($leaderboard_users[$uuid]->data()->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
-        $row_data->last_updated = ucfirst($timeago->inWords($row->last_updated, $language));
+        $row_data->last_updated = ucfirst($time_ago->inWords($row->last_updated, $language));
 
         $leaderboard_placeholders_data[] = $row_data;
     }

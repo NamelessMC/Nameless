@@ -1,11 +1,25 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ * @var IntegrationBase $integration
+ * @var Smarty $smarty
+ */
+
 if (Input::exists()) {
     if (Token::check()) {
         if (Input::get('action') === 'integration_settings') {
-            $premium_account = isset($_POST['premium_account']) && $_POST['premium_account'] == 'on' ? '1' : '0';
+            $premium_account = isset($_POST['premium_account']) && $_POST['premium_account'] === 'on' ? '1' : '0';
             Util::setSetting('uuid_linking', $premium_account);
 
-            $username_registration = isset($_POST['username_registration']) && $_POST['username_registration'] == 'on' ? '1' : '0';
+            $username_registration = isset($_POST['username_registration']) && $_POST['username_registration'] === 'on' ? '1' : '0';
             Util::setSetting('mc_username_registration', $username_registration, 'Minecraft Integration');
 
             Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));

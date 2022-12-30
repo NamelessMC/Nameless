@@ -1,9 +1,13 @@
 <?php
 
 /**
- * @param string $integration The Integration Name
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
 
@@ -14,6 +18,12 @@ class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api, User $user): void {
         $api->validateParams($_POST, ['integration']);
 
@@ -23,7 +33,7 @@ class UnlinkIntegrationEndpoint extends KeyAuthEndpoint {
         }
 
         $integration_user = $user->getIntegration($integration->getName());
-        if ($integration_user == null) {
+        if ($integration_user === null) {
             $api->throwError(CoreApiErrors::ERROR_INTEGRATION_NOT_LINKED);
         }
 

@@ -1,12 +1,14 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.2
  *
- *  License: MIT
+ * License: MIT
  *
- *  Log user out
+ * Log user out
+ *
+ *
  */
 
 if ($user->isLoggedIn()) {

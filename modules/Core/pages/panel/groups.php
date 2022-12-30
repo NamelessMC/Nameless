@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel groups page
+ * Panel groups page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.groups')) {
@@ -59,16 +70,16 @@ if (isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         try {
-                            if (isset($_POST['default']) && $_POST['default'] == 1) {
-                                $default = 1;
+                            if (isset($_POST['default']) && $_POST['default'] === '1') {
+                                $default = true;
                             } else {
-                                $default = 0;
+                                $default = false;
                             }
 
                             // If this is the new default group, update old default group
                             $default_group = Group::find('1', 'default_group');
-                            if (!$default_group && $default == 0) {
-                                $default = 1;
+                            if (!$default_group && $default === false) {
+                                $default = true;
                             }
 
                             $last_group_order = DB::getInstance()->query('SELECT `order` FROM nl2_groups ORDER BY `order` DESC LIMIT 1')->results();
@@ -86,15 +97,15 @@ if (isset($_GET['action'])) {
                                 'admin_cp' => Input::get('staffcp'),
                                 'staff' => Input::get('staff'),
                                 'default_group' => $default,
-                                'order' => (Input::get('order') == 5 ? $last_group_order + 1 : Input::get('order')),
+                                'order' => (Input::get('order') === 5 ? $last_group_order + 1 : Input::get('order')),
                                 'force_tfa' => Input::get('tfa'),
                                 'permissions' => '{}',
                             ]);
 
                             $group_id = DB::getInstance()->lastId();
 
-                            if ($default == 1) {
-                                if ($default_group && $default_group->id != $group_id) {
+                            if ($default === true) {
+                                if ($default_group && $default_group->id !== $group_id) {
                                     DB::getInstance()->update('groups', $default_group->id, [
                                         'default_group' => false
                                     ]);
@@ -153,7 +164,7 @@ if (isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
-            if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
+            if ($group->id === '2' || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
                 $smarty->assign([
                     'OWN_GROUP' => $language->get('admin', 'cant_edit_this_group'),
                     'INFO' => $language->get('general', 'info')
@@ -171,7 +182,7 @@ if (isset($_GET['action'])) {
             if (Input::exists()) {
                 $errors = [];
                 if (Token::check()) {
-                    if (Input::get('action') == 'update') {
+                    if (Input::get('action') === 'update') {
                         $validation = Validate::check($_POST, [
                             'groupname' => [
                                 Validate::REQUIRED => true,
@@ -192,27 +203,27 @@ if (isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             try {
-                                if (isset($_POST['default']) && $_POST['default'] == 1) {
-                                    $default = 1;
+                                if (isset($_POST['default']) && $_POST['default'] === '1') {
+                                    $default = true;
                                     $cache->setCache('default_group');
                                     $cache->store('default_group', $_GET['group']);
                                 } else {
-                                    $default = 0;
+                                    $default = false;
                                 }
 
                                 // If this is the new default group, update old default group
                                 $default_group = Group::find('1', 'default_group');
-                                if ($default_group && $default == 1 && $default_group->id != $_GET['group']) {
+                                if ($default_group && $default === true && $default_group->id !== $_GET['group']) {
                                     DB::getInstance()->update('groups', $default_group->id, [
                                         'default_group' => false
                                     ]);
                                 } else {
-                                    if (!$default_group && $default == 0) {
-                                        $default = 1;
+                                    if (!$default_group && $default === false) {
+                                        $default = true;
                                     }
                                 }
 
-                                if ($group->id == 2) {
+                                if ($group->id === '2') {
                                     $staff_cp = 1;
                                 } else {
                                     $staff_cp = Input::get('staffcp');
@@ -242,12 +253,12 @@ if (isset($_GET['action'])) {
                             $errors = $validation->errors();
                         }
                     } else {
-                        if (Input::get('action') == 'delete') {
+                        if (Input::get('action') === 'delete') {
                             try {
                                 $default_group = Group::find('1', 'default_group');
 
                                 if ($default_group) {
-                                    if ($group->id == 2 || $default_group->id == Input::get('id') || $group->admin_cp == 1) {
+                                    if ($group->admin_cp === true || $group->id === '2' || $default_group->id === Input::get('id')) {
                                         // Can't delete default group/admin group
                                         Session::flash('admin_groups_error', $language->get('admin', 'unable_to_delete_group'));
                                     } else {
@@ -314,7 +325,7 @@ if (isset($_GET['action'])) {
             if (Input::exists()) {
                 $errors = [];
                 if (Token::check()) {
-                    if (Input::get('action') == 'update') {
+                    if (Input::get('action') === 'update') {
                         $validation = Validate::check($_POST, [
                             'groupname' => [
                                 Validate::REQUIRED => true,
@@ -335,16 +346,16 @@ if (isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             try {
-                                if (isset($_POST['default']) && $_POST['default'] == 1) {
-                                    $default = 1;
+                                if (isset($_POST['default']) && $_POST['default'] === '1') {
+                                    $default = true;
                                 } else {
-                                    $default = 0;
+                                    $default = false;
                                 }
 
                                 // If this is the new default group, update old default group
                                 $default_group = Group::find('1', 'default_group');
-                                if (!$default_group && $default == 0) {
-                                    $default = 1;
+                                if (!$default_group && $default === false) {
+                                    $default = true;
                                 }
 
                                 DB::getInstance()->insert('groups', [
@@ -367,8 +378,8 @@ if (isset($_GET['action'])) {
                                     'cloned_group_id' => $group->id,
                                 ]);
 
-                                if ($default == 1) {
-                                    if ($default_group && $default_group->id != $group_id) {
+                                if ($default === true) {
+                                    if ($default_group && $default_group->id !== $group_id) {
                                         DB::getInstance()->update('groups', $default_group->id, [
                                             'default_group' => false
                                         ]);
@@ -440,7 +451,7 @@ if (isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
-            if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
+            if ($group->id === '2' || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
                 Redirect::to(URL::build('/panel/core/groups'));
             }
 
@@ -488,7 +499,7 @@ if (isset($_GET['action'])) {
         case 'order':
             // Get groups
             if (isset($_POST['groups']) && Token::check($_POST['token'])) {
-                $groups = json_decode($_POST['groups'])->groups;
+                $groups = json_decode($_POST['groups'], true)->groups;
 
                 $i = 1;
                 foreach ($groups as $item) {

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel templates page
+ * Panel templates page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.templates')) {
@@ -61,9 +72,9 @@ if (!isset($_GET['action'])) {
                 'actualVersion' => Text::bold(NAMELESS_VERSION)
             ]) : false,
             'enabled' => $item->enabled,
-            'default_warning' => (Output::getClean($item->name) == 'Default') ? $language->get('admin', 'template_not_supported') : null,
+            'default_warning' => (Output::getClean($item->name) === 'Default') ? $language->get('admin', 'template_not_supported') : null,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/templates/', 'action=activate&template=' . urlencode($item->id))),
-            'delete_link' => ((!$user->hasPermission('admincp.styles.templates.edit') || $item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/templates/', 'action=delete&template=' . urlencode($item->id))),
+            'delete_link' => ((!$user->hasPermission('admincp.styles.templates.edit') || $item->id === '1' || $item->enabled) ? null : URL::build('/panel/core/templates/', 'action=delete&template=' . urlencode($item->id))),
             'default' => $item->is_default,
             'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
             'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=make_default&template=' . urlencode($item->id)) : null),
@@ -91,7 +102,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
         } else {
             $all_templates_query = $all_templates_query->json();
-            $timeago = new TimeAgo(TIMEZONE);
+            $time_ago = new TimeAgo(TIMEZONE);
 
             foreach ($all_templates_query as $item) {
                 $all_templates[] = [
@@ -259,7 +270,7 @@ if (!isset($_GET['action'])) {
                     $template = DB::getInstance()->get('templates', ['id', $item])->results();
                     if (count($template)) {
                         $template = $template[0];
-                        if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
+                        if ($template->name === 'DefaultRevamp' || $template->id === '1' || $template->enabled === '1' || $template->is_default === '1') {
                             Redirect::to(URL::build('/panel/core/templates'));
                         }
 
@@ -390,16 +401,16 @@ if (!isset($_GET['action'])) {
                     $can_use_template = Input::get('perm-use-0');
 
                     if (!($can_use_template)) {
-                        $can_use_template = 0;
+                        $can_use_template = '0';
                     }
 
-                    $perm_exists = 0;
+                    $perm_exists = false;
 
                     $perm_query = DB::getInstance()->get('groups_templates', ['template_id', $template_query->id])->results();
                     if (count($perm_query)) {
                         foreach ($perm_query as $query) {
-                            if ($query->group_id == 0) {
-                                $perm_exists = 1;
+                            if ($query->group_id === '0') {
+                                $perm_exists = true;
                                 $update_id = $query->id;
                                 break;
                             }
@@ -407,8 +418,8 @@ if (!isset($_GET['action'])) {
                     }
 
                     try {
-                        if ($perm_exists != 0) { // Permission already exists, update
-                            // Update the permission
+                        if ($perm_exists === true) { // Permission already exists, update.
+                            // Update the permission.
                             DB::getInstance()->update('groups_templates', $update_id, [
                                 'can_use_template' => $can_use_template
                             ]);
@@ -428,15 +439,15 @@ if (!isset($_GET['action'])) {
                         $can_use_template = Input::get('perm-use-' . $group->id);
 
                         if (!($can_use_template)) {
-                            $can_use_template = 0;
+                            $can_use_template = '0';
                         }
 
-                        $perm_exists = 0;
+                        $perm_exists = false;
 
                         if (count($perm_query)) {
                             foreach ($perm_query as $query) {
-                                if ($query->group_id == $group->id) {
-                                    $perm_exists = 1;
+                                if ($query->group_id === $group->id) {
+                                    $perm_exists = true;
                                     $update_id = $query->id;
                                     break;
                                 }
@@ -444,8 +455,8 @@ if (!isset($_GET['action'])) {
                         }
 
                         try {
-                            if ($perm_exists != 0) { // Permission already exists, update
-                                // Update the permission
+                            if ($perm_exists === true) { // Permission already exists, update.
+                                // Update the permission.
                                 DB::getInstance()->update('groups_templates', $update_id, [
                                     'can_use_template' => $can_use_template,
                                 ]);
@@ -504,7 +515,7 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/templates'));
             }
 
-            if ($_GET['template'] == 1) {
+            if ($_GET['template'] === '1') {
                 $smarty->assign('DEFAULT_TEMPLATE_WARNING', $language->get('admin', 'warning_editing_default_template'));
             }
 
@@ -518,7 +529,7 @@ if (!isset($_GET['action'])) {
                 $template_dirs = [];
 
                 foreach ($files as $file) {
-                    if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
+                    if ($file !== '.' && $file !== '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) === 'tpl' || pathinfo($file, PATHINFO_EXTENSION) === 'css' || pathinfo($file, PATHINFO_EXTENSION) === 'js' || pathinfo($file, PATHINFO_EXTENSION) === 'conf')) {
                         if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file)) {
                             $template_files[] = [
                                 'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&file=' . urlencode($file)),
@@ -562,7 +573,7 @@ if (!isset($_GET['action'])) {
                     $template_dirs = [];
 
                     foreach ($files as $file) {
-                        if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
+                        if ($file !== '.' && $file !== '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) === 'tpl' || pathinfo($file, PATHINFO_EXTENSION) === 'css' || pathinfo($file, PATHINFO_EXTENSION) === 'js' || pathinfo($file, PATHINFO_EXTENSION) === 'conf')) {
                             if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file)) {
                                 $template_files[] = [
                                     'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($dir) . '&file=' . urlencode($file)),
@@ -641,7 +652,7 @@ if (!isset($_GET['action'])) {
                                 if (is_writable($file_path)) {
                                     // Can write to template file
                                     // Write
-                                    $file = fopen($file_path, 'w');
+                                    $file = fopen($file_path, 'wb');
                                     fwrite($file, Input::get('code'));
                                     fclose($file);
 
@@ -658,7 +669,7 @@ if (!isset($_GET['action'])) {
                                     }
                                 }
 
-// No write permission
+                                // No write permission
                                 $errors = [$language->get('admin', 'cant_write_to_template')];
                             } else {
                                 // Invalid token

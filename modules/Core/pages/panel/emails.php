@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Email management page
+ * Email management page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails')) {
@@ -36,14 +47,14 @@ $emails = [
 
 if (isset($_GET['action'])) {
 
-    if ($_GET['action'] == 'test') {
+    if ($_GET['action'] === 'test') {
         $smarty->assign([
             'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/emails')
         ]);
 
-        if (isset($_GET['do']) && $_GET['do'] == 'send') {
+        if (isset($_GET['do']) && $_GET['do'] === 'send') {
             $errors = [];
 
             $sent = Email::send(
@@ -83,7 +94,7 @@ if (isset($_GET['action'])) {
 
         $template_file = 'core/emails_test.tpl';
     } else {
-        if ($_GET['action'] == 'edit_messages') {
+        if ($_GET['action'] === 'edit_messages') {
 
             $available_languages = [];
 
@@ -122,7 +133,7 @@ if (isset($_GET['action'])) {
 
             $template_file = 'core/emails_edit_messages.tpl';
         } else {
-            if ($_GET['action'] == 'preview') {
+            if ($_GET['action'] === 'preview') {
                 $viewing_language = new Language('core', Session::get('editing_language'));
 
                 $smarty->assign([

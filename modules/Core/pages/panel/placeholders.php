@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Made by Aberdeener
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr12
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel placeholders page
+ * Panel placeholders page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.placeholders')) {
@@ -31,7 +42,7 @@ if (isset($_GET['leaderboard'])) {
     $placeholder_safe_name = $_GET['leaderboard'];
     $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
 
-    if ($placeholder != null) {
+    if ($placeholder !== null) {
 
         $template_file = 'integrations/minecraft/placeholders_leaderboard.tpl';
 
@@ -39,9 +50,9 @@ if (isset($_GET['leaderboard'])) {
 
             if (Token::check()) {
 
-                $enabled = Input::get('leaderboard_enabled') == 'on' ? 1 : 0;
+                $enabled = Input::get('leaderboard_enabled') === 'on' ? 1 : 0;
                 $title_input = Input::get('leaderboard_title');
-                $title = $title_input == '' ? null : $title_input;
+                $title = $title_input === '' ? null : $title_input;
                 $sort = Input::get('leaderboard_sort');
 
                 try {
@@ -102,15 +113,15 @@ if (isset($_GET['leaderboard'])) {
 
         if (Token::check()) {
             // Update placeholders value
-            Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
+            Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] === 'on') ? '1' : '0');
 
             foreach ($all_placeholders as $placeholder) {
                 try {
 
                     $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
-                    $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
-                    $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
-                    $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                    $friendly_name = $friendly_name_input === '' ? null : $friendly_name_input;
+                    $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) === 'on' ? 1 : 0;
+                    $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) === 'on' ? 1 : 0;
 
                     DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
                         $friendly_name,

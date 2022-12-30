@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel reports page
+ * Panel reports page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('modcp.reports')) {
@@ -20,7 +31,7 @@ const PANEL_PAGE = 'reports';
 $page_title = $language->get('moderator', 'reports');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['id'])) {
     // Get all reports
@@ -67,7 +78,7 @@ if (!isset($_GET['id'])) {
                 Redirect::to($url);
             }
 
-            if ($_GET['p'] == 1) {
+            if ($_GET['p'] === '1') {
                 // Avoid bug in pagination class
                 Redirect::to($url);
             }
@@ -90,7 +101,7 @@ if (!isset($_GET['id'])) {
             $comments = count($comments);
 
             $user_reported = null;
-            if ($report->reported_id != 0) {
+            if ($report->reported_id !== '0') {
                 $reported_user = new User($report->reported_id);
 
                 if ($reported_user->exists()) {
@@ -119,14 +130,14 @@ if (!isset($_GET['id'])) {
                 'user_profile' => $user_profile,
                 'user_reported_style' => $user_style,
                 'user_reported_avatar' => $user_avatar,
-                'reported_at' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
+                'reported_at' => ($report->reported ? $time_ago->inWords($report->reported, $language) : $time_ago->inWords($report->date_reported, $language)),
                 'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
                 'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
                 'updated_by' => $updated_by_user->getDisplayName(),
                 'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupStyle(),
                 'updated_by_avatar' => $updated_by_user->getAvatar(),
-                'updated_at' => ($report->updated ? $timeago->inWords($report->updated, $language) : $timeago->inWords($report->date_updated, $language)),
+                'updated_at' => ($report->updated ? $time_ago->inWords($report->updated, $language) : $time_ago->inWords($report->date_updated, $language)),
                 'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
                 'comments' => $comments
             ];
@@ -222,13 +233,13 @@ if (!isset($_GET['id'])) {
                 'avatar' => $comment_user->getAvatar(),
                 'content' => Output::getPurified($comment->comment_content),
                 'date' => ($comment->date ? date(DATE_FORMAT, $comment->date) : date(DATE_FORMAT, strtotime($comment->comment_date))),
-                'date_friendly' => ($comment->date ? $timeago->inWords($comment->date, $language) : $timeago->inWords($comment->comment_date, $language))
+                'date_friendly' => ($comment->date ? $time_ago->inWords($comment->date, $language) : $time_ago->inWords($comment->comment_date, $language))
             ];
         }
 
         if (!$report->reported_id) {
             $integration = Integrations::getInstance()->getIntegration('Minecraft');
-            if ($integration != null) {
+            if ($integration !== null) {
                 $reported_user = new IntegrationUser($integration, $report->reported_uuid, 'identifier');
                 if ($reported_user->exists()) {
                     $reported_user = $reported_user->getUser();
@@ -269,7 +280,7 @@ if (!isset($_GET['id'])) {
             'REPORTED_USER_STYLE' => $reported_user_style,
             'REPORTED_USER_AVATAR' => $reported_user_avatar,
             'REPORT_DATE' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
-            'REPORT_DATE_FRIENDLY' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
+            'REPORT_DATE_FRIENDLY' => ($report->reported ? $time_ago->inWords($report->reported, $language) : $time_ago->inWords($report->date_reported, $language)),
             'CONTENT_LINK' => $report->link,
             'VIEW_CONTENT' => $language->get('moderator', 'view_content'),
             'REPORT_CONTENT' => Output::getPurified($report->report_reason),
@@ -288,7 +299,7 @@ if (!isset($_GET['id'])) {
         ]);
 
         // Close/reopen link
-        if ($report->status == 0) {
+        if ($report->status === '0') {
             $smarty->assign([
                 'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . urlencode($report->id)),
                 'CLOSE_REPORT' => $language->get('moderator', 'close_report')
@@ -302,7 +313,7 @@ if (!isset($_GET['id'])) {
 
         $template_file = 'core/users_reports_view.tpl';
     } else {
-        if ($_GET['action'] == 'close') {
+        if ($_GET['action'] === 'close') {
             // Close report
             if (is_numeric($_GET['id'])) {
                 // Get report
@@ -338,7 +349,7 @@ if (!isset($_GET['id'])) {
             Redirect::to(URL::build('/panel/users/reports'));
         }
 
-        if ($_GET['action'] == 'open') {
+        if ($_GET['action'] === 'open') {
             // Reopen report
             if (is_numeric($_GET['id'])) {
                 // Get report

@@ -1,12 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Custom page
+ * Custom page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ *
+ * TODO: CONTINUE FROM HERE
  */
 
 // Get page info from URL
@@ -74,7 +87,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $content = EventHandler::executeEvent('renderCustomPage', [
     'content' => $custom_page->content,
-    'skip_purify' => $custom_page->all_html ?? false
+    'skip_purify' => $custom_page->all_html === '1' ?? false // TODO: Does all_html return 0 or 1?
 ])['content'];
 
 $smarty->assign([

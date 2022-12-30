@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr10
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr10
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel images page
+ * Panel images page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.images')) {
@@ -22,7 +33,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Reset background
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'reset_banner') {
+    if ($_GET['action'] === 'reset_banner') {
         $cache->setCache('backgroundcache');
         $cache->store('banner_image', '');
 
@@ -30,7 +41,7 @@ if (isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/images'));
     }
 
-    if ($_GET['action'] == 'reset_logo') {
+    if ($_GET['action'] === 'reset_logo') {
         $cache->setCache('backgroundcache');
         $cache->store('logo_image', '');
 
@@ -38,7 +49,7 @@ if (isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/images'));
     }
 
-    if ($_GET['action'] == 'reset_favicon') {
+    if ($_GET['action'] === 'reset_favicon') {
         $cache->setCache('backgroundcache');
         $cache->store('favicon_image', '');
 
@@ -112,7 +123,7 @@ if (!$cache->isCached('banner_image')) {
     $banner_image = $cache->retrieve('banner_image');
 }
 
-if ($banner_image == '') {
+if ($banner_image === '') {
     $banner_img = $language->get('general', 'none');
 } else {
     $banner_img = Output::getClean($banner_image);
@@ -121,7 +132,7 @@ if ($banner_image == '') {
 // Get logo from cache
 $logo_image = $cache->retrieve('logo_image');
 
-if ($logo_image == '') {
+if ($logo_image === '') {
     $logo_img = $language->get('general', 'none');
 } else {
     $logo_img = Output::getClean($logo_image);
@@ -130,73 +141,74 @@ if ($logo_image == '') {
 // Get favicon from cache
 $favicon_image = $cache->retrieve('favicon_image');
 
-if ($favicon_image == '') {
+if ($favicon_image === '') {
     $favicon_img = $language->get('general', 'none');
 } else {
     $favicon_img = Output::getClean($favicon_image);
 }
 
 // Only display jpeg, png, jpg, gif
-$allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
+$allowed_extensions = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
 $images = scandir($image_path);
 $template_banner_images = [];
 
-$n = 1;
+$count = 1;
 
 foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions)) {
         continue;
     }
     $template_banner_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image,
         'value' => $image,
-        'selected' => ($banner_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
-        'n' => $n
+        'selected' => ($banner_image === (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/' . $image),
+        'n' => $count
     ];
-    $n++;
+    $count++;
 }
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']);
 $images = scandir($image_path);
 $logo_images = [];
 
-$n = 1;
+$count = 1;
 
 foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions)) {
         continue;
     }
     $logo_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image,
         'value' => $image,
-        'selected' => ($logo_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
-        'n' => $n
+        'selected' => ($logo_image === (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/logos/' . $image),
+        'n' => $count
     ];
-    $n++;
+    $count++;
 }
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'favicons']);
 $images = scandir($image_path);
 $favicon_images = [];
 
-$n = 1;
+$count = 1;
 
 foreach ($images as $image) {
-    $ext = pathinfo($image, PATHINFO_EXTENSION);
-    if (!in_array($ext, $allowed_exts)) {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+    if (!in_array($extension, $allowed_extensions)) {
         continue;
     }
+
     $favicon_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image,
         'value' => $image,
-        'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image),
-        'n' => $n
+        'selected' => ($favicon_image === (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/favicons/' . $image),
+        'n' => $count
     ];
-    $n++;
+    $count++;
 }
 
 if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {

@@ -1,10 +1,15 @@
 <?php
 
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
- * @param string $username The username of the new user to create
- * @param string $email The email of the new user
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class RegisterEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +20,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws Exception
+     * @throws GuzzleException
+     */
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['username', 'email']);
 
@@ -42,13 +54,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $integrations = Integrations::getInstance();
 
             foreach ($_POST['integrations'] as $integration_name => $item) {
-                if (!isset($item['identifier']) || !isset($item['username'])) {
+                if (!isset($item['identifier'], $item['username'])) {
                     continue;
                 }
 
                 // Require successful validation if integration is required
                 $integration = $integrations->getIntegration($integration_name);
-                if ($integration != null) {
+                if ($integration !== null) {
                     // Validate username and make sure username is unique
                     if (!$integration->validateUsername($item['username'])) {
                         $api->throwError(CoreApiErrors::ERROR_INTEGRATION_USERNAME_ERRORS, $integration->getErrors());
@@ -88,6 +100,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @param ?string $code The reset token/temp password of the new user
      *
      * @return array
+     * @throws GuzzleException
      */
     private function createUser(Nameless2API $api, string $username, string $email, bool $return, string $code = null): array {
         try {
@@ -115,7 +128,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
             } else {
                 $default_group = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache');
-                $default_group = json_decode($default_group);
+                $default_group = json_decode($default_group, true);
                 $default_group = unserialize($default_group->default_group->data);
             }
 
@@ -145,7 +158,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 $integrations = Integrations::getInstance();
 
                 foreach ($_POST['integrations'] as $integration_name => $item) {
-                    if (!isset($item['identifier']) || !isset($item['username'])) {
+                    if (!isset($item['identifier'], $item['username'])) {
                         continue;
                     }
 
@@ -188,9 +201,11 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * @param string $username The username of the new user to create
      * @param string $email The email of the new user
-     * @throws Exception
-     * @see Nameless2API::register()
      *
+     * @throws Exception
+     * @throws GuzzleException
+     *
+     * @see Nameless2API::register()
      */
     private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
         // Generate random code

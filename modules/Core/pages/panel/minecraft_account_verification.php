@@ -1,12 +1,23 @@
 <?php
-/*
- *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ *Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Minecraft account verification page
+ * Panel Minecraft account verification page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.verification')) {
@@ -29,7 +40,7 @@ if (Input::exists()) {
             $use_mcassoc = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
             $use_mcassoc = $use_mcassoc[0]->id;
 
-            if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] == 'on') {
+            if (isset($_POST['use_mcassoc']) && $_POST['use_mcassoc'] === 'on') {
                 $validation = Validate::check($_POST, [
                     'mcassoc_key' => [
                         Validate::REQUIRED => true,
@@ -69,7 +80,7 @@ if (Input::exists()) {
             $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
             $uuid_linking = $uuid_linking[0]->id;
 
-            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1) {
+            if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] === '1') {
                 $use_premium = 1;
             } else {
                 $use_premium = 0;
@@ -104,7 +115,7 @@ if (isset($errors) && count($errors)) {
 $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
 $uuid_linking = $uuid_linking[0]->value;
 
-if ($uuid_linking == '1') {
+if ($uuid_linking === '1') {
     // Get mcassoc settings
     $use_mcassoc = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
     $use_mcassoc = $use_mcassoc[0]->value;
@@ -122,7 +133,7 @@ if ($uuid_linking == '1') {
             'linkEnd' => '</a>'
         ]),
         'USE_MCASSOC' => $language->get('admin', 'verify_with_mcassoc'),
-        'USE_MCASSOC_VALUE' => ($use_mcassoc == '1'),
+        'USE_MCASSOC_VALUE' => ($use_mcassoc === '1'),
         'MCASSOC_KEY' => $language->get('admin', 'mcassoc_key'),
         'MCASSOC_KEY_VALUE' => $mcassoc_key,
         'MCASSOC_INSTANCE' => $language->get('admin', 'mcassoc_instance'),
@@ -142,7 +153,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'ACCOUNT_VERIFICATION' => $language->get('admin', 'account_verification'),
     'FORCE_PREMIUM_ACCOUNTS' => $language->get('admin', 'force_premium_accounts'),
-    'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking == '1')
+    'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking === '1')
 ]);
 
 $template->onPageLoad();

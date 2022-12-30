@@ -1,13 +1,23 @@
 <?php
-
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Aberdeener
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  User OAuth page
+ * User OAuth page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -44,9 +54,9 @@ foreach ($user_providers as $user_provider) {
     $user_providers_template[$user_provider->provider] = $user_provider;
 }
 
-$oauth_messsages = [];
+$oauth_messages = [];
 foreach ($providers as $name => $data) {
-    $oauth_messsages[$name] = [
+    $oauth_messages[$name] = [
         'unlink_confirm' => $language->get('user', 'oauth_unlink_confirm', ['provider' => ucfirst($name)]),
         'link_confirm' => $language->get('user', 'oauth_link_confirm', ['provider' => ucfirst($name)]),
     ];
@@ -78,7 +88,7 @@ $smarty->assign([
     'OAUTH' => $language->get('admin', 'oauth'),
     'LINK' => $language->get('general', 'link'),
     'UNLINK' => $language->get('general', 'unlink'),
-    'OAUTH_MESSAGES' => $oauth_messsages,
+    'OAUTH_MESSAGES' => $oauth_messages,
 ]);
 
 // Load modules + template

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel punishments page
+ * Panel punishments page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('modcp.punishments')) {
@@ -14,7 +25,7 @@ if (!$user->handlePanelPageLoad('modcp.punishments')) {
     die();
 }
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 const PAGE = 'panel';
 const PARENT_PAGE = 'users';
@@ -33,17 +44,17 @@ if (isset($_GET['user'])) {
     }
     $query = $view_user->data();
 
-    if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
+    if (isset($_GET['do'], $_GET['id']) && $_GET['do'] === 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {
             $infraction = DB::getInstance()->get('infractions', ['id', $_GET['id']])->results();
-            if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished != $query->id)) {
+            if (!$user->hasPermission('modcp.punishments.revoke') || !count($infraction) || ($infraction[0]->punished !== $query->id)) {
                 Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
             }
             $infraction = $infraction[0];
 
             // Revoke infraction
             // Unban user/IP
-            if ($infraction->type == 1) {
+            if ($infraction->type === '1') {
                 // Unban user
                 try {
                     DB::getInstance()->update('users', $query->id, [
@@ -55,7 +66,7 @@ if (isset($_GET['user'])) {
                     $errors = [$e->getMessage()];
                 }
             } else {
-                if ($infraction->type == 3) {
+                if ($infraction->type === '3') {
                     try {
                         DB::getInstance()->update('users', $query->id, [
                             'isbanned' => false,
@@ -102,7 +113,7 @@ if (isset($_GET['user'])) {
                         if (!$user->hasPermission('modcp.punishments.reset_avatar')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                         }
-                        $type = 4;
+                        $type = '4';
                         break;
 
                     case 'ban':
@@ -110,7 +121,7 @@ if (isset($_GET['user'])) {
                         if (!$user->hasPermission('modcp.punishments.ban')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                         }
-                        $type = 1;
+                        $type = '1';
                         break;
 
                     case 'ban_ip':
@@ -118,7 +129,7 @@ if (isset($_GET['user'])) {
                         if (!$user->hasPermission('modcp.punishments.banip')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                         }
-                        $type = 3;
+                        $type = '3';
                         break;
 
                     default:
@@ -126,7 +137,7 @@ if (isset($_GET['user'])) {
                         if (!$user->hasPermission('modcp.punishments.warn')) {
                             Redirect::to(URL::build('/panel/users/punishments'));
                         }
-                        $type = 2;
+                        $type = '2';
                         break;
                 }
 
@@ -140,7 +151,7 @@ if (isset($_GET['user'])) {
                         // Ensure user is not admin
                         if (!$is_admin) {
                             // Prevent ip banning if target ip match the user ip
-                            if ($type != 3 || $user->data()->lastip != $banned_user->data()->lastip) {
+                            if ($type !== '3' || $user->data()->lastip !== $banned_user->data()->lastip) {
                                 DB::getInstance()->insert('infractions', [
                                     'type' => $type,
                                     'punished' => $query->id,
@@ -148,7 +159,7 @@ if (isset($_GET['user'])) {
                                     'reason' => $_POST['reason'],
                                     'infraction_date' => date('Y-m-d H:i:s'),
                                     'created' => date('U'),
-                                    'acknowledged' => (($type == 2) ? 0 : 1)
+                                    'acknowledged' => (($type === '2') ? 0 : 1)
                                 ]);
 
                                 switch($type) {
@@ -164,7 +175,7 @@ if (isset($_GET['user'])) {
 
                                         DB::getInstance()->delete('users_session', ['user_id', $query->id]);
 
-                                        if ($type == 3) {
+                                        if ($type === '3') {
                                             // Ban IP
                                             DB::getInstance()->insert('ip_bans', [
                                                 'ip' => $banned_user_ip,
@@ -179,7 +190,7 @@ if (isset($_GET['user'])) {
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
-                                            'ip_ban' => $type == 3,
+                                            'ip_ban' => $type === '3',
                                         ]);
                                         break;
                                     case 2:
@@ -230,7 +241,7 @@ if (isset($_GET['user'])) {
                                         $users = $users->results();
 
                                         foreach ($users as $item) {
-                                            if ($user->data()->id == $item->id) {
+                                            if ($user->data()->id === $item->id) {
                                                 continue;
                                             }
 
@@ -318,9 +329,9 @@ if (isset($_GET['user'])) {
                 'issued_by_style' => $issued_by_user->getGroupStyle(),
                 'issued_by_avatar' => $issued_by_user->getAvatar(),
                 'date_full' => ($punishment->created ? date(DATE_FORMAT, $punishment->created) : date(DATE_FORMAT, strtotime($punishment->infraction_date))),
-                'date_friendly' => ($punishment->created ? $timeago->inWords($punishment->created, $language) : $timeago->inWords($punishment->infraction_date, $language)),
-                'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type != 4) ? URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id) . '&do=revoke&id=' . urlencode($punishment->id)) : 'none'),
-                'confirm_revoke_punishment' => (($punishment->type == 2) ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
+                'date_friendly' => ($punishment->created ? $time_ago->inWords($punishment->created, $language) : $time_ago->inWords($punishment->infraction_date, $language)),
+                'revoke_link' => (($user->hasPermission('modcp.punishments.revoke') && $punishment->type !== '4') ? URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id) . '&do=revoke&id=' . urlencode($punishment->id)) : 'none'),
+                'confirm_revoke_punishment' => (($punishment->type === '2') ? $language->get('moderator', 'confirm_revoke_warning') : $language->get('moderator', 'confirm_revoke_ban'))
             ];
         }
     }
@@ -371,7 +382,7 @@ if (isset($_GET['user'])) {
 
     $template_file = 'core/users_punishments_user.tpl';
 } else {
-    if (Input::exists() && isset($_POST['username'])) {
+    if (isset($_POST['username']) && Input::exists()) {
         if (Token::check()) {
             $check = DB::getInstance()->query('SELECT id FROM nl2_users WHERE username = ? OR nickname = ?', [$_POST['username'], $_POST['username']]);
 
@@ -398,7 +409,7 @@ if (isset($_GET['user'])) {
                 Redirect::to(URL::build('/panel/users/punishments'));
             }
 
-            if ($_GET['p'] == 1) {
+            if ($_GET['p'] === '1') {
                 // Avoid bug in pagination class
                 Redirect::to(URL::build('/panel/users/punishments'));
             }
@@ -451,7 +462,7 @@ if (isset($_GET['user'])) {
                 'revoked' => $result->revoked,
                 'acknowledged' => $result->acknowledged,
                 'time_full' => ($result->created ? date(DATE_FORMAT, $result->created) : date(DATE_FORMAT, strtotime($result->infraction_date))),
-                'time' => ($result->created ? $timeago->inWords($result->created, $language) : $timeago->inWords($result->infraction_date, $language)),
+                'time' => ($result->created ? $time_ago->inWords($result->created, $language) : $time_ago->inWords($result->infraction_date, $language)),
                 'link' => URL::build('/panel/users/punishments/', 'user=' . urlencode($result->punished)),
             ];
         }

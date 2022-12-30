@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Minecraft servers page
+ * Panel Minecraft servers page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.servers')) {
@@ -74,49 +85,49 @@ if (isset($_GET['action'])) {
                         // Handle input
                         try {
                             // Bedrock selected?
-                            if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
+                            if (isset($_POST['bedrock']) && $_POST['bedrock'] === '1') {
                                 $bedrock = 1;
                             } else {
                                 $bedrock = 0;
                             }
 
                             // BungeeCord selected?
-                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
+                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] === '1') {
                                 $bungee = 1;
                             } else {
                                 $bungee = 0;
                             }
 
                             // Pre 1.7?
-                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
+                            if (isset($_POST['pre_17']) && $_POST['pre_17'] === '1') {
                                 $pre = 1;
                             } else {
                                 $pre = 0;
                             }
 
                             // Status enabled?
-                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
+                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] === '1') {
                                 $status = 1;
                             } else {
                                 $status = 0;
                             }
 
                             // Show IP enabled?
-                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
+                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] === '1') {
                                 $show_ip = 1;
                             } else {
                                 $show_ip = 0;
                             }
 
                             // Player list enabled?
-                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
+                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] === '1') {
                                 $query = 1;
                             } else {
                                 $query = 0;
                             }
 
                             // Parent server
-                            if ($_POST['parent_server'] == 'none') {
+                            if ($_POST['parent_server'] === 'none') {
                                 $parent = 0;
                             } else {
                                 $parent = $_POST['parent_server'];
@@ -126,7 +137,7 @@ if (isset($_GET['action'])) {
                             if (is_numeric(Input::get('server_port'))) {
                                 $port = Input::get('server_port');
                             } else {
-                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
+                                if (empty($_POST['server_port'])) {
                                     $port = null;
                                 } else {
                                     $port = 25565;
@@ -185,7 +196,7 @@ if (isset($_GET['action'])) {
             $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
             $external_query = $external_query[0]->value;
 
-            if ($external_query == 1) {
+            if ($external_query === '1') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
@@ -293,49 +304,49 @@ if (isset($_GET['action'])) {
                         // Handle input
                         try {
                             // Bedrock selected?
-                            if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
+                            if (isset($_POST['bedrock']) && $_POST['bedrock'] === '1') {
                                 $bedrock = 1;
                             } else {
                                 $bedrock = 0;
                             }
 
                             // BungeeCord selected?
-                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
+                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] === '1') {
                                 $bungee = 1;
                             } else {
                                 $bungee = 0;
                             }
 
                             // Pre 1.7?
-                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
+                            if (isset($_POST['pre_17']) && $_POST['pre_17'] === '1') {
                                 $pre = 1;
                             } else {
                                 $pre = 0;
                             }
 
                             // Status enabled?
-                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
+                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] === '1') {
                                 $status = 1;
                             } else {
                                 $status = 0;
                             }
 
                             // Show IP enabled?
-                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
+                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] === '1') {
                                 $show_ip = 1;
                             } else {
                                 $show_ip = 0;
                             }
 
                             // Player list enabled?
-                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
+                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] === '1') {
                                 $query = 1;
                             } else {
                                 $query = 0;
                             }
 
                             // Parent server
-                            if ($_POST['parent_server'] == 'none') {
+                            if ($_POST['parent_server'] === 'none') {
                                 $parent = 0;
                             } else {
                                 $parent = $_POST['parent_server'];
@@ -345,7 +356,7 @@ if (isset($_GET['action'])) {
                             if (is_numeric(Input::get('server_port'))) {
                                 $port = Input::get('server_port');
                             } else {
-                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
+                                if (empty($_POST['server_port'])) {
                                     $port = null;
                                 } else {
                                     $port = 25565;
@@ -396,7 +407,7 @@ if (isset($_GET['action'])) {
             $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
             $external_query = $external_query[0]->value;
 
-            if ($external_query == 1) {
+            if ($external_query === '1') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
@@ -426,22 +437,22 @@ if (isset($_GET['action'])) {
                 'PARENT_SERVER_VALUE' => $server_editing->parent_server,
                 'BUNGEE_INSTANCE' => $language->get('admin', 'bungee_instance'),
                 'BUNGEE_INSTANCE_INFO' => $language->get('admin', 'bungee_instance_help'),
-                'BUNGEE_INSTANCE_VALUE' => ($server_editing->bungee == 1),
+                'BUNGEE_INSTANCE_VALUE' => ($server_editing->bungee === '1'),
                 'BEDROCK' => $language->get('admin', 'bedrock'),
-                'BEDROCK_VALUE' => ($server_editing->bedrock == 1),
+                'BEDROCK_VALUE' => ($server_editing->bedrock === '1'),
                 'BEDROCK_INFO' => $language->get('admin', 'bedrock_help'),
                 'PRE_17' => $language->get('admin', 'pre_1_7'),
-                'PRE_17_VALUE' => ($server_editing->pre == 1),
+                'PRE_17_VALUE' => ($server_editing->pre === '1'),
                 'QUERY_INFORMATION' => $language->get('admin', 'query_information'),
                 'ENABLE_STATUS_QUERY' => $language->get('admin', 'enable_status_query'),
                 'ENABLE_STATUS_QUERY_INFO' => $language->get('admin', 'status_query_help'),
-                'ENABLE_STATUS_QUERY_VALUE' => ($server_editing->display == 1),
+                'ENABLE_STATUS_QUERY_VALUE' => ($server_editing->display === '1'),
                 'SHOW_IP_ON_STATUS_PAGE' => $language->get('admin', 'show_ip_on_status_page'),
                 'SHOW_IP_ON_STATUS_PAGE_INFO' => $language->get('admin', 'show_ip_on_status_page_info'),
-                'SHOW_IP_ON_STATUS_PAGE_VALUE' => ($server_editing->show_ip == 1),
+                'SHOW_IP_ON_STATUS_PAGE_VALUE' => ($server_editing->show_ip === '1'),
                 'ENABLE_PLAYER_LIST' => $language->get('admin', 'enable_player_list'),
                 'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
-                'ENABLE_PLAYER_LIST_VALUE' => ($server_editing->player_list == 1),
+                'ENABLE_PLAYER_LIST_VALUE' => ($server_editing->player_list === '1'),
                 'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
                 'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
                 'SERVER_QUERY_PORT_VALUE' => Output::getClean($server_editing->query_port)
@@ -465,17 +476,18 @@ if (isset($_GET['action'])) {
             }
 
             Redirect::to(URL::build('/panel/minecraft/servers'));
+            break;
         case 'order':
             // Get servers
             if (isset($_POST['servers']) && Token::check($_POST['token'])) {
-                $servers = json_decode($_POST['servers'])->servers;
+                $servers = json_decode($_POST['servers'], true)->servers;
 
-                $i = 1;
+                $count = 1;
                 foreach ($servers as $item) {
                     DB::getInstance()->update('mc_servers', $item, [
-                        'order' => $i
+                        'order' => $count
                     ]);
-                    $i++;
+                    $count++;
                 }
             }
             die('Complete');
@@ -493,7 +505,7 @@ if (isset($_GET['action'])) {
             if (isset($_POST['default_server']) && is_numeric($_POST['default_server'])) {
                 $new_default = $_POST['default_server'];
             } else {
-                $new_default = 0;
+                $new_default = '0';
             }
 
             if (isset($_POST['group_sync_server']) && is_numeric($_POST['group_sync_server'])) {
@@ -502,30 +514,30 @@ if (isset($_GET['action'])) {
                 $new_group_sync_server = 0;
             }
 
-            if (isset($_POST['external_query']) && $_POST['external_query'] == 1) {
-                $external = 1;
+            if (isset($_POST['external_query']) && $_POST['external_query'] === '1') {
+                $external = true;
             } else {
-                $external = 0;
+                $external = false;
             }
 
-            if (isset($_POST['status_page']) && $_POST['status_page'] == 1) {
-                $status = 1;
+            if (isset($_POST['status_page']) && $_POST['status_page'] === '1') {
+                $status = true;
             } else {
-                $status = 0;
+                $status = false;
             }
 
             // Update database and cache
             try {
                 // Default server
-                if ($new_default > 0) {
+                if ($new_default !== '0') {
                     $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
-                    if (count($current_default) && $current_default[0]->id != $new_default) {
+                    if (count($current_default) && $current_default[0]->id !== $new_default) {
                         DB::getInstance()->update('mc_servers', $current_default[0]->id, [
                             'is_default' => false,
                         ]);
                     }
 
-                    if (!count($current_default) || $current_default[0]->id != $new_default) {
+                    if (!count($current_default) || $current_default[0]->id !== $new_default) {
                         DB::getInstance()->update('mc_servers', $new_default, [
                             'is_default' => true,
                         ]);
@@ -584,7 +596,7 @@ if (isset($_GET['action'])) {
     if (count($servers)) {
 
         foreach ($servers as $server) {
-            if ($server->is_default == 1) {
+            if ($server->is_default === '1') {
                 $default = $server->id;
             }
 
@@ -616,9 +628,7 @@ if (isset($_GET['action'])) {
     $cache->setCache('server_query_cache');
     if ($cache->isCached('query_interval')) {
         $query_interval = $cache->retrieve('query_interval');
-        if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
-            // Interval ok
-        } else {
+        if (!is_numeric($query_interval) || $query_interval > 60 || $query_interval < 5) {
             // Default to 10
             $query_interval = 10;
 
@@ -652,9 +662,9 @@ if (isset($_GET['action'])) {
         'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
         'INFO' => $language->get('general', 'info'),
         'EXTERNAL_QUERY_INFO' => $language->get('admin', 'external_query_help'),
-        'EXTERNAL_QUERY_VALUE' => ($external_query == 1),
+        'EXTERNAL_QUERY_VALUE' => ($external_query === '1'),
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
-        'STATUS_PAGE_VALUE' => ($status_page == '1'),
+        'STATUS_PAGE_VALUE' => ($status_page === '1'),
         'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers', 'action=order'),
         'SERVERS' => $template_array
     ]);

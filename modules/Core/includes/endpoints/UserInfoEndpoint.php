@@ -1,11 +1,13 @@
 <?php
 
 /**
- * @param string $id NamelessMC ID of user to view
- * @param string $username The NamelessMC username of the user to view
- * @param string $uuid The Minecraft UUID of the user
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Core\Endpoints
+ * @author UNKNOWN
+ * @author UNKOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class UserInfoEndpoint extends KeyAuthEndpoint {
 
@@ -16,6 +18,12 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
+    /**
+     * @param Nameless2API $api
+     * @param User $user
+     *
+     * @return void
+     */
     public function execute(Nameless2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
@@ -76,7 +84,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
                 'integration' => Output::getClean($key),
                 'identifier' => Output::getClean($integrationUser->data()->identifier),
                 'username' => Output::getClean($integrationUser->data()->username),
-                'verified' => (bool) $integrationUser->isVerified(),
+                'verified' => $integrationUser->isVerified(),
                 'linked_date' => $integrationUser->data()->date,
                 'show_publicly' => (bool) $integrationUser->data()->show_publicly,
             ];

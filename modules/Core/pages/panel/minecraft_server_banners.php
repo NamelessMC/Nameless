@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr0
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr0
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Minecraft server banners page
+ * Panel Minecraft server banners page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.banners')) {
@@ -123,7 +134,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             $template_images[] = [
                 'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/banners/' . $image,
                 'value' => $image,
-                'selected' => ($server->banner_background == $image),
+                'selected' => ($server->banner_background === $image),
                 'n' => $n
             ];
             $n++;

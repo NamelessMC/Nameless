@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel reactions page
+ * Panel reactions page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
@@ -117,7 +128,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             // Check enabled status
-                            if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                            if (isset($_POST['enabled']) && $_POST['enabled'] === 'on') {
                                 $enabled = 1;
                             } else {
                                 $enabled = 0;
@@ -243,7 +254,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 if ($validation->passed()) {
                     // Check enabled status
-                    if (isset($_POST['enabled']) && $_POST['enabled'] == 'on') {
+                    if (isset($_POST['enabled']) && $_POST['enabled'] === 'on') {
                         $enabled = 1;
                     } else {
                         $enabled = 0;

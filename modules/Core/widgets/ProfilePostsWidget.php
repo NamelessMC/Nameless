@@ -16,12 +16,12 @@ class ProfilePostsWidget extends WidgetBase {
     private User $_user;
     private TimeAgo $_timeago;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $time_ago) {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
-        $this->_timeago = $timeago;
+        $this->_timeago = $time_ago;
 
         // Get widget
         $widget_query = self::getData('Latest Profile Posts');

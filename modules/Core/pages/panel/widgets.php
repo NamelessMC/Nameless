@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr13
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel widgets page
+ * Panel widgets page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 if (!$user->handlePanelPageLoad('admincp.widgets')) {
@@ -64,7 +75,7 @@ if (!isset($_GET['action'])) {
 
     $template_file = 'core/widgets.tpl';
 } else {
-    if ($_GET['action'] == 'enable') {
+    if ($_GET['action'] === 'enable') {
         // Enable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             die('Invalid widget!');
@@ -96,7 +107,7 @@ if (!isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/widgets'));
     }
 
-    if ($_GET['action'] == 'disable') {
+    if ($_GET['action'] === 'disable') {
         // Disable a widget
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             die('Invalid widget!');
@@ -127,7 +138,7 @@ if (!isset($_GET['action'])) {
         Redirect::to(URL::build('/panel/core/widgets'));
     }
 
-    if ($_GET['action'] == 'edit') {
+    if ($_GET['action'] === 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
@@ -177,7 +188,7 @@ if (!isset($_GET['action'])) {
             $active_pages = [];
         }
 
-        if ($widgets->getWidget($widget->name)->getSettings() != null) {
+        if ($widgets->getWidget($widget->name)->getSettings() !== null) {
             $smarty->assign(
                 [
                     'SETTINGS' => $language->get('admin', 'settings'),
@@ -218,7 +229,7 @@ if (!isset($_GET['action'])) {
 
         $template_file = 'core/widgets_edit.tpl';
     } else {
-        if ($_GET['action'] == 'settings') {
+        if ($_GET['action'] === 'settings') {
             // Ensure widget exists
             if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
                 Redirect::to(URL::build('/panel/core/widgets'));

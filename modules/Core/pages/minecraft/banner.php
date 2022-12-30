@@ -1,12 +1,16 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Minecraft server banner
+ * Minecraft server banner
+ *
+ * @var Language $language
+ * @var Cache $cache
+ * @var string[] $directories
  */
 
 const PAGE = 'banner';
@@ -36,7 +40,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         $server = $server[0];
 
         $display_ip = $server->ip;
-        if (!is_null($server->port) && $server->port != 25565) {
+        if (!is_null($server->port) && $server->port !== 25565) {
             $display_ip .= ':' . $server->port;
         }
 
@@ -51,7 +55,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             // Internal or external query?
             $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
             if (count($query_type)) {
-                if ($query_type[0]->value == '1') {
+                if ($query_type[0]->value === '1') {
                     $query_type = 'external';
                 } else {
                     $query_type = 'internal';

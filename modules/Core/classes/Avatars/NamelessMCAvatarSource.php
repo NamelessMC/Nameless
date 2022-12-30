@@ -9,6 +9,9 @@
  */
 class NamelessMCAvatarSource extends AvatarSourceBase {
 
+    /**
+     * @param Language $language
+     */
     public function __construct(Language $language) {
         $this->_name = 'Nameless';
         $this->_base_url = $language->get('admin', 'built_in_avatars');
@@ -17,8 +20,17 @@ class NamelessMCAvatarSource extends AvatarSourceBase {
         ];
     }
 
+    /**
+     * Get raw URL with placeholders to format.
+     * - `{identifier} = UUID / username`
+     * - `{size} = size in pixels`
+     *
+     * @param string $perspective Perspective to use in url.
+     *
+     * @return string URL with placeholders to format.
+     */
     public function getUrlToFormat(string $perspective): string {
-        if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
+        if (defined('FRIENDLY_URLS') && FRIENDLY_URLS === true) {
             return URL::build('/avatar/{identifier}');
         }
 

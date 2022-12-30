@@ -1,12 +1,23 @@
 <?php
-/*
+/**
  *	Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  UserCP messaging page
+ * UserCP messaging page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
  */
 
 // Must be logged in
@@ -19,7 +30,7 @@ const PAGE = 'cc_messaging';
 $page_title = $language->get('user', 'user_cp');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$timeago = new TimeAgo(TIMEZONE);
+$time_ago = new TimeAgo(TIMEZONE);
 
 $smarty->assign(
     [
@@ -33,7 +44,7 @@ if (isset($_GET['p'])) {
         Redirect::to(URL::build('/user/messaging'));
     }
 
-    if ($_GET['p'] == 1) {
+    if ($_GET['p'] === '1') {
         // Avoid bug in pagination class
         if (isset($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging/', 'action=view&message=' . urlencode($_GET['message'])));
@@ -85,7 +96,7 @@ if (!isset($_GET['action'])) {
             'last_message_user_profile' => $target_user->getProfileURL(),
             'last_message_user_avatar' => $target_user->getAvatar(30),
             'last_message_user_style' => $target_user->getGroupStyle(),
-            'last_message_date' => $timeago->inWords($nValue['updated'], $language),
+            'last_message_date' => $time_ago->inWords($nValue['updated'], $language),
             'last_message_date_full' => date(DATE_FORMAT, $nValue['updated'])
         ];
     }
@@ -127,7 +138,7 @@ if (!isset($_GET['action'])) {
     $template->displayTemplate('user/messaging.tpl', $smarty);
 
 } else {
-    if ($_GET['action'] == 'new') {
+    if ($_GET['action'] === 'new') {
         if (!$user->hasPermission('usercp.messaging')) {
             Redirect::to(URL::build('/user/messaging'));
         }
@@ -167,36 +178,36 @@ if (!isset($_GET['action'])) {
                     // Validation passed, validate recipients
                     $users = Input::get('to');
                     $users = explode(',', $users);
-                    $n = 0;
+                    $count = 0;
 
                     // Replace white space at start of username, also limit to 10 users
                     foreach ($users as $item) {
                         if ($item[0] === ' ') {
-                            $users[$n] = substr($item, 1);
-                            $username = $users[$n];
+                            $users[$count] = substr($item, 1);
+                            $username = $users[$count];
                         } else {
                             $username = $item;
                         }
 
-                        if ($username == $user->data()->nickname || $username == $user->data()->username) {
-                            unset($users[$n]);
+                        if ($username === $user->data()->nickname || $username === $user->data()->username) {
+                            unset($users[$count]);
                             continue;
                         }
 
                         $user_id = $user->nameToId($item);
                         if ($user_id) {
-                            if ($user->isBlocked($user_id, $user->data()->id) && !$user->canViewStaffCP()) {
+                            if ($user->canViewStaffCP() === false && $user->isBlocked($user_id, $user->data()->id)) {
                                 $blocked = true;
-                                unset($users[$n]);
+                                unset($users[$count]);
                                 continue;
                             }
                         }
 
-                        if ($n == 10) {
+                        if ($count === 10) {
                             $max_users = true;
                             break;
                         }
-                        $n++;
+                        $count++;
                     }
 
                     if (isset($blocked)) {
@@ -335,7 +346,7 @@ if (!isset($_GET['action'])) {
         // Display template
         $template->displayTemplate('user/new_message.tpl', $smarty);
 
-    } else if ($_GET['action'] == 'view') {
+    } else if ($_GET['action'] === 'view') {
         // Ensure message is specified
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
             Redirect::to(URL::build('/user/messaging'));
@@ -396,7 +407,7 @@ if (!isset($_GET['action'])) {
                     $users = DB::getInstance()->get('private_messages_users', ['pm_id', $pm[0]->id])->results();
 
                     foreach ($users as $item) {
-                        if ($item->user_id != $user->data()->id) {
+                        if ($item->user_id !== $user->data()->id) {
                             DB::getInstance()->update('private_messages_users', $item->id, [
                                 'read' => false
                             ]);
@@ -452,7 +463,7 @@ if (!isset($_GET['action'])) {
                 'author_avatar' => $target_user->getAvatar(100),
                 'author_style' => $target_user->getGroupStyle(),
                 'author_groups' => $target_user->getAllGroupHtml(),
-                'message_date' => $timeago->inWords($nValue->created, $language),
+                'message_date' => $time_ago->inWords($nValue->created, $language),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
                 'content' => EventHandler::executeEvent('renderPrivateMessage', ['content' => $nValue->content])['content'],
             ];
@@ -506,7 +517,7 @@ if (!isset($_GET['action'])) {
         // Display template
         $template->displayTemplate('user/view_message.tpl', $smarty);
 
-    } else if ($_GET['action'] == 'leave') {
+    } else if ($_GET['action'] === 'leave') {
         // Try to remove the user from the conversation
         if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
             Redirect::to(URL::build('/user/messaging'));
@@ -516,7 +527,7 @@ if (!isset($_GET['action'])) {
 
         if (count($message)) {
             foreach ($message as $item) {
-                if ($item->user_id == $user->data()->id) {
+                if ($item->user_id === $user->data()->id) {
                     DB::getInstance()->delete('private_messages_users', ['id', $item->id]);
                     break;
                 }

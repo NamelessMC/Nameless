@@ -1,14 +1,13 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  Recent registrations dashboard collection item
- */
 
+/**
+ * Recent registrations dashboard collection item
+ *
+ * @package Modules\Core\Collections
+ * @author Samerton
+ * @version 2.0.0-pr8
+ * @license MIT
+ */
 class RecentRegistrationsItem extends CollectionItemBase {
 
     private Smarty $_smarty;
@@ -36,7 +35,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
 
     public function getContent(): string {
         // Get recent registrations
-        $timeago = new TimeAgo(TIMEZONE);
+        $time_ago = new TimeAgo(TIMEZONE);
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
@@ -58,7 +57,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
                         'style' => $target_user->getGroupStyle(),
                         'avatar' => $target_user->getAvatar(),
                         'groups' => $target_user->getAllGroupHtml(),
-                        'time' => $timeago->inWords($item->joined, $this->_language),
+                        'time' => $time_ago->inWords($item->joined, $this->_language),
                         'time_full' => date(DATE_FORMAT, $item->joined),
                     ];
 

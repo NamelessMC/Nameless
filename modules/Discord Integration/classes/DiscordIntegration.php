@@ -20,7 +20,7 @@ class DiscordIntegration extends IntegrationBase {
         parent::__construct();
     }
 
-    public function onLinkRequest(User $user) {
+    public function onLinkRequest(User $user): void {
         $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
         if ($link_method == 'oauth') {
             // Link with oauth
