@@ -51,7 +51,7 @@ if (!isset($_GET['action'])) {
             } catch (Exception $e) {
                 $term = 'unable_to_load_module';
 
-                if ($e->getMessage() == 'Translation file not found') {
+                if ($e->getMessage() === 'Translation file not found') {
                     $term = 'unable_to_load_outdated_module';
                 }
 
