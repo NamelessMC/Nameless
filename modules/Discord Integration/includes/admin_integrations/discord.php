@@ -1,4 +1,18 @@
 <?php
+/**
+ * Made by UNKNOWN
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version UNKNOWN
+ *
+ * License: MIT
+ *
+ * TODO: Add description
+ *
+ * @var Language $language
+ * @var IntegrationBase $integration
+ * @var Smarty $smarty
+ */
+
 if (Input::exists()) {
     if (Token::check()) {
         if (Input::get('action') === 'integration_settings') {

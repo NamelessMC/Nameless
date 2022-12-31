@@ -36,7 +36,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 ]
             ]);
 
-            // Ensure forum we're moving to exists
+            // Ensure forum we're moving to exist
             $forum_moving_to = DB::getInstance()->get('forums', ['id', Input::get('forum')])->results();
             if (!count($forum_moving_to)) {
                 Redirect::to(URL::build('/forum'));

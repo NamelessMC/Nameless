@@ -1,21 +1,23 @@
 <?php
 
-/*
- *  Made by Partydragen
- *  Updated by BrightSkyz
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Discord Widget
  *
- *  License: MIT
- *
- *  Discord Widget
+ * @package Modules\Discord Integration\Widgets
+ * @author Partydragen
+ * @author BrightSkyz
+ * @version  2.0.0-pr8
+ * @license MIT
  */
-
 class DiscordWidget extends WidgetBase {
 
     private Cache $_cache;
     private ?string $_guild_id;
 
+    /**
+     * @param Cache $cache
+     * @param Smarty $smarty
+     */
     public function __construct(Cache $cache, Smarty $smarty) {
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();
@@ -35,6 +37,9 @@ class DiscordWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
+    /**
+     * Generate this widget's `$_content`.
+     */
     public function initialise(): void {
         // Generate HTML code for widget
         // If there is no Guild ID set, display error message

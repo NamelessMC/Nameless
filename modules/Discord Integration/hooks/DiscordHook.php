@@ -1,16 +1,29 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+
+use DebugBar\DebugBarException;
+
+/**
+ * Discord webhook handler class
+ * TODO: Let events define a function to build a discord embed for the webhook
  *
- *  Discord webhook handler class
+ * @package Modules\Discord Integration\Hooks
+ * @author Samerton
+ * @version 2.0.0
+ * @license MIT
  */
+class DiscordHook extends HookBase {
 
-// TODO: Let events define a function to build a discord embed for the webhook
-class DiscordHook {
+    /**
+     * @param array{content_full: ?string, username: ?string, avatar_url: ?string, title: ?string, url: ?string, content: ?string, color: ?string, webhook: ?string} $params
+     *
+     * @return void
+     * @throws DebugBarException
+     */
+    public static function execute(array $params = ["content_full" => null, "username" => null, "avatar_url" => null, "title" => null, "url" => null, "content" => null, "color" => null, "webhook" => null]): void {
+        if (!parent::validateParams($params, ["content_full", "username", "avatar_url", "title", "url", "content", "webhook"])) {
+            return;
+        }
 
-    public static function execute(array $params = []): void {
         $return = EventHandler::executeEvent('discordWebhookFormatter', ['format' => [], 'data' => $params])['format'];
 
         if (!is_array($return) || !count($return)) {

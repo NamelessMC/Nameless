@@ -5,7 +5,6 @@
  *
  * @package NamelessMC\Core
  * @author UNKNOWN
- * @author UNKOWN
  * @version UNKNOWN
  * @license MIT
  */

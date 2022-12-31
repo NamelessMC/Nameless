@@ -111,19 +111,19 @@ interface GroupSyncInjector {
      * as long as the user gets the group applied on your service!
      *
      * @param User $user Instance of affected NamelessMC user.
-     * @param mixed $group_id Native group ID to use for lookup on your service.
+     * @param string $group_id Native group ID to use for lookup on your service.
      *
      * @return bool Whether the group was successfully added or not
      */
-    public function addGroup(User $user, $group_id): bool;
+    public function addGroup(User $user, string $group_id): bool;
 
     /**
      * Remove this group from the user
      *
      * @param User $user Instance of affected NamelessMC user.
-     * @param mixed $group_id Native group ID to use for lookup on your service.
+     * @param string $group_id Native group ID to use for lookup on your service.
      *
      * @return bool Whether the group was successfully removed or not
      */
-    public function removeGroup(User $user, $group_id): bool;
+    public function removeGroup(User $user, string $group_id): bool;
 }

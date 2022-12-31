@@ -1,8 +1,12 @@
 <?php
+
+use DebugBar\DebugBarException;
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * DiscordIntegration class
  *
- * @package Modules\Core\Integrations
+ * @package Modules\Discord Integration
  * @author Partydragen
  * @version 2.1.0
  * @license MIT
@@ -11,6 +15,9 @@ class DiscordIntegration extends IntegrationBase {
 
     protected Language $_language;
 
+    /**
+     * @param Language $language
+     */
     public function __construct(Language $language) {
         $this->_name = 'Discord';
         $this->_icon = 'fab fa-discord';
@@ -20,9 +27,15 @@ class DiscordIntegration extends IntegrationBase {
         parent::__construct();
     }
 
+    /**
+     * Called when user wants to link their account from user connections page, Does not need to be verified
+     *
+     * @param User $user
+     * @throws GuzzleException
+     */
     public function onLinkRequest(User $user): void {
         $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
-        if ($link_method == 'oauth') {
+        if ($link_method === 'oauth') {
             // Link with oauth
             Session::put('oauth_method', 'link_integration');
 
@@ -41,7 +54,13 @@ class DiscordIntegration extends IntegrationBase {
         }
     }
 
-    public function onVerifyRequest(User $user) {
+    /**
+     * Called when user wants to continue to verify their integration user from connections page
+     *
+     * @param User $user
+     * @throws Exception
+     */
+    public function onVerifyRequest(User $user): void {
         $token = uniqid('', true);
 
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
@@ -52,14 +71,26 @@ class DiscordIntegration extends IntegrationBase {
         Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm', ['token' => $token]));
     }
 
-    public function onUnlinkRequest(User $user) {
+    /**
+     * Called when user wants to unlink their integration user from connections page
+     *
+     * @param User $user
+     */
+    public function onUnlinkRequest(User $user): void {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
 
         Session::flash('connections_success', $this->_language->get('user', 'integration_unlinked', ['integration' => Output::getClean($this->_name)]));
     }
 
-    public function onSuccessfulVerification(IntegrationUser $integrationUser) {
+    /**
+     * Called when the user have successfully validated the ownership of the account
+     *
+     * @param IntegrationUser $integrationUser
+     * @throws GuzzleException
+     * @throws DebugBarException
+     */
+    public function onSuccessfulVerification(IntegrationUser $integrationUser): void {
         // attempt to update their Discord roles
         $user = $integrationUser->getUser();
 
@@ -67,7 +98,7 @@ class DiscordIntegration extends IntegrationBase {
             return Discord::getDiscordRoleId(DB::getInstance(), $group_id);
         }, $user->getAllGroupIds()));
 
-        Discord::updateDiscordRoles($user, $roles, []);
+        Discord::updateDiscordRoles($user, $roles);
     }
 
     /**
@@ -77,6 +108,7 @@ class DiscordIntegration extends IntegrationBase {
      * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
+     * @throws Exception
      */
     public function validateUsername(string $username, string $integration_user_id = '0'): bool {
         $validation = Validate::check(['username' => $username], [
@@ -115,6 +147,7 @@ class DiscordIntegration extends IntegrationBase {
      * @param string $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
+     * @throws Exception
      */
     public function validateIdentifier(string $identifier, string $integration_user_id = '0'): bool {
         $validation = Validate::check(['identifier' => $identifier], [
@@ -150,32 +183,56 @@ class DiscordIntegration extends IntegrationBase {
         return $validation->passed();
     }
 
+    /**
+     * Should we allow linking with this integration?
+     *
+     * @return bool Whether to allow linking with this integration
+     */
     public function allowLinking(): bool {
         $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
-        if ($link_method == 'oauth') {
+        if ($link_method === 'oauth') {
             return NamelessOAuth::getInstance()->isEnabled('discord');
-        } else {
-            return Discord::isBotSetup();
         }
+
+        return Discord::isBotSetup();
     }
 
-    public function onRegistrationPageLoad(Fields $fields) {
+    /**
+     * Called when register page being loaded
+     *
+     * @param Fields $fields
+     */
+    public function onRegistrationPageLoad(Fields $fields): void {
         // Nothing to do here
     }
 
-    public function beforeRegistrationValidation(Validate $validate) {
+    /**
+     * Called before registration validation
+     *
+     * @param Validate $validate
+     */
+    public function beforeRegistrationValidation(Validate $validate): void {
         // Nothing to do here
     }
 
-    public function afterRegistrationValidation() {
+    /**
+     * Called after registration validation
+     */
+    public function afterRegistrationValidation(): void {
         // Nothing to do here
     }
 
-    public function successfulRegistration(User $user) {
+    /**
+     * Called when user is successfully registered
+     *
+     * @param User $user
+     * @throws GuzzleException
+     */
+    public function successfulRegistration(User $user): void {
         // Link integration if user registered using discord oauth
         if (Session::exists('oauth_register_data')) {
             $data = json_decode(Session::get('oauth_register_data'), true);
-            if ($data['provider'] == 'discord' && isset($data['data']['username']) && isset($data['data']['discriminator'])) {
+            if (isset($data['data']['username'], $data['data']['discriminator']) && $data['provider'] === 'discord') {
 
                 $username = $data['data']['username'] . '#' . $data['data']['discriminator'];
                 $discord_id = $data['data']['id'];
@@ -188,6 +245,13 @@ class DiscordIntegration extends IntegrationBase {
         }
     }
 
+    /**
+     * Called when user integration is requested to be synced.
+     *
+     * @param IntegrationUser $integration_user
+     *
+     * @return bool
+     */
     public function syncIntegrationUser(IntegrationUser $integration_user): bool {
         $this->addError($this->_language->get('admin', 'integration_sync_not_supported'));
 

@@ -1,12 +1,24 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Made by Aberdeener
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr9
  *
- *  License: MIT
+ * License: MIT
  *
- *  Panel Discord page
+ * Panel Discord page
+ *
+ * @var Language $language
+ * @var User $user
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var Cache $cache
+ * @var Navigation $navigation
+ * @var Navigation $cc_nav
+ * @var Navigation $staffcp_nav
+ * @var Widgets $widgets
+ * @var TemplateBase $template
+ * @var string $route
  */
 
 if (!$user->handlePanelPageLoad('admincp.discord')) {
@@ -53,7 +65,7 @@ if (Input::exists()) {
             // Valid token
             // Either enable or disable Discord integration
             if ($_POST['enable_discord'] === '1') {
-                if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
+                if (BOT_URL === '' || BOT_USERNAME === '' || Discord::getGuildId() === '') {
                     $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup', [
                         'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
                         'linkEnd' => '</a>',
@@ -123,9 +135,9 @@ $smarty->assign([
         'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Installation-guide">',
         'selfHostLinkEnd' => '</a>',
     ]),
-    'GUILD_ID_SET' => (Discord::getGuildId() != ''),
-    'BOT_URL_SET' => (BOT_URL != ''),
-    'BOT_USERNAME_SET' => (BOT_USERNAME != ''),
+    'GUILD_ID_SET' => (Discord::getGuildId() !== ''),
+    'BOT_URL_SET' => (BOT_URL !== ''),
+    'BOT_USERNAME_SET' => (BOT_USERNAME !== ''),
     'REQUIREMENTS' => rtrim($language->get('installer', 'requirements'), ':'),
     'BOT_SETUP' => Discord::getLanguageTerm('discord_bot_setup'),
     'DISCORD_GUILD_ID' => Discord::getLanguageTerm('discord_guild_id'),

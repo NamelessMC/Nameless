@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @param string $url New Discord bot URL
- * @param string $id New Discord Guild/server ID
+ * TODO: Add description
  *
- * @return string JSON Array
+ * @package Modules\Discord Integration\Endpoints
+ * @author UNKNOWN
+ * @version UNKNOWN
+ * @license MIT
  */
 class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
@@ -15,6 +17,12 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
+    /**
+     * @param Nameless2API $api
+     *
+     * @return void
+     * @throws Exception
+     */
     public function execute(Nameless2API $api): void {
         if (isset($_POST['url'])) {
             try {

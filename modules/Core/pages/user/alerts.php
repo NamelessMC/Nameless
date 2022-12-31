@@ -105,7 +105,7 @@ if (!isset($_GET['view'])) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    // Check the alert belongs to the user..
+    // Check the alert belongs to the user.
     $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
 
     if (!count($alert) || $alert[0]->user_id !== $user->data()->id) {

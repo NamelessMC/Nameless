@@ -7,7 +7,6 @@ use GuzzleHttp\Exception\GuzzleException;
  *
  * @package Modules\Core\Endpoints
  * @author UNKNOWN
- * @author UNKOWN
  * @version UNKNOWN
  * @license MIT
  */

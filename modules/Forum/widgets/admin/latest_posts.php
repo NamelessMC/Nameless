@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  Latest posts widget settings
+ *  The Latest posts widget settings
  */
 
 if (Input::exists()) {

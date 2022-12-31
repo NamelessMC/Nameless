@@ -1,9 +1,22 @@
 <?php
 
+/**
+ * TODO: Add description
+ *
+ * @package Modules\Discord Integration
+ * @author UNKNOWN
+ * @version UNKNOWN
+ * @license MIT
+ */
 class Discord_Module extends Module {
 
     private Language $_language;
 
+    /**
+     * @param Language $language
+     * @param Pages $pages
+     * @param Endpoints $endpoints
+     */
     public function __construct(Language $language, Pages $pages, Endpoints $endpoints) {
         $this->_language = $language;
 
@@ -48,19 +61,49 @@ class Discord_Module extends Module {
         EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onInstall(): void {
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onUninstall(): void {
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onDisable(): void {
     }
 
+    /**
+     *
+     * @return void
+     */
     public function onEnable(): void {
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    /**
+     * Handle page loading for this module.
+     * Often used to register permissions, sitemaps, widgets, etc.
+     *
+     * @param User $user User viewing the page.
+     * @param Pages $pages Instance of pages class.
+     * @param Cache $cache Instance of cache to pass.
+     * @param Smarty $smarty Instance of smarty to pass.
+     * @param Navigation[] $navs Array of loaded navigation menus.
+     * @param Widgets $widgets Instance of widget class to pass.
+     * @param ?TemplateBase $template Active template to render.
+     *
+     * @throws Exception
+     */
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template): void {
         PermissionHandler::registerPermissions($this->getName(), [
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
@@ -85,6 +128,11 @@ class Discord_Module extends Module {
         }
     }
 
+    /**
+     * Get debug information to display on the external debug link page.
+     *
+     * @return array Debug information for this module.
+     */
     public function getDebugInfo(): array {
         return [
             'guild_id' => Discord::getGuildId(),

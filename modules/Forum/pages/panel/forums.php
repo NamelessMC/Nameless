@@ -584,8 +584,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
 
                             try {
-                                if ($forum_perm_exists != 0) { // Permission already exists, update
-                                    // Update the forum
+                                if ($forum_perm_exists != 0) { // Permission already exists, update.
+                                    // Update the forum.
                                     DB::getInstance()->update('forums_permissions', $update_id, [
                                         'view' => $view,
                                         'create_topic' => $create,
@@ -651,8 +651,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 }
 
                                 try {
-                                    if ($forum_perm_exists != 0) { // Permission already exists, update
-                                        // Update the forum
+                                    if ($forum_perm_exists != 0) { // Permission already exists, update.
+                                        // Update the forum.
                                         DB::getInstance()->update('forums_permissions', $update_id, [
                                             'view' => $view,
                                             'create_topic' => $create,

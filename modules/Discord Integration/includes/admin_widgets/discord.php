@@ -1,12 +1,16 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Made by Samerton
+ * https://github.com/NamelessMC/Nameless/
+ * NamelessMC version 2.0.0-pr8
  *
- *  License: MIT
+ * License: MIT
  *
- *  Discord widget settings
+ * Discord widget settings
+ *
+ * @var Language $language
+ * @var Smarty $smarty
+ * @var Cache $cache
  */
 
 // Check input
@@ -18,10 +22,9 @@ if (Input::exists()) {
             $cache->store('discord_widget_theme', $_POST['theme']);
         }
 
+        // TODO: Where is $guild_id defined?
         $cache->store('discord', $guild_id);
-
         $success = $language->get('admin', 'widget_updated');
-
     } else {
         $errors = [$language->get('general', 'invalid_token')];
     }

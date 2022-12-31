@@ -92,7 +92,7 @@ class Forum {
                         $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . urlencode($item->id) . '-' . $this->titleToURL($item->forum_title));
                         $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
-                        // Get latest post from any sub-subforums
+                        // Get the latest post from any sub-subforums
                         $subforums = $this->getAnySubforums($item->id, $groups, 0, true, $user_id);
 
                         $latest_post = [$item->last_post_date, $item->last_user_posted, $item->last_topic_posted];
@@ -167,7 +167,7 @@ class Forum {
                         $return[$forum->id]['subforums'][$item->id]->topics = $topics;
                         $return[$forum->id]['subforums'][$item->id]->posts = $posts;
 
-                        // Get latest topic info
+                        // Get the latest topic info
                         if ($latest_post[0]) {
                             $latest_topic = $this->_db->query(
                                 <<<SQL

@@ -23,6 +23,8 @@
  */
 
 // Set page name variable
+use RobThree\Auth\TwoFactorAuth;
+
 const PAGE = 'login';
 $page_title = $language->get('general', 'sign_in');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
@@ -131,7 +133,7 @@ if (Input::exists()) {
                         // Verify password first
                         if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
                             if (!isset($_POST['tfa_code'])) {
-                                if ($user_query->data()->tfa_type === false) {
+                                if ($user_query->data()->tfa_type === 0) {
                                     // Emails
                                     // TODO
 
@@ -142,9 +144,9 @@ if (Input::exists()) {
                                 }
                             } else {
                                 // Validate code
-                                if ($user_query->data()->tfa_type === true) {
+                                if ($user_query->data()->tfa_type === 1) {
                                     // App
-                                    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+                                    $tfa = new TwoFactorAuth('NamelessMC');
 
                                     if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
@@ -172,7 +174,7 @@ if (Input::exists()) {
                         $cache->setCache('authme_cache');
                         $authme_db = $cache->retrieve('authme');
 
-                        if (defined("MINECRAFT") && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] === '1') {
+                        if (defined("MINECRAFT") && $authme_db['sync'] === '1' && MINECRAFT && Util::getSetting('authme') === '1') {
 
                             // Sync AuthMe password
                             try {
@@ -283,7 +285,7 @@ if ($login_method === 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
 } else if ($login_method === 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-} else if (MINECRAFT) {
+} else if (MINECRAFT === true) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
     $smarty->assign('USERNAME', $language->get('user', 'username'));

@@ -1,4 +1,7 @@
 <?php
+
+use DebugBar\DebugBarException;
+
 /**
  * Discord utility class
  *
@@ -38,11 +41,13 @@ class Discord {
      * Update a user's roles in the Discord guild.
      *
      * @param User $user The user whose roles to update
-     * @param array $added Array of Discord role IDs to add
-     * @param array $removed Array of Discord role IDs to remove
+     * @param array<int, string> $added Array of Discord role IDs to add
+     * @param array<int, string> $removed Array of Discord role IDs to remove
+     *
      * @return bool Whether the request was successful or not
+     * @throws DebugBarException
      */
-    public static function updateDiscordRoles(User $user, array $added, array $removed): bool {
+    public static function updateDiscordRoles(User $user, array $added = [], array $removed = []): bool {
         if (!self::isBotSetup()) {
             return false;
         }
@@ -54,19 +59,18 @@ class Discord {
 
         $changed_arr = array_merge(self::assembleGroupArray($added, 'add'), self::assembleGroupArray($removed, 'remove'));
 
-        if (!count($changed_arr)) {
+        if (count($changed_arr) === 0) {
             return false;
         }
 
         $json = self::assembleJson($integrationUser->data()->identifier, $changed_arr);
-
         $result = self::discordBotRequest('/roleChange', $json);
 
-        if ($result == 'fullsuccess') {
+        if ($result === 'fullsuccess') {
             return true;
         }
 
-        if ($result == 'partsuccess') {
+        if ($result === 'partsuccess') {
             Log::getInstance()->log(Log::Action('discord/role_set'), self::getLanguageTerm('discord_bot_error_partsuccess'), $user->data()->id);
             return true;
         }
@@ -81,6 +85,7 @@ class Discord {
     }
 
     /**
+     *
      * @return bool Whether the Discord bot is set up properly
      */
     public static function isBotSetup(): bool {
@@ -90,9 +95,10 @@ class Discord {
     /**
      * Create a JSON object to send to the Discord bot.
      *
-     * @param array $role_ids Array of Discord role IDs to add or remove
+     * @param array<int, string> $role_ids Array of Discord role IDs to add or remove
      * @param string $action Whether to 'add' or 'remove' the groups
-     * @return array Assembled array of Discord role IDs and their action
+     *
+     * @return array{id: string, action: string} Assembled array of Discord role IDs and their action
      */
     private static function assembleGroupArray(array $role_ids, string $action): array {
         $return = [];
@@ -112,7 +118,8 @@ class Discord {
      *
      * @param DB $db Instance of DB class
      * @param string $nameless_group_id The ID of the NamelessMC group
-     * @return null|int The Discord role ID for the NamelessMC group
+     *
+     * @return ?int The Discord role ID for the NamelessMC group
      */
     public static function getDiscordRoleId(DB $db, string $nameless_group_id): ?int {
         $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
@@ -130,6 +137,7 @@ class Discord {
      *
      * @param string $user_id Discord user ID to affect
      * @param array $change_arr Array of Discord role IDs to add or remove (compiled with `assembleGroupArray`)
+     *
      * @return string JSON object to send to the Discord bot
      */
     private static function assembleJson(string $user_id, array $change_arr): string {
@@ -143,6 +151,7 @@ class Discord {
     }
 
     /**
+     *
      * @return ?string Discord guild ID for this site
      */
     public static function getGuildId(): ?string {
@@ -154,7 +163,9 @@ class Discord {
      *
      * @param string $url URL of the Discord bot instance
      * @param ?string $body Body of the request
+     *
      * @return false|string Response from the Discord bot or false if the request failed
+     * @throws DebugBarException
      */
     private static function discordBotRequest(string $url = '/status', ?string $body = null) {
         $client = HttpClient::post(BOT_URL . $url, $body);
@@ -179,8 +190,10 @@ class Discord {
      * Get a language term for the Discord Integration module.
      *
      * @param string $term Term to search for
-     * @param array $variables Variables to replace in the term
+     * @param array<string, string|int> $variables Variables to replace in the term
+     *
      * @return string Language term from the language file
+     * @throws Exception
      */
     public static function getLanguageTerm(string $term, array $variables = []): string {
         if (!isset(self::$_discord_integration_language)) {
@@ -194,11 +207,13 @@ class Discord {
      * Parse errors from a request to the Discord bot.
      *
      * @param mixed $result Result of the Discord bot request
-     * @return array Array of errors during a request to the Discord bot
+     *
+     * @return array<int, string> Array of errors during a request to the Discord bot
+     * @throws Exception
      */
     private static function parseErrors($result): array {
         if ($result === false) {
-            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc)
+            // This happens when the url is invalid OR the bot is unreachable (down, firewall, etc.)
             // OR they have `allow_url_fopen` disabled in php.ini OR the bot returned a new error (they should always check logs)
             return [
                 self::getLanguageTerm('discord_communication_error'),

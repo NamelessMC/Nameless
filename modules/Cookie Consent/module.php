@@ -14,7 +14,6 @@
  *
  * @package NamelessMC\Cookie Consent
  * @author UNKNOWN
- * @author UNKOWN
  * @version UNKNOWN
  * @license MIT
  */
