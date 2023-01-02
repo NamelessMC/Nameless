@@ -164,7 +164,7 @@
     "user/mcname_maximum_20": "",
     "moderator/viewing_user_x": "",
     "admin/copy": "Másolás",
-    "admin/core": "",
+    "admin/core": "Core",
     "admin/dark": "Sötét",
     "admin/debugging_and_maintenance": "Hibakeresés & Karbantartás",
     "admin/editing_template_x": "{{template}} Sablon szerkesztése",
@@ -624,7 +624,7 @@
     "admin/page_url_maximum_255": "",
     "admin/panel_templates": "",
     "admin/parent_server": "",
-    "admin/debug_link_toast": "Hibakeresési hivatkozás vágólapra másolva!<br>A hibakeresési log megtekintése: {{linkStart}}itt{{linkEnd}}",
+    "admin/debug_link_toast": "{{linkStart}}Kattints ide{{linkEnd}} hogy megtekintsd a hibakereső linket.",
     "admin/placeholders_show_on_forum_info": "",
     "admin/pre_1_7": "",
     "admin/privacy_and_terms": "",
@@ -1234,5 +1234,7 @@
     "user/view_alerts": "",
     "user/view_messages": "",
     "user/x_replies": "",
-    "user/you_have_been_banned": ""
+    "user/you_have_been_banned": "",
+    "admin/client_id": "Kliens ID",
+    "admin/client_secret": "Kliens Titok"
 }
