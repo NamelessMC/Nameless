@@ -193,5 +193,7 @@
     "forum/new_topic_reply_text": "Themenantwort erstellt in {{forum}} von {{author}}",
     "forum/topic_author_uuid": "Benutzer-ID des Themenautors",
     "forum/topic_author_nickname": "Spitzname des Themenautors",
-    "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden."
+    "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden.",
+    "forum/latest_posts_widget_cached": "Das Widget für die neuesten Beiträge wird eine Minute lang zwischengespeichert, so dass deine Änderungen möglicherweise nicht sofort wirksam werden.",
+    "forum/latest_posts_limit": "Letzte Beiträge begrenzen"
 }
