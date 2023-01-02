@@ -41,7 +41,7 @@
     "discord_integration/unable_to_update_discord_bot_username": "Nepodařilo se aktualizovat uživatelské jméno Discord bota.",
     "discord_integration/unable_to_update_discord_roles": "Nepodařilo se aktualizovat seznam rolí na Discordu.",
     "discord_integration/unable_to_update_discord_username": "Nepodařilo se aktualizovat uživatelské jméno na Discordu.",
-    "discord_integration/discord_id_confirm": "Spusťte na Discordu příkaz \"/verify {{token}}\" pro dokončení propojení vašeho Discord účtu.",
+    "discord_integration/discord_id_confirm": "Spusťte na Discordu příkaz \"/verify token:{{token}}\" pro dokončení propojení vašeho Discord účtu.",
     "discord_integration/discord_user_id": "ID Discord uživatele",
     "discord_integration/discord_username": "Uživatelské jméno na Discordu",
     "discord_integration/discord_bot_check_logs": "Zkuste se podívat po specifičtější chybě (pokud existuje) v Panel -> Zabezpečení -> Všechny protokoly.",
@@ -50,5 +50,6 @@
     "discord_integration/discord_widget_disabled": "U zadaného Discord serveru je zakázán widget. Běžte prosím do záložky 'Widget' v nastavení vašeho Discord serveru a ujistěte se, že je možnost povolena a že je ID správné.",
     "discord_integration/discord_widget_error": "Při načítání Discord widgetu se vyskytla chyba: {{error}}.",
     "discord_integration/discord_id_required": "Zadejte ID vašeho Discord serveru.",
-    "discord_integration/discord_bot": "Discord bot"
+    "discord_integration/discord_bot": "Discord bot",
+    "discord_integration/link_method": "Metoda propojení"
 }

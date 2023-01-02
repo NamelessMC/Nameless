@@ -1259,5 +1259,15 @@
     "user/avatar_removed_successfully": "Avatar bol úspešne odstránený",
     "admin/user_password_changed_successfully": "Heslo používateľa bolo úspešne zmenené",
     "admin/integration_settings_does_not_exist": "Súbor nastavení integrácie pre integráciu {{integration}} neexistuje",
-    "user/remove_avatar": "Odstrániť avatar"
+    "user/remove_avatar": "Odstrániť avatar",
+    "admin/user_new_profile_post_hook_info": "Nový profilový príspevok",
+    "admin/user_profile_post_reply_hook_info": "Odpoveď na profilový príspevok",
+    "user/new_profile_post": "Nový profilový príspevok",
+    "user/new_profile_post_title": "Názov nového profilového príspevku",
+    "user/profile_post_reply": "Odpoveď na profilový príspevok",
+    "user/profile_post_reply_title": "Názov odpovede na profilový príspevok",
+    "user/x_posted_on_y_profile": "{{poster}} uverejnil príspevok na profile používateľa {{user}}.",
+    "user/x_replied_on_y_profile": "{{replier}} uverejnil odpoveď na profile používateľa {{user}}.",
+    "user/like": "Páči sa",
+    "api/webhook_added": "Webhook bol vytvorený"
 }

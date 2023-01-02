@@ -15,7 +15,7 @@
     "discord_integration/discord_communication_error": "Произошла ошибка во время связи с Discord. Убедитесь что бот активен и URL страница бота корректна.",
     "discord_integration/discord_database_error": "База бота Nameless Link не работает в данный момент. Попробуйте в другой раз.",
     "discord_integration/discord_guild_id": "Discord Сервер ID",
-    "discord_integration/discord_id_confirm": "Введите команду \"/verify {{token}}\" в Discord для завершения привязки.",
+    "discord_integration/discord_id_confirm": "Введите команду \"/verify token:{{token}}\" в Discord для завершения привязки.",
     "discord_integration/discord_id_help": "Чтобы найти ваш ID сервера в Discord, прочитайте это {{linkStart}}руководство{{linkEnd}}",
     "discord_integration/discord_id_length": "Убедитесь что ваш Discord Сервер ID между {{min}} и {{max}} символами.",
     "discord_integration/discord_id_numeric": "Убедитесь что ваш Discord Сервер ID состоит из цифр.",
