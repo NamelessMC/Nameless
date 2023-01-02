@@ -1254,5 +1254,20 @@
     "general/query": "Query",
     "general/namelessmc_support": "NamelessMC Support",
     "general/namelessmc_documentation": "NamelessMC Docs",
-    "general/oauth_no_data": "No OAuth data detected, ensure you are accessing this page via an OAuth redirect."
+    "general/oauth_no_data": "No OAuth data detected, ensure you are accessing this page via an OAuth redirect.",
+    "admin/user_password_changed_successfully": "User password changed successfully",
+    "admin/user_new_profile_post_hook_info": "New profile post",
+    "admin/user_profile_post_reply_hook_info": "Profile post reply",
+    "admin/integration_settings_does_not_exist": "Integration settings file for integration {{integration}} does not exist",
+    "user/profile_post_reply_title": "Profile Post Reply Title",
+    "user/avatar_removed_successfully": "Avatar removed successfuly",
+    "user/remove_avatar": "Remove avatar",
+    "user/x_posted_on_y_profile": "{{poster}} posted on {{user}}'s profile.",
+    "user/x_replied_on_y_profile": "{{replier}} posted a reply on {{user}}'s profile.",
+    "admin/require_minecraft_username_on_registration": "Require Minecraft Username on registration?",
+    "user/like": "Like",
+    "user/new_profile_post": "New Profile Post",
+    "user/new_profile_post_title": "New Profile Post Title",
+    "user/profile_post_reply": "Profile Post Reply",
+    "api/webhook_added": "The webhook has been created"
 }
