@@ -1269,5 +1269,8 @@
     "user/x_posted_on_y_profile": "{{poster}} ha postato sul profilo di {{user}}.",
     "user/x_replied_on_y_profile": "{{replier}} ha inviato una risposta sul profilo di {{user}}.",
     "user/like": "Mi Piace",
-    "api/webhook_added": "Il webhook è stato creato"
+    "api/webhook_added": "Il webhook è stato creato",
+    "general/problem_loading_widget": "C’è stato un problema nel caricamento del widget {{widget}}",
+    "general/unable_to_load_widget": "Impossibile caricare il widget",
+    "general/sql_query": "Query SQL"
 }
