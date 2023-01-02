@@ -1251,7 +1251,6 @@
     "general/frame": "Frame",
     "general/generate": "Generate",
     "general/generate_debug_link": "Generate a debug link",
-    "general/query": "Query",
     "general/namelessmc_support": "NamelessMC Support",
     "general/namelessmc_documentation": "NamelessMC Docs",
     "general/oauth_no_data": "No OAuth data detected, ensure you are accessing this page via an OAuth redirect.",
