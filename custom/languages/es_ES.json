@@ -1267,7 +1267,6 @@
     "general/generate_debug_link": "Generar link de depuración",
     "api/webhook_added": "El webhook ha sido creado",
     "general/unable_to_load_widget": "No se pudo cargar el widget",
-    "general/query": "Consulta",
     "general/namelessmc_support": "Soporte de NamelessMC",
     "general/namelessmc_documentation": "Documentación de NamelessMC",
     "user/new_profile_post": "Nueva publicación de perfil",

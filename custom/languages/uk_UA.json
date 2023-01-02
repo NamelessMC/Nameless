@@ -1259,7 +1259,6 @@
     "general/cannot_read_file": "Неможливо прочитати файл.",
     "general/debug_link_cannot_generate": "Не вдається згенерувати налагоджувальне посилання, перевірте консоль на наявність помилок.",
     "general/generate_debug_link": "Згенеруйте налагоджувальне посилання",
-    "general/query": "Запит",
     "general/namelessmc_documentation": "Документація NamelessMC",
     "user/new_profile_post": "Нова публікація в профілі",
     "user/new_profile_post_title": "Новий профіль Назва повідомлення",

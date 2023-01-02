@@ -1254,7 +1254,6 @@
     "general/generate": "Vygenerovať",
     "general/namelessmc_support": "Podpora NamelessMC",
     "general/namelessmc_documentation": "Dokumentácia NamelessMC",
-    "general/query": "Dopyt",
     "admin/require_minecraft_username_on_registration": "Vyžadovať Minecraft meno pri registrácii?",
     "user/avatar_removed_successfully": "Avatar bol úspešne odstránený",
     "admin/user_password_changed_successfully": "Heslo používateľa bolo úspešne zmenené",
