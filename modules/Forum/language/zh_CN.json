@@ -187,5 +187,11 @@
     "forum/confirm_unfollow_all_topics": "您确定要取消关注所有话题吗?",
     "forum/default_labels": "默认标签",
     "forum/default_labels_info": "除非特别选择了其他标签，这些标签会被默认放到新的话题中。Ctrl + 点击来多选",
-    "forum/following_topics": "关注的话题"
+    "forum/following_topics": "关注的话题",
+    "forum/label_type_in_use": "标签类型正在使用，无法删除。",
+    "forum/new_topic_reply_text": "{{author}在{{forum}}中创建的主题回复",
+    "forum/topic_author_uuid": "主题作者用户 ID",
+    "forum/topic_author_username": "主题作者用户名",
+    "forum/topic_author_nickname": "主题作者昵称",
+    "forum/topic_reply": "回复此主题"
 }
