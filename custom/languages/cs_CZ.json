@@ -1256,5 +1256,21 @@
     "general/namelessmc_support": "Podpora NamelessMC",
     "general/namelessmc_documentation": "Dokumentace NamelessMC",
     "user/avatar_removed_successfully": "Avatar byl úspěšně odstraněn",
-    "user/remove_avatar": "Odstranit avatar"
+    "user/remove_avatar": "Odstranit avatar",
+    "admin/user_password_changed_successfully": "Heslo uživatele úspěšně změněno",
+    "admin/require_minecraft_username_on_registration": "Vyžadovat při registraci přezdívku v Minecraftu?",
+    "admin/integration_settings_does_not_exist": "Soubor nastavení integrace pro integraci {{integration}} neexistuje",
+    "admin/user_new_profile_post_hook_info": "Nový příspěvek na profilu",
+    "user/new_profile_post_title": "Nadpis nového profilového příspěvku",
+    "admin/user_profile_post_reply_hook_info": "Odpověď na profilový příspěvek",
+    "user/new_profile_post": "Nový profilový příspěvek",
+    "user/profile_post_reply": "Odpověď na profilový příspěvek",
+    "user/profile_post_reply_title": "Nadpis odpovědi na profilový příspěvek",
+    "user/x_posted_on_y_profile": "Uživatel {{poster}} zveřejnil příspěvek na profilu uživatele {{user}}.",
+    "user/x_replied_on_y_profile": "Uživatel {{replier}} odpověděl na příspěvek na profilu uživatele {{user}}.",
+    "user/like": "Líbí se mi",
+    "api/webhook_added": "Webhook byl vytvořen",
+    "general/problem_loading_widget": "Při načítání widgetu {{widget}} se vyskytla chyba",
+    "general/unable_to_load_widget": "Nepodařilo se načíst widget",
+    "general/sql_query": "SQL Query"
 }
