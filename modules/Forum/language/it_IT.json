@@ -193,5 +193,7 @@
     "forum/topic_author_nickname": "Soprannome dell'autore dell'argomento",
     "forum/topic_author_uuid": "ID utente dell'autore dell'argomento",
     "forum/topic_author_username": "Nome utente dell'autore dell'argomento",
-    "forum/unfollow_all_topics": "Smetti di seguire tutti gli argomenti"
+    "forum/unfollow_all_topics": "Smetti di seguire tutti gli argomenti",
+    "forum/latest_posts_widget_cached": "Il widget degli gli ultimi post è in cache per un minuto, le tue modifiche potrebbero non avere effetto immediato.",
+    "forum/latest_posts_limit": "Limite Ultimi Posts"
 }
