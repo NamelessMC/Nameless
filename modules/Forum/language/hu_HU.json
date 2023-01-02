@@ -193,5 +193,7 @@
     "forum/user_tag_info": "{{author}} megjelölt egy bejegyzésben.",
     "forum/views": "megtekintések",
     "forum/x_posts": "{{count}} hozzászólás",
-    "forum/your_posts": "A hozzászólásaid száma"
+    "forum/your_posts": "A hozzászólásaid száma",
+    "forum/latest_posts_widget_cached": "A legfrissebb bejegyzések widgetet egy percig a gyorsítótárban van tárolva, ezért előfordulhat, hogy a módosítások nem lépnek azonnal érvénybe.",
+    "forum/latest_posts_limit": "A legújabb bejegyzések korlátja"
 }
