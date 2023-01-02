@@ -49,5 +49,7 @@
     "discord_integration/enable_discord_integration": "Bekapcsolod a Discord integrációt?",
     "discord_integration/discord_id_set": "Discord ID sikeresen beállítva",
     "discord_integration/discord_id_taken": "Ez a Discord Felhasználó ID már használatban van.",
-    "discord_integration/discord_integration_not_setup": "Discord integráció nincs beállítva"
+    "discord_integration/discord_integration_not_setup": "Discord integráció nincs beállítva",
+    "discord_integration/discord_bot": "Discord Bot",
+    "discord_integration/integration_link_method": "Discord integrációs link módszer"
 }
