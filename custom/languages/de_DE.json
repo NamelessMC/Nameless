@@ -1270,5 +1270,6 @@
     "user/like": "Like",
     "api/webhook_added": "Der Webhook wurde erstellt",
     "general/problem_loading_widget": "Es existierte ein Problem beim Laden des Widgets {{widget}}",
-    "general/unable_to_load_widget": "Widget kann nicht geladen werden"
+    "general/unable_to_load_widget": "Widget kann nicht geladen werden",
+    "general/sql_query": "SQL Query"
 }
