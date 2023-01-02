@@ -14,7 +14,7 @@
     "discord_integration/discord_communication_error": "Discordボットとの通信中にエラーが発生しました。ボットが動作しているかどうか、ボットのURLが正しいかどうかを確認してください。",
     "discord_integration/discord_database_error": "Nameless Link データベースが現在ダウンしています。後でもう一度お試しください。",
     "discord_integration/discord_guild_id": "DiscordサーバーID",
-    "discord_integration/discord_id_confirm": "Discordで「 \"/verify {{token}}\" {トークン}」というコマンドを実行して、Discordアカウントのリンクを完了させてください。",
+    "discord_integration/discord_id_confirm": "Discordで「/verify token:{{token}}」コマンドを実行し、Discordアカウントの連携を完了してください。",
     "discord_integration/discord_id_help": "Discord IDがどこにあるかについては、{{linkStart}}こちら{{linkEnd}} をご確認ください。",
     "discord_integration/discord_id_length": "Discord サーバーIDは{{min}}～{{max}}桁である必要があります。",
     "discord_integration/discord_id_numeric": "Discord サーバーIDが数字であることを確認してください（数字のみ）。",
@@ -49,5 +49,7 @@
     "discord_integration/discord_username": "Discord ユーザー名",
     "discord_integration/discord_bot_check_logs": "StaffCP -> セキュリティ -> 全てのログで、より具体的なエラー（存在する場合）を確認する必要があります。",
     "discord_integration/discord_user_id": "Discord ユーザーID",
-    "discord_integration/discord_widget_disabled": "指定されたDiscordサーバーでウィジェットが無効になっています。Discordのサーバー設定の'ウィジェット'タブを開き、Discordのウィジェットが有効になっているか、IDが正しいかを確認してください。"
+    "discord_integration/discord_widget_disabled": "指定されたDiscordサーバーでウィジェットが無効になっています。Discordのサーバー設定の'ウィジェット'タブを開き、Discordのウィジェットが有効になっているか、IDが正しいかを確認してください。",
+    "discord_integration/discord_bot": "Discordボット",
+    "discord_integration/link_method": "リンク方法"
 }

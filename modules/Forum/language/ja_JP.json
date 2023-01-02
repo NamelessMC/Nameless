@@ -193,5 +193,7 @@
     "forum/topic_author_uuid": "トピック作成者のユーザーID",
     "forum/topic_author_username": "トピック作成者のユーザー名",
     "forum/topic_author_nickname": "トピック作成者のニックネーム",
-    "forum/user_object": "ユーザーオブジェクト"
+    "forum/user_object": "ユーザーオブジェクト",
+    "forum/latest_posts_widget_cached": "最新の投稿ウィジェットは１分間キャッシュされるため、変更がすぐに反映されない場合があります。",
+    "forum/latest_posts_limit": "最新投稿の制限"
 }
