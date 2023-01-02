@@ -49,5 +49,7 @@
     "discord_integration/discord_invite_info": "Um den Nameless Link-Bot auf deinen Discord-Server einzuladen, klicke auf {{inviteLinkStart}}hier{{inviteLinkEnd}}. Führe dann den Befehl {{command}} aus, um den Bot mit deiner Website zu verbinden. Alternativ kannst du {{selfHostLinkStart}} den Bot auch selbst hosten{{selfHostLinkEnd}}.",
     "discord_integration/discord_widget_theme": "Discord Widget Theme",
     "discord_integration/discord_widget_error": "Beim Abrufen des Discord-Widgets ist ein Fehler aufgetreten: {{error}}.",
-    "discord_integration/discord_id_required": "Bitte gib deine Discord Server ID ein."
+    "discord_integration/discord_id_required": "Bitte gib deine Discord Server ID ein.",
+    "discord_integration/discord_bot": "Discord Bot",
+    "discord_integration/integration_link_method": "Discord-Integration Link-Methode"
 }
