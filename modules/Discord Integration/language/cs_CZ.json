@@ -49,5 +49,7 @@
     "discord_integration/discord_invite_info": "Pro pozvání bota Nameless Link na váš Discord server klikněte {{inviteLinkStart}}sem{{inviteLinkEnd}}. Poté spusťte příkaz {{command}} pro propojení bota s vaším webem. Můžete také {{selfHostLinkStart}}sami hostovat bota{{selfHostLinkEnd}}.",
     "discord_integration/discord_widget_disabled": "U zadaného Discord serveru je zakázán widget. Běžte prosím do záložky 'Widget' v nastavení vašeho Discord serveru a ujistěte se, že je možnost povolena a že je ID správné.",
     "discord_integration/discord_widget_error": "Při načítání Discord widgetu se vyskytla chyba: {{error}}.",
-    "discord_integration/discord_id_required": "Zadejte ID vašeho Discord serveru."
+    "discord_integration/discord_id_required": "Zadejte ID vašeho Discord serveru.",
+    "discord_integration/discord_bot": "Discord bot",
+    "discord_integration/integration_link_method": "Způsob integrace propojení Discordu"
 }
