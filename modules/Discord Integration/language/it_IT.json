@@ -50,6 +50,5 @@
     "discord_integration/discord_username": "Nome utente Discord",
     "discord_integration/discord_usernames_updated": "Nomi utente Discord aggiornati correttamente",
     "discord_integration/discord_widget_disabled": "Il widget è disabilitato per il server Discord specificato. Vai alla scheda \"Widget\" nelle impostazioni del tuo server Discord e assicurati che il widget Discord sia abilitato e che l'ID sia corretto.",
-    "discord_integration/discord_bot": "Bot Discord",
-    "discord_integration/integration_link_method": "Metodo di integrazione Discord"
+    "discord_integration/discord_bot": "Bot Discord"
 }

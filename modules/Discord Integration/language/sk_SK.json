@@ -50,6 +50,5 @@
     "discord_integration/unable_to_update_discord_username": "Nepodarilo sa aktualizovať Discord užívateľské meno.",
     "discord_integration/discord_widget_error": "Pri získavaní widgetu Discord sa vyskytla chyba: {{error}}.",
     "discord_integration/discord_id_required": "Zadajte ID vášho discord servera.",
-    "discord_integration/discord_bot": "Discord Bot",
-    "discord_integration/integration_link_method": "Metóda prepojenia discord integrácie"
+    "discord_integration/discord_bot": "Discord Bot"
 }

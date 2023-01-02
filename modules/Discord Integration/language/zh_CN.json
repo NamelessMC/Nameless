@@ -50,6 +50,5 @@
     "discord_integration/get_link_code": "获得链接代码",
     "discord_integration/discord_widget_error": "获取 Discord 连接时出错: {{error}}。",
     "discord_integration/discord_id_required": "请输入您的Discord ID。",
-    "discord_integration/discord_bot": "Discord 机器人",
-    "discord_integration/integration_link_method": "Discord 集成链接"
+    "discord_integration/discord_bot": "Discord 机器人"
 }
