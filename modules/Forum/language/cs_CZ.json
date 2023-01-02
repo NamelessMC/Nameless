@@ -193,5 +193,7 @@
     "forum/topic_reply": "Odpověď na téma",
     "forum/topic_author_uuid": "Uživatelské ID autora tématu",
     "forum/label_type_in_use": "Typ štítku je používán, nelze jej odstranit.",
-    "forum/topic_author_nickname": "Přezdívka autora tématu"
+    "forum/topic_author_nickname": "Přezdívka autora tématu",
+    "forum/latest_posts_limit": "Limit nejnovějších příspěvků",
+    "forum/latest_posts_widget_cached": "Widget nejnovějších příspěvků je uložen v mezipaměti po dobu jedné minuty, vaše změny se nemusí projevit okamžitě."
 }

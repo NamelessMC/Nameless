@@ -193,5 +193,7 @@
     "forum/topic_author_uuid": "ID autora témy",
     "forum/topic_author_username": "Používateľské meno autora témy",
     "forum/topic_author_nickname": "Prezývka autora témy",
-    "forum/user_object": "Používateľský objekt"
+    "forum/user_object": "Používateľský objekt",
+    "forum/latest_posts_limit": "Limit najnovších príspevkov",
+    "forum/latest_posts_widget_cached": "Widget najnovších príspevkov je uložený vo vyrovnávacej pamäti na jednu minútu, vaše zmeny sa nemusia prejaviť okamžite."
 }

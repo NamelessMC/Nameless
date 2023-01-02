@@ -15,7 +15,7 @@
     "discord_integration/discord_communication_error": "Pri komunikácii s Discord botom sa vyskytla chyba. Skontrolujte, či je bot spustený a či je URL vášho adresa bota správna.",
     "discord_integration/discord_database_error": "Databáza Nameless Link je momentálne nefunkčná. Skúste neskôr prosím.",
     "discord_integration/discord_guild_id": "ID Discord serveru",
-    "discord_integration/discord_id_confirm": "Spustite príkaz \"/verify {{token}}\" v Discorde, aby ste dokončili prepojenie svojho Discord účtu.",
+    "discord_integration/discord_id_confirm": "Spustite na Discorde príkaz \"/verify token:{{token}}\" pre dokončenie prepojenia vášho Discord účtu.",
     "discord_integration/discord_id_help": "Informácie o tom, kde nájdete Discord ID, si prečítajte {{linkStart}}toto.{{linkEnd}}",
     "discord_integration/discord_id_length": "Uistite sa, že vaše ID Discord servera má {{min}} až {{max}} číslic.",
     "discord_integration/discord_id_numeric": "Uistite sa, že vaše ID discord servera je číselné (iba čísla).",
@@ -50,5 +50,6 @@
     "discord_integration/unable_to_update_discord_username": "Nepodarilo sa aktualizovať Discord užívateľské meno.",
     "discord_integration/discord_widget_error": "Pri získavaní widgetu Discord sa vyskytla chyba: {{error}}.",
     "discord_integration/discord_id_required": "Zadajte ID vášho discord servera.",
-    "discord_integration/discord_bot": "Discord Bot"
+    "discord_integration/discord_bot": "Discord Bot",
+    "discord_integration/link_method": "Metóda prepojenia"
 }
