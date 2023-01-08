@@ -84,9 +84,9 @@ class IntegrityChecker {
     /**
      * Save checksum array to checksums file, in json format.
      *
-     * @param array An associative array (relative file path as key, checksum as value).
+     * @param array $checksums An associative array (relative file path as key, checksum as value).
      */
-    public static function saveChecksums(array $checksums) {
+    public static function saveChecksums(array $checksums): void {
         $json = json_encode($checksums);
         file_put_contents(self::CHECKSUMS_PATH, $json);
     }
