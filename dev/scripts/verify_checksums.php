@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '/../../core/classes/Misc/IntegrityChecker.php';
 const ROOT_PATH = __DIR__ . '/../..';
+require ROOT_PATH . '/vendor/autoload.php';
 
 $errors = IntegrityChecker::verify_checksums();
 
