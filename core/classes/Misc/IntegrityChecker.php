@@ -30,6 +30,9 @@ class IntegrityChecker {
         'modules/Forum',
     ];
 
+    /**
+     * @return bool If the file should be ignored from integrity checking, according to IGNORED_PATHS and INCLUDED_PATHS.
+     */
     private static function is_ignored($path): bool {
         foreach (self::INCLUDED_PATHS as $include) {
             if (str_starts_with($path, $include)) {
@@ -46,6 +49,11 @@ class IntegrityChecker {
         return false;
     }
 
+    /**
+     * Generate checksums for files recursively, ignoring files according to IGNORED_PATHS and INCLUDED_PATHS.
+     *
+     * @return array An associative array (relative file path as key, checksum as value).
+     */
     public static function generate_checksums(): array {
         $checksums_dict = [];
 
@@ -73,12 +81,23 @@ class IntegrityChecker {
         return $checksums_dict;
     }
 
+    /**
+     * Save checksum array to checksums file, in json format.
+     *
+     * @param array An associative array (relative file path as key, checksum as value).
+     */
     public static function save_checksums(array $checksums) {
         $json = json_encode($checksums);
         file_put_contents(self::CHECKSUMS_PATH, $json);
     }
 
-    public static function load_checksums(): array|null {
+    /**
+     * Load checksums from checksums.json file into an associative array.
+     *
+     * @return array|null An associative array (relative file path as key, checksum as value) or null if the checksum
+     * file does not exist.
+     */
+    public static function load_checksums() {
         if (!is_file(self::CHECKSUMS_PATH)) {
             return null;
         }
@@ -87,6 +106,12 @@ class IntegrityChecker {
         return json_decode($json, true);
     }
 
+    /**
+     * Verify code integrity, by calculating checksums for files recursively, and comparing them to checksums in the
+     * checksums file.
+     *
+     * @return array Array of errors strings, empty if no issues were found.
+     */
     public static function verify_checksums(): array {
         $errors = [];
 
