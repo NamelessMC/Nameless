@@ -10,4 +10,4 @@
 /uploads/avatars/**
 /node_modules/
 composer.lock
-checksums.txt
+checksums.json

@@ -11,13 +11,13 @@ if (!function_exists('str_starts_with')) {
 
 class IntegrityChecker {
 
-    const CHECKSUMS_PATH = ROOT_PATH . '/checksums.txt';
+    const CHECKSUMS_PATH = ROOT_PATH . '/checksums.json';
 
     /**
      * Files with relative paths starting with a string in this array are ignored
      */
     const IGNORED_PATHS = [
-        'checksums.txt',
+        'checksums.json',
         'cache/',
         'cache/logs/',
         'cache/templates_c/',
