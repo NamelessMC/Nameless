@@ -87,7 +87,11 @@ class IntegrityChecker {
         file_put_contents(self::CHECKSUMS_PATH, $json);
     }
 
-    public static function load_checksums(): array {
+    public static function load_checksums(): array|null {
+        if (!is_file(self::CHECKSUMS_PATH)) {
+            return null;
+        }
+
         $json = file_get_contents(self::CHECKSUMS_PATH);
         return json_decode($json, true);
     }
@@ -95,8 +99,14 @@ class IntegrityChecker {
     public static function verify_checksums(): array {
         $errors = [];
 
-        $actual_checksums = self::generate_checksums();
         $expected_checksums = self::load_checksums();
+
+        if ($expected_checksums == null) {
+            $errors[] = 'Checksums file is missing, integrity cannot be verified';
+            return $errors;
+        }
+
+        $actual_checksums = self::generate_checksums();
 
         foreach ($actual_checksums as $path => $checksum) {
             if (!array_key_exists($path, $expected_checksums)) {
