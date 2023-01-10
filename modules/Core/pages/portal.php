@@ -22,5 +22,9 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
+$smarty->assign([
+    'GENERAL_SETTINGS_URL' => URL::build('/panel/core/general_settings'),
+]);
+
 // Display template
 $template->displayTemplate('portal.tpl', $smarty);
