@@ -1,4 +1,3 @@
-  Options +FollowSymLinks
   <IfModule mod_negotiation.c>
     Options -MultiViews
   </IfModule>
