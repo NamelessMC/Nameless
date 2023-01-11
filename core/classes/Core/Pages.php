@@ -151,6 +151,15 @@ class Pages {
     }
 
     /**
+     * Get the page details the user currently viewing.
+     *
+     * @return array Details of current page.
+     */
+    public function getActivePage(): array {
+        return $this->_active_page;
+    }
+
+    /**
      * Set the page the user currently viewing.
      */
     public function setActivePage(array $page): void {
