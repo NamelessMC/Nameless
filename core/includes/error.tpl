@@ -210,40 +210,9 @@
     }
 
     /* TODO: might be nice to have some padding inside the code container so the code isnt right at the top/right/bottom */
-    pre[class*="language-"]>code {
-        box-shadow: none;
-        border: none;
-        background: rgb(245, 245, 245);
-        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    code {
         cursor: default;
-        border-radius: 3px;
     }
-
-    code[class*="language-"],
-    pre[class*="language-"] {
-        font-size: 14px;
-    }
-
-    pre[class*="language-"]::after,
-    pre[class*="language-"]::before {
-        display: none;
-    }
-
-    .token.entity,
-    .token.operator,
-    .token.url,
-    .token.variable {
-        background: none;
-    }
-
-    .line-numbers .line-numbers-rows {
-        border-right: none;
-    }
-
-    .line-highlight {
-        background: hsla(30, 80%, 10%, .08);
-    }
-
     {/literal}
 </style>
 
@@ -279,12 +248,6 @@
 
     $(document).ready(function() {
         $('.menu .item').tab();
-
-        // Fix prism line highlights not reaching full width of scroll box
-        const line_highlights = document.getElementsByClassName('line-highlight');
-        for (line of line_highlights) {
-            line.style.width = line.parentNode.scrollWidth + "px";
-        }
 
         // Fix prism not highlighting the tabs which are "display: hidden;"
         // from the fomantic active class
