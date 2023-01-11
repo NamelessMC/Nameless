@@ -1,33 +1,33 @@
-  <IfModule mod_negotiation.c>
-    Options -MultiViews
-  </IfModule>
-  Options -Indexes
-  RewriteEngine on
-  IndexIgnore *
+<IfModule mod_negotiation.c>
+  Options -MultiViews
+</IfModule>
+Options -Indexes
+RewriteEngine on
+IndexIgnore *
 
-  <IfModule mod_headers.c>
-    Header append X-FRAME-OPTIONS "SAMEORIGIN"
-  </IfModule>
+<IfModule mod_headers.c>
+  Header append X-FRAME-OPTIONS "SAMEORIGIN"
+</IfModule>
 
-  RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
-  RewriteRule ^(.*)$ - [E=BASE:%1]
+RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+RewriteRule ^(.*)$ - [E=BASE:%1]
 
-  RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-d
 
-  RewriteRule ^avatar/([^/]+)/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2&v=$3
-  RewriteRule ^avatar/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&v=$2
-  RewriteRule ^avatar/([^/]+)/([^/]+)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2
-  RewriteRule ^avatar/([^/]+)/?$ %{ENV:BASE}core/avatar/face.php?u=$1 [L]
+RewriteRule ^avatar/([^/]+)/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2&v=$3
+RewriteRule ^avatar/([^/]+)/(f|l|r|b|front|left|right|back)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&v=$2
+RewriteRule ^avatar/([^/]+)/([^/]+)/?$ %{ENV:BASE}core/avatar/face.php?u=$1&s=$2
+RewriteRule ^avatar/([^/]+)/?$ %{ENV:BASE}core/avatar/face.php?u=$1 [L]
 
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-  RewriteRule ^(.*)$ %{ENV:BASE}index.php?route=/$1  [NC,L,QSA]
+RewriteRule ^(.*)$ %{ENV:BASE}index.php?route=/$1  [NC,L,QSA]
 
-  # Prevent access to template files
-  <files "*.tpl">
-    Deny from all
-  </files>
+# Prevent access to template files
+<files "*.tpl">
+  Deny from all
+</files>
 
-  # Prevent Apache from removing the Authorization header, we need to check it for the API.
-  CGIPassAuth On
+# Prevent Apache from removing the Authorization header, we need to check it for the API.
+CGIPassAuth On
