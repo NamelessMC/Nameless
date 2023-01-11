@@ -151,16 +151,6 @@ class Pages {
     }
 
     /**
-     * Get the page details the user currently viewing.
-     * @deprecated  Not used internally. Will be removed in 2.1.0
-     *
-     * @return array Details of current page.
-     */
-    public function getActivePage(): array {
-        return $this->_active_page;
-    }
-
-    /**
      * Set the page the user currently viewing.
      */
     public function setActivePage(array $page): void {
