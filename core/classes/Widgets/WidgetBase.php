@@ -55,6 +55,9 @@ abstract class WidgetBase {
     /**
      * Render this widget to be displayed on a template page.
      *
+     * @throws Exception
+     * @throws SmartyException
+     *
      * @return string Content/HTML of this widget.
      */
     public function display(): string {
@@ -93,6 +96,15 @@ abstract class WidgetBase {
      */
     public function getSettings(): ?string {
         return $this->_settings;
+    }
+
+    /**
+     * Get Smarty instance in use by this widget.
+     *
+     * @return Smarty Instance in use.
+     */
+    public function getSmarty(): ?Smarty {
+        return $this->_smarty;
     }
 
     /**

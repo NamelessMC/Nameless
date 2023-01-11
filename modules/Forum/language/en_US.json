@@ -193,5 +193,7 @@
     "forum/new_topic_reply_text": "Topic reply created in {{forum}} by {{author}}",
     "forum/topic_author_uuid": "Topic author user ID",
     "forum/topic_author_username": "Topic author username",
-    "forum/topic_author_nickname": "Topic author nickname"
+    "forum/topic_author_nickname": "Topic author nickname",
+    "forum/latest_posts_widget_cached": "The latest posts widget is cached for one minute, your changes may not take effect immediately.",
+    "forum/latest_posts_limit": "Latest posts limit"
 }

@@ -65,8 +65,8 @@
     "forum/input_forum_title": "Por favor, introduzca un título para el foro.",
     "forum/insert_quotes": "Insertar citas",
     "forum/invalid_action": "Acción no válida",
-    "forum/invalid_redirect_url": "Ha activado la redirección del foro, pero no ha introducido una URL válida de entre 1 y 512 caracteres.",
-    "forum/invalid_search_query": "Por favor, introduzca una consulta de búsqueda de entre 3 y 128 caracteres.",
+    "forum/invalid_redirect_url": "Ha activado la redirección del foro, pero no ha introducido una URL válida de entre {{min}} y {{max}} caracteres.",
+    "forum/invalid_search_query": "Por favor, introduzca una consulta de búsqueda de entre {{min}} y {{max}} caracteres.",
     "forum/label": "Etiqueta",
     "forum/label_creation_error": "Error al crear una etiqueta. Asegúrese de que el nombre no tiene más de 32 caracteres y que ha especificado un tipo.",
     "forum/label_creation_success": "Etiqueta creada con éxito.",
@@ -193,5 +193,7 @@
     "forum/topic_reply": "Respuesta del tema",
     "forum/topic_author_uuid": "ID de usuario del autor del tema",
     "forum/topic_author_username": "Nombre de usuario del autor del tema",
-    "forum/topic_author_nickname": "Apodo del autor del tema"
+    "forum/topic_author_nickname": "Apodo del autor del tema",
+    "forum/latest_posts_widget_cached": "El widget de las últimas publicaciones se almacena en caché durante un minuto, es posible que sus cambios no surtan efecto de inmediato.",
+    "forum/latest_posts_limit": "Límite de las últimas publicaciones"
 }
