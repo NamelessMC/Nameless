@@ -5,11 +5,11 @@
     "license": "MIT",
     "config": {
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         }
     },
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "jdorn/sql-formatter": "^1.2",
         "smarty/smarty": "^4.1",
         "ezyang/htmlpurifier": "^4.14",
@@ -35,7 +35,8 @@
         "maximebf/debugbar": "^1.18",
         "junker/debugbar-smarty": "^0.2",
         "hannesvdvreken/guzzle-debugbar": "^3.0",
-        "fakerphp/faker": "^1.19"
+        "fakerphp/faker": "^1.19",
+        "phpstan/phpstan-deprecation-rules": "^1.1.1"
     },
     "autoload": {
         "classmap": [
