@@ -209,7 +209,6 @@
         overflow-y: scroll;
     }
 
-    /* TODO: might be nice to have some padding inside the code container so the code isnt right at the top/right/bottom */
     code {
         cursor: default;
     }
