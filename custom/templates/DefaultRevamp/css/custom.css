@@ -947,13 +947,11 @@ select {
     height: auto;
 }
 
-.ui.checkbox .box:before,
-.ui.checkbox label:before {
+.ui.checkbox .box:before {
     margin-top: 4px;
 }
 
-.ui.checkbox input:checked~.box:after,
-.ui.checkbox input:checked~label:after {
+.ui.checkbox input:checked~.box:after {
     margin-top: 4px;
 }
 
