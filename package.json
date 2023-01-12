@@ -27,6 +27,6 @@
     "toastr": "^2.1.4"
   },
   "scripts": {
-    "postinstall": "node ./yarn-postinstall.js"
+    "postinstall": "node ./postinstall.js"
   }
 }
