@@ -204,18 +204,19 @@ code[class*="language-"] {
 .token.attr-name,
 .token.class-name,
 .token.scope,
-.token.boolean,
 .token.constant,
 .token.number,
 .token.atrule {
     color: hsl(35, 99%, 36%);
 }
 
-.token.keyword {
+.token.keyword, .token.boolean {
     color: hsl(301, 63%, 40%);
 }
 
 .token.variable,
+.token.global,
+.token.this,
 .token.property,
 .token.tag,
 .token.symbol,
