@@ -150,12 +150,12 @@ if (Input::exists()) {
                     }
                     return $prev;
                 });
-                $accessible_labels = Forum::getAccessibleLabels($forum_labels, $user_groups);
+                $accessible_labels = Forum::getAccessibleLabels($forum_labels ?? [], $user_groups);
                 $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
 
                 // Get all the posted labels and see which ones the user can actually edit
                 if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    $post_labels = Forum::getAccessibleLabels($_POST['topic_label'], $user_groups);
+                    $post_labels = Forum::getAccessibleLabels($_POST['topic_label'] ?? [], $user_groups);
                 }
 
                 $post_labels = array_merge($existing_inaccessible_labels, $post_labels);
