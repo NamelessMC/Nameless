@@ -54,7 +54,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 if ($newTopic->forum_id != $forum_id) {
                     $forum->updateForumLatestPosts($newTopic->forum_id);
                 }
-                $forum->updateTopicLatestPosts(intval(Input::get('merge')));
+                $forum->updateTopicLatestPosts((int) Input::get('merge'), $forum_id);
 
                 Redirect::to(URL::build('/forum/topic/' . urlencode(Input::get('merge'))));
 

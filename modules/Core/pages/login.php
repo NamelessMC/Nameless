@@ -87,13 +87,13 @@ if (Input::exists()) {
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'username' => [
                     Validate::REQUIRED => ($login_method == 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'password' => $language->get('user', 'must_input_password')
             ]);
