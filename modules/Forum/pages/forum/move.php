@@ -62,7 +62,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 if (Input::get('forum') != $forum_id) {
                     $forum->updateForumLatestPosts($forum_id);
                 }
-                $forum->updateTopicLatestPosts($topic->id);
+                $forum->updateTopicLatestPosts($topic->id, $forum_id);
 
                 Redirect::to(URL::build('/forum/topic/' . $topic_id));
 

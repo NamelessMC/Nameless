@@ -144,8 +144,7 @@ class Forum {
                                       AND (`topic_creator` = ? OR `sticky` = 1)
                                       AND `deleted` = 0
                                 SQL,
-                                [$item->id],
-                                $user_id
+                                [$item->id, $user_id],
                             )->first()->count;
 
                             $posts = $this->_db->query(
@@ -430,8 +429,9 @@ class Forum {
      * Update the database with the new latest forum topic posts.
      *
      * @param int $topic_id The topic ID to update
+     * @param int|null $forum_id The forum ID to update if topic does not exist
      */
-    public function updateTopicLatestPosts(int $topic_id): void {
+    public function updateTopicLatestPosts(int $topic_id, ?int $forum_id): void {
         $latest_post = $this->_db->query(
             <<<SQL
                 SELECT `created`,
@@ -450,7 +450,7 @@ class Forum {
                 'topic_reply_date' => $latest_post->created ?? strtotime($latest_post->post_date),
                 'topic_last_user' => $latest_post->post_creator,
             ]);
-        } else {
+        } else if ($forum_id !== null) {
             $this->_db->update('forums', $forum_id, [
                 'last_post_date' => null,
                 'last_user_posted' => null,
