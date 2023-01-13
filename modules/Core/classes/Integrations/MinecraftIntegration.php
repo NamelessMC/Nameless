@@ -56,7 +56,17 @@ class MinecraftIntegration extends IntegrationBase {
 
     public function onVerifyRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
-        $this->flashVerifyCommand($integrationUser->data()->code);
+
+        $code = $integrationUser->data()->code;
+        if ($code === null) {
+            $code = SecureRandom::alphanumeric();
+
+            $integrationUser->update([
+                'code' => $code 
+            ]);
+        }
+
+        $this->flashVerifyCommand($code);
     }
 
     public function onUnlinkRequest(User $user) {
