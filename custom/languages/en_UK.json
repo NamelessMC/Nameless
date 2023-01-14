@@ -1222,6 +1222,7 @@
     "user/user_x_has_registered": "{{user}} has joined {{siteName}}!",
     "user/user_x_has_validated": "{{user}} has validated their account!",
     "user/username": "Username",
+    "user/username_already_exists": "Your chosen username already exists.",
     "user/username_maximum_20": "Your username must be a maximum of 20 characters.",
     "user/username_mcname_email_exists": "Your username or email address already exists.",
     "user/username_minimum_3": "Your username must be a minimum of 3 characters.",
