@@ -1082,6 +1082,7 @@ body.dark .ui.form .field .ui.dropdown .menu .item {
 
 body.dark .ui.card,
 body.dark .ui.segment,
+body.dark .ui.segment.attached:not(.basic),
 body.dark .ui.vertical.menu {
     background-color: #303030;
     border: 1px solid rgba(0, 0, 0, 0.125);
