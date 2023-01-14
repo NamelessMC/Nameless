@@ -199,7 +199,8 @@ class Core_Module extends Module {
                                                     $custom_page->id,
                                                     Output::getClean($custom_page->title),
                                                     (is_null($redirect)) ? URL::build(Output::urlEncodeAllowSlashes($custom_page->url)) : $redirect,
-                                                    'footer', $custom_page->target ? '_blank' : null,
+                                                    'footer',
+                                                    $custom_page->target ? '_blank' : null,
                                                     2000,
                                                     $custom_page->icon
                                                 );

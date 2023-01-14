@@ -441,8 +441,8 @@ body.pushable>.pusher {
 }
 
 /*
-   *  -[ FOOTER ]-
-   */
+ *  -[ FOOTER ]-
+ */
 
 .ui.footer.segment {
     margin: 1rem 0 -.5rem 0;
@@ -452,6 +452,14 @@ body.pushable>.pusher {
 @media only screen and (max-width: 768px) {
     .ui.footer.segment {
         text-align: center;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .ui.footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
     }
 }
 
