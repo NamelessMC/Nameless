@@ -108,19 +108,23 @@ class Email {
             $mail->IsSMTP();
             $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->Debugoutput = 'html';
-            $mail->CharSet = 'UTF-8';
-            $mail->Encoding = 'base64';
+            $mail->CharSet = PHPMailer::CHARSET_UTF8;
+            $mail->Encoding = PHPMailer::ENCODING_BASE64;
             $mail->Timeout = 15;
 
             // login to their smtp account
             $mail->Host = Config::get('email.host', '');
+            // set to override the resolution of the server hostname
+            $mail->Hostname = Config::get('email.hostname', '');
+            // required to be set if they have a separate web server and mail server using the same hostname
+            $mail->Helo = Config::get('email.helo', '');
             $mail->Port = Config::get('email.port', 587);
-            $mail->SMTPSecure = Config::get('email.secure', 'tls');
+            $mail->SMTPSecure = Config::get('email.secure', PHPMailer::ENCRYPTION_STARTTLS);
             $mail->SMTPAuth = Config::get('email.smtp_auth', true);
             $mail->Username = Config::get('email.username', '');
             $mail->Password = Config::get('email.password', '');
 
-            // set from email ("outgoing email" seting)
+            // set from email ("outgoing email" setting)
             $mail->setFrom(Config::get('email.email', ''), Config::get('email.name', ''));
 
             // add a "to" address
