@@ -181,11 +181,6 @@ foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
 
 $user_data = [];
 if ($user->isLoggedIn()) {
-    $user_groups = [];
-    foreach ($user->getAllGroupIds() as $group_id) {
-        $user_groups[] = $group_id;
-    }
-
     $user_integrations = [];
     foreach ($user->getIntegrations() as $integrationUser) {
         $user_integrations[$integrationUser->getIntegration()->getName()] = [
@@ -199,7 +194,7 @@ if ($user->isLoggedIn()) {
         'id' => (int) $user->data()->id,
         'username' => $user->data()->username,
         'nickname' => $user->getDisplayname(),
-        'groups' => $user_groups,
+        'groups' => array_values($user->getAllGroupIds()),
         'integrations' => $user_integrations
     ];
 }
