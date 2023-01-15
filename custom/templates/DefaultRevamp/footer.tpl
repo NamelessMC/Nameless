@@ -1,7 +1,7 @@
 </div>
 </div>
 
-<div class="ui inverted vertical footer segment">
+<div class="ui inverted vertical footer segment" id="footer">
     <div class="ui container">
         <div class="ui stackable inverted divided equal height stackable grid">
             <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}six{else}eight{/if} wide column">
