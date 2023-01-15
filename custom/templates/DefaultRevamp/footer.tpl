@@ -1,7 +1,7 @@
 </div>
 </div>
 
-<div class="ui inverted vertical footer segment">
+<div class="ui inverted vertical footer segment" id="footer">
     <div class="ui container">
         <div class="ui stackable inverted divided equal height stackable grid">
             <div class="{if $SOCIAL_MEDIA_ICONS|count > 0}six{else}eight{/if} wide column">
@@ -19,7 +19,7 @@
                             <i class="fas fa-sun"></i>
                             <div class="darkmode-ball"></div>
                         </label>
-
+                    
                         <script type="text/javascript">
                             if (document.body.classList.contains('dark')) {
                                 document.getElementById("darkmode-toggle").checked = true;
