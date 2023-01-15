@@ -111,7 +111,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             if (isset($_GET['groups'])) {
                 $groups = $api->getDb()->query(
                     <<<SQL
-                    SELECT g.id, g.name
+                    SELECT g.id, g.name, g.staff, g.order
                     FROM nl2_users_groups ug
                         RIGHT JOIN nl2_groups g
                             ON g.id = ug.group_id
