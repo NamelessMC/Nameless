@@ -295,6 +295,12 @@ body.pushable>.pusher {
     padding-bottom: 1em;
 }
 
+.blockquote {
+    border-left: 2px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+
 /*
    *  [ ACCOUNT MESSAGES ]
    */
