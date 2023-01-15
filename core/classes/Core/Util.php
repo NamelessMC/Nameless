@@ -380,23 +380,6 @@ class Util {
     }
 
     /**
-     * Get in-game rank name from a website group ID, uses Group Sync rules.
-     *
-     * @param int $website_group_id ID of website group to search for.
-     * @return string|null Name of in-game rank or null if rule is not set up.
-     */
-    public static function getIngameRankName(int $website_group_id): ?string {
-        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
-
-        if ($data->count()) {
-            return $data->first()->ingame_rank_name;
-        }
-
-        return null;
-    }
-
-    /**
      * Determine if a specific module is enabled
      *
      * @param string $name Name of module to check for.
