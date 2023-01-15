@@ -191,7 +191,7 @@ if ($user->isLoggedIn()) {
         $user_integrations[$integrationUser->getIntegration()->getName()] = [
             'username' => $integrationUser->data()->username,
             'identifier' => $integrationUser->data()->identifier,
-            'verified' => $integrationUser->data()->verified ? true : false
+            'verified' => $integrationUser->data()->verified
         ];
     }
 
@@ -208,7 +208,7 @@ $data = [
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
     'generated_by_uuid' => $uuid,
-    "user" => $user_data,
+    'user' => $user_data,
     'namelessmc' => [
         'version' => $namelessmc_version,
         'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
