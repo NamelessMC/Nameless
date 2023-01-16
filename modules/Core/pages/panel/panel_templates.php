@@ -57,62 +57,9 @@ if (!isset($_GET['action'])) {
             'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
             'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' .urlencode($item->id)) : null)
         ];
-
     }
 
     $template = $current_template;
-
-    // Get templates from Nameless website
-    $cache->setCache('all_templates');
-    if ($cache->isCached('all_panel_templates')) {
-        $all_templates = $cache->retrieve('all_panel_templates');
-
-    } else {
-        $all_templates = [];
-
-        $all_templates_query = HttpClient::get('https://namelessmc.com/panel_templates');
-
-        if ($all_templates_query->hasError()) {
-            $all_templates_error = $all_templates_query->getError();
-        }
-
-        if (isset($all_templates_error)) {
-            $smarty->assign('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
-
-        } else {
-            $all_templates_query = $all_templates_query->json();
-            $timeago = new TimeAgo(TIMEZONE);
-
-            foreach ($all_templates_query as $item) {
-                $all_templates[] = [
-                    'name' => Output::getClean($item->name),
-                    'description' => Output::getPurified($item->description),
-                    'description_short' => Text::truncate(Output::getPurified($item->description)),
-                    'author' => Output::getClean($item->author),
-                    'author_x' => $language->get('admin', 'author_x', ['author' => Output::getClean($item->author)]),
-                    'updated_x' => $language->get('admin', 'updated_x', ['updatedAt' => date(DATE_FORMAT, $item->updated)]),
-                    'url' => Output::getClean($item->url),
-                    'latest_version' => Output::getClean($item->latest_version),
-                    'rating' => Output::getClean($item->rating),
-                    'downloads' => Output::getClean($item->downloads),
-                    'views' => Output::getClean($item->views),
-                    'rating_full' => $language->get('admin', 'rating_x', ['rating' => Output::getClean($item->rating * 2) . '/100']),
-                    'downloads_full' => $language->get('admin', 'downloads_x', ['downloads' => Output::getClean($item->downloads)]),
-                    'views_full' =>  $language->get('admin', 'views_x', ['views' => Output::getClean($item->views)])
-                ];
-            }
-
-            $cache->store('all_panel_templates', $all_templates, 3600);
-        }
-
-    }
-
-    if (count($all_templates)) {
-        if (count($all_templates) > 3) {
-            $rand_keys = array_rand($all_templates, 3);
-            $all_templates = [$all_templates[$rand_keys[0]], $all_templates[$rand_keys[1]], $all_templates[$rand_keys[2]]];
-        }
-    }
 
     $smarty->assign([
         'WARNING' => $language->get('admin', 'warning'),
@@ -131,13 +78,6 @@ if (!isset($_GET['action'])) {
         'INSTALL_TEMPLATE_LINK' => URL::build('/panel/core/panel_templates/', 'action=install'),
         'CLEAR_CACHE' => $language->get('admin', 'clear_cache'),
         'CLEAR_CACHE_LINK' => URL::build('/panel/core/panel_templates/', 'action=clear_cache'),
-        'FIND_TEMPLATES' => $language->get('admin', 'find_templates'),
-        'WEBSITE_TEMPLATES' => $all_templates,
-        'VIEW_ALL_TEMPLATES' => $language->get('admin', 'view_all_templates'),
-        'VIEW_ALL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/2-namelessmc-v2-templates/',
-        'VIEW_ALL_PANEL_TEMPLATES' => $language->get('admin', 'view_all_panel_templates'),
-        'VIEW_ALL_PANEL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/8-namelessmc-panel-templates/',
-        'UNABLE_TO_RETRIEVE_TEMPLATES' => $language->get('admin', 'unable_to_retrieve_templates'),
         'VIEW' => $language->get('general', 'view'),
         'TEMPLATE' => $language->get('admin', 'template'),
         'STATS' => $language->get('admin', 'stats'),
