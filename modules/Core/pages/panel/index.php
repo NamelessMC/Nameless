@@ -23,7 +23,6 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $dashboard_graphs = Core_Module::getDashboardGraphs();
-
 $graphs = [];
 
 if (count($dashboard_graphs)) {
