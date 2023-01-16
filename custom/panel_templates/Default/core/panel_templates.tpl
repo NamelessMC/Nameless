@@ -66,6 +66,12 @@
                                                 data-title="{$WARNING}" data-content="{$template.version_mismatch}"><i
                                                     class="fa fa-exclamation-triangle"></i></button>
                                             {/if}
+                                            {if $template.third_party}
+                                                &nbsp;
+                                                <button role="button" class="btn btn-sm btn-warning" data-toggle="popover"
+                                                        data-title="{$WARNING}" data-content="{$template.third_party}"><i
+                                                            class="fa fa-exclamation-triangle"></i></button>
+                                            {/if}
                                             <br />
                                             <small>{$template.author_x}</small>
                                         </td>

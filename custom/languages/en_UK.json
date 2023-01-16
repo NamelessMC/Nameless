@@ -440,6 +440,7 @@
     "admin/page_url_contains_nameless_path": "Your custom page would overwrite a NamelessMC page.",
     "admin/pages": "Pages",
     "admin/panel_templates": "Panel Templates",
+    "admin/panel_template_third_party": "Panel template {{name}} is a third party template. Please be aware that version compatibility is not guaranteed between minor NamelessMC updates, and issues should be redirected to the template author.",
     "admin/parent_server": "Parent Server",
     "admin/parent_server_help": "A parent server is typically the Bungee instance the server is connected to, if any.",
     "admin/permissions": "Permissions",
