@@ -120,9 +120,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
                     [$user->id]
                 );
 
-                if ($groups->count()) {
-                    $user_json['groups'] = $groups->results();
-                }
+                $user_json['groups'] = $groups->results();
             }
 
             $users_json[] = $user_json;
