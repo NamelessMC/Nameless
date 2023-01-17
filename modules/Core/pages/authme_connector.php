@@ -86,10 +86,6 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-                // Get Authme hashing method
-                $cache->setCache('authme_cache');
-                $authme_hash = $cache->retrieve('authme');
-
                 // Get default language ID before creating user
                 $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE]);
 
@@ -139,7 +135,7 @@ if (Input::exists()) {
                         'username' => $_SESSION['authme']['user'],
                         'nickname' => $nickname,
                         'password' => $_SESSION['authme']['pass'],
-                        'pass_method' => $authme_hash['hash'],
+                        'pass_method' => json_decode(Util::getSetting('authme_db'), true)['hash'],
                         'joined' => date('U'),
                         'email' => Output::getClean(Input::get('email')),
                         'lastip' => $ip,
@@ -225,7 +221,7 @@ if (Input::exists()) {
                         if ($result->count() > 0) {
                             $result = $result->first();
                             if (is_null($result->password)) {
-                                $errors[] = $language->get('user', 'incorrect_details');
+                                $errors[] = $language->get('user', 'authme_no_password');
                             } else {
                                 // Validate inputted password against actual password
                                 $valid = false;
@@ -326,13 +322,8 @@ if (count($errors)) {
 $smarty->assign('ERROR', $language->get('general', 'error'));
 
 if (!isset($_GET['step'])) {
-    // Check if authme has been setup
-    $cache->setCache('authme_cache');
-    $authme_hash = $cache->retrieve('authme');
-
-    // Smarty
     $smarty->assign([
-        'AUTHME_SETUP' => $authme_hash !== null,
+        'AUTHME_SETUP' => json_decode(Util::getSetting('authme_db'), true),
         'AUTHME_NOT_SETUP' => $language->get('user', 'authme_not_setup'),
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
         'AUTHME_INFO' => $language->get('user', 'authme_help'),

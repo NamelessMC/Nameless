@@ -149,28 +149,20 @@ if (Input::exists()) {
                     }
 
                     if (!isset($return_error)) {
-
-                        // Validation passed
-                        // Initialise user class
+                        // Sync AuthMe password
+                        $synced_password = false;
                         $user = new User();
-
-                        // Did the user check 'remember me'?
-                        $remember = Input::get('remember') == 1;
-
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
-                            $authme_db = json_decode(Util::getSetting('authme_db'), true);
-
-                            // Sync AuthMe password
+                        $authme_db = json_decode(Util::getSetting('authme_db'), true);
+                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] === '1') {
                             try {
-                                $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
-
-                                // Success, check user exists in database and validate password
                                 if ($method_field == 'email') {
                                     $field = 'email';
                                 } else {
                                     $field = 'realname';
                                 }
 
+                                // Check user exists in database and validate password
+                                $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
                                 $result = $authme_conn->query('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?', [$username]);
                                 if ($result->count() > 0) {
                                     $password = $result->first()->password;
@@ -203,12 +195,17 @@ if (Input::exists()) {
                                             'password' => $password,
                                             'pass_method' => $authme_db['hash']
                                         ]);
+
+                                        $synced_password = true;
                                     }
                                 }
                             } catch (PDOException $exception) {
                                 // Error, continue as we can use the already stored password
                             }
                         }
+
+                        // Did the user check 'remember me'?
+                        $remember = Input::get('remember') == 1;
 
                         $login = $user->login($username, Input::get('password'), $remember, $method_field);
 
@@ -221,7 +218,7 @@ if (Input::exists()) {
                             if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
                                 Redirect::back();
                             } else {
-                                Session::flash('home', $language->get('user', 'successful_login'));
+                                Session::flash('home', $language->get('user', $synced_password ? 'successful_login_synced_password' : 'successful_login'));
                                 Redirect::to(URL::build('/'));
                             }
                         }
