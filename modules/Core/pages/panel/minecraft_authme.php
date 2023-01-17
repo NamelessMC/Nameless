@@ -31,7 +31,6 @@ if (Input::exists()) {
             DB::getInstance()->update('settings', ['name', 'authme'], [
                 'value' => Input::get('enable_authme')
             ]);
-
         } else {
             // AuthMe config settings
             $validation = Validate::check($_POST, [

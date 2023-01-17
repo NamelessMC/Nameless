@@ -164,69 +164,50 @@ if (Input::exists()) {
 
                             // Sync AuthMe password
                             try {
-                                $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
+                                $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
 
-                                if ($authme_conn->connect_errno) {
-                                    // Connection error
-                                    // Continue anyway, and use already stored password
+                                // Success, check user exists in database and validate password
+                                if ($method_field == 'email') {
+                                    $field = 'email';
                                 } else {
-                                    // Success, check user exists in database and validate password
-                                    if ($method_field == 'email') {
-                                        $field = 'email';
-                                    } else {
-                                        $field = 'realname';
+                                    $field = 'realname';
+                                }
+
+                                $result = $authme_conn->query('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?', [$username]);
+                                if ($result->count() > 0) {
+                                    $password = $result->first()->password;
+                                    switch ($authme_db['hash']) {
+                                        case 'sha256':
+                                            $exploded = explode('$', $password);
+                                            $salt = $exploded[2];
+
+                                            $password = $salt . '$' . $exploded[3];
+
+                                            break;
+
+                                        case 'pbkdf2':
+                                            [, $iterations, $salt, $pass] = explode('$', $password);
+
+                                            $password = $iterations . '$' . $salt . '$' . $pass;
+
+                                            break;
                                     }
 
-                                    $stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
-                                    if ($stmt) {
-                                        $stmt->bind_param('s', $username);
-                                        $stmt->execute();
-                                        $stmt->bind_result($password);
-
-                                        while ($stmt->fetch()) {
-                                            // Retrieve result
+                                    // Update password
+                                    if (!is_null($password)) {
+                                        if ($method_field == 'email') {
+                                            $user_id = $user->emailToId($username);
+                                        } else {
+                                            $user_id = $user->nameToId($username);
                                         }
 
-                                        $stmt->free_result();
-                                        $stmt->close();
-
-                                        switch ($authme_db['hash']) {
-                                            case 'sha256':
-                                                $exploded = explode('$', $password);
-                                                $salt = $exploded[2];
-
-                                                $password = $salt . '$' . $exploded[3];
-
-                                                break;
-
-                                            case 'pbkdf2':
-                                                $exploded = explode('$', $password);
-
-                                                $iterations = $exploded[1];
-                                                $salt = $exploded[2];
-                                                $pass = $exploded[3];
-
-                                                $password = $iterations . '$' . $salt . '$' . $pass;
-
-                                                break;
-                                        }
-
-                                        // Update password
-                                        if (!is_null($password)) {
-                                            if ($method_field == 'email') {
-                                                $user_id = $user->emailToId($username);
-                                            } else {
-                                                $user_id = $user->nameToId($username);
-                                            }
-
-                                            DB::getInstance()->update('users', $user_id, [
-                                                'password' => $password,
-                                                'pass_method' => $authme_db['hash']
-                                            ]);
-                                        }
+                                        DB::getInstance()->update('users', $user_id, [
+                                            'password' => $password,
+                                            'pass_method' => $authme_db['hash']
+                                        ]);
                                     }
                                 }
-                            } catch (Exception $e) {
+                            } catch (PDOException $exception) {
                                 // Error, continue as we can use the already stored password
                             }
                         }
