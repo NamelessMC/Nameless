@@ -790,7 +790,7 @@ class Forum {
                     $prev[] = $label->id;
                 }
             }
-            return is_array($prev) ? $prev : [];
-        });
+            return $prev;
+        }, []);
     }
 }
