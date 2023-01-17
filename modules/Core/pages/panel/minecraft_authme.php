@@ -75,7 +75,7 @@ if (Input::exists()) {
                     'sync' => Input::get('authme_sync')
                 ];
 
-                Util::setSetting('authme_db', $new_authme_details);
+                Util::setSetting('authme_db', json_encode($new_authme_details));
             } else {
                 $errors = $validation->errors();
             }
