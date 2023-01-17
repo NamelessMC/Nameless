@@ -214,8 +214,7 @@ if (Input::exists()) {
 
                 if ($validation->passed()) {
                     // Try connecting to AuthMe
-                    $cache->setCache('authme_cache');
-                    $authme_db = $cache->retrieve('authme');
+                    $authme_db = json_decode(Util::getSetting('authme_db'), true);
 
                     // Try to connect to the database
                     try {

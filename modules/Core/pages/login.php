@@ -157,10 +157,8 @@ if (Input::exists()) {
                         // Did the user check 'remember me'?
                         $remember = Input::get('remember') == 1;
 
-                        $cache->setCache('authme_cache');
-                        $authme_db = $cache->retrieve('authme');
-
                         if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
+                            $authme_db = json_decode(Util::getSetting('authme_db'), true);
 
                             // Sync AuthMe password
                             try {

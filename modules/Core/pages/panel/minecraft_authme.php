@@ -52,21 +52,19 @@ if (Input::exists()) {
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if ($validation->passed()) {
-                $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
-                $authme_db_id = $authme_db[0]->id;
-                $authme_db = json_decode($authme_db[0]->value);
-
                 if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
                 } else {
-                    if (isset($authme_db->password) && !empty($authme_db->password)) {
-                        $password = $authme_db->password;
-                    } else {
+                    // No password provided, re-use previous password
+                    $authme_details = Util::getSetting('authme_db');
+                    if ($authme_details === null) {
                         $password = '';
+                    } else {
+                        $password = json_decode($authme_details)->password;
                     }
                 }
 
-                $result = [
+                $new_authme_details = [
                     'address' => Output::getClean(Input::get('db_address')),
                     'port' => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
                     'db' => Output::getClean(Input::get('db_name')),
@@ -77,13 +75,7 @@ if (Input::exists()) {
                     'sync' => Input::get('authme_sync')
                 ];
 
-                $cache->setCache('authme_cache');
-                $cache->store('authme', $result);
-
-                DB::getInstance()->update('settings', $authme_db_id, [
-                    'value' => json_encode($result)
-                ]);
-
+                Util::setSetting('authme_db', $new_authme_details);
             } else {
                 $errors = $validation->errors();
             }
@@ -112,17 +104,16 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-// Is Authme enabled?
-$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-$authme_enabled = $authme_enabled[0]->value;
+// Is AuthMe enabled?
+$authme_enabled = Util::getSetting('authme', '0');
 
-if ($authme_enabled == '1') {
-    // Retrieve Authme database details
-    $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
-    $authme_db = json_decode($authme_db[0]->value);
+if ($authme_enabled === '1') {
+    // Retrieve AuthMe database details
+    $authme_db_str = Util::getSetting('authme_db');
+    $authme_db = $authme_db_str !== null ? json_decode($authme_db_str) : [];
 
     $smarty->assign([
-        'AUTHME_DB_DETAILS' => ($authme_db ?: []),
+        'AUTHME_DB_DETAILS' => $authme_db,
         'AUTHME_HASH_ALGORITHM' => $language->get('admin', 'authme_hash_algorithm'),
         'AUTHME_DB_ADDRESS' => $language->get('admin', 'authme_db_address'),
         'AUTHME_DB_PORT' => $language->get('admin', 'authme_db_port'),
