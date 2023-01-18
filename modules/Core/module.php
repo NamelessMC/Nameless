@@ -508,6 +508,7 @@ class Core_Module extends Module {
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
+            'verify_email' => static fn () => true,
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
@@ -515,6 +516,7 @@ class Core_Module extends Module {
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
             'icon' => 'fab fa-google',
+            'verify_email' => static fn () => true,
         ]);
 
         // Captcha
