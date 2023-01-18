@@ -158,10 +158,10 @@ if ($user->hasPermission('admincp.core.debugging')) {
     } else {
         $compat_success[] = 'PHP PDO ' . phpversion('PDO');
     }
-    if (!extension_loaded('mysql') && !extension_loaded('mysqlnd')) {
-        $compat_errors[] = 'PHP MySQL';
+    if (!extension_loaded('pdo_mysql')) {
+        $compat_errors[] = 'PHP PDO MySQL';
     } else {
-        $compat_success[] = 'PHP MySQL ' . (extension_loaded('mysql') ? phpversion('mysql') : explode(' ', phpversion('mysqlnd'))[1]);
+        $compat_success[] = 'PHP PDO MySQL ' . phpversion('pdo_mysql');
     }
     $pdo_driver = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
     $pdo_server_version = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
