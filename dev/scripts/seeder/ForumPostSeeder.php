@@ -35,6 +35,12 @@ class ForumPostSeeder extends Seeder {
                     'created' => $created->format('U'),
                 ]);
 
+                $db->update('forums', ['id', $topic->forum_id], [
+                    'last_post_date' => $created->format('U'),
+                    'last_user_posted' => $user->id,
+                    'last_topic_posted' => $topic->id,
+                ]);
+
                 if ($faker->boolean(60)) {
                     return;
                 }
