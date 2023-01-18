@@ -214,11 +214,17 @@ if (Input::exists()) {
                             // Yes
                             Log::getInstance()->log(Log::Action('user/login'));
 
+                            if ($synced_password) {
+                                // Always alert them if their password was changed to avoid confusion
+                                Session::flash('home', $language->get('user', 'successful_login_synced_password'));
+                                Redirect::to(URL::build('/'));
+                            }
+
                             // Redirect to a certain page?
                             if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
                                 Redirect::back();
                             } else {
-                                Session::flash('home', $language->get('user', $synced_password ? 'successful_login_synced_password' : 'successful_login'));
+                                Session::flash('home', $language->get('user', 'successful_login'));
                                 Redirect::to(URL::build('/'));
                             }
                         }
