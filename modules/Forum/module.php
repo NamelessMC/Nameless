@@ -324,7 +324,7 @@ class Forum_Module extends Module {
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`topic_date`), '%Y-%m-%d') d, COUNT(*) c
                             FROM nl2_topics
-                            WHERE `topic_date` > ?
+                            WHERE `topic_date` > ? AND `topic_date` < UNIX_TIMESTAMP()
                             AND `deleted` = 0
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`topic_date`), '%Y-%m-%d')
                         SQL,
@@ -337,7 +337,7 @@ class Forum_Module extends Module {
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                             FROM nl2_posts
-                            WHERE `created` > ?
+                            WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
                             AND `deleted` = 0
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
                         SQL,
@@ -381,7 +381,6 @@ class Forum_Module extends Module {
                         ksort($data);
 
                         $cache->store('forum_data', $data, 120);
-
                     }
 
                     Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
