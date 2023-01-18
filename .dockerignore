@@ -1,0 +1,5 @@
+# Speed up PHPDoc build by excluding very large directories from the build context
+.node_cache
+node_modules
+release
+.git

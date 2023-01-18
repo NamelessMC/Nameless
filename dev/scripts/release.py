@@ -16,6 +16,7 @@ EXCLUDE_DIRS = [
     'release',
 ]
 EXCLUDE_FILES = [
+    '.dockerignore',
     '.gitignore',
     '.phpcs.xml',
     'CHANGELOG.md',
