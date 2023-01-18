@@ -50,10 +50,10 @@ class LatestPostsWidget extends WidgetBase {
         $user_groups = $this->_user->getAllGroupIds();
 
         $this->_cache->setCache('forum_discussions_' . rtrim(implode('-', $user_groups), '-'));
-//        if ($this->_cache->isCached('discussions')) {
-//            $template_array = $this->_cache->retrieve('discussions');
-//
-//        } else {
+        if ($this->_cache->isCached('discussions')) {
+            $template_array = $this->_cache->retrieve('discussions');
+
+        } else {
             $limit = (int) Util::getSetting('latest_posts_limit', 5, 'Forum');
             // Generate latest posts
             $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0), $limit);
@@ -124,7 +124,7 @@ class LatestPostsWidget extends WidgetBase {
             }
 
             $this->_cache->store('discussions', $template_array, 60);
-        // }
+        }
 
         // Generate HTML code for widget
         $this->_smarty->assign('LATEST_POSTS_ARRAY', $template_array);
