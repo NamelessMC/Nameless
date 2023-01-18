@@ -10,7 +10,7 @@ EXCLUDE_DIRS = [
     '.git',
     '.github',
     '.idea',
-    '.node-cache',
+    '.node_cache',
     '.vscode',
     'node_modules',
     'release',
