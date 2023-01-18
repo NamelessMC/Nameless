@@ -72,3 +72,10 @@ Deprecations rule of thumb:
 * Changes should be as small as possible to reduce conflicts.
 * Squash when merging. This makes backporting easier. If you think your changes deserve multiple commits, consider splitting them into multiple pull requests.
 * Mark the pull request with the appropriate milestone. [@Derkades](https://github.com/Derkades) keeps an eye on merged PRs and cherry-pick changes to the appropriate release branch.
+
+## Releasing a new version
+
+1. Ensure you have a clean copy of the source code without leftover files from testing. For example, clone the Nameless repository into a new directory
+2. Run ./release.sh. Release zip files are produced and placed in `./release`.
+3. TODO: Add instructions for producing a zip only containing files changed since the last release
+4. TODO: Add instructions for publishing a release
