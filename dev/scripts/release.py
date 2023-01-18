@@ -105,6 +105,8 @@ if __name__ == '__main__':
     previous_tag_command = ['git', 'describe', '--abbrev=0', '--tags']
     previous_tag = subprocess.check_output(previous_tag_command, shell=False)[:-1].decode()
 
+    print('Creating files for upgrade from', previous_tag)
+
     # Find all files changed between previous tag and HEAD (current state)
     changed_command = ['git', 'diff', previous_tag, 'HEAD', '--name-only', '--diff-filter=d']
     changed_files = subprocess.check_output(changed_command, shell=False)[:-1].decode()
