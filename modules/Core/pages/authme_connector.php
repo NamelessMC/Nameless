@@ -28,7 +28,7 @@ if (Input::exists()) {
 
             // Are custom usernames enabled?
             if (Util::getSetting('displaynames') === '1') {
-                $to_validation['username'] = [
+                $to_validation['nickname'] = [
                     Validate::REQUIRED => true,
                     Validate::MIN => 3,
                     Validate::MAX => 20,
@@ -57,17 +57,17 @@ if (Input::exists()) {
             $validation = Validate::check($_POST, $to_validation);
 
             $validation->messages([
-                'username' => [
-                    Validate::REQUIRED => $language->get('user', 'username_required'),
-                    Validate::MIN => $language->get('user', 'username_minimum_3'),
-                    Validate::MAX => $language->get('user', 'username_maximum_20'),
-                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists'),
+                'nickname' => [
+                    Validate::REQUIRED => $language->get('user', 'nickname_required'),
+                    Validate::MIN => $language->get('user', 'nickname_minimum_3'),
+                    Validate::MAX => $language->get('user', 'nickname_maximum_20'),
+                    Validate::UNIQUE => $language->get('user', 'nickname_already_exists'),
                 ],
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
                     Validate::MIN => $language->get('user', 'invalid_email'),
                     Validate::MAX => $language->get('user', 'invalid_email'),
-                    Validate::UNIQUE => $language->get('user', 'username_mcname_email_exists'),
+                    Validate::UNIQUE => $language->get('user', 'email_already_exists'),
                 ],
                 // fallback message for profile fields
                 '*' => static function ($field) use ($language) {
@@ -101,14 +101,14 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);
-                if ($custom_usernames == 'true') {
+                if (Util::getSetting('displaynames') === '1') {
                     $nickname = Input::get('nickname');
                 } else {
                     $nickname = $mcname;
                 }
 
                 // Add username back to post for integration handling
-                $_POST['username'] = $_SESSION['authme']['user'];
+                $_POST['username'] = $mcname;
 
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
                 $integration->afterRegistrationValidation();
@@ -132,7 +132,7 @@ if (Input::exists()) {
                     }
 
                     $user->create([
-                        'username' => $_SESSION['authme']['user'],
+                        'username' => $mcname,
                         'nickname' => $nickname,
                         'password' => $_SESSION['authme']['pass'],
                         'pass_method' => json_decode(Util::getSetting('authme_db'), true)['hash'],

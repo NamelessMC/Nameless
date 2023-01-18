@@ -28,9 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            DB::getInstance()->update('settings', ['name', 'authme'], [
-                'value' => Input::get('enable_authme')
-            ]);
+            Util::setSetting('authme', Input::get('enable_authme'));
         } else {
             // AuthMe config settings
             $validation = Validate::check($_POST, [
@@ -105,12 +103,12 @@ if (isset($errors) && count($errors)) {
 }
 
 // Is AuthMe enabled?
-$authme_enabled = Util::getSetting('authme', '0');
+$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->first()->value;
 
 if ($authme_enabled === '1') {
     // Retrieve AuthMe database details
-    $authme_db_str = Util::getSetting('authme_db');
-    $authme_db = $authme_db_str !== null ? json_decode($authme_db_str) : [];
+    $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->first()->value;
+    $authme_db = json_decode($authme_db);
 
     $smarty->assign([
         'AUTHME_DB_DETAILS' => $authme_db,

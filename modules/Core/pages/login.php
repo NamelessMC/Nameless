@@ -153,7 +153,7 @@ if (Input::exists()) {
                         $synced_password = false;
                         $user = new User();
                         $authme_db = json_decode(Util::getSetting('authme_db'), true);
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] === '1') {
+                        if (defined('MINECRAFT') && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] === '1') {
                             try {
                                 if ($method_field == 'email') {
                                     $field = 'email';
