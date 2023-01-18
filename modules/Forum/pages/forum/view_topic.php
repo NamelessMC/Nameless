@@ -828,104 +828,21 @@ $template->assets()->include([
 
 if ($user->isLoggedIn()) {
     $template->addJSScript(Input::createTinyEditor($language, 'quickreply', $content, true));
-}
-
-if ($user->isLoggedIn()) {
-    $js = '
-    tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
-    ';
 
     $template->addJSScript('
-    $(document).ready(function() {
-        if (typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\') {
-            $("#quoteButton").hide();
-        }
-    });
-
-    // Add post to quoted posts array
-    function quote(post) {
-        var index = quotedPosts.indexOf(post);
-
-        if (index > -1) {
-            quotedPosts.splice(index, 1);
-
-            $(\'body\').toast({
-                showIcon: \'info circle icon\',
-                message: \'' . $forum_language->get('forum', 'removed_quoted_post') . '\',
-                class: \'info\',
-                progressUp: true,
-                displayTime: 6000,
-                showProgress: \'bottom\',
-                pauseOnHover: false,
-                position: \'bottom left\',
-            });
-        }
-        else {
-            quotedPosts.push(post);
-
-            $(\'body\').toast({
-                showIcon: \'info circle icon\',
-                message: \'' . $forum_language->get('forum', 'quoted_post') . '\',
-                class: \'info\',
-                progressUp: true,
-                displayTime: 6000,
-                showProgress: \'bottom\',
-                pauseOnHover: false,
-                position: \'bottom left\',
-            });
-        }
-
-        if (quotedPosts.length == 0) {
-            // Delete cookie
-            $.removeCookie(\'' . $tid . '-quoted\');
-
-            // Hide insert quote button
-            $("#quoteButton").hide();
-        } else {
-            // Create cookie
-            $.cookie(\'' . $tid . '-quoted\', JSON.stringify(quotedPosts));
-
-            // Show insert quote button
-            $("#quoteButton").show();
-        }
-    }
-
-    // Insert quoted posts to editor
-    function insertQuotes() {
-        var postData = {
-            "posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
-            "topic": ' . $tid . '
-        };
-
-        $(\'body\').toast({
-            showIcon: \'info circle icon\',
-            message: \'' . $forum_language->get('forum', 'quoting_posts') . '\',
-            class: \'info\',
-            progressUp: true,
-            displayTime: 6000,
-            showProgress: \'bottom\',
-            pauseOnHover: false,
-            position: \'bottom left\',
-        });
-
-        var getQuotes = $.ajax({
-              type: "POST",
-              url: "' . URL::build('/forum/get_quotes') . '",
-              data: postData,
-              dataType: "json",
-              success: function(resultData) {
-                  for(var item in resultData) {
-                      if (resultData.hasOwnProperty(item)) {
-                      ' . $js . '
-                      }
-                  }
-
-                  // Remove cookie containing quoted posts, and hide quote button
-                  $.removeCookie(\'' . $tid . '-quoted\');
-                  $("#quoteButton").hide();
-              },
-              error: function(data) {
-                  $(\'body\').toast({
+    function quote(post) {        
+        $.ajax({
+            type: "GET",
+            url: "' . URL::build('/forum/get_quotes') . '",
+            data: {
+                "post": post,
+            },
+            dataType: "json",
+            success: function(response) {
+                tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + response.link + \'">\' + response.author_nickname + \':</a><br />\' + response.content + \'</blockquote><br />\');
+            },
+            error: function(data) {
+                $(\'body\').toast({
                     showIcon: \'exclamation triangle icon\',
                     message: \'' . $forum_language->get('forum', 'error_quoting_posts') . '\',
                     class: \'danger\',
@@ -935,8 +852,19 @@ if ($user->isLoggedIn()) {
                     pauseOnHover: false,
                     position: \'bottom left\',
                 });
-              }
-        });
+            }
+         });
+
+         $(\'body\').toast({
+            showIcon: \'info circle icon\',
+            message: \'' . $forum_language->get('forum', 'quoted_post') . '\',
+            class: \'info\',
+            progressUp: true,
+            displayTime: 6000,
+            showProgress: \'bottom\',
+            pauseOnHover: false,
+            position: \'bottom left\',
+         });
     }
     ');
 }

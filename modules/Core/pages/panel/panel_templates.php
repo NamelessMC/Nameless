@@ -50,6 +50,9 @@ if (!isset($_GET['action'])) {
                 'intendedVersion' => Output::getClean($template->getNamelessVersion()),
                 'actualVersion' => NAMELESS_VERSION,
             ]) : false,
+            'third_party' => $template->getName() !== 'Default' ? $language->get('admin', 'panel_template_third_party', [
+                'name' => Text::bold($template->getName()),
+            ]) : false,
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
             'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),

@@ -9,6 +9,6 @@ RUN mkdir /target && \
         -d "/source/modules/Cookie Consent/classes" \
         -d /source/modules/Forum/classes -t /target -i /vendor
 
-FROM nginxinc/nginx-unprivileged:stable-alpine
+FROM nginxinc/nginx-unprivileged:stable
 
 COPY --from=doc_builder /target /usr/share/nginx/html

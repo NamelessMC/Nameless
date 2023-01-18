@@ -205,6 +205,12 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_errors[] = $language->get('admin', 'debugging_enabled');
     }
 
+    if ($template->getName() !== 'Default') {
+        $compat_warnings[] = $language->get('admin', 'panel_template_third_party', [
+            'name' => Text::bold($template->getName()),
+        ]);
+    }
+
     $smarty->assign([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,

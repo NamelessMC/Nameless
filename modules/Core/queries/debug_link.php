@@ -179,10 +179,31 @@ foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
     $logs[$type] = file_exists($file_path) ? Util::readFileEnd($file_path, $max_bytes = 10_000) : '';
 }
 
+$user_data = [];
+if ($user->isLoggedIn()) {
+    $user_integrations = [];
+    foreach ($user->getIntegrations() as $integrationUser) {
+        $user_integrations[$integrationUser->getIntegration()->getName()] = [
+            'username' => $integrationUser->data()->username,
+            'identifier' => $integrationUser->data()->identifier,
+            'verified' => $integrationUser->data()->verified
+        ];
+    }
+
+    $user_data = [
+        'id' => (int) $user->data()->id,
+        'username' => $user->data()->username,
+        'nickname' => $user->getDisplayname(),
+        'groups' => array_values($user->getAllGroupIds()),
+        'integrations' => $user_integrations
+    ];
+}
+
 $data = [
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
     'generated_by_uuid' => $uuid,
+    'user' => $user_data,
     'namelessmc' => [
         'version' => $namelessmc_version,
         'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
