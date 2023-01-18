@@ -1488,7 +1488,7 @@ class Core_Module extends Module {
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d') d, COUNT(*) c
                             FROM nl2_users
-                            WHERE `joined` > ?
+                            WHERE `joined` > ? AND `joined` < UNIX_TIMESTAMP()
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d')
                         SQL,
                         [strtotime('7 days ago')],
