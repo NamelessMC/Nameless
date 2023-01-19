@@ -156,7 +156,6 @@ try {
         ]);
     }
 
-    $bbcode = new \Genert\BBCode\BBCode();
     $touched_topics = [];
     foreach ($forum_posts as $post) {
         [$created_epoch, $edited_epoch] = convertDate($post['posted']);
@@ -171,7 +170,7 @@ try {
             'forum_id' => $topic->forum_id,
             'topic_id' => $topic->id,
             'post_creator' => $post_creator->id,
-            'post_content' => $post['bbcode'] ?? $bbcode->convertToHtml($post['bbcode']),
+            'post_content' => $post['bbcode'],
             'post_date' => date('Y-m-d H:i:s', $created_epoch),
             'last_edited' => $edited_epoch,
             'created' => $created_epoch,

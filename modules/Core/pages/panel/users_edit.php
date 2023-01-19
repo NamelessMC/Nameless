@@ -23,6 +23,9 @@ if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 $user_query = $view_user->data();
+if ($user_query->pass_method === 'enjin-import' && Util::getSetting('enjin_imported')) {
+    Redirect::to(URL::build('/panel/users'));
+}
 
 const PAGE = 'panel';
 const PARENT_PAGE = 'users';

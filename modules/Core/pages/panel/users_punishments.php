@@ -32,6 +32,9 @@ if (isset($_GET['user'])) {
         Redirect::to(URL::build('/panel/users/punishments'));
     }
     $query = $view_user->data();
+    if ($query->pass_method === 'enjin-import' && Util::getSetting('enjin_imported')) {
+        Redirect::to(URL::build('/panel/users'));
+    }
 
     if (isset($_GET['do'], $_GET['id']) && $_GET['do'] == 'revoke' && is_numeric($_GET['id'])) {
         if (Token::checK()) {

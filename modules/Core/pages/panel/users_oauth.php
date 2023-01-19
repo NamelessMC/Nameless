@@ -44,6 +44,9 @@ if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
 $user_query = $view_user->data();
+if ($user_query->pass_method === 'enjin-import' && Util::getSetting('enjin_imported')) {
+    Redirect::to(URL::build('/panel/users'));
+}
 
 $oauth_providers = NamelessOAuth::getInstance()->getProvidersAvailable();
 $user_oauth_providers = NamelessOAuth::getInstance()->getAllProvidersForUser($user_query->id);

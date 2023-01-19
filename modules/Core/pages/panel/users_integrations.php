@@ -29,6 +29,9 @@ $view_user = new User($_GET['id']);
 if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel/users'));
 }
+if ($user_query->pass_method === 'enjin-import' && Util::getSetting('enjin_imported')) {
+    Redirect::to(URL::build('/panel/users'));
+}
 
 if (!isset($_GET['action']) || !isset($_GET['integration'])) {
     $integrations_list = [];

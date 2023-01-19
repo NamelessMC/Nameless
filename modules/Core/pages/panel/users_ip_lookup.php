@@ -31,6 +31,9 @@ if (isset($_GET['uid'])) {
         Redirect::to(URL::build('/panel/users'));
     }
     $user_query = $user_query[0];
+    if ($user_query->pass_method === 'enjin-import' && Util::getSetting('enjin_imported')) {
+        Redirect::to(URL::build('/panel/users'));
+    }
 
     // Search by user ID
     $user_ips = DB::getInstance()->get('users_ips', ['user_id', $user_id])->results();

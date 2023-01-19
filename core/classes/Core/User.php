@@ -383,6 +383,9 @@ class User {
                 case 'sha1':
                     return (sha1($password) == $this->data()->password);
 
+                case 'enjin-import':
+                    return false;
+
                 default:
                     // Default to bcrypt
                     return (password_verify($password, $this->data()->password));

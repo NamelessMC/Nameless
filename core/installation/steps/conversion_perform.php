@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         Validate::REQUIRED => true,
                         Validate::IN => array_keys($converters),
                     ],
-                ]);
+            ]);
 
             if (!$validation->passed()) {
                 $error = $language->get('installer', 'database_error');
