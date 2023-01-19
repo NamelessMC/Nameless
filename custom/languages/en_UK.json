@@ -674,7 +674,6 @@
     "admin/verify_delete_announcement": "Are you sure you want to delete this announcement?",
     "admin/verify_with_mcassoc": "Verify user accounts with MCAssoc?",
     "admin/view_all_modules": "View all modules",
-    "admin/view_all_panel_templates": "View all panel templates",
     "admin/view_all_templates": "View all templates",
     "admin/view_page": "View Page?",
     "admin/view_site": "View Site",
