@@ -200,16 +200,22 @@ function convertDate(string $enjinDate): array {
     $date = null;
     $edited_date = null;
 
-    // Posted Nov 24, 16 · OP · Last edited Nov 24, 16
-    // Posted Nov 24, 16 · OP
-    // Posted Nov 24, 16
-
     $parts = explode(' ', $enjinDate);
+    // Posted Nov 24, 16
+    // Posted Nov 24, 16 · OP
     if (!str_contains($enjinDate, 'Last edited')) {
         [, $month, $day, $year] = $parts;
     } else {
-        [, $month, $day, $year, , , , , , $edited_month, $edited_day, $edited_year] = $parts;
+        if (!str_contains($enjinDate, 'OP')) {
+            // Posted Nov 24, 16 · Last edited Nov 24, 16
+            [, $month, $day, $year, , , , $edited_month, $edited_day, $edited_year] = $parts;
+        } else {
+            // Posted Nov 24, 16 · OP · Last edited Nov 24, 16
+            [, $month, $day, $year, , , , , , $edited_month, $edited_day, $edited_year] = $parts;
+        }
     }
+
+    echo json_encode($parts) . '<br>';
 
     $date = strtotime(implode(' ', normalizeMonthDayYear($month, $day, $year)));
 

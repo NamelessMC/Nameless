@@ -12,17 +12,11 @@
 class DefaultRevamp_Template extends TemplateBase {
 
     private array $_template;
-
-    /** @var Language */
     private Language $_language;
-
-    /** @var User */
     private User $_user;
-
-    /** @var Pages */
     private Pages $_pages;
 
-    public function __construct($cache, $smarty, $language, $user, $pages) {
+    public function __construct(Cache $cache, Smarty $smarty, Language $language, User $user, Pages $pages) {
         $template = [
             'name' => 'DefaultRevamp',
             'version' => '2.0.2',
