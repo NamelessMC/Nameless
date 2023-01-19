@@ -215,8 +215,6 @@ function convertDate(string $enjinDate): array {
         }
     }
 
-    echo json_encode($parts) . '<br>';
-
     $date = strtotime(implode(' ', normalizeMonthDayYear($month, $day, $year)));
 
     if (isset($edited_month)) {
