@@ -69,12 +69,17 @@
                                         </li>
                                         {foreach from=$LINKS item=item}
                                         <li class="nav-item">
-                                            <a class="nav-link"
+                                            <a class="nav-link {if $USER_IS_ENJIN_IMPORTED}disabled{/if}"
                                                 href="{($item.link|replace:'{id}':$USER_ID)|replace:'{username}':$USERNAME}">{$item.title}</a>
                                         </li>
                                         {/foreach}
                                     </ul>
                                     <hr />
+                                    {if $USER_IS_ENJIN_IMPORTED}
+                                        <div class="alert alert-danger">
+                                            {$USER_IS_ENJIN_IMPORTED_MESSAGE}
+                                        </div>
+                                    {/if}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -193,6 +198,46 @@
 
             <!-- End Content Wrapper -->
         </div>
+
+        {if $USER_IS_ENJIN_IMPORTED}
+            <div class="modal fade" id="linkModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{$CHOOSE_USER}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" method="post" id="linkLink" style="display: inline">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="user" class="text-danger" style="font-weight: bold;">{$WARNING}</label>
+                                    <select class="form-control" name="user" id="user">
+                                        {foreach from=$ALL_USERS item=item}
+                                            <option value="{$item->id}">{$item->username}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+
+                                {if $HAS_MC_INTEGRATION}
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="overwriteIntegrations" id="overwriteIntegrations" value="1">
+                                        <label class="form-check-label" for="overwriteIntegrations">{$OVERWRITE_EXISTING_INTEGRATIONS}</label>
+                                    </div>
+                                {/if}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                                <input type="hidden" name="token" value="{$TOKEN}" />
+                                <input type="hidden" name="action" value="linkEnjin">
+                                <input type="submit" class="btn btn-primary" value="{$YES}" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {/if}
 
         <!-- End Wrapper -->
     </div>

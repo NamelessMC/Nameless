@@ -89,8 +89,6 @@ class DB {
      * @return mixed The results of the query, null if none.
      */
     public function transaction(Closure $closure) {
-        $result = null;
-
         try {
             $this->_pdo->beginTransaction();
 
@@ -101,6 +99,8 @@ class DB {
             if ($this->_pdo->inTransaction()) {
                 $this->_pdo->rollBack();
             }
+
+            throw $exception;
         }
 
         return $result;

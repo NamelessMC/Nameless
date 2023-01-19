@@ -237,7 +237,10 @@
                                 {
                                     id: '{$key}',
                                     type: 'linear',
-                                    position: '{$axis}'
+                                    position: '{$axis}',
+                                    ticks: {
+                                        precision: 0,
+                                    },
                                 },
                             {/foreach}
                         ]

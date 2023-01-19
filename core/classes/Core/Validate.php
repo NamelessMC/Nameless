@@ -86,6 +86,16 @@ class Validate {
      */
     public const RATE_LIMIT = 'rate_limit';
 
+    /**
+     * @var string Check that the value is in a list of values
+     */
+    public const IN = 'in';
+
+    /**
+     * @var string Check that the value is a file and meets the specified requirements
+     */
+    public const FILE = 'file';
+
     private DB $_db;
 
     private ?string $_message = null;
@@ -369,6 +379,49 @@ class Validate {
                             $_SESSION[$key] = [$count, $expires];
                         } else {
                             $_SESSION[$key] = [1, $limit_end];
+                        }
+
+                        break;
+
+                    case self::IN:
+                        if (!in_array($value, $rule_value)) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::IN,
+                                'fallback' => "$item must be one of " . implode(', ', $rule_value) . '.',
+                            ]);
+                        }
+                        break;
+
+                    case self::FILE:
+                        if (!isset($_FILES[$item])) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::FILE,
+                                'fallback' => "No file was uploaded for $item.",
+                            ]);
+                            break;
+                        }
+
+                        $file = $_FILES[$item];
+                        $file_name = $file['name'];
+                        $file_type = $file['type'];
+                        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+                        if (!in_array($file_ext, (array) $rule_value['extension'])) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::FILE,
+                                'fallback' => "File extension for $item is not allowed.",
+                            ]);
+                        }
+
+                        if (!in_array($file_type, (array) $rule_value['mime'])) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::FILE,
+                                'fallback' => "Mime type for $item is not allowed.",
+                            ]);
                         }
 
                         break;

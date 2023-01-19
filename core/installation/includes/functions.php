@@ -54,10 +54,15 @@ function create_field($type, $label, $name, $id, $value = '', $options = [], $fa
 
     } else {
 
+        $accept = '';
+        if ($type == 'file') {
+            $accept = ' accept=".db"';
+        }
+
         echo "
             <div class=\"field\">
                 <label for=\"$id\">$label</label>
-                <input type=\"$type\" name=\"$name\" id=\"$id\" placeholder=\"$label\" value=\"$value\" autocomplete=\"off\">
+                <input type=\"$type\" name=\"$name\" id=\"$id\" placeholder=\"$label\" value=\"$value\" autocomplete=\"off\" $accept>
             </div>
         ";
 
