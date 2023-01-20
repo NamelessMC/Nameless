@@ -30,11 +30,11 @@
                     <form class="ui form" action="" method="post" id="form-authme-email">
                         <div class="field">
                             <label for="inputUsername">{$USERNAME}</label>
-                            <input type="text" id="inputUsername" name="username" placeholder="{$USERNAME}" value="{$USERNAME_INPUT}" tabindex="1">
+                            <input type="text" id="inputUsername" name="username" placeholder="{$USERNAME}" value="{$USERNAME_INPUT}" tabindex="1" required>
                         </div>
                         <div class="field">
                             <label for="inputPassword">{$PASSWORD}</label>
-                            <input type="password" id="inputPassword" name="password" placeholder="{$PASSWORD}" tabindex="2">
+                            <input type="password" id="inputPassword" name="password" placeholder="{$PASSWORD}" tabindex="2" required>
                         </div>
                         {if $CAPTCHA}
                             <div class="field">
@@ -43,7 +43,7 @@
                         {/if}
                         <div class="inline field">
                             <div class="ui checkbox">
-                                <input type="checkbox" name="t_and_c" id="t_and_c" value="1" tabindex="7">
+                                <input type="checkbox" name="t_and_c" id="t_and_c" value="1" tabindex="7" required>
                                 <label for="t_and_c">{$AGREE_TO_TERMS}</label>
                             </div>
                         </div>

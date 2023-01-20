@@ -323,7 +323,7 @@ if (Input::exists()) {
                         }
                     } catch (PDOException $exception) {
                         // Connection error
-                        $errors[] = $exception->getCode() . ' - ' . $exception->getMessage();
+                        ErrorHandler::logWarning('Failure connecting to AuthMe DB during registration process: ' . $exception->getCode() . ' - ' . $exception->getMessage());
                         $errors[] = $language->get('user', 'unable_to_connect_to_authme_db');
                     }
                 } else {
