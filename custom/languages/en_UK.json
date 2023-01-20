@@ -37,6 +37,8 @@
     "admin/authme_db_password_hidden": "The AuthMe database password is hidden for security reasons.",
     "admin/authme_db_port": "AuthMe Database Port",
     "admin/authme_db_table": "AuthMe User Table",
+    "admin/authme_db_connection_success": "Connection successful",
+    "admin/authme_db_connection_failed": "Connection failed",
     "admin/authme_db_user": "AuthMe Database Username",
     "admin/authme_hash_algorithm": "AuthMe Hashing Algorithm",
     "admin/authme_integration": "AuthMe Integration",

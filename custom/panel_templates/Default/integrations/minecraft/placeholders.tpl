@@ -36,16 +36,13 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$PLACEHOLDERS_INFO}</p>
+                            <div class="card shadow border-left-primary">
+                                <div class="card-body">
+                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                    {$PLACEHOLDERS_INFO}
                                 </div>
                             </div>
-                            {if count($ALL_PLACEHOLDERS)}
-                                <hr />
-                            {else}
-                                <br />
-                            {/if}
+                            <br />
 
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}

@@ -113,6 +113,8 @@
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
+                                    <button class="btn btn-info" id="testConnection">Test connection</button>
+                                    <span id="connectionTestResult"></span>
                                 </div>
                             </form>
                             {/if}
@@ -138,6 +140,33 @@
     </div>
 
     {include file='scripts.tpl'}
+
+    <script>
+        document.getElementById('testConnection').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            e.target.classList.add('disabled');
+
+            $.post('{$AUTHME_DB_CONNECTION_TEST_URL}', {
+                token: '{$TOKEN}',
+                db_address: $('input[name="db_address"]').val(),
+                db_port: $('input[name="db_port"]').val(),
+                db_name: $('input[name="db_name"]').val(),
+                db_username: $('input[name="db_username"]').val(),
+                db_password: $('input[name="db_password"]').val(),
+                db_table: $('input[name="db_table"]').val(),
+            }).done(function (resp) {
+                const success = resp === 'OK';
+                const colour = success ? 'success' : 'danger';
+                const text = success ? '{$CONNECTION_SUCCESS}' : '{$CONNECTION_FAILED}';
+                const icon = success ? 'check' : 'times';
+
+                document.getElementById('connectionTestResult').innerHTML = '<span class="badge badge-' + colour + '" style="font-size: 0.9rem;">' + text + '&nbsp;<i class="fas fa-' + icon + '-circle"></i></span>';
+            });
+
+            e.target.classList.remove('disabled');
+        });
+    </script>
 
 </body>
 
