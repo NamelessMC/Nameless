@@ -70,7 +70,7 @@ if (Input::exists()) {
                     'pass' => $password,
                     'table' => Output::getClean(Input::get('db_table')),
                     'hash' => Output::getClean(Input::get('hashing_algorithm')),
-                    'sync' => Input::get('authme_sync')
+                    'sync' => Input::get('authme_sync') // TODO: make this a per-user setting, and allow for email sync too
                 ];
 
                 Util::setSetting('authme_db', json_encode($new_authme_details));
