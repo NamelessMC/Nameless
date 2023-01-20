@@ -33,20 +33,25 @@ if (Input::exists()) {
             // AuthMe config settings
             $validation = Validate::check($_POST, [
                 'hashing_algorithm' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
+                    // TODO: add Validate::IN after enjin import is merged
                 ],
                 'db_address' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
+                ],
+                'db_port' => [
+                    Validate::REQUIRED => true,
+                    Validate::NUMERIC => true,
                 ],
                 'db_name' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
                 ],
                 'db_username' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
                 ],
                 'db_table' => [
-                    Validate::REQUIRED => true
-                ]
+                    Validate::REQUIRED => true,
+                ],
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if ($validation->passed()) {
@@ -64,7 +69,7 @@ if (Input::exists()) {
 
                 $new_authme_details = [
                     'address' => Output::getClean(Input::get('db_address')),
-                    'port' => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
+                    'port' => Output::getClean(Input::get('db_port')),
                     'db' => Output::getClean(Input::get('db_name')),
                     'user' => Output::getClean(Input::get('db_username')),
                     'pass' => $password,
