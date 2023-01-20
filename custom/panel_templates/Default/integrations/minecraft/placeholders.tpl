@@ -42,7 +42,7 @@
                                     {$PLACEHOLDERS_INFO}
                                 </div>
                             </div>
-                            <br />
+                            <hr />
 
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
