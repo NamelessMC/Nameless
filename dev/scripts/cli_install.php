@@ -181,6 +181,7 @@ $user->create([
     'active' => true,
     'last_online' => date('U'),
     'language_id' => DB::getInstance()->get('languages', ['is_default', 1])->results()[0]->id,
+    'timezone' => $_SESSION['install_timezone'],
 ]);
 DB::getInstance()->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
     1,
