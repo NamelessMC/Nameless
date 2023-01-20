@@ -948,6 +948,7 @@
     "installer/support_message": "If you need any support, check out our website: {{websiteLinkStart}}here{{websiteLinkEnd}}; you can also visit our Discord server: {{discordLinkStart}}Discord server{{discordLinkEnd}}, or our GitHub repository: {{githubLinkStart}}here{{githubLinkEnd}}",
     "installer/template_cache_writable": "Template Cache Writable",
     "installer/terms_and_conditions": "By continuing you agree to the terms and conditions.",
+    "installer/timezone": "Timezone",
     "installer/unable_to_create_account": "Unable to create account",
     "installer/unable_to_load_converter": "Unable to load converter!",
     "installer/unable_to_login": "Unable to login.",
