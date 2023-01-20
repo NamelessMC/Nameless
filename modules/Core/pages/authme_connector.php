@@ -11,6 +11,7 @@
 
 $page_title = $language->get('general', 'register');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Use recaptcha?
 $captcha = CaptchaBase::isCaptchaEnabled();
@@ -130,20 +131,9 @@ if (Input::exists()) {
                 if (count($integration->getErrors())) {
                     $errors = $integration->getErrors();
                 } else {
-                    // Get default group ID
-                    $cache->setCache('default_group');
-                    if ($cache->isCached('default_group')) {
-                        $default_group = $cache->retrieve('default_group');
-                    } else {
-                        $default_group = DB::getInstance()->get('groups', ['default_group', true])->results();
-                        if (!count($default_group)) {
-                            $default_group = 1;
-                        } else {
-                            $default_group = $default_group[0]->id;
-                        }
-
-                        $cache->store('default_group', $default_group);
-                    }
+                    // Generate validation code
+                    $code = SecureRandom::alphanumeric();
+                    $email = Output::getClean(Input::get('email'));
 
                     $user->create([
                         'username' => $mcname,
@@ -151,15 +141,25 @@ if (Input::exists()) {
                         'password' => $_SESSION['authme']['pass'],
                         'pass_method' => $_SESSION['authme']['hash'],
                         'joined' => date('U'),
-                        'email' => Output::getClean(Input::get('email')),
+                        'email' => $email,
+                        'reset_code' => $code,
                         'lastip' => $ip,
-                        'active' => true,
                         'last_online' => date('U'),
                         'language_id' => $language_id,
                     ]);
 
                     // Get user ID
                     $user_id = DB::getInstance()->lastId();
+
+                    // Get default group ID
+                    $cache->setCache('default_group');
+                    if ($cache->isCached('default_group')) {
+                        $default_group = $cache->retrieve('default_group');
+                    } else {
+                        $default_group = Group::find(1, 'default_group')->id;
+
+                        $cache->store('default_group', $default_group);
+                    }
 
                     $user = new User($user_id);
                     $user->addGroup($default_group);
@@ -182,8 +182,16 @@ if (Input::exists()) {
 
                     unset($_SESSION['authme']);
 
-                    Session::flash('home', $language->get('user', 'validation_complete'));
-                    Redirect::to(URL::build('/'));
+                    if (Util::getSetting('email_verification') === '1') {
+                        // Send registration email
+                        sendRegisterEmail($language, $email, $mcname, $user_id, $code);
+
+                        Session::flash('home', $language->get('user', 'registration_check_email'));
+                        Redirect::to(URL::build('/'));
+                    } else {
+                        // Redirect straight to verification link
+                        Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
+                    }
                 }
             } else {
                 // Validation errors
