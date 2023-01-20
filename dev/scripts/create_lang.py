@@ -19,4 +19,4 @@ if __name__ == '__main__':
         with path.open('bw+') as f:
             f.write(b'{}\n')
 
-    print("Done. Don't forget to add the language to core/classes/Language/Language.php")
+    print("Done. Don't forget to add the language to core/classes/Core/Language.php")

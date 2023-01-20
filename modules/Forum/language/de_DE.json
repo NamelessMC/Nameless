@@ -63,8 +63,8 @@
     "forum/input_forum_title": "Gib einen Forennamen ein.",
     "forum/insert_quotes": "Zitate einfügen",
     "forum/invalid_action": "Ungültige Aktion",
-    "forum/invalid_redirect_url": "Du hast die Forenumleitung aktiviert, aber keine gültige URL zwischen 1 und 512 Zeichen eingegeben.",
-    "forum/invalid_search_query": "Bitte gebe eine Suchanfrage zwischen 3 und 128 Zeichen ein.",
+    "forum/invalid_redirect_url": "Du hast die Forenumleitung aktiviert, aber du hast keine gültige URL zwischen {{min}} und {{max}} Zeichen eingegeben.",
+    "forum/invalid_search_query": "Bitte gib eine Suchanfrage ein, die zwischen {{min}} und {{max}} Zeichen lang ist.",
     "forum/label": "Label",
     "forum/label_creation_error": "Fehler beim Erstellen eines Labels. Bitte stelle sicher, dass der Name nicht länger als 32 Zeichen ist und dass du einen Typ angegeben hast.",
     "forum/label_creation_success": "Label erfolgreich erstellt.",
@@ -193,5 +193,7 @@
     "forum/new_topic_reply_text": "Themenantwort erstellt in {{forum}} von {{author}}",
     "forum/topic_author_uuid": "Benutzer-ID des Themenautors",
     "forum/topic_author_nickname": "Spitzname des Themenautors",
-    "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden."
+    "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden.",
+    "forum/latest_posts_widget_cached": "Das Widget für die neuesten Beiträge wird eine Minute lang zwischengespeichert, so dass deine Änderungen möglicherweise nicht sofort wirksam werden.",
+    "forum/latest_posts_limit": "Letzte Beiträge begrenzen"
 }

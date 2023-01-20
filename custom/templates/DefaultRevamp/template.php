@@ -114,7 +114,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+        if (str_contains($route, '/forum/topic/') || PAGE === 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);

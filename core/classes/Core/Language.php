@@ -140,6 +140,10 @@ class Language {
             'name' => 'Indonesian',
             'htmlCode' => 'id',
         ],
+        'fi_FI' => [
+            'name' => 'Finnish',
+            'htmlCode' => 'fi',
+        ],
     ];
 
     /**

@@ -104,7 +104,7 @@ class AssetTree {
                 'vendor/bootstrap/dist/css/bootstrap.min.css',
             ],
             'js' => [
-                'vendor/bootstrap/dist/js/bootstrap.bundle.js',
+                'vendor/bootstrap/dist/js/bootstrap.bundle.min.js',
             ],
             'after' => [
                 self::JQUERY_UI,

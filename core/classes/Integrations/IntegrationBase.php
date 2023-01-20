@@ -4,7 +4,7 @@
  *
  * @package NamelessMC\Integrations
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.1.0
  * @license MIT
  */
 
@@ -15,6 +15,7 @@ abstract class IntegrationBase {
     protected string $_icon;
     private array $_errors = [];
     protected Language $_language;
+    protected ?string $_settings = null;
 
     protected string $_name;
     protected ?int $_order;
@@ -57,6 +58,15 @@ abstract class IntegrationBase {
      */
     public function getIcon(): string {
         return $this->_icon;
+    }
+
+    /**
+     * Get the settings path for this integration.
+     *
+     * @return string Integration settings path.
+     */
+    public function getSettings(): ?string {
+        return $this->_settings;
     }
 
     /**

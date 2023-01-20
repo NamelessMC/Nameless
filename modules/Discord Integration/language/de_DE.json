@@ -43,11 +43,13 @@
     "discord_integration/discord_widget_disabled": "Das Widget ist für den angegebenen Discord-Server deaktiviert. Bitte geh auf die Registerkarte \"Widget\" in den Einstellungen deines Discord-Servers und stelle sicher, dass das Discord-Widget aktiviert ist und die ID korrekt ist.",
     "discord_integration/discord_bot_check_logs": "Du solltest unter StaffCP -> Sicherheit -> Alle Protokolle nach einem spezifischeren Fehler suchen (falls es einen gibt).",
     "discord_integration/discord_bot_error_partsuccess": "Der Bot konnte eine oder mehrere Rollen aufgrund einer Fehlkonfiguration der Discord-Hierarchie nicht bearbeiten.",
-    "discord_integration/discord_bot_setup": "Bot einrichten?",
+    "discord_integration/discord_bot_setup": "Bot eingerichtet?",
     "discord_integration/discord_guild_id": "Discord Server ID",
-    "discord_integration/discord_id_confirm": "Bitte führe den Befehl \"/verify {{token}}\" in Discord aus, um die Verknüpfung deines Discord-Kontos abzuschließen.",
+    "discord_integration/discord_id_confirm": "Bitte führe den Befehl \"/verify token: {{token}}\" in Discord aus, um die Verknüpfung deines Discord-Kontos abzuschließen.",
     "discord_integration/discord_invite_info": "Um den Nameless Link-Bot auf deinen Discord-Server einzuladen, klicke auf {{inviteLinkStart}}hier{{inviteLinkEnd}}. Führe dann den Befehl {{command}} aus, um den Bot mit deiner Website zu verbinden. Alternativ kannst du {{selfHostLinkStart}} den Bot auch selbst hosten{{selfHostLinkEnd}}.",
     "discord_integration/discord_widget_theme": "Discord Widget Theme",
     "discord_integration/discord_widget_error": "Beim Abrufen des Discord-Widgets ist ein Fehler aufgetreten: {{error}}.",
-    "discord_integration/discord_id_required": "Bitte gib deine Discord Server ID ein."
+    "discord_integration/discord_id_required": "Bitte gib deine Discord Server ID ein.",
+    "discord_integration/discord_bot": "Discord Bot",
+    "discord_integration/link_method": "Link-Methode"
 }

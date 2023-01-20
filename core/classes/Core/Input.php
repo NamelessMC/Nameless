@@ -116,6 +116,7 @@ class Input {
 
         $js .= "
             tinymce.init({
+              verify_html: " . ($admin ? 'false' : 'true') . ",
               selector: '#$name',
               browser_spellcheck: true,
               contextmenu: false,
@@ -127,7 +128,7 @@ class Input {
                 'hr', 'image', 'link', 'lists', 'spoiler', 'code', 'table',
               ],
               external_plugins: {
-                'spoiler': '" . URL::build('/core/assets/plugins/tinymce_spoiler/plugin.min.js') . "',
+                'spoiler': '" . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . "/core/assets/plugins/tinymce_spoiler/plugin.min.js',
               },
               toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample " . ($admin ? "code" : "") . " hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
@@ -181,6 +182,7 @@ class Input {
 
                   xhr.send(formData);
                 },
+                " . ($admin ? 'valid_children: "+body[style],+body[link],+*[*]",' : '') . "
                 extended_valid_elements: " . ($admin ?
                     '"script[src|async|defer|type|charset],+@[data-options]"'
                 : 'undefined') . "

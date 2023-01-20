@@ -10,7 +10,8 @@ parameters:
         # prodecural programming :^)
         - '#might not be defined#'
         - '#Constant#'
-        - '#Undefined variable:#'
+        # weird issue with login.php where $language is being used in validation message closure
+        - '#Undefined variable: \$language#'
         - '#Access to an undefined property object::#'
         # because php is dumb
         - '#Call to an undefined method ReflectionType::getName\(\).#'

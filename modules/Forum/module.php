@@ -319,75 +319,78 @@ class Forum_Module extends Module {
                     // Dashboard graph
 
                     // Get data for topics and posts
-                    $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
-                    $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
+                    $start_time = strtotime('7 days ago');
+                    $latest_topics = DB::getInstance()->query(
+                        <<<SQL
+                            SELECT DATE_FORMAT(FROM_UNIXTIME(`topic_date`), '%Y-%m-%d') d, COUNT(*) c
+                            FROM nl2_topics
+                            WHERE `topic_date` > ? AND `topic_date` < UNIX_TIMESTAMP()
+                            AND `deleted` = 0
+                            GROUP BY DATE_FORMAT(FROM_UNIXTIME(`topic_date`), '%Y-%m-%d')
+                        SQL,
+                        [$start_time],
+                    );
+                    $latest_topics_count = $latest_topics->count();
+                    $latest_topics = $latest_topics->results();
+
+                    $latest_posts = DB::getInstance()->query(
+                        <<<SQL
+                            SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
+                            FROM nl2_posts
+                            WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
+                            AND `deleted` = 0
+                            GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
+                        SQL,
+                        [$start_time],
+                    );
+                    $latest_posts_count = $latest_posts->count();
+                    $latest_posts = $latest_posts->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {
-                        $output = $cache->retrieve('forum_data');
+                        $data = $cache->retrieve('forum_data');
 
                     } else {
-                        $output = [];
+                        $data = [];
 
-                        $output['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
-                        $output['datasets']['topics']['colour'] = '#00931D';
-                        $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
-                        $output['datasets']['posts']['colour'] = '#ffde0a';
+                        $data['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
+                        $data['datasets']['topics']['colour'] = '#00931D';
+                        $data['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
+                        $data['datasets']['posts']['colour'] = '#ffde0a';
 
-                        foreach ($latest_topics as $topic) {
-                            $date = date('d M Y', $topic->topic_date);
-                            $date = '_' . strtotime($date);
-
-                            if (isset($output[$date]['topics'])) {
-                                $output[$date]['topics'] += 1;
-                            } else {
-                                $output[$date]['topics'] = 1;
+                        if (count($latest_topics)) {
+                            foreach ($latest_topics as $day) {
+                                $data['_' . $day->d] = ['topics' => $day->c];
                             }
                         }
 
-                        foreach ($latest_posts as $post) {
-                            $date = date('d M Y', strtotime($post->post_date));
-                            $date = '_' . strtotime($date);
-
-                            if (isset($output[$date]['posts'])) {
-                                $output[$date]['posts'] += 1;
-                            } else {
-                                $output[$date]['posts'] = 1;
+                        if (count($latest_posts)) {
+                            foreach ($latest_posts as $day) {
+                                if (isset($data['_' . $day->d])) {
+                                    $data['_' . $day->d]['posts'] = $day->c;
+                                } else {
+                                    $data['_' . $day->d] = ['posts' => $day->c];
+                                }
                             }
                         }
 
-                        // Fill in missing dates, set topics/posts to 0
-                        $start = strtotime('-1 week');
-                        $start = date('d M Y', $start);
-                        $start = strtotime($start);
-                        $end = strtotime(date('d M Y'));
-                        while ($start <= $end) {
-                            if (!isset($output['_' . $start]['topics'])) {
-                                $output['_' . $start]['topics'] = 0;
-                            }
-
-                            if (!isset($output['_' . $start]['posts'])) {
-                                $output['_' . $start]['posts'] = 0;
-                            }
-
-                            $start = strtotime('+1 day', $start);
-                        }
+                        $data = Core_Module::fillMissingGraphDays($data, 'topics');
+                        $data = Core_Module::fillMissingGraphDays($data, 'posts');
 
                         // Sort by date
-                        ksort($output);
+                        ksort($data);
 
-                        $cache->store('forum_data', $output, 120);
-
+                        $cache->store('forum_data', $data, 120);
                     }
 
-                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
+                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
 
                     // Dashboard stats
                     require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, $latest_topics_count));
 
                     require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, count($latest_posts)));
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, $latest_posts_count));
 
                 }
             }

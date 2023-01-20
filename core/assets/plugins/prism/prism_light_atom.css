@@ -1,0 +1,298 @@
+pre[class*="language-"].line-numbers {
+    position: relative;
+    padding-left: 3.8em;
+    counter-reset: linenumber;
+}
+
+pre[class*="language-"].line-numbers > code {
+    position: relative;
+    white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    font-size: 100%;
+    left: -3.8em;
+    width: 3em; /* works for line-numbers below 1000 lines */
+    letter-spacing: -1px;
+    border-right: 1px solid #999;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.line-numbers-rows > span {
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+    content: counter(linenumber);
+    color: #999;
+    display: block;
+    padding-right: 0.4em;
+    text-align: right;
+}
+
+/* highlight */
+pre[data-line] {
+    position: relative;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.line-highlight {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: inherit 0;
+    background: hsla(24, 20%, 50%,.08);
+    background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+    pointer-events: none;
+    line-height: inherit;
+    white-space: pre;
+}
+
+@media print {
+    .line-highlight {
+        /*
+         * This will prevent browsers from replacing the background color with white.
+         * It's necessary because the element is layered on top of the displayed code.
+         */
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+}
+
+.line-highlight:before,
+.line-highlight[data-end]:after {
+    content: attr(data-start);
+    position: absolute;
+    top: .4em;
+    left: .6em;
+    min-width: 1em;
+    padding: 0 .5em;
+    background-color: hsla(24, 20%, 50%,.4);
+    color: hsl(24, 20%, 95%);
+    font: bold 65%/1.5 sans-serif;
+    text-align: center;
+    vertical-align: .3em;
+    border-radius: 999px;
+    text-shadow: none;
+    box-shadow: 0 1px white;
+}
+
+.line-highlight[data-end]:after {
+    content: attr(data-end);
+    top: auto;
+    bottom: .4em;
+}
+
+.line-numbers .line-highlight:before,
+.line-numbers .line-highlight:after {
+    content: none;
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows {
+    pointer-events: all;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+    cursor: pointer;
+}
+pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+    background-color: rgba(128, 128, 128, .2);
+}
+
+/**
+ * One Light theme for prism.js
+ * Based on Atom's One Light theme: https://github.com/atom/atom/tree/master/packages/one-light-syntax
+ */
+
+/**
+ * One Light colours (accurate as of commit eb064bf on 19 Feb 2021)
+ * From colors.less
+ * --mono-1: hsl(230, 8%, 24%);
+ * --mono-2: hsl(230, 6%, 44%);
+ * --mono-3: hsl(230, 4%, 64%)
+ * --hue-1: hsl(198, 99%, 37%);
+ * --hue-2: hsl(221, 87%, 60%);
+ * --hue-3: hsl(301, 63%, 40%);
+ * --hue-4: hsl(119, 34%, 47%);
+ * --hue-5: hsl(5, 74%, 59%);
+ * --hue-5-2: hsl(344, 84%, 43%);
+ * --hue-6: hsl(35, 99%, 36%);
+ * --hue-6-2: hsl(35, 99%, 40%);
+ * --syntax-fg: hsl(230, 8%, 24%);
+ * --syntax-bg: hsl(230, 1%, 98%);
+ * --syntax-gutter: hsl(230, 1%, 62%);
+ * --syntax-guide: hsla(230, 8%, 24%, 0.2);
+ * --syntax-accent: hsl(230, 100%, 66%);
+ * From syntax-variables.less
+ * --syntax-selection-color: hsl(230, 1%, 90%);
+ * --syntax-gutter-background-color-selected: hsl(230, 1%, 90%);
+ * --syntax-cursor-line: hsla(230, 8%, 24%, 0.05);
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    background: hsl(230, 1%, 98%);
+    color: hsl(230, 8%, 24%);
+    font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    -moz-tab-size: 2;
+    -o-tab-size: 2;
+    tab-size: 2;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* Selection */
+code[class*="language-"]::-moz-selection,
+code[class*="language-"] *::-moz-selection,
+pre[class*="language-"] *::-moz-selection {
+    background: hsl(230, 1%, 90%);
+    color: inherit;
+}
+
+code[class*="language-"]::selection,
+code[class*="language-"] *::selection,
+pre[class*="language-"] *::selection {
+    background: hsl(230, 1%, 90%);
+    color: inherit;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    overflow: auto;
+    border-radius: 0.3em;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    border-radius: 0.3em;
+    white-space: normal;
+}
+
+/* Required to center the <span>s of tokens vertically with the line number rows */
+code[class*="language-"] {
+    padding-top: 2px;
+}
+
+.token.comment,
+.token.prolog,
+.token.cdata {
+    color: hsl(230, 4%, 64%);
+}
+
+.token.doctype,
+.token.punctuation,
+.token.entity {
+    color: hsl(230, 8%, 24%);
+}
+
+.token.attr-name,
+.token.class-name,
+.token.scope,
+.token.constant,
+.token.number,
+.token.atrule {
+    color: hsl(35, 99%, 36%);
+}
+
+.token.keyword, .token.boolean {
+    color: hsl(301, 63%, 40%);
+}
+
+.token.variable,
+.token.global,
+.token.this,
+.token.property,
+.token.tag,
+.token.symbol,
+.token.deleted,
+.token.important {
+    color: hsl(5, 74%, 59%);
+}
+
+.token.selector,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted,
+.token.regex,
+.token.attr-value,
+.token.attr-value > .token.punctuation {
+    color: hsl(119, 34%, 47%);
+}
+
+.token.function {
+    color: hsl(221, 87%, 60%);
+}
+
+.token.operator {
+    color: hsl(230, 8%, 24%);
+}
+
+.token.url {
+    color: hsl(198, 99%, 37%);
+}
+
+/* General */
+.token.bold {
+    font-weight: bold;
+}
+
+.token.comment,
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+.token.namespace {
+    opacity: 0.8;
+}
+
+/* Plugin overrides */
+/* Selectors should have higher specificity than those in the plugins' default stylesheets */
+
+/* Line Highlight plugin overrides */
+/* The highlighted line itself */
+.line-highlight.line-highlight {
+    background: hsla(230, 8%, 24%, 0.05);
+}
+
+/* Default line numbers in Line Highlight plugin */
+.line-highlight.line-highlight:before,
+.line-highlight.line-highlight[data-end]:after {
+    background: hsl(230, 1%, 90%);
+    color: hsl(230, 8%, 24%);
+    border-radius: 0.3em;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2); /* same as Toolbar plugin default */
+}
+
+/* Line Numbers and Command Line plugins overrides */
+/* Line separating gutter from coding area */
+.line-numbers.line-numbers .line-numbers-rows,
+.command-line .command-line-prompt {
+    border-right: none;
+}
+
+/* Stuff in the gutter */
+.line-numbers .line-numbers-rows > span:before,
+.command-line .command-line-prompt > span:before {
+    color: hsl(230, 1%, 62%);
+}
