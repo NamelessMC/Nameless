@@ -26,6 +26,21 @@ if (Input::exists()) {
                 Redirect::to(URL::build('/register'));
             }
 
+            $to_validation = [
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 4,
+                    Validate::MAX => 64,
+                    Validate::UNIQUE => 'users',
+                ],
+                'username' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 20,
+                    Validate::UNIQUE => 'users',
+                ],
+            ];
+
             // Are custom usernames enabled?
             if (Util::getSetting('displaynames') === '1') {
                 $to_validation['nickname'] = [
@@ -35,13 +50,6 @@ if (Input::exists()) {
                     Validate::UNIQUE => 'users',
                 ];
             }
-
-            $to_validation['email'] = [
-                Validate::REQUIRED => true,
-                Validate::MIN => 4,
-                Validate::MAX => 64,
-                Validate::UNIQUE => 'users',
-            ];
 
             // Validate custom fields
             $profile_fields = ProfileField::all();
@@ -57,6 +65,12 @@ if (Input::exists()) {
             $validation = Validate::check($_POST, $to_validation);
 
             $validation->messages([
+                'username' => [
+                    Validate::REQUIRED => $language->get('user', 'username_required'),
+                    Validate::MIN => $language->get('user', 'username_minimum_3'),
+                    Validate::MAX => $language->get('user', 'username_maximum_20'),
+                    Validate::UNIQUE => $language->get('user', 'username_already_exists'),
+                ],
                 'nickname' => [
                     Validate::REQUIRED => $language->get('user', 'nickname_required'),
                     Validate::MIN => $language->get('user', 'nickname_minimum_3'),
