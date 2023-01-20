@@ -149,7 +149,7 @@ if (Input::exists()) {
                         'username' => $mcname,
                         'nickname' => $nickname,
                         'password' => $_SESSION['authme']['pass'],
-                        'pass_method' => json_decode(Util::getSetting('authme_db'), true)['hash'],
+                        'pass_method' => $_SESSION['authme']['hash'],
                         'joined' => date('U'),
                         'email' => Output::getClean(Input::get('email')),
                         'lastip' => $ip,
@@ -248,6 +248,7 @@ if (Input::exists()) {
                                                 'user' => Input::get('username'),
                                                 'pass' => $result->password,
                                                 'ip' => $result->ip,
+                                                'hash' => 'bcrypt',
                                             ];
                                         }
 
@@ -260,6 +261,7 @@ if (Input::exists()) {
                                                 'user' => Input::get('username'),
                                                 'pass' => $result->password,
                                                 'ip' => $result->ip,
+                                                'hash' => 'sha1',
                                             ];
                                         }
 
@@ -275,6 +277,7 @@ if (Input::exists()) {
                                                 'user' => Input::get('username'),
                                                 'pass' => ($salt . '$' . $exploded[3]),
                                                 'ip' => $result->ip,
+                                                'hash' => 'sha256',
                                             ];
                                         }
 
@@ -291,6 +294,7 @@ if (Input::exists()) {
                                                 'user' => Input::get('username'),
                                                 'pass' => ($iterations . '$' . $salt . '$' . $pass),
                                                 'ip' => $result->ip,
+                                                'hash' => 'pbkdf2',
                                             ];
                                         }
 
