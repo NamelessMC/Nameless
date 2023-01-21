@@ -78,13 +78,6 @@ if ($minecraft_enabled == 1) {
         ]);
     }
 
-    if ($user->hasPermission('admincp.minecraft.verification')) {
-        $smarty->assign([
-            'ACCOUNT_VERIFICATION' => $language->get('admin', 'account_verification'),
-            'ACCOUNT_VERIFICATION_LINK' => URL::build('/panel/minecraft/account_verification')
-        ]);
-    }
-
     if ($user->hasPermission('admincp.minecraft.servers')) {
         $smarty->assign([
             'SERVERS' => $language->get('admin', 'minecraft_servers'),
