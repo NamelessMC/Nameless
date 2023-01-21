@@ -349,7 +349,7 @@ $smarty->assign('ERROR', $language->get('general', 'error'));
 
 if (!isset($_GET['step'])) {
     $smarty->assign([
-        'AUTHME_SETUP' => Config::get('authme', []),
+        'AUTHME_SETUP' => Config::get('authme'),
         'AUTHME_NOT_SETUP' => $language->get('user', 'authme_not_setup'),
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
         'AUTHME_INFO' => $language->get('user', 'authme_help'),
