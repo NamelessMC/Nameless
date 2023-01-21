@@ -71,17 +71,6 @@ if ($minecraft == '1') {
 }
 
 // Registration page
-// Is UUID linking enabled?
-if ($minecraft == '1') {
-    $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-    $uuid_linking = $uuid_linking[0]->value;
-
-    if ($uuid_linking == '1') {
-        // Do we want to verify the user owns the account?
-        $account_verification = Util::getSetting('verify_accounts');
-    }
-}
-
 $captcha = CaptchaBase::isCaptchaEnabled();
 
 $integrations = Integrations::getInstance();
