@@ -12,7 +12,10 @@ return new class extends UpgradeScript {
             $authme_db = $result->first()->value;
         }
         if ($authme_db !== null) {
-            Config::set('authme', (array) json_decode($authme_db));
+            $authme_db = (array) json_decode($authme_db);
+            unset($authme_db['sync']);
+            $authme_db['port'] = (int) $authme_db['port'];
+            Config::set('authme', $authme_db);
             DB::getInstance()->delete('settings', ['name', 'authme_db']);
         }
 
