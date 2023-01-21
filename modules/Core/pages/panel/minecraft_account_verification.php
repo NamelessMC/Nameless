@@ -119,7 +119,11 @@ if ($uuid_linking == '1') {
         'INFO' => $language->get('general', 'info'),
         'MCASSOC_INFO' => $language->get('admin', 'mcassoc_help', [
             'linkStart' => '<a href="https://mcassoc.lukegb.com/" target="_blank">',
-            'linkEnd' => '</a>'
+            'linkEnd' => '</a>',
+        ]),
+        'MCASSOC_INFO_ALTERNATIVE' => $language->get('admin', 'mcassoc_help_alternative', [
+            'pluginLinkStart' => '<a href="https://plugin.namelessmc.com/" target="_blank">',
+            'pluginLinkEnd' => '</a>',
         ]),
         'USE_MCASSOC' => $language->get('admin', 'verify_with_mcassoc'),
         'USE_MCASSOC_VALUE' => ($use_mcassoc == '1'),

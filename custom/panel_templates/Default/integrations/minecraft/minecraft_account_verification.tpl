@@ -57,7 +57,7 @@
                             <div class="card shadow border-left-primary">
                                 <div class="card-body">
                                     <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                    {$MCASSOC_INFO}
+                                    {$MCASSOC_INFO}<br><br>{$MCASSOC_INFO_ALTERNATIVE}
                                 </div>
                             </div>
                             <br />
