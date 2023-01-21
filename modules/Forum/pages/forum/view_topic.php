@@ -360,13 +360,11 @@ if (Input::exists()) {
                 );
                 $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
 
-                $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
                         ['email' => $user_info['email'], 'name' => $user_info['username']],
                         $subject,
                         $message,
-                        $reply_to
                     );
 
                     if (isset($sent['error'])) {

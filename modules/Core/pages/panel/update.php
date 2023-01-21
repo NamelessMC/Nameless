@@ -81,15 +81,6 @@ if (!is_string($update_check)) {
     ]);
 }
 
-// PHP version check
-if (PHP_VERSION_ID < 70400) {
-    $smarty->assign('PHP_WARNING', $language->get('admin', 'upgrade_php_version'));
-
-    if (NAMELESS_VERSION !== '2.0.0-pr11') {
-        $smarty->assign('PREVENT_UPGRADE', true);
-    }
-}
-
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),

@@ -116,9 +116,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $compat_warnings = [];
     $compat_errors = [];
 
-    if (PHP_VERSION_ID < 70400) {
-        $compat_errors[] = 'PHP ' . PHP_VERSION;
-    } else if (PHP_VERSION_ID < 80000) {
+    if (PHP_VERSION_ID < 80200) {
         $compat_warnings[] = 'PHP ' . PHP_VERSION;
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
