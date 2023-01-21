@@ -31,17 +31,16 @@ class Email {
      * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
      * @param string $subject Subject of the email.
      * @param string $message Message of the email.
+     * @param array|null $reply_to Array containing `'email'` and `'name'` strings for the reply-to address,
+     * if not provided the default setting will be used.
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
-    public static function send(array $recipient, string $subject, string $message) {
+    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null) {
         $email = [
             'to' => $recipient,
             'subject' => $subject,
             'message' => $message,
-            'replyto' => [
-                'email' => Util::getSetting('incoming_email'),
-                'name' => SITE_NAME,
-            ],
+            'replyto' => $reply_to ?? self::getReplyTo(),
         ];
 
         if (Util::getSetting('phpmailer') == '1') {
@@ -51,6 +50,16 @@ class Email {
         return self::sendPHP($email);
     }
 
+    /**
+     * Get reply to array for send()
+     * @return array Array with reply-to email address and name
+     */
+    public static function getReplyTo(): array {
+        return [
+            'email' => Util::getSetting('incoming_email'),
+            'name' => SITE_NAME
+        ];
+    }
     /**
      * Send an email using PHP's `mail()` function.
      *
