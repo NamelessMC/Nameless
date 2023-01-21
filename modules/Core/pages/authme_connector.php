@@ -147,7 +147,7 @@ if (Input::exists()) {
                         'lastip' => $ip,
                         'last_online' => date('U'),
                         'language_id' => $language_id,
-                        'authme_registered' => true,
+                        'register_method' => 'authme',
                         'authme_sync_password' => Input::get('authme_sync_password') === 'on',
                     ]);
 

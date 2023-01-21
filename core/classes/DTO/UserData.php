@@ -40,7 +40,7 @@ class UserData {
     public ?string $banner;
     public string $timezone;
     public ?string $avatar_updated;
-    public bool $authme_registered;
+    public ?string $register_method;
     public bool $authme_sync_password;
 
     public function __construct(object $row) {
@@ -75,7 +75,7 @@ class UserData {
         $this->banner = $row->banner;
         $this->timezone = $row->timezone;
         $this->avatar_updated = $row->avatar_updated;
-        $this->authme_registered = $row->authme_registered;
+        $this->register_method = $row->register_method;
         $this->authme_sync_password = $row->authme_sync_password;
     }
 

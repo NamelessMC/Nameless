@@ -283,7 +283,7 @@ if (isset($_GET['do'])) {
                             'gravatar' => $gravatar,
                         ];
 
-                        if ($user->data()->authme_registered && Util::getSetting('authme')) {
+                        if ($user->data()->register_method === 'authme' && Util::getSetting('authme')) {
                             $data['authme_sync_password'] = Input::get('authmeSync');
                         }
 
@@ -642,7 +642,7 @@ if (isset($_GET['do'])) {
         $smarty->assign('ENABLE_LINK', URL::build('/user/settings/', 'do=enable_tfa'));
     }
 
-    if ($user->data()->authme_registered && Util::getSetting('authme')) {
+    if ($user->data()->register_method && Util::getSetting('authme')) {
         $smarty->assign([
             'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
             'AUTHME_SYNC_PASSWORD_INFO' => $language->get('user', Util::getSetting('login_method') === 'username'
