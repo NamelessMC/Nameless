@@ -108,7 +108,7 @@ try {
             'username' => $user['username'],
             'nickname' => $username,
             'password' => password_hash('password', PASSWORD_BCRYPT),
-            'pass_method' => 'enjin-import',
+            'pass_method' => 'enjin-import', // TODO use register_method when #3198 is merged
             'joined' => date('U'),
             'email' => str_replace(' ', '-', $user['username']) . '@enjin-import.com',
             'active' => 0,
