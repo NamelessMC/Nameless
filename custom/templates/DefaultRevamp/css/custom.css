@@ -1425,13 +1425,3 @@ body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
 body.dark .white {
     color: #fff;
 }
-
-/**
- MCAssoc iFrame
- */
-iframe.mcassoc {
-    background-color: transparent;
-    border: 0 none transparent;
-    padding: 0;
-    overflow: hidden;
-}
