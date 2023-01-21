@@ -106,7 +106,7 @@
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
-                                    <button class="btn btn-info" id="testConnection">Test connection</button>
+                                    <button class="btn btn-info" id="testConnection">{$TEST_CONNECTION}</button>
                                     <span id="connectionTestResult"></span>
                                 </div>
                             </form>

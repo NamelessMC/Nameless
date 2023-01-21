@@ -122,6 +122,7 @@ if ($authme_enabled === '1') {
         'AUTHME_DB_PASSWORD_HIDDEN' => $language->get('admin', 'authme_db_password_hidden'),
         'AUTHME_DB_TABLE' => $language->get('admin', 'authme_db_table'),
         'AUTHME_DB_CONNECTION_TEST_URL' => URL::build('/queries/authme_test_connection'),
+        'TEST_CONNECTION' => $language->get('admin', 'authme_db_test_connection'),
         'CONNECTION_SUCCESS' => $language->get('admin', 'authme_db_connection_success'),
         'CONNECTION_FAILED' => $language->get('admin', 'authme_db_connection_failed'),
     ]);
