@@ -377,6 +377,8 @@ class Util {
         } else if ($new_value !== null) {
             $cache[$setting] = $new_value;
         }
+
+        self::setSettingsCache($module, $cache);
     }
 
     /**
