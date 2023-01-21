@@ -103,13 +103,6 @@
                                     <label for="inputDBTable">{$AUTHME_DB_TABLE}</label>
                                     <input type="text" class="form-control" name="db_table" value="{if isset($AUTHME_DB_DETAILS['table'])}{$AUTHME_DB_DETAILS['table']|escape}{else}authme{/if}">
                                 </div>
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="authme_sync" value="0">
-                                    <input id="inputAuthmeSync" name="authme_sync" type="checkbox" class="custom-control-input js-check-change" value="1" {if isset($AUTHME_DB_DETAILS['sync']) && $AUTHME_DB_DETAILS['sync']} checked{/if} />
-                                    <label for="inputAuthmeSync" class="custom-control-label">
-                                        {$AUTHME_PASSWORD_SYNC} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$AUTHME_PASSWORD_SYNC_HELP}"></i></span>
-                                    </label>
-                                </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">

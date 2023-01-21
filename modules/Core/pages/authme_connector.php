@@ -63,6 +63,7 @@ if (Input::exists()) {
                 }
             }
 
+            $_POST['username'] = $_SESSION['authme']['username'];
             $validation = Validate::check($_POST, $to_validation);
 
             $validation->messages([
@@ -115,7 +116,7 @@ if (Input::exists()) {
                     $ip = $_SESSION['authme']['ip'];
                 }
 
-                $mcname = Output::getClean($_SESSION['authme']['user']);
+                $mcname = Output::getClean($_SESSION['authme']['username']);
                 if (Util::getSetting('displaynames') === '1') {
                     $nickname = Input::get('nickname');
                 } else {
@@ -146,6 +147,8 @@ if (Input::exists()) {
                         'lastip' => $ip,
                         'last_online' => date('U'),
                         'language_id' => $language_id,
+                        'authme_registered' => true,
+                        'authme_sync_password' => Input::get('authme_sync_password') === 'on',
                     ]);
 
                     // Get user ID
@@ -239,7 +242,7 @@ if (Input::exists()) {
                         $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
 
                         // Success, check user exists in database and validate password
-                        $result = $authme_conn->query('SELECT password, ip FROM ' . $authme_db['table'] . ' WHERE realname = ?', [Input::get('username')]);
+                        $result = $authme_conn->query("SELECT password, ip FROM {$authme_db['table']} WHERE realname = ?", [Input::get('username')]);
                         if ($result->count() > 0) {
                             $result = $result->first();
                             if (is_null($result->password)) {
@@ -253,7 +256,7 @@ if (Input::exists()) {
                                         if (password_verify($_POST['password'], $result->password)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Input::get('username'),
+                                                'username' => Input::get('username'),
                                                 'pass' => $result->password,
                                                 'ip' => $result->ip,
                                                 'hash' => 'bcrypt',
@@ -266,7 +269,7 @@ if (Input::exists()) {
                                         if (sha1($_POST['password']) == $result->password) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Input::get('username'),
+                                                'username' => Input::get('username'),
                                                 'pass' => $result->password,
                                                 'ip' => $result->ip,
                                                 'hash' => 'sha1',
@@ -275,37 +278,36 @@ if (Input::exists()) {
 
                                         break;
 
+                                    // Strip prefixes from password that authme adds
                                     case 'sha256':
-                                        $exploded = explode('$', $result->password);
-                                        $salt = $exploded[2];
+                                        // $SHA$<salt>$<password hash>
+                                        [, , $salt, $password_hash] = explode('$', $result->password);
 
-                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $exploded[3]) {
+                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $password_hash) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Input::get('username'),
-                                                'pass' => ($salt . '$' . $exploded[3]),
+                                                'username' => Input::get('username'),
+                                                'pass' => $salt . '$' . $password_hash,
                                                 'ip' => $result->ip,
                                                 'hash' => 'sha256',
                                             ];
                                         }
-
                                         break;
 
                                     case 'pbkdf2':
+                                        // pbkdf2_sha256$<iterations>$<salt>$<password hash>
                                         [, $iterations, $salt, $pass] = explode('$', $result->password);
-
                                         $hashed = hash_pbkdf2('sha256', $_POST['password'], $salt, $iterations, 64, true);
 
                                         if ($hashed == hex2bin($pass)) {
                                             $valid = true;
                                             $_SESSION['authme'] = [
-                                                'user' => Input::get('username'),
-                                                'pass' => ($iterations . '$' . $salt . '$' . $pass),
+                                                'username' => Input::get('username'),
+                                                'pass' => $iterations . '$' . $salt . '$' . $pass,
                                                 'ip' => $result->ip,
                                                 'hash' => 'pbkdf2',
                                             ];
                                         }
-
                                         break;
                                 }
 
@@ -414,6 +416,9 @@ if (!isset($_GET['step'])) {
 
     $smarty->assign([
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
+        'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
+        'AUTHME_SYNC_PASSWORD_HELP' => $language->get('user', 'authme_sync_password_help'),
+        'AUTHME_SYNC_PASSWORD_CHECKED' => Input::get('authme_sync_password') === 'on',
         'AUTHME_SUCCESS' => $language->get('user', 'authme_account_linked'),
         'AUTHME_INFO' => $info,
         'FIELDS' => $fields->getAll(),

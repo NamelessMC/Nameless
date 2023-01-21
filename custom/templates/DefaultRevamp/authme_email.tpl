@@ -89,6 +89,18 @@
                         </div>
                     {/foreach}
 
+                    <div class="inline field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="authme_sync_password" id="authme_sync_password" tabindex="{$counter++}" {if $AUTHME_SYNC_PASSWORD_CHECKED}checked{/if}>
+                            <label for="authme_sync_password">
+                                {$AUTHME_SYNC_PASSWORD}
+                                <div class="ui icon label mini" data-tooltip="{$AUTHME_SYNC_PASSWORD_INFO}">
+                                    <i class="question icon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="field">
                         <input type="hidden" name="token" value="{$TOKEN}">
                         <input type="submit" class="ui primary button" value="{$SUBMIT}">

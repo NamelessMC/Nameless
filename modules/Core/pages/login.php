@@ -152,45 +152,37 @@ if (Input::exists()) {
                         // Sync AuthMe password
                         $synced_password = false;
                         $user = new User();
-                        $authme_db = Config::get('authme');
-                        if (defined('MINECRAFT') && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] === '1') {
-                            try {
-                                if ($method_field == 'email') {
-                                    $field = 'email';
-                                } else {
-                                    $field = 'realname';
-                                }
+                        if ($method_field == 'email') {
+                            $user_id = $user->emailToId($username);
+                        } else {
+                            $user_id = $user->nameToId($username);
+                        }
 
+                        $authme_db = Config::get('authme');
+                        if (MINECRAFT && Util::getSetting('authme') === '1' && DB::getInstance()->get('users', ['id', $user_id])->first()->authme_sync_password) {
+                            try {
                                 // Check user exists in database and validate password
                                 $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
-                                $result = $authme_conn->query('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?', [$username]);
-                                if ($result->count() > 0) {
+                                $result = $authme_conn->query("SELECT password FROM {$authme_db['table']} WHERE email = ? OR realname = ?", [$username, $username]);
+                                if ($result->count()) {
                                     $password = $result->first()->password;
+                                    // Strip prefixes from password that authme adds
                                     switch ($authme_db['hash']) {
                                         case 'sha256':
-                                            $exploded = explode('$', $password);
-                                            $salt = $exploded[2];
-
-                                            $password = $salt . '$' . $exploded[3];
-
+                                            // $SHA$<salt>$<password hash>
+                                            [, , $salt, $pass] = explode('$', $password);
+                                            $password = $salt . '$' . $pass;
                                             break;
 
                                         case 'pbkdf2':
+                                            // pbkdf2_sha256$<iterations>$<salt>$<password hash>
                                             [, $iterations, $salt, $pass] = explode('$', $password);
-
                                             $password = $iterations . '$' . $salt . '$' . $pass;
-
                                             break;
                                     }
 
                                     // Update password
                                     if (!is_null($password)) {
-                                        if ($method_field == 'email') {
-                                            $user_id = $user->emailToId($username);
-                                        } else {
-                                            $user_id = $user->nameToId($username);
-                                        }
-
                                         DB::getInstance()->update('users', $user_id, [
                                             'password' => $password,
                                             'pass_method' => $authme_db['hash']

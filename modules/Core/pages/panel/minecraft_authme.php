@@ -75,7 +75,6 @@ if (Input::exists()) {
                     'pass' => $password,
                     'table' => Output::getClean(Input::get('db_table')),
                     'hash' => Output::getClean(Input::get('hashing_algorithm')),
-                    'sync' => Input::get('authme_sync') // TODO: make this a per-user setting, and allow for email sync too
                 ]);
             } else {
                 $errors = $validation->errors();
@@ -122,8 +121,6 @@ if ($authme_enabled === '1') {
         'AUTHME_DB_PASSWORD' => $language->get('admin', 'authme_db_password'),
         'AUTHME_DB_PASSWORD_HIDDEN' => $language->get('admin', 'authme_db_password_hidden'),
         'AUTHME_DB_TABLE' => $language->get('admin', 'authme_db_table'),
-        'AUTHME_PASSWORD_SYNC' => $language->get('admin', 'authme_password_sync'),
-        'AUTHME_PASSWORD_SYNC_HELP' => $language->get('admin', 'authme_password_sync_help'),
         'AUTHME_DB_CONNECTION_TEST_URL' => URL::build('/queries/authme_test_connection'),
         'CONNECTION_SUCCESS' => $language->get('admin', 'authme_db_connection_success'),
         'CONNECTION_FAILED' => $language->get('admin', 'authme_db_connection_failed'),
