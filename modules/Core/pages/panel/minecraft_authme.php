@@ -110,10 +110,10 @@ $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->first(
 
 if ($authme_enabled === '1') {
     // Retrieve AuthMe database details
-    $authme_db = Config::get('authme');
+    $authme_db = Config::get('authme', []);
 
     $smarty->assign([
-        'AUTHME_DB_DETAILS' => ($authme_db ?? []),
+        'AUTHME_DB_DETAILS' => $authme_db,
         'AUTHME_HASH_ALGORITHM' => $language->get('admin', 'authme_hash_algorithm'),
         'AUTHME_DB_ADDRESS' => $language->get('admin', 'authme_db_address'),
         'AUTHME_DB_PORT' => $language->get('admin', 'authme_db_port'),
