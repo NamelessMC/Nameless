@@ -59,7 +59,7 @@ if (Input::exists()) {
                     $password = $_POST['db_password'];
                 } else {
                     // No password provided, re-use previous password
-                    $authme_details = Util::getSetting('authme_db');
+                    $authme_details = Config::get('authme');
                     if ($authme_details === null) {
                         $password = '';
                     } else {
@@ -67,7 +67,7 @@ if (Input::exists()) {
                     }
                 }
 
-                $new_authme_details = [
+                Config::set('authme', [
                     'address' => Output::getClean(Input::get('db_address')),
                     'port' => Output::getClean(Input::get('db_port')),
                     'db' => Output::getClean(Input::get('db_name')),
@@ -76,9 +76,7 @@ if (Input::exists()) {
                     'table' => Output::getClean(Input::get('db_table')),
                     'hash' => Output::getClean(Input::get('hashing_algorithm')),
                     'sync' => Input::get('authme_sync') // TODO: make this a per-user setting, and allow for email sync too
-                ];
-
-                Util::setSetting('authme_db', json_encode($new_authme_details));
+                ]);
             } else {
                 $errors = $validation->errors();
             }
@@ -112,8 +110,7 @@ $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->first(
 
 if ($authme_enabled === '1') {
     // Retrieve AuthMe database details
-    $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->first()->value;
-    $authme_db = json_decode($authme_db);
+    $authme_db = Config::get('authme');
 
     $smarty->assign([
         'AUTHME_DB_DETAILS' => ($authme_db ?? []),
