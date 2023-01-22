@@ -105,6 +105,8 @@ if (Session::exists('discord_error')) {
     ]);
 }
 
+// TODO: Add a check to see if the bot is online using `/status` endpoint Discord::botRequest('/status');
+
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
