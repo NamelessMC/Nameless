@@ -19,7 +19,7 @@ if ($cache->isCached('enabled')) {
     $cache->store('enabled', $status_enabled);
 }
 
-if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
+if (!Util::getSetting('mc_integration') || $status_enabled != 1) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

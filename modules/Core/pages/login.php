@@ -160,7 +160,7 @@ if (Input::exists()) {
                         $cache->setCache('authme_cache');
                         $authme_db = $cache->retrieve('authme');
 
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
+                        if (Util::getSetting('mc_integration') && Util::getSetting('authme') && $authme_db['sync'] == '1') {
 
                             // Sync AuthMe password
                             try {
@@ -276,7 +276,7 @@ if ($login_method == 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
 } else if ($login_method == 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-} else if (MINECRAFT) {
+} else if (Util::getSetting('mc_integration')) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
     $smarty->assign('USERNAME', $language->get('user', 'username'));

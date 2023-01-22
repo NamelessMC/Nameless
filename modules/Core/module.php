@@ -597,7 +597,7 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        if (defined('MINECRAFT') && MINECRAFT === true) {
+        if (Util::getSetting('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
@@ -839,7 +839,7 @@ class Core_Module extends Module {
             }
         }
 
-        if (defined('MINECRAFT') && MINECRAFT === true) {
+        if (Util::getSetting('mc_integration')) {
             // Status page?
             $cache->setCache('status_page');
             if ($cache->isCached('enabled')) {
@@ -897,7 +897,7 @@ class Core_Module extends Module {
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
-            if (defined('MINECRAFT') && MINECRAFT === true) {
+            if (Util::getSetting('mc_integration')) {
                 // Query main server
                 $cache->setCache('mc_default_server');
 

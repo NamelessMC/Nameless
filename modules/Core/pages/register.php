@@ -55,10 +55,7 @@ if ($registration_enabled == 0) {
     die();
 }
 
-// Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
+if (Util::getSetting('mc_integration')) {
     // Check if AuthMe is enabled
     $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
     $authme_enabled = $authme_enabled[0]->value;
@@ -93,7 +90,7 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
 }
 
 // Is UUID linking enabled?
-if ($minecraft == '1') {
+if (Util::getSetting('mc_integration')) {
     $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
     $uuid_linking = $uuid_linking[0]->value;
 
