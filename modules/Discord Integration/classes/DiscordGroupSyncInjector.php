@@ -71,7 +71,7 @@ class DiscordGroupSyncInjector implements GroupSyncInjector, BatchableGroupSyncI
     }
 
     public function batchAddGroups(User $user, array $group_ids) {
-        return Discord::updateDiscordRoles($user, [], $group_ids);
+        return Discord::updateDiscordRoles($user, $group_ids, []);
     }
 
     public function batchRemoveGroups(User $user, array $group_ids) {
