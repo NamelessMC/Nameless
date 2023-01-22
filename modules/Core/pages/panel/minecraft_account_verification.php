@@ -66,8 +66,7 @@ if (Input::exists()) {
             }
 
         } else {
-            $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-            $uuid_linking = $uuid_linking[0]->id;
+            $uuid_linking = Util::getSetting('uuid_linking');
 
             if (isset($_POST['enable_premium_accounts']) && $_POST['enable_premium_accounts'] == 1) {
                 $use_premium = 1;
@@ -100,11 +99,7 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-// Get UUID linking settings
-$uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-$uuid_linking = $uuid_linking[0]->value;
-
-if ($uuid_linking == '1') {
+if (Util::getSetting('uuid_linking')) {
     // Get mcassoc settings
     $use_mcassoc = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
     $use_mcassoc = $use_mcassoc[0]->value;

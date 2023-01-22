@@ -30,9 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            DB::getInstance()->update('settings', ['name', 'registration_enabled'], [
-                'value' => Input::get('enable_registration')
-            ]);
+            Util::setSetting('registration_enabled', Input::get('enable_registration'));
         } else {
             // Registration settings
 
@@ -137,8 +135,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if registration is enabled
-$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
-$registration_enabled = $registration_enabled[0]->value;
+$registration_enabled = Util::getSetting('registration_enabled');
 
 // Validation group
 $validation_group = Util::getSetting('validate_user_action');

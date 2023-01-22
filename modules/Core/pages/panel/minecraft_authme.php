@@ -28,10 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            DB::getInstance()->update('settings', ['name', 'authme'], [
-                'value' => Input::get('enable_authme')
-            ]);
-
+            Util::setSetting('authme', Input::get('enable_authme'));
         } else {
             // AuthMe config settings
             $validation = Validate::check($_POST, [
@@ -53,9 +50,7 @@ if (Input::exists()) {
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if ($validation->passed()) {
-                $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
-                $authme_db_id = $authme_db[0]->id;
-                $authme_db = json_decode($authme_db[0]->value);
+                $authme_db = json_decode(Util::getSetting('authme_db'));
 
                 if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
@@ -81,9 +76,7 @@ if (Input::exists()) {
                 $cache->setCache('authme_cache');
                 $cache->store('authme', $result);
 
-                DB::getInstance()->update('settings', $authme_db_id, [
-                    'value' => json_encode($result)
-                ]);
+                Util::setSetting('authme_db', json_encode($result));
 
             } else {
                 $errors = $validation->errors();
@@ -114,13 +107,11 @@ if (isset($errors) && count($errors)) {
 }
 
 // Is Authme enabled?
-$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-$authme_enabled = $authme_enabled[0]->value;
+$authme_enabled = Util::getSetting('authme');
 
 if ($authme_enabled == '1') {
     // Retrieve Authme database details
-    $authme_db = DB::getInstance()->get('settings', ['name', 'authme_db'])->results();
-    $authme_db = json_decode($authme_db[0]->value);
+    $authme_db = json_decode(Util::getSetting('authme_db'));
 
     $smarty->assign([
         'AUTHME_DB_DETAILS' => ($authme_db ?: []),

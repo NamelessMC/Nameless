@@ -23,18 +23,13 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
-$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
-$registration_enabled = $registration_enabled[0]->value;
+$registration_enabled = Util::getSetting('registration_enabled');
 
 if ($registration_enabled == 0) {
     // Registration is disabled, display a message
     // Get registration disabled message and assign to Smarty variable
-    $registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
-    if (count($registration_disabled_message)) {
-        $message = Output::getPurified($registration_disabled_message[0]->value);
-    } else {
-        $message = 'Registration is currently disabled.';
-    }
+    $fallback_message = 'Registration is currently disabled.';
+    $message = Output::getPurified(Util::getSetting('registration_disabled_message', $fallback_message));
 
     $smarty->assign([
         'REGISTRATION_DISABLED' => $message,
@@ -60,10 +55,9 @@ $minecraft = MINECRAFT;
 
 if ($minecraft == '1') {
     // Check if AuthMe is enabled
-    $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-    $authme_enabled = $authme_enabled[0]->value;
+    $authme_enabled = Util::getSetting('authme');
 
-    if ($authme_enabled == '1') {
+    if ($authme_enabled == 1) {
         // Authme connector
         require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
         die();
@@ -76,11 +70,8 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
     // Get site details for MCAssoc
     $mcassoc_site_id = SITE_NAME;
 
-    $mcassoc_shared_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
-    $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
-
-    $mcassoc_instance_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
-    $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
+    $mcassoc_shared_secret = Util::getSetting('mcassoc_key');
+    $mcassoc_instance_secret = Util::getSetting('mcassoc_instance');
 
     define('MCASSOC', true);
 
@@ -94,13 +85,11 @@ if (isset($_GET['step'], $_SESSION['mcassoc'])) {
 
 // Is UUID linking enabled?
 if ($minecraft == '1') {
-    $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-    $uuid_linking = $uuid_linking[0]->value;
+    $uuid_linking = Util::getSetting('uuid_linking');
 
     if ($uuid_linking == '1') {
         // Do we want to verify the user owns the account?
-        $account_verification = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
-        $account_verification = $account_verification[0]->value;
+        $account_verification = Util::getSetting('verify_accounts');
     }
 } else {
     $uuid_linking = '0';
@@ -251,11 +240,8 @@ if (Input::exists()) {
                         // Get data from database
                         $mcassoc_site_id = SITE_NAME;
 
-                        $mcassoc_shared_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
-                        $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
-
-                        $mcassoc_instance_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
-                        $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
+                        $mcassoc_shared_secret = Util::getSetting('mcsassoc_key');
+                        $mcassoc_instance_secret = Util::getSetting('mcassoc_instance');
 
                         define('MCASSOC', true);
 

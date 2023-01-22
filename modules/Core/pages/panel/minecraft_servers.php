@@ -182,8 +182,7 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-            $external_query = $external_query[0]->value;
+            $external_query = Util::getSetting('external_query');
 
             if ($external_query == 1) {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
@@ -393,8 +392,7 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-            $external_query = $external_query[0]->value;
+            $external_query = Util::getSetting('external_query');
 
             if ($external_query == 1) {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
@@ -536,12 +534,7 @@ if (isset($_GET['action'])) {
                 Util::setSetting('group_sync_mc_server', $new_group_sync_server);
 
                 // External query
-                $external_query_id = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-                $external_query_id = $external_query_id[0];
-
-                DB::getInstance()->update('settings', $external_query_id->id, [
-                    'value' => $external
-                ]);
+                Util::setSetting('external_query', $external);
 
                 $cache->setCache('query_cache');
 
@@ -551,9 +544,7 @@ if (isset($_GET['action'])) {
                 ]);
 
                 // Status page
-                DB::getInstance()->update('settings', ['name', 'status_page'], [
-                    'value' => $status
-                ]);
+                Util::setSetting('status_page', $status);
 
                 $cache->setCache('status_page');
                 $cache->store('enabled', $status);
@@ -603,14 +594,9 @@ if (isset($_GET['action'])) {
     }
 
     // Query options
-    $external_query = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-    $external_query = $external_query[0]->value;
-
-    $status_page = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
-    $status_page = $status_page[0]->value;
-
-    $group_sync_server = DB::getInstance()->get('settings', ['name', 'group_sync_mc_server'])->results();
-    $group_sync_server = $group_sync_server[0]->value;
+    $external_query = Util::getSetting('external_query');
+    $status_page = Util::getSetting('status_page');
+    $group_sync_server = Util::getSetting('group_sync_mc_server');
 
     // Query interval
     $cache->setCache('server_query_cache');

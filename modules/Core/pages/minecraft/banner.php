@@ -49,16 +49,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if (!$cache->isCached('image')) {
             // Internal or external query?
-            $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-            if (count($query_type)) {
-                if ($query_type[0]->value == '1') {
-                    $query_type = 'external';
-                } else {
-                    $query_type = 'internal';
-                }
-            } else {
-                $query_type = 'internal';
-            }
+            $query_type = Util::getSetting('external_query') ? 'external' : 'internal';
 
             $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
