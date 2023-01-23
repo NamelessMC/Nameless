@@ -168,7 +168,7 @@ class EventHandler {
                 }
 
                 $response = $callback($pass_object ? $event_object : $params);
-                if (self::$_events[$event]['listeners']) {
+                if (self::$_events[$event]['return']) {
                     $params = $response;
                 }
             }
