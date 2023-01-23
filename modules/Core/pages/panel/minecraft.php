@@ -29,11 +29,9 @@ if (Input::exists()) {
             // Either enable or disable Minecraft integration
             Util::setSetting('mc_integration', Input::get('enable_minecraft'));
         }
-
     } else {
         // Invalid token
         $errors = [$language->get('general', 'invalid_token')];
-
     }
 }
 
@@ -55,7 +53,6 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if Minecraft integration is enabled
-// Cannot use 'MINECRAFT' constant here, because setting was just updated
 $minecraft_enabled = Util::getSetting('mc_integration');
 
 $smarty->assign([

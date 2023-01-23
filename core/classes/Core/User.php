@@ -372,20 +372,20 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
-                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
+                    return $salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass;
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-                    return ($hashed == hex2bin($pass));
+                    return $hashed == hex2bin($pass);
 
                 case 'modernbb':
                 case 'sha1':
-                    return (sha1($password) == $this->data()->password);
+                    return sha1($password) == $this->data()->password;
 
                 default:
                     // Default to bcrypt
-                    return (password_verify($password, $this->data()->password));
+                    return password_verify($password, $this->data()->password);
             }
         }
 
