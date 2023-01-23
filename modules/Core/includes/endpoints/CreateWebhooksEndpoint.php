@@ -52,9 +52,12 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         if (!in_array($type, ['normal', 'discord'])) {
             $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_TYPE);
         }
-        if (!array_reduce($events, function ($prev, $curr) {
-            $available_events = array_keys(EventHandler::getEvents());
-            if (!in_array($curr, $available_events)) $prev = false;
+
+        if (!array_reduce($events, static function ($prev, $curr) use ($api) {
+            if (!array_key_exists($curr, EventHandler::getEvents($api->getLanguage()))) {
+                $prev = false;
+            }
+
             return $prev;
         }, true)) {
             $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_EVENT);

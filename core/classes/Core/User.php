@@ -186,14 +186,11 @@ class User {
         }
 
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('userGroupAdded', [
-            'username' => $this->data()->username,
-            'user_id' => $this->data()->id,
-            'group_id' => $group_id,
-            'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => $this->getAvatar(128, true),
-            'language' => $default_language,
-        ]);
+        EventHandler::executeEvent(new UserGroupAddedEvent(
+            $this,
+            $this->_groups[$group_id],
+            $default_language,
+        ));
 
         return true;
     }
@@ -728,14 +725,11 @@ class User {
         );
 
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('userGroupRemoved', [
-            'username' => $this->data()->username,
-            'user_id' => $this->data()->id,
-            'group_id' => $group_id,
-            'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => $this->getAvatar(128, true),
-            'language' => $default_language,
-        ]);
+        EventHandler::executeEvent(new UserGroupRemovedEvent(
+            $this,
+            $this->_groups[$group_id],
+            $default_language,
+        ));
 
         unset($this->_groups[$group_id]);
 

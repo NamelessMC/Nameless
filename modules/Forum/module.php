@@ -71,6 +71,27 @@ class Forum_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('topicReply',
+            $this->_forum_language->get('forum', 'topic_reply'),
+            [
+                'user_id' => $this->_language->get('admin', 'user_id'),
+                'username' => $this->_language->get('user', 'username'),
+                'nickname' => $this->_language->get('user', 'nickname'),
+                'content' => $this->_language->get('general', 'content'),
+                'content_full' => $this->_language->get('general', 'full_content'),
+                'avatar_url' => $this->_language->get('user', 'avatar'),
+                'title' => $this->_forum_language->get('forum', 'topic_title'),
+                'url' => $this->_language->get('general', 'url'),
+                'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
+                'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
+                'topic_author_nickname' => $this->_forum_language->get('forum', 'topic_author_nickname'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+            ]
+        );
+
+        // -- Pipelines
+
         EventHandler::registerEvent('prePostCreate',
             $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
             [
@@ -138,45 +159,26 @@ class Forum_Module extends Module {
             true
         );
 
-        EventHandler::registerEvent('topicReply',
-            $this->_forum_language->get('forum', 'topic_reply'),
-            [
-                'user_id' => $this->_language->get('admin', 'user_id'),
-                'username' => $this->_language->get('user', 'username'),
-                'nickname' => $this->_language->get('user', 'nickname'),
-                'content' => $this->_language->get('general', 'content'),
-                'content_full' => $this->_language->get('general', 'full_content'),
-                'avatar_url' => $this->_language->get('user', 'avatar'),
-                'title' => $this->_forum_language->get('forum', 'topic_title'),
-                'url' => $this->_language->get('general', 'url'),
-                'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
-                'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
-                'topic_author_nickname' => $this->_forum_language->get('forum', 'topic_author_nickname'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-            ]
-        );
+        EventHandler::registerListener(UserDeletedEvent::class, [DeleteUserForumHook::class, 'execute']);
+        EventHandler::registerListener(GroupClonedEvent::class, [CloneGroupForumHook::class, 'execute']);
 
-        EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
-
+        // -- Pipelines
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
 
-        EventHandler::registerListener('renderPost', 'ContentHook::purify');
-        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
-        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'codeTransform'], 15);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'replaceAnchors'], 15);
+        EventHandler::registerListener('renderPost', [MentionsHook::class, 'parsePost'], 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
-
-        EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
     public function onInstall() {

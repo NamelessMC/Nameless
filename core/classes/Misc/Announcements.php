@@ -184,14 +184,14 @@ class Announcements {
         $this->resetCache();
 
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('createAnnouncement', [
-            'announcement_id' => DB::getInstance()->lastId(),
-            'username' => $user->data()->username,
-            'header' => $header,
-            'message' => $message,
-            'avatar_url' => $user->getAvatar(128, true),
-            'language' => $default_language,
-        ]);
+        EventHandler::executeEvent(new AnnouncementCreated(
+            DB::getInstance()->lastId(),
+            $user->data()->username,
+            $header,
+            $message,
+            $user->getAvatar(128, true),
+            $default_language,
+        ));
 
         return true;
     }

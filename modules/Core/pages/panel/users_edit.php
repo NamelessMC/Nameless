@@ -44,11 +44,7 @@ if (isset($_GET['action'])) {
                     'reset_code' => ''
                 ]);
 
-                EventHandler::executeEvent('validateUser', [
-                    'user_id' => $user_query->id,
-                    'username' => $user_query->username,
-                    'language' => $language
-                ]);
+                EventHandler::executeEvent(new UserValidatedEvent($view_user, $language));
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
             }
@@ -212,11 +208,7 @@ if (Input::exists()) {
             }
 
         } else if ((Input::get('action') == 'delete') && $user_query->id > 1) {
-                EventHandler::executeEvent('deleteUser', [
-                    'user_id' => $user_query->id,
-                    'username' => $user_query->username,
-                    'email_address' => $user_query->email
-                ]);
+                EventHandler::executeEvent(new UserDeletedEvent($user));
 
                 Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 Redirect::to(URL::build('/panel/users'));

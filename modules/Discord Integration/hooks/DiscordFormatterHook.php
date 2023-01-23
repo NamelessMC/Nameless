@@ -26,20 +26,6 @@ class DiscordFormatterHook extends HookBase {
             ]];
 
             $params['format'] = $format;
-        } else if ($data['event'] == 'createAnnouncement') {
-            $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $data['message']));
-            if (mb_strlen($content) > 512) {
-                $content = mb_substr($content, 0, 512) . '...';
-            }
-
-            $format['username'] = $data['username'] . ' | ' . SITE_NAME;
-            $format['avatar_url'] = $data['avatar_url'];
-            $format['embeds'] = [[
-                'title' => $data['language']->get('admin', 'new_announcement') . ': ' . $data['header'],
-                'description' => $content,
-            ]];
-
-            $params['format'] = $format;
         } else if ($data['event'] == 'userGroupAdded') {
             $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
@@ -57,6 +43,8 @@ class DiscordFormatterHook extends HookBase {
 
             $params['format'] = $format;
         }
+
+        // TODO: createReport?
 
         return $params;
     }

@@ -468,6 +468,9 @@ if ($page != 'install') {
         }
     }
 
+    // Auto discover module event classes
+    EventHandler::discoverEvents();
+
     // Webhooks
     $hook_array = [];
     if (Util::isModuleEnabled('Discord Integration')) {
@@ -490,7 +493,9 @@ if ($page != 'install') {
                     $hook_array[] = [
                         'id' => $hook->id,
                         'url' => Output::getClean($hook->url),
-                        'action' => $hook->action == 1 ? 'WebHook::execute' : 'DiscordHook::execute',
+                        'action' => $hook->action == 1
+                            ? [WebHook::class, 'execute']
+                            : [DiscordHook::class, 'execute'],
                         'events' => json_decode($hook->events, true)
                     ];
                 }

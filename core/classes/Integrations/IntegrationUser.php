@@ -114,22 +114,10 @@ class IntegrationUser {
         $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM nl2_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
 
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('linkIntegrationUser', [
-            'integration' => $this->_integration->getName(),
-            'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
-            'content' => $default_language->get('user', 'user_has_linked_integration', [
-                'user' => $user->getDisplayname(),
-                'integration' => $this->_integration->getName(),
-            ]),
-            'avatar_url' => $user->getAvatar(128, true),
-            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-            'integration_user' => [
-                'identifier' => $identifier,
-                'username' => $username,
-                'verified' => $verified,
-            ]
-        ]);
+        EventHandler::executeEvent(new UserIntegrationLinkedEvent(
+            $this,
+            $default_language
+        ));
     }
 
     /**
@@ -143,24 +131,11 @@ class IntegrationUser {
 
         $this->_integration->onSuccessfulVerification($this);
 
-        $user = $this->getUser();
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('verifyIntegrationUser', [
-            'integration' => $this->_integration->getName(),
-            'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
-            'content' => $default_language->get('user', 'user_has_verified_integration', [
-                'user' => $user->getDisplayname(),
-                'integration' => $this->_integration->getName(),
-            ]),
-            'avatar_url' => $user->getAvatar(128, true),
-            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-            'integration_user' => [
-                'identifier' => $this->data()->identifier,
-                'username' => $this->data()->username,
-                'verified' => $this->data()->verified,
-            ]
-        ]);
+        EventHandler::executeEvent(new UserIntegrationVerifiedEvent(
+            $this,
+            $default_language,
+        ));
     }
 
     /**
@@ -174,23 +149,10 @@ class IntegrationUser {
             ]
         );
 
-        $user = $this->getUser();
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('unlinkIntegrationUser', [
-            'integration' => $this->_integration->getName(),
-            'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
-            'content' => $default_language->get('user', 'user_has_unlinked_integration', [
-                'user' => $user->getDisplayname(),
-                'integration' => $this->_integration->getName(),
-            ]),
-            'avatar_url' => $user->getAvatar(128, true),
-            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-            'integration_user' => [
-                'identifier' => $this->data()->identifier,
-                'username' => $this->data()->username,
-                'verified' => $this->data()->verified,
-            ]
-        ]);
+        EventHandler::executeEvent(new UserIntegrationUnlinkedEvent(
+            $this,
+            $default_language,
+        ));
     }
 }

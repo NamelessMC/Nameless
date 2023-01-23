@@ -294,86 +294,7 @@ class Core_Module extends Module {
         }
         $custom_pages = null;
 
-        // Hooks
-        EventHandler::registerEvent('registerUser',
-            $language->get('admin', 'register_hook_info'),
-            [
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
-
-        EventHandler::registerEvent('validateUser',
-            $language->get('admin', 'validate_hook_info'),
-            [
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username')
-            ]
-        );
-
-        EventHandler::registerEvent('deleteUser',
-            $language->get('admin', 'delete_hook_info'),
-            [
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'email_address' => $language->get('user', 'email_address')
-            ]
-        );
-
-        EventHandler::registerEvent('createReport',
-            $language->get('admin', 'report_hook_info')
-        );
-
-        EventHandler::registerEvent('createAnnouncement',
-            $language->get('admin', 'announcement_hook_info'),
-            [
-                'announcement_id' => $language->get('admin', 'announcement_id'),
-                'username' => $language->get('user', 'username'),
-                'header' => $language->get('admin', 'header'),
-                'message' => $language->get('admin', 'message'),
-                'avatar_url' => $language->get('user', 'avatar'),
-            ]
-        );
-
-        EventHandler::registerEvent('renderPrivateMessage',
-            $language->get('admin', 'render_private_message'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderPrivateMessageEdit',
-            $language->get('admin', 'render_private_message_edit'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('userBanned',
-            $language->get('admin', 'ban_hook_info'),
-            [
-                'punished_id' => $language->get('admin', 'punished_id'),
-                'punisher_id' => $language->get('admin', 'punisher_id'),
-                'reason' => $language->get('admin', 'reason'),
-                'ip_ban' => $language->get('admin', 'ip_ban'),
-            ]
-        );
-
-        EventHandler::registerEvent('userWarned',
-            $language->get('admin', 'warning_hook_info'),
-            [
-                'punished_id' => $language->get('admin', 'punished_id'),
-                'punisher_id' => $language->get('admin', 'punisher_id'),
-                'reason' => $language->get('admin', 'reason'),
-            ]
-        );
+        // -- Pipelines
 
         EventHandler::registerEvent('preCustomPageCreate',
             $language->get('admin', 'pre_custom_page_create_hook_info'),
@@ -413,94 +334,22 @@ class Core_Module extends Module {
             true
         );
 
-        EventHandler::registerEvent('linkIntegrationUser',
-            $language->get('admin', 'user_link_integration_hook_info'),
+        EventHandler::registerEvent('renderPrivateMessage',
+            $language->get('admin', 'render_private_message'),
             [
-                'integration' => $language->get('admin', 'integration'),
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
-
-        EventHandler::registerEvent('verifyIntegrationUser',
-            $language->get('admin', 'user_verify_integration_hook_info'),
-            [
-                'integration' => $language->get('admin', 'integration'),
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
-
-        EventHandler::registerEvent('unlinkIntegrationUser',
-            $language->get('admin', 'user_unlink_integration_hook_info'),
-            [
-                'integration' => $language->get('admin', 'integration'),
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
-
-        EventHandler::registerEvent('cloneGroup',
-            $language->get('admin', 'clone_group'),
-            [
-                'group_id' => $language->get('admin', 'group_id'),
-                'cloned_group_id' => $language->get('admin', 'group_id')
+                'content' => $language->get('general', 'content')
             ],
-            false,
+            true,
             true
         );
 
-        EventHandler::registerEvent('userGroupAdded',
-            $language->get('admin', 'user_group_added_hook_info'),
+        EventHandler::registerEvent('renderPrivateMessageEdit',
+            $language->get('admin', 'render_private_message_edit'),
             [
-                'group_id' => $language->get('admin', 'group_id'),
-                'group_name' => $language->get('admin', 'group_name'),
-                'username' => $language->get('user', 'username'),
-                'user_id' => $language->get('admin', 'user_id'),
-            ]
-        );
-
-        EventHandler::registerEvent('userGroupRemoved',
-            $language->get('admin', 'user_group_removed_hook_info'),
-            [
-                'group_id' => $language->get('admin', 'group_id'),
-                'group_name' => $language->get('admin', 'group_name'),
-                'username' => $language->get('user', 'username'),
-                'user_id' => $language->get('admin', 'user_id'),
-            ]
-        );
-
-        EventHandler::registerEvent('userNewProfilePost',
-            $language->get('admin', 'user_new_profile_post_hook_info'),
-            [
-                'username' => $language->get('user', 'username'),
-                'content' => $language->get('general', 'content'),
-                'content_full' => $language->get('general', 'full_content'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'title' => $language->get('user', 'new_profile_post_title'),
-                'url' => $language->get('general', 'url')
-            ]
-        );
-
-        EventHandler::registerEvent('userProfilePostReply',
-            $language->get('admin', 'user_profile_post_reply_hook_info'),
-            [
-                'username' => $language->get('user', 'username'),
-                'content' => $language->get('general', 'content'),
-                'content_full' => $language->get('general', 'full_content'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'title' => $language->get('user', 'profile_post_reply_title'),
-                'url' => $language->get('general', 'url')
-            ]
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
         );
 
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
@@ -604,6 +453,8 @@ class Core_Module extends Module {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
+        EventHandler::registerListener(GroupClonedEvent::class, [CloneGroupHook::class, 'execute']);
+
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
@@ -615,8 +466,6 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
-
-        EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
 
         EventHandler::registerListener('preCustomPageCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preCustomPageEdit', 'MentionsHook::preEdit');
@@ -794,7 +643,7 @@ class Core_Module extends Module {
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
-            EventHandler::registerListener('validateUser', 'ValidateHook::execute');
+            EventHandler::registerListener(UserValidatedEvent::class, [ValidateHook::class, 'execute']);
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -1585,7 +1434,7 @@ class Core_Module extends Module {
             }
         }
 
-        EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
+        EventHandler::registerListener(UserDeletedEvent::class, [DeleteUserHook::class, 'execute']);
     }
 
     public static function addNotice($url, $text): void {

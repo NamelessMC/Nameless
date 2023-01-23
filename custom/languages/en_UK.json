@@ -81,6 +81,7 @@
     "admin/clear_cache": "Clear Template Cache",
     "admin/client_id": "Client ID",
     "admin/client_secret": "Client Secret",
+    "admin/clone_group": "Clone group",
     "admin/closable": "Closable",
     "admin/config_not_writable": "Your core\/config.php file is not writable. Please check file permissions.",
     "admin/configuration": "Configuration",

@@ -26,14 +26,7 @@ if (isset($_GET['c'])) {
         ]);
 
         $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('validateUser', [
-            'user_id' => $user->data()->id,
-            'username' => $user->getDisplayname(),
-            'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $user->getDisplayname()]),
-            'avatar_url' => $user->getAvatar(128, true),
-            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-            'language' => $default_language
-        ]);
+        EventHandler::executeEvent(new UserValidatedEvent($user, $default_language));
 
         GroupSyncManager::getInstance()->broadcastChange(
             $user,

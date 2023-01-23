@@ -45,7 +45,7 @@ class Discord_Module extends Module {
             true
         );
 
-        EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
+        EventHandler::registerListener('discordWebhookFormatter', [DiscordFormatterHook::class, 'format']);
     }
 
     public function onInstall() {

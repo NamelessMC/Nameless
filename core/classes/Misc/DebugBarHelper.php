@@ -22,17 +22,23 @@ class DebugBarHelper extends Instanceable {
     private ?DebugBar $_debugBar = null;
 
     /**
-     * Enable the PHPDebugBar + add the PDO Collector
+     * Enable the PHPDebugBar
      */
     public function enable(Smarty $smarty): void {
         $debugbar = new DebugBar();
 
         $debugbar->addCollector(new TimeDataCollector());
-        $debugbar->addCollector(new RequestDataCollector());
+
+        $requestCollector = new RequestDataCollector();
+        $requestCollector->useHtmlVarDumper();
+        $debugbar->addCollector($requestCollector);
+
+        $debugbar->addCollector(EventCollector::getInstance());
 
         $configCollector = new ConfigCollector();
+        $configCollector->useHtmlVarDumper();
         $configCollector->setData(array_filter(Config::all(), static function ($key) {
-            return $key !== 'mysql' && $key !== 'email';
+            return $key !== 'mysql' && $key !== 'email' && $key !== 'authme';
         }, ARRAY_FILTER_USE_KEY));
         $debugbar->addCollector($configCollector);
 

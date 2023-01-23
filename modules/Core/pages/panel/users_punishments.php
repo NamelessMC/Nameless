@@ -175,20 +175,20 @@ if (isset($_GET['user'])) {
                                         }
 
                                         // Fire userBanned event
-                                        EventHandler::executeEvent('userBanned', [
-                                            'punished_id' => $query->id,
-                                            'punisher_id' => $user->data()->id,
-                                            'reason' => $_POST['reason'],
-                                            'ip_ban' => $type == 3,
-                                        ]);
+                                        EventHandler::executeEvent(new UserBannedEvent(
+                                            $banned_user,
+                                            $user,
+                                            $_POST['reason'],
+                                            $type == 3
+                                        ));
                                         break;
                                     case 2:
                                         // Fire userWarned event
-                                        EventHandler::executeEvent('userWarned', [
-                                            'punished_id' => $query->id,
-                                            'punisher_id' => $user->data()->id,
-                                            'reason' => $_POST['reason'],
-                                        ]);
+                                        EventHandler::executeEvent(new UserWarnedEvent(
+                                            $banned_user,
+                                            $user,
+                                            $_POST['reason']
+                                        ));
                                         break;
                                     case 4:
                                         // Need to delete any other avatars
