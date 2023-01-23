@@ -33,51 +33,49 @@ if (Input::exists()) {
             // AuthMe config settings
             $validation = Validate::check($_POST, [
                 'hashing_algorithm' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
+                    // TODO: add Validate::IN after enjin import is merged
                 ],
                 'db_address' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
+                ],
+                'db_port' => [
+                    Validate::REQUIRED => true,
+                    Validate::NUMERIC => true,
                 ],
                 'db_name' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
                 ],
                 'db_username' => [
-                    Validate::REQUIRED => true
+                    Validate::REQUIRED => true,
                 ],
                 'db_table' => [
-                    Validate::REQUIRED => true
-                ]
+                    Validate::REQUIRED => true,
+                ],
             ])->message($language->get('admin', 'enter_authme_db_details'));
 
             if ($validation->passed()) {
-                $authme_db = json_decode(Util::getSetting('authme_db'));
-
                 if (isset($_POST['db_password'])) {
                     $password = $_POST['db_password'];
                 } else {
-                    if (isset($authme_db->password) && !empty($authme_db->password)) {
-                        $password = $authme_db->password;
-                    } else {
+                    // No password provided, re-use previous password
+                    $authme_details = Config::get('authme');
+                    if ($authme_details === null) {
                         $password = '';
+                    } else {
+                        $password = json_decode($authme_details)->password;
                     }
                 }
 
-                $result = [
+                Config::set('authme', [
                     'address' => Output::getClean(Input::get('db_address')),
-                    'port' => (isset($_POST['db_port']) && !empty($_POST['db_port']) && is_numeric($_POST['db_port'])) ? $_POST['db_port'] : 3306,
+                    'port' => Output::getClean(Input::get('db_port')),
                     'db' => Output::getClean(Input::get('db_name')),
                     'user' => Output::getClean(Input::get('db_username')),
                     'pass' => $password,
                     'table' => Output::getClean(Input::get('db_table')),
                     'hash' => Output::getClean(Input::get('hashing_algorithm')),
-                    'sync' => Input::get('authme_sync')
-                ];
-
-                $cache->setCache('authme_cache');
-                $cache->store('authme', $result);
-
-                Util::setSetting('authme_db', json_encode($result));
-
+                ]);
             } else {
                 $errors = $validation->errors();
             }
@@ -106,15 +104,13 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-// Is Authme enabled?
-$authme_enabled = Util::getSetting('authme');
-
-if ($authme_enabled == '1') {
-    // Retrieve Authme database details
-    $authme_db = json_decode(Util::getSetting('authme_db'));
+// Is AuthMe enabled?
+if (Util::getSetting('authme')) {
+    // Retrieve AuthMe database details
+    $authme_db = Config::get('authme', []);
 
     $smarty->assign([
-        'AUTHME_DB_DETAILS' => ($authme_db ?: []),
+        'AUTHME_DB_DETAILS' => $authme_db,
         'AUTHME_HASH_ALGORITHM' => $language->get('admin', 'authme_hash_algorithm'),
         'AUTHME_DB_ADDRESS' => $language->get('admin', 'authme_db_address'),
         'AUTHME_DB_PORT' => $language->get('admin', 'authme_db_port'),
@@ -123,8 +119,10 @@ if ($authme_enabled == '1') {
         'AUTHME_DB_PASSWORD' => $language->get('admin', 'authme_db_password'),
         'AUTHME_DB_PASSWORD_HIDDEN' => $language->get('admin', 'authme_db_password_hidden'),
         'AUTHME_DB_TABLE' => $language->get('admin', 'authme_db_table'),
-        'AUTHME_PASSWORD_SYNC' => $language->get('admin', 'authme_password_sync'),
-        'AUTHME_PASSWORD_SYNC_HELP' => $language->get('admin', 'authme_password_sync_help')
+        'AUTHME_DB_CONNECTION_TEST_URL' => URL::build('/queries/authme_test_connection'),
+        'TEST_CONNECTION' => $language->get('admin', 'authme_db_test_connection'),
+        'CONNECTION_SUCCESS' => $language->get('admin', 'authme_db_connection_success'),
+        'CONNECTION_FAILED' => $language->get('admin', 'authme_db_connection_failed'),
     ]);
 }
 

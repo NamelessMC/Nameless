@@ -195,7 +195,6 @@ class DatabaseInitialiser {
         Util::setSetting('timezone', $_SESSION['install_timezone']);
         Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
-        Util::setSetting('authme', 0);
         Util::setSetting('default_avatar_type', 'minecraft');
         Util::setSetting('private_profile', '1');
         Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
