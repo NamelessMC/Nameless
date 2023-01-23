@@ -116,6 +116,7 @@ class Input {
 
         $js .= "
             tinymce.init({
+              verify_html: " . ($admin ? 'false' : 'true') . ",
               selector: '#$name',
               browser_spellcheck: true,
               contextmenu: false,
@@ -181,6 +182,7 @@ class Input {
 
                   xhr.send(formData);
                 },
+                " . ($admin ? 'valid_children: "+body[style],+body[link],+*[*]",' : '') . "
                 extended_valid_elements: " . ($admin ?
                     '"script[src|async|defer|type|charset],+@[data-options]"'
                 : 'undefined') . "

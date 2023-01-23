@@ -56,12 +56,7 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
                 'name' => $group->name,
                 'staff' => (bool)$group->staff,
                 'order' => (int)$group->order,
-                'ingame_rank_name' => Util::getIngameRankName($group->id)
             ];
-
-            if (Util::isModuleEnabled('Discord Integration')) {
-                $group_array['discord_role_id'] = (int)Discord::getDiscordRoleId($api->getDb(), $group->id);
-            }
 
             $groups_array[] = $group_array;
         }

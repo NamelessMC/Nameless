@@ -42,12 +42,14 @@
     "discord_integration/discord_bot_error_notlinked": "Il bot non è collegato a questo sito Web per l'ID gilda fornito.",
     "discord_integration/discord_bot_error_partsuccess": "Il bot non ha potuto modificare uno o più ruoli a causa di un'errata configurazione della gerarchia di Discord.",
     "discord_integration/discord_bot_error_unauthorized": "La chiave API del sito Web non è valida",
-    "discord_integration/discord_id_confirm": "Esegui il comando \"/verify {{token}}\" in Discord per completare il collegamento del tuo account Discord.",
+    "discord_integration/discord_id_confirm": "Esegui il comando \"/verify token:{{token}}\" su Discord per completare il collegamento del tuo account Discord.",
     "discord_integration/discord_integration_not_setup": "L'integrazione di Discord non è impostata",
     "discord_integration/discord_invite_info": "Per invitare il bot Nameless Link sul tuo server Discord, fai clic {{inviteLinkStart}}qui{{inviteLinkEnd}}. Quindi, esegui il comando {{command}} per collegare il bot al tuo sito web. In alternativa, puoi {{selfHostLinkStart}}ospitare il bot da solo{{selfHostLinkEnd}}.",
     "discord_integration/discord_bot_error_error": "Si è verificato un errore interno del bot.",
     "discord_integration/discord_user_id": "ID utente Discord",
     "discord_integration/discord_username": "Nome utente Discord",
     "discord_integration/discord_usernames_updated": "Nomi utente Discord aggiornati correttamente",
-    "discord_integration/discord_widget_disabled": "Il widget è disabilitato per il server Discord specificato. Vai alla scheda \"Widget\" nelle impostazioni del tuo server Discord e assicurati che il widget Discord sia abilitato e che l'ID sia corretto."
+    "discord_integration/discord_widget_disabled": "Il widget è disabilitato per il server Discord specificato. Vai alla scheda \"Widget\" nelle impostazioni del tuo server Discord e assicurati che il widget Discord sia abilitato e che l'ID sia corretto.",
+    "discord_integration/discord_bot": "Bot Discord",
+    "discord_integration/link_method": "Metodo di collegamento"
 }

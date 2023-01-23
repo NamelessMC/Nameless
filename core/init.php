@@ -358,7 +358,7 @@ if ($page != 'install') {
     }
 
     // Widgets
-    $widgets = new Widgets($cache);
+    $widgets = new Widgets($cache, $language, $smarty);
 
     // Minecraft integration?
     define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');

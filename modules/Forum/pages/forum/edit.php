@@ -149,7 +149,7 @@ if (Input::exists()) {
                         $prev[] = $lbl->id;
                     }
                     return $prev;
-                });
+                }, []);
                 $accessible_labels = Forum::getAccessibleLabels($forum_labels, $user_groups);
                 $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
 

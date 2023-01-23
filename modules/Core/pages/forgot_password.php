@@ -23,9 +23,20 @@ if (!isset($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {
         if (Token::check()) {
-            if (!isset($_POST['email']) || empty($_POST['email'])) {
-                $error = $language->get('user', 'email_required');
-            } else {
+
+            $validation = Validate::check([
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::RATE_LIMIT => [2, 60] // 2 attempts every 60 seconds
+                ]
+            ])->messages([
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta)
+                ]
+            ]);
+
+            if ($validation->passed()) {
                 // Check to see if the email exists
                 $target_user = new User(Input::get('email'), 'email');
                 if ($target_user->exists() && $target_user->data()->active) {
@@ -39,7 +50,6 @@ if (!isset($_GET['c'])) {
                         ['email' => $target_user->data()->email, 'name' => $target_user->getDisplayname()],
                         SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                         str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
-                        Email::getReplyTo()
                     );
 
                     if (isset($sent['error'])) {
@@ -61,6 +71,8 @@ if (!isset($_GET['c'])) {
                 }
 
                 $success = $language->get('user', 'forgot_password_email_sent');
+            } else {
+                $error = join('<br />', $validation->errors());
             }
         } else {
             $error = $language->get('general', 'invalid_token');

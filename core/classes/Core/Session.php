@@ -67,10 +67,12 @@ class Session {
     /**
      * Create a new session variable
      *
+     * TODO: specify mixed as $value type when minimum PHP version bumped to 8
+     *
      * @param string $name Contains the session variable name that will be created.
-     * @param string $value Contains the variable value to store
+     * @param mixed $value Contains the variable value to store
      */
-    public static function put(string $name, string $value): void {
+    public static function put(string $name, $value): void {
         $_SESSION[$name] = $value;
     }
 }

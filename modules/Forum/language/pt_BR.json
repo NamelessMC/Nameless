@@ -189,5 +189,11 @@
     "forum/user_object": "Objeto do usuário",
     "forum/topic_reply": "Resposta do tópico",
     "forum/new_topic_reply_text": "Resposta do tópico criada em {{forum}} por {{author}}",
-    "forum/topic_author_username": "Nome de usuário do autor do tópico"
+    "forum/topic_author_username": "Nome de usuário do autor do tópico",
+    "forum/no_news": "Não há postagens de notícias.",
+    "forum/topic_author_uuid": "ID do autor do tópico",
+    "forum/topic_author_nickname": "Autor do tópico",
+    "forum/latest_posts_widget_cached": "O widget de postagens mais recentes é armazenado em cache por um minuto, suas alterações podem não entrar em vigor imediatamente.",
+    "forum/latest_posts_limit": "Limite de postagens mais recentes",
+    "forum/label_type_in_use": "O tipo de etiqueta está sendo usado, não pode ser excluído."
 }

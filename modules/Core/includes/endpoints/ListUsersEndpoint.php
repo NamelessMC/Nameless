@@ -108,6 +108,21 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
                 'integrations' => $integrations
             ];
 
+            if (isset($_GET['groups'])) {
+                $groups = $api->getDb()->query(
+                    <<<SQL
+                    SELECT g.id, g.name, g.staff, g.order
+                    FROM nl2_users_groups ug
+                        RIGHT JOIN nl2_groups g
+                            ON g.id = ug.group_id
+                    WHERE ug.user_id = ?
+                    SQL,
+                    [$user->id]
+                );
+
+                $user_json['groups'] = $groups->results();
+            }
+
             $users_json[] = $user_json;
         }
 

@@ -4,7 +4,7 @@
     "discord_integration/discord_bot_check_logs": "Debería comprobar si hay un error más específico (si existe) en \"Seguridad -> Todos los registros\".",
     "discord_integration/discord_bot_error_badparameter": "Cuerpo de la solicitud no válido.",
     "discord_integration/discord_bot_error_error": "Se ha producido un error interno del bot.",
-    "discord_integration/discord_bot_error_invguild": "Siempre que la ID del servidor no sea válida, o el bot no esté en él.",
+    "discord_integration/discord_bot_error_invguild": "La ID del servidor no sea válida, o el bot no esté en él.",
     "discord_integration/discord_bot_error_invrole": "La ID del rol proporcionado no es válida.",
     "discord_integration/discord_bot_error_invuser": "La ID de usuario proporcionada no es válida, o no está en el servidor especificado.",
     "discord_integration/discord_bot_error_notlinked": "El bot no está vinculado a este sitio web para la ID del servidor proporcionada.",
@@ -25,7 +25,7 @@
     "discord_integration/discord_integration_not_setup": "La integración de Discord no está configurada",
     "discord_integration/discord_invalid_id": "Esa ID de usuario de Discord no es válida.",
     "discord_integration/discord_role_id": "ID del rol de Discord",
-    "discord_integration/discord_role_id_length": "La ID del rol de Discord debe tener 18 dígitos.",
+    "discord_integration/discord_role_id_length": "La ID del rol de Discord debe tener entre {{min}} y {{max}} digitos.",
     "discord_integration/discord_role_id_numeric": "La ID del rol de Discord debe ser numérica.",
     "discord_integration/discord_settings_updated": "La configuración de Discord se ha actualizado con éxito",
     "discord_integration/discord_unknown_error": "Se ha producido un error desconocido al sincronizar los roles de Discord. Por favor, póngase en contacto con un administrador.",
@@ -43,11 +43,13 @@
     "discord_integration/unable_to_update_discord_bot_username": "No se puede actualizar el nombre de usuario del bot de Discord.",
     "discord_integration/unable_to_update_discord_roles": "No se puede actualizar la lista de roles de Discord.",
     "discord_integration/unable_to_update_discord_username": "No se puede actualizar el nombre de usuario de Discord.",
-    "discord_integration/discord_id_confirm": "Por favor, ejecuta el comando \"/verify {{token}}\" en Discord para terminar de vincular tu cuenta de Discord.",
+    "discord_integration/discord_id_confirm": "Por favor, ejecuta el comando \"/verify token:{{token}}\" en Discord para terminar de vincular tu cuenta de Discord.",
     "discord_integration/get_link_code": "Obtener código de enlace",
     "discord_integration/discord_invite_info": "Para invitar al bot Nameless Link a tu servidor de Discord, haz clic en {{inviteLinkStart}}aquí{{inviteLinkEnd}}. A continuación, ejecuta el comando {{command}} para enlazar el bot con tu sitio web. También puedes {{selfHostLinkStart}}alojar el bot tú mismo{{selfHostLinkEnd}}.",
     "discord_integration/discord_user_id": "ID de usuario de Discord",
     "discord_integration/discord_widget_disabled": "El widget está desactivado para el servidor de Discord especificado. Ve a la pestaña \"Widget\" en la configuración de tu servidor de Discord y asegúrate de que el widget de Discord está activado y de que el ID es correcto.",
     "discord_integration/discord_widget_error": "Se ha producido un error al obtener el widget de Discord: {{error}}.",
-    "discord_integration/discord_id_required": "Por favor, introduce la ID del servidor de Discord."
+    "discord_integration/discord_id_required": "Por favor, introduce la ID del servidor de Discord.",
+    "discord_integration/discord_bot": "Bot de Discord",
+    "discord_integration/link_method": "Método de conexión"
 }

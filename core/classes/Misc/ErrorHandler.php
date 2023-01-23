@@ -132,7 +132,7 @@ class ErrorHandler {
             'FOMANTIC_CSS' => $path . 'vendor/fomantic-ui/dist/semantic.min.css',
             'FONT_AWESOME' => $path . 'vendor/@fortawesome/fontawesome-free/css/all.min.css',
             'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
-            'PRISM_CSS' => $path . 'plugins/prism/prism_light_coy.css',
+            'PRISM_CSS' => $path . 'plugins/prism/prism_light_atom.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'TOAST_CSS' => $path . 'css/fomantic.toast.min.css',
             'TOAST_JS' => $path . 'js/fomantic.toast.min.js',
@@ -159,7 +159,7 @@ class ErrorHandler {
             'GENERATE_DEBUG_LINK' => $language->get('general', 'generate_debug_link'),
             'CANNOT_READ_FILE' => $language->get('general', 'cannot_read_file'),
             'FRAME' => $language->get('general', 'frame'),
-            'QUERY' => $language->get('general', 'query'),
+            'SQL_QUERY' => $language->get('general', 'sql_query'),
             'NAMELESSMC_SUPPORT' => $language->get('general', 'namelessmc_support'),
             'NAMELESSMC_DOCS' => $language->get('general', 'namelessmc_documentation'),
             'DEBUG_TOAST_CLICK' => $language->get('admin', 'debug_link_toast', [

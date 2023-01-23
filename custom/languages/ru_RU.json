@@ -111,7 +111,7 @@
     "admin/date": "Дата",
     "admin/deactivate": "Отключить",
     "admin/debug_link": "Ссылка на отладочную страницу",
-    "admin/debug_link_toast": "Отладочная страница скопирована в буфер обмена!<br>Открыть журнал можете {{linkStart}}здесь{{linkEnd}}",
+    "admin/debug_link_toast": "{{linkStart}}Нажмите сюда{{linkEnd}} что бы увидеть отладочную ссылку.",
     "admin/debugging_and_maintenance": "Отладка & Режим обслуживания",
     "admin/debugging_settings_updated_successfully": "Параметры отладки успешно обновлены.",
     "admin/default": "По умолчанию",
@@ -1245,5 +1245,17 @@
     "general/log_out_click": "Нажмите сюда чтобы выйти",
     "general/log_out_complete": "Выход успешен. Нажмите {{linkStart}}сюда{{linkEnd}} чтобы продолжить.",
     "general/rate_limit": "Попробуйте ещё через {{expires}} секунд",
-    "general/oauth_no_data": "Не обнаружено OAuth даты, проверьте вы посещаете эту страницу через OAuth редирект."
+    "general/oauth_no_data": "Не обнаружено OAuth даты, проверьте вы посещаете эту страницу через OAuth редирект.",
+    "general/cannot_read_file": "Невозможно прочитать файл.",
+    "general/debug_link_cannot_generate": "Невозможно сгенерировать отладочную ссылку, проверьте консоль на ошибки.",
+    "general/debug_link_copied": "Отладочная ссылка скопирована в буфер обмена!",
+    "admin/require_minecraft_username_on_registration": "Требовать Minecraft Никнейм при регистрации?",
+    "admin/user_profile_post_reply_hook_info": "Ответ на пост на профиле",
+    "admin/user_password_changed_successfully": "Пароль пользователя был успешно изменён",
+    "admin/user_new_profile_post_hook_info": "Новый пост на профиль",
+    "admin/integration_settings_does_not_exist": "Интеграция файла настроек для интеграции {{integration}} не существует",
+    "general/frame": "Кадр",
+    "general/generate": "Сгенерировать",
+    "general/generate_debug_link": "Сгенерировать отладочную ссылку",
+    "api/webhook_added": "Вебхук был создан"
 }

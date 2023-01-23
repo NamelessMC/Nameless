@@ -43,14 +43,13 @@ class RecentReportsItem extends CollectionItemBase {
         if ($this->_cache->isCached('recent_reports_data')) {
             $data = $this->_cache->retrieve('recent_reports_data');
         } else {
-            $query = DB::getInstance()->orderWhere('reports', 'status = 0', 'date_reported', 'DESC')->results();
+            $query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE `status` = 0 ORDER BY `date_reported` DESC LIMIT 5');
             $data = [];
 
-            if (count($query)) {
+            if ($query->count()) {
                 $users = [];
-                $i = 0;
 
-                foreach ($query as $item) {
+                foreach ($query->results() as $item) {
                     if (array_key_exists($item->reporter_id, $users)) {
                         $reporter_user = $users[$item->reporter_id];
                     } else {
@@ -91,10 +90,6 @@ class RecentReportsItem extends CollectionItemBase {
                         'ig_reported_mcname' => ($item->reported_mcname ? urlencode($item->reported_mcname) : ''),
                         'ig_reported_uuid' => ($item->reported_uuid ? urlencode($item->reported_uuid) : '')
                     ];
-
-                    if (++$i == 5) {
-                        break;
-                    }
                 }
             }
 

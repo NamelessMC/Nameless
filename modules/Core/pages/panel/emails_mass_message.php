@@ -41,14 +41,11 @@ if (Input::exists()) {
 
             $users = DB::getInstance()->get('users', ['id', '<>', 0])->results();
 
-            $reply_to = Email::getReplyTo();
-
             foreach ($users as $email_user) {
                 $sent = Email::send(
                     ['email' => $email_user->email, 'name' => $email_user->username],
                     Input::get('subject'),
                     str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Output::getPurified(Input::get('content'))),
-                    $reply_to
                 );
 
                 if (isset($sent['error'])) {
@@ -58,6 +55,10 @@ if (Input::exists()) {
                         'at' => date('U'),
                         'user_id' => $user->data()->id
                     ]);
+
+                    $errors[] = $language->get('admin', 'mass_email_failed_check_logs');
+                } else {
+                    Session::flash('emails_success', $language->get('admin', 'emails_mass_message_success'));
                 }
             }
 
