@@ -815,11 +815,6 @@ DB::getInstance()->insert('settings', [
 ]);
 
 DB::getInstance()->insert('settings', [
-    'name' => 'authme_db',
-    'value' => null
-]);
-
-DB::getInstance()->insert('settings', [
     'name' => 'default_avatar_type',
     'value' => 'minecraft'
 ]);

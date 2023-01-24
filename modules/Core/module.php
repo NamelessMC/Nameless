@@ -38,6 +38,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
+        $pages->add('Core', '/queries/authme_test_connection', 'queries/authme_test_connection.php');
         $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
@@ -507,6 +508,7 @@ class Core_Module extends Module {
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
+            'verify_email' => static fn () => true,
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
@@ -514,6 +516,7 @@ class Core_Module extends Module {
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
             'icon' => 'fab fa-google',
+            'verify_email' => static fn () => true,
         ]);
 
         // Captcha

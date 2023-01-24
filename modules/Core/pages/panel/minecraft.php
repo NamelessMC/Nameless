@@ -27,15 +27,11 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_minecraft'])) {
             // Either enable or disable Minecraft integration
-            DB::getInstance()->update('settings', ['name', 'mc_integration'], [
-                'value' => Input::get('enable_minecraft')
-            ]);
+            Util::setSetting('mc_integration', Input::get('enable_minecraft'));
         }
-
     } else {
         // Invalid token
         $errors = [$language->get('general', 'invalid_token')];
-
     }
 }
 
@@ -57,7 +53,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if Minecraft integration is enabled
-$minecraft_enabled = MINECRAFT;
+$minecraft_enabled = Util::getSetting('mc_integration');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
