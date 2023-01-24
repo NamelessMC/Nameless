@@ -843,18 +843,7 @@ class Core_Module extends Module {
         }
 
         if (defined('MINECRAFT') && MINECRAFT === true) {
-            // Status page?
-            $cache->setCache('status_page');
-            if ($cache->isCached('enabled')) {
-                $status_enabled = $cache->retrieve('enabled');
-
-            } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
-                $cache->store('enabled', $status_enabled);
-
-            }
-
-            if ($status_enabled == 1) {
+            if (Util::getSetting('status_page')) {
                 // Add status link to navbar
                 $cache->setCache('navbar_order');
                 if (!$cache->isCached('status_order')) {
