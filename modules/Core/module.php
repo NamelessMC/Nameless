@@ -842,37 +842,24 @@ class Core_Module extends Module {
             }
         }
 
-        if (Util::getSetting('mc_integration')) {
-            // Status page?
-            $cache->setCache('status_page');
-            if ($cache->isCached('enabled')) {
-                $status_enabled = $cache->retrieve('enabled');
-
+        if (Util::getSetting('mc_integration') && Util::getSetting('status_page')) {
+            // Add status link to navbar
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('status_order')) {
+                $status_order = 3;
+                $cache->store('status_order', 3);
             } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
-                $cache->store('enabled', $status_enabled);
-
+                $status_order = $cache->retrieve('status_order');
             }
 
-            if ($status_enabled == 1) {
-                // Add status link to navbar
-                $cache->setCache('navbar_order');
-                if (!$cache->isCached('status_order')) {
-                    $status_order = 3;
-                    $cache->store('status_order', 3);
-                } else {
-                    $status_order = $cache->retrieve('status_order');
-                }
-
-                $cache->setCache('navbar_icons');
-                if (!$cache->isCached('status_icon')) {
-                    $icon = '';
-                } else {
-                    $icon = $cache->retrieve('status_icon');
-                }
-
-                $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('status_icon')) {
+                $icon = '';
+            } else {
+                $icon = $cache->retrieve('status_icon');
             }
+
+            $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
         }
 
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
