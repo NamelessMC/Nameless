@@ -31,6 +31,10 @@ class DiscordWebhookBuilder {
         return $this;
     }
 
+    /**
+     * @param Closure(DiscordEmbed): DiscordEmbed $closure
+     * @return $this
+     */
     public function embed(Closure $closure): self {
         if ($this->embeds === null) {
             $this->embeds = [];

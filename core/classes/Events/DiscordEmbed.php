@@ -17,12 +17,12 @@ class DiscordEmbed {
         return $this;
     }
 
-    public function author(string $name, string $icon_url, string $url): self {
-        $this->author = [
+    public function author(string $name, ?string $icon_url = null, ?string $url = null): self {
+        $this->author = array_filter([
             'name' => $name,
             'icon_url' => $icon_url,
             'url' => $url,
-        ];
+        ]);
 
         return $this;
     }

@@ -2,16 +2,6 @@
 
 abstract class AbstractEvent {
 
-    abstract public static function description(): array;
-
-    public static function return(): bool {
-        return false;
-    }
-
-    public static function internal(): bool {
-        return false;
-    }
-
     /**
      * Convert the class name to the event name.
      * Example: UserDeletedEvent -> userDeleted
@@ -20,6 +10,16 @@ abstract class AbstractEvent {
      */
     public static function name(): string {
         return lcfirst(str_replace('Event', '', static::class));
+    }
+
+    abstract public static function description(): array;
+
+    public static function return(): bool {
+        return false;
+    }
+
+    public static function internal(): bool {
+        return false;
     }
 
     final public function params(): array {
