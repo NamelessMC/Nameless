@@ -11,11 +11,13 @@ class DiscordHook {
 
     public static function execute(AbstractEvent $event, string $webhook_url = ''): void {
         $params = $event->params();
+        $format = [];
+
         if ($event instanceof DiscordDispatchable) {
-            $return = $event->toDiscordWebook()->toArray();
-        } else {
-            $return = EventHandler::executeEvent('discordWebhookFormatter', ['format' => [], 'data' => $params])['format'];
+            $format = $event->toDiscordWebook()->toArray();
         }
+
+        $return = EventHandler::executeEvent('discordWebhookFormatter', ['format' => $format, 'data' => $params])['format'];
 
         if (!is_array($return) || !count($return)) {
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));

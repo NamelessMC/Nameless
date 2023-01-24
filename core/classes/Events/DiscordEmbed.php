@@ -3,7 +3,7 @@
 class DiscordEmbed {
 
     private ?string $title = null;
-    private ?string $author = null;
+    private ?array $author = null;
     private ?string $color = null;
     private ?string $url = null;
     private ?string $description = null;
@@ -17,8 +17,13 @@ class DiscordEmbed {
         return $this;
     }
 
-    public function author(string $author): self {
-        $this->author = $author;
+    public function author(string $name, string $icon_url, string $url): self {
+        $this->author = [
+            'name' => $name,
+            'icon_url' => $icon_url,
+            'url' => $url,
+        ];
+
         return $this;
     }
 

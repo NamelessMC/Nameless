@@ -67,9 +67,9 @@ if (!$user->isLoggedIn()) {
                         'active' => true,
                     ]);
 
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
-
-                    EventHandler::executeEvent(new UserValidatedEvent($target_user, $default_language));
+                    EventHandler::executeEvent(new UserValidatedEvent(
+                        $target_user,
+                    ));
 
                     Session::flash('home', $language->get('user', 'validation_complete'));
                     Redirect::to(URL::build('/'));

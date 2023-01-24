@@ -31,7 +31,9 @@ class VerifyEndpoint extends KeyAuthEndpoint {
             'reset_code' => ''
         ]);
 
-        EventHandler::executeEvent(new UserValidatedEvent($user, $api->getLanguage()));
+        EventHandler::executeEvent(new UserValidatedEvent(
+            $user,
+        ));
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'account_validated')]);
     }

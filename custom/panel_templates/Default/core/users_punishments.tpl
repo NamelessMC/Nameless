@@ -85,7 +85,7 @@
                                                 {if $result.revoked == 1}
                                                 <span class="badge badge-info">{$REVOKED}</span>
                                                 {/if}
-                                                {if $result.acknowledged == 1}
+                                                {if $result.type_numeric == 2 && $result.acknowledged == 1}
                                                 <span class="badge badge-success">{$ACKNOWLEDGED}</span>
                                                 {/if}
                                             </td>

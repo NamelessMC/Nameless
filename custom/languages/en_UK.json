@@ -1,4 +1,6 @@
 {
+    "admin/user_banned_webhook": "{{punished}} has been banned from the website by {{punisher}}.",
+    "admin/user_warned_webhook": "{{punished}} has been warned by {{punisher}}.",
     "admin/user_group_added_hook_info": "User Group Added",
     "admin/user_group_removed_hook_info": "User Group Removed",
     "admin/account_verification": "Minecraft Account Verification",

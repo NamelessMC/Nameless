@@ -159,7 +159,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 }
             }
 
-            EventHandler::executeEvent(new UserRegisteredEvent($user, $api->getLanguage()));
+            EventHandler::executeEvent(new UserRegisteredEvent(
+                $user,
+            ));
 
             if ($return) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);

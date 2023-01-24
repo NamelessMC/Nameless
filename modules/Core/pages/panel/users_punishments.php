@@ -140,6 +140,7 @@ if (isset($_GET['user'])) {
                         // Ensure user is not admin
                         if (!$is_admin) {
                             // Prevent ip banning if target ip match the user ip
+                            // TODO: Change message for when IP matches
                             if ($type != 3 || $user->data()->lastip != $banned_user->data()->lastip) {
                                 DB::getInstance()->insert('infractions', [
                                     'type' => $type,
@@ -148,7 +149,7 @@ if (isset($_GET['user'])) {
                                     'reason' => $_POST['reason'],
                                     'infraction_date' => date('Y-m-d H:i:s'),
                                     'created' => date('U'),
-                                    'acknowledged' => (($type == 2) ? 0 : 1)
+                                    'acknowledged' => ($type == 2) ? 0 : 1,
                                 ]);
 
                                 switch($type) {

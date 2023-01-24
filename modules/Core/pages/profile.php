@@ -115,12 +115,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]
                             );
 
-                            $default_language = new Language('core', DEFAULT_LANGUAGE);
                             EventHandler::executeEvent(new UserProfilePostCreatedEvent(
                                 $user,
                                 $profile_user,
                                 Input::get('post'),
-                                $default_language,
                             ));
 
                             if ($query->id !== $user->data()->id) {
@@ -200,12 +198,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 ]
                             );
 
-                            $default_language = new Language('core', DEFAULT_LANGUAGE);
                             EventHandler::executeEvent(new UserProfilePostReplyCreatedEvent(
                                 $user,
                                 $profile_user,
                                 Input::get('reply'),
-                                $default_language
                             ));
 
                             if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {

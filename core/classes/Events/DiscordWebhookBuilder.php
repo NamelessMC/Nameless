@@ -3,8 +3,8 @@
 class DiscordWebhookBuilder {
 
     private ?string $username = null;
-    private ?string $avatar_url;
-    private ?string $content;
+    private ?string $avatar_url = null;
+    private ?string $content = null;
     /** @var DiscordEmbed[] */
     private ?array $embeds = null;
 

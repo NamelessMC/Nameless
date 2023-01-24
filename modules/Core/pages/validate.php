@@ -25,8 +25,9 @@ if (isset($_GET['c'])) {
             'active' => true,
         ]);
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent(new UserValidatedEvent($user, $default_language));
+        EventHandler::executeEvent(new UserValidatedEvent(
+            $user,
+        ));
 
         GroupSyncManager::getInstance()->broadcastChange(
             $user,

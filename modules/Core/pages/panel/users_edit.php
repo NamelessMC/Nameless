@@ -44,7 +44,9 @@ if (isset($_GET['action'])) {
                     'reset_code' => ''
                 ]);
 
-                EventHandler::executeEvent(new UserValidatedEvent($view_user, $language));
+                EventHandler::executeEvent(new UserValidatedEvent(
+                    $view_user,
+                ));
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_validated_successfully'));
             }

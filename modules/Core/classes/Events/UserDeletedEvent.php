@@ -2,14 +2,6 @@
 
 class UserDeletedEvent extends AbstractEvent {
 
-    public static function description(): array {
-        return ['admin', 'delete_hook_info'];
-    }
-
-    public static function name(): string {
-        return 'deleteUser';
-    }
-
     public User $user;
     public int $user_id;
     public string $email_address;
@@ -18,5 +10,13 @@ class UserDeletedEvent extends AbstractEvent {
         $this->user = $user;
         $this->user_id = $user->data()->id;
         $this->email_address = $user->data()->email;
+    }
+
+    public static function name(): string {
+        return 'deleteUser';
+    }
+
+    public static function description(): array {
+        return ['admin', 'delete_hook_info'];
     }
 }

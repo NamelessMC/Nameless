@@ -1,14 +1,6 @@
 <?php
 
-class ReportCreatedEvent extends AbstractEvent {
-
-    public static function description(): array {
-        return ['admin', 'report_hook_info'];
-    }
-
-    public static function name(): string {
-        return 'createReport';
-    }
+class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
 
     public string $username;
     public string $content;
@@ -17,6 +9,7 @@ class ReportCreatedEvent extends AbstractEvent {
     public string $title;
     public string $url;
 
+    // TODO refactor when report system is improved
     public function __construct(
         string $username,
         string $content,
@@ -31,5 +24,28 @@ class ReportCreatedEvent extends AbstractEvent {
         $this->avatar_url = $avatar_url;
         $this->title = $title;
         $this->url = $url;
+    }
+
+    public static function name(): string {
+        return 'createReport';
+    }
+
+    public static function description(): array {
+        return ['admin', 'report_hook_info'];
+    }
+
+    public function toDiscordWebook(): DiscordWebhookBuilder {
+        return DiscordWebhookBuilder::make()
+            ->username($this->username . ' | ' . SITE_NAME)
+            ->avatarUrl($this->avatar_url)
+            ->embed(function (DiscordEmbed $embed) {
+                $embed
+                    ->title($this->title)
+                    ->url($this->url)
+                    ->description(mb_strlen($this->content) > 512
+                        ? mb_substr($this->content, 0, 512) . '...'
+                        : $this->content
+                    );
+            });
     }
 }

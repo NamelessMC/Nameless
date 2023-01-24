@@ -1,26 +1,31 @@
 <?php
 
-class UserGroupRemovedEvent extends AbstractEvent {
+class UserGroupRemovedEvent extends AbstractEvent implements DiscordDispatchable {
+
+    public User $user;
+    public Group $group;
+
+    public function __construct(User $user, Group $group) {
+        $this->user = $user;
+        $this->group = $group;
+    }
 
     public static function description(): array {
         return ['admin', 'user_group_removed_hook_info'];
     }
 
-    public User $user;
-    public string $username;
-    public string $avatar_url;
-    public Group $group;
-    public int $group_id;
-    public string $group_name;
-    public Language $language; // TODO needed for discordwebhookformatter, remove when that is updated
+    public function toDiscordWebook(): DiscordWebhookBuilder {
+        $language = new Language('core', DEFAULT_LANGUAGE);
 
-    public function __construct(User $user, Group $group, Language $language) {
-        $this->user = $user;
-        $this->username = $user->data()->username;
-        $this->avatar_url = $user->getAvatar(128, true);
-        $this->group = $group;
-        $this->group_id = $group->id;
-        $this->group_name = $group->name;
-        $this->language = $language;
+        return DiscordWebhookBuilder::make()
+            ->username($this->user->getDisplayname() . ' | ' . SITE_NAME)
+            ->avatarUrl($this->user->getAvatar(128, true))
+            ->embed(function (DiscordEmbed $embed) use ($language) {
+                return $embed
+                    ->description($language->get('user', 'group_has_been_removed', [
+                        'group' => "`" . $this->group->name . "`",
+                        'user' => $this->user->getDisplayname(),
+                    ]));
+            });
     }
 }

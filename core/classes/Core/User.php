@@ -185,11 +185,9 @@ class User {
             $this->_groups[$group_id] = new Group($group_data);
         }
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent(new UserGroupAddedEvent(
             $this,
             $this->_groups[$group_id],
-            $default_language,
         ));
 
         return true;
@@ -724,11 +722,9 @@ class User {
             ]
         );
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent(new UserGroupRemovedEvent(
             $this,
             $this->_groups[$group_id],
-            $default_language,
         ));
 
         unset($this->_groups[$group_id]);

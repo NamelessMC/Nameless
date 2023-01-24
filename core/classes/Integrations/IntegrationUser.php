@@ -113,10 +113,8 @@ class IntegrationUser {
         // Load the data for this integration from the query we just made
         $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM nl2_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent(new UserIntegrationLinkedEvent(
             $this,
-            $default_language
         ));
     }
 
@@ -131,10 +129,8 @@ class IntegrationUser {
 
         $this->_integration->onSuccessfulVerification($this);
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent(new UserIntegrationVerifiedEvent(
             $this,
-            $default_language,
         ));
     }
 
@@ -149,10 +145,8 @@ class IntegrationUser {
             ]
         );
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent(new UserIntegrationUnlinkedEvent(
             $this,
-            $default_language,
         ));
     }
 }

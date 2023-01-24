@@ -2,14 +2,6 @@
 
 class GroupClonedEvent extends AbstractEvent {
 
-    public static function description(): array {
-        return ['admin', 'clone_group'];
-    }
-
-    public static function name(): string {
-        return 'cloneGroup';
-    }
-
     public Group $group;
     public int $group_id;
     public Group $cloned_group;
@@ -20,5 +12,13 @@ class GroupClonedEvent extends AbstractEvent {
         $this->group_id = $group_id;
         $this->cloned_group = Group::find($cloned_group_id);
         $this->cloned_group_id = $cloned_group_id;
+    }
+
+    public static function name(): string {
+        return 'cloneGroup';
+    }
+
+    public static function description(): array {
+        return ['admin', 'clone_group'];
     }
 }
