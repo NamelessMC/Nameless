@@ -2,23 +2,23 @@
 
 class DiscordEmbed {
 
-    private ?string $title = null;
-    private ?array $author = null;
-    private ?string $color = null;
-    private ?string $url = null;
-    private ?string $description = null;
-    private ?array $fields = null;
-    private ?array $image = null;
-    private ?array $thumbnail = null;
-    private ?array $footer = null;
+    private ?string $_title = null;
+    private ?array $_author = null;
+    private ?string $_color = null;
+    private ?string $_url = null;
+    private ?string $_description = null;
+    private ?array $_fields = null;
+    private ?array $_image = null;
+    private ?array $_thumbnail = null;
+    private ?array $_footer = null;
 
     public function title(string $title): self {
-        $this->title = $title;
+        $this->_title = $title;
         return $this;
     }
 
     public function author(string $name, ?string $icon_url = null, ?string $url = null): self {
-        $this->author = array_filter([
+        $this->_author = array_filter([
             'name' => $name,
             'icon_url' => $icon_url,
             'url' => $url,
@@ -32,26 +32,26 @@ class DiscordEmbed {
             $color = hexdec($color);
         }
 
-        $this->color = $color;
+        $this->_color = $color;
         return $this;
     }
 
     public function url(string $url): self {
-        $this->url = $url;
+        $this->_url = $url;
         return $this;
     }
 
     public function description(string $description): self {
-        $this->description = $description;
+        $this->_description = $description;
         return $this;
     }
 
     public function field(string $name, string $value, bool $inline = false): self {
-        if ($this->fields === null) {
-            $this->fields = [];
+        if ($this->_fields === null) {
+            $this->_fields = [];
         }
 
-        $this->fields[] = [
+        $this->_fields[] = [
             'name' => $name,
             'value' => $value,
             'inline' => $inline,
@@ -60,17 +60,17 @@ class DiscordEmbed {
     }
 
     public function image(string $image_url): self {
-        $this->image = ['url' => $image_url];
+        $this->_image = ['url' => $image_url];
         return $this;
     }
 
     public function thumbnail(string $thumbnail_url): self {
-        $this->thumbnail = ['url' => $thumbnail_url];
+        $this->_thumbnail = ['url' => $thumbnail_url];
         return $this;
     }
 
     public function footer(string $footer_text, string $footer_icon_url = null): self {
-        $this->footer = [
+        $this->_footer = [
             'text' => $footer_text,
             'icon_url' => $footer_icon_url,
         ];
@@ -79,15 +79,15 @@ class DiscordEmbed {
 
     public function toArray(): array {
         return array_filter([
-            'title' => $this->title,
-            'author' => $this->author,
-            'color' => $this->color,
-            'url' => $this->url,
-            'description' => $this->description,
-            'fields' => $this->fields,
-            'image' => $this->image,
-            'thumbnail' => $this->thumbnail,
-            'footer' => $this->footer,
+            'title' => $this->_title,
+            'author' => $this->_author,
+            'color' => $this->_color,
+            'url' => $this->_url,
+            'description' => $this->_description,
+            'fields' => $this->_fields,
+            'image' => $this->_image,
+            'thumbnail' => $this->_thumbnail,
+            'footer' => $this->_footer,
         ]);
     }
 }

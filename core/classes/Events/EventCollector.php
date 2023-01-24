@@ -6,7 +6,7 @@ use DebugBar\DataCollector\Renderable;
 
 class EventCollector extends DataCollector implements Renderable, AssetProvider {
 
-    private array $events = [];
+    private array $_events = [];
     private static EventCollector $_instance;
 
     public static function getInstance(): EventCollector {
@@ -14,7 +14,7 @@ class EventCollector extends DataCollector implements Renderable, AssetProvider 
     }
 
     public function called(string $event, array $params): void {
-        $this->events[] = [
+        $this->_events[] = [
             'event' => $event,
             'params' => $params
         ];
@@ -23,7 +23,7 @@ class EventCollector extends DataCollector implements Renderable, AssetProvider 
     public function collect(): array {
         $events = [];
 
-        foreach ($this->events as $i => $event) {
+        foreach ($this->_events as $i => $event) {
             ++$i;
             $events["{$event['event']} #$i"] = [
                 $this->getVarDumper()->renderVar($event['params']),

@@ -33,7 +33,8 @@ class UserBannedEvent extends AbstractEvent implements DiscordDispatchable {
                     ->field($language->get('admin', 'reason'), $this->reason)
                     ->field($language->get('moderator', 'ip_ban'), $this->ip_ban
                         ? $language->get('general', 'yes')
-                        : $language->get('general', 'no'));
+                        : $language->get('general', 'no')
+                    );
             });
     }
 }
