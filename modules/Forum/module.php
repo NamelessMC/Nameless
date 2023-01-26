@@ -57,6 +57,7 @@ class Forum_Module extends Module {
 
         EventHandler::registerListener(UserDeletedEvent::class, [DeleteUserForumHook::class, 'execute']);
         EventHandler::registerListener(GroupClonedEvent::class, [CloneGroupForumHook::class, 'execute']);
+        EventHandler::registerListener(DiscordWebhookFormatterEvent::class, [ForumDiscordWebhookListener::class, 'execute']);
 
         // -- Pipelines
 

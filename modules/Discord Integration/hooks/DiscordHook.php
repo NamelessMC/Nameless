@@ -14,10 +14,18 @@ class DiscordHook {
         $format = [];
 
         if ($event instanceof DiscordDispatchable) {
-            $format = $event->toDiscordWebook()->toArray();
+            $format = $event->toDiscordWebook();
         }
 
-        $return = EventHandler::executeEvent('discordWebhookFormatter', ['format' => $format, 'data' => $params])['format'];
+        $return = EventHandler::executeEvent(new DiscordWebhookFormatterEvent(
+            $event::name(),
+            $format,
+            $params,
+        ))['format'];
+
+        if ($return instanceof DiscordWebhookBuilder) {
+            $return = $return->toArray();
+        }
 
         if (!is_array($return) || !count($return)) {
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));

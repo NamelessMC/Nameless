@@ -4,7 +4,8 @@ class DiscordEmbed {
 
     private ?string $_title = null;
     private ?array $_author = null;
-    private ?string $_color = null;
+    /** @var float|int|null $_color  */
+    private $_color = null;
     private ?string $_url = null;
     private ?string $_description = null;
     private ?array $_fields = null;

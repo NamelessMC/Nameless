@@ -63,12 +63,12 @@ class EventHandler {
         // and description. This is to "fix" when registerListener is called
         // for an event that has not been registered yet.
         if (isset(self::$_events[$name])) {
-            self::$_events[$name] = array_merge(self::$_events[$name], [
+            self::$_events[$name] = [
                 'description' => $description,
                 'internal' => $internal,
                 'params' => $params,
-                'listeners' => $return,
-            ]);
+                'listeners' => self::$_events[$name]['listeners'],
+            ];
             return;
         }
 
@@ -97,7 +97,7 @@ class EventHandler {
 
         if (!isset(self::$_events[$name])) {
             // Silently create event if it doesn't exist, maybe throw exception instead?
-            self::registerEvent($name, $name);
+            self::registerEvent($event);
         }
 
         self::$_events[$name]['listeners'][] = [
@@ -168,7 +168,7 @@ class EventHandler {
                 }
 
                 $response = $callback($pass_object ? $event_object : $params);
-                if (self::$_events[$event]['return']) {
+                if (self::$_events[$name]['return']) {
                     $params = $response;
                 }
             }
@@ -217,7 +217,7 @@ class EventHandler {
 
         foreach (self::$_events as $name => $meta) {
             if (!$meta['internal'] || $internal) {
-                // The description will be an array if the event is a class based event
+                // The description might be an array if the event is a class based event
                 $description = is_array($meta['description'])
                     ? $language->get(...$meta['description'])
                     : $meta['description'];

@@ -12,7 +12,10 @@ abstract class AbstractEvent {
         return lcfirst(str_replace('Event', '', static::class));
     }
 
-    abstract public static function description(): array;
+    /**
+     * @return string|array
+     */
+    abstract public static function description();
 
     public static function return(): bool {
         return false;
