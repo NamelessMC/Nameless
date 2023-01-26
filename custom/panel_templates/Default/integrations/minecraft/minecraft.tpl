@@ -60,6 +60,13 @@
                                             </td>
                                         </tr>
                                     {/if}
+                                    {if isset($ACCOUNT_VERIFICATION)}
+                                        <tr>
+                                            <td>
+                                                <a href="{$ACCOUNT_VERIFICATION_LINK}">{$ACCOUNT_VERIFICATION}</a>
+                                            </td>
+                                        </tr>
+                                    {/if}
                                     {if isset($SERVERS)}
                                         <tr>
                                             <td>
