@@ -116,7 +116,7 @@ if ($page != 'install') {
 
     $smarty = new Smarty();
 
-    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+    if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
         DebugBarHelper::getInstance()->enable($smarty);
     }

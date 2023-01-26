@@ -20,15 +20,15 @@ class UserRegisteredEvent extends AbstractEvent implements DiscordDispatchable {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
-            ->username(SITE_NAME)
-            ->embed(function (DiscordEmbed $embed) use ($language) {
+            ->setUsername(SITE_NAME)
+            ->addEmbed(function (DiscordEmbed $embed) use ($language) {
                 return $embed
-                    ->author(
+                    ->setAuthor(
                         $this->user->getDisplayname(),
                         $this->user->getAvatar(128, true),
                         URL::getSelfURL() . ltrim($this->user->getProfileURL(), '/')
                     )
-                    ->description($language->get('user', 'user_x_has_registered', [
+                    ->setDescription($language->get('user', 'user_x_has_registered', [
                             'user' => $this->user->getDisplayname(),
                             'siteName' => SITE_NAME,
                     ]));

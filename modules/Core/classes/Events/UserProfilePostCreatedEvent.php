@@ -24,16 +24,16 @@ class UserProfilePostCreatedEvent extends AbstractEvent implements DiscordDispat
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
-            ->username($this->poster->data()->username . ' | ' . SITE_NAME)
-            ->avatarUrl($this->poster->getAvatar(128, true))
-            ->embed(function (DiscordEmbed $embed) use ($language) {
+            ->setUsername($this->poster->data()->username . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->poster->getAvatar(128, true))
+            ->addEmbed(function (DiscordEmbed $embed) use ($language) {
                 return $embed
-                    ->description($language->get('user', 'x_posted_on_y_profile', [
+                    ->setDescription($language->get('user', 'x_posted_on_y_profile', [
                         'poster' => $this->poster->getDisplayname(),
                         'user' => $this->profile_user->getDisplayname(),
                     ]))
-                    ->url(URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($this->profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/'))
-                    ->field($language->get('user', 'content'), strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $this->content)));
+                    ->setUrl(URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($this->profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/'))
+                    ->addField($language->get('user', 'content'), strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $this->content)));
             });
     }
 }

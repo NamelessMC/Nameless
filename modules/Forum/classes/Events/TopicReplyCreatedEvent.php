@@ -35,17 +35,17 @@ class TopicReplyCreatedEvent extends AbstractEvent implements DiscordDispatchabl
         $forum = new Forum();
 
         return DiscordWebhookBuilder::make()
-            ->username($this->creator->getDisplayname() . ' | ' . SITE_NAME)
-            ->avatarUrl($this->creator->getAvatar(128, true))
-            ->content($language->get('forum', 'new_reply_in_topic', [
+            ->setUsername($this->creator->getDisplayname() . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->creator->getAvatar(128, true))
+            ->setContent($language->get('forum', 'new_reply_in_topic', [
                 'topic' => $this->topic_title,
                 'author' => $this->creator->getDisplayname(),
             ]))
-            ->embed(function (DiscordEmbed $embed) use ($forum) {
+            ->addEmbed(function (DiscordEmbed $embed) use ($forum) {
                 return $embed
-                    ->title($this->topic_title)
-                    ->description($this->content)
-                    ->url(URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/'));
+                    ->setTitle($this->topic_title)
+                    ->setDescription($this->content)
+                    ->setUrl(URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/'));
             });
     }
 }

@@ -20,15 +20,15 @@ class UserWarnedEvent extends AbstractEvent implements DiscordDispatchable {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
-            ->username($this->punished->getDisplayname() . ' | ' . SITE_NAME)
-            ->avatarUrl($this->punished->getAvatar(128, true))
-            ->embed(function (DiscordEmbed $embed) use ($language) {
+            ->setUsername($this->punished->getDisplayname() . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->punished->getAvatar(128, true))
+            ->addEmbed(function (DiscordEmbed $embed) use ($language) {
                 return $embed
-                    ->description($language->get('admin', 'user_warned_webhook', [
+                    ->setDescription($language->get('admin', 'user_warned_webhook', [
                         'punished' => $this->punished->getDisplayname(),
                         'punisher' => $this->punisher->getDisplayname(),
                     ]))
-                    ->field($language->get('admin', 'reason'), $this->reason);
+                    ->addField($language->get('admin', 'reason'), $this->reason);
             });
     }
 }

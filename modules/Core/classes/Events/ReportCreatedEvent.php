@@ -36,13 +36,13 @@ class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
 
     public function toDiscordWebook(): DiscordWebhookBuilder {
         return DiscordWebhookBuilder::make()
-            ->username($this->username . ' | ' . SITE_NAME)
-            ->avatarUrl($this->avatar_url)
-            ->embed(function (DiscordEmbed $embed) {
+            ->setUsername($this->username . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->avatar_url)
+            ->addEmbed(function (DiscordEmbed $embed) {
                 $embed
-                    ->title($this->title)
-                    ->url($this->url)
-                    ->description(mb_strlen($this->content) > 512
+                    ->setTitle($this->title)
+                    ->setUrl($this->url)
+                    ->setDescription(mb_strlen($this->content) > 512
                         ? mb_substr($this->content, 0, 512) . '...'
                         : $this->content
                     );

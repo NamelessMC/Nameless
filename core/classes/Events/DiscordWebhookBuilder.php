@@ -16,31 +16,55 @@ class DiscordWebhookBuilder {
         return new self();
     }
 
-    public function username(string $username): self {
+    public function getUsername(): ?string {
+        return $this->_username;
+    }
+
+    public function setUsername(string $username): self {
         $this->_username = $username;
         return $this;
     }
 
-    public function avatarUrl(string $avatar_url): self {
+    public function getAvatarUrl(): ?string {
+        return $this->_avatar_url;
+    }
+
+    public function setAvatarUrl(string $avatar_url): self {
         $this->_avatar_url = $avatar_url;
         return $this;
     }
 
-    public function content(string $content): self {
+    public function getContent(): ?string {
+        return $this->_content;
+    }
+
+    public function setContent(string $content): self {
         $this->_content = $content;
         return $this;
+    }
+
+    /**
+     * @return DiscordEmbed[]|null
+     */
+    public function getEmbeds(): ?array {
+        return $this->_embeds;
     }
 
     /**
      * @param Closure(DiscordEmbed): DiscordEmbed $closure
      * @return $this
      */
-    public function embed(Closure $closure): self {
+    public function addEmbed(Closure $closure): self {
         if ($this->_embeds === null) {
             $this->_embeds = [];
         }
 
-        $this->_embeds[] = $closure(new DiscordEmbed());
+        $embed = $closure(new DiscordEmbed());
+        if (!($embed instanceof DiscordEmbed)) {
+            throw new RuntimeException('Embed closure must return a DiscordEmbed instance');
+        }
+
+        $this->_embeds[] = $embed;
         return $this;
     }
 

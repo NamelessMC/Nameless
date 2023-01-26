@@ -35,14 +35,14 @@ class DiscordHook {
 
             // Create generic fallback embed if no embeds are provided
             $return = DiscordWebhookBuilder::make()
-                ->username($params['username'] . ' | ' . SITE_NAME)
-                ->avatarUrl($params['avatar_url'])
-                ->embed(function (DiscordEmbed $embed) use ($params, $content) {
+                ->setUsername($params['username'] . ' | ' . SITE_NAME)
+                ->setAvatarUrl($params['avatar_url'])
+                ->addEmbed(function (DiscordEmbed $embed) use ($params, $content) {
                     return $embed
-                        ->title($params['title'])
-                        ->description($content)
-                        ->url($params['url'])
-                        ->footer($params['content']);
+                        ->setTitle($params['title'])
+                        ->setDescription($content)
+                        ->setUrl($params['url'])
+                        ->setFooter($params['content']);
                 })
                 ->toArray();
         }

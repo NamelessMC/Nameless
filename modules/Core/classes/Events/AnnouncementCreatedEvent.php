@@ -24,12 +24,12 @@ class AnnouncementCreatedEvent extends AbstractEvent implements DiscordDispatcha
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
-            ->username($this->creator->getDisplayname() . ' | ' . SITE_NAME)
-            ->avatarUrl($this->creator->getAvatar(128, true))
-            ->embed(function (DiscordEmbed $embed) use ($language) {
+            ->setUsername($this->creator->getDisplayname() . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->creator->getAvatar(128, true))
+            ->addEmbed(function (DiscordEmbed $embed) use ($language) {
                 return $embed
-                    ->title($language->get('admin', 'new_announcement') . ': ' . $this->header)
-                    ->description(mb_strlen($this->message) > 512
+                    ->setTitle($language->get('admin', 'new_announcement') . ': ' . $this->header)
+                    ->setDescription(mb_strlen($this->message) > 512
                         ? mb_substr($this->message, 0, 512) . '...'
                         : $this->message
                     );

@@ -24,15 +24,15 @@ class UserIntegrationLinkedEvent extends AbstractEvent implements DiscordDispatc
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
-            ->username($this->user->getDisplayname() . ' | ' . SITE_NAME)
-            ->avatarUrl($this->user->getAvatar(128, true))
-            ->embed(function (DiscordEmbed $embed) use ($language) {
+            ->setUsername($this->user->getDisplayname() . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->user->getAvatar(128, true))
+            ->addEmbed(function (DiscordEmbed $embed) use ($language) {
                 $embed
-                    ->description($language->get('user', 'user_has_linked_integration', [
+                    ->setDescription($language->get('user', 'user_has_linked_integration', [
                         'user' => $this->user->getDisplayname(),
                         'integration' => $this->integration->getName(),
                     ]))
-                    ->url(URL::getSelfURL() . ltrim($this->user->getProfileURL(), '/'));
+                    ->setUrl(URL::getSelfURL() . ltrim($this->user->getProfileURL(), '/'));
             });
     }
 }
