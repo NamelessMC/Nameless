@@ -797,6 +797,8 @@
     "general/none": "None",
     "general/normal": "Normal",
     "general/not_registered_yet": "Not registered yet?",
+    "general/oauth_email_verified_automatically": "Email will be verified automatically",
+    "general/oauth_email_not_verified_automatically": "Email will not be verified automatically",
     "general/oauth_message_continue": "Continue registering with {{provider}}",
     "general/oauth_failed_setup": "Something went wrong. The OAuth2 setup is invalid. Contact an administrator",
     "general/oauth_failed": "Something went wrong while trying to use OAuth. Please try again.",
