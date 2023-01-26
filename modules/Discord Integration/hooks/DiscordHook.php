@@ -9,7 +9,7 @@
 
 class DiscordHook {
 
-    public static function execute(AbstractEvent $event, string $webhook_url = ''): void {
+    public static function execute(AbstractEvent $event, string $webhook_url): void {
         $params = $event->params();
         $format = [];
 

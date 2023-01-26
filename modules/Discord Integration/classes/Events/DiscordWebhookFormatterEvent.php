@@ -3,6 +3,7 @@
 class DiscordWebhookFormatterEvent extends AbstractEvent {
 
     public string $event;
+
     /**
      * @var array|DiscordWebhookBuilder $format
      */
