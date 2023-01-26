@@ -72,7 +72,7 @@
                                                     {$session.ip}
                                                 </td>
                                                 <td>
-                                                    <span data-toggle="tooltip" data-title="{$session.last_seen_long}">{$session.last_seen_short}</span>
+                                                    <span {if $session.last_seen_short !== 'Unknown'}data-toggle="tooltip" data-title="{$session.last_seen_long}"{/if}>{$session.last_seen_short}</span>
                                                 </td>
                                                 <td>
                                                     {if $session.active}

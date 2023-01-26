@@ -656,6 +656,7 @@
     "admin/user_management": "User Management",
     "admin/user_new_profile_post_hook_info": "New profile post",
     "admin/user_profile_post_reply_hook_info": "Profile post reply",
+    "admin/user_sessions": "User Login Sessions",
     "admin/user_unlink_integration_hook_info": "User unlink integration",
     "admin/user_updated_successfully": "User updated successfully.",
     "admin/user_validated_successfully": "User validated successfully.",

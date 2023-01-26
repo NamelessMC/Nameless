@@ -16,7 +16,7 @@ if (!$user->handlePanelPageLoad('admincp.users.sessions')) {
 const PAGE = 'panel';
 const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'sessions';
-$page_title = $language->get('admin', 'sessions');
+$page_title = $language->get('admin', 'user_sessions');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
@@ -34,8 +34,7 @@ if (!$view_user->exists()) {
 if (Input::exists()) {
     if (Token::check()) {
         if ($_POST['action'] == 'logout' && isset($_POST['sid'])) {
-            $id = $_POST['sid'];
-            DB::getInstance()->update('users_session', ['id', $id], [
+            DB::getInstance()->update('users_session', $_POST['sid'], [
                 'active' => false
             ]);
             $success = $language->get('general', 'logout_session_successfully');
@@ -45,7 +44,7 @@ if (Input::exists()) {
     }
 }
 $timeago = new TimeAgo(TIMEZONE);
-$sessions = DB::getInstance()->query('SELECT * FROM nl2_users_session WHERE user_id = ?', [$view_user->data()->id])->results();
+$sessions = DB::getInstance()->query('SELECT * FROM nl2_users_session WHERE user_id = ? ORDER BY last_seen DESC', [$view_user->data()->id])->results();
 $user_sessions_list = [];
 
 $cache->setCache('ip_location_results');
