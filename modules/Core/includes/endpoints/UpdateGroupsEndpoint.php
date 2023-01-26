@@ -10,9 +10,9 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $api->validateParams($_POST, ['server_id', 'player_groups']);
+        $api->validateParams($_POST, ['server-id', 'player_groups']);
 
-        $serverId = $_POST['server_id'];
+        $serverId = $_POST['server-id'];
         $group_sync_log = [];
 
         if ($serverId == Util::getSetting('group_sync_mc_server')) {
@@ -20,7 +20,7 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
                 foreach ($_POST['player_groups'] as $uuid => $groups) {
-                    $integrationUser = new IntegrationUser($integration, str_replace('-', '', $uuid), 'identifier');
+                    $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                     if ($integrationUser->exists()) {
                         $log = $this->updateGroups($integrationUser, $groups['groups']);
                         if (count($log)) {
@@ -32,7 +32,7 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
                 $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_GROUPS, $e->getMessage(), 500);
             }
 
-            $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
+            $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'groups_updates_successfully')], ['log' => $group_sync_log]));
         }
 
         $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $serverId);
