@@ -249,6 +249,12 @@ if (Input::exists()) {
                         $timezone = $auto_timezone;
                     }
 
+                    $register_method = 'nameless';
+                    if (Session::exists('oauth_register_data')) {
+                        $data = json_decode(Session::get('oauth_register_data'), true);
+                        $register_method = 'oauth_' . $data['provider'];
+                    }
+
                     // Create user
                     $user->create([
                         'username' => $username,
@@ -262,6 +268,7 @@ if (Input::exists()) {
                         'last_online' => date('U'),
                         'language_id' => $language_id,
                         'timezone' => $timezone,
+                        'register_method' => $register_method,
                     ]);
 
                     // Get user ID
@@ -281,7 +288,9 @@ if (Input::exists()) {
                             $data['provider'],
                             $data['id'],
                         );
-                        $auto_verify_oauth_email = $data['email'] === Input::get('email') && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']);
+                        $auto_verify_oauth_email = $data['email'] === Input::get('email')
+                            && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data'])
+                            && DB::getInstance()->get('users', ['email', $data['email']])->count() === 0;
 
                         Session::delete('oauth_register_data');
                     }
