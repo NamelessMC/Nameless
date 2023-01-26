@@ -28,6 +28,8 @@ if (Input::exists()) {
         if (isset($_POST['enable_minecraft'])) {
             // Either enable or disable Minecraft integration
             Util::setSetting('mc_integration', Input::get('enable_minecraft'));
+        } else if (isset($_POST['premium'])) {
+            Util::setSetting('uuid_linking', Input::get('enable_premium_accounts'));
         }
     } else {
         // Invalid token
@@ -54,6 +56,7 @@ if (isset($errors) && count($errors)) {
 
 // Check if Minecraft integration is enabled
 $minecraft_enabled = Util::getSetting('mc_integration');
+$uuid_linking = Util::getSetting('uuid_linking');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -64,7 +67,9 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_MINECRAFT_INTEGRATION' => $language->get('admin', 'enable_minecraft_integration'),
-    'MINECRAFT_ENABLED' => $minecraft_enabled
+    'MINECRAFT_ENABLED' => $minecraft_enabled,
+    'FORCE_PREMIUM_ACCOUNTS' => $language->get('admin', 'force_premium_accounts'),
+    'FORCE_PREMIUM_ACCOUNTS_VALUE' => ($uuid_linking == '1'),
 ]);
 
 if ($minecraft_enabled == 1) {
@@ -72,13 +77,6 @@ if ($minecraft_enabled == 1) {
         $smarty->assign([
             'AUTHME' => $language->get('admin', 'authme_integration'),
             'AUTHME_LINK' => URL::build('/panel/minecraft/authme')
-        ]);
-    }
-
-    if ($user->hasPermission('admincp.minecraft.verification')) {
-        $smarty->assign([
-            'ACCOUNT_VERIFICATION' => $language->get('admin', 'account_verification'),
-            'ACCOUNT_VERIFICATION_LINK' => URL::build('/panel/minecraft/account_verification')
         ]);
     }
 
