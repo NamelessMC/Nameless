@@ -13,15 +13,16 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['server_id', 'player_groups']);
 
         $serverId = $_POST['server_id'];
+        $group_sync_log = [];
 
         if ($serverId == Util::getSetting('group_sync_mc_server')) {
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
                 foreach ($_POST['player_groups'] as $uuid => $groups) {
-                    $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                    $integrationUser = new IntegrationUser($integration, str_replace('-', '', $uuid), 'identifier');
                     if ($integrationUser->exists()) {
-                        $log = $this->updateGroups($integrationUser, $groups);
+                        $log = $this->updateGroups($integrationUser, $groups['groups']);
                         if (count($log)) {
                             $group_sync_log[] = $log;
                         }
