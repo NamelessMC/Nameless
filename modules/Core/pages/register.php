@@ -218,9 +218,6 @@ if (Input::exists()) {
                     }
 
                     $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
-                    // Get current unix time
-                    $date = new DateTime();
-                    $date = $date->getTimestamp();
 
                     // Generate validation code
                     $code = SecureRandom::alphanumeric();
@@ -258,11 +255,11 @@ if (Input::exists()) {
                         'nickname' => $nickname,
                         'password' => $password,
                         'pass_method' => 'default',
-                        'joined' => $date,
+                        'joined' => date('U'),
                         'email' => Input::get('email'),
                         'reset_code' => $code,
                         'lastip' => $ip,
-                        'last_online' => $date,
+                        'last_online' => date('U'),
                         'language_id' => $language_id,
                         'timezone' => $timezone,
                     ]);
