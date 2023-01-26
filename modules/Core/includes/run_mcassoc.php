@@ -104,7 +104,8 @@ if (!isset($_GET['step'])) {
                     'email' => $_SESSION['mcassoc']['email'],
                     'active' => true,
                     'lastip' => $ip,
-                    'last_online' => date('U')
+                    'last_online' => date('U'),
+                    'register_method' => 'mcassoc',
                 ]);
 
                 $new_user = new User(DB::getInstance()->lastId());
