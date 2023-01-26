@@ -51,6 +51,17 @@
                         </form>
 
                         {if $MINECRAFT_ENABLED eq 1}
+                            <hr />
+                            <form id="enablePremium" action="" method="post">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <div class="form-group custom-control custom-switch">
+                                    <input type="hidden" name="premium" value="1">
+                                    <input id="inputPremiumAccounts" name="enable_premium_accounts" type="checkbox" class="custom-control-input js-check-change-verification" value="1" {if $FORCE_PREMIUM_ACCOUNTS_VALUE} checked{/if}/>
+                                    <label for="inputPremiumAccounts" class="custom-control-label">
+                                        {$FORCE_PREMIUM_ACCOUNTS}
+                                    </label>
+                                </div>
+                            </form>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     {if isset($AUTHME)}
