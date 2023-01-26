@@ -64,9 +64,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
-        $group_sync_log = [];
-        $should_group_sync = $serverId == Util::getSetting('group_sync_mc_server');
-
         try {
             $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
@@ -74,13 +71,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                 if ($integrationUser->exists()) {
                     $this->updateUsername($integrationUser, $player);
-
-                    if ($should_group_sync) {
-                        $log = $this->updateGroups($integrationUser, $player);
-                        if (count($log)) {
-                            $group_sync_log[] = $log;
-                        }
-                    }
 
                     if (isset($player['placeholders']) && count($player['placeholders'])) {
                         $this->updatePlaceholders($integrationUser->getUser(), $player);
@@ -91,7 +81,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
-        $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')], ['log' => $group_sync_log]));
+        $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')]));
     }
 
     private function updateUsername(IntegrationUser $integrationUser, array $player): void {
@@ -121,37 +111,9 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
     }
 
-    private function updateGroups(IntegrationUser $integrationUser, array $player): array {
-        if (!$integrationUser->isVerified()) {
-            return [];
-        }
-
-        $user = $integrationUser->getUser();
-        if (!$user->exists()) {
-            return [];
-        }
-
-        if (!$user->isValidated()) {
-            return [];
-        }
-
-        $log = GroupSyncManager::getInstance()->broadcastChange(
-            $user,
-            MinecraftGroupSyncInjector::class,
-            $player['groups'] ?? []
-        );
-
-        if (count($log)) {
-            Log::getInstance()->log(Log::Action('mc_group_sync/role_set'), json_encode($log), $user->data()->id);
-        }
-
-        return $log;
-    }
-
     private function updatePlaceholders(User $user, $player): void {
         if ($user->exists()) {
             $user->savePlaceholders($_POST['server-id'], $player['placeholders']);
         }
     }
-
 }
