@@ -499,7 +499,8 @@ try {
                 'tfa_enabled' => $item->tfa_enabled,
                 'tfa_type' => $item->tfa_type,
                 'tfa_secret' => $item->tfa_secret,
-                'tfa_complete' => $item->tfa_complete
+                'tfa_complete' => $item->tfa_complete,
+                'register_method' => 'v1_upgrade',
             ]);
 
             DB::getInstance()->insert('users_groups', [
