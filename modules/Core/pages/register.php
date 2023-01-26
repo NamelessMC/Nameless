@@ -314,6 +314,13 @@ if (Input::exists()) {
                             $timezone = $auto_timezone;
                         }
 
+                        $register_method = 'nameless';
+
+                        if (Session::exists('oauth_register_data')) {
+                            $data = json_decode(Session::get('oauth_register_data'), true);
+                            $register_method = 'oauth_' . $data['provider'];
+                        }
+
                         // Create user
                         $user->create([
                             'username' => $username,
@@ -327,6 +334,7 @@ if (Input::exists()) {
                             'last_online' => $date,
                             'language_id' => $language_id,
                             'timezone' => $timezone,
+                            'register_method' => $register_method,
                         ]);
 
                         // Get user ID
@@ -346,7 +354,9 @@ if (Input::exists()) {
                                 $data['provider'],
                                 $data['id'],
                             );
-                            $auto_verify_oauth_email = $data['email'] === Input::get('email') && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']);
+                            $auto_verify_oauth_email = $data['email'] === Input::get('email')
+                                && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data'])
+                                && DB::getInstance()->get('users', ['email', $data['email']])->count() === 0;
 
                             Session::delete('oauth_register_data');
                         }
@@ -429,7 +439,7 @@ if (Util::getSetting('displaynames') === '1') {
 $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 $email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
 
-if ($email === '' && Session::exists('oauth_register_data')) {
+if ($email_value === '' && Session::exists('oauth_register_data')) {
     $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
 }
 
@@ -471,7 +481,8 @@ if ($oauth_flow) {
         ]),
         'CANCEL' => $language->get('general', 'cancel'),
         'OAUTH_CANCEL_REGISTER_URL' => URL::build('/oauth', 'action=cancel_registration'),
-        'OAUTH_EMAIL_VERIFIED' => NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']),
+        'OAUTH_EMAIL_VERIFIED' => NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data'])
+            && DB::getInstance()->get('users', ['email', $data['email']])->count() === 0,
         'OAUTH_EMAIL_ORIGINAL' => $data['email'],
         'OAUTH_EMAIL_VERIFIED_MESSAGE' => $language->get('general', 'oauth_email_verified_automatically'),
         'OAUTH_EMAIL_NOT_VERIFIED_MESSAGE' => $language->get('general', 'oauth_email_not_verified_automatically'),

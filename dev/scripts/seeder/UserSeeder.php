@@ -22,6 +22,7 @@ class UserSeeder extends Seeder {
             'active' => true,
             'last_online' => date('U'),
             'language_id' => $db->get('languages', ['is_default', '=', 1])->first()->id,
+            'register_method' => 'nameless',
         ]);
         $user_id = $db->lastId();
         $db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
@@ -67,6 +68,7 @@ class UserSeeder extends Seeder {
                 'user_title' => $faker->boolean(20) ? $faker->text(60) : null,
                 'night_mode' => $faker->boolean ? 1 : 0,
                 'timezone' => $faker->boolean ? $faker->timezone : 'America/Vancouver',
+                'register_method' => 'nameless',
             ]);
 
             $user_id = $db->lastId();

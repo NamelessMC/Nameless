@@ -86,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'last_online' => date('U'),
                 'language_id' => $default_language[0]->id,
                 'timezone' => $_SESSION['install_timezone'],
+                'register_method' => 'nameless',
             ]);
 
             $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
