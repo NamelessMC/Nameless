@@ -371,7 +371,7 @@ if (Util::getSetting('displaynames') === '1') {
 $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 $email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');
 
-if ($email === '' && Session::exists('oauth_register_data')) {
+if ($email_value === '' && Session::exists('oauth_register_data')) {
     $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
 }
 
@@ -413,7 +413,8 @@ if ($oauth_flow) {
         ]),
         'CANCEL' => $language->get('general', 'cancel'),
         'OAUTH_CANCEL_REGISTER_URL' => URL::build('/oauth', 'action=cancel_registration'),
-        'OAUTH_EMAIL_VERIFIED' => NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']),
+        'OAUTH_EMAIL_VERIFIED' => NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data'])
+            && DB::getInstance()->get('users', ['email', $data['email']])->count() === 0,
         'OAUTH_EMAIL_ORIGINAL' => $data['email'],
         'OAUTH_EMAIL_VERIFIED_MESSAGE' => $language->get('general', 'oauth_email_verified_automatically'),
         'OAUTH_EMAIL_NOT_VERIFIED_MESSAGE' => $language->get('general', 'oauth_email_not_verified_automatically'),
