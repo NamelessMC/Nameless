@@ -23,15 +23,9 @@ class HttpUtils {
             return $_SERVER['REMOTE_ADDR'];
         }
 
-        // Try the simple headers first that only contain an IP address...
-
-        // Non-standard header that only contains the origin address
-        $x_real_ip = self::getHeader('X-Real-IP');
-        if ($x_real_ip !== null) {
-            return $x_real_ip;
-        }
-
         // Non-standard header sent by Cloudflare that only contains the origin address
+        // We can trust this to be the real IP address, no real-world setup would
+        // have an additional proxy in front of CloudFlare.
         $cf_connecting_ip = self::getHeader('CF-Connecting-IP');
         if ($cf_connecting_ip !== null) {
             return $cf_connecting_ip;
@@ -83,6 +77,13 @@ class HttpUtils {
             }
         }
 
+        // Non-standard header that only contains the origin address. This header should be tried last, since it does
+        // not work in the case of multiple proxies where at least two of them set the X-Real-IP header.
+        $x_real_ip = self::getHeader('X-Real-IP');
+        if ($x_real_ip !== null) {
+            return $x_real_ip;
+        }
+
         return $_SERVER['REMOTE_ADDR'];
     }
 
@@ -95,7 +96,7 @@ class HttpUtils {
         $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
         if ($x_forwarded_proto !== null) {
             if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
-                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($proto) . '".');
+                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($x_forwarded_proto) . '".');
             }
             return $x_forwarded_proto;
         }
@@ -116,6 +117,17 @@ class HttpUtils {
         $x_forwarded_port = self::getHeader('X-Forwarded-Port');
         if ($x_forwarded_port !== null) {
             return (int) $x_forwarded_port;
+        }
+
+        // Some hosts don't set X-Forwarded-Port, but do set X-Forwarded-Proto.
+        // Assume the default port for https or http is used, in that case.
+        $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
+        if ($x_forwarded_proto !== null) {
+            if ($x_forwarded_proto === 'https') {
+                return 443;
+            } else if ($x_forwarded_proto === 'http') {
+                return 80;
+            }
         }
 
         if (isset($_SERVER['SERVER_PORT'])) {

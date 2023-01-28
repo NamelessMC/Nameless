@@ -87,13 +87,13 @@ if (Input::exists()) {
                     Validate::REQUIRED => $language->get('user', 'must_input_email'),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'username' => [
                     Validate::REQUIRED => ($login_method == 'username' ? $language->get('user', 'must_input_username') : $language->get('user', 'must_input_email_or_username')),
                     Validate::IS_BANNED => $language->get('user', 'account_banned'),
                     Validate::IS_ACTIVE => $language->get('user', 'inactive_account'),
-                    Validate::RATE_LIMIT => fn($meta) => $language->get('general', 'rate_limit', $meta),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
                 ],
                 'password' => $language->get('user', 'must_input_password')
             ]);
@@ -149,87 +149,55 @@ if (Input::exists()) {
                     }
 
                     if (!isset($return_error)) {
-
-                        // Validation passed
-                        // Initialise user class
+                        // Sync AuthMe password
+                        $synced_password = false;
                         $user = new User();
+                        if ($method_field == 'email') {
+                            $user_id = $user->emailToId($username);
+                        } else {
+                            $user_id = $user->nameToId($username);
+                        }
 
-                        // Did the user check 'remember me'?
-                        $remember = Input::get('remember') == 1;
-
-                        $cache->setCache('authme_cache');
-                        $authme_db = $cache->retrieve('authme');
-
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
-
-                            // Sync AuthMe password
+                        $authme_db = Config::get('authme');
+                        if (MINECRAFT && Util::getSetting('authme') === '1' && DB::getInstance()->get('users', ['id', $user_id])->first()->authme_sync_password) {
                             try {
-                                $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
+                                // Check user exists in database and validate password
+                                $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
+                                $result = $authme_conn->query("SELECT password FROM {$authme_db['table']} WHERE email = ? OR realname = ?", [$username, $username]);
+                                if ($result->count()) {
+                                    $password = $result->first()->password;
+                                    // Strip prefixes from password that authme adds
+                                    switch ($authme_db['hash']) {
+                                        case 'sha256':
+                                            // $SHA$<salt>$<password hash>
+                                            [, , $salt, $pass] = explode('$', $password);
+                                            $password = $salt . '$' . $pass;
+                                            break;
 
-                                if ($authme_conn->connect_errno) {
-                                    // Connection error
-                                    // Continue anyway, and use already stored password
-                                } else {
-                                    // Success, check user exists in database and validate password
-                                    if ($method_field == 'email') {
-                                        $field = 'email';
-                                    } else {
-                                        $field = 'realname';
+                                        case 'pbkdf2':
+                                            // pbkdf2_sha256$<iterations>$<salt>$<password hash>
+                                            [, $iterations, $salt, $pass] = explode('$', $password);
+                                            $password = $iterations . '$' . $salt . '$' . $pass;
+                                            break;
                                     }
 
-                                    $stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
-                                    if ($stmt) {
-                                        $stmt->bind_param('s', $username);
-                                        $stmt->execute();
-                                        $stmt->bind_result($password);
+                                    // Update password
+                                    if (!is_null($password)) {
+                                        DB::getInstance()->update('users', $user_id, [
+                                            'password' => $password,
+                                            'pass_method' => $authme_db['hash']
+                                        ]);
 
-                                        while ($stmt->fetch()) {
-                                            // Retrieve result
-                                        }
-
-                                        $stmt->free_result();
-                                        $stmt->close();
-
-                                        switch ($authme_db['hash']) {
-                                            case 'sha256':
-                                                $exploded = explode('$', $password);
-                                                $salt = $exploded[2];
-
-                                                $password = $salt . '$' . $exploded[3];
-
-                                                break;
-
-                                            case 'pbkdf2':
-                                                $exploded = explode('$', $password);
-
-                                                $iterations = $exploded[1];
-                                                $salt = $exploded[2];
-                                                $pass = $exploded[3];
-
-                                                $password = $iterations . '$' . $salt . '$' . $pass;
-
-                                                break;
-                                        }
-
-                                        // Update password
-                                        if (!is_null($password)) {
-                                            if ($method_field == 'email') {
-                                                $user_id = $user->emailToId($username);
-                                            } else {
-                                                $user_id = $user->nameToId($username);
-                                            }
-
-                                            DB::getInstance()->update('users', $user_id, [
-                                                'password' => $password,
-                                                'pass_method' => $authme_db['hash']
-                                            ]);
-                                        }
+                                        $synced_password = true;
                                     }
                                 }
-                            } catch (Exception $e) {
+                            } catch (PDOException $exception) {
                                 // Error, continue as we can use the already stored password
                             }
                         }
+
+                        // Did the user check 'remember me'?
+                        $remember = Input::get('remember') == 1;
 
                         $login = $user->login($username, Input::get('password'), $remember, $method_field);
 
@@ -237,6 +205,12 @@ if (Input::exists()) {
                         if ($login) {
                             // Yes
                             Log::getInstance()->log(Log::Action('user/login'));
+
+                            if ($synced_password) {
+                                // Always alert them if their password was changed to avoid confusion
+                                Session::flash('home', $language->get('user', 'successful_login_synced_password'));
+                                Redirect::to(URL::build('/'));
+                            }
 
                             // Redirect to a certain page?
                             if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {

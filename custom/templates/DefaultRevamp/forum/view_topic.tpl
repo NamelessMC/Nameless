@@ -279,8 +279,6 @@
                     </div>
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <button class="ui primary button" type="submit">{$SUBMIT}</button>
-                    <button class="ui warning button" id="quoteButton" type="button"
-                        onclick="insertQuotes();">{$INSERT_QUOTES}</button>
                 </form>
             </div>
         </div>

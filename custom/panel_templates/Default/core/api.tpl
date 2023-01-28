@@ -51,18 +51,6 @@
                             <br />
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="InputAPIKey">{$API_KEY}</label>
-                                    <div class="input-group">
-                                        <input type="text" name="api_key" id="InputAPIKey" class="form-control" readonly
-                                            value="{if $API_ENABLED}{$API_KEY_VALUE}{else}{$ENABLE_API_FOR_URL}{/if}">
-                                        {if $API_ENABLED}
-                                        <span class="input-group-append"><a onclick="showRegenModal();"
-                                                class="btn btn-info text-white">{$CHANGE}</a></span>
-                                        {/if}
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="InputAPIURL">{$API_URL}</label>
                                     <div class="input-group">
                                         <input type="text" name="api_url" id="InputAPIURL" class="form-control" readonly
@@ -70,6 +58,18 @@
                                         {if $API_ENABLED}
                                         <span class="input-group-append"><a onclick="copyURL();"
                                                 class="btn btn-info text-white">{$COPY}</a></span>
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="InputAPIKey">{$API_KEY}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="api_key" id="InputAPIKey" class="form-control" readonly
+                                            value="{if $API_ENABLED}{$API_KEY_VALUE}{else}{$ENABLE_API_FOR_URL}{/if}">
+                                        {if $API_ENABLED}
+                                        <span class="input-group-append"><a onclick="showRegenModal();"
+                                                class="btn btn-info text-white">{$CHANGE}</a></span>
                                         {/if}
                                     </div>
                                 </div>
