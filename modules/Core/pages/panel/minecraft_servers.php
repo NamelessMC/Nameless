@@ -546,9 +546,6 @@ if (isset($_GET['action'])) {
                 // Status page
                 Util::setSetting('status_page', $status);
 
-                $cache->setCache('status_page');
-                $cache->store('enabled', $status);
-
                 // Query interval
                 if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
                     $cache->setCache('server_query_cache');

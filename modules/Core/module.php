@@ -98,7 +98,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
-        $pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
@@ -704,7 +703,6 @@ class Core_Module extends Module {
             'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
-            'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
             'admincp.minecraft.query_errors' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'query_errors'),
             'admincp.minecraft.banners' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
@@ -843,18 +841,7 @@ class Core_Module extends Module {
         }
 
         if (defined('MINECRAFT') && MINECRAFT === true) {
-            // Status page?
-            $cache->setCache('status_page');
-            if ($cache->isCached('enabled')) {
-                $status_enabled = $cache->retrieve('enabled');
-
-            } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
-                $cache->store('enabled', $status_enabled);
-
-            }
-
-            if ($status_enabled == 1) {
+            if (Util::getSetting('status_page')) {
                 // Add status link to navbar
                 $cache->setCache('navbar_order');
                 if (!$cache->isCached('status_order')) {
