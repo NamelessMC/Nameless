@@ -86,12 +86,10 @@ class Discord {
         }
 
         $role_changes = $result['role_changes'];
-        return array_map(static function (array $role_change) {
-            return [
-                'group_id' => $role_change['role_id'],
-                'status' => $role_change['status']
-            ];
-        }, $role_changes);
+        return array_map(static fn (array $role_change) => [
+            'group_id' => $role_change['role_id'],
+            'status' => $role_change['status']
+        ], $role_changes);
     }
 
     /**
