@@ -10,9 +10,11 @@ final class CreateMemberListsTable extends AbstractMigration
         $table = $this->table('nl2_member_lists', ['id' => false, 'primary_key' => 'name']);
 
         $table->addColumn('name', 'string', ['limit' => 64])
-            ->addColumn('friendly_name', 'string', ['limit' => 64, 'unique' => true])
+            ->addColumn('friendly_name', 'string', ['limit' => 64])
             ->addColumn('module', 'string', ['limit' => 64])
             ->addColumn('enabled', 'boolean', ['default' => true]);
+
+        $table->addIndex(['name', 'friendly_name'], ['unique' => true]);
 
         $table->create();
     }

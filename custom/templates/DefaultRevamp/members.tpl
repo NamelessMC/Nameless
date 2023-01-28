@@ -39,14 +39,17 @@
 </div>
 
 <script type="text/javascript">
-    {foreach from=$MEMBER_LISTS item=list}
+    {foreach from=$MEMBER_LISTS_VIEWING item=list}
     (function () {
         const xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
         xhr.open('GET', '{$QUERIES_URL|replace:'{{list}}':$list->getName()}');
 
+        const list = document.getElementById('member_list_{$list->getName()}');
+        list.innerHTML = '<div class="ui active centered inline loader"></div>';
+
         xhr.onload = function() {
-            const list = document.getElementById('member_list_{$list->getName()}');
+            list.innerHTML = '';
 
             const data = JSON.parse(xhr.responseText);
             if (data.length < 0) {
@@ -56,6 +59,7 @@
             for (const member of data) {
                 const mainDiv = document.createElement('div');
                 mainDiv.classList.add('item');
+                mainDiv.onclick = () => window.location.href = member.profile_url;
 
                 const countDiv = document.createElement('div');
                 countDiv.classList.add('right', 'floated', 'content');
@@ -68,18 +72,21 @@
                     mainDiv.appendChild(countDiv);
                 }
 
-                const avatarDiv = document.createElement('img');
-                avatarDiv.classList.add('ui', 'avatar', 'image');
-                avatarDiv.setAttribute('src', member.avatar_url);
-                mainDiv.appendChild(avatarDiv);
-
                 const contentDiv = document.createElement('div');
                 contentDiv.classList.add('middle', 'aligned', 'content');
 
-                const nameDiv = document.createElement('a');
-                nameDiv.classList.add('header');
-                nameDiv.setAttribute('href', member.profile_url);
-                nameDiv.innerHTML = member.username;
+                const avatarDiv = document.createElement('img');
+                avatarDiv.classList.add('ui', 'avatar', 'image');
+                avatarDiv.setAttribute('src', member.avatar_url);
+                {if $VIEWING_LIST == "overview"}
+                    contentDiv.appendChild(avatarDiv);
+                {else}
+                    mainDiv.appendChild(avatarDiv);
+                {/if}
+
+                const nameDiv = document.createElement('span');
+                nameDiv.style = member.group_style;
+                nameDiv.innerText = member.username;
                 contentDiv.appendChild(nameDiv);
 
                 {if $VIEWING_LIST != "overview"}
