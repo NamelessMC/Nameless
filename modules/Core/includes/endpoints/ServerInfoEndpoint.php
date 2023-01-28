@@ -97,17 +97,15 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 return;
             }
 
-            // Update username
+            // Update username, and nickname if displaynames is enabled
+            $fields = [
+                'username' => $player['name'],
+            ];
             if (Util::getSetting('displaynames') === '1') {
-                $user->update([
-                    'username' => $player['name']
-                ]);
-            } else {
-                $user->update([
-                    'username' => $player['name'],
-                    'nickname' => $player['name']
-                ]);
+                $fields['nickname'] = $player['name'];
             }
+
+            $user->update($fields);
         }
     }
 
