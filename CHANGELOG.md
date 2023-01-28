@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/18)
 
-## [2.0.3](https://github.com/NamelessMC/Nameless/compare/v2.0.2...v2.0.3)
+## [2.0.3](https://github.com/NamelessMC/Nameless/compare/v2.0.2...v2.0.3) - 2023-01-28
 ### Added
 - Allow cancelling OAuth register flow [#3089](https://github.com/NamelessMC/Nameless/pull/3089)
 - Add ability to change password of users via StaffCP [#3097](https://github.com/NamelessMC/Nameless/pull/3097)
