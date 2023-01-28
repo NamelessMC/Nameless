@@ -90,7 +90,7 @@ if ($page != 'install') {
             if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
                 Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
             } else {
-                Redirect::to('https://.' . $host . $_SERVER['REQUEST_URI']);
+                Redirect::to('https://' . $host . $_SERVER['REQUEST_URI']);
             }
         } else if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
             Redirect::to(HttpUtils::getProtocol() . '://www.' . $host . $_SERVER['REQUEST_URI']);
@@ -358,7 +358,7 @@ if ($page != 'install') {
     }
 
     // Widgets
-    $widgets = new Widgets($cache);
+    $widgets = new Widgets($cache, $language, $smarty);
 
     // Minecraft integration?
     define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
@@ -583,7 +583,7 @@ if ($page != 'install') {
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
-                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
+                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa') && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
                 }

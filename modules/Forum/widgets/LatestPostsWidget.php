@@ -3,7 +3,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -32,6 +32,7 @@ class LatestPostsWidget extends WidgetBase {
         $this->_name = 'Latest Posts';
         $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display latest posts from your forum.';
+        $this->_settings = ROOT_PATH . '/modules/Forum/widgets/admin/latest_posts.php';
         $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign([
@@ -53,28 +54,20 @@ class LatestPostsWidget extends WidgetBase {
             $template_array = $this->_cache->retrieve('discussions');
 
         } else {
+            $limit = (int) Util::getSetting('latest_posts_limit', 5, 'Forum');
             // Generate latest posts
-            $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0));
-
-            $n = 0;
-            // Calculate the number of discussions to display (5 max)
-            if (count($discussions) <= 5) {
-                $limit = count($discussions);
-            } else {
-                $limit = 5;
-            }
+            $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0), $limit);
 
             $template_array = [];
 
             // Generate an array to pass to template
-            while ($n < $limit) {
-                $discussion = $discussions[$n];
+            foreach ($discussions as $discussion) {
                 // Get the name of the forum from the ID
                 $forum_name = $db->get('forums', ['id', $discussion->forum_id])->results();
                 $forum_name = Output::getPurified($forum_name[0]->forum_title);
 
                 // Get the number of replies
-                $posts = $db->get('posts', ['topic_id', $discussion->id])->count();
+                $posts = $db->query('SELECT COUNT(*) as c FROM nl2_posts WHERE `topic_id` = ? AND `deleted` = 0', [$discussion->id])->first()->c;
 
                 // Is there a label?
                 if ($discussion->label != 0) {
@@ -128,8 +121,6 @@ class LatestPostsWidget extends WidgetBase {
                     'last_reply_profile_link' => $last_reply_user->getProfileURL(),
                     'last_reply_link' => URL::build('/forum/topic/' . $discussion->id . '-' . $forum->titleToURL($discussion->topic_title), 'pid=' . $discussion->last_post_id)
                 ];
-
-                $n++;
             }
 
             $this->_cache->store('discussions', $template_array, 60);

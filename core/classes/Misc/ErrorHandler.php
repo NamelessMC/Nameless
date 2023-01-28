@@ -104,6 +104,8 @@ class ErrorHandler {
                     $i--;
                 }
             }
+
+            $sql_frames = QueryRecorder::getInstance()->getSqlStack();
         }
 
         if (defined('LANGUAGE')) {
@@ -126,12 +128,11 @@ class ErrorHandler {
             'LANG_CHARSET' => defined('LANG_CHARSET') ? LANG_CHARSET : 'utf-8',
             'TITLE' => $language->get('errors', 'fatal_error') . ' - ' . $site_name,
             'SITE_NAME' => $site_name,
-            'BOOTSTRAP' => $path . 'vendor/bootstrap/dist/css/bootstrap.min.css',
-            'BOOTSTRAP_JS' => $path . 'vendor/bootstrap/dist/js/bootstrap.min.js',
-            'CUSTOM' => $path . 'css/custom.css',
+            'FOMANTIC_JS' => $path . 'vendor/fomantic-ui/dist/semantic.min.js',
+            'FOMANTIC_CSS' => $path . 'vendor/fomantic-ui/dist/semantic.min.css',
             'FONT_AWESOME' => $path . 'vendor/@fortawesome/fontawesome-free/css/all.min.css',
             'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
-            'PRISM_CSS' => $path . 'plugins/prism/prism_light_coy.css',
+            'PRISM_CSS' => $path . 'plugins/prism/prism_light_atom.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'TOAST_CSS' => $path . 'css/fomantic.toast.min.css',
             'TOAST_JS' => $path . 'js/fomantic.toast.min.js',
@@ -147,17 +148,29 @@ class ErrorHandler {
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
             'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
-            // TODO: should we skip the 2 frames that are from the "new User()" above?
-            'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
+            'ERROR_SQL_STACK' => $sql_frames ?? [],
             'CURRENT_URL' => HttpUtils::getProtocol() . '://' . HttpUtils::getHeader('Host') . $_SERVER['REQUEST_URI'],
             'FRAMES' => $frames ?? [],
             'SKIP_FRAMES' => $skip_frames ?? 0,
             'BACK' => $language->get('general', 'back'),
             'HOME' => $language->get('general', 'home'),
-            'HOME_URL' => URL::build('/')
+            'HOME_URL' => URL::build('/'),
+            'GENERATE' => $language->get('general', 'generate'),
+            'GENERATE_DEBUG_LINK' => $language->get('general', 'generate_debug_link'),
+            'CANNOT_READ_FILE' => $language->get('general', 'cannot_read_file'),
+            'FRAME' => $language->get('general', 'frame'),
+            'SQL_QUERY' => $language->get('general', 'sql_query'),
+            'NAMELESSMC_SUPPORT' => $language->get('general', 'namelessmc_support'),
+            'NAMELESSMC_DOCS' => $language->get('general', 'namelessmc_documentation'),
+            'DEBUG_TOAST_CLICK' => $language->get('admin', 'debug_link_toast', [
+                'linkStart' => '<u><a href="{url}" target="_blank">',
+                'linkEnd' => '</a></u>',
+            ]),
+            'DEBUG_CANNOT_GENERATE' => $language->get('general', 'debug_link_cannot_generate'),
+            'DEBUG_COPIED' => $language->get('general', 'debug_link_copied'),
         ]);
 
-        $smarty->display(ROOT_PATH . DIRECTORY_SEPARATOR . 'error.tpl');
+        $smarty->display(ROOT_PATH . '/core/includes/error.tpl');
         die();
     }
 

@@ -39,65 +39,63 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
-                            <form action="" method="POST">
-                                <h4>{$REQUIREMENTS}</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <td>{$BOT_SETUP}</td>
-                                                <td class="text-right">{if $BOT_URL_SET && $GUILD_ID_SET &&
-                                                    $BOT_USERNAME_SET}
-                                                    <i class="fas fa-check-circle text-success"></i>
-                                                    {else}
-                                                    <i class="fas fa-times-circle text-danger"></i>
-                                                    {/if}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="card shadow border-left-primary">
+                                <div class="card-body">
+                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                    {$INVITE_LINK}
                                 </div>
-                                <hr>
+                            </div>
+                            <br />
 
-                                <form id="settings" action="" method="post">
-                                    <div class="form-group custom-control custom-switch">
-                                        <input id="inputEnableDiscord" name="enable_discord" type="checkbox"
-                                            class="custom-control-input" value="1" {if $DISCORD_ENABLED eq 1}
-                                            checked{/if} />
-                                        <label for="inputEnableDiscord" class="custom-control-label">
-                                            {$ENABLE_DISCORD_INTEGRATION}
-                                        </label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="hidden" name="token" value="{$TOKEN}">
-                                        <input type="submit" value="{$SUBMIT}" class="btn btn-primary" {if !$BOT_URL_SET
-                                            || !$GUILD_ID_SET} disabled {/if}>
-                                    </div>
-                                </form>
+                            <h4>{$REQUIREMENTS}</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td>{$BOT_SETUP}</td>
+                                            <td class="text-right">{if $BOT_URL_SET && $GUILD_ID_SET &&
+                                                $BOT_USERNAME_SET}
+                                                <i class="fas fa-check-circle text-success"></i>
+                                                {else}
+                                                <i class="fas fa-times-circle text-danger"></i>
+                                                {/if}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr>
 
-                                <hr>
-                                <form action="" method="POST">
-                                    <div class="form-group">
-                                        <label for="inputDiscordId">{$DISCORD_GUILD_ID} <span class="badge badge-info"
-                                                data-toggle="popover" data-title="{$INFO}"
-                                                data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
-                                        <input class="form-control" type="number" name="discord_guild_id"
-                                            id="inputDiscordId" value="{$DISCORD_GUILD_ID_VALUE}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputIntegrationLinkMethod">{$INTEGRATION_LINK_METHOD}</label>
-                                        <select name="integration_link_method" class="form-control" id="inputIntegrationLinkMethod">
-                                            <option value="bot" {if $INTEGRATION_LINK_METHOD_VALUE eq "bot" }
-                                                selected{/if}>{$BOT}</option>
-                                            <option value="oauth" {if $INTEGRATION_LINK_METHOD_VALUE eq "oauth" }
-                                                selected{/if}>{$OAUTH}</option>
-                                        </select>
-                                    </div>
-                                    <div type="form-group">
-                                        <input type="hidden" name="token" value="{$TOKEN}">
-                                        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                                    </div>
-                                </form>
+                            <form id="settings" action="" method="post">
+                                <div class="form-group custom-control custom-switch">
+                                    <input id="inputEnableDiscord" name="enable_discord" type="checkbox"
+                                        class="custom-control-input" value="1" {if $DISCORD_ENABLED eq 1}
+                                        checked{/if} />
+                                    <label for="inputEnableDiscord" class="custom-control-label">
+                                        {$ENABLE_DISCORD_INTEGRATION}
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="submit" value="{$SUBMIT}" class="btn btn-primary" {if !$BOT_URL_SET
+                                        || !$GUILD_ID_SET} disabled {/if}>
+                                </div>
+                            </form>
+
+                            <hr>
+                            <form action="" method="POST">
+                                <div class="form-group">
+                                    <label for="inputDiscordId">{$DISCORD_GUILD_ID} <span class="badge badge-info"
+                                            data-toggle="popover" data-title="{$INFO}"
+                                            data-content="{$ID_INFO|escape}"><i class="fa fa-question"></i></label>
+                                    <input class="form-control" type="number" name="discord_guild_id"
+                                        id="inputDiscordId" value="{$DISCORD_GUILD_ID_VALUE}">
+                                </div>
+                                <div type="form-group">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                                </div>
+                            </form>
 
                         </div>
                     </div>

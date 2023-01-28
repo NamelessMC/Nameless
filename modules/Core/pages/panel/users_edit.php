@@ -210,19 +210,42 @@ if (Input::exists()) {
                     $errors[] = $language->get('admin', 'select_user_group');
                 }
             }
-        } else {
-            if (Input::get('action') == 'delete') {
-                if ($user_query->id > 1) {
-                    EventHandler::executeEvent('deleteUser', [
-                        'user_id' => $user_query->id,
-                        'username' => $user_query->username,
-                        'email_address' => $user_query->email
-                    ]);
 
-                    Session::flash('users_session', $language->get('admin', 'user_deleted'));
-                }
+        } else if ((Input::get('action') == 'delete') && $user_query->id > 1) {
+                EventHandler::executeEvent('deleteUser', [
+                    'user_id' => $user_query->id,
+                    'username' => $user_query->username,
+                    'email_address' => $user_query->email
+                ]);
 
+                Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 Redirect::to(URL::build('/panel/users'));
+        } else if ((Input::get('action') == 'change_password') && $user_query->id > 1 && !$view_user->canViewStaffCP()) {
+            $validation = Validate::check($_POST, [
+                'password' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 6
+                ],
+                'password_again' => [
+                    Validate::MATCHES => 'password'
+                ]
+            ])->messages([
+                'password' => [
+                    Validate::REQUIRED => $language->get('user', 'password_required'),
+                    Validate::MIN => $language->get('user', 'password_minimum_6')
+                ],
+                'password_again' => $language->get('user', 'passwords_dont_match')
+            ]);
+
+            if ($validation->passed()) {
+                $password = Input::get('password');
+                $encrypted_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
+                $view_user->update([
+                    'password' => $encrypted_password
+                ]);
+                Session::flash('edit_user_success', $language->get('admin', 'user_password_changed_successfully'));
+            } else {
+                Session::flash('edit_user_error', implode('\n', $validation->errors()));
             }
         }
     } else {
@@ -278,7 +301,11 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_USER' => $language->get('admin', 'confirm_user_deletion', ['user' => Output::getClean($user_query->username)]),
         'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no')
+        'NO' => $language->get('general', 'no'),
+
+        'NEW_PASSWORD' => $language->get('user', 'new_password'),
+        'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
+        'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
     ]);
 }
 
@@ -361,7 +388,7 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'ACTIVE_TEMPLATE' => $language->get('user', 'active_template'),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
-    'TEMPLATES' => $templates
+    'TEMPLATES' => $templates,
 ]);
 
 $template->assets()->include([

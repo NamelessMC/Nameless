@@ -34,11 +34,14 @@ class RecentUsersItem extends CollectionItemBase {
 
     public function getContent(): string {
         // Get the number of recent users
-        $users_query = DB::getInstance()->get('users', ['joined', '>', strtotime('7 days ago')])->results();
+        $users_query = DB::getInstance()->query(
+            'SELECT COUNT(*) AS c FROM nl2_users WHERE `joined` > ?',
+            [strtotime('7 days ago')],
+        )->first()->c;
 
         $this->_smarty->assign([
             'TITLE' => $this->_language->get('admin', 'recent_users'),
-            'VALUE' => count($users_query)
+            'VALUE' => $users_query
         ]);
 
         return $this->_smarty->fetch('collections/dashboard_stats/recent_users.tpl');

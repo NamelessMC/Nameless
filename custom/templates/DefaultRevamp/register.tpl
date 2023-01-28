@@ -4,7 +4,9 @@
 <h2 class="ui header">
     {$CREATE_AN_ACCOUNT}
     {if $OAUTH_FLOW}
-    <div class="sub header">{$OAUTH_MESSAGE_CONTINUE}</div>
+    <div class="sub header">
+        {$OAUTH_MESSAGE_CONTINUE}
+    </div>
     {/if}
 </h2>
 
@@ -100,6 +102,9 @@
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input id="timezone" type="hidden" name="timezone" value="">
                     <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
+                    {if $OAUTH_FLOW}
+                    <a class="ui button right floated" href="{$OAUTH_CANCEL_REGISTER_URL}">{$CANCEL}</a>
+                    {/if}
                 </form>
                 {if $OAUTH_AVAILABLE and !$OAUTH_FLOW}
                 <div class="ui horizontal divider">{$OR}</div>
@@ -126,5 +131,29 @@
         </div>
     </div>
 </div>
+
+{if $OAUTH_FLOW && $OAUTH_EMAIL_VERIFIED}
+    <script>
+        document.getElementById('email').addEventListener('keyup', (e) => {
+            checkEmailValidity(e.target.value);
+        });
+
+        const checkEmailValidity = (email) => {
+            if ('{$OAUTH_EMAIL_VERIFIED}' && email !== '{$OAUTH_EMAIL_ORIGINAL}') {
+                addEmailCaption('{$OAUTH_EMAIL_NOT_VERIFIED_MESSAGE}', 'orange');
+            } else {
+                addEmailCaption('{$OAUTH_EMAIL_VERIFIED_MESSAGE}', 'green');
+            }
+        }
+
+        const addEmailCaption = (text, colour) => {
+            const email = document.getElementById('email');
+            document.getElementById('email-caption')?.remove();
+            email.parentElement.insertAdjacentHTML('beforeend', '<div id="email-caption" style="margin-top: 5px;" class="ui basic ' + colour + ' label">' + text + '</div>');
+        };
+
+        window.onload = () => checkEmailValidity('{$EMAIL_INPUT}');
+    </script>
+{/if}
 
 {include file='footer.tpl'}

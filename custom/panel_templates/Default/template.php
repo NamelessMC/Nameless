@@ -376,6 +376,16 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
+                            $this->addJSScript('
+                            if ($(\'.js-check-change-verification\').length) {
+                                var changeCheckbox = document.querySelector(\'.js-check-change-verification\');
+
+                                changeCheckbox.onchange = function () {
+                                    $(\'#enablePremium\').submit();
+                                };
+                            }
+                            ');
+
                         } else if (MINECRAFT_PAGE == 'authme') {
 
                             $this->addJSScript('
@@ -384,18 +394,6 @@ if (!class_exists('Default_Panel_Template')) {
 
                                 changeCheckbox.onchange = function () {
                                     $(\'#enableAuthMe\').submit();
-                                };
-                            }
-                            ');
-
-                        } else if (MINECRAFT_PAGE == 'verification') {
-
-                            $this->addJSScript('
-                            if ($(\'.js-check-change\').length) {
-                                var changeCheckbox = document.querySelector(\'.js-check-change\');
-
-                                changeCheckbox.onchange = function () {
-                                    $(\'#enablePremium\').submit();
                                 };
                             }
                             ');

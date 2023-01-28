@@ -40,14 +40,7 @@ class DefaultRevamp_Template extends TemplateBase {
             AssetTree::FONT_AWESOME,
             AssetTree::JQUERY,
             AssetTree::JQUERY_COOKIE,
-        ]);
-
-        $this->addCSSFiles([
-            $template['path'] . 'css/fomantic.min.css' => [],
-        ]);
-
-        $this->addJSFiles([
-            $template['path'] . 'js/fomantic.min.js' => [],
+            AssetTree::FOMANTIC_UI,
         ]);
 
         $smarty->assign('TEMPLATE', $template);
@@ -121,7 +114,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+        if (str_contains($route, '/forum/topic/') || PAGE === 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);
@@ -130,7 +123,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
+            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = ' . json_encode($value);
             $i++;
         }
 

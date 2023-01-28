@@ -38,6 +38,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
+        $pages->add('Core', '/queries/authme_test_connection', 'queries/authme_test_connection.php');
         $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
@@ -97,7 +98,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
-        $pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
@@ -478,11 +478,36 @@ class Core_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('userNewProfilePost',
+            $language->get('admin', 'user_new_profile_post_hook_info'),
+            [
+                'username' => $language->get('user', 'username'),
+                'content' => $language->get('general', 'content'),
+                'content_full' => $language->get('general', 'full_content'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'title' => $language->get('user', 'new_profile_post_title'),
+                'url' => $language->get('general', 'url')
+            ]
+        );
+
+        EventHandler::registerEvent('userProfilePostReply',
+            $language->get('admin', 'user_profile_post_reply_hook_info'),
+            [
+                'username' => $language->get('user', 'username'),
+                'content' => $language->get('general', 'content'),
+                'content_full' => $language->get('general', 'full_content'),
+                'avatar_url' => $language->get('user', 'avatar'),
+                'title' => $language->get('user', 'profile_post_reply_title'),
+                'url' => $language->get('general', 'url')
+            ]
+        );
+
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
+            'verify_email' => static fn () => true,
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
@@ -490,6 +515,7 @@ class Core_Module extends Module {
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
             'icon' => 'fab fa-google',
+            'verify_email' => static fn () => true,
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('namelessmc', 'Core', [
@@ -686,7 +712,6 @@ class Core_Module extends Module {
             'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
-            'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
             'admincp.minecraft.query_errors' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'query_errors'),
             'admincp.minecraft.banners' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
@@ -796,7 +821,7 @@ class Core_Module extends Module {
 
         // Check for updates
         if ($user->isLoggedIn()) {
-            if ((defined('PANEL_PAGE') && PANEL_PAGE !== 'update') && $user->hasPermission('admincp.update')) {
+            if (!(defined('PANEL_PAGE') && PANEL_PAGE === 'update') && $user->hasPermission('admincp.update')) {
                 $cache->setCache('update_check');
                 if ($cache->isCached('update_check')) {
                     $update_check = $cache->retrieve('update_check');
@@ -825,18 +850,7 @@ class Core_Module extends Module {
         }
 
         if (defined('MINECRAFT') && MINECRAFT === true) {
-            // Status page?
-            $cache->setCache('status_page');
-            if ($cache->isCached('enabled')) {
-                $status_enabled = $cache->retrieve('enabled');
-
-            } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
-                $cache->store('enabled', $status_enabled);
-
-            }
-
-            if ($status_enabled == 1) {
+            if (Util::getSetting('status_page')) {
                 // Add status link to navbar
                 $cache->setCache('navbar_order');
                 if (!$cache->isCached('status_order')) {
@@ -1477,11 +1491,11 @@ class Core_Module extends Module {
                 if ($cache->isCached('email_errors')) {
                     $email_errors = $cache->retrieve('email_errors');
                 } else {
-                    $email_errors = DB::getInstance()->get('email_errors', ['id', '<>', 0])->results();
+                    $email_errors = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_email_errors')->first()->c;
                     $cache->store('email_errors', $email_errors, 120);
                 }
 
-                if (count($email_errors)) {
+                if (intval($email_errors)) {
                     self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
                 }
             }
@@ -1493,7 +1507,15 @@ class Core_Module extends Module {
                     $data = $cache->retrieve('core_data');
 
                 } else {
-                    $users = DB::getInstance()->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC')->results();
+                    $users = DB::getInstance()->query(
+                        <<<SQL
+                            SELECT DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d') d, COUNT(*) c
+                            FROM nl2_users
+                            WHERE `joined` > ? AND `joined` < UNIX_TIMESTAMP()
+                            GROUP BY DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d')
+                        SQL,
+                        [strtotime('7 days ago')],
+                    );
 
                     // Output array
                     $data = [];
@@ -1501,33 +1523,15 @@ class Core_Module extends Module {
                     $data['datasets']['users']['label'] = 'language/admin/registrations'; // for $language->get('admin', 'registrations');
                     $data['datasets']['users']['colour'] = '#0004FF';
 
-                    foreach ($users as $member) {
-                        // Turn into format for graph
-                        // First, order them per day
-                        $date = date('d M Y', $member->joined);
-                        $date = '_' . strtotime($date);
-
-                        if (isset($data[$date]['users'])) {
-                            $data[$date]['users'] += 1;
-                        } else {
-                            $data[$date]['users'] = 1;
+                    if ($users->count()) {
+                        foreach ($users->results() as $day) {
+                            $data['_' . $day->d] = ['users' => $day->c];
                         }
                     }
 
                     $users = null;
 
-                    // Fill in missing dates, set registrations/players to 0
-                    $start = strtotime('-1 week');
-                    $start = date('d M Y', $start);
-                    $start = strtotime($start);
-                    $end = strtotime(date('d M Y'));
-                    while ($start <= $end) {
-                        if (!isset($data['_' . $start]['users'])) {
-                            $data['_' . $start]['users'] = 0;
-                        }
-
-                        $start = strtotime('+1 day', $start);
-                    }
+                    $data = self::fillMissingGraphDays($data, 'users');
 
                     // Sort by date
                     ksort($data);
@@ -1601,6 +1605,30 @@ class Core_Module extends Module {
         } else {
             self::$_dashboard_graph[$title] = $data;
         }
+    }
+
+    /**
+     * Fill missing days in an array containing graph data
+     *
+     * @param array $data Initial data to display on graph
+     * @param string $key Key to output data under
+     * @return array Formatted data under $key
+     */
+    public static function fillMissingGraphDays(array $data, string $key): array {
+        $start = new DateTime('-7 days');
+        $end = new DateTime('+1 day');
+        $interval = new DateInterval('P1D');
+
+        $dates = new DatePeriod($start, $interval, $end);
+
+        foreach ($dates as $date) {
+            $format = $date->format('Y-m-d');
+            if (!isset($data['_' . $format][$key])) {
+                $data['_' . $format][$key] = 0;
+            }
+        }
+
+        return $data;
     }
 
     public static function addUserAction($title, $link): void {

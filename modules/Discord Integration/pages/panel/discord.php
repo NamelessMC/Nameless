@@ -43,8 +43,7 @@ if (Input::exists()) {
 
             if ($validation->passed()) {
                 Util::setSetting('discord', Input::get('discord_guild_id'));
-                
-                Util::setSetting('integration_link_method', Input::get('integration_link_method'), 'Discord Integration');
+
                 $success = Discord::getLanguageTerm('discord_settings_updated');
 
             } else {
@@ -69,7 +68,8 @@ if (Input::exists()) {
         }
 
         if (!count($errors)) {
-            $success = Discord::getLanguageTerm('discord_settings_updated');
+            Session::flash('discord_success', Discord::getLanguageTerm('discord_settings_updated'));
+            Redirect::to(URL::build('/panel/discord'));
         }
     } else {
         // Invalid token
@@ -79,6 +79,10 @@ if (Input::exists()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('discord_success')) {
+    $success = Session::flash('discord');
+}
 
 if (isset($success)) {
     $smarty->assign([
@@ -115,7 +119,7 @@ $smarty->assign([
     'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info', [
         'inviteLinkStart' => '<a target="_blank" href="https://namelessmc.com/discord-bot-invite">',
         'inviteLinkEnd' => '</a>',
-        'command' => '<code>/apiurl</code>',
+        'command' => '<code>/configure link</code>',
         'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Installation-guide">',
         'selfHostLinkEnd' => '</a>',
     ]),
@@ -130,10 +134,6 @@ $smarty->assign([
         'linkStart' => '<a href="https://support.discord.com/hc/en-us/articles/206346498" target="_blank">',
         'linkEnd' => '</a>',
     ]),
-    'OAUTH' => $language->get('admin', 'oauth'),
-    'BOT' => Discord::getLanguageTerm('discord_bot'),
-    'INTEGRATION_LINK_METHOD' => Discord::getLanguageTerm('integration_link_method'),
-    'INTEGRATION_LINK_METHOD_VALUE' => Util::getSetting('integration_link_method', 'bot', 'Discord Integration'),
 ]);
 
 $template->onPageLoad();
