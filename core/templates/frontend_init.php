@@ -47,7 +47,7 @@ if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
 
 if (defined('PAGE') && PAGE != 404) {
     // Auto unset signin tfa variables if set
-    if (!str_contains($_GET['route'], '/queries/') && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && (!isset($_POST['tfa_code']) && !isset($_SESSION['mcassoc']))) {
+    if (!str_contains($_GET['route'], '/queries/') && (isset($_SESSION['remember']) || isset($_SESSION['username']) || isset($_SESSION['email']) || isset($_SESSION['password'])) && !isset($_POST['tfa_code'])) {
         unset($_SESSION['remember'], $_SESSION['username'], $_SESSION['email'], $_SESSION['password']);
     }
 }
