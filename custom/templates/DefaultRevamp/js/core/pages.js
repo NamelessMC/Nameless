@@ -2,20 +2,21 @@
 if (page !== '') {
 
     if (page === 'status') {
-        $(function () {
-            $(".server").each(function () {
-                let serverID = $(this).data("id");
-                let serverBungee = $(this).data("bungee");
-                let serverBedrock = $(this).data("bedrock");
-                let serverPlayerList = $(this).data("players");
-                let serverElem = '#server' + serverID + '[data-id=' + serverID + ']';
+        $(".server").each(function () {
+            let serverID = $(this).data("id");
+            let serverBungee = $(this).data("bungee");
+            let serverBedrock = $(this).data("bedrock");
+            let serverPlayerList = $(this).data("players");
+            let serverElem = '#server' + serverID + '[data-id=' + serverID + ']';
 
-                const paramChar = URLBuild('').includes('?') ? '&' : '?';
+            const paramChar = URLBuild('').includes('?') ? '&' : '?';
 
+            setInterval(function () {
                 $.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverID), function (data) {
                     let content;
                     let players = '';
                     if (data.status_value === 1) {
+                        $(serverElem).removeClass("red");
                         $(serverElem).addClass("green");
                         content = data.player_count + "/" + data.player_count_max;
                         if (serverBungee === 1) {
@@ -48,6 +49,7 @@ if (page !== '') {
                             }
                         }
                     } else {
+                        $(serverElem).removeClass("green");
                         $(serverElem).addClass("red");
                         content = offline;
                         players = noPlayersOnline;
@@ -56,7 +58,7 @@ if (page !== '') {
                     $(serverElem).find('#server-status').html(content);
                     $(serverElem).find('#server-players').html(players);
                 });
-            });
+            }, 5000);
         });
     } else if (page === 'profile') {
         function showBannerSelect() {

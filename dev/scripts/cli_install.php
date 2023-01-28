@@ -152,12 +152,16 @@ Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK')
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
+$_SESSION['install_timezone'] = in_array($timezone = getEnvVar('NAMELESS_TIMEZONE', 'Europe/London'), DateTimeZone::listIdentifiers())
+    ? $timezone
+    : 'Europe/London';
+
 DatabaseInitialiser::runPreUser();
 
 Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
 Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', $valid_values = ['0', '1']));
+Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 
@@ -177,6 +181,8 @@ $user->create([
     'active' => true,
     'last_online' => date('U'),
     'language_id' => DB::getInstance()->get('languages', ['is_default', 1])->results()[0]->id,
+    'timezone' => $_SESSION['install_timezone'],
+    'register_method' => 'nameless',
 ]);
 DB::getInstance()->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
     1,
