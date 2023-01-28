@@ -25,8 +25,8 @@ class DefaultRevamp_Template extends TemplateBase {
     public function __construct($cache, $smarty, $language, $user, $pages) {
         $template = [
             'name' => 'DefaultRevamp',
-            'version' => '2.0.2',
-            'nl_version' => '2.0.2',
+            'version' => '2.0.3',
+            'nl_version' => '2.0.3',
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 
@@ -87,7 +87,7 @@ class DefaultRevamp_Template extends TemplateBase {
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=200' => []
+            $this->_template['path'] . 'css/custom.css?v=203' => []
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
@@ -137,9 +137,9 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->addJSScript($JSVars);
 
         $this->addJSFiles([
-            $this->_template['path'] . 'js/core/core.js?v=202' => [],
+            $this->_template['path'] . 'js/core/core.js?v=203' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
-            $this->_template['path'] . 'js/core/pages.js?v=202' => [],
+            $this->_template['path'] . 'js/core/pages.js?v=203' => [],
             $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
