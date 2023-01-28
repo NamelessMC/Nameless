@@ -2,6 +2,7 @@
 
 class IntegrityChecker {
 
+    // @phpstan-ignore-next-line
     const CHECKSUMS_PATH = ROOT_PATH . '/checksums.json';
 
     /**
