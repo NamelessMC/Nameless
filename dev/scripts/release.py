@@ -38,15 +38,13 @@ EXCLUDE_FILES = [
     'semantic.json',
     'web.config.example',
 ]
-TARGET_DIR = 'release'
 
-
-def create_archives(source_dir: str, archive_name: str):
+def create_archives(archive_path: str, cwd: str = '.'):
     zip_command = [
         'zip',
         '-r',  # Recursive
         '-q',  # Quiet
-        f'{TARGET_DIR}/nameless-{archive_name}.zip',
+        f'{archive_path}.zip',
         '.',
         *itertools.chain.from_iterable((('-x', f'{name}/*') for name in EXCLUDE_DIRS)),
         *itertools.chain.from_iterable((('-x', f'{name}') for name in EXCLUDE_FILES)),
@@ -58,19 +56,20 @@ def create_archives(source_dir: str, archive_name: str):
         '-J',  # Use xzip
         '--owner=0',  # Set owner inside archive to root
         '--group=0',
-        '-f', f'{TARGET_DIR}/nameless-{archive_name}.tar.xz',
+        '-f', f'{archive_path}.tar.xz',
         *[f'--exclude={name}' for name in [*EXCLUDE_DIRS, *EXCLUDE_FILES]],
         '.',
     ]
 
-    print(f'Creating zip archive: {archive_name}')
     subprocess.check_call(zip_command,
-                          shell=False)
+                          shell=False,
+                          cwd=cwd)
 
-    print(f'Creating tar.xz archive: {archive_name}')
+    print(f'Creating tar.xz archive: {archive_path}')
     subprocess.check_call(tar_command,
                           env={'XZ_DEFAULTS': '-T 0'},  # Enable multithreading
-                          shell=False)
+                          shell=False,
+                          cwd=cwd)
 
 
 if __name__ == '__main__':
@@ -84,14 +83,14 @@ if __name__ == '__main__':
     shutil.rmtree('vendor', ignore_errors=True)
 
     # Create base archive
-    create_archives('.', 'base')
+    create_archives('release/nameless-base')
 
     # Run npm and composer (production dependencies only)
     subprocess.check_call(['npm', 'ci', '-q', '--cache', '.node_cache'],
                           stdout=PIPE)
     subprocess.check_call(['composer', 'install', '--no-dev', '--no-interaction'],
                           stdout=PIPE)
-    create_archives('.', 'deps-dist')
+    create_archives('release/nameless-deps-dist')
 
     # Create archive with files changed since last update
 
@@ -116,9 +115,9 @@ if __name__ == '__main__':
     for vendor_dir in ['vendor', 'core/assets/vendor']:
         shutil.copytree(vendor_dir, Path(upgrade_temp, vendor_dir))
 
-    create_archives(upgrade_temp.as_posix(), 'upgrade-from-' + previous_tag)
+    create_archives('../upgrade-from-' + previous_tag, cwd=upgrade_temp.as_posix())
 
     # Run composer again, to install development dependencies
     subprocess.check_call(['composer', 'install', '--no-interaction'],
                           stdout=PIPE)
-    create_archives('.', 'deps-dev')
+    create_archives('release/nameless-deps-dev')
