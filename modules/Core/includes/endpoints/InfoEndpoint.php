@@ -24,7 +24,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
 
         $ret = [];
 
-        $ret['nameless_version'] = '2.1.0';
+        $ret['nameless_version'] = Util::getSetting('nameless_version');
 
         if (Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true') {
             $ret['version_update'] = [
