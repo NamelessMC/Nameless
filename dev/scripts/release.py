@@ -75,7 +75,7 @@ def create_archives(source_dir: str, archive_name: str):
 
 if __name__ == '__main__':
     if not Path('.git').exists():
-        print('.git does not exists')
+        print('.git does not exist')
         sys.exit(1)
 
     print('Deleting vendor files')
@@ -92,11 +92,6 @@ if __name__ == '__main__':
     subprocess.check_call(['composer', 'install', '--no-dev', '--no-interaction'],
                           stdout=PIPE)
     create_archives('.', 'deps-dist')
-
-    # Run composer again, to install development dependencies
-    subprocess.check_call(['composer', 'install', '--no-interaction'],
-                          stdout=PIPE)
-    create_archives('.', 'deps-dev')
 
     # Create archive with files changed since last update
 
@@ -122,3 +117,8 @@ if __name__ == '__main__':
         shutil.copytree(vendor_dir, Path(upgrade_temp, vendor_dir))
 
     create_archives(upgrade_temp.as_posix(), 'upgrade-from-' + previous_tag)
+
+    # Run composer again, to install development dependencies
+    subprocess.check_call(['composer', 'install', '--no-interaction'],
+                          stdout=PIPE)
+    create_archives('.', 'deps-dev')

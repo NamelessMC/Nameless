@@ -26,7 +26,7 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function shouldEnable(): bool {
-        return Util::getSetting('group_sync_mc_server') != 0 && count($this->getSelectionOptions()) > 0;
+        return count($this->getSelectionOptions()) > 0;
     }
 
     public function getSelectionOptions(): array {
