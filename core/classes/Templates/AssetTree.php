@@ -57,10 +57,6 @@ class AssetTree {
      */
     public const JQUERY_COOKIE = 'JQUERY_COOKIE';
     /**
-     * @var string MCAssoc-Client (JS
-     */
-    public const MCASSOC_CLIENT = 'MCASSOC_CLIENT';
-    /**
      * @var string Moment v2.29 (JS)
      */
     public const MOMENT = 'MOMENT';
@@ -191,11 +187,6 @@ class AssetTree {
             ],
             'depends' => [
                 self::JQUERY,
-            ],
-        ],
-        self::MCASSOC_CLIENT => [
-            'js' => [
-                'js/mcassoc_client.js',
             ],
         ],
         self::MOMENT => [

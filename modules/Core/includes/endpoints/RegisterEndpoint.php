@@ -131,7 +131,8 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     'joined' => date('U'),
                     'lastip' => 'Unknown',
                     'reset_code' => $code,
-                    'last_online' => date('U')
+                    'last_online' => date('U'),
+                    'register_method' => 'api',
                 ]
             );
 
