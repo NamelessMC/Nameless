@@ -361,7 +361,7 @@ if ($page != 'install') {
     $widgets = new Widgets($cache, $language, $smarty);
 
     // Minecraft integration?
-    define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
+    define('MINECRAFT', Util::getSetting(Settings::MINECRAFT_INTEGRATION) === '1');
 
     // Navbar links
     $navigation = new Navigation();

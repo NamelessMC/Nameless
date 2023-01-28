@@ -765,7 +765,7 @@ if (count($avatar_site)) {
 }
 
 DB::getInstance()->insert('settings', [
-    'name' => 'mc_integration',
+    'name' => Settings::MINECRAFT_INTEGRATION,
     'value' => true,
 ]);
 

@@ -1644,7 +1644,7 @@ class Core_Module extends Module {
 
         return [
             'minecraft' => [
-                'mc_integration' => (bool)Util::getSetting('mc_integration'),
+                'mc_integration' => (bool)Util::getSetting(Settings::MINECRAFT_INTEGRATION),
                 'uuid_linking' => (bool)Util::getSetting('uuid_linking'),
                 'username_sync' => (bool)Util::getSetting('username_sync'),
                 'external_query' => (bool)Util::getSetting('external_query'),
