@@ -59,10 +59,12 @@ class IntegrityChecker {
         $checksums_dict = [];
 
         // Iterate over all files, recursively
+        // @phpstan-ignore-next-line
         $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH));
 
         foreach ($iterator as $path) {
             // Get path relative to Nameless root directory
+            // @phpstan-ignore-next-line
             $relative_path = substr($path, strlen(ROOT_PATH) + 1);
 
             if (self::isIgnored($relative_path)) {
