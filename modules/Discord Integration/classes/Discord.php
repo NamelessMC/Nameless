@@ -79,7 +79,7 @@ class Discord {
                     Log::getInstance()->log(Log::Action('discord/role_set'), "Status: $status, meta: $meta", $user->data()->id);
                     break;
                 default:
-                    Log::getInstance()->log(Log::Action('discord/role_set'), "Invalid 'status' response from bot {$result['status']}", $user->data()->id);
+                    Log::getInstance()->log(Log::Action('discord/role_set'), "Invalid 'status' response from bot $status", $user->data()->id);
             }
 
             return false;
