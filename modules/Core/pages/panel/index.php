@@ -54,14 +54,14 @@ if (count($dashboard_graphs)) {
         unset($dashboard_graph['datasets']);
 
         foreach ($dashboard_graph as $date => $values) {
-            $date = (int)str_replace('_', '', $date);
+            $date = ltrim($date, '_');
 
             if (!array_key_exists($date, $graph['keys'])) {
-                $graph['keys'][$date] = date('Y-m-d', $date);
+                $graph['keys'][$date] = $date;
             }
 
             foreach ($values as $valuekey => $value) {
-                $graph['datasets'][$valuekey]['data'][date('Y-m-d', $date)] = $value;
+                $graph['datasets'][$valuekey]['data'][$date] = $value;
             }
         }
 
@@ -203,6 +203,12 @@ if ($user->hasPermission('admincp.core.debugging')) {
 
     if (defined('DEBUGGING') && DEBUGGING) {
         $compat_errors[] = $language->get('admin', 'debugging_enabled');
+    }
+
+    if ($template->getName() !== 'Default') {
+        $compat_warnings[] = $language->get('admin', 'panel_template_third_party', [
+            'name' => Text::bold($template->getName()),
+        ]);
     }
 
     $smarty->assign([

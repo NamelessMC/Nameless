@@ -49,16 +49,18 @@ class OnlineStaffWidget extends WidgetBase {
 
             foreach ($online as $staff) {
                 $staff_user = new User($staff->id);
-                $staff_members[] = [
-                    'profile' => $staff_user->getProfileURL(),
-                    'style' => $staff_user->getGroupStyle(),
-                    'username' => $staff_user->getDisplayname(true),
-                    'nickname' => $staff_user->getDisplayname(),
-                    'avatar' => $staff_user->getAvatar(),
-                    'id' => Output::getClean($staff_user->data()->id),
-                    'group' => $staff_user->getMainGroup()->group_html,
-                    'group_order' => $staff_user->getMainGroup()->order
-                ];
+                if ($staff_user->exists()) {
+                    $staff_members[] = [
+                        'profile' => $staff_user->getProfileURL(),
+                        'style' => $staff_user->getGroupStyle(),
+                        'username' => $staff_user->getDisplayname(true),
+                        'nickname' => $staff_user->getDisplayname(),
+                        'avatar' => $staff_user->getAvatar(),
+                        'id' => Output::getClean($staff_user->data()->id),
+                        'group' => $staff_user->getMainGroup()->group_html,
+                        'group_order' => $staff_user->getMainGroup()->order
+                    ];
+                }
             }
 
             $this->_smarty->assign([

@@ -4,7 +4,9 @@
 <h2 class="ui header">
     {$CREATE_AN_ACCOUNT}
     {if $OAUTH_FLOW}
-    <div class="sub header">{$OAUTH_MESSAGE_CONTINUE}</div>
+    <div class="sub header">
+        {$OAUTH_MESSAGE_CONTINUE}
+    </div>
     {/if}
 </h2>
 
@@ -100,6 +102,9 @@
                     <input type="hidden" name="token" value="{$TOKEN}">
                     <input id="timezone" type="hidden" name="timezone" value="">
                     <input type="submit" class="ui primary button" value="{$REGISTER}" tabindex="8">
+                    {if $OAUTH_FLOW}
+                    <a class="ui button right floated" href="{$OAUTH_CANCEL_REGISTER_URL}">{$CANCEL}</a>
+                    {/if}
                 </form>
                 {if $OAUTH_AVAILABLE and !$OAUTH_FLOW}
                 <div class="ui horizontal divider">{$OR}</div>

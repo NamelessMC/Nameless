@@ -21,8 +21,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.2';
-        $nameless_version = '2.0.2';
+        $module_version = '2.0.3';
+        $nameless_version = '2.0.3';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -112,8 +112,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
-
-        $pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
 
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));
@@ -789,7 +787,7 @@ class Core_Module extends Module {
 
         // Check for updates
         if ($user->isLoggedIn()) {
-            if ((defined('PANEL_PAGE') && PANEL_PAGE !== 'update') && $user->hasPermission('admincp.update')) {
+            if (!(defined('PANEL_PAGE') && PANEL_PAGE === 'update') && $user->hasPermission('admincp.update')) {
                 $cache->setCache('update_check');
                 if ($cache->isCached('update_check')) {
                     $update_check = $cache->retrieve('update_check');
@@ -1470,11 +1468,11 @@ class Core_Module extends Module {
                 if ($cache->isCached('email_errors')) {
                     $email_errors = $cache->retrieve('email_errors');
                 } else {
-                    $email_errors = DB::getInstance()->get('email_errors', ['id', '<>', 0])->results();
+                    $email_errors = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_email_errors')->first()->c;
                     $cache->store('email_errors', $email_errors, 120);
                 }
 
-                if (count($email_errors)) {
+                if (intval($email_errors)) {
                     self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
                 }
             }
@@ -1486,7 +1484,15 @@ class Core_Module extends Module {
                     $data = $cache->retrieve('core_data');
 
                 } else {
-                    $users = DB::getInstance()->orderWhere('users', 'joined > ' . strtotime('-1 week'), 'joined', 'ASC')->results();
+                    $users = DB::getInstance()->query(
+                        <<<SQL
+                            SELECT DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d') d, COUNT(*) c
+                            FROM nl2_users
+                            WHERE `joined` > ? AND `joined` < UNIX_TIMESTAMP()
+                            GROUP BY DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d')
+                        SQL,
+                        [strtotime('7 days ago')],
+                    );
 
                     // Output array
                     $data = [];
@@ -1494,33 +1500,15 @@ class Core_Module extends Module {
                     $data['datasets']['users']['label'] = 'language/admin/registrations'; // for $language->get('admin', 'registrations');
                     $data['datasets']['users']['colour'] = '#0004FF';
 
-                    foreach ($users as $member) {
-                        // Turn into format for graph
-                        // First, order them per day
-                        $date = date('d M Y', $member->joined);
-                        $date = '_' . strtotime($date);
-
-                        if (isset($data[$date]['users'])) {
-                            $data[$date]['users'] += 1;
-                        } else {
-                            $data[$date]['users'] = 1;
+                    if ($users->count()) {
+                        foreach ($users->results() as $day) {
+                            $data['_' . $day->d] = ['users' => $day->c];
                         }
                     }
 
                     $users = null;
 
-                    // Fill in missing dates, set registrations/players to 0
-                    $start = strtotime('-1 week');
-                    $start = date('d M Y', $start);
-                    $start = strtotime($start);
-                    $end = strtotime(date('d M Y'));
-                    while ($start <= $end) {
-                        if (!isset($data['_' . $start]['users'])) {
-                            $data['_' . $start]['users'] = 0;
-                        }
-
-                        $start = strtotime('+1 day', $start);
-                    }
+                    $data = self::fillMissingGraphDays($data, 'users');
 
                     // Sort by date
                     ksort($data);
@@ -1594,6 +1582,30 @@ class Core_Module extends Module {
         } else {
             self::$_dashboard_graph[$title] = $data;
         }
+    }
+
+    /**
+     * Fill missing days in an array containing graph data
+     *
+     * @param array $data Initial data to display on graph
+     * @param string $key Key to output data under
+     * @return array Formatted data under $key
+     */
+    public static function fillMissingGraphDays(array $data, string $key): array {
+        $start = new DateTime('-7 days');
+        $end = new DateTime('+1 day');
+        $interval = new DateInterval('P1D');
+
+        $dates = new DatePeriod($start, $interval, $end);
+
+        foreach ($dates as $date) {
+            $format = $date->format('Y-m-d');
+            if (!isset($data['_' . $format][$key])) {
+                $data['_' . $format][$key] = 0;
+            }
+        }
+
+        return $data;
     }
 
     public static function addUserAction($title, $link): void {

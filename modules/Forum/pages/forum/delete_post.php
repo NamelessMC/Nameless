@@ -72,8 +72,10 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             }
 
             // Update latest posts in categories
-            $forum->updateForumLatestPosts();
-            $forum->updateTopicLatestPosts();
+            $forum->updateForumLatestPosts($forum_id);
+            if (Input::get('tid')) {
+                $forum->updateTopicLatestPosts((int) Input::get('tid'), $forum_id);
+            }
 
             Redirect::to($redirect);
 

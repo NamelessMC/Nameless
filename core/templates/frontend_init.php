@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.3
  *
  *  License: MIT
  *
@@ -35,7 +35,7 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 // Check if any integrations is required before user can continue
 if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
-        if ($integration->data()->required) {
+        if ($integration->data()->required && $integration->allowLinking()) {
             $integrationUser = $user->getIntegration($integration->getName());
             if ($integrationUser === null || !$integrationUser->isVerified()) {
                 Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
@@ -52,13 +52,15 @@ if (defined('PAGE') && PAGE != 404) {
     }
 }
 
-$template_path = ROOT_PATH . '/custom/templates/' . TEMPLATE;
-$smarty->setTemplateDir($template_path);
 $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
 if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) {
+    $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/' . TEMPLATE);
+
     require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 } else {
+    $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/DefaultRevamp');
+
     require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 }
 

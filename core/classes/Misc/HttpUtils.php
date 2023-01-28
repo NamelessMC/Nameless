@@ -95,7 +95,7 @@ class HttpUtils {
         $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
         if ($x_forwarded_proto !== null) {
             if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
-                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($proto) . '".');
+                die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($x_forwarded_proto) . '".');
             }
             return $x_forwarded_proto;
         }
@@ -116,6 +116,17 @@ class HttpUtils {
         $x_forwarded_port = self::getHeader('X-Forwarded-Port');
         if ($x_forwarded_port !== null) {
             return (int) $x_forwarded_port;
+        }
+
+        // Some hosts don't set X-Forwarded-Port, but do set X-Forwarded-Proto.
+        // Assume the default port for https or http is used, in that case.
+        $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
+        if ($x_forwarded_proto !== null) {
+            if ($x_forwarded_proto === 'https') {
+                return 443;
+            } else if ($x_forwarded_proto === 'http') {
+                return 80;
+            }
         }
 
         if (isset($_SERVER['SERVER_PORT'])) {

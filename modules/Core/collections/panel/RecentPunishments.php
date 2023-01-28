@@ -43,14 +43,13 @@ class RecentPunishmentsItem extends CollectionItemBase {
         if ($this->_cache->isCached('recent_punishments_data')) {
             $data = $this->_cache->retrieve('recent_punishments_data');
         } else {
-            $query = DB::getInstance()->orderAll('infractions', 'infraction_date', 'DESC')->results();
+            $query = DB::getInstance()->query('SELECT * FROM nl2_infractions ORDER BY `infraction_date` DESC LIMIT 5');
             $data = [];
 
-            if (count($query)) {
+            if ($query->count()) {
                 $users = [];
-                $i = 0;
 
-                foreach ($query as $item) {
+                foreach ($query->results() as $item) {
                     if (array_key_exists($item->punished, $users)) {
                         $punished_user = $users[$item->punished];
                     } else {
@@ -109,10 +108,6 @@ class RecentPunishmentsItem extends CollectionItemBase {
                         'revoked_by_profile' => ($revoked_by_user ? URL::build('/panel/user/' . urlencode($revoked_by_user->data()->id) . '-' . urlencode($revoked_by_user->data()->username)) : ''),
                         'revoked_at' => $timeago->inWords($item->revoked_at, $this->_language)
                     ];
-
-                    if (++$i == 5) {
-                        break;
-                    }
                 }
             }
 
