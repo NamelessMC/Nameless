@@ -12,8 +12,8 @@ Here are some things you should know when contributing:
         composer install --dev
         ```
         - This could take up to about a minute depending on your internet connection.
-- We use Yarn to manage frontend dependencies.
-    - Depending on the way you installed Yarn, you will need to run either `yarnpkg` or `yarn install` to download the required dependencies.
+- We use npm to manage frontend dependencies.
+    - Use `npm ci` to install dependencies exactly according to `package-lock.json`, or `npm install` to install the latest compatible versions.
 - You can use the CLI (command line) install script to reset your development environment in less than 5 seconds!
     - Run the following command when in the root directory:
         ```console
