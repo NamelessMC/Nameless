@@ -3,6 +3,54 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.0.0...v2)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/18)
 
+## [2.0.3](https://github.com/NamelessMC/Nameless/compare/v2.0.2...v2.0.3) - 2023-01-28
+### Added
+- Allow cancelling OAuth register flow [#3089](https://github.com/NamelessMC/Nameless/pull/3089)
+- Add ability to change password of users via StaffCP [#3097](https://github.com/NamelessMC/Nameless/pull/3097)
+- Apply rate limiting to forgot password [#3130](https://github.com/NamelessMC/Nameless/pull/3130)
+- Add rate limiting to user profile posts [#3145](https://github.com/NamelessMC/Nameless/pull/3145)
+- Add instructions on how to disable portal page to template [#3161](https://github.com/NamelessMC/Nameless/pull/3161)
+- Add warning for using 3rd party panel templates [#3189](https://github.com/NamelessMC/Nameless/pull/3189)
+- Add back discord invite instructions [#3195](https://github.com/NamelessMC/Nameless/pull/3195)
+- Allow selecting timezone during install [#3199](https://github.com/NamelessMC/Nameless/pull/3199)
+
+### Changed
+- Simplify missing vendor instructions [#3079](https://github.com/NamelessMC/Nameless/pull/3079)
+- Automatically detect installation path during installation [#3081](https://github.com/NamelessMC/Nameless/pull/3081)
+- Various performance improvements [#3119](https://github.com/NamelessMC/Nameless/pull/3119)
+- Remove user field from re-auth page [#3071](https://github.com/NamelessMC/Nameless/pull/3071)
+- Delete reported user on deletion [#3065](https://github.com/NamelessMC/Nameless/pull/3065)
+- Update forum + topic latest post when a user is marked as spam [#3124](https://github.com/NamelessMC/Nameless/pull/3124)
+- Delete replies to a spammer's topic [#3135](https://github.com/NamelessMC/Nameless/pull/3135)
+- Allow all tinymce valid_children when admin [#3144](https://github.com/NamelessMC/Nameless/pull/3144)
+- Move from yarn to npm [#3173](https://github.com/NamelessMC/Nameless/pull/3173)
+- Simplify forum post quoting system [#3184](https://github.com/NamelessMC/Nameless/pull/3184)
+- Ignore future dates in dashboard overview graph data [#3197](https://github.com/NamelessMC/Nameless/pull/3197)
+- Add X-API-Key fallback header if Authorization is missing [#3217](https://github.com/NamelessMC/Nameless/pull/3217)
+- Use X-Forwarded-Proto to determine port [#3229](https://github.com/NamelessMC/Nameless/pull/3229)
+- Properly encode content for javascript [#3227](https://github.com/NamelessMC/Nameless/pull/3227)
+- Allow browser scripts to bypass force_2fa redirects [#3076](https://github.com/NamelessMC/Nameless/pull/3076)
+
+### Fixed
+- Keep inaccessible labels in a topic when editing them as an unauthorised user [#3033](https://github.com/NamelessMC/Nameless/pull/3033)
+- Fix OAuth url [#3031](https://github.com/NamelessMC/Nameless/pull/3031)
+- Show correct server id when it is updated [#3075](https://github.com/NamelessMC/Nameless/pull/3075)
+- Fix widget error when user is deleted [#3078](https://github.com/NamelessMC/Nameless/pull/3078)
+- Fix tinymce image upload errors [#3095](https://github.com/NamelessMC/Nameless/pull/3095)
+- Return redirect when punishing users [#3101](https://github.com/NamelessMC/Nameless/pull/3101)
+- Fix oauth bypasses validation & banned checks [#3103](https://github.com/NamelessMC/Nameless/pull/3103)
+- Fix update available alerts on frontend
+- Fix TinyMCE spoiler plugin url [#3088](https://github.com/NamelessMC/Nameless/pull/3088)
+- Fix fallback to default template not working [#3153](https://github.com/NamelessMC/Nameless/pull/3153)
+- Fix sorting with thousands separators in value [#3162](https://github.com/NamelessMC/Nameless/pull/3162)
+- Fix checkbox aligning vertically [#3170](https://github.com/NamelessMC/Nameless/pull/3170)
+- Fix captcha validation [#3175](https://github.com/NamelessMC/Nameless/pull/3175)
+- Misc fixes [#3128](https://github.com/NamelessMC/Nameless/pull/3128)
+- Remove binding column name [#3187](https://github.com/NamelessMC/Nameless/pull/3187)
+- Fix post editing [#3176](https://github.com/NamelessMC/Nameless/pull/3176)
+- Fix LatestPostsWidget bugs [#3204](https://github.com/NamelessMC/Nameless/pull/3204)
+- Fix Util::setSetting cache not being updated [#3221](https://github.com/NamelessMC/Nameless/pull/3221)
+
 ## [2.0.2](https://github.com/NamelessMC/Nameless/compare/v2.0.1...v2.0.2) - 2022-08-13
 
 ### Added
