@@ -15,12 +15,12 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(Nameless2API::ERROR_INVALID_POST_CONTENTS, 'players');
         }
 
-        $serverId = $_POST['server-id'];
+        $server_id = $_POST['server-id'];
         // Ensure server exists
-        $server_query = $api->getDb()->get('mc_servers', ['id', $serverId]);
+        $server_query = $api->getDb()->get('mc_servers', ['id', $server_id]);
 
         if (!$server_query->count() || $server_query->first()->bedrock) {
-            $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $serverId);
+            $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $server_id);
         }
 
         if (isset($_POST['verify_command'])) {

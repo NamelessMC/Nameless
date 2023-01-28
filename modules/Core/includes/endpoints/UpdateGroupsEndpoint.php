@@ -12,10 +12,10 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api): void {
         $api->validateParams($_POST, ['server_id', 'player_groups']);
 
-        $serverId = $_POST['server_id'];
+        $server_id = $_POST['server_id'];
         $group_sync_log = [];
 
-        if ($serverId == Util::getSetting('group_sync_mc_server')) {
+        if ($server_id == Util::getSetting('group_sync_mc_server')) {
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
@@ -35,7 +35,7 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
             $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'groups_updates_successfully')], ['log' => $group_sync_log]));
         }
 
-        $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $serverId);
+        $api->throwError(CoreApiErrors::ERROR_INVALID_SERVER_ID, $server_id);
     }
 
     private function updateGroups(IntegrationUser $integrationUser, array $groups): array {
