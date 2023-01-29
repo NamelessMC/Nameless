@@ -107,12 +107,13 @@
                                     <input id="inputQueryInterval" name="interval" type="number" class="form-control" value="{$QUERY_INTERVAL_VALUE}" min="5" max="60" />
                                 </div>
 
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="external_query" value="0">
-                                    <input id="inputExternalQuery" name="external_query" type="checkbox" class="custom-control-input js-check-change" value="1" {if $EXTERNAL_QUERY_VALUE} checked{/if} />
-                                    <label for="inputExternalQuery" class="custom-control-label">
-                                        {$EXTERNAL_QUERY} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$EXTERNAL_QUERY_INFO}"></i></span>
-                                    </label>
+                                <div class="form-group">
+                                    <label for="inputExternalQuery">{$QUERY_TYPE} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$EXTERNAL_QUERY_INFO}"></i></span></label>
+                                    <select id="inputExternalQuery" class="form-control" name="external_query">
+                                        <option value="internal" name="{$INTERNAL}" {if $EXTERNAL_QUERY_VALUE eq 0}selected{/if}>{$INTERNAL}</option>
+                                        <option value="external" name="{$EXTERNAL}" {if $EXTERNAL_QUERY_VALUE eq 1}selected{/if}>{$EXTERNAL}</option>
+                                        <option value="plugin" name="{$PLUGIN}" {if $EXTERNAL_QUERY_VALUE eq 2}selected{/if}>{$PLUGIN}</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">

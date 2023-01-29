@@ -81,6 +81,23 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
+        // Server query
+        $query_type = Util::getSetting('external_query');
+        if ($query_type == QueryType::PLUGIN) {
+            $players_list = [];
+            foreach ($_POST['players'] as $uuid => $player) {
+                $players_list[] = ['uuid' => $uuid, 'username' => $player];
+            }
+
+            $cache->setCache('latest_query');
+            $cache->store($server_id, [
+                'player_count' => count($_POST['players']),
+                'player_count_max' => null, // TODO
+                'player_list' => $players_list,
+                'motd' => null
+            ], intval($_POST['interval_seconds'] ?? 10) * 2);
+        }
+
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')]));
     }
 
