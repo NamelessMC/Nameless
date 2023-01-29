@@ -86,15 +86,16 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         if ($query_type == QueryType::PLUGIN) {
             $players_list = [];
             foreach ($_POST['players'] as $uuid => $player) {
-                $players_list[] = ['uuid' => $uuid, 'username' => $player];
+                $players_list[] = ['uuid' => $uuid, 'username' => $player->name];
             }
 
+            $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
             $cache->setCache('latest_query');
             $cache->store($server_id, [
                 'player_count' => count($_POST['players']),
-                'player_count_max' => null, // TODO
+                'player_count_max' => $_POST['max_players'],
                 'player_list' => $players_list,
-                'motd' => null
+                'motd' => $_POST['motd']
             ], intval($_POST['interval_seconds'] ?? 10) * 2);
         }
 

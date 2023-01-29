@@ -12,14 +12,14 @@ if (!count($server)) {
 $server = $server[0];
 
 $cache->setCache('server_' . $server->id);
-if ($cache->isCached('result')) {
-    echo $cache->retrieve('result');
-} else {
+//if ($cache->isCached('result')) {
+//    echo $cache->retrieve('result');
+//} else {
     // Get query type
     $query_type = Util::getSetting('external_query', '0');
-    if ($query_type === '1') {
+    if ($query_type === QueryType::EXTERNAL) {
         $query_type = 'external';
-    } else {
+    } else if ($query_type === QueryType::INTERNAL) {
         $query_type = 'internal';
     }
 
@@ -32,6 +32,6 @@ if ($cache->isCached('result')) {
     $result = json_encode(MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language), JSON_PRETTY_PRINT);
     $cache->store('result', $result, 30);
     echo $result;
-}
+//}
 
 die();
