@@ -29,7 +29,7 @@ class PluginQuery {
             'player_count_max' => $data['player_count_max'],
             'player_list' => $data['player_list'],
             'format_player_list' => MCQuery::formatPlayerList($data['player_list']),
-            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
+            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => $data['player_count']]),
             'motd' => '',
             'version' => ''
         ];
