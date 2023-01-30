@@ -36,10 +36,12 @@ if (isset($_GET['key'])) {
 
 // Get query type
 $query_type = Util::getSetting('external_query', 'use else statement if seting is not present in database');
-if ($query_type === '1') {
+if ($query_type == QueryType::EXTERNAL) {
     $query_type = 'external';
-} else {
+} else if ($query_type == QueryType::INTERNAL) {
     $query_type = 'internal';
+} else if ($query_type == QueryType::PLUGIN) {
+    $query_type = 'plugin';
 }
 
 // Query
@@ -54,7 +56,7 @@ if (count($servers)) {
             'pre' => $server->pre,
             'name' => $server->name
         ];
-        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
+        $result = $query_type === 'plugin' ? PluginQuery::singleQuery($server->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
         if ($server->parent_server > 0) {
             $result['parent_server'] = $server->parent_server;
