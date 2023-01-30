@@ -923,13 +923,21 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = Util::getSetting('external_query') === '1' ? 'external' : 'internal';
+                        $query_type = Util::getSetting('external_query');
+                        if ($query_type == QueryType::INTERNAL) {
+                            $query_type = 'internal';
+                        } else if ($query_type == QueryType::EXTERNAL) {
+                            $query_type = 'external';
+                        } else if ($query_type == QueryType::PLUGIN) {
+                            $query_type = 'plugin';
+                        }
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
                                 $servers[] = [
+                                    'id' => $server->id,
                                     'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
                                     'pre' => $server->pre,
                                     'name' => $server->name,
@@ -937,7 +945,7 @@ class Core_Module extends Module {
                                 ];
                             }
 
-                            $result = MCQuery::multiQuery($servers, $query_type, $language, true);
+                            $result = $query_type === 'plugin' ? PluginQuery::multiQuery($servers, $language, true) : MCQuery::multiQuery($servers, $query_type, $language, true);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -957,7 +965,7 @@ class Core_Module extends Module {
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
+                            $result = $query_type === 'plugin' ? PluginQuery::singleQuery($default->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
