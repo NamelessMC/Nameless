@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Queries Minecraft servers using the NamelessMC plugin.
+ *
+ * @package NamelessMC\Minecraft
+ * @author Supercrafter100
+ * @version 2.0.1
+ * @license MIT
+ */
 class PluginQuery {
 
     /**
