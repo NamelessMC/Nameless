@@ -1648,7 +1648,7 @@ class Core_Module extends Module {
                 'mc_integration' => (bool)Util::getSetting('mc_integration'),
                 'uuid_linking' => (bool)Util::getSetting('uuid_linking'),
                 'username_sync' => (bool)Util::getSetting('username_sync'),
-                'query_type' => (bool)Util::getSetting('query_type'),
+                'query_type' => Util::getSetting('query_type', 'internal'),
                 'servers' => $servers,
             ]
         ];

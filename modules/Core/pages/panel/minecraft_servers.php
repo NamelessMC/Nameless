@@ -530,15 +530,8 @@ if (isset($_GET['action'])) {
                 // Group sync server
                 Util::setSetting('group_sync_mc_server', $new_group_sync_server);
 
-                // External query
-                Util::setSetting('query_type', $external);
-
-                $cache->setCache('query_cache');
-
-                $cache->store('query', [
-                    'default' => $new_default,
-                    'external' => $external
-                ]);
+                // Query type
+                Util::setSetting('query_type', $query_type);
 
                 // Status page
                 Util::setSetting('status_page', $status);
