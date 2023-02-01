@@ -82,21 +82,25 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         // Server query
-        $query_type = Util::getSetting('query_type', 'internal');
-        if ($query_type == 'plugin') {
-            $players_list = [];
-            foreach ($_POST['players'] as $uuid => $player) {
-                $players_list[] = ['id' => $uuid, 'name' => $player['name']];
-            }
+        try {
+            $query_type = Util::getSetting('query_type', 'internal');
+            if ($query_type == 'plugin') {
+                $players_list = [];
+                foreach ($_POST['players'] as $uuid => $player) {
+                    $players_list[] = ['id' => $uuid, 'name' => $player['name']];
+                }
 
-            $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
-            $cache->setCache('latest_query');
-            $cache->store($server_id, [
-                'player_count' => count($_POST['players']),
-                'player_count_max' => $_POST['max_players'],
-                'player_list' => $players_list,
-                'motd' => $_POST['motd']
-            ], intval($_POST['interval_seconds'] ?? 10) * 2);
+                $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+                $cache->setCache('latest_query');
+                $cache->store($server_id, [
+                    'player_count' => count($_POST['players']),
+                    'player_count_max' => $_POST['max_players'],
+                    'player_list' => $players_list,
+                    'motd' => $_POST['motd']
+                ], intval($_POST['interval_seconds'] ?? 10) * 2);
+            }
+        } catch (Exception $e) {
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')]));
