@@ -110,9 +110,9 @@
                                 <div class="form-group">
                                     <label for="inputQueryType">{$QUERY_TYPE} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$QUERY_TYPE_INFO}"></i></span></label>
                                     <select id="inputQueryType" class="form-control" name="query_type">
-                                        <option value="internal" name="{$INTERNAL}" {if $QUERY_TYPE_VALUE eq 0}selected{/if}>{$INTERNAL}</option>
-                                        <option value="external" name="{$EXTERNAL}" {if $QUERY_TYPE_VALUE eq 1}selected{/if}>{$EXTERNAL}</option>
-                                        <option value="plugin" name="{$PLUGIN}" {if $QUERY_TYPE_VALUE eq 2}selected{/if}>{$PLUGIN}</option>
+                                        <option value="internal" name="{$INTERNAL}" {if $QUERY_TYPE_VALUE eq 'internal'}selected{/if}>{$INTERNAL}</option>
+                                        <option value="external" name="{$EXTERNAL}" {if $QUERY_TYPE_VALUE eq 'external'}selected{/if}>{$EXTERNAL}</option>
+                                        <option value="plugin" name="{$PLUGIN}" {if $QUERY_TYPE_VALUE eq 'plugin'}selected{/if}>{$PLUGIN}</option>
                                     </select>
                                 </div>
 
