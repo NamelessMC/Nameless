@@ -16,15 +16,7 @@ if ($cache->isCached('result')) {
     echo $cache->retrieve('result');
 } else {
     // Get query type
-    $query_type = Util::getSetting('external_query', '0');
-    if ($query_type == QueryType::EXTERNAL) {
-        $query_type = 'external';
-    } else if ($query_type == QueryType::INTERNAL) {
-        $query_type = 'internal';
-    } else if ($query_type == QueryType::PLUGIN) {
-        $query_type = 'plugin';
-    }
-
+    $query_type = Util::getSetting('query_type', 'internal');
     $full_ip = [
         'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
         'pre' => $server->pre,

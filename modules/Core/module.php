@@ -923,14 +923,7 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = Util::getSetting('external_query');
-                        if ($query_type == QueryType::INTERNAL) {
-                            $query_type = 'internal';
-                        } else if ($query_type == QueryType::EXTERNAL) {
-                            $query_type = 'external';
-                        } else if ($query_type == QueryType::PLUGIN) {
-                            $query_type = 'plugin';
-                        }
+                        $query_type = Util::getSetting('query_type', 'internal');
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
@@ -1655,7 +1648,7 @@ class Core_Module extends Module {
                 'mc_integration' => (bool)Util::getSetting('mc_integration'),
                 'uuid_linking' => (bool)Util::getSetting('uuid_linking'),
                 'username_sync' => (bool)Util::getSetting('username_sync'),
-                'external_query' => (bool)Util::getSetting('external_query'),
+                'query_type' => (bool)Util::getSetting('query_type'),
                 'servers' => $servers,
             ]
         ];

@@ -108,11 +108,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputExternalQuery">{$QUERY_TYPE} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$EXTERNAL_QUERY_INFO}"></i></span></label>
-                                    <select id="inputExternalQuery" class="form-control" name="external_query">
-                                        <option value="internal" name="{$INTERNAL}" {if $EXTERNAL_QUERY_VALUE eq 0}selected{/if}>{$INTERNAL}</option>
-                                        <option value="external" name="{$EXTERNAL}" {if $EXTERNAL_QUERY_VALUE eq 1}selected{/if}>{$EXTERNAL}</option>
-                                        <option value="plugin" name="{$PLUGIN}" {if $EXTERNAL_QUERY_VALUE eq 2}selected{/if}>{$PLUGIN}</option>
+                                    <label for="inputQueryType">{$QUERY_TYPE} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$QUERY_TYPE_INFO}"></i></span></label>
+                                    <select id="inputQueryType" class="form-control" name="query_type">
+                                        <option value="internal" name="{$INTERNAL}" {if $QUERY_TYPE_VALUE eq 0}selected{/if}>{$INTERNAL}</option>
+                                        <option value="external" name="{$EXTERNAL}" {if $QUERY_TYPE_VALUE eq 1}selected{/if}>{$EXTERNAL}</option>
+                                        <option value="plugin" name="{$PLUGIN}" {if $QUERY_TYPE_VALUE eq 2}selected{/if}>{$PLUGIN}</option>
                                     </select>
                                 </div>
 

@@ -82,8 +82,8 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         // Server query
-        $query_type = Util::getSetting('external_query');
-        if ($query_type == QueryType::PLUGIN) {
+        $query_type = Util::getSetting('query_type', 'internal');
+        if ($query_type == 'plugin') {
             $players_list = [];
             foreach ($_POST['players'] as $uuid => $player) {
                 $players_list[] = ['id' => $uuid, 'name' => $player['name']];

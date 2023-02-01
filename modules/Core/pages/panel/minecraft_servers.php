@@ -182,8 +182,8 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $external_query = Util::getSetting('external_query');
-            if ($external_query == QueryType::EXTERNAL) {
+            $query_type = Util::getSetting('query_type', 'internal');
+            if ($query_type === 'external') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
@@ -391,9 +391,9 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $external_query = Util::getSetting('external_query');
+            $query_type = Util::getSetting('query_type', 'internal');
 
-            if ($external_query == QueryType::EXTERNAL) {
+            if ($query_type == 'external') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
@@ -499,19 +499,8 @@ if (isset($_GET['action'])) {
                 $new_group_sync_server = 0;
             }
 
-            if (isset($_POST['external_query'])) {
-                $query_type = $_POST['external_query'];
-                switch($query_type) {
-                    case 'internal':
-                        $external = QueryType::INTERNAL;
-                        break;
-                    case 'external':
-                        $external = QueryType::EXTERNAL;
-                        break;
-                    case 'plugin':
-                        $external = QueryType::PLUGIN;
-                        break;
-                }
+            if (isset($_POST['query_type'])) {
+                $query_type = $_POST['query_type'];
             }
 
             if (isset($_POST['status_page']) && $_POST['status_page'] == 1) {
@@ -542,7 +531,7 @@ if (isset($_GET['action'])) {
                 Util::setSetting('group_sync_mc_server', $new_group_sync_server);
 
                 // External query
-                Util::setSetting('external_query', $external);
+                Util::setSetting('query_type', $external);
 
                 $cache->setCache('query_cache');
 
@@ -598,7 +587,7 @@ if (isset($_GET['action'])) {
     }
 
     // Settings
-    $external_query = Util::getSetting('external_query');
+    $query_type = Util::getSetting('query_type', 'internal');
     $status_page = Util::getSetting('status_page');
     $group_sync_server = Util::getSetting('group_sync_mc_server');
 
@@ -643,10 +632,9 @@ if (isset($_GET['action'])) {
         'EXTERNAL' => $language->get('admin', 'external'),
         'PLUGIN' => $language->get('admin', 'plugin'),
         'QUERY_INTERVAL_VALUE' => $query_interval,
-        'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
         'INFO' => $language->get('general', 'info'),
-        'EXTERNAL_QUERY_INFO' => $language->get('admin', 'external_query_help'),
-        'EXTERNAL_QUERY_VALUE' => $external_query,
+        'QUERY_TYPE_INFO' => $language->get('admin', 'query_type_help'),
+        'QUERY_TYPE_VALUE' => $query_type,
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
         'STATUS_PAGE_VALUE' => ($status_page == '1'),
         'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers', 'action=order'),

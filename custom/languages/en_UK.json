@@ -219,7 +219,7 @@
     "admin/internal": "Internal",
     "admin/external": "External",
     "admin/plugin": "Plugin",
-    "admin/external_query_help": "If the default internal server query does not work, try another option.",
+    "admin/query_type_help": "If the default internal server query does not work, try another option.",
     "admin/face": "Face",
     "admin/facebook_url": "Facebook URL",
     "admin/fatal_log": "Fatal log",

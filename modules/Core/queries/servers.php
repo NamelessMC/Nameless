@@ -35,14 +35,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = Util::getSetting('external_query', 'use else statement if seting is not present in database');
-if ($query_type == QueryType::EXTERNAL) {
-    $query_type = 'external';
-} else if ($query_type == QueryType::INTERNAL) {
-    $query_type = 'internal';
-} else if ($query_type == QueryType::PLUGIN) {
-    $query_type = 'plugin';
-}
+$query_type = Util::getSetting('query_type', 'internal');
 
 // Query
 $servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();
