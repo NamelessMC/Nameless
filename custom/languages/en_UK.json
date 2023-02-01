@@ -470,6 +470,7 @@
     "admin/placeholders_show_on_profile_info": "Whether to show this placeholder on each user's profile or not.",
     "admin/placeholders_value": "Value",
     "admin/player_list_help": "If this is enabled, the status page will display a list of online players.",
+    "admin/player_list_limit": "Player list limit",
     "admin/please_select_logs": "Please select logs to view",
     "admin/portal": "Portal",
     "admin/positive": "Positive",

@@ -190,6 +190,7 @@ class DatabaseInitialiser {
         Util::setSetting('use_api', 0);
         Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
         Util::setSetting('query_type', 'internal');
+        Util::setSetting('player_list_limit', '20');
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
         Util::setSetting('timezone', $_SESSION['install_timezone']);

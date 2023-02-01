@@ -116,6 +116,13 @@
                                     </select>
                                 </div>
 
+                                {if $QUERY_TYPE_VALUE eq 'plugin'}
+                                    <div class="form-group">
+                                        <label for="inputPlayerLimit">{$PLAYER_LIST_LIMIT}</label>
+                                        <input id="inputPlayerLimit" name="player_list_limit" type="number" class="form-control" value="{$PLAYER_LIST_LIMIT_VALUE}" min="0" />
+                                    </div>
+                                {/if}
+
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="status_page" value="0">
                                     <input id="inputStatusPage" name="status_page" type="checkbox" class="custom-control-input js-check-change" value="1" {if $STATUS_PAGE_VALUE} checked{/if} />

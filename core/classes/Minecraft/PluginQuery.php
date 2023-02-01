@@ -17,6 +17,9 @@ class PluginQuery {
      * @return array Array containing query result.
      */
     public static function singleQuery(int $server_id, Language $language): array {
+
+        $player_list_limit = Util::getSetting('player_list_limit', 20);
+
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('latest_query');
 
@@ -29,13 +32,15 @@ class PluginQuery {
         }
 
         $data = $cache->retrieve($server_id);
+        $player_list = array_slice($data['player_list'], 0, intval($player_list_limit));
+
         return [
             'status_value' => 1,
             'status' => $language->get('general', 'online'),
             'player_count' => $data['player_count'],
             'player_count_max' => $data['player_count_max'],
-            'player_list' => $data['player_list'],
-            'format_player_list' => MCQuery::formatPlayerList($data['player_list']),
+            'player_list' => $player_list,
+            'format_player_list' => MCQuery::formatPlayerList($player_list),
             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => $data['player_count']]),
             'motd' => $data['motd'] ?? '',
             'version' => ''
