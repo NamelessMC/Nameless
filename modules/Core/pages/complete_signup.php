@@ -13,7 +13,7 @@ $page = 'complete_signup';
 const PAGE = 'complete_signup';
 $page_title = $language->get('general', 'register');
 
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -119,7 +119,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 $template->displayTemplate('complete_signup.tpl', $smarty);

@@ -69,7 +69,7 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
 
         // Clear cache so the webhooks are refreshed
 
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']);
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
             $cache->erase('hooks');

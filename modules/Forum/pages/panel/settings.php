@@ -11,7 +11,7 @@
 
 // Can the user view the panel?
 if (!$user->handlePanelPageLoad('admincp.forums')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -19,7 +19,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'forum';
 const PANEL_PAGE = 'forum_settings';
 $page_title = $forum_language->get('forum', 'forums');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -98,7 +98,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('forum/forums_settings.tpl', $smarty);

@@ -18,17 +18,17 @@ class Config {
     public static function writeable(): bool {
         clearstatcache();
         if (self::exists()) {
-            return is_writable(ROOT_PATH . '/core/config.php');
+            return is_writable(Constants::ROOT_PATH . '/core/config.php');
         }
 
-        return is_writable(ROOT_PATH . '/core');
+        return is_writable(Constants::ROOT_PATH . '/core');
     }
 
     /**
      * @return bool Whether config file exists
      */
     public static function exists(): bool {
-        return file_exists(ROOT_PATH . '/core/config.php');
+        return file_exists(Constants::ROOT_PATH . '/core/config.php');
     }
 
     /**
@@ -45,7 +45,7 @@ class Config {
             throw new RuntimeException('Config file does not exist. If this happened during installation, please restart the installation in a new private/incognito browser window.');
         }
 
-        return self::$_config_cache = require(ROOT_PATH . '/core/config.php');
+        return self::$_config_cache = require(Constants::ROOT_PATH . '/core/config.php');
     }
 
     /**
@@ -55,11 +55,11 @@ class Config {
      */
     public static function write(array $config): void {
         $contents = '<?php' . PHP_EOL . PHP_EOL . 'return ' . self::arrayToString($config) . ';';
-        if (file_put_contents(ROOT_PATH . '/core/config.php', $contents) === false) {
+        if (file_put_contents(Constants::ROOT_PATH . '/core/config.php', $contents) === false) {
             throw new RuntimeException('Failed to write to config file');
         }
         if (function_exists('opcache_invalidate')) {
-            opcache_invalidate(ROOT_PATH . '/core/config.php', true);
+            opcache_invalidate(Constants::ROOT_PATH . '/core/config.php', true);
         }
         self::$_config_cache = $config;
     }

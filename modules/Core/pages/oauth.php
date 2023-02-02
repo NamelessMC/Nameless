@@ -1,7 +1,7 @@
 <?php
 
 const PAGE = 'oauth';
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
     Session::delete('oauth_register_data');
@@ -34,7 +34,7 @@ if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
     if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
-        require(ROOT_PATH . '/core/includes/tfa_signin.php');
+        require(Constants::ROOT_PATH . '/core/includes/tfa_signin.php');
         die();
     }
     unset($_SESSION['user_id']);
@@ -123,7 +123,7 @@ if (Session::get('oauth_method') === 'login') {
     if ($user->data()->tfa_enabled == 1 && $user->data()->tfa_complete == 1) {
         $_SESSION['user_id'] = $user_id;
         if (!isset($_POST['tfa_code'])) {
-            require(ROOT_PATH . '/core/includes/tfa_signin.php');
+            require(Constants::ROOT_PATH . '/core/includes/tfa_signin.php');
             die();
         }
     }

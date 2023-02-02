@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'emails_mass_message');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if (Input::exists()) {
@@ -128,7 +128,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

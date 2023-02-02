@@ -58,11 +58,11 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
                 imageSaveAlpha($favicon, true);
 
                 // Cache the favicon for 1 hour
-                imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+                imagepng($favicon, Constants::ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
 
                 $cache->store('favicon', 'true', 3600);
             } else {
-                $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+                $favicon = imagecreatefrompng(Constants::ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
             }
 
             // remove ".png" from ending (lib expects file name w/o extension)
@@ -78,7 +78,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
             header('Content-type: image/png');
 
-            imagepng($image, ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+            imagepng($image, Constants::ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($image);
 
             imagedestroy($favicon);
@@ -88,7 +88,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             $cache->store('image', 'true', 120);
         } else {
             header('Content-Type: image/png');
-            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+            $im = imagecreatefrompng(Constants::ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($im);
             imagedestroy($im);
         }

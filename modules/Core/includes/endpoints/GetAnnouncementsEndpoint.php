@@ -16,7 +16,7 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
         $guest_announcements = [];
 
         $announcements = new Announcements(
-            new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
+            new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/'])
         );
 
         foreach ($announcements->getAvailable('api') as $announcement) {

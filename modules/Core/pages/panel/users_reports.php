@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('modcp.reports')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'reports';
 $page_title = $language->get('moderator', 'reports');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 $timeago = new TimeAgo(TIMEZONE);
 
@@ -415,7 +415,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

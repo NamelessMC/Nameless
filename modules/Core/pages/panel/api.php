@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.api')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'api';
 $page_title = $language->get('admin', 'api');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['view'])) {
     if (Input::exists()) {
@@ -43,7 +43,7 @@ if (!isset($_GET['view'])) {
                 );
 
                 // Cache
-                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
+                file_put_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
 
                 // Redirect
                 Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
@@ -329,7 +329,7 @@ if (!isset($_GET['view'])) {
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

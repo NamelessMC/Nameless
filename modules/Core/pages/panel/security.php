@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.security')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -20,7 +20,7 @@ const PANEL_PAGE = 'security';
 // Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
 define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['view'])) {
     $links = [];
@@ -332,7 +332,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

@@ -92,7 +92,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
     private function createUser(Nameless2API $api, string $username, string $email, bool $return, string $code = null): array {
         try {
             // Get default group ID
-            if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
+            if (!is_file(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
                 // Not cached, cache now
                 // Retrieve from database
                 $default_group = $api->getDb()->get('groups', ['default_group', true]);
@@ -112,9 +112,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 ];
 
                 // Store in cache file
-                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
+                file_put_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache', json_encode($to_cache));
             } else {
-                $default_group = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache');
+                $default_group = file_get_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache');
                 $default_group = json_decode($default_group);
                 $default_group = unserialize($default_group->default_group->data);
             }

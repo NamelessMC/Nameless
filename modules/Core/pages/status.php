@@ -10,13 +10,13 @@
  */
 
 if (!defined('MINECRAFT') || MINECRAFT !== true || !Util::getSetting('status_page')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
 const PAGE = 'status';
 $page_title = $language->get('general', 'status');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 $servers = DB::getInstance()->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC')->results();
 
@@ -38,8 +38,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('status.tpl', $smarty);

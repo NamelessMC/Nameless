@@ -12,7 +12,7 @@
 // Get page info from URL
 $custom_page = DB::getInstance()->get('custom_pages', ['url', rtrim($route, '/')]);
 if (!$custom_page->count()) {
-    require(ROOT_PATH . '/404.php');
+    require(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
@@ -47,7 +47,7 @@ if ($user->isLoggedIn()) {
 }
 
 if (!isset($can_view)) {
-    require(ROOT_PATH . '/403.php');
+    require(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -60,7 +60,7 @@ if ($custom_page->redirect) {
 define('PAGE', $custom_page->id);
 define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->include([
     DARK_MODE
@@ -85,8 +85,8 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 if ($custom_page->basic) {
     $template->displayTemplate('custom_basic.tpl', $smarty);

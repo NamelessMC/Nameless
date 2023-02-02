@@ -34,7 +34,7 @@ class DefaultRevamp_Template extends TemplateBase {
 
         parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
 
-        $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
+        $this->_settings = Constants::ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
         $this->assets()->include([
             AssetTree::FONT_AWESOME,

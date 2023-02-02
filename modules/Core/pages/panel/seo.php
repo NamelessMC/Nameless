@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.seo')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'seo';
 $page_title = $language->get('admin', 'seo');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 $timeago = new TimeAgo(TIMEZONE);
 
@@ -26,12 +26,12 @@ $timeago = new TimeAgo(TIMEZONE);
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $errors = [];
-if (!is_dir(ROOT_PATH . '/cache/sitemaps')) {
-    if (!is_writable(ROOT_PATH . '/cache')) {
+if (!is_dir(Constants::ROOT_PATH . '/cache/sitemaps')) {
+    if (!is_writable(Constants::ROOT_PATH . '/cache')) {
         $errors[] = $language->get('admin', 'cache_not_writable');
     } else {
-        mkdir(ROOT_PATH . '/cache/sitemaps');
-        file_put_contents(ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
+        mkdir(Constants::ROOT_PATH . '/cache/sitemaps');
+        file_put_contents(Constants::ROOT_PATH . '/cache/sitemaps/.htaccess', 'Allow from all');
     }
 }
 
@@ -42,7 +42,7 @@ if (!isset($_GET['metadata'])) {
             if (Input::get('type') == 'sitemap') {
 
                 $sitemap = new \SitemapPHP\Sitemap(rtrim(URL::getSelfURL(), '/'));
-                $sitemap->setPath(ROOT_PATH . '/cache/sitemaps/');
+                $sitemap->setPath(Constants::ROOT_PATH . '/cache/sitemaps/');
 
                 $methods = $pages->getSitemapMethods();
                 foreach ($methods as $method) {
@@ -71,10 +71,10 @@ if (!isset($_GET['metadata'])) {
         }
     }
 
-    if (!is_writable(ROOT_PATH . '/cache/sitemaps')) {
+    if (!is_writable(Constants::ROOT_PATH . '/cache/sitemaps')) {
         $errors[] = $language->get('admin', 'sitemap_not_writable');
     } else {
-        if (file_exists(ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
+        if (file_exists(Constants::ROOT_PATH . '/cache/sitemaps/sitemap-index.xml')) {
             $cache->setCache('sitemap_cache');
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
@@ -205,7 +205,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

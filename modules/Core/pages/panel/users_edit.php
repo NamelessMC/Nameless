@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -29,7 +29,7 @@ const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'users';
 const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -54,7 +54,7 @@ if (isset($_GET['action'])) {
             }
         }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+        require_once(Constants::ROOT_PATH . '/modules/Core/includes/emails/register.php');
         if (sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
@@ -399,7 +399,7 @@ $template->addJSScript(Input::createTinyEditor($language, 'InputSignature', null
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('core/users_edit.tpl', $smarty);

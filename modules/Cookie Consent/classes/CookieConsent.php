@@ -83,7 +83,7 @@ class CookieConsent {
         return str_replace(
             '//"{x}"',
             substr($json, 1, -1),
-            file_get_contents(ROOT_PATH . '/modules/Cookie Consent/assets/js/template.js')
+            file_get_contents(Constants::ROOT_PATH . '/modules/Cookie Consent/assets/js/template.js')
         );
     }
 }

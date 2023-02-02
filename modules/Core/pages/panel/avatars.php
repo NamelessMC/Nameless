@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.avatars')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'avatars';
 $page_title = $language->get('admin', 'avatars');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Input
 if (Input::exists()) {
@@ -85,7 +85,7 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'avatars', 'defaults']);
+$image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'avatars', 'defaults']);
 $images = scandir($image_path);
 $template_images = [];
 
@@ -138,7 +138,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('core/avatars.tpl', $smarty);

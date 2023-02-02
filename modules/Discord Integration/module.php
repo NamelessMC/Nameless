@@ -28,7 +28,7 @@ class Discord_Module extends Module {
 
         $pages->add($this->getName(), '/panel/discord', 'pages/panel/discord.php');
 
-        $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
+        $endpoints->loadEndpoints(Constants::ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
 

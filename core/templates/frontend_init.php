@@ -52,16 +52,16 @@ if (defined('PAGE') && PAGE != 404) {
     }
 }
 
-$smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
+$smarty->setCompileDir(Constants::ROOT_PATH . '/cache/templates_c');
 
-if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) {
-    $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/' . TEMPLATE);
+if (file_exists(Constants::ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) {
+    $smarty->setTemplateDir(Constants::ROOT_PATH . '/custom/templates/' . TEMPLATE);
 
-    require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
+    require(Constants::ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 } else {
-    $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/DefaultRevamp');
+    $smarty->setTemplateDir(Constants::ROOT_PATH . '/custom/templates/DefaultRevamp');
 
-    require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
+    require(Constants::ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 }
 
 // User related actions

@@ -539,7 +539,7 @@ class Core_Module extends Module {
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
-        $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
+        $endpoints->loadEndpoints(Constants::ROOT_PATH . '/modules/Core/includes/endpoints');
 
         GroupSyncManager::getInstance()->registerInjector(new NamelessMCGroupSyncInjector);
         GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
@@ -1534,25 +1534,25 @@ class Core_Module extends Module {
                 self::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
 
                 // Dashboard stats
-                require_once(ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php');
+                require_once(Constants::ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php');
                 CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($smarty, $language, $cache));
 
-                require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php');
+                require_once(Constants::ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php');
                 CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($smarty, $language, $cache));
 
                 // Dashboard items
                 if ($user->hasPermission('modcp.punishments')) {
-                    require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php');
+                    require_once(Constants::ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php');
                     CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($smarty, $language, $cache));
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
-                    require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php');
+                    require_once(Constants::ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php');
                     CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($smarty, $language, $cache));
                 }
 
                 if ($user->hasPermission('admincp.users')) {
-                    require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php');
+                    require_once(Constants::ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php');
                     CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache));
                 }
             }

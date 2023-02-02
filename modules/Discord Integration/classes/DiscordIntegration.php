@@ -15,7 +15,7 @@ class DiscordIntegration extends IntegrationBase {
         $this->_name = 'Discord';
         $this->_icon = 'fab fa-discord';
         $this->_language = $language;
-        $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_integrations/discord.php';
+        $this->_settings = Constants::ROOT_PATH . '/modules/Discord Integration/includes/admin_integrations/discord.php';
 
         parent::__construct();
     }

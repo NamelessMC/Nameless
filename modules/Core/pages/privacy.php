@@ -12,7 +12,7 @@
 // Always define page name
 const PAGE = 'privacy';
 $page_title = $language->get('general', 'privacy_policy');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Retrieve privacy policy from database
 $policy = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
@@ -32,8 +32,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('privacy.tpl', $smarty);

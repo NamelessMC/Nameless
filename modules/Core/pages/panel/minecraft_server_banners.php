@@ -10,12 +10,12 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.banners')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
 if (!function_exists('exif_imagetype')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -24,7 +24,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'server_banners';
 $page_title = $language->get('admin', 'server_banners');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     $servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();
@@ -84,7 +84,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             if (Token::check()) {
                 // Valid token
                 try {
-                    if (file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))) {
+                    if (file_exists(Constants::ROOT_PATH . '/uploads/banners/' . Input::get('banner'))) {
                         DB::getInstance()->update('mc_servers', $_GET['edit'], [
                             'banner_background' => Output::getClean(Input::get('banner'))
                         ]);
@@ -107,7 +107,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
 
         $server = $server[0];
 
-        $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'banners']);
+        $image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'banners']);
         $images = scandir($image_path);
         $template_images = [];
 
@@ -173,7 +173,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

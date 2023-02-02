@@ -10,8 +10,8 @@
  */
 
 $page_title = $language->get('general', 'register');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Use recaptcha?
 $captcha = CaptchaBase::isCaptchaEnabled();
@@ -395,7 +395,7 @@ if (!isset($_GET['step'])) {
         }
     }
 
-    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
+    $template_file = Constants::ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
 } else {
     $fields = new Fields();
     // Step 2
@@ -438,7 +438,7 @@ if (!isset($_GET['step'])) {
         'SUBMIT' => $language->get('general', 'submit'),
     ]);
 
-    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
+    $template_file = Constants::ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
 }
 
 // Load modules + template
@@ -446,7 +446,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 $template->displayTemplate($template_file, $smarty);

@@ -128,5 +128,5 @@ $smarty->assign([
     'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
     'NAVBAR_COLOURS' => $nav_colours,
     'HOME_CUSTOM_CONTENT' => $language->get('admin', 'home_custom_content'),
-    'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
+    'SETTINGS_TEMPLATE' => Constants::ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
 ]);

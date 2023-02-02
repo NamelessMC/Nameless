@@ -6,7 +6,7 @@ if (!isset($_GET['id'])) {
 
 const PAGE = 'user_query';
 $page_title = 'user_query';
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (!is_numeric($_GET['id'])) {
     // Username

@@ -12,7 +12,7 @@
 // Always define page name
 const PAGE = 'terms';
 $page_title = $language->get('user', 'terms_and_conditions');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Retrieve terms from database
 $site_terms = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
@@ -35,8 +35,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('terms.tpl', $smarty);

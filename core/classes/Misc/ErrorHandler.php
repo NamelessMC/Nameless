@@ -120,7 +120,7 @@ class ErrorHandler {
 
         $smarty = new Smarty();
 
-        $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
+        $smarty->setCompileDir(Constants::ROOT_PATH . '/cache/templates_c');
 
         $smarty->assign([
             'LANG' => defined('HTML_LANG') ? HTML_LANG : 'en',
@@ -170,7 +170,7 @@ class ErrorHandler {
             'DEBUG_COPIED' => $language->get('general', 'debug_link_copied'),
         ]);
 
-        $smarty->display(ROOT_PATH . '/core/includes/error.tpl');
+        $smarty->display(Constants::ROOT_PATH . '/core/includes/error.tpl');
         die();
     }
 
@@ -192,9 +192,9 @@ class ErrorHandler {
         $dir_exists = false;
 
         try {
-            if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs']))) {
-                if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
-                    mkdir(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
+            if (!is_dir(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'cache', 'logs']))) {
+                if (is_writable(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache')) {
+                    mkdir(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'logs');
                     $dir_exists = true;
                 }
             } else {
@@ -202,7 +202,7 @@ class ErrorHandler {
             }
 
             if ($dir_exists) {
-                file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']), '[' . date('Y-m-d, H:i:s') . '] ' . $contents . PHP_EOL, FILE_APPEND);
+                file_put_contents(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'cache', 'logs', $type . '-log.log']), '[' . date('Y-m-d, H:i:s') . '] ' . $contents . PHP_EOL, FILE_APPEND);
             }
         } catch (Exception $ignored) {
         }

@@ -12,7 +12,7 @@
 // Always define page name
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'forum');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Initialise
 $forum = new Forum();
@@ -115,8 +115,8 @@ $template->onPageLoad();
 $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
 $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('forum/forum_index.tpl', $smarty);

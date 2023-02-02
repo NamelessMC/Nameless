@@ -20,13 +20,13 @@ $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
 
 if (!strlen($tid)) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
 $tid = explode('-', $tid);
 if (!is_numeric($tid[0])) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 $tid = $tid[0];
@@ -36,7 +36,7 @@ $user_groups = $user->getAllGroupIds();
 
 $list = $forum->topicExist($tid);
 if (!$list) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
@@ -45,13 +45,13 @@ $topic = DB::getInstance()->get('topics', ['id', $tid])->results();
 $topic = $topic[0];
 
 if ($topic->deleted == 1) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
 $list = $forum->canViewForum($topic->forum_id, $user_groups);
 if (!$list) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -64,7 +64,7 @@ if ($user->isLoggedIn()) {
 if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $user_groups)) {
     // Only allow viewing stickied topics
     if ($topic->sticky == 0) {
-        require_once(ROOT_PATH . '/403.php');
+        require_once(Constants::ROOT_PATH . '/403.php');
         die();
     }
 }
@@ -102,7 +102,7 @@ if (isset($_GET['pid'])) {
             Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
         }
     } else {
-        require_once(ROOT_PATH . '/404.php');
+        require_once(Constants::ROOT_PATH . '/404.php');
     }
     die();
 }
@@ -161,7 +161,7 @@ if (count($page_metadata)) {
 }
 
 $page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . $language->get('general', 'page_x', ['page' => $p]);
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables
 // Get first post
@@ -273,8 +273,8 @@ if (Input::exists()) {
             // Get last post ID
             $last_post_id = DB::getInstance()->lastId();
             $content = EventHandler::executeEvent('prePostCreate', [
-                'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                'alert_full' => ['path' => Constants::ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                'alert_short' => ['path' => Constants::ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                 'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                 'content' => $content,
                 'user' => $user,
@@ -296,7 +296,7 @@ if (Input::exists()) {
 
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific forum, not any of its parents...
-            $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
+            $default_forum_language = new Language(Constants::ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
             $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
             $available_hooks = json_decode($available_hooks[0]->hooks);
             EventHandler::executeEvent('topicReply', [
@@ -329,8 +329,8 @@ if (Input::exists()) {
                             Alert::create(
                                 $user_following->user_id,
                                 'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => Constants::ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => Constants::ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
@@ -343,7 +343,7 @@ if (Input::exists()) {
                         }
                     }
                 }
-                $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
+                $path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
                 $html = file_get_contents($path);
 
                 $message = str_replace(
@@ -828,7 +828,7 @@ if ($user->isLoggedIn()) {
     $template->addJSScript(Input::createTinyEditor($language, 'quickreply', $content, true));
 
     $template->addJSScript('
-    function quote(post) {        
+    function quote(post) {
         $.ajax({
             type: "GET",
             url: "' . URL::build('/forum/get_quotes') . '",
@@ -872,8 +872,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('forum/view_topic.tpl', $smarty);

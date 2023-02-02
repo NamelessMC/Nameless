@@ -26,7 +26,7 @@ if ($user->isLoggedIn()) {
 const PAGE = 'panel';
 const PANEL_PAGE = 'auth';
 $page_title = $language->get('admin', 're-authenticate');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with any input
 if (Input::exists()) {
@@ -85,7 +85,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('auth.tpl', $smarty);

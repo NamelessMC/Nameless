@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_overview';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 $user_details = [
     $language->get('user', 'username') => $user->getDisplayname(true),
@@ -178,12 +178,12 @@ if ($forum_enabled) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/cc_navbar.php');
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('user/index.tpl', $smarty);

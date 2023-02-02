@@ -35,8 +35,8 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
             ]);
 
-            if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
-                $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
+            if (file_exists(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
+                $query_cache = file_get_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
                 $query_cache = json_decode($query_cache);
                 if (isset($query_cache->query_interval)) {
                     $query_interval = unserialize($query_cache->query_interval->data);
@@ -58,7 +58,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 ];
 
                 // Store in cache file
-                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
+                file_put_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
             }
         } catch (Exception $e) {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);

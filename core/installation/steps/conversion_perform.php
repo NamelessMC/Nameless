@@ -4,7 +4,7 @@ if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
     Redirect::to('?step=admin_account_setup');
 }
 
-$available_converters = array_filter(glob(ROOT_PATH . '/custom/converters/*'), 'is_dir');
+$available_converters = array_filter(glob(Constants::ROOT_PATH . '/custom/converters/*'), 'is_dir');
 $converters = [];
 
 if (!empty($available_converters)) {
@@ -50,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         Input::get('db_port')
                     );
 
-                    $converter_dir = ROOT_PATH . '/custom/converters/' . $_POST['converter'];
+                    $converter_dir = Constants::ROOT_PATH . '/custom/converters/' . $_POST['converter'];
 
-                    $converter_dirs = glob(ROOT_PATH . '/custom/converters/*', GLOB_ONLYDIR);
+                    $converter_dirs = glob(Constants::ROOT_PATH . '/custom/converters/*', GLOB_ONLYDIR);
 
                     if (!in_array($converter_dir, $converter_dirs)) {
                         throw new InvalidArgumentException("Invalid converter");

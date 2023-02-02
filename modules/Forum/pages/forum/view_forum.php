@@ -20,13 +20,13 @@ $fid = explode('/', $route);
 $fid = $fid[count($fid) - 1];
 
 if (!strlen($fid)) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
 $fid = explode('-', $fid);
 if (!is_numeric($fid[0])) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 $fid = Output::getClean($fid[0]);
@@ -37,7 +37,7 @@ $user_groups = $user->getAllGroupIds();
 // Does the forum exist, and can the user view it?
 $list = $forum->canViewForum($fid, $user_groups);
 if (!$list) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -74,7 +74,7 @@ if (count($page_metadata)) {
 
 $page_title = $forum_language->get('forum', 'forum');
 $page_title .= ' - ' . $language->get('general', 'page_x', ['page' => $p]);
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Redirect forum?
 if ($forum_query->redirect_forum == 1) {
@@ -98,8 +98,8 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
     $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('forum/view_forum_confirm_redirect.tpl', $smarty);
@@ -501,8 +501,8 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
     $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     if (isset($no_topics_exist)) {

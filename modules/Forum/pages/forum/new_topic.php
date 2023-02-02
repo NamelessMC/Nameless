@@ -12,7 +12,7 @@
 // Always define page name
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'new_topic');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
@@ -180,8 +180,8 @@ if (Input::exists()) {
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
-                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                    'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    'alert_full' => ['path' => Constants::ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                    'alert_short' => ['path' => Constants::ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                     'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                     'content' => $content,
                     'user' => $user,
@@ -200,7 +200,7 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
                 // Execute hooks and pass $available_hooks
-                $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
+                $default_forum_language = new Language(Constants::ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
                 $available_hooks = DB::getInstance()->get('forums', ['id', $fid])->results();
                 $available_hooks = json_decode($available_hooks[0]->hooks);
                 EventHandler::executeEvent('newTopic', [
@@ -289,8 +289,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('forum/new_topic.tpl', $smarty);

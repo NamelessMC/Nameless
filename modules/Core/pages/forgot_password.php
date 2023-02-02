@@ -12,7 +12,7 @@
 const PAGE = 'forgot_password';
 
 $page_title = str_replace('?', '', $language->get('user', 'forgot_password'));
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Ensure user is not logged in
 if ($user->isLoggedIn()) {
@@ -105,8 +105,8 @@ if (!isset($_GET['c'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('forgot_password.tpl', $smarty);
@@ -186,8 +186,8 @@ if (!isset($_GET['c'])) {
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('change_password.tpl', $smarty);

@@ -16,7 +16,7 @@ class MinecraftIntegration extends IntegrationBase {
         $this->_name = 'Minecraft';
         $this->_icon = 'fas fa-cubes';
         $this->_language = $language;
-        $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_integrations/minecraft.php';
+        $this->_settings = Constants::ROOT_PATH . '/modules/Core/includes/admin_integrations/minecraft.php';
 
         parent::__construct();
     }

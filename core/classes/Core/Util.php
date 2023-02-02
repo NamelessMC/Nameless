@@ -389,7 +389,7 @@ class Util {
             return true;
         }
 
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']);
         $cache->setCache('modulescache');
 
         $enabled_modules = $cache->retrieve('enabled_modules');
