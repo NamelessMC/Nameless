@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('Constants::ROOT_PATH')) {
-    define('Constants::ROOT_PATH', __DIR__ . '/../..');
-}
-
 $config = Config::get('mysql');
 
 return [

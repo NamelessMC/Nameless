@@ -136,7 +136,7 @@
 - Fix DefaultRevamp dropdown not respecting light/dark mode
 - Fix edge case exception when no `$_active_page` is set in `Pages` class
 - Fix issue with `Forum::getLatestDiscussions()` returning an array of objects randomly
-- Fix missing `Constants::ROOT_PATH` definition in Phinx migration file
+- Fix missing `ROOT_PATH` definition in Phinx migration file
 - Fix exception when captcha provider is null
 - Fix exception when `nl2_email_errors.user_id` is null while viewing logs in StaffCP
 - Fix forum label types page formatting in StaffCP
