@@ -5,6 +5,7 @@ public function run(): void {
     $this->runMigrations();
 
     // Move query interval from cache to settings table
+    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
     $cache->setCache('server_query_cache');
     if ($cache->isCached('query_interval')) {
         $query_interval = $cache->retrieve('query_interval');
