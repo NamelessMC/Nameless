@@ -556,9 +556,9 @@ if (isset($_GET['action'])) {
                 ]);
 
                 // Query interval
+
                 if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
-                    $cache->setCache('server_query_cache');
-                    $cache->store('query_interval', $_POST['interval']);
+                    Util::setSetting('minecraft_query_interval', $_POST['interval']);
                 }
 
                 $success = $language->get('admin', 'minecraft_settings_updated_successfully');
@@ -609,25 +609,6 @@ if (isset($_GET['action'])) {
     $group_sync_server = DB::getInstance()->get('settings', ['name', 'group_sync_mc_server'])->results();
     $group_sync_server = $group_sync_server[0]->value;
 
-    // Query interval
-    $cache->setCache('server_query_cache');
-    if ($cache->isCached('query_interval')) {
-        $query_interval = $cache->retrieve('query_interval');
-        if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
-            // Interval ok
-        } else {
-            // Default to 10
-            $query_interval = 10;
-
-            $cache->store('query_interval', $query_interval);
-        }
-    } else {
-        // Default to 10
-        $query_interval = 10;
-
-        $cache->store('query_interval', $query_interval);
-    }
-
     $smarty->assign([
         'NEW_SERVER' => $language->get('admin', 'add_server'),
         'NEW_SERVER_LINK' => URL::build('/panel/minecraft/servers/', 'action=new'),
@@ -645,7 +626,7 @@ if (isset($_GET['action'])) {
         'GROUP_SYNC_SERVER_VALUE' => $group_sync_server,
         'NO_GROUP_SYNC_SERVER' => $language->get('admin', 'no_group_sync_server'),
         'QUERY_INTERVAL' => $language->get('admin', 'query_interval'),
-        'QUERY_INTERVAL_VALUE' => $query_interval,
+        'QUERY_INTERVAL_VALUE' => Util::getSetting('minecraft_query_interval'),
         'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
         'INFO' => $language->get('general', 'info'),
         'EXTERNAL_QUERY_INFO' => $language->get('admin', 'external_query_help'),
