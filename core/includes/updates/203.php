@@ -18,6 +18,6 @@ public function run(): void {
         Util::setSetting('minecraft_query_interval', $query_interval);
     }
 
-    $this->setVersion('2.2.0');
+    $this->setVersion('2.1.0');
 }
 };
