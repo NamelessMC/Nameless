@@ -870,6 +870,7 @@
     "general/sql_query": "SQL Query",
     "general/namelessmc_support": "NamelessMC Support",
     "general/namelessmc_documentation": "NamelessMC Docs",
+    "general/registration_disabled_message_fallback": "Registration is currently disabled.",
     "installer/back": "Back",
     "installer/cache_writable": "Cache Writable",
     "installer/character_set": "Character Set",
