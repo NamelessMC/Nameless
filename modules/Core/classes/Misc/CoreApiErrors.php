@@ -36,6 +36,7 @@ class CoreApiErrors {
     public const ERROR_USER_ALREADY_ACTIVE = 'core:user_already_active';
 
     public const ERROR_UNABLE_TO_UPDATE_USERNAME = 'core:unable_to_update_username';
+    public const ERROR_UNABLE_TO_UPDATE_GROUPS = 'core:unable_to_update_groups';
 
     public const ERROR_INTEGRATION_IDENTIFIER_ERRORS = 'core:integration_identifier_errors';
     public const ERROR_INTEGRATION_USERNAME_ERRORS = 'core:integration_username_errors';
