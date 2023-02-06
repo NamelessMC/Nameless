@@ -1,22 +1,9 @@
 <?php
+
+$query_interval = Util::getSetting('minecraft_query_interval', 10);
+
 // Check cache to see when servers were last queried
 $cache->setCache('server_query_cache');
-if ($cache->isCached('query_interval')) {
-    $query_interval = $cache->retrieve('query_interval');
-    if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
-        // Interval ok
-    } else {
-        // Default to 10
-        $query_interval = 10;
-
-        $cache->store('query_interval', $query_interval);
-    }
-} else {
-    // Default to 10
-    $query_interval = 10;
-
-    $cache->store('query_interval', $query_interval);
-}
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
