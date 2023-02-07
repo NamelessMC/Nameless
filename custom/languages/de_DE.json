@@ -1283,5 +1283,7 @@
     "user/authme_account_not_found": "Das AuthMe-Konto konnte nicht gefunden werden.",
     "user/authme_sync_password": "Sync AuthMe Passwort",
     "user/authme_sync_password_help": "Du kannst dein Spiel-Passwort mit deinem Website-Passwort synchronisieren. Dadurch kannst du dich mit deinem Passwort aus dem Spiel im Forum anmelden.",
-    "user/successful_login_synced_password": "Du hast dich erfolgreich eingeloggt und dein Passwort wurde mit deinem AuthMe-Passwort synchronisiert."
+    "user/successful_login_synced_password": "Du hast dich erfolgreich eingeloggt und dein Passwort wurde mit deinem AuthMe-Passwort synchronisiert.",
+    "api/groups_updates_successfully": "Gruppen erfolgreich aktualisiert",
+    "api/invalid_group_sync_server_id": "Ungültige Gruppen Sync Server-ID"
 }
