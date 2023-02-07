@@ -55,8 +55,8 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
         $pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
-        EventHandler::registerListener(UserDeletedEvent::class, [DeleteUserForumHook::class, 'execute']);
-        EventHandler::registerListener(GroupClonedEvent::class, [CloneGroupForumHook::class, 'execute']);
+        EventHandler::registerListener(UserDeletedEvent::class, DeleteUserForumHook::class);
+        EventHandler::registerListener(GroupClonedEvent::class, CloneGroupForumHook::class);
 
         // -- Events
         EventHandler::registerEvent(TopicCreatedEvent::class);

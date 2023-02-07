@@ -469,7 +469,7 @@ class Core_Module extends Module {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
-        EventHandler::registerListener(GroupClonedEvent::class, [CloneGroupHook::class, 'execute']);
+        EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
 
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
@@ -658,7 +658,7 @@ class Core_Module extends Module {
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
-            EventHandler::registerListener(UserValidatedEvent::class, [ValidateHook::class, 'execute']);
+            EventHandler::registerListener(UserValidatedEvent::class, ValidateHook::class);
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -1449,7 +1449,7 @@ class Core_Module extends Module {
             }
         }
 
-        EventHandler::registerListener(UserDeletedEvent::class, [DeleteUserHook::class, 'execute']);
+        EventHandler::registerListener(UserDeletedEvent::class, DeleteUserHook::class);
     }
 
     public static function addNotice($url, $text): void {

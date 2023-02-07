@@ -80,10 +80,10 @@ class EventHandler {
      * This must be called in the module's constructor.
      *
      * @param string $event Event name to listen to.
-     * @param callable $callback Listener callback to execute when event is executed.
+     * @param callable|class-string $callback Listener callback to execute when event is executed. If class name is provided, we will assume there is a static "execute" method on the class.
      * @param int $priority Execution priority - higher gets executed first
      */
-    public static function registerListener(string $event, callable $callback, int $priority = 10): void {
+    public static function registerListener(string $event, $callback, int $priority = 10): void {
         $name = class_exists($event) && is_subclass_of($event, AbstractEvent::class)
             ? $event::name()
             : $event;
@@ -91,6 +91,10 @@ class EventHandler {
         if (!isset(self::$_events[$name])) {
             // Silently create event if it doesn't exist, maybe throw exception instead?
             self::registerEvent($event);
+        }
+
+        if (is_string($callback) && class_exists($callback)) {
+            $callback = [$callback, 'execute'];
         }
 
         self::$_events[$name]['listeners'][] = [
