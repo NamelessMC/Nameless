@@ -90,7 +90,7 @@ class EventHandler {
 
         if (!isset(self::$_events[$name])) {
             // Silently create event if it doesn't exist, maybe throw exception instead?
-            self::registerEvent($event);
+            self::registerEvent($event, $event);
         }
 
         if (is_string($callback) && class_exists($callback)) {
