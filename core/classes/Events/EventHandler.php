@@ -13,13 +13,6 @@ class EventHandler {
     private static array $_events = [];
     private static array $_webhooks = [];
 
-    public static function discoverEvents(): void {
-        foreach (glob(ROOT_PATH . '/modules/*/classes/Events/*') as $file) {
-            $parts = explode('/', $file);
-            self::registerEvent(str_replace('.php', '', end($parts)));
-        }
-    }
-
     /**
      * Register webhooks.
      *

@@ -28,23 +28,30 @@ class DiscordHook {
         }
 
         if (!is_array($return) || !count($return)) {
-            $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
-            if (mb_strlen($content) > 512) {
-                $content = mb_substr($content, 0, 512) . '...';
-            }
+            try {
+                $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
+                if (mb_strlen($content) > 512) {
+                    $content = mb_substr($content, 0, 512) . '...';
+                }
 
-            // Create generic fallback embed if no embeds are provided
-            $return = DiscordWebhookBuilder::make()
-                ->setUsername($params['username'] . ' | ' . SITE_NAME)
-                ->setAvatarUrl($params['avatar_url'])
-                ->addEmbed(function (DiscordEmbed $embed) use ($params, $content) {
-                    return $embed
-                        ->setTitle($params['title'])
-                        ->setDescription($content)
-                        ->setUrl($params['url'])
-                        ->setFooter($params['content']);
-                })
-                ->toArray();
+                // Create generic fallback embed if no embeds are provided
+                $return = DiscordWebhookBuilder::make()
+                    ->setUsername($params['username'] . ' | ' . SITE_NAME)
+                    ->setAvatarUrl($params['avatar_url'])
+                    ->addEmbed(function (DiscordEmbed $embed) use ($params, $content) {
+                        return $embed
+                            ->setTitle($params['title'])
+                            ->setDescription($content)
+                            ->setUrl($params['url'])
+                            ->setFooter($params['content']);
+                    })
+                    ->toArray();
+            } catch (Exception $exception) {
+                // Likely enabled discord webhook for event
+                // that doesn't have valid fallback params
+                ErrorHandler::logWarning("Error creating fallback Discord embed for {$event::name()}: {$exception->getMessage()}. Does it support embeds?");
+                return;
+            }
         }
 
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);

@@ -59,6 +59,10 @@ class Forum_Module extends Module {
         EventHandler::registerListener(GroupClonedEvent::class, [CloneGroupForumHook::class, 'execute']);
         EventHandler::registerListener(DiscordWebhookFormatterEvent::class, [ForumDiscordWebhookListener::class, 'execute']);
 
+        // -- Events
+        EventHandler::registerEvent(TopicCreatedEvent::class);
+        EventHandler::registerEvent(TopicReplyCreatedEvent::class);
+
         // -- Pipelines
 
         EventHandler::registerEvent('prePostCreate',

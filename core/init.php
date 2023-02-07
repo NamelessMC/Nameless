@@ -468,9 +468,6 @@ if ($page != 'install') {
         }
     }
 
-    // Auto discover module event classes
-    EventHandler::discoverEvents();
-
     // Webhooks
     $hook_array = [];
     if (Util::isModuleEnabled('Discord Integration')) {

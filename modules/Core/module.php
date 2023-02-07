@@ -293,6 +293,23 @@ class Core_Module extends Module {
         }
         $custom_pages = null;
 
+        // -- Events
+        EventHandler::registerEvent(AnnouncementCreatedEvent::class);
+        EventHandler::registerEvent(GroupClonedEvent::class);
+        EventHandler::registerEvent(ReportCreatedEvent::class);
+        EventHandler::registerEvent(UserBannedEvent::class);
+        EventHandler::registerEvent(UserDeletedEvent::class);
+        EventHandler::registerEvent(UserGroupAddedEvent::class);
+        EventHandler::registerEvent(UserGroupRemovedEvent::class);
+        EventHandler::registerEvent(UserIntegrationLinkedEvent::class);
+        EventHandler::registerEvent(UserIntegrationUnlinkedEvent::class);
+        EventHandler::registerEvent(UserIntegrationVerifiedEvent::class);
+        EventHandler::registerEvent(UserProfilePostCreatedEvent::class);
+        EventHandler::registerEvent(UserProfilePostReplyCreatedEvent::class);
+        EventHandler::registerEvent(UserRegisteredEvent::class);
+        EventHandler::registerEvent(UserValidatedEvent::class);
+        EventHandler::registerEvent(UserWarnedEvent::class);
+
         // -- Pipelines
 
         EventHandler::registerEvent('preCustomPageCreate',

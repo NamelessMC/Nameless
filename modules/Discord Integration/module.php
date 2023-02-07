@@ -30,6 +30,9 @@ class Discord_Module extends Module {
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
+        // -- Events
+        EventHandler::registerEvent(DiscordWebhookFormatterEvent::class);
+
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
 
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
