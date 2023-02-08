@@ -16,6 +16,7 @@ do
     fi
 
     AFTER_SLASH="${KEY#*/}"
+    echo "Checking for $BEFORE_SLASH/$AFTER_SLASH..."
 
     if ! ggrep -r --exclude-dir=.git --exclude-dir=vendor --exclude-dir=cache --exclude-dir=node_modules \
             -e "get('$BEFORE_SLASH', '$AFTER_SLASH'" \
