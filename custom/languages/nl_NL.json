@@ -1231,7 +1231,6 @@
     "user/group_has_been_added": "Groep {{group}} is toegevoegd aan gebruiker {{user}}",
     "user/group_has_been_removed": "Groep {{group}} is verwijderd van gebruiker {{user}}",
     "general/normal": "Normaal",
-    "user/banned_from_registering": "",
     "admin/invalid_recaptcha_settings_info": "Overweeg het testen van inloggen/registreren in een incognito- of privévenster om te verifiëren dat Captcha werkt!",
     "general/oauth_failed_setup": "Er is iets fout gegaan. OAuth2 is onjuist ingesteld. Neem contact op met een beheerder",
     "general/oauth_failed": "Er is een fout opgetreden tijdens het inloggen met OAuth. Probeer het opnieuw.",
