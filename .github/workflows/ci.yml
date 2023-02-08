@@ -39,4 +39,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Unused language term check
-        run: bash dev/scripts/find_unused_language_terms.sh || exit 1
+        run: bash dev/scripts/find_unused_language_terms.sh
