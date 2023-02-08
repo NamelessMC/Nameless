@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if [ ! -d 'custom' ]
 then
-    echo "You need to run this script from the Nameless repo root (scripts/find-unused-language-terms.sh)"
+    echo "You need to run this script from the Nameless repo root"
     exit 1
 fi
 
