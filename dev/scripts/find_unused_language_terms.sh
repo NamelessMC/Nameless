@@ -7,6 +7,7 @@ fi
 
 UNUSED_TERMS_FOUND=false
 KEYS=$(jq -M -r 'keys | .[]' custom/languages/en_UK.json)
+man ggrep
 for KEY in $KEYS
 do
     BEFORE_SLASH="${KEY%%/*}"
@@ -16,9 +17,8 @@ do
     fi
 
     AFTER_SLASH="${KEY#*/}"
-    echo "Checking for $BEFORE_SLASH/$AFTER_SLASH..."
 
-    if ! ggrep -r --exclude-dir=.git --exclude-dir=vendor --exclude-dir=cache --exclude-dir=node_modules \
+    if ! grep -r --exclude-dir=.git --exclude-dir=vendor --exclude-dir=cache --exclude-dir=node_modules \
             -e "get('$BEFORE_SLASH', '$AFTER_SLASH'" \
             -e "get(\"$BEFORE_SLASH\", '$AFTER_SLASH'" \
             -e "get('$BEFORE_SLASH', \"$AFTER_SLASH\"" \
