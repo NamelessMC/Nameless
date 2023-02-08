@@ -140,7 +140,6 @@
     "forum/pre_topic_edit_hook_info": "Chỉnh sửa trước chủ đề",
     "forum/quote": "Trích dẫn",
     "forum/quoted_post": "Đã thêm bài vào bài viết được trích dẫn.",
-    "forum/quoting_posts": "Đang chèn trích dẫn...",
     "forum/re": "RE: ",
     "forum/read_full_post": "Đọc toàn bộ bài đăng",
     "forum/recent_posts": "Bài đăng gần đây",
@@ -148,7 +147,6 @@
     "forum/redirect_forum": "Chuyển hướng diễn đàn?",
     "forum/redirect_url": "Chuyển hướng URL",
     "forum/registered_x": "Tham gia vào: {{registeredAt}}",
-    "forum/removed_quoted_post": "Bài đăng bị xóa khỏi các bài đăng được trích dẫn.",
     "forum/search_again_in_x_seconds": "Vui lòng đợi {{count}} giây trước khi tìm kiếm lại.",
     "forum/search_results": "Kết quả tìm kiếm",
     "forum/select_a_parent_forum": "Chọn diễn đàn cha",
@@ -195,4 +193,3 @@
     "forum/x_topics": "{{count}} bài đăng",
     "forum/your_posts": "Số lượng bài đăng của bạn"
 }
-
