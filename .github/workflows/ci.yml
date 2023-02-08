@@ -41,4 +41,5 @@ jobs:
       - name: Unused language term check
         run: |
           npm install ggrep -g
+          ls -l
           bash dev/scripts/find_unused_language_terms.sh || exit 1
