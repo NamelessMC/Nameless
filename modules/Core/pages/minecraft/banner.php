@@ -48,19 +48,7 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
 
         $cache->setCache('banner_cache_' . urlencode($server->name));
         if (!$cache->isCached('image')) {
-            // Internal or external query?
-            $query_type = DB::getInstance()->get('settings', ['name', 'external_query'])->results();
-            if (count($query_type)) {
-                if ($query_type[0]->value == '1') {
-                    $query_type = 'external';
-                } else {
-                    $query_type = 'internal';
-                }
-            } else {
-                $query_type = 'internal';
-            }
-
-            $query = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
+            $query = MCQuery::singleQuery($full_ip, 'external', $server->bedrock, $language); // The favicon is always using the external query anyways
 
             // Do we need to query for favicon?
             if (!$cache->isCached('favicon')) {
