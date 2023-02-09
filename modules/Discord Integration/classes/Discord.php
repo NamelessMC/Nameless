@@ -37,6 +37,10 @@ class Discord {
             return false;
         }
 
+        // Filter out any `null` values that snuck into $added or $removed
+        $added = array_filter($added);
+        $removed = array_filter($removed);
+
         $user_discord_id = $integrationUser->data()->identifier;
         $role_changes = [];
         foreach ($added as $role) {
