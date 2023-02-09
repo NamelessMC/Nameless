@@ -62,5 +62,10 @@
     "forum/guests": "Tamu",
     "forum/has_no_parent": "Tidak ada parent",
     "forum/in": "di",
-    "forum/include_in_hook": "Sertakan acara dari forum ini di webhook?"
+    "forum/include_in_hook": "Sertakan acara dari forum ini di webhook?",
+    "forum/input_forum_title": "Masukkan judul forum.",
+    "forum/insert_quotes": "Sisipkan Kutipan",
+    "forum/invalid_action": "Tindakan tidak valid",
+    "forum/invalid_search_query": "Silakan masukkan permintaan pencarian antara {{min}} dan {{max}} karakter.",
+    "forum/invalid_redirect_url": "Anda telah mengaktifkan pengalihan forum, tetapi Anda belum memasukkan URL yang valid antara {{min}} dan {{max}} karakter."
 }
