@@ -599,7 +599,7 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        if (defined('MINECRAFT') && MINECRAFT === true) {
+        if (Util::getSetting('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
@@ -840,26 +840,24 @@ class Core_Module extends Module {
             }
         }
 
-        if (defined('MINECRAFT') && MINECRAFT === true) {
-            if (Util::getSetting('status_page')) {
-                // Add status link to navbar
-                $cache->setCache('navbar_order');
-                if (!$cache->isCached('status_order')) {
-                    $status_order = 3;
-                    $cache->store('status_order', 3);
-                } else {
-                    $status_order = $cache->retrieve('status_order');
-                }
-
-                $cache->setCache('navbar_icons');
-                if (!$cache->isCached('status_icon')) {
-                    $icon = '';
-                } else {
-                    $icon = $cache->retrieve('status_icon');
-                }
-
-                $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+        if (Util::getSetting('mc_integration') && Util::getSetting('status_page')) {
+            // Add status link to navbar
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('status_order')) {
+                $status_order = 3;
+                $cache->store('status_order', 3);
+            } else {
+                $status_order = $cache->retrieve('status_order');
             }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('status_icon')) {
+                $icon = '';
+            } else {
+                $icon = $cache->retrieve('status_icon');
+            }
+
+            $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
         }
 
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
@@ -887,7 +885,7 @@ class Core_Module extends Module {
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
-            if (defined('MINECRAFT') && MINECRAFT === true) {
+            if (Util::getSetting('mc_integration')) {
                 // Query main server
                 $cache->setCache('mc_default_server');
 
