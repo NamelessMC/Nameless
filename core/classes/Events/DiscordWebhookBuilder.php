@@ -20,7 +20,7 @@ class DiscordWebhookBuilder {
         return $this->_username;
     }
 
-    public function setUsername(string $username): self {
+    public function setUsername(?string $username): self {
         $this->_username = $username;
         return $this;
     }
@@ -29,7 +29,7 @@ class DiscordWebhookBuilder {
         return $this->_avatar_url;
     }
 
-    public function setAvatarUrl(string $avatar_url): self {
+    public function setAvatarUrl(?string $avatar_url): self {
         $this->_avatar_url = $avatar_url;
         return $this;
     }

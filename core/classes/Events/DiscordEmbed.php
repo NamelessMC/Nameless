@@ -17,7 +17,7 @@ class DiscordEmbed {
         return $this->_title;
     }
 
-    public function setTitle(string $title): self {
+    public function setTitle(?string $title): self {
         $this->_title = $title;
         return $this;
     }
@@ -53,7 +53,7 @@ class DiscordEmbed {
         return $this->_url;
     }
 
-    public function setUrl(string $url): self {
+    public function setUrl(?string $url): self {
         $this->_url = $url;
         return $this;
     }
