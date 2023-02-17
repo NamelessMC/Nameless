@@ -20,6 +20,10 @@ const PANEL_PAGE = 'navigation';
 $page_title = $language->get('admin', 'navigation');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
+$template->assets()->include(
+    AssetTree::ICON_PICKER,
+);
+
 // Deal with input
 if (Input::exists()) {
     $errors = [];

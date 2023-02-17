@@ -55,33 +55,34 @@
                     {foreach from=$forum.subforums item=subforum}
                     {if $subforum->redirect_forum neq 1}
                     <div class="centered row">
-                        <div class="one wide column mobile hidden">{if empty($subforum->icon)}
-                            <i class="ui large comment icon middle aligned"></i>
-                            {else}{$subforum->icon}{/if}
+                        <div class="one wide column mobile hidden">
+                            {if empty($subforum->icon)}
+                                <i class="ui large comment icon middle aligned"></i>
+                            {else}
+                                <i class="{$subforum->icon}"></i>
+                            {/if}
                         </div>
                         <div class="nine wide column">
                             <a class="header" href="{$subforum->link}" data-toggle="popup">{$subforum->forum_title}</a>
                             <div class="ui wide popup">
                                 <h4 class="ui header">{$subforum->forum_title}</h4>
                                 {if !empty($subforum->forum_description)}
-                                <br />
-                                {$subforum->forum_description}
+                                    <br />
+                                    {$subforum->forum_description}
                                 {/if}
-                                <br />{$TOPICS|capitalize} <b>{$subforum->topics}</b>
-                                &middot; {$POSTS|capitalize} <b>{$subforum->posts}</b>
+                                <br />{$TOPICS|capitalize} <b>{$subforum->topics}</b>&middot; {$POSTS|capitalize} <b>{$subforum->posts}</b>
                                 {if isset($subforum->subforums)}
-                                <br />
-                                {$SUBFORUMS}:
-                                {assign i 1}
-                                {foreach from=$subforum->subforums item=sub_subforum}
-                                {if $i != 1}&middot; {/if}<a href="{$sub_subforum->link}">{$sub_subforum->title}</a>
-                                {assign i $i+1}
-                                {/foreach}
+                                    <br />
+                                    {$SUBFORUMS}:
+                                    {assign i 1}
+                                    {foreach from=$subforum->subforums item=sub_subforum}
+                                        {if $i != 1}&middot; {/if}<a href="{$sub_subforum->link}">{$sub_subforum->title}</a>
+                                        {assign i $i+1}
+                                    {/foreach}
                                 {/if}
                             </div>
                             <div class="description">
-                                {$TOPICS|capitalize}: <b>{$subforum->topics}</b>
-                                &middot; {$POSTS|capitalize}: <b>{$subforum->posts}</b>
+                                {$TOPICS|capitalize}: <b>{$subforum->topics}</b> &middot; {$POSTS|capitalize}: <b>{$subforum->posts}</b>
                                 {if isset($subforum->subforums)}
                                 <div class="ui top right pointing inline dropdown">
                                     &middot; {$SUBFORUMS} <i class="dropdown icon"></i>
@@ -90,8 +91,11 @@
                                         {foreach from=$subforum->subforums item=sub_subforum}
                                         <a class="item" href="{$sub_subforum->link}">
                                             {if empty($sub_subforum->icon)}
-                                            <i class="comment icon"></i>
-                                            {else}{$sub_subforum->icon}{/if} {$sub_subforum->title}
+                                                <i class="comment icon"></i>
+                                            {else}
+                                                <i class="{$sub_subforum->icon}"></i>
+                                            {/if}
+                                            {$sub_subforum->title}
                                         </a>
                                         {/foreach}
                                     </div>
@@ -124,8 +128,13 @@
                     </div>
                     {else}
                     <div class="centered row">
-                        <div class="one wide column mobile hidden">{if empty($subforum->icon)}<i
-                                class="ui large comment icon middle aligned"></i>{else}{$subforum->icon}{/if}</div>
+                        <div class="one wide column mobile hidden">
+                            {if empty($subforum->icon)}
+                                <i class="ui large comment icon middle aligned"></i>
+                            {else}
+                                <i class="{$subforum->icon}"></i>
+                            {/if}
+                        </div>
                         <div class="fifteen wide column">
                             <a class="header" data-toggle="modal" {if isset($subforum->redirect_confirm)}
                                 href="#"

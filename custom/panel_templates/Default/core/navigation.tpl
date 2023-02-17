@@ -42,58 +42,68 @@
                             <form action="" method="post">
                                 <div class="card shadow border-left-primary">
                                     <div class="card-body">
-                                        <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                        <h5><i class="fa fa-info-circle"></i> {$INFO}</h5>
                                         <p>{$NAVBAR_ORDER_INSTRUCTIONS}</p>
                                         <p>{$NAVBAR_ICON_INSTRUCTIONS}</p>
                                     </div>
                                 </div>
                                 <br />
                                 {foreach from=$NAV_ITEMS key=key item=item}
-                                <strong>{$item.title|escape}</strong>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="input{$item.title|escape}">{$NAVBAR_ORDER}</label>
-                                            <input type="number" min="1" class="form-control"
-                                                id="input{$item.title|escape}"
-                                                name="inputOrder[{if isset($item.custom) && is_numeric($item.custom)}{$item.custom}{else}{$key}{/if}]"
-                                                value="{$item.order|escape}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="input{$item.title|escape}Icon">{$NAVBAR_ICON}</label>
-                                            <input type="text" class="form-control" id="input{$item.title|escape}Icon"
-                                                name="inputIcon[{if isset($item.custom) && is_numeric($item.custom)}{$item.custom}{else}{$key}{/if}]"
-                                                value="{$item.icon|escape}"
-                                                placeholder='<i class="fas fa-home icon"></i>'>
-                                        </div>
-                                    </div>
-                                </div>
-                                {if isset($item.items) && count($item.items)}
-                                <br>
-                                <strong>{$item.title|escape} &raquo; {$DROPDOWN_ITEMS}</strong>
-                                <br />
-                                {foreach from=$item.items key=dropdown_key item=dropdown_item}
-                                <strong>{$dropdown_item.title|escape}</strong>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="input{$dropdown_item.title|escape}">{$NAVBAR_ORDER}</label>
-                                            <input type="number" min="1" class="form-control"
-                                                id="input{$dropdown_item.title|escape}"
-                                                name="inputOrder[{if isset($dropdown_item.custom) && is_numeric($dropdown_item.custom)}{$dropdown_item.custom}{else}{$dropdown_key}{/if}]"
-                                                value="{$dropdown_item.order|escape}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="input{$dropdown_item.title|escape}Icon">{$NAVBAR_ICON}</label>
-                                            <input type="text" class="form-control"
-                                                id="input{$dropdown_item.title|escape}Icon"
-                                                name="inputIcon[{if isset($dropdown_item.custom) && is_numeric($dropdown_item.custom)}{$dropdown_item.custom}{else}{$dropdown_key}{/if}]"
-                                                value="{$dropdown_item.icon|escape}">
+                                    <strong>{$item.title|escape}</strong>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="input{$item.title|escape}">{$NAVBAR_ORDER}</label>
+                                                <input type="number" min="1" class="form-control"
+                                                    id="input{$item.title|escape}"
+                                                    name="inputOrder[{if isset($item.custom) && is_numeric($item.custom)}{$item.custom}{else}{$key}{/if}]"
+                                                    value="{$item.order|escape}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="input{$item.title|escape}Icon">{$NAVBAR_ICON}</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text icon-picker"
+                                                              id="nav-icon-picker-{if isset($item.custom) && is_numeric($item.custom)}{$item.custom}{else}{$key}{/if}"
+                                                              style="cursor: pointer;"
+                                                        >
+                                                            <i class="fa fa-plus"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="input{$item.title|escape}Icon"
+                                                           name="inputIcon[{if isset($item.custom) && is_numeric($item.custom)}{$item.custom}{else}{$key}{/if}]"
+                                                           value="{$item.icon|escape}"
+                                                           placeholder="fa-solid fa-house">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {/foreach}
-                                {/if}
+                                    {if isset($item.items) && count($item.items)}
+                                        <br>
+                                        <strong>{$item.title|escape} &raquo; {$DROPDOWN_ITEMS}</strong>
+                                        <br />
+                                        {foreach from=$item.items key=dropdown_key item=dropdown_item}
+                                            <strong>{$dropdown_item.title|escape}</strong>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label for="input{$dropdown_item.title|escape}">{$NAVBAR_ORDER}</label>
+                                                        <input type="number" min="1" class="form-control"
+                                                            id="input{$dropdown_item.title|escape}"
+                                                            name="inputOrder[{if isset($dropdown_item.custom) && is_numeric($dropdown_item.custom)}{$dropdown_item.custom}{else}{$dropdown_key}{/if}]"
+                                                            value="{$dropdown_item.order|escape}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="input{$dropdown_item.title|escape}Icon">{$NAVBAR_ICON}</label>
+                                                        <input type="text" class="form-control"
+                                                            id="input{$dropdown_item.title|escape}Icon"
+                                                            name="inputIcon[{if isset($dropdown_item.custom) && is_numeric($dropdown_item.custom)}{$dropdown_item.custom}{else}{$dropdown_key}{/if}]"
+                                                            value="{$dropdown_item.icon|escape}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {/foreach}
+                                    {/if}
 
                                 {/foreach}
                                 <hr>
@@ -129,6 +139,24 @@
     </div>
 
     {include file='scripts.tpl'}
+
+    <script>
+        $(document).ready(function () {
+            $('.icon-picker').each(function () {
+                const id = $(this).attr('id').replace('nav-icon-picker-', '');
+                new UniversalIconPicker('#nav-icon-picker-' + id, {
+                    allowEmpty: false,
+                    iconLibraries: [
+                        'fomantic-ui.min.json',
+                        'font-awesome.min.json',
+                    ],
+                    onSelect: (icon) => {
+                        document.getElementsByName('inputIcon[' + id + ']')[0].value = icon.iconClass;
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 

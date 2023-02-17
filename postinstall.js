@@ -44,6 +44,7 @@ const publicAssets = {
     'dist/semantic.min.css',
     'dist/semantic.min.js',
     'dist/themes/default',
+    'dist/components/icon.min.css',
   ],
   'image-picker': [
     'image-picker/image-picker.css',
@@ -72,6 +73,9 @@ const publicAssets = {
     'skins',
     'themes',
     'tinymce.min.js',
+  ],
+  '@migliori/universal-icon-picker': [
+      'assets',
   ],
 };
 

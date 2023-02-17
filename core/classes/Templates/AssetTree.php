@@ -84,6 +84,7 @@ class AssetTree {
      * @var string Fomantic-UI bundle v2.8 (CSS + JS)
      */
     public const FOMANTIC_UI = 'FOMANTIC_UI';
+    public const ICON_PICKER = 'ICON_PICKER';
 
     /**
      * @var mixed Tree of all available assets, with their applicable CSS/JS files.
@@ -252,6 +253,14 @@ class AssetTree {
             ],
             'after' => [
                 self::JQUERY,
+            ]
+        ],
+        self::ICON_PICKER => [
+            'js' => [
+                'vendor/@migliori/universal-icon-picker/assets/js/universal-icon-picker.min.js',
+            ],
+            'css' => [
+                'vendor/fomantic-ui/dist/components/icon.min.css',
             ]
         ],
     ];

@@ -39,6 +39,7 @@
     "forum/forum_description": "Forum Description",
     "forum/forum_description_maximum": "The forum description must be a maximum of 255 characters.",
     "forum/forum_icon": "Forum Icon",
+    "forum/forum_icon_instructions": "You can also add an to the forum here, for example using {{faLink}} or {{semLink}}.",
     "forum/forum_icon_maximum": "The forum icon must be a maximum of 256 characters.",
     "forum/forum_index": "Home",
     "forum/forum_layout": "Forum Layout",

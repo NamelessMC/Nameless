@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
+    "@migliori/universal-icon-picker": "^1.1.4",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "4.6.1",
     "bootstrap-colorpicker": "^3.4.0",
