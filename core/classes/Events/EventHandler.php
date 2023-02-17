@@ -180,6 +180,7 @@ class EventHandler {
                     continue;
                 }
 
+                $callback = $webhook['action'];
                 // We are more flexible with webhooks, since a single webhook listener
                 // is likely going to handle a variety of different events (DiscordHook for example).
                 $to_pass = $event_object ?? $params;
