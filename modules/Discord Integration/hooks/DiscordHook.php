@@ -19,6 +19,9 @@ class DiscordHook {
         $webhook_url = $event instanceof AbstractEvent
             ? $webhook_url
             : $event['webhook'];
+        $name = $event instanceof AbstractEvent
+            ? $event::name()
+            : $event['event'];
         $format = [];
 
         if ($event instanceof DiscordDispatchable) {
@@ -26,7 +29,7 @@ class DiscordHook {
         }
 
         $return = EventHandler::executeEvent(new DiscordWebhookFormatterEvent(
-            $event::name(),
+            $name,
             $format,
             $params,
         ))['format'];
