@@ -405,7 +405,13 @@ if (!isset($_GET['action'])) {
 
                     // Display success message
                     $smarty->assign('MESSAGE_SENT', $language->get('user', 'message_sent_successfully'));
-                    unset($_POST['content']);
+                    unset($_POST['content']);if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                    // Redirect to same page to avoid resubmitting form on refresh
+                    header('Location: ' . $_SERVER['REQUEST_URI']);
+                    exit;
+                }
+
 
                 } else {
                     // Errors
