@@ -180,20 +180,15 @@ class EventHandler {
                     continue;
                 }
 
-                $callback = $webhook['action'];
-                $pass_object = self::shouldPassEventObject($callback);
-                if ($pass_object && !isset($event_object)) {
-                    throw new RuntimeException("Could not find class to hydrate for event '$name'");
-                }
-
-                if ($pass_object) {
+                $to_pass = $event_object ?? $params;
+                if ($to_pass instanceof AbstractEvent) {
                     // We don't have a way to add a "webhook" property to an
                     // arbitrary event object, so we'll just pass the webhook
                     // URL as a second parameter to the callback.
-                    $callback($event_object, $webhook['url']);
+                    $callback($to_pass, $webhook['url']);
                 } else {
-                    $params['webhook'] = $webhook['url'];
-                    $callback($params);
+                    $to_pass['webhook'] = $webhook['url'];
+                    $callback($to_pass);
                 }
             }
         }
@@ -251,8 +246,8 @@ class EventHandler {
      * @throws ReflectionException If the callback is not a valid callable.
      */
     private static function shouldPassEventObject(callable $callback): bool {
-        // We need to convert [ClassName::class, 'method'] arrays to closures
-        if (is_array($callback)) {
+        // We need to convert [ClassName::class, 'method'] arrays to closures, and "ClassName::method" strings to closures.
+        if (is_array($callback) || is_string($callback)) {
             $callback = Closure::fromCallable($callback);
         }
         $reflection = new ReflectionFunction($callback);
