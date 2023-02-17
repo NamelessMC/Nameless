@@ -9,7 +9,7 @@
  *  Status page
  */
 
-if (!defined('MINECRAFT') || MINECRAFT !== true || !Util::getSetting('status_page')) {
+if (!Util::getSetting('mc_integration') || !Util::getSetting('status_page')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
