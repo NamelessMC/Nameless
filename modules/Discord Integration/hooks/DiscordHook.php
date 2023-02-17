@@ -16,17 +16,18 @@ class DiscordHook {
         $params = $event instanceof AbstractEvent
                 ? $event->params()
                 : $event;
+
         $webhook_url = $event instanceof AbstractEvent
             ? $webhook_url
-            : $event['webhook'];
+            : $params['webhook'];
+
         $name = $event instanceof AbstractEvent
             ? $event::name()
-            : $event['event'];
-        $format = [];
+            : $params['event'];
 
-        if ($event instanceof DiscordDispatchable) {
-            $format = $event->toDiscordWebook();
-        }
+        $format = $event instanceof DiscordDispatchable
+            ? $event->toDiscordWebook()
+            : [];
 
         $return = EventHandler::executeEvent(new DiscordWebhookFormatterEvent(
             $name,
