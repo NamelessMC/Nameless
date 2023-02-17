@@ -106,7 +106,7 @@ class DiscordEmbed {
         return $this->_footer;
     }
 
-    public function setFooter(string $footer_text, string $footer_icon_url = null): self {
+    public function setFooter(?string $footer_text, ?string $footer_icon_url = null): self {
         $this->_footer = [
             'text' => $footer_text,
             'icon_url' => $footer_icon_url,
