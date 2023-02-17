@@ -1131,7 +1131,6 @@
     "user/max_pm_10_users": "You can only send a message to a maximum of 10 users",
     "user/mcname_maximum_20": "Your Minecraft username must be a maximum of 20 characters.",
     "user/mcname_minimum_3": "Your Minecraft username must be a minimum of 3 characters.",
-    "user/mcname_required": "A Minecraft username is required.",
     "user/message_sent_successfully": "Message sent successfully",
     "user/message_title": "Message Title",
     "user/messages": "Messages",
