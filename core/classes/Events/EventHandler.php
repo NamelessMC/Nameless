@@ -180,6 +180,8 @@ class EventHandler {
                     continue;
                 }
 
+                // We are more flexible with webhooks, since a single webhook listener
+                // is likely going to handle a variety of different events (DiscordHook for example).
                 $to_pass = $event_object ?? $params;
                 if ($to_pass instanceof AbstractEvent) {
                     // We don't have a way to add a "webhook" property to an
