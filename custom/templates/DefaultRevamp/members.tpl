@@ -19,7 +19,7 @@
 
 <div class="ui stackable equal width grid">
     <div class="ui centered row">
-        <div class="ui three wide column">
+        <div class="ui four wide column">
             <div class="ui fluid vertical menu pointing">
                 <a class="item {if $VIEWING_LIST eq "overview"}active{/if}" href="{$MEMBER_LIST_URL}">
                     <i class="ellipsis horizontal icon"></i>{$OVERVIEW}
