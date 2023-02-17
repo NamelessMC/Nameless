@@ -210,7 +210,7 @@ if (Input::exists()) {
             }
 
         } else if ((Input::get('action') == 'delete') && $user_query->id > 1) {
-                EventHandler::executeEvent(new UserDeletedEvent($user));
+                EventHandler::executeEvent(new UserDeletedEvent($view_user));
 
                 Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 Redirect::to(URL::build('/panel/users'));
