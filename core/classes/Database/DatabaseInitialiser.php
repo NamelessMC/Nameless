@@ -171,7 +171,7 @@ class DatabaseInitialiser {
         Util::setSetting('recaptcha_type', 'Recaptcha3');
         Util::setSetting('recaptcha_login', '0');
         Util::setSetting('email_verification', '1');
-        Util::setSetting('nameless_version', '2.0.2');
+        Util::setSetting('nameless_version', '2.0.3');
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
         Util::setSetting('phpmailer_type', 'smtp');
@@ -189,7 +189,8 @@ class DatabaseInitialiser {
         Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
         Util::setSetting('use_api', 0);
         Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
-        Util::setSetting('external_query', '0');
+        Util::setSetting('query_type', 'internal');
+        Util::setSetting('player_list_limit', '20');
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
         Util::setSetting('timezone', $_SESSION['install_timezone']);
