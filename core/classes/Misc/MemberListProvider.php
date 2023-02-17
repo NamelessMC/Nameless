@@ -74,16 +74,19 @@ abstract class MemberListProvider {
                 throw new RuntimeException('Provider must return an array of User objects');
             }
 
-            $list_members[] = array_merge([
-                'username' => $member->data()->username,
-                'avatar_url' => $member->getAvatar(32),
-                'group_style' => $member->getGroupStyle(),
-                'profile_url' => $member->getProfileURL(),
-                'count' => $count,
-            ], !$overview ? [] : [
-                'group' => $member->getMainGroup()->name,
-                'metadata' => MemberList::getInstance()->getMemberMetadata($member),
-            ]);
+            $list_members[] = array_merge(
+                [
+                    'username' => $member->data()->username,
+                    'avatar_url' => $member->getAvatar(32),
+                    'group_style' => $member->getGroupStyle(),
+                    'profile_url' => $member->getProfileURL(),
+                    'count' => $count,
+                ],
+                !$overview ? [] : [
+                    'group' => $member->getMainGroup()->name,
+                    'metadata' => MemberList::getInstance()->getMemberMetadata($member),
+                ],
+            );
         }
 
         return $list_members;
