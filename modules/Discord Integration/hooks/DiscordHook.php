@@ -14,8 +14,8 @@ class DiscordHook {
      */
     public static function execute($event, string $webhook_url = ''): void {
         $params = $event instanceof AbstractEvent
-                ? $event->params()
-                : $event;
+            ? $event->params()
+            : $event;
 
         $webhook_url = $event instanceof AbstractEvent
             ? $webhook_url
