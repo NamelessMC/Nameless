@@ -97,7 +97,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
         $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
-        $pages->add('Core', '/panel/core/members', 'pages/panel/members.php');
+        $pages->add('Core', '/panel/core/member_lists', 'pages/panel/member_lists.php');
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
@@ -711,7 +711,7 @@ class Core_Module extends Module {
             'admincp.core.hooks' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'hooks'),
             'admincp.core.announcements' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'announcements'),
             'admincp.core.placeholders' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'placeholders'),
-            'admincp.core.members' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'members'),
+            'admincp.core.member_lists' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'member_lists'),
             'admincp.integrations' => $language->get('admin', 'integrations'),
             'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
@@ -1234,7 +1234,7 @@ class Core_Module extends Module {
                     $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
                 }
 
-                if ($user->hasPermission('admincp.core.members')) {
+                if ($user->hasPermission('admincp.core.member_lists')) {
                     if (!$cache->isCached('members_icon')) {
                         $icon = '<i class="nav-icon fas fa-list"></i>';
                         $cache->store('members_icon', $icon);
@@ -1242,7 +1242,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('members_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'members', $language->get('admin', 'member_list'), URL::build('/panel/core/members'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'member_lists', $language->get('admin', 'member_lists'), URL::build('/panel/core/member_lists'), 'top', null, $icon, $order);
                 }
             }
 

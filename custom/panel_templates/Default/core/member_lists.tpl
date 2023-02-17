@@ -22,10 +22,10 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">{$MEMBER_LIST}</h1>
+                    <h1 class="h3 mb-0 text-gray-800">{$MEMBER_LISTS}</h1>
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                        <li class="breadcrumb-item active">{$MEMBER_LIST}</li>
+                        <li class="breadcrumb-item active">{$MEMBER_LISTS}</li>
                     </ol>
                 </div>
 
@@ -36,6 +36,19 @@
                     <div class="card-body">
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
+
+                        <form id="toggleHideBannedUsers" action="" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <div class="form-group custom-control custom-switch">
+                                <input type="hidden" name="action" value="toggle_hide_banned_users">
+                                <input id="inputToggleHideBannedUsers" name="hide_banned_users" type="checkbox" class="custom-control-input js-check-change" value="1" {if $HIDE_BANNED_USERS_VALUE eq 1} checked{/if} />
+                                <label for="inputToggleHideBannedUsers" class="custom-control-label">
+                                    {$HIDE_BANNED_USERS}
+                                </label>
+                            </div>
+                        </form>
+
+                        <hr>
 
                         <div class="table-responsive">
                             <table class="table table-borderless table-striped">
@@ -48,7 +61,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {foreach $MEMBER_LISTS as $member_list}
+                                {foreach $MEMBER_LISTS_VALUES as $member_list}
                                     <tr>
                                         <td>
                                             {$member_list->getFriendlyName()}

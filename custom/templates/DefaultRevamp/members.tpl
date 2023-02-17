@@ -10,7 +10,7 @@
 <div class="ui stackable equal width grid">
     <div class="ui centered row">
         <div class="ui three wide column">
-            <div class="ui vertical menu">
+            <div class="ui fluid vertical menu pointing">
                 <a class="item {if $VIEWING_LIST eq "overview"}active{/if}" href="{$MEMBER_LIST_URL}">
                     <i class="ellipsis horizontal icon"></i>{$OVERVIEW}
                 </a>
@@ -21,7 +21,7 @@
                 {/foreach}
             </div>
         </div>
-        <div class="ui thirteen wide column">
+        <div class="ui column">
             <div class="ui stackable equal width left aligned grid segment" style="margin-top: 0">
                 {foreach from=$MEMBER_LISTS_VIEWING item=list}
                     <div class="ui column">
@@ -29,7 +29,7 @@
                         <ul id="member_list_{$list->getName()}" class="ui list large selection" style="margin-left: -10px;">
                         </ul>
                         {if $VIEWING_LIST == "overview"}
-                            <a class="fluid ui grey basic button" href="{$list->url()}">View all</a>
+                            <a class="fluid ui grey basic button" href="{$list->url()}">{$VIEW_ALL}</a>
                         {/if}
                     </div>
                 {/foreach}

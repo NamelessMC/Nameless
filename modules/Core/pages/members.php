@@ -31,6 +31,7 @@ $smarty->assign([
     'MEMBER_LIST_URL' => URL::build('/members'),
     'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'false' : 'true')),
     'OVERVIEW' => $language->get('user', 'overview'),
+    'VIEW_ALL' => $language->get('general', 'view_all'),
 ]);
 
 // Load modules + template

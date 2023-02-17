@@ -51,7 +51,18 @@ abstract class MemberListProvider {
     }
 
     public function getMembers(bool $overview): array {
-        $members = array_slice($this->generateMembers(), 0, $overview ? 20 : 5);
+        $members = $this->generateMembers();
+
+        if (Util::getSetting('member_list_hide_banned')) {
+            $members = array_filter($members, static function ($member) {
+                if (is_array($member)) {
+                    $member = $member[0];
+                }
+                return !$member->data()->isbanned;
+            });
+        }
+
+        $members = array_slice($members, 0, $overview ? 20 : 5);
 
         $list_members = [];
         foreach ($members as $member) {
