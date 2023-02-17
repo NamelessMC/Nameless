@@ -161,7 +161,7 @@ class EventHandler {
                 $callback = $listener['callback'];
                 $pass_object = self::shouldPassEventObject($callback);
                 if ($pass_object && !isset($event_object)) {
-                    throw new RuntimeException("Could not find class to hydrate for event '$name'");
+                    throw new RuntimeException("Listener expects class, but '$name' is not a class-based event");
                 }
 
                 $response = $callback($pass_object ? $event_object : $params);
