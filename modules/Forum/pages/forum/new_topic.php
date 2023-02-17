@@ -205,7 +205,7 @@ if (Input::exists()) {
                 EventHandler::executeEvent(new TopicCreatedEvent(
                     $user,
                     $forum_title,
-                    Input::get('topic'),
+                    Input::get('title'),
                     Input::get('content'),
                     $topic_id,
                     $available_hooks,
