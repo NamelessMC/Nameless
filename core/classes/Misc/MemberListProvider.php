@@ -50,8 +50,8 @@ abstract class MemberListProvider {
         return $this->_enabled = $enabled;
     }
 
-    public function getMembers(bool $only): array {
-        $members = array_slice($this->generateMembers(), 0, $only ? 20 : 5);
+    public function getMembers(bool $overview): array {
+        $members = array_slice($this->generateMembers(), 0, $overview ? 20 : 5);
 
         $list_members = [];
         foreach ($members as $member) {
@@ -69,7 +69,7 @@ abstract class MemberListProvider {
                 'group_style' => $member->getGroupStyle(),
                 'profile_url' => $member->getProfileURL(),
                 'count' => $count,
-            ], !$only ? [] : [
+            ], !$overview ? [] : [
                 'group' => $member->getMainGroup()->name,
                 'metadata' => MemberList::getInstance()->getMemberMetadata($member),
             ]);

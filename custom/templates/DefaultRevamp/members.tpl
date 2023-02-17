@@ -28,7 +28,7 @@
                         <h3>{$list->getFriendlyName()}</h3>
                         <ul id="member_list_{$list->getName()}" class="ui list large selection" style="margin-left: -10px;">
                         </ul>
-                        {if $VIEWING_LIST eq "overview"}
+                        {if $VIEWING_LIST == "overview"}
                             <a class="fluid ui grey basic button" href="{$list->url()}">View all</a>
                         {/if}
                     </div>
@@ -74,6 +74,9 @@
 
                 const contentDiv = document.createElement('div');
                 contentDiv.classList.add('middle', 'aligned', 'content');
+                contentDiv.style.whiteSpace = 'nowrap';
+                contentDiv.style.overflow = 'hidden';
+                contentDiv.style.textOverflow = 'ellipsis';
 
                 const avatarDiv = document.createElement('img');
                 avatarDiv.classList.add('ui', 'avatar', 'image');

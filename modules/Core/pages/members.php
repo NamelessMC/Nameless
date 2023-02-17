@@ -29,7 +29,7 @@ $smarty->assign([
     'MEMBER_LISTS_VIEWING' => $lists,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
-    'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&only=' . ($viewing_list === 'overview' ? 'false' : 'true')),
+    'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'false' : 'true')),
     'OVERVIEW' => $language->get('user', 'overview'),
 ]);
 
