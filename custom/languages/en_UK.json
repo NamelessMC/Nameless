@@ -1138,7 +1138,6 @@
     "user/must_input_username": "You must input a username.",
     "user/new_message": "New Message",
     "user/new_password": "New Password",
-    "user/new_profile_post": "New Profile Post",
     "user/new_reply": "New Reply",
     "user/new_wall_post": "{{author}} has posted on your profile.",
     "user/new_wall_post_reply": "{{author}} has replied to your post on {{user}}'s profile.",
