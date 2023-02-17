@@ -27,7 +27,7 @@ class UserIntegrationLinkedEvent extends AbstractEvent implements DiscordDispatc
             ->setUsername($this->user->getDisplayname() . ' | ' . SITE_NAME)
             ->setAvatarUrl($this->user->getAvatar(128, true))
             ->addEmbed(function (DiscordEmbed $embed) use ($language) {
-                $embed
+                return $embed
                     ->setDescription($language->get('user', 'user_has_linked_integration', [
                         'user' => $this->user->getDisplayname(),
                         'integration' => $this->integration->getName(),

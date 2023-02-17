@@ -39,7 +39,7 @@ class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
             ->setUsername($this->username . ' | ' . SITE_NAME)
             ->setAvatarUrl($this->avatar_url)
             ->addEmbed(function (DiscordEmbed $embed) {
-                $embed
+                return $embed
                     ->setTitle($this->title)
                     ->setUrl($this->url)
                     ->setDescription(mb_strlen($this->content) > 512
