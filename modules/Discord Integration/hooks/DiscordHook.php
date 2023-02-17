@@ -9,8 +9,13 @@
 
 class DiscordHook {
 
-    public static function execute(AbstractEvent $event, string $webhook_url): void {
-        $params = $event->params();
+    /**
+     * @param AbstractEvent|array $event Event to execute, or array of params if event is not object based
+     */
+    public static function execute($event, string $webhook_url): void {
+        $params = $event instanceof AbstractEvent
+                ? $event->params()
+                : $event;
         $format = [];
 
         if ($event instanceof DiscordDispatchable) {
