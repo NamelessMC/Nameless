@@ -7,6 +7,16 @@
 
 <br />
 
+{if isset($ERROR)}
+<div class="ui error icon message">
+    <i class="x icon"></i>
+    <div class="content">
+        <div class="header">{$ERROR_TITLE}</div>
+        {$ERROR}
+    </div>
+</div>
+{/if}
+
 <div class="ui stackable equal width grid">
     <div class="ui centered row">
         <div class="ui three wide column">
@@ -20,9 +30,39 @@
                     </a>
                 {/foreach}
             </div>
+            <div class="ui fluid card">
+                <div class="content">
+                    <h4 class="ui header">Find member</h4>
+                    <div class="description">
+                        <form action="{$MEMBER_LIST_URL}" method="post">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <div class="ui fluid icon input">
+                                <i class="search icon"></i>
+                                <input type="text" name="search" minlength="3" placeholder="Name..." autocomplete="off">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="ui fluid card">
+                <div class="content">
+                    <h4 class="ui header">New members</h4>
+                    <div class="description">
+                        <div class="ui four column grid" id="new-members-grid">
+                            {foreach from=$NEW_MEMBERS_VALUE item=member}
+                                <div class="column">
+                                    <a href="{$member->getProfileUrl()}" data-toggle="popup" data-poload="{$USER_INFO_URL}{$member->data()->id}">
+                                        <img class="ui circular image" src="{$member->getAvatar()}" alt="{$member->getDisplayname()}">
+                                    </a>
+                                </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="ui column">
-            <div class="ui stackable equal width left aligned grid segment" style="margin-top: 0">
+            <div class="ui grid three column segment" style="margin-top: 0">
                 {foreach from=$MEMBER_LISTS_VIEWING item=list}
                     <div class="ui column">
                         <h3>{$list->getFriendlyName()}</h3>

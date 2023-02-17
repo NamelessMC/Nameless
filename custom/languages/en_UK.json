@@ -778,6 +778,8 @@
     "general/log_out_click": "Click here to log out",
     "general/log_out_complete": "Logout successful. Click {{linkStart}}here{{linkEnd}} to continue.",
     "general/members": "Members",
+    "general/member_list_search_min_3_chars": "Please ensure your search query is at least 3 characters long.",
+    "general/member_list_search_no_results": "No user found for '{{search}}'.",
     "general/more": "More",
     "general/new_members": "New members",
     "general/next": "Next",

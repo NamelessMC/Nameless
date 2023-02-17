@@ -639,7 +639,6 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
 
-        MemberList::getInstance()->registerListProvider(new NewMembersListProvider($language));
         MemberList::getInstance()->registerListProvider(new StaffMembersListProvider($language));
 
         MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
