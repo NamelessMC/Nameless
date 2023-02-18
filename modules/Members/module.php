@@ -29,10 +29,6 @@ class Members_Module extends Module {
         $pages->add('Members', '/members', 'pages/members.php');
         $pages->add('Members', '/queries/member_list', 'queries/member_list.php');
         $pages->add('Members', '/panel/core/member_lists', 'pages/panel/member_lists.php');
-
-        // Cookies
-        define('COOKIE_CHECK', true);
-        define('COOKIES_ALLOWED', Cookie::exists('cookieconsent_status') && Cookie::get('cookieconsent_status') == 'allow');
     }
 
     public function onInstall() {
@@ -99,7 +95,7 @@ class Members_Module extends Module {
                 }
 
                 $navs[2]->add('members_divider', mb_strtoupper($this->_member_language->get('members', 'members'), 'UTF-8'), 'divider', 'top', null, $order);
-                $navs[2]->add('member_lists_settings',$this->_member_language->get('members', 'member_lists'), URL::build('/panel/core/member_lists'), 'top', null, $order + 0.1, $icon);
+                $navs[2]->add('member_lists_settings', $this->_member_language->get('members', 'member_lists'), URL::build('/panel/core/member_lists'), 'top', null, $order + 0.1, $icon);
             }
         }
     }
