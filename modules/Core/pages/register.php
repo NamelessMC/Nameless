@@ -307,8 +307,6 @@ if (Input::exists()) {
 
                     Log::getInstance()->log(Log::Action('user/register'), '', $user_id);
 
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
-
                     if (!$auto_verify_oauth_email && Util::getSetting('email_verification') === '1') {
                         // Send registration email
                         sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
