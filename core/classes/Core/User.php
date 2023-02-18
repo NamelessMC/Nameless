@@ -254,7 +254,7 @@ class User {
         }
 
         EventHandler::executeEvent(new UserRegisteredEvent(
-            $this,
+            new User($this->_db->lastId()),
         ));
     }
 
