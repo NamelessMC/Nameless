@@ -1,6 +1,6 @@
 <?php
 
-if (!$user->handlePanelPageLoad('admincp.core.member_lists')) {
+if (!$user->handlePanelPageLoad('admincp.members')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -9,7 +9,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'member_lists';
 
-$page_title = $language->get('admin', 'member_lists');
+$page_title = $member_language->get('members', 'member_lists');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
@@ -23,7 +23,7 @@ if (Input::exists()) {
                 'enabled' => !$enabled
             ]);
 
-            Session::flash('admin_member_list_success', $language->get('admin', 'member_list_toggled', [
+            Session::flash('admin_member_list_success', $member_language->get('members', 'member_list_toggled', [
                 'list' => $list->getFriendlyName(),
                 'value' => strtolower($language->get('admin', $enabled ? 'disabled' : 'enabled')),
             ]));
@@ -51,9 +51,9 @@ if (Session::exists('admin_member_list_success')) {
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'MEMBER_LISTS' => $language->get('admin', 'member_lists'),
+    'MEMBER_LISTS' => $member_language->get('members', 'member_lists'),
     'PAGE' => PANEL_PAGE,
-    'HIDE_BANNED_USERS' => $language->get('admin', 'member_list_hide_banned_users'),
+    'HIDE_BANNED_USERS' => $member_language->get('members', 'member_list_hide_banned_users'),
     'HIDE_BANNED_USERS_VALUE' => Util::getSetting('member_list_hide_banned'),
     'MEMBER_LISTS_VALUES' => MemberList::getInstance()->allLists(),
     'NAME' => $language->get('admin', 'name'),
@@ -73,4 +73,4 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/member_lists.tpl', $smarty);
+$template->displayTemplate('members/member_lists.tpl', $smarty);

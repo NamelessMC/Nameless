@@ -17,14 +17,14 @@ if (Input::exists()) {
     if (Token::check()) {
         $search = Input::get('search');
         if (strlen($search) < 3) {
-            $error = $language->get('general', 'member_list_search_min_3_chars');
+            $error = $member_language->get('members', 'member_list_search_min_3_chars');
         } else {
             $result = DB::getInstance()->query('SELECT username FROM nl2_users WHERE username = ? OR nickname = ?', [$search, $search]);
             if ($result->count()) {
                 $username = $result->first()->username;
                 Redirect::to(URL::build('/profile/' . urlencode($username)));
             } else {
-                $error = $language->get('general', 'member_list_search_no_results', [
+                $error = $member_language->get('members', 'member_list_search_no_results', [
                     'search' => Output::getClean($search),
                 ]);
             }
@@ -33,7 +33,7 @@ if (Input::exists()) {
 }
 
 const PAGE = 'members';
-$page_title = $language->get('general', 'members');
+$page_title = $member_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $viewing_list = $_GET['list'] ?? 'overview';
@@ -55,15 +55,15 @@ if (isset($error)) {
 }
 
 $smarty->assign([
-    'MEMBERS' => $language->get('general', 'members'),
+    'MEMBERS' => $member_language->get('members', 'members'),
     'MEMBER_LISTS' => MemberList::getInstance()->allEnabledLists(),
     'MEMBER_LISTS_VIEWING' => $lists,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
     'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'false' : 'true')),
     'OVERVIEW' => $language->get('user', 'overview'),
-    'VIEW_ALL' => $language->get('general', 'view_all'),
-    'NEW_MEMBERS' => $language->get('general', 'new_members'),
+    'VIEW_ALL' => $member_language->get('members', 'view_all'),
+    'NEW_MEMBERS' => $member_language->get('members', 'new_members'),
     'NEW_MEMBERS_VALUE' => $new_members,
     'TOKEN' => Token::get(),
 ]);
@@ -77,4 +77,4 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('members.tpl', $smarty);
+$template->displayTemplate('members/members.tpl', $smarty);
