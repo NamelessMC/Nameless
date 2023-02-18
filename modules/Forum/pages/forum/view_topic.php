@@ -302,7 +302,7 @@ if (Input::exists()) {
                 $user,
                 $topic->topic_title,
                 $content,
-                $last_post_id,
+                $tid,
                 $available_hooks,
             ));
 
