@@ -123,18 +123,17 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 $code = SecureRandom::alphanumeric();
             }
 
-            $api->getDb()->insert('users', [
-                    'username' => $username,
-                    'nickname' => $username,
-                    'email' => $email,
-                    'password' => md5($code), // temp code
-                    'joined' => date('U'),
-                    'lastip' => 'Unknown',
-                    'reset_code' => $code,
-                    'last_online' => date('U'),
-                    'register_method' => 'api',
-                ]
-            );
+            (new User())->create([
+                'username' => $username,
+                'nickname' => $username,
+                'email' => $email,
+                'password' => md5($code), // temp code
+                'joined' => date('U'),
+                'lastip' => 'Unknown',
+                'reset_code' => $code,
+                'last_online' => date('U'),
+                'register_method' => 'api',
+            ]);
 
             $user_id = $api->getDb()->lastId();
 
@@ -159,10 +158,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
                 }
             }
-
-            EventHandler::executeEvent(new UserRegisteredEvent(
-                $user,
-            ));
 
             if ($return) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);

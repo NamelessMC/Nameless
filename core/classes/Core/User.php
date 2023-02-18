@@ -252,6 +252,10 @@ class User {
         if (!$this->_db->insert('users', $fields)) {
             throw new RuntimeException('There was a problem creating an account.');
         }
+
+        EventHandler::executeEvent(new UserRegisteredEvent(
+            $this,
+        ));
     }
 
     /**
