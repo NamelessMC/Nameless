@@ -47,7 +47,7 @@ class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
             ->addEmbed(function (DiscordEmbed $embed) use ($forum) {
                 return $embed
                     ->setTitle($this->topic_title)
-                    ->setDescription(strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $this->content)))
+                    ->setDescription(Text::embedSafe($this->content))
                     ->setUrl(URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/'));
             });
     }

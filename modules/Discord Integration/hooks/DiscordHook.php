@@ -41,21 +41,16 @@ class DiscordHook {
 
         if (!is_array($return) || !count($return)) {
             try {
-                $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
-                if (mb_strlen($content) > 512) {
-                    $content = mb_substr($content, 0, 512) . '...';
-                }
-
                 // Create generic fallback embed if no embeds are provided
                 $return = DiscordWebhookBuilder::make()
                     ->setUsername($params['username'] . ' | ' . SITE_NAME)
                     ->setAvatarUrl($params['avatar_url'])
-                    ->addEmbed(function (DiscordEmbed $embed) use ($params, $content) {
+                    ->addEmbed(function (DiscordEmbed $embed) use ($params) {
                         return $embed
                             ->setTitle($params['title'])
-                            ->setDescription($content)
+                            ->setDescription(Text::embedSafe($params['content_full']))
                             ->setUrl($params['url'])
-                            ->setFooter($params['content']);
+                            ->setFooter(Text::embedSafe($params['content']));
                     })
                     ->toArray();
             } catch (Exception $exception) {

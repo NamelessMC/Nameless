@@ -33,7 +33,7 @@ class UserProfilePostCreatedEvent extends AbstractEvent implements DiscordDispat
                         'user' => $this->profile_user->getDisplayname(),
                     ]))
                     ->setUrl(URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($this->profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/'))
-                    ->addField($language->get('general', 'content'), strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $this->content)));
+                    ->addField($language->get('general', 'content'), Text::embedSafe($this->content));
             });
     }
 }
