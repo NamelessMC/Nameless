@@ -51,8 +51,15 @@ abstract class MemberListProvider {
     }
 
     public function getMembers(bool $overview): array {
-        $members = $this->generateMembers();
+        return self::parseMembers(
+            $this->generateMembers(),
+            $overview
+        );
+    }
 
+    abstract protected function generateMembers(): array;
+
+    public static function parseMembers(array $members, bool $overview = true): array {
         if (Util::getSetting('member_list_hide_banned')) {
             $members = array_filter($members, static function ($member) {
                 if (is_array($member)) {
@@ -91,6 +98,4 @@ abstract class MemberListProvider {
 
         return $list_members;
     }
-
-    abstract protected function generateMembers(): array;
 }

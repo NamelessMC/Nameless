@@ -36,11 +36,20 @@ const PAGE = 'members';
 $page_title = $member_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$viewing_list = $_GET['list'] ?? 'overview';
+if (isset($_GET['group'])) {
+    $viewing_list = 'group';
+    $smarty->assign([
+        'VIEWING_GROUP' => Group::find($_GET['group']),
+    ]);
 
-$lists = $viewing_list === 'overview'
-    ? MemberList::getInstance()->allEnabledLists()
-    : [MemberList::getInstance()->getList($viewing_list)];
+    $lists = [];
+} else {
+    $viewing_list = $_GET['list'] ?? 'overview';
+
+    $lists = $viewing_list === 'overview'
+        ? MemberList::getInstance()->allEnabledLists()
+        : [MemberList::getInstance()->getList($viewing_list)];
+}
 
 $new_members = [];
 foreach (DB::getInstance()->query('SELECT id FROM nl2_users ORDER BY joined DESC LIMIT 12')->results() as $new_member) {
@@ -63,9 +72,12 @@ $smarty->assign([
     'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'false' : 'true')),
     'OVERVIEW' => $language->get('user', 'overview'),
     'VIEW_ALL' => $member_language->get('members', 'view_all'),
+    'GROUPS' => Group::all(),
+    'VIEW_GROUP_URL' => URL::build('/members', 'group='),
     'NEW_MEMBERS' => $member_language->get('members', 'new_members'),
     'NEW_MEMBERS_VALUE' => $new_members,
     'TOKEN' => Token::get(),
+    'NO_MEMBERS_FOUND' => $member_language->get('members', 'no_members'),
 ]);
 
 // Load modules + template

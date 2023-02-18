@@ -46,6 +46,19 @@
             </div>
             <div class="ui fluid card">
                 <div class="content">
+                    <h4 class="ui header">View by Group</h4>
+                    <div class="description">
+                        <select class="ui selection fluid dropdown" onchange="viewGroup(this)">
+                            <option value="">Group...</option>
+                            {foreach from=$GROUPS item=group}
+                                <option value="{$group->id}" {if $VIEWING_GROUP->id == $group->id} selected {/if}>{$group->name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="ui fluid card">
+                <div class="content">
                     <h4 class="ui header">New members</h4>
                     <div class="description">
                         <div class="ui four column grid" id="new-members-grid">
@@ -63,76 +76,98 @@
         </div>
         <div class="ui column">
             <div class="ui stackable equal width left aligned grid segment" style="margin-top: 0">
-                {foreach from=$MEMBER_LISTS_VIEWING item=list}
+                {if $VIEWING_LIST == "group"}
                     <div class="ui column">
-                        <h3>{$list->getFriendlyName()}</h3>
-                        <ul id="member_list_{$list->getName()}" class="ui list large selection" style="margin-left: -10px;">
-                        </ul>
-                        {if $VIEWING_LIST == "overview"}
-                            <a class="fluid ui grey basic button" href="{$list->url()}">{$VIEW_ALL}</a>
-                        {/if}
+                        <h3>{$VIEWING_GROUP->name}</h3>
+                        <div>
+                            <ul id="member_list_group_{$VIEWING_GROUP->id}" class="ui list large selection" style="margin-left: -10px;">
+                            </ul>
+                        </div>
                     </div>
-                {/foreach}
+                {else}
+                    {foreach from=$MEMBER_LISTS_VIEWING item=list}
+                        <div class="ui column">
+                            <h3>{$list->getFriendlyName()}</h3>
+                            <div>
+                                <ul id="member_list_{$list->getName()}" class="ui list large selection" style="margin-left: -10px;">
+                                </ul>
+                                {if $VIEWING_LIST == "overview"}
+                                    <a class="fluid ui grey basic button" href="{$list->url()}">{$VIEW_ALL}</a>
+                                {/if}
+                            </div>
+                        </div>
+                    {/foreach}
+                {/if}
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    {foreach from=$MEMBER_LISTS_VIEWING item=list}
-    (function () {
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = false;
-        xhr.open('GET', '{$QUERIES_URL|replace:'{{list}}':$list->getName()}');
+    const viewGroup = (e) => {
+        window.location.href = '{$VIEW_GROUP_URL}' + e.value;
+    }
 
-        const list = document.getElementById('member_list_{$list->getName()}');
-        list.innerHTML = '<div class="ui active centered inline loader"></div>';
+    const renderList = (name) => {
+        return function () {
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('GET', '{$QUERIES_URL}'.replace(
+                {literal}
+                '{{list}}',
+                {/literal}
+                name
+            ));
 
-        xhr.onload = function() {
-            list.innerHTML = '';
+            const list = document.getElementById('member_list_' + name);
+            list.innerHTML = '<div class="ui active centered inline loader"></div>';
 
-            const data = JSON.parse(xhr.responseText);
-            if (data.length < 0) {
-                return;
-            }
-
-            for (const member of data) {
-                const mainDiv = document.createElement('div');
-                mainDiv.classList.add('item');
-                mainDiv.onclick = () => window.location.href = member.profile_url;
-
-                const countDiv = document.createElement('div');
-                countDiv.classList.add('right', 'floated', 'content');
-
-                if (member.count !== null) {
-                    const countHeader = document.createElement('h3');
-                    countHeader.classList.add('ui', 'header');
-                    countHeader.innerText = member.count;
-                    countDiv.appendChild(countHeader);
-                    mainDiv.appendChild(countDiv);
+            xhr.onload = function() {
+                const data = JSON.parse(xhr.responseText);
+                if (data.length === 0) {
+                    list.parentElement.innerHTML = '<div class="ui orange message">{$NO_MEMBERS_FOUND}</div>';
+                    return;
                 }
 
-                const contentDiv = document.createElement('div');
-                contentDiv.classList.add('middle', 'aligned', 'content');
-                contentDiv.style.whiteSpace = 'nowrap';
-                contentDiv.style.overflow = 'hidden';
-                contentDiv.style.textOverflow = 'ellipsis';
+                list.innerHTML = '';
 
-                const avatarDiv = document.createElement('img');
-                avatarDiv.classList.add('ui', 'avatar', 'image');
-                avatarDiv.setAttribute('src', member.avatar_url);
-                {if $VIEWING_LIST == "overview"}
+                for (const member of data) {
+                    const mainDiv = document.createElement('div');
+                    mainDiv.classList.add('item');
+                    mainDiv.onclick = () => window.location.href = member.profile_url;
+
+                    const countDiv = document.createElement('div');
+                    countDiv.classList.add('right', 'floated', 'content');
+
+                    if (member.count !== null) {
+                        const countHeader = document.createElement('h3');
+                        countHeader.classList.add('ui', 'header');
+                        countHeader.innerText = member.count;
+                        countDiv.appendChild(countHeader);
+                        mainDiv.appendChild(countDiv);
+                    }
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.classList.add('middle', 'aligned', 'content');
+                    contentDiv.style.whiteSpace = 'nowrap';
+                    contentDiv.style.overflow = 'hidden';
+                    contentDiv.style.textOverflow = 'ellipsis';
+
+                    const avatarDiv = document.createElement('img');
+                    avatarDiv.classList.add('ui', 'avatar', 'image');
+                    avatarDiv.setAttribute('src', member.avatar_url);
+                    {if $VIEWING_LIST == "overview"}
                     contentDiv.appendChild(avatarDiv);
-                {else}
+                    {else}
                     mainDiv.appendChild(avatarDiv);
-                {/if}
+                    {/if}
 
-                const nameDiv = document.createElement('span');
-                nameDiv.style = member.group_style;
-                nameDiv.innerText = member.username;
-                contentDiv.appendChild(nameDiv);
+                    const nameDiv = document.createElement('span');
+                    nameDiv.style = member.group_style;
+                    nameDiv.innerText = member.username;
+                    contentDiv.appendChild(nameDiv);
 
-                {if $VIEWING_LIST != "overview"}
+                    {if $VIEWING_LIST != "overview"}
                     const metaDiv = document.createElement('div');
                     metaDiv.classList.add('description');
 
@@ -151,17 +186,24 @@
 
                     metaDiv.appendChild(metaSpan);
                     contentDiv.appendChild(metaDiv);
-                {/if}
+                    {/if}
 
-                mainDiv.appendChild(contentDiv);
+                    mainDiv.appendChild(contentDiv);
 
-                list.appendChild(mainDiv)
-            }
+                    list.appendChild(mainDiv)
+                }
+            };
+
+            xhr.send();
         };
-
-        xhr.send();
-    })();
-    {/foreach}
+    }
+    {if $VIEWING_LIST == "group"}
+        renderList('group_{$VIEWING_GROUP->id}')();
+    {else}
+        {foreach from=$MEMBER_LISTS_VIEWING item=list}
+            renderList('{$list->getName()}')();
+        {/foreach}
+    {/if}
 </script>
 
 {include file='footer.tpl'}

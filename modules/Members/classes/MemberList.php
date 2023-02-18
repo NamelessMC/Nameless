@@ -50,6 +50,18 @@ class MemberList extends Instanceable {
         return $this->_lists[$name];
     }
 
+    public function getMembersInGroup(int $group_id): array {
+        return MemberListProvider::parseMembers(
+            array_map(
+                static fn ($row) => new User($row->id),
+                DB::getInstance()->query(
+                    'SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id = ? ',
+                    [$group_id]
+                )->results()
+            ),
+        );
+    }
+
     public function getMemberMetadata(User $user): array {
         $metadata = [];
         foreach ($this->_metadata_providers as $provider) {
