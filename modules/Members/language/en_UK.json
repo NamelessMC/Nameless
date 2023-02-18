@@ -5,5 +5,6 @@
   "members/member_list_hide_banned_users": "Hide banned users?",
   "members/member_list_search_min_3_chars": "Please ensure your search query is at least 3 characters long.",
   "members/member_list_search_no_results": "No user found for '{{search}}'.",
+  "members/member_list_toggled": "Successfully {{value}} {{list}} list.",
   "members/view_all": "View all"
 }

@@ -55,7 +55,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
-        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        if (Util::getSetting('mc_integration')) {
+            $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        }
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
@@ -871,7 +873,7 @@ class Core_Module extends Module {
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
+        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {
                 $leaderboards_order = 4;

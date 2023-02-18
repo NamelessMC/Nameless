@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="ui column">
-            <div class="ui grid three column segment" style="margin-top: 0">
+            <div class="ui stackable equal width left aligned grid segment" style="margin-top: 0">
                 {foreach from=$MEMBER_LISTS_VIEWING item=list}
                     <div class="ui column">
                         <h3>{$list->getFriendlyName()}</h3>
