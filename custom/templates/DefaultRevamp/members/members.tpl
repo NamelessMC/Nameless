@@ -157,35 +157,39 @@
                     avatarDiv.classList.add('ui', 'avatar', 'image');
                     avatarDiv.setAttribute('src', member.avatar_url);
                     {if $VIEWING_LIST == "overview"}
-                    contentDiv.appendChild(avatarDiv);
+                        contentDiv.appendChild(avatarDiv);
                     {else}
-                    mainDiv.appendChild(avatarDiv);
+                        mainDiv.appendChild(avatarDiv);
                     {/if}
 
                     const nameDiv = document.createElement('span');
                     nameDiv.style = member.group_style;
-                    nameDiv.innerText = member.username;
+                    {if $VIEWING_LIST != "overview"}
+                        nameDiv.innerHTML = member.username + '&nbsp;' + member.group_html;
+                    {else}
+                        nameDiv.innerText = member.username;
+                    {/if}
                     contentDiv.appendChild(nameDiv);
 
                     {if $VIEWING_LIST != "overview"}
-                    const metaDiv = document.createElement('div');
-                    metaDiv.classList.add('description');
+                        const metaDiv = document.createElement('div');
+                        metaDiv.classList.add('description');
 
-                    const groupSpan = document.createElement('span');
-                    groupSpan.classList.add('ui', 'text', 'small');
-                    groupSpan.innerText = member.group;
-                    metaDiv.appendChild(groupSpan);
+                        const groupSpan = document.createElement('span');
+                        groupSpan.classList.add('ui', 'text', 'small');
+                        groupSpan.innerText = member.group;
+                        metaDiv.appendChild(groupSpan);
 
-                    metaDiv.appendChild(document.createElement('br'));
+                        metaDiv.appendChild(document.createElement('br'));
 
-                    const metaSpan = document.createElement('span');
-                    metaSpan.classList.add('ui', 'text', 'small');
-                    const memberMeta = member.metadata;
-                    const metaKeys = Object.keys(memberMeta);
-                    metaSpan.innerHTML = metaKeys.map(key => key + ': ' + memberMeta[key]).join(' &middot; ');
+                        const metaSpan = document.createElement('span');
+                        metaSpan.classList.add('ui', 'text', 'small');
+                        const memberMeta = member.metadata;
+                        const metaKeys = Object.keys(memberMeta);
+                        metaSpan.innerHTML = metaKeys.map(key => key + ': ' + memberMeta[key]).join(' &middot; ');
 
-                    metaDiv.appendChild(metaSpan);
-                    contentDiv.appendChild(metaDiv);
+                        metaDiv.appendChild(metaSpan);
+                        contentDiv.appendChild(metaDiv);
                     {/if}
 
                     mainDiv.appendChild(contentDiv);
