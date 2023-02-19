@@ -23,8 +23,7 @@
     "moment": "^2.29.4",
     "popper.js": "^1.16.1",
     "select2": "4.1.0-rc.0",
-    "tinymce": "5.10.7",
-    "toastr": "^2.1.4"
+    "tinymce": "5.10.7"
   },
   "scripts": {
     "postinstall": "node ./postinstall.js"
