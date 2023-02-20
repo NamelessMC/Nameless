@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton | Revamped by Xemah
  *    https://github.com/NamelessMC/Nameless/
- *    NamelessMC version 2.0.0
+ *    NamelessMC version 2.0.3
  *
  *    License: MIT
  *
@@ -88,7 +88,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVariables = [
             'siteName' => Output::getClean(SITE_NAME),
             'siteURL' => URL::build('/'),
-            'fullSiteUrl' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
+            'fullSiteURL' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
             'avatarSource' => AvatarSource::getUrlToFormat(),
             'copied' => $this->_language->get('general', 'copied'),
