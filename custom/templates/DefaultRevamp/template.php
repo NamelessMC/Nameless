@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton | Revamped by Xemah
  *    https://github.com/NamelessMC/Nameless/
- *    NamelessMC version 2.0.0
+ *    NamelessMC version 2.0.3
  *
  *    License: MIT
  *
@@ -95,7 +95,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVariables = [
             'siteName' => Output::getClean(SITE_NAME),
             'siteURL' => URL::build('/'),
-            'fullSiteUrl' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
+            'fullSiteURL' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
             'avatarSource' => AvatarSource::getUrlToFormat(),
             'copied' => $this->_language->get('general', 'copied'),
@@ -121,6 +121,12 @@ class DefaultRevamp_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
+        // Logo
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('backgroundcache');
+        $logo_image = $cache->retrieve('logo_image');
+        $JSVariables['logoImage'] = !empty($logo_image) ? $logo_image : null;
+
         if (str_contains($route, '/forum/topic/') || PAGE === 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
@@ -130,7 +136,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = ' . json_encode($value);
+            $JSVars .= ($i == 0 ? 'const ' : ', ') . $var . ' = ' . json_encode($value);
             $i++;
         }
 
