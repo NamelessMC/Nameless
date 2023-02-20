@@ -39,10 +39,9 @@ if (loggedIn == 1) {
             if (canNotify) {
                 const notification = new Notification(siteName, {
                     body: message,
+                    icon: logoImage !== null ? logoImage : undefined,
                 });
-                notification.onclick = function () {
-                    window.open(URLBuild('user/alerts', true));
-                };
+                notification.onclick = () => window.open(URLBuild('user/alerts', true));
             }
             countAlerts = data.value;
         }
@@ -79,10 +78,9 @@ if (loggedIn == 1) {
             if (canNotify) {
                 const notification = new Notification(siteName, {
                     body: message,
+                    icon: logoImage !== null ? logoImage : undefined,
                 });
-                notification.onclick = function () {
-                    window.open(URLBuild('user/messaging', true));
-                };
+                notification.onclick = () => window.open(URLBuild('user/messaging', true));
             }
             countPms = data.value;
         }
