@@ -179,17 +179,4 @@ class Paginator {
         return $html;
     }
 
-    /**
-     * Set values of instance variables, alternative function (as they are set in getLimited()).
-     * @deprecated Not used internally. Will be removed in 2.1.0
-     *
-     * @param int $total
-     * @param int $limit
-     * @param int $page
-     */
-    public function setValues(int $total, int $limit, int $page): void {
-        $this->_total = $total;
-        $this->_limit = $limit;
-        $this->_page = $page;
-    }
 }
