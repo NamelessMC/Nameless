@@ -16,8 +16,8 @@ if (count(MemberList::getInstance()->allEnabledLists()) == 0) {
 if (Input::exists()) {
     if (Token::check()) {
         $search = Input::get('search');
-        if (strlen($search) < 3) {
-            $error = $member_language->get('members', 'member_list_search_min_3_chars');
+        if (strlen($search) < 2) {
+            $error = $member_language->get('members', 'member_list_search_min_2_chars');
         } else {
             $result = DB::getInstance()->query('SELECT username FROM nl2_users WHERE username = ? OR nickname = ?', [$search, $search]);
             if ($result->count()) {

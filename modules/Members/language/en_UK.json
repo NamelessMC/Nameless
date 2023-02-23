@@ -4,7 +4,7 @@
   "members/no_members": "No members found.",
   "members/member_lists": "Member Lists",
   "members/member_list_hide_banned_users": "Hide banned users?",
-  "members/member_list_search_min_3_chars": "Please ensure your search query is at least 3 characters long.",
+  "members/member_list_search_min_2_chars": "Please ensure your search query is at least 2 characters long.",
   "members/member_list_search_no_results": "No user found for '{{search}}'.",
   "members/member_list_toggled_enabled": "Successfully enabled {{list}} list.",
   "members/member_list_toggled_disabled": "Successfully disabled {{list}} list.",
