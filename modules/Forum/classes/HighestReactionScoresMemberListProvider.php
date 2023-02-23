@@ -10,13 +10,10 @@ class HighestReactionScoresMemberListProvider extends MemberListProvider {
     }
 
     protected function generateMembers(): array {
-        $members = [];
-
-        $query = DB::getInstance()->query('SELECT COUNT(user_received) AS `count`, user_received FROM nl2_forums_reactions WHERE reaction_id = 1 GROUP BY user_received ORDER BY `count` DESC');
-        foreach ($query->results() as $result) {
-            $members[] = [new User($result->user_received), $result->count];
-        }
-
-        return $members;
+        return [
+            'SELECT COUNT(fr.user_received) AS `count`, fr.user_received FROM nl2_forums_reactions fr JOIN nl2_reactions r ON r.id = fr.reaction_id WHERE r.type = 2 GROUP BY fr.user_received ORDER BY `count` DESC',
+            'user_received',
+            'count'
+        ];
     }
 }

@@ -15,7 +15,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (Input::exists()) {
     if (Token::check()) {
         if (Input::get('action') === 'toggle_hide_banned_users') {
-            Util::setSetting('member_list_hide_banned', Input::get('hide_banned_users'));
+            Util::setSetting('member_list_hide_banned', Input::get('hide_banned_users'), 'Members');
         } else {
             $list = MemberList::getInstance()->getList($_POST['list']);
             $enabled = DB::getInstance()->get('member_lists', ['name', $list->getName()])->first()->enabled;
@@ -23,9 +23,8 @@ if (Input::exists()) {
                 'enabled' => !$enabled
             ]);
 
-            Session::flash('admin_member_list_success', $member_language->get('members', 'member_list_toggled', [
+            Session::flash('admin_member_list_success', $member_language->get('members', !$enabled ? 'member_list_toggled_enabled' : 'member_list_toggled_disabled', [
                 'list' => $list->getFriendlyName(),
-                'value' => strtolower($language->get('admin', $enabled ? 'disabled' : 'enabled')),
             ]));
         }
         Redirect::to(URL::build('/panel/core/member_lists'));
@@ -54,7 +53,7 @@ $smarty->assign([
     'MEMBER_LISTS' => $member_language->get('members', 'member_lists'),
     'PAGE' => PANEL_PAGE,
     'HIDE_BANNED_USERS' => $member_language->get('members', 'member_list_hide_banned_users'),
-    'HIDE_BANNED_USERS_VALUE' => Util::getSetting('member_list_hide_banned'),
+    'HIDE_BANNED_USERS_VALUE' => Util::getSetting('member_list_hide_banned', false, 'Members'),
     'MEMBER_LISTS_VALUES' => MemberList::getInstance()->allLists(),
     'NAME' => $language->get('admin', 'name'),
     'ENABLED' => $language->get('admin', 'enabled'),

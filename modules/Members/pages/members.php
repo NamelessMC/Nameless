@@ -69,7 +69,7 @@ $smarty->assign([
     'MEMBER_LISTS_VIEWING' => $lists,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
-    'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'false' : 'true')),
+    'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'true' : 'false')),
     'OVERVIEW' => $language->get('user', 'overview'),
     'VIEW_ALL' => $member_language->get('members', 'view_all'),
     'GROUPS' => Group::all(),
@@ -77,6 +77,10 @@ $smarty->assign([
     'NEW_MEMBERS' => $member_language->get('members', 'new_members'),
     'NEW_MEMBERS_VALUE' => $new_members,
     'TOKEN' => Token::get(),
+    'FIND_MEMBER' => $member_language->get('members', 'find_member'),
+    'NAME' => $member_language->get('members', 'name'),
+    'VIEW_GROUP' => $member_language->get('members', 'view_group'),
+    'GROUP' => $member_language->get('members', 'group'),
     'NO_MEMBERS_FOUND' => $member_language->get('members', 'no_members'),
 ]);
 

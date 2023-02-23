@@ -195,7 +195,7 @@ class Forum_Module extends Module {
             return [
                 $forum_language->get('forum', 'reaction_score') =>
                     DB::getInstance()->query(
-                        'SELECT COUNT(user_received) AS `count` FROM nl2_forums_reactions WHERE reaction_id = 1 AND user_received = ?',
+                        'SELECT COUNT(fr.user_received) AS `count` FROM nl2_forums_reactions fr JOIN nl2_reactions r ON r.id = fr.reaction_id WHERE r.type = 2 AND fr.user_received = ?',
                         [$member->data()->id]
                     )->first()->count,
             ];

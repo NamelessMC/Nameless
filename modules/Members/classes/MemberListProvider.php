@@ -59,37 +59,37 @@ abstract class MemberListProvider {
 
     abstract protected function generateMembers(): array;
 
-    public static function parseMembers(array $members, bool $overview = true): array {
-        if (Util::getSetting('member_list_hide_banned')) {
-            $members = array_filter($members, static function ($member) {
-                if (is_array($member)) {
-                    $member = $member[0];
-                }
-                return !$member->data()->isbanned;
-            });
-        }
+    public static function parseMembers(array $generator, bool $overview = true): array {
+        [$sql, $id_column, $count_column] = $generator;
 
-        $members = array_slice($members, 0, $overview ? 20 : 5);
-
+        $rows = DB::getInstance()->query($sql)->results();
         $list_members = [];
-        foreach ($members as $member) {
-            $count = null;
-            if (is_array($member)) {
-                [$member, $count] = $member;
+        $limit = $overview ? 5 : 20;
+
+        foreach ($rows as $row) {
+            if (count($list_members) >= $limit) {
+                break;
             }
-            if (!($member instanceof User)) {
-                throw new RuntimeException('Provider must return an array of User objects');
+
+            $user_id = $row->{$id_column};
+            if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+                $is_banned = DB::getInstance()->get('users', ['id', $user_id])->first()->isbanned == 1;
+                if ($is_banned) {
+                    continue;
+                }
             }
+
+            $member = new User($user_id);
 
             $list_members[] = array_merge(
                 [
                     'username' => $member->data()->username,
-                    'avatar_url' => $member->getAvatar(32),
+                    'avatar_url' => $member->getAvatar(),
                     'group_style' => $member->getGroupStyle(),
                     'profile_url' => $member->getProfileURL(),
-                    'count' => $count,
+                    'count' => $count_column ? $row->{$count_column} : null,
                 ],
-                !$overview ? [] : [
+                $overview ? [] : [
                     'group' => $member->getMainGroup()->name,
                     'group_html' => implode('', $member->getAllGroupHtml()),
                     'metadata' => MemberList::getInstance()->getMemberMetadata($member),

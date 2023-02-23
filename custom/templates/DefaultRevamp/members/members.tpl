@@ -32,13 +32,13 @@
             </div>
             <div class="ui fluid card">
                 <div class="content">
-                    <h4 class="ui header">Find member</h4>
+                    <h4 class="ui header">{$FIND_MEMBER}</h4>
                     <div class="description">
                         <form action="{$MEMBER_LIST_URL}" method="post">
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <div class="ui fluid icon input">
                                 <i class="search icon"></i>
-                                <input type="text" name="search" minlength="3" placeholder="Name..." autocomplete="off">
+                                <input type="text" name="search" minlength="3" placeholder="{$NAME}" autocomplete="off">
                             </div>
                         </form>
                     </div>
@@ -46,10 +46,10 @@
             </div>
             <div class="ui fluid card">
                 <div class="content">
-                    <h4 class="ui header">View by Group</h4>
+                    <h4 class="ui header">{$VIEW_GROUP}</h4>
                     <div class="description">
                         <select class="ui selection fluid dropdown" onchange="viewGroup(this)">
-                            <option value="">Group...</option>
+                            <option value="">{$GROUP}</option>
                             {foreach from=$GROUPS item=group}
                                 <option value="{$group->id}" {if $VIEWING_GROUP->id == $group->id} selected {/if}>{$group->name}</option>
                             {/foreach}
@@ -59,7 +59,7 @@
             </div>
             <div class="ui fluid card">
                 <div class="content">
-                    <h4 class="ui header">New members</h4>
+                    <h4 class="ui header">{$NEW_MEMBERS}</h4>
                     <div class="description">
                         <div class="ui four column grid" id="new-members-grid">
                             {foreach from=$NEW_MEMBERS_VALUE item=member}
@@ -109,21 +109,12 @@
     }
 
     const renderList = (name) => {
-        return function () {
-            const xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
-            xhr.open('GET', '{$QUERIES_URL}'.replace(
-                {literal}
-                '{{list}}',
-                {/literal}
-                name
-            ));
+        const list = document.getElementById('member_list_' + name);
+        list.innerHTML = '<div class="ui active centered inline loader"></div>';
 
-            const list = document.getElementById('member_list_' + name);
-            list.innerHTML = '<div class="ui active centered inline loader"></div>';
-
-            xhr.onload = function() {
-                const data = JSON.parse(xhr.responseText);
+        fetch('{$QUERIES_URL}'.replace({literal}'{{list}}'{/literal}, name))
+            .then(async response => {
+                const data = await response.json();
                 if (data.length === 0) {
                     list.parentElement.innerHTML = '<div class="ui orange message">{$NO_MEMBERS_FOUND}</div>';
                     return;
@@ -191,21 +182,17 @@
                         metaDiv.appendChild(metaSpan);
                         contentDiv.appendChild(metaDiv);
                     {/if}
-
                     mainDiv.appendChild(contentDiv);
-
                     list.appendChild(mainDiv)
                 }
-            };
-
-            xhr.send();
-        };
+        });
     }
+
     {if $VIEWING_LIST == "group"}
-        renderList('group_{$VIEWING_GROUP->id}')();
+        renderList('group_{$VIEWING_GROUP->id}');
     {else}
         {foreach from=$MEMBER_LISTS_VIEWING item=list}
-            renderList('{$list->getName()}')();
+            renderList('{$list->getName()}');
         {/foreach}
     {/if}
 </script>

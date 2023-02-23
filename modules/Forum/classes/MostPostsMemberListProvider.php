@@ -10,13 +10,10 @@ class MostPostsMemberListProvider extends MemberListProvider {
     }
 
     protected function generateMembers(): array {
-        $members = [];
-
-        $query = DB::getInstance()->query('SELECT post_creator, COUNT(post_content) AS `count` FROM nl2_posts GROUP BY post_creator ORDER BY `count` DESC');
-        foreach ($query->results() as $result) {
-            $members[] = [new User($result->post_creator), $result->count];
-        }
-
-        return $members;
+        return [
+            'SELECT post_creator, COUNT(post_content) AS `count` FROM nl2_posts GROUP BY post_creator ORDER BY `count` DESC',
+            'post_creator',
+            'count'
+        ];
     }
 }

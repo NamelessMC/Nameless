@@ -642,7 +642,7 @@ class Core_Module extends Module {
 
         MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
             return [
-                $language->get('general', 'joined') => date('d M Y', $member->data()->joined),
+                $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
             ];
         });
     }
