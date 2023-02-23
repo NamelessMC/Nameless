@@ -3,15 +3,21 @@
 header('Content-type: application/json;charset=utf-8');
 
 $list = $_GET['list'];
+$overview = isset($_GET['overview']) && $_GET['overview'] === 'true';
 
-if (str_starts_with($list, 'group_')) {
-    die(json_encode(
-        MemberList::getInstance()->getMembersInGroup((int) substr($list, 6))
-    ));
+$cache->setCache('member_list_queries');
+if ($cache->isCached($key = $list . ($overview ? '_overview' : ''))) {
+    die($cache->retrieve($key));
 }
 
-$provider = MemberList::getInstance()->getList($list);
+if (str_starts_with($list, 'group_')) {
+    $members = MemberList::getInstance()->getMembersInGroup((int) substr($list, 6));
+} else {
+    $members = MemberList::getInstance()->getList($list)->getMembers($overview);
+}
 
-die(json_encode($provider->getMembers(
-    isset($_GET['overview']) && $_GET['overview'] === 'true'
-)));
+$members = json_encode($members);
+
+$cache->store($key, $members, 60);
+
+die($members);
