@@ -15,10 +15,16 @@ if (count(MemberList::getInstance()->allEnabledLists()) == 0) {
 
 if (Input::exists()) {
     if (Token::check()) {
-        $search = Input::get('search');
-        if (strlen($search) < 2) {
-            $error = $member_language->get('members', 'member_list_search_min_2_chars');
-        } else {
+        $validation = Validate::check($_POST, [
+            'search' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 2,
+                Validate::RATE_LIMIT => [5, 30] // 5 attempts every 30 seconds
+            ],
+        ]);
+
+        if ($validation->passed()) {
+            $search = Input::get('search');
             $result = DB::getInstance()->query('SELECT username FROM nl2_users WHERE username = ? OR nickname = ?', [$search, $search]);
             if ($result->count()) {
                 $username = $result->first()->username;
@@ -28,6 +34,8 @@ if (Input::exists()) {
                     'search' => Output::getClean($search),
                 ]);
             }
+        } else {
+            $error = $validation->errors()[0];
         }
     }
 }

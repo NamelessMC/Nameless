@@ -38,7 +38,7 @@
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <div class="ui fluid icon input">
                                 <i class="search icon"></i>
-                                <input type="text" name="search" minlength="2" placeholder="{$NAME}" autocomplete="off">
+                                <input type="text" name="search" minlength="2" required placeholder="{$NAME}" autocomplete="off">
                             </div>
                         </form>
                     </div>
