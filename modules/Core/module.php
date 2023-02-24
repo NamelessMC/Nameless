@@ -765,6 +765,7 @@ class Core_Module extends Module {
         $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
         // Widgets - only load if on a widget staffcp page or the frontend
+        // TODO: check if active page supports widgets, no point to load them if not (ie: login page)
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');

@@ -71,6 +71,11 @@ if (isset($error)) {
     ]);
 }
 
+$groups = [];
+foreach (json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true) as $group_id) {
+    $groups[] = Group::find($group_id);
+}
+
 $smarty->assign([
     'MEMBERS' => $member_language->get('members', 'members'),
     'MEMBER_LISTS' => MemberList::getInstance()->allEnabledLists(),
@@ -80,7 +85,7 @@ $smarty->assign([
     'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'true' : 'false')),
     'OVERVIEW' => $language->get('user', 'overview'),
     'VIEW_ALL' => $member_language->get('members', 'view_all'),
-    'GROUPS' => Group::all(),
+    'GROUPS' => $groups,
     'VIEW_GROUP_URL' => URL::build('/members', 'group='),
     'NEW_MEMBERS' => $member_language->get('members', 'new_members'),
     'NEW_MEMBERS_VALUE' => $new_members,

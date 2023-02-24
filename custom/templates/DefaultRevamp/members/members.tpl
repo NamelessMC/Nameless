@@ -44,19 +44,21 @@
                     </div>
                 </div>
             </div>
-            <div class="ui fluid card">
-                <div class="content">
-                    <h4 class="ui header">{$VIEW_GROUP}</h4>
-                    <div class="description">
-                        <select class="ui selection fluid dropdown" onchange="viewGroup(this)">
-                            <option value="">{$GROUP}</option>
-                            {foreach from=$GROUPS item=group}
-                                <option value="{$group->id}" {if $VIEWING_GROUP->id == $group->id} selected {/if}>{$group->name}</option>
-                            {/foreach}
-                        </select>
+            {if $GROUPS|count}
+                <div class="ui fluid card">
+                    <div class="content">
+                        <h4 class="ui header">{$VIEW_GROUP}</h4>
+                        <div class="description">
+                            <select class="ui selection fluid dropdown" onchange="viewGroup(this)">
+                                <option value="">{$GROUP}</option>
+                                {foreach from=$GROUPS item=group}
+                                    <option value="{$group->id}" {if $VIEWING_GROUP->id == $group->id} selected {/if}>{$group->name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {/if}
             <div class="ui fluid card">
                 <div class="content">
                     <h4 class="ui header">{$NEW_MEMBERS}</h4>

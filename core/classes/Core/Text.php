@@ -154,8 +154,7 @@ class Text {
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
      */
     public static function renderEmojis(string $text): string {
-        // We can remove this ->base(...) call when https://github.com/Astrotomic/php-twemoji/pull/13 is merged
-        return Twemoji::text($text)->base('https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets')->toHtml(null, [
+        return Twemoji::text($text)->toHtml(null, [
             'width' => 20,
             'height' => 20,
             'style' => 'vertical-align: middle;'

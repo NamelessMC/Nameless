@@ -11,5 +11,6 @@
   "members/find_member": "Find member",
   "members/name": "Name...",
   "members/view_group": "View group",
-  "members/group": "Group..."
+  "members/group": "Group...",
+  "members/viewable_groups": "Viewable groups"
 }

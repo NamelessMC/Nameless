@@ -1,7 +1,5 @@
 <?php
 
-use Astrotomic\Twemoji\Twemoji;
-
 /**
  * Contains misc utility methods.
  *

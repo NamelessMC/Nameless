@@ -14,7 +14,10 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     if (Token::check()) {
-        if (Input::get('action') === 'toggle_hide_banned_users') {
+        if (Input::get('action') == 'update_groups') {
+            Util::setSetting('member_list_viewable_groups', json_encode(Input::get('groups')), 'Members');
+            die();
+        } else if (Input::get('action') === 'toggle_hide_banned_users') {
             Util::setSetting('member_list_hide_banned', Input::get('hide_banned_users'), 'Members');
         } else {
             $list = MemberList::getInstance()->getList($_POST['list']);
@@ -54,6 +57,11 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'HIDE_BANNED_USERS' => $member_language->get('members', 'member_list_hide_banned_users'),
     'HIDE_BANNED_USERS_VALUE' => Util::getSetting('member_list_hide_banned', false, 'Members'),
+    'GROUPS' => $member_language->get('members', 'viewable_groups'),
+    'GROUPS_ARRAY' => Group::all(),
+    'GROUPS_VALUE' => json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true),
+    'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
+    'SELECT_CHANGE_URL' => URL::build('/panel/core/member_lists'),
     'MEMBER_LISTS_VALUES' => MemberList::getInstance()->allLists(),
     'NAME' => $language->get('admin', 'name'),
     'ENABLED' => $language->get('admin', 'enabled'),

@@ -63,6 +63,8 @@ class DatabaseInitialiser {
             'permissions' => '{}',
             'order' => 4
         ]);
+
+        Util::setSetting('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
     }
 
     private function initialiseLanguages(): void {
