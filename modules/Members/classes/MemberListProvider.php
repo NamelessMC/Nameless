@@ -8,8 +8,6 @@ abstract class MemberListProvider {
     protected string $_module;
     protected ?string $_icon = null;
 
-    abstract public function __construct(Language $language);
-
     public function getName(): string {
         return $this->_name;
     }
@@ -50,21 +48,20 @@ abstract class MemberListProvider {
         return $this->_enabled = $enabled;
     }
 
-    public function getMembers(bool $overview): array {
-        return self::parseMembers(
-            $this->generateMembers(),
-            $overview
-        );
-    }
-
     abstract protected function generateMembers(): array;
 
-    public static function parseMembers(array $generator, bool $overview = true): array {
-        [$sql, $id_column, $count_column] = $generator;
+    public function getMembers(bool $overview, int $page): array {
+        [$sql, $id_column, $count_column] = $this->generateMembers();
+
+        $sql .= ' LIMIT ' . (($page - 1) * 20) . ', 20';
 
         $rows = DB::getInstance()->query($sql)->results();
         $list_members = [];
         $limit = $overview ? 5 : 20;
+        if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+            $ids = implode(',', array_map(static fn ($row) => $row->{$id_column}, $rows));
+            $banned = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
+        }
 
         foreach ($rows as $row) {
             if (count($list_members) >= $limit) {
@@ -72,11 +69,9 @@ abstract class MemberListProvider {
             }
 
             $user_id = $row->{$id_column};
-            if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
-                $is_banned = DB::getInstance()->get('users', ['id', $user_id])->first()->isbanned == 1;
-                if ($is_banned) {
-                    continue;
-                }
+
+            if (isset($banned) && $this->isBanned($user_id, $banned)) {
+                continue;
             }
 
             $member = new User($user_id);
@@ -89,14 +84,46 @@ abstract class MemberListProvider {
                     'profile_url' => $member->getProfileURL(),
                     'count' => $count_column ? $row->{$count_column} : null,
                 ],
-                $overview ? [] : [
-                    'group' => $member->getMainGroup()->name,
-                    'group_html' => implode('', $member->getAllGroupHtml()),
-                    'metadata' => MemberList::getInstance()->getMemberMetadata($member),
-                ],
+                $overview
+                    ? []
+                    : [
+                        'group_html' => implode('', $member->getAllGroupHtml()),
+                        'metadata' => MemberList::getInstance()->getMemberMetadata($member),
+                    ],
             );
         }
 
         return $list_members;
+    }
+
+    public function getMemberCount(): int {
+        [$sql, $id_column] = $this->generateMembers();
+        $rows = DB::getInstance()->query($sql)->results();
+
+        if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+            $ids = implode(',', array_map(static fn ($row) => $row->{$id_column}, $rows));
+            $banned = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
+        }
+
+        $list_members = 0;
+        foreach ($rows as $row) {
+            if (isset($banned) && $this->isBanned($row->{$id_column}, $banned)) {
+                continue;
+            }
+
+            $list_members++;
+        }
+
+        return $list_members;
+    }
+
+    private function isBanned(int $user_id, array $bans): bool {
+        foreach ($bans as $ban) {
+            if ($ban->id == $user_id) {
+                return $ban->isbanned == 1;
+            }
+        }
+
+        return false;
     }
 }

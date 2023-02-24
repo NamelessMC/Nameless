@@ -84,6 +84,7 @@
                         <div>
                             <ul id="member_list_group_{$VIEWING_GROUP->id}" class="ui list large selection" style="margin-left: -10px;">
                             </ul>
+                            {$PAGINATION}
                         </div>
                     </div>
                 {else}
@@ -95,6 +96,8 @@
                                 </ul>
                                 {if $VIEWING_LIST == "overview"}
                                     <a class="fluid ui grey basic button" href="{$list->url()}">{$VIEW_ALL}</a>
+                                {else}
+                                    {$PAGINATION}
                                 {/if}
                             </div>
                         </div>
@@ -114,7 +117,11 @@
         const list = document.getElementById('member_list_' + name);
         list.innerHTML = '<div class="ui active centered inline loader"></div>';
 
-        fetch('{$QUERIES_URL}'.replace({literal}'{{list}}'{/literal}, name))
+        fetch(
+            '{$QUERIES_URL}'
+                .replace({literal}'{{list}}'{/literal}, name)
+                .replace({literal}'{{page}}'{/literal}, new URLSearchParams(window.location.search).get('p') ?? 1)
+        )
             .then(async response => {
                 const data = await response.json();
                 if (data.length === 0) {
@@ -168,18 +175,10 @@
                         const metaDiv = document.createElement('div');
                         metaDiv.classList.add('description');
 
-                        const groupSpan = document.createElement('span');
-                        groupSpan.classList.add('ui', 'text', 'small');
-                        groupSpan.innerText = member.group;
-                        metaDiv.appendChild(groupSpan);
-
-                        metaDiv.appendChild(document.createElement('br'));
-
                         const metaSpan = document.createElement('span');
                         metaSpan.classList.add('ui', 'text', 'small');
                         const memberMeta = member.metadata;
-                        const metaKeys = Object.keys(memberMeta);
-                        metaSpan.innerHTML = metaKeys.map(key => key + ': ' + memberMeta[key]).join(' &middot; ');
+                        metaSpan.innerHTML = Object.keys(memberMeta).map(key => key + ': ' + memberMeta[key]).join(' &middot; ');
 
                         metaDiv.appendChild(metaSpan);
                         contentDiv.appendChild(metaDiv);

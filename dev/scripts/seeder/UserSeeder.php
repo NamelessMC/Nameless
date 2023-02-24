@@ -89,6 +89,15 @@ class UserSeeder extends Seeder {
                 ]);
             }
 
+            if ($active && $faker->boolean(40)) {
+                $db->insert('users_groups', [
+                    'user_id' => $user_id,
+                    'group_id' => 3,
+                    'received' => $this->since($joined, $faker)->format('U'),
+                    'expire' => 0,
+                ]);
+            }
+
             $db->query(
                 'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                     $user_id,

@@ -42,19 +42,16 @@ class MemberList extends Instanceable {
         return isset($this->_lists[$name]);
     }
 
-    public function getList(string $name): MemberListProvider {
+    public function getList(string $name, bool $for_group = false): MemberListProvider {
         if (!$this->listExists($name)) {
-            throw new RuntimeException("Provider '$name' does not exist");
+            if (!$for_group) {
+                throw new RuntimeException("Member list '$name' does not exist");
+            }
+
+            return (new GroupMemberListProvider())->forGroup((int) $name);
         }
 
         return $this->_lists[$name];
-    }
-
-    public function getMembersInGroup(int $group_id): array {
-        return MemberListProvider::parseMembers([
-            "SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id = $group_id",
-            'id',
-        ], false);
     }
 
     public function getMemberMetadata(User $user): array {

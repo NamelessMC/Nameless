@@ -76,13 +76,33 @@ foreach (json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Memb
     $groups[] = Group::find($group_id);
 }
 
+if ($viewing_list !== 'overview') {
+    $member_count = isset($_GET['group'])
+        ? MemberList::getInstance()->getList($_GET['group'], true)->getMemberCount()
+        : MemberList::getInstance()->getList($viewing_list)->getMemberCount();
+    $url_param = isset($_GET['group'])
+        ? 'group=' . $_GET['group']
+        : 'list=' . $viewing_list;
+
+    $template_pagination['div'] = $template_pagination['div'] .= ' centered';
+    $paginator = new Paginator(
+        $template_pagination ?? null,
+        $template_pagination_left ?? null,
+        $template_pagination_right ?? null
+    );
+    $paginator->setValues($member_count, 20, $_GET['p'] ?? 1);
+    $smarty->assign([
+        'PAGINATION' => $paginator->generate(6, URL::build('/members/', $url_param)),
+    ]);
+}
+
 $smarty->assign([
     'MEMBERS' => $member_language->get('members', 'members'),
     'MEMBER_LISTS' => MemberList::getInstance()->allEnabledLists(),
     'MEMBER_LISTS_VIEWING' => $lists,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
-    'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&overview=' . ($viewing_list === 'overview' ? 'true' : 'false')),
+    'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&page={{page}}&overview=' . ($viewing_list === 'overview' ? 'true' : 'false')),
     'OVERVIEW' => $language->get('user', 'overview'),
     'VIEW_ALL' => $member_language->get('members', 'view_all'),
     'GROUPS' => $groups,
