@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="ui column">
-            <div class="ui stackable equal width left aligned grid segment" style="margin-top: 0">
+            <div class="ui stackable equal width left aligned three column grid segment" style="margin-top: 0">
                 {if $VIEWING_LIST == "group"}
                     <div class="ui column">
                         <h3>{$VIEWING_GROUP->name}</h3>

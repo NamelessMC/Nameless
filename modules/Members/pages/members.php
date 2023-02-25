@@ -23,12 +23,12 @@ if (isset($_GET['group'])) {
         'VIEWING_GROUP' => Group::find($_GET['group']),
     ]);
 
-    $lists = [];
+    $lists_viewing = [];
 } else {
     $viewing_list = $_GET['list'] ?? 'overview';
 
-    $lists = $viewing_list === 'overview'
-        ? MemberListManager::getInstance()->allEnabledLists()
+    $lists_viewing = $viewing_list === 'overview'
+        ? array_filter(MemberListManager::getInstance()->allEnabledLists(), static fn (MemberListProvider $list) => $list->displayOnOverview())
         : [MemberListManager::getInstance()->getList($viewing_list)];
 }
 
@@ -69,10 +69,16 @@ if ($viewing_list !== 'overview') {
     ]);
 }
 
+// Sort sidebar lists to have displayOnOverview lists first
+$lists = MemberListManager::getInstance()->allEnabledLists();
+usort($lists, static function ($a, $b) {
+    return $b->displayOnOverview() - $a->displayOnOverview();
+});
+
 $smarty->assign([
     'MEMBERS' => $member_language->get('members', 'members'),
-    'MEMBER_LISTS' => MemberListManager::getInstance()->allEnabledLists(),
-    'MEMBER_LISTS_VIEWING' => $lists,
+    'MEMBER_LISTS' => $lists,
+    'MEMBER_LISTS_VIEWING' => $lists_viewing,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
     'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&page={{page}}&overview=' . ($viewing_list === 'overview' ? 'true' : 'false')),
@@ -82,7 +88,6 @@ $smarty->assign([
     'VIEW_GROUP_URL' => URL::build('/members', 'group='),
     'NEW_MEMBERS' => $member_language->get('members', 'new_members'),
     'NEW_MEMBERS_VALUE' => $new_members,
-    'TOKEN' => Token::get(),
     'FIND_MEMBER' => $member_language->get('members', 'find_member'),
     'NAME' => $member_language->get('members', 'name'),
     'SEARCH_URL' => URL::build('/queries/users'),

@@ -809,6 +809,7 @@
     "general/profile": "Profile",
     "general/rate_limit": "Please try again in {{expires}} seconds",
     "general/register": "Register",
+    "general/registered_members": "Registered members",
     "general/remove": "Remove",
     "general/report": "Report",
     "general/report_origin": "Origin",

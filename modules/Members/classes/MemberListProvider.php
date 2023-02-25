@@ -7,6 +7,7 @@ abstract class MemberListProvider {
     protected string $_friendly_name;
     protected string $_module;
     protected ?string $_icon = null;
+    protected bool $_display_on_overview = true;
 
     public function getName(): string {
         return $this->_name;
@@ -22,6 +23,10 @@ abstract class MemberListProvider {
 
     public function getIcon(): ?string {
         return $this->_icon;
+    }
+
+    public function displayOnOverview(): bool {
+        return $this->_display_on_overview;
     }
 
     public function url(): string {
