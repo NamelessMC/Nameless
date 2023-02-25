@@ -9,7 +9,7 @@
  *  Member list page
  */
 
-if (count(MemberList::getInstance()->allEnabledLists()) == 0) {
+if (count(MemberListManager::getInstance()->allEnabledLists()) == 0) {
     Redirect::to(URL::build('/'));
 }
 
@@ -55,8 +55,8 @@ if (isset($_GET['group'])) {
     $viewing_list = $_GET['list'] ?? 'overview';
 
     $lists = $viewing_list === 'overview'
-        ? MemberList::getInstance()->allEnabledLists()
-        : [MemberList::getInstance()->getList($viewing_list)];
+        ? MemberListManager::getInstance()->allEnabledLists()
+        : [MemberListManager::getInstance()->getList($viewing_list)];
 }
 
 $new_members = [];
@@ -78,8 +78,8 @@ foreach (json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Memb
 
 if ($viewing_list !== 'overview') {
     $member_count = isset($_GET['group'])
-        ? MemberList::getInstance()->getList($_GET['group'], true)->getMemberCount()
-        : MemberList::getInstance()->getList($viewing_list)->getMemberCount();
+        ? MemberListManager::getInstance()->getList($_GET['group'], true)->getMemberCount()
+        : MemberListManager::getInstance()->getList($viewing_list)->getMemberCount();
     $url_param = isset($_GET['group'])
         ? 'group=' . $_GET['group']
         : 'list=' . $viewing_list;
@@ -98,7 +98,7 @@ if ($viewing_list !== 'overview') {
 
 $smarty->assign([
     'MEMBERS' => $member_language->get('members', 'members'),
-    'MEMBER_LISTS' => MemberList::getInstance()->allEnabledLists(),
+    'MEMBER_LISTS' => MemberListManager::getInstance()->allEnabledLists(),
     'MEMBER_LISTS_VIEWING' => $lists,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),

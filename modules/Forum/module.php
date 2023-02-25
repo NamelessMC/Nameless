@@ -178,10 +178,10 @@ class Forum_Module extends Module {
 
         EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
 
-        MemberList::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
-        MemberList::getInstance()->registerListProvider(new HighestReactionScoresMemberListProvider($forum_language));
+        MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
+        MemberListManager::getInstance()->registerListProvider(new HighestReactionScoresMemberListProvider($forum_language));
 
-        MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
             return [
                 $forum_language->get('forum', 'posts_title') =>
                     DB::getInstance()->query(
@@ -191,7 +191,7 @@ class Forum_Module extends Module {
             ];
         });
 
-        MemberList::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
             return [
                 $forum_language->get('forum', 'reaction_score') =>
                     DB::getInstance()->query(

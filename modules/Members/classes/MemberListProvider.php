@@ -53,27 +53,23 @@ abstract class MemberListProvider {
     public function getMembers(bool $overview, int $page): array {
         [$sql, $id_column, $count_column] = $this->generateMembers();
 
-        $sql .= ' LIMIT ' . (($page - 1) * 20) . ', 20';
-
         $rows = DB::getInstance()->query($sql)->results();
-        $list_members = [];
-        $limit = $overview ? 5 : 20;
         if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
-            $ids = implode(',', array_map(static fn ($row) => $row->{$id_column}, $rows));
-            $banned = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
+            $rows = $this->filterBanned($rows, $id_column);
         }
 
+        $rows = array_slice($rows, ($page - 1) * 20);
+
+        $list_members = [];
+        $limit = $overview ? 5 : 20;
+
+
         foreach ($rows as $row) {
-            if (count($list_members) >= $limit) {
+            if (count($list_members) === $limit) {
                 break;
             }
 
             $user_id = $row->{$id_column};
-
-            if (isset($banned) && $this->isBanned($user_id, $banned)) {
-                continue;
-            }
-
             $member = new User($user_id);
 
             $list_members[] = array_merge(
@@ -88,7 +84,7 @@ abstract class MemberListProvider {
                     ? []
                     : [
                         'group_html' => implode('', $member->getAllGroupHtml()),
-                        'metadata' => MemberList::getInstance()->getMemberMetadata($member),
+                        'metadata' => MemberListManager::getInstance()->getMemberMetadata($member),
                     ],
             );
         }
@@ -101,20 +97,17 @@ abstract class MemberListProvider {
         $rows = DB::getInstance()->query($sql)->results();
 
         if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
-            $ids = implode(',', array_map(static fn ($row) => $row->{$id_column}, $rows));
-            $banned = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
+            $rows = $this->filterBanned($rows, $id_column);
         }
 
-        $list_members = 0;
-        foreach ($rows as $row) {
-            if (isset($banned) && $this->isBanned($row->{$id_column}, $banned)) {
-                continue;
-            }
+        return count($rows);
+    }
 
-            $list_members++;
-        }
+    private function filterBanned(array $rows, string $id_column): array {
+        $ids = implode(',', array_map(static fn ($row) => $row->{$id_column}, $rows));
+        $banned = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
 
-        return $list_members;
+        return array_filter($rows, fn ($row) => !$this->isBanned($row->{$id_column}, $banned));
     }
 
     private function isBanned(int $user_id, array $bans): bool {

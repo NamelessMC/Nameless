@@ -1,6 +1,6 @@
 <?php
 
-class MemberList extends Instanceable {
+class MemberListManager extends Instanceable {
 
     private array $_lists = [];
 
@@ -48,7 +48,8 @@ class MemberList extends Instanceable {
                 throw new RuntimeException("Member list '$name' does not exist");
             }
 
-            return (new GroupMemberListProvider())->forGroup((int) $name);
+            $group_id = (int) $name;
+            return new GroupMemberListProvider($group_id);
         }
 
         return $this->_lists[$name];

@@ -56,7 +56,7 @@ class Members_Module extends Module {
         ]);
 
         if (defined('FRONT_END')) {
-            if (count(MemberList::getInstance()->allEnabledLists()) > 0) {
+            if (count(MemberListManager::getInstance()->allEnabledLists()) > 0) {
                 $cache->setCache('navbar_order');
                 if (!$cache->isCached('members_order')) {
                     $members_order = 5;
