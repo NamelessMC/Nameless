@@ -34,13 +34,13 @@
                 <div class="content">
                     <h4 class="ui header">{$FIND_MEMBER}</h4>
                     <div class="description">
-                        <form action="{$MEMBER_LIST_URL}" method="post">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <div class="ui fluid icon input">
+                        <div class="ui search">
+                            <div class="ui icon fluid input">
+                                <input class="prompt" type="text" minlength="2" required placeholder="{$NAME}" autocomplete="off">
                                 <i class="search icon"></i>
-                                <input type="text" name="search" minlength="2" required placeholder="{$NAME}" autocomplete="off">
                             </div>
-                        </form>
+                            <div class="results"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,13 +189,36 @@
         });
     }
 
-    {if $VIEWING_LIST == "group"}
-        renderList('group_{$VIEWING_GROUP->id}');
-    {else}
-        {foreach from=$MEMBER_LISTS_VIEWING item=list}
-            renderList('{$list->getName()}');
-        {/foreach}
-    {/if}
+    window.onload = () => {
+        {if $VIEWING_LIST == "group"}
+            renderList('group_{$VIEWING_GROUP->id}');
+        {else}
+            {foreach from=$MEMBER_LISTS_VIEWING item=list}
+                renderList('{$list->getName()}');
+            {/foreach}
+        {/if}
+
+        $('.ui.search')
+            .search({
+                minCharacters: 2,
+                maxResults: 5,
+                selectFirstResult: true,
+                fields: {
+                    title: 'username',
+                    description: 'nickname',
+                    image: 'avatar_url',
+                    url: 'profile_url',
+                },
+                apiSettings: {
+                    url: '{$SEARCH_URL}&search={literal}{query}{/literal}'
+                },
+                error: {
+                    noResultsHeader: "{$NO_RESULTS_HEADER}",
+                    noResults: "{$NO_RESULTS_TEXT}",
+                }
+            })
+        ;
+    }
 </script>
 
 {include file='footer.tpl'}

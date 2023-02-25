@@ -1034,6 +1034,13 @@ select {
 }
 
 /*
+ Member list search images
+ */
+.ui.search > .results .result .image {
+    border-radius: 0;
+}
+
+/*
    *  [ DARK MODE ]
    */
 

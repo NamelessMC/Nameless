@@ -9,35 +9,8 @@
  *  Member list page
  */
 
-if (count(MemberListManager::getInstance()->allEnabledLists()) == 0) {
+if (count(MemberListManager::getInstance()->allEnabledLists()) === 0) {
     Redirect::to(URL::build('/'));
-}
-
-if (Input::exists()) {
-    if (Token::check()) {
-        $validation = Validate::check($_POST, [
-            'search' => [
-                Validate::REQUIRED => true,
-                Validate::MIN => 2,
-                Validate::RATE_LIMIT => [5, 30] // 5 attempts every 30 seconds
-            ],
-        ]);
-
-        if ($validation->passed()) {
-            $search = Input::get('search');
-            $result = DB::getInstance()->query('SELECT username FROM nl2_users WHERE username = ? OR nickname = ?', [$search, $search]);
-            if ($result->count()) {
-                $username = $result->first()->username;
-                Redirect::to(URL::build('/profile/' . urlencode($username)));
-            } else {
-                $error = $member_language->get('members', 'member_list_search_no_results', [
-                    'search' => Output::getClean($search),
-                ]);
-            }
-        } else {
-            $error = $validation->errors()[0];
-        }
-    }
 }
 
 const PAGE = 'members';
@@ -112,6 +85,9 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'FIND_MEMBER' => $member_language->get('members', 'find_member'),
     'NAME' => $member_language->get('members', 'name'),
+    'SEARCH_URL' => URL::build('/queries/users'),
+    'NO_RESULTS_HEADER' => $member_language->get('members', 'no_results_header'),
+    'NO_RESULTS_TEXT' => $member_language->get('members', 'no_results_text'),
     'VIEW_GROUP' => $member_language->get('members', 'view_group'),
     'GROUP' => $member_language->get('members', 'group'),
     'NO_MEMBERS_FOUND' => $member_language->get('members', 'no_members'),
