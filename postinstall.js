@@ -24,6 +24,7 @@ const publicAssets = {
   'codemirror': [
     'lib/codemirror.css',
     'lib/codemirror.js',
+    'mode/smarty/smarty.js',
     'mode/javascript/javascript.js',
     'mode/css/css.js',
     'mode/htmlmixed/htmlmixed.js',
