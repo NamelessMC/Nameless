@@ -9,10 +9,6 @@
  *  Member list page
  */
 
-if (count(MemberListManager::getInstance()->allEnabledLists()) === 0) {
-    Redirect::to(URL::build('/'));
-}
-
 const PAGE = 'members';
 $page_title = $member_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');

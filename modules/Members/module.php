@@ -56,23 +56,21 @@ class Members_Module extends Module {
         ]);
 
         if (defined('FRONT_END')) {
-            if (count(MemberListManager::getInstance()->allEnabledLists()) > 0) {
-                $cache->setCache('navbar_order');
-                if (!$cache->isCached('members_order')) {
-                    $members_order = 5;
-                    $cache->store('members_order', 5);
-                } else {
-                    $members_order = $cache->retrieve('members_order');
-                }
-
-                $cache->setCache('navbar_icons');
-                if (!$cache->isCached('members_icon')) {
-                    $members_icon = '';
-                } else {
-                    $members_icon = $cache->retrieve('members_icon');
-                }
-                $navs[0]->add('members', $this->_member_language->get('members', 'members'), URL::build('/members'), 'top', null, $members_order, $members_icon);
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('members_order')) {
+                $members_order = 5;
+                $cache->store('members_order', 5);
+            } else {
+                $members_order = $cache->retrieve('members_order');
             }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('members_icon')) {
+                $members_icon = '';
+            } else {
+                $members_icon = $cache->retrieve('members_icon');
+            }
+            $navs[0]->add('members', $this->_member_language->get('members', 'members'), URL::build('/members'), 'top', null, $members_order, $members_icon);
         }
 
         if (defined('BACK_END')) {

@@ -22,9 +22,10 @@ Here are some things you should know when contributing:
 - To populate the database with some fake data, you can use the seeder.
     - Run the following command when in the root directory:
         ```console
-        php scripts/seeder/db_seeder.php wipe
+        php scripts/seeder/db_seeder.php --wipe
         ```
         - This will wipe the database and populate it with lots of fake users, forums, and much, much more.
+        - *Note: You can modify the number of different records to be created in each seeder by editing the defined variables in `scripts/seeder/db_seeder.php`*
         - *Note: Login to the admin account with `admin@localhost` and `password` after running the seeder*
 - To make changes to the database schema (add, modify or remove a table), please create a new migration with Phinx:
     - Run the following command when in the root directory:

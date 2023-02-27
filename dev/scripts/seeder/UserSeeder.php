@@ -43,7 +43,7 @@ class UserSeeder extends Seeder {
             ]
         );
 
-        $this->times(100, function () use ($db, $faker, $password) {
+        $this->times(USER_COUNT, function () use ($db, $faker, $password) {
             $username = substr($faker->unique()->userName, 0, 20);
             $full_name = substr($faker->unique()->name, 0, 20);
             $active = $faker->boolean(90) ? 1 : 0;
