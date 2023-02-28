@@ -217,22 +217,6 @@ class DB {
     }
 
     /**
-     * @deprecated Use query() instead. Will be removed in 2.1.0
-     * @return static
-     */
-    public function selectQuery(string $sql, array $params = []) {
-        return $this->query($sql, $params);
-    }
-
-    /**
-     * @deprecated Use query() instead. Will be removed in 2.1.0
-     * @return static
-     */
-    public function createQuery(string $sql, array $params = []) {
-        return $this->query($sql, $params);
-    }
-
-    /**
      * Execute some SQL action (which uses a where clause) on the database.
      *
      * @param string $action The action to perform (SELECT, DELETE).
