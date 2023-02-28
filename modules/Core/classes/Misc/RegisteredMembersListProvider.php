@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Registered members member list provider
+ *
+ * @package Modules\Core\Misc
+ * @author Aberdener
+ * @version 2.1.0
+ * @license MIT
+ */
 class RegisteredMembersListProvider extends MemberListProvider {
 
     public function __construct(Language $language) {
@@ -10,7 +18,7 @@ class RegisteredMembersListProvider extends MemberListProvider {
         $this->_display_on_overview = false;
     }
 
-    protected function generateMembers(): array {
+    protected function generator(): array {
         return [
             'SELECT id FROM nl2_users ORDER BY username',
             'id',
