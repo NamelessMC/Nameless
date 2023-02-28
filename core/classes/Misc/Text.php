@@ -121,22 +121,6 @@ class Text {
     }
 
     /**
-     * URL-ify a string
-     *
-     * @param string|null $string $string String to URLify
-     * @return string Url-ified string. (I dont know what this means)
-     * @deprecated This should no longer be used because it doesn't work well for non-latin languages. Just use urlencode() instead. Will be removed in 2.1.0
-     */
-    public static function urlSafe(string $string = null): string {
-        if ($string) {
-            $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $string))));
-        }
-
-        return '';
-    }
-
-    /**
      * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
      * since we want as little HTML in the translation strings as possible.
      *
