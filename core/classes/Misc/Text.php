@@ -147,10 +147,14 @@ class Text {
     }
 
     /**
-     * @param string $content HTML content to use in Discord embed
+     * @param string|null $content HTML content to use in Discord embed
      * @return string HTML content with tags removed and newlines converted to Discord's linebreaks
      */
-    public static function embedSafe(string $content): string {
+    public static function embedSafe(?string $content): string {
+        if ($content === null) {
+            return '';
+        }
+
         $content = strip_tags(str_ireplace(
             ['&nbsp;', '&bull;', '<br />', '<br>', '<br/>'],
             [' ', '', "\r\n", "\r\n", "\r\n"],
