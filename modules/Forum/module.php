@@ -201,7 +201,12 @@ class Forum_Module extends Module {
         switch ($link_location) {
             case 1:
                 // Navbar
-                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
+                $navs[0]->addDropdown('forum_dropdown', $this->_forum_language->get('forum', 'forum'), 'top', $forum_order, $icon);
+                $navs[0]->addItemToDropdown('forum_dropdown', 'forum', $this->_forum_language->get('forum', 'forums'), URL::build('/forum'));
+                if ($user->isLoggedIn()) {
+                    $navs[0]->addItemToDropdown('forum_dropdown', 'following_topics', $this->_forum_language->get('forum', 'following_topics'), URL::build('/user/following_topics'));
+                }
+                $navs[0]->addItemToDropdown('forum_dropdown', 'search_forums', $this->_forum_language->get('forum', 'forum_search'), URL::build('/forum/search'));
                 break;
             case 2:
                 // "More" dropdown
@@ -216,7 +221,7 @@ class Forum_Module extends Module {
         // Widgets
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Latest posts
-            $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
+            $widgets->add(new LatestPostsWidget($this->_forum_language, $smarty, $cache, $user, $this->_language));
         }
 
         // Front end or back end?

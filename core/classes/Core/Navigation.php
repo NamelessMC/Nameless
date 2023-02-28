@@ -139,8 +139,9 @@ class Navigation {
      * @param string|null $target HTML target attribute (eg '_blank')
      * @param string $icon Icon to prepend to nav item
      * @param int $order Nav item order
+     * @param string $type Type of item, either 'item' or 'header'
      */
-    public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10): void {
+    public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10, string $type = 'item'): void {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
@@ -149,7 +150,8 @@ class Navigation {
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
-                'order' => $order
+                'order' => $order,
+                'type' => $type,
             ];
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
@@ -158,7 +160,8 @@ class Navigation {
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
-                'order' => $order
+                'order' => $order,
+                'type' => $type,
             ];
         }
     }

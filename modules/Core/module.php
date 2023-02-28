@@ -881,9 +881,16 @@ class Core_Module extends Module {
                     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
                     if (count($user_query)) {
                         $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
-                            'registeredAt' => $timeago->inWords($user_query->joined, $language),
-                        ]));
+                        $smarty->assign([
+                            'REGISTERED' => $language->get('user', 'registered_x', [
+                                'registeredAt' => $timeago->inWords($user_query->joined, $language),
+                            ]),
+                            'REGISTERED_DATE' => date(DATE_FORMAT, $user_query->joined),
+                            'LAST_SEEN' => $language->get('user', 'last_seen_x', [
+                                'lastSeenAt' => $timeago->inWords($user_query->last_online, $language),
+                            ]),
+                            'LAST_SEEN_DATE' => date(DATE_FORMAT, $user_query->last_online),
+                        ]);
                     }
                 }
             }
