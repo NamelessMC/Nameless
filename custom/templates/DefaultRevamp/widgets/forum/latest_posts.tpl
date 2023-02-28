@@ -14,7 +14,6 @@
                             <h4 class="ui header">{$post.topic_title}</h4>
                             {$BY|capitalize} <a href="{$post.last_reply_profile_link}"
                                 style="{$post.last_reply_style}">{$post.last_reply_username}</a> | {$post.last_reply}
-                            <p>{$post.last_reply_content} aw aw</p>
                         </div>
                         <a href="{$post.last_reply_profile_link}" style="{$post.last_reply_style}"
                             data-poload="{$USER_INFO_URL}{$post.last_reply_user_id}">{$post.last_reply_username}</a>
