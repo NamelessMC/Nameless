@@ -14,6 +14,10 @@ $page_title = $member_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (isset($_GET['group'])) {
+    if (!in_array($_GET['group'], json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true))) {
+        Redirect::to(URL::build('/members'));
+    }
+
     $viewing_list = 'group';
     $smarty->assign([
         'VIEWING_GROUP' => Group::find($_GET['group']),
@@ -22,6 +26,9 @@ if (isset($_GET['group'])) {
     $lists_viewing = [];
 } else {
     $viewing_list = $_GET['list'] ?? 'overview';
+    if ($viewing_list !== 'overview' && !MemberListManager::getInstance()->getList($viewing_list)->isEnabled()) {
+        Redirect::to(URL::build('/members'));
+    }
 
     $lists_viewing = $viewing_list === 'overview'
         ? array_filter(MemberListManager::getInstance()->allEnabledLists(), static fn (MemberListProvider $list) => $list->displayOnOverview())
@@ -66,14 +73,14 @@ if ($viewing_list !== 'overview') {
 }
 
 // Sort sidebar lists to have displayOnOverview lists first
-$lists = MemberListManager::getInstance()->allEnabledLists();
-usort($lists, static function ($a, $b) {
+$sidebar_lists = MemberListManager::getInstance()->allEnabledLists();
+usort($sidebar_lists, static function ($a, $b) {
     return $b->displayOnOverview() - $a->displayOnOverview();
 });
 
 $smarty->assign([
     'MEMBERS' => $member_language->get('members', 'members'),
-    'MEMBER_LISTS' => $lists,
+    'SIDEBAR_MEMBER_LISTS' => $sidebar_lists,
     'MEMBER_LISTS_VIEWING' => $lists_viewing,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
@@ -92,6 +99,7 @@ $smarty->assign([
     'VIEW_GROUP' => $member_language->get('members', 'view_group'),
     'GROUP' => $member_language->get('members', 'group'),
     'NO_MEMBERS_FOUND' => $member_language->get('members', 'no_members'),
+    'NO_OVERVIEW_LISTS_ENABLED' => $member_language->get('members', 'no_overview_lists_enabled'),
 ]);
 
 // Load modules + template

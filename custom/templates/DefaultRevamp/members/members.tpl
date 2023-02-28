@@ -24,7 +24,7 @@
                 <a class="item {if $VIEWING_LIST eq "overview"}active{/if}" href="{$MEMBER_LIST_URL}">
                     <i class="ellipsis horizontal icon"></i>{$OVERVIEW}
                 </a>
-                {foreach from=$MEMBER_LISTS item=list}
+                {foreach from=$SIDEBAR_MEMBER_LISTS item=list}
                     <a class="item {if $VIEWING_LIST eq $list->getName()}active{/if}" href="{$list->url()}">
                         <i class="{if $list->getIcon()}{$list->getIcon()}{else}dot circle icon{/if}"></i> {$list->getFriendlyName()}
                     </a>
@@ -77,33 +77,37 @@
             </div>
         </div>
         <div class="ui column">
-            <div class="ui stackable equal width left aligned three column grid segment" style="margin-top: 0">
-                {if $VIEWING_LIST == "group"}
-                    <div class="ui column">
-                        <h3>{$VIEWING_GROUP->name}</h3>
-                        <div>
-                            <ul id="member_list_group_{$VIEWING_GROUP->id}" class="ui list large selection" style="margin-left: -10px;">
-                            </ul>
-                            {$PAGINATION}
-                        </div>
-                    </div>
-                {else}
-                    {foreach from=$MEMBER_LISTS_VIEWING item=list}
+            {if $VIEWING_LIST == "group" || $MEMBER_LISTS_VIEWING|count}
+                <div class="ui stackable equal width left aligned three column grid segment" style="margin-top: 0">
+                    {if $VIEWING_LIST == "group"}
                         <div class="ui column">
-                            <h3>{$list->getFriendlyName()}</h3>
+                            <h3>{$VIEWING_GROUP->name}</h3>
                             <div>
-                                <ul id="member_list_{$list->getName()}" class="ui list large selection" style="margin-left: -10px;">
+                                <ul id="member_list_group_{$VIEWING_GROUP->id}" class="ui list large selection" style="margin-left: -10px;">
                                 </ul>
-                                {if $VIEWING_LIST == "overview"}
-                                    <a class="fluid ui grey basic button" href="{$list->url()}">{$VIEW_ALL}</a>
-                                {else}
-                                    {$PAGINATION}
-                                {/if}
+                                {$PAGINATION}
                             </div>
                         </div>
-                    {/foreach}
-                {/if}
-            </div>
+                    {else}
+                        {foreach from=$MEMBER_LISTS_VIEWING item=list}
+                            <div class="ui column">
+                                <h3>{$list->getFriendlyName()}</h3>
+                                <div>
+                                    <ul id="member_list_{$list->getName()}" class="ui list large selection" style="margin-left: -10px;">
+                                    </ul>
+                                    {if $VIEWING_LIST == "overview"}
+                                        <a class="fluid ui grey basic button" href="{$list->url()}">{$VIEW_ALL}</a>
+                                    {else}
+                                        {$PAGINATION}
+                                    {/if}
+                                </div>
+                            </div>
+                        {/foreach}
+                    {/if}
+                </div>
+            {else}
+                <div class="ui orange message">{$NO_OVERVIEW_LISTS_ENABLED}</div>
+            {/if}
         </div>
     </div>
 </div>
