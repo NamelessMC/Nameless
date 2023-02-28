@@ -114,7 +114,6 @@ class LatestPostsWidget extends WidgetBase {
                     'last_reply_mcname' => $last_reply_user->getDisplayname(true),
                     'last_reply_style' => $last_reply_user->getGroupStyle(),
                     'last_reply_user_id' => Output::getClean($discussion->topic_last_user),
-                    'last_reply_content' => Output::getClean($discussion->last_reply_content),
                     'label' => $label,
                     'link' => URL::build('/forum/topic/' . urlencode($discussion->id) . '-' . $forum->titleToURL($discussion->topic_title)),
                     'forum_link' => URL::build('/forum/forum/' . $discussion->forum_id),
