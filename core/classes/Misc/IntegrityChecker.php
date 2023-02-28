@@ -2,9 +2,6 @@
 
 class IntegrityChecker {
 
-    // @phpstan-ignore-next-line
-    const CHECKSUMS_PATH = ROOT_PATH . '/checksums.json';
-
     /**
      * Files with relative paths starting with a string in this array are ignored
      */
@@ -50,6 +47,10 @@ class IntegrityChecker {
         return false;
     }
 
+    private static function checksumsPath(): string {
+        return ROOT_PATH . '/checksums.json';
+    }
+
     /**
      * Generate checksums for files recursively, ignoring files according to IGNORED_PATHS and INCLUDED_PATHS.
      *
@@ -59,12 +60,10 @@ class IntegrityChecker {
         $checksums_dict = [];
 
         // Iterate over all files, recursively
-        // @phpstan-ignore-next-line
         $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH));
 
         foreach ($iterator as $path) {
             // Get path relative to Nameless root directory
-            // @phpstan-ignore-next-line
             $relative_path = substr($path, strlen(ROOT_PATH) + 1);
 
             if (self::isIgnored($relative_path)) {
@@ -91,7 +90,7 @@ class IntegrityChecker {
      */
     public static function saveChecksums(array $checksums): void {
         $json = json_encode($checksums);
-        file_put_contents(self::CHECKSUMS_PATH, $json);
+        file_put_contents(self::checksumsPath(), $json);
     }
 
     /**
@@ -101,11 +100,11 @@ class IntegrityChecker {
      * file does not exist.
      */
     public static function loadChecksums() {
-        if (!is_file(self::CHECKSUMS_PATH)) {
+        if (!is_file(self::checksumsPath())) {
             return null;
         }
 
-        $json = file_get_contents(self::CHECKSUMS_PATH);
+        $json = file_get_contents(self::checksumsPath());
         return json_decode($json, true);
     }
 
