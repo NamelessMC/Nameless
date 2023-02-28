@@ -14,8 +14,8 @@ class UserBannedEvent extends AbstractEvent implements DiscordDispatchable {
         $this->ip_ban = $ip_ban;
     }
 
-    public static function description(): array {
-        return ['admin', 'ban_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'ban_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

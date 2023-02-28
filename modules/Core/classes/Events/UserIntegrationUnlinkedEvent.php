@@ -16,8 +16,8 @@ class UserIntegrationUnlinkedEvent extends AbstractEvent implements DiscordDispa
         return 'unlinkIntegrationUser';
     }
 
-    public static function description(): array {
-        return ['admin', 'user_unlink_integration_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'user_unlink_integration_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

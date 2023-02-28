@@ -26,8 +26,8 @@ class TopicReplyCreatedEvent extends AbstractEvent implements DiscordDispatchabl
         return 'topicReply';
     }
 
-    public static function description(): array {
-        return ['forum', 'topic_reply'];
+    public static function description(): string {
+        return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'topic_reply');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

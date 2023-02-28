@@ -53,8 +53,8 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_TYPE);
         }
 
-        if (!array_reduce($events, static function ($prev, $curr) use ($api) {
-            if (!array_key_exists($curr, EventHandler::getEvents($api->getLanguage()))) {
+        if (!array_reduce($events, static function ($prev, $curr) {
+            if (!array_key_exists($curr, EventHandler::getEvents())) {
                 $prev = false;
             }
 

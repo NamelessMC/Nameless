@@ -12,8 +12,8 @@ class UserValidatedEvent extends AbstractEvent implements DiscordDispatchable {
         return 'validateUser';
     }
 
-    public static function description(): array {
-        return ['admin', 'validate_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'validate_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

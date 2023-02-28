@@ -29,8 +29,8 @@ class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
         return 'newTopic';
     }
 
-    public static function description(): array {
-        return ['forum', 'new_topic_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'announcement_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

@@ -12,8 +12,8 @@ class UserRegisteredEvent extends AbstractEvent implements DiscordDispatchable {
         return 'registerUser';
     }
 
-    public static function description(): array {
-        return ['admin', 'register_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'register_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

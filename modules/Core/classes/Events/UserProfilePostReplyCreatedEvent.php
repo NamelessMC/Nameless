@@ -16,8 +16,8 @@ class UserProfilePostReplyCreatedEvent extends AbstractEvent implements DiscordD
         return 'userProfilePostReply';
     }
 
-    public static function description(): array {
-        return ['admin', 'user_profile_post_reply_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'user_profile_post_reply_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

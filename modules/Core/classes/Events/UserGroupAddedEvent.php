@@ -10,8 +10,8 @@ class UserGroupAddedEvent extends AbstractEvent implements DiscordDispatchable {
         $this->group = $group;
     }
 
-    public static function description(): array {
-        return ['admin', 'user_group_added_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'user_group_added_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

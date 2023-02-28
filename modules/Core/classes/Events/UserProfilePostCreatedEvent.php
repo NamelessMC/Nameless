@@ -16,8 +16,8 @@ class UserProfilePostCreatedEvent extends AbstractEvent implements DiscordDispat
         return 'userNewProfilePost';
     }
 
-    public static function description(): array {
-        return ['admin', 'user_new_profile_post_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'user_new_profile_post_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

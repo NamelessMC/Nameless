@@ -12,7 +12,7 @@ class UserDeletedEvent extends AbstractEvent {
         return 'deleteUser';
     }
 
-    public static function description(): array {
-        return ['admin', 'delete_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'delete_hook_info');
     }
 }

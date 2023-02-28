@@ -16,8 +16,8 @@ class UserIntegrationLinkedEvent extends AbstractEvent implements DiscordDispatc
         return 'linkIntegrationUser';
     }
 
-    public static function description(): array {
-        return ['admin', 'user_link_integration_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'user_link_integration_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

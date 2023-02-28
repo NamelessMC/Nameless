@@ -12,8 +12,8 @@ class UserWarnedEvent extends AbstractEvent implements DiscordDispatchable {
         $this->reason = $reason;
     }
 
-    public static function description(): array {
-        return ['admin', 'warning_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'warning_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

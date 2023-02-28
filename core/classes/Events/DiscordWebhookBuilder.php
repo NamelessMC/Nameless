@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Builds a Discord webhook to represent an event as a Discord embed.
+ *
+ * @package NamelessMC\Events
+ * @author Aberdeener
+ * @version 2.2.0
+ * @license MIT
+ */
 class DiscordWebhookBuilder {
 
     private ?string $_username = null;

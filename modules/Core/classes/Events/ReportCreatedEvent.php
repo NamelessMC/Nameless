@@ -30,8 +30,8 @@ class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
         return 'createReport';
     }
 
-    public static function description(): array {
-        return ['admin', 'report_hook_info'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'report_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

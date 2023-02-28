@@ -106,10 +106,9 @@ class EventHandler {
     /**
      * Execute an event.
      *
-     * @param AbstractEvent|string $event Event name to call.
-     * @param array $params Params to pass to the event's function.
-     *
-     * @return array|null Response of hook, can be any type or null when event does not exist
+     * @param AbstractEvent|string $event Event name to call, or instance of event to execute.
+     * @param array $params Params to pass to the event's function, not required when a class-based event is used.
+     * @return array|null Response of lissteners, can be any type or null
      */
     public static function executeEvent($event, array $params = []): ?array {
         if ($event instanceof AbstractEvent) {
@@ -124,8 +123,8 @@ class EventHandler {
             return null;
         }
 
-        // If they did not pass an event class name (UserRegisteredEvent::class),
-        // attempt to find the event class name from the event name ('registeredUser')
+        // If they did not pass an event class name (ie: UserRegisteredEvent::class),
+        // attempt to find the event class name from the event name (ie: 'registeredUser')
         // and create an event object from the params if it exists.
         if (!isset($event_object)) {
             $class_name = self::$_events[$name]['class_name'];
@@ -137,6 +136,8 @@ class EventHandler {
                         $parameter = str_replace('Unknown named parameter ', '', $error->getMessage());
                         throw new InvalidArgumentException("Unknown parameter $parameter array passed to event '$name' executor");
                     }
+
+                    throw $error;
                 }
             }
         }
@@ -183,15 +184,14 @@ class EventHandler {
                 $callback = $webhook['action'];
                 // We are more flexible with webhooks, since a single webhook listener
                 // is likely going to handle a variety of different events (DiscordHook for example).
-                $to_pass = $event_object ?? $params;
-                if ($to_pass instanceof AbstractEvent) {
+                if (isset($event_object)) {
                     // We don't have a way to add a "webhook" property to an
                     // arbitrary event object, so we'll just pass the webhook
                     // URL as a second parameter to the callback.
-                    $callback($to_pass, $webhook['url']);
+                    $callback($event_object, $webhook['url']);
                 } else {
-                    $to_pass['webhook'] = $webhook['url'];
-                    $callback($to_pass);
+                    $params['webhook'] = $webhook['url'];
+                    $callback($params);
                 }
             }
         }
@@ -202,22 +202,15 @@ class EventHandler {
     /**
      * Get a list of events to display on the StaffCP webhooks page.
      *
-     * @param Language $language Language to translate event descriptions with.
      * @param bool $internal Whether to include internal events or not
-     *
-     * @return array List of all currently registered events.
+     * @return array List of all currently registered events
      */
-    public static function getEvents(Language $language, bool $internal = false): array {
+    public static function getEvents(bool $internal = false): array {
         $return = [];
 
         foreach (self::$_events as $name => $meta) {
             if (!$meta['internal'] || $internal) {
-                // The description might be an array if the event is a class based event
-                $description = is_array($meta['description'])
-                    ? $language->get(...$meta['description'])
-                    : $meta['description'];
-
-                $return[$name] = $description;
+                $return[$name] = $meta['description'];
             }
         }
 

@@ -16,8 +16,8 @@ class AnnouncementCreatedEvent extends AbstractEvent implements DiscordDispatcha
         return 'createAnnouncement';
     }
 
-    public static function description(): array {
-        return ['admin', 'announcement_hook_info'];
+    public static function description(): string {
+        return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'new_topic_hook_info');
     }
 
     public function toDiscordWebook(): DiscordWebhookBuilder {

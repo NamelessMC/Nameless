@@ -14,8 +14,8 @@ class GroupClonedEvent extends AbstractEvent {
         return 'cloneGroup';
     }
 
-    public static function description(): array {
-        return ['admin', 'clone_group'];
+    public static function description(): string {
+        return (new Language())->get('admin', 'clone_group');
     }
 
     public static function internal(): bool {

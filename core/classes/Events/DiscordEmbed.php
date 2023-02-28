@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Builds a Discord embed to represent an event.
+ *
+ * @package NamelessMC\Events
+ * @author Aberdeener
+ * @version 2.2.0
+ * @license MIT
+ */
 class DiscordEmbed {
 
     private ?string $_title = null;

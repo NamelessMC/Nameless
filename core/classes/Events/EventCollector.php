@@ -4,6 +4,15 @@ use DebugBar\DataCollector\AssetProvider;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\Renderable;
 
+/**
+ * Interacts with the DebugBar to display executed events.
+ *
+ * @see DebugBarHelper
+ * @package NamelessMC\Events
+ * @author Aberdeener
+ * @version 2.2.0
+ * @license MIT
+ */
 class EventCollector extends DataCollector implements Renderable, AssetProvider {
 
     private array $_events = [];
