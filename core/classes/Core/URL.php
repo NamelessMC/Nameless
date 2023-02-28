@@ -14,6 +14,7 @@ class URL {
         '&',
         '/', // Encoded slashes cause issues with Apache: https://stackoverflow.com/q/9206835/4833737
         '#',
+        '.',
     ];
 
     /**
