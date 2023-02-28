@@ -152,7 +152,6 @@ class Pages {
 
     /**
      * Get the page details the user currently viewing.
-     * @deprecated  Not used internally. Will be removed in 2.1.0
      *
      * @return array Details of current page.
      */

@@ -210,12 +210,15 @@ class Validate {
                         if (is_array($rule_value)) {
                             $table = $rule_value[0];
                             [$ignore_col, $ignore_val] = explode(':', $rule_value[1]);
-                            $check = $validator->_db->query('SELECT * FROM nl2_' . $table . ' WHERE ? = ? AND ? <> ?', [
-                                $item,
-                                $value,
-                                $ignore_col,
-                                $ignore_val,
-                            ]);
+                            $sql =
+                                <<<SQL
+                                SELECT *
+                                FROM nl2_$table
+                                WHERE $item = ?
+                                  AND $ignore_col <> ?
+                                SQL;
+
+                            $check = $validator->_db->query($sql, [$value, $ignore_val]);
                         } else {
                             $table = $rule_value;
                             $check = $validator->_db->get($table, [$item, $value]);

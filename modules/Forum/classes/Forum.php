@@ -144,8 +144,7 @@ class Forum {
                                       AND (`topic_creator` = ? OR `sticky` = 1)
                                       AND `deleted` = 0
                                 SQL,
-                                [$item->id],
-                                $user_id
+                                [$item->id, $user_id],
                             )->first()->count;
 
                             $posts = $this->_db->query(
@@ -317,9 +316,9 @@ class Forum {
             $own_topics_forums_string = rtrim($own_topics_forums_string, ',');
 
             return DB::getInstance()->query(
-                "(SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN (' . $all_topics_forums_string . ') ORDER BY topics.topic_reply_date DESC LIMIT $limit)
+                "(SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.forum_id IN ($all_topics_forums_string) ORDER BY topics.topic_reply_date DESC LIMIT $limit)
                 UNION
-                (SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN (' . $own_topics_forums_string . ') AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT $limit)
+                (SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.forum_id IN ($own_topics_forums_string) AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT $limit)
                 ORDER BY topic_reply_date DESC LIMIT $limit",
                 [$user_id],
                 true
@@ -330,7 +329,7 @@ class Forum {
             "SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id
             FROM nl2_topics topics 
             LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) 
-            WHERE topics.deleted = 0 AND topics.forum_id IN (' . $all_topics_forums_string . ') ORDER BY topics.topic_reply_date DESC LIMIT $limit",
+            WHERE topics.deleted = 0 AND topics.forum_id IN ($all_topics_forums_string) ORDER BY topics.topic_reply_date DESC LIMIT $limit",
         )->results();
     }
 
@@ -429,8 +428,9 @@ class Forum {
      * Update the database with the new latest forum topic posts.
      *
      * @param int $topic_id The topic ID to update
+     * @param int|null $forum_id The forum ID to update if topic does not exist
      */
-    public function updateTopicLatestPosts(int $topic_id): void {
+    public function updateTopicLatestPosts(int $topic_id, ?int $forum_id): void {
         $latest_post = $this->_db->query(
             <<<SQL
                 SELECT `created`, 
@@ -449,7 +449,7 @@ class Forum {
                 'topic_reply_date' => $latest_post->created ?? strtotime($latest_post->post_date),
                 'topic_last_user' => $latest_post->post_creator,
             ]);
-        } else {
+        } else if ($forum_id !== null) {
             $this->_db->update('forums', $forum_id, [
                 'last_post_date' => null,
                 'last_user_posted' => null,
@@ -789,7 +789,7 @@ class Forum {
                     $prev[] = $label->id;
                 }
             }
-            return is_array($prev) ? $prev : [];
-        });
+            return $prev;
+        }, []);
     }
 }

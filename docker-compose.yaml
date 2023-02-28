@@ -12,7 +12,7 @@
 # docker compose pull
 #
 # Reinstall:
-# docker compose exec php php -f scripts/cli_install.php '--' '--iSwearIKnowWhatImDoing' '--reinstall'
+# docker compose exec php php -f dev/scripts/cli_install.php '--' '--iSwearIKnowWhatImDoing' '--reinstall'
 #
 # Uninstall
 # docker compose down
@@ -42,9 +42,6 @@ services:
             - type: bind
               source: .
               target: /data
-        # Temporary workaround for permissions issue (yarn cache directory)
-        tmpfs:
-          - /.cache:size=256M,uid=33,gid=33,mode=1777
         user: '1000' # set this to your user id!
         environment:
             NAMELESS_HOSTNAME: localhost

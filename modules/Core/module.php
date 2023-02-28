@@ -21,8 +21,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.2';
-        $nameless_version = '2.0.2';
+        $module_version = '2.0.3';
+        $nameless_version = '2.0.3';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -38,6 +38,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
         $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
+        $pages->add('Core', '/queries/authme_test_connection', 'queries/authme_test_connection.php');
         $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
@@ -97,7 +98,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/authme', 'pages/panel/minecraft_authme.php');
-        $pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
@@ -507,6 +507,7 @@ class Core_Module extends Module {
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
+            'verify_email' => static fn () => true,
         ]);
 
         NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
@@ -514,6 +515,7 @@ class Core_Module extends Module {
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
             'icon' => 'fab fa-google',
+            'verify_email' => static fn () => true,
         ]);
 
         // Captcha
@@ -597,7 +599,7 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        if (defined('MINECRAFT') && MINECRAFT === true) {
+        if (Util::getSetting('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
@@ -701,7 +703,6 @@ class Core_Module extends Module {
             'admincp.integrations.edit' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'general_settings'),
             'admincp.minecraft' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft'),
             'admincp.minecraft.authme' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'authme_integration'),
-            'admincp.minecraft.verification' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'account_verification'),
             'admincp.minecraft.servers' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'minecraft_servers'),
             'admincp.minecraft.query_errors' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'query_errors'),
             'admincp.minecraft.banners' => $language->get('admin', 'integrations') . ' &raquo; ' . $language->get('admin', 'minecraft') . ' &raquo; ' . $language->get('admin', 'server_banners'),
@@ -839,37 +840,24 @@ class Core_Module extends Module {
             }
         }
 
-        if (defined('MINECRAFT') && MINECRAFT === true) {
-            // Status page?
-            $cache->setCache('status_page');
-            if ($cache->isCached('enabled')) {
-                $status_enabled = $cache->retrieve('enabled');
-
+        if (Util::getSetting('mc_integration') && Util::getSetting('status_page')) {
+            // Add status link to navbar
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('status_order')) {
+                $status_order = 3;
+                $cache->store('status_order', 3);
             } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
-                $cache->store('enabled', $status_enabled);
-
+                $status_order = $cache->retrieve('status_order');
             }
 
-            if ($status_enabled == 1) {
-                // Add status link to navbar
-                $cache->setCache('navbar_order');
-                if (!$cache->isCached('status_order')) {
-                    $status_order = 3;
-                    $cache->store('status_order', 3);
-                } else {
-                    $status_order = $cache->retrieve('status_order');
-                }
-
-                $cache->setCache('navbar_icons');
-                if (!$cache->isCached('status_icon')) {
-                    $icon = '';
-                } else {
-                    $icon = $cache->retrieve('status_icon');
-                }
-
-                $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('status_icon')) {
+                $icon = '';
+            } else {
+                $icon = $cache->retrieve('status_icon');
             }
+
+            $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
         }
 
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
@@ -897,7 +885,7 @@ class Core_Module extends Module {
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
-            if (defined('MINECRAFT') && MINECRAFT === true) {
+            if (Util::getSetting('mc_integration')) {
                 // Query main server
                 $cache->setCache('mc_default_server');
 
@@ -933,13 +921,14 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = Util::getSetting('external_query') === '1' ? 'external' : 'internal';
+                        $query_type = Util::getSetting('query_type', 'internal');
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
                                 $servers[] = [
+                                    'id' => $server->id,
                                     'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
                                     'pre' => $server->pre,
                                     'name' => $server->name,
@@ -947,7 +936,7 @@ class Core_Module extends Module {
                                 ];
                             }
 
-                            $result = MCQuery::multiQuery($servers, $query_type, $language, true);
+                            $result = $query_type === 'plugin' ? PluginQuery::multiQuery($servers, $language, true) : MCQuery::multiQuery($servers, $query_type, $language, true);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -967,7 +956,7 @@ class Core_Module extends Module {
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
+                            $result = $query_type === 'plugin' ? PluginQuery::singleQuery($default->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -1512,7 +1501,7 @@ class Core_Module extends Module {
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d') d, COUNT(*) c
                             FROM nl2_users
-                            WHERE `joined` > ?
+                            WHERE `joined` > ? AND `joined` < UNIX_TIMESTAMP()
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d')
                         SQL,
                         [strtotime('7 days ago')],
@@ -1657,7 +1646,7 @@ class Core_Module extends Module {
                 'mc_integration' => (bool)Util::getSetting('mc_integration'),
                 'uuid_linking' => (bool)Util::getSetting('uuid_linking'),
                 'username_sync' => (bool)Util::getSetting('username_sync'),
-                'external_query' => (bool)Util::getSetting('external_query'),
+                'query_type' => Util::getSetting('query_type', 'internal'),
                 'servers' => $servers,
             ]
         ];

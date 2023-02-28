@@ -169,7 +169,7 @@ class MCQuery {
      * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
      * @return array Array of formatted players
      **/
-    private static function formatPlayerList(array $player_list): array {
+    public static function formatPlayerList(array $player_list): array {
         $formatted = [];
 
         $integration = Integrations::getInstance()->getIntegration('Minecraft');

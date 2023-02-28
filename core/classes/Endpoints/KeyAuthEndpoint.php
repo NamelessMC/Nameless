@@ -18,18 +18,24 @@ class KeyAuthEndpoint extends EndpointBase {
     final public function isAuthorised(Nameless2API $api): bool {
         $auth_header = HttpUtils::getHeader('Authorization');
 
-        if ($auth_header === null) {
-            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
+        if ($auth_header !== null) {
+            $exploded = explode(' ', trim($auth_header));
+
+            if (count($exploded) !== 2 ||
+                strcasecmp($exploded[0], 'Bearer') !== 0) {
+                $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Authorization header not in expected format');
+            }
+
+            $api_key = $exploded[1];
+        } else {
+            // Some hosting providers remove the Authorization header, fall back to non-standard X-API-Key heeader
+            $api_key_header = HttpUtils::getHeader('X-API-Key');
+            if ($api_key_header === null) {
+                $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
+            }
+
+            $api_key = $api_key_header;
         }
-
-        $exploded = explode(' ', trim($auth_header));
-
-        if (count($exploded) !== 2 ||
-            strcasecmp($exploded[0], 'Bearer') !== 0) {
-            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Authorization header not in expected format');
-        }
-
-        $api_key = $exploded[1];
 
         return $this->validateKey($api, $api_key);
     }

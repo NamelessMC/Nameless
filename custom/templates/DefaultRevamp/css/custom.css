@@ -295,6 +295,12 @@ body.pushable>.pusher {
     padding-bottom: 1em;
 }
 
+.blockquote {
+    border-left: 2px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+
 /*
    *  [ ACCOUNT MESSAGES ]
    */
@@ -947,13 +953,11 @@ select {
     height: auto;
 }
 
-.ui.checkbox .box:before,
-.ui.checkbox label:before {
+.ui.checkbox .box:before {
     margin-top: 4px;
 }
 
-.ui.checkbox input:checked~.box:after,
-.ui.checkbox input:checked~label:after {
+.ui.checkbox input:checked~.box:after {
     margin-top: 4px;
 }
 
@@ -1017,6 +1021,17 @@ select {
 .fa-sun {
     color:#f39c00;
 }
+
+/*
+ *  [ EMOJI SIZING ]
+ */
+
+.joypixels, .twemoji {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+}
+
 
 /*
    *  [ DARK MODE ]
@@ -1120,6 +1135,7 @@ body.dark .ui.form .field .ui.dropdown .menu .item {
 
 body.dark .ui.card,
 body.dark .ui.segment,
+body.dark .ui.segment.attached:not(.basic),
 body.dark .ui.vertical.menu {
     background-color: #303030;
     border: 1px solid rgba(0, 0, 0, 0.125);

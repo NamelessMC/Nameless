@@ -31,15 +31,16 @@ class Email {
      * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
      * @param string $subject Subject of the email.
      * @param string $message Message of the email.
-     * @param array $reply_to Array containing `'email'` and `'name'` strings for the reply-to address.
+     * @param array|null $reply_to Array containing `'email'` and `'name'` strings for the reply-to address,
+     * if not provided the default setting will be used.
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
-    public static function send(array $recipient, string $subject, string $message, array $reply_to) {
+    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null) {
         $email = [
             'to' => $recipient,
             'subject' => $subject,
             'message' => $message,
-            'replyto' => $reply_to,
+            'replyto' => $reply_to ?? self::getReplyTo(),
         ];
 
         if (Util::getSetting('phpmailer') == '1') {
@@ -59,7 +60,6 @@ class Email {
             'name' => SITE_NAME
         ];
     }
-
     /**
      * Send an email using PHP's `mail()` function.
      *
@@ -70,7 +70,7 @@ class Email {
         error_clear_last();
 
         $outgoing_email = Util::getSetting('outgoing_email');
-        $incoming_email = Util::getSetting('incoming_email');
+        $incoming_email = $email['replyto']['email'];
 
         $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';
         $encoded_message = base64_encode($email['message']);
@@ -100,36 +100,37 @@ class Email {
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
     private static function sendMailer(array $email) {
-        // Initialise PHPMailer
-        $mail = new PHPMailer(true);
-
         try {
-            // init
+            // Initialise PHPMailer
+            $mail = new PHPMailer(true);
+
             $mail->IsSMTP();
             $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->Debugoutput = 'html';
-            $mail->CharSet = 'UTF-8';
-            $mail->Encoding = 'base64';
+            $mail->CharSet = PHPMailer::CHARSET_UTF8;
+            $mail->Encoding = PHPMailer::ENCODING_BASE64;
             $mail->Timeout = 15;
 
             // login to their smtp account
             $mail->Host = Config::get('email.host', '');
+            // set to override the resolution of the server hostname
+            $mail->Hostname = Config::get('email.hostname', '');
+            // required to be set if they have a separate web server and mail server using the same hostname
+            $mail->Helo = Config::get('email.helo', '');
             $mail->Port = Config::get('email.port', 587);
-            $mail->SMTPSecure = Config::get('email.secure', 'tls');
+            $mail->SMTPSecure = Config::get('email.secure', PHPMailer::ENCRYPTION_STARTTLS);
             $mail->SMTPAuth = Config::get('email.smtp_auth', true);
             $mail->Username = Config::get('email.username', '');
             $mail->Password = Config::get('email.password', '');
 
-            // set from email ("outgoing email" seting)
+            // set "from" email ("outgoing email" setting)
             $mail->setFrom(Config::get('email.email', ''), Config::get('email.name', ''));
 
             // add a "to" address
             $mail->addAddress($email['to']['email'], $email['to']['name']);
 
-            // add a "reply-to" address if applicable
-            if (isset($email['replyto'])) {
-                $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
-            }
+            // add a "reply-to" address ("incoming email" setting)
+            $mail->AddReplyTo($email['replyto']['email'], $email['replyto']['name']);
 
             // set subject + html message content
             $mail->Subject = $email['subject'];

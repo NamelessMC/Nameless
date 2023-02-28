@@ -38,8 +38,6 @@
     "admin/authme_hash_algorithm": "Algoritmo de hashing de AuthMe",
     "admin/authme_integration": "Integración de AuthMe",
     "admin/authme_integration_info": "Cuando la integración de AuthMe está activada, los usuarios sólo pueden registrarse dentro del juego.",
-    "admin/authme_password_sync": "¿Sincronizar la contraseña de AuthMe?",
-    "admin/authme_password_sync_help": "Si se activa, cada vez que se actualice la contraseña de un usuario en el juego, la contraseña también se actualizará en el sitio web.",
     "admin/author": "Autor:",
     "admin/author_x": "Autor: {{author}}",
     "admin/avatar_settings_updated_successfully": "La configuración del avatar se ha actualizado correctamente.",
@@ -302,11 +300,6 @@
     "admin/maintenance_message_max_1024": "Por favor, asegúrese de que su mensaje la página de mantenimiento tenga un máximo de 1024 caracteres.",
     "admin/maintenance_mode_message": "Mensaje de la página de mantenimiento",
     "admin/make_default": "Convertir en por defecto",
-    "admin/mcassoc_error": "Por favor, asegúrese de que ha introducido su clave compartida y generado una clave de instancia correctamente.",
-    "admin/mcassoc_help": "mcassoc es un servicio externo que puede utilizarse para verificar que los usuarios son propietarios de la cuenta de Minecraft con la que se han registrado. Para utilizar esta función, tendrás que registrarte para obtener una clave compartida {{linkStart}}aquí{{linkEnd}}.",
-    "admin/mcassoc_instance": "Clave de instancia de mcassoc",
-    "admin/mcassoc_instance_help": "Haga clic para generar una clave de instancia",
-    "admin/mcassoc_key": "Clave compartida de mcassoc",
     "admin/message": "Mensaje",
     "admin/message_required": "El mensaje es necesario",
     "admin/metadata_updated_successfully": "Los metadatos se han actualizado correctamente.",
@@ -598,7 +591,6 @@
     "admin/verify_delete_announcement": "¿Estás seguro de que quieres borrar este anuncio?",
     "admin/verify_with_mcassoc": "¿Verificar las cuentas de usuario con MCAssoc?",
     "admin/view_all_modules": "Ver todos los módulos",
-    "admin/view_all_panel_templates": "Ver todas las plantillas del panel de control administrativo",
     "admin/view_all_templates": "Ver todas las plantillas",
     "admin/view_page": "¿Ver la página?",
     "admin/view_site": "Ver el sitio web",
@@ -1270,5 +1262,6 @@
     "general/namelessmc_support": "Soporte de NamelessMC",
     "general/namelessmc_documentation": "Documentación de NamelessMC",
     "user/new_profile_post": "Nueva publicación de perfil",
-    "user/profile_post_reply_title": "Título de respuesta de publicación de perfil"
+    "user/profile_post_reply_title": "Título de respuesta de publicación de perfil",
+    "general/sql_query": "SQL Query"
 }

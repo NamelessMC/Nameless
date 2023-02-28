@@ -150,10 +150,10 @@ if (isset($_GET['do'])) {
             if (Input::get('action') == 'settings') {
                 $to_validate = [
                     'signature' => [
-                        'max' => 900
+                        Validate::MAX => 900
                     ],
                     'timezone' => [
-                        'timezone' => true,
+                        Validate::TIMEZONE => true,
                     ]
                 ];
 
@@ -280,8 +280,12 @@ if (isset($_GET['do'])) {
                             'nickname' => $displayname,
                             'private_profile' => $privateProfile,
                             'theme_id' => $new_template,
-                            'gravatar' => $gravatar
+                            'gravatar' => $gravatar,
                         ];
+
+                        if ($user->data()->register_method === 'authme' && Util::getSetting('authme')) {
+                            $data['authme_sync_password'] = Input::get('authmeSync');
+                        }
 
                         // Is forum enabled? Update topic Updates
                         if ($forum_enabled) {
@@ -636,6 +640,17 @@ if (isset($_GET['do'])) {
         // Enable
         $smarty->assign('ENABLE', $language->get('user', 'enable'));
         $smarty->assign('ENABLE_LINK', URL::build('/user/settings/', 'do=enable_tfa'));
+    }
+
+    if ($user->data()->register_method && Util::getSetting('authme')) {
+        $smarty->assign([
+            'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
+            'AUTHME_SYNC_PASSWORD_INFO' => $language->get('user', Util::getSetting('login_method') === 'username'
+                ? 'authme_sync_password_setting'
+                : 'authme_sync_password_setting_email'
+            ),
+            'AUTHME_SYNC_PASSWORD_ENABLED' => $user->data()->authme_sync_password,
+        ]);
     }
 
     // Load modules + template

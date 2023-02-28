@@ -12,8 +12,8 @@ Here are some things you should know when contributing:
         composer install --dev
         ```
         - This could take up to about a minute depending on your internet connection.
-- We use Yarn to manage frontend dependencies.
-    - Depending on the way you installed Yarn, you will need to run either `yarnpkg` or `yarn install` to download the required dependencies.
+- We use npm to manage frontend dependencies.
+    - Use `npm ci` to install dependencies exactly according to `package-lock.json`, or `npm install` to install the latest compatible versions.
 - You can use the CLI (command line) install script to reset your development environment in less than 5 seconds!
     - Run the following command when in the root directory:
         ```console
@@ -72,3 +72,10 @@ Deprecations rule of thumb:
 * Changes should be as small as possible to reduce conflicts.
 * Squash when merging. This makes backporting easier. If you think your changes deserve multiple commits, consider splitting them into multiple pull requests.
 * Mark the pull request with the appropriate milestone. [@Derkades](https://github.com/Derkades) keeps an eye on merged PRs and cherry-pick changes to the appropriate release branch.
+
+## Releasing a new version
+
+1. Ensure you have a clean copy of the source code without leftover files from testing. For example, clone the Nameless repository into a new directory
+2. Run ./release.sh. Release zip files are produced and placed in `./release`.
+3. TODO: Add instructions for producing a zip only containing files changed since the last release
+4. TODO: Add instructions for publishing a release

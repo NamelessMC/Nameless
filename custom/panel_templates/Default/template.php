@@ -24,8 +24,8 @@ if (!class_exists('Default_Panel_Template')) {
 
             parent::__construct(
                 'Default',  // Template name
-                '2.0.2',  // Template version
-                '2.0.2',  // Nameless version template is made for
+                '2.0.3',  // Template version
+                '2.0.3',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
@@ -376,6 +376,16 @@ if (!class_exists('Default_Panel_Template')) {
                             }
                             ');
 
+                            $this->addJSScript('
+                            if ($(\'.js-check-change-verification\').length) {
+                                var changeCheckbox = document.querySelector(\'.js-check-change-verification\');
+
+                                changeCheckbox.onchange = function () {
+                                    $(\'#enablePremium\').submit();
+                                };
+                            }
+                            ');
+
                         } else if (MINECRAFT_PAGE == 'authme') {
 
                             $this->addJSScript('
@@ -384,18 +394,6 @@ if (!class_exists('Default_Panel_Template')) {
 
                                 changeCheckbox.onchange = function () {
                                     $(\'#enableAuthMe\').submit();
-                                };
-                            }
-                            ');
-
-                        } else if (MINECRAFT_PAGE == 'verification') {
-
-                            $this->addJSScript('
-                            if ($(\'.js-check-change\').length) {
-                                var changeCheckbox = document.querySelector(\'.js-check-change\');
-
-                                changeCheckbox.onchange = function () {
-                                    $(\'#enablePremium\').submit();
                                 };
                             }
                             ');

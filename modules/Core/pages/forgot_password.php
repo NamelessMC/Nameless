@@ -50,7 +50,6 @@ if (!isset($_GET['c'])) {
                         ['email' => $target_user->data()->email, 'name' => $target_user->getDisplayname()],
                         SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
                         str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
-                        Email::getReplyTo()
                     );
 
                     if (isset($sent['error'])) {
