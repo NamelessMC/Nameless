@@ -2,7 +2,6 @@
 
 use Astrotomic\Twemoji\Twemoji;
 use JoyPixels\Client;
-use JoyPixels\Ruleset;
 
 /**
  * Helps with common text related tasks.
