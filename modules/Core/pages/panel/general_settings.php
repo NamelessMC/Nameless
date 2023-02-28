@@ -130,6 +130,9 @@ if (Input::exists()) {
             // Registration displaynames
             Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
 
+            // Emoji style
+            Util::setSetting('emoji_style', $_POST['emoji_style']);
+
             // Friendly URLs
             $friendly = Input::get('friendlyURL') == 'true';
 
@@ -287,6 +290,16 @@ $smarty->assign([
     'EMAIL' => $language->get('user', 'email'),
     'EMAIL_OR_USERNAME' => $language->get('user', 'email_or_username'),
     'USERNAME' => $language->get('user', 'username'),
+    'EMOJI_STYLE' => $language->get('admin', 'emoji_style'),
+    'EMOJI_STYLE_HELP' => $language->get('admin', 'emoji_style_help', [
+        'nativeExample' => Text::renderEmojis('😀', 'native'),
+        'twemojiExample' => Text::renderEmojis('😀', 'twemoji'),
+        'joypixelsExample' => Text::renderEmojis('😀', 'joypixels'),
+    ]),
+    'EMOJI_STYLE_VALUE' => Util::getSetting('emoji_style', 'twemoji'),
+    'NATIVE' => $language->get('admin', 'emoji_native'),
+    'TWEMOJI' => $language->get('admin', 'emoji_twemoji'),
+    'JOYPIXELS' => $language->get('admin', 'emoji_joypixels'),
 ]);
 
 $template->onPageLoad();
