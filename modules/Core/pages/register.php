@@ -55,10 +55,7 @@ if ($registration_enabled == 0) {
     die();
 }
 
-// Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
+if (Util::getSetting('mc_integration')) {
     // Check if AuthMe is enabled
     $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
     $authme_enabled = $authme_enabled[0]->value;
