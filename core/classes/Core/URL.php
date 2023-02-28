@@ -9,6 +9,14 @@
  */
 class URL {
 
+    private const URL_EXCLUDE_CHARS = [
+        '?',
+        '&',
+        '/',
+        '#',
+        '.',
+    ];
+
     /**
      * Returns a URL in the correct format (friendly or not).
      *
@@ -147,4 +155,14 @@ class URL {
         }, $data);
     }
 
+    /**
+     * URL-ify a string
+     *
+     * @param string $text String to URLify
+     * @return string Url-ified string. (I don't know what this means)
+     */
+    public static function urlSafe(string $text): string {
+        $text = str_replace(self::URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($text));
+        return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $text))));
+    }
 }
