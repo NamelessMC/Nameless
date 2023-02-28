@@ -180,6 +180,25 @@
                                                     selected{/if}>{$DISABLED}</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-6">
+                                            <label for="inputEmojiStyle">{$EMOJI_STYLE}</label>
+                                            <span class="badge badge-info">
+                                                <i class="fas fa-question-circle"
+                                                   data-container="body" data-toggle="popover" data-placement="top"
+                                                   title="{$INFO}" data-content='{$EMOJI_STYLE_HELP}'></i>
+                                            </span>
+                                            <select name="emoji_style" class="form-control" id="inputEmojiStyle">
+                                                <option value="native" {if $EMOJI_STYLE_VALUE eq "native" }selected{/if}>
+                                                    {$NATIVE}
+                                                </option>
+                                                <option value="twemoji" {if $EMOJI_STYLE_VALUE eq "twemoji" }selected{/if}>
+                                                    {$TWEMOJI}
+                                                </option>
+                                                <option value="joypixels" {if $EMOJI_STYLE_VALUE eq "joypixels" }selected{/if}>
+                                                    {$JOYPIXELS}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">

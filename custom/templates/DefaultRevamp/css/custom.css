@@ -1023,6 +1023,17 @@ select {
 }
 
 /*
+ *  [ EMOJI SIZING ]
+ */
+
+.joypixels, .twemoji {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+}
+
+
+/*
    *  [ DARK MODE ]
    */
 
