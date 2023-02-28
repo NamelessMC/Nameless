@@ -12,13 +12,6 @@ class Forum {
     private DB $_db;
     private static array $_permission_cache = [];
     private static array $_count_cache = [];
-    private const URL_EXCLUDE_CHARS = [
-        '?',
-        '&',
-        '/',
-        '#',
-        '.',
-    ];
 
     public function __construct() {
         $this->_db = DB::getInstance();
