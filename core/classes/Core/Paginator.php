@@ -180,11 +180,12 @@ class Paginator {
     }
 
     /**
-     * Set values of instance variables, alternative function for when we may not have $data available.
+     * Set values of instance variables, alternative function (as they are set in getLimited()).
+     * @deprecated Not used internally. Will be removed in 2.1.0
      *
-     * @param int $total Total number of items to paginate
-     * @param int $limit Number of items per page
-     * @param int $page Current page
+     * @param int $total
+     * @param int $limit
+     * @param int $page
      */
     public function setValues(int $total, int $limit, int $page): void {
         $this->_total = $total;
