@@ -26,6 +26,6 @@
     "tinymce": "5.10.7"
   },
   "scripts": {
-    "postinstall": "node ./postinstall.js"
+    "postinstall": "node ./dev/scripts/postinstall.js"
   }
 }

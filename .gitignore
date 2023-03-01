@@ -10,5 +10,6 @@
 /uploads/avatars/**
 /node_modules/
 composer.lock
+package-lock.json
 /.node_cache/
 /release/

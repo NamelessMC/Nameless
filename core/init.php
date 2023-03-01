@@ -459,7 +459,7 @@ if ($page != 'install') {
                 )) {
                 // Can continue as normal
             } else {
-                require(ROOT_PATH . '/maintenance.php');
+                require(ROOT_PATH . '/core/includes/maintenance.php');
                 die();
             }
         } else {
