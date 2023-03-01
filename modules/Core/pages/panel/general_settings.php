@@ -120,6 +120,7 @@ if (Input::exists()) {
             } else if ($_POST['homepage'] === 'custom') {
                 $home_type = 'custom';
             }
+            // TODO allow to select a custom page to use content as homepage
 
             Util::setSetting('home_type', $home_type);
 
