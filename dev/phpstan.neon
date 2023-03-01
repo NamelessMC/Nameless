@@ -19,5 +19,5 @@ parameters:
         # DB::first() has been checked beforehand with DB::count() - probably need a better long term solution!
         -
             message: '#Cannot access property \$id on object\|false.#'
-            path: modules/Core/pages/panel/users_reports.php
+            path: ../modules/Core/pages/panel/users_reports.php
     reportUnmatchedIgnoredErrors: false
