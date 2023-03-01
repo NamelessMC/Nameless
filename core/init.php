@@ -321,12 +321,15 @@ if ($page != 'install') {
     $smarty->assign([
         'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
         'OG_URL' => Output::getClean(rtrim(URL::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
-        'OG_IMAGE' => Output::getClean(rtrim(URL::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
         'SITE_NAME' => Output::getClean(SITE_NAME),
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
         'GUEST' => $language->get('user', 'guest')
     ]);
+    $cache->setCache('backgroundcache');
+    if ($cache->isCached('og_image')) {
+        $smarty->assign('OG_IMAGE', $cache->retrieve('og_image'));
+    }
 
     // Avatars
     $cache->setCache('avatar_settings_cache');

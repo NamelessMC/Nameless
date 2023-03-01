@@ -1263,7 +1263,6 @@
     "api/webhook_added": "Der Webhook wurde erstellt",
     "general/problem_loading_widget": "Es existierte ein Problem beim Laden des Widgets {{widget}}",
     "general/unable_to_load_widget": "Widget kann nicht geladen werden",
-    "general/sql_query": "SQL Query",
     "admin/unable_to_load_outdated_module": "Veraltetes Modul {{module}} kann nicht geladen werden.",
     "user/username_already_exists": "Der von dir gewählte Benutzername existiert bereits.",
     "admin/unable_to_load_module": "Fehler {{message}} in Modul {{module}}.",

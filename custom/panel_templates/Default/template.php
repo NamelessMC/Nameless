@@ -154,13 +154,6 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->assets()->include([
                             AssetTree::DATATABLES
                         ]);
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => [],
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
-                        ]);
 
                         $this->addJSScript('
                             $(document).ready(function() {
@@ -224,16 +217,7 @@ if (!class_exists('Default_Panel_Template')) {
                             AssetTree::TINYMCE,
                         ]);
 
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
-                        ]);
-
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage', null, false, true));
-
                         break;
 
                     case 'privacy_and_terms':
