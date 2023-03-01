@@ -37,6 +37,7 @@ class LatestPostsWidget extends WidgetBase {
 
         $this->_smarty->assign([
             'LATEST_POSTS' => $forum_language->get('forum', 'latest_posts'),
+            'NO_POSTS_FOUND' => $forum_language->get('forum', 'no_posts_found'),
             'BY' => $forum_language->get('forum', 'by'),
         ]);
     }
