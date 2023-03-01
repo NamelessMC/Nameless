@@ -22,7 +22,7 @@ $_SESSION['password'] = $_POST['password'];
 $_SESSION['remember'] = $_POST['remember'];
 $_SESSION['tfa'] = true;
 
-if (Session::exists('tfa_signin')) {
+    if (Session::exists('tfa_signin')) {
     $smarty->assign([
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERROR' => Session::flash('tfa_signin')
