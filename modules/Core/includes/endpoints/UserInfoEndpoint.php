@@ -24,7 +24,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
         $return->last_online_timestamp = $user->data()->last_online;
         $return->banned = $user->data()->isbanned;
         $return->validated = $user->data()->active;
-        $return->avatar_url = $user->getAvatar();
+        $return->avatar_url = $user->getAvatar(128, true);
 
         // Get custom profile fields
         foreach ($user->getProfileFields(true) as $id => $profile_field) {
