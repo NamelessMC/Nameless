@@ -1,10 +1,10 @@
 parameters:
     level: 4
     paths:
-        - ./
+        - ../
     excludePaths:
-        - cache/
-        - vendor/
+        - ../cache/
+        - ../vendor/
     # Ignore notices which are thrown due how nameless is written
     ignoreErrors:
         # prodecural programming :^)
