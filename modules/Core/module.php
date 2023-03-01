@@ -27,7 +27,7 @@ class Core_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
         // Define URLs which belong to this module
-        $pages->add('Core', '/', 'pages/index.php');
+        $pages->add('Core', '/', 'pages/index.php', '', true);
         $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
         $pages->add('Core', '/home', 'pages/home.php', 'index', true);
 
@@ -621,7 +621,7 @@ class Core_Module extends Module {
         $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
         // Widgets - only load if on a widget staffcp page or the frontend
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+        if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');
             $fb_url = Util::getSetting('fb_url');
@@ -888,7 +888,7 @@ class Core_Module extends Module {
                             'REGISTERED_DATE' => date(DATE_FORMAT, $user_query->joined),
                         ]);
 
-                        if (!$user_query->private_profile) {
+                        if (!Util::getSetting('private_profile') || !$user_query->private_profile) {
                             $smarty->assign([
                                 'LAST_SEEN' => $language->get('user', 'last_seen_x', [
                                     'lastSeenAt' => $timeago->inWords($user_query->last_online, $language),

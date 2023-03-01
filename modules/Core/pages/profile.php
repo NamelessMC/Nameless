@@ -39,11 +39,11 @@ $template->assets()->include([
     AssetTree::TINYMCE_SPOILER,
 ]);
 
-$template->addCSSStyle(
-    '.thumbnails li img{
+$template->addCSSStyle('
+    .thumbnails li img {
       width: 200px;
-    }'
-);
+    }
+');
 
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
@@ -636,9 +636,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
         // Display the correct number of posts
         foreach ($results->data as $nValue) {
-            $post_user = DB::getInstance()->get('users', ['id', $nValue->author_id])->results();
-
-            if (!count($post_user)) {
+            $target_user = new User($nValue->author_id);
+            if (!$target_user->exists()) {
                 continue;
             }
 
@@ -665,14 +664,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     $reaction_name = Output::getClean($reaction_name[0]->name);
                     */
 
-                    $target_user = new User($reaction->user_id);
+                    $reaction_user = new User($reaction->user_id);
                     $reactions['reactions'][] = [
                         'user_id' => Output::getClean($reaction->user_id),
-                        'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupStyle(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar(500),
+                        'username' => $reaction_user->getDisplayname(true),
+                        'nickname' => $reaction_user->getDisplayname(),
+                        'style' => $reaction_user->getGroupStyle(),
+                        'profile' => $reaction_user->getProfileURL(),
+                        'avatar' => $reaction_user->getAvatar(500),
                         //'reaction_name' => $reaction_name,
                         //'reaction_html' => $reaction_html
                     ];
@@ -691,14 +690,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 foreach ($replies_query as $reply) {
-                    $target_user = new User($reply->author_id);
+                    $reply_user = new User($reply->author_id);
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
-                        'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupStyle(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar(500),
+                        'username' => $reply_user->getDisplayname(true),
+                        'nickname' => $reply_user->getDisplayname(),
+                        'style' => $reply_user->getGroupStyle(),
+                        'profile' => $reply_user->getProfileURL(),
+                        'avatar' => $reply_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified(Output::getDecoded($reply->content)),
@@ -711,10 +710,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
             $replies_query = null;
 
-            $target_user = new User($post_user[0]->id);
             $wall_posts[] = [
                 'id' => $nValue->id,
-                'user_id' => Output::getClean($post_user[0]->id),
+                'user_id' => $target_user->data()->id,
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
                 'profile' => $target_user->getProfileURL(),
@@ -726,7 +724,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
+                'reactions_link' => ($user->isLoggedIn() && ($target_user->data()->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
             ];
         }
     } else {

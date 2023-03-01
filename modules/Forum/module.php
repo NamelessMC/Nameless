@@ -219,7 +219,7 @@ class Forum_Module extends Module {
         }
 
         // Widgets
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+        if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Latest posts
             $widgets->add(new LatestPostsWidget($this->_forum_language, $smarty, $cache, $user, $this->_language));
         }
