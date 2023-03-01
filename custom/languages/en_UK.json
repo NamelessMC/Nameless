@@ -1249,7 +1249,7 @@
     "user/users_to_required": "Please input some message recipients",
     "user/validate_account_command": "To complete registration, please execute the command {{command}} in-game.",
     "user/validation_complete": "Your account has been validated, you can now log in.",
-    "user/validation_error": "There was an unknown error validating your account, please contact a website administrator.",
+    "user/validation_error": "Invalid validation code, has the user already been validated?.",
     "user/view_alerts": "View alerts",
     "user/view_messages": "View messages",
     "user/views": "Profile Views:",
