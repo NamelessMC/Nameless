@@ -1,4 +1,14 @@
 <?php
+$validate = Validate::check($_GET, [
+    'search' => [
+        Validate::RATE_LIMIT => 60,
+    ],
+]);
+
+if (!$validate->passed()) {
+    die(json_encode(['error' => 'Please wait a moment before searching again']));
+}
+
 // Searchable user list
 if (!isset($_GET['search']) || strlen($_GET['search']) < 2) {
     die(json_encode(['error' => 'Please enter a search query of at least 2 characters']));
@@ -6,7 +16,7 @@ if (!isset($_GET['search']) || strlen($_GET['search']) < 2) {
 
 $query = '%' . $_GET['search'] . '%';
 
-$users = DB::getInstance()->query('SELECT id, username, nickname, gravatar, email, has_avatar, avatar_updated FROM nl2_users WHERE username LIKE ? OR nickname LIKE ?', [
+$users = DB::getInstance()->query('SELECT id, username, nickname, gravatar, email, has_avatar, avatar_updated FROM nl2_users WHERE username LIKE ? OR nickname LIKE ? LIMIT 5', [
     $query, $query
 ])->results();
 
