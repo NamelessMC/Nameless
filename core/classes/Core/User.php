@@ -435,7 +435,11 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        $data_obj = (object) $this->data();
+        $data_obj = new stdClass();
+        // Convert UserData object to stdClass so we can dynamically add the 'uuid' property
+        foreach (get_object_vars($this->data()) as $key => $value) {
+            $data_obj->{$key} = $value;
+        }
 
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser != null) {
