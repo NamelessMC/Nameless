@@ -78,7 +78,7 @@ if (Input::exists()) {
 
                 Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
             } else if (isset($_POST['og_image'])) {
-                $cache->store('og_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('og_image'));
+                $cache->store('og_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/og_images/' . Input::get('og_image'));
 
                 Session::flash('panel_images_success', $language->get('admin', 'og_image_updated_successfully'));
             }
@@ -231,7 +231,7 @@ foreach ($images as $image) {
     $og_images[] = [
         'src' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/og_images/' . $image,
         'value' => $image,
-        'selected' => ($favicon_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/og_images/' . $image),
+        'selected' => ($og_image == (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/og_images/' . $image),
         'n' => $n
     ];
     $n++;
@@ -301,7 +301,7 @@ $smarty->assign([
         'imageName' => Text::bold($favicon_img)
     ]),
     'OG_IMAGES_ARRAY' => $og_images,
-    'OG_IMAGE' => $language->get('admin', 'og_image_x', [
+    'FALLBACK_OG_IMAGE' => $language->get('admin', 'fallback_og_image_x', [
         'imageName' => Text::bold($og_img)
     ]),
     'ERRORS_TITLE' => $language->get('general', 'error'),

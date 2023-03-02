@@ -106,12 +106,18 @@ if (isset($_GET['route']) && $_GET['route'] != '/') {
 }
 
 if (!defined('PAGE_DESCRIPTION')) {
-    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $route])->results();
-    if (count($page_metadata)) {
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $route]);
+    if ($page_metadata->count()) {
+        $page_metadata = $page_metadata->first();
         $smarty->assign([
-            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), $page_metadata[0]->description),
-            'PAGE_KEYWORDS' => $page_metadata[0]->tags
+            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), $page_metadata->description),
+            'PAGE_KEYWORDS' => $page_metadata->tags
         ]);
+
+        $og_image = $page_metadata->image;
+        if ($og_image) {
+            $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $og_image);
+        }
     }
 } else {
     $smarty->assign([

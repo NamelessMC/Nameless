@@ -330,7 +330,8 @@ if ($page != 'install') {
     ]);
     $cache->setCache('backgroundcache');
     if ($cache->isCached('og_image')) {
-        $smarty->assign('OG_IMAGE', $cache->retrieve('og_image'));
+        // Assign the image value now, some pages may override it (via Page Metadata config)
+        $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $cache->retrieve('og_image'));
     }
 
     // Avatars

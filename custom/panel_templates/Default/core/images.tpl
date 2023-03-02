@@ -128,7 +128,7 @@
 
                             <hr />
 
-                            <p>{$OG_IMAGE}</p>
+                            <p>{$FALLBACK_OG_IMAGE}</p>
 
                             <form action="" method="post" style="display:inline;">
                                 <select name="og_image" class="image-picker show-html">
