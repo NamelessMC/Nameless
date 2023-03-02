@@ -19,7 +19,7 @@
                             <i class="fas fa-sun"></i>
                             <div class="darkmode-ball"></div>
                         </label>
-                    
+
                         <script type="text/javascript">
                             if (document.body.classList.contains('dark')) {
                                 document.getElementById("darkmode-toggle").checked = true;
@@ -28,8 +28,8 @@
                             }
                         </script>
                     </span>
-                    {if !$LOGGED_IN_USER}
-                    <a class="item" href="javascript:" onclick="toggleAutoLanguage()" id="auto-language"></a>
+                    {if isset($AUTO_LANGUAGE)}
+                        <a class="item" href="javascript:" onclick="toggleAutoLanguage()" id="auto-language"></a>
                     {/if}
                 </div>
             </div>
@@ -104,29 +104,29 @@
         return false;
     }
 
-    {if !$LOGGED_IN_USER}
-    const autoLanguage = document.getElementById('auto-language');
-    const autoLanguageValue = $.cookie('auto_language') ?? 'true';
-    autoLanguage.innerText = '{$AUTO_LANGUAGE_TEXT} (' + (autoLanguageValue === 'true' ? '{$ENABLED}' : '{$DISABLED}') + ')';
-    {/if}
+    {if isset($AUTO_LANGUAGE)}
+        const autoLanguage = document.getElementById('auto-language');
+        const autoLanguageValue = $.cookie('auto_language') ?? 'true';
+        autoLanguage.innerText = '{$AUTO_LANGUAGE_TEXT} (' + (autoLanguageValue === 'true' ? '{$ENABLED}' : '{$DISABLED}') + ')';
 
-    function toggleAutoLanguage() {
-        $.cookie(
-            'auto_language',
-            autoLanguageValue === 'true' ? 'false' : 'true',
-            { path: '/' }
-        );
-        window.location.reload();
-    }
+        function toggleAutoLanguage() {
+            $.cookie(
+                'auto_language',
+                autoLanguageValue === 'true' ? 'false' : 'true',
+                { path: '/' }
+            );
+            window.location.reload();
+        }
+    {/if}
 </script>
 
 {if isset($NEW_UPDATE) && ($NEW_UPDATE_URGENT != true)}
-<script src="{$TEMPLATE.path}/js/core/update.js"></script>
+    <script src="{$TEMPLATE.path}/js/core/update.js"></script>
 {/if}
 
 {if !isset($EXCLUDE_END_BODY)}
-{if isset($DEBUGBAR_HTML)}
-{$DEBUGBAR_HTML}
+    {if isset($DEBUGBAR_HTML)}
+    {$DEBUGBAR_HTML}
 {/if}
 </body>
 
