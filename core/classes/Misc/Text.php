@@ -5,7 +5,7 @@ use Astrotomic\Twemoji\Twemoji;
 /**
  * Helps with common text related tasks.
  *
- * @package NamelessMC\Core
+ * @package NamelessMC\Misc
  * @author Aberdeener
  * @version 2.0.0
  * @license MIT
@@ -138,7 +138,8 @@ class Text {
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
      */
     public static function renderEmojis(string $text): string {
-        return Twemoji::text($text)->toHtml(null, [
+        // We can remove this ->base(...) call when https://github.com/Astrotomic/php-twemoji/pull/13 is merged
+        return Twemoji::text($text)->base('https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets')->toHtml(null, [
             'width' => 20,
             'height' => 20,
             'style' => 'vertical-align: middle;'
