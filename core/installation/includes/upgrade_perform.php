@@ -679,21 +679,37 @@ DB::getInstance()->insert('integrations', [
 // Reactions
 DB::getInstance()->insert('reactions', [
     'name' => 'Like',
-    'html' => '<i class="fas fa-thumbs-up text-success"></i>',
+    'html' => '👍',
     'enabled' => true,
     'type' => 2
 ]);
+
 DB::getInstance()->insert('reactions', [
     'name' => 'Dislike',
-    'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
+    'html' => '👎',
     'enabled' => true,
     'type' => 0
 ]);
+
 DB::getInstance()->insert('reactions', [
     'name' => 'Meh',
-    'html' => '<i class="fas fa-meh text-warning"></i>',
+    'html' => '😐',
     'enabled' => true,
     'type' => 1
+]);
+
+DB::getInstance()->insert('reactions', [
+    'name' => 'Funny',
+    'html' => '🤣',
+    'enabled' => true,
+    'type' => 2
+]);
+
+$this->_db->insert('reactions', [
+    'name' => 'Helpful',
+    'html' => '🛠️',
+    'enabled' => true,
+    'type' => 2
 ]);
 
 // Forum Labels

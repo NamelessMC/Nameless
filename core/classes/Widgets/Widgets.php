@@ -14,6 +14,7 @@ class Widgets {
     private Language $_language;
     private Smarty $_smarty;
 
+    /** @var Widget[] */
     private array $_widgets = [];
     private array $_enabled = [];
     private string $_name;
@@ -42,18 +43,18 @@ class Widgets {
     /**
      * Register a widget to the widget list.
      *
-     * @param WidgetBase $widget Instance of widget to register.
+     * @param WidgetBase|ProfileWidgetBase $widget Instance of widget to register.
      */
-    public function add(WidgetBase $widget): void {
+    public function add($widget): void {
         $this->_widgets[$widget->getName()] = $widget;
     }
 
     /**
      * Enable a widget.
      *
-     * @param WidgetBase $widget Instance of widget to enable.
+     * @param Widget $widget Instance of widget to enable.
      */
-    public function enable(WidgetBase $widget): void {
+    public function enable(Widget $widget): void {
         // Add widget to enabled widget list
         $this->_enabled[$widget->getName()] = true;
         $this->_cache->setCache($this->_name . '-widgets');
@@ -72,9 +73,9 @@ class Widgets {
     /**
      * Disable a widget.
      *
-     * @param WidgetBase $widget Instance of widget to disable.
+     * @param Widget $widget Instance of widget to disable.
      */
-    public function disable(WidgetBase $widget): void {
+    public function disable(Widget $widget): void {
         unset($this->_enabled[$widget->getName()]);
         $this->_cache->setCache($this->_name . '-widgets');
         $this->_cache->store('enabled', $this->_enabled);
@@ -94,37 +95,36 @@ class Widgets {
      *
      * @param string $name Name of widget to get.
      *
-     * @return WidgetBase|null Instance of widget with same name, null if it doesnt exist.
+     * @return Widget|null Instance of widget with same name, null if it doesnt exist.
      */
-    public function getWidget(string $name): ?WidgetBase {
-        if (array_key_exists($name, $this->_widgets)) {
-            return $this->_widgets[$name];
-        }
-
-        return null;
+    public function getWidget(string $name): ?Widget {
+        return $this->_widgets[$name] ?? null;
     }
 
     /**
      * Get code for all enabled widgets on the current page.
      *
      * @param string $location Either `left` or `right`.
+     * @param User|null $profile_user User object of the profile page.
      *
      * @return array List of HTML to be displayed.
      */
-    public function getWidgets(string $location = 'right'): array {
+    public function getWidgets(string $location, User $profile_user = null): array {
         $ret = [];
 
-        $widgets = $this->getAll();
-
-        foreach ($widgets as $item) {
+        foreach ($this->getAll() as $item) {
             if (array_key_exists($item->getName(), $this->_enabled)
-                && $item->getLocation() == $location
-                && is_array($item->getPages())
-                && ((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages()))
-                    || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
+                && $item->getLocation() === $location
+                && (($profile_user && $item instanceof ProfileWidgetBase) || (defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages())) || in_array((defined('PAGE') ? PAGE : 'index'), $item->getPages()))
             ) {
                 try {
-                    $item->initialise();
+                    if ($profile_user && $item instanceof ProfileWidgetBase) {
+                        $item->initialise($profile_user);
+                    } else {
+                        /** @var WidgetBase $item */
+                        $item->initialise();
+                    }
+
                     $ret[] = $item->display();
                 } catch (Exception $e) {
                     ErrorHandler::logWarning('Unable to load widget ' . $item->getName() . ': ' . $e->getMessage());
@@ -150,12 +150,12 @@ class Widgets {
     /**
      * List all widgets, sorted by their order.
      *
-     * @return WidgetBase[] List of widgets.
+     * @return Widget[] List of widgets.
      */
     public function getAll(): iterable {
         $widgets = $this->_widgets;
 
-        uasort($widgets, static function ($a, $b) {
+        uasort($widgets, static function (Widget $a, Widget $b) {
             return $a->getOrder() - $b->getOrder();
         });
 
@@ -175,11 +175,11 @@ class Widgets {
     /**
      * Check if widget is enabled or not.
      *
-     * @param WidgetBase $widget Instance of widget to check.
+     * @param Widget $widget Instance of widget to check.
      *
      * @return bool Whether this widget is enabled or not.
      */
-    public function isEnabled(WidgetBase $widget): bool {
+    public function isEnabled(Widget $widget): bool {
         return array_key_exists($widget->getName(), $this->_enabled);
     }
 

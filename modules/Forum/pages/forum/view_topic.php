@@ -536,6 +536,7 @@ $smarty->assign('PAGINATION', $pagination);
 
 // Replies
 $replies = [];
+$reactions_by_user = [];
 // Display the correct number of posts
 foreach ($results->data as $n => $nValue) {
     $post_creator = new User($nValue->post_creator);
@@ -649,17 +650,21 @@ foreach ($results->data as $n => $nValue) {
 
         if (count($post_reactions_query)) {
             foreach ($post_reactions_query as $item) {
+                if ($item->user_given == $user->data()->id) {
+                    $reactions_by_user[$nValue->id][] = $item->reaction_id;
+                }
+
                 if (!isset($post_reactions[$item->reaction_id])) {
                     $post_reactions[$item->reaction_id]['count'] = 1;
 
-                    $reaction = DB::getInstance()->get('reactions', ['id', $item->reaction_id])->results();
-                    $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
-                    $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
+                    $reaction = Reaction::find($item->reaction_id);
+                    $post_reactions[$item->reaction_id]['html'] = Text::renderEmojis($reaction->html);
+                    $post_reactions[$item->reaction_id]['name'] = $reaction->name;
 
-                    if ($reaction[0]->type == 2) {
+                    if ($reaction->type == Reaction::TYPE_POSITIVE) {
                         $total_karma++;
                     } else {
-                        if ($reaction[0]->type == 0) {
+                        if ($reaction->type == Reaction::TYPE_NEGATIVE) {
                             $total_karma--;
                         }
                     }
@@ -732,13 +737,19 @@ $smarty->assign('REPLIES', $replies);
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $reactions = DB::getInstance()->get('reactions', ['enabled', true])->results();
+        $reactions = Reaction::find(true, 'enabled');
         if (!count($reactions)) {
             $reactions = [];
         }
+        foreach ($reactions as $reaction) {
+            $reaction->html = Text::renderEmojis($reaction->html);
+        }
 
-        $smarty->assign('REACTIONS', $reactions);
-        $smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+        $smarty->assign([
+            'REACTIONS' => $reactions,
+            'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
+            'REACTIONS_BY_USER' => $reactions_by_user
+        ]);
     }
 
     // Following?

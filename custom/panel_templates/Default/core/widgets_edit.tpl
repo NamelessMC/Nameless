@@ -69,39 +69,41 @@
                                     </select>
                                 </div>
 
-                                {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
-                                {if count($module_pages)}
-                                <div class="table table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {foreach from=$module_pages key=page item=value}
-                                            <tr>
-                                                <td>
-                                                    <label for="{$page|escape}"
-                                                        style="font-weight: normal;">{($page|escape)|ucfirst}</label>
-                                                    <div class="float-md-right">
-                                                        <div class="form-group custom-control custom-switch">
-                                                            <input id="{$page|escape}" type="checkbox" name="pages[]"
-                                                                class="custom-control-input" value="{$page|escape}" {if
-                                                                in_array($page, $ACTIVE_PAGES)} checked{/if}>
-                                                            <label for="{$page|escape}" class="custom-control-label">
-                                                                {$TWITTER_STYLE}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            {/foreach}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {if !$IS_PROFILE_WIDGET}
+                                    {foreach from=$POSSIBLE_PAGES key=module item=module_pages}
+                                        {if count($module_pages)}
+                                            <div class="table table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{$MODULE} {$MODULE_SEPERATOR} {$module|escape}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {foreach from=$module_pages key=page item=value}
+                                                        <tr>
+                                                            <td>
+                                                                <label for="{$page|escape}"
+                                                                       style="font-weight: normal;">{($page|escape)|ucfirst}</label>
+                                                                <div class="float-md-right">
+                                                                    <div class="form-group custom-control custom-switch">
+                                                                        <input id="{$page|escape}" type="checkbox" name="pages[]"
+                                                                               class="custom-control-input" value="{$page|escape}" {if
+                                                                                in_array($page, $ACTIVE_PAGES)} checked{/if}>
+                                                                        <label for="{$page|escape}" class="custom-control-label">
+                                                                            {$TWITTER_STYLE}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {/foreach}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {/if}
+                                    {/foreach}
                                 {/if}
-                                {/foreach}
 
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">

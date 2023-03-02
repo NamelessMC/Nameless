@@ -271,12 +271,13 @@ body.pushable>.pusher {
     font-size: .85em;
 }
 
-#topic-post #post-content #reactions form {
-    display: inline-block;
+.reaction-button {
+    opacity: 30%;
 }
 
-#topic-post #post-content #reactions .icon {
-    margin-right: .3em;
+.reaction-button:hover, .reaction-button-selected {
+    opacity: 100%;
+    cursor: pointer;
 }
 
 #topic-post #post-meta {

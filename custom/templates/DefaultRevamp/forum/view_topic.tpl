@@ -176,41 +176,42 @@
                     {/if}
                 </div>
                 <div class="ui eleven wide tablet thirteen wide computer column" id="post-content">
-                    <div class="forum_post">{$reply.content}</div>
-                    {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID || count($reply.post_reactions))}
-                    <div class="ui mini info message" id="reactions">
-                        {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
-                        <a href="#" data-toggle="popup" data-position="right center">Like</a>
-                        <div class="ui wide popup">
-                            {if isset($REACTIONS) && count($REACTIONS)}
-                            {foreach from=$REACTIONS item=reaction}
-                            <form action="{$REACTIONS_URL}" method="post">
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="hidden" name="reaction" value="{$reaction->id}">
-                                <input type="hidden" name="post" value="{$reply.id}">
-                                <button type="submit" class="ui mini primary icon button">{$reaction->html}</button>
-                            </form>
-                            {/foreach}
+                    <div class="forum_post">
+                        {$reply.content}
+                    </div>
+                    {if !empty($reply.signature)}
+                        <div class="ui divider"></div>
+                        <div style="overflow: scroll; max-height: 500px;">
+                            {$reply.signature}
+                        </div>
+                    {/if}
+                    {if ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($reply.post_reactions))}
+                        <div class="ui mini message" id="reactions">
+                            {if count($reply.post_reactions)}
+                                <span class="left aligned">
+                                    {assign i 1}
+                                    {foreach from=$reply.post_reactions name=reactions item=reaction}
+                                        {if $i != 1} &nbsp; {/if}
+                                        {$reaction.html} {$reaction.name} x <strong>{$reaction.count}</strong>
+                                        {assign i $i+1}
+                                    {/foreach}
+                                </span>
+                            {/if}
+
+                            {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
+                                <span class="right floated">
+                                    {foreach from=$REACTIONS item=reaction}
+                                        <span
+                                                data-toggle="tooltip" data-content="{$reaction->name}"
+                                                class="{if array_key_exists($reply.id, $REACTIONS_BY_USER) && in_array($reaction->id, $REACTIONS_BY_USER[$reply.id])}reaction-button-selected{else}reaction-button{/if}"
+                                                onclick="submitReaction({$reply.id}, {$reaction->id});"
+                                        >
+                                            {$reaction->html}
+                                        </span>
+                                    {/foreach}
+                                </span>
                             {/if}
                         </div>
-                        {/if}
-                        {if count($reply.post_reactions)}
-                        <div class="right floated" data-toggle="modal" data-target="#modal-reactions-{$reply.id}">
-                            {assign i 1}
-                            {foreach from=$reply.post_reactions name=reactions item=reaction}
-                            {if $i != 1} &nbsp; {/if}
-                            {$reaction.html}x{$reaction.count}
-                            {assign i $i+1}
-                            {/foreach}
-                        </div>
-                        {/if}
-                    </div>
-                    {/if}
-                    {if !empty($reply.signature)}
-                    <div class="ui divider"></div>
-                    <div style="overflow: scroll; max-height: 500px;">
-                        {$reply.signature}
-                    </div>
                     {/if}
                 </div>
             </div>
@@ -387,10 +388,25 @@
         <form action="{$DELETE_URL}" method="post" id="deleteTopic" style="display: none">
             <input type="hidden" value="{$TOKEN}" name="token" />
         </form>
-        <a type="submit" class="ui positive button"
-            onclick="document.getElementById('deleteTopic').submit()">{$DELETE}</a>
+        <a type="submit" class="ui positive button" onclick="document.getElementById('deleteTopic').submit()">{$DELETE}</a>
     </div>
 </div>
 {/if}
+
+<script>
+    const submitReaction = (post_id, reaction_id) => {
+        $.post("{$REACTIONS_URL}", {
+            token: "{$TOKEN}",
+            reaction: reaction_id,
+            post: post_id
+        }, (responseText) => {
+            if (responseText.startsWith('Reaction ')) {
+                window.location.reload();
+            } else {
+                console.error(responseText)
+            }
+        });
+    }
+</script>
 
 {include file='footer.tpl'}

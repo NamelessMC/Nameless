@@ -651,6 +651,18 @@ class Core_Module extends Module {
 
             // Statistics
             $widgets->add(new StatsWidget($smarty, $language, $cache));
+
+            // Reactions profile widget
+            $widgets->add(new ReactionsProfileWidget($smarty));
+            ReactionsProfileWidget::addGivenCollector(static function (User $user) {
+                return DB::getInstance()->get('user_profile_wall_posts_reactions', ['user_id', $user->data()->id])->results();
+            });
+            ReactionsProfileWidget::addRecievedCollector(static function (User $user) {
+                return DB::getInstance()->query(
+                    'SELECT r.reaction_id FROM nl2_user_profile_wall_posts_reactions r JOIN nl2_user_profile_wall_posts w ON r.post_id = w.id WHERE w.author_id = ?', [
+                        $user->data()->id
+                    ])->results();
+            });
         }
 
         // Validate user hook

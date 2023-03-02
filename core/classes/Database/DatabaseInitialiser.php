@@ -143,23 +143,37 @@ class DatabaseInitialiser {
     private function initialiseReactions(): void {
         $this->_db->insert('reactions', [
             'name' => 'Like',
-            'html' => '<i class="fas fa-thumbs-up text-success"></i>',
+            'html' => '👍',
             'enabled' => true,
             'type' => 2
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Dislike',
-            'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
+            'html' => '👎',
             'enabled' => true,
             'type' => 0
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Meh',
-            'html' => '<i class="fas fa-meh text-warning"></i>',
+            'html' => '😐',
             'enabled' => true,
             'type' => 1
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Funny',
+            'html' => '🤣',
+            'enabled' => true,
+            'type' => 2
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Helpful',
+            'html' => '🛠️',
+            'enabled' => true,
+            'type' => 2
         ]);
     }
 

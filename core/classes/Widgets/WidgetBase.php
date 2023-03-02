@@ -7,7 +7,7 @@
  * @version 2.0.0-pr8
  * @license MIT
  */
-abstract class WidgetBase {
+abstract class WidgetBase implements Widget {
 
     protected string $_name;
     protected array $_pages;

@@ -397,25 +397,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 // Liking or unliking?
-                $post_likes = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $_GET['post']])->results();
-                if (count($post_likes)) {
-                    foreach ($post_likes as $like) {
-                        if ($like->user_id == $user->data()->id) {
-                            $has_liked = $like->id;
-                            break;
-                        }
-                    }
-                }
-
-                if (isset($has_liked)) {
+                $post_likes = DB::getInstance()->get('user_profile_wall_posts_reactions', [['post_id', $_GET['post']], ['user_id', $user->data()->id]]);
+                if ($post_likes->count()) {
                     // Unlike
-                    DB::getInstance()->delete('user_profile_wall_posts_reactions', ['id', $has_liked]);
+                    DB::getInstance()->delete('user_profile_wall_posts_reactions', ['id', $post_likes->first()->id]);
                 } else {
                     // Like
                     DB::getInstance()->insert('user_profile_wall_posts_reactions', [
                         'user_id' => $user->data()->id,
                         'post_id' => $_GET['post'],
-                        'reaction_id' => 1,
+                        'reaction_id' => Util::getSetting('profile_post_like_reaction_id', 1),
                         'time' => date('U')
                     ]);
                 }
@@ -857,8 +848,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $template->onPageLoad();
 
-    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left', $profile_user));
+    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right', $profile_user));
 
     require(ROOT_PATH . '/core/templates/navbar.php');
     require(ROOT_PATH . '/core/templates/footer.php');

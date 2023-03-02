@@ -20,6 +20,10 @@ const PANEL_PAGE = 'reactions';
 $page_title = $language->get('user', 'reactions');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
+$template->assets()->include(
+    AssetTree::JQUERY_UI,
+);
+
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
@@ -38,35 +42,40 @@ if (Session::exists('api_reactions_error')) {
 }
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
-    // Get all reactions
-    $reactions = DB::getInstance()->get('reactions', ['id', '<>', 0])->results();
-
-    $template_reactions = [];
-    if (count($reactions)) {
-        foreach ($reactions as $reaction) {
-            switch ($reaction->type) {
-                case 1:
-                    $type = $language->get('admin', 'neutral');
-                    break;
-
-                case 2:
-                    $type = $language->get('admin', 'positive');
-                    break;
-
-                default:
-                    $type = $language->get('admin', 'negative');
-                    break;
+    if (Input::exists()) {
+        if (Token::check()) {
+            if (Input::get('action') === 'update_profile_post_like_reaction') {
+                Util::setSetting('profile_post_like_reaction_id', Input::get('profile_post_like_reaction'));
             }
-
-            $template_reactions[] = [
-                'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
-                'name' => Output::getClean($reaction->name),
-                'html' => $reaction->html,
-                'type_id' => $reaction->type,
-                'type' => $type,
-                'enabled' => $reaction->enabled
-            ];
         }
+    }
+
+    // Get all reactions
+    $template_reactions = [];
+    foreach (Reaction::all() as $reaction) {
+        switch ($reaction->type) {
+            case Reaction::TYPE_NEUTRAL:
+                $type = $language->get('admin', 'neutral');
+                break;
+
+            case Reaction::TYPE_POSITIVE:
+                $type = $language->get('admin', 'positive');
+                break;
+
+            default:
+                $type = $language->get('admin', 'negative');
+                break;
+        }
+
+        $template_reactions[] = [
+            'id' => $reaction->id,
+            'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
+            'name' => Output::getClean($reaction->name),
+            'html' => $reaction->html,
+            'type_id' => $reaction->type,
+            'type' => $type,
+            'enabled' => $reaction->enabled
+        ];
     }
 
     $smarty->assign([
@@ -77,7 +86,9 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         'TYPE' => $language->get('admin', 'type'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'REACTIONS_LIST' => $template_reactions,
-        'NO_REACTIONS' => $language->get('admin', 'no_reactions')
+        'PROFILE_POST_LIKE_VALUE' => Util::getSetting('profile_post_like_reaction_id', 1),
+        'NO_REACTIONS' => $language->get('admin', 'no_reactions'),
+        'REORDER_DRAG_URL' => URL::build('/panel/core/reactions', 'action=order'),
     ]);
 
     $template_file = 'core/reactions.tpl';
@@ -124,14 +135,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             }
 
                             switch (Input::get('type')) {
-                                case 1:
-                                    $type = 1;
+                                case Reaction::TYPE_NEUTRAL:
+                                    $type = Reaction::TYPE_NEUTRAL;
                                     break;
-                                case 2:
-                                    $type = 2;
+                                case Reaction::TYPE_POSITIVE:
+                                    $type = Reaction::TYPE_POSITIVE;
                                     break;
                                 default:
-                                    $type = 0;
+                                    $type = Reaction::TYPE_NEGATIVE;
                                     break;
                             }
 
@@ -196,18 +207,33 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 // Redirect
                 Redirect::to(URL::build('/panel/core/reactions'));
 
+            case 'order':
+                if (isset($_GET['reactions'])) {
+                    if (!Token::check()) {
+                        die('Invalid Token');
+                    }
+
+                    $reactions_list = json_decode($_GET['reactions'])->reactions;
+                    $i = 1;
+                    foreach ($reactions_list as $item) {
+                        DB::getInstance()->update('reactions', $item, [
+                            'order' => $i
+                        ]);
+                        $i++;
+                    }
+                }
+                die('Complete');
+
             default:
                 Redirect::to(URL::build('/panel/core/reactions'));
         }
     } else {
         // Get reaction
-        $reaction = DB::getInstance()->get('reactions', ['id', $_GET['id']])->results();
-        if (!count($reaction)) {
+        $reaction = Reaction::find($_GET['id']);
+        if (!$reaction) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
         }
-
-        $reaction = $reaction[0];
 
         // Deal with input
         if (Input::exists()) {
@@ -250,14 +276,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
 
                     switch (Input::get('type')) {
-                        case 1:
-                            $type = 1;
+                        case Reaction::TYPE_NEUTRAL:
+                            $type = Reaction::TYPE_NEUTRAL;
                             break;
-                        case 2:
-                            $type = 2;
+                        case Reaction::TYPE_POSITIVE:
+                            $type = Reaction::TYPE_POSITIVE;
                             break;
                         default:
-                            $type = 0;
+                            $type = Reaction::TYPE_NEGATIVE;
                             break;
                     }
 

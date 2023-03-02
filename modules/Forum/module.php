@@ -45,8 +45,8 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/forum/edit', 'pages/forum/edit.php');
         $pages->add('Forum', '/forum/lock', 'pages/forum/lock.php');
         $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
-        $pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
         $pages->add('Forum', '/forum/search', 'pages/forum/search.php');
+        $pages->add('Forum', '/queries/forum_reactions', 'queries/reactions.php');
 
         // UserCP
         $pages->add('Forum', '/user/following_topics', 'pages/user/following_topics.php');
@@ -201,7 +201,12 @@ class Forum_Module extends Module {
         switch ($link_location) {
             case 1:
                 // Navbar
-                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
+                $navs[0]->addDropdown('forum_dropdown', $this->_forum_language->get('forum', 'forum'), 'top', $forum_order, $icon);
+                $navs[0]->addItemToDropdown('forum_dropdown', 'forum', $this->_forum_language->get('forum', 'forums'), URL::build('/forum'));
+                if ($user->isLoggedIn()) {
+                    $navs[0]->addItemToDropdown('forum_dropdown', 'following_topics', $this->_forum_language->get('forum', 'following_topics'), URL::build('/user/following_topics'));
+                }
+                $navs[0]->addItemToDropdown('forum_dropdown', 'search_forums', $this->_forum_language->get('forum', 'forum_search'), URL::build('/forum/search'));
                 break;
             case 2:
                 // "More" dropdown
@@ -214,9 +219,17 @@ class Forum_Module extends Module {
         }
 
         // Widgets
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+        if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Latest posts
             $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
+
+            ReactionsProfileWidget::addRecievedCollector(static function (User $user) {
+                return DB::getInstance()->get('forums_reactions', ['user_received', $user->data()->id])->results();
+            });
+
+            ReactionsProfileWidget::addGivenCollector(static function (User $user) {
+                return DB::getInstance()->get('forums_reactions', ['user_given', $user->data()->id])->results();
+            });
         }
 
         // Front end or back end?
