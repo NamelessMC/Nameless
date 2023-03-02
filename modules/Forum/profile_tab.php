@@ -95,6 +95,10 @@ if (!count($latest_posts)) {
     }
 }
 
+if (!count($posts)) {
+    $smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
+}
+
 // Smarty
 $smarty->assign([
     'PF_LATEST_POSTS' => (isset($posts)) ? $posts : [],
