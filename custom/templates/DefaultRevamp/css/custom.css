@@ -1030,6 +1030,26 @@ select {
 }
 
 /*
+ Make new members grid avatars fit nicer
+ */
+#new-members-grid {
+    padding: 0.5em;
+}
+
+#new-members-grid .column {
+    padding: 0.5em;
+}
+
+ *  [ EMOJI SIZING ]
+ */
+
+.joypixels, .twemoji {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+}
+
+/*
    *  [ DARK MODE ]
    */
 

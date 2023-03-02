@@ -115,7 +115,7 @@ if (!isset($_GET['action'])) {
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/hooks'),
                 'NORMAL' => $language->get('general', 'normal'),
-                'ALL_EVENTS' => EventHandler::getEvents()
+                'ALL_EVENTS' => EventHandler::getEvents(),
             ]);
 
             $template_file = 'core/hooks_new.tpl';
