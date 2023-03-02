@@ -698,20 +698,6 @@ DB::getInstance()->insert('reactions', [
     'type' => 1
 ]);
 
-DB::getInstance()->insert('reactions', [
-    'name' => 'Funny',
-    'html' => '🤣',
-    'enabled' => true,
-    'type' => 2
-]);
-
-$this->_db->insert('reactions', [
-    'name' => 'Helpful',
-    'html' => '🛠️',
-    'enabled' => true,
-    'type' => 2
-]);
-
 // Forum Labels
 DB::getInstance()->insert('forums_labels', [
     'name' => 'Default',
