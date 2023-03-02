@@ -174,10 +174,7 @@ class DatabaseInitialiser {
         Util::setSetting('nameless_version', '2.0.3');
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
-        Util::setSetting('phpmailer_type', 'smtp');
-        Util::setSetting('verify_accounts', '0');
         Util::setSetting('user_avatars', '0');
-        Util::setSetting('forum_layout', '1');
         Util::setSetting('avatar_site', 'cravatar');
         Util::setSetting('mc_integration', '1');
         Util::setSetting('discord_integration', '0');
@@ -191,8 +188,6 @@ class DatabaseInitialiser {
         Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
         Util::setSetting('query_type', 'internal');
         Util::setSetting('player_list_limit', '20');
-        Util::setSetting('followers', '0');
-        Util::setSetting('language', '1');
         Util::setSetting('timezone', $_SESSION['install_timezone']);
         Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
