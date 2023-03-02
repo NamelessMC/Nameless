@@ -19,8 +19,12 @@ if (isset($_GET['group'])) {
     }
 
     $viewing_list = 'group';
+    $viewing_group = Group::find($_GET['group']);
     $smarty->assign([
-        'VIEWING_GROUP' => Group::find($_GET['group']),
+        'VIEWING_GROUP' => [
+            'id' => $viewing_group->id,
+            'name' => Output::getClean($viewing_group->name),
+        ],
     ]);
 
     $lists_viewing = [];
@@ -49,7 +53,11 @@ if (isset($error)) {
 
 $groups = [];
 foreach (json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true) as $group_id) {
-    $groups[] = Group::find($group_id);
+    $group = Group::find($group_id);
+    $groups[] = [
+        'id' => $group->id,
+        'name' => Output::getClean($group->name),
+    ];
 }
 
 if ($viewing_list !== 'overview') {

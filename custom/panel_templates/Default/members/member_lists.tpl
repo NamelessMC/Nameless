@@ -54,7 +54,7 @@
                                 <label for="groups">{$GROUPS}</label>
                                 <select name="groups[]" id="groups" class="form-control" multiple>
                                     {foreach from=$GROUPS_ARRAY item=group}
-                                        <option value="{$group->id}" {if in_array($group->id, $GROUPS_VALUE)} selected{/if}>{$group->name}</option>
+                                        <option value="{$group.id}" {if in_array($group.id, $GROUPS_VALUE)} selected{/if}>{$group.name}</option>
                                     {/foreach}
                                 </select>
                             </div>

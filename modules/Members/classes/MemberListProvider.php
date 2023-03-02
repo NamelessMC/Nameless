@@ -122,7 +122,7 @@ abstract class MemberListProvider {
 
             $list_members[] = array_merge(
                 [
-                    'username' => $member->data()->username,
+                    'username' => Output::getClean($member->data()->username),
                     'avatar_url' => $member->getAvatar(),
                     'group_style' => $member->getGroupStyle(),
                     'profile_url' => $member->getProfileURL(),
@@ -131,7 +131,7 @@ abstract class MemberListProvider {
                 $overview
                     ? []
                     : [
-                        'group_html' => implode('', $member->getAllGroupHtml()),
+                        'group_html' => $member->getAllGroupHtml(),
                         'metadata' => MemberListManager::getInstance()->getMemberMetadata($member),
                     ],
             );

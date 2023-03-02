@@ -52,7 +52,7 @@
                             <select class="ui selection fluid dropdown" onchange="viewGroup(this)">
                                 <option value="">{$GROUP}</option>
                                 {foreach from=$GROUPS item=group}
-                                    <option value="{$group->id}" {if $VIEWING_GROUP->id == $group->id} selected {/if}>{$group->name}</option>
+                                    <option value="{$group.id}" {if $VIEWING_GROUP.id == $group.id} selected {/if}>{$group.name}</option>
                                 {/foreach}
                             </select>
                         </div>
@@ -81,9 +81,9 @@
                 <div class="ui stackable equal width left aligned three column grid segment" style="margin-top: 0">
                     {if $VIEWING_LIST == "group"}
                         <div class="ui column">
-                            <h3>{$VIEWING_GROUP->name}</h3>
+                            <h3>{$VIEWING_GROUP.name}</h3>
                             <div>
-                                <ul id="member_list_group_{$VIEWING_GROUP->id}" class="ui list large selection" style="margin-left: -10px;">
+                                <ul id="member_list_group_{$VIEWING_GROUP.id}" class="ui list large selection" style="margin-left: -10px;">
                                 </ul>
                                 {$PAGINATION}
                             </div>
@@ -169,7 +169,7 @@
                     const nameDiv = document.createElement('span');
                     nameDiv.style = member.group_style;
                     {if $VIEWING_LIST != "overview"}
-                        nameDiv.innerHTML = member.username + '&nbsp;' + member.group_html;
+                        nameDiv.innerHTML = member.username + '&nbsp;' + member.group_html.join('');
                     {else}
                         nameDiv.innerText = member.username;
                     {/if}
@@ -195,7 +195,7 @@
 
     window.onload = () => {
         {if $VIEWING_LIST == "group"}
-            renderList('group_{$VIEWING_GROUP->id}');
+            renderList('group_{$VIEWING_GROUP.id}');
         {else}
             {foreach from=$MEMBER_LISTS_VIEWING item=list}
                 renderList('{$list->getName()}');

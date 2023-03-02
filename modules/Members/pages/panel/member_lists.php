@@ -52,6 +52,14 @@ if (Session::exists('admin_member_list_success')) {
     ]);
 }
 
+$group_array = [];
+foreach (Group::all() as $group) {
+    $group_array[] = [
+        'id' => $group->id,
+        'name' => Output::getClean($group->name),
+    ];
+}
+
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -60,7 +68,7 @@ $smarty->assign([
     'HIDE_BANNED_USERS' => $member_language->get('members', 'member_list_hide_banned_users'),
     'HIDE_BANNED_USERS_VALUE' => Util::getSetting('member_list_hide_banned', false, 'Members'),
     'GROUPS' => $member_language->get('members', 'viewable_groups'),
-    'GROUPS_ARRAY' => Group::all(),
+    'GROUPS_ARRAY' => $group_array,
     'GROUPS_VALUE' => json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true),
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
     'SELECT_CHANGE_URL' => URL::build('/panel/core/member_lists'),
