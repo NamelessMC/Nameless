@@ -272,33 +272,33 @@ class Language {
 
     /**
      * Attempt to get a language code from browser headers for setting an automatic language for guests.
-     * If the Intl extension is loaded, it uses the builtin <code>Locale::acceptFromHttp(...)</code> method.
      *
      * @param string $header <code>HTTP_ACCEPT_LANGUAGE</code> header.
-     * @return false|string The browsers preferred language, or false if there is no valid preferred language.
+     * @return false|array The browsers preferred language and its name, or false if there is no valid preferred language.
      */
     public static function acceptFromHttp(string $header) {
-        // If the Intl extension is enabled, use the Locale::acceptFromHttp class
+        // If the Intl extension is enabled, try to use the Locale::acceptFromHttp class,
+        // which is more accurate than the below method, but often contains more specific languages than we support.
         if (
             extension_loaded('intl') &&
             class_exists(Locale::class) &&
             method_exists(Locale::class, 'acceptFromHttp')
         ) {
-            return Locale::acceptFromHttp($header);
+            $locale = Locale::acceptFromHttp($header);
+            if (array_key_exists($locale, self::LANGUAGES)) {
+                return [$locale, self::LANGUAGES[$locale]['name']];
+            }
         }
 
-        $prefLocales = array_reduce(
+        // "Accept-Language: en-US,en;q=0.5" -> ["en_US", "en"]
+        $header_locales = array_map(
+            static fn ($pref) => str_replace('-', '_', explode(';q=', $pref)[0]),
             explode(',', $header),
-            static function ($res, $el) {
-                [$lang, $weight] = array_merge(explode(';q=', $el), [1]);
-                $res[$lang] = (float) $weight;
-                return $res;
-            }, []
         );
 
-        foreach ($prefLocales as $locale) {
+        foreach ($header_locales as $locale) {
             if (array_key_exists($locale, self::LANGUAGES)) {
-                return $locale;
+                return [$locale, self::LANGUAGES[$locale]['name']];
             }
         }
 

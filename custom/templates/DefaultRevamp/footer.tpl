@@ -108,6 +108,11 @@
         const autoLanguage = document.getElementById('auto-language');
         const autoLanguageValue = $.cookie('auto_language') ?? 'true';
         autoLanguage.innerText = '{$AUTO_LANGUAGE_TEXT} (' + (autoLanguageValue === 'true' ? '{$ENABLED}' : '{$DISABLED}') + ')';
+        {if isset($AUTO_LANGUAGE_VALUE)}
+            if (autoLanguageValue) {
+                autoLanguage.title = '{$AUTO_LANGUAGE_VALUE}';
+            }
+        {/if}
 
         function toggleAutoLanguage() {
             $.cookie(
