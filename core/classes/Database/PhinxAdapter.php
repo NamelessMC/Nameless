@@ -25,7 +25,6 @@ class PhinxAdapter {
         }, DB::getInstance()->query('SELECT version, migration_name FROM nl2_phinxlog')->results());
 
         $missing = array_diff($migration_files, $migration_database_entries);
-        $extra = array_diff($migration_database_entries, $migration_files);
 
         // Likely a pull from the repo dev branch or migrations
         // weren't run during an upgrade script.
@@ -34,21 +33,7 @@ class PhinxAdapter {
             foreach ($missing as $missing_migration) {
                 echo " - $missing_migration" . '<br>';
             }
-        }
 
-        // Something went wonky, either they've deleted migration files,
-        // or they've added stuff to the nl2_phinxlog table.
-        if (($extra_count = count($extra)) > 0) {
-            if ($missing_count > 0) {
-                echo '<br>';
-            }
-            echo "There are $extra_count executed migrations which do not have migration files associated:" . '<br>';
-            foreach ($extra as $extra_migration) {
-                echo " - $extra_migration" . '<br>';
-            }
-        }
-
-        if ($missing_count > 0 || $extra_count > 0) {
             die();
         }
     }
