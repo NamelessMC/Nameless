@@ -522,6 +522,26 @@ try {
     $errors[] = 'Unable to convert users: ' . $e->getMessage();
 }
 
+// Username history
+try {
+    $old = $conn->get('nl1_users_username_history', ['id', '<>', 0]);
+    if ($old->count()) {
+        $old = $old->results();
+
+        foreach ($old as $item) {
+            DB::getInstance()->insert('users_username_history', [
+                'id' => $item->id,
+                'user_id' => $item->user_id,
+                'changed_to' => $item->changed_to,
+                'changed_at' => $item->changed_at,
+                'original' => $item->original
+            ]);
+        }
+    }
+} catch (Exception $e) {
+    $errors[] = 'Unable to convert username history: ' . $e->getMessage();
+}
+
 // Profile wall posts
 try {
     $old = $conn->get('nl1_user_profile_wall_posts', ['id', '<>', 0]);
@@ -580,6 +600,24 @@ try {
     }
 } catch (Exception $e) {
     $errors[] = 'Unable to convert user profile wall replies: ' . $e->getMessage();
+}
+
+// UUID cache
+try {
+    $old = $conn->get('nl1_uuid_cache', ['id', '<>', 0]);
+    if ($old->count()) {
+        $old = $old->results();
+
+        foreach ($old as $item) {
+            DB::getInstance()->insert('uuid_cache', [
+                'id' => $item->id,
+                'mcname' => $item->mcname,
+                'uuid' => $item->uuid
+            ]);
+        }
+    }
+} catch (Exception $e) {
+    $errors[] = 'Unable to convert UUID cache: ' . $e->getMessage();
 }
 
 // New settings/initialise cache

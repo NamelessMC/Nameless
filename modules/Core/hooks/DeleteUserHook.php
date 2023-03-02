@@ -60,6 +60,9 @@ class DeleteUserHook {
         // Profile fields
         $db->delete('users_profile_fields', ['user_id', $user_id]);
 
+        // Username history
+        $db->delete('users_username_history', ['user_id', $user_id]);
+
         // Profile wall posts
         $db->delete('user_profile_wall_posts', ['user_id', $user_id]);
         $db->delete('user_profile_wall_posts', ['author_id', $user_id]);
