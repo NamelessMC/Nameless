@@ -201,12 +201,7 @@ class Forum_Module extends Module {
         switch ($link_location) {
             case 1:
                 // Navbar
-                $navs[0]->addDropdown('forum_dropdown', $this->_forum_language->get('forum', 'forum'), 'top', $forum_order, $icon);
-                $navs[0]->addItemToDropdown('forum_dropdown', 'forum', $this->_forum_language->get('forum', 'forums'), URL::build('/forum'));
-                if ($user->isLoggedIn()) {
-                    $navs[0]->addItemToDropdown('forum_dropdown', 'following_topics', $this->_forum_language->get('forum', 'following_topics'), URL::build('/user/following_topics'));
-                }
-                $navs[0]->addItemToDropdown('forum_dropdown', 'search_forums', $this->_forum_language->get('forum', 'forum_search'), URL::build('/forum/search'));
+                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
                 break;
             case 2:
                 // "More" dropdown
