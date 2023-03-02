@@ -193,7 +193,7 @@ if ($page != 'install') {
     define('DEFAULT_LANGUAGE', $default_language);
 
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
-        if (Util::getSetting('auto_language_detection', 1) && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
+        if (Util::getSetting('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             // Attempt to get the requested language from the browser if it exists
             $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
             if ($automatic_locale !== false) {
@@ -638,7 +638,7 @@ if ($page != 'install') {
         }
 
         // Auto language enabled?
-        if (Util::getSetting('auto_language_detection', 1)) {
+        if (Util::getSetting('auto_language_detection')) {
             $smarty->assign('AUTO_LANGUAGE', true);
         }
     }
