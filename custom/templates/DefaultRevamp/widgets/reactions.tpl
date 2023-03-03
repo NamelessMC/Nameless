@@ -3,7 +3,7 @@
         <div class="header">Reactions</div>
     </div>
     <div class="content">
-        <table class="ui celled table">
+        <table class="ui celled table center aligned">
             <thead>
             <tr>
                 <th></th>
