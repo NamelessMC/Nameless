@@ -375,6 +375,11 @@ body.pushable>.pusher {
     max-height: 35px;
 }
 
+/* Fix avatar images in labels being a few px from touching the top */
+.ui.image.label img {
+    vertical-align: top !important;
+}
+
 /*
    *  [ FORUM SEARCH ]
    */
