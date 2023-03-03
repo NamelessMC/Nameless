@@ -23,6 +23,6 @@
         </table>
     </div>
     <div class="extra content">
-        Karma: {$KARMA}
+        Reaction score: {$REACTION_SCORE}
     </div>
 </div>
