@@ -71,7 +71,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'id' => $reaction->id,
             'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
             'name' => Output::getClean($reaction->name),
-            'html' => $reaction->html,
+            'html' => Text::renderEmojis($reaction->html),
             'type_id' => $reaction->type,
             'type' => $type,
             'enabled' => $reaction->enabled
