@@ -75,7 +75,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                 if ($integrationUser->exists()) {
                     $this->updateUsername($integrationUser, $player);
-                    $cache->store($integrationUser->data()->identifier, date('U'));
+                    $cache->store($integrationUser->data()->identifier, [date('U'), $server_id]);
                     if (isset($player['placeholders']) && count($player['placeholders'])) {
                         $this->updatePlaceholders($integrationUser->getUser(), $player);
                     }

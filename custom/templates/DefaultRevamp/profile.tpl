@@ -382,7 +382,6 @@
         $('.ui.sticky')
             .sticky({
                 context: '#profile',
-                offset: 50,
             });
     }
 </script>
