@@ -5,7 +5,7 @@
     <div class="content center aligned">
         <img class="ui image tiny" src="https://visage.surgeplay.com/full/500/{$UUID}" alt="Minecraft image">
         <div class="ui left pointing label">
-            <strong data-tooltip="{$UUID_FORMATTED}" style="text-overflow: clip;">
+            <strong data-tooltip="{$UUID_FORMATTED}">
                 {$USERNAME}
             </strong>
         </div>
