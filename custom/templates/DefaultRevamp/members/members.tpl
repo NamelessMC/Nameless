@@ -214,7 +214,7 @@
                     url: 'profile_url',
                 },
                 apiSettings: {
-                    url: '{$SEARCH_URL}&search={literal}{query}{/literal}'
+                    url: '{$SEARCH_URL}&search={literal}{query}{/literal}&limit=5'
                 },
                 error: {
                     noResultsHeader: "{$NO_RESULTS_HEADER}",

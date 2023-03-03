@@ -16,7 +16,8 @@ if (!isset($_GET['search']) || strlen($_GET['search']) < 2) {
 
 $query = '%' . $_GET['search'] . '%';
 
-$users = DB::getInstance()->query('SELECT id, username, nickname, gravatar, email, has_avatar, avatar_updated FROM nl2_users WHERE username LIKE ? OR nickname LIKE ? LIMIT 5', [
+$limit = isset($_GET['limit']) ? 'LIMIT ' . (int) $_GET['limit'] : '';
+$users = DB::getInstance()->query("SELECT id, username, nickname, gravatar, email, has_avatar, avatar_updated FROM nl2_users WHERE username LIKE ? OR nickname LIKE ? $limit", [
     $query, $query
 ])->results();
 

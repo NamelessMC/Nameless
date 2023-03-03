@@ -164,6 +164,10 @@ abstract class MemberListProvider {
      */
     private function filterBanned(array $rows, string $id_column): array {
         $ids = implode(',', array_map(static fn ($row) => $row->{$id_column}, $rows));
+        if (empty($ids)) {
+            return [];
+        }
+
         $bans = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
 
         return array_filter($rows, static function ($row) use ($bans, $id_column) {

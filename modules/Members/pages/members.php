@@ -10,7 +10,7 @@
  */
 
 const PAGE = 'members';
-$page_title = $member_language->get('members', 'members');
+$page_title = $members_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (isset($_GET['group'])) {
@@ -54,6 +54,9 @@ if (isset($error)) {
 $groups = [];
 foreach (json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true) as $group_id) {
     $group = Group::find($group_id);
+    if (!$group) {
+        continue;
+    }
     $groups[] = [
         'id' => $group->id,
         'name' => Output::getClean($group->name),
@@ -87,27 +90,27 @@ usort($sidebar_lists, static function ($a, $b) {
 });
 
 $smarty->assign([
-    'MEMBERS' => $member_language->get('members', 'members'),
+    'MEMBERS' => $members_language->get('members', 'members'),
     'SIDEBAR_MEMBER_LISTS' => $sidebar_lists,
     'MEMBER_LISTS_VIEWING' => $lists_viewing,
     'VIEWING_LIST' => $viewing_list,
     'MEMBER_LIST_URL' => URL::build('/members'),
     'QUERIES_URL' => URL::build('/queries/member_list', 'list={{list}}&page={{page}}&overview=' . ($viewing_list === 'overview' ? 'true' : 'false')),
     'OVERVIEW' => $language->get('user', 'overview'),
-    'VIEW_ALL' => $member_language->get('members', 'view_all'),
+    'VIEW_ALL' => $members_language->get('members', 'view_all'),
     'GROUPS' => $groups,
     'VIEW_GROUP_URL' => URL::build('/members', 'group='),
-    'NEW_MEMBERS' => $member_language->get('members', 'new_members'),
+    'NEW_MEMBERS' => $members_language->get('members', 'new_members'),
     'NEW_MEMBERS_VALUE' => $new_members,
-    'FIND_MEMBER' => $member_language->get('members', 'find_member'),
-    'NAME' => $member_language->get('members', 'name'),
+    'FIND_MEMBER' => $members_language->get('members', 'find_member'),
+    'NAME' => $members_language->get('members', 'name'),
     'SEARCH_URL' => URL::build('/queries/users'),
-    'NO_RESULTS_HEADER' => $member_language->get('members', 'no_results_header'),
-    'NO_RESULTS_TEXT' => $member_language->get('members', 'no_results_text'),
-    'VIEW_GROUP' => $member_language->get('members', 'view_group'),
-    'GROUP' => $member_language->get('members', 'group'),
-    'NO_MEMBERS_FOUND' => $member_language->get('members', 'no_members'),
-    'NO_OVERVIEW_LISTS_ENABLED' => $member_language->get('members', 'no_overview_lists_enabled'),
+    'NO_RESULTS_HEADER' => $members_language->get('members', 'no_results_header'),
+    'NO_RESULTS_TEXT' => $members_language->get('members', 'no_results_text'),
+    'VIEW_GROUP' => $members_language->get('members', 'view_group'),
+    'GROUP' => $members_language->get('members', 'group'),
+    'NO_MEMBERS_FOUND' => $members_language->get('members', 'no_members'),
+    'NO_OVERVIEW_LISTS_ENABLED' => $members_language->get('members', 'no_overview_lists_enabled'),
 ]);
 
 // Load modules + template

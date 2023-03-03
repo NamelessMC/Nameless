@@ -37,31 +37,6 @@
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
 
-                        <form id="toggleHideBannedUsers" action="" method="post">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <div class="form-group custom-control custom-switch">
-                                <input type="hidden" name="action" value="toggle_hide_banned_users">
-                                <input id="inputToggleHideBannedUsers" name="hide_banned_users" type="checkbox" class="custom-control-input js-check-change" value="1" {if $HIDE_BANNED_USERS_VALUE eq 1} checked{/if} />
-                                <label for="inputToggleHideBannedUsers" class="custom-control-label">
-                                    {$HIDE_BANNED_USERS}
-                                </label>
-                            </div>
-                        </form>
-
-                        <form action="" method="post">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <div class="form-group">
-                                <label for="groups">{$GROUPS}</label>
-                                <select name="groups[]" id="groups" class="form-control" multiple>
-                                    {foreach from=$GROUPS_ARRAY item=group}
-                                        <option value="{$group.id}" {if in_array($group.id, $GROUPS_VALUE)} selected{/if}>{$group.name}</option>
-                                    {/foreach}
-                                </select>
-                            </div>
-                        </form>
-
-                        <hr>
-
                         <div class="table-responsive">
                             <table class="table table-borderless table-striped">
                                 <thead>
@@ -122,36 +97,6 @@
 </div>
 
 {include file='scripts.tpl'}
-<script>
-    const groupSelector = $('#groups');
-    groupSelector.select2({
-        placeholder: "{$NO_ITEM_SELECTED}"
-    });
-    groupSelector.on('change', (e) => {
-        const selectedGroups = [];
-        const selectedOptions = e.delegateTarget.selectedOptions;
-        for (const group of selectedOptions) {
-            selectedGroups.push(group.value);
-        }
-
-        $.ajax({
-            url: "{$SELECT_CHANGE_URL}",
-            type: "POST",
-            data: {
-                token: "{$TOKEN}",
-                action: "update_groups",
-                groups: selectedGroups,
-            },
-            success: function (response) {
-                // Success
-            },
-            error: function (xhr) {
-                // Error
-                console.log(xhr);
-            }
-        });
-    });
-</script>
 
 </body>
 
