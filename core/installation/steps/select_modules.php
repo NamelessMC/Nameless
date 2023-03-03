@@ -15,7 +15,7 @@ foreach (scandir(ROOT_PATH . '/modules') as $module) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cache = new Cache();
+    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
     $cache->setCache('modulescache');
     $enabled_modules = array_filter($cache->retrieve('enabled_modules'), static function ($module) {
         return Input::get('modules')[$module['name']] === '1' || $module['name'] === 'Core';

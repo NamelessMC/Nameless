@@ -13,6 +13,13 @@ FILES=(
   "modules/Discord Integration/language/en_UK.json"
   "modules/Members/language/en_UK.json"
 )
+# terms which are too tricky to detect, or are used in a different way
+WHITELISTED_TERMS=(
+  "installer/module_cookie-consent_description"
+  "installer/module_discord-integration_description"
+  "installer/module_forum_description"
+  "installer/module_core_description"
+)
 
 for FILE in "${FILES[@]}"
 do
@@ -20,6 +27,11 @@ do
   KEYS=$(jq -M -r 'keys | .[]' "$FILE")
   for KEY in $KEYS
   do
+      # check if the term is whitelisted
+      if [[ " ${WHITELISTED_TERMS[*]} " =~ ${KEY} ]]; then
+          continue
+      fi
+
       BEFORE_SLASH="${KEY%%/*}"
       AFTER_SLASH="${KEY#*/}"
 
