@@ -43,9 +43,9 @@ class Widgets {
     /**
      * Register a widget to the widget list.
      *
-     * @param WidgetBase|ProfileWidgetBase $widget Instance of widget to register.
+     * @param Widget $widget Instance of widget to register.
      */
-    public function add($widget): void {
+    public function add(Widget $widget): void {
         $this->_widgets[$widget->getName()] = $widget;
     }
 
@@ -125,7 +125,11 @@ class Widgets {
                         $item->initialise();
                     }
 
-                    $ret[] = $item->display();
+                    // Allow widgets to return nothing and not be displayed
+                    $content = $item->display();
+                    if ($content) {
+                        $ret[] = $content;
+                    }
                 } catch (Exception $e) {
                     ErrorHandler::logWarning('Unable to load widget ' . $item->getName() . ': ' . $e->getMessage());
                     $this->_smarty->assign([

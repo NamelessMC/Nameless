@@ -662,6 +662,11 @@ class Core_Module extends Module {
                     $user->data()->id
                 ])->results();
             });
+
+            // Minecraft account profile widget
+            if (Util::getSetting('mc_integration')) {
+                $widgets->add(new MinecraftAccountProfileWidget($smarty, $cache, $language));
+            }
         }
 
         // Validate user hook

@@ -375,7 +375,9 @@ body.pushable>.pusher {
 #profile a.ui.circular.image.avatar img {
     max-height: 35px;
 }
-
+.aaaaaaaaaaa {
+    top: 15%;
+}
 /*
    *  [ FORUM SEARCH ]
    */
@@ -1002,6 +1004,7 @@ select {
     padding: 5px;
     height: 26px;
     width: 50px;
+    cursor: pointer;
 }
 
 .darkmode-ball {

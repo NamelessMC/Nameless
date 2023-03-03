@@ -43,14 +43,16 @@
 
 <div class="ui stackable grid" id="profile">
     <div class="ui centered row">
-        {if count($WIDGETS_LEFT)}
+        {if $CAN_VIEW && count($WIDGETS_LEFT)}
             <div class="ui six wide tablet four wide computer column">
-                {foreach from=$WIDGETS_LEFT item=widget}
-                    {$widget}
-                {/foreach}
+                <div class="ui sticky">
+                    {foreach from=$WIDGETS_LEFT item=widget}
+                        {$widget}
+                    {/foreach}
+                </div>
             </div>
         {/if}
-        <div class="ui {if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT) }four wide tablet eight wide computer{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
+        <div class="ui {if $CAN_VIEW && count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}four wide tablet eight wide computer{elseif $CAN_VIEW && (count($WIDGETS_LEFT) || count($WIDGETS_RIGHT))}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
             {if isset($SUCCESS)}
                 <div class="ui success icon message">
                     <i class="check icon"></i>
@@ -108,29 +110,29 @@
                                     <div class="text forum_post">
                                         {$post.content}
                                     </div>
-                                    <div class="actions">
-                                        {if isset($LOGGED_IN_USER)}
+                                    {if isset($LOGGED_IN_USER)}
+                                        <div class="actions">
                                             {if $post.user_id != $VIEWER_ID}
-                                                <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}"
-                                                   data-toggle="popup">{$LIKE}
-                                                    {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
+                                                <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}" data-toggle="popup">
+                                                    {$LIKE} {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}
+                                                </a>
                                             {/if}
-                                            <a data-toggle="modal" data-target="#modal-reply-{$post.id}">{$REPLY} {if
-                                                ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=
-                                                0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}</a>
-                                        {/if}
-                                        {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
-                                            <a data-toggle="modal" data-target="#modal-edit-{$post.id}">{$EDIT}</a>
-                                            <a onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-post-{/literal}{$post.id}{literal}').submit();}{/literal}">
-                                                {$DELETE}
+                                            <a data-toggle="modal" data-target="#modal-reply-{$post.id}">
+                                                {$REPLY} {if ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}
                                             </a>
-                                            <form action="" method="post" id="form-delete-post-{$post.id}">
-                                                <input type="hidden" name="post_id" value="{$post.id}">
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="token" value="{$TOKEN}">
-                                            </form>
-                                        {/if}
-                                    </div>
+                                            {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
+                                                <a data-toggle="modal" data-target="#modal-edit-{$post.id}">{$EDIT}</a>
+                                                <a onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-post-{/literal}{$post.id}{literal}').submit();}{/literal}">
+                                                    {$DELETE}
+                                                </a>
+                                                <form action="" method="post" id="form-delete-post-{$post.id}">
+                                                    <input type="hidden" name="post_id" value="{$post.id}">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                                </form>
+                                            {/if}
+                                        </div>
+                                    {/if}
                                 </div>
                                 {if isset($post.replies.replies)}
                                     <div class="comments">
@@ -254,11 +256,13 @@
         </div>
         {/if}
     </div>
-    {if count($WIDGETS_RIGHT)}
+    {if $CAN_VIEW && count($WIDGETS_RIGHT)}
         <div class="ui six wide tablet four wide computer column">
-            {foreach from=$WIDGETS_RIGHT item=widget}
-                {$widget}
-            {/foreach}
+            <div class="ui sticky aaaaaaaaaaa">
+                {foreach from=$WIDGETS_RIGHT item=widget}
+                    {$widget}
+                {/foreach}
+            </div>
         </div>
     {/if}
 </div>
@@ -373,4 +377,15 @@
     {/if}
 {/if}
 
+<script>
+    window.onload = () => {
+        $('.ui.sticky')
+            .sticky({
+                context: '#profile',
+                offset: 50,
+            });
+    }
+</script>
+
 {include file='footer.tpl'}
+

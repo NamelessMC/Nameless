@@ -14,7 +14,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
 
         $this->_name = 'Reactions';
         $this->_order = $widget_query->order;
-        $this->_description = "Displays a user\'s recieved reactions on their profile.";
+        $this->_description = "Displays a users recieved reactions on their profile.";
         $this->_module = 'Core';
         $this->_location = $widget_query->location;
     }
@@ -27,6 +27,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
                 'html' => Text::renderEmojis($reaction->html),
                 'recieved' => 0,
                 'given' => 0,
+                'type' => $reaction->type,
             ];
         }
         foreach (self::$_collectors['recieved'] as $collector) {
@@ -45,10 +46,25 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
         usort($reactions, static function ($a, $b) {
             return $b['recieved'] <=> $a['recieved'];
         });
+
+        $karma = 0;
+        foreach ($reactions as $reaction) {
+            if ($reaction['type'] === Reaction::TYPE_POSITIVE) {
+                $karma += $reaction['recieved'];
+            } else if ($reaction['type'] === Reaction::TYPE_NEGATIVE) {
+                $karma -= $reaction['recieved'];
+            }
+        }
+
+        if ($karma > 0) {
+            $karma = '+' . $karma;
+        }
+
         $this->_smarty->assign([
             'ALL_REACTIONS' => $reactions,
+            'KARMA' => $karma,
         ]);
-        $this->_content = $this->_smarty->fetch('widgets/forum/reactions.tpl');
+        $this->_content = $this->_smarty->fetch('widgets/reactions.tpl');
     }
 
     public static function addRecievedCollector(Closure $collector): void {
