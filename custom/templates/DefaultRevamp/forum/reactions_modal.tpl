@@ -1,4 +1,4 @@
-<div class="ui pointing menu">
+<div class="ui menu">
     {foreach from=$REACTIONS item=reaction}
         <a class="{if $ACTIVE_TAB == $reaction.id}active{/if} item" data-tab="{$reaction.id}">
             {if $reaction.id != 0}{$reaction.html} &nbsp; {/if}{$reaction.name} ({$reaction.count})
@@ -8,27 +8,25 @@
 
 {foreach from=$REACTIONS item=reaction}
     <div class="ui bottom attached tab {if $ACTIVE_TAB == $reaction.id}active{/if}" data-tab="{$reaction.id}">
-        <div class="ui large relaxed selection celled list">
+        <div class="ui large selection divided list middle aligned">
             {foreach from=$reaction.users item=user}
                 <div class="item">
-                    {if $reaction.id == 0}
-                        <div class="right floated content center aligned">
-                            <span class="ui text large">
+                    <div class="right floated content center aligned">
+                        {if $reaction.id == 0}
+                            <span class="ui text">
                                 {$user.reaction_html}
                             </span>
                             <br>
-                            <span class="ui text small">
-                                {$user.reacted_time}
-                            </span>
-                        </div>
-                    {else}
-                        <div class="right floated content">
+                        {/if}
+                        <span class="ui text small">
                             {$user.reacted_time}
-                        </div>
-                    {/if}
-                    <div class="content">
+                        </span>
+                    </div>
+                    <div class="content" onclick="window.location.href = '{$user.profile}'">
                         <img class="ui avatar image" src="{$user.avatar}" alt="{$user.nickname}">
-                        <a href="{$user.profile}">{$user.nickname}</a>
+                        <span style="{$user.group_style}">
+                            {$user.nickname} {foreach from=$user.group_html item=$group_html}{$group_html}{/foreach}
+                        </span>
                     </div>
                 </div>
             {/foreach}

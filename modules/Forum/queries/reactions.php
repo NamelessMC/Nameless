@@ -91,9 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if (isset($formatted_reactions[$reaction->reaction_id])) {
             $formatted_reactions[$reaction->reaction_id]['count']++;
             $formatted_reactions[$reaction->reaction_id]['users'][] = [
+                'id' => $reaction_user->data()->id,
                 'nickname' => Output::getClean($reaction_user->getDisplayname()),
                 'avatar' => $reaction_user->getAvatar(),
                 'profile' => $reaction_user->getProfileURL(),
+                'group_style' => $reaction_user->getGroupStyle(),
+                'group_html' => $reaction_user->getAllGroupHtml(),
                 'reacted_time' => date(DATE_FORMAT, $reaction->time),
                 'reaction_html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
             ];
@@ -107,9 +110,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'count' => 1,
             'users' => [
                 [
+                    'id' => $reaction_user->data()->id,
                     'nickname' => Output::getClean($reaction_user->getDisplayname()),
                     'avatar' => $reaction_user->getAvatar(),
                     'profile' => $reaction_user->getProfileURL(),
+                    'group_style' => $reaction_user->getGroupStyle(),
+                    'group_html' => $reaction_user->getAllGroupHtml(),
                     'reacted_time' => date(DATE_FORMAT, $reaction->time),
                     'reaction_html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
                 ],

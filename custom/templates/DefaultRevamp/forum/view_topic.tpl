@@ -398,13 +398,16 @@
         const openReactionModal = (post_id, reaction_id) => {
             const modal = $('#modal-reactions');
             modal.modal('show');
-            modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader">{$LOADING}</div></div>');
+            modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui loader"></div></div>');
             $.get("{$REACTIONS_URL}", {
                 post: post_id,
                 type: 'post',
                 tab: reaction_id,
             }, (responseText) => {
                 modal.find('.content').html(responseText);
+                setTimeout(() => {
+                    document.activeElement.blur();
+                }, 300);
             });
         }
     </script>

@@ -284,6 +284,11 @@ body.pushable>.pusher {
     cursor: pointer;
 }
 
+/** Reaction modal tab buttons display non-native emojis as 2.5em wide by default */
+.ui.menu .item > img:not(.ui) {
+    width: 1em;
+}
+
 #topic-post #post-meta {
     margin-right: 1.3em;
 }
