@@ -161,6 +161,20 @@ class DatabaseInitialiser {
             'enabled' => true,
             'type' => 1
         ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Helpful',
+            'html' => '🛠️',
+            'enabled' => true,
+            'type' => 2
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Creative',
+            'html' => '🌈',
+            'enabled' => true,
+            'type' => 2
+        ]);
     }
 
     private function initialiseSettings(): void {
