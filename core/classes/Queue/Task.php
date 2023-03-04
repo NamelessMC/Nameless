@@ -156,13 +156,15 @@ abstract class Task {
 
     /**
      * Initialise new task
-     * @param int $moduleId
-     * @param string $name
-     * @param array|null $data
-     * @param int $scheduledFor
-     * @param bool $fragment
-     * @param int|null $fragmentTotal
-     * @param int|null $userId
+     * @param int $moduleId Module ID to which this task belongs
+     * @param string $name Name of the task
+     * @param ?array $data Any data which needs passing into the task when it executes
+     * @param int $scheduledFor Unix timestamp representing the earliest time from which the task will be executed
+     * @param ?string $entity Optional entity the task is associated with
+     * @param ?int $entityId Optional entity ID the task is associated with
+     * @param bool $fragment Whether to fragment the task's execution or not (split up into multiple runs)
+     * @param ?int $fragmentTotal Total number of items which need processing if fragmenting
+     * @param ?int $userId Optional user ID which triggered this task's execution
      *
      * @return Task
      */
@@ -171,6 +173,8 @@ abstract class Task {
         string $name,
         ?array $data,
         int $scheduledFor,
+        ?string $entity = null,
+        ?int $entityId = null,
         bool $fragment = false,
         ?int $fragmentTotal = null,
         ?int $userId = null
@@ -179,9 +183,12 @@ abstract class Task {
         $this->_name = $name;
         $this->_data = $data;
         $this->_scheduledFor = $scheduledFor;
+        $this->_entity = $entity;
+        $this->_entityId = $entityId;
         $this->_fragment = $fragment;
         $this->_fragmentTotal = $fragmentTotal;
         $this->_userId = $userId;
+        $this->_task = get_class();
 
         return $this;
     }
