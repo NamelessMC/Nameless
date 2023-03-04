@@ -64,8 +64,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr />
+                                {if not $smarty.foreach.widget_list.last}
+                                    <hr />
+                                {/if}
                             {/foreach}
+                        </div>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
 
                             Profile Widgets
                             {foreach from=$PROFILE_WIDGETS_LIST item=widget name=widget_list}
@@ -96,7 +103,6 @@
                                     <hr />
                                 {/if}
                             {/foreach}
-
                         </div>
                     </div>
 

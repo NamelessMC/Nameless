@@ -8,15 +8,10 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
     ];
 
     public function __construct(Smarty $smarty) {
-        parent::__construct($smarty);
-
-        $widget_query = self::getData('Reactions');
-
         $this->_name = 'Reactions';
-        $this->_order = $widget_query->order;
-        $this->_description = "Displays a users recieved reactions on their profile.";
+        $this->_description = 'Displays a users recieved reactions on their profile.';
         $this->_module = 'Core';
-        $this->_location = $widget_query->location;
+        $this->_smarty = $smarty;
     }
 
     public function initialise(User $user): void {

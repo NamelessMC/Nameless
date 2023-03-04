@@ -56,12 +56,6 @@
                             <form action="" method="post">
 
                                 <div class="form-group">
-                                    <label for="inputOrder">{$WIDGET_ORDER}</label>
-                                    <input id="inputOrder" name="order" type="number" class="form-control"
-                                        value="{$ORDER}">
-                                </div>
-
-                                <div class="form-group">
                                     <label for="inputLocation">{$WIDGET_LOCATION}</label>
                                     <select name="location" class="form-control" id="inputLocation">
                                         <option value="right" {if $LOCATION eq 'right' } selected{/if}>{$RIGHT}</option>

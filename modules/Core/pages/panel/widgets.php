@@ -79,13 +79,10 @@ if (!isset($_GET['action'])) {
 
             if (count($name)) {
                 $name = Output::getClean($name[0]->name);
+                /** @var AbstractWidget|null $widget */
                 $widget = $widgets->getWidget($name);
 
                 if (!is_null($widget)) {
-                    DB::getInstance()->update('widgets', $_GET['w'], [
-                        'enabled' => true
-                    ]);
-
                     $widgets->enable($widget);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_enabled'));
@@ -113,10 +110,6 @@ if (!isset($_GET['action'])) {
                 $widget = $widgets->getWidget($name);
 
                 if (!is_null($widget)) {
-                    DB::getInstance()->update('widgets', $_GET['w'], [
-                        'enabled' => false
-                    ]);
-
                     $widgets->disable($widget);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_disabled'));
@@ -141,7 +134,9 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/panel/core/widgets'));
         }
         $widget = $widget[0];
-        $is_profile_widget = $widgets->getWidget($widget->name) instanceof ProfileWidgetBase;
+        /** @var AbstractWidget $widget_instance */
+        $widget_instance = $widgets->getWidget($widget->name);
+        $is_profile_widget = $widget_instance instanceof ProfileWidgetBase;
 
         // Editing widget
         $active_pages = $is_profile_widget
@@ -163,14 +158,13 @@ if (!isset($_GET['action'])) {
 
                     $active_pages_string = json_encode($active_pages);
 
-                    $order = ($_POST['order'] ?? 10);
-
                     $location = Input::get('location');
                     if (!in_array($location, ['left', 'right'])) {
                         $location = 'right';
                     }
 
-                    DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
+                    DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'location' => $location]);
+                    $widget_instance->clearCache();
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
                     Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
@@ -186,19 +180,14 @@ if (!isset($_GET['action'])) {
             $active_pages = [];
         }
 
-        if ($widgets->getWidget($widget->name)->getSettings() != null) {
+        if ($widget_instance->getSettings() !== null) {
             $smarty->assign([
                 'SETTINGS' => $language->get('admin', 'settings'),
                 'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . urlencode($widget->id))
             ]);
         }
 
-        $order = Output::getClean($widgets->getWidget($widget->name)->getOrder());
-        if (!$order) {
-            $order = 10;
-        }
-
-        $location = Output::getClean($widgets->getWidget($widget->name)->getLocation());
+        $location = Output::getClean($widget_instance->getLocation());
         if (!in_array($location, ['left', 'right'])) {
             $location = 'right';
         }
@@ -210,8 +199,6 @@ if (!isset($_GET['action'])) {
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/widgets'),
             'IS_PROFILE_WIDGET' => $is_profile_widget,
-            'ORDER' => $order,
-            'WIDGET_ORDER' => $language->get('admin', 'widget_order'),
             'LOCATION' => $location,
             'WIDGET_LOCATION' => $language->get('admin', 'widget_location'),
             'LEFT' => $language->get('admin', 'left'),
@@ -235,15 +222,13 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/widgets'));
             }
             $widget = $widget[0];
+            $widget_instance = $widgets->getWidget($widget->name);
 
-            if (
-                $widgets->getWidget($widget->name)->getSettings() === null
-                || !file_exists($widgets->getWidget($widget->name)->getSettings())
-            ) {
+            if ($widget_instance->getSettings() === null || !file_exists($widget_instance->getSettings())) {
                 Redirect::to(URL::build('/admin/widgets'));
             }
 
-            require_once($widgets->getWidget($widget->name)->getSettings());
+            require_once($widget_instance->getSettings());
 
             $smarty->assign([
                 'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [

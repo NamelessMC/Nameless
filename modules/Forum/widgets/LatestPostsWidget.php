@@ -17,23 +17,14 @@ class LatestPostsWidget extends WidgetBase {
     private User $_user;
 
     public function __construct(string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
+        $this->_module = 'Forum';
+        $this->_name = 'Latest Posts';
+        $this->_description = 'Display latest posts from your forum.';
+        $this->_settings = ROOT_PATH . '/modules/Forum/widgets/admin/latest_posts.php';
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_language = $language;
-
-        // Get widget
-        $widget_query = self::getData('Latest Posts');
-
-        parent::__construct(self::parsePages($widget_query));
-
-        // Set widget variables
-        $this->_module = 'Forum';
-        $this->_name = 'Latest Posts';
-        $this->_location = $widget_query->location ?? null;
-        $this->_description = 'Display latest posts from your forum.';
-        $this->_settings = ROOT_PATH . '/modules/Forum/widgets/admin/latest_posts.php';
-        $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign([
             'LATEST_POSTS' => $latest_posts_language,

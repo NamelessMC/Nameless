@@ -1,8 +1,6 @@
 <div class="ui fluid card">
     <div class="content">
-        <div class="header">Reactions</div>
-    </div>
-    <div class="content">
+        <h4 class="ui header">Reactions</h4>
         <table class="ui celled table center aligned">
             <thead>
             <tr>

@@ -6,15 +6,11 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
     private Language $_language;
 
     public function __construct(Smarty $smarty, Cache $cache, Language $language) {
-        parent::__construct($smarty);
-
-        $widget_query = self::getData('Minecraft Account');
-
         $this->_name = 'Minecraft Account';
-        $this->_order = $widget_query->order;
         $this->_description = "Displays a users Minecraft account on their profile.";
         $this->_module = 'Core';
-        $this->_location = $widget_query->location;
+        $this->_smarty = $smarty;
+
         $this->_cache = $cache;
         $this->_language = $language;
     }
