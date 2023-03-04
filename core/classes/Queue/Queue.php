@@ -96,6 +96,9 @@ class Queue {
                 $fragment = '';
 
                 if (class_exists($task['task'])) {
+                    DB::getInstance()->query('START TRANSACTION');
+                    $rollback = false;
+
                     try {
                         /** @var Task $instance */
                         $instance = (new $task['task'])->fromId($id);
@@ -107,6 +110,7 @@ class Queue {
                             if ($attempts >= 3) {
                                 $status = Task::STATUS_FAILED;
                             }
+                            $rollback = true;
                         } else {
                             $fragmentNext = $instance->getFragmentNext();
                             $fragment = $fragmentNext ? ',`fragment_next` = ?' : '';
@@ -115,7 +119,10 @@ class Queue {
                     } catch (Exception $e) {
                         $status = $attempts >= 3 ? Task::STATUS_FAILED : Task::STATUS_ERROR;
                         $output = ['error' => "Unable to execute task {$task['name']}: {$e->getMessage()}"];
+                        $rollback = true;
                     }
+
+                    DB::getInstance()->query($rollback ? 'ROLLBACK' : 'COMMIT');
                 } else {
                     $status = $attempts >= 3 ? Task::STATUS_FAILED : Task::STATUS_ERROR;
                     $output = ['error' => "Unable to load class {$task['task']} for task {$task['name']}."];
