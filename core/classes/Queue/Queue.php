@@ -102,8 +102,16 @@ class Queue {
 
                         $status = $instance->run();
                         $output = $instance->getOutput();
-                        $fragmentNext = $instance->getFragmentNext();
-                        $fragment = $fragmentNext ? ',`fragment_next` = ?' : '';
+
+                        if ($status == Task::STATUS_ERROR) {
+                            if ($attempts >= 3) {
+                                $status = Task::STATUS_FAILED;
+                            }
+                        } else {
+                            $fragmentNext = $instance->getFragmentNext();
+                            $fragment = $fragmentNext ? ',`fragment_next` = ?' : '';
+                        }
+
                     } catch (Exception $e) {
                         $status = $attempts >= 3 ? Task::STATUS_FAILED : Task::STATUS_ERROR;
                         $output = ['error' => "Unable to execute task {$task['name']}: {$e->getMessage()}"];
