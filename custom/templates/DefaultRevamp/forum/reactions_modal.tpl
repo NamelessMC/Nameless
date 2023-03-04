@@ -1,7 +1,7 @@
 <div class="ui pointing menu">
     {foreach from=$REACTIONS item=reaction}
         <a class="{if $ACTIVE_TAB == $reaction.id}active{/if} item" data-tab="{$reaction.id}">
-            {$reaction.html} &nbsp; {$reaction.name} ({$reaction.count})
+            {if $reaction.id != 0}{$reaction.html} &nbsp; {/if}{$reaction.name} ({$reaction.count})
         </a>
     {/foreach}
 </div>

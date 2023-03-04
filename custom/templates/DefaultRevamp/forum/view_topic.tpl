@@ -292,7 +292,7 @@
         <div class="header">
             {$REACTIONS_TEXT}
         </div>
-        <div class="content">
+        <div class="scrolling content">
         </div>
     </div>
 {/if}

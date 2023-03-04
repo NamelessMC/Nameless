@@ -127,9 +127,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     }
 
+    foreach (array_keys($formatted_reactions) as $key) {
+        uasort($formatted_reactions[$key]['users'], static function ($a, $b) {
+            return strtotime($a['reacted_time']) < strtotime($b['reacted_time']);
+        });
+    }
+
     $smarty->assign([
         'ACTIVE_TAB' => $_GET['tab'],
-        // TODO sort by reacted_time
         'REACTIONS' => $formatted_reactions,
     ]);
 
