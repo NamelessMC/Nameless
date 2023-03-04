@@ -932,7 +932,7 @@
     "installer/requirements": "Requirements:",
     "installer/requirements_error": "You must have all of the required extensions installed, and have correct permissions set, in order to proceed with installation.",
     "installer/select_modules": "Select Modules",
-    "installer/select_modules_details": "Select the modules you would like to enable on your site. These toggled later on through the admin panel.",
+    "installer/select_modules_details": "Select the modules you would like to enable on your site. These can be toggled later on through the admin panel.",
     "installer/session_doesnt_exist": "Unable to detect session. Sessions saving are a requirement to use Nameless. Please try again after clearing cookies in your web browser, and if the issue persists, please contact your web host for support.",
     "installer/site_name": "Site Name",
     "installer/step_admin_account": "Admin Account",
