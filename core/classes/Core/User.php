@@ -574,7 +574,6 @@ class User {
      * @return IntegrationUser[] Their integrations.
      */
     public function getIntegrations(): array {
-        echo json_encode(debug_backtrace()) . '<br>';
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
