@@ -192,7 +192,9 @@
                                     {assign i 1}
                                     {foreach from=$reply.post_reactions name=reactions item=reaction}
                                         {if $i != 1} &nbsp; {/if}
-                                            <span style="cursor: pointer;" onclick="openReactionModal({$reply.id}, {$reaction.id})">{$reaction.html} {$reaction.count}</span>
+                                            <span style="cursor: pointer;" onclick="openReactionModal({$reply.id}, {$reaction.id})">
+                                                {$reaction.html} {$reaction.count}
+                                            </span>
                                         {assign i $i+1}
                                     {/foreach}
                                 </span>

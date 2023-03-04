@@ -637,7 +637,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 foreach ($reactions_query as $wall_post_reaction) {
                     if ($wall_post_reaction->user_id == $user->data()->id) {
-                        $reactions_by_user[$wall_post_reaction->id][] = $wall_post_reaction->reaction_id;
+                        $reactions_by_user[$nValue->id][] = $wall_post_reaction->reaction_id;
                     }
 
                     // Get reaction name and icon
@@ -647,7 +647,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         $reactions['reactions'][$reaction->id] = [
                             'id' => $reaction->id,
                             'name' => $reaction->name,
-                            'html' => $reaction->html,
+                            'html' => Text::renderEmojis($reaction->html),
                             'count' => 1,
                         ];
                     } else {

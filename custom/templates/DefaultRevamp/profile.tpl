@@ -110,26 +110,27 @@
                                     <div class="text forum_post">
                                         {$post.content}
                                     </div>
-                                    {if ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($post.reactions))}
+                                    {if ((isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID) || count($post.reactions))}
                                         <div class="ui mini message" id="reactions">
                                             {if count($post.reactions)}
-                                                <span class="left aligned" onclick="openReactionModal({$post.id})">
+                                                <span class="left aligned">
                                                     {assign i 1}
                                                     {foreach from=$post.reactions.reactions item=reaction}
                                                         {if $i != 1} &nbsp; {/if}
-                                                            {$reaction.html} {$reaction.count}
+                                                            <span style="cursor: pointer;" onclick="openReactionModal({$post.id}, {$reaction.id})">
+                                                                {$reaction.html} {$reaction.count}
+                                                            </span>
                                                         {assign i $i+1}
                                                     {/foreach}
                                                 </span>
                                             {/if}
-
-                                            {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
+                                            {if (isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID)}
                                                 <span class="right floated">
                                                     {foreach from=$REACTIONS item=reaction}
                                                         <span
                                                             data-toggle="tooltip" data-content="{$reaction->name}"
-                                                            class="{if array_key_exists($reply.id, $REACTIONS_BY_USER) && in_array($reaction->id, $REACTIONS_BY_USER[$reply.id])}reaction-button-selected{else}reaction-button{/if}"
-                                                            onclick="submitReaction({$reply.id}, {$reaction->id});"
+                                                            class="{if array_key_exists($post.id, $REACTIONS_BY_USER) && in_array($reaction->id, $REACTIONS_BY_USER[$post.id])}reaction-button-selected{else}reaction-button{/if}"
+                                                            onclick="submitReaction({$post.id}, {$reaction->id});"
                                                         >
                                                             {$reaction->html}
                                                         </span>
@@ -140,11 +141,6 @@
                                     {/if}
                                     {if isset($LOGGED_IN_USER)}
                                         <div class="actions">
-                                            {if $post.user_id != $VIEWER_ID}
-                                                <a href="{if $post.reactions_link !== "#"}{$post.reactions_link}{else}#{/if}" data-toggle="popup">
-                                                    {$LIKE} {if ($post.reactions.count|regex_replace:'/[^0-9]+/':'' != 0)}({$post.reactions.count|regex_replace:'/[^0-9]+/':''}){/if}
-                                                </a>
-                                            {/if}
                                             <a data-toggle="modal" data-target="#modal-reply-{$post.id}">
                                                 {$REPLY} {if ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}
                                             </a>
@@ -422,13 +418,29 @@
             });
     }
 
-    const openReactionModal = (post_id) => {
+    const submitReaction = (post_id, reaction_id) => {
+        $.post("{$REACTIONS_URL}", {
+            token: "{$TOKEN}",
+            post: post_id,
+            type: 'profile_post',
+            reaction: reaction_id,
+        }, (responseText) => {
+            if (responseText.startsWith('Reaction ')) {
+                window.location.reload();
+            } else {
+                console.error(responseText)
+            }
+        });
+    }
+
+    const openReactionModal = (post_id, reaction_id) => {
         const modal = $('#modal-reactions');
         modal.modal('show');
-        modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader">{$LOADING}</div></div>');
+        modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader"></div></div>');
         $.get("{$REACTIONS_URL}", {
             post: post_id,
             type: 'profile_post',
+            tab: reaction_id,
         }, (responseText) => {
             modal.find('.content').html(responseText);
         });

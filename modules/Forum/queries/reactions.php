@@ -9,8 +9,6 @@
  *  React to a post or get a reaction summary modal
  */
 
-$forum = new Forum();
-
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
     die('Not logged in');
@@ -33,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         die('Invalid input');
     }
     $post_id = $_POST['post'];
-    $post_type = 'post';
+    $post_type = $_GET['type'];
 }
 
 // Get post information
@@ -45,11 +43,11 @@ if (!$post->count()) {
 
 $post = $post->first();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $post_type === 'post') {
     $topic_id = $post->topic_id;
 
     // Check user can actually view the post
-    if (!($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
+    if (!((new Forum())->forumExist($post->forum_id, $user->getAllGroupIds()))) {
         die('Invalid post');
     }
 }
@@ -152,35 +150,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         die('Invalid token');
     }
 
-    // Check if the user has already reacted to this post
-    $user_reacted = DB::getInstance()->get('forums_reactions', [['post_id', $post->id], ['user_given', $user->data()->id]]);
-    if ($user_reacted->count()) {
-        $reaction = $user_reacted->first();
-        if ($reaction->reaction_id == $_POST['reaction']) {
-            // Undo reaction
-            DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
-            die('Reaction deleted');
-        } else {
-            // Change reaction
+    if ($post_type === 'post') {
+        // Check if the user has already reacted to this post
+        $user_reacted = DB::getInstance()->get('forums_reactions', [['post_id', $post->id], ['user_given', $user->data()->id]]);
+        if ($user_reacted->count()) {
+            $reaction = $user_reacted->first();
+            if ($reaction->reaction_id == $_POST['reaction']) {
+                DB::getInstance()->delete('forums_reactions', $reaction->id);
+                die('Reaction deleted');
+            }
+
             DB::getInstance()->update('forums_reactions', $reaction->id, [
                 'reaction_id' => $_POST['reaction'],
-                'time' => date('U')
+                'time' => date('U'),
             ]);
 
             die('Reaction changed');
         }
+
+        // Input new reaction
+        DB::getInstance()->insert('forums_reactions', [
+            'post_id' => $post->id,
+            'user_received' => $post->post_creator,
+            'user_given' => $user->data()->id,
+            'reaction_id' => $_POST['reaction'],
+            'time' => date('U'),
+        ]);
+
+        Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
+    } else {
+        // Check if the user has already reacted to this post
+        $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [['post_id', $post->id], ['user_id', $user->data()->id]]);
+        if ($user_reacted->count()) {
+            $reaction = $user_reacted->first();
+            if ($reaction->reaction_id == $_POST['reaction']) {
+                DB::getInstance()->delete('user_profile_wall_posts_reactions', $reaction->id);
+                die('Reaction deleted');
+            }
+
+            DB::getInstance()->update('user_profile_wall_posts_reactions', $reaction->id, [
+                'reaction_id' => $_POST['reaction'],
+                'time' => date('U'),
+            ]);
+
+            die('Reaction changed');
+        }
+
+        // Input new reaction
+        DB::getInstance()->insert('user_profile_wall_posts_reactions', [
+            'post_id' => $post->id,
+            'user_id' => $user->data()->id,
+            'reaction_id' => $_POST['reaction'],
+            'time' => date('U'),
+        ]);
     }
-
-    // Input new reaction
-    DB::getInstance()->insert('forums_reactions', [
-        'post_id' => $post->id,
-        'user_received' => $post->post_creator,
-        'user_given' => $user->data()->id,
-        'reaction_id' => $_POST['reaction'],
-        'time' => date('U')
-    ]);
-
-    Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
 
     die('Reaction added');
 }

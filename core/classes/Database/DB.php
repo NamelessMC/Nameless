@@ -170,10 +170,14 @@ class DB {
      * Perform a DELETE query on the database.
      *
      * @param string $table The table to delete from.
-     * @param array $where The where clause.
+     * @param mixed $where The where clause. If not an array, it will be used for "id" column lookup.
      * @return static|false This instance if successful, false otherwise.
      */
-    public function delete(string $table, array $where) {
+    public function delete(string $table, $where) {
+        if (!is_array($where)) {
+            $where = ['id', '=', $where];
+        }
+
         return $this->action('DELETE', $table, $where);
     }
 
