@@ -54,7 +54,9 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
         } else {
             $this->_smarty->assign([
                 'LAST_ONLINE' => $this->_language->get('admin', 'unknown'),
-                'LAST_ONLINE_AGO' => $this->_language->get('admin', 'unknown')
+                'LAST_ONLINE_AGO' => $this->_language->get('admin', 'unknown'),
+                'LAST_ONLINE_SERVER' => $this->_language->get('admin', 'unknown'),
+                'LAST_ONLINE_SERVER_IP' => $this->_language->get('admin', 'unknown')
             ]);
         }
 
