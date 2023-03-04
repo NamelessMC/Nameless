@@ -37,6 +37,16 @@ class Validate {
     public const AGREE = 'agree';
 
     /**
+     * @var string Check the numeric value is at least x
+     */
+    public const AT_LEAST = 'at_least';
+
+    /**
+     * @var string Check the numeric value is at most x
+     */
+    public const AT_MOST = 'at_most';
+
+    /**
      * @var string Check the value has not already been inputted in the database
      */
     public const UNIQUE = 'unique';
@@ -70,6 +80,11 @@ class Validate {
      * @var string Check that the value is numeric
      */
     public const NUMERIC = 'numeric';
+
+    /**
+     * @var string Check that the value is one of a set of values
+     */
+    public const ONE_OF = 'one_of';
 
     /**
      * @var string Check that the value matches a regex pattern
@@ -206,6 +221,26 @@ class Validate {
                         }
                         break;
 
+                    case self::AT_LEAST:
+                        if (floatval($value) < $rule_value) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::AT_LEAST,
+                                'fallback' => "$item must have a value of at least $rule_value."
+                            ]);
+                        }
+                        break;
+
+                    case self::AT_MOST:
+                        if (floatval($value) > $rule_value) {
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::AT_MOST,
+                                'fallback' => "$item must have a value of at most $rule_value."
+                            ]);
+                        }
+                        break;
+
                     case self::UNIQUE:
                         if (is_array($rule_value)) {
                             $table = $rule_value[0];
@@ -325,6 +360,18 @@ class Validate {
                                 ]);
                             }
                             break;
+                        }
+                        break;
+
+                    case self::ONE_OF:
+                        $values = is_string($rule_value) ? [$rule_value] : $rule_value;
+                        if (!in_array($value, $values)) {
+                            $string_values = implode(', ', $values);
+                            $validator->addError([
+                                'field' => $item,
+                                'rule' => self::ONE_OF,
+                                'fallback' => "$item must be one of $string_values."
+                            ]);
                         }
                         break;
 

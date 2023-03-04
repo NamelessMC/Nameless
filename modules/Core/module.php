@@ -42,6 +42,8 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
         $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
         $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
+        $pages->add('Core', '/queries/queue', 'queries/queue.php');
+        $pages->add('Core', '/queries/queue_status', 'queries/queue_status.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
         $pages->add('Core', '/queries/servers', 'queries/servers.php');
         $pages->add('Core', '/queries/server', 'queries/server.php');
@@ -93,6 +95,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
+        $pages->add('Core', '/panel/core/queue', 'pages/panel/queue.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
         $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
@@ -115,6 +118,10 @@ class Core_Module extends Module {
 
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));
+
+        if (Util::getSetting('queue_runner') == 'ajax') {
+            $pages->addAjaxScript(URL::build('/queries/queue'));
+        }
 
         // "More" dropdown
         $cache->setCache('navbar_icons');
@@ -692,6 +699,7 @@ class Core_Module extends Module {
             'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
             'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails_mass_message'),
             'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
+            'admincp.core.queue' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'queue'),
             'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
             'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
             'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
@@ -1157,6 +1165,17 @@ class Core_Module extends Module {
                     }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('admincp.core.queue')) {
+                    if (!$cache->isCached('queue_icon')) {
+                        $icon = '<i class="nav-icon fas fa-clock"></i>';
+                        $cache->store('queue_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('queue_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('core_configuration', 'queue', $language->get('admin', 'queue'), URL::build('/panel/core/queue'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.reactions')) {
