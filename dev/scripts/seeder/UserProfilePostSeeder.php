@@ -39,14 +39,15 @@ class UserProfilePostSeeder extends Seeder {
             ]);
         });
 
-        $this->times(500, function () use ($db, $faker, $profile_posts) {
+        $reactions = $db->get('reactions', ['id', '<>', 0])->results();
+        $this->times(500, function () use ($db, $faker, $profile_posts, $reactions) {
             $post = $faker->randomElement($profile_posts);
             $user_id = $faker->randomElement($profile_posts)->user_id;
 
             $db->insert('user_profile_wall_posts_reactions', [
                 'user_id' => $user_id,
                 'post_id' => $post->id,
-                'reaction_id' => 1,
+                'reaction_id' => $faker->randomElement($reactions)->id,
                 'time' => $this->since($post->time, $faker)->format('U'),
             ]);
         });

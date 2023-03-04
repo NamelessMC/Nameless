@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         die('Invalid input');
     }
     $post_id = $_POST['post'];
-    $post_type = $_GET['type'];
+    $post_type = $_POST['type'];
 }
 
 // Get post information

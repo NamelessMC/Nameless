@@ -387,7 +387,8 @@
             $.post("{$REACTIONS_URL}", {
                 token: "{$TOKEN}",
                 reaction: reaction_id,
-                post: post_id
+                post: post_id,
+                type: 'post',
             }, (responseText) => {
                 if (responseText.startsWith('Reaction ')) {
                     window.location.reload();
@@ -407,9 +408,6 @@
                 tab: reaction_id,
             }, (responseText) => {
                 modal.find('.content').html(responseText);
-                setTimeout(() => {
-                    document.activeElement.blur();
-                }, 300);
             });
         }
     </script>

@@ -1,11 +1,11 @@
 <div class="ui fluid card">
     <div class="content">
         <h4 class="ui header">Reactions</h4>
-        <table class="ui celled table center aligned">
+        <table class="ui table center aligned">
             <thead>
             <tr>
                 <th></th>
-                <th>Recieved</th>
+                <th>Received</th>
                 <th>Given</th>
             </tr>
             </thead>

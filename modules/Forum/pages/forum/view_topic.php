@@ -537,6 +537,14 @@ $smarty->assign('PAGINATION', $pagination);
 
 // Replies
 $replies = [];
+$all_reactions = Reaction::find(true, 'enabled');
+if (!count($all_reactions)) {
+    $all_reactions = [];
+} else {
+    foreach ($all_reactions as $reaction) {
+        $reaction->html = Text::renderEmojis($reaction->html);
+    }
+}
 $reactions_by_user = [];
 // Display the correct number of posts
 foreach ($results->data as $n => $nValue) {
@@ -656,13 +664,15 @@ foreach ($results->data as $n => $nValue) {
                 }
 
                 if (!isset($post_reactions[$item->reaction_id])) {
-                    $reaction = Reaction::find($item->reaction_id);
-                    $post_reactions[$item->reaction_id] = [
-                        'id' => $reaction->id,
-                        'html' => Text::renderEmojis($reaction->html),
-                        'name' => $reaction->name,
-                        'count' => 1,
-                    ];
+                    if (array_key_exists($item->reaction_id, $all_reactions)) {
+                        $reaction = $all_reactions[$item->reaction_id];
+                        $post_reactions[$item->reaction_id] = [
+                            'id' => $reaction->id,
+                            'html' => Text::renderEmojis($reaction->html),
+                            'name' => $reaction->name,
+                            'count' => 1,
+                        ];
+                    }
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
@@ -723,18 +733,10 @@ $smarty->assign('REPLIES', $replies);
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $reactions = Reaction::find(true, 'enabled');
-        if (!count($reactions)) {
-            $reactions = [];
-        }
-        foreach ($reactions as $reaction) {
-            $reaction->html = Text::renderEmojis($reaction->html);
-        }
-
         $smarty->assign([
-            'REACTIONS' => $reactions,
+            'REACTIONS' => $all_reactions,
             'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
-            'REACTIONS_BY_USER' => $reactions_by_user
+            'REACTIONS_BY_USER' => $reactions_by_user,
         ]);
     }
 

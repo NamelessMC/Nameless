@@ -574,6 +574,7 @@ class User {
      * @return IntegrationUser[] Their integrations.
      */
     public function getIntegrations(): array {
+        echo json_encode(debug_backtrace()) . '<br>';
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
@@ -627,9 +628,11 @@ class User {
      */
     public function getPlaceholders(): array {
         return $this->_placeholders ??= (function (): array {
-            $integrationUser = $this->getIntegration('Minecraft');
-            if ($integrationUser != null) {
-                return Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
+            if (Util::getSetting('mc_integration')) {
+                $integrationUser = $this->getIntegration('Minecraft');
+                if ($integrationUser !== null) {
+                    return Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
+                }
             }
 
             return [];
