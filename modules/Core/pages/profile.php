@@ -406,7 +406,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     DB::getInstance()->insert('user_profile_wall_posts_reactions', [
                         'user_id' => $user->data()->id,
                         'post_id' => $_GET['post'],
-                        'reaction_id' => Util::getSetting('profile_post_like_reaction_id', 1),
+                        'reaction_id' => 1,
                         'time' => date('U')
                     ]);
                 }
@@ -594,7 +594,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
         'LIKE' => $language->get('user', 'like'),
-        //'REACTIONS' => $reactions,
         'CLOSE' => $language->get('general', 'close'),
         'REPLIES_TITLE' => $language->get('user', 'replies'),
         'NO_REPLIES' => $language->get('user', 'no_replies_yet'),
@@ -613,6 +612,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $wall_posts = [];
     $wall_posts_query = DB::getInstance()->orderWhere('user_profile_wall_posts', 'user_id = ' . $query->id, 'time', 'DESC')->results();
 
+    $reactions_by_user = [];
     if (count($wall_posts_query)) {
         // Pagination
         $paginator = new Paginator(
@@ -627,52 +627,39 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
         // Display the correct number of posts
         foreach ($results->data as $nValue) {
-            $post_user = DB::getInstance()->get('users', ['id', $nValue->author_id])->results();
-
-            if (!count($post_user)) {
-                continue;
-            }
-
-            // Get reactions/replies
+            // Get reactions
             $reactions = [];
-            $replies = [];
-
             $reactions_query = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $nValue->id])->results();
             if (count($reactions_query)) {
-                if (count($reactions_query) == 1) {
-                    $reactions['count'] = $language->get('user', '1_reaction');
-                } else {
-                    $reactions['count'] = $language->get('user', 'x_reactions', ['count' => count($reactions_query)]);
-                }
+                $reactions['count'] = count($reactions_query) === 1
+                    ? $language->get('user', '1_reaction')
+                    : $language->get('user', 'x_reactions', ['count' => count($reactions_query)]);
 
-                foreach ($reactions_query as $reaction) {
+                foreach ($reactions_query as $wall_post_reaction) {
+                    if ($wall_post_reaction->user_id == $user->data()->id) {
+                        $reactions_by_user[$wall_post_reaction->id][] = $wall_post_reaction->reaction_id;
+                    }
+
                     // Get reaction name and icon
-                    // TODO
-                    /*
-                    $reaction_name = DB::getInstance()->get('reactions', array('id', $reaction->reaction_id))->results();
+                    $reaction = Reaction::find($wall_post_reaction->reaction_id);
 
-                    if (!count($reaction_name) || $reaction_name[0]->enabled == 0) continue;
-                    $reaction_html = $reaction_name[0]->html;
-                    $reaction_name = Output::getClean($reaction_name[0]->name);
-                    */
-
-                    $target_user = new User($reaction->user_id);
-                    $reactions['reactions'][] = [
-                        'user_id' => Output::getClean($reaction->user_id),
-                        'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupStyle(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar(500),
-                        //'reaction_name' => $reaction_name,
-                        //'reaction_html' => $reaction_html
-                    ];
+                    if (!isset($reactions['reactions'][$reaction->id])) {
+                        $reactions['reactions'][$reaction->id] = [
+                            'id' => $reaction->id,
+                            'name' => $reaction->name,
+                            'html' => $reaction->html,
+                            'count' => 1,
+                        ];
+                    } else {
+                        $reactions['reactions'][$reaction->id]['count']++;
+                    }
                 }
             } else {
                 $reactions['count'] = $language->get('user', 'x_reactions', ['count' => 0]);
             }
-            $reactions_query = null;
 
+            // Get replies
+            $replies = [];
             $replies_query = DB::getInstance()->orderWhere('user_profile_wall_posts_replies', 'post_id = ' . $nValue->id, 'time', 'ASC')->results();
             if (count($replies_query)) {
                 if (count($replies_query) == 1) {
@@ -702,22 +689,22 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
             $replies_query = null;
 
-            $target_user = new User($post_user[0]->id);
+            $post_user = new User($nValue->author_id);
             $wall_posts[] = [
                 'id' => $nValue->id,
-                'user_id' => Output::getClean($post_user[0]->id),
-                'username' => $target_user->getDisplayname(true),
-                'nickname' => $target_user->getDisplayname(),
-                'profile' => $target_user->getProfileURL(),
-                'user_style' => $target_user->getGroupStyle(),
-                'avatar' => $target_user->getAvatar(500),
+                'user_id' => Output::getClean($post_user->data()->id),
+                'username' => $post_user->getDisplayname(true),
+                'nickname' => $post_user->getDisplayname(),
+                'profile' => $post_user->getProfileURL(),
+                'user_style' => $post_user->getGroupStyle(),
+                'avatar' => $post_user->getAvatar(500),
                 'content' => Output::getPurified(Output::getDecoded($nValue->content)),
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
+                'reactions_link' => ($user->isLoggedIn() && ($post_user->data()->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
             ];
         }
     } else {
@@ -817,6 +804,21 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     ];
 
     $smarty->assign('ABOUT_FIELDS', $fields);
+
+    $reactions = Reaction::find(true, 'enabled');
+    if (!count($reactions)) {
+        $reactions = [];
+    }
+    foreach ($reactions as $reaction) {
+        $reaction->html = Text::renderEmojis($reaction->html);
+    }
+    $smarty->assign([
+        'REACTIONS' => $reactions,
+        'REACTIONS_BY_USER' => $reactions_by_user,
+        'REACTIONS_TEXT' => $language->get('user', 'reactions'),
+        'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
+        'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id : 0),
+    ]);
 
     // Custom tabs
     $tabs = [];

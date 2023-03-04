@@ -6,7 +6,7 @@
  *
  *  License: MIT
  *
- *  React to a post
+ *  React to a post or get a reaction summary modal
  */
 
 $forum = new Forum();
@@ -22,57 +22,131 @@ if (Util::getSetting('forum_reactions') !== '1') {
 }
 
 // Validate form input
-if (!isset($_POST['post'], $_POST['reaction']) || !is_numeric($_POST['post']) || !is_numeric($_POST['reaction'])) {
-    die('Invalid input');
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
+        die('Invalid input');
+    }
+    $post_id = $_GET['post'];
+    $post_type = $_GET['type'];
+} else {
+    if (!isset($_POST['post'], $_POST['reaction']) || !is_numeric($_POST['post']) || !is_numeric($_POST['reaction'])) {
+        die('Invalid input');
+    }
+    $post_id = $_POST['post'];
+    $post_type = 'post';
 }
 
 // Get post information
-$post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
+$post = DB::getInstance()->get($post_type === 'post' ? 'posts' : 'user_profile_wall_posts', ['id', $post_id]);
 
-if (!count($post)) {
+if (!$post->count()) {
     die('Invalid post');
 }
 
-$post = $post[0];
-$topic_id = $post->topic_id;
+$post = $post->first();
 
-// Check user can actually view the post
-if (!($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
-    die('Invalid post');
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $topic_id = $post->topic_id;
 
-if (!Token::check()) {
-    die('Invalid token');
-}
-
-// Check if the user has already reacted to this post
-$user_reacted = DB::getInstance()->get('forums_reactions', [['post_id', $post->id], ['user_given', $user->data()->id]]);
-if ($user_reacted->count()) {
-    $reaction = $user_reacted->first();
-    if ($reaction->reaction_id == $_POST['reaction']) {
-        // Undo reaction
-        DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
-        die('Reaction deleted');
-    } else {
-        // Change reaction
-        DB::getInstance()->update('forums_reactions', $reaction->id, [
-            'reaction_id' => $_POST['reaction'],
-            'time' => date('U')
-        ]);
-
-        die('Reaction changed');
+    // Check user can actually view the post
+    if (!($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
+        die('Invalid post');
     }
 }
 
-// Input new reaction
-DB::getInstance()->insert('forums_reactions', [
-    'post_id' => $post->id,
-    'user_received' => $post->post_creator,
-    'user_given' => $user->data()->id,
-    'reaction_id' => $_POST['reaction'],
-    'time' => date('U')
-]);
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    define('PAGE', 'reactions_modal');
+    $page_title = 'reactions_modal';
+    require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-die('Reaction added');
+    $template->onPageLoad();
+
+    $all_reactions = Reaction::find(true, 'enabled');
+    $formatted_reactions = [];
+
+    if ($post_type === 'post') {
+        $reactions = DB::getInstance()->get('forums_reactions', ['post_id', $post->id]);
+    } else {
+        $reactions = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $post->id]);
+    }
+
+    if ($reactions->count()) {
+        $reactions = $reactions->results();
+    } else {
+        $reactions = [];
+    }
+
+    foreach ($reactions as $reaction) {
+        $reaction_user = new User($reaction->{$post_type === 'post' ? 'user_given' : 'user_id'});
+
+        if (isset($formatted_reactions[$reaction->reaction_id])) {
+            $formatted_reactions[$reaction->reaction_id]['count']++;
+            $formatted_reactions[$reaction->reaction_id]['users'][] = [
+                'nickname' => Output::getClean($reaction_user->getDisplayname()),
+                'avatar' => $reaction_user->getAvatar(),
+                'profile' => $reaction_user->getProfileURL(),
+            ];
+            continue;
+        }
+
+        $formatted_reactions[$reaction->reaction_id] = [
+            'name' => $all_reactions[$reaction->reaction_id]->name,
+            'html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
+            'count' => 1,
+            'users' => [
+                [
+                    'nickname' => Output::getClean($reaction_user->getDisplayname()),
+                    'avatar' => $reaction_user->getAvatar(),
+                    'profile' => $reaction_user->getProfileURL(),
+                ],
+            ],
+        ];
+    }
+
+    $smarty->assign([
+       'REACTIONS' => $formatted_reactions,
+    ]);
+
+    // modal
+    die($template->getTemplate('forum/reactions_modal.tpl', $smarty));
+} else {
+    // add reaction
+    if (!Token::check()) {
+        die('Invalid token');
+    }
+
+    // Check if the user has already reacted to this post
+    $user_reacted = DB::getInstance()->get('forums_reactions', [['post_id', $post->id], ['user_given', $user->data()->id]]);
+    if ($user_reacted->count()) {
+        $reaction = $user_reacted->first();
+        if ($reaction->reaction_id == $_POST['reaction']) {
+            // Undo reaction
+            DB::getInstance()->delete('forums_reactions', ['id', $reaction->id]);
+            die('Reaction deleted');
+        } else {
+            // Change reaction
+            DB::getInstance()->update('forums_reactions', $reaction->id, [
+                'reaction_id' => $_POST['reaction'],
+                'time' => date('U')
+            ]);
+
+            die('Reaction changed');
+        }
+    }
+
+    // Input new reaction
+    DB::getInstance()->insert('forums_reactions', [
+        'post_id' => $post->id,
+        'user_received' => $post->post_creator,
+        'user_given' => $user->data()->id,
+        'reaction_id' => $_POST['reaction'],
+        'time' => date('U')
+    ]);
+
+    Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
+
+    die('Reaction added');
+}

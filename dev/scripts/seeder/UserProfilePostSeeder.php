@@ -45,7 +45,7 @@ class UserProfilePostSeeder extends Seeder {
 
             $db->insert('user_profile_wall_posts_reactions', [
                 'user_id' => $user_id,
-                'post_id' => $post->time,
+                'post_id' => $post->id,
                 'reaction_id' => 1,
                 'time' => $this->since($post->time, $faker)->format('U'),
             ]);

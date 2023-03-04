@@ -20,25 +20,18 @@
 <script src="https://bs-community.github.io/skinview3d/js/skinview3d.bundle.js"></script>
 
 <script>
-    let skinViewer = new skinview3d.SkinViewer({
+    const skinViewer = new skinview3d.SkinViewer({
         canvas: document.getElementById("skin_container"),
         skin: "https://crafthead.net/skin/{$UUID}",
     });
 
-    // Change viewer size
     skinViewer.width = 150;
     skinViewer.height = 200;
     skinViewer.nameTag = '{$USERNAME}';
     skinViewer.controls.enableZoom = false;
     skinViewer.controls.enablePan = false;
     skinViewer.controls.enableRotate = false;
-
-    // Zoom out
     skinViewer.zoom = 0.8;
-
-    // Rotate the player
     skinViewer.autoRotate = true;
-
-    // Apply an animation
     skinViewer.animation = new skinview3d.IdleAnimation();
 </script>

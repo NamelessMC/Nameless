@@ -483,11 +483,13 @@ class User {
     public function getAvatar(int $size = 128, bool $full = false): string {
         $data_obj = (object) $this->data();
 
-        $integrationUser = $this->getIntegration('Minecraft');
-        if ($integrationUser != null) {
-            $data_obj->uuid = $integrationUser->data()->identifier;
-        } else {
-            $data_obj->uuid = '';
+        if (Util::getSetting('mc_integration')) {
+            $integrationUser = $this->getIntegration('Minecraft');
+            if ($integrationUser != null) {
+                $data_obj->uuid = $integrationUser->data()->identifier;
+            } else {
+                $data_obj->uuid = '';
+            }
         }
 
         return AvatarSource::getAvatarFromUserData($data_obj, $this->hasPermission('usercp.gif_avatar'), $size, $full);
@@ -575,7 +577,7 @@ class User {
         return $this->_integrations ??= (function (): array {
             $integrations = Integrations::getInstance();
 
-            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
+            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id = nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
 

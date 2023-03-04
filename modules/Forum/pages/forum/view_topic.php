@@ -398,6 +398,7 @@ if ($user->isLoggedIn()) {
 
 // Are reactions enabled?
 $reactions_enabled = Util::getSetting('forum_reactions') === '1';
+$smarty->assign('REACTIONS_ENABLED', $reactions_enabled);
 
 // Assign Smarty variables to pass to template
 $parent_category = DB::getInstance()->get('forums', ['id', $forum_parent[0]->parent])->results();
@@ -655,31 +656,15 @@ foreach ($results->data as $n => $nValue) {
                 }
 
                 if (!isset($post_reactions[$item->reaction_id])) {
-                    $post_reactions[$item->reaction_id]['count'] = 1;
-
                     $reaction = Reaction::find($item->reaction_id);
-                    $post_reactions[$item->reaction_id]['html'] = Text::renderEmojis($reaction->html);
-                    $post_reactions[$item->reaction_id]['name'] = $reaction->name;
-
-                    if ($reaction->type == Reaction::TYPE_POSITIVE) {
-                        $total_karma++;
-                    } else {
-                        if ($reaction->type == Reaction::TYPE_NEGATIVE) {
-                            $total_karma--;
-                        }
-                    }
+                    $post_reactions[$item->reaction_id] = [
+                        'html' => Text::renderEmojis($reaction->html),
+                        'name' => $reaction->name,
+                        'count' => 1,
+                    ];
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
-
-                $reaction_user = new User($item->user_given);
-                $post_reactions[$item->reaction_id]['users'][] = [
-                    'username' => $reaction_user->getDisplayname(true),
-                    'nickname' => $reaction_user->getDisplayname(),
-                    'style' => $reaction_user->getGroupStyle(),
-                    'avatar' => $reaction_user->getAvatar(),
-                    'profile' => $reaction_user->getProfileURL()
-                ];
             }
         }
     }

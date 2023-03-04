@@ -73,24 +73,6 @@
                             {else}
                                 {$NO_REACTIONS}
                             {/if}
-
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <input type="hidden" name="action" value="update_profile_post_like_reaction">
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <label for="profile_post_like_reaction">Profile post like</label>
-                                    <select class="form-control" name="profile_post_like_reaction" id="profile_post_like_reaction">
-                                        {foreach from=$REACTIONS_LIST item=reaction}
-                                            <option value="{$reaction.id}" {if $PROFILE_POST_LIKE_VALUE == $reaction.id}selected{/if}>
-                                                {$reaction.name}
-                                            </option>
-                                        {/foreach}
-                                    </select>z
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">{$SUBMIT}</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
 

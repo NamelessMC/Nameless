@@ -185,14 +185,14 @@
                             {$reply.signature}
                         </div>
                     {/if}
-                    {if ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($reply.post_reactions))}
+                    {if $REACTIONS_ENABLED && ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($reply.post_reactions))}
                         <div class="ui mini message" id="reactions">
                             {if count($reply.post_reactions)}
-                                <span class="left aligned">
+                                <span class="left aligned" onclick="openReactionModal({$reply.id})">
                                     {assign i 1}
                                     {foreach from=$reply.post_reactions name=reactions item=reaction}
                                         {if $i != 1} &nbsp; {/if}
-                                        {$reaction.html} {$reaction.name} x <strong>{$reaction.count}</strong>
+                                            {$reaction.html} {$reaction.name} x <strong>{$reaction.count}</strong>
                                         {assign i $i+1}
                                     {/foreach}
                                 </span>
@@ -287,91 +287,77 @@
 </div>
 {/if}
 
-{foreach from=$REPLIES item=reply}
-{if count($reply.post_reactions)}
-<div class="ui small modal" id="modal-reactions-{$reply.id}">
-    <div class="header">
-        {$REACTIONS_TEXT}
-    </div>
-    <div class="content">
-        {foreach from=$reply.post_reactions name=reactions item=reaction}
-        <strong>{$reaction.html} x {$reaction.count}:</strong>
-        <br />
-        <div class="ui middle aligned small list">
-            {foreach from=$reaction.users item=user}
-            <div class="item">
-                <img class="ui avatar image" src="{$user.avatar}">
-                <div class="content">
-                    <a class="header" href="{$user.profile}">{$user.nickname}</a>
-                </div>
-            </div>
-            {/foreach}
+{if $REACTIONS_ENABLED}
+    <div class="ui small modal" id="modal-reactions">
+        <div class="header">
+            {$REACTIONS_TEXT}
         </div>
-        {/foreach}
+        <div class="content">
+        </div>
     </div>
-</div>
 {/if}
 
-{if isset($reply.buttons.report)}
-<div class="ui small modal" id="modal-report-{$reply.id}">
-    <div class="header">
-        {$reply.buttons.report.TEXT}
-    </div>
-    <div class="content">
-        <form action="{$reply.buttons.report.URL}" method="post" id="form-report-{$reply.id}">
-            <div class="ui form">
-                <div class="field">
-                    <label for="InputReason">{$reply.buttons.report.REPORT_TEXT}</label>
-                    <textarea id="InputReason" name="reason"></textarea>
-                </div>
-                <input type="hidden" name="post" value="{$reply.id}">
-                <input type="hidden" name="topic" value="{$TOPIC_ID}">
-                <input type="hidden" name="token" value="{$TOKEN}">
+{foreach from=$REPLIES item=reply}
+    {if isset($reply.buttons.report)}
+        <div class="ui small modal" id="modal-report-{$reply.id}">
+            <div class="header">
+                {$reply.buttons.report.TEXT}
             </div>
-        </form>
-    </div>
-    <div class="actions">
-        <a class="ui negative button">{$CANCEL}</a>
-        <a class="ui positive button" onclick="$('#form-report-{$reply.id}').submit();">{$reply.buttons.report.TEXT}</a>
-    </div>
-</div>
-{/if}
-{if isset($CAN_MODERATE)}
-<div class="ui small modal" id="modal-spam-{$reply.id}">
-    <div class="header">
-        {$MARK_AS_SPAM}
-    </div>
-    <div class="content">
-        {$CONFIRM_SPAM_POST}
-        <form action="{$reply.buttons.spam.URL}" method="post" id="form-spam-{$reply.id}">
-            <input type="hidden" name="post" value="{$reply.id}">
-            <input type="hidden" name="token" value="{$TOKEN}">
-        </form>
-    </div>
-    <div class="actions">
-        <a class="ui negative button">{$CANCEL}</a>
-        <a class="ui positive button" onclick="$('#form-spam-{$reply.id}').submit();">{$MARK_AS_SPAM}</a>
-    </div>
-</div>
-<div class="ui small modal" id="modal-delete-{$reply.id}">
-    <div class="header">
-        {$CONFIRM_DELETE_SHORT}
-    </div>
-    <div class="content">
-        {$CONFIRM_DELETE_POST}
-        <form action="{$reply.buttons.delete.URL}" method="post" id="form-delete-{$reply.id}">
-            <input type="hidden" name="tid" value="{$TOPIC_ID}">
-            <input type="hidden" name="number" value="{$reply.buttons.delete.NUMBER}">
-            <input type="hidden" name="pid" value="{$reply.id}">
-            <input type="hidden" name="token" value="{$TOKEN}">
-        </form>
-    </div>
-    <div class="actions">
-        <a class="ui negative button">{$CANCEL}</a>
-        <a class="ui positive button" onclick="$('#form-delete-{$reply.id}').submit();">{$reply.buttons.delete.TEXT}</a>
-    </div>
-</div>
-{/if}
+            <div class="content">
+                <form action="{$reply.buttons.report.URL}" method="post" id="form-report-{$reply.id}">
+                    <div class="ui form">
+                        <div class="field">
+                            <label for="InputReason">{$reply.buttons.report.REPORT_TEXT}</label>
+                            <textarea id="InputReason" name="reason"></textarea>
+                        </div>
+                        <input type="hidden" name="post" value="{$reply.id}">
+                        <input type="hidden" name="topic" value="{$TOPIC_ID}">
+                        <input type="hidden" name="token" value="{$TOKEN}">
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <a class="ui negative button">{$CANCEL}</a>
+                <a class="ui positive button" onclick="$('#form-report-{$reply.id}').submit();">{$reply.buttons.report.TEXT}</a>
+            </div>
+        </div>
+    {/if}
+    {if isset($CAN_MODERATE)}
+        <div class="ui small modal" id="modal-spam-{$reply.id}">
+            <div class="header">
+                {$MARK_AS_SPAM}
+            </div>
+            <div class="content">
+                {$CONFIRM_SPAM_POST}
+                <form action="{$reply.buttons.spam.URL}" method="post" id="form-spam-{$reply.id}">
+                    <input type="hidden" name="post" value="{$reply.id}">
+                    <input type="hidden" name="token" value="{$TOKEN}">
+                </form>
+            </div>
+            <div class="actions">
+                <a class="ui negative button">{$CANCEL}</a>
+                <a class="ui positive button" onclick="$('#form-spam-{$reply.id}').submit();">{$MARK_AS_SPAM}</a>
+            </div>
+        </div>
+        <div class="ui small modal" id="modal-delete-{$reply.id}">
+            <div class="header">
+                {$CONFIRM_DELETE_SHORT}
+            </div>
+            <div class="content">
+                {$CONFIRM_DELETE_POST}
+                <form action="{$reply.buttons.delete.URL}" method="post" id="form-delete-{$reply.id}">
+                    <input type="hidden" name="tid" value="{$TOPIC_ID}">
+                    <input type="hidden" name="number" value="{$reply.buttons.delete.NUMBER}">
+                    <input type="hidden" name="pid" value="{$reply.id}">
+                    <input type="hidden" name="token" value="{$TOKEN}">
+                </form>
+            </div>
+            <div class="actions">
+                <a class="ui negative button">{$CANCEL}</a>
+                <a class="ui positive button" onclick="$('#form-delete-{$reply.id}').submit();">{$reply.buttons.delete.TEXT}</a>
+            </div>
+        </div>
+    {/if}
 {/foreach}
 
 {if isset($CAN_MODERATE)}
@@ -393,20 +379,34 @@
 </div>
 {/if}
 
-<script>
-    const submitReaction = (post_id, reaction_id) => {
-        $.post("{$REACTIONS_URL}", {
-            token: "{$TOKEN}",
-            reaction: reaction_id,
-            post: post_id
-        }, (responseText) => {
-            if (responseText.startsWith('Reaction ')) {
-                window.location.reload();
-            } else {
-                console.error(responseText)
-            }
-        });
-    }
-</script>
+{if $REACTIONS_ENABLED}
+    <script>
+        const submitReaction = (post_id, reaction_id) => {
+            $.post("{$REACTIONS_URL}", {
+                token: "{$TOKEN}",
+                reaction: reaction_id,
+                post: post_id
+            }, (responseText) => {
+                if (responseText.startsWith('Reaction ')) {
+                    window.location.reload();
+                } else {
+                    console.error(responseText)
+                }
+            });
+        }
+
+        const openReactionModal = (post_id) => {
+            const modal = $('#modal-reactions');
+            modal.modal('show');
+            modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader">{$LOADING}</div></div>');
+            $.get("{$REACTIONS_URL}", {
+                post: post_id,
+                type: 'post',
+            }, (responseText) => {
+                modal.find('.content').html(responseText);
+            });
+        }
+    </script>
+{/if}
 
 {include file='footer.tpl'}

@@ -92,7 +92,7 @@
                     </form>
                 {/if}
                 {if count($WALL_POSTS)}
-                    <div class="ui threaded comments" id="profile-posts">
+                    <div class="ui comments">
                         {foreach from=$WALL_POSTS item=post}
                             <div class="comment" id="post-{$post.id}">
                                 <a class="ui circular image avatar">
@@ -110,6 +110,34 @@
                                     <div class="text forum_post">
                                         {$post.content}
                                     </div>
+                                    {if ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($post.reactions))}
+                                        <div class="ui mini message" id="reactions">
+                                            {if count($post.reactions)}
+                                                <span class="left aligned" onclick="openReactionModal({$post.id})">
+                                                    {assign i 1}
+                                                    {foreach from=$post.reactions.reactions item=reaction}
+                                                        {if $i != 1} &nbsp; {/if}
+                                                            {$reaction.html} {$reaction.name} x <strong>{$reaction.count}</strong>
+                                                        {assign i $i+1}
+                                                    {/foreach}
+                                                </span>
+                                            {/if}
+
+                                            {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
+                                                <span class="right floated">
+                                                    {foreach from=$REACTIONS item=reaction}
+                                                        <span
+                                                            data-toggle="tooltip" data-content="{$reaction->name}"
+                                                            class="{if array_key_exists($reply.id, $REACTIONS_BY_USER) && in_array($reaction->id, $REACTIONS_BY_USER[$reply.id])}reaction-button-selected{else}reaction-button{/if}"
+                                                            onclick="submitReaction({$reply.id}, {$reaction->id});"
+                                                        >
+                                                            {$reaction->html}
+                                                        </span>
+                                                    {/foreach}
+                                                </span>
+                                            {/if}
+                                        </div>
+                                    {/if}
                                     {if isset($LOGGED_IN_USER)}
                                         <div class="actions">
                                             {if $post.user_id != $VIEWER_ID}
@@ -144,8 +172,9 @@
                                                 <div class="content">
                                                     <a class="author" href="{$item.profile}" style="{$item.style}">{$item.nickname}</a>
                                                     <div class="metadata">
-                                                            <span class="date" data-toggle="tooltip"
-                                                                  data-content="{$item.time_full}">{$item.time_friendly}</span>
+                                                        <span class="date" data-toggle="tooltip" data-content="{$item.time_full}">
+                                                            {$item.time_friendly}
+                                                        </span>
                                                     </div>
                                                     <div class="text forum_post">
                                                         {$item.content}
@@ -258,7 +287,7 @@
     </div>
     {if $CAN_VIEW && count($WIDGETS_RIGHT)}
         <div class="ui six wide tablet four wide computer column">
-            <div class="ui sticky aaaaaaaaaaa">
+            <div class="ui sticky">
                 {foreach from=$WIDGETS_RIGHT item=widget}
                     {$widget}
                 {/foreach}
@@ -269,6 +298,14 @@
 </div>
 
 {if count($WALL_POSTS)}
+    <div class="ui small modal" id="modal-reactions">
+        <div class="header">
+            {$REACTIONS_TEXT}
+        </div>
+        <div class="content">
+        </div>
+    </div>
+
     {foreach from=$WALL_POSTS item=post}
         {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
             <div class="ui small modal" id="modal-edit-{$post.id}">
@@ -383,6 +420,18 @@
             .sticky({
                 context: '#profile',
             });
+    }
+
+    const openReactionModal = (post_id) => {
+        const modal = $('#modal-reactions');
+        modal.modal('show');
+        modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader">{$LOADING}</div></div>');
+        $.get("{$REACTIONS_URL}", {
+            post: post_id,
+            type: 'profile_post',
+        }, (responseText) => {
+            modal.find('.content').html(responseText);
+        });
     }
 </script>
 

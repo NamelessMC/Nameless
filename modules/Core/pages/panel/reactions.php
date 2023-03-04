@@ -42,14 +42,6 @@ if (Session::exists('api_reactions_error')) {
 }
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
-    if (Input::exists()) {
-        if (Token::check()) {
-            if (Input::get('action') === 'update_profile_post_like_reaction') {
-                Util::setSetting('profile_post_like_reaction_id', Input::get('profile_post_like_reaction'));
-            }
-        }
-    }
-
     // Get all reactions
     $template_reactions = [];
     foreach (Reaction::all() as $reaction) {
@@ -86,7 +78,6 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         'TYPE' => $language->get('admin', 'type'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'REACTIONS_LIST' => $template_reactions,
-        'PROFILE_POST_LIKE_VALUE' => Util::getSetting('profile_post_like_reaction_id', 1),
         'NO_REACTIONS' => $language->get('admin', 'no_reactions'),
         'REORDER_DRAG_URL' => URL::build('/panel/core/reactions', 'action=order'),
     ]);

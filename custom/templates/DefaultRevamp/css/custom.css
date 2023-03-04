@@ -264,7 +264,11 @@ body.pushable>.pusher {
     }
 }
 
-#topic-post #post-content #reactions {
+.ui.comments {
+    max-width: none;
+}
+
+#reactions {
     margin-top: 1rem;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
