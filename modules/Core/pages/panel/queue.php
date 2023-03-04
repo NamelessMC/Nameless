@@ -50,6 +50,7 @@ if (isset($_GET['view'])) {
                 'RETRY' => $language->get('admin', 'queue_retry_task'),
                 'SCHEDULED_FOR' => $language->get('admin', 'queue_task_scheduled_for'),
                 'STATUS' => $language->get('admin', 'queue_task_status'),
+                'STATUS_CANCELLED' => $language->get('admin', 'queue_status_cancelled'),
                 'STATUS_COMPLETED' => $language->get('admin', 'queue_status_completed'),
                 'STATUS_ERROR' => $language->get('admin', 'queue_status_error'),
                 'STATUS_FAILED' => $language->get('admin', 'queue_status_failed'),
