@@ -658,6 +658,7 @@ foreach ($results->data as $n => $nValue) {
                 if (!isset($post_reactions[$item->reaction_id])) {
                     $reaction = Reaction::find($item->reaction_id);
                     $post_reactions[$item->reaction_id] = [
+                        'id' => $reaction->id,
                         'html' => Text::renderEmojis($reaction->html),
                         'name' => $reaction->name,
                         'count' => 1,

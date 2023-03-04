@@ -65,7 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $template->onPageLoad();
 
     $all_reactions = Reaction::find(true, 'enabled');
-    $formatted_reactions = [];
+    $formatted_reactions[0] = [
+        'id' => 0,
+        'name' => 'All',
+        'html' => '',
+        'count' => 0,
+        'users' => [],
+    ];
 
     if ($post_type === 'post') {
         $reactions = DB::getInstance()->get('forums_reactions', ['post_id', $post->id]);
@@ -88,11 +94,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'nickname' => Output::getClean($reaction_user->getDisplayname()),
                 'avatar' => $reaction_user->getAvatar(),
                 'profile' => $reaction_user->getProfileURL(),
+                'reacted_time' => date(DATE_FORMAT, $reaction->time),
+                'reaction_html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
             ];
             continue;
         }
 
         $formatted_reactions[$reaction->reaction_id] = [
+            'id' => $reaction->reaction_id,
             'name' => $all_reactions[$reaction->reaction_id]->name,
             'html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
             'count' => 1,
@@ -101,13 +110,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     'nickname' => Output::getClean($reaction_user->getDisplayname()),
                     'avatar' => $reaction_user->getAvatar(),
                     'profile' => $reaction_user->getProfileURL(),
+                    'reacted_time' => date(DATE_FORMAT, $reaction->time),
+                    'reaction_html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
                 ],
             ],
         ];
     }
 
+    $formatted_reactions[0]['count'] = count($reactions);
+    foreach ($formatted_reactions as $reaction) {
+        if ($reaction['id'] === 0) {
+            continue;
+        }
+        foreach ($reaction['users'] as $user) {
+            $formatted_reactions[0]['users'][] = $user;
+        }
+    }
+
     $smarty->assign([
-       'REACTIONS' => $formatted_reactions,
+        'ACTIVE_TAB' => $_GET['tab'],
+        // TODO sort by reacted_time
+        'REACTIONS' => $formatted_reactions,
     ]);
 
     // modal

@@ -188,11 +188,11 @@
                     {if $REACTIONS_ENABLED && ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($reply.post_reactions))}
                         <div class="ui mini message" id="reactions">
                             {if count($reply.post_reactions)}
-                                <span class="left aligned" onclick="openReactionModal({$reply.id})">
+                                <span class="left aligned">
                                     {assign i 1}
                                     {foreach from=$reply.post_reactions name=reactions item=reaction}
                                         {if $i != 1} &nbsp; {/if}
-                                            {$reaction.html} {$reaction.name} x <strong>{$reaction.count}</strong>
+                                            <span style="cursor: pointer;" onclick="openReactionModal({$reply.id}, {$reaction.id})">{$reaction.html} {$reaction.count}</span>
                                         {assign i $i+1}
                                     {/foreach}
                                 </span>
@@ -395,13 +395,14 @@
             });
         }
 
-        const openReactionModal = (post_id) => {
+        const openReactionModal = (post_id, reaction_id) => {
             const modal = $('#modal-reactions');
             modal.modal('show');
             modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader">{$LOADING}</div></div>');
             $.get("{$REACTIONS_URL}", {
                 post: post_id,
                 type: 'post',
+                tab: reaction_id,
             }, (responseText) => {
                 modal.find('.content').html(responseText);
             });

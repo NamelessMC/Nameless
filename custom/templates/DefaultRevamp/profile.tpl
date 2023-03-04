@@ -117,7 +117,7 @@
                                                     {assign i 1}
                                                     {foreach from=$post.reactions.reactions item=reaction}
                                                         {if $i != 1} &nbsp; {/if}
-                                                            {$reaction.html} {$reaction.name} x <strong>{$reaction.count}</strong>
+                                                            {$reaction.html} {$reaction.count}
                                                         {assign i $i+1}
                                                     {/foreach}
                                                 </span>
