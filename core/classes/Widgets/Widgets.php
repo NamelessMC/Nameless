@@ -113,11 +113,11 @@ class Widgets {
                 continue;
             }
 
-            if ($item instanceof ProfileWidgetBase) {
-                if (!$profile_user) {
-                    continue;
-                }
-            } else if ((defined('CUSTOM_PAGE') && !in_array(CUSTOM_PAGE, $item->getPages())) || !in_array(PAGE, $item->getPages())) {
+            if ($item instanceof ProfileWidgetBase && !$profile_user) {
+                continue;
+            }
+
+            if ((defined('CUSTOM_PAGE') && !in_array(CUSTOM_PAGE, $item->getPages())) || !in_array(PAGE, $item->getPages())) {
                 continue;
             }
 
