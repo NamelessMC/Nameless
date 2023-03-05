@@ -490,7 +490,6 @@ try {
                 'lastip' => (is_null($item->lastip) ? 'none' : $item->lastip),
                 'active' => $item->active,
                 'signature' => $item->signature,
-                'reputation' => $item->reputation,
                 'reset_code' => $item->reset_code,
                 'has_avatar' => $item->has_avatar,
                 'gravatar' => $item->gravatar,

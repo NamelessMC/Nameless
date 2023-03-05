@@ -588,7 +588,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'USERNAME_COLOUR' => $profile_user->getGroupStyle(),
         'USER_TITLE' => Output::getClean($query->user_title),
         'FOLLOW' => $language->get('user', 'follow'),
-        'AVATAR' => $profile_user->getAvatar(500),
+        'AVATAR' => $profile_user->getAvatar(),
         'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
         'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayname())]),
         'FEED' => $language->get('user', 'feed'),
@@ -656,6 +656,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
             } else {
                 $reactions['count'] = $language->get('user', 'x_reactions', ['count' => 0]);
+                $reactions['reactions'] = [];
             }
 
             // Get replies
@@ -676,7 +677,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'nickname' => $target_user->getDisplayname(),
                         'style' => $target_user->getGroupStyle(),
                         'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar(500),
+                        'avatar' => $target_user->getAvatar(),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified(Output::getDecoded($reply->content)),
@@ -697,7 +698,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'nickname' => $post_user->getDisplayname(),
                 'profile' => $post_user->getProfileURL(),
                 'user_style' => $post_user->getGroupStyle(),
-                'avatar' => $post_user->getAvatar(500),
+                'avatar' => $post_user->getAvatar(),
                 'content' => Output::getPurified(Output::getDecoded($nValue->content)),
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),

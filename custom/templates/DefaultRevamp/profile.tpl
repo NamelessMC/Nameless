@@ -45,11 +45,9 @@
     <div class="ui centered row">
         {if $CAN_VIEW && count($WIDGETS_LEFT)}
             <div class="ui six wide tablet four wide computer column">
-                <div class="ui sticky">
-                    {foreach from=$WIDGETS_LEFT item=widget}
-                        {$widget}
-                    {/foreach}
-                </div>
+                {foreach from=$WIDGETS_LEFT item=widget}
+                    {$widget}
+                {/foreach}
             </div>
         {/if}
         <div class="ui {if $CAN_VIEW && count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}four wide tablet eight wide computer{elseif $CAN_VIEW && (count($WIDGETS_LEFT) || count($WIDGETS_RIGHT))}ten wide tablet twelve wide computer{else}sixteen wide{/if} column">
@@ -110,14 +108,14 @@
                                     <div class="text forum_post">
                                         {$post.content}
                                     </div>
-                                    {if ((isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID) || count($post.reactions))}
+                                    {if ((isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID) || count($post.reactions.reactions))}
                                         <div class="ui mini message" id="reactions">
-                                            {if count($post.reactions)}
+                                            {if count($post.reactions.reactions)}
                                                 <span class="left aligned">
                                                     {assign i 1}
                                                     {foreach from=$post.reactions.reactions item=reaction}
                                                         {if $i != 1} &nbsp; {/if}
-                                                            <span style="cursor: pointer;" onclick="openReactionModal({$post.id}, {$reaction.id})">
+                                                            <span style="cursor: pointer;" onclick="openReactionModal({$post.id}, {$reaction.id})" data-tooltip="{$reaction.name}">
                                                                 {$reaction.html} {$reaction.count}
                                                             </span>
                                                         {assign i $i+1}
@@ -283,11 +281,9 @@
     </div>
     {if $CAN_VIEW && count($WIDGETS_RIGHT)}
         <div class="ui six wide tablet four wide computer column">
-            <div class="ui sticky">
-                {foreach from=$WIDGETS_RIGHT item=widget}
-                    {$widget}
-                {/foreach}
-            </div>
+            {foreach from=$WIDGETS_RIGHT item=widget}
+                {$widget}
+            {/foreach}
         </div>
     {/if}
 </div>
@@ -411,13 +407,6 @@
 {/if}
 
 <script>
-    window.onload = () => {
-        $('.ui.sticky')
-            .sticky({
-                context: '#profile',
-            });
-    }
-
     const submitReaction = (post_id, reaction_id) => {
         $.post("{$REACTIONS_URL}", {
             token: "{$TOKEN}",

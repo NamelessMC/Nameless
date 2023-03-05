@@ -9,16 +9,6 @@
  *  React to a post or get a reaction summary modal
  */
 
-// User must be logged in to proceed
-if (!$user->isLoggedIn()) {
-    die('Not logged in');
-}
-
-// Are reactions enabled?
-if (Util::getSetting('forum_reactions') !== '1') {
-    die('Reactions disabled');
-}
-
 // Validate form input
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
@@ -27,6 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $post_id = $_GET['post'];
     $post_type = $_GET['type'];
 } else {
+    // User must be logged in to proceed
+    if (!$user->isLoggedIn()) {
+        die('Not logged in');
+    }
+
     if (!isset($_POST['post'], $_POST['reaction']) || !is_numeric($_POST['post']) || !is_numeric($_POST['reaction'])) {
         die('Invalid input');
     }
@@ -44,6 +39,11 @@ if (!$post->count()) {
 $post = $post->first();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $post_type === 'post') {
+    // Are reactions enabled?
+    if (Util::getSetting('forum_reactions') !== '1') {
+        die('Reactions disabled');
+    }
+
     $topic_id = $post->topic_id;
 
     // Check user can actually view the post

@@ -4,6 +4,7 @@ class ForumPostSeeder extends Seeder {
 
     public array $tables = [
         'nl2_posts',
+        'nl2_forums_reactions',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {

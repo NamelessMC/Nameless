@@ -223,7 +223,7 @@ class Forum_Module extends Module {
             // Latest posts
             $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
 
-            ReactionsProfileWidget::addRecievedCollector(static function (User $user) {
+            ReactionsProfileWidget::addRecievedCollector('Forum Posts', static function (User $user) {
                 return DB::getInstance()->get('forums_reactions', ['user_received', $user->data()->id])->results();
             });
 

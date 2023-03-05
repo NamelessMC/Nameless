@@ -1,4 +1,4 @@
-<div class="ui menu">
+<div class="ui menu" style="overflow: scroll;">
     {foreach from=$REACTIONS item=reaction}
         <a class="{if $ACTIVE_TAB == $reaction.id}active{/if} item" data-tab="{$reaction.id}">
             {if $reaction.id != 0}{$reaction.html} &nbsp; {/if}{$reaction.name} ({$reaction.count})

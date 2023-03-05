@@ -392,10 +392,6 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     }
 }
 
-if ($user->isLoggedIn()) {
-    $template->addJSScript('var quotedPosts = [];');
-}
-
 // Are reactions enabled?
 $reactions_enabled = Util::getSetting('forum_reactions') === '1';
 $smarty->assign('REACTIONS_ENABLED', $reactions_enabled);
@@ -653,7 +649,6 @@ foreach ($results->data as $n => $nValue) {
 
     // Get post reactions
     $post_reactions = [];
-    $total_karma = 0;
     if ($reactions_enabled) {
         $post_reactions_query = DB::getInstance()->get('forums_reactions', ['post_id', $nValue->id])->results();
 
@@ -712,7 +707,6 @@ foreach ($results->data as $n => $nValue) {
         'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
         'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
-        'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
         'post_date' => $post_date,
         'buttons' => $buttons,
@@ -724,18 +718,23 @@ foreach ($results->data as $n => $nValue) {
             : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
-        'karma' => $total_karma
     ];
 }
 
 $smarty->assign('REPLIES', $replies);
 
+// Reactions
+if ($reactions_enabled) {
+    $smarty->assign([
+        'REACTIONS' => $all_reactions,
+        'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
+    ]);
+}
+
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
         $smarty->assign([
-            'REACTIONS' => $all_reactions,
-            'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
             'REACTIONS_BY_USER' => $reactions_by_user,
         ]);
     }

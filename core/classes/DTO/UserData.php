@@ -21,7 +21,6 @@ class UserData {
     public bool $active;
     public ?string $signature;
     public int $profile_views;
-    public int $reputation;
     public ?string $reset_code;
     public bool $has_avatar;
     public bool $gravatar;
@@ -56,7 +55,6 @@ class UserData {
         $this->active = $row->active;
         $this->signature = $row->signature;
         $this->profile_views = $row->profile_views;
-        $this->reputation = $row->reputation;
         $this->reset_code = $row->reset_code;
         $this->has_avatar = $row->has_avatar;
         $this->gravatar = $row->gravatar;

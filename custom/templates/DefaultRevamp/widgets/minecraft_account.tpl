@@ -28,10 +28,8 @@
     skinViewer.width = 150;
     skinViewer.height = 200;
     skinViewer.nameTag = '{$USERNAME}';
-    skinViewer.controls.enableZoom = false;
-    skinViewer.controls.enablePan = false;
-    skinViewer.controls.enableRotate = false;
     skinViewer.zoom = 0.8;
-    skinViewer.autoRotate = true;
     skinViewer.animation = new skinview3d.IdleAnimation();
+    skinViewer.controls.enablePan = false;
+    skinViewer.controls.enableZoom = false;
 </script>

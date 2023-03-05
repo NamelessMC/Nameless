@@ -4,12 +4,12 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
 
     private static array $_collectors = [
         'recieved' => [],
-        'given' => []
+        'given' => [],
     ];
 
     public function __construct(Smarty $smarty) {
         $this->_name = 'Reactions';
-        $this->_description = 'Displays a users recieved reactions on their profile.';
+        $this->_description = 'Displays a users recieved and given reactions on their profile.';
         $this->_module = 'Core';
         $this->_smarty = $smarty;
     }
