@@ -145,7 +145,7 @@ class Language {
             'htmlCode' => 'fi',
         ],
         'lv_LV' => [
-            'name' => '	Latvian (Latvia)',
+            'name' => 'Latvian (Latvia)',
             'htmlCode' => 'lv',
         ],
     ];
