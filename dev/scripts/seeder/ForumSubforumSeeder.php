@@ -46,7 +46,7 @@ class ForumSubforumSeeder extends Seeder {
         $categories = $db->get('forums', ['forum_type', 'category'])->results();
 
         foreach ($categories as $category) {
-            $this->times($faker->randomElement([1, 2, 3]), static function () use ($db, $faker, $category) {
+            $this->times(FORUM_SUBFORUM_COUNT, static function () use ($db, $faker, $category) {
                 $db->insert('forums', [
                     'forum_title' => $faker->words($faker->boolean ? 2 : 3, true),
                     'forum_description' => $faker->boolean(40) ? $faker->sentences($faker->boolean ? 3 : 4, true) : null,

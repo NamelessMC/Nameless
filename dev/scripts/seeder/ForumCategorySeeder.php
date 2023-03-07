@@ -8,7 +8,7 @@ class ForumCategorySeeder extends Seeder {
 
     protected function run(DB $db, \Faker\Generator $faker): void {
         $order = 1;
-        $this->times(5, static function () use ($db, $faker, &$order) {
+        $this->times(FORUM_CATEGORY_COUNT, static function () use ($db, $faker, &$order) {
             $db->insert('forums', [
                 'forum_title' => $faker->words($faker->boolean ? 2 : 3, true),
                 'forum_description' => $faker->boolean(75) ? $faker->sentences($faker->boolean ? 3 : 4, true) : null,
