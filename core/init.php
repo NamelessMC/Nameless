@@ -116,7 +116,7 @@ if ($page != 'install') {
 
     $smarty = new Smarty();
 
-    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+    if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
         DebugBarHelper::getInstance()->enable($smarty);
     }
@@ -360,9 +360,6 @@ if ($page != 'install') {
     // Widgets
     $widgets = new Widgets($cache, $language, $smarty);
 
-    // Minecraft integration?
-    define('MINECRAFT', Util::getSetting('mc_integration', '0') === '1');
-
     // Navbar links
     $navigation = new Navigation();
     $cc_nav = new Navigation();
@@ -490,7 +487,9 @@ if ($page != 'install') {
                     $hook_array[] = [
                         'id' => $hook->id,
                         'url' => Output::getClean($hook->url),
-                        'action' => $hook->action == 1 ? 'WebHook::execute' : 'DiscordHook::execute',
+                        'action' => $hook->action == 1
+                            ? [WebHook::class, 'execute']
+                            : [DiscordHook::class, 'execute'],
                         'events' => json_decode($hook->events, true)
                     ];
                 }

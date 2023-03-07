@@ -87,7 +87,7 @@
                                     {if $punishment.revoked == 1}
                                     <span class="badge badge-info">{$REVOKED}</span>
                                     {/if}
-                                    {if $punishment.acknowledged == 1}
+                                    {if $punishment.type_numeric == 2 && $punishment.acknowledged == 1}
                                     <span class="badge badge-success">{$ACKNOWLEDGED}</span>
                                     {/if}
                                     <a href="{$punishment.issued_by_profile}"

@@ -458,3 +458,8 @@ footer.sticky-footer {
         display: none;
     }
 }
+
+.joypixels, .twemoji {
+    height: 16px;
+    width: 16px;
+}

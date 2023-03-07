@@ -16,20 +16,14 @@ if ($cache->isCached('result')) {
     echo $cache->retrieve('result');
 } else {
     // Get query type
-    $query_type = Util::getSetting('external_query', '0');
-    if ($query_type === '1') {
-        $query_type = 'external';
-    } else {
-        $query_type = 'internal';
-    }
-
+    $query_type = Util::getSetting('query_type', 'internal');
     $full_ip = [
         'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
         'pre' => $server->pre,
         'name' => $server->name
     ];
 
-    $result = json_encode(MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language), JSON_PRETTY_PRINT);
+    $result = json_encode($query_type === 'plugin' ? PluginQuery::singleQuery($server->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language), JSON_PRETTY_PRINT);
     $cache->store('result', $result, 30);
     echo $result;
 }

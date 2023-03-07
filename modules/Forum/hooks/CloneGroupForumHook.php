@@ -2,18 +2,18 @@
 /*
  *  Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  NamelessMC version 2.1.0
  *
  *  Clone group event listener handler class
  */
 
 class CloneGroupForumHook {
 
-    public static function execute(array $params = []): void {
+    public static function execute(GroupClonedEvent $event): void {
 
         // Clone group permissions for forums
-        $new_group_id = $params['group_id'];
-        $permissions = DB::getInstance()->query('SELECT * FROM nl2_forums_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
+        $new_group_id = $event->group->id;
+        $permissions = DB::getInstance()->query('SELECT * FROM nl2_forums_permissions WHERE group_id = ?', [$event->cloned_group->id]);
         if ($permissions->count()) {
             $permissions = $permissions->results();
 

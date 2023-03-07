@@ -187,15 +187,10 @@ class User {
             $this->_groups[$group_id] = new Group($group_data);
         }
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('userGroupAdded', [
-            'username' => $this->data()->username,
-            'user_id' => $this->data()->id,
-            'group_id' => $group_id,
-            'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => $this->getAvatar(128, true),
-            'language' => $default_language,
-        ]);
+        EventHandler::executeEvent(new UserGroupAddedEvent(
+            $this,
+            $this->_groups[$group_id],
+        ));
 
         return true;
     }
@@ -207,13 +202,6 @@ class User {
      */
     public function data(): ?UserData {
         return $this->_data ?? null;
-    }
-
-    /**
-     * @deprecated Use getGroupStyle instead.  Will be removed in 2.1.0
-     */
-    public function getGroupClass(): string {
-        return $this->getGroupStyle();
     }
 
     /**
@@ -389,20 +377,20 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
-                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
+                    return $salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass;
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-                    return ($hashed == hex2bin($pass));
+                    return $hashed == hex2bin($pass);
 
                 case 'modernbb':
                 case 'sha1':
-                    return (sha1($password) == $this->data()->password);
+                    return sha1($password) == $this->data()->password;
 
                 default:
                     // Default to bcrypt
-                    return (password_verify($password, $this->data()->password));
+                    return password_verify($password, $this->data()->password);
             }
         }
 
@@ -744,15 +732,10 @@ class User {
             ]
         );
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('userGroupRemoved', [
-            'username' => $this->data()->username,
-            'user_id' => $this->data()->id,
-            'group_id' => $group_id,
-            'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => $this->getAvatar(128, true),
-            'language' => $default_language,
-        ]);
+        EventHandler::executeEvent(new UserGroupRemovedEvent(
+            $this,
+            $this->_groups[$group_id],
+        ));
 
         unset($this->_groups[$group_id]);
 

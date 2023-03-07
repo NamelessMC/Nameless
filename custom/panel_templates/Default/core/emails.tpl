@@ -65,18 +65,8 @@
                                     <span class="badge badge-info"><i class="fa fa-question-circle"
                                             data-container="body" data-toggle="popover" title="{$INFO}"
                                             data-content="{$ENABLE_MAILER_HELP}"></i></span>
-                                    <script>
-                                        function toggleFields() {
-                                            const x = document.getElementById("fields-block");
-                                            if (x.style.display === "none") {
-                                                x.style.display = "block";
-                                            } else {
-                                                x.style.display = "none";
-                                            }
-                                        }
-                                    </script>
                                 </div>
-                                <div class="fields-block" id="fields-block">
+                                <div id="smtp-fields">
                                     <div class="form-group">
                                         <label for="inputUsername">{$USERNAME}</label>
                                         <input class="form-control" type="text" name="username" value="{$USERNAME_VALUE}"
@@ -132,6 +122,23 @@
     </div>
 
     {include file='scripts.tpl'}
+
+    <script>
+        document.getElementById('inputMailer').addEventListener('change', (e) => {
+            toggleSmtpFields(e.target.checked);
+        });
+
+        const toggleSmtpFields = (enabled) => {
+            const div = document.getElementById('smtp-fields');
+            if (enabled) {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        }
+
+        toggleSmtpFields({$ENABLE_MAILER_VALUE});
+    </script>
 
 </body>
 

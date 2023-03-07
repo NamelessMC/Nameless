@@ -69,6 +69,20 @@
                         </select>
                     </div>
                     {/if}
+                    {if isset($AUTHME_SYNC_PASSWORD)}
+                        <div class="field">
+                            <label for="inputAuthmeSync">
+                                {$AUTHME_SYNC_PASSWORD}
+                                <div class="ui icon label mini" data-tooltip="{$AUTHME_SYNC_PASSWORD_INFO}">
+                                    <i class="question icon"></i>
+                                </div>
+                            </label>
+                            <select class="ui fluid dropdown" name="authmeSync" id="inputAuthmeSync">
+                                <option value="1" {if ($AUTHME_SYNC_PASSWORD_ENABLED == true)} selected {/if}>{$ENABLED}</option>
+                                <option value="0" {if ($AUTHME_SYNC_PASSWORD_ENABLED == false)} selected {/if}>{$DISABLED}</option>
+                            </select>
+                        </div>
+                    {/if}
                     {if isset($PRIVATE_PROFILE)}
                     <div class="field">
                         <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
