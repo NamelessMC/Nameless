@@ -10,7 +10,7 @@
 <div class="ui stackable grid">
     <div class="ui centered row">
         <div class="ui six wide tablet four wide computer column">
-            <div class="ui vertical pointing menu">
+            <div class="ui fluid vertical pointing menu">
                 {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
                 <a class="item leaderboard_tab" name="{$placeholder->safe_name}" server_id="{$placeholder->server_id}"
                     id="tab-{$placeholder->safe_name}-server-{$placeholder->server_id}"

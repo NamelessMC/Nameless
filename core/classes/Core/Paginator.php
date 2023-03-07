@@ -179,4 +179,16 @@ class Paginator {
         return $html;
     }
 
+    /**
+     * Set values of instance variables, alternative function if we don't have all the $data
+     *
+     * @param int $total Total number of items
+     * @param int $limit Number of items per page
+     * @param int $page Current page
+     */
+    public function setValues(int $total, int $limit, int $page): void {
+        $this->_total = $total;
+        $this->_limit = $limit;
+        $this->_page = $page;
+    }
 }

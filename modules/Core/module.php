@@ -55,7 +55,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
-        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        if (Util::getSetting('mc_integration')) {
+            $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        }
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
@@ -501,6 +503,15 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
+
+        MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));
+        MemberListManager::getInstance()->registerListProvider(new StaffMembersListProvider($language));
+
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
+            return [
+                $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
+            ];
+        });
     }
 
     public static function getDashboardGraphs(): array {
@@ -726,8 +737,8 @@ class Core_Module extends Module {
             $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
         }
 
+        // Only add leaderboard link if there is at least one enabled placeholder and MC integration enabled
         if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1') {
-            // Only add leaderboard link if there is at least one enabled placeholder
             $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
             if (count($leaderboard_placeholders)) {

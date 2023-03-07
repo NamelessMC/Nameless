@@ -2,7 +2,7 @@
 /**
  * Discord group sync injector implementation.
  *
- * @package Modules\Discord Integration
+ * @package Modules\DiscordIntegration
  * @author Aberdeener
  * @version 2.0.3
  * @license MIT

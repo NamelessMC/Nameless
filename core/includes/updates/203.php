@@ -1,6 +1,5 @@
 <?php
 return new class extends UpgradeScript {
-
     public function run(): void {
         $this->runMigrations();
 
@@ -21,6 +20,9 @@ return new class extends UpgradeScript {
         // Replace`external_query` with `query_type`
         Util::setSetting('query_type', Util::getSetting('external_query') == 1 ? 'external' : 'internal');
         Util::setSetting('external_query', null);
+
+        // Add all groups to member list selectable groups
+        Util::setSetting('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
 
         $this->setVersion('2.1.0');
     }
