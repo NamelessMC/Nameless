@@ -7,7 +7,7 @@ RUN mkdir /target && \
         -d /source/modules/Core/classes \
         -d "/source/modules/Discord Integration/classes" \
         -d "/source/modules/Cookie Consent/classes" \
-        -d /source/modules/Forum/classes
+        -d /source/modules/Forum/classes \
         -d /source/modules/Members/classes -t /target -i /vendor
 
 FROM nginxinc/nginx-unprivileged:stable

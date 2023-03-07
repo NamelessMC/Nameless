@@ -5,7 +5,7 @@ use SitemapPHP\Sitemap;
 /**
  * CookieConsent sitemap class
  *
- * @package Modules\Cookie Consent
+ * @package Modules\CookieConsent
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT

@@ -1,6 +1,6 @@
 <?php
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
-    Redirect::to('?step=admin_account_setup');
+if (!isset($_SESSION['modules_selected']) || $_SESSION['modules_selected'] != true) {
+    Redirect::to('?step=select_modules');
 }
 ?>
 

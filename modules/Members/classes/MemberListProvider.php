@@ -3,7 +3,7 @@
 /**
  * Base class for member list providers.
  *
- * @package Modules\Forum
+ * @package Modules\Members
  * @author Aberdener
  * @version 2.1.0
  * @license MIT
