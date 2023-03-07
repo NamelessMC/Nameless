@@ -11,7 +11,7 @@ class UserProfilePostSeeder extends Seeder {
     protected function run(DB $db, \Faker\Generator $faker): void {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
-        $this->times(500, function () use ($db, $faker, $users) {
+        $this->times(PROFILE_POST_COUNT, function () use ($db, $faker, $users) {
             $user = $faker->randomElement($users);
             $author = $faker->randomElement($users);
             while ($user->id == $author->id) {
@@ -27,7 +27,7 @@ class UserProfilePostSeeder extends Seeder {
         });
 
         $profile_posts = $db->get('user_profile_wall_posts', ['id', '<>', 0])->results();
-        $this->times(500, function () use ($db, $faker, $profile_posts) {
+        $this->times(PROFILE_POST_REPLY_COUNT, function () use ($db, $faker, $profile_posts) {
             $post = $faker->randomElement($profile_posts);
             $author_id = $faker->randomElement($profile_posts)->author_id;
 
@@ -39,7 +39,7 @@ class UserProfilePostSeeder extends Seeder {
             ]);
         });
 
-        $this->times(500, function () use ($db, $faker, $profile_posts) {
+        $this->times(PROFILE_POST_REACTION_COUNT, function () use ($db, $faker, $profile_posts) {
             $post = $faker->randomElement($profile_posts);
             $user_id = $faker->randomElement($profile_posts)->user_id;
 

@@ -55,7 +55,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
-        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        if (Util::getSetting('mc_integration')) {
+            $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        }
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
@@ -502,6 +504,15 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
+
+        MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));
+        MemberListManager::getInstance()->registerListProvider(new StaffMembersListProvider($language));
+
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
+            return [
+                $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
+            ];
+        });
     }
 
     public static function getDashboardGraphs(): array {
@@ -623,6 +634,7 @@ class Core_Module extends Module {
         $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
         // Widgets - only load if on a widget staffcp page or the frontend
+        // TODO: check if active page supports widgets, no point to load them if not (ie: login page)
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');
@@ -731,7 +743,7 @@ class Core_Module extends Module {
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
+        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {
                 $leaderboards_order = 4;

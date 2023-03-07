@@ -11,6 +11,7 @@ FILES=(
   "modules/Forum/language/en_UK.json"
   "modules/Cookie Consent/language/en_UK.json"
   "modules/Discord Integration/language/en_UK.json"
+  "modules/Members/language/en_UK.json"
 )
 
 for FILE in "${FILES[@]}"

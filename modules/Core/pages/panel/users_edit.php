@@ -114,10 +114,10 @@ if (Input::exists()) {
                 ],
                 'title' => $language->get('admin', 'title_max_64'),
                 'username' => [
-                    Validate::REQUIRED => $language->get('user', 'mcname_required'),
+                    Validate::REQUIRED => $language->get('user', 'username_required'),
                     Validate::UNIQUE => $language->get('user', 'username_already_exists'),
-                    Validate::MIN => $language->get('user', 'mcname_minimum_3'),
-                    Validate::MAX => $language->get('user', 'mcname_maximum_20')
+                    Validate::MIN => $language->get('user', 'username_minimum_3'),
+                    Validate::MAX => $language->get('user', 'username_maximum_20')
                 ],
                 'nickname' => [
                     Validate::REQUIRED => $language->get('user', 'username_required'),
