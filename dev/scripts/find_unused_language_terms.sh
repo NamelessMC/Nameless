@@ -19,6 +19,7 @@ WHITELISTED_TERMS=(
   "installer/module_discord-integration_description"
   "installer/module_forum_description"
   "installer/module_core_description"
+  "installer/module_members_description"
 )
 
 for FILE in "${FILES[@]}"

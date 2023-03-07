@@ -918,6 +918,7 @@
     "installer/module_cookie-consent_description": "Allows users to accept the use of cookies on your website.",
     "installer/module_forum_description": "Adds a forum to your website.",
     "installer/module_discord-integration_description": "Allows users to link their Discord account to their website account and perform various synchronisation actions.",
+    "installer/module_members_description": "Adds a detailed members page and statistics to your website.",
     "installer/new_installation": "New installation &raquo;",
     "installer/new_installation_question": "Firstly, is this a new installation?",
     "installer/no": "No",

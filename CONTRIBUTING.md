@@ -74,6 +74,18 @@ Deprecations rule of thumb:
 * Squash when merging. This makes backporting easier. If you think your changes deserve multiple commits, consider splitting them into multiple pull requests.
 * Mark the pull request with the appropriate milestone. [@Derkades](https://github.com/Derkades) keeps an eye on merged PRs and cherry-pick changes to the appropriate release branch.
 
+## Adding new modules to core
+
+After adding a new module to core, you need to do the following:
+1. Update the `Dockerfile.phpdoc` file to include the new module classes folder (this generates our [PHPDoc](https://phpdoc.namelessmc.com/) site)
+2. Update `composer.json` to autoload the new module classes folder
+3. Add a new term to the `custom/languages/en_UK.json` file for the module description to be shown during instal
+    - The term should be in the format `module_{module_name}_description`
+    - Don't forget to add it to the `WHITELISTED_TERMS` array in `dev/scripts/find_unused_language_terms.sh`
+4. Create new database entry to install it by default
+    - Update `core/installation/includes/upgrade_perform.php` around line 637
+    - Add a new entry in `core/classes/Database/DatabaseInitialiser.php` around line 83
+
 ## Releasing a new version
 
 1. Ensure you have a clean copy of the source code without leftover files from testing. For example, clone the Nameless repository into a new directory
