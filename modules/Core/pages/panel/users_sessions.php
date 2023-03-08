@@ -53,15 +53,16 @@ $user_sessions_list = [];
 // TODO: Should we display all sessions, or just active ones? Over time, the list could get very long if we display all sessions.
 // Not really any reason to show inactive ones, since they can't action on them.
 foreach ($sessions as $session) {
-    $dd = new \DeviceDetector\DeviceDetector($session->user_agent, \DeviceDetector\ClientHints::factory($_SESSION));
-    $dd->skipBotDetection();
-    $dd->parse();
-    $deviceString = $dd->getOs('name') . ' ' . $dd->getOs('version') . ' - ' . $dd->getClient('name') . ' ' . $dd->getClient('version');
+    $agent = new \Jenssegers\Agent\Agent();
+    $agent->setUserAgent($session->user_agent);
 
     $user_sessions_list[] = [
         'id' => $session->id,
         'ip' => $session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')',
-        'device' => $deviceString,
+        'device_type' => $agent->deviceType(),
+        'device_os' => $agent->platform(),
+        'device_browser' => $agent->browser(),
+        'device_browser_version' => $agent->version($agent->browser()),
         'method' => $session->login_method,
         'last_seen_short' => $session->last_seen
             ? $timeago->inWords($session->last_seen, $language)

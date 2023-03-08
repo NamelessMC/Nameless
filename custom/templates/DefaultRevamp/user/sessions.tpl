@@ -44,12 +44,23 @@
                     <div class="ui segment">
                         <div class="ui middle aligned stackable grid">
                             <div class="one wide column">
-                                <i class="{if $session.device_type === 'smartphone'}mobile alternate{elseif $session.device_type === 'tablet'}tablet alternate{else}desktop{/if} icon big"></i>
+                                <i class="{if $session.device_type === 'phone'}mobile alternate{elseif $session.device_type === 'tablet'}tablet alternate{elseif $session.device_type === 'laptop'}laptop alternate{else}desktop{/if} icon big"></i>
                             </div>
                             <div class="nine wide column">
-                                <span>{$session.device_os} &middot; {$session.location}</span>
+                                <span>{$session.device_os} &middot; {$session.device_browser} {$session.device_browser_version}</span>
                                 <br>
-                                {$session.device_browser} &middot; {if $session.is_current}<span class="ui success text">Active now</span>{else}<span data-tooltip="{$session.last_seen}">{$session.last_seen_timeago}</span>{/if}
+                                {$session.location}, {if $session.is_current}<span class="ui success text">This device</span>{else}<span data-tooltip="{$session.last_seen}">Last active {$session.last_seen_timeago}</span>{/if}
+                                {if $session.is_admin}
+                                    <br>
+                                    <span class="ui mini label">
+                                        <i class="user secret icon"></i> Admin logged in
+                                    </span>
+                                {elseif $session.is_remembered}
+                                    <br>
+                                    <span class="ui mini label">
+                                        <i class="check icon"></i> Remembered
+                                    </span>
+                                {/if}
                             </div>
                             <div class="six wide column right aligned">
                                 {if !$session.is_current}

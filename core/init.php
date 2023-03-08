@@ -372,7 +372,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/connections'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
-    $cc_nav->add('cc_sessions', $language->get('user', 'sessions'), URL::build('/user/sessions'));
+    $cc_nav->add('cc_sessions', $language->get('general', 'sessions'), URL::build('/user/sessions'));
 
     // Placeholders enabled?
     if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1') {

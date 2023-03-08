@@ -53,24 +53,22 @@ $sessions_list = [];
 // TODO: Should we display all sessions, or just active ones? Over time, the list could get very long if we display all sessions.
 // Not really any reason to show inactive ones, since they can't action on them.
 foreach ($sessions as $session) {
-    if ($session->login_method === 'admin') {
-        continue;
-    }
-
-    $dd = new \DeviceDetector\DeviceDetector($session->user_agent, \DeviceDetector\ClientHints::factory($_SESSION));
-    $dd->skipBotDetection();
-    $dd->parse();
-    $device_type = $dd->getDeviceName() ?: 'desktop';
+    $agent = new \Jenssegers\Agent\Agent();
+    $agent->setUserAgent($session->user_agent);
 
     $sessions_list[] = [
         'id' => $session->id,
-        'is_current' => $session->hash === Session::get(Config::get('session.session_name')),
-        'device_type' => $device_type,
+        'is_current' => in_array($session->hash, [
+            Session::get(Config::get('session.session_name')), Session::get(Config::get('session.admin_name'))
+        ]),
+        'is_admin' => $session->login_method === 'admin',
+        'is_remembered' => $session->remember_me,
         'last_seen_timeago' => $timeago->inWords($session->last_seen, $language),
         'last_seen' => date(DATE_FORMAT, $session->last_seen),
-        'device_description' => $dd->getOs('name') . ' - ' . $dd->getClient('name'),
-        'device_os' => $dd->getOs('name'),
-        'device_browser' => $dd->getClient('name'),
+        'device_type' => $agent->deviceType(),
+        'device_os' => $agent->platform(),
+        'device_browser' => $agent->browser(),
+        'device_browser_version' => $agent->version($agent->browser()),
         'location' => $session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')',
     ];
 }

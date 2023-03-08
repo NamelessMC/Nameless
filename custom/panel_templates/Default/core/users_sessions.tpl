@@ -54,6 +54,7 @@
                                 <table class="table table-borderless table-striped">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>{$DEVICE}</th>
                                             <th>{$IP_ADDRESS}</th>
                                             <th>{$LAST_SEEN}</th>
@@ -64,15 +65,18 @@
                                     <tbody>
                                         {foreach $SESSIONS as $session}
                                             <tr>
+                                                <td class="text-center">
+                                                    <i class="fas fa-xl {if $session.device_type === 'tablet'}fa-tablet{elseif $session.device_type === 'phone'}fa-mobile{else}fa-desktop{/if}"></i>
+                                                </td>
                                                 <td>
-                                                    {$session.device}
+                                                    {$session.device_os} &middot; {$session.device_browser} {$session.device_browser_version}
                                                 </td>
                                                 <td>
                                                     {$session.ip}
                                                 </td>
                                                 <td>
                                                     {if $session.is_current}
-                                                        <span class="badge badge-success">Active now</span>
+                                                        <span class="badge badge-success">This device</span>
                                                     {else}
                                                         <span {if $session.last_seen_short !== 'Unknown'}data-toggle="tooltip" data-title="{$session.last_seen_long}"{/if}>
                                                             {$session.last_seen_short}
