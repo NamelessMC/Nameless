@@ -65,6 +65,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
         $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
+        $pages->add('Core', '/user/sessions', 'pages/user/sessions.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
         $pages->add('Core', '/user/connections', 'pages/user/connections.php');

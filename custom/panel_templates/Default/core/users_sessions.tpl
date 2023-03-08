@@ -57,7 +57,6 @@
                                             <th>{$DEVICE}</th>
                                             <th>{$IP_ADDRESS}</th>
                                             <th>{$LAST_SEEN}</th>
-                                            <th>{$ACTIVE}</th>
                                             <th>{$LOGIN_METHOD}</th>
                                             <th></th>
                                         </tr>
@@ -75,24 +74,15 @@
                                                     <span {if $session.last_seen_short !== 'Unknown'}data-toggle="tooltip" data-title="{$session.last_seen_long}"{/if}>{$session.last_seen_short}</span>
                                                 </td>
                                                 <td>
-                                                    {if $session.active}
-                                                        <i class="fa fa-check-circle text-success"></i>
-                                                    {else}
-                                                        <i class="fa fa-times-circle text-danger"></i>
-                                                    {/if}
-                                                </td>
-                                                <td>
                                                     {$session.method|ucfirst}
                                                 </td>
                                                 <td class="text-right">
-                                                    {if $session.active}
-                                                        <form action="" method="post">
-                                                            <input type="hidden" name="action" value="logout">
-                                                            <input type="hidden" name="token" value="{$TOKEN}">
-                                                            <input type="hidden" name="sid" value="{$session.id}">
-                                                            <button type="submit" class="btn btn-danger btn-sm">{$LOGOUT}</button>
-                                                        </form>
-                                                    {/if}
+                                                    <form action="" method="post">
+                                                        <input type="hidden" name="action" value="logout">
+                                                        <input type="hidden" name="token" value="{$TOKEN}">
+                                                        <input type="hidden" name="sid" value="{$session.id}">
+                                                        <button type="submit" class="btn btn-danger btn-sm">{$LOGOUT}</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         {/foreach}

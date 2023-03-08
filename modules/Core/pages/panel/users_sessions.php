@@ -33,45 +33,46 @@ if (!$view_user->exists()) {
 
 if (Input::exists()) {
     if (Token::check()) {
-        if ($_POST['action'] == 'logout' && isset($_POST['sid'])) {
+        if ($_POST['action'] === 'logout' && isset($_POST['sid'])) {
             DB::getInstance()->update('users_session', $_POST['sid'], [
                 'active' => false
             ]);
             $success = $language->get('general', 'logout_session_successfully');
+        } else if ($_POST['action'] === 'logout_other_sessions') {
+            $view_user->logoutAllOtherSessions();
+            $success = $language->get('admin', 'sessions_logged_out');
         }
     } else {
         $errors[] = $language->get('general', 'invalid_token');
     }
 }
 $timeago = new TimeAgo(TIMEZONE);
-$sessions = DB::getInstance()->query('SELECT * FROM nl2_users_session WHERE user_id = ? ORDER BY last_seen DESC', [$view_user->data()->id])->results();
+$sessions = $view_user->getActiveSessions();
 $user_sessions_list = [];
 
-$cache->setCache('ip_location_results');
 foreach ($sessions as $session) {
-    if ($session->ip && $cache->retrieve($session->ip)) {
-        $location = $cache->retrieve($session->ip);
-    } else if ($session->ip) {
-        $response = HttpClient::get('http://ip-api.com/json/' . $session->ip);
-        if (!$response->hasError()) {
-            $json = $response->json();
-            if ($json->status == 'success') {
-                $location = $json->city . ', ' . $json->country;
-            } else {
-                $location = 'Unknown';
-            }
-            $cache->store($session->ip, $location);
-        }
-    }
-    $ip = $session->ip . ($location ? ' (' . $location . ')' : '');
+    // Detect device
+    $userAgent = $session->user_agent;
+    $dd = new \DeviceDetector\DeviceDetector($userAgent);
+    $dd->skipBotDetection();
+    $dd->parse();
+    $osName = $dd->getOs('name');
+    $osVersion = $dd->getOs('version');
+    $browserName = $dd->getClient('name');
+    $browserVersion = $dd->getClient('version');
+    $deviceString = $osName . ' ' . $osVersion . ' - ' . $browserName . ' ' . $browserVersion;
+
     $user_sessions_list[] = [
-        'ip' => $session->ip ? $ip : $language->get('admin', 'unknown'),
-        'active' => Output::getClean($session->active),
-        'device' => Output::getClean($session->device_name),
-        'method' => Output::getClean($session->login_method),
-        'id' => Output::getClean($session->id),
-        'last_seen_short' => $session->last_seen ? $timeago->inWords(Output::getClean($session->last_seen), $language) : $language->get('admin', 'unknown'),
-        'last_seen_long' => $session->last_seen ? date(DATE_FORMAT, Output::getClean($session->last_seen)) : $language->get('admin', 'unknown'),
+        'id' => $session->id,
+        'ip' => $session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')',
+        'device' => $deviceString,
+        'method' => $session->login_method,
+        'last_seen_short' => $session->last_seen
+            ? $timeago->inWords($session->last_seen, $language)
+            : $language->get('admin', 'unknown'),
+        'last_seen_long' => $session->last_seen
+            ? date(DATE_FORMAT, $session->last_seen)
+            : $language->get('admin', 'unknown'),
     ];
 }
 
@@ -81,7 +82,6 @@ $smarty->assign([
     ]),
     'SESSIONS' => $user_sessions_list,
     'DEVICE' => $language->get('general', 'device'),
-    'ACTIVE' => $language->get('admin', 'active'),
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
     'LOGOUT' => $language->get('general', 'log_out'),

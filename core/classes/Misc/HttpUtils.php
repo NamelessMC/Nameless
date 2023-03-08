@@ -1,5 +1,7 @@
 <?php
 
+use GeoIp2\Database\Reader;
+use GeoIp2\Exception\GeoIp2Exception;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
@@ -11,6 +13,8 @@ use Symfony\Component\HttpFoundation\IpUtils;
  * @license MIT
  */
 class HttpUtils {
+
+    private static Reader $_geoIpReader;
 
     /**
      * Get the client's true IP address, using proxy headers if necessary.
@@ -240,6 +244,33 @@ class HttpUtils {
             }
         }
         return null;
+    }
+
+    public static function getIpCountry(string $ip): string {
+        if (in_array($ip, ['localhost', '127.0.0.1', '::1'])) {
+            return 'Unknown';
+        }
+
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('ip_location');
+
+        if ($cache->isCached($ip)) {
+            return $cache->retrieve($ip);
+        }
+
+        $reader = self::$_geoIpReader ??= new Reader(ROOT_PATH . '/core/assets/GeoLite2-Country.mmdb');
+
+        try {
+            $record = $reader->country($ip);
+        } catch (GeoIp2Exception $e) {
+            return 'Unknown';
+        }
+
+        $country = $record->country->name;
+
+        $cache->store($ip, $country, 3600);
+
+        return $country;
     }
 
 }

@@ -311,26 +311,13 @@ class User {
             // Valid credentials
             $hash = SecureRandom::alphanumeric();
 
-            // Detect device
-            $userAgent = $_SERVER['HTTP_USER_AGENT'];
-            $clientHints = \DeviceDetector\ClientHints::factory($_SERVER);
-            $dd = new \DeviceDetector\DeviceDetector($userAgent, $clientHints);
-            $dd->skipBotDetection();
-            $dd->parse();
-
-            $osName = $dd->getOs('name');
-            $osVersion = $dd->getOs('version');
-            $browserName = $dd->getClient('name');
-            $browserVersion = $dd->getClient('version');
-            $deviceString = $osName . ' ' . $osVersion . ' - ' . $browserName . ' ' . $browserVersion;
-
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
                 'hash' => $hash,
                 'remember_me' => $remember,
-                'active' => 1,
+                'active' => true,
                 'login_method' => $is_admin ? 'admin' : $method,
-                'device_name' => $deviceString,
+                'user_agent' => $_SERVER['HTTP_USER_AGENT'],
                 'ip' => HttpUtils::getRemoteAddress()
             ]);
 
@@ -537,6 +524,13 @@ class User {
         }
 
         return false;
+    }
+
+    public function getActiveSessions(): array {
+        return DB::getInstance()->query(
+            'SELECT * FROM nl2_users_session WHERE user_id = ? AND active = 1 ORDER BY last_seen DESC', [
+                $this->data()->id
+            ])->results();
     }
 
     /**
