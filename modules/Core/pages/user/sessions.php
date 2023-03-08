@@ -71,7 +71,7 @@ foreach ($sessions as $session) {
         'device_description' => $dd->getOs('name') . ' - ' . $dd->getClient('name'),
         'device_os' => $dd->getOs('name'),
         'device_browser' => $dd->getClient('name'),
-        'location' => HttpUtils::getIpCountry($session->ip),
+        'location' => $session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')',
     ];
 }
 
