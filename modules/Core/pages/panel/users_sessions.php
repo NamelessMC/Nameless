@@ -50,17 +50,13 @@ $timeago = new TimeAgo(TIMEZONE);
 $sessions = $view_user->getActiveSessions();
 $user_sessions_list = [];
 
+// TODO: Should we display all sessions, or just active ones? Over time, the list could get very long if we display all sessions.
+// Not really any reason to show inactive ones, since they can't action on them.
 foreach ($sessions as $session) {
-    // Detect device
-    $userAgent = $session->user_agent;
-    $dd = new \DeviceDetector\DeviceDetector($userAgent);
+    $dd = new \DeviceDetector\DeviceDetector($session->user_agent, \DeviceDetector\ClientHints::factory($_SESSION));
     $dd->skipBotDetection();
     $dd->parse();
-    $osName = $dd->getOs('name');
-    $osVersion = $dd->getOs('version');
-    $browserName = $dd->getClient('name');
-    $browserVersion = $dd->getClient('version');
-    $deviceString = $osName . ' ' . $osVersion . ' - ' . $browserName . ' ' . $browserVersion;
+    $deviceString = $dd->getOs('name') . ' ' . $dd->getOs('version') . ' - ' . $dd->getClient('name') . ' ' . $dd->getClient('version');
 
     $user_sessions_list[] = [
         'id' => $session->id,
@@ -73,6 +69,9 @@ foreach ($sessions as $session) {
         'last_seen_long' => $session->last_seen
             ? date(DATE_FORMAT, $session->last_seen)
             : $language->get('admin', 'unknown'),
+        'is_current' => in_array($session->hash, [
+            Session::get(Config::get('session.session_name')), Session::get(Config::get('session.admin_name'))
+        ]),
     ];
 }
 

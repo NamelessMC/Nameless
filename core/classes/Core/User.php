@@ -309,6 +309,7 @@ class User {
             }
         } else if ($this->checkCredentials($username, $password, $method) === true) {
             // Valid credentials
+            // TODO: job to remove old sessions?
             $hash = SecureRandom::alphanumeric();
 
             $this->_db->insert('users_session', [

@@ -71,18 +71,26 @@
                                                     {$session.ip}
                                                 </td>
                                                 <td>
-                                                    <span {if $session.last_seen_short !== 'Unknown'}data-toggle="tooltip" data-title="{$session.last_seen_long}"{/if}>{$session.last_seen_short}</span>
+                                                    {if $session.is_current}
+                                                        <span class="badge badge-success">Active now</span>
+                                                    {else}
+                                                        <span {if $session.last_seen_short !== 'Unknown'}data-toggle="tooltip" data-title="{$session.last_seen_long}"{/if}>
+                                                            {$session.last_seen_short}
+                                                        </span>
+                                                    {/if}
                                                 </td>
                                                 <td>
                                                     {$session.method|ucfirst}
                                                 </td>
                                                 <td class="text-right">
-                                                    <form action="" method="post">
-                                                        <input type="hidden" name="action" value="logout">
-                                                        <input type="hidden" name="token" value="{$TOKEN}">
-                                                        <input type="hidden" name="sid" value="{$session.id}">
-                                                        <button type="submit" class="btn btn-danger btn-sm">{$LOGOUT}</button>
-                                                    </form>
+                                                    {if !$session.is_current}
+                                                        <form action="" method="post">
+                                                            <input type="hidden" name="action" value="logout">
+                                                            <input type="hidden" name="token" value="{$TOKEN}">
+                                                            <input type="hidden" name="sid" value="{$session.id}">
+                                                            <button type="submit" class="btn btn-danger btn-sm">{$LOGOUT}</button>
+                                                        </form>
+                                                    {/if}
                                                 </td>
                                             </tr>
                                         {/foreach}

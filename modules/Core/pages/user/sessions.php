@@ -50,12 +50,14 @@ if (Session::exists('user_sessions_error')) {
 
 $sessions = $user->getActiveSessions();
 $sessions_list = [];
+// TODO: Should we display all sessions, or just active ones? Over time, the list could get very long if we display all sessions.
+// Not really any reason to show inactive ones, since they can't action on them.
 foreach ($sessions as $session) {
     if ($session->login_method === 'admin') {
         continue;
     }
 
-    $dd = new \DeviceDetector\DeviceDetector($session->user_agent);
+    $dd = new \DeviceDetector\DeviceDetector($session->user_agent, \DeviceDetector\ClientHints::factory($_SESSION));
     $dd->skipBotDetection();
     $dd->parse();
     $device_type = $dd->getDeviceName() ?: 'desktop';
