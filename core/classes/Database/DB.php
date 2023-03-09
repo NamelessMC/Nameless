@@ -83,6 +83,31 @@ class DB {
     }
 
     /**
+     * Begin a MySQL transaction
+     */
+    public function beginTransaction(): void {
+        $this->_pdo->beginTransaction();
+    }
+
+    /**
+     * Commit a MySQL transaction
+     */
+    public function commitTransaction(): void {
+        if ($this->_pdo->inTransaction()) {
+            $this->_pdo->commit();
+        }
+    }
+
+    /**
+     * Roll back a MySQL transaction
+     */
+    public function rollBackTransaction(): void {
+        if ($this->_pdo->inTransaction()) {
+            $this->_pdo->rollBack();
+        }
+    }
+
+    /**
      * Execute a database query within a MySQL transaction, and get the results of the query, if any.
      *
      * @param Closure(DB): mixed $closure The closure to pass this instance to and execute within a transaction context.
@@ -92,15 +117,13 @@ class DB {
         $result = null;
 
         try {
-            $this->_pdo->beginTransaction();
+            $this->beginTransaction();
 
             $result = $closure($this);
 
-            $this->_pdo->commit();
+            $this->commitTransaction();
         } catch (Exception $exception) {
-            if ($this->_pdo->inTransaction()) {
-                $this->_pdo->rollBack();
-            }
+            $this->rollBackTransaction();
         }
 
         return $result;
