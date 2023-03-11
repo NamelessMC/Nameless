@@ -526,7 +526,7 @@ class User {
         if (isset(self::$_group_cache[$this->data()->id])) {
             $groups_query = self::$_group_cache[$this->data()->id];
         } else {
-            $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
+            $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
             if ($groups_query->count()) {
                 $groups_query = $groups_query->results();
             } else {
