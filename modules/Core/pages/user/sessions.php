@@ -73,6 +73,16 @@ foreach ($sessions as $session) {
     ];
 }
 
+$can_logout_all = false;
+if (count($sessions) > 1) {
+    $can_logout_all = true;
+}
+if (count($sessions) === 2) {
+    if ($sessions[0]->login_method === 'admin' || $sessions[1]->login_method === 'admin') {
+        $can_logout_all = false;
+    }
+}
+
 $smarty->assign([
     'TOKEN' => Token::get(),
     'NO' => $language->get('general', 'no'),
@@ -80,6 +90,7 @@ $smarty->assign([
     'USER_CP' => $language->get('user', 'user_cp'),
     'SESSIONS' => $language->get('general', 'sessions'),
     'SESSIONS_LIST' => $sessions_list,
+    'CAN_LOGOUT_ALL' => $can_logout_all,
     'LOGOUT' => $language->get('general', 'log_out'),
     'LOGOUT_OTHER_SESSIONS' => $language->get('user', 'logout_other_sessions'),
 ]);

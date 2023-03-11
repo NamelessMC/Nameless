@@ -14,8 +14,8 @@
             <div class="ui segment">
                 <h3 class="ui header">
                     {$SESSIONS}
-                    {if count($SESSIONS_LIST) > 1}
-                        <div class="res right floated">
+                    {if $CAN_LOGOUT_ALL}
+                        <div class="right floated">
                             <a class="ui mini negative button" href="#" data-toggle="modal" data-target="#modal-logout-all">
                                 {$LOGOUT_OTHER_SESSIONS}
                             </a>
@@ -64,18 +64,47 @@
                             </div>
                             <div class="six wide column right aligned">
                                 {if !$session.is_current}
-                                    <button class="ui mini negative button" href="#" data-toggle="modal" data-target="#modal-logout">
+                                    <a class="ui mini negative button" href="#" data-toggle="modal" data-target="#modal-logout-{$session.id}">
                                         {$LOGOUT}
-                                    </button>
+                                    </a>
                                 {/if}
                             </div>
                         </div>
                     </div>
                 {/foreach}
-                {$PAGINATION}
             </div>
         </div>
     </div>
 </div>
+
+{if $CAN_LOGOUT_ALL}
+    <div class="ui small modal" id="modal-logout-all">
+        <div class="header">
+            {$LINK} {$provider_name|ucfirst}
+        </div>
+        <div class="content">
+            {$OAUTH_MESSAGES[$provider_name]['link_confirm']}
+        </div>
+        <div class="actions">
+            <a class="ui negative button">{$NO}</a>
+            <a class="ui green button" href="{$provider_data.url}">{$CONFIRM}</a>
+        </div>
+    </div>
+{/if}
+
+{foreach from=$SESSIONS_LIST item=session}
+    <div class="ui small modal" id="modal-logout-{$session.id}">
+        <div class="header">
+            {$LOGOUT}
+        </div>
+        <div class="content">
+            {$LOGOUT_CONFIRM}
+        </div>
+        <div class="actions">
+            <a class="ui negative button">{$NO}</a>
+            <a class="ui green button" href="{$BASE_URL}user/logout/{$session.id}">{$CONFIRM}</a>
+        </div>
+    </div>
+{/foreach}
 
 {include file='footer.tpl'}
