@@ -158,7 +158,7 @@ class Queue {
             }
         }
 
-        return $tasks;
+        return array_keys($tasks);
     }
 
     /**

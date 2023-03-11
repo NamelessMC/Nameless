@@ -184,6 +184,24 @@ abstract class Module {
     }
 
     /**
+     * Get a module ID from name
+     *
+     * @param string $name Module name
+     *
+     * @return ?int Module ID
+     *
+     */
+    public static function getIdFromName(string $name): ?int {
+        $query = DB::getInstance()->get('modules', ['name', $name]);
+
+        if ($query->count()) {
+            return $query->first()->id;
+        }
+
+        return null;
+    }
+
+    /**
      * Get a module name from ID
      *
      * @param int $id Module ID
