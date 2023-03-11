@@ -8,6 +8,6 @@ final class AddImageColumnToPageDescriptionsTable extends AbstractMigration
     public function change(): void
     {
         $table = $this->table('nl2_page_descriptions');
-        $table->addColumn('image', 'string', ['limit' => 512, 'null' => true])->update();
+        $table->addColumn('image', 'string', ['limit' => 512, 'null' => true, 'default' => null])->update();
     }
 }
