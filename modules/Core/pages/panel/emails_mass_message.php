@@ -58,7 +58,7 @@ if (Input::exists()) {
 
                     $errors[] = $language->get('admin', 'mass_email_failed_check_logs');
                 } else {
-                    Session::flash('emails_success', $language->get('admin', 'emails_mass_message_success'));
+                    Session::flash('emails_success', $language->get('admin', 'sent_mass_message'));
                 }
             }
 

@@ -55,10 +55,7 @@ if ($registration_enabled == 0) {
     die();
 }
 
-// Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
+if (Util::getSetting('mc_integration')) {
     // Check if AuthMe is enabled
     $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
     $authme_enabled = $authme_enabled[0]->value;
@@ -310,17 +307,9 @@ if (Input::exists()) {
 
                     Log::getInstance()->log(Log::Action('user/register'), '', $user_id);
 
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
-                    EventHandler::executeEvent('registerUser', [
-                        'user_id' => $user_id,
-                        'username' => Input::get('username'),
-                        'content' => $default_language->get('user', 'user_x_has_registered', [
-                            'user' => Input::get('username'),
-                        ]),
-                        'avatar_url' => $user->getAvatar(128, true),
-                        'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
-                        'language' => $default_language,
-                    ]);
+                    EventHandler::executeEvent(new UserRegisteredEvent(
+                        $user,
+                    ));
 
                     if (!$auto_verify_oauth_email && Util::getSetting('email_verification') === '1') {
                         // Send registration email

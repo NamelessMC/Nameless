@@ -522,6 +522,16 @@ if (!class_exists('Default_Panel_Template')) {
                         }
                         break;
 
+                    case 'member_lists':
+                        $this->addJSScript('
+                            if ($(\'.js-check-change\').length) {
+                                var changeCheckbox = document.querySelector(\'.js-check-change\');
+
+                                changeCheckbox.onchange = function () {
+                                    $(\'#toggleHideBannedUsers\').submit();
+                                };
+                            }
+                            ');
                 }
             }
         }

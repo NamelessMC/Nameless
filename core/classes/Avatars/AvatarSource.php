@@ -69,7 +69,7 @@ class AvatarSource {
         }
 
         // Attempt to get their MC avatar if Minecraft integration is enabled
-        if (defined('MINECRAFT') && MINECRAFT) {
+        if (Util::getSetting('mc_integration')) {
             if ($data->uuid != null && $data->uuid != 'none') {
                 $uuid = $data->uuid;
             } else {
@@ -89,7 +89,7 @@ class AvatarSource {
             }
         }
 
-        return "https://avatars.dicebear.com/api/initials/{$data->username}.png?size={$size}";
+        return "https://api.dicebear.com/5.x/initials/png?seed={$data->username}&size={$size}";
     }
 
     /**

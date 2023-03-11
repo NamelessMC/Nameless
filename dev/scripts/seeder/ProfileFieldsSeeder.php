@@ -7,7 +7,7 @@ class ProfileFieldsSeeder extends Seeder {
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {
-        $this->times(7, function () use ($db, $faker) {
+        $this->times(PROFILE_FIELDS_COUNT, function () use ($db, $faker) {
             $db->insert('profile_fields', [
                 'name' => $faker->unique()->word,
                 'type' => $faker->randomElement([Fields::TEXT, Fields::TEXTAREA, Fields::DATE]),

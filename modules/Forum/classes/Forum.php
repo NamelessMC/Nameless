@@ -12,13 +12,6 @@ class Forum {
     private DB $_db;
     private static array $_permission_cache = [];
     private static array $_count_cache = [];
-    private const URL_EXCLUDE_CHARS = [
-        '?',
-        '&',
-        '/',
-        '#',
-        '.',
-    ];
 
     public function __construct() {
         $this->_db = DB::getInstance();
@@ -244,12 +237,7 @@ class Forum {
     }
 
     public function titleToURL(string $topic = null): string {
-        if ($topic) {
-            $topic = str_replace(self::URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $topic))));
-        }
-
-        return '';
+        return URL::urlSafe($topic ?? '');
     }
 
     // Returns true/false depending on whether the current user can view a forum

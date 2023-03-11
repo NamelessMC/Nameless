@@ -30,22 +30,12 @@ class Discord_Module extends Module {
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
+        // -- Events
+        EventHandler::registerEvent(DiscordWebhookFormatterEvent::class);
+
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
 
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
-
-        // Hooks
-        EventHandler::registerEvent('discordWebhookFormatter',
-            'Discord webhook formatter',
-            [
-                'data' => 'Event data',
-                'format' => 'The format which being sent to the discord webhook'
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
     public function onInstall() {

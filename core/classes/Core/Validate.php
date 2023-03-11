@@ -149,7 +149,7 @@ class Validate {
                 $item = Output::getClean($item);
 
                 // Required rule
-                if ($rule === self::REQUIRED ) {
+                if ($rule === self::REQUIRED) {
                     $missing = false;
                     // If the item is HTML array syntax, check if it exists within the subarray.
                     // Otherwise, check if it's empty.
