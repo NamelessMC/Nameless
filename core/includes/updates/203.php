@@ -18,6 +18,9 @@ public function run(): void {
         Util::setSetting('minecraft_query_interval', $query_interval);
     }
 
+    // Forum post conversion
+    ConvertForumPostTask::schedule();
+
     $this->setVersion('2.1.0');
 }
 };
