@@ -21,6 +21,10 @@ const PANEL_PAGE = 'forums';
 $page_title = $forum_language->get('forum', 'forums');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
+$template->assets()->include(
+    AssetTree::ICON_PICKER,
+);
+
 if (!isset($_GET['action']) && !isset($_GET['forum'])) {
     $forums = DB::getInstance()->orderAll('forums', 'forum_order', 'ASC')->results();
     $template_array = [];
@@ -152,7 +156,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         'FORUM_DESCRIPTION' => $forum_language->get('forum', 'forum_description'),
                         'FORUM_DESCRIPTION_VALUE' => Output::getClean(Input::get('forumdesc')),
                         'FORUM_ICON' => $forum_language->get('forum', 'forum_icon'),
-                        'FORUM_ICON_VALUE' => Output::getClean(Input::get('forum_icon'))
+                        'FORUM_ICON_VALUE' => Output::getClean(Input::get('forum_icon')),
+                        'INFO' => $language->get('general', 'info'),
+                        'ICON_INFO' => Output::getClean($forum_language->get('forum', 'forum_icon_instructions', [
+                            'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
+                            'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>',
+                        ])),
                     ]);
 
                     $template_file = 'forum/forums_new_step_1.tpl';
@@ -770,6 +779,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'HOOKS_ARRAY' => $hooks_array,
                 'FORUM_HOOKS' => json_decode($forum_hooks),
                 'INFO' => $language->get('general', 'info'),
+                'ICON_INFO' => Output::getClean($forum_language->get('forum', 'forum_icon_instructions', [
+                    'faLink' => '<a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank" rel="noopener nofollow">Font Awesome</a>',
+                    'semLink' => '<a href="https://fomantic-ui.com/elements/icon.html" target="_blank" rel="noopener nofollow">Fomantic UI</a>',
+                ])),
                 'HOOK_SELECT_INFO' => $language->get('admin', 'hook_select_info'),
                 'FORUM_PERMISSIONS' => $forum_language->get('forum', 'forum_permissions'),
                 'GUESTS' => $language->get('user', 'guests'),

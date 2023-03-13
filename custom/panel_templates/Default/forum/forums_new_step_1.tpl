@@ -71,10 +71,24 @@
                                         class="form-control" rows="3">{$FORUM_DESCRIPTION_VALUE}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="forum_icon">{$FORUM_ICON}</label>
-                                    <input class="form-control" type="text" name="forum_icon" id="forum_icon"
-                                        value="{$FORUM_ICON_VALUE}" placeholder='<i class="fas fa-comment icon">'
-                                        autocomplete="off">
+                                    <label for="forum_icon">
+                                        {$FORUM_ICON}
+                                        <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ICON_INFO}">
+                                            <i class="fa fa-question"></i>
+                                        </span>
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  id="nav-icon-picker"
+                                                  style="cursor: pointer;"
+                                            >
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" type="text" name="forum_icon" id="forum_icon"
+                                               value="{$FORUM_ICON_VALUE}" placeholder="fa-solid fa-comment" autocomplete="off">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
@@ -128,6 +142,19 @@
         function showCancelModal() {
             $('#cancelModal').modal().show();
         }
+
+        $(document).ready(function () {
+            new UniversalIconPicker('#nav-icon-picker', {
+                allowEmpty: false,
+                iconLibraries: [
+                    'fomantic-ui.min.json',
+                    'font-awesome.min.json',
+                ],
+                onSelect: (icon) => {
+                    document.getElementById('forum_icon').value = icon.iconClass;
+                }
+            });
+        });
     </script>
 
 </body>

@@ -89,11 +89,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="icon">{$ICON} <span class="badge badge-info" data-toggle="popover"
-                                            data-title="{$INFO}" data-content="{$ICON_INFO}"><i
-                                                class="fa fa-question"></i></label>
-                                    <input type="text" name="icon" id="icon" class="form-control"
-                                        placeholder="fas fa-edit" value="{$ICON_VALUE}">
+                                    <label for="icon">
+                                        {$ICON}
+                                        <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ICON_INFO}">
+                                            <i class="fa fa-question"></i>
+                                        </span>
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  id="nav-icon-picker"
+                                                  style="cursor: pointer;"
+                                            >
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="icon" id="icon" class="form-control"
+                                               placeholder="fa-solid fa-triangle-exclamation" value="{$ICON_VALUE}">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="icon">{$ORDER}</label>
@@ -245,6 +258,17 @@
                 }
             }).children().click(function (e) {
                 e.stopPropagation();
+            });
+
+            new UniversalIconPicker('#nav-icon-picker', {
+                allowEmpty: false,
+                iconLibraries: [
+                    'fomantic-ui.min.json',
+                    'font-awesome.min.json',
+                ],
+                onSelect: (icon) => {
+                    document.getElementById('icon').value = icon.iconClass;
+                }
             });
         });
     </script>

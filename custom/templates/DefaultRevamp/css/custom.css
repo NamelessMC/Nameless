@@ -983,6 +983,23 @@ select {
     }
 }
 
+/*
+ Fix icons displaying small as forum icons
+ */
+.one.wide.column.mobile.hidden > i:first-child {
+    font-size: 2.3em;
+}
+
+/*
+ Fix FontAwesome icons displaying strangely announcement icons
+ Styles copied from Fomantic UI's .message>.icon class
+ */
+.ui.icon.message.announcement > i:first-child:not(.icon) {
+    font-size: 3em;
+    margin-right: .6em;
+    opacity: .8;
+}
+
 #darkmode {
     display: inline-block;
 }
