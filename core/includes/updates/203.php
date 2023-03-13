@@ -1,5 +1,6 @@
 <?php
 return new class extends UpgradeScript {
+
     public function run(): void {
         $this->runMigrations();
 
@@ -16,7 +17,7 @@ return new class extends UpgradeScript {
             }
             Util::setSetting('minecraft_query_interval', $query_interval);
         }
-
+        
         // Update icon definitions to just be class names instead of full HTML
         $announcements = DB::getInstance()->get('announcements', ['icon', '<>', ''])->results();
         foreach ($announcements as $announcement) {
@@ -46,9 +47,12 @@ return new class extends UpgradeScript {
             $cache->store($key, $this->extractIconClasses($icon));
         }
 
+        // Add all groups to member list selectable groups
+        Util::setSetting('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
+
         $this->setVersion('2.1.0');
     }
-
+    
     /**
      * Transform "<i class="fas fa-home"></i>" to "fas fa-home"
      */

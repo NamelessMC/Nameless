@@ -67,15 +67,9 @@ if (!$user->isLoggedIn()) {
                         'active' => true,
                     ]);
 
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
-                    EventHandler::executeEvent('validateUser', [
-                        'user_id' => $target_user->data()->id,
-                        'username' => $target_user->getDisplayname(),
-                        'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $target_user->getDisplayname()]),
-                        'avatar_url' => $target_user->getAvatar(128, true),
-                        'url' => URL::getSelfURL() . ltrim($target_user->getProfileURL(), '/'),
-                        'language' => $default_language
-                    ]);
+                    EventHandler::executeEvent(new UserValidatedEvent(
+                        $target_user,
+                    ));
 
                     Session::flash('home', $language->get('user', 'validation_complete'));
                     Redirect::to(URL::build('/'));

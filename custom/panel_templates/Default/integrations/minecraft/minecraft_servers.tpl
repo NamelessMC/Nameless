@@ -107,13 +107,21 @@
                                     <input id="inputQueryInterval" name="interval" type="number" class="form-control" value="{$QUERY_INTERVAL_VALUE}" min="5" max="60" />
                                 </div>
 
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="external_query" value="0">
-                                    <input id="inputExternalQuery" name="external_query" type="checkbox" class="custom-control-input js-check-change" value="1" {if $EXTERNAL_QUERY_VALUE} checked{/if} />
-                                    <label for="inputExternalQuery" class="custom-control-label">
-                                        {$EXTERNAL_QUERY} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$EXTERNAL_QUERY_INFO}"></i></span>
-                                    </label>
+                                <div class="form-group">
+                                    <label for="inputQueryType">{$QUERY_TYPE} <span class="badge badge-info"><i class="fa fa-question-circle" data-container="body" data-toggle="popover" data-placement="top" title="{$INFO}" data-content="{$QUERY_TYPE_INFO}"></i></span></label>
+                                    <select id="inputQueryType" class="form-control" name="query_type">
+                                        <option value="internal" name="{$INTERNAL}" {if $QUERY_TYPE_VALUE eq 'internal'}selected{/if}>{$INTERNAL}</option>
+                                        <option value="external" name="{$EXTERNAL}" {if $QUERY_TYPE_VALUE eq 'external'}selected{/if}>{$EXTERNAL}</option>
+                                        <option value="plugin" name="{$PLUGIN}" {if $QUERY_TYPE_VALUE eq 'plugin'}selected{/if}>{$PLUGIN}</option>
+                                    </select>
                                 </div>
+
+                                {if $QUERY_TYPE_VALUE eq 'plugin'}
+                                    <div class="form-group">
+                                        <label for="inputPlayerLimit">{$PLAYER_LIST_LIMIT}</label>
+                                        <input id="inputPlayerLimit" name="player_list_limit" type="number" class="form-control" value="{$PLAYER_LIST_LIMIT_VALUE}" min="0" />
+                                    </div>
+                                {/if}
 
                                 <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="status_page" value="0">

@@ -1,13 +1,13 @@
 <?php
 
-if (!isset($_SESSION['admin_setup']) || $_SESSION['admin_setup'] != true) {
-    Redirect::to('?step=admin_account_setup');
+if (!isset($_SESSION['modules_selected']) || $_SESSION['modules_selected'] != true) {
+    Redirect::to('?step=select_modules');
 }
 
 try {
     Config::set('core.installed', true);
 
-    unset($_SESSION['admin_setup'], $_SESSION['database_initialized'], $_SESSION['site_initialized']);
+    unset($_SESSION['admin_setup'], $_SESSION['database_initialized'], $_SESSION['site_initialized'], $_SESSION['modules_selected']);
 
 } catch (Exception $e) {
 
