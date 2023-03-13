@@ -43,7 +43,7 @@ class UserSeeder extends Seeder {
             ]
         );
 
-        $this->times(100, function () use ($db, $faker, $password) {
+        $this->times(USER_COUNT, function () use ($db, $faker, $password) {
             $username = substr($faker->unique()->userName, 0, 20);
             $full_name = substr($faker->unique()->name, 0, 20);
             $active = $faker->boolean(90) ? 1 : 0;
@@ -83,6 +83,15 @@ class UserSeeder extends Seeder {
                 $db->insert('users_groups', [
                     'user_id' => $user_id,
                     'group_id' => 2,
+                    'received' => $this->since($joined, $faker)->format('U'),
+                    'expire' => 0,
+                ]);
+            }
+
+            if ($active && $faker->boolean(40)) {
+                $db->insert('users_groups', [
+                    'user_id' => $user_id,
+                    'group_id' => 3,
                     'received' => $this->since($joined, $faker)->format('U'),
                     'expire' => 0,
                 ]);

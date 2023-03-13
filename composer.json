@@ -50,7 +50,8 @@
             "modules/Discord Integration/widgets",
             "modules/Forum/classes",
             "modules/Forum/hooks",
-            "modules/Forum/widgets"
+            "modules/Forum/widgets",
+            "modules/Members/classes"
         ]
     }
 }

@@ -23,7 +23,7 @@ class ForumPostSeeder extends Seeder {
                 'created' => $created->format('U'),
             ]);
 
-            $this->times($faker->numberBetween(3, 10), function () use ($db, $faker, $topic, $users) {
+            $this->times(FORUM_POST_COUNT, function () use ($db, $faker, $topic, $users) {
                 $user = $faker->randomElement($users);
                 $created = $this->since($user->joined, $faker);
 

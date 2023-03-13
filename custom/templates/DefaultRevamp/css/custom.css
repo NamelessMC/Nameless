@@ -384,9 +384,12 @@ body.pushable>.pusher {
 #profile a.ui.circular.image.avatar img {
     max-height: 35px;
 }
-.aaaaaaaaaaa {
-    top: 15%;
+
+/* Fix avatar images in labels being a few px from touching the top */
+.ui.image.label img {
+    vertical-align: top !important;
 }
+
 /*
    *  [ FORUM SEARCH ]
    */
@@ -1036,6 +1039,23 @@ select {
 }
 
 /*
+ Member list search images
+ */
+.ui.search > .results .result .image {
+    border-radius: 0;
+}
+
+/*
+ Make new members grid avatars fit nicer
+ */
+#new-members-grid {
+    padding: 0.5em;
+}
+
+#new-members-grid .column {
+    padding: 0.5em;
+}
+
  *  [ EMOJI SIZING ]
  */
 
@@ -1044,7 +1064,6 @@ select {
     width: 1em;
     vertical-align: middle;
 }
-
 
 /*
    *  [ DARK MODE ]
