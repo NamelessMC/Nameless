@@ -6,7 +6,7 @@ abstract class AbstractWidget {
     protected string $_content;
     protected string $_description;
     protected string $_module;
-    protected string $_settings = '';
+    protected ?string $_settings = null;
     protected bool $_requires_cookies = false;
     protected Smarty $_smarty;
     protected WidgetData $_data;
