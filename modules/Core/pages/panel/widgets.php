@@ -139,9 +139,8 @@ if (!isset($_GET['action'])) {
         $is_profile_widget = $widget_instance instanceof ProfileWidgetBase;
 
         // Editing widget
-        $active_pages = $is_profile_widget
-            ? []
-            : json_decode($widget->pages, true);
+        $active_pages = $widget_instance->getPages();
+        $order = $widget_instance->getOrder();
 
         if (Input::exists()) {
             if (Token::check()) {
@@ -157,13 +156,18 @@ if (!isset($_GET['action'])) {
                     }
 
                     $active_pages_string = json_encode($active_pages);
+                    $order = ($_POST['order'] ?? 10);
 
                     $location = Input::get('location');
                     if (!in_array($location, ['left', 'right'])) {
                         $location = 'right';
                     }
 
-                    DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'location' => $location]);
+                    DB::getInstance()->update('widgets', $widget->id, [
+                        'pages' => $active_pages_string,
+                        'location' => $location,
+                        'order' => $order
+                    ]);
                     $widget_instance->clearCache();
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
@@ -199,6 +203,8 @@ if (!isset($_GET['action'])) {
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/widgets'),
             'IS_PROFILE_WIDGET' => $is_profile_widget,
+            'ORDER' => $order,
+            'WIDGET_ORDER' => $language->get('admin', 'widget_order'),
             'LOCATION' => $location,
             'WIDGET_LOCATION' => $language->get('admin', 'widget_location'),
             'LEFT' => $language->get('admin', 'left'),

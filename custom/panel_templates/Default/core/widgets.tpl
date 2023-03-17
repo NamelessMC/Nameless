@@ -39,7 +39,8 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
-                            Site Widgets
+                            <h5>Site Widgets</h5>
+                            <hr />
                             {foreach from=$WIDGETS_LIST item=widget name=widget_list}
                                 <div class="row">
                                     <div class="col-md-9">
@@ -74,7 +75,8 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
 
-                            Profile Widgets
+                            <h5>Profile Widgets</h5>
+                            <hr />
                             {foreach from=$PROFILE_WIDGETS_LIST item=widget name=widget_list}
                                 <div class="row">
                                     <div class="col-md-9">
