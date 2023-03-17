@@ -40,7 +40,7 @@ class UserProfilePostSeeder extends Seeder {
         });
 
         $reactions = $db->get('reactions', ['id', '<>', 0])->results();
-        $this->times(PROFILE_POST_REACTION_COUNT, function () use ($db, $faker, $profile_posts) {
+        $this->times(PROFILE_POST_REACTION_COUNT, function () use ($db, $faker, $profile_posts, $reactions) {
             $post = $faker->randomElement($profile_posts);
             $user_id = $faker->randomElement($profile_posts)->user_id;
 
