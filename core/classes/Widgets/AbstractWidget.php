@@ -98,6 +98,9 @@ abstract class AbstractWidget {
      */
     abstract public function getPages(): array;
 
+    /**
+     * Clear the cache for this widget, should be called when any settings of it are changed.
+     */
     final public function clearCache(): void {
         $cache = new Cache();
         $cache->setCache(
@@ -109,6 +112,12 @@ abstract class AbstractWidget {
         $cache->erase($this->getName());
     }
 
+    /**
+     * Get widget data.
+     * Will use cache if available, otherwise will query the database and store the result in cache.
+     *
+     * @return WidgetData Widget data.
+     */
     protected function getData(): WidgetData {
         if (isset($this->_data)) {
             return $this->_data;
