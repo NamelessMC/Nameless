@@ -18,13 +18,15 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
 
     public function execute(Nameless2API $api, User $user): void {
         $return = (object) clone $user->data();
-        unset($return->password, $return->email, $return->ip, $return->joined, $return->last_online, $return->banned, $return->active);
+        unset($return->password, $return->nickname, $return->email, $return->ip, $return->joined, $return->last_online, $return->banned, $return->active);
         $return->exists = true;
         $return->registered_timestamp = $user->data()->joined;
         $return->last_online_timestamp = $user->data()->last_online;
         $return->banned = $user->data()->isbanned;
         $return->validated = $user->data()->active;
         $return->avatar_url = $user->getAvatar(128, true);
+        $return->locale = DB::getInstance()->get('languages', ['id', $user->data()->language_id])->first()->name;
+        $return->displayname = $user->data()->nickname;
 
         // Get custom profile fields
         foreach ($user->getProfileFields(true) as $id => $profile_field) {
