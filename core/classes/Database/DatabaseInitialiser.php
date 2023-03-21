@@ -32,7 +32,6 @@ class DatabaseInitialiser {
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
             'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}',
-            'default_group' => true,
             'order' => 3
         ]);
 
@@ -61,6 +60,7 @@ class DatabaseInitialiser {
             'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
             'group_username_color' => '#6c757d',
             'permissions' => '{}',
+            'default_group' => true,
             'order' => 4
         ]);
 

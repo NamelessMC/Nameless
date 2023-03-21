@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Registered members member list provider
  *
