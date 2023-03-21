@@ -23,7 +23,7 @@ class DiscordHook implements WebhookDispatcher {
             : $params['event'];
 
         $format = $event instanceof DiscordDispatchable
-            ? $event->toDiscordWebook()
+            ? $event->toDiscordWebhook()
             : [];
 
         $return = EventHandler::executeEvent(new DiscordWebhookFormatterEvent(

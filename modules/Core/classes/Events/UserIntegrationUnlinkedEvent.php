@@ -20,7 +20,7 @@ class UserIntegrationUnlinkedEvent extends AbstractEvent implements DiscordDispa
         return (new Language())->get('admin', 'user_unlink_integration_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()

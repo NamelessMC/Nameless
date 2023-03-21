@@ -20,7 +20,7 @@ class UserProfilePostReplyCreatedEvent extends AbstractEvent implements DiscordD
         return (new Language())->get('admin', 'user_profile_post_reply_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()

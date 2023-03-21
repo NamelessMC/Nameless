@@ -34,7 +34,7 @@ class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
         return (new Language())->get('admin', 'report_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         return DiscordWebhookBuilder::make()
             ->setUsername($this->username . ' | ' . SITE_NAME)
             ->setAvatarUrl($this->avatar_url)

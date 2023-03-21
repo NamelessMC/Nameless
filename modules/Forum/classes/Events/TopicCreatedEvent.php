@@ -33,7 +33,7 @@ class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
         return (new Language())->get('admin', 'announcement_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
         $forum = new Forum();
 

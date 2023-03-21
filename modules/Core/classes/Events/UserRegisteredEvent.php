@@ -16,7 +16,7 @@ class UserRegisteredEvent extends AbstractEvent implements DiscordDispatchable {
         return (new Language())->get('admin', 'register_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()

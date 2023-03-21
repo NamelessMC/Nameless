@@ -30,7 +30,7 @@ class TopicReplyCreatedEvent extends AbstractEvent implements DiscordDispatchabl
         return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'topic_reply');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
         $forum = new Forum();
 

@@ -20,7 +20,7 @@ class AnnouncementCreatedEvent extends AbstractEvent implements DiscordDispatcha
         return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'new_topic_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()

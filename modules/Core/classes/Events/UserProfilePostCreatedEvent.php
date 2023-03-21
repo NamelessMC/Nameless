@@ -20,7 +20,7 @@ class UserProfilePostCreatedEvent extends AbstractEvent implements DiscordDispat
         return (new Language())->get('admin', 'user_new_profile_post_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
