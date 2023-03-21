@@ -32,7 +32,9 @@ class DiscordHook implements WebhookDispatcher {
             $params,
         ))['format'];
 
-        unset($return['webhook']);
+        if (is_array($return) && isset($return['webhook'])) {
+            unset($return['webhook']);
+        }
 
         if ($return instanceof DiscordWebhookBuilder) {
             $return = $return->toArray();
