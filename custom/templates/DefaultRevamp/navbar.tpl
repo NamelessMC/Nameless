@@ -35,15 +35,9 @@
                                     {if isset($dropdown.separator)}
                                         <div class="divider"></div>
                                     {else}
-                                        {if $dropdown.type == 'item'}
-                                            <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">
-                                                {$dropdown.icon} {$dropdown.title}
-                                            </a>
-                                        {else}
-                                            <div class="header">
-                                                {$dropdown.title}
-                                            </div>
-                                        {/if}
+                                        <a class="item" href="{$dropdown.link}" target="{$dropdown.target}">
+                                            {$dropdown.icon} {$dropdown.title}
+                                        </a>
                                     {/if}
                                 {/foreach}
                             </div>

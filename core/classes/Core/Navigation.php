@@ -110,7 +110,6 @@ class Navigation {
         if ($location == 'top') {
             // Navbar
             $this->_topNavbar[$name] = [
-                'type' => 'dropdown',
                 'title' => $title,
                 'items' => [],
                 'order' => $order,
@@ -119,7 +118,6 @@ class Navigation {
         } else {
             // Footer
             $this->_footerNav[$name] = [
-                'type' => 'dropdown',
                 'title' => $title,
                 'items' => [],
                 'order' => $order,
@@ -139,9 +137,8 @@ class Navigation {
      * @param string|null $target HTML target attribute (eg '_blank')
      * @param string $icon Icon to prepend to nav item
      * @param int $order Nav item order
-     * @param string $type Type of item, either 'item' or 'header'
      */
-    public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10, string $type = 'item'): void {
+    public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10): void {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {
             // Navbar
@@ -151,7 +148,6 @@ class Navigation {
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order,
-                'type' => $type,
             ];
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
@@ -161,7 +157,6 @@ class Navigation {
                 'target' => $target,
                 'icon' => $icon,
                 'order' => $order,
-                'type' => $type,
             ];
         }
     }

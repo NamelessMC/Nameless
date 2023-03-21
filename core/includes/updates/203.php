@@ -17,7 +17,7 @@ return new class extends UpgradeScript {
             Util::setSetting('minecraft_query_interval', $query_interval);
         }
 
-        // Replace`external_query` with `query_type`
+        // Replace `external_query` with `query_type`
         Util::setSetting('query_type', Util::getSetting('external_query') == 1 ? 'external' : 'internal');
         Util::setSetting('external_query', null);
 

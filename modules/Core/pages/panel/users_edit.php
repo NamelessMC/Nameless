@@ -110,7 +110,7 @@ if (Input::exists()) {
                 'timezone' => [
                     Validate::REQUIRED => true,
                     Validate::TIMEZONE => true
-                ]
+                ],
             ])->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),

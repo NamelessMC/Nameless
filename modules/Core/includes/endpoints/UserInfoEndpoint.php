@@ -17,9 +17,9 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api, User $user): void {
-        $return = new stdClass();
+        $return = (object) clone $user->data();
+        unset($return->password, $return->email, $return->ip, $return->joined, $return->last_online, $return->banned, $return->active);
         $return->exists = true;
-        $return->id = $user->data()->id;
         $return->registered_timestamp = $user->data()->joined;
         $return->last_online_timestamp = $user->data()->last_online;
         $return->banned = $user->data()->isbanned;
