@@ -42,7 +42,8 @@ class EventHandler {
         if (class_exists($event)  && is_subclass_of($event, AbstractEvent::class)) {
             $class_name = $event;
             $name = $event::name();
-            $description = $event::description();
+            // We lazy load descriptions for class-based events to avoid loading new Language instances unnecessarily
+            $description = fn () => $event::description();
             $return = $event::return();
             $internal = $event::internal();
         } else {
@@ -210,6 +211,9 @@ class EventHandler {
 
         foreach (self::$_events as $name => $meta) {
             if (!$meta['internal'] || $internal) {
+                if (is_callable($meta['description'])) {
+                    $meta['description'] = $meta['description']();
+                }
                 $return[$name] = $meta['description'];
             }
         }
