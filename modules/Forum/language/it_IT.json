@@ -115,7 +115,7 @@
     "forum/posts": "post",
     "forum/posts_title": "Post",
     "forum/quote": "Quota",
-    "forum/quoted_post": "Post aggiunto ai post citati.",
+    "forum/quoted_post": "Post citato",
     "forum/re": "RI: ",
     "forum/read_full_post": "Leggi l'articolo completo",
     "forum/recent_posts": "Post recenti",
@@ -176,7 +176,6 @@
     "forum/pre_topic_edit_hook_info": "Modifica pre-argomento",
     "forum/user_object": "Oggetto utente",
     "forum/label_type_in_use": "Il tipo di etichetta è in uso, non può essere eliminato.",
-    "forum/topic_author_uuid": "ID utente dell'autore dell'argomento",
     "forum/unfollow_all_topics": "Smetti di seguire tutti gli argomenti",
     "forum/latest_posts_widget_cached": "Il widget degli gli ultimi post è in cache per un minuto, le tue modifiche potrebbero non avere effetto immediato.",
     "forum/latest_posts_limit": "Limite Ultimi Posts"
