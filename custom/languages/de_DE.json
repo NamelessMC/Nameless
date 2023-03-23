@@ -1215,7 +1215,6 @@
     "user/avatar_removed_successfully": "Avatar erfolgreich entfernt",
     "user/remove_avatar": "Avatar entfernen",
     "admin/user_profile_post_reply_hook_info": "Profilbeitrag Antwort",
-    "user/profile_post_reply_title": "Profil Beitrag Antwort Titel",
     "user/x_replied_on_y_profile": "{{replier}} hat eine Antwort auf {{user}}'s Profil gepostet.",
     "admin/user_new_profile_post_hook_info": "Neuer Profilbeitrag",
     "user/profile_post_reply": "Profil Beitrag Antwort",
@@ -1244,5 +1243,19 @@
     "user/authme_sync_password": "Sync AuthMe Passwort",
     "user/authme_sync_password_help": "Du kannst dein Spiel-Passwort mit deinem Website-Passwort synchronisieren. Dadurch kannst du dich mit deinem Passwort aus dem Spiel im Forum anmelden.",
     "user/successful_login_synced_password": "Du hast dich erfolgreich eingeloggt und dein Passwort wurde mit deinem AuthMe-Passwort synchronisiert.",
-    "api/groups_updates_successfully": "Gruppen erfolgreich aktualisiert"
+    "api/groups_updates_successfully": "Gruppen erfolgreich aktualisiert",
+    "admin/query_type_help": "Wenn die standardmäßige interne Serverabfrage nicht funktioniert, versuch eine andere Option.",
+    "admin/player_list_limit": "Begrenzung der Spielerliste",
+    "admin/query_type": "Abfrageart",
+    "admin/internal": "Intern",
+    "admin/external": "Extern",
+    "admin/plugin": "Plugin",
+    "admin/user_banned_webhook": "{{punished}} wurde von {{punisher}} von der Website gebannt.",
+    "admin/user_warned_webhook": "{{punished}} wurde von {{punisher}} verwarnt.",
+    "admin/clone_group": "Gruppe klonen",
+    "admin/emoji_joypixels": "JoyPixels",
+    "admin/emoji_style": "Emoji Style",
+    "admin/emoji_style_help": "Ändere dein Emoji-Set verwendet wird:<br>&bull; Native {{nativeExample}} <br>&bull; Twemoji {{twemojiExample}} <br>&bull; JoyPixels {{joypixelsExample}}",
+    "admin/emoji_native": "Native",
+    "admin/emoji_twemoji": "Twemoji"
 }
