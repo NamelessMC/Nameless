@@ -175,11 +175,13 @@ class ErrorHandler {
     }
 
     /**
+     * For API requests, query requests and AJAX requests, return a plain text error message.
+     *
      * @return bool Whether the error page should be in plain text rather than a user friendly HTML page.
      */
     private static function shouldUsePlainText(): bool {
         $route = $_REQUEST['route'] ?? '';
-        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/');
+        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/') || isset($_SERVER['HTTP_X_REQUESTED_WITH']);
     }
 
     /**
