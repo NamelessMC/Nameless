@@ -40,7 +40,12 @@ if (isset($_GET['group'])) {
 }
 
 $new_members = [];
-foreach (DB::getInstance()->query('SELECT id FROM nl2_users ORDER BY joined DESC LIMIT 12')->results() as $new_member) {
+if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+    $query = DB::getInstance()->query('SELECT id FROM nl2_users WHERE isbanned = 0 ORDER BY joined DESC LIMIT 12');
+} else {
+    $query = DB::getInstance()->query('SELECT id FROM nl2_users ORDER BY joined DESC LIMIT 12');
+}
+foreach ($query->results() as $new_member) {
     $new_members[] = new User($new_member->id);
 }
 
