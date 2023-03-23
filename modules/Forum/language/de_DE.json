@@ -178,5 +178,8 @@
     "forum/topic_reply": "Antwort zum Thema",
     "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden.",
     "forum/latest_posts_widget_cached": "Das Widget für die neuesten Beiträge wird eine Minute lang zwischengespeichert, so dass deine Änderungen möglicherweise nicht sofort wirksam werden.",
-    "forum/latest_posts_limit": "Letzte Beiträge begrenzen"
+    "forum/latest_posts_limit": "Letzte Beiträge begrenzen",
+    "forum/highest_reaction_scores": "Höchster Reaktionsanzahl",
+    "forum/most_posts": "Die meisten Beiträge",
+    "forum/reaction_score": "Reaktionsanzahl"
 }
