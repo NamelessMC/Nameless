@@ -1222,5 +1222,17 @@
     "api/webhook_added": "Webhookを作成",
     "general/cannot_read_file": "ファイルを読み込めません。",
     "general/problem_loading_widget": "ウィジェット{{widget}}の読み込みに問題が発生しました",
-    "general/unable_to_load_widget": "ウィジェットを読み込めません"
+    "general/unable_to_load_widget": "ウィジェットを読み込めません",
+    "admin/authme_db_connection_failed": "接続に失敗",
+    "admin/clone_group": "グループを複製",
+    "admin/internal": "内部",
+    "admin/external": "外部",
+    "admin/plugin": "プラグイン",
+    "admin/player_list_limit": "プレイヤーリストの上限",
+    "general/sql_query": "SQLクエリ",
+    "user/username_already_exists": "あなたの選択したユーザ名はすでに存在しています。",
+    "admin/emoji_style": "絵文字の種類",
+    "installer/timezone": "タイムゾーン",
+    "admin/authme_db_test_connection": "接続テスト",
+    "admin/authme_db_connection_success": "接続に成功"
 }
