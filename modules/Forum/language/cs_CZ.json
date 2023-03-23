@@ -178,5 +178,8 @@
     "forum/topic_reply": "Odpověď na téma",
     "forum/label_type_in_use": "Typ štítku je používán, nelze jej odstranit.",
     "forum/latest_posts_limit": "Limit nejnovějších příspěvků",
-    "forum/latest_posts_widget_cached": "Widget nejnovějších příspěvků je uložen v mezipaměti po dobu jedné minuty, vaše změny se nemusí projevit okamžitě."
+    "forum/latest_posts_widget_cached": "Widget nejnovějších příspěvků je uložen v mezipaměti po dobu jedné minuty, vaše změny se nemusí projevit okamžitě.",
+    "forum/highest_reaction_scores": "Nejvyšší reakční skóre",
+    "forum/reaction_score": "Reakční skóre",
+    "forum/most_posts": "Nejvíce příspěvků"
 }
