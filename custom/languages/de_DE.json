@@ -1093,7 +1093,7 @@
     "admin/not_linked": "Nicht verknüpft",
     "admin/placeholders": "Platzhalter",
     "admin/placeholders_friendly_name_info": "Verwende dies, um diesem Platzhalter einen \"Spitznamen\" zu geben. Der freundliche Name wird anstelle des eigentlichen Namens verwendet.",
-    "admin/placeholders_info": "Mit Hilfe von Platzhaltern kann das NamelessMC Spigot-Plugin Statistiken über die einzelnen Spieler an deine Website senden, damit diese in ihren Profilen und Forenbeiträgen angezeigt werden können.",
+    "admin/placeholders_info": "Mit Hilfe von Platzhaltern kann das NamelessMC-Plugin Statistiken über jeden Spieler an deine Website senden, damit diese in deinem Profil und in Forenbeiträgen angezeigt werden können.",
     "admin/report_hook_info": "Erstellung des Berichts",
     "admin/show_registration_link": "Registrierungslink anzeigen",
     "admin/updated_placeholder_settings": "Die Platzhaltereinstellungen wurden erfolgreich aktualisiert.",
@@ -1263,5 +1263,11 @@
     "general/staff_members": "Teammitglied",
     "installer/module_forum_description": "Füge ein Forum zu deiner Webseite hinzu.",
     "installer/module_core_description": "Dieser Modul ist erforderlich für NamelessMC damit es korrekt funktioniert.",
-    "installer/module_cookie-consent_description": "Erlaube den Nutzern die Akzeptierung von Cookies auf deiner Webseite."
+    "installer/module_cookie-consent_description": "Erlaube den Nutzern die Akzeptierung von Cookies auf deiner Webseite.",
+    "installer/module_discord-integration_description": "Ermöglicht es Nutzern, ihr Discord-Konto mit ihrem Website-Konto zu verknüpfen und verschiedene Synchronisierungsaktionen durchzuführen.",
+    "installer/module_members_description": "Fügt eine detaillierte Mitgliederseite und Statistiken zu deiner Website hinzu.",
+    "installer/select_modules": "Module auswählen",
+    "installer/step_select_modules": "Module auswählen",
+    "installer/select_modules_details": "Wähle die Module aus, die du für deine Website aktivieren möchtest. Diese können später über das Admin Panel umgeschaltet werden.",
+    "admin/confirm_delete_placeholder": "Bist du sicher, dass du diesen Platzhalter löschen willst?"
 }
