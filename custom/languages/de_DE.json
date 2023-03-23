@@ -1257,5 +1257,11 @@
     "admin/emoji_style": "Emoji Style",
     "admin/emoji_style_help": "Ändere dein Emoji-Set verwendet wird:<br>&bull; Native {{nativeExample}} <br>&bull; Twemoji {{twemojiExample}} <br>&bull; JoyPixels {{joypixelsExample}}",
     "admin/emoji_native": "Native",
-    "admin/emoji_twemoji": "Twemoji"
+    "admin/emoji_twemoji": "Twemoji",
+    "general/joined": "Beigetreten",
+    "general/registered_members": "Registrierte Mitgliedern",
+    "general/staff_members": "Teammitglied",
+    "installer/module_forum_description": "Füge ein Forum zu deiner Webseite hinzu.",
+    "installer/module_core_description": "Dieser Modul ist erforderlich für NamelessMC damit es korrekt funktioniert.",
+    "installer/module_cookie-consent_description": "Erlaube den Nutzern die Akzeptierung von Cookies auf deiner Webseite."
 }
