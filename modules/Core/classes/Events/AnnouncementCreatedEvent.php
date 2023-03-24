@@ -17,7 +17,7 @@ class AnnouncementCreatedEvent extends AbstractEvent implements DiscordDispatcha
     }
 
     public static function description(): string {
-        return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'new_topic_hook_info');
+        return (new Language())->get('admin', 'announcement_hook_info');
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {

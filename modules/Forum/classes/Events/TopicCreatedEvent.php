@@ -1,6 +1,6 @@
 <?php
 
-class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
+class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable, HasWebhookParams {
 
     public User $creator;
     public string $forum_title;
@@ -30,7 +30,7 @@ class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
     }
 
     public static function description(): string {
-        return (new Language())->get('admin', 'announcement_hook_info');
+        return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'new_topic');
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {
@@ -50,5 +50,9 @@ class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
                     ->setDescription(Text::embedSafe($this->content))
                     ->setUrl(URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/'));
             });
+    }
+
+    public function webhookParams(): array {
+        return [];
     }
 }

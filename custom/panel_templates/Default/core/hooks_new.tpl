@@ -64,19 +64,24 @@
                                 <div class="form-group">
                                     <label for="link_location">{$HOOK_TYPE}</label>
                                     <select class="form-control" id="hook_type" name="hook_type">
-                                        <option value="2">Discord</option>
+                                        <option value="2">{$DISCORD}</option>
                                         <option value="1">{$NORMAL}</option>
                                     </select>
                                 </div>
                                 <label for="InputName">{$HOOK_EVENTS}</label>
-                                {foreach from=$ALL_EVENTS key=key item=item}
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" id="inputevents[{$key|escape}]" name="events[{$key|escape}]"
-                                        class="custom-control-input">
-                                    <label class="custom-control-label" for="inputevents[{$key|escape}]">
-                                        {$item|escape}
-                                    </label>
-                                </div>
+                                {foreach from=$ALL_EVENTS key=key item=meta}
+                                    <div class="form-group custom-control custom-switch">
+                                        <input type="checkbox" id="inputevents[{$key|escape}]" name="events[{$key|escape}]" class="custom-control-input">
+                                        <label class="custom-control-label" for="inputevents[{$key|escape}]">
+                                            {$meta.description|escape}
+                                            {if $meta.supports_discord}
+                                                <span class="badge badge-info">Supports Discord</span>
+                                            {/if}
+                                            {if $meta.supports_normal}
+                                                <span class="badge badge-info">Supports Normal</span>
+                                            {/if}
+                                        </label>
+                                    </div>
                                 {/foreach}
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">

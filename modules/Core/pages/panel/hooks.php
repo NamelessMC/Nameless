@@ -114,6 +114,7 @@ if (!isset($_GET['action'])) {
                 'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/hooks'),
+                'DISCORD' => $language->get('admin', 'discord_hook'),
                 'NORMAL' => $language->get('general', 'normal'),
                 'ALL_EVENTS' => EventHandler::getEvents(),
             ]);
@@ -200,6 +201,7 @@ if (!isset($_GET['action'])) {
                 'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/hooks'),
+                'DISCORD' => $language->get('admin', 'discord_hook'),
                 'NORMAL' => $language->get('general', 'normal'),
                 'ALL_EVENTS' => EventHandler::getEvents(),
                 'ENABLED_HOOKS' => json_decode($hook->events, true)
