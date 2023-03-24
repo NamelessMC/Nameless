@@ -163,7 +163,8 @@ foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $prov
     $oauth_provider_data[$provider_name] = [
         'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
         'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
-        'icon' => $provider_data['icon'],
+        'icon' => $provider_data['icon'] ?? null,
+        'logo_url' => $provider_data['logo_url'] ?? null,
         'client_id' => $client_id,
         'client_secret' => $client_secret,
     ];
