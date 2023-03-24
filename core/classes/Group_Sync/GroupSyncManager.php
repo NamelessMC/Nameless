@@ -2,7 +2,7 @@
 /**
  * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
  *
- * @package NamelessMC\Group_Sync
+ * @package NamelessMC\GroupSync
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

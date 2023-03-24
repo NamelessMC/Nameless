@@ -9,9 +9,9 @@
     <arg value="sp"/>
 
     <!-- Strip the filepaths down to the relevant bit. -->
-    <arg name="basepath" value="."/>
+    <arg name="basepath" value="../"/>
 
-    <file>.</file>
+    <file>../</file>
 
     <exclude-pattern>vendor/</exclude-pattern>
 

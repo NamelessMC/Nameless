@@ -57,7 +57,7 @@ class OnlineUsersWidget extends WidgetBase {
             if ($include_staff) {
                 $online = DB::getInstance()->query('SELECT id FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->results();
             } else {
-                $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0', [])->results();
+                $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 0')->results();
             }
 
             $this->_cache->store('users', $online, 120);
@@ -68,6 +68,10 @@ class OnlineUsersWidget extends WidgetBase {
             $users = [];
 
             foreach ($online as $item) {
+                if (count($users) === 10) {
+                    break;
+                }
+
                 $online_user = new User($item->id);
                 if ($online_user->exists()) {
                     $users[] = [
@@ -84,10 +88,9 @@ class OnlineUsersWidget extends WidgetBase {
             }
 
             $this->_smarty->assign([
-                'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
                 'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
                 'ONLINE_USERS_LIST' => $users,
-                'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => count($users)])
+                'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => count($online)])
             ]);
 
         } else {

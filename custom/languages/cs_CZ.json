@@ -1263,7 +1263,6 @@
     "api/webhook_added": "Webhook byl vytvořen",
     "general/problem_loading_widget": "Při načítání widgetu {{widget}} se vyskytla chyba",
     "general/unable_to_load_widget": "Nepodařilo se načíst widget",
-    "general/sql_query": "SQL Query",
     "user/username_already_exists": "Zvolená přezdívka již existuje.",
     "admin/panel_template_third_party": "Šablona panelu {{name}} je šablonou třetí strany. Upozorňujeme, že kompatibilita verzí mezi menšími aktualizacemi NamelessMC není zaručena a problémy je třeba řešit s autorem šablony.",
     "admin/unable_to_load_module": "Chyba {{message}} v doplňku {{module}}.",
