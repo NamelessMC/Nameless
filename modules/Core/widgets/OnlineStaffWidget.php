@@ -31,7 +31,7 @@ class OnlineStaffWidget extends WidgetBase {
         if ($this->_cache->isCached('staff')) {
             $online = $this->_cache->retrieve('staff');
         } else {
-            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1', [])->results();
+            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1')->results();
             $this->_cache->store('staff', $online, 120);
         }
 
@@ -40,6 +40,10 @@ class OnlineStaffWidget extends WidgetBase {
             $staff_members = [];
 
             foreach ($online as $staff) {
+                if (count($staff_members) === 10) {
+                    break;
+                }
+
                 $staff_user = new User($staff->id);
                 if ($staff_user->exists()) {
                     $staff_members[] = [
@@ -58,7 +62,7 @@ class OnlineStaffWidget extends WidgetBase {
             $this->_smarty->assign([
                 'ONLINE_STAFF' => $this->_language->get('general', 'online_staff'),
                 'ONLINE_STAFF_LIST' => $staff_members,
-                'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => count($staff_members)]),
+                'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => count($online)]),
             ]);
 
         } else {

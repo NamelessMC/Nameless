@@ -18,15 +18,15 @@
                             <div class="default text">{$MOVE_TO}</div>
                             <div class="menu">
                                 {foreach from=$FORUMS item=forum}
-                                {if $forum->category}
-                                <div class="header">
-                                    {$forum->forum_title}
-                                </div>
-                                {else}
-                                <div class="item" data-value="{$forum->id}">
-                                    {$forum->forum_title}
-                                </div>
-                                {/if}
+                                    {if $forum->category}
+                                        <div class="header">
+                                            {$forum->forum_title}
+                                        </div>
+                                    {else}
+                                        <div class="item" data-value="{$forum->id}">
+                                            {$forum->forum_title}
+                                        </div>
+                                    {/if}
                                 {/foreach}
                             </div>
                         </div>

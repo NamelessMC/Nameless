@@ -6,8 +6,9 @@ if (!$user->handlePanelPageLoad('admincp.members')) {
 }
 
 const PAGE = 'panel';
-const PARENT_PAGE = 'member_lists';
+const PARENT_PAGE = 'members';
 const PANEL_PAGE = 'members_settings';
+
 $page_title = $members_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
@@ -88,7 +89,7 @@ $smarty->assign([
     'HIDE_BANNED_USERS_VALUE' => Util::getSetting('member_list_hide_banned', false, 'Members'),
     'GROUPS' => $members_language->get('members', 'viewable_groups'),
     'GROUPS_ARRAY' => $group_array,
-    'GROUPS_VALUE' => json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true),
+    'GROUPS_VALUE' => json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true) ?: [],
     'NO_ITEM_SELECTED' => $language->get('admin', 'no_item_selected'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),

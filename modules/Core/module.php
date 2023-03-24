@@ -27,7 +27,7 @@ class Core_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
         // Define URLs which belong to this module
-        $pages->add('Core', '/', 'pages/index.php');
+        $pages->add('Core', '/', 'pages/index.php', '', true);
         $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
         $pages->add('Core', '/home', 'pages/home.php', 'index', true);
 
@@ -632,8 +632,7 @@ class Core_Module extends Module {
         $pages->registerSitemapMethod([Core_Sitemap::class, 'generateSitemap']);
 
         // Widgets - only load if on a widget staffcp page or the frontend
-        // TODO: check if active page supports widgets, no point to load them if not (ie: login page)
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+        if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');
             $fb_url = Util::getSetting('fb_url');
@@ -754,26 +753,28 @@ class Core_Module extends Module {
             $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
         }
 
-        $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
+        // Only add leaderboard link if there is at least one enabled placeholder and MC integration enabled
+        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1') {
+            $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
-        // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
-            $cache->setCache('navbar_order');
-            if (!$cache->isCached('leaderboards_order')) {
-                $leaderboards_order = 4;
-                $cache->store('leaderboards_order', 4);
-            } else {
-                $leaderboards_order = $cache->retrieve('leaderboards_order');
+            if (count($leaderboard_placeholders)) {
+                $cache->setCache('navbar_order');
+                if (!$cache->isCached('leaderboards_order')) {
+                    $leaderboards_order = 4;
+                    $cache->store('leaderboards_order', 4);
+                } else {
+                    $leaderboards_order = $cache->retrieve('leaderboards_order');
+                }
+
+                $cache->setCache('navbar_icons');
+                if (!$cache->isCached('leaderboards_icon')) {
+                    $leaderboards_icon = '';
+                } else {
+                    $leaderboards_icon = $cache->retrieve('leaderboards_icon');
+                }
+
+                $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
             }
-
-            $cache->setCache('navbar_icons');
-            if (!$cache->isCached('leaderboards_icon')) {
-                $leaderboards_icon = '';
-            } else {
-                $leaderboards_icon = $cache->retrieve('leaderboards_icon');
-            }
-
-            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         // Check page type (frontend or backend)
@@ -908,10 +909,22 @@ class Core_Module extends Module {
                 if ($user_id) {
                     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
                     if (count($user_query)) {
-                        $user_query = $user_query[0];
-                        $smarty->assign('REGISTERED', $language->get('user', 'registered_x', [
-                            'registeredAt' => $timeago->inWords($user_query->joined, $language),
-                        ]));
+                        $user_query = new UserData($user_query[0]);
+                        $smarty->assign([
+                            'REGISTERED' => $language->get('user', 'registered_x', [
+                                'registeredAt' => $timeago->inWords($user_query->joined, $language),
+                            ]),
+                            'REGISTERED_DATE' => date(DATE_FORMAT, $user_query->joined),
+                        ]);
+
+                        if (!Util::getSetting('private_profile') || !$user_query->private_profile) {
+                            $smarty->assign([
+                                'LAST_SEEN' => $language->get('user', 'last_seen_x', [
+                                    'lastSeenAt' => $timeago->inWords($user_query->last_online, $language),
+                                ]),
+                                'LAST_SEEN_DATE' => date(DATE_FORMAT, $user_query->last_online)
+                            ]);
+                        }
                     }
                 }
             }

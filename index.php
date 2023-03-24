@@ -80,7 +80,6 @@ $directory = $_SERVER['REQUEST_URI'];
 $directories = explode('/', $directory);
 $lim = count($directories);
 
-
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');
 

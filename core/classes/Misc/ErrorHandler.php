@@ -134,8 +134,6 @@ class ErrorHandler {
             'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
             'PRISM_CSS' => $path . 'plugins/prism/prism_light_atom.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
-            'TOAST_CSS' => $path . 'css/fomantic.toast.min.css',
-            'TOAST_JS' => $path . 'js/fomantic.toast.min.js',
             'DETAILED_ERROR' => Debugging::canViewDetailedError(),
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
@@ -175,11 +173,13 @@ class ErrorHandler {
     }
 
     /**
+     * For API requests, query requests and AJAX requests, return a plain text error message.
+     *
      * @return bool Whether the error page should be in plain text rather than a user friendly HTML page.
      */
     private static function shouldUsePlainText(): bool {
         $route = $_REQUEST['route'] ?? '';
-        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/');
+        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/') || isset($_SERVER['HTTP_X_REQUESTED_WITH']);
     }
 
     /**

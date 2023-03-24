@@ -6,8 +6,8 @@ if (!$user->handlePanelPageLoad('admincp.members')) {
 }
 
 const PAGE = 'panel';
-const PARENT_PAGE = 'core_configuration';
-const PANEL_PAGE = 'member_lists';
+const PARENT_PAGE = 'members';
+const PANEL_PAGE = 'member_lists_settings';
 
 $page_title = $members_language->get('members', 'member_lists');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
@@ -24,7 +24,7 @@ if (Input::exists()) {
             'list' => $list->getFriendlyName(),
         ]));
 
-        Redirect::to(URL::build('/panel/core/member_lists'));
+        Redirect::to(URL::build('/panel/members/member_lists'));
     } else {
         Session::flash('admin_member_lists_error', $language->get('general', 'invalid_token'));
     }
@@ -32,14 +32,14 @@ if (Input::exists()) {
 
 if (Session::exists('admin_member_lists_error')) {
     $smarty->assign([
-        'ERRORS' => Session::flash('admin_member_list_error'),
+        'ERRORS' => [Session::flash('admin_member_lists_error')],
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 if (Session::exists('admin_member_lists_success')) {
     $smarty->assign([
-        'SUCCESS' => Session::flash('admin_member_list_success'),
+        'SUCCESS' => Session::flash('admin_member_lists_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
@@ -47,6 +47,7 @@ if (Session::exists('admin_member_lists_success')) {
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'MEMBERS' => $members_language->get('members', 'members'),
     'MEMBER_LISTS' => $members_language->get('members', 'member_lists'),
     'PAGE' => PANEL_PAGE,
     'MEMBER_LISTS_VALUES' => MemberListManager::getInstance()->allLists(),

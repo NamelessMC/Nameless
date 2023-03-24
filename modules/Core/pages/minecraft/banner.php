@@ -53,13 +53,15 @@ if (Util::getSetting('mc_integration')) {
             // Do we need to query for favicon?
             if (!$cache->isCached('favicon')) {
                 $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip'], $server->bedrock), 'data:image/png;base64')));
-
-                imageAlphaBlending($favicon, true);
-                imageSaveAlpha($favicon, true);
+                if ($favicon) {
+                    imageAlphaBlending($favicon, true);
+                    imageSaveAlpha($favicon, true);
+                } else {
+                    $favicon = imagecreatefrompng(ROOT_PATH . '/core/assets/img/favicon.png');
+                }
 
                 // Cache the favicon for 1 hour
                 imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
-
                 $cache->store('favicon', 'true', 3600);
             } else {
                 $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');

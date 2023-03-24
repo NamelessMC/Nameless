@@ -39,11 +39,11 @@ $template->assets()->include([
     AssetTree::TINYMCE_SPOILER,
 ]);
 
-$template->addCSSStyle(
-    '.thumbnails li img{
+$template->addCSSStyle('
+    .thumbnails li img {
       width: 200px;
-    }'
-);
+    }
+');
 
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
@@ -642,7 +642,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                     // Get reaction name and icon
                     $reaction = Reaction::find($wall_post_reaction->reaction_id);
-
                     if (!isset($reactions['reactions'][$reaction->id])) {
                         $reactions['reactions'][$reaction->id] = [
                             'id' => $reaction->id,
@@ -670,14 +669,14 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 foreach ($replies_query as $reply) {
-                    $target_user = new User($reply->author_id);
+                    $reply_user = new User($reply->author_id);
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
-                        'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
-                        'style' => $target_user->getGroupStyle(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar(),
+                        'username' => $reply_user->getDisplayname(true),
+                        'nickname' => $reply_user->getDisplayname(),
+                        'style' => $reply_user->getGroupStyle(),
+                        'profile' => $reply_user->getProfileURL(),
+                        'avatar' => $reply_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => Output::getPurified(Output::getDecoded($reply->content)),

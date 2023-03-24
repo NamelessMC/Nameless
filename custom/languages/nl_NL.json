@@ -1260,7 +1260,6 @@
     "admin/mass_email_failed_check_logs": "één meerdere e-mails zijn niet succesvol verzonden. Check alstublieft de email logs voor meer informatie.",
     "admin/panel_template_third_party": "Paneel sjabloon {{name}} is een sjabloon van een derde partij. Wees ervan bewust dat versie compatibiliteit niet gegarandeerd is tussen kleine NamelessMC updates, en problemen naar de auteurs van de sjablonen moeten gaan.",
     "general/oauth_email_verified_automatically": "E-mail wordt automatisch geverifieerd",
-    "general/sql_query": "SQL Query",
     "general/oauth_email_not_verified_automatically": "Email wordt niet automatisch geverifieerd",
     "user/authme_account_not_found": "Dat AuthMe account kon niet worden gevonden.",
     "user/authme_sync_password": "Synchroniseer AuthMe wachtwoord",

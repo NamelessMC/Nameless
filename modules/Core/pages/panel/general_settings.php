@@ -162,9 +162,10 @@ if (Input::exists()) {
             }
 
             // Login method
-            DB::getInstance()->update('settings', ['name', 'login_method'], [
-                'value' => $_POST['login_method']
-            ]);
+            Util::setSetting('login_method', $_POST['login_method']);
+
+            // Auto language
+            Util::setSetting('auto_language_detection', $_POST['auto_language'] === 'true' ? 1 : 0);
 
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
@@ -300,6 +301,9 @@ $smarty->assign([
     'NATIVE' => $language->get('admin', 'emoji_native'),
     'TWEMOJI' => $language->get('admin', 'emoji_twemoji'),
     'JOYPIXELS' => $language->get('admin', 'emoji_joypixels'),
+    'AUTO_LANGUAGE_VALUE' => Util::getSetting('auto_language_detection'),
+    'ENABLE_AUTO_LANGUAGE' => $language->get('admin', 'enable_auto_language'),
+    'AUTO_LANGUAGE_HELP' => $language->get('admin', 'auto_language_help'),
 ]);
 
 $template->onPageLoad();

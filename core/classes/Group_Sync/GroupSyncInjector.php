@@ -2,7 +2,7 @@
 /**
  * Provides a baseline for custom group sync injectors.
  *
- * @package NamelessMC\Group_Sync
+ * @package NamelessMC\GroupSync
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

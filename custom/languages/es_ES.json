@@ -1262,6 +1262,5 @@
     "general/namelessmc_support": "Soporte de NamelessMC",
     "general/namelessmc_documentation": "Documentación de NamelessMC",
     "user/new_profile_post": "Nueva publicación de perfil",
-    "user/profile_post_reply_title": "Título de respuesta de publicación de perfil",
-    "general/sql_query": "SQL Query"
+    "user/profile_post_reply_title": "Título de respuesta de publicación de perfil"
 }
