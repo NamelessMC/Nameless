@@ -5,7 +5,7 @@
             {if isset($ONLINE_USERS_LIST)}
                 {foreach from=$ONLINE_USERS_LIST name=online_users_arr item=user}
                 <a class="ui image label" href="{$user.profile}" data-poload="{$USER_INFO_URL}{$user.id}">
-                    <img src="{$user.avatar}" alt="{$user.username}">{$user.nickname}
+                    <img src="{$user.avatar}" alt="{if $SHOW_NICKNAME_INSTEAD}{$user.nickname}{else}{$user.username}{/if}">{if $SHOW_NICKNAME_INSTEAD}{$user.nickname}{else}{$user.username}{/if}
                 </a>
                 {/foreach}
             {else}

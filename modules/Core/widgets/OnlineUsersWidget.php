@@ -88,6 +88,7 @@ class OnlineUsersWidget extends WidgetBase {
             }
 
             $this->_smarty->assign([
+                'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
                 'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
                 'ONLINE_USERS_LIST' => $users,
                 'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => count($online)])
