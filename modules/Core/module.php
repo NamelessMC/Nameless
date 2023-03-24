@@ -901,7 +901,7 @@ class Core_Module extends Module {
                             'REGISTERED_DATE' => date(DATE_FORMAT, $user_query->joined),
                         ]);
 
-                        if (!Util::getSetting('private_profile') || !$user_query->private_profile) {
+                        if ($user->canBypassPrivateProfile() || (!Util::getSetting('private_profile') || !$user_query->private_profile)) {
                             $smarty->assign([
                                 'LAST_SEEN' => $language->get('user', 'last_seen_x', [
                                     'lastSeenAt' => $timeago->inWords($user_query->last_online, $language),
