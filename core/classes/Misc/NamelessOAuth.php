@@ -286,6 +286,12 @@ class NamelessOAuth extends Instanceable {
         );
     }
 
+    /**
+     * Format an array of CSS rules into a string, appending `!important` to each rule.
+     *
+     * @param array $css CSS rule => value array
+     * @return string The CSS string
+     */
     private function formatCss(array $css): string {
         return implode(' ', array_map(static function ($rule, $value) {
             return $rule . ': ' . $value . ' !important;';
