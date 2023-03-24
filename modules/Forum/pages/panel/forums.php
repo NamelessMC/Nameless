@@ -20,56 +20,87 @@ const PARENT_PAGE = 'forum';
 const PANEL_PAGE = 'forums';
 $page_title = $forum_language->get('forum', 'forums');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
+$forum = new Forum();
 
 if (!isset($_GET['action']) && !isset($_GET['forum'])) {
-    $forums = DB::getInstance()->orderAll('forums', 'forum_order', 'ASC')->results();
-    $template_array = [];
+    $categories_array = [];
+    $categories = DB::getInstance()->query("SELECT * FROM nl2_forums WHERE forum_type = 'category' AND parent = 0 ORDER BY forum_order")->results();
+    foreach ($categories as $category) {
+        $subforums = $forum->recursiveGetSubForums($category->id);
+        $subforums_array = [];
 
-    if (count($forums)) {
-        $i = 1;
-        $count = count($forums);
-        foreach ($forums as $item) {
-            if ($item->parent > 0) {
-                $parent_forum_query = DB::getInstance()->get('forums', ['id', $item->parent])->results();
-                if (count($parent_forum_query)) {
-                    $parent_forum_count = 1;
-                    $parent_forum = $forum_language->get('forum', 'parent_forum_x', ['forum' => Output::getClean($parent_forum_query[0]->forum_title)]);
-                    $id = $parent_forum_query[0]->parent;
-
-                    while ($parent_forum_count < 100 && $id > 0) {
-                        $parent_forum_query = DB::getInstance()->get('forums', ['id', $parent_forum_query[0]->parent])->results();
-                        $id = $parent_forum_query[0]->parent;
-                        $parent_forum_count++;
-                    }
-                } else {
-                    $parent_forum = null;
-                    $parent_forum_count = 0;
-                }
-            } else {
-                $parent_forum_count = 0;
-            }
-
-            $template_array[] = [
-                'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
-                'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
-                'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
-                'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
-                'title' => Output::getClean($item->forum_title),
-                'description' => Output::getPurified($item->forum_description),
-                'id' => Output::getClean($item->id),
-                'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
-                'parent_forum_count' => $parent_forum_count
+        foreach ($subforums as $parent_id => $subforum) {
+            $subforum = $subforum[0];
+            $subforums_array[] = [
+                'title' => $subforum->forum_title,
+                'description' => $subforum->forum_description,
+                'edit_link' => URL::build('/panel/forums/', 'forum=' . $subforum->id),
+                'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . $subforum->id),
             ];
-            $i++;
         }
+
+        $categories_array[] = [
+            'title' => $category->forum_title,
+            'description' => $category->forum_description,
+            'subforums' => $subforums_array,
+            'new_forum_link' => URL::build('/panel/forums/', 'action=new&category=' . $category->id),
+            'edit_link' => URL::build('/panel/forums/', 'forum=' . $category->id),
+            'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . $category->id),
+        ];
     }
+
+    $smarty->assign([
+        'CATEGORIES_ARRAY' => $categories_array,
+    ]);
+
+//    $forums = DB::getInstance()->orderAll('forums', 'forum_order', 'ASC')->results();
+//    $template_array = [];
+//    $i = 1;
+//    $count = count($forums);
+//
+//    foreach ($forums as $item) {
+//        if ($item->parent > 0) {
+//            $parent_forum_query = DB::getInstance()->get('forums', ['id', $item->parent])->results();
+//            if (count($parent_forum_query)) {
+//                $parent_forum_count = 1;
+//                $parent_forum = $forum_language->get('forum', 'parent_forum_x', ['forum' => Output::getClean($parent_forum_query[0]->forum_title)]);
+//                $id = $parent_forum_query[0]->parent;
+//
+//                while ($parent_forum_count < 100 && $id > 0) {
+//                    $parent_forum_query = DB::getInstance()->get('forums', ['id', $parent_forum_query[0]->parent])->results();
+//                    $id = $parent_forum_query[0]->parent;
+//                    $parent_forum_count++;
+//                }
+//            } else {
+//                $parent_forum = null;
+//                $parent_forum_count = 0;
+//            }
+//        } else {
+//            $parent_forum_count = 0;
+//        }
+//
+//        $template_array[] = [
+//            'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
+//            'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
+//            'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
+//            'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
+//            'title' => Output::getClean($item->forum_title),
+//            'description' => Output::getPurified($item->forum_description),
+//            'id' => Output::getClean($item->id),
+//            'parent_forum' => (($item->parent > 0) ? $parent_forum : null),
+//            'parent_forum_count' => $parent_forum_count
+//        ];
+//        $i++;
+//    }
 
     $forum_reactions = Util::getSetting('forum_reactions');
 
     $smarty->assign([
+        'NEW_CATEGORY' => $forum_language->get('forum', 'new_category'),
+        'NEW_CATEGORY_LINK' => URL::build('/panel/forums/', 'action=new_category'),
         'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),
-        'NEW_FORUM_LINK' => URL::build('/panel/forums/', 'action=new'),
-        'FORUMS_ARRAY' => $template_array,
+        'EDIT' => $language->get('general', 'edit'),
+        // 'FORUMS_ARRAY' => $template_array,
         'NO_FORUMS' => $forum_language->get('forum', 'no_forums'),
         'REORDER_DRAG_URL' => URL::build('/panel/forums')
     ]);
@@ -141,6 +172,12 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             // Invalid token
                             $errors[] = $language->get('general', 'invalid_token');
                         }
+                    }
+
+                    if (isset($_GET['category'])) {
+                        $smarty->assign([
+                            'PRESELECTED_CATEGORY' => $_GET['category']
+                        ]);
                     }
 
                     $smarty->assign([
@@ -246,6 +283,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
                         }
                     }
+
+                    if (isset($_POST['preselected_category'])) {
+                        $smarty->assign([
+                            'PRESELECTED_CATEGORY' => $_POST['preselected_category']
+                        ]);
+                    }
+
                     $smarty->assign([
                         'SELECT_PARENT_FORUM' => $forum_language->get('forum', 'select_a_parent_forum'),
                         'PARENT_FORUMS' => $template_array,
