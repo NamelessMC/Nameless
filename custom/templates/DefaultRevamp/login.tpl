@@ -58,7 +58,7 @@
                 </form>
                 {if $OAUTH_AVAILABLE}
                 <div class="ui horizontal divider">{$OR}</div>
-                <div class="ui equal width grid middle aligned">
+                <div class="ui equal width two column grid middle aligned">
                     {foreach $OAUTH_PROVIDERS as $name => $meta}
                     <div class="column">
                         <a href="{$meta.url}" class="ui fluid button left floated" {if $meta.button_css}style="{$meta.button_css}"{/if}>
