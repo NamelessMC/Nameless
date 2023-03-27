@@ -29,19 +29,21 @@ class Queue {
                  task,
                  name,
                  data,
+                 scheduled_at,
                  scheduled_for,
                  fragment,
                  fragment_total,
                  user_id,
                  entity,
                  entity_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             SQL,
             [
                 $task->getModuleId(),
-                '',
+                $task->getTask(),
                 $task->getName(),
                 json_encode($task->getData()),
+                date('U'),
                 $task->getScheduledFor(),
                 $task->getWillFragment(),
                 $task->getFragmentTotal(),

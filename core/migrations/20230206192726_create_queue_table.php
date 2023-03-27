@@ -15,6 +15,7 @@ final class CreateQueueTable extends AbstractMigration
             ->addColumn('name', 'string', ['length' => 64, 'null' => true, 'default' => null])
             ->addColumn('data', 'text', ['null' => true, 'default' => null])
             ->addColumn('output', 'text', ['null' => true, 'default' => null])
+            ->addColumn('scheduled_at', 'integer', ['length' => 11])
             ->addColumn('scheduled_for', 'integer', ['length' => 11])
             ->addColumn('executed_at', 'integer', ['length' => 11, 'null' => true, 'default' => null])
             ->addColumn('status', 'string', ['length' => 12, 'default' => 'ready'])

@@ -4,7 +4,7 @@ class ConvertForumPostTask extends Task {
 
     public function run(): string {
         $start = $this->getFragmentNext() ?? 0;
-        $end = $start + 10;
+        $end = $start + 50;
         $nextStatus = Task::STATUS_READY;
 
         if ($end > $this->getFragmentTotal()) {
@@ -17,7 +17,7 @@ class ConvertForumPostTask extends Task {
             SELECT `id`,
                    `post_content`
             FROM nl2_posts
-            LIMIT $start, 10
+            LIMIT $start, 50
             SQL
         );
 

@@ -536,6 +536,7 @@
     "admin/queue_task_triggered_by": "Task triggered by",
     "admin/queue_task_name": "Name",
     "admin/queue_task_output": "Task output",
+    "admin/queue_task_scheduled_at": "Scheduled at",
     "admin/queue_task_scheduled_for": "Scheduled for",
     "admin/queue_task_status": "Status",
     "admin/rating_x": "Rating: {{rating}}",

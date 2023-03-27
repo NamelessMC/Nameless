@@ -205,6 +205,8 @@ if (isset($_GET['view'])) {
                 'TASK_DATA_VALUE' => $task->data ? Output::getClean(json_encode(json_decode($task->data), JSON_PRETTY_PRINT)) : '',
                 'TASK_OUTPUT' => $language->get('admin', 'queue_task_output'),
                 'TASK_OUTPUT_VALUE' => $task->output ? Output::getClean(json_encode(json_decode($task->output), JSON_PRETTY_PRINT)) : '',
+                'TASK_SCHEDULED_AT' => $language->get('admin', 'queue_task_scheduled_at'),
+                'TASK_SCHEDULED_AT_VALUE' => date(DATE_FORMAT, $task->scheduled_at),
                 'TASK_SCHEDULED_FOR' => $language->get('admin', 'queue_task_scheduled_for'),
                 'TASK_SCHEDULED_FOR_VALUE' => date(DATE_FORMAT, $task->scheduled_for),
                 'TASK_EXECUTED_AT' => $language->get('admin', 'queue_task_executed_at'),

@@ -188,7 +188,7 @@ abstract class Task {
         $this->_fragment = $fragment;
         $this->_fragmentTotal = $fragmentTotal;
         $this->_userId = $userId;
-        $this->_task = get_class();
+        $this->_task = get_called_class();
 
         return $this;
     }

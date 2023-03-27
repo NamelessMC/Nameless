@@ -82,19 +82,27 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-6 col-lg-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="scheduled-at">{$TASK_SCHEDULED_AT}</label>
+                                            <input id="scheduled-at" type="text" readonly="readonly" value="{$TASK_SCHEDULED_AT_VALUE}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="scheduled-for">{$TASK_SCHEDULED_FOR}</label>
                                             <input id="scheduled-for" type="text" readonly="readonly" value="{$TASK_SCHEDULED_FOR_VALUE}" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-lg-4">
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="executed-at">{$TASK_EXECUTED_AT}</label>
                                             <input id="executed-at" type="text" readonly="readonly" value="{$TASK_EXECUTED_AT_VALUE}" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-lg-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status">{$TASK_STATUS}</label>
                                             <input id="status" type="text" readonly="readonly" value="{$TASK_STATUS_VALUE}" class="form-control">
