@@ -79,44 +79,38 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="username">{$USERNAME_LABEL}</label>
-                                                <input id="username" type="text" class="form-control"
-                                                    value="{$USERNAME}" readonly>
+                                                <input id="username" type="text" class="form-control" value="{$USERNAME}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="nickname">{$NICKNAME_LABEL}</label>
-                                                <input id="nickname" type="text" class="form-control"
-                                                    value="{$NICKNAME}" readonly>
+                                                <input id="nickname" type="text" class="form-control" value="{$NICKNAME}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="title">{$USER_TITLE_LABEL}</label>
-                                                <input id="title" type="text" class="form-control" value="{$USER_TITLE}"
-                                                    readonly>
+                                                <input id="title" type="text" class="form-control" value="{$USER_TITLE}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="language">{$LANGUAGE_LABEL}</label>
-                                                <input id="language" type="text" class="form-control"
-                                                    value="{$LANGUAGE}" readonly>
+                                                <input id="language" type="text" class="form-control" value="{$LANGUAGE}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="timezone">{$TIMEZONE_LABEL}</label>
-                                                <input id="timezone" type="text" class="form-control"
-                                                    value="{$TIMEZONE}" readonly>
+                                                <input id="timezone" type="text" class="form-control" value="{$TIMEZONE}" readonly>
                                             </div>
                                         </div>
                                         {if isset($EMAIL_ADDRESS)}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="email">{$EMAIL_ADDRESS_LABEL}</label>
-                                                <input id="email" type="email" class="form-control"
-                                                    value="{$EMAIL_ADDRESS}" readonly>
+                                                <input id="email" type="email" class="form-control" value="{$EMAIL_ADDRESS}" readonly>
                                             </div>
                                         </div>
                                         {/if}
@@ -129,6 +123,12 @@
                                             </div>
                                         </div>
                                         {/if}
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="template">{$TEMPLATE_LABEL}</label>
+                                                <input id="template" type="text" class="form-control" value="{$TEMPLATE}" readonly>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

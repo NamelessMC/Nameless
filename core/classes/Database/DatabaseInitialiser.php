@@ -32,7 +32,6 @@ class DatabaseInitialiser {
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
             'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}',
-            'default_group' => true,
             'order' => 3
         ]);
 
@@ -61,6 +60,7 @@ class DatabaseInitialiser {
             'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
             'group_username_color' => '#6c757d',
             'permissions' => '{}',
+            'default_group' => true,
             'order' => 4
         ]);
 
@@ -185,10 +185,7 @@ class DatabaseInitialiser {
         Util::setSetting('nameless_version', '2.0.3');
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
-        Util::setSetting('phpmailer_type', 'smtp');
-        Util::setSetting('verify_accounts', '0');
         Util::setSetting('user_avatars', '0');
-        Util::setSetting('forum_layout', '1');
         Util::setSetting('avatar_site', 'cravatar');
         Util::setSetting('mc_integration', '1');
         Util::setSetting('discord_integration', '0');
@@ -202,8 +199,6 @@ class DatabaseInitialiser {
         Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
         Util::setSetting('query_type', 'internal');
         Util::setSetting('player_list_limit', '20');
-        Util::setSetting('followers', '0');
-        Util::setSetting('language', '1');
         Util::setSetting('timezone', $_SESSION['install_timezone']);
         Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');

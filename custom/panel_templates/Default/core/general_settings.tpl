@@ -202,6 +202,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="inputAutoLanguage">{$ENABLE_AUTO_LANGUAGE}</label>
+                                            <span class="badge badge-info"><i class="fas fa-question-circle"
+                                                                              data-container="body" data-toggle="popover" data-placement="top"
+                                                                              title="{$INFO}" data-content="{$AUTO_LANGUAGE_HELP}"></i></span>
+                                            <select name="auto_language" class="form-control" id="inputAutoLanguage">
+                                                <option value="true" {if $AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$ENABLED}
+                                                </option>
+                                                <option value="false" {if !$AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$DISABLED}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                                 </div>

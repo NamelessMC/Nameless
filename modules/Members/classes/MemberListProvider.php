@@ -168,16 +168,15 @@ abstract class MemberListProvider {
             return [];
         }
 
-        $bans = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids)")->results();
-
-        return array_filter($rows, static function ($row) use ($bans, $id_column) {
-            foreach ($bans as $ban) {
-                if ($ban->id == $row->{$id_column}) {
-                    return $ban->isbanned == 1;
+        $banned_users = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids) AND isbanned = 1")->results();
+        return array_filter($rows, static function ($row) use ($banned_users, $id_column) {
+            foreach ($banned_users as $banned_user) {
+                if ($banned_user->id == $row->{$id_column}) {
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         });
     }
 }

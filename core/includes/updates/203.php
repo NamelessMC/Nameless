@@ -1,6 +1,5 @@
 <?php
 return new class extends UpgradeScript {
-
     public function run(): void {
         $this->runMigrations();
 
@@ -17,6 +16,10 @@ return new class extends UpgradeScript {
             }
             Util::setSetting('minecraft_query_interval', $query_interval);
         }
+
+        // Replace `external_query` with `query_type`
+        Util::setSetting('query_type', Util::getSetting('external_query') == 1 ? 'external' : 'internal');
+        Util::setSetting('external_query', null);
 
         // Forum post conversion
         ConvertForumPostTask::schedule();

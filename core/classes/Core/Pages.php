@@ -110,7 +110,7 @@ class Pages {
     /**
      * Get registered sitemap methods.
      *
-     * @return array<array<class-string, string>> Array of sitemap methods.
+     * @return array<callable> Array of sitemap methods.
      */
     public function getSitemapMethods(): array {
         return $this->_sm_methods;

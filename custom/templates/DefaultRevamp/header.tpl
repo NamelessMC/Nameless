@@ -32,7 +32,7 @@ value="{$PAGE_KEYWORDS}"}{else}{assign var="PAGEKEYWORDS" value=" "}{/if}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{$OG_URL}" />
         <meta property="og:image" content="{$OG_IMAGE}" />
-        <meta property='og:description' content='{$PAGEDESCRIPTION}' />
+        <meta property='og:description' content="{$PAGE_DESCRIPTION}" />
 
         <!-- Twitter Card Properties -->
         <meta name="twitter:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
@@ -40,30 +40,28 @@ value="{$PAGE_KEYWORDS}"}{else}{assign var="PAGEKEYWORDS" value=" "}{/if}
         <meta name="twitter:image" content="{$OG_IMAGE}" />
 
         {if isset($PAGE_DESCRIPTION) && $PAGE_DESCRIPTION|count_characters > 0}
-        <meta name="twitter:description" content="{$PAGE_DESCRIPTION}" />
+            <meta name="twitter:description" content="{$PAGE_DESCRIPTION}" />
         {/if}
 
         {foreach from=$TEMPLATE_CSS item=css}
-        {$css}
+            {$css}
         {/foreach}
 
         {if isset($ANALYTICS_ID)}
-        {literal}
-        <script async src="https://www.googletagmanager.com/gtag/js?id={/literal}{$ANALYTICS_ID}{literal}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
-
-            gtag('config', '{/literal}{$ANALYTICS_ID}{literal}');
-        </script>
-        {/literal}
+            {literal}
+            <script async src="https://www.googletagmanager.com/gtag/js?id={/literal}{$ANALYTICS_ID}{literal}"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', '{/literal}{$ANALYTICS_ID}{literal}');
+            </script>
+            {/literal}
         {/if}
 
         {if isset($DEBUGBAR_JS)}
-        {$DEBUGBAR_JS}
+            {$DEBUGBAR_JS}
         {/if}
     </head>
 
-    <body{if $DEFAULT_REVAMP_DARK_MODE} class="dark" {/if}
-        id="page-{if is_numeric($smarty.const.PAGE)}{$TITLE}{else}{$smarty.const.PAGE}{/if}">
+    <body{if $DEFAULT_REVAMP_DARK_MODE} class="dark" {/if} id="page-{if is_numeric($smarty.const.PAGE)}{$TITLE}{else}{$smarty.const.PAGE}{/if}">
