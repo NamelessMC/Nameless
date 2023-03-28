@@ -3,12 +3,9 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
             $message = PhinxAdapter::migrate();
-
-            $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
-
             $json = [
                 'message' => $language->get('installer', 'database_configured'),
-                'redirect_url' => $redirect_url,
+                'redirect_url' => '?step=site_configuration',
             ];
 
             if (!str_contains($message, 'All Done')) {
