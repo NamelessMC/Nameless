@@ -580,11 +580,6 @@ class Forum {
             ];
         }
 
-        // Order the discussions by date - most recent first
-        usort($return, static function ($a, $b) {
-            return strtotime($b['topic_date']) - strtotime($a['topic_date']);
-        });
-
         return $return;
     }
 
