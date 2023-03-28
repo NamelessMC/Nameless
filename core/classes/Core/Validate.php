@@ -82,9 +82,9 @@ class Validate {
     public const NUMERIC = 'numeric';
 
     /**
-     * @var string Check that the value is one of a set of values
+     * @var string Check that the value is in of a set of values
      */
-    public const ONE_OF = 'one_of';
+    public const IN = 'in';
 
     /**
      * @var string Check that the value matches a regex pattern
@@ -363,13 +363,13 @@ class Validate {
                         }
                         break;
 
-                    case self::ONE_OF:
+                    case self::IN:
                         $values = is_string($rule_value) ? [$rule_value] : $rule_value;
                         if (!in_array($value, $values)) {
                             $string_values = implode(', ', $values);
                             $validator->addError([
                                 'field' => $item,
-                                'rule' => self::ONE_OF,
+                                'rule' => self::IN,
                                 'fallback' => "$item must be one of $string_values."
                             ]);
                         }

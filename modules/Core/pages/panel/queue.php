@@ -239,7 +239,7 @@ if (isset($_GET['view'])) {
             $validation = Validate::check($_POST, [
                 'runner' => [
                     Validate::REQUIRED => true,
-                    Validate::ONE_OF => ['ajax', 'cron']
+                    Validate::IN => ['ajax', 'cron']
                 ],
                 'interval' => [
                     Validate::REQUIRED => true,
@@ -249,7 +249,7 @@ if (isset($_GET['view'])) {
             ])->messages([
                 'runner' => [
                     Validate::REQUIRED => $language->get('admin', 'queue_runner_required'),
-                    Validate::ONE_OF => $language->get('admin', 'queue_runner_one_of'),
+                    Validate::IN => $language->get('admin', 'queue_runner_one_of'),
                 ],
                 'interval' => [
                     Validate::REQUIRED => $language->get('admin', 'queue_interval_required'),
