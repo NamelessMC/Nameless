@@ -15,7 +15,7 @@ if ($cache->isCached('news')) {
 } else {
     $forum = new Forum();
 
-    $latest_news = $forum->getLatestNews(); // Get latest 5 items
+    $latest_news = $forum->getLatestNews(5, $user->getAllGroupIds()); // Get latest 5 items
 
     $news = [];
 
