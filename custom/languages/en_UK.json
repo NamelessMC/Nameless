@@ -906,7 +906,7 @@
     "installer/finish": "Finish",
     "installer/finish_message": "Thanks for installing NamelessMC! You can now proceed to the StaffCP, where you can further configure your website.",
     "installer/friendly_urls": "Friendly URLs",
-    "installer/friendly_urls_info": "Friendly URLs will improve the readability of URLs in your browser.<br \/>For example: <br \/><code>example.com\/index.php?route=\/forum<\/code><br \/>would become:<br \/><code>example.com\/forum<\/code><br \/><div class=\"ui inverted orange segment\"><i class=\"exclamation circle icon\"><\/i><strong>Important!<\/strong><br \/>Your server must be configured correctly for this to work. You can see whether you can enable this option by clicking <a href=\".\/rewrite_test\" target=\"_blank\" style=\"color:#2185D0\">here<\/a>.<\/div>",
+    "installer/friendly_urls_info": "Friendly URLs will improve the readability of URLs in your browser.<br \/>For example: <span class=\"ui basic label\">example.com\/index.php?route=\/forum<\/span> would become:<br \/><span class=\"ui basic label\">example.com\/forum<\/span><br \/><div class=\"ui inverted orange segment\"><i class=\"exclamation circle icon\"><\/i><strong>Important!<\/strong><br \/>Your server must be configured correctly for this to work. You can see whether you can enable this option by clicking <a href=\".\/rewrite_test\" target=\"_blank\" style=\"color:#2185D0\">here<\/a>.<\/div>",
     "installer/general_configuration": "General Configuration",
     "installer/host": "Hostname",
     "installer/host_help": "The hostname is the base URL for your website. Do not include the subfolders from the Installation Path field, or http(s):\/\/ here!",
