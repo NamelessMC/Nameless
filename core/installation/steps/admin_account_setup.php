@@ -43,19 +43,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ])->messages([
         'username' => [
             Validate::REQUIRED => $language->get('installer', 'username_required'),
-            Validate::MIN => $language->get('installer', 'username_min_max'),
-            Validate::MAX => $language->get('installer', 'username_min_max'),
+            Validate::MIN => $language->get('installer', 'username_min_max', [
+                'minUsername' => $username_min,
+                'maxUsername' => $username_max,
+            ]),
+            Validate::MAX => $language->get('installer', 'username_min_max', [
+                'minUsername' => $username_min,
+                'maxUsername' => $username_max,
+            ]),
         ],
         'email' => [
             Validate::REQUIRED => $language->get('installer', 'email_required'),
-            Validate::MIN => $language->get('installer', 'email_min_max'),
-            Validate::MAX => $language->get('installer', 'email_min_max'),
+            Validate::MIN => $language->get('installer', 'email_min_max', [
+                'minEmail' => $email_min,
+                'maxEmail' => $email_max,
+            ]),
+            Validate::MAX => $language->get('installer', 'email_min_max', [
+                'minEmail' => $email_min,
+                'maxEmail' => $email_max,
+            ]),
             Validate::EMAIL => $language->get('installer', 'email_invalid')
         ],
         'password' => [
             Validate::REQUIRED => $language->get('installer', 'password_required'),
-            Validate::MIN => $language->get('installer', 'password_min_max'),
-            Validate::MAX => $language->get('installer', 'password_min_max'),
+            Validate::MIN => $language->get('installer', 'password_min_max', [
+                'minPassword' => $password_min,
+                'maxPassword' => $password_max,
+            ]),
+            Validate::MAX => $language->get('installer', 'password_min_max', [
+                'minPassword' => $password_min,
+                'maxPassword' => $password_max,
+            ]),
         ],
         'password_again' => $language->get('installer', 'passwords_must_match')
     ]);
