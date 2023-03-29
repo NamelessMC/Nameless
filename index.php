@@ -52,7 +52,7 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
     die();
 }
 
-if (!isset($CONFIG['installed']) || !Config::exists() && Config::get('core.installed') !== true) {
+if (!Config::exists() && Config::get('core.installed') !== true) {
     if (is_file(ROOT_PATH . '/install.php')) {
         Redirect::to('install.php');
     } else {
