@@ -653,7 +653,6 @@ body.pushable>.pusher {
     flex: 0 0 auto;
     width: auto;
     line-height: 1;
-    vertical-align: middle;
     font-size: 3em;
     opacity: .8;
 }
@@ -992,7 +991,7 @@ select {
     position: absolute;
 }
 
-.darkmode-toggle:checked + .darkmode-toggle-label .darkmode-ball {
+.darkmode-toggle:checked+.darkmode-toggle-label .darkmode-ball {
     transform: translateX(24px);
 }
 
@@ -1025,13 +1024,13 @@ select {
 }
 
 .fa-sun {
-    color:#f39c00;
+    color: #f39c00;
 }
 
 /*
  Member list search images
  */
-.ui.search > .results .result .image {
+.ui.search>.results .result .image {
     border-radius: 0;
 }
 
@@ -1046,10 +1045,12 @@ select {
     padding: 0.5em;
 }
 
+/*
  *  [ EMOJI SIZING ]
  */
 
-.joypixels, .twemoji {
+.joypixels,
+.twemoji {
     height: 1em;
     width: 1em;
     vertical-align: middle;
