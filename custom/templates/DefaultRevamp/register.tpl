@@ -117,7 +117,7 @@
                                 {elseif $meta.icon}
                                     <i class="{$meta.icon} fa-lg"></i>
                                 {/if}
-                                <span {if $meta.text_css}style="{$meta.text_css}"{/if}>{$CONTINUE_WITH} {$name|ucfirst}</span>
+                                <span {if $meta.text_css}style="{$meta.text_css}"{/if}>{$meta.continue_with}</span>
                             </a>
                         </div>
                     {/foreach}
