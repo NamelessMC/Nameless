@@ -53,7 +53,7 @@ if ($module !== 'Core') {
 
             <div class="ui two cards">
                 <?php foreach ($all_modules as $module => $description) { ?>
-                    <div class="ui card fluid" data-module-name="<?php echo $module ?>" style="<?php $pointer ?> user-select: none; pointer-events: all !important;" onclick="toggleModule(this)">
+                    <div class="ui card fluid" data-module-name="<?php echo $module ?>" style="<?php echo $pointer ?> user-select: none; pointer-events: all !important;" onclick="toggleModule(this)">
                         <input type="hidden" name="modules[<?php echo $module ?>]" value="1">
                         <div class="content">
                             <div class="header">
