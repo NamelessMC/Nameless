@@ -139,7 +139,6 @@ class DefaultRevamp_Template extends TemplateBase {
             $this->_template['path'] . 'js/core/core.js?v=203' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
             $this->_template['path'] . 'js/core/pages.js?v=203' => [],
-            $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
         foreach ($this->_pages->getAjaxScripts() as $script) {
