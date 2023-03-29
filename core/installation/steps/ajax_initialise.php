@@ -13,7 +13,6 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
             } else {
                 $_SESSION['database_initialized'] = true;
             }
-
         } else {
             if ($_GET['initialise'] === 'site') {
                 DatabaseInitialiser::runPreUser();
@@ -24,23 +23,6 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
                 ];
 
                 $_SESSION['site_initialized'] = true;
-
-            } else if ($_GET['initialise'] === 'upgrade') {
-                define('UPGRADE', true);
-
-                require(dirname(__DIR__) . '/includes/upgrade_perform.php');
-
-                $json = [
-                    'success' => !isset($errors) || !count($errors),
-                    'errors' => $errors ?? [],
-                    'message' => $language->get('installer', 'upgrade_error'),
-                    'redirect_url' => '?step=finish',
-                ];
-
-                $_SESSION['admin_setup'] = true;
-
-            } else {
-                throw new RuntimeException('Invalid initialisation');
             }
         }
     } catch (Exception $e) {
