@@ -110,7 +110,6 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
         }
         
         body.dark .ui.card .meta,
-        .ui.cards>.card .meta,
         body.dark .ui.header,
         body.dark .ui.header .sub.header,
         body.dark .ui.card>.content>.header,
