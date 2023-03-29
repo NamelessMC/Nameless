@@ -40,37 +40,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Validate::REQUIRED => true,
             Validate::MATCHES => 'password',
         ],
-    ]);
+    ])->messages([
+            'username' => [
+                Validate::REQUIRED => $language->get('installer', 'username_required'),
+                Validate::MIN => $language->get('installer', 'username_min_max'),
+                Validate::MAX => $language->get('installer', 'username_min_max'),
+            ],
+            'email' => [
+                Validate::REQUIRED => $language->get('installer', 'email_required'),
+                Validate::MIN => $language->get('installer', 'email_min_max'),
+                Validate::MAX => $language->get('installer', 'email_min_max'),
+                Validate::EMAIL => $language->get('installer', 'email_invalid')
+            ],
+            'password' => [
+                Validate::REQUIRED => $language->get('installer', 'password_required'),
+                Validate::MIN => $language->get('installer', 'password_min_max'),
+                Validate::MAX => $language->get('installer', 'password_min_max'),
+            ],
+            'password_again' => $language->get('installer', 'passwords_must_match')
+        ]);
 
     if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
-            if (str_contains($item, 'is required')) {
-                if (str_contains($item, 'username is required')) {
-                    display_error($language->get('installer', 'username_required'));
-                } else if (str_contains($item, 'email is required')) {
-                    display_error($language->get('installer', 'email_required'));
-                } else if (str_contains($item, 'password is required')) {
-                    display_error($language->get('installer', 'password_required'));
-                } else if (str_contains($item, 'password_again is required')) {
-                    display_error($language->get('installer', 'passwords_must_match'));
-                }
-            } else if (str_contains($item, 'minimum')) {
-                display_error($language->get('installer', 'input_minimum', [
-                    'minUsername' => $username_min,
-                    'minEmail' => $email_min,
-                    'minPassword' => $password_min,
-                ]));
-            } else if (str_contains($item, 'maximum')) {
-                display_error($language->get('installer', 'input_maximum', [
-                    'maxUsername' => $username_max,
-                    'maxEmail' => $email_max,
-                    'maxPassword' => $password_max,
-                ]));
-            } else if (str_contains($item, 'must match')) {
-                display_error($language->get('installer', 'passwords_must_match'));
-            } else if (str_contains($item, 'not a valid email')) {
-                display_error($language->get('installer', 'email_invalid'));
-            }
+            display_error($item);
         }
 
     } else {
