@@ -1028,6 +1028,15 @@ select {
     color:#f39c00;
 }
 
+.ui.center.aligned.menu:not(.fluid),
+.ui.centered.menu:not(.fluid) {
+    width: fit-content;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    transform: unset;
+}
+
 /*
  Member list search images
  */
