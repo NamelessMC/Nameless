@@ -41,24 +41,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Validate::MATCHES => 'password',
         ],
     ])->messages([
-            'username' => [
-                Validate::REQUIRED => $language->get('installer', 'username_required'),
-                Validate::MIN => $language->get('installer', 'username_min_max'),
-                Validate::MAX => $language->get('installer', 'username_min_max'),
-            ],
-            'email' => [
-                Validate::REQUIRED => $language->get('installer', 'email_required'),
-                Validate::MIN => $language->get('installer', 'email_min_max'),
-                Validate::MAX => $language->get('installer', 'email_min_max'),
-                Validate::EMAIL => $language->get('installer', 'email_invalid')
-            ],
-            'password' => [
-                Validate::REQUIRED => $language->get('installer', 'password_required'),
-                Validate::MIN => $language->get('installer', 'password_min_max'),
-                Validate::MAX => $language->get('installer', 'password_min_max'),
-            ],
-            'password_again' => $language->get('installer', 'passwords_must_match')
-        ]);
+        'username' => [
+            Validate::REQUIRED => $language->get('installer', 'username_required'),
+            Validate::MIN => $language->get('installer', 'username_min_max'),
+            Validate::MAX => $language->get('installer', 'username_min_max'),
+        ],
+        'email' => [
+            Validate::REQUIRED => $language->get('installer', 'email_required'),
+            Validate::MIN => $language->get('installer', 'email_min_max'),
+            Validate::MAX => $language->get('installer', 'email_min_max'),
+            Validate::EMAIL => $language->get('installer', 'email_invalid')
+        ],
+        'password' => [
+            Validate::REQUIRED => $language->get('installer', 'password_required'),
+            Validate::MIN => $language->get('installer', 'password_min_max'),
+            Validate::MAX => $language->get('installer', 'password_min_max'),
+        ],
+        'password_again' => $language->get('installer', 'passwords_must_match')
+    ]);
 
     if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
