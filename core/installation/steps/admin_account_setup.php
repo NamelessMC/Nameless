@@ -45,7 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
             if (str_contains($item, 'is required')) {
-                display_error($language->get('installer', 'input_required'));
+                if (str_contains('username is required')) {
+                    display_error($language->get('installer', 'username_required'));
+                } else if (str_contains('email is required')) {
+                    display_error($language->get('installer', 'email_required'));
+                } else if (str_contains('password is required')) {
+                    display_error($language->get('installer', 'password_required'));
+                } else if (str_contains('password_again is required')) {
+                    display_error($language->get('installer', 'passwords_must_match'));
+                }
             } else if (str_contains($item, 'minimum')) {
                 display_error($language->get('installer', 'input_minimum', [
                     'minUsername' => $username_min,
