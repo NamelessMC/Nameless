@@ -186,8 +186,7 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MIN,
-                                'fallback' => "$item must be a minimum of $rule_value characters.",
-                                'meta' => ['min' => $rule_value],
+                                'fallback' => "$item must be a minimum of $rule_value characters."
                             ]);
                         }
                         break;
@@ -197,8 +196,7 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MAX,
-                                'fallback' => "$item must be a maximum of $rule_value characters.",
-                                'meta' => ['max' => $rule_value],
+                                'fallback' => "$item must be a maximum of $rule_value characters."
                             ]);
                         }
                         break;
