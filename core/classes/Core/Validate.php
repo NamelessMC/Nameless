@@ -186,7 +186,8 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MIN,
-                                'fallback' => "$item must be a minimum of $rule_value characters."
+                                'fallback' => "$item must be a minimum of $rule_value characters.",
+                                'meta' => ['min' => $rule_value],
                             ]);
                         }
                         break;
@@ -196,7 +197,8 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::MAX,
-                                'fallback' => "$item must be a maximum of $rule_value characters."
+                                'fallback' => "$item must be a maximum of $rule_value characters.",
+                                'meta' => ['max' => $rule_value],
                             ]);
                         }
                         break;
@@ -226,7 +228,8 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AT_LEAST,
-                                'fallback' => "$item must have a value of at least $rule_value."
+                                'fallback' => "$item must have a value of at least $rule_value.",
+                                'meta' => ['min' => $rule_value],
                             ]);
                         }
                         break;
@@ -236,7 +239,8 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AT_MOST,
-                                'fallback' => "$item must have a value of at most $rule_value."
+                                'fallback' => "$item must have a value of at most $rule_value.",
+                                'meta' => ['max' => $rule_value],
                             ]);
                         }
                         break;
