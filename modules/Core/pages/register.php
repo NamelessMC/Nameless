@@ -437,7 +437,6 @@ $smarty->assign([
     'OAUTH_FLOW' => $oauth_flow,
     'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
     'OAUTH_PROVIDERS' => $providers,
-    'CONTINUE_WITH' => $language->get('user', 'continue_with'),
 ]);
 
 if ($captcha) {
