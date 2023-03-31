@@ -9,6 +9,14 @@
  */
 class URL {
 
+    private const URL_EXCLUDE_CHARS = [
+        '?',
+        '&',
+        '/', // Encoded slashes cause issues with Apache: https://stackoverflow.com/q/9206835/4833737
+        '#',
+        '.',
+    ];
+
     /**
      * Returns a URL in the correct format (friendly or not).
      *
@@ -147,4 +155,17 @@ class URL {
         }, $data);
     }
 
+    /**
+     * Urlencode, but prettier.
+     * - Spaces are replaced by dashes
+     * - Cyrillic characters are converted to latin
+     * - Some special characters are removed (see URL::URL_EXCLUDE_CHARS)
+     *
+     * @param string $text String to URLify
+     * @return string Encoded string
+     */
+    public static function urlSafe(string $text): string {
+        $text = str_replace(self::URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($text));
+        return urlencode(strtolower(str_replace(' ', '-', $text)));
+    }
 }

@@ -89,7 +89,7 @@ class AvatarSource {
             }
         }
 
-        return "https://avatars.dicebear.com/api/initials/{$data->username}.png?size={$size}";
+        return "https://api.dicebear.com/5.x/initials/png?seed={$data->username}&size={$size}";
     }
 
     /**

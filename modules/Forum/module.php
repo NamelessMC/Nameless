@@ -55,21 +55,14 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
         $pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
 
-        // Hooks
-        EventHandler::registerEvent('newTopic',
-            $this->_forum_language->get('forum', 'new_topic_hook_info'),
-            [
-                'user_id' => $this->_language->get('admin', 'user_id'),
-                'username' => $this->_language->get('user', 'username'),
-                'nickname' => $this->_language->get('user', 'nickname'),
-                'content' => $this->_language->get('general', 'content'),
-                'content_full' => $this->_language->get('general', 'full_content'),
-                'avatar_url' => $this->_language->get('user', 'avatar'),
-                'title' => $this->_forum_language->get('forum', 'topic_title'),
-                'url' => $this->_language->get('general', 'url'),
-                'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')
-            ]
-        );
+        EventHandler::registerListener(UserDeletedEvent::class, DeleteUserForumHook::class);
+        EventHandler::registerListener(GroupClonedEvent::class, CloneGroupForumHook::class);
+
+        // -- Events
+        EventHandler::registerEvent(TopicCreatedEvent::class);
+        EventHandler::registerEvent(TopicReplyCreatedEvent::class);
+
+        // -- Pipelines
 
         EventHandler::registerEvent('prePostCreate',
             $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
@@ -138,45 +131,45 @@ class Forum_Module extends Module {
             true
         );
 
-        EventHandler::registerEvent('topicReply',
-            $this->_forum_language->get('forum', 'topic_reply'),
-            [
-                'user_id' => $this->_language->get('admin', 'user_id'),
-                'username' => $this->_language->get('user', 'username'),
-                'nickname' => $this->_language->get('user', 'nickname'),
-                'content' => $this->_language->get('general', 'content'),
-                'content_full' => $this->_language->get('general', 'full_content'),
-                'avatar_url' => $this->_language->get('user', 'avatar'),
-                'title' => $this->_forum_language->get('forum', 'topic_title'),
-                'url' => $this->_language->get('general', 'url'),
-                'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
-                'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
-                'topic_author_nickname' => $this->_forum_language->get('forum', 'topic_author_nickname'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-            ]
-        );
-
-        EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
-
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
 
-        EventHandler::registerListener('renderPost', 'ContentHook::purify');
-        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
-        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'codeTransform'], 15);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'replaceAnchors'], 15);
+        EventHandler::registerListener('renderPost', [MentionsHook::class, 'parsePost'], 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
-        EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
+        MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
+        MemberListManager::getInstance()->registerListProvider(new HighestReactionScoresMemberListProvider($forum_language));
+
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+            return [
+                $forum_language->get('forum', 'posts_title') =>
+                    DB::getInstance()->query(
+                        'SELECT COUNT(post_content) AS `count` FROM nl2_posts WHERE post_creator = ?',
+                        [$member->data()->id]
+                    )->first()->count,
+            ];
+        });
+
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+            return [
+                $forum_language->get('forum', 'reaction_score') =>
+                    DB::getInstance()->query(
+                        'SELECT COUNT(fr.user_received) AS `count` FROM nl2_forums_reactions fr JOIN nl2_reactions r ON r.id = fr.reaction_id WHERE r.type = 2 AND fr.user_received = ?',
+                        [$member->data()->id]
+                    )->first()->count,
+            ];
+        });
     }
 
     public function onInstall() {
@@ -244,9 +237,9 @@ class Forum_Module extends Module {
         }
 
         // Widgets
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+        if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Latest posts
-            $widgets->add(new LatestPostsWidget($this->_forum_language->get('forum', 'latest_posts'), $this->_forum_language->get('forum', 'by'), $smarty, $cache, $user, $this->_language));
+            $widgets->add(new LatestPostsWidget($this->_forum_language, $smarty, $cache, $user, $this->_language));
         }
 
         // Front end or back end?

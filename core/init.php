@@ -116,7 +116,7 @@ if ($page != 'install') {
 
     $smarty = new Smarty();
 
-    if ((defined('DEBUGGING') && DEBUGGING) && Composer\InstalledVersions::isInstalled('maximebf/debugbar')) {
+    if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
         DebugBarHelper::getInstance()->enable($smarty);
     }
@@ -193,11 +193,13 @@ if ($page != 'install') {
     define('DEFAULT_LANGUAGE', $default_language);
 
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
-        // Attempt to get the requested language from the browser if it exists
-        // and if the user has enabled auto language detection
-        $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
-        if ($automatic_locale !== false && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
-            $default_language = $automatic_locale;
+        if (Util::getSetting('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
+            // Attempt to get the requested language from the browser if it exists
+            $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
+            if ($automatic_locale !== false) {
+                $smarty->assign('AUTO_LANGUAGE_VALUE', $automatic_locale[1]);
+                $default_language = $automatic_locale[0];
+            }
         }
 
         // Default language for guests
@@ -321,12 +323,16 @@ if ($page != 'install') {
     $smarty->assign([
         'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
         'OG_URL' => Output::getClean(rtrim(URL::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
-        'OG_IMAGE' => Output::getClean(rtrim(URL::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
         'SITE_NAME' => Output::getClean(SITE_NAME),
         'SITE_HOME' => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
         'GUEST' => $language->get('user', 'guest')
     ]);
+    $cache->setCache('backgroundcache');
+    if ($cache->isCached('og_image')) {
+        // Assign the image value now, some pages may override it (via Page Metadata config)
+        $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $cache->retrieve('og_image'));
+    }
 
     // Avatars
     $cache->setCache('avatar_settings_cache');
@@ -456,7 +462,7 @@ if ($page != 'install') {
                 )) {
                 // Can continue as normal
             } else {
-                require(ROOT_PATH . '/maintenance.php');
+                require(ROOT_PATH . '/core/includes/maintenance.php');
                 die();
             }
         } else {
@@ -487,7 +493,9 @@ if ($page != 'install') {
                     $hook_array[] = [
                         'id' => $hook->id,
                         'url' => Output::getClean($hook->url),
-                        'action' => $hook->action == 1 ? 'WebHook::execute' : 'DiscordHook::execute',
+                        'action' => $hook->action == 1
+                            ? [WebHook::class, 'execute']
+                            : [DiscordHook::class, 'execute'],
                         'events' => json_decode($hook->events, true)
                     ];
                 }
@@ -628,6 +636,11 @@ if ($page != 'install') {
             }
 
             $_SESSION['checked'] = $date;
+        }
+
+        // Auto language enabled?
+        if (Util::getSetting('auto_language_detection')) {
+            $smarty->assign('AUTO_LANGUAGE', true);
         }
     }
 

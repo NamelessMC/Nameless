@@ -16,7 +16,6 @@ if (isset($_GET['step'])) {
     if (!file_exists(__DIR__ . '/steps/' . $step . '.php')) {
         $error = 'Unknown step.';
     }
-
 }
 
 if (isset($step) && $step == 'ajax_initialise') {
@@ -39,6 +38,7 @@ require(__DIR__ . '/includes/header.php');
                         create_step($language->get('installer', 'step_database_config'), 'server icon', ['database_configuration', 'database_initialization', 'upgrade', 'upgrade_perform']);
                         create_step($language->get('installer', 'step_site_config'), 'globe icon', ['site_configuration', 'site_initialization']);
                         create_step($language->get('installer', 'step_admin_account'), 'user icon', ['admin_account_setup']);
+                        create_step($language->get('installer', 'step_select_modules'), 'puzzle piece icon', ['select_modules']);
                         create_step($language->get('installer', 'step_conversion'), 'exchange icon', ['conversion']);
                         create_step($language->get('installer', 'step_finish'), 'check icon', ['finish']);
                         ?>
