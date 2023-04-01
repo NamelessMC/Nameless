@@ -382,6 +382,10 @@ class Core_Module extends Module {
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
+            'button_css' => [
+                'background-color' => '#5865F2',
+                'color' => '#FFFFFF',
+            ],
             'verify_email' => static fn () => true,
         ]);
 
@@ -389,7 +393,25 @@ class Core_Module extends Module {
             'class' => \League\OAuth2\Client\Provider\Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
-            'icon' => 'fab fa-google',
+            'logo_url' => rtrim(URL::getSelfURL(), '/') . '/core/assets/img/google_logo.png',
+            // Google has strict restrictions (https://developers.google.com/identity/branding-guidelines) on how
+            // their logo should be formatted for login buttons, and should not be altered by any template
+            'logo_css' => [
+                'width' => '18px',
+                'height' => '18px',
+                'vertical-align' => 'middle',
+                'margin-bottom' => '-2px',
+                'margin-top' => '-2px',
+            ],
+            'button_css' => [
+                'background-color' => '#FFFFFF',
+                'color' => '#757575',
+                'line-height' => '.05em',
+                'box-shadow' => 'inset 0px 0px 0px 1px #DFDFDF;'
+            ],
+            'text_css' => [
+                'vertical-align' => 'middle',
+            ],
             'verify_email' => static fn () => true,
         ]);
 
