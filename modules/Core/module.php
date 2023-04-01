@@ -377,6 +377,15 @@ class Core_Module extends Module {
             true
         );
 
+        EventHandler::registerEvent('renderProfilePost',
+            $language->get('admin', 'render_profile_post_hook_info'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
@@ -505,6 +514,12 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'renderEmojis']);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));

@@ -691,6 +691,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 foreach ($replies_query as $reply) {
                     $reply_user = new User($reply->author_id);
+                    $content = EventHandler::executeEvent('renderProfilePost', ['content' => $reply->content])['content'];
+
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
                         'username' => $reply_user->getDisplayname(true),
@@ -700,7 +702,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'avatar' => $reply_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
-                        'content' => Output::getPurified(Output::getDecoded($reply->content)),
+                        'content' => $content,
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
                     ];
@@ -710,6 +712,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
             $replies_query = null;
 
+            $content = EventHandler::executeEvent('renderProfilePost', ['content' => $nValue->content])['content'];
+
             $wall_posts[] = [
                 'id' => $nValue->id,
                 'user_id' => $target_user->data()->id,
@@ -718,7 +722,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'profile' => $target_user->getProfileURL(),
                 'user_style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(500),
-                'content' => Output::getPurified(Output::getDecoded($nValue->content)),
+                'content' => $content,
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
