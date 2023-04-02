@@ -31,6 +31,8 @@ class TopicReplyCreatedEvent extends AbstractEvent implements HasWebhookParams, 
     }
 
     function webhookParams(): array {
+        $forum = new Forum();
+
         return [
             'user_id' => $this->creator->data()->id,
             'username' => $this->creator->getDisplayname(),

@@ -34,6 +34,8 @@ class TopicCreatedEvent extends AbstractEvent implements HasWebhookParams, Disco
     }
 
     function webhookParams(): array {
+        $forum = new Forum();
+
         return [
             'user_id' => $this->creator->data()->id,
             'username' => $this->creator->getDisplayname(),
