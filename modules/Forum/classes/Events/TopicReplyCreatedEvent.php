@@ -1,6 +1,6 @@
 <?php
 
-class TopicReplyCreatedEvent extends AbstractEvent implements DiscordDispatchable {
+class TopicReplyCreatedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $creator;
     public string $topic_title;
@@ -28,6 +28,19 @@ class TopicReplyCreatedEvent extends AbstractEvent implements DiscordDispatchabl
 
     public static function description(): string {
         return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'topic_reply');
+    }
+
+    function webhookParams(): array {
+        return [
+            'user_id' => $this->creator->data()->id,
+            'username' => $this->creator->getDisplayname(),
+            'topic' => [
+                'id' => $this->topic_id,
+                'title' => $this->topic_title
+            ],
+            'content' => $this->content,
+            'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/')
+        ];
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {

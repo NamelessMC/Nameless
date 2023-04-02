@@ -20,6 +20,7 @@ class UserRegisteredEvent extends AbstractEvent implements HasWebhookParams, Dis
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),
+            'profile_url' => URL::getSelfURL() . ltrim($this->user->getProfileURL(), '/')
         ];
     }
 

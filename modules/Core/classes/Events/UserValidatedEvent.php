@@ -20,6 +20,7 @@ class UserValidatedEvent extends AbstractEvent implements HasWebhookParams, Disc
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),
+            'profile_url' => URL::getSelfURL() . ltrim($this->user->getProfileURL(), '/')
         ];
     }
 
