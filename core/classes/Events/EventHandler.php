@@ -205,11 +205,11 @@ class EventHandler {
      *
      * @return array List of all currently registered events
      */
-    public static function getEvents(): array {
+    public static function getEvents(bool $showInternal = false): array {
         $return = [];
 
         foreach (self::$_events as $name => $meta) {
-            if ($meta['internal']) {
+            if ($meta['internal'] && !$showInternal) {
                 continue;
             }
 
