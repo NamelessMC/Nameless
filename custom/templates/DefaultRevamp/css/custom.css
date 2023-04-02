@@ -264,8 +264,13 @@ body.pushable>.pusher {
     }
 }
 
+#topic-post #post-content {
+    display: flex;
+    flex-direction: column;
+}
+
 #topic-post #post-content #reactions {
-    margin-top: 1rem;
+    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: .85em;
@@ -955,6 +960,10 @@ select {
     overflow: auto;
     max-width: 100%;
     height: auto;
+}
+
+#post-content .forum_post {
+    margin-bottom: 1rem;
 }
 
 .ui.checkbox .box:before {
