@@ -738,9 +738,9 @@ if ($user->isLoggedIn()) {
         }
 
         $smarty->assign([
-            'LIKE', $language->get('user', 'like'),
-            'REACTIONS', $reactions,
-            'REACTIONS_URL', URL::build('/forum/reactions')
+            'LIKE' => $language->get('user', 'like'),
+            'REACTIONS' => $reactions,
+            'REACTIONS_URL' => URL::build('/forum/reactions')
         ]);
     }
 
