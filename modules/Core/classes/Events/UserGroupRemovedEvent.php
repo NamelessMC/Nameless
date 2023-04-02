@@ -1,6 +1,6 @@
 <?php
 
-class UserGroupRemovedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserGroupRemovedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $user;
     public Group $group;
@@ -12,6 +12,17 @@ class UserGroupRemovedEvent extends AbstractEvent implements DiscordDispatchable
 
     public static function description(): string {
         return (new Language())->get('admin', 'user_group_removed_hook_info');
+    }
+
+    function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+            'group' => [
+                'id' => $this->group->id,
+                'name' => $this->group->name
+            ]
+        ];
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {

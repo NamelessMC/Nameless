@@ -1,6 +1,6 @@
 <?php
 
-class UserWarnedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserWarnedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $punished;
     public User $punisher;
@@ -14,6 +14,20 @@ class UserWarnedEvent extends AbstractEvent implements DiscordDispatchable {
 
     public static function description(): string {
         return (new Language())->get('admin', 'warning_hook_info');
+    }
+
+    function webhookParams(): array {
+        return [
+            'punished' => [
+                'user_id' => $this->punished->data()->id,
+                'username' => $this->punished->getDisplayname(),
+            ],
+            'punisher' => [
+                'user_id' => $this->punisher->data()->id,
+                'username' => $this->punisher->getDisplayname(),
+            ],
+            'reason' => $this->reason
+        ];
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {

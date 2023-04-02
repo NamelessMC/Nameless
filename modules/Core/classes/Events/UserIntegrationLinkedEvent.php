@@ -1,6 +1,6 @@
 <?php
 
-class UserIntegrationLinkedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserIntegrationLinkedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $user;
     public IntegrationBase $integration;
@@ -18,6 +18,19 @@ class UserIntegrationLinkedEvent extends AbstractEvent implements DiscordDispatc
 
     public static function description(): string {
         return (new Language())->get('admin', 'user_link_integration_hook_info');
+    }
+
+    function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+            'integration' => [
+                'integration' => $this->integration->getName(),
+                'username' => $this->integration_user->data()->username,
+                'identifier' => $this->integration_user->data()->identifier,
+                'verified' => $this->integration_user->isVerified()
+            ]
+        ];
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {

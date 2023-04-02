@@ -1,6 +1,6 @@
 <?php
 
-class UserRegisteredEvent extends AbstractEvent implements DiscordDispatchable {
+class UserRegisteredEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $user;
 
@@ -14,6 +14,13 @@ class UserRegisteredEvent extends AbstractEvent implements DiscordDispatchable {
 
     public static function description(): string {
         return (new Language())->get('admin', 'register_hook_info');
+    }
+
+    function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+        ];
     }
 
     public function toDiscordWebhook(): DiscordWebhookBuilder {
