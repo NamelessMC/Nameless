@@ -564,6 +564,7 @@
     "admin/registrations": "Registrations",
     "admin/render_custom_page_hook_info": "Render custom page",
     "admin/render_custom_page_edit_hook_info": "Render custom page edit",
+    "admin/render_profile_post_hook_info": "Render profile post",
     "admin/report_hook_info": "Report creation",
     "admin/require_integration": "Require users to link and verify integration",
     "admin/required": "Required",
