@@ -34,7 +34,7 @@ class ReportCreatedEvent extends AbstractEvent implements HasWebhookParams, Disc
         return (new Language())->get('admin', 'report_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'username' => $this->username,
             'title' => $this->title,

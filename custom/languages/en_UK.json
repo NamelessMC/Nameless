@@ -226,6 +226,8 @@
     "admin/query_type": "Query type",
     "admin/internal": "Internal",
     "admin/external": "External",
+    "admin/event_supports_discord": "This event supports Discord webhooks and has a custom embed.",
+    "admin/event_supports_normal": "This event supports normal webhooks.",
     "admin/plugin": "Plugin",
     "admin/query_type_help": "If the default internal server query does not work, try another option.",
     "admin/face": "Face",

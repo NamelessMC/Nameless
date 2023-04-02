@@ -20,7 +20,7 @@ class AnnouncementCreatedEvent extends AbstractEvent implements HasWebhookParams
         return (new Language())->get('admin', 'announcement_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->creator->data()->id,
             'username' => $this->creator->getDisplayname(),

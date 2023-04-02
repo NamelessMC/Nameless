@@ -20,7 +20,7 @@ class UserIntegrationUnlinkedEvent extends AbstractEvent implements HasWebhookPa
         return (new Language())->get('admin', 'user_unlink_integration_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),

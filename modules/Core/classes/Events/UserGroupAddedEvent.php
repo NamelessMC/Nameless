@@ -14,7 +14,7 @@ class UserGroupAddedEvent extends AbstractEvent implements HasWebhookParams, Dis
         return (new Language())->get('admin', 'user_group_added_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),

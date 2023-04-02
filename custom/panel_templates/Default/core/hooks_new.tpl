@@ -75,10 +75,14 @@
                                         <label class="custom-control-label" for="inputevents[{$key|escape}]">
                                             {$meta.description|escape}
                                             {if $meta.supports_discord}
-                                                <span class="badge badge-info">Supports Discord</span>
+                                                <span data-toggle="tooltip" data-original-title="{$SUPPORTS_DISCORD}">
+                                                    <i class="fab fa-discord"></i>
+                                                </span>
                                             {/if}
                                             {if $meta.supports_normal}
-                                                <span class="badge badge-info">Supports Normal</span>
+                                                <span data-toggle="tooltip" data-original-title="{$SUPPORTS_NORMAL}">
+                                                    <i class="fas fa-globe"></i>
+                                                </span>
                                             {/if}
                                         </label>
                                     </div>

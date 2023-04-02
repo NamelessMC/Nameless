@@ -14,7 +14,7 @@ class UserGroupRemovedEvent extends AbstractEvent implements HasWebhookParams, D
         return (new Language())->get('admin', 'user_group_removed_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),

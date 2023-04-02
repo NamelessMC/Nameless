@@ -33,7 +33,7 @@ class TopicCreatedEvent extends AbstractEvent implements HasWebhookParams, Disco
         return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'new_topic');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         $forum = new Forum();
 
         return [

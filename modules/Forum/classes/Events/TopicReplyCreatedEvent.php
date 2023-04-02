@@ -30,7 +30,7 @@ class TopicReplyCreatedEvent extends AbstractEvent implements HasWebhookParams, 
         return (new Language(ROOT_PATH . '/modules/Forum/language'))->get('forum', 'topic_reply');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         $forum = new Forum();
 
         return [

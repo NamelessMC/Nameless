@@ -16,7 +16,7 @@ class UserValidatedEvent extends AbstractEvent implements HasWebhookParams, Disc
         return (new Language())->get('admin', 'validate_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),

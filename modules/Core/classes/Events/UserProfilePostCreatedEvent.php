@@ -20,7 +20,7 @@ class UserProfilePostCreatedEvent extends AbstractEvent implements HasWebhookPar
         return (new Language())->get('admin', 'user_new_profile_post_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'poster' => [
                 'user_id' => $this->poster->data()->id,

@@ -12,7 +12,7 @@ class UserDeletedEvent extends AbstractEvent implements HasWebhookParams {
         return 'deleteUser';
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),

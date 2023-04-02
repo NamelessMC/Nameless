@@ -18,7 +18,7 @@ class UserBannedEvent extends AbstractEvent implements HasWebhookParams, Discord
         return (new Language())->get('admin', 'ban_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'punished' => [
                 'user_id' => $this->punished->data()->id,

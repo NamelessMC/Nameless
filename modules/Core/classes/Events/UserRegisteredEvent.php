@@ -16,7 +16,7 @@ class UserRegisteredEvent extends AbstractEvent implements HasWebhookParams, Dis
         return (new Language())->get('admin', 'register_hook_info');
     }
 
-    function webhookParams(): array {
+    public function webhookParams(): array {
         return [
             'user_id' => $this->user->data()->id,
             'username' => $this->user->getDisplayname(),
