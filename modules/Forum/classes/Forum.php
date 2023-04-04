@@ -511,7 +511,7 @@ class Forum {
                             SELECT p.forum_id
                             FROM nl2_forums_permissions p
                             WHERE p.group_id IN ($groups_in)
-                            AND p.view = 1
+                            AND p.view = 1 AND p.view_other_topics = 1
                         )
                     )
                     AND deleted = 0

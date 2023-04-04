@@ -12,7 +12,7 @@
 $groups_key = implode('-', $user->getAllGroupIds());
 $cache->setCache('news_cache');
 if ($cache->isCached('news-' . $groups_key)) {
-    $news = $cache->retrieve('news');
+    $news = $cache->retrieve('news-' . $groups_key);
 } else {
     $forum = new Forum();
 
