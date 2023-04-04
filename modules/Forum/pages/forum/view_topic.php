@@ -734,11 +734,8 @@ if ($reactions_enabled) {
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $reactions = DB::getInstance()->get('reactions', ['enabled', true])->results();
         $smarty->assign([
-            'LIKE' => $language->get('user', 'like'),
-            'REACTIONS' => $reactions,
-            'REACTIONS_URL' => URL::build('/forum/reactions'),
+            'REACTIONS' => $all_reactions,
             'REACTIONS_BY_USER' => $reactions_by_user,
         ]);
     }
