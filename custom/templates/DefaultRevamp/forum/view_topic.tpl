@@ -205,6 +205,7 @@
                         </div>
                         {/if}
                     </div>
+                    {/if}
                     {if !empty($reply.signature)}
                         <div class="ui divider"></div>
                         <div style="overflow: scroll; max-height: 500px;">
