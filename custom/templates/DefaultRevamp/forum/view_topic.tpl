@@ -176,36 +176,9 @@
                     {/if}
                 </div>
                 <div class="ui eleven wide tablet thirteen wide computer column" id="post-content">
-                    <div class="forum_post">{$reply.content}</div>
-                    {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID || count($reply.post_reactions))}
-                    <div class="ui mini info message" id="reactions">
-                        {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
-                        <a href="#" data-toggle="popup" data-position="right center">{$LIKE}</a>
-                        <div class="ui wide popup">
-                            {if isset($REACTIONS) && count($REACTIONS)}
-                            {foreach from=$REACTIONS item=reaction}
-                            <form action="{$REACTIONS_URL}" method="post">
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="hidden" name="reaction" value="{$reaction->id}">
-                                <input type="hidden" name="post" value="{$reply.id}">
-                                <button type="submit" class="ui mini primary icon button">{$reaction->html}</button>
-                            </form>
-                            {/foreach}
-                            {/if}
-                        </div>
-                        {/if}
-                        {if count($reply.post_reactions)}
-                        <div class="right floated" data-toggle="modal" data-target="#modal-reactions-{$reply.id}">
-                            {assign i 1}
-                            {foreach from=$reply.post_reactions name=reactions item=reaction}
-                            {if $i != 1} &nbsp; {/if}
-                            {$reaction.html}x{$reaction.count}
-                            {assign i $i+1}
-                            {/foreach}
-                        </div>
-                        {/if}
+                    <div class="forum_post">
+                        {$reply.content}
                     </div>
-                    {/if}
                     {if !empty($reply.signature)}
                         <div class="ui divider"></div>
                         <div style="overflow: scroll; max-height: 500px;">
