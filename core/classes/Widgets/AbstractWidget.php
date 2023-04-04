@@ -142,6 +142,18 @@ abstract class AbstractWidget {
             return $this->_data = $data;
         }
 
-        throw new RuntimeException("Widget data not found for '{$this->getName()}'");
+        // Widget not found in database, create it
+        DB::getInstance()->insert('widgets', $data = [
+            'name' => $this->getName(),
+            'enabled' => true,
+            'location' => 'right',
+            'order' => 10,
+            'pages' => '["index","forum"]',
+        ]);
+
+        $data = new WidgetData((object) $data);
+        $cache->store($this->getName(), $data);
+
+        return $this->_data = $data;
     }
 }
