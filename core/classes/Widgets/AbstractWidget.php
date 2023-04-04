@@ -142,6 +142,6 @@ abstract class AbstractWidget {
             return $this->_data = $data;
         }
 
-        throw new RuntimeException('Widget data not found');
+        throw new RuntimeException("Widget data not found for '{$this->getName()}'");
     }
 }
