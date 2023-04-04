@@ -100,6 +100,13 @@ class ErrorHandler {
                         continue;
                     }
 
+                    // Skip frame if it is a closure
+                    // @phpstan-ignore-next-line (it does not know that $frame['function'] is valid)
+                    if (isset($frame['function']) && $frame['function'] === '{closure}') {
+                        ++$skip_frames;
+                        continue;
+                    }
+
                     $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                     $i--;
                 }
