@@ -41,6 +41,10 @@ class Log extends Instanceable {
                 ],
                 'social' => 'acp_social_update',
                 'term' => 'acp_term_update',
+                'queue' => [
+                    'cancel_task' => 'acp_cancel_task',
+                    'requeue_task' => 'acp_requeue_task',
+                ],
             ],
             'api' => [
                 'change' => 'acp_api_change',
@@ -220,7 +224,7 @@ class Log extends Instanceable {
             'time' => date('U'),
             'action' => $action,
             'user_id' => $user,
-            'ip' => $ip,
+            'ip' => $ip ?? 'unknown',
             'info' => $info,
         ]);
     }

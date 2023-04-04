@@ -140,7 +140,7 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPost', [ContentHook::class, 'codeTransform'], 15);
         EventHandler::registerListener('renderPost', [ContentHook::class, 'decode'], 20);
         EventHandler::registerListener('renderPost', [ContentHook::class, 'renderEmojis'], 10);
-        EventHandler::registerListener('renderPost', [ContentHook::class, 'replaceAnchors'], 15);
+        EventHandler::registerListener('renderPost', [ContentHook::class, 'replaceAnchors'], 5);
         EventHandler::registerListener('renderPost', [MentionsHook::class, 'parsePost'], 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');

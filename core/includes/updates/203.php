@@ -21,6 +21,9 @@ return new class extends UpgradeScript {
         Util::setSetting('query_type', Util::getSetting('external_query') == 1 ? 'external' : 'internal');
         Util::setSetting('external_query', null);
 
+        // Forum post conversion
+        ConvertForumPostTask::schedule();
+
         // Add all groups to member list selectable groups
         Util::setSetting('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
 

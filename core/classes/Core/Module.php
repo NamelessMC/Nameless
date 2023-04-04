@@ -173,4 +173,48 @@ abstract class Module {
     public function getNamelessVersion(): string {
         return $this->_nameless_version;
     }
+
+    /**
+     * Get this module's ID
+     *
+     * @return int The ID for the module
+     */
+    public function getId(): int {
+        return DB::getInstance()->query('SELECT `id` FROM nl2_modules WHERE `name` = ?', [$this->_name])->first()->id;
+    }
+
+    /**
+     * Get a module ID from name
+     *
+     * @param string $name Module name
+     *
+     * @return ?int Module ID
+     *
+     */
+    public static function getIdFromName(string $name): ?int {
+        $query = DB::getInstance()->get('modules', ['name', $name]);
+
+        if ($query->count()) {
+            return $query->first()->id;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get a module name from ID
+     *
+     * @param int $id Module ID
+     *
+     * @return ?string Module name
+     */
+    public static function getNameFromId(int $id): ?string {
+        $query = DB::getInstance()->get('modules', ['id', $id]);
+
+        if ($query->count()) {
+            return $query->first()->name;
+        }
+
+        return null;
+    }
 }

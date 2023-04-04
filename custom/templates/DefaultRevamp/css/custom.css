@@ -270,6 +270,15 @@ body.pushable>.pusher {
 
 #reactions {
     margin-top: 1rem;
+}
+
+#topic-post #post-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#topic-post #post-content #reactions {
+    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: .85em;
@@ -663,7 +672,6 @@ body.pushable>.pusher {
     flex: 0 0 auto;
     width: auto;
     line-height: 1;
-    vertical-align: middle;
     font-size: 3em;
     opacity: .8;
 }
@@ -968,6 +976,10 @@ select {
     height: auto;
 }
 
+#post-content .forum_post {
+    margin-bottom: 1rem;
+}
+
 .ui.checkbox .box:before {
     margin-top: 4px;
 }
@@ -1002,7 +1014,7 @@ select {
     position: absolute;
 }
 
-.darkmode-toggle:checked + .darkmode-toggle-label .darkmode-ball {
+.darkmode-toggle:checked+.darkmode-toggle-label .darkmode-ball {
     transform: translateX(24px);
 }
 
@@ -1035,13 +1047,13 @@ select {
 }
 
 .fa-sun {
-    color:#f39c00;
+    color: #f39c00;
 }
 
 /*
  Member list search images
  */
-.ui.search > .results .result .image {
+.ui.search>.results .result .image {
     border-radius: 0;
 }
 
@@ -1060,7 +1072,8 @@ select {
  *  [ EMOJI SIZING ]
  */
 
-.joypixels, .twemoji {
+.joypixels,
+.twemoji {
     height: 1em;
     width: 1em;
     vertical-align: middle;

@@ -58,14 +58,16 @@
                 </form>
                 {if $OAUTH_AVAILABLE}
                 <div class="ui horizontal divider">{$OR}</div>
-                <div class="ui equal width grid">
+                <div class="ui equal width two column grid middle aligned">
                     {foreach $OAUTH_PROVIDERS as $name => $meta}
                     <div class="column">
-                        <a href="{$meta.url}" class="ui fluid button left floated">
-                            {if $meta.icon}
-                            <i class="{$meta.icon} fa-lg"></i>
+                        <a href="{$meta.url}" class="ui fluid button left floated" {if $meta.button_css}style="{$meta.button_css}"{/if}>
+                            {if $meta.logo_url}
+                                <img src="{$meta.logo_url}" {if $meta.logo_css}style="{$meta.logo_css}"{/if} alt="{$name|ucfirst}">
+                            {elseif $meta.icon}
+                                <i class="{$meta.icon} fa-lg"></i>
                             {/if}
-                            {$name|ucfirst}
+                            <span {if $meta.text_css}style="{$meta.text_css}"{/if}>{$meta.log_in_with}</span>
                         </a>
                     </div>
                     {/foreach}

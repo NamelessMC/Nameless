@@ -35,6 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['modules_selected'] = true;
     Redirect::to('?step=conversion');
 }
+
+function pointer($module) {
+    if ($module !== 'Core') {
+        return 'cursor: pointer;';
+    }
+    
+    return '';
+}
 ?>
 
 <form action="" method="post">
@@ -49,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="ui two cards">
                 <?php foreach ($all_modules as $module => $description) { ?>
-                    <div class="ui card fluid" data-module-name="<?php echo $module ?>" style="cursor: pointer; user-select: none; pointer-events: all !important;" onclick="toggleModule(this)">
+                    <div class="ui card fluid" data-module-name="<?php echo $module ?>" style="<?php echo pointer($module); ?> user-select: none; pointer-events: all !important;" onclick="toggleModule(this)">
                         <input type="hidden" name="modules[<?php echo $module ?>]" value="1">
                         <div class="content">
                             <div class="header">
