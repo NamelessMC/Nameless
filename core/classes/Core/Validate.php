@@ -226,7 +226,8 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AT_LEAST,
-                                'fallback' => "$item must have a value of at least $rule_value."
+                                'fallback' => "$item must have a value of at least $rule_value.",
+                                'meta' => ['min' => $rule_value],
                             ]);
                         }
                         break;
@@ -236,7 +237,8 @@ class Validate {
                             $validator->addError([
                                 'field' => $item,
                                 'rule' => self::AT_MOST,
-                                'fallback' => "$item must have a value of at most $rule_value."
+                                'fallback' => "$item must have a value of at most $rule_value.",
+                                'meta' => ['max' => $rule_value],
                             ]);
                         }
                         break;

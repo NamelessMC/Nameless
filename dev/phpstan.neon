@@ -10,6 +10,7 @@ parameters:
         # prodecural programming :^)
         - '#might not be defined#'
         - '#Constant#'
+        - '#Undefined variable: \$forum_language#'
         # weird issue with login.php where $language is being used in validation message closure
         - '#Undefined variable: \$language#'
         - '#Access to an undefined property object::#'
