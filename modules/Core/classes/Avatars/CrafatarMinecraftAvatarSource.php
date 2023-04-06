@@ -7,7 +7,7 @@
  * @version 2.0.0-pr12
  * @license MIT
  */
-class CrafatarAvatarSource extends AvatarSourceBase {
+class CrafatarMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct() {
         $this->_name = 'Crafatar';

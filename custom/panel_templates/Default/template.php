@@ -177,26 +177,6 @@ if (!class_exists('Default_Panel_Template')) {
 
                         break;
 
-                    case 'avatars':
-                        $this->assets()->include([
-                            AssetTree::DROPZONE,
-                            AssetTree::IMAGE_PICKER,
-                        ]);
-
-                        $this->addJSScript('
-                        // Dropzone options
-                        Dropzone.options.upload_avatar_dropzone = {
-                            maxFilesize: 2,
-                            dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
-                            dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
-                            dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '"
-                        };
-
-                        $(".image-picker").imagepicker();
-                        ');
-
-                        break;
-
                     case 'debugging_and_maintenance':
                         $this->addCSSStyle('
                         .error_log {

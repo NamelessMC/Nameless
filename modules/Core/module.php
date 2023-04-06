@@ -435,14 +435,24 @@ class Core_Module extends Module {
         CaptchaBase::setActiveProvider($activeCaptcha);
 
         // Avatar Sources
-        AvatarSource::registerSource(new CrafatarAvatarSource());
-        AvatarSource::registerSource(new CraftheadAvatarSource());
-        AvatarSource::registerSource(new CravatarAvatarSource());
-        AvatarSource::registerSource(new MCHeadsAvatarSource());
-        AvatarSource::registerSource(new MinotarAvatarSource());
-        AvatarSource::registerSource(new NamelessMCAvatarSource($language));
-        AvatarSource::registerSource(new VisageAvatarSource());
-        AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
+        AvatarSource::getInstance()->registerSource(new UploadedImageAvatarSource());
+        AvatarSource::getInstance()->registerSource(new InitialsAvatarSource());
+        AvatarSource::getInstance()->registerSource(new GravatarAvatarSource());
+
+        // TODO: Move into MC Integration module
+        if (Util::getSetting('mc_integration')) {
+            AvatarSource::getInstance()->registerSource(new MinecraftAvatarSource());
+            MinecraftAvatarSource::registerSource(new CrafatarMinecraftAvatarSource());
+            MinecraftAvatarSource::registerSource(new CraftheadMinecraftAvatarSource());
+            MinecraftAvatarSource::registerSource(new CravatarMinecraftAvatarSource());
+            MinecraftAvatarSource::registerSource(new MCHeadsMinecraftAvatarSource());
+            MinecraftAvatarSource::registerSource(new MinotarMinecraftAvatarSource());
+            MinecraftAvatarSource::registerSource(new NamelessMCMinecraftAvatarSource($language));
+            MinecraftAvatarSource::registerSource(new VisageMinecraftAvatarSource());
+        }
+
+//        EventHandler::registerListener(UserIntegrationUnlinkedEvent::class, ResetAvatarCacheHook::class);
+//        EventHandler::registerListener(UserIntegrationLinkedEvent::class, ResetAvatarCacheHook::class);
 
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');

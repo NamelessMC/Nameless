@@ -92,7 +92,7 @@
                         </select>
                     </div>
                     {/if}
-                    {if isset($CUSTOM_AVATARS)}
+                    {if $GRAVATAR_ENABLED}
                     <div class="field">
                         <label for="inputGravatar">{$GRAVATAR}</label>
                         <select class="ui fluid dropdown" name="gravatar" id="inputGravatar">

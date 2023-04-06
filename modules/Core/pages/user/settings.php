@@ -606,11 +606,12 @@ if (isset($_GET['do'])) {
         'INFO' => $language->get('general', 'info'),
         'ENABLED' => $language->get('user', 'enabled'),
         'DISABLED' => $language->get('user', 'disabled'),
+        'GRAVATAR_ENABLED' => AvatarSource::getInstance()->getSourceBySafeName(GravatarAvatarSource::class)->isEnabled(),
         'GRAVATAR' => $language->get('user', 'gravatar'),
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
     ]);
 
-    if (defined('CUSTOM_AVATARS')) {
+    if (Util::getSetting('custom_user_avatars')) {
         $smarty->assign([
             'CUSTOM_AVATARS' => true,
             'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',

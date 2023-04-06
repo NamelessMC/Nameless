@@ -57,7 +57,7 @@ class Report {
             $reported_user->data()->username,
             $language->get('general', 'reported_by', ['author' => $user_reporting->data()->username]),
             $data['report_reason'],
-            $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? AvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
+            $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? MinecraftAvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
             $language->get('general', 'view_report'),
             rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id),
         ));

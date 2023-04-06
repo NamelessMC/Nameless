@@ -7,7 +7,7 @@
  * @version 2.0.0-pr12
  * @license MIT
  */
-class VisageAvatarSource extends AvatarSourceBase {
+class VisageMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct() {
         $this->_name = 'Visage';

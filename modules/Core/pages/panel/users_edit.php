@@ -204,6 +204,7 @@ if (Input::exists()) {
                         }
                     }
 
+                    AvatarSource::getInstance()->clearUserAvatarCache($view_user);
                     Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
                     Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
                 } catch (Exception $e) {

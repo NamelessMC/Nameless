@@ -10,8 +10,8 @@ $sortColumns = ['id' => 'id', 'username' => 'username', 'joined' => 'joined'];
 
 $db = DB::getInstance();
 
-$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
-$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
+$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users')->first()->total;
+$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.email FROM nl2_users u';
 $where = '';
 $order = '';
 $limit = '';
@@ -66,11 +66,12 @@ $groups = [];
 
 if (count($results)) {
     foreach ($results as $result) {
-        $img = AvatarSource::getAvatarFromUserData($result, true, 30, true);
+        // TODO monkaS
+        $user = new User($result->id);
 
         $obj = new stdClass();
         $obj->id = $result->id;
-        $obj->username = "<img src='{$img}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
+        $obj->username = "<img src='{$user->getAvatar(30)}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
         $obj->joined = date(DATE_FORMAT, $result->joined);
 
         // Get group

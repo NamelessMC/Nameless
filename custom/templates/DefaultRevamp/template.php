@@ -90,7 +90,6 @@ class DefaultRevamp_Template extends TemplateBase {
             'siteURL' => URL::build('/'),
             'fullSiteURL' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
-            'avatarSource' => AvatarSource::getUrlToFormat(),
             'copied' => $this->_language->get('general', 'copied'),
             'cookieNotice' => $this->_language->get('general', 'cookie_notice'),
             'noMessages' => $this->_language->get('user', 'no_messages'),
@@ -113,6 +112,10 @@ class DefaultRevamp_Template extends TemplateBase {
             'route' => $route,
             'csrfToken' => Token::get(),
         ];
+
+        if (Util::getSetting('mc_integration')) {
+            $JSVariables['avatarSource'] = MinecraftAvatarSource::getUrlToFormat();
+        }
 
         // Logo
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);

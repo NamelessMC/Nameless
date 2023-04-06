@@ -1,21 +1,22 @@
 <?php
 /**
- * Crafthead avatar source class
+ * MCHeads avatar source class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT
  */
-class CraftheadAvatarSource extends AvatarSourceBase {
+class MCHeadsMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct() {
-        $this->_name = 'Crafthead';
-        $this->_base_url = 'https://crafthead.net/';
+        $this->_name = 'MC-Heads';
+        $this->_base_url = 'https://mc-heads.net/';
         $this->_perspectives_map = [
-            'face' => 'helm',
-            'head' => 'cube'
+            'face' => 'avatar',
+            'head' => 'head'
         ];
+        $this->_supports_usernames = true;
     }
 
     public function getUrlToFormat(string $perspective): string {

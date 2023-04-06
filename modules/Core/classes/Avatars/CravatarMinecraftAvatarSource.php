@@ -1,21 +1,22 @@
 <?php
 /**
- * Minotar avatar source class
+ * Cravatar avatar source class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT
  */
-class MinotarAvatarSource extends AvatarSourceBase {
+class CravatarMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct() {
-        $this->_name = 'Minotar';
-        $this->_base_url = 'https://minotar.net/';
+        $this->_name = 'Cravatar';
+        $this->_base_url = 'https://cravatar.eu/';
         $this->_perspectives_map = [
-            'face' => 'helm',
-            'head' => 'cube',
+            'face' => 'helmavatar',
+            'head' => 'helmhead',
         ];
+        $this->_supports_usernames = true;
     }
 
     public function getUrlToFormat(string $perspective): string {
