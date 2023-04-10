@@ -1,6 +1,6 @@
 <?php
 
-class UserProfilePostCreatedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserProfilePostCreatedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $poster;
     public User $profile_user;
@@ -20,7 +20,22 @@ class UserProfilePostCreatedEvent extends AbstractEvent implements DiscordDispat
         return (new Language())->get('admin', 'user_new_profile_post_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function webhookParams(): array {
+        return [
+            'poster' => [
+                'user_id' => $this->poster->data()->id,
+                'username' => $this->poster->getDisplayname()
+            ],
+            'profile_user' => [
+                'user_id' => $this->profile_user->data()->id,
+                'username' => $this->profile_user->getDisplayname()
+            ],
+            'content' => $this->content,
+            'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode($this->profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId())), '/')
+        ];
+    }
+
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()

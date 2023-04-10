@@ -1,20 +1,34 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+/**
+ * Webhook handler class
  *
- *  Webhook handler class
+ * @package NamelessMC\Events
+ * @author Partydragen
+ * @version 2.2.0
+ * @license MIT
  */
+class WebHook implements WebhookDispatcher {
 
-class WebHook {
+    public static function execute($event, string $webhook_url = ''): void {
+        if ($event instanceof HasWebhookParams) {
+            $params = $event->webhookParams();
+        } else if ($event instanceof AbstractEvent) {
+            ErrorHandler::logWarning('Event ' . $event::name() . ' does not implement HasWebhookParams, using `params()` instead');
+            $params = $event->params();
+        } else {
+            $params = $event;
+        }
 
-    public static function execute(array $params = []): void {
+        $webhook_url = $event instanceof AbstractEvent
+            ? $webhook_url
+            : $params['webhook'];
+
         $return = $params;
         unset($return['webhook']);
+
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);
 
-        $httpClient = HttpClient::post($params['webhook'], $json, [
+        $httpClient = HttpClient::post($webhook_url, $json, [
             'headers' => [
                 'Content-Type' => 'application/json',
             ],

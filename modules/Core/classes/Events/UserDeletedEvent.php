@@ -1,6 +1,6 @@
 <?php
 
-class UserDeletedEvent extends AbstractEvent {
+class UserDeletedEvent extends AbstractEvent implements HasWebhookParams {
 
     public User $user;
 
@@ -10,6 +10,13 @@ class UserDeletedEvent extends AbstractEvent {
 
     public static function name(): string {
         return 'deleteUser';
+    }
+
+    public function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+        ];
     }
 
     public static function description(): string {

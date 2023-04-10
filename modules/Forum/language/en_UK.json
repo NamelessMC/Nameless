@@ -103,7 +103,6 @@
     "forum/new_reply_in_topic": "{{author}} has replied to topic {{topic}}",
     "forum/new_search": "New Search",
     "forum/new_topic": "New Topic",
-    "forum/new_topic_hook_info": "New topic",
     "forum/new_topic_text": "Topic created in {{forum}} by {{author}}",
     "forum/news_items_front_page_limit": "Number of news items to display on front page",
     "forum/news_items_max": "Number of news items should be at least {{max}}",

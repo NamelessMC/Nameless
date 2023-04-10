@@ -14,6 +14,6 @@ interface DiscordDispatchable {
      *
      * @return DiscordWebhookBuilder The webhook builder to send the event as an embed
      */
-    public function toDiscordWebook(): DiscordWebhookBuilder;
+    public function toDiscordWebhook(): DiscordWebhookBuilder;
 
 }

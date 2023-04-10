@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -297,7 +297,7 @@ if (Input::exists()) {
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific forum, not any of its parents...
             $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->first();
-            $available_hooks = json_decode($available_hooks->hooks);
+            $available_hooks = json_decode($available_hooks->hooks) ?? [];
             EventHandler::executeEvent(new TopicReplyCreatedEvent(
                 $user,
                 $topic->topic_title,
