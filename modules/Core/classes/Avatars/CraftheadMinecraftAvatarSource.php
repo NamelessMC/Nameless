@@ -16,6 +16,7 @@ class CraftheadMinecraftAvatarSource extends MinecraftAvatarSourceBase {
             'face' => 'helm',
             'head' => 'cube'
         ];
+        $this->_supports_usernames = true;
     }
 
     public function getUrlToFormat(string $perspective): string {

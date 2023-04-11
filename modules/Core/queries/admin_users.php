@@ -71,7 +71,7 @@ if (count($results)) {
 
         $obj = new stdClass();
         $obj->id = $result->id;
-        $obj->username = "<img src='{$user->getAvatar(30)}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
+        $obj->username = "<img src='{$user->getAvatar(64)}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
         $obj->joined = date(DATE_FORMAT, $result->joined);
 
         // Get group
