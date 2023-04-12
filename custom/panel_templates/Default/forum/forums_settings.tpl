@@ -54,6 +54,11 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="InputNewsItems">{$NEWS_ITEMS_ON_FRONT_PAGE}</label>
+                                    <input name="news_items" id="InputNewsItems" class="form-control" type="number" max="20" min="0" step="1" value="{$NEWS_ITEMS_ON_FRONT_PAGE_VALUE}" />
+                                </div>
+
                                 <div class="form-group custom-control custom-switch">
                                     <input id="InputUseReactions" name="use_reactions" type="checkbox"
                                         class="custom-control-input" {if $USE_REACTIONS_VALUE} checked{/if} />
@@ -61,6 +66,7 @@
                                         {$USE_REACTIONS}
                                     </label>
                                 </div>
+
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}" />

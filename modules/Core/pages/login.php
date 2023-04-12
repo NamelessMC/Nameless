@@ -158,8 +158,10 @@ if (Input::exists()) {
                             $user_id = $user->nameToId($username);
                         }
 
+                        // Sync AuthMe password
                         $authme_db = Config::get('authme');
-                        if (MINECRAFT && Util::getSetting('authme') === '1' && DB::getInstance()->get('users', ['id', $user_id])->first()->authme_sync_password) {
+
+                        if (Util::getSetting('mc_integration') && Util::getSetting('authme') && DB::getInstance()->get('users', ['id', $user_id])->first()->authme_sync_password) {
                             try {
                                 // Check user exists in database and validate password
                                 $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
@@ -250,10 +252,18 @@ if ($login_method == 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
 } else if ($login_method == 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-} else if (MINECRAFT) {
+} else if (Util::getSetting('mc_integration')) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
     $smarty->assign('USERNAME', $language->get('user', 'username'));
+}
+
+// Add "login with..." message to provider array
+$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+foreach ($providers as $name => $provider) {
+    $providers[$name]['log_in_with'] = $language->get('user', 'log_in_with', [
+        'provider' => ucfirst($name)
+    ]);
 }
 
 $smarty->assign([
@@ -270,7 +280,7 @@ $smarty->assign([
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
     'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_PROVIDERS' => $providers,
     'OR' => $language->get('general', 'or'),
 ]);
 

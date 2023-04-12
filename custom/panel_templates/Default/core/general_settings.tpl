@@ -180,6 +180,43 @@
                                                     selected{/if}>{$DISABLED}</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-6">
+                                            <label for="inputEmojiStyle">{$EMOJI_STYLE}</label>
+                                            <span class="badge badge-info">
+                                                <i class="fas fa-question-circle"
+                                                   data-container="body" data-toggle="popover" data-placement="top"
+                                                   title="{$INFO}" data-content='{$EMOJI_STYLE_HELP}'></i>
+                                            </span>
+                                            <select name="emoji_style" class="form-control" id="inputEmojiStyle">
+                                                <option value="native" {if $EMOJI_STYLE_VALUE eq "native" }selected{/if}>
+                                                    {$NATIVE}
+                                                </option>
+                                                <option value="twemoji" {if $EMOJI_STYLE_VALUE eq "twemoji" }selected{/if}>
+                                                    {$TWEMOJI}
+                                                </option>
+                                                <option value="joypixels" {if $EMOJI_STYLE_VALUE eq "joypixels" }selected{/if}>
+                                                    {$JOYPIXELS}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="inputAutoLanguage">{$ENABLE_AUTO_LANGUAGE}</label>
+                                            <span class="badge badge-info"><i class="fas fa-question-circle"
+                                                                              data-container="body" data-toggle="popover" data-placement="top"
+                                                                              title="{$INFO}" data-content="{$AUTO_LANGUAGE_HELP}"></i></span>
+                                            <select name="auto_language" class="form-control" id="inputAutoLanguage">
+                                                <option value="true" {if $AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$ENABLED}
+                                                </option>
+                                                <option value="false" {if !$AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$DISABLED}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">

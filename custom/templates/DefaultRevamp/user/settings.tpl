@@ -105,8 +105,9 @@
                         <label for="inputLanguage">{$ACTIVE_LANGUAGE}</label>
                         <select class="ui fluid dropdown" name="language" id="inputLanguage">
                             {foreach from=$LANGUAGES item=language}
-                            <option value="{$language.name}" {if $language.active==true} selected{/if}>{$language.name}
-                            </option>
+                                <option value="{$language.name}" {if $language.active} selected{/if}>
+                                    {$language.name}
+                                </option>
                             {/foreach}
                         </select>
                     </div>
