@@ -21,7 +21,7 @@ class Settings {
         self::$_cached_settings[$cache_name] = $cache;
     }
 
-        /**
+    /**
      * Get a setting from the database table `nl2_settings`.
      *
      * @param string $setting Setting to check.
@@ -50,7 +50,7 @@ class Settings {
         return $cache[$setting] ?? $fallback;
     }
 
-        /**
+    /**
      * Modify a setting in the database table `nl2_settings`.
      *
      * @param string $setting Setting name.
