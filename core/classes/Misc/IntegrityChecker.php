@@ -138,7 +138,7 @@ class IntegrityChecker {
         }
 
         foreach ($expected_checksums as $path => $checksum) {
-            if (!array_key_exists($path, $actual_checksums)) {
+            if (!self::isIgnored($path) && !array_key_exists($path, $actual_checksums)) {
                 $errors[] = 'Missing file: ' . $path;
             }
         }
