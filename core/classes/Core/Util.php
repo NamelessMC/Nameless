@@ -164,18 +164,6 @@ class Util {
     }
 
     /**
-     * Add target and rel attributes to external links only.
-     * From https://stackoverflow.com/a/53461987
-     *
-     * @deprecated Use `URL::replaceAnchorsWithText`. Will be removed in 2.1.0
-     * @param string $data Data to replace.
-     * @return string Replaced string.
-     */
-    public static function replaceAnchorsWithText(string $data): string {
-        return URL::replaceAnchorsWithText($data);
-    }
-
-    /**
      * Get a setting from the database table `nl2_settings`.
      *
      * @param string $setting Setting to check.
