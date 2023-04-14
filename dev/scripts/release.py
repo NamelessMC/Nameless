@@ -88,8 +88,15 @@ if __name__ == '__main__':
     # Run npm and composer (production dependencies only)
     subprocess.check_call(['npm', 'ci', '-q', '--cache', '.node_cache'],
                           stdout=PIPE)
+    subprocess.check_call(['composer', 'update'],
+                          stdout=PIPE)
     subprocess.check_call(['composer', 'install', '--no-dev', '--no-interaction'],
                           stdout=PIPE)
+
+    # Generate checksums
+    subprocess.check_call(['php', 'dev/scripts/generate_checksums.php'],
+                          stdout=PIPE)
+
     create_archives('release/nameless-deps-dist')
 
     # Create archive with files changed since last update
