@@ -1,3 +1,4 @@
+/.fleet/
 /.idea/
 /core/config.php
 /cache
@@ -10,3 +11,5 @@
 /uploads/avatars/**
 /node_modules/
 composer.lock
+/.node_cache/
+/release/

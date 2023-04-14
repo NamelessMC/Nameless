@@ -6,7 +6,7 @@ if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
     die(json_encode('Unauthenticated'));
 }
 
-$sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 'joined'];
+$sortColumns = ['id' => 'id', 'username' => 'username', 'joined' => 'joined'];
 
 $db = DB::getInstance();
 
@@ -71,7 +71,7 @@ if (count($results)) {
         $obj = new stdClass();
         $obj->id = $result->id;
         $obj->username = "<img src='{$img}' style='padding-right: 5px; max-height: 30px;'>" . Output::getClean($result->username) . "</img>";
-        $obj->joined = date('d M Y', $result->joined);
+        $obj->joined = date(DATE_FORMAT, $result->joined);
 
         // Get group
         $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order LIMIT 1', [$result->id]);

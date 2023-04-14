@@ -264,8 +264,13 @@ body.pushable>.pusher {
     }
 }
 
+#topic-post #post-content {
+    display: flex;
+    flex-direction: column;
+}
+
 #topic-post #post-content #reactions {
-    margin-top: 1rem;
+    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: .85em;
@@ -293,6 +298,12 @@ body.pushable>.pusher {
 
 .ui.form .inline.fields.labels .field {
     padding-bottom: 1em;
+}
+
+.blockquote {
+    border-left: 2px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
 }
 
 /*
@@ -367,6 +378,11 @@ body.pushable>.pusher {
 
 #profile a.ui.circular.image.avatar img {
     max-height: 35px;
+}
+
+/* Fix avatar images in labels being a few px from touching the top */
+.ui.image.label img {
+    vertical-align: top !important;
 }
 
 /*
@@ -642,7 +658,6 @@ body.pushable>.pusher {
     flex: 0 0 auto;
     width: auto;
     line-height: 1;
-    vertical-align: middle;
     font-size: 3em;
     opacity: .8;
 }
@@ -947,13 +962,15 @@ select {
     height: auto;
 }
 
-.ui.checkbox .box:before,
-.ui.checkbox label:before {
+#post-content .forum_post {
+    margin-bottom: 1rem;
+}
+
+.ui.checkbox .box:before {
     margin-top: 4px;
 }
 
-.ui.checkbox input:checked~.box:after,
-.ui.checkbox input:checked~label:after {
+.ui.checkbox input:checked~.box:after {
     margin-top: 4px;
 }
 
@@ -983,7 +1000,7 @@ select {
     position: absolute;
 }
 
-.darkmode-toggle:checked + .darkmode-toggle-label .darkmode-ball {
+.darkmode-toggle:checked+.darkmode-toggle-label .darkmode-ball {
     transform: translateX(24px);
 }
 
@@ -997,6 +1014,7 @@ select {
     padding: 5px;
     height: 26px;
     width: 50px;
+    cursor: pointer;
 }
 
 .darkmode-ball {
@@ -1015,7 +1033,36 @@ select {
 }
 
 .fa-sun {
-    color:#f39c00;
+    color: #f39c00;
+}
+
+/*
+ Member list search images
+ */
+.ui.search>.results .result .image {
+    border-radius: 0;
+}
+
+/*
+ Make new members grid avatars fit nicer
+ */
+#new-members-grid {
+    padding: 0.5em;
+}
+
+#new-members-grid .column {
+    padding: 0.5em;
+}
+
+/*
+ *  [ EMOJI SIZING ]
+ */
+
+.joypixels,
+.twemoji {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
 }
 
 /*
@@ -1120,6 +1167,7 @@ body.dark .ui.form .field .ui.dropdown .menu .item {
 
 body.dark .ui.card,
 body.dark .ui.segment,
+body.dark .ui.segment.attached:not(.basic),
 body.dark .ui.vertical.menu {
     background-color: #303030;
     border: 1px solid rgba(0, 0, 0, 0.125);

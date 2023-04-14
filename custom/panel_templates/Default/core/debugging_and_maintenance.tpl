@@ -41,9 +41,6 @@
 
                             <button class="float-right btn btn-info d-flex align-items-center" id="show_debug_modal" onclick="showDebugModal()">
                                 <span id="debug_link_text">{$DEBUG_LINK}</span>
-                                <span id="debug_link_success" style="display: none;">
-                                    <i class="fa fa-check"></i>
-                                </span>
                             </button>
 
                             <hr />
@@ -110,9 +107,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
                         <button class="btn btn-primary" id="generateUrl" onclick="generateUrl()">
-                            <span class="spinner-border spinner-border-sm mr-2" role="status"
+                            <span class="spinner-border spinner-border-sm mr-2"
                                   id="debug_link_loading" style="display: none;"></span>
-                            <span>{$DEBUG_LINK}</span>
+                            {$DEBUG_LINK}
                         </button>
                     </div>
                 </div>
@@ -127,7 +124,7 @@
         let link_created = false;
 
         function showDebugModal() {
-          $('#debug_link_modal').modal('show');
+            $('#debug_link_modal').modal('show');
         }
 
         const generateUrl = () => {
@@ -145,26 +142,14 @@
 
                     if (navigator.clipboard !== undefined) {
                         navigator.clipboard.writeText(url);
+
+                        $('#debug_link_text').text('{$COPIED}');
                     } else {
                         alert(url);
                     }
 
                     $('#debug_link_loading').hide(100);
                     $('#debug_link_modal').modal('hide');
-                    $('#show_debug_modal').removeClass('btn-info');
-                    $('#show_debug_modal').addClass('btn-success');
-                    $('#debug_link_success').show();
-                    $('#debug_link_text').hide();
-
-                    $('body').toast({
-                        showIcon: 'fa-solid fa-circle-info move-right',
-                        message: '{$TOAST_COPIED}'.replaceAll({literal}'{url}'{/literal}, url),
-                        class: 'info',
-                        progressUp: true,
-                        displayTime: 6000,
-                        pauseOnHover: true,
-                        position: 'bottom left',
-                    });
                 });
         };
     </script>

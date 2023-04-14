@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.16.0
+        uses: shivammathur/setup-php@2.24.0
         with:
           php-version: ${{ matrix.php-versions }}
 
@@ -21,7 +21,7 @@ jobs:
         run: composer update --no-interaction --no-suggest --no-progress
 
       - name: Execute PHPStan
-        run: vendor/bin/phpstan
+        run: vendor/bin/phpstan --configuration=dev/phpstan.neon
 
   code-style:
     runs-on: ubuntu-latest
@@ -31,4 +31,12 @@ jobs:
       - name: PHP Code Style (phpcs)
         uses: chindit/actions-phpcs@master
         with:
-          cli: "-q"
+          cli: -q --standard=dev/phpcs.xml
+
+  unused-language-term-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Unused language term check
+        run: bash dev/scripts/find_unused_language_terms.sh

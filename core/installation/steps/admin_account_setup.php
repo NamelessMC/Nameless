@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
-    Redirect::to('?step=conversion');
+    Redirect::to('?step=select_modules');
 }
 
 if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
@@ -40,29 +40,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Validate::REQUIRED => true,
             Validate::MATCHES => 'password',
         ],
+    ])->messages([
+        'username' => [
+            Validate::REQUIRED => $language->get('installer', 'username_required'),
+            Validate::MIN => $language->get('installer', 'username_min_max', [
+                'minUsername' => $username_min,
+                'maxUsername' => $username_max,
+            ]),
+            Validate::MAX => $language->get('installer', 'username_min_max', [
+                'minUsername' => $username_min,
+                'maxUsername' => $username_max,
+            ]),
+        ],
+        'email' => [
+            Validate::REQUIRED => $language->get('installer', 'email_required'),
+            Validate::MIN => $language->get('installer', 'email_min_max', [
+                'minEmail' => $email_min,
+                'maxEmail' => $email_max,
+            ]),
+            Validate::MAX => $language->get('installer', 'email_min_max', [
+                'minEmail' => $email_min,
+                'maxEmail' => $email_max,
+            ]),
+            Validate::EMAIL => $language->get('installer', 'email_invalid')
+        ],
+        'password' => [
+            Validate::REQUIRED => $language->get('installer', 'password_required'),
+            Validate::MIN => $language->get('installer', 'password_min_max', [
+                'minPassword' => $password_min,
+                'maxPassword' => $password_max,
+            ]),
+            Validate::MAX => $language->get('installer', 'password_min_max', [
+                'minPassword' => $password_min,
+                'maxPassword' => $password_max,
+            ]),
+        ],
+        'password_again' => $language->get('installer', 'passwords_must_match')
     ]);
 
     if (!$validation->passed()) {
         foreach ($validation->errors() as $item) {
-            if (strpos($item, 'is required') !== false) {
-                display_error($language->get('installer', 'input_required'));
-            } else if (strpos($item, 'minimum') !== false) {
-                display_error($language->get('installer', 'input_minimum', [
-                    'minUsername' => $username_min,
-                    'minEmail' => $email_min,
-                    'minPassword' => $password_min,
-                ]));
-            } else if (strpos($item, 'maximum') !== false) {
-                display_error($language->get('installer', 'input_maximum', [
-                    'maxUsername' => $username_max,
-                    'maxEmail' => $email_max,
-                    'maxPassword' => $password_max,
-                ]));
-            } else if (strpos($item, 'must match') !== false) {
-                display_error($language->get('installer', 'passwords_must_match'));
-            } else if (strpos($item, 'not a valid email') !== false) {
-                display_error($language->get('installer', 'email_invalid'));
-            }
+            display_error($item);
         }
 
     } else {
@@ -85,6 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'active' => true,
                 'last_online' => date('U'),
                 'language_id' => $default_language[0]->id,
+                'timezone' => $_SESSION['install_timezone'],
+                'register_method' => 'nameless',
             ]);
 
             $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
@@ -111,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['admin_setup'] = true;
                 $user->addGroup(2);
 
-                Redirect::to('?step=conversion');
+                Redirect::to('?step=select_modules');
             }
 
             DB::getInstance()->delete('users', ['id', 1]);

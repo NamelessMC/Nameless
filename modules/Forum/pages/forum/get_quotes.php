@@ -20,28 +20,18 @@ const PAGE = 'forum';
 $forum = new Forum();
 
 // Get the post data
-if (empty($_POST)) {
+if (empty($_GET)) {
     die(json_encode(['error' => 'No post data']));
 }
 
-$posts = [];
+$post = $forum->getIndividualPost($_GET['post']);
 
-foreach ($_POST['posts'] as $item) {
-    $post = $forum->getIndividualPost($item);
+$content = $post['content'];
 
-    $content = $post['content'];
-    $content = preg_replace('~<blockquote(.*?)>(.*)</blockquote>~si', '', $content);
+$post_author = new User($post['creator']);
 
-    if ($post['topic_id'] == $_POST['topic']) {
-        $post_author = new User($post['creator']);
-        $posts[] = [
-            'content' => Output::getPurified($content),
-            'author_username' => $post_author->getDisplayname(),
-            'author_nickname' => $post_author->getDisplayname(true),
-            'link' => URL::build('/forum/topic/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
-        ];
-    }
-}
-
-
-die(json_encode($posts));
+die(json_encode([
+    'content' => Output::getPurified($content),
+    'author_nickname' => $post_author->getDisplayname(),
+    'link' => URL::build('/forum/topic/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
+]));

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -296,28 +296,15 @@ if (Input::exists()) {
 
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific forum, not any of its parents...
-            $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
-            $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
-            $available_hooks = json_decode($available_hooks[0]->hooks);
-            EventHandler::executeEvent('topicReply', [
-                'user_id' => $user->data()->id,
-                'username' => $user->data()->username,
-                'nickname' => $user->data()->nickname,
-                'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
-                    'topic' => $topic->topic_title,
-                    'author' => $user->getDisplayname(),
-                ]),
-                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
-                'avatar_url' => $user->getAvatar(128, true),
-                'title' => $topic->topic_title,
-                'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
-                'topic_author_user_id' => $topic_user->data()->id,
-                'topic_author_username' => $topic_user->data()->username,
-                'topic_author_nickname' => $topic_user->data()->nickname,
-                'topic_id' => $tid,
-                'post_id' => $last_post_id,
-                'available_hooks' => $available_hooks === null ? [] : $available_hooks
-            ]);
+            $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->first();
+            $available_hooks = json_decode($available_hooks->hooks) ?? [];
+            EventHandler::executeEvent(new TopicReplyCreatedEvent(
+                $user,
+                $topic->topic_title,
+                $content,
+                $tid,
+                $available_hooks,
+            ));
 
             // Alerts + Emails
             $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
@@ -360,13 +347,11 @@ if (Input::exists()) {
                 );
                 $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
 
-                $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
                         ['email' => $user_info['email'], 'name' => $user_info['username']],
                         $subject,
                         $message,
-                        $reply_to
                     );
 
                     if (isset($sent['error'])) {
@@ -752,8 +737,11 @@ if ($user->isLoggedIn()) {
             $reactions = [];
         }
 
-        $smarty->assign('REACTIONS', $reactions);
-        $smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+        $smarty->assign([
+            'LIKE' => $language->get('user', 'like'),
+            'REACTIONS' => $reactions,
+            'REACTIONS_URL' => URL::build('/forum/reactions')
+        ]);
     }
 
     // Following?
@@ -828,104 +816,21 @@ $template->assets()->include([
 
 if ($user->isLoggedIn()) {
     $template->addJSScript(Input::createTinyEditor($language, 'quickreply', $content, true));
-}
-
-if ($user->isLoggedIn()) {
-    $js = '
-    tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + resultData[item].link + \'">\' + resultData[item].author_nickname + \':</a><br />\' + resultData[item].content + \'</blockquote><br />\');
-    ';
 
     $template->addJSScript('
-    $(document).ready(function() {
-        if (typeof $.cookie(\'' . $tid . '-quoted\') === \'undefined\') {
-            $("#quoteButton").hide();
-        }
-    });
-
-    // Add post to quoted posts array
-    function quote(post) {
-        var index = quotedPosts.indexOf(post);
-
-        if (index > -1) {
-            quotedPosts.splice(index, 1);
-
-            $(\'body\').toast({
-                showIcon: \'info circle icon\',
-                message: \'' . $forum_language->get('forum', 'removed_quoted_post') . '\',
-                class: \'info\',
-                progressUp: true,
-                displayTime: 6000,
-                showProgress: \'bottom\',
-                pauseOnHover: false,
-                position: \'bottom left\',
-            });
-        }
-        else {
-            quotedPosts.push(post);
-
-            $(\'body\').toast({
-                showIcon: \'info circle icon\',
-                message: \'' . $forum_language->get('forum', 'quoted_post') . '\',
-                class: \'info\',
-                progressUp: true,
-                displayTime: 6000,
-                showProgress: \'bottom\',
-                pauseOnHover: false,
-                position: \'bottom left\',
-            });
-        }
-
-        if (quotedPosts.length == 0) {
-            // Delete cookie
-            $.removeCookie(\'' . $tid . '-quoted\');
-
-            // Hide insert quote button
-            $("#quoteButton").hide();
-        } else {
-            // Create cookie
-            $.cookie(\'' . $tid . '-quoted\', JSON.stringify(quotedPosts));
-
-            // Show insert quote button
-            $("#quoteButton").show();
-        }
-    }
-
-    // Insert quoted posts to editor
-    function insertQuotes() {
-        var postData = {
-            "posts": JSON.parse($.cookie(\'' . $tid . '-quoted\')),
-            "topic": ' . $tid . '
-        };
-
-        $(\'body\').toast({
-            showIcon: \'info circle icon\',
-            message: \'' . $forum_language->get('forum', 'quoting_posts') . '\',
-            class: \'info\',
-            progressUp: true,
-            displayTime: 6000,
-            showProgress: \'bottom\',
-            pauseOnHover: false,
-            position: \'bottom left\',
-        });
-
-        var getQuotes = $.ajax({
-              type: "POST",
-              url: "' . URL::build('/forum/get_quotes') . '",
-              data: postData,
-              dataType: "json",
-              success: function(resultData) {
-                  for(var item in resultData) {
-                      if (resultData.hasOwnProperty(item)) {
-                      ' . $js . '
-                      }
-                  }
-
-                  // Remove cookie containing quoted posts, and hide quote button
-                  $.removeCookie(\'' . $tid . '-quoted\');
-                  $("#quoteButton").hide();
-              },
-              error: function(data) {
-                  $(\'body\').toast({
+    function quote(post) {        
+        $.ajax({
+            type: "GET",
+            url: "' . URL::build('/forum/get_quotes') . '",
+            data: {
+                "post": post,
+            },
+            dataType: "json",
+            success: function(response) {
+                tinymce.editors[0].execCommand(\'mceInsertContent\', false, \'<blockquote class="blockquote"><a href="\' + response.link + \'">\' + response.author_nickname + \':</a><br />\' + response.content + \'</blockquote><br />\');
+            },
+            error: function(data) {
+                $(\'body\').toast({
                     showIcon: \'exclamation triangle icon\',
                     message: \'' . $forum_language->get('forum', 'error_quoting_posts') . '\',
                     class: \'danger\',
@@ -935,8 +840,19 @@ if ($user->isLoggedIn()) {
                     pauseOnHover: false,
                     position: \'bottom left\',
                 });
-              }
-        });
+            }
+         });
+
+         $(\'body\').toast({
+            showIcon: \'info circle icon\',
+            message: \'' . $forum_language->get('forum', 'quoted_post') . '\',
+            class: \'info\',
+            progressUp: true,
+            displayTime: 6000,
+            showProgress: \'bottom\',
+            pauseOnHover: false,
+            position: \'bottom left\',
+         });
     }
     ');
 }

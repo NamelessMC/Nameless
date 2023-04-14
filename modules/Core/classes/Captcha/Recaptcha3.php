@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Captcha
  * @author Samerton
- * @version 2.0.0-pr10
+ * @version 2.1.0
  * @license MIT
  */
 class Recaptcha3 extends CaptchaBase {
@@ -29,22 +29,11 @@ class Recaptcha3 extends CaptchaBase {
     }
 
     public function validateSecret(string $secret) : bool {
-        $token = "Verification";
-        $url = 'https://www.google.com/recaptcha/api/siteverify';
-
-        $result = HttpClient::post($url, [
-            'secret' => $secret,
-            'response' => $token
-        ])->json(true);
-        return !($result['error-codes'][0] == 'invalid-input-secret');
+        return true;
     }
 
     public function validateKey(string $key) : bool {
-        $url = 'https://www.google.com/recaptcha/api.js?render=' . $key;
-        return str_contains(
-            HttpClient::get($url)->contents(),
-            $key
-        );
+        return true;
     }
 
     public function getHtml(): ?string {

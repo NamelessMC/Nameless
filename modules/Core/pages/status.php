@@ -9,17 +9,7 @@
  *  Status page
  */
 
-$cache->setCache('status_page');
-if ($cache->isCached('enabled')) {
-    $status_enabled = $cache->retrieve('enabled');
-
-} else {
-    $status_enabled = DB::getInstance()->get('settings', ['name', 'status_page'])->results();
-    $status_enabled = $status_enabled[0]->value == 1 ? 1 : 0;
-    $cache->store('enabled', $status_enabled);
-}
-
-if (!defined('MINECRAFT') || MINECRAFT !== true || $status_enabled != 1) {
+if (!Util::getSetting('mc_integration') || !Util::getSetting('status_page')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

@@ -51,6 +51,20 @@
                             <br />
                             <form action="" method="post">
                                 <div class="form-group">
+                                    <label for="InputAPIURL">{$API_URL}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="api_url" id="InputAPIURL" class="form-control" readonly value="{if $API_ENABLED}{$API_URL_VALUE}{else}{$ENABLE_API_FOR_URL}{/if}">
+                                        {if $API_ENABLED}
+                                            <span class="input-group-append">
+                                                <a onclick="copyURL();" class="btn btn-info text-white" id="copy-url-button">
+                                                    {$COPY}
+                                                </a>
+                                            </span>
+                                        {/if}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="InputAPIKey">{$API_KEY}</label>
                                     <div class="input-group">
                                         <input type="text" name="api_key" id="InputAPIKey" class="form-control" readonly
@@ -58,18 +72,6 @@
                                         {if $API_ENABLED}
                                         <span class="input-group-append"><a onclick="showRegenModal();"
                                                 class="btn btn-info text-white">{$CHANGE}</a></span>
-                                        {/if}
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="InputAPIURL">{$API_URL}</label>
-                                    <div class="input-group">
-                                        <input type="text" name="api_url" id="InputAPIURL" class="form-control" readonly
-                                            value="{if $API_ENABLED}{$API_URL_VALUE}{else}{$ENABLE_API_FOR_URL}{/if}">
-                                        {if $API_ENABLED}
-                                        <span class="input-group-append"><a onclick="copyURL();"
-                                                class="btn btn-info text-white">{$COPY}</a></span>
                                         {/if}
                                     </div>
                                 </div>
@@ -146,7 +148,7 @@
 
         function regenKey() {
             const regen = $.post("{$API_KEY_REGEN_URL}", { action: 'regen', token: "{$TOKEN}" });
-            regen.done(function () { window.location.reload(); })
+            regen.done(() => window.location.reload());
         }
 
         function copyURL() {
@@ -161,17 +163,9 @@
                 url.blur();
             }
 
-            // Toast
-            $('body').toast({
-                showIcon: 'fa-solid fa-check move-right',
-                message: '{$COPIED}',
-                class: 'success',
-                progressUp: true,
-                displayTime: 6000,
-                showProgress: 'bottom',
-                pauseOnHover: false,
-                position: 'bottom left',
-            });
+            const copyUrlButton = document.getElementById('copy-url-button');
+            copyUrlButton.innerText = '{$COPIED}';
+            copyUrlButton.classList.add('disabled');
         }
     </script>
 

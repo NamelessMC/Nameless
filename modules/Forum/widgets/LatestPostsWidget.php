@@ -16,7 +16,7 @@ class LatestPostsWidget extends WidgetBase {
     private Cache $_cache;
     private User $_user;
 
-    public function __construct(string $latest_posts_language, string $by_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
+    public function __construct(Language $forum_language, Smarty $smarty, Cache $cache, User $user, Language $language) {
         $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_user = $user;
@@ -36,8 +36,9 @@ class LatestPostsWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign([
-            'LATEST_POSTS' => $latest_posts_language,
-            'BY' => $by_language
+            'LATEST_POSTS' => $forum_language->get('forum', 'latest_posts'),
+            'NO_POSTS_FOUND' => $forum_language->get('forum', 'no_posts_found'),
+            'BY' => $forum_language->get('forum', 'by'),
         ]);
     }
 
@@ -54,21 +55,14 @@ class LatestPostsWidget extends WidgetBase {
             $template_array = $this->_cache->retrieve('discussions');
 
         } else {
+            $limit = (int) Util::getSetting('latest_posts_limit', 5, 'Forum');
             // Generate latest posts
-            $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0), 5);
-
-            $n = 0;
-            // Calculate the number of discussions to display
-            $limit = Util::getSetting('latest_posts_limit', 5, 'Forum');
-            if (count($discussions) <= $limit) {
-                $limit = count($discussions);
-            }
+            $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0), $limit);
 
             $template_array = [];
 
             // Generate an array to pass to template
-            while ($n < $limit) {
-                $discussion = $discussions[$n];
+            foreach ($discussions as $discussion) {
                 // Get the name of the forum from the ID
                 $forum_name = $db->get('forums', ['id', $discussion->forum_id])->results();
                 $forum_name = Output::getPurified($forum_name[0]->forum_title);
@@ -128,8 +122,6 @@ class LatestPostsWidget extends WidgetBase {
                     'last_reply_profile_link' => $last_reply_user->getProfileURL(),
                     'last_reply_link' => URL::build('/forum/topic/' . $discussion->id . '-' . $forum->titleToURL($discussion->topic_title), 'pid=' . $discussion->last_post_id)
                 ];
-
-                $n++;
             }
 
             $this->_cache->store('discussions', $template_array, 60);

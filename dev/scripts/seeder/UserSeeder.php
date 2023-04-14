@@ -22,6 +22,7 @@ class UserSeeder extends Seeder {
             'active' => true,
             'last_online' => date('U'),
             'language_id' => $db->get('languages', ['is_default', '=', 1])->first()->id,
+            'register_method' => 'nameless',
         ]);
         $user_id = $db->lastId();
         $db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
@@ -42,7 +43,7 @@ class UserSeeder extends Seeder {
             ]
         );
 
-        $this->times(100, function () use ($db, $faker, $password) {
+        $this->times(USER_COUNT, function () use ($db, $faker, $password) {
             $username = substr($faker->unique()->userName, 0, 20);
             $full_name = substr($faker->unique()->name, 0, 20);
             $active = $faker->boolean(90) ? 1 : 0;
@@ -67,6 +68,7 @@ class UserSeeder extends Seeder {
                 'user_title' => $faker->boolean(20) ? $faker->text(60) : null,
                 'night_mode' => $faker->boolean ? 1 : 0,
                 'timezone' => $faker->boolean ? $faker->timezone : 'America/Vancouver',
+                'register_method' => 'nameless',
             ]);
 
             $user_id = $db->lastId();
@@ -82,6 +84,15 @@ class UserSeeder extends Seeder {
                 $db->insert('users_groups', [
                     'user_id' => $user_id,
                     'group_id' => 2,
+                    'received' => $this->since($joined, $faker)->format('U'),
+                    'expire' => 0,
+                ]);
+            }
+
+            if ($active && $faker->boolean(40)) {
+                $db->insert('users_groups', [
+                    'user_id' => $user_id,
+                    'group_id' => 3,
                     'received' => $this->since($joined, $faker)->format('U'),
                     'expire' => 0,
                 ]);

@@ -39,6 +39,14 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
+                            <div class="card shadow border-left-primary">
+                                <div class="card-body">
+                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                    {$INVITE_LINK}
+                                </div>
+                            </div>
+                            <br />
+
                             <h4>{$REQUIREMENTS}</h4>
                             <div class="table-responsive">
                                 <table class="table table-striped">

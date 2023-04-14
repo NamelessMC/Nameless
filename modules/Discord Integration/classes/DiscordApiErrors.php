@@ -3,7 +3,7 @@
  * Contains namespaced API error messages for the Discord Integration module.
  * These have no versioning, and are not meant to be used by any other modules.
  *
- * @package Modules\Discord Integration
+ * @package Modules\DiscordIntegration
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

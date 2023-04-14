@@ -64,18 +64,26 @@
                                 <div class="form-group">
                                     <label for="link_location">{$HOOK_TYPE}</label>
                                     <select class="form-control" id="hook_type" name="hook_type">
-                                        <option value="2" {if $HOOK_TYPE_VALUE eq 2} selected{/if}>Discord</option>
-                                        <option value="1" {if $HOOK_TYPE_VALUE eq 1} selected{/if}>{$NORMAL}</option>
+                                        <option value="2" {if $HOOK_TYPE_VALUE eq 2} selected{/if}>
+                                            {$DISCORD}
+                                        </option>
+                                        <option value="1" {if $HOOK_TYPE_VALUE eq 1} selected{/if}>
+                                            {$NORMAL}
+                                        </option>
                                     </select>
                                 </div>
                                 <label for="InputName">{$HOOK_EVENTS}</label>
-                                {foreach from=$ALL_EVENTS key=key item=item}
+                                {foreach from=$ALL_EVENTS key=key item=meta}
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" id="inputevents[{$key|escape}]" name="events[{$key|escape}]"
-                                        class="custom-control-input" value="1" {if in_array($key|escape,
-                                        $ENABLED_HOOKS)} checked{/if}>
+                                    <input type="checkbox" id="inputevents[{$key|escape}]" name="events[{$key|escape}]" class="custom-control-input" value="1" {if in_array($key|escape, $ENABLED_HOOKS)} checked{/if}>
                                     <label class="custom-control-label" for="inputevents[{$key|escape}]">
-                                        {$item|escape}
+                                        {$meta.description|escape}
+                                        {if $meta.supports_discord}
+                                            <i class="fab fa-discord"></i>
+                                        {/if}
+                                        {if $meta.supports_normal}
+                                            <i class="fas fa-globe"></i>
+                                        {/if}
                                     </label>
                                 </div>
                                 {/foreach}
