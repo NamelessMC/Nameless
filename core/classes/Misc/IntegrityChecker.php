@@ -6,6 +6,7 @@ class IntegrityChecker {
      * Files with relative paths starting with a string in this array are ignored
      */
     const IGNORED_PATHS = [
+        '.git/',
         'checksums.json',
         'cache/',
         'cache/logs/',
