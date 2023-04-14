@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+ *  NamelessMC version 2.0.3
  *
  *  License: MIT
  *
@@ -35,7 +35,7 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 // Check if any integrations is required before user can continue
 if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
-        if ($integration->data()->required) {
+        if ($integration->data()->required && $integration->allowLinking()) {
             $integrationUser = $user->getIntegration($integration->getName());
             if ($integrationUser === null || !$integrationUser->isVerified()) {
                 Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
@@ -106,17 +106,23 @@ if (isset($_GET['route']) && $_GET['route'] != '/') {
 }
 
 if (!defined('PAGE_DESCRIPTION')) {
-    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $route])->results();
-    if (count($page_metadata)) {
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $route]);
+    if ($page_metadata->count()) {
+        $page_metadata = $page_metadata->first();
         $smarty->assign([
-            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), $page_metadata[0]->description),
-            'PAGE_KEYWORDS' => $page_metadata[0]->tags
+            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified($page_metadata->description)),
+            'PAGE_KEYWORDS' => Output::getPurified($page_metadata->tags),
         ]);
+
+        $og_image = $page_metadata->image;
+        if ($og_image) {
+            $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $og_image);
+        }
     }
 } else {
     $smarty->assign([
-        'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), PAGE_DESCRIPTION),
-        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? PAGE_KEYWORDS : '')
+        'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified(PAGE_DESCRIPTION)),
+        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? Output::getPurified(PAGE_KEYWORDS) : '')
     ]);
 }
 

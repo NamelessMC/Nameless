@@ -58,6 +58,18 @@
                                     <input type="text" class="form-control" name="keywords" id="inputKeywords"
                                         value="{$KEYWORDS_VALUE}" placeholder="{$KEYWORDS}">
                                 </div>
+                                {if $OG_IMAGES_ARRAY|count}
+                                    <div class="form-group">
+                                        <label for="inputImage">{$IMAGE}</label>
+                                        <select name="inputImage" class="image-picker show-html">
+                                            {foreach from=$OG_IMAGES_ARRAY item=image}
+                                                <option data-img-src="{$image.src}" value="{$image.value}" {if $image.selected}selected{/if}>
+                                                    {$image.n}
+                                                </option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                {/if}
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
@@ -84,6 +96,10 @@
     </div>
 
     {include file='scripts.tpl'}
+
+    <script>
+        $(".image-picker").imagepicker();
+    </script>
 
 </body>
 

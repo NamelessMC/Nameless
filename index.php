@@ -52,7 +52,7 @@ if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
     die();
 }
 
-if (!Config::exists()) {
+if (!Config::exists() || Config::get('core.installed') !== true) {
     if (is_file(ROOT_PATH . '/install.php')) {
         Redirect::to('install.php');
     } else {
@@ -79,7 +79,6 @@ ini_set('open_basedir', ROOT_PATH . PATH_SEPARATOR . $tmp_dir . PATH_SEPARATOR .
 $directory = $_SERVER['REQUEST_URI'];
 $directories = explode('/', $directory);
 $lim = count($directories);
-
 
 // Start initialising the page
 require(ROOT_PATH . '/core/init.php');

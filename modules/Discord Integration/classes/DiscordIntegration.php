@@ -56,6 +56,13 @@ class DiscordIntegration extends IntegrationBase {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
 
+        // Remove any linked Discord roles
+        $roles = array_unique(array_map(static function ($group_id) {
+            return Discord::getDiscordRoleId(DB::getInstance(), $group_id);
+        }, $user->getAllGroupIds()));
+
+        Discord::updateDiscordRoles($user, [], $roles);
+
         Session::flash('connections_success', $this->_language->get('user', 'integration_unlinked', ['integration' => Output::getClean($this->_name)]));
     }
 

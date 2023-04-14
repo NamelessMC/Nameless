@@ -210,6 +210,8 @@ if ($profile !== null) {
 
 DatabaseInitialiser::runPostUser();
 
+Config::set('core.installed', true);
+
 print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
 print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);
 print(PHP_EOL . '🔑 Admin username: ' . $username);
