@@ -1,6 +1,6 @@
 <?php
 
-class UserGroupAddedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserGroupAddedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $user;
     public Group $group;
@@ -14,7 +14,18 @@ class UserGroupAddedEvent extends AbstractEvent implements DiscordDispatchable {
         return (new Language())->get('admin', 'user_group_added_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+            'group' => [
+                'id' => $this->group->id,
+                'name' => $this->group->name
+            ]
+        ];
+    }
+
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()

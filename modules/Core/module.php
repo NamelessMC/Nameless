@@ -377,11 +377,24 @@ class Core_Module extends Module {
             true
         );
 
+        EventHandler::registerEvent('renderProfilePost',
+            $language->get('admin', 'render_profile_post_hook_info'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
+            'button_css' => [
+                'background-color' => '#5865F2',
+                'color' => '#FFFFFF',
+            ],
             'verify_email' => static fn () => true,
         ]);
 
@@ -389,7 +402,25 @@ class Core_Module extends Module {
             'class' => \League\OAuth2\Client\Provider\Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
-            'icon' => 'fab fa-google',
+            'logo_url' => rtrim(URL::getSelfURL(), '/') . '/core/assets/img/google_logo.png',
+            // Google has strict restrictions (https://developers.google.com/identity/branding-guidelines) on how
+            // their logo should be formatted for login buttons, and should not be altered by any template
+            'logo_css' => [
+                'width' => '18px',
+                'height' => '18px',
+                'vertical-align' => 'middle',
+                'margin-bottom' => '-2px',
+                'margin-top' => '-2px',
+            ],
+            'button_css' => [
+                'background-color' => '#FFFFFF',
+                'color' => '#757575',
+                'line-height' => '.05em',
+                'box-shadow' => 'inset 0px 0px 0px 1px #DFDFDF;'
+            ],
+            'text_css' => [
+                'vertical-align' => 'middle',
+            ],
             'verify_email' => static fn () => true,
         ]);
 
@@ -482,29 +513,27 @@ class Core_Module extends Module {
 
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('preCustomPageCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preCustomPageEdit', 'MentionsHook::preEdit');
 
         EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
-        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'renderEmojis']);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));

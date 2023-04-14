@@ -1,6 +1,6 @@
 <?php
 
-class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
+class ReportCreatedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public string $username;
     public string $content;
@@ -34,7 +34,17 @@ class ReportCreatedEvent extends AbstractEvent implements DiscordDispatchable {
         return (new Language())->get('admin', 'report_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function webhookParams(): array {
+        return [
+            'username' => $this->username,
+            'title' => $this->title,
+            'content' => $this->content,
+            'content_full' => $this->content_full,
+            'url' => $this->url
+        ];
+    }
+
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         return DiscordWebhookBuilder::make()
             ->setUsername($this->username . ' | ' . SITE_NAME)
             ->setAvatarUrl($this->avatar_url)

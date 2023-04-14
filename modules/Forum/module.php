@@ -136,16 +136,12 @@ class Forum_Module extends Module {
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
 
-        EventHandler::registerListener('renderPost', [ContentHook::class, 'purify']);
-        EventHandler::registerListener('renderPost', [ContentHook::class, 'codeTransform'], 15);
-        EventHandler::registerListener('renderPost', [ContentHook::class, 'decode'], 20);
-        EventHandler::registerListener('renderPost', [ContentHook::class, 'renderEmojis'], 10);
-        EventHandler::registerListener('renderPost', [ContentHook::class, 'replaceAnchors'], 15);
-        EventHandler::registerListener('renderPost', [MentionsHook::class, 'parsePost'], 5);
+        EventHandler::registerListener('renderPost', 'ContentHook::purify');
+        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 5);
+        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
         MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));

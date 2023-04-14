@@ -1,17 +1,14 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Discord webhook handler class
  *
- *  Discord webhook handler class
+ * @package NamelessMC\Events
+ * @author Samerton
+ * @version 2.2.0
+ * @license MIT
  */
+class DiscordHook implements WebhookDispatcher {
 
-class DiscordHook {
-
-    /**
-     * @param AbstractEvent|array $event Event to execute, or array of params if event is not object based
-     */
     public static function execute($event, string $webhook_url = ''): void {
         $params = $event instanceof AbstractEvent
             ? $event->params()
@@ -26,7 +23,7 @@ class DiscordHook {
             : $params['event'];
 
         $format = $event instanceof DiscordDispatchable
-            ? $event->toDiscordWebook()
+            ? $event->toDiscordWebhook()
             : [];
 
         $return = EventHandler::executeEvent(new DiscordWebhookFormatterEvent(
@@ -34,6 +31,10 @@ class DiscordHook {
             $format,
             $params,
         ))['format'];
+
+        if (is_array($return) && isset($return['webhook'])) {
+            unset($return['webhook']);
+        }
 
         if ($return instanceof DiscordWebhookBuilder) {
             $return = $return->toArray();
