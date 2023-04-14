@@ -18,7 +18,7 @@ class ContentHook extends HookBase {
      * @return array
      */
     public static function codeTransform(array $params = []): array {
-        if (Config::get('core.encoded_content_compat') && parent::validateParams($params, ['content'])) {
+        if (parent::validateParams($params, ['content'])) {
             $domDocument = new DOMDocument();
             $domDocument->loadHTML(mb_convert_encoding($params['content'], 'HTML-ENTITIES', 'UTF-8'));
             $tags = $domDocument->getElementsByTagName('code');
@@ -55,7 +55,7 @@ class ContentHook extends HookBase {
      * @return array
      */
     public static function decode(array $params = []): array {
-        if (Config::get('core.encoded_content_compat') && parent::validateParams($params, ['content'])) {
+        if (parent::validateParams($params, ['content'])) {
             $params['content'] = Output::getDecoded($params['content']);
         }
 

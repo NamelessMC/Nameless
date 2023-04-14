@@ -22,9 +22,6 @@ class Output {
      * @return ?string Cleaned version of string.
      */
     public static function getClean(?string $input): ?string {
-        if (Config::get('core.encoded_content_compat')) {
-            $input = self::getDecoded($input);
-        }
         return $input === null ? null : htmlspecialchars($input, ENT_QUOTES);
     }
 
