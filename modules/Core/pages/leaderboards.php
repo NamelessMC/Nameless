@@ -56,7 +56,7 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
         $row_data->server_id = $leaderboard_placeholder->server_id;
         $row_data->name = $leaderboard_placeholder->name;
         $row_data->username = Output::getClean($leaderboard_users[$uuid]->data()->username);
-        $row_data->avatar = MinecraftAvatarSource::getAvatarFromIdentifier($uuid, 24);
+        $row_data->avatar = MinecraftAvatarSource::getAvatarFromIdentifier($uuid);
         $row_data->value = $row->value;
         $row_data->last_updated = ucfirst($timeago->inWords($row->last_updated, $language));
 

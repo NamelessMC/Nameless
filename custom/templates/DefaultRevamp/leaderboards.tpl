@@ -39,7 +39,7 @@
                         {if $data->name eq $placeholder->name and $data->server_id eq $placeholder->server_id}
                         <tr>
                             <td>
-                                <img class="ui middle aligned" src="{$data->avatar}" alt="{$data->username}">
+                                <img class="ui middle aligned image mini" src="{$data->avatar}" alt="{$data->username}">
                                 <span>{$data->username}</span>
                             </td>
                             <td>
