@@ -20,7 +20,7 @@
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">{$UPLOAD_NEW_IMAGE}</button>
 
-<br /><br />
+<br />
 
 {if count($IMAGES)}
     <form action="" method="post">

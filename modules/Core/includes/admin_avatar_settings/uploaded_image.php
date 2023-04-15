@@ -46,6 +46,7 @@ $smarty->assign([
     'SELECT_DEFAULT_AVATAR' => $language->get('admin', 'select_default_avatar'),
     'IMAGES' => $template_images,
     'NO_AVATARS' => $language->get('admin', 'no_avatars_available'),
+    'DEFAULT_AVATAR' => $language->get('admin', 'default_avatar'),
     'DEFAULT_AVATAR_IMAGE' => Util::getSetting('custom_default_avatar'),
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
     'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
