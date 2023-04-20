@@ -18,11 +18,14 @@ class MinecraftAvatarSource extends AvatarSourceBase {
      *
      * @param string $identifier UUID or username of avatar to get.
      * @param int $size Size in pixels to render avatar at. Default 128
-     * @param bool $is_uuid Whether the identifier is a UUID or username. Default true
      *
      * @return string Compiled URL of avatar image.
      */
-    public static function getAvatarFromIdentifier(string $identifier, int $size = 128, bool $is_uuid = true): ?string {
+    public static function getAvatarFromIdentifier(string $identifier, int $size = 128): ?string {
+        $is_uuid = false;
+        if (strlen($identifier) === 32 || strlen($identifier) === 36) {
+            $is_uuid = true;
+        }
         if (!$is_uuid && !self::getActiveSource()->supportsUsernames()) {
             return null;
         }
@@ -115,11 +118,9 @@ class MinecraftAvatarSource extends AvatarSourceBase {
     }
 
     protected function get(User $user): ?string {
-        $using_uuid = false;
         $minecraft_integration = $user->getIntegration('Minecraft');
         if ($minecraft_integration !== null) {
             $identifier = $minecraft_integration->data()->identifier;
-            $using_uuid = true;
         } else {
             $identifier = $user->data()->username;
             // Fallback to steve avatar if they have an invalid username
@@ -129,6 +130,6 @@ class MinecraftAvatarSource extends AvatarSourceBase {
             }
         }
 
-        return self::getAvatarFromIdentifier($identifier, $this->size, $using_uuid);
+        return self::getAvatarFromIdentifier($identifier, $this->size);
     }
 }

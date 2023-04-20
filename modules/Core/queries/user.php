@@ -13,7 +13,7 @@ if (!is_numeric($_GET['id'])) {
     $username = Output::getClean($_GET['id']);
     $nickname = $username;
     $profile = URL::build('/profile/' . $username);
-    $avatar = MinecraftAvatarSource::getAvatarFromUUID(Output::getClean($_GET['uuid'] ?? $username));
+    $avatar = MinecraftAvatarSource::getAvatarFromIdentifier(Output::getClean($_GET['uuid'] ?? $username));
     $style = '';
     $groups = [];
     $id = 0;

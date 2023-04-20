@@ -183,11 +183,11 @@ class MCQuery {
                     $avatar = $user->getAvatar();
                     $profile = $user->getProfileURL();
                 } else {
-                    $avatar = MinecraftAvatarSource::getAvatarFromUUID($player['id']);
+                    $avatar = MinecraftAvatarSource::getAvatarFromIdentifier($player['id']);
                     $profile = '#';
                 }
             } else {
-                $avatar = MinecraftAvatarSource::getAvatarFromUUID($player['id']);
+                $avatar = MinecraftAvatarSource::getAvatarFromIdentifier($player['id']);
                 $profile = '#';
             }
 

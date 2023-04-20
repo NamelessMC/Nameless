@@ -107,7 +107,7 @@ if (!isset($_GET['id'])) {
                 $user_reported = Output::getClean($report->reported_mcname);
                 $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $report->reported_mcname));
                 $user_style = '';
-                $user_avatar = MinecraftAvatarSource::getAvatarFromUUID($report->reported_uuid ?? $report->reported_mcname);
+                $user_avatar = MinecraftAvatarSource::getAvatarFromIdentifier($report->reported_uuid ?? $report->reported_mcname);
             }
 
             $updated_by_user = new User($report->updated_by);
@@ -239,12 +239,12 @@ if (!isset($_GET['id'])) {
                 } else {
                     $reported_user_profile = '#';
                     $reported_user_style = '';
-                    $reported_user_avatar = MinecraftAvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                    $reported_user_avatar = MinecraftAvatarSource::getAvatarFromIdentifier(Output::getClean($report->reported_uuid));
                 }
             } else {
                 $reported_user_profile = '#';
                 $reported_user_style = '';
-                $reported_user_avatar = MinecraftAvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                $reported_user_avatar = MinecraftAvatarSource::getAvatarFromIdentifier(Output::getClean($report->reported_uuid));
             }
 
             $reported_user_name = Output::getClean($report->reported_mcname);
