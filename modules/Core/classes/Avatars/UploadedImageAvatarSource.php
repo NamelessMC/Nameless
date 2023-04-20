@@ -9,7 +9,7 @@ class UploadedImageAvatarSource extends AvatarSourceBase {
     }
 
     public function get(User $user): ?string {
-        $base_url = ($this->full_url ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars';
+        $base_url = ($this->_full_url ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars';
 
         if (Util::getSetting('custom_user_avatars') && $user->data()->has_avatar) {
             $exts = ['png', 'jpg', 'jpeg'];

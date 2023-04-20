@@ -130,6 +130,6 @@ class MinecraftAvatarSource extends AvatarSourceBase {
             }
         }
 
-        return self::getAvatarFromIdentifier($identifier, $this->size);
+        return self::getAvatarFromIdentifier($identifier, $this->_size);
     }
 }

@@ -12,6 +12,6 @@ class GravatarAvatarSource extends AvatarSourceBase {
             return null;
         }
 
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($user->data()->email))) . "?s={$this->size}";
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($user->data()->email))) . "?s={$this->_size}";
     }
 }

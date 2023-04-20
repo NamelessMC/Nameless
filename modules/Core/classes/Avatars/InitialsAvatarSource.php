@@ -9,6 +9,6 @@ class InitialsAvatarSource extends AvatarSourceBase {
     }
 
     public function get(User $user): string {
-        return "https://api.dicebear.com/5.x/initials/png?seed={$user->data()->username}&size={$this->size}";
+        return "https://api.dicebear.com/5.x/initials/png?seed={$user->data()->username}&size={$this->_size}";
     }
 }

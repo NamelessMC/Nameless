@@ -8,12 +8,12 @@ abstract class AvatarSourceBase {
     protected ?string $_settings = null;
     protected bool $_can_be_disabled = true;
 
-    protected int $size;
-    protected bool $full_url;
+    protected int $_size;
+    protected bool $_full_url;
 
     public function getAvatar(User $user, int $size = 128, bool $full_url = false): ?string {
-        $this->size = $size;
-        $this->full_url = $full_url;
+        $this->_size = $size;
+        $this->_full_url = $full_url;
 
         return $this->get($user);
     }
