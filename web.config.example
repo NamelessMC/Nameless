@@ -6,14 +6,14 @@
                 <rule name="Rule 1">
                     <match url="^(.*)$" ignoreCase="false" />
                     <conditions logicalGrouping="MatchAll">
-                        <add input="{URL}::{R:1}" pattern="^(.*?/)(.*)::\2$" ignoreCase="false" />
+                    <add input="{URL}::{R:1}" pattern="^(.*?/)(.*)::\2$" ignoreCase="false" />
                     </conditions>
                     <action type="None" />
                 </rule>
                 <rule name="Rule 2" stopProcessing="true">
                     <match url="^(.+)/$" ignoreCase="false" />
                     <conditions logicalGrouping="MatchAll">
-                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                    <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
                     </conditions>
                     <action type="Redirect" url="{R:1}" redirectType="Permanent" />
                 </rule>
@@ -36,8 +36,8 @@
                 <rule name="Rule 7" stopProcessing="true">
                     <match url="^(.*)$" />
                     <conditions logicalGrouping="MatchAll">
-                        <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
-                        <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+                    <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
+                    <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
                     </conditions>
                     <action type="Rewrite" url="index.php?route=/{R:1}" appendQueryString="true" />
                 </rule>
