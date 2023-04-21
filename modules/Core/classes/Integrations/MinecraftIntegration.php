@@ -78,7 +78,7 @@ class MinecraftIntegration extends IntegrationBase {
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
         AvatarSource::getInstance()->clearUserAvatarCache(
-            $integration_user->getUser(),
+            $integrationUser->getUser(),
             MinecraftAvatarSource::class
         );
     }
