@@ -325,6 +325,8 @@ if (isset($_GET['do'])) {
                             }
                         }
 
+                        AvatarSource::getInstance()->clearUserAvatarCache($user);
+
                         Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
                         Redirect::to(URL::build('/user/settings'));
 

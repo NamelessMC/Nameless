@@ -77,7 +77,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onSuccessfulVerification(IntegrationUser $integrationUser) {
-        // Nothing to do here
+        AvatarSource::getInstance()->clearUserAvatarCache(
+            $integration_user->getUser(),
+            MinecraftAvatarSource::class
+        );
     }
 
     public function validateUsername(string $username, int $integration_user_id = 0): bool {
@@ -205,6 +208,11 @@ class MinecraftIntegration extends IntegrationBase {
                     'username' => $result,
                     'last_sync' => date('U')
                 ]);
+
+                AvatarSource::getInstance()->clearUserAvatarCache(
+                    $integration_user->getUser(),
+                    MinecraftAvatarSource::class
+                );
 
                 return true;
             }
