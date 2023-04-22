@@ -187,7 +187,7 @@ class DatabaseInitialiser {
         Util::setSetting('phpmailer', '0');
         Util::setSetting('user_avatars', '0');
         Util::setSetting('avatar_site', 'cravatar');
-        Util::setSetting('mc_integration', '1');
+        Util::setSetting(Settings::MINECRAFT_INTEGRATION, '1');
         Util::setSetting('discord_integration', '0');
         Util::setSetting('avatar_type', 'helmavatar');
         Util::setSetting('home_type', 'news');
