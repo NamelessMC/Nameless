@@ -20,8 +20,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Get login method
-$login_method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
-$login_method = $login_method[0]->value;
+$login_method = Util::getSetting('login_method');
 
 $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
 
