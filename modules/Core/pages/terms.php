@@ -23,7 +23,7 @@ if (!count($site_terms)) {
 }
 $site_terms = Output::getPurified($site_terms);
 
-$nameless_terms = Util::getSetting('t_and_c');
+$nameless_terms = Output::getPurified(Util::getSetting('t_and_c'));
 
 $smarty->assign([
     'TERMS' => $language->get('user', 'terms_and_conditions'),
