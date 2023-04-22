@@ -40,7 +40,7 @@ if (!class_exists('Default_Panel_Template')) {
             $this->addCSSFiles([
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=200' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=210' => [],
             ]);
 
             $this->addJSFiles([
@@ -154,13 +154,6 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->assets()->include([
                             AssetTree::DATATABLES
                         ]);
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => [],
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
-                        ]);
 
                         $this->addJSScript('
                             $(document).ready(function() {
@@ -224,16 +217,7 @@ if (!class_exists('Default_Panel_Template')) {
                             AssetTree::TINYMCE,
                         ]);
 
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
-                        ]);
-
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage', null, false, true));
-
                         break;
 
                     case 'privacy_and_terms':
@@ -522,6 +506,16 @@ if (!class_exists('Default_Panel_Template')) {
                         }
                         break;
 
+                    case 'member_lists':
+                        $this->addJSScript('
+                            if ($(\'.js-check-change\').length) {
+                                var changeCheckbox = document.querySelector(\'.js-check-change\');
+
+                                changeCheckbox.onchange = function () {
+                                    $(\'#toggleHideBannedUsers\').submit();
+                                };
+                            }
+                            ');
                 }
             }
         }

@@ -1,7 +1,5 @@
 <?php
 
-use Astrotomic\Twemoji\Twemoji;
-
 /**
  * Contains misc utility methods.
  *
@@ -15,7 +13,6 @@ use Astrotomic\Twemoji\Twemoji;
 class Util {
 
     private static array $_enabled_modules = [];
-    private static ?array $_cached_settings = null;
 
     /**
      * Convert Cyrillic to Latin letters.
@@ -113,111 +110,6 @@ class Util {
     }
 
     /**
-     * Is a URL internal or external? Accepts full URL and also just a path.
-     *
-     * @deprecated Use `URL::isExternalURL` instead. Will be removed in 2.1.0
-     * @param string $url URL/path to check.
-     * @return bool Whether URL is external or not.
-     */
-    public static function isExternalURL(string $url): bool {
-        return URL::isExternalURL($url);
-    }
-
-    /**
-     * Determine whether the trusted proxies config option is set to a valid value or not.
-     *
-     * @deprecated Use `HttpUtils::isTrustedProxiesConfigured`. Will be removed in 2.1.0
-     * @return bool Whether the trusted proxies option is configured or not
-     */
-    public static function isTrustedProxiesConfigured(): bool {
-        return HttpUtils::isTrustedProxiesConfigured();
-    }
-
-    /**
-     * @deprecated Use `HttpUtils::getTrustedProxies`. Will be removed in 2.1.0
-     * @return array List of trusted proxy networks according to config file and environment
-     */
-    public static function getTrustedProxies(): array {
-        return HttpUtils::getTrustedProxies();
-    }
-
-    /**
-     * Get the client's true IP address, using proxy headers if necessary.
-     *
-     * @deprecated Use `HttpUtils::getRemoteAddress`. Will be removed in 2.1.0
-     * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
-     */
-    public static function getRemoteAddress(): ?string {
-        return HttpUtils::getRemoteAddress();
-    }
-
-    /**
-     * Get the protocol used by client's HTTP request, using proxy headers if necessary.
-     *
-     * @deprecated Use `HttpUtils::getProtocol`. Will be removed in 2.1.0
-     * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
-     */
-    public static function getProtocol(): string {
-        return HttpUtils::getProtocol();
-    }
-
-    /**
-     * Get port used by client's HTTP request, using proxy headers if necessary.
-     *
-     * @deprecated Use `HttpUtils::getPort`. Will be removed in 2.1.0
-     * @return ?int Port number, or null when using the CLI
-     */
-    public static function getPort(): ?int {
-        return HttpUtils::getPort();
-    }
-
-    /**
-     * Get the server name.
-     *
-     * @deprecated Use `URL::getSelfURL` instead. Will be removed in 2.1.0
-     * @param bool $show_protocol Whether to show http(s) at front or not.
-     * @return string Compiled URL.
-     */
-    public static function getSelfURL(bool $show_protocol = true): string {
-        return URL::getSelfURL($show_protocol);
-    }
-
-    /**
-     * URL-ify a string
-     *
-     * @deprecated Use `Text::urlSafe` instead. Will be removed in 2.1.0
-     * @param string|null $string $string String to URLify
-     * @return string Url-ified string. (I dont know what this means)
-     */
-    public static function stringToURL(string $string = null): string {
-        return Text::urlSafe($string);
-    }
-
-    /**
-     * Truncates text.
-     *
-     * Cuts a string to the length of $length and replaces the last characters
-     * with the ending if the text is longer than length.
-     *
-     * ### Options:
-     *
-     * - `ending` Will be used as Ending and appended to the trimmed string
-     * - `exact` If false, $text will not be cut mid-word
-     * - `html` If true, HTML tags would be handled correctly
-     * @link http://book.cakephp.org/view/1469/Text#truncate-1625
-     * @link https://github.com/cakephp/cakephp/blob/master/LICENSE
-     *
-     * @deprecated Use `Text::truncate` instead. Will be removed in 2.1.0
-     * @param string $text String to truncate.
-     * @param int $length Length of returned string, including ellipsis.
-     * @param array $options An array of html attributes and options.
-     * @return string Trimmed string.
-     */
-    public static function truncate(string $text, int $length = 750, array $options = []): string {
-        return Text::truncate($text, $length, $options);
-    }
-
-    /**
      * Check for Nameless updates.
      *
      * @return string|UpdateCheck Object with information about any updates, or error message.
@@ -272,33 +164,6 @@ class Util {
     }
 
     /**
-     * Add target and rel attributes to external links only.
-     * From https://stackoverflow.com/a/53461987
-     *
-     * @deprecated Use `URL::replaceAnchorsWithText`. Will be removed in 2.1.0
-     * @param string $data Data to replace.
-     * @return string Replaced string.
-     */
-    public static function replaceAnchorsWithText(string $data): string {
-        return URL::replaceAnchorsWithText($data);
-    }
-
-    private static function hasSettingsCache(?string $module): bool {
-        $cache_name = $module !== null ? $module : 'core';
-        return self::$_cached_settings !== null && isset(self::$_cached_settings[$cache_name]);
-    }
-
-    private static function &getSettingsCache(?string $module): array {
-        $cache_name = $module !== null ? $module : 'core';
-        return self::$_cached_settings[$cache_name];
-    }
-
-    private static function setSettingsCache(?string $module, array $cache): void {
-        $cache_name = $module !== null ? $module : 'core';
-        self::$_cached_settings[$cache_name] = $cache;
-    }
-
-    /**
      * Get a setting from the database table `nl2_settings`.
      *
      * @param string $setting Setting to check.
@@ -306,25 +171,10 @@ class Util {
      * @param string $module Module name to keep settings separate from other modules. Set module
      *                       to 'Core' for global settings.
      * @return ?string Setting from DB or $fallback.
+     * @deprecated Use Settings::get() instead.
      */
     public static function getSetting(string $setting, ?string $fallback = null, string $module = 'core'): ?string {
-        if (!self::hasSettingsCache($module)) {
-            // Load all settings for this module and store it as a dictionary
-            if ($module === 'core') {
-                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` IS NULL')->results();
-            } else {
-                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` = ?', [$module])->results();
-            }
-
-            $cache = [];
-            foreach ($result as $row) {
-                $cache[$row->name] = $row->value;
-            }
-            self::setSettingsCache($module, $cache);
-        }
-
-        $cache = &self::getSettingsCache($module);
-        return $cache[$setting] ?? $fallback;
+        return Settings::get($setting, $fallback, $module);
     }
 
     /**
@@ -334,48 +184,10 @@ class Util {
      * @param string|null $new_value New setting value, or null to delete
      * @param string $module Module name to keep settings separate from other modules. Set module
      *                       to 'Core' for global settings.
+     * @deprecated Use Settings::set() instead.
      */
     public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
-        if ($new_value == null) {
-            if ($module === 'core') {
-                DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
-            } else {
-                DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` = ?', [$setting, $module]);
-            }
-        } else {
-            if ($module === 'core') {
-                if (DB::getInstance()->query('SELECT * FROM nl2_settings WHERE `name` = ? and `module` IS NULL', [$setting])->count()) {
-                    DB::getInstance()->query(
-                        'UPDATE `nl2_settings` SET `value` = ? WHERE `name` = ? AND `module` IS NULL',
-                        [$new_value, $setting]
-                    );
-                } else {
-                    DB::getInstance()->query(
-                        'INSERT INTO `nl2_settings` (`name`, `value`) VALUES (?, ?)',
-                        [$setting, $new_value]
-                    );
-                }
-            } else {
-                DB::getInstance()->query(
-                    'INSERT INTO `nl2_settings` (`name`, `value`, `module`)
-                     VALUES (?, ?, ?)
-                     ON DUPLICATE KEY UPDATE `value` = ?',
-                    [$setting, $new_value, $module, $new_value]
-                );
-            }
-        }
-
-        if (!self::hasSettingsCache($module)) {
-            return;
-        }
-
-        $cache = &self::getSettingsCache($module);
-
-        if ($new_value !== null) {
-            $cache[$setting] = $new_value;
-        } else if (isset($cache[$setting])) {
-            unset($cache[$setting]);
-        }
+        Settings::set($setting, $new_value, $module);
     }
 
     /**
@@ -400,29 +212,6 @@ class Util {
         }
 
         return false;
-    }
-
-    /**
-     * Replace native emojis with their Twemoji equivalent.
-     *
-     * @deprecated Use `Text::renderEmojis` instead. Will be removed in 2.1.0
-     * @param string $text Text to parse
-     * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
-     */
-    public static function renderEmojis(string $text): string {
-        return Text::renderEmojis($text);
-    }
-
-    /**
-     * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
-     * since we want as little HTML in the translation strings as possible.
-     *
-     * @deprecated Use `Text::bold` instead. Will be removed in 2.1.0
-     * @param string $text Text to wrap
-     * @return string Text wrapped in `<strong>` tags
-     */
-    public static function bold(string $text): string {
-        return Text::bold($text);
     }
 
     /**

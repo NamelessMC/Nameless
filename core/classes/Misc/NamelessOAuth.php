@@ -77,7 +77,17 @@ class NamelessOAuth extends Instanceable {
                         'email',
                     ],
                 ]),
-                'icon' => $provider_data['icon'],
+                'icon' => $provider_data['icon'] ?? null,
+                'logo_url' => $provider_data['logo_url'] ?? null,
+                'logo_css' => isset($provider_data['logo_css'])
+                    ? $this->formatCss($provider_data['logo_css'])
+                    : null,
+                'button_css' => isset($provider_data['button_css'])
+                    ? $this->formatCss($provider_data['button_css'])
+                    : null,
+                'text_css' => isset($provider_data['text_css'])
+                    ? $this->formatCss($provider_data['text_css'])
+                    : null,
             ];
         }
 
@@ -274,5 +284,17 @@ class NamelessOAuth extends Instanceable {
             'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
             [$user_id, $provider]
         );
+    }
+
+    /**
+     * Format an array of CSS rules into a string, appending `!important` to each rule.
+     *
+     * @param array $css CSS rule => value array
+     * @return string The CSS string
+     */
+    private function formatCss(array $css): string {
+        return implode(' ', array_map(static function ($rule, $value) {
+            return $rule . ': ' . $value . ' !important;';
+        }, array_keys($css), array_values($css)));
     }
 }

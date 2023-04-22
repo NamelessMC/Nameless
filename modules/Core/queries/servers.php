@@ -1,22 +1,9 @@
 <?php
+
+$query_interval = Util::getSetting('minecraft_query_interval', 10);
+
 // Check cache to see when servers were last queried
 $cache->setCache('server_query_cache');
-if ($cache->isCached('query_interval')) {
-    $query_interval = $cache->retrieve('query_interval');
-    if (is_numeric($query_interval) && $query_interval <= 60 && $query_interval >= 5) {
-        // Interval ok
-    } else {
-        // Default to 10
-        $query_interval = 10;
-
-        $cache->store('query_interval', $query_interval);
-    }
-} else {
-    // Default to 10
-    $query_interval = 10;
-
-    $cache->store('query_interval', $query_interval);
-}
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
@@ -35,12 +22,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = Util::getSetting('external_query', 'use else statement if seting is not present in database');
-if ($query_type === '1') {
-    $query_type = 'external';
-} else {
-    $query_type = 'internal';
-}
+$query_type = Util::getSetting('query_type', 'internal');
 
 // Query
 $servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();
@@ -54,7 +36,7 @@ if (count($servers)) {
             'pre' => $server->pre,
             'name' => $server->name
         ];
-        $result = MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
+        $result = $query_type === 'plugin' ? PluginQuery::singleQuery($server->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language);
 
         if ($server->parent_server > 0) {
             $result['parent_server'] = $server->parent_server;

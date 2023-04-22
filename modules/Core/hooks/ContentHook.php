@@ -9,6 +9,14 @@
 
 class ContentHook extends HookBase {
 
+    /**
+     * Transforms code blocks
+     *
+     * @deprecated Will be removed in 2.2.0!
+     *
+     * @param array $params
+     * @return array
+     */
     public static function codeTransform(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
             $domDocument = new DOMDocument();
@@ -38,6 +46,14 @@ class ContentHook extends HookBase {
         return $params;
     }
 
+    /**
+     * Decodes post content
+     *
+     * @deprecated Will be removed in 2.2.0!
+     *
+     * @param array $params
+     * @return array
+     */
     public static function decode(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
             $params['content'] = Output::getDecoded($params['content']);

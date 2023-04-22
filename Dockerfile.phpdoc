@@ -2,12 +2,18 @@ FROM phpdoc/phpdoc as doc_builder
 
 COPY . /source
 
+WORKDIR /source
+
 RUN mkdir /target && \
-    phpdoc -d /source/core/classes \
-        -d /source/modules/Core/classes \
-        -d "/source/modules/Discord Integration/classes" \
-        -d "/source/modules/Cookie Consent/classes" \
-        -d /source/modules/Forum/classes -t /target -i /vendor
+    phpdoc \
+        -d 'core/classes' \
+        -d 'modules/Core/classes' \
+        -d 'modules/Discord Integration/classes' \
+        -d 'modules/Cookie Consent/classes' \
+        -d 'modules/Forum/classes' \
+        -d 'modules/Members/classes' \
+        -i vendor \
+        -t /target
 
 FROM nginxinc/nginx-unprivileged:stable
 
