@@ -1154,6 +1154,7 @@
     "user/email_changed_successfully": "Email address changed successfully.",
     "user/email_or_username": "Email or Username",
     "user/email_required": "An email address is required.",
+    "user/email_invalid": "The email address you have entered is invalid.",
     "user/enable": "Enable",
     "user/enabled": "Enabled",
     "user/enter_new_password": "Please confirm your email address and enter a new password below.",
