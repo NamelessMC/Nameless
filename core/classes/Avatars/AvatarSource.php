@@ -41,7 +41,10 @@ class AvatarSource extends Instanceable {
 
             $cache_key = $user_id . '_' . $source->getSafeName() . '_' . $size . '_' . (int) $full_url;
             if ($this->_cache->isCached($cache_key)) {
-                return $this->_cache->retrieve($cache_key);
+                $avatar = $this->_cache->retrieve($cache_key);
+                if ($avatar) {
+                    return $avatar;
+                }
             }
 
             if (!($user instanceof User)) {
