@@ -52,7 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'password' => $db_password,
                     'db' => $db_name,
                     'charset' => 'utf8mb4',
+                    'collation' => 'utf8mb4_unicode_ci',
                     'initialise_charset' => true,
+                    'initialise_collation' => true,
                 ],
                 'remember' => [
                     'cookie_name' => 'nl2',

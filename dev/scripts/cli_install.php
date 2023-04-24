@@ -100,7 +100,10 @@ $conf = [
         'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', 'root'),
         'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
         'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
+        'charset' => getEnvVar('NAMELESS_DATABASE_CHARSET', 'utf8mb4'),
+        'collation' => getEnvVar('NAMELESS_DATABASE_COLLATION', 'utf8mb4_unicode_ci'),
         'initialise_charset' => true,
+        'initialise_collation' => true,
     ],
     'remember' => [
         'cookie_name' => 'nl2',

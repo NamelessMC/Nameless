@@ -924,6 +924,7 @@
     "general/sql_query": "Query",
     "general/namelessmc_support": "NamelessMC Support",
     "general/namelessmc_documentation": "NamelessMC Docs",
+    "general/registration_disabled_message_fallback": "Registration is currently disabled.",
     "installer/back": "Back",
     "installer/config_write_failed": "Failed to write to config file: {{message}}",
     "installer/database_connection_failed": "Failed to connect to the database:<br>{{message}}",
