@@ -42,7 +42,8 @@ class EventHandler {
         if (class_exists($event)  && is_subclass_of($event, AbstractEvent::class)) {
             $class_name = $event;
             $name = $event::name();
-            $description = $event::description();
+            // We lazy load descriptions for class-based events to avoid loading new Language instances unnecessarily
+            $description = fn () => $event::description();
             $return = $event::return();
             $internal = $event::internal();
         } else {
@@ -202,16 +203,28 @@ class EventHandler {
     /**
      * Get a list of events to display on the StaffCP webhooks page.
      *
-     * @param bool $internal Whether to include internal events or not
      * @return array List of all currently registered events
      */
-    public static function getEvents(bool $internal = false): array {
+    public static function getEvents(bool $showInternal = false): array {
         $return = [];
 
         foreach (self::$_events as $name => $meta) {
-            if (!$meta['internal'] || $internal) {
-                $return[$name] = $meta['description'];
+            if ($meta['internal'] && !$showInternal) {
+                continue;
             }
+
+            if (is_callable($meta['description'])) {
+                $description = $meta['description']();
+            } else {
+                $description = $meta['description'];
+            }
+
+            $class = $meta['class_name'];
+            $return[$name] = [
+                'description' => $description,
+                'supports_discord' => $class !== null && is_subclass_of($class, DiscordDispatchable::class),
+                'supports_normal' => $class !== null && is_subclass_of($class, HasWebhookParams::class),
+            ];
         }
 
         return $return;

@@ -201,7 +201,7 @@ class DatabaseInitialiser {
         Util::setSetting('phpmailer', '0');
         Util::setSetting('user_avatars', '0');
         Util::setSetting('avatar_site', 'cravatar');
-        Util::setSetting('mc_integration', '1');
+        Util::setSetting(Settings::MINECRAFT_INTEGRATION, '1');
         Util::setSetting('discord_integration', '0');
         Util::setSetting('avatar_type', 'helmavatar');
         Util::setSetting('home_type', 'news');
@@ -332,19 +332,19 @@ class DatabaseInitialiser {
             'forum_id' => 2,
             'topic_id' => 1,
             'post_creator' => 1,
-            'post_content' => Output::getClean(
-                '&lt;p&gt;Welcome!&lt;/p&gt;
-                    &lt;p&gt;To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.&lt;/p&gt;
-                    &lt;p&gt;If you need support, visit our Discord server: &lt;a href=&quot;https://discord.gg/nameless&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://discord.gg/nameless&lt;/a&gt;&lt;/p&gt;
-                    &lt;p&gt;Thank you and enjoy,&lt;/p&gt;
-                    &lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
-            ),
+            'post_content' => <<<POST
+                <p>Welcome!</p>
+                <p>To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.</p>
+                <p>If you need support, visit our Discord server: <a href="https://discord.gg/nameless" target="_blank" rel="noopener">https://discord.gg/nameless</a></p>
+                <p>Thank you and enjoy,</p>
+                <p>The NamelessMC Development team.</p>
+                POST,
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U'),
             'last_edited' => date('U'),
         ]);
 
-        // Must be updated afterwards due of foreign key
+        // Must be updated afterwards due to foreign key
         $this->_db->update('forums', 2, [
             'last_post_date' => date('U'),
             'last_user_posted' => 1,

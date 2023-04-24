@@ -13,6 +13,7 @@ class DB {
 
     private string $_prefix;
     private ?string $_force_charset;
+    private ?string $_force_collation;
     protected PDO $_pdo;
     private PDOStatement $_statement;
     private bool $_error = false;
@@ -20,8 +21,18 @@ class DB {
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
-    private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
+    private function __construct(
+        string $host,
+        string $database,
+        string $username,
+        string $password,
+        int $port,
+        ?string $force_charset,
+        ?string $force_collation,
+        string $prefix
+    ) {
         $this->_force_charset = $force_charset;
+        $this->_force_collation = $force_collation;
         $this->_prefix = $prefix;
 
         $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
@@ -47,9 +58,19 @@ class DB {
         string $password,
         int $port = 3306,
         ?string $force_charset = null,
+        ?string $force_collation = null,
         string $prefix = 'nl2_'
     ): DB {
-        return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
+        return new DB(
+            $host,
+            $database,
+            $username,
+            $password,
+            $port,
+            $force_charset,
+            $force_collation,
+            $prefix
+        );
     }
 
     public static function getInstance(): DB {
@@ -63,13 +84,20 @@ class DB {
             $force_charset = null;
         }
 
+        if (Config::get('mysql.initialise_collation')) {
+            $force_collation = Config::get('mysql.collation') ?: 'utf8mb4_unicode_ci';
+        } else {
+            $force_collation = null;
+        }
+
         return self::$_instance = self::getCustomInstance(
             Config::get('mysql.host'),
             Config::get('mysql.db'),
             Config::get('mysql.username'),
             Config::get('mysql.password'),
             Config::get('mysql.port'),
-            $force_charset
+            $force_charset,
+            $force_collation
         );
     }
 
@@ -403,8 +431,13 @@ class DB {
     public function createTable(string $name, string $table_schema): bool {
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_schema}) ENGINE=InnoDB";
+
         if ($this->_force_charset) {
             $sql .= ' DEFAULT CHARSET=' . $this->_force_charset;
+        }
+
+        if ($this->_force_collation) {
+            $sql .= ' COLLATE=' . $this->_force_collation;
         }
 
         return !$this->query($sql)->error();

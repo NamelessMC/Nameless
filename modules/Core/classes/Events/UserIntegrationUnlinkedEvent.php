@@ -1,6 +1,6 @@
 <?php
 
-class UserIntegrationUnlinkedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserIntegrationUnlinkedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $user;
     public IntegrationBase $integration;
@@ -20,7 +20,20 @@ class UserIntegrationUnlinkedEvent extends AbstractEvent implements DiscordDispa
         return (new Language())->get('admin', 'user_unlink_integration_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+            'integration' => [
+                'integration' => $this->integration->getName(),
+                'username' => $this->integration_user->data()->username,
+                'identifier' => $this->integration_user->data()->identifier,
+                'verified' => $this->integration_user->isVerified()
+            ]
+        ];
+    }
+
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
