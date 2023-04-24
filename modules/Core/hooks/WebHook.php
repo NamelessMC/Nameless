@@ -27,7 +27,6 @@ class WebHook implements WebhookDispatcher {
             : $params['webhook'];
 
         $return = $params;
-
         unset($return['webhook']);
 
         $json = json_encode($return, JSON_UNESCAPED_SLASHES);
