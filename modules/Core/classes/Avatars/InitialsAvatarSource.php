@@ -2,8 +2,8 @@
 
 class InitialsAvatarSource extends AvatarSourceBase {
 
-    public function __construct() {
-        $this->_name = 'Initials';
+    public function __construct(Language $language) {
+        $this->_name = $language->get('admin', 'avatar_source_initials');
         $this->_module = 'Core';
         $this->_can_be_disabled = false;
     }

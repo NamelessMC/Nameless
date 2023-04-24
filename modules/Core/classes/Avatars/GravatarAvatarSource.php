@@ -2,8 +2,8 @@
 
 class GravatarAvatarSource extends AvatarSourceBase {
 
-    public function __construct() {
-        $this->_name = 'Gravatar';
+    public function __construct(Language $language) {
+        $this->_name = $language->get('admin', 'avatar_source_gravatar');
         $this->_module = 'Core';
     }
 

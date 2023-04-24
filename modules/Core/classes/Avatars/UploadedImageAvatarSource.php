@@ -2,8 +2,8 @@
 
 class UploadedImageAvatarSource extends AvatarSourceBase {
 
-    public function __construct() {
-        $this->_name = 'Uploaded Image';
+    public function __construct(Language $language) {
+        $this->_name = $language->get('admin', 'avatar_source_uploaded_image');
         $this->_module = 'Core';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_avatar_settings/uploaded_image.php';
     }

@@ -6,8 +6,8 @@ class MinecraftAvatarSource extends AvatarSourceBase {
 
     protected static MinecraftAvatarSourceBase $_active_source;
 
-    public function __construct() {
-        $this->_name = 'Minecraft Avatar';
+    public function __construct(Language $language) {
+        $this->_name = $language->get('admin', 'avatar_source_minecraft');
         $this->_module = 'Core';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_avatar_settings/minecraft.php';
     }
