@@ -18,7 +18,8 @@ $(".image-picker").imagepicker();
 
 if (Input::exists()) {
     if (Token::check()) {
-        Util::setSetting('custom_default_avatar', Input::get('avatar'));
+        Settings::set('custom_default_avatar', Input::get('avatar'));
+        AvatarSource::getInstance()->clearSourceAvatarCache(UploadedImageAvatarSource::class);
     } else {
         $errors = [$language->get('general', 'invalid_token')];
     }
