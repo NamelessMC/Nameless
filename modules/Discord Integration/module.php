@@ -30,22 +30,12 @@ class Discord_Module extends Module {
 
         $endpoints->loadEndpoints(Constants::ROOT_PATH . '/modules/Discord Integration/includes/endpoints');
 
+        // -- Events
+        EventHandler::registerEvent(DiscordWebhookFormatterEvent::class);
+
         GroupSyncManager::getInstance()->registerInjector(new DiscordGroupSyncInjector);
 
         Integrations::getInstance()->registerIntegration(new DiscordIntegration($language));
-
-        // Hooks
-        EventHandler::registerEvent('discordWebhookFormatter',
-            'Discord webhook formatter',
-            [
-                'data' => 'Event data',
-                'format' => 'The format which being sent to the discord webhook'
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerListener('discordWebhookFormatter', 'DiscordFormatterHook::format');
     }
 
     public function onInstall() {
@@ -65,7 +55,7 @@ class Discord_Module extends Module {
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
 
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
+        if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             $widgets->add(new DiscordWidget($cache, $smarty));
         }
 

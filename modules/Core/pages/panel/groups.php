@@ -362,10 +362,7 @@ if (isset($_GET['action'])) {
 
                                 $group_id = DB::getInstance()->lastId();
 
-                                EventHandler::executeEvent('cloneGroup', [
-                                    'group_id' => $group_id,
-                                    'cloned_group_id' => $group->id,
-                                ]);
+                                EventHandler::executeEvent(new GroupClonedEvent($group_id, $group->id));
 
                                 if ($default == 1) {
                                     if ($default_group && $default_group->id != $group_id) {

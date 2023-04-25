@@ -3,12 +3,9 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
             $message = PhinxAdapter::migrate();
-
-            $redirect_url = (($_SESSION['action'] == 'install') ? '?step=site_configuration' : '?step=upgrade');
-
             $json = [
                 'message' => $language->get('installer', 'database_configured'),
-                'redirect_url' => $redirect_url,
+                'redirect_url' => '?step=site_configuration',
             ];
 
             if (!str_contains($message, 'All Done')) {
@@ -16,7 +13,6 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
             } else {
                 $_SESSION['database_initialized'] = true;
             }
-
         } else {
             if ($_GET['initialise'] === 'site') {
                 DatabaseInitialiser::runPreUser();
@@ -27,23 +23,6 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
                 ];
 
                 $_SESSION['site_initialized'] = true;
-
-            } else if ($_GET['initialise'] === 'upgrade') {
-                define('UPGRADE', true);
-
-                require(dirname(__DIR__) . '/includes/upgrade_perform.php');
-
-                $json = [
-                    'success' => !isset($errors) || !count($errors),
-                    'errors' => $errors ?? [],
-                    'message' => $language->get('installer', 'upgrade_error'),
-                    'redirect_url' => '?step=finish',
-                ];
-
-                $_SESSION['admin_setup'] = true;
-
-            } else {
-                throw new RuntimeException('Invalid initialisation');
             }
         }
     } catch (Exception $e) {

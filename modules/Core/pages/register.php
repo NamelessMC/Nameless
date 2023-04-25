@@ -23,18 +23,11 @@ require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(Constants::ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
-$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
-$registration_enabled = $registration_enabled[0]->value;
-
-if ($registration_enabled == 0) {
+if (!Util::getSetting('registration_enabled')) {
     // Registration is disabled, display a message
     // Get registration disabled message and assign to Smarty variable
-    $registration_disabled_message = DB::getInstance()->get('settings', ['name', 'registration_disabled_message'])->results();
-    if (count($registration_disabled_message)) {
-        $message = Output::getPurified($registration_disabled_message[0]->value);
-    } else {
-        $message = 'Registration is currently disabled.';
-    }
+    $fallback_message = $language->get('general', 'registration_disabled_message_fallback');
+    $message = Output::getPurified(Util::getSetting('registration_disabled_message', $fallback_message));
 
     $smarty->assign([
         'REGISTRATION_DISABLED' => $message,
@@ -55,15 +48,11 @@ if ($registration_enabled == 0) {
     die();
 }
 
-// Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
+if (Util::getSetting('mc_integration')) {
     // Check if AuthMe is enabled
-    $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-    $authme_enabled = $authme_enabled[0]->value;
+    $authme_enabled = Util::getSetting('authme');
 
-    if ($authme_enabled == '1') {
+    if ($authme_enabled == 1) {
         // Authme connector
         require(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
         die();
@@ -310,17 +299,9 @@ if (Input::exists()) {
 
                     Log::getInstance()->log(Log::Action('user/register'), '', $user_id);
 
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
-                    EventHandler::executeEvent('registerUser', [
-                        'user_id' => $user_id,
-                        'username' => Input::get('username'),
-                        'content' => $default_language->get('user', 'user_x_has_registered', [
-                            'user' => Input::get('username'),
-                        ]),
-                        'avatar_url' => $user->getAvatar(128, true),
-                        'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
-                        'language' => $default_language,
-                    ]);
+                    EventHandler::executeEvent(new UserRegisteredEvent(
+                        $user,
+                    ));
 
                     if (!$auto_verify_oauth_email && Util::getSetting('email_verification') === '1') {
                         // Send registration email
@@ -421,6 +402,14 @@ if ($oauth_flow) {
     ]);
 }
 
+// Add "continue with..." message to provider array
+$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+foreach ($providers as $name => $provider) {
+    $providers[$name]['continue_with'] = $language->get('user', 'continue_with', [
+        'provider' => ucfirst($name)
+    ]);
+}
+
 // Assign Smarty variables
 $smarty->assign([
     'FIELDS' => $fields->getAll(),
@@ -439,7 +428,7 @@ $smarty->assign([
     'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
     'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_PROVIDERS' => $providers,
 ]);
 
 if ($captcha) {

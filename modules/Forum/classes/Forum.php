@@ -12,13 +12,6 @@ class Forum {
     private DB $_db;
     private static array $_permission_cache = [];
     private static array $_count_cache = [];
-    private const URL_EXCLUDE_CHARS = [
-        '?',
-        '&',
-        '/',
-        '#',
-        '.',
-    ];
 
     public function __construct() {
         $this->_db = DB::getInstance();
@@ -244,12 +237,7 @@ class Forum {
     }
 
     public function titleToURL(string $topic = null): string {
-        if ($topic) {
-            $topic = str_replace(self::URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $topic))));
-        }
-
-        return '';
+        return URL::urlSafe($topic ?? '');
     }
 
     // Returns true/false depending on whether the current user can view a forum
@@ -492,23 +480,56 @@ class Forum {
     /**
      * Get the latest news posts to display on homepage.
      *
+     * TODO: can be optimised by including posts in the initial query?
+     *
      * @param int $number The number of posts to get.
+     * @param array $groups Array containing user's group IDs, default [0] for guests
      * @return array The latest news posts.
      */
-    public function getLatestNews(int $number = 5): array {
+    public function getLatestNews(int $number = 5, array $groups = [0]): array {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
 
-        $news_items = $this->_db->query('SELECT * FROM nl2_topics WHERE forum_id IN (SELECT id FROM nl2_forums WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10')->results();
+        $groups_in = implode(',', array_map(static fn () => '?', $groups));
+
+        $news_items = $this->_db->query(
+            <<<SQL
+                SELECT
+                    id,
+                    labels,
+                    topic_creator,
+                    topic_title,
+                    topic_views
+                FROM nl2_topics
+                WHERE
+                    forum_id IN (
+                        SELECT
+                            id
+                        FROM nl2_forums
+                        WHERE news = 1
+                        AND id IN (
+                            SELECT p.forum_id
+                            FROM nl2_forums_permissions p
+                            WHERE p.group_id IN ($groups_in)
+                            AND p.view = 1
+                        )
+                    )
+                    AND deleted = 0
+                ORDER BY topic_date
+                DESC LIMIT ?
+            SQL,
+            [...$groups, $number]
+        )->results();
 
         foreach ($news_items as $item) {
-            $news_post = $this->_db->get('posts', ['topic_id', $item->id])->results();
-            $posts = count($news_post);
+            $news_post = $this->_db->get('posts', ['topic_id', $item->id]);
+            $posts = $news_post->count();
+            $news_post = $news_post->first();
 
-            if (is_null($news_post[0]->created)) {
-                $post_date = date(DATE_FORMAT, strtotime($news_post[0]->post_date));
+            if (is_null($news_post->created)) {
+                $post_date = date(DATE_FORMAT, strtotime($news_post->post_date));
             } else {
-                $post_date = date(DATE_FORMAT, $news_post[0]->created);
+                $post_date = date(DATE_FORMAT, $news_post->created);
             }
 
             $labels = [];
@@ -545,7 +566,7 @@ class Forum {
                 }
             }
 
-            $post = $news_post[0]->post_content;
+            $post = $news_post->post_content;
             $return[] = [
                 'topic_id' => $item->id,
                 'topic_date' => $post_date,
@@ -559,12 +580,7 @@ class Forum {
             ];
         }
 
-        // Order the discussions by date - most recent first
-        usort($return, static function ($a, $b) {
-            return strtotime($b['topic_date']) - strtotime($a['topic_date']);
-        });
-
-        return array_slice($return, 0, $number, true);
+        return $return;
     }
 
     /**

@@ -22,14 +22,14 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
         }
 
         $log_array = [];
-        foreach ($groups as $group) {
-            $group_query = $api->getDb()->get('groups', ['id', $group]);
+        foreach ($groups as $group_id) {
+            $group_query = $api->getDb()->get('groups', ['id', $group_id]);
             if (!$group_query->count()) {
                 continue;
             }
             $group_query = $group_query->first();
 
-            if ($user->addGroup($group, 0, $group_query)) {
+            if ($user->addGroup($group_id)) {
                 $log_array['added'][] = $group_query->name;
             }
         }

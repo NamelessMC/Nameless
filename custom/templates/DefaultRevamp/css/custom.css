@@ -9,6 +9,13 @@ body {
 
 body.pushable>.pusher {
     background: #f3f6fa;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#wrapper {
+    margin-bottom: 1rem;
 }
 
 /*
@@ -264,8 +271,13 @@ body.pushable>.pusher {
     }
 }
 
+#topic-post #post-content {
+    display: flex;
+    flex-direction: column;
+}
+
 #topic-post #post-content #reactions {
-    margin-top: 1rem;
+    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: .85em;
@@ -375,6 +387,11 @@ body.pushable>.pusher {
     max-height: 35px;
 }
 
+/* Fix avatar images in labels being a few px from touching the top */
+.ui.image.label img {
+    vertical-align: top !important;
+}
+
 /*
    *  [ FORUM SEARCH ]
    */
@@ -451,7 +468,8 @@ body.pushable>.pusher {
    */
 
 .ui.footer.segment {
-    margin: 1rem 0 -.5rem 0;
+    position: relative;
+    margin: auto 0 -.5rem 0;
     padding: 3em 0;
 }
 
@@ -648,7 +666,6 @@ body.pushable>.pusher {
     flex: 0 0 auto;
     width: auto;
     line-height: 1;
-    vertical-align: middle;
     font-size: 3em;
     opacity: .8;
 }
@@ -953,6 +970,10 @@ select {
     height: auto;
 }
 
+#post-content .forum_post {
+    margin-bottom: 1rem;
+}
+
 .ui.checkbox .box:before {
     margin-top: 4px;
 }
@@ -987,7 +1008,7 @@ select {
     position: absolute;
 }
 
-.darkmode-toggle:checked + .darkmode-toggle-label .darkmode-ball {
+.darkmode-toggle:checked+.darkmode-toggle-label .darkmode-ball {
     transform: translateX(24px);
 }
 
@@ -1001,6 +1022,7 @@ select {
     padding: 5px;
     height: 26px;
     width: 50px;
+    cursor: pointer;
 }
 
 .darkmode-ball {
@@ -1019,7 +1041,36 @@ select {
 }
 
 .fa-sun {
-    color:#f39c00;
+    color: #f39c00;
+}
+
+/*
+ Member list search images
+ */
+.ui.search>.results .result .image {
+    border-radius: 0;
+}
+
+/*
+ Make new members grid avatars fit nicer
+ */
+#new-members-grid {
+    padding: 0.5em;
+}
+
+#new-members-grid .column {
+    padding: 0.5em;
+}
+
+/*
+ *  [ EMOJI SIZING ]
+ */
+
+.joypixels,
+.twemoji {
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
 }
 
 /*

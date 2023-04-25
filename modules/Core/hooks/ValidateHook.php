@@ -9,12 +9,12 @@
 
 class ValidateHook {
 
-    public static function execute(array $params = []): void {
+    public static function execute(UserValidatedEvent $event): void {
         if (!defined('VALIDATED_DEFAULT') || VALIDATED_DEFAULT === null) {
             define('VALIDATED_DEFAULT', 1);
         }
 
-        $validate_user = new User($params['user_id']);
+        $validate_user = $event->user;
         if (!$validate_user->exists()) {
             return;
         }

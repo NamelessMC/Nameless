@@ -16,7 +16,7 @@ if (!function_exists('exif_imagetype')) {
 }
 
 // Minecraft integration?
-if (defined('MINECRAFT') && MINECRAFT === true) {
+if (Util::getSetting('mc_integration')) {
     if (isset($directories[count($directories) - 1]) && !empty($directories[count($directories) - 1])) {
         // Server specified
         $banner = $directories[count($directories) - 1];
@@ -53,13 +53,15 @@ if (defined('MINECRAFT') && MINECRAFT === true) {
             // Do we need to query for favicon?
             if (!$cache->isCached('favicon')) {
                 $favicon = imagecreatefromstring(base64_decode(ltrim(ExternalMCQuery::getFavicon($full_ip['ip'], $server->bedrock), 'data:image/png;base64')));
-
-                imageAlphaBlending($favicon, true);
-                imageSaveAlpha($favicon, true);
+                if ($favicon) {
+                    imageAlphaBlending($favicon, true);
+                    imageSaveAlpha($favicon, true);
+                } else {
+                    $favicon = imagecreatefrompng(Constants::ROOT_PATH . '/core/assets/img/favicon.png');
+                }
 
                 // Cache the favicon for 1 hour
                 imagepng($favicon, Constants::ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
-
                 $cache->store('favicon', 'true', 3600);
             } else {
                 $favicon = imagecreatefrompng(Constants::ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');

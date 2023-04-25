@@ -17,12 +17,13 @@ require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 // Retrieve terms from database
 $site_terms = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
 if (!count($site_terms)) {
-    $site_terms = DB::getInstance()->get('settings', ['name', 't_and_c_site'])->results();
+    $site_terms = Util::getSetting('t_and_c_site');
+} else {
+    $site_terms = $site_terms[0]->value;
 }
-$site_terms = Output::getPurified($site_terms[0]->value);
+$site_terms = Output::getPurified($site_terms);
 
-$nameless_terms = DB::getInstance()->get('settings', ['name', 't_and_c'])->results();
-$nameless_terms = Output::getPurified($nameless_terms[0]->value);
+$nameless_terms = Output::getPurified(Util::getSetting('t_and_c'));
 
 $smarty->assign([
     'TERMS' => $language->get('user', 'terms_and_conditions'),

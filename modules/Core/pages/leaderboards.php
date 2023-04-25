@@ -9,16 +9,16 @@
  *  Leaderboards page
  */
 
+// MC integration and Placeholders enabled?
+if (!Util::getSetting('mc_integration') || Util::getSetting('placeholders') !== '1') {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+
 $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
 if (!count($leaderboard_placeholders)) {
     require_once(Constants::ROOT_PATH . '/403.php');
-    die();
-}
-
-// Placeholders enabled?
-if (Util::getSetting('placeholders') !== '1') {
-    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 

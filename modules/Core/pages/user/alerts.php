@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -107,5 +107,5 @@ if (!isset($_GET['view'])) {
         ]);
     }
 
-    Redirect::to($alert[0]->url);
+    Redirect::to($alert[0]->url != '#' ? $alert[0]->url : URL::build('/user/alerts'));
 }
