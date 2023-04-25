@@ -43,6 +43,7 @@ if (!is_dir(__DIR__ . '/vendor') || !is_dir(__DIR__ . '/core/assets/vendor')) {
 }
 
 const PATH = '/';
+const ROOT_PATH = __DIR__; // Deprecated - Use Constants::ROOT_PATH instead
 
 require_once __DIR__ . '/vendor/autoload.php';
 
