@@ -9,6 +9,13 @@ body {
 
 body.pushable>.pusher {
     background: #f3f6fa;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+#wrapper {
+    margin-bottom: 1rem;
 }
 
 /*
@@ -461,7 +468,8 @@ body.pushable>.pusher {
    */
 
 .ui.footer.segment {
-    margin: 1rem 0 -.5rem 0;
+    position: relative;
+    margin: auto 0 -.5rem 0;
     padding: 3em 0;
 }
 
