@@ -90,7 +90,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $players_list[] = ['id' => $uuid, 'name' => $player['name']];
                 }
 
-                $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+                $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']);
                 $cache->setCache('latest_query');
                 $cache->store($server_id, [
                     'player_count' => count($_POST['players']),

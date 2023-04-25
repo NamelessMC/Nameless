@@ -261,7 +261,7 @@ if (!is_writable(Constants::ROOT_PATH . '/uploads/favicons')) {
     ]));
 }
 
-if (!is_writable(ROOT_PATH . '/uploads/og_images')) {
+if (!is_writable(Constants::ROOT_PATH . '/uploads/og_images')) {
     $smarty->assign('OG_IMAGES_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
         'directory' => Text::bold('uploads/og_images')
     ]));

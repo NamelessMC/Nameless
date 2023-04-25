@@ -11,7 +11,7 @@
 
 // MC integration and Placeholders enabled?
 if (!Util::getSetting('mc_integration') || Util::getSetting('placeholders') !== '1') {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
