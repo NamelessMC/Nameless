@@ -30,17 +30,8 @@ if (!isset($_GET['view'])) {
                 // Generate new key
                 $new_api_key = SecureRandom::alphanumeric();
 
-                $plugin_api = DB::getInstance()->get('settings', ['name', 'mc_api_key'])->results();
-                $plugin_api = $plugin_api[0]->id;
-
                 // Update key
-                DB::getInstance()->update(
-                    'settings',
-                    $plugin_api,
-                    [
-                        'value' => $new_api_key
-                    ]
-                );
+                Util::setSetting('mc_api_key', $new_api_key);
 
                 // Cache
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
@@ -50,15 +41,7 @@ if (!isset($_GET['view'])) {
                 Redirect::to(URL::build('/panel/core/api'));
             }
 
-            $plugin_id = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
-            $plugin_id = $plugin_id[0]->id;
-            DB::getInstance()->update(
-                'settings',
-                $plugin_id,
-                [
-                    'value' => Input::get('enable_api')
-                ]
-            );
+            Util::setSetting('use_api', Input::get('enable_api'));
 
             // Update Username sync
             $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
@@ -189,16 +172,7 @@ if (isset($errors) && count($errors)) {
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
-    $api_enabled = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
-    if (count($api_enabled)) {
-        $api_enabled = $api_enabled[0]->value;
-    } else {
-        DB::getInstance()->insert('settings', [
-            'name' => 'use_api',
-            'value' => false,
-        ]);
-        $api_enabled = '0';
-    }
+    $api_enabled = Util::getSetting('use_api');
 
     $smarty->assign(
         [

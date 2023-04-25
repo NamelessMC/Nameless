@@ -83,9 +83,7 @@ if (Input::exists()) {
             Util::setSetting('sitename', Input::get('sitename'));
 
             // Email address
-            DB::getInstance()->update('settings', ['name', 'incoming_email'], [
-                'value' => Output::getClean(Input::get('contact_email'))
-            ]);
+            Util::setSetting('incoming_email', Input::get('contact_email'));
 
             // Language
             // Get current default language
@@ -120,6 +118,7 @@ if (Input::exists()) {
             } else if ($_POST['homepage'] === 'custom') {
                 $home_type = 'custom';
             }
+            // TODO allow to select a custom page to use content as homepage
 
             Util::setSetting('home_type', $home_type);
 
@@ -161,9 +160,10 @@ if (Input::exists()) {
             }
 
             // Login method
-            DB::getInstance()->update('settings', ['name', 'login_method'], [
-                'value' => $_POST['login_method']
-            ]);
+            Util::setSetting('login_method', $_POST['login_method']);
+
+            // Auto language
+            Util::setSetting('auto_language_detection', $_POST['auto_language'] === 'true' ? 1 : 0);
 
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
@@ -209,8 +209,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = DB::getInstance()->get('settings', ['name', 'incoming_email'])->results();
-$contact_email = Output::getClean($contact_email[0]->value);
+$contact_email = Output::getClean(Util::getSetting('incoming_email'));
 
 $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
@@ -221,17 +220,10 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = DB::getInstance()->get('settings', ['name', 'timezone'])->results();
-$timezone = $timezone[0]->value;
-
-$private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
-$private_profile = $private_profile[0]->value;
-
-$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-$displaynames = $displaynames[0]->value;
-
-$method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
-$method = $method[0]->value;
+$timezone = Util::getSetting('timezone');
+$private_profile = Util::getSetting('private_profile');
+$displaynames = Util::getSetting('displaynames');
+$method = Util::getSetting('login_method');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -299,6 +291,9 @@ $smarty->assign([
     'NATIVE' => $language->get('admin', 'emoji_native'),
     'TWEMOJI' => $language->get('admin', 'emoji_twemoji'),
     'JOYPIXELS' => $language->get('admin', 'emoji_joypixels'),
+    'AUTO_LANGUAGE_VALUE' => Util::getSetting('auto_language_detection'),
+    'ENABLE_AUTO_LANGUAGE' => $language->get('admin', 'enable_auto_language'),
+    'AUTO_LANGUAGE_HELP' => $language->get('admin', 'auto_language_help'),
 ]);
 
 $template->onPageLoad();

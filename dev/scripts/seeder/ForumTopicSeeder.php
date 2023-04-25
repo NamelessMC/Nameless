@@ -11,7 +11,7 @@ class ForumTopicSeeder extends Seeder {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
         foreach ($forums as $forum) {
-            $this->times($faker->numberBetween(5, 10), function () use ($db, $faker, $forum, $users) {
+            $this->times(FORUM_TOPIC_COUNT, function () use ($db, $faker, $forum, $users) {
                 if ($forum->forum_type === 'category' && !$faker->boolean) {
                     return;
                 }

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -15,7 +15,10 @@ if ($cache->isCached('news')) {
 } else {
     $forum = new Forum();
 
-    $latest_news = $forum->getLatestNews(); // Get latest 5 items
+    $latest_news = $forum->getLatestNews(
+        Util::getSetting('news_items_front_page', 5, 'forum'),
+        $user->getAllGroupIds()
+    ); // Get latest 5 items
 
     $news = [];
 

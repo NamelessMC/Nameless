@@ -3,7 +3,7 @@ if (PHP_SAPI !== 'cli') {
     die('This script must be run from the command line.');
 }
 
-define('ROOT_PATH', __DIR__ . '/../..');
+define('ROOT_PATH', __DIR__ . '/../../..');
 require 'vendor/autoload.php';
 
 $classes = [
@@ -33,10 +33,20 @@ $seeders = array_map(static function (string $class) {
 
 $faker = Faker\Factory::create();
 
+define('USER_COUNT', 1000);
+define('PROFILE_POST_COUNT', 500);
+define('PROFILE_POST_REPLY_COUNT', 500);
+define('PROFILE_POST_REACTION_COUNT', 500);
+define('PROFILE_FIELDS_COUNT', 7);
+define('FORUM_CATEGORY_COUNT', 5);
+define('FORUM_SUBFORUM_COUNT', $faker->numberBetween(1, 3));
+define('FORUM_TOPIC_COUNT', $faker->numberBetween(5, 10));
+define('FORUM_POST_COUNT', $faker->numberBetween(3, 10));
+
 $db = DB::getInstance();
 
 $wipe = false;
-if (isset($argv[1]) && $argv[1] === 'wipe') {
+if (isset($argv[1]) && $argv[1] === '--wipe') {
     $wipe = true;
     print('🧨 Wipe mode enabled!' . PHP_EOL);
 }

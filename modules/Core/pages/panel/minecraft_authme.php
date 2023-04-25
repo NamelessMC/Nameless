@@ -105,9 +105,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Is AuthMe enabled?
-$authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->first()->value;
-
-if ($authme_enabled === '1') {
+if (Util::getSetting('authme')) {
     // Retrieve AuthMe database details
     $authme_db = Config::get('authme', []);
 

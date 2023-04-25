@@ -4,51 +4,61 @@ import itertools
 import shutil
 from pathlib import Path
 import sys
+import tempfile
 
 
-EXCLUDE_DIRS = [
-    '.git',
-    '.github',
-    '.idea',
-    '.node_cache',
-    '.vscode',
-    'node_modules',
-    'release',
-]
-EXCLUDE_FILES = [
-    '.dockerignore',
-    '.gitignore',
-    '.phpcs.xml',
-    'CHANGELOG.md',
-    'composer.json',
-    'composer.lock',
-    'CONTRIBUTING.md',
-    'docker-compose.yaml',
-    'Dockerfile.phpdoc',
-    'nginx.example',
-    'package.json',
-    'package-lock.json',
-    'phpstan.neon',
-    'postinstall.js',
-    'README.md',
-    'release.sh',
-    'yarn-postinstall.js',
-    'yarn.lock',
-    'SECURITY.md',
-    'semantic.json',
-    'web.config.example',
+INCLUDE_DIRS = [
+    'cache',
+    'core',
+    'custom',
+    'dev',
+    'modules',
+    'uploads',
+    'vendor',
 ]
 
-def create_archives(archive_path: str, cwd: str = '.'):
+INCLUDE_FILES = [
+    '403.php',
+    '404.php',
+    'index.php',
+    'install.php',
+    'LICENSE.txt',
+    'rewrite_test.php',
+]
+
+def create_archives(archive_name: str, archive_source: str = '.'):
+    archive_path: str = Path('release', archive_name).absolute().as_posix()
+
+    print('Archive: Copy files to temp dir')
+    archive_temp = tempfile.mkdtemp()
+
+    for include_file in INCLUDE_FILES:
+        include_path = Path(archive_source, include_file)
+        if include_path.exists():
+            shutil.copy(include_path, archive_temp)
+
+    for include_dir in INCLUDE_DIRS:
+        include_path = Path(archive_source, include_dir)
+        if include_path.exists():
+            shutil.copytree(include_path, Path(archive_temp, include_dir))
+
+    if Path(archive_source, 'vendor').exists():
+        print('Archive: Generate checksums')
+        subprocess.check_call(['php', 'dev/scripts/generate_checksums.php'],
+                              shell=False,
+                              cwd=archive_temp)
+
+    print('Archive: Creating .zip file')
     zip_command = [
         'zip',
         '-r',  # Recursive
         '-q',  # Quiet
         f'{archive_path}.zip',
         '.',
-        *itertools.chain.from_iterable((('-x', f'{name}/*') for name in EXCLUDE_DIRS)),
-        *itertools.chain.from_iterable((('-x', f'{name}') for name in EXCLUDE_FILES)),
     ]
+    subprocess.check_call(zip_command, shell=False, cwd=archive_temp)
+
+    print('Archive: Creating .tar.xz file')
 
     tar_command = [
         'tar',
@@ -57,19 +67,13 @@ def create_archives(archive_path: str, cwd: str = '.'):
         '--owner=0',  # Set owner inside archive to root
         '--group=0',
         '-f', f'{archive_path}.tar.xz',
-        *[f'--exclude={name}' for name in [*EXCLUDE_DIRS, *EXCLUDE_FILES]],
         '.',
     ]
 
-    subprocess.check_call(zip_command,
-                          shell=False,
-                          cwd=cwd)
+    subprocess.check_call(tar_command, shell=False, cwd=archive_temp,
+                          env={'XZ_DEFAULTS': '-T 0'})  # Enable multithreading
 
-    print(f'Creating tar.xz archive: {archive_path}')
-    subprocess.check_call(tar_command,
-                          env={'XZ_DEFAULTS': '-T 0'},  # Enable multithreading
-                          shell=False,
-                          cwd=cwd)
+    shutil.rmtree(archive_temp)
 
 
 if __name__ == '__main__':
@@ -83,14 +87,14 @@ if __name__ == '__main__':
     shutil.rmtree('vendor', ignore_errors=True)
 
     # Create base archive
-    create_archives('release/nameless-base')
+    create_archives('nameless-base')
 
     # Run npm and composer (production dependencies only)
-    subprocess.check_call(['npm', 'ci', '-q', '--cache', '.node_cache'],
-                          stdout=PIPE)
-    subprocess.check_call(['composer', 'install', '--no-dev', '--no-interaction'],
-                          stdout=PIPE)
-    create_archives('release/nameless-deps-dist')
+    subprocess.check_call(['npm', 'ci', '-q', '--cache', '.node_cache'])
+    subprocess.check_call(['composer', 'update'])
+    subprocess.check_call(['composer', 'install', '--no-dev', '--no-interaction'])
+
+    create_archives('nameless-deps-dist')
 
     # Create archive with files changed since last update
 
@@ -115,9 +119,8 @@ if __name__ == '__main__':
     for vendor_dir in ['vendor', 'core/assets/vendor']:
         shutil.copytree(vendor_dir, Path(upgrade_temp, vendor_dir))
 
-    create_archives('../upgrade-from-' + previous_tag, cwd=upgrade_temp.as_posix())
+    create_archives('upgrade-from-' + previous_tag, archive_source=upgrade_temp.as_posix())
 
     # Run composer again, to install development dependencies
-    subprocess.check_call(['composer', 'install', '--no-interaction'],
-                          stdout=PIPE)
-    create_archives('release/nameless-deps-dev')
+    subprocess.check_call(['composer', 'install', '--no-interaction'])
+    create_archives('nameless-deps-dev')

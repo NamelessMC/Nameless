@@ -49,6 +49,8 @@
 
                             {if count($ALL_PLACEHOLDERS)}
                             <form action="" method="POST">
+                                <input type="hidden" name="action" value="settings">
+
                                 <div class="form-group custom-control custom-switch">
                                     <input name="placeholders_enabled"
                                            id="InputEnablePlaceholders"
@@ -90,6 +92,7 @@
                                                 </th>
                                                 <th class="text-center">{$LEADERBOARD_ENABLED}</th>
                                                 <th class="text-center">{$LEADERBOARD_SETTINGS}</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -132,6 +135,11 @@
                                                             <i class="fas fa-cog"></i>
                                                         </a>
                                                     </td>
+                                                    <td class="text-center">
+                                                        <span class="btn btn-danger text-white" onclick="showDeleteModal('{$placeholder->safe_name}', {$placeholder->server_id})">
+                                                            {$DELETE}
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             {/foreach}
                                         </tbody>
@@ -160,9 +168,54 @@
             <!-- End Content Wrapper -->
         </div>
 
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {$CONFIRM_DELETE_PLACEHOLDER}
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="deleteSafeName" value="">
+                        <input type="hidden" id="deleteServerId" value="">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                        <button type="button" onclick="deletePlaceholder()" class="btn btn-primary">{$YES}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- End Wrapper -->
     </div>
 
+    <script>
+        const showDeleteModal = (placeholder_name, server_id) => {
+            $('#deleteSafeName').attr('value', placeholder_name);
+            $('#deleteServerId').attr('value', server_id);
+            $('#deleteModal').modal().show();
+        }
+
+        const deletePlaceholder = () => {
+            const placeholder_safe_name = $('#deleteSafeName').val();
+            const server_id = $('#deleteServerId').val();
+            const response = $.post("{$DELETE_LINK}", {
+                placeholder_safe_name,
+                server_id,
+                action: 'delete',
+                token: '{$TOKEN}',
+            });
+            response.done((r) => {
+                r === 'Ok'
+                    ? window.location.reload()
+                    : console.error(r);
+            });
+        }
+    </script>
     {include file='scripts.tpl'}
 
 </body>

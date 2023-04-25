@@ -353,7 +353,7 @@ body {
 }
 
 .thumbnails li img {
-    width: 60px;
+    width: 200px;
 }
 
 .dropdown-menu-lg {
@@ -364,7 +364,13 @@ body {
     white-space: normal !important;
 }
 
-.table-hover.dataTables-users tbody tr {
+table.table.dataTable th.hide,
+table.table.dataTable td.hide {
+    display: none;
+}
+
+.table-hover.dataTables-users tbody tr,
+.table-hover.dataTables-queue tbody tr {
     cursor: pointer;
 }
 

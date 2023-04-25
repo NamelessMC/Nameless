@@ -35,7 +35,8 @@ ini_set('display_errors', 0);
 date_default_timezone_set('Europe/London');
 
 // Select language
-if (isset($_SESSION['installer_language'])
+if (
+    isset($_SESSION['installer_language'])
     && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')
 ) {
     $language_short_code = $_SESSION['installer_language'];
@@ -49,7 +50,7 @@ $language = new Language('core', $language_short_code);
 // Get installation path
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
-if (isset($CONFIG['installed']) || (Config::exists() && Config::get('core.installed') === true)) {
+if (Config::exists() && Config::get('core.installed') === true) {
     require(ROOT_PATH . '/core/installation/already_installed.php');
     return;
 }
