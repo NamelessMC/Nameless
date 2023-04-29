@@ -120,7 +120,7 @@
     "forum/posts": "посты",
     "forum/posts_title": "Посты",
     "forum/quote": "Цитировать",
-    "forum/quoted_post": "Пост добавлен к цитируемым сообщениям.",
+    "forum/quoted_post": "Пост цитирован",
     "forum/re": "Ответ: ",
     "forum/read_full_post": "Прочитать весь пост",
     "forum/recent_posts": "Последние посты",
@@ -175,5 +175,11 @@
     "forum/user_object": "Объект пользователя",
     "forum/no_news": "Нету постов новостей.",
     "forum/topic_reply": "Ответ топика",
-    "forum/label_type_in_use": "Тип метки используется, не может быть удалён."
+    "forum/label_type_in_use": "Тип метки используется, не может быть удалён.",
+    "forum/latest_posts_limit": "Ограничение последних сообщений",
+    "forum/latest_posts_widget_cached": "Последние посты виджета кэшируется на одну минуту, ваши изменения могут вступить в силу не сразу.",
+    "forum/most_posts": "Большинство постов",
+    "forum/no_posts_found": "Посты не найдены.",
+    "forum/highest_reaction_scores": "Самые высокие оценки реакции",
+    "forum/reaction_score": "Оценка реакции"
 }
