@@ -1022,7 +1022,7 @@
     "user/users_to_required": "Bitte gib einige Empfänger ein",
     "user/validate_account_command": "Um die Registrierung abzuschließen, führe bitte den Befehl {{command}} ingame aus.",
     "user/validation_complete": "Dein Account wurde verifiziert. Du kannst dich nun anmelden.",
-    "user/validation_error": "Mit deinem Account stimmt etwas nicht. Bitte Benachrichtige einen Administrator.",
+    "user/validation_error": "Ungültiger Validierungscode, ist der Benutzer bereits überprüft worden?",
     "user/view_alerts": "Benachrichtigungen ansehen",
     "user/view_messages": "Nachrichten ansehen",
     "user/views": "Profil-Aufrufe:",
@@ -1269,5 +1269,13 @@
     "installer/select_modules": "Module auswählen",
     "installer/step_select_modules": "Module auswählen",
     "installer/select_modules_details": "Wähle die Module aus, die du für deine Website aktivieren möchtest. Diese können später über das Admin Panel umgeschaltet werden.",
-    "admin/confirm_delete_placeholder": "Bist du sicher, dass du diesen Platzhalter löschen willst?"
+    "admin/confirm_delete_placeholder": "Bist du sicher, dass du diesen Platzhalter löschen willst?",
+    "admin/auto_language_help": "Wenn diese Option aktiviert ist, können Gäste und abgemeldete Benutzer die Website automatisch ihre bevorzugte Sprache erkennen lassen.",
+    "admin/enable_auto_language": "Automatische Spracherkennung aktivieren?",
+    "admin/og_image_reset_successfully": "OG-Image erfolgreich zurückgesetzt.",
+    "admin/og_image_updated_successfully": "OG-Image erfolgreich aktualisiert.",
+    "admin/fallback_og_image_x": "Fallback OG image: {{imageName}}",
+    "admin/image": "Image",
+    "admin/reset_og_image": "OG-Image zurücksetzen",
+    "general/sql_query": "Query"
 }

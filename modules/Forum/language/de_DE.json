@@ -38,7 +38,6 @@
     "forum/forum_icon": "Forum Icon",
     "forum/forum_icon_maximum": "Das Foren-Icon darf maximal 256 Zeichen lang sein.",
     "forum/forum_index": "Startseite",
-    "forum/forum_layout": "Forum Layout",
     "forum/forum_name": "Forum Name",
     "forum/forum_name_maximum": "Der Forenname darf maximal 150 Zeichen lang sein.",
     "forum/forum_name_minimum": "Der Forenname muss mindestens 2 Zeichen lang sein.",
@@ -181,5 +180,6 @@
     "forum/latest_posts_limit": "Letzte Beiträge begrenzen",
     "forum/highest_reaction_scores": "Höchster Reaktionsanzahl",
     "forum/most_posts": "Die meisten Beiträge",
-    "forum/reaction_score": "Reaktionsanzahl"
+    "forum/reaction_score": "Reaktionsanzahl",
+    "forum/no_posts_found": "Keine Beiträge gefunden."
 }
