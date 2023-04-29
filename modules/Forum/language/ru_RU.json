@@ -40,7 +40,6 @@
     "forum/forum_icon": "Иконка форума",
     "forum/forum_icon_maximum": "Иконка форума не должна содержать более чем 256 симвлдлв.",
     "forum/forum_index": "Главная",
-    "forum/forum_layout": "Стиль форума",
     "forum/forum_name": "Название форума",
     "forum/forum_name_maximum": "Название форума должно содержать не более 150 символов.",
     "forum/forum_name_minimum": "Название форума должно состоять не менее чем из 2 символов.",

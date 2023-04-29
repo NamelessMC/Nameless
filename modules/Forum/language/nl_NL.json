@@ -29,7 +29,6 @@
     "forum/forum_description": "Forum beschrijving",
     "forum/forum_description_maximum": "De forum beschrijving moet uit maximaal 255 karakters bestaan.",
     "forum/forum_index": "Start",
-    "forum/forum_layout": "Forum layout",
     "forum/forum_name": "Forum naam",
     "forum/forum_name_maximum": "De forumnaam moet uit maximaal 150 karakters bestaan.",
     "forum/forum_name_minimum": "De forum naam moet uit minimaal 2 karakters bestaan.",

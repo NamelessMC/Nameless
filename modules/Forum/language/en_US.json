@@ -40,7 +40,6 @@
     "forum/forum_icon": "Forum Icon",
     "forum/forum_icon_maximum": "The forum icon must be a maximum of 256 characters.",
     "forum/forum_index": "Home",
-    "forum/forum_layout": "Forum Layout",
     "forum/forum_name": "Forum Name",
     "forum/forum_name_maximum": "The forum name must be a maximum of 150 characters.",
     "forum/forum_name_minimum": "The forum name must be a minimum of 2 characters.",

@@ -30,7 +30,6 @@
     "forum/forum_description": "Опис форуму",
     "forum/forum_icon": "Іконка форуму",
     "forum/forum_index": "Головна",
-    "forum/forum_layout": "Стиль форума",
     "forum/forum_name": "Назва форуму",
     "forum/forum_name_maximum": "Назва форуму має містити не більше 150 символів.",
     "forum/forum_name_minimum": "Назва форуму має складатися не менше ніж із 2 символів.",

@@ -40,7 +40,6 @@
     "forum/forum_icon": "Icono del Foro",
     "forum/forum_icon_maximum": "El icono del foro debe tener un máximo de 256 caracteres.",
     "forum/forum_index": "Inicio",
-    "forum/forum_layout": "Diseño del Foro",
     "forum/forum_name": "Nombre del Foro",
     "forum/forum_name_maximum": "El nombre del foro debe de tener un máximo de 150 caracteres.",
     "forum/forum_name_minimum": "El nombre del foro debe de tener un mínimo de 2 caracteres.",
