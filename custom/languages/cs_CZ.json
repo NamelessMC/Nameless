@@ -395,7 +395,7 @@
     "admin/placeholders": "Placeholdery",
     "admin/placeholders_friendly_name": "Přátelský název",
     "admin/placeholders_friendly_name_info": "Toto použijte pro nastavení 'přezdívky' tohoto placeholderu. Přátelský název bude použit místo holého názvu.",
-    "admin/placeholders_info": "Placeholdery umožňují NamelessMC Spigot pluginu posílat statistiky o každém hráči na váš web, takže můžou být zobrazeny na jejich profilu a příspěvcích ve fóru.",
+    "admin/placeholders_info": "Placeholdery umožňují pluginu NamelessMC posílat statistiky o každém hráči na váš web, takže můžou být zobrazeny na jejich profilu a příspěvcích ve fóru.",
     "admin/placeholders_last_updated": "Naposledy aktualizováno",
     "admin/placeholders_name": "Název",
     "admin/placeholders_none": "Nemáte žádné placeholdery.",
@@ -1047,7 +1047,7 @@
     "user/users_to_required": "Zadejte příjemce zprávy",
     "user/validate_account_command": "Pro dokončení registrace zadejte ve hře příkaz {{command}}.",
     "user/validation_complete": "Váš účet byl ověřen, nyní se můžete přihlásit.",
-    "user/validation_error": "Při ověřování vašeho účtu se vyskytla neznámá chyba, kontaktujte prosím správce webu.",
+    "user/validation_error": "Neplatný ověřovací kód, nebyl uživatel již ověřen?",
     "user/view_alerts": "Zobrazit upozornění",
     "user/view_messages": "Zobrazit zprávy",
     "user/views": "Zobrazení profilu:",
@@ -1268,5 +1268,14 @@
     "installer/select_modules_details": "Vyberte doplňky, které chcete povolit na vašem webu. Později je lze zapnout či vypnout v administračním panelu.",
     "installer/step_select_modules": "Vybrat doplňky",
     "installer/module_core_description": "Tento doplněk je vyžadován pro správnou funkčnost NamelessMC.",
-    "installer/module_discord-integration_description": "Umožňuje uživatelům propojit si svůj Discord účet s jejich účtem na webu a provádět různé synchronizační akce."
+    "installer/module_discord-integration_description": "Umožňuje uživatelům propojit si svůj Discord účet s jejich účtem na webu a provádět různé synchronizační akce.",
+    "admin/auto_language_help": "Pokud je tato možnost povolena, mohou hosté a odhlášení uživatelé nechat web automaticky rozpoznat jejich preferovaný jazyk.",
+    "admin/enable_auto_language": "Povolit automatickou detekci jazyka?",
+    "admin/og_image_reset_successfully": "Původní obrázek úspěšně resetován.",
+    "admin/og_image_updated_successfully": "Původní obrázek úspěšně upraven.",
+    "admin/fallback_og_image_x": "Náhradní původní obrázek: {{imageName}}",
+    "admin/image": "Obrázek",
+    "admin/reset_og_image": "Obnovit původní obrázek",
+    "general/sql_query": "Query",
+    "admin/confirm_delete_placeholder": "Opravdu chcete odstranit tento placeholder?"
 }
