@@ -96,7 +96,6 @@
     "forum/new_reply_in_topic": "{{author}} hat auf das Thema {{topic}} geantwortet",
     "forum/new_search": "Neue Suche",
     "forum/new_topic": "Neues Thema",
-    "forum/new_topic_hook_info": "Neues Thema",
     "forum/new_topic_text": "Thema in {{forum}} von {{author}} erstellt",
     "forum/no_forums": "Keine Foren",
     "forum/no_label_types_defined": "Es wurden bisher keine Label-Typen definiert.",

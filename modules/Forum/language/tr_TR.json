@@ -94,7 +94,6 @@
     "forum/new_reply_in_topic": "{{author}}, {{topic}} konusunu yanıtladı",
     "forum/new_search": "Yeni Arama",
     "forum/new_topic": "Yeni Konu Aç..",
-    "forum/new_topic_hook_info": "Yeni konu aç",
     "forum/new_topic_text": "{{forum}} tarafından {{author}} tarafından oluşturulan konu",
     "forum/no_forums": "Forum Yok",
     "forum/no_label_types_defined": "Henüz hiçbir etiket türü eklenmedi!",

@@ -99,7 +99,6 @@
     "forum/new_reply_in_topic": "{{author}} ha respondido al tema {{topic}}",
     "forum/new_search": "Nueva búsqueda",
     "forum/new_topic": "Nuevo tema",
-    "forum/new_topic_hook_info": "Nuevo tema",
     "forum/new_topic_text": "Tema creado en {{forum}} por {{author}}",
     "forum/no_forums": "No hay foros",
     "forum/no_label_types_defined": "Todavía no se ha definido ningún tipo de etiqueta.",

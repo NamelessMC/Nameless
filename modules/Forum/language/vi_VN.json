@@ -101,7 +101,6 @@
     "forum/new_reply_in_topic": "{{author}} đã phản hồi chủ đề {{topic}}",
     "forum/new_search": "Tìm kiếm mới",
     "forum/new_topic": "Chủ đề mới",
-    "forum/new_topic_hook_info": "Chủ đề mới",
     "forum/new_topic_text": "Chủ đề được tạo trong {{forum}} bởi {{author}}",
     "forum/no_forums": "Không có diễn đàn",
     "forum/no_label_types_defined": "Chưa có loại nhãn nào được xác định.",

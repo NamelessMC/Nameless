@@ -99,7 +99,6 @@
     "forum/new_reply_in_topic": "{{author}} が {{topic}} に返信しました。",
     "forum/new_search": "新しい検索",
     "forum/new_topic": "新しいトピック",
-    "forum/new_topic_hook_info": "新しいトピック",
     "forum/new_topic_text": "{{author}} が {{forum}} にトピックを作成しました。",
     "forum/no_forums": "フォーラムなし",
     "forum/no_label_types_defined": "ラベルタイプはまだ定義されていません。",

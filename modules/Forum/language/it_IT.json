@@ -94,7 +94,6 @@
     "forum/new_reply_in_topic": "{{author}} ha risposto alla discussione {{topic}}",
     "forum/new_search": "Nuova ricerca",
     "forum/new_topic": "Nuova discussione",
-    "forum/new_topic_hook_info": "Nuova discussione",
     "forum/new_topic_text": "Discussione creata in {{forum}} da {{author}}",
     "forum/no_forums": "Nessun forum",
     "forum/no_label_types_defined": "Nessun tipo di etichetta è stato ancora definito.",

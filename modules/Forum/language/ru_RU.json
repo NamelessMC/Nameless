@@ -99,7 +99,6 @@
     "forum/new_reply_in_topic": "{{author}} ответил(а) в топике {{topic}}",
     "forum/new_search": "Новый поиск",
     "forum/new_topic": "Новый топик",
-    "forum/new_topic_hook_info": "Новый топик",
     "forum/new_topic_text": "Создан топик {{forum}} пользователем {{author}}",
     "forum/no_forums": "Нет форумов",
     "forum/no_label_types_defined": "Типы меток ещё не созданы.",

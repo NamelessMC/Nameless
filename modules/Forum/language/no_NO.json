@@ -94,7 +94,6 @@
     "forum/new_reply_in_topic": "{{author}} har svart på tråden {{topic}}",
     "forum/new_search": "Nytt søk",
     "forum/new_topic": "Ny tråd",
-    "forum/new_topic_hook_info": "Ny tråd",
     "forum/new_topic_text": "Tråd opprettet i {{forum}} av {{author}}",
     "forum/no_forums": "Ingen forum",
     "forum/no_label_types_defined": "Ingen etikettyper er definert.",

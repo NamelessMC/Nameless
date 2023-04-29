@@ -98,7 +98,6 @@
     "forum/new_reply_in_topic": "{{author}} har svarat på ämnet {{topic}}",
     "forum/new_search": "Ny sökning",
     "forum/new_topic": "Nytt ämne",
-    "forum/new_topic_hook_info": "Nytt ämne",
     "forum/new_topic_text": "Ämne skapat i {{forum}} av {{author}}",
     "forum/no_forums": "Inga forum",
     "forum/no_label_types_defined": "Inga etiketttyper har definierats ännu.",

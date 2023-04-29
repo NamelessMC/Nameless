@@ -93,7 +93,6 @@
     "forum/new_reply_in_topic": "{{author}} dodał odpowiedź do tematu {{topic}}",
     "forum/new_search": "Nowe wyszukiwanie",
     "forum/new_topic": "Nowy temat",
-    "forum/new_topic_hook_info": "Nowy temat",
     "forum/new_topic_text": "Temat został stworzony w {{forum}} przez {{author}}",
     "forum/no_forums": "Brak forów",
     "forum/no_label_types_defined": "Nie stworzono jeszcze żadnych typów etykiet.",

@@ -92,7 +92,6 @@
     "forum/new_reply_in_topic": "{{author}} a răspuns la subiectul {{topic}}",
     "forum/new_search": "Efectuați o nouă căutare",
     "forum/new_topic": "Subiect nou",
-    "forum/new_topic_hook_info": "Subiect nou",
     "forum/new_topic_text": "Subiect creat în {{forum}} de {{author}}",
     "forum/no_forums": "Momentan nu este utilizată pe nici un forum.",
     "forum/no_label_types_defined": "Nu au fost definite încă tipuri de etichete.",

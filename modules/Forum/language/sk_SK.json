@@ -99,7 +99,6 @@
     "forum/new_reply_in_topic": "{{author}} odpovedal/a na {{topic}}",
     "forum/new_search": "Nové vyhľadávanie",
     "forum/new_topic": "Nová téma",
-    "forum/new_topic_hook_info": "Nová téma",
     "forum/new_topic_text": "Téma vytvorená v {{forum}} od {{author}}",
     "forum/no_forums": "Žiadne fóra",
     "forum/no_label_types_defined": "Zatiaľ nie sú definované žiadne typy štítkov.",

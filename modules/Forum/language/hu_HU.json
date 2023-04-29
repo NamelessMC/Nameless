@@ -113,7 +113,6 @@
     "forum/new_reply_in_topic": "{{author}} válaszolt a következő témára: {{topic}}",
     "forum/new_search": "Új Keresés",
     "forum/new_topic": "Új Téma",
-    "forum/new_topic_hook_info": "Új Téma",
     "forum/new_topic_text": "A téma létrehozva itt {{forum}}, {{author}} által",
     "forum/no_forums": "Nincs Fórum",
     "forum/no_label_types_defined": "Még nincs meghatározva címketípus.",

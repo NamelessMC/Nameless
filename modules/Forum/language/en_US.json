@@ -99,7 +99,6 @@
     "forum/new_reply_in_topic": "{{author}} has replied to topic {{topic}}",
     "forum/new_search": "New Search",
     "forum/new_topic": "New Topic",
-    "forum/new_topic_hook_info": "New topic",
     "forum/new_topic_text": "Topic created in {{forum}} by {{author}}",
     "forum/no_forums": "No forums",
     "forum/no_label_types_defined": "No label types have been defined yet.",

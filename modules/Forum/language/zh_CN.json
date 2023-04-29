@@ -94,7 +94,6 @@
     "forum/new_reply_in_topic": "{{author}} 回复了主题 {{topic}}",
     "forum/new_search": "新的搜索",
     "forum/new_topic": "新话题",
-    "forum/new_topic_hook_info": "新的话题",
     "forum/new_topic_text": "话题创建于 {{forum}} 创建者 {{author}}",
     "forum/no_forums": "没有论坛",
     "forum/no_label_types_defined": "没有被定义的标签种类。",
