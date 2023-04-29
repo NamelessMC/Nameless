@@ -30,7 +30,7 @@ class DiscordHook implements WebhookDispatcher {
             $name,
             $format,
             $params,
-        ))['format'];
+        ))->format;
 
         if (is_array($return) && isset($return['webhook'])) {
             unset($return['webhook']);

@@ -109,9 +109,9 @@ class EventHandler {
      *
      * @param AbstractEvent|string $event Event name to call, or instance of event to execute.
      * @param array $params Params to pass to the event's function, not required when a class-based event is used.
-     * @return array|null Response of lissteners, can be any type or null
+     * @return array|null|AbstractEvent Response of listeners, can be any type or null
      */
-    public static function executeEvent($event, array $params = []): ?array {
+    public static function executeEvent($event, array $params = []) {
         if ($event instanceof AbstractEvent) {
             $name = $event::name();
             $params = $event->params();
@@ -197,7 +197,7 @@ class EventHandler {
             }
         }
 
-        return $params;
+        return $event instanceof AbstractEvent ? $event : $params;
     }
 
     /**
