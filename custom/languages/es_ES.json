@@ -1212,7 +1212,6 @@
     "general/unable_to_load_widget": "No se pudo cargar el widget",
     "general/namelessmc_support": "Soporte de NamelessMC",
     "general/namelessmc_documentation": "Documentación de NamelessMC",
-    "user/profile_post_reply_title": "Título de respuesta de publicación de perfil",
     "general/sql_query": "Query",
     "admin/user_banned_webhook": "{{punished}} ha sido prohibido del sitio web por {{punisher}}.",
     "admin/user_warned_webhook": "{{punished}} ha sido advertido por {{punisher}}.",
