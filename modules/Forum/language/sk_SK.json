@@ -176,5 +176,12 @@
     "forum/topic_id": "ID témy",
     "forum/user_object": "Používateľský objekt",
     "forum/latest_posts_limit": "Limit najnovších príspevkov",
-    "forum/latest_posts_widget_cached": "Widget najnovších príspevkov je uložený vo vyrovnávacej pamäti na jednu minútu, vaše zmeny sa nemusia prejaviť okamžite."
+    "forum/latest_posts_widget_cached": "Widget najnovších príspevkov je uložený vo vyrovnávacej pamäti na jednu minútu, vaše zmeny sa nemusia prejaviť okamžite.",
+    "forum/news_items_max": "Počet noviniek by mal byť aspoň {{max}}",
+    "forum/news_items_min": "Počet noviniek by mal byť aspoň {{min}}",
+    "forum/no_posts_found": "Žiadne príspevky neboli nájdené.",
+    "forum/most_posts": "Najviac príspevkov",
+    "forum/news_items_front_page_limit": "Počet noviniek zobrazujúcich sa na hlavnej stránke",
+    "forum/reaction_score": "Reakčné skóre",
+    "forum/highest_reaction_scores": "Najvyššie reakčné skóre"
 }
