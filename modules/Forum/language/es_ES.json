@@ -40,7 +40,6 @@
     "forum/forum_icon": "Icono del Foro",
     "forum/forum_icon_maximum": "El icono del foro debe tener un máximo de 256 caracteres.",
     "forum/forum_index": "Inicio",
-    "forum/forum_layout": "Disposición del foro",
     "forum/forum_name": "Nombre del foro",
     "forum/forum_name_maximum": "El nombre del foro debe tener un máximo de 150 caracteres.",
     "forum/forum_name_minimum": "El nombre del foro debe tener un mínimo de 2 caracteres.",
@@ -121,7 +120,7 @@
     "forum/posts": "mensajes",
     "forum/posts_title": "Mensajes",
     "forum/quote": "Citar",
-    "forum/quoted_post": "Se ha añadido un mensaje a los mensajes citados.",
+    "forum/quoted_post": "Publicación citada",
     "forum/re": "RE: ",
     "forum/read_full_post": "Leer el tema completo",
     "forum/recent_posts": "Mensajes recientes",
@@ -178,5 +177,12 @@
     "forum/label_type_in_use": "Se está utilizando el tipo de etiqueta, no se puede borrar.",
     "forum/topic_reply": "Respuesta del tema",
     "forum/latest_posts_widget_cached": "El widget de las últimas publicaciones se almacena en caché durante un minuto, es posible que sus cambios no surtan efecto de inmediato.",
-    "forum/latest_posts_limit": "Límite de las últimas publicaciones"
+    "forum/latest_posts_limit": "Límite de las últimas publicaciones",
+    "forum/no_posts_found": "No se encontraron publicaciones.",
+    "forum/most_posts": "Más publicaciones",
+    "forum/highest_reaction_scores": "Puntuaciones de reacciones más altas",
+    "forum/reaction_score": "Puntuación de reacción",
+    "forum/news_items_front_page_limit": "Número de noticias a mostrar en la página principal",
+    "forum/news_items_max": "El número de noticias debe ser al menos {{max}}",
+    "forum/news_items_min": "El número de noticias debe ser como mínimo {{min}}"
 }
