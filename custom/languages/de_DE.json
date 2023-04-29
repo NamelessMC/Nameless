@@ -724,7 +724,7 @@
     "installer/install": "Installieren",
     "installer/installer_information": "Das Installationsprogramm wird dich durch den Installationsprozess leiten.",
     "installer/installer_now_initialising_database": "Der Installationsassistent initialisiert nun die Datenbank. Das kann eine kleine Weile dauern...",
-    "installer/installer_welcome": "Willkommen bei NamelessMC Version 2.0",
+    "installer/installer_welcome": "Willkommen bei NamelessMC Version 2",
     "installer/language": "Sprache",
     "installer/no": "Nein",
     "installer/no_converters_available": "Es sind keine Konverter verfügbar.",
@@ -1316,5 +1316,9 @@
     "admin/queue_task_status": "Status",
     "user/log_in_with": "Anmelden mit {{provider}}",
     "user/continue_with": "Weiter mit {{provider}}",
-    "admin/render_profile_post_hook_info": "Profilpfosten darstellen"
+    "admin/render_profile_post_hook_info": "Profilpfosten darstellen",
+    "admin/discord_hook": "Discord",
+    "admin/event_supports_discord": "Dieses Ereignis unterstützt Discord-Webhooks und hat eine eigene Einbettung.",
+    "admin/event_supports_normal": "Dieses Ereignis unterstützt normale Webhooks.",
+    "general/registration_disabled_message_fallback": "Die Registrierung ist derzeit deaktiviert."
 }
