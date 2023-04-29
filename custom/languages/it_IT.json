@@ -1309,5 +1309,6 @@
     "installer/email_min_max": "Assicurati che la lunghezza del tuo indirizzo mail sia compresa tra {{minEmail}} e {{maxEmail}} caratteri.",
     "installer/email_required": "Inserisci un indirizzo mail valido.",
     "installer/password_min_max": "Assicurati che la lunghezza della password sia compresa tra {{minPassword}} e {{maxPassword}} caratteri.",
-    "installer/password_required": "Inserisci una password valida."
+    "installer/password_required": "Inserisci una password valida.",
+    "admin/queue_runner_one_of": "Seleziona un valore valido per il gestore della coda"
 }
