@@ -181,5 +181,8 @@
     "forum/highest_reaction_scores": "Nejvyšší reakční skóre",
     "forum/reaction_score": "Reakční skóre",
     "forum/most_posts": "Nejvíce příspěvků",
-    "forum/no_posts_found": "Nenalezeny žádné příspěvky."
+    "forum/no_posts_found": "Nenalezeny žádné příspěvky.",
+    "forum/news_items_max": "Počet novinek by měl být maximálně {{max}}",
+    "forum/news_items_min": "Počet novinek by měl být alespoň {{min}}",
+    "forum/news_items_front_page_limit": "Počet novinek, které mají být zobrazeny na hlavní stránce"
 }
