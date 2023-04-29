@@ -35,7 +35,6 @@
     "forum/forum_icon": "Icona del forum",
     "forum/forum_icon_maximum": "L'icona del forum deve avere un massimo di 256 caratteri.",
     "forum/forum_index": "Home",
-    "forum/forum_layout": "Layout del forum",
     "forum/forum_name": "Nome del forum",
     "forum/forum_name_maximum": "Il nome del forum deve contenere un massimo di 150 caratteri.",
     "forum/forum_name_minimum": "Il nome del forum deve contenere almeno 2 caratteri.",
@@ -178,5 +177,9 @@
     "forum/label_type_in_use": "Il tipo di etichetta è in uso, non può essere eliminato.",
     "forum/unfollow_all_topics": "Smetti di seguire tutti gli argomenti",
     "forum/latest_posts_widget_cached": "Il widget degli gli ultimi post è in cache per un minuto, le tue modifiche potrebbero non avere effetto immediato.",
-    "forum/latest_posts_limit": "Limite Ultimi Posts"
+    "forum/latest_posts_limit": "Limite Ultimi Posts",
+    "forum/no_posts_found": "Nessun post trovato.",
+    "forum/highest_reaction_scores": "Punteggi reazioni più alti",
+    "forum/most_posts": "Maggior numero di post",
+    "forum/reaction_score": "Punteggio reazioni"
 }

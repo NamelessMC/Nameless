@@ -969,7 +969,7 @@
     "user/users_to_required": "Si prega di inserire i destinatari del messaggio",
     "user/validate_account_command": "Per completare la registrazione, per favore esegui in gioco il comando {{command}}.",
     "user/validation_complete": "Il tuo account è stato convalidato, ora puoi effettuare il login.",
-    "user/validation_error": "Si è verificato un errore sconosciuto durante la convalida del tuo account, contatta l'amministratore del sito web.",
+    "user/validation_error": "Codice di verifica non valido. L'utente potrebbe essere già verificato?",
     "user/view_alerts": "Visualizza avvisi",
     "user/view_messages": "Visualizza i messaggi",
     "user/views": "Visualizzazioni del profilo:",
@@ -1223,7 +1223,7 @@
     "api/webhook_added": "Il webhook è stato creato",
     "general/problem_loading_widget": "C’è stato un problema nel caricamento del widget {{widget}}",
     "general/unable_to_load_widget": "Impossibile caricare il widget",
-    "general/sql_query": "Query SQL",
+    "general/sql_query": "Query",
     "admin/panel_template_third_party": "Il template del pannello {{name}} è un modello di terze parti. Tieni presente che la compatibilità delle versioni non è garantita tra gli aggiornamenti minori di NamelessMC e i problemi o bug devono essere segnalati all'autore del modello.",
     "user/username_already_exists": "Il nome utente selezionato esiste già.",
     "admin/unable_to_load_module": "Errore {{message}} nel modulo {{module}}.",
@@ -1269,5 +1269,13 @@
     "installer/select_modules_details": "Seleziona i moduli che vorresti attivare sul tuo sito. Puoi abilitarli o disattivarli in un secondo momento dal pannello admin.",
     "installer/step_select_modules": "Seleziona Moduli",
     "installer/module_core_description": "Questo modulo è necessario per il corretto funzionamento di NamelessMC.",
-    "installer/module_discord-integration_description": "Permetti agli utenti di collegare il loro account Discord al sito per varie funzionalità di sincronizzazione."
+    "installer/module_discord-integration_description": "Permetti agli utenti di collegare il loro account Discord al sito per varie funzionalità di sincronizzazione.",
+    "admin/auto_language_help": "Se abilitato, gli ospiti e gli utenti disconnessi saranno in grado di consentire al sito di rilevare automaticamente la loro lingua preferita.",
+    "admin/confirm_delete_placeholder": "Sei sicuro di voler eliminare questo placeholder?",
+    "admin/enable_auto_language": "Vuoi abilitare il rilevamento automatico della lingua?",
+    "admin/og_image_reset_successfully": "Ripristino immagine OG effettuato correttamente.",
+    "admin/og_image_updated_successfully": "Immagine GO caricata correttamente.",
+    "admin/fallback_og_image_x": "Immagine OG di riserva: {{imageName}}",
+    "admin/image": "Immagine",
+    "admin/reset_og_image": "Resetta l'immagine OG"
 }
