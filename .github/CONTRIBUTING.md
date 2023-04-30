@@ -40,7 +40,7 @@ Here are some things you should know when contributing:
       ```
 
 ## Versioning
-As of NamelessMC 2.0.0 (to be released at time of writing), we use a unique versioning system.
+As of NamelessMC 2.0.0, we use a unique versioning system.
 Similar to [semver](https://semver.org), we follow the `major.minor.patch` versioning pattern, however there are a few things to note:
 - We use the naming `constant.major.patch` compared to semver.
 - The `constant` version is pinned at `2` for the time being.
