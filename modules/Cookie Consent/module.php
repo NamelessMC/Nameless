@@ -57,7 +57,7 @@ class CookieConsent_Module extends Module {
 
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
-            'admincp.cookies' => $language->get('admin', 'cookies')
+            'admincp.cookies' => $this->_cookie_language->get('cookie', 'cookies')
         ]);
 
         // Sitemap
