@@ -49,7 +49,7 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         $type = $_POST['type'];
         $events = $_POST['events'];
 
-        if (!in_array($type, ['normal', 'discord'])) {
+        if (!in_array($type, ['1', '2'])) {
             $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_TYPE);
         }
 

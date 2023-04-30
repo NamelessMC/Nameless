@@ -71,9 +71,9 @@ class Queue {
 
         $pendingTasks = DB::getInstance()->query(
             <<<SQL
-            SELECT `id`, `task`, `name`, `attempts`, `output`
-            FROM nl2_queue
-            WHERE scheduled_for <= ? AND status IN (?, ?)
+            SELECT `nl2_queue`.`id`, `nl2_queue`.`task`, `nl2_queue`.`name`, `nl2_queue`.`attempts`, `nl2_queue`.`output`
+            FROM nl2_queue LEFT JOIN nl2_modules ON module_id=nl2_modules.id
+            WHERE nl2_modules.enabled = 1 AND scheduled_for <= ? AND status IN (?, ?)
             ORDER BY scheduled_for
             LIMIT 5
             SQL,
