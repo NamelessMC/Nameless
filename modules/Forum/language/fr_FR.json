@@ -29,7 +29,6 @@
     "forum/forum_description": "Description du forum",
     "forum/forum_description_maximum": "La description du forum doit avoir 255 charactères au maximun.",
     "forum/forum_index": "Accueil",
-    "forum/forum_layout": "Mise en page du forum",
     "forum/forum_name": "Nom du forum",
     "forum/forum_name_maximum": "Le nom du forum doit avoir 150 charactères au maximun.",
     "forum/forum_name_minimum": "Le nom du forum doit avoir 2 charactères au minimun.",

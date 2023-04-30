@@ -40,7 +40,6 @@
     "forum/forum_icon": "Ikona fóra",
     "forum/forum_icon_maximum": "Ikona fóra môže mať maximálne 256 znakov.",
     "forum/forum_index": "Domov",
-    "forum/forum_layout": "Rozloženie fóra",
     "forum/forum_name": "Názov fóra",
     "forum/forum_name_maximum": "Názov fóra môže mať maximálne 150 znakov.",
     "forum/forum_name_minimum": "Názov fóra musí mať minimálne 2 znaky.",
@@ -100,7 +99,6 @@
     "forum/new_reply_in_topic": "{{author}} odpovedal/a na {{topic}}",
     "forum/new_search": "Nové vyhľadávanie",
     "forum/new_topic": "Nová téma",
-    "forum/new_topic_hook_info": "Nová téma",
     "forum/new_topic_text": "Téma vytvorená v {{forum}} od {{author}}",
     "forum/no_forums": "Žiadne fóra",
     "forum/no_label_types_defined": "Zatiaľ nie sú definované žiadne typy štítkov.",
@@ -178,5 +176,12 @@
     "forum/topic_id": "ID témy",
     "forum/user_object": "Používateľský objekt",
     "forum/latest_posts_limit": "Limit najnovších príspevkov",
-    "forum/latest_posts_widget_cached": "Widget najnovších príspevkov je uložený vo vyrovnávacej pamäti na jednu minútu, vaše zmeny sa nemusia prejaviť okamžite."
+    "forum/latest_posts_widget_cached": "Widget najnovších príspevkov je uložený vo vyrovnávacej pamäti na jednu minútu, vaše zmeny sa nemusia prejaviť okamžite.",
+    "forum/news_items_max": "Počet noviniek by mal byť aspoň {{max}}",
+    "forum/news_items_min": "Počet noviniek by mal byť aspoň {{min}}",
+    "forum/no_posts_found": "Žiadne príspevky neboli nájdené.",
+    "forum/most_posts": "Najviac príspevkov",
+    "forum/news_items_front_page_limit": "Počet noviniek zobrazujúcich sa na hlavnej stránke",
+    "forum/reaction_score": "Reakčné skóre",
+    "forum/highest_reaction_scores": "Najvyššie reakčné skóre"
 }

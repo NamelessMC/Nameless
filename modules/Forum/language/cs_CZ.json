@@ -40,7 +40,6 @@
     "forum/forum_icon": "Ikona fóra",
     "forum/forum_icon_maximum": "Ikona fóra musí mít maximálně 256 znaků.",
     "forum/forum_index": "Domov",
-    "forum/forum_layout": "Rozložení fóra",
     "forum/forum_name": "Název fóra",
     "forum/forum_name_maximum": "Jméno fóra musí mít maximálně 150 znaků.",
     "forum/forum_name_minimum": "Jméno fóra musí mít nejméně 2 znaky.",
@@ -100,7 +99,6 @@
     "forum/new_reply_in_topic": "Uživatel {{author}} odpověděl na téma {{topic}}",
     "forum/new_search": "Nové hledání",
     "forum/new_topic": "Nové téma",
-    "forum/new_topic_hook_info": "Nové téma",
     "forum/new_topic_text": "Téma vytvořeno v {{forum}} od {{author}}",
     "forum/no_forums": "Žádná fóra",
     "forum/no_label_types_defined": "Dosud nebyly definovány žádné typy štítků.",
@@ -181,5 +179,9 @@
     "forum/latest_posts_widget_cached": "Widget nejnovějších příspěvků je uložen v mezipaměti po dobu jedné minuty, vaše změny se nemusí projevit okamžitě.",
     "forum/highest_reaction_scores": "Nejvyšší reakční skóre",
     "forum/reaction_score": "Reakční skóre",
-    "forum/most_posts": "Nejvíce příspěvků"
+    "forum/most_posts": "Nejvíce příspěvků",
+    "forum/no_posts_found": "Nenalezeny žádné příspěvky.",
+    "forum/news_items_max": "Počet novinek by měl být maximálně {{max}}",
+    "forum/news_items_min": "Počet novinek by měl být alespoň {{min}}",
+    "forum/news_items_front_page_limit": "Počet novinek, které mají být zobrazeny na hlavní stránce"
 }
