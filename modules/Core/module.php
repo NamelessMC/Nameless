@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -121,7 +121,7 @@ class Core_Module extends Module {
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));
 
-        if (Util::getSetting('queue_runner') == 'ajax') {
+        if (Util::getSetting('queue_runner', 'ajax') == 'ajax') {
             $pages->addAjaxScript(URL::build('/queries/queue'));
         }
 

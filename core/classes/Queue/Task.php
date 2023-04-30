@@ -7,6 +7,9 @@
  * @version 2.1.0
  * @license MIT
  */
+
+use \DI\Container;
+
 abstract class Task {
     /**
      * Cancelled status
@@ -114,6 +117,11 @@ abstract class Task {
     private ?int $_userId;
 
     /**
+     * @var Container Dependency container
+     */
+    protected Container $_container;
+
+    /**
      * Initialise new empty task
      */
     public function __construct() {
@@ -132,7 +140,7 @@ abstract class Task {
         if ($task->count()) {
             $task = $task->first();
             $this->_attempts = $task->attempts;
-            $this->_data = json_decode($task->data ?? '[]');
+            $this->_data = json_decode($task->data ?? '[]', true);
             $this->_entity = $task->entity;
             $this->_entityId = $task->entity_id;
             $this->_executedAt = $task->executed_at;
@@ -142,7 +150,7 @@ abstract class Task {
             $this->_id = $task->id;
             $this->_moduleId = $task->module_id;
             $this->_name = $task->name;
-            $this->_output = json_decode($task->output ?? '[]');
+            $this->_output = json_decode($task->output ?? '[]', true);
             $this->_scheduledFor = $task->scheduled_for;
             $this->_status = $task->status;
             $this->_task = $task->task;
@@ -221,6 +229,14 @@ abstract class Task {
      */
     public function setOutput(array $output = []) {
         $this->_output = $output;
+    }
+
+    /**
+     * @param Container $container
+     * @return void
+     */
+    public function setContainer(Container $container) {
+        $this->_container = $container;
     }
 
     /**

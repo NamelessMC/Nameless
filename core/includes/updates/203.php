@@ -24,6 +24,9 @@ return new class extends UpgradeScript {
         // Forum post conversion
         ConvertForumPostTask::schedule();
 
+        // Sitemap generation
+        GenerateSitemap::schedule(new Language('Core', 'en_UK'));
+
         // Add all groups to member list selectable groups
         Util::setSetting('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
 
