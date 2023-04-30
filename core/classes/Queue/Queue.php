@@ -7,6 +7,9 @@
  * @version 2.1.0
  * @license MIT
  */
+
+use \DI\Container;
+
 class Queue {
     /**
      * Schedule a task
@@ -58,9 +61,12 @@ class Queue {
 
     /**
      * Process the next 5 tasks in the queue
+     *
+     * @param Container $container Dependency injection container
+     *
      * @return array Processed tasks
      */
-    public static function process(): array {
+    public static function process(Container $container): array {
         $db = DB::getInstance();
 
         $pendingTasks = DB::getInstance()->query(
@@ -104,6 +110,7 @@ class Queue {
                     try {
                         /** @var Task $instance */
                         $instance = (new $task['task'])->fromId($id);
+                        $instance->setContainer($container);
 
                         $status = $instance->run();
                         $output = $instance->getOutput();

@@ -2,10 +2,22 @@
 /**
  * Queue query runs any pending tasks
  *
- * @var $cache
+ * @var Cache $cache
+ * @var \DI\Container $container
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 header('Content-type: application/json;charset=utf-8');
+
+define('PAGE', 'queue_query');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // TODO: mixed type for $output when PHP 8.0+
 function return_json($output, ?bool $error = false) {
@@ -40,7 +52,12 @@ if ($last_run && $diff > 0) {
 // Update last run immediately
 $cache->store('last_run', $date);
 
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+$template->onPageLoad();
+
 // Process queue
-$tasks = Queue::process();
+$tasks = Queue::process($container);
 
 return_json($tasks);

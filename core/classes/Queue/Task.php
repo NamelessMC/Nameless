@@ -7,6 +7,9 @@
  * @version 2.1.0
  * @license MIT
  */
+
+use \DI\Container;
+
 abstract class Task {
     /**
      * Cancelled status
@@ -112,6 +115,11 @@ abstract class Task {
      * @var ?int User ID that created the task
      */
     private ?int $_userId;
+
+    /**
+     * @var Container Dependency container
+     */
+    protected Container $_container;
 
     /**
      * Initialise new empty task
@@ -221,6 +229,14 @@ abstract class Task {
      */
     public function setOutput(array $output = []) {
         $this->_output = $output;
+    }
+
+    /**
+     * @param Container $container
+     * @return void
+     */
+    public function setContainer(Container $container) {
+        $this->_container = $container;
     }
 
     /**
