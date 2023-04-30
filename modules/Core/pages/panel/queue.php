@@ -300,7 +300,7 @@ if (isset($_GET['view'])) {
         'QUEUE_INFO' => $language->get('admin', 'queue_info'),
         'QUEUE_CRON_URL' => rtrim(URL::getSelfURL(), '/') . URL::build('/queries/queue', 'cron&key=' . $cron_key),
         'QUEUE_INTERVAL' => $language->get('admin', 'queue_interval'),
-        'QUEUE_INTERVAL_VALUE' => Util::getSetting('queue_interval'),
+        'QUEUE_INTERVAL_VALUE' => Util::getSetting('queue_interval', 1),
         'QUEUE_RUNNER' => $language->get('admin', 'queue_runner'),
         'QUEUE_RUNNERS' => $runners,
         'QUEUE_STATUS_LINK' => URL::build('/panel/core/queue', 'view=status'),
