@@ -48,7 +48,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     'forum_id' => intval(Input::get('forum'))
                 ]);
                 $posts = implode(',', array_column($posts_to_move, 'id'));
-                echo '<pre>', print_r($posts), '</pre>';
                 DB::getInstance()->query(
                     "UPDATE nl2_posts SET `forum_id` = ? WHERE `id` IN ($posts)",
                     [intval(Input::get('forum'))]

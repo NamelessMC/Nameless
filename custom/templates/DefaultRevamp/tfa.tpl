@@ -9,7 +9,7 @@
 <div class="ui error icon message">
     <i class="x icon"></i>
     <div class="content">
-        <div class="header">Error</div>
+        <div class="header">{$ERROR_TITLE}</div>
         {$ERROR}
     </div>
 </div>

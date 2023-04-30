@@ -12,6 +12,8 @@
 class User {
 
     private static array $_user_cache = [];
+    private static array $_group_cache = [];
+    private static array $_integration_cache = [];
 
     private DB $_db;
 
@@ -23,7 +25,7 @@ class User {
     /**
      * @var array<int, Group> The user's groups.
      */
-    private array $_groups = [];
+    private array $_groups;
 
     /**
      * @var IntegrationUser[] The user's integrations.
@@ -93,60 +95,27 @@ class User {
      * Find a user by unique identifier (username, ID, email, etc).
      * Loads instance variables for this class.
      *
-     * @param string|null $value Unique identifier.
+     * @param string $value Unique identifier.
      * @param string $field What column to check for their unique identifier in.
      *
      * @return bool True/false on success or failure respectfully.
      */
-    public function find(string $value = null, string $field = 'id'): bool {
-        if ($value) {
-            if (isset(self::$_user_cache["$value.$field"])) {
-                $cache = self::$_user_cache["$value.$field"];
-                $this->_data = $cache['data'];
-                $this->_groups = $cache['groups'];
-                return true;
-            }
+    private function find(string $value, string $field = 'id'): bool {
+        if (isset(self::$_user_cache["$value.$field"])) {
+            $this->_data = self::$_user_cache["$value.$field"];
+            return true;
+        }
 
-            if ($field != 'hash') {
-                $data = $this->_db->get('users', [$field, $value]);
-            } else {
-                $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
-            }
+        if ($field !== 'hash') {
+            $data = $this->_db->get('users', [$field, $value]);
+        } else {
+            $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
+        }
 
-            if ($data->count()) {
-                $this->_data = new UserData($data->first());
-
-                // Get user groups
-                $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`;', [$this->data()->id]);
-
-                if ($groups_query->count()) {
-
-                    $groups_query = $groups_query->results();
-                    foreach ($groups_query as $item) {
-                        $this->_groups[$item->id] = new Group($item);
-                    }
-
-                    self::$_user_cache["$value.$field"] = [
-                        'data' => $this->_data,
-                        'groups' => $this->_groups,
-                    ];
-
-                } else {
-                    // Get default group
-                    // TODO: Use PRE_VALIDATED_DEFAULT ?
-                    $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE default_group = 1', [])->first();
-                    if ($default_group) {
-                        $default_group_id = $default_group->id;
-                    } else {
-                        $default_group_id = 1; // default to 1
-                        $default_group = $this->_db->query('SELECT * FROM nl2_groups WHERE id = 1', [])->first();
-                    }
-
-                    $this->addGroup($default_group_id, 0, $default_group);
-                }
-
-                return true;
-            }
+        if ($data->count()) {
+            $this->_data = new UserData($data->first());
+            self::$_user_cache["$value.$field"] = $this->_data;
+            return true;
         }
 
         return false;
@@ -157,61 +126,41 @@ class User {
      *
      * @param int $group_id ID of group to give.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param object|null $group_data Load data from existing query.
      *
      * @return bool True on success, false if they already have it.
      */
-    public function addGroup(int $group_id, int $expire = 0, $group_data = null): bool {
-        if (array_key_exists($group_id, $this->_groups)) {
+    public function addGroup(int $group_id, int $expire = 0): bool {
+        if (array_key_exists($group_id, $this->_groups ?? [])) {
             return false;
         }
 
-        $this->_db->query(
-            'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
-            [
-                $this->data()->id,
-                $group_id,
-                date('U'),
-                $expire
-            ]
-        );
+        $this->_db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
+            $this->data()->id,
+            $group_id,
+            date('U'),
+            $expire
+        ]);
 
-        if ($group_data === null) {
-            $group = Group::find($group_id);
-            if ($group) {
-                $this->_groups[$group_id] = $group;
-            }
-        } else {
-            $this->_groups[$group_id] = new Group($group_data);
+        $group = Group::find($group_id);
+        if ($group) {
+            $this->_groups[$group_id] = $group;
         }
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('userGroupAdded', [
-            'username' => $this->data()->username,
-            'user_id' => $this->data()->id,
-            'group_id' => $group_id,
-            'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => $this->getAvatar(128, true),
-            'language' => $default_language,
-        ]);
+        EventHandler::executeEvent(new UserGroupAddedEvent(
+            $this,
+            $this->_groups[$group_id],
+        ));
 
         return true;
     }
 
     /**
-     * Get the currently logged in user's data.
+     * Get the user's data.
      *
      * @return UserData This user's data.
      */
     public function data(): ?UserData {
         return $this->_data ?? null;
-    }
-
-    /**
-     * @deprecated Use getGroupStyle instead.  Will be removed in 2.1.0
-     */
-    public function getGroupClass(): string {
-        return $this->getGroupStyle();
     }
 
     /**
@@ -270,8 +219,7 @@ class User {
         $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
-            $results = $data->results();
-            return $results[0]->username;
+            return $data->first()->username;
         }
 
         return null;
@@ -288,8 +236,7 @@ class User {
         $data = $this->_db->get('users', ['id', $id]);
 
         if ($data->count()) {
-            $results = $data->results();
-            return $results[0]->nickname;
+            return $data->first()->nickname;
         }
 
         return null;
@@ -372,20 +319,20 @@ class User {
             switch ($this->data()->pass_method) {
                 case 'sha256':
                     [$salt, $pass] = explode('$', $this->data()->password);
-                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
+                    return $salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass;
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
                     $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
-                    return ($hashed == hex2bin($pass));
+                    return $hashed == hex2bin($pass);
 
                 case 'modernbb':
                 case 'sha1':
-                    return (sha1($password) == $this->data()->password);
+                    return sha1($password) == $this->data()->password;
 
                 default:
                     // Default to bcrypt
-                    return (password_verify($password, $this->data()->password));
+                    return password_verify($password, $this->data()->password);
             }
         }
 
@@ -439,11 +386,8 @@ class User {
         }
 
         $groups = [];
-
-        if (count($this->_groups)) {
-            foreach ($this->_groups as $group) {
-                $groups[$group->id] = $group->id;
-            }
+        foreach ($this->getGroups() as $group) {
+            $groups[$group->id] = $group->id;
         }
 
         return $groups;
@@ -466,10 +410,8 @@ class User {
     public function getAllGroupHtml(): array {
         $groups = [];
 
-        if (count($this->_groups)) {
-            foreach ($this->_groups as $group) {
-                $groups[] = $group->group_html;
-            }
+        foreach ($this->getGroups() as $group) {
+            $groups[] = $group->group_html;
         }
 
         return $groups;
@@ -493,7 +435,11 @@ class User {
      * @return string URL to their avatar image.
      */
     public function getAvatar(int $size = 128, bool $full = false): string {
-        $data_obj = (object) $this->data();
+        $data_obj = new stdClass();
+        // Convert UserData object to stdClass so we can dynamically add the 'uuid' property
+        foreach (get_object_vars($this->data()) as $key => $value) {
+            $data_obj->{$key} = $value;
+        }
 
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser != null) {
@@ -513,13 +459,11 @@ class User {
      * @return bool Whether they inherit this permission or not.
      */
     public function hasPermission(string $permission): bool {
-        $groups = $this->_groups;
-
-        if (!$groups || !$this->exists()) {
+        if (!$this->exists()) {
             return false;
         }
 
-        foreach ($groups as $group) {
+        foreach ($this->getGroups() as $group) {
             $permissions = json_decode($group->permissions, true) ?? [];
 
             if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
@@ -572,9 +516,38 @@ class User {
     /**
      * Get the user's groups.
      *
-     * @return array Their groups.
+     * @return array<int, Group> Their groups.
      */
     public function getGroups(): array {
+        if (isset($this->_groups)) {
+            return $this->_groups;
+        }
+
+        if (isset(self::$_group_cache[$this->data()->id])) {
+            $groups_query = self::$_group_cache[$this->data()->id];
+        } else {
+            $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
+            if ($groups_query->count()) {
+                $groups_query = $groups_query->results();
+            } else {
+                $groups_query = [];
+            }
+            self::$_group_cache[$this->data()->id] = $groups_query;
+        }
+
+        if ($groups_query) {
+            foreach ($groups_query as $item) {
+                $this->_groups[$item->id] = new Group($item);
+            }
+        } else {
+            // Get default group
+            // TODO: Use PRE_VALIDATED_DEFAULT ?
+            $default_group = Group::find(1, 'default_group');
+            $default_group_id = $default_group->id ?? 1;
+
+            $this->addGroup($default_group_id);
+        }
+
         return $this->_groups;
     }
 
@@ -584,28 +557,35 @@ class User {
      * @return IntegrationUser[] Their integrations.
      */
     public function getIntegrations(): array {
-        return $this->_integrations ??= (function (): array {
-            $integrations = Integrations::getInstance();
+        if (isset($this->_integrations)) {
+            return $this->_integrations;
+        }
 
+        $integrations = Integrations::getInstance();
+
+        if (isset(self::$_integration_cache[$this->data()->id])) {
+            $integrations_query = self::$_integration_cache[$this->data()->id];
+        } else {
             $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
-
-                $integrations_list = [];
-                foreach ($integrations_query as $item) {
-                    $integration = $integrations->getIntegration($item->integration_name);
-                    if ($integration != null) {
-                        $integrationUser = new IntegrationUser($integration, $this->data()->id, 'user_id', $item);
-
-                        $integrations_list[$item->integration_name] = $integrationUser;
-                    }
-                }
-
-                return $integrations_list;
+            } else {
+                $integrations_query = [];
             }
+            self::$_integration_cache[$this->data()->id] = $integrations_query;
+        }
 
-            return [];
-        })();
+        $integrations_list = [];
+        foreach ($integrations_query as $item) {
+            $integration = $integrations->getIntegration($item->integration_name);
+            if ($integration != null) {
+                $integrationUser = new IntegrationUser($integration, $this->data()->id, 'user_id', $item);
+
+                $integrations_list[$item->integration_name] = $integrationUser;
+            }
+        }
+
+        return $this->_integrations = $integrations_list;
     }
 
     /**
@@ -620,30 +600,21 @@ class User {
     }
 
     /**
-     * Get this user's placeholders to display on their profile.
-     *
-     * @return array Profile placeholders.
-     */
-    public function getProfilePlaceholders(): array {
-        return array_filter($this->getPlaceholders(), static function ($placeholder) {
-            return $placeholder->show_on_profile;
-        });
-    }
-
-    /**
-     * Get the currently logged in user's placeholders.
+     * Get the users placeholders.
      *
      * @return array Their placeholders.
      */
     public function getPlaceholders(): array {
-        return $this->_placeholders ??= (function (): array {
-            $integrationUser = $this->getIntegration('Minecraft');
-            if ($integrationUser != null) {
-                return Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
-            }
+        if (isset($this->_placeholders)) {
+            return $this->_placeholders;
+        }
 
-            return [];
-        })();
+        $integrationUser = $this->getIntegration('Minecraft');
+        if ($integrationUser !== null) {
+            return $this->_placeholders = Placeholders::getInstance()->loadUserPlaceholders($integrationUser->data()->identifier);
+        }
+
+        return [];
     }
 
     /**
@@ -658,12 +629,23 @@ class User {
     }
 
     /**
+     * Get this user's placeholders to display on their profile.
+     *
+     * @return array Profile placeholders.
+     */
+    public function getProfilePlaceholders(): array {
+        return array_filter($this->getPlaceholders(), static function ($placeholder) {
+            return $placeholder->show_on_profile;
+        });
+    }
+
+    /**
      * Get this user's main group (with highest order).
      *
      * @return Group The group
      */
     public function getMainGroup(): Group {
-        return $this->_main_group ??= array_reduce($this->_groups, static function (?Group $carry, Group $group) {
+        return $this->_main_group ??= array_reduce($this->getGroups(), static function (?Group $carry, Group $group) {
             return $carry === null || $carry->order > $group->order ? $group : $carry;
         });
     }
@@ -673,33 +655,26 @@ class User {
      *
      * @param int $group_id ID of group to set as main group.
      * @param int $expire Expiry in epoch time. If not supplied, group will never expire.
-     * @param array|null $group_data Load data from existing query.
      * @return false|void
      */
-    public function setGroup(int $group_id, int $expire = 0, array $group_data = null) {
+    public function setGroup(int $group_id, int $expire = 0) {
         if ($this->data()->id == 1) {
             return false;
         }
+
         $this->_db->query('DELETE FROM `nl2_users_groups` WHERE `user_id` = ?', [$this->data()->id]);
 
-        $this->_db->query(
-            'INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)',
-            [
-                $this->data()->id,
-                $group_id,
-                date('U'),
-                $expire
-            ]
-        );
+        $this->_db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
+            $this->data()->id,
+            $group_id,
+            date('U'),
+            $expire
+        ]);
 
         $this->_groups = [];
-        if ($group_data === null) {
-            $group = Group::find($group_id);
-            if ($group) {
-                $this->_groups[$group_id] = $group;
-            }
-        } else {
-            $this->_groups[$group_id] = $group_data;
+        $group = Group::find($group_id);
+        if ($group) {
+            $this->_groups[$group_id] = $group;
         }
     }
 
@@ -711,7 +686,7 @@ class User {
      * @return bool Returns false if they did not have this group or the admin group is being removed from root user
      */
     public function removeGroup(?int $group_id): bool {
-        if (!array_key_exists($group_id, $this->_groups)) {
+        if (!array_key_exists($group_id, $this->getGroups())) {
             return false;
         }
 
@@ -719,23 +694,15 @@ class User {
             return false;
         }
 
-        $this->_db->query(
-            'DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?',
-            [
-                $this->data()->id,
-                $group_id
-            ]
-        );
-
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
-        EventHandler::executeEvent('userGroupRemoved', [
-            'username' => $this->data()->username,
-            'user_id' => $this->data()->id,
-            'group_id' => $group_id,
-            'group_name' => $this->_groups[$group_id]->name,
-            'avatar_url' => $this->getAvatar(128, true),
-            'language' => $default_language,
+        $this->_db->query('DELETE FROM `nl2_users_groups` WHERE `user_id` = ? AND `group_id` = ?', [
+            $this->data()->id,
+            $group_id
         ]);
+
+        EventHandler::executeEvent(new UserGroupRemovedEvent(
+            $this,
+            $this->_groups[$group_id],
+        ));
 
         unset($this->_groups[$group_id]);
 
@@ -779,8 +746,7 @@ class User {
         $data = $this->_db->get('users', ['username', $username]);
 
         if ($data->count()) {
-            $results = $data->results();
-            return $results[0]->id;
+            return $data->first()->id;
         }
 
         return null;
@@ -796,8 +762,7 @@ class User {
         $data = $this->_db->get('users', ['email', $email]);
 
         if ($data->count()) {
-            $results = $data->results();
-            return $results[0]->id;
+            return $data->first()->id;
         }
 
         return null;
@@ -856,8 +821,7 @@ class User {
         // Get the PM - is the user the author?
         $data = $this->_db->get('private_messages', ['id', $pm_id]);
         if ($data->count()) {
-            $data = $data->results();
-            $data = $data[0];
+            $data = $data->first();
 
             // Does the user have permission to view the PM?
             $pms = $this->_db->get('private_messages_users', ['pm_id', $pm_id])->results();
@@ -938,11 +902,9 @@ class User {
      * @return bool Whether they can view it or not.
      */
     public function canViewStaffCP(): bool {
-        if (isset($this->_groups) && count($this->_groups)) {
-            foreach ($this->_groups as $group) {
-                if ($group->admin_cp == 1) {
-                    return true;
-                }
+        foreach ($this->getGroups() as $group) {
+            if ($group->admin_cp == 1) {
+                return true;
             }
         }
 
@@ -1034,6 +996,15 @@ class User {
     }
 
     /**
+     * Can the user bypass private profiles?
+     *
+     * @return bool Whether the user can bypass private profiles
+     */
+    public function canBypassPrivateProfile(): bool {
+        return Util::getSetting('private_profile') === '1' && $this->hasPermission('profile.private.bypass');
+    }
+
+    /**
      * Is the profile page set to private?
      *
      * @return bool Whether their profile is set to private or not.
@@ -1049,12 +1020,12 @@ class User {
      */
     public function getUserTemplates(): array {
         $groups = '(';
-        foreach ($this->_groups as $group) {
+        foreach ($this->getGroups() as $group) {
             $groups .= ((int) $group->id) . ',';
         }
         $groups = rtrim($groups, ',') . ')';
 
-        return $this->_db->query('SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN ' . $groups . ')')->results();
+        return $this->_db->query("SELECT template.id, template.name FROM nl2_templates AS template WHERE template.enabled = 1 AND template.id IN (SELECT template_id FROM nl2_groups_templates WHERE can_use_template = 1 AND group_id IN $groups)")->results();
     }
 
     /**

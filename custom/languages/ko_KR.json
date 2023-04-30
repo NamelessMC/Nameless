@@ -1,7 +1,6 @@
 {
     "admin/user_group_added_hook_info": "유저 그룹 추가됨",
     "admin/user_group_removed_hook_info": "유저 그룹 삭제됨",
-    "admin/account_verification": "마인크래프트 계정 인증",
     "admin/acp_logins": "StaffCP 로그인",
     "admin/action": "동작",
     "admin/action_info": "동작 정보",
@@ -26,6 +25,5 @@
     "admin/api_key_regenerated": "API 키가 성공적으로 재생성되었습니다.",
     "admin/api_registration_email": "API 등록 이메일",
     "admin/api_settings_updated_successfully": "API 설정이 업데이트되었습니다.",
-    "admin/api_url": "API URL",
-    "admin/api_verification": "API 인증 활성화?"
+    "admin/api_url": "API URL"
 }

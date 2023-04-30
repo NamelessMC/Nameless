@@ -110,14 +110,16 @@
                 <div class="ui horizontal divider">{$OR}</div>
                 <div class="ui equal width grid">
                     {foreach $OAUTH_PROVIDERS as $name => $meta}
-                    <div class="column">
-                        <a href="{$meta.url}" class="ui fluid button left floated">
-                            {if $meta.icon}
-                            <i class="{$meta.icon} fa-lg"></i>
-                            {/if}
-                            {$name|ucfirst}
-                        </a>
-                    </div>
+                        <div class="column">
+                            <a href="{$meta.url}" class="ui fluid button left floated" {if $meta.button_css}style="{$meta.button_css}"{/if}>
+                                {if $meta.logo_url}
+                                    <img src="{$meta.logo_url}" {if $meta.logo_css}style="{$meta.logo_css}"{/if} alt="{$name|ucfirst}">
+                                {elseif $meta.icon}
+                                    <i class="{$meta.icon} fa-lg"></i>
+                                {/if}
+                                <span {if $meta.text_css}style="{$meta.text_css}"{/if}>{$meta.continue_with}</span>
+                            </a>
+                        </div>
                     {/foreach}
                 </div>
                 {/if}
@@ -131,5 +133,29 @@
         </div>
     </div>
 </div>
+
+{if $OAUTH_FLOW && $OAUTH_EMAIL_VERIFIED}
+    <script>
+        document.getElementById('email').addEventListener('keyup', (e) => {
+            checkEmailValidity(e.target.value);
+        });
+
+        const checkEmailValidity = (email) => {
+            if ('{$OAUTH_EMAIL_VERIFIED}' && email !== '{$OAUTH_EMAIL_ORIGINAL}') {
+                addEmailCaption('{$OAUTH_EMAIL_NOT_VERIFIED_MESSAGE}', 'orange');
+            } else {
+                addEmailCaption('{$OAUTH_EMAIL_VERIFIED_MESSAGE}', 'green');
+            }
+        }
+
+        const addEmailCaption = (text, colour) => {
+            const email = document.getElementById('email');
+            document.getElementById('email-caption')?.remove();
+            email.parentElement.insertAdjacentHTML('beforeend', '<div id="email-caption" style="margin-top: 5px;" class="ui basic ' + colour + ' label">' + text + '</div>');
+        };
+
+        window.onload = () => checkEmailValidity('{$EMAIL_INPUT}');
+    </script>
+{/if}
 
 {include file='footer.tpl'}

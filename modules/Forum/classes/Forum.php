@@ -12,13 +12,6 @@ class Forum {
     private DB $_db;
     private static array $_permission_cache = [];
     private static array $_count_cache = [];
-    private const URL_EXCLUDE_CHARS = [
-        '?',
-        '&',
-        '/',
-        '#',
-        '.',
-    ];
 
     public function __construct() {
         $this->_db = DB::getInstance();
@@ -48,7 +41,7 @@ class Forum {
                 SELECT *
                 FROM `nl2_forums`
                 WHERE `parent` = 0
-                  AND `id` IN
+                  AND `id` IN 
                       (SELECT `forum_id`
                        FROM nl2_forums_permissions
                        WHERE `group_id` IN ($groups_in)
@@ -72,7 +65,7 @@ class Forum {
                         SELECT f.*
                         FROM nl2_forums AS f
                         WHERE f.parent = ?
-                          AND f.id IN
+                          AND f.id IN 
                               (SELECT fp.forum_id
                                FROM nl2_forums_permissions AS fp
                                WHERE fp.group_id IN ($groups_in)
@@ -244,12 +237,7 @@ class Forum {
     }
 
     public function titleToURL(string $topic = null): string {
-        if ($topic) {
-            $topic = str_replace(self::URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $topic))));
-        }
-
-        return '';
+        return URL::urlSafe($topic ?? '');
     }
 
     // Returns true/false depending on whether the current user can view a forum
@@ -327,8 +315,8 @@ class Forum {
 
         return DB::getInstance()->query(
             "SELECT topics.id as id, topics.forum_id as forum_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id
-            FROM nl2_topics topics
-            LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0)
+            FROM nl2_topics topics 
+            LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) 
             WHERE topics.deleted = 0 AND topics.forum_id IN ($all_topics_forums_string) ORDER BY topics.topic_reply_date DESC LIMIT $limit",
         )->results();
     }
@@ -395,10 +383,9 @@ class Forum {
      * @param int $forum_id The forum ID to update
      */
     public function updateForumLatestPosts(int $forum_id): void {
-        echo "Checking latest posts for $forum_id<br />";
         $latest_post = $this->_db->query(
             <<<SQL
-                SELECT `created`,
+                SELECT `created`, 
                        `post_date`,
                        `post_creator`,
                        `topic_id`
@@ -434,7 +421,7 @@ class Forum {
     public function updateTopicLatestPosts(int $topic_id, ?int $forum_id): void {
         $latest_post = $this->_db->query(
             <<<SQL
-                SELECT `created`,
+                SELECT `created`, 
                        `post_date`,
                        `post_creator`
                 FROM nl2_posts
@@ -493,23 +480,56 @@ class Forum {
     /**
      * Get the latest news posts to display on homepage.
      *
+     * TODO: can be optimised by including posts in the initial query?
+     *
      * @param int $number The number of posts to get.
+     * @param array $groups Array containing user's group IDs, default [0] for guests
      * @return array The latest news posts.
      */
-    public function getLatestNews(int $number = 5): array {
+    public function getLatestNews(int $number = 5, array $groups = [0]): array {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
 
-        $news_items = $this->_db->query('SELECT * FROM nl2_topics WHERE forum_id IN (SELECT id FROM nl2_forums WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10')->results();
+        $groups_in = implode(',', array_map(static fn () => '?', $groups));
+
+        $news_items = $this->_db->query(
+            <<<SQL
+                SELECT
+                    id,
+                    labels,
+                    topic_creator,
+                    topic_title,
+                    topic_views
+                FROM nl2_topics
+                WHERE
+                    forum_id IN (
+                        SELECT
+                            id
+                        FROM nl2_forums
+                        WHERE news = 1
+                        AND id IN (
+                            SELECT p.forum_id
+                            FROM nl2_forums_permissions p
+                            WHERE p.group_id IN ($groups_in)
+                            AND p.view = 1
+                        )
+                    )
+                    AND deleted = 0
+                ORDER BY topic_date
+                DESC LIMIT ?
+            SQL,
+            [...$groups, $number]
+        )->results();
 
         foreach ($news_items as $item) {
-            $news_post = $this->_db->get('posts', ['topic_id', $item->id])->results();
-            $posts = count($news_post);
+            $news_post = $this->_db->get('posts', ['topic_id', $item->id]);
+            $posts = $news_post->count();
+            $news_post = $news_post->first();
 
-            if (is_null($news_post[0]->created)) {
-                $post_date = date(DATE_FORMAT, strtotime($news_post[0]->post_date));
+            if (is_null($news_post->created)) {
+                $post_date = date(DATE_FORMAT, strtotime($news_post->post_date));
             } else {
-                $post_date = date(DATE_FORMAT, $news_post[0]->created);
+                $post_date = date(DATE_FORMAT, $news_post->created);
             }
 
             $labels = [];
@@ -546,7 +566,7 @@ class Forum {
                 }
             }
 
-            $post = $news_post[0]->post_content;
+            $post = $news_post->post_content;
             $return[] = [
                 'topic_id' => $item->id,
                 'topic_date' => $post_date,
@@ -560,12 +580,7 @@ class Forum {
             ];
         }
 
-        // Order the discussions by date - most recent first
-        usort($return, static function ($a, $b) {
-            return strtotime($b['topic_date']) - strtotime($a['topic_date']);
-        });
-
-        return array_slice($return, 0, $number, true);
+        return $return;
     }
 
     /**

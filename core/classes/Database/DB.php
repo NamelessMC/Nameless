@@ -13,6 +13,7 @@ class DB {
 
     private string $_prefix;
     private ?string $_force_charset;
+    private ?string $_force_collation;
     protected PDO $_pdo;
     private PDOStatement $_statement;
     private bool $_error = false;
@@ -20,8 +21,18 @@ class DB {
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
-    private function __construct(string $host, string $database, string $username, string $password, int $port, ?string $force_charset, string $prefix) {
+    private function __construct(
+        string $host,
+        string $database,
+        string $username,
+        string $password,
+        int $port,
+        ?string $force_charset,
+        ?string $force_collation,
+        string $prefix
+    ) {
         $this->_force_charset = $force_charset;
+        $this->_force_collation = $force_collation;
         $this->_prefix = $prefix;
 
         $connection_string = 'mysql:host=' . $host . ';port=' . $port . ';dbname=' . $database;
@@ -47,9 +58,19 @@ class DB {
         string $password,
         int $port = 3306,
         ?string $force_charset = null,
+        ?string $force_collation = null,
         string $prefix = 'nl2_'
     ): DB {
-        return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
+        return new DB(
+            $host,
+            $database,
+            $username,
+            $password,
+            $port,
+            $force_charset,
+            $force_collation,
+            $prefix
+        );
     }
 
     public static function getInstance(): DB {
@@ -63,13 +84,20 @@ class DB {
             $force_charset = null;
         }
 
+        if (Config::get('mysql.initialise_collation')) {
+            $force_collation = Config::get('mysql.collation') ?: 'utf8mb4_unicode_ci';
+        } else {
+            $force_collation = null;
+        }
+
         return self::$_instance = self::getCustomInstance(
             Config::get('mysql.host'),
             Config::get('mysql.db'),
             Config::get('mysql.username'),
             Config::get('mysql.password'),
             Config::get('mysql.port'),
-            $force_charset
+            $force_charset,
+            $force_collation
         );
     }
 
@@ -83,6 +111,31 @@ class DB {
     }
 
     /**
+     * Begin a MySQL transaction
+     */
+    public function beginTransaction(): void {
+        $this->_pdo->beginTransaction();
+    }
+
+    /**
+     * Commit a MySQL transaction
+     */
+    public function commitTransaction(): void {
+        if ($this->_pdo->inTransaction()) {
+            $this->_pdo->commit();
+        }
+    }
+
+    /**
+     * Roll back a MySQL transaction
+     */
+    public function rollBackTransaction(): void {
+        if ($this->_pdo->inTransaction()) {
+            $this->_pdo->rollBack();
+        }
+    }
+
+    /**
      * Execute a database query within a MySQL transaction, and get the results of the query, if any.
      *
      * @param Closure(DB): mixed $closure The closure to pass this instance to and execute within a transaction context.
@@ -92,15 +145,13 @@ class DB {
         $result = null;
 
         try {
-            $this->_pdo->beginTransaction();
+            $this->beginTransaction();
 
             $result = $closure($this);
 
-            $this->_pdo->commit();
+            $this->commitTransaction();
         } catch (Exception $exception) {
-            if ($this->_pdo->inTransaction()) {
-                $this->_pdo->rollBack();
-            }
+            $this->rollBackTransaction();
         }
 
         return $result;
@@ -163,7 +214,7 @@ class DB {
     }
 
     /**
-     * Perform a DELTE query on the database.
+     * Perform a DELETE query on the database.
      *
      * @param string $table The table to delete from.
      * @param array $where The where clause.
@@ -214,22 +265,6 @@ class DB {
         }
 
         return $this;
-    }
-
-    /**
-     * @deprecated Use query() instead. Will be removed in 2.1.0
-     * @return static
-     */
-    public function selectQuery(string $sql, array $params = []) {
-        return $this->query($sql, $params);
-    }
-
-    /**
-     * @deprecated Use query() instead. Will be removed in 2.1.0
-     * @return static
-     */
-    public function createQuery(string $sql, array $params = []) {
-        return $this->query($sql, $params);
     }
 
     /**
@@ -388,8 +423,13 @@ class DB {
     public function createTable(string $name, string $table_schema): bool {
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_schema}) ENGINE=InnoDB";
+
         if ($this->_force_charset) {
             $sql .= ' DEFAULT CHARSET=' . $this->_force_charset;
+        }
+
+        if ($this->_force_collation) {
+            $sql .= ' COLLATE=' . $this->_force_collation;
         }
 
         return !$this->query($sql)->error();

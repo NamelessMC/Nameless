@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.1.0
  * @license MIT
  */
 class MinecraftIntegration extends IntegrationBase {
@@ -16,6 +16,7 @@ class MinecraftIntegration extends IntegrationBase {
         $this->_name = 'Minecraft';
         $this->_icon = 'fas fa-cubes';
         $this->_language = $language;
+        $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_integrations/minecraft.php';
 
         parent::__construct();
     }
@@ -61,7 +62,7 @@ class MinecraftIntegration extends IntegrationBase {
             $code = SecureRandom::alphanumeric();
 
             $integrationUser->update([
-                'code' => $code 
+                'code' => $code
             ]);
         }
 
@@ -144,6 +145,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+            return;
+        }
+
         $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 
         $fields->add('username', Fields::TEXT, $this->_language->get('user', 'minecraft_username'), true, $username_value, null, null, 1);
@@ -154,6 +159,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function afterRegistrationValidation() {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+            return;
+        }
+
         $username = Input::get('username');
 
         // Validate username
@@ -175,6 +184,10 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function successfulRegistration(User $user) {
+        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+            return;
+        }
+
         $code = SecureRandom::alphanumeric();
 
         $integrationUser = new IntegrationUser($this);
@@ -209,9 +222,9 @@ class MinecraftIntegration extends IntegrationBase {
     public function getUuidByUsername(string $username): array {
         if (Util::getSetting('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
-        } else {
-            return ProfileUtils::getOfflineModeUuid($username);
         }
+
+        return ProfileUtils::getOfflineModeUuid($username);
     }
 
     /**
@@ -226,16 +239,14 @@ class MinecraftIntegration extends IntegrationBase {
         $mcname_result = $profile ? $profile->getProfileAsArray() : [];
         if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
             // Valid
-            $result = [
+            return [
                 'uuid' => $mcname_result['uuid'],
                 'username' => $mcname_result['username']
             ];
-
-            return $result;
-        } else {
-            // Invalid
-            $this->addError($this->_language->get('user', 'invalid_mcname'));
         }
+
+        // Invalid
+        $this->addError($this->_language->get('user', 'invalid_mcname'));
 
         return [];
     }

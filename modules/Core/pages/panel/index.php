@@ -116,9 +116,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
     $compat_warnings = [];
     $compat_errors = [];
 
-    if (PHP_VERSION_ID < 70400) {
-        $compat_errors[] = 'PHP ' . PHP_VERSION;
-    } else if (PHP_VERSION_ID < 80000) {
+    if (PHP_VERSION_ID < 80200) {
         $compat_warnings[] = 'PHP ' . PHP_VERSION;
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
@@ -158,10 +156,10 @@ if ($user->hasPermission('admincp.core.debugging')) {
     } else {
         $compat_success[] = 'PHP PDO ' . phpversion('PDO');
     }
-    if (!extension_loaded('mysql') && !extension_loaded('mysqlnd')) {
-        $compat_errors[] = 'PHP MySQL';
+    if (!extension_loaded('pdo_mysql')) {
+        $compat_errors[] = 'PHP PDO MySQL';
     } else {
-        $compat_success[] = 'PHP MySQL ' . (extension_loaded('mysql') ? phpversion('mysql') : explode(' ', phpversion('mysqlnd'))[1]);
+        $compat_success[] = 'PHP PDO MySQL ' . phpversion('pdo_mysql');
     }
     $pdo_driver = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
     $pdo_server_version = DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);

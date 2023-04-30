@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -296,28 +296,15 @@ if (Input::exists()) {
 
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific forum, not any of its parents...
-            $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
-            $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->results();
-            $available_hooks = json_decode($available_hooks[0]->hooks);
-            EventHandler::executeEvent('topicReply', [
-                'user_id' => $user->data()->id,
-                'username' => $user->data()->username,
-                'nickname' => $user->data()->nickname,
-                'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
-                    'topic' => $topic->topic_title,
-                    'author' => $user->getDisplayname(),
-                ]),
-                'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
-                'avatar_url' => $user->getAvatar(128, true),
-                'title' => $topic->topic_title,
-                'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
-                'topic_author_user_id' => $topic_user->data()->id,
-                'topic_author_username' => $topic_user->data()->username,
-                'topic_author_nickname' => $topic_user->data()->nickname,
-                'topic_id' => $tid,
-                'post_id' => $last_post_id,
-                'available_hooks' => $available_hooks === null ? [] : $available_hooks
-            ]);
+            $available_hooks = DB::getInstance()->get('forums', ['id', $topic->forum_id])->first();
+            $available_hooks = json_decode($available_hooks->hooks) ?? [];
+            EventHandler::executeEvent(new TopicReplyCreatedEvent(
+                $user,
+                $topic->topic_title,
+                $content,
+                $tid,
+                $available_hooks,
+            ));
 
             // Alerts + Emails
             $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
@@ -360,13 +347,11 @@ if (Input::exists()) {
                 );
                 $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
 
-                $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
                     $sent = Email::send(
                         ['email' => $user_info['email'], 'name' => $user_info['username']],
                         $subject,
                         $message,
-                        $reply_to
                     );
 
                     if (isset($sent['error'])) {
@@ -752,8 +737,11 @@ if ($user->isLoggedIn()) {
             $reactions = [];
         }
 
-        $smarty->assign('REACTIONS', $reactions);
-        $smarty->assign('REACTIONS_URL', URL::build('/forum/reactions'));
+        $smarty->assign([
+            'LIKE' => $language->get('user', 'like'),
+            'REACTIONS' => $reactions,
+            'REACTIONS_URL' => URL::build('/forum/reactions')
+        ]);
     }
 
     // Following?

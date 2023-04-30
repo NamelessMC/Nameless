@@ -1,6 +1,7 @@
 <?php
 
 use Astrotomic\Twemoji\Twemoji;
+use JoyPixels\Client;
 
 /**
  * Helps with common text related tasks.
@@ -121,22 +122,6 @@ class Text {
     }
 
     /**
-     * URL-ify a string
-     *
-     * @param string|null $string $string String to URLify
-     * @return string Url-ified string. (I dont know what this means)
-     * @deprecated This should no longer be used because it doesn't work well for non-latin languages. Just use urlencode() instead. Will be removed in 2.1.0
-     */
-    public static function urlSafe(string $string = null): string {
-        if ($string) {
-            $string = preg_replace('/[^A-Za-z0-9 ]/', '', $string);
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $string))));
-        }
-
-        return '';
-    }
-
-    /**
      * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
      * since we want as little HTML in the translation strings as possible.
      *
@@ -148,17 +133,46 @@ class Text {
     }
 
     /**
-     * Replace native emojis with their Twemoji equivalent.
+     * Replace emojis with their style equivalent.
      *
      * @param string $text Text to parse
+     * @param string|null $force_style Style to apply to the emoji image, will use the site default if null
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
      */
-    public static function renderEmojis(string $text): string {
-        // We can remove this ->base(...) call when https://github.com/Astrotomic/php-twemoji/pull/13 is merged
-        return Twemoji::text($text)->base('https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets')->toHtml(null, [
-            'width' => 20,
-            'height' => 20,
-            'style' => 'vertical-align: middle;'
+    public static function renderEmojis(string $text, string $force_style = null): string {
+        $style = $force_style ?? Util::getSetting('emoji_style', 'twemoji');
+        switch ($style) {
+            case 'twemoji':
+                return Twemoji::text($text)->toHtml();
+            case 'joypixels':
+                // Jank workaround can be removed if/when https://github.com/joypixels/emoji-toolkit/issues/55 is implemented
+                return (new class extends Client {
+                    public $emojiSize = '64';
+                    public $ignoredRegexp = '';
+                })->toImage($text);
+            case 'native':
+            default:
+                return $text;
+        }
+    }
+
+    /**
+     * @param string|null $content HTML content to use in Discord embed
+     * @return string HTML content with tags removed and newlines converted to Discord's linebreaks
+     */
+    public static function embedSafe(?string $content): string {
+        if ($content === null) {
+            return '';
+        }
+
+        $content = strip_tags(str_ireplace(
+            ['&nbsp;', '&bull;', '<br />', '<br>', '<br/>'],
+            [' ', '', "\r\n", "\r\n", "\r\n"],
+            $content
+        ));
+
+        return self::truncate($content, 512, [
+            'html' => true,
         ]);
     }
 }

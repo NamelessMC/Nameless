@@ -27,9 +27,10 @@ class NamelessOAuth extends Instanceable {
      * @param string $name The name of the provider (Discord, Google, etc).
      * @param string $module Name of the module which registered this provider.
      * @param array $data Metadata about the provider: class, user_id_name, scope_id_name, icon
+     * @param array $extra_options Extra options to pass to the provider constructor. Example: keycloak needs some specific options
      */
-    public function registerProvider(string $name, string $module, array $data): void {
-        $this->_providers[$name] = array_merge(['module' => $module], $data);
+    public function registerProvider(string $name, string $module, array $data, array $extra_options = []): void {
+        $this->_providers[$name] = array_merge(['module' => $module, 'extra_options' => $extra_options], $data);
     }
 
     /**
@@ -76,7 +77,17 @@ class NamelessOAuth extends Instanceable {
                         'email',
                     ],
                 ]),
-                'icon' => $provider_data['icon'],
+                'icon' => $provider_data['icon'] ?? null,
+                'logo_url' => $provider_data['logo_url'] ?? null,
+                'logo_css' => isset($provider_data['logo_css'])
+                    ? $this->formatCss($provider_data['logo_css'])
+                    : null,
+                'button_css' => isset($provider_data['button_css'])
+                    ? $this->formatCss($provider_data['button_css'])
+                    : null,
+                'text_css' => isset($provider_data['text_css'])
+                    ? $this->formatCss($provider_data['text_css'])
+                    : null,
             ];
         }
 
@@ -90,6 +101,14 @@ class NamelessOAuth extends Instanceable {
      * @return AbstractProvider The provider instance
      */
     public function getProviderInstance(string $provider): AbstractProvider {
+        if (!array_key_exists($provider, $this->_providers)) {
+            throw new RuntimeException("Unknown provider: $provider");
+        }
+
+        if (isset($this->_provider_instances[$provider])) {
+            return $this->_provider_instances[$provider];
+        }
+
         [$clientId, $clientSecret] = $this->getCredentials($provider);
         $url = rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', "provider=" . urlencode($provider), 'non-friendly');
         $options = [
@@ -98,11 +117,25 @@ class NamelessOAuth extends Instanceable {
             'redirectUri' => $url,
         ];
 
-        if (array_key_exists($provider, $this->_providers)) {
-            return $this->_provider_instances[$provider] ??= new $this->_providers[$provider]['class']($options);
+        $options = array_merge($options, $this->_providers[$provider]['extra_options']);
+
+        return $this->_provider_instances[$provider] = new $this->_providers[$provider]['class']($options);
+    }
+
+    /**
+     * Determine if the email returned from a provider is verified on their end.
+     * Used during registration to auto verify emails (if they enter the same one as the provider returned).
+     *
+     * @param string $provider The provider name
+     * @param array $provider_user The provider user data (aka resource owner)
+     * @return bool Whether the email returned from the provider is verified or not
+     */
+    public function hasVerifiedEmail(string $provider, array $provider_user): bool {
+        if (!array_key_exists($provider, $this->_providers)) {
+            throw new RuntimeException("Unknown provider: $provider");
         }
 
-        throw new RuntimeException("Unknown provider: $provider");
+        return $this->_providers[$provider]['verify_email']($provider_user);
     }
 
     /**
@@ -251,5 +284,17 @@ class NamelessOAuth extends Instanceable {
             'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
             [$user_id, $provider]
         );
+    }
+
+    /**
+     * Format an array of CSS rules into a string, appending `!important` to each rule.
+     *
+     * @param array $css CSS rule => value array
+     * @return string The CSS string
+     */
+    private function formatCss(array $css): string {
+        return implode(' ', array_map(static function ($rule, $value) {
+            return $rule . ': ' . $value . ' !important;';
+        }, array_keys($css), array_values($css)));
     }
 }

@@ -1,0 +1,24 @@
+parameters:
+    level: 4
+    paths:
+        - ../
+    excludePaths:
+        - ../cache/
+        - ../vendor/
+    # Ignore notices which are thrown due how nameless is written
+    ignoreErrors:
+        # prodecural programming :^)
+        - '#might not be defined#'
+        - '#Constant#'
+        - '#Undefined variable: \$forum_language#'
+        # weird issue with login.php where $language is being used in validation message closure
+        - '#Undefined variable: \$language#'
+        - '#Access to an undefined property object::#'
+        # because php is dumb
+        - '#Call to an undefined method ReflectionType::getName\(\).#'
+        - '#Call to an undefined method ReflectionType::isBuiltin\(\).#'
+        # DB::first() has been checked beforehand with DB::count() - probably need a better long term solution!
+        -
+            message: '#Cannot access property \$id on object\|false.#'
+            path: ../modules/Core/pages/panel/users_reports.php
+    reportUnmatchedIgnoredErrors: false

@@ -73,11 +73,20 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="hidden" name="action" value="general_settings">
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                 </div>
                             </form>
                         </div>
                     </div>
+
+                    {if isset($SETTINGS_TEMPLATE)}
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                {include file=$SETTINGS_TEMPLATE}
+                            </div>
+                        </div>
+                    {/if}
 
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>

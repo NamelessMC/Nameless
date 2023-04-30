@@ -1,1 +1,22 @@
-{}
+{
+    "discord_integration/discord": "Discord",
+    "discord_integration/discord_bot_setup": "Bot được thiết lập chưa?",
+    "discord_integration/discord_id_help": "Để biết thông tin về nơi tìm Discord ID, vui lòng đọc {{linkStart}}cái này.{{linkEnd}}",
+    "discord_integration/discord_id_numeric": "Vui lòng đảm bảo ID máy chủ Discord của bạn là số.",
+    "discord_integration/discord_id_required": "Vui lòng nhập ID máy chủ Discord của bạn.",
+    "discord_integration/discord_role_id": "Discord Role ID",
+    "discord_integration/discord_role_id_length": "Discord Role ID phải dài từ {{min}} đến {{max}} chữ số.",
+    "discord_integration/discord_role_id_numeric": "Discord Role ID phải là số.",
+    "discord_integration/discord_settings_updated": "Đã cập nhật thành công cài đặt Discord",
+    "discord_integration/discord_usernames_updated": "Đã cập nhật thành công tên người dùng Discord",
+    "discord_integration/discord_widget_error": "Đã xảy ra lỗi khi tải tiện ích Discord: {{error}}.",
+    "discord_integration/discord_widget_theme": "Chủ đề Widget Discord",
+    "discord_integration/enable_discord_integration": "Bật tích hợp Discord?",
+    "discord_integration/discord_bot_must_be_setup": "Không thể bật Tích hợp Discord cho đến khi bạn thiết lập xong bot. Để biết thông tin, vui lòng nhấp vào {{linkStart}}đây{{linkEnd}}.",
+    "discord_integration/discord_guild_id": "ID máy chủ Discord",
+    "discord_integration/discord_id_confirm": "Vui lòng chạy lệnh \"/ verify {{token}}\" trong Discord để hoàn tất việc liên kết tài khoản Discord của bạn.",
+    "discord_integration/discord_id_length": "Hãy đảm bảo ID máy chủ Discord của bạn dài từ {{min}} đến {{max}} chữ số.",
+    "discord_integration/discord_integration_not_setup": "Tích hợp Discord không được thiết lập",
+    "discord_integration/discord_invite_info": "Để mời bot Nameless Link vào máy chủ Discord của bạn, hãy nhấp vào {{inviteLinkStart}}vào đây{{inviteLinkEnd}}. Sau đó, chạy lệnh {{command}} để liên kết bot với trang web của bạn. Ngoài ra, bạn có thể {{selfHostLinkStart}}tự mình host bot{{selfHostLinkEnd}}.",
+    "discord_integration/discord_widget_disabled": "Tiện ích con bị tắt đối với máy chủ Discord được chỉ định. Vui lòng chuyển đến tab 'Widget' trong cài đặt máy chủ Discord của bạn và đảm bảo rằng widget Discord được bật và ID chính xác."
+}

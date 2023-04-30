@@ -1,1 +1,24 @@
-{}
+{
+    "discord_integration/discord": "Discord",
+    "discord_integration/discord_bot_setup": "A Bot be van állítva?",
+    "discord_integration/discord_role_id": "Discord Rang ID",
+    "discord_integration/discord_role_id_length": "A Discord Rang ID {{min}} és {{max}} számjegy hosszú lehet.",
+    "discord_integration/discord_widget_error": "Hiba történt a Discord widget lekérdezésekor: {{error}}.",
+    "discord_integration/discord_id_help": "Információért, hogy hol találod meg a Discord ID-ket, kérlek, olvasd el {{linkStart}}ezt.{{linkEnd}}",
+    "discord_integration/discord_usernames_updated": "Discord felhasználónevek sikeresen frissítve",
+    "discord_integration/discord_widget_theme": "Discord Widget Téma",
+    "discord_integration/discord_invite_info": "A Nameless Link Bot meghívásához kattints a Discord szervereden {{inviteLinkStart}}erre{{inviteLinkEnd}} gombra. Ezután futtasd a {{command}} parancsot, hogy a botot összekapcsold a weboldallal. Alternatív megoldásként te is {{selfHostLinkStart}}hostolhatod a botot{{selfHostLinkEnd}}.",
+    "discord_integration/discord_guild_id": "Discord Szerver ID",
+    "discord_integration/discord_id_confirm": "Futtasd a \"/verify {{token}}\" parancsot Discordon, hogy befejezd a Discord fiók összekapcsolását.",
+    "discord_integration/discord_id_length": "Győződj meg arról, hogy a Discord Szerver ID {{min}} és a {{max}} számjegy hosszú.",
+    "discord_integration/discord_id_numeric": "Ellenőrizd, hogy a Discord Szerver ID csak számjegyekből áll.",
+    "discord_integration/discord_id_required": "Add meg a Discord Szerver ID-jét.",
+    "discord_integration/discord_role_id_numeric": "A Discord Rang ID csak számjegyekből állhat.",
+    "discord_integration/discord_settings_updated": "Discord beállítások sikeresen frissítve",
+    "discord_integration/discord_bot_must_be_setup": "Nem kapcsolhatod be addig a Discord Integrációt, ameddig nem állítottad be a Bot-ot. További információért {{linkStart}}ide{{linkEnd}} kattints.",
+    "discord_integration/discord_widget_disabled": "A widget le van tiltva a Discord szerveren. Menj be a Discrod szerver beállításokba a 'Widget' fülre és ellenőrizd hogy a widget be van-e kapcsolva illetvő hogy az ID helyes.",
+    "discord_integration/enable_discord_integration": "Bekapcsolod a Discord integrációt?",
+    "discord_integration/discord_integration_not_setup": "Discord integráció nincs beállítva",
+    "discord_integration/discord_bot": "Discord Bot",
+    "discord_integration/link_method": "Kapcsolódás módszer"
+}

@@ -30,9 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            DB::getInstance()->update('settings', ['name', 'registration_enabled'], [
-                'value' => Input::get('enable_registration')
-            ]);
+            Util::setSetting('registration_enabled', Input::get('enable_registration'));
         } else {
             // Registration settings
 
@@ -99,7 +97,8 @@ if (Input::exists()) {
         }
 
         if (!count($errors)) {
-            $success = $language->get('admin', 'registration_settings_updated');
+            Session::flash('registration_success', $language->get('admin', 'registration_settings_updated'));
+            Redirect::to(URL::build('/panel/core/registration'));
         }
     } else {
         // Invalid token
@@ -109,6 +108,10 @@ if (Input::exists()) {
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('registration_success')) {
+    $success = Session::flash('registration_success');
+}
 
 if (isset($success)) {
     $smarty->assign([
@@ -132,8 +135,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if registration is enabled
-$registration_enabled = DB::getInstance()->get('settings', ['name', 'registration_enabled'])->results();
-$registration_enabled = $registration_enabled[0]->value;
+$registration_enabled = Util::getSetting('registration_enabled');
 
 // Validation group
 $validation_group = Util::getSetting('validate_user_action');
@@ -158,7 +160,8 @@ foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $prov
     $oauth_provider_data[$provider_name] = [
         'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
         'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
-        'icon' => $provider_data['icon'],
+        'icon' => $provider_data['icon'] ?? null,
+        'logo_url' => $provider_data['logo_url'] ?? null,
         'client_id' => $client_id,
         'client_secret' => $client_secret,
     ];

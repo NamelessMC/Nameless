@@ -3,34 +3,41 @@
     "description": "NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.",
     "type": "project",
     "license": "MIT",
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
+    },
     "require": {
         "php": ">=7.4",
-        "jdorn/sql-formatter": "^1.2",
-        "smarty/smarty": "^4.1",
-        "ezyang/htmlpurifier": "^4.14",
-        "samayo/bulletproof": "^4.0",
-        "phpmailer/phpmailer": "^6.6",
+        "jdorn/sql-formatter": "^1.2.17",
+        "smarty/smarty": "^4.3",
+        "ezyang/htmlpurifier": "^4.16",
+        "samayo/bulletproof": "^4.0.1",
+        "phpmailer/phpmailer": "^6.7.1",
         "evert/sitemap-php": "^1.2",
-        "robthree/twofactorauth": "^1.8",
-        "league/oauth2-client": "^2.6",
-        "wohali/oauth2-discord-new": "^1.1",
+        "robthree/twofactorauth": "^1.8.2",
+        "league/oauth2-client": "^2.6.1",
+        "wohali/oauth2-discord-new": "^1.2.1",
         "league/oauth2-google": "^4.0",
-        "guzzlehttp/guzzle": "^7.4",
-        "xpaw/php-minecraft-query": "^4.0",
+        "guzzlehttp/guzzle": "^7.5",
+        "xpaw/php-minecraft-query": "^4.0.1",
         "games647/minecraft-banner-generator": "^0.4.1",
         "symfony/polyfill-php80": "^v1.25",
-        "ircmaxell/password-compat": "^1.0",
-        "astrotomic/php-twemoji": "^0.2",
-        "samerton/i18next": "^1.0",
-        "robmorgan/phinx": "^0.12.10",
-        "symfony/http-foundation": "^5.4"
+        "ircmaxell/password-compat": "^1.0.4",
+        "astrotomic/php-twemoji": "^0.2.2",
+        "samerton/i18next": "^1.0.1",
+        "robmorgan/phinx": "^0.12.13",
+        "symfony/http-foundation": "^5.4.17",
+        "joypixels/emoji-toolkit": "^7.0",
+        "php-di/php-di": "^6.4"
     },
     "require-dev": {
         "phpstan/phpstan": "1.6.9",
-        "maximebf/debugbar": "^1.18",
-        "junker/debugbar-smarty": "^0.2",
-        "hannesvdvreken/guzzle-debugbar": "^3.0",
-        "fakerphp/faker": "^1.19"
+        "maximebf/debugbar": "^1.18.1",
+        "junker/debugbar-smarty": "^0.2.1",
+        "hannesvdvreken/guzzle-debugbar": "^3.0.1",
+        "fakerphp/faker": "^1.21"
     },
     "autoload": {
         "classmap": [
@@ -44,7 +51,8 @@
             "modules/Discord Integration/widgets",
             "modules/Forum/classes",
             "modules/Forum/hooks",
-            "modules/Forum/widgets"
+            "modules/Forum/widgets",
+            "modules/Members/classes"
         ]
     }
 }

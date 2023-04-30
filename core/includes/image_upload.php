@@ -74,6 +74,10 @@ switch ($_POST['type']) {
         $folder = 'favicons';
         break;
 
+    case 'og_image':
+        $folder = 'og_images';
+        break;
+
     case 'default_avatar':
         $folder = implode(DIRECTORY_SEPARATOR, ['avatars', 'defaults']);
         break;

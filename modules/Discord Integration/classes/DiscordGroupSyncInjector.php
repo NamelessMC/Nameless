@@ -2,12 +2,12 @@
 /**
  * Discord group sync injector implementation.
  *
- * @package Modules\Discord Integration
+ * @package Modules\DiscordIntegration
  * @author Aberdeener
- * @version 2.0.0-pr13
+ * @version 2.0.3
  * @license MIT
  */
-class DiscordGroupSyncInjector implements GroupSyncInjector {
+class DiscordGroupSyncInjector implements GroupSyncInjector, BatchableGroupSyncInjector {
 
     public function getModule(): string {
         return 'Discord Integration';
@@ -63,10 +63,18 @@ class DiscordGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function addGroup(User $user, $group_id): bool {
-        return Discord::updateDiscordRoles($user, [$group_id], []) === true;
+        throw new RuntimeException('Batchable injector should not have this called');
     }
 
     public function removeGroup(User $user, $group_id): bool {
-        return Discord::updateDiscordRoles($user, [], [$group_id]) === true;
+        throw new RuntimeException('Batchable injector should not have this called');
+    }
+
+    public function batchAddGroups(User $user, array $group_ids) {
+        return Discord::updateDiscordRoles($user, $group_ids, []);
+    }
+
+    public function batchRemoveGroups(User $user, array $group_ids) {
+        return Discord::updateDiscordRoles($user, [], $group_ids);
     }
 }

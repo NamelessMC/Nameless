@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton | Revamped by Xemah
  *    https://github.com/NamelessMC/Nameless/
- *    NamelessMC version 2.0.0
+ *    NamelessMC version 2.1.0
  *
  *    License: MIT
  *
@@ -25,8 +25,8 @@ class DefaultRevamp_Template extends TemplateBase {
     public function __construct($cache, $smarty, $language, $user, $pages) {
         $template = [
             'name' => 'DefaultRevamp',
-            'version' => '2.0.3',
-            'nl_version' => '2.0.3',
+            'version' => '2.1.0',
+            'nl_version' => '2.1.0',
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 
@@ -40,14 +40,7 @@ class DefaultRevamp_Template extends TemplateBase {
             AssetTree::FONT_AWESOME,
             AssetTree::JQUERY,
             AssetTree::JQUERY_COOKIE,
-        ]);
-
-        $this->addCSSFiles([
-            $template['path'] . 'css/fomantic.min.css' => [],
-        ]);
-
-        $this->addJSFiles([
-            $template['path'] . 'js/fomantic.min.js' => [],
+            AssetTree::FOMANTIC_UI,
         ]);
 
         $smarty->assign('TEMPLATE', $template);
@@ -87,7 +80,7 @@ class DefaultRevamp_Template extends TemplateBase {
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=203' => []
+            $this->_template['path'] . 'css/custom.css?v=210' => []
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
@@ -95,7 +88,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVariables = [
             'siteName' => Output::getClean(SITE_NAME),
             'siteURL' => URL::build('/'),
-            'fullSiteUrl' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
+            'fullSiteURL' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
             'avatarSource' => AvatarSource::getUrlToFormat(),
             'copied' => $this->_language->get('general', 'copied'),
@@ -121,6 +114,12 @@ class DefaultRevamp_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
+        // Logo
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache->setCache('backgroundcache');
+        $logo_image = $cache->retrieve('logo_image');
+        $JSVariables['logoImage'] = !empty($logo_image) ? $logo_image : null;
+
         if (str_contains($route, '/forum/topic/') || PAGE === 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
@@ -130,7 +129,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = ' . json_encode($value);
+            $JSVars .= ($i == 0 ? 'const ' : ', ') . $var . ' = ' . json_encode($value);
             $i++;
         }
 
@@ -140,7 +139,6 @@ class DefaultRevamp_Template extends TemplateBase {
             $this->_template['path'] . 'js/core/core.js?v=203' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
             $this->_template['path'] . 'js/core/pages.js?v=203' => [],
-            $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
         foreach ($this->_pages->getAjaxScripts() as $script) {

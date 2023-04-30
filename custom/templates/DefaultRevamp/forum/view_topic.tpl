@@ -180,7 +180,7 @@
                     {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID || count($reply.post_reactions))}
                     <div class="ui mini info message" id="reactions">
                         {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
-                        <a href="#" data-toggle="popup" data-position="right center">Like</a>
+                        <a href="#" data-toggle="popup" data-position="right center">{$LIKE}</a>
                         <div class="ui wide popup">
                             {if isset($REACTIONS) && count($REACTIONS)}
                             {foreach from=$REACTIONS item=reaction}
