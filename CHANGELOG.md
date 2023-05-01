@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.1.0...v2)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/21)
 
-## [2.1.0](https://github.com/NamelessMC/Nameless/compare/v2.0.3...v2.1.0) - 2023-04-30
+## [2.1.0](https://github.com/NamelessMC/Nameless/compare/v2.0.3...v2.1.0) - 2023-05-01
 ### Added
 - Add dark mode toggle switch [#2877](https://github.com/NamelessMC/Nameless/pull/2877)
 - Add option to use OAuth linking method for Discord Integration [#3051](https://github.com/NamelessMC/Nameless/pull/3051)
@@ -78,6 +78,7 @@
 - Allow correct webhook action types in endpoint [#3326](https://github.com/NamelessMC/Nameless/pull/3326)
 - Use CSS instead of the script to put the footer at the bottom [#3301](https://github.com/NamelessMC/Nameless/pull/3301)
 - Make sure module is enabled to process task [#3331](https://github.com/NamelessMC/Nameless/pull/3331)
+- Initialise tasks in installer [#3342](https://github.com/NamelessMC/Nameless/pull/3342)
 - Dependency updates
 - Translation updates [#3252](https://github.com/NamelessMC/Nameless/pull/3252)
 
@@ -100,6 +101,7 @@
 - Fix default user template setting [#3330](https://github.com/NamelessMC/Nameless/pull/3330)
 - Add missing avatar upload directory [#3333](https://github.com/NamelessMC/Nameless/pull/3333)
 - Fix cookie text on StaffCP permissions page [#3336](https://github.com/NamelessMC/Nameless/pull/3336)
+- Fix DataCollector not found error [#3341](https://github.com/NamelessMC/Nameless/pull/3341)
 
 ## [2.0.3](https://github.com/NamelessMC/Nameless/compare/v2.0.2...v2.0.3) - 2023-01-28
 ### Added
