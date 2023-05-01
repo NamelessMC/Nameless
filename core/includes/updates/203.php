@@ -30,6 +30,14 @@ return new class extends UpgradeScript {
         // Add all groups to member list selectable groups
         Util::setSetting('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
 
+        Config::set('core.installed', true);
+
+        // Ensure admin group has administrator perm
+        $admin_group = DB::getInstance()->query('SELECT permissions FROM nl2_groups WHERE id = 2')->first();
+        $perms = json_decode($admin_group->permissions, true);
+        $perms['administrator'] = 1;
+        DB::getInstance()->query('UPDATE nl2_groups SET permissions = ? WHERE id = 2', [json_encode($perms)]);
+
         $this->setVersion('2.1.0');
     }
 };
