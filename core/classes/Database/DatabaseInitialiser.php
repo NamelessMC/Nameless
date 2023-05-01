@@ -236,7 +236,7 @@ class DatabaseInitialiser {
     }
 
     private function initialiseTasks(): void {
-        GenerateSitemap::schedule(new Language('Core', 'en_UK'));
+        GenerateSitemap::schedule(new Language('core', 'en_UK'));
     }
 
     private function initialiseTemplates(): void {
