@@ -18,6 +18,7 @@ class DatabaseInitialiser {
         $instance->initialiseIntegrations();
         $instance->initialiseReactions();
         $instance->initialiseSettings();
+        $instance->initialiseTasks();
         $instance->initialiseTemplates();
         $instance->initialiseWidgets();
     }
@@ -232,6 +233,10 @@ class DatabaseInitialiser {
                         'The website is run independently from the software creators, and any content' .
                         ' is the responsibility of the website administration.';
         Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
+    }
+
+    private function initialiseTasks(): void {
+        GenerateSitemap::schedule(new Language('Core', 'en_UK'));
     }
 
     private function initialiseTemplates(): void {
