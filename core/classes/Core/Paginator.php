@@ -176,6 +176,9 @@ class Paginator {
             $html .= '</ul>';
         }
 
+        if ($start == $end){
+            $html = '';
+        }
         return $html;
     }
 
