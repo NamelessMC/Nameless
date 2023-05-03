@@ -18,5 +18,7 @@
     "discord_integration/discord_widget_theme": "Тема для виджета",
     "discord_integration/enable_discord_integration": "Включить интеграцию?",
     "discord_integration/discord_widget_error": "Произошла ошибка при Discord виджете: {{error}}.",
-    "discord_integration/discord_id_required": "Введите ваш Дискорд Сервер ID."
+    "discord_integration/discord_id_required": "Введите ваш Дискорд Сервер ID.",
+    "discord_integration/discord_bot": "Discord бот",
+    "discord_integration/link_method": "Метод подключения"
 }
