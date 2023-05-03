@@ -1319,5 +1319,6 @@
     "admin/queue_task_output": "Výstup úlohy",
     "admin/queue_task_invalid_status_to_cancel": "Úloha nie je v platnom stavu pre jej zrušenie",
     "admin/queue_task_status": "Stav",
-    "admin/reset_og_image": "Resetovať OG image"
+    "admin/reset_og_image": "Resetovať OG image",
+    "general/registration_disabled_message_fallback": "Registrácia je momentálne zakázaná."
 }
