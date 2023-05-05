@@ -15,7 +15,7 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
         $server_id = $_POST['server_id'];
         $group_sync_log = [];
 
-        if ($server_id == Util::getSetting('group_sync_mc_server')) {
+        if (Util::getSetting('mc_integration') && $server_id == Util::getSetting('group_sync_mc_server')) {
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
