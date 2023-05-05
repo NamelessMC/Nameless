@@ -43,10 +43,10 @@ if (isset($_GET['order']) && count($_GET['order'])) {
     if (count($orderBy)) {
         $order .= ' ORDER BY ' . implode(', ', $orderBy);
     } else {
-        $order .= ' ORDER BY scheduled_for ASC';
+        $order .= ' ORDER BY scheduled_for DESC';
     }
 } else {
-    $order .= ' ORDER BY scheduled_for ASC';
+    $order .= ' ORDER BY scheduled_for DESC';
 }
 
 if (isset($_GET['start']) && $_GET['length'] != -1) {
