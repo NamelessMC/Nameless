@@ -110,7 +110,6 @@ class Navigation {
         if ($location == 'top') {
             // Navbar
             $this->_topNavbar[$name] = [
-                'type' => 'dropdown',
                 'title' => $title,
                 'items' => [],
                 'order' => $order,
@@ -119,7 +118,6 @@ class Navigation {
         } else {
             // Footer
             $this->_footerNav[$name] = [
-                'type' => 'dropdown',
                 'title' => $title,
                 'items' => [],
                 'order' => $order,
@@ -149,7 +147,7 @@ class Navigation {
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
-                'order' => $order
+                'order' => $order,
             ];
         } else if (isset($this->_footerNav[$dropdown])) {
             // Footer
@@ -158,7 +156,7 @@ class Navigation {
                 'link' => $link,
                 'target' => $target,
                 'icon' => $icon,
-                'order' => $order
+                'order' => $order,
             ];
         }
     }

@@ -103,10 +103,7 @@ $smarty->assign([
     'DEBUG_LINK' => $language->get('admin', 'debug_link'),
     'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
     'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
-    'TOAST_COPIED' => $language->get('admin', 'debug_link_toast', [
-        'linkStart' => '<u><a href="{url}" target="_blank">',
-        'linkEnd' => '</a></u>',
-    ]),
+    'COPIED' => $language->get('general', 'copied'),
 ]);
 
 $template->onPageLoad();

@@ -148,10 +148,10 @@ class URL {
     public static function replaceAnchorsWithText(string $data): string {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
             if (!str_contains($m[1], self::getSelfURL())) {
-                return '<a href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
+                return 'href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             }
 
-            return '<a href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
+            return 'href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
         }, $data);
     }
 

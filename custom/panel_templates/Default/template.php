@@ -5,7 +5,7 @@
  *
  *  For NamelessMC
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -24,8 +24,8 @@ if (!class_exists('Default_Panel_Template')) {
 
             parent::__construct(
                 'Default',  // Template name
-                '2.0.3',  // Template version
-                '2.0.3',  // Nameless version template is made for
+                '2.1.0',  // Template version
+                '2.1.0',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 
@@ -40,7 +40,7 @@ if (!class_exists('Default_Panel_Template')) {
             $this->addCSSFiles([
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=200' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=210' => [],
             ]);
 
             $this->addJSFiles([
@@ -154,13 +154,6 @@ if (!class_exists('Default_Panel_Template')) {
                         $this->assets()->include([
                             AssetTree::DATATABLES
                         ]);
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => [],
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
-                        ]);
 
                         $this->addJSScript('
                             $(document).ready(function() {
@@ -224,16 +217,7 @@ if (!class_exists('Default_Panel_Template')) {
                             AssetTree::TINYMCE,
                         ]);
 
-                        $this->addCSSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/fomantic.toast.min.css' => []
-                        ]);
-
-                        $this->addJSFiles([
-                            (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/fomantic.toast.min.js' => [],
-                        ]);
-
                         $this->addJSScript(Input::createTinyEditor($this->_language, 'InputMaintenanceMessage', null, false, true));
-
                         break;
 
                     case 'privacy_and_terms':

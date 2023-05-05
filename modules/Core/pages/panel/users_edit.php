@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -106,7 +106,11 @@ if (Input::exists()) {
                     Validate::REQUIRED => true,
                     Validate::MIN => 3,
                     Validate::MAX => 20
-                ]
+                ],
+                'timezone' => [
+                    Validate::REQUIRED => true,
+                    Validate::TIMEZONE => true
+                ],
             ])->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
@@ -123,7 +127,8 @@ if (Input::exists()) {
                     Validate::REQUIRED => $language->get('user', 'username_required'),
                     Validate::MIN => $language->get('user', 'username_minimum_3'),
                     Validate::MAX => $language->get('user', 'username_maximum_20')
-                ]
+                ],
+                'timezone' => $language->get('general', 'invalid_timezone'),
             ]);
 
             // Does user have any groups selected
@@ -142,12 +147,16 @@ if (Input::exists()) {
                     }
 
                     // Template
-                    $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+                    if (Input::get('template') != 0) {
+                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
 
-                    if (count($new_template)) {
-                        $new_template = $new_template[0]->id;
+                        if (count($new_template)) {
+                            $new_template = $new_template[0]->id;
+                        } else {
+                            $new_template = $user_query->theme_id;
+                        }
                     } else {
-                        $new_template = $user_query->theme_id;
+                        $new_template = null;
                     }
 
                     // Nicknames?
@@ -165,6 +174,8 @@ if (Input::exists()) {
                         'user_title' => Output::getClean(Input::get('title')),
                         'signature' => $signature,
                         'private_profile' => $private_profile,
+                        'language_id' => Output::getClean(Input::get('language')),
+                        'timezone' => Output::getClean(Input::get('timezone')),
                         'theme_id' => $new_template
                     ]);
 
@@ -314,8 +325,13 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
 $private_profile = Util::getSetting('private_profile');
 
 $templates = [];
-$templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();
+$templates_query = DB::getInstance()->get('templates', ['enabled', 1])->results();
 
+$templates[] = [
+    'id' => 0,
+    'name' => $language->get('general', 'default'),
+    'active' => $user_query->theme_id === null
+];
 foreach ($templates_query as $item) {
     $templates[] = [
         'id' => Output::getClean($item->id),
@@ -342,6 +358,17 @@ $signature = Output::getPurified($user_query->signature);
 
 $user_groups = $view_user->getAllGroupIds();
 
+// Get languages
+$languages = [];
+$language_query = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
+foreach ($language_query as $item) {
+    $languages[] = [
+        'id' => $item->id,
+        'name' => Output::getClean($item->name),
+        'active' => $user->data()->language_id == $item->id
+    ];
+}
+
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -366,6 +393,12 @@ $smarty->assign([
     'EMAIL_ADDRESS_VALUE' => Output::getClean($user_query->email),
     'USER_TITLE' => $language->get('admin', 'title'),
     'USER_TITLE_VALUE' => Output::getClean($user_query->user_title),
+    'LANGUAGE' => $language->get('user', 'active_language'),
+    'LANGUAGE_VALUE' => $user_query->language_id,
+    'LANGUAGES' => $languages,
+    'TIMEZONE' => $language->get('user', 'timezone'),
+    'TIMEZONE_VALUE' => $user_query->timezone,
+    'TIMEZONES' => Util::listTimezones(),
     'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
     'PRIVATE_PROFILE_VALUE' => $user_query->private_profile,
     'PRIVATE_PROFILE_ENABLED' => ($private_profile == 1),

@@ -159,7 +159,12 @@
                                                 && $provider_data['setup']} checked{/if} />
                                             <label for="enable-{$provider_name}" id="enable-{$provider_name}"
                                                 class="custom-control-label">
-                                                {$provider_name|ucfirst} <i class="{$provider_data['icon']} fa-1x"></i>
+                                                {$provider_name|ucfirst}
+                                                {if $provider_data['logo_url']}
+                                                    <img src="{$provider_data['logo_url']}" alt="{$provider_name|ucfirst} Logo" style="width: 16px; height: auto;">
+                                                {elseif $provider_data['icon']}
+                                                    <i class="{$provider_data['icon']}"></i>
+                                                {/if}
                                             </label>
                                         </div>
 

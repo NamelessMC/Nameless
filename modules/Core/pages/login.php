@@ -20,8 +20,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Get login method
-$login_method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
-$login_method = $login_method[0]->value;
+$login_method = Util::getSetting('login_method');
 
 $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
 
@@ -258,6 +257,14 @@ if ($login_method == 'email') {
     $smarty->assign('USERNAME', $language->get('user', 'username'));
 }
 
+// Add "login with..." message to provider array
+$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+foreach ($providers as $name => $provider) {
+    $providers[$name]['log_in_with'] = $language->get('user', 'log_in_with', [
+        'provider' => ucfirst($name)
+    ]);
+}
+
 $smarty->assign([
     'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
     'PASSWORD' => $language->get('user', 'password'),
@@ -272,7 +279,7 @@ $smarty->assign([
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
     'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_PROVIDERS' => $providers,
     'OR' => $language->get('general', 'or'),
 ]);
 

@@ -16,7 +16,8 @@ class PhinxAdapter {
                 return $version . '_' . $migration_name;
             },
             array_filter(scandir(__DIR__ . '/../../migrations'), static function ($file_name) {
-                return !in_array($file_name, ['.', '..', 'phinx.php']);
+                // Pattern that matches Phinx migration file names (eg: 20230403000000_create_stroopwafel_table.php)
+                return preg_match('/^\d{14}_\w+\.php$/', $file_name);
             }),
         );
 

@@ -2,7 +2,7 @@
 /**
  * Minecraft group sync injector implementation.
  *
- * @package Modules\Core\Group_Sync
+ * @package Modules\Core\GroupSync
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

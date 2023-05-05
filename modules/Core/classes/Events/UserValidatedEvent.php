@@ -1,6 +1,6 @@
 <?php
 
-class UserValidatedEvent extends AbstractEvent implements DiscordDispatchable {
+class UserValidatedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $user;
 
@@ -16,7 +16,15 @@ class UserValidatedEvent extends AbstractEvent implements DiscordDispatchable {
         return (new Language())->get('admin', 'validate_hook_info');
     }
 
-    public function toDiscordWebook(): DiscordWebhookBuilder {
+    public function webhookParams(): array {
+        return [
+            'user_id' => $this->user->data()->id,
+            'username' => $this->user->getDisplayname(),
+            'profile_url' => URL::getSelfURL() . ltrim($this->user->getProfileURL(), '/')
+        ];
+    }
+
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
         $language = new Language('core', DEFAULT_LANGUAGE);
 
         return DiscordWebhookBuilder::make()
