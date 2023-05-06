@@ -137,7 +137,7 @@ $smarty->assign([
     'AUTHME_INFO' => $language->get('admin', 'authme_integration_info'),
     'INFO' => $language->get('general', 'info'),
     'ENABLE_AUTHME' => $language->get('admin', 'enable_authme'),
-    'ENABLE_AUTHME_VALUE' => ($authme_enabled == '1'),
+    'ENABLE_AUTHME_VALUE' => (Util::getSetting('authme') == '1'),
     'AUTHME' => $language->get('admin', 'authme_integration'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft')
 ]);

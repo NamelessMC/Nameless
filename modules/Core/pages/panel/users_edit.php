@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -147,12 +147,16 @@ if (Input::exists()) {
                     }
 
                     // Template
-                    $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+                    if (Input::get('template') != 0) {
+                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
 
-                    if (count($new_template)) {
-                        $new_template = $new_template[0]->id;
+                        if (count($new_template)) {
+                            $new_template = $new_template[0]->id;
+                        } else {
+                            $new_template = $user_query->theme_id;
+                        }
                     } else {
-                        $new_template = $user_query->theme_id;
+                        $new_template = null;
                     }
 
                     // Nicknames?
@@ -321,8 +325,13 @@ if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->has
 $private_profile = Util::getSetting('private_profile');
 
 $templates = [];
-$templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();
+$templates_query = DB::getInstance()->get('templates', ['enabled', 1])->results();
 
+$templates[] = [
+    'id' => 0,
+    'name' => $language->get('general', 'default'),
+    'active' => $user_query->theme_id === null
+];
 foreach ($templates_query as $item) {
     $templates[] = [
         'id' => Output::getClean($item->id),

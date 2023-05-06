@@ -68,11 +68,20 @@ if ($page != 'install') {
      * Initialise
      */
 
+    $container = new \DI\Container();
+    $container->set('Cache', \DI\create()->constructor(
+        [
+            'name' => 'nameless',
+            'extension' => '.cache',
+            'path' => ROOT_PATH . '/cache/'
+        ]
+    ));
+
+    /** @var Cache $cache */
+    $cache = $container->get('Cache');
+
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
-
-    // Set up cache
-    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']);
 
     // Force https/www?
     if (Config::get('core.force_https')) {
@@ -114,7 +123,8 @@ if ($page != 'install') {
         }
     }
 
-    $smarty = new Smarty();
+    /** @var Smarty $smarty */
+    $smarty = $container->get('Smarty');
 
     if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
@@ -214,7 +224,10 @@ if ($page != 'install') {
             define('LANGUAGE', $language[0]->short_code);
         }
     }
-    $language = new Language('core', LANGUAGE);
+    $container->set('Language', \DI\create()->constructor('core', LANGUAGE));
+
+    /** @var Language $language */
+    $language = $container->get('Language');
 
     // Site name
     $sitename = Util::getSetting('sitename');
@@ -363,8 +376,8 @@ if ($page != 'install') {
         define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
     }
 
-    // Widgets
-    $widgets = new Widgets($cache, $language, $smarty);
+    /** @var Widgets $widgets */
+    $widgets = $container->get('Widgets');
 
     // Navbar links
     $navigation = new Navigation();
@@ -404,11 +417,11 @@ if ($page != 'install') {
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
-    // Endpoints
-    $endpoints = new Endpoints();
+    /** @var Endpoints $endpoints */
+    $endpoints = $container->get('Endpoints');
 
-    // Announcements
-    $announcements = new Announcements($cache);
+    /** @var Announcements $announcements */
+    $announcements = $container->get('Announcements');
 
     // Modules
     $cache->setCache('modulescache');
@@ -434,7 +447,7 @@ if ($page != 'install') {
         ];
     }
 
-    $pages = new Pages();
+    $pages = $container->get('Pages');
 
     // Sort by priority
     usort($enabled_modules, static function ($a, $b) {

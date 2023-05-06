@@ -143,7 +143,9 @@ class EventHandler {
             }
         }
 
-        EventCollector::getInstance()->called($name, $params);
+        if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
+            EventCollector::getInstance()->called($name, $params);
+        }
 
         // Pass event name to params if it is not already set. This allows listeners
         // which are still using `array $params` to still get the event name.

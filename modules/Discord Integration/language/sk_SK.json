@@ -8,7 +8,7 @@
     "discord_integration/discord_id_length": "Uistite sa, že vaše ID Discord servera má {{min}} až {{max}} číslic.",
     "discord_integration/discord_id_numeric": "Uistite sa, že vaše ID discord servera je číselné (iba čísla).",
     "discord_integration/discord_integration_not_setup": "Integrácia Discordu nie je nastavená",
-    "discord_integration/discord_invite_info": "Ak chcete pozvať Nameless Link bota na svoj Discord server, kliknite {{inviteLinkStart}}sem{{inviteLinkEnd}}. Potom spustite príkaz <code>/apiurl</code> na prepojenie bota s vašou webstránkou. Prípadne môžete {{selfHostLinkStart}}hostiť robota sami{{selfHostLinkEnd}}.",
+    "discord_integration/discord_invite_info": "Ak chcete pozvať Nameless Link bota na svoj Discord server, kliknite {{inviteLinkStart}}sem{{inviteLinkEnd}}. Potom spustite príkaz {{command}} na prepojenie bota s vašou webstránkou. Prípadne môžete {{selfHostLinkStart}}hostiť robota sami{{selfHostLinkEnd}}.",
     "discord_integration/discord_role_id": "ID Discord role",
     "discord_integration/discord_role_id_length": "ID Discord roly musí mať dĺžku {{min}} až {{max}} číslic.",
     "discord_integration/discord_role_id_numeric": "Discord Role ID musí byť číselné.",
