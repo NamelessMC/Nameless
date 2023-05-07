@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -20,8 +20,8 @@ class CookieConsent_Module extends Module {
 
         $name = 'Cookie Consent';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.0.3';
-        $nameless_version = '2.0.3';
+        $module_version = '2.1.0';
+        $nameless_version = '2.1.0';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -57,7 +57,7 @@ class CookieConsent_Module extends Module {
 
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
-            'admincp.cookies' => $language->get('admin', 'cookies')
+            'admincp.cookies' => $this->_cookie_language->get('cookie', 'cookies')
         ]);
 
         // Sitemap

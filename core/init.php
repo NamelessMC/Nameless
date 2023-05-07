@@ -68,11 +68,20 @@ if ($page != 'install') {
      * Initialise
      */
 
+    $container = new \DI\Container();
+    $container->set('Cache', \DI\create()->constructor(
+        [
+            'name' => 'nameless',
+            'extension' => '.cache',
+            'path' => ROOT_PATH . '/cache/'
+        ]
+    ));
+
+    /** @var Cache $cache */
+    $cache = $container->get('Cache');
+
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
-
-    // Set up cache
-    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
     if (Config::get('core.force_https')) {

@@ -7,6 +7,9 @@
  * @version 2.1.0
  * @license MIT
  */
+
+use \DI\Container;
+
 class Queue {
     /**
      * Schedule a task
@@ -58,16 +61,19 @@ class Queue {
 
     /**
      * Process the next 5 tasks in the queue
+     *
+     * @param Container $container Dependency injection container
+     *
      * @return array Processed tasks
      */
-    public static function process(): array {
+    public static function process(Container $container): array {
         $db = DB::getInstance();
 
         $pendingTasks = DB::getInstance()->query(
             <<<SQL
-            SELECT `id`, `task`, `name`, `attempts`, `output`
-            FROM nl2_queue
-            WHERE scheduled_for <= ? AND status IN (?, ?)
+            SELECT `nl2_queue`.`id`, `nl2_queue`.`task`, `nl2_queue`.`name`, `nl2_queue`.`attempts`, `nl2_queue`.`output`
+            FROM nl2_queue LEFT JOIN nl2_modules ON module_id=nl2_modules.id
+            WHERE nl2_modules.enabled = 1 AND scheduled_for <= ? AND status IN (?, ?)
             ORDER BY scheduled_for
             LIMIT 5
             SQL,
@@ -104,6 +110,7 @@ class Queue {
                     try {
                         /** @var Task $instance */
                         $instance = (new $task['task'])->fromId($id);
+                        $instance->setContainer($container);
 
                         $status = $instance->run();
                         $output = $instance->getOutput();

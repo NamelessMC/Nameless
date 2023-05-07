@@ -18,6 +18,7 @@ class DatabaseInitialiser {
         $instance->initialiseIntegrations();
         $instance->initialiseReactions();
         $instance->initialiseSettings();
+        $instance->initialiseTasks();
         $instance->initialiseTemplates();
         $instance->initialiseWidgets();
     }
@@ -182,7 +183,7 @@ class DatabaseInitialiser {
         Util::setSetting('recaptcha_type', 'Recaptcha3');
         Util::setSetting('recaptcha_login', '0');
         Util::setSetting('email_verification', '1');
-        Util::setSetting('nameless_version', '2.0.3');
+        Util::setSetting('nameless_version', '2.1.0');
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
         Util::setSetting('minecraft_avatar_source', CravatarMinecraftAvatarSource::class);
@@ -230,6 +231,10 @@ class DatabaseInitialiser {
                         'The website is run independently from the software creators, and any content' .
                         ' is the responsibility of the website administration.';
         Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
+    }
+
+    private function initialiseTasks(): void {
+        GenerateSitemap::schedule(new Language('core', 'en_UK'));
     }
 
     private function initialiseTemplates(): void {

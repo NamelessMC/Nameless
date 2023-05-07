@@ -6,11 +6,11 @@ We endeavour to respond to and patch high-severity security vulnerabilities as s
 
 The following NamelessMC releases are supported by the development team
 
-| Version       | Supported          |
-|---------------|--------------------|
-| 2.0.x         | :white_check_mark: |
-| <= 2.0.0-pr13 | :x:                |
-| <= 1.0.22     | :x:                |
+| Version   | Supported          |
+|-----------|--------------------|
+| 2.1.x     | :white_check_mark: |
+| <= 2.0.3  | :x:                |
+| <= 1.0.22 | :x:                |
 
 ## Reporting a Vulnerability
 

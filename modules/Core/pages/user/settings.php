@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -229,12 +229,17 @@ if (isset($_GET['do'])) {
                             $new_language = $user->data()->language_id;
                         }
 
-                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+                        // Template
+                        if (Input::get('template') != 0) {
+                            $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
 
-                        if (count($new_template)) {
-                            $new_template = $new_template[0]->id;
+                            if (count($new_template)) {
+                                $new_template = $new_template[0]->id;
+                            } else {
+                                $new_template = $user_query->theme_id;
+                            }
                         } else {
-                            $new_template = $user->data()->theme_id;
+                            $new_template = null;
                         }
 
                         // Check permissions
@@ -481,6 +486,11 @@ if (isset($_GET['do'])) {
     $templates = [];
     $templates_query = $user->getUserTemplates();
 
+    $templates[] = [
+        'id' => 0,
+        'name' => $language->get('general', 'default'),
+        'active' => $user->data()->theme_id === null
+    ];
     foreach ($templates_query as $item) {
         $templates[] = [
             'id' => Output::getClean($item->id),

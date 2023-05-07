@@ -48,7 +48,6 @@
     "forum/forum_description": "Fórum leírása",
     "forum/forum_icon": "Fórum Ikon",
     "forum/forum_index": "Főoldal",
-    "forum/forum_layout": "Fórum elrendezés",
     "forum/forum_name": "Fórum Név",
     "forum/forum_name_maximum": "A fórum neve legfeljebb 150 karakterből állhat.",
     "forum/forum_name_minimum": "A fórum nevének legalább 2 karakterből kell állnia.",
@@ -114,7 +113,6 @@
     "forum/new_reply_in_topic": "{{author}} válaszolt a következő témára: {{topic}}",
     "forum/new_search": "Új Keresés",
     "forum/new_topic": "Új Téma",
-    "forum/new_topic_hook_info": "Új Téma",
     "forum/new_topic_text": "A téma létrehozva itt {{forum}}, {{author}} által",
     "forum/no_forums": "Nincs Fórum",
     "forum/no_label_types_defined": "Még nincs meghatározva címketípus.",
@@ -181,5 +179,9 @@
     "forum/latest_posts_limit": "A legújabb bejegyzések korlátja",
     "forum/highest_reaction_scores": "A legmagasabb reakciópontszámok",
     "forum/most_posts": "Legtöbb poszt",
-    "forum/reaction_score": "Reakciópontszám"
+    "forum/reaction_score": "Reakciópontszám",
+    "forum/news_items_max": "A hírek száma maximum {{max}} legyen",
+    "forum/news_items_min": "A hírek száma minimum {{min}} legyen",
+    "forum/news_items_front_page_limit": "A címlapon megjelenítendő hírek száma",
+    "forum/no_posts_found": "Nem található bejegyzés."
 }

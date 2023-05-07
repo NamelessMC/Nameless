@@ -1,4 +1,4 @@
-# NamelessMC - v2.0
+# NamelessMC version 2
 ![NamelessMC Banner](https://i.imgur.com/gt8uezk.png)
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
@@ -33,6 +33,7 @@ The following list is a brief summary of the features available in v2:
 - ✏️ New template and language systems, allowing for total customisation.
 - ✨ Pretty URL option (requires mod_rewrite or special nginx config).
 - 🎛 Widgets: allows modules to create widgets which can be displayed on most user-facing pages and display almost anything.
+- ⏳ Queue: schedule tasks to happen at a certain point in the future
 - 🚩 Translated into [over 20 languages](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages)
 
 
@@ -75,4 +76,3 @@ The security policy for NamelessMC can be found [here](https://github.com/Namele
 
 ## Special Thanks
 - All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
-- [JetBrains](https://www.jetbrains.com/), whose products are used to develop the NamelessMC project.
