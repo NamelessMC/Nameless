@@ -225,6 +225,7 @@ if ($page != 'install') {
         }
     }
     $container->set('Language', \DI\create()->constructor('core', LANGUAGE));
+
     /** @var Language $language */
     $language = $container->get('Language');
 
