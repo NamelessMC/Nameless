@@ -224,7 +224,6 @@ if ($page != 'install') {
             define('LANGUAGE', $language[0]->short_code);
         }
     }
-
     $container->set('Language', \DI\create()->constructor('core', LANGUAGE));
     /** @var Language $language */
     $language = $container->get('Language');
@@ -347,8 +346,8 @@ if ($page != 'install') {
         $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $cache->retrieve('og_image'));
     }
 
-    // Widgets
-    $widgets = new Widgets($cache, $language, $smarty);
+    /** @var Widgets $widgets */
+    $widgets = $container->get('Widgets');
 
     // Navbar links
     $navigation = new Navigation();
@@ -390,6 +389,7 @@ if ($page != 'install') {
 
     /** @var Endpoints $endpoints */
     $endpoints = $container->get('Endpoints');
+
     /** @var Announcements $announcements */
     $announcements = $container->get('Announcements');
 
