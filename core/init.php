@@ -123,7 +123,8 @@ if ($page != 'install') {
         }
     }
 
-    $smarty = new Smarty();
+    /** @var Smarty $smarty */
+    $smarty = $container->get('Smarty');
 
     if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
@@ -223,7 +224,10 @@ if ($page != 'install') {
             define('LANGUAGE', $language[0]->short_code);
         }
     }
-    $language = new Language('core', LANGUAGE);
+
+    $container->set('Language', \DI\create()->constructor('core', LANGUAGE));
+    /** @var Language $language */
+    $language = $container->get('Language');
 
     // Site name
     $sitename = Util::getSetting('sitename');
@@ -384,11 +388,10 @@ if ($page != 'install') {
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
-    // Endpoints
-    $endpoints = new Endpoints();
-
-    // Announcements
-    $announcements = new Announcements($cache);
+    /** @var Endpoints $endpoints */
+    $endpoints = $container->get('Endpoints');
+    /** @var Announcements $announcements */
+    $announcements = $container->get('Announcements');
 
     // Modules
     $cache->setCache('modulescache');
@@ -414,7 +417,7 @@ if ($page != 'install') {
         ];
     }
 
-    $pages = new Pages();
+    $pages = $container->get('Pages');
 
     // Sort by priority
     usort($enabled_modules, static function ($a, $b) {
