@@ -10,9 +10,6 @@ return new class extends UpgradeScript {
         if ($cache->isCached('avatar_source')) {
             $default_source = $cache->retrieve('avatar_source');
             switch($default_source) {
-                case 'cravatar':
-                    $default_source = CravatarMinecraftAvatarSource::class;
-                    break;
                 case 'crafthead':
                     $default_source = CraftheadMinecraftAvatarSource::class;
                     break;
@@ -30,6 +27,9 @@ return new class extends UpgradeScript {
                     break;
                 case 'visage':
                     $default_source = VisageMinecraftAvatarSource::class;
+                    break;
+                default:
+                    $default_source = CravatarMinecraftAvatarSource::class;
                     break;
             }
 

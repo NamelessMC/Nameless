@@ -2,8 +2,8 @@
 
 if (Input::exists()) {
     if (Token::check()) {
-        Util::setSetting('minecraft_avatar_source', Input::get('minecraft_avatar_source'));
-        Util::setSetting('minecraft_avatar_perspective', Input::get('minecraft_avatar_perspective'));
+        Settings::set('minecraft_avatar_source', Input::get('minecraft_avatar_source'));
+        Settings::set('minecraft_avatar_perspective', Input::get('minecraft_avatar_perspective'));
 
         AvatarSource::getInstance()->clearSourceAvatarCache(MinecraftAvatarSource::class);
 
