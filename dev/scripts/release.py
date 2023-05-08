@@ -18,6 +18,7 @@ INCLUDE_DIRS = [
 ]
 
 INCLUDE_FILES = [
+    '.htaccess',
     '403.php',
     '404.php',
     'index.php',
