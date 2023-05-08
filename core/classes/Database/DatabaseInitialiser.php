@@ -7,7 +7,7 @@ class DatabaseInitialiser {
 
     private function __construct() {
         $this->_db = DB::getInstance();
-        $this->_cache = new Cache();
+        $this->_cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
     }
 
     public static function runPreUser() {
