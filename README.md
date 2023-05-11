@@ -72,7 +72,7 @@ If you would like to assist with NamelessMC development by translating to your l
 Please see the contributing document for information on how to contribute to NamelessMC.
 
 ## Security Policy
-The security policy for NamelessMC can be found [here](https://github.com/NamelessMC/Nameless/blob/v2/SECURITY.md).
+The security policy for NamelessMC can be found [here](/.github/SECURITY.md).
 
 ## Special Thanks
 - All NamelessMC [contributors](https://github.com/NamelessMC/Nameless/graphs/contributors).
