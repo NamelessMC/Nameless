@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.1.0
+ * @version 2.1.1
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
@@ -81,12 +81,14 @@ class DiscordIntegration extends IntegrationBase {
         $validation = Validate::check(['username' => $username], [
             'username' => [
                 Validate::REQUIRED => true,
-                Validate::REGEX => '/^.{2,32}#[0-9]{4}$/'
+                Validate::MIN => 2,
+                Validate::MAX => 32
             ]
         ])->messages([
             'username' => [
                 Validate::REQUIRED => $this->_language->get('admin', 'integration_username_required', ['integration' => $this->getName()]),
-                Validate::REGEX => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()])
+                Validate::MIN => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()]),
+                Validate::MAX => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()])
             ]
         ]);
 
