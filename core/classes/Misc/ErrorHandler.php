@@ -142,6 +142,7 @@ class ErrorHandler {
             'PRISM_CSS' => $path . 'plugins/prism/prism_light_atom.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
             'DETAILED_ERROR' => Debugging::canViewDetailedError(),
+            'LOGO' => $path . 'img/namelessmc_logo.png',
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
             'FATAL_ERROR_MESSAGE_USER' => $language->get('errors', 'fatal_error_message_user'),
