@@ -1,1 +1,21 @@
-{}
+{
+    "discord_integration/discord_id_length": "Lütfen Discord Sunucu ID'nizin {{min}} ile {{max}} hane uzunluğunda olduğundan emin olun.",
+    "discord_integration/discord_role_id_length": "Discord Rol ID'si, {{min}} ile {{max}} basamak uzunluğunda olmalıdır.",
+    "discord_integration/discord_bot": "Discord Botu",
+    "discord_integration/discord_bot_setup": "Bot kuruldu mu?",
+    "discord_integration/discord_bot_must_be_setup": "Botu kurana kadar Discord Entegrasyonu etkinleştirilemez. Bilgi için lütfen {{linkStart}}buraya{{linkEnd}} tıklayın.",
+    "discord_integration/discord_guild_id": "Discord Sunucu ID",
+    "discord_integration/discord_id_confirm": "Discord hesabınızı bağlamayı tamamlamak için lütfen Discord'da \"/verify token:{{token}}\" komutunu çalıştırın.",
+    "discord_integration/discord_id_help": "Discord ID'i nerede bulacağınız hakkında bilgi için lütfen {{linkStart}}bunu{{linkEnd}} okuyun",
+    "discord_integration/discord_role_id_numeric": "Discord Rol ID'si sayısal olmalıdır.",
+    "discord_integration/discord": "Discord",
+    "discord_integration/discord_id_numeric": "Lütfen Discord Sunucu ID'nizin sayısal olduğundan emin olun (yalnızca sayılar).",
+    "discord_integration/discord_role_id": "Discord Rol ID",
+    "discord_integration/discord_settings_updated": "Discord ayarları başarıyla güncellendi",
+    "discord_integration/discord_usernames_updated": "Discord kullanıcı adı başarıyla güncellendi",
+    "discord_integration/discord_widget_error": "Discord widget'ı alınırken bir hata oluştu: {{error}}.",
+    "discord_integration/discord_widget_theme": "Discord Widget Teması",
+    "discord_integration/enable_discord_integration": "Discord entegrasyonu etkinleştirilsin mi?",
+    "discord_integration/discord_widget_disabled": "Widget, belirtilen Discord sunucusu için devre dışı bırakıldı. Lütfen Discord sunucu ayarlarınızdaki 'Widget' sekmesine gidin ve Discord widget'ının etkinleştirildiğinden ve id'sinin olduğundan emin olun.",
+    "discord_integration/link_method": "Bağlantı yöntemi"
+}
