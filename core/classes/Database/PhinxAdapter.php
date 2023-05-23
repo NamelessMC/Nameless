@@ -86,14 +86,22 @@ class PhinxAdapter {
      * Runs any pending migrations. Used for installation and upgrades. Resource heavy, only call when needed.
      * Logs output of Phinx to other-log.log file
      *
-     * @param string $table Phinx table to use
+     * @param string $module Module name
+     * @param ?string $migrationDir Migration directory to use
      *
      * @return string Output of the migration command from Phinx as if it was executed in the console.
      */
     public static function migrate(
-        string $table = 'nl2_phinxlog',
+        string $module,
         ?string $migrationDir = null
     ): string {
+        if ($module === 'Core') {
+            $table = 'nl2_phinxlog';
+        } else {
+            $module = preg_replace('/[^a-zA-Z]+$/', '', $module);
+            $table = "nl2_phinxlog_$module";
+        }
+
         define('PHINX_DB_TABLE', $table);
         define('PHINX_MIGRATIONS_DIR', $migrationDir ?? (__DIR__ . '/../../migrations'));
 
@@ -103,6 +111,52 @@ class PhinxAdapter {
                 'configuration' => __DIR__ . '/../../migrations/phinx.php',
             ]
         ))->getMigrate();
+
+        ErrorHandler::logCustomError($output);
+
+        return $output;
+    }
+
+    /**
+     * Rolls back migrations
+     * Logs output of Phinx to other-log.log file
+     *
+     * @param string $module Module name
+     * @param string $migrationDir Migration directory to use
+     * @param int $since Version of earliest migration to rollback, default 0 for all
+     *
+     * @return string Output of the migration command from Phinx as if it was executed in the console.
+     *
+     * @throws Exception If unable to rollback
+     */
+    public static function rollback(
+        string $module,
+        string $migrationDir,
+        int $since = 0
+    ): string {
+        if ($module === 'Core') {
+            $table = 'nl2_phinxlog';
+        } else {
+            $module = preg_replace('/[^a-zA-Z]+$/', '', $module);
+            $table = "nl2_phinxlog_$module";
+        }
+
+        if (
+            $table === 'nl2_phinxlog' ||
+            strtolower($migrationDir) === (__DIR__ . '/../../migrations')
+        ) {
+            throw new Exception('Cannot rollback core migrations');
+        }
+
+        define('PHINX_DB_TABLE', $table);
+        define('PHINX_MIGRATIONS_DIR', $migrationDir);
+
+        $output = (new Phinx\Wrapper\TextWrapper(
+            new Phinx\Console\PhinxApplication(),
+            [
+                'configuration' => __DIR__ . '/../../migrations/phinx.php',
+            ]
+        ))->getRollback(null, $since);
 
         ErrorHandler::logCustomError($output);
 

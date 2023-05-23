@@ -144,7 +144,7 @@ if ($reinstall) {
 
 print('✍️  Creating tables...' . PHP_EOL);
 
-$message = PhinxAdapter::migrate();
+$message = PhinxAdapter::migrate('Core');
 
 if (!str_contains($message, 'All Done')) {
     print($message);
