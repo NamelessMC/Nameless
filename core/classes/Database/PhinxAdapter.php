@@ -9,12 +9,14 @@ class PhinxAdapter {
      * TODO: return type as array|never (8.1)
      *
      * @param string $module Module name
+     * @param ?string $migrationDir Migration directory
      * @param bool $returnResults If true the results will be returned - otherwise script execution is ended
      *
      * @return array|void
      */
     public static function ensureUpToDate(
         string $module,
+        ?string $migrationDir = null,
         bool $returnResults = false
     ) {
         if ($module === 'Core') {
@@ -24,13 +26,17 @@ class PhinxAdapter {
             $table = "nl2_phinxlog_$module";
         }
 
+        if (!$migrationDir) {
+            $migrationDir = __DIR__ . '/../../migrations';
+        }
+
         $migration_files = array_map(
             static function ($file_name) {
                 [$version, $migration_name] = explode('_', $file_name, 2);
                 $migration_name = str_replace(['.php', '_'], '', ucwords($migration_name, '_'));
                 return $version . '_' . $migration_name;
             },
-            array_filter(scandir(__DIR__ . '/../../migrations'), static function ($file_name) {
+            array_filter(scandir($migrationDir), static function ($file_name) {
                 // Pattern that matches Phinx migration file names (eg: 20230403000000_create_stroopwafel_table.php)
                 return preg_match('/^\d{14}_\w+\.php$/', $file_name);
             }),
@@ -84,8 +90,12 @@ class PhinxAdapter {
      *
      * @return string Output of the migration command from Phinx as if it was executed in the console.
      */
-    public static function migrate(string $table = 'nl2_phinxlog'): string {
+    public static function migrate(
+        string $table = 'nl2_phinxlog',
+        ?string $migrationDir = null,
+    ): string {
         define('PHINX_DB_TABLE', $table);
+        define('PHINX_MIGRATIONS_DIR', $migrationDir ?? (__DIR__ . '/../../migrations'));
 
         $output = (new Phinx\Wrapper\TextWrapper(
             new Phinx\Console\PhinxApplication(),

@@ -5,6 +5,8 @@ if (!defined('ROOT_PATH')) {
 }
 
 $config = Config::get('mysql');
+
+$dir = defined('PHINX_MIGRATIONS_DIR') ? PHINX_MIGRATIONS_DIR : (__DIR__ . '/../../migrations');
 $table = defined('PHINX_DB_TABLE') ? PHINX_DB_TABLE : 'nl2_phinxlog';
 
 return [
