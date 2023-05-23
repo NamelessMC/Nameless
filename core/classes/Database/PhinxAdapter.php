@@ -92,7 +92,7 @@ class PhinxAdapter {
      */
     public static function migrate(
         string $table = 'nl2_phinxlog',
-        ?string $migrationDir = null,
+        ?string $migrationDir = null
     ): string {
         define('PHINX_DB_TABLE', $table);
         define('PHINX_MIGRATIONS_DIR', $migrationDir ?? (__DIR__ . '/../../migrations'));
