@@ -6,9 +6,24 @@ class PhinxAdapter {
      * Checks the number of existing migration files compared to executed migrations in the database.
      * Alternatively we could check the output of a Phinx command, but that takes ~8x as long to execute.
      *
-     * @throws RuntimeException If these numbers don't match.
+     * TODO: return type as array|never (8.1)
+     *
+     * @param string $module Module name
+     * @param bool $returnResults If true the results will be returned - otherwise script execution is ended
+     *
+     * @return array|void
      */
-    public static function ensureUpToDate(): void {
+    public static function ensureUpToDate(
+        string $module,
+        bool $returnResults = false
+    ) {
+        if ($module === 'Core') {
+            $table = 'nl2_phinxlog';
+        } else {
+            $module = preg_replace('/[^a-zA-Z]+$/', '', $module);
+            $table = "nl2_phinxlog_$module";
+        }
+
         $migration_files = array_map(
             static function ($file_name) {
                 [$version, $migration_name] = explode('_', $file_name, 2);
@@ -23,10 +38,17 @@ class PhinxAdapter {
 
         $migration_database_entries = array_map(static function ($row) {
             return $row->version . '_' . $row->migration_name;
-        }, DB::getInstance()->query('SELECT version, migration_name FROM nl2_phinxlog')->results());
+        }, DB::getInstance()->query("SELECT version, migration_name FROM $table")->results());
 
         $missing = array_diff($migration_files, $migration_database_entries);
         $extra = array_diff($migration_database_entries, $migration_files);
+
+        if ($returnResults) {
+            return [
+                'missing' => count($missing),
+                'extra' => count($extra)
+            ];
+        }
 
         // Likely a pull from the repo dev branch or migrations
         // weren't run during an upgrade script.
@@ -58,9 +80,13 @@ class PhinxAdapter {
      * Runs any pending migrations. Used for installation and upgrades. Resource heavy, only call when needed.
      * Logs output of Phinx to other-log.log file
      *
+     * @param string $table Phinx table to use
+     *
      * @return string Output of the migration command from Phinx as if it was executed in the console.
      */
-    public static function migrate(): string {
+    public static function migrate(string $table = 'nl2_phinxlog'): string {
+        define('PHINX_DB_TABLE', $table);
+
         $output = (new Phinx\Wrapper\TextWrapper(
             new Phinx\Console\PhinxApplication(),
             [
