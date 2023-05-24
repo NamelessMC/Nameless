@@ -26,4 +26,8 @@ return [
             'default_migration_table' => $table,
         ],
     ],
+    'feature_flags' => [
+        'column_null_default' => false,
+        'unsigned_primary_keys' => false,
+    ],
 ];

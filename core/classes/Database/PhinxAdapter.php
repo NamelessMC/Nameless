@@ -19,7 +19,9 @@ class PhinxAdapter {
         ?string $migrationDir = null,
         bool $returnResults = false
     ) {
-        if ($module === 'Core') {
+        $module = strtolower($module);
+
+        if ($module === 'core') {
             $table = 'nl2_phinxlog';
         } else {
             $module = preg_replace('/[^a-zA-Z]+$/', '', $module);
