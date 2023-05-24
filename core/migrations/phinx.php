@@ -6,12 +6,12 @@ if (!defined('ROOT_PATH')) {
 
 $config = Config::get('mysql');
 
-$dir = defined('PHINX_MIGRATIONS_DIR') ? PHINX_MIGRATIONS_DIR : (__DIR__ . '/../../migrations');
+$dir = defined('PHINX_MIGRATIONS_DIR') ? PHINX_MIGRATIONS_DIR : __DIR__ ;
 $table = defined('PHINX_DB_TABLE') ? PHINX_DB_TABLE : 'nl2_phinxlog';
 
 return [
     'paths' => [
-        'migrations' => __DIR__,
+        'migrations' => $dir,
     ],
     'environments' => [
         'nameless' => [
