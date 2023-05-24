@@ -95,10 +95,12 @@ class PhinxAdapter {
         string $module,
         ?string $migrationDir = null
     ): string {
-        if ($module === 'Core') {
+        $module = strtolower($module);
+
+        if ($module === 'core') {
             $table = 'nl2_phinxlog';
         } else {
-            $module = strtolower(preg_replace('/[^a-zA-Z]+$/', '', $module));
+            $module = preg_replace('/[^a-zA-Z]+$/', '', $module);
             $table = "nl2_phinxlog_$module";
         }
 
@@ -134,10 +136,12 @@ class PhinxAdapter {
         string $migrationDir,
         int $since = 0
     ): string {
-        if (strtolower($module) === 'core') {
+        $module = strtolower($module);
+
+        if ($module === 'core') {
             $table = 'nl2_phinxlog';
         } else {
-            $module = strtolower(preg_replace('/[^a-zA-Z]+$/', '', $module));
+            $module = preg_replace('/[^a-zA-Z]+$/', '', $module);
             $table = "nl2_phinxlog_$module";
         }
 
