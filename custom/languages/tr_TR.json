@@ -1199,5 +1199,6 @@
     "admin/user_warned_webhook": "{{punished}}, {{punisher}} tarafından uyarıldı.",
     "user/remove_avatar": "Avatarı kaldır",
     "user/username_already_exists": "Seçtiğiniz kullanıcı adı zaten var.",
-    "user/continue_with": "{{provider}} ile devam et"
+    "user/continue_with": "{{provider}} ile devam et",
+    "admin/clone_group": "Grubu klonla"
 }
