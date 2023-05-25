@@ -1014,5 +1014,10 @@
     "admin/captcha_general": "Aktiver Captcha på registreringssiden?",
     "admin/captcha_login": "Aktiver Captcha på påloggingssiden?",
     "admin/dashboard": "Dashboard",
-    "admin/debug_link": "Feilsøkingslenke"
+    "admin/debug_link": "Feilsøkingslenke",
+    "admin/user_banned_webhook": "{{punished}} har blitt utestengt fra nettsiden av {{punisher}}.",
+    "admin/user_warned_webhook": "{{punished}} har fått en advarsel av {{punisher}}.",
+    "admin/authme_db_test_connection": "Test tilkobling",
+    "admin/authme_db_connection_success": "Tilkobling vellykket",
+    "admin/authme_db_connection_failed": "Tilkobling mislykket"
 }
