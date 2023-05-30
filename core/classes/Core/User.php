@@ -78,12 +78,14 @@ class User {
                 $hash = Session::get($this->_sessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isLoggedIn = true;
+                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
             if (Session::exists($this->_admSessionName)) {
                 $hash = Session::get($this->_admSessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isAdmLoggedIn = true;
+                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
         } else {
@@ -266,14 +268,17 @@ class User {
             }
         } else if ($this->checkCredentials($username, $password, $method) === true) {
             // Valid credentials
+            // TODO: job to remove old sessions?
             $hash = SecureRandom::alphanumeric();
 
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
                 'hash' => $hash,
                 'remember_me' => $remember,
-                'active' => 1,
-                'login_method' => $is_admin ? 'admin' : $method
+                'active' => true,
+                'login_method' => $is_admin ? 'admin' : $method,
+                'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+                'ip' => HttpUtils::getRemoteAddress()
             ]);
 
             Session::put($sessionName, $hash);
@@ -476,6 +481,13 @@ class User {
         }
 
         return false;
+    }
+
+    public function getActiveSessions(): array {
+        return DB::getInstance()->query(
+            'SELECT * FROM nl2_users_session WHERE user_id = ? AND active = 1 ORDER BY last_seen DESC', [
+                $this->data()->id
+            ])->results();
     }
 
     /**
