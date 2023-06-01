@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad()) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -39,7 +39,7 @@ const PAGE = 'panel';
 const PANEL_PAGE = 'users';
 const PARENT_PAGE = 'users';
 $page_title = Output::getClean($user_query->username);
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -119,7 +119,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('core/user.tpl', $smarty);

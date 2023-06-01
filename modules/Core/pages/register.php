@@ -19,8 +19,8 @@ $page = 'register';
 const PAGE = 'register';
 $page_title = $language->get('general', 'register');
 
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
 if (!Util::getSetting('registration_enabled')) {
@@ -39,8 +39,8 @@ if (!Util::getSetting('registration_enabled')) {
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('registration_disabled.tpl', $smarty);
@@ -54,7 +54,7 @@ if (Util::getSetting('mc_integration')) {
 
     if ($authme_enabled == 1) {
         // Authme connector
-        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
+        require(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
         die();
     }
 }
@@ -451,8 +451,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('register.tpl', $smarty);

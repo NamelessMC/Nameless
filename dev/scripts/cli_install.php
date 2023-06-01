@@ -87,8 +87,6 @@ if ($reinstall) {
     }
 }
 
-const ROOT_PATH = __DIR__ . '/../..';
-
 print('♻️  Registering autoloader...' . PHP_EOL);
 require './vendor/autoload.php';
 

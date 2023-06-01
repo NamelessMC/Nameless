@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.integrations.edit')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -19,7 +19,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'integrations';
 const EDITING_USER = true;
 $page_title = $language->get('admin', 'integrations');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 $integrations = Integrations::getInstance();
 
@@ -134,7 +134,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

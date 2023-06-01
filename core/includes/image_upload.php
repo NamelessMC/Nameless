@@ -11,14 +11,13 @@
 
 // Initialisation
 $page = 'image_uploads';
-const ROOT_PATH = '../..';
 
 // Get the directory the user is trying to access
 $directory = $_SERVER['REQUEST_URI'];
 $directories = explode('/', $directory);
 
-require(ROOT_PATH . '/vendor/autoload.php');
-require(ROOT_PATH . '/core/init.php');
+require(Constants::ROOT_PATH . '/vendor/autoload.php');
+require(Constants::ROOT_PATH . '/core/init.php');
 
 if (!$user->isLoggedIn()) {
     die('Not logged in');
@@ -88,8 +87,8 @@ switch ($_POST['type']) {
         }
 
         if (
-            !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
-            && !mkdir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            !is_dir(join(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
+            && !mkdir(join(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
         ) {
             Session::flash('profile_banner_error', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/profile_images']));
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
@@ -109,7 +108,7 @@ switch ($_POST['type']) {
         break;
 }
 
-$image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', $folder]));
+$image->setLocation(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', $folder]));
 
 if ($image['file']) {
     try {
@@ -130,7 +129,7 @@ if ($image['file']) {
             $diff = array_diff(array_merge($image_extensions, ['gif', 'ico']), [strtolower($image->getMime())]);
 
             foreach ($diff as $extension) {
-                $to_remove = glob(ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.' . $extension);
+                $to_remove = glob(Constants::ROOT_PATH . '/uploads/avatars/' . $user->data()->id . '.' . $extension);
                 foreach ($to_remove as $file) {
                     unlink($file);
                 }

@@ -52,7 +52,7 @@ class AvatarSource {
                 }
 
                 foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
+                    if (file_exists(Constants::ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
                         // We don't check the validity here since we know the file exists for sure
                         return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . urlencode($data->avatar_updated);
                     }
@@ -62,7 +62,7 @@ class AvatarSource {
 
         // Fallback to default avatar image if it is set and the avatar type is custom
         if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
-            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+            if (file_exists(Constants::ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
                 // We don't check the validity here since we know the file exists for sure
                 return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
             }
@@ -99,7 +99,7 @@ class AvatarSource {
      * @return bool Whether the URL is a valid image URL
      */
     private static function validImageUrl(string $url): bool {
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']);
         $cache->setCache('avatar_validity');
 
         if ($cache->isCached($url)) {
@@ -189,7 +189,7 @@ class AvatarSource {
     public static function getUrlToFormat(): string {
         // Default to Cravatar
         if (!isset(self::$_active_source)) {
-            require_once(ROOT_PATH . '/modules/Core/classes/Avatars/CravatarAvatarSource.php');
+            require_once(Constants::ROOT_PATH . '/modules/Core/classes/Avatars/CravatarAvatarSource.php');
             return (new CravatarAvatarSource())->getUrlToFormat(self::getDefaultPerspective());
         }
 

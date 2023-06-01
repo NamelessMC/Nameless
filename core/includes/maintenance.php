@@ -13,7 +13,7 @@ $pages = new Pages();
 
 const PAGE = 'maintenance';
 $page_title = $language->get('errors', 'maintenance_title');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (!$user->isLoggedIn()) {
     $smarty->assign(

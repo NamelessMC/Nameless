@@ -148,7 +148,7 @@ class AssetResolver extends AssetTree {
                 : '')
             . '/core/assets/' . $file;
 
-        if (!file_exists(ROOT_PATH . '/core/assets/' . $file)) {
+        if (!file_exists(Constants::ROOT_PATH . '/core/assets/' . $file)) {
             throw new InvalidArgumentException('Asset file "' . $href . '" not found');
         }
 

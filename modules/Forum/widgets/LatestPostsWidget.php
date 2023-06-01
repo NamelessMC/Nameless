@@ -32,7 +32,7 @@ class LatestPostsWidget extends WidgetBase {
         $this->_name = 'Latest Posts';
         $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display latest posts from your forum.';
-        $this->_settings = ROOT_PATH . '/modules/Forum/widgets/admin/latest_posts.php';
+        $this->_settings = Constants::ROOT_PATH . '/modules/Forum/widgets/admin/latest_posts.php';
         $this->_order = $widget_query->order ?? null;
 
         $this->_smarty->assign([

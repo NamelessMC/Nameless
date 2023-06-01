@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.general')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'general_settings';
 $page_title = $language->get('admin', 'general_settings');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if (isset($_GET['do'])) {
@@ -149,7 +149,7 @@ if (Input::exists()) {
             }
 
             // Update config
-            if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
+            if (is_writable(Constants::ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                 Config::setMultiple([
                     'core.friendly' => $friendly,
                     'core.force_https' => $https,
@@ -214,7 +214,7 @@ $contact_email = Output::getClean(Util::getSetting('incoming_email'));
 $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
 for ($i = 0; $i < $count; $i++) {
-    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
+    $language_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
     if (!file_exists($language_path)) {
         unset($languages[$i]);
     }
@@ -298,7 +298,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('core/general_settings.tpl', $smarty);

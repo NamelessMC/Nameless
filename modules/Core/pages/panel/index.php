@@ -10,14 +10,14 @@
  */
 
 if (!$user->handlePanelPageLoad()) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
 const PAGE = 'panel';
 const PANEL_PAGE = 'dashboard';
 $page_title = $language->get('admin', 'dashboard');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -217,12 +217,12 @@ if ($user->hasPermission('admincp.core.debugging')) {
     ]);
 }
 
-if (is_dir(ROOT_PATH . '/modules/Core/pages/admin')) {
+if (is_dir(Constants::ROOT_PATH . '/modules/Core/pages/admin')) {
     $smarty->assign([
         'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
     ]);
 } else {
-    if (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
+    if (is_dir(Constants::ROOT_PATH . '/modules/Core/pages/mod')) {
         $smarty->assign([
             'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
         ]);
@@ -252,7 +252,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('index.tpl', $smarty);

@@ -9,8 +9,8 @@
  *  Cookie Consent initialisation file
  */
 
-require_once ROOT_PATH . '/modules/Cookie Consent/module.php';
+require_once Constants::ROOT_PATH . '/modules/Cookie Consent/module.php';
 
-$cookie_language = new Language(ROOT_PATH . '/modules/Cookie Consent/language');
+$cookie_language = new Language(Constants::ROOT_PATH . '/modules/Cookie Consent/language');
 
 $module = new CookieConsent_Module($language, $cookie_language, $pages);

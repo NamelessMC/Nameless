@@ -18,14 +18,14 @@ if (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING'])) {
 // Definitions
 if (!defined('PATH')) {
     define('PATH', '/');
-    define('ROOT_PATH', __DIR__);
+    define('Constants::ROOT_PATH', __DIR__);
 }
 $page = 'install';
 
 $install_path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
 
 // Start initialising the page
-require(ROOT_PATH . '/core/init.php');
+require(Constants::ROOT_PATH . '/core/init.php');
 
 // Disable error reporting
 error_reporting(0);
@@ -51,7 +51,7 @@ $language = new Language('core', $language_short_code);
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
 if (Config::exists() && Config::get('core.installed') === true) {
-    require(ROOT_PATH . '/core/installation/already_installed.php');
+    require(Constants::ROOT_PATH . '/core/installation/already_installed.php');
     return;
 }
 
@@ -63,4 +63,4 @@ if (isset($_GET['language'])) {
     }
     die($_GET['language'] . ' is not a valid language');
 }
-require(ROOT_PATH . '/core/installation/installer.php');
+require(Constants::ROOT_PATH . '/core/installation/installer.php');

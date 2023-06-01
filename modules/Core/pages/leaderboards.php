@@ -11,20 +11,20 @@
 
 // MC integration and Placeholders enabled?
 if (!Util::getSetting('mc_integration') || Util::getSetting('placeholders') !== '1') {
-    require_once(ROOT_PATH . '/404.php');
+    require_once(Constants::ROOT_PATH . '/404.php');
     die();
 }
 
 $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
 if (!count($leaderboard_placeholders)) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
 const PAGE = 'leaderboards';
 $page_title = $language->get('general', 'leaderboards');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 $leaderboard_placeholders_data = [];
 $leaderboard_users = [];
@@ -110,8 +110,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('leaderboards.tpl', $smarty);

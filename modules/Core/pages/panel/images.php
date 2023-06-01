@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.images')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'layout';
 const PANEL_PAGE = 'images';
 $page_title = $language->get('admin', 'images');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Reset background
 if (isset($_GET['action'])) {
@@ -157,7 +157,7 @@ if ($og_image == '') {
 // Only display jpeg, png, jpg, gif
 $allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
 
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
+$image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'template_banners']);
 $images = scandir($image_path);
 $template_banner_images = [];
 
@@ -177,7 +177,7 @@ foreach ($images as $image) {
     $n++;
 }
 
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'logos']);
+$image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'logos']);
 $images = scandir($image_path);
 $logo_images = [];
 
@@ -197,7 +197,7 @@ foreach ($images as $image) {
     $n++;
 }
 
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'favicons']);
+$image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'favicons']);
 $images = scandir($image_path);
 $favicon_images = [];
 
@@ -217,7 +217,7 @@ foreach ($images as $image) {
     $n++;
 }
 
-$image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'og_images']);
+$image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'og_images']);
 $images = scandir($image_path);
 $og_images = [];
 
@@ -243,25 +243,25 @@ if (!is_writable(ROOT_PATH . '/uploads/backgrounds')) {
     ]));
 }
 
-if (!is_writable(ROOT_PATH . '/uploads/template_banners')) {
+if (!is_writable(Constants::ROOT_PATH . '/uploads/template_banners')) {
     $smarty->assign('TEMPLATE_BANNERS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
         'directory' => Text::bold('uploads/template_banners')
     ]));
 }
 
-if (!is_writable(ROOT_PATH . '/uploads/logos')) {
+if (!is_writable(Constants::ROOT_PATH . '/uploads/logos')) {
     $smarty->assign('LOGOS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
         'directory' => Text::bold('uploads/logos')
     ]));
 }
 
-if (!is_writable(ROOT_PATH . '/uploads/favicons')) {
+if (!is_writable(Constants::ROOT_PATH . '/uploads/favicons')) {
     $smarty->assign('FAVICONS_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
         'directory' => Text::bold('uploads/favicons')
     ]));
 }
 
-if (!is_writable(ROOT_PATH . '/uploads/og_images')) {
+if (!is_writable(Constants::ROOT_PATH . '/uploads/og_images')) {
     $smarty->assign('OG_IMAGES_DIRECTORY_NOT_WRITABLE', $language->get('admin', 'x_directory_not_writable', [
         'directory' => Text::bold('uploads/og_images')
     ]));
@@ -310,7 +310,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('core/images.tpl', $smarty);

@@ -12,7 +12,7 @@
 // Always define page name
 const PAGE = 'cookies';
 $page_title = $cookie_language->get('cookie', 'cookie_notice');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Retrieve cookie notice from database
 $cookie_notice = DB::getInstance()->query('SELECT value FROM nl2_privacy_terms WHERE `name` = ?', ['cookies'])->first()->value;
@@ -26,12 +26,12 @@ $smarty->assign([
     'UPDATE_SETTINGS' => $cookie_language->get('cookie', 'update_settings'),
 ]);
 
-$template->addJSScript(file_get_contents(ROOT_PATH . '/modules/Cookie Consent/assets/js/configure.js'));
+$template->addJSScript(file_get_contents(Constants::ROOT_PATH . '/modules/Cookie Consent/assets/js/configure.js'));
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('cookies.tpl', $smarty);

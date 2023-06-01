@@ -183,7 +183,7 @@ class Email {
         return str_replace(
             $placeholders,
             $placeholder_values,
-            file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
+            file_get_contents(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
         );
     }
 }

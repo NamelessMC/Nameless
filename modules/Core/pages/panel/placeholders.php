@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.placeholders')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -19,7 +19,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'placeholders';
 $page_title = $language->get('admin', 'placeholders');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 
@@ -190,7 +190,7 @@ if (isset($errors) && count($errors)) {
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

@@ -12,7 +12,7 @@
 // Set page name variable
 const PAGE = 'login';
 $page_title = $language->get('general', 'sign_in');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Ensure user isn't already logged in
 if ($user->isLoggedIn()) {
@@ -123,7 +123,7 @@ if (Input::exists()) {
 
                                 } else {
                                     // App
-                                    require(ROOT_PATH . '/core/includes/tfa_signin.php');
+                                    require(Constants::ROOT_PATH . '/core/includes/tfa_signin.php');
                                     die();
                                 }
                             } else {
@@ -134,7 +134,7 @@ if (Input::exists()) {
 
                                     if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
-                                        require(ROOT_PATH . '/core/includes/tfa_signin.php');
+                                        require(Constants::ROOT_PATH . '/core/includes/tfa_signin.php');
                                         die();
                                     }
                                 } else {
@@ -313,8 +313,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('login.tpl', $smarty);

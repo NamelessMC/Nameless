@@ -7,13 +7,13 @@ final class MoveEmailSettingsToConfig extends AbstractMigration {
 
     public function change(): void {
         // New installations won't have the old email.php config file
-        if (!is_file(ROOT_PATH . '/core/email.php')) {
+        if (!is_file(Constants::ROOT_PATH . '/core/email.php')) {
             return;
         }
 
         // Migrate settings from core/email.php to core/config.php
         // This will also convert the file to the "new" `return [...]` format instead of `$conf = [...]`
-        require(ROOT_PATH . '/core/email.php');
+        require(Constants::ROOT_PATH . '/core/email.php');
         $email_config = $GLOBALS['email'];
 
         Config::set('email', [
@@ -28,7 +28,7 @@ final class MoveEmailSettingsToConfig extends AbstractMigration {
         ]);
 
         try {
-            unlink(ROOT_PATH . '/core/email.php');
+            unlink(Constants::ROOT_PATH . '/core/email.php');
         } catch (Exception $ignored) {
             // Not a big problem if we can't delete the file, for example if it's not writable. It's not worth crashing the upgrader.
         }

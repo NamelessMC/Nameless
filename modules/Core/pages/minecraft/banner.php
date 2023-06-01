@@ -57,14 +57,14 @@ if (Util::getSetting('mc_integration')) {
                     imageAlphaBlending($favicon, true);
                     imageSaveAlpha($favicon, true);
                 } else {
-                    $favicon = imagecreatefrompng(ROOT_PATH . '/core/assets/img/favicon.png');
+                    $favicon = imagecreatefrompng(Constants::ROOT_PATH . '/core/assets/img/favicon.png');
                 }
 
                 // Cache the favicon for 1 hour
-                imagepng($favicon, ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+                imagepng($favicon, Constants::ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
                 $cache->store('favicon', 'true', 3600);
             } else {
-                $favicon = imagecreatefrompng(ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
+                $favicon = imagecreatefrompng(Constants::ROOT_PATH . '/cache/server_fav_' . urlencode($server->name) . '.png');
             }
 
             // remove ".png" from ending (lib expects file name w/o extension)
@@ -80,7 +80,7 @@ if (Util::getSetting('mc_integration')) {
 
             header('Content-type: image/png');
 
-            imagepng($image, ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+            imagepng($image, Constants::ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($image);
 
             imagedestroy($favicon);
@@ -90,7 +90,7 @@ if (Util::getSetting('mc_integration')) {
             $cache->store('image', 'true', 120);
         } else {
             header('Content-Type: image/png');
-            $im = imagecreatefrompng(ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
+            $im = imagecreatefrompng(Constants::ROOT_PATH . '/cache/server_' . urlencode($server->name) . '.png');
             imagepng($im);
             imagedestroy($im);
         }

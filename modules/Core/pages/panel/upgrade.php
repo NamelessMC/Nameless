@@ -16,7 +16,7 @@ if (!$update_needed || ($update_needed->value !== 'true' && $update_needed->valu
     Redirect::to(URL::build('/panel/update'));
 }
 
-$cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+$cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']);
 
 $version = DB::getInstance()->query('SELECT `value` FROM nl2_settings WHERE `name` = \'nameless_version\'')->first();
 

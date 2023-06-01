@@ -155,7 +155,7 @@ class Discord {
      */
     public static function getLanguageTerm(string $term, array $variables = []): string {
         if (!isset(self::$_discord_integration_language)) {
-            self::$_discord_integration_language = new Language(ROOT_PATH . '/modules/Discord Integration/language');
+            self::$_discord_integration_language = new Language(Constants::ROOT_PATH . '/modules/Discord Integration/language');
         }
 
         return self::$_discord_integration_language->get('discord_integration', $term, $variables);
@@ -168,7 +168,7 @@ class Discord {
      */
     public static function saveRoles($roles): void {
         $roles = [json_encode($roles)];
-        file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
+        file_put_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache', $roles);
     }
 
     /**
@@ -177,8 +177,8 @@ class Discord {
      * @return array Cached Discord roles
      */
     public static function getRoles(): array {
-        if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
-            return json_decode(file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
+        if (file_exists(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache')) {
+            return json_decode(file_get_contents(Constants::ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('discord_roles') . '.cache'), true);
         }
 
         return [];

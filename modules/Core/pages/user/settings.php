@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_settings';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Forum enabled?
 $forum_enabled = Util::isModuleEnabled('Forum');
@@ -106,10 +106,10 @@ if (isset($_GET['do'])) {
             ]);
         }
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-        require(ROOT_PATH . '/core/templates/cc_navbar.php');
+        require(Constants::ROOT_PATH . '/core/templates/cc_navbar.php');
         $template->onPageLoad();
-        require(ROOT_PATH . '/core/templates/navbar.php');
-        require(ROOT_PATH . '/core/templates/footer.php');
+        require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+        require(Constants::ROOT_PATH . '/core/templates/footer.php');
         $template->displayTemplate('user/tfa.tpl', $smarty);
 
     } else {
@@ -666,12 +666,12 @@ if (isset($_GET['do'])) {
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-    require(ROOT_PATH . '/core/templates/cc_navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/cc_navbar.php');
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('user/settings.tpl', $smarty);

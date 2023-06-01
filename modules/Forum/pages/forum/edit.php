@@ -12,7 +12,7 @@
 // Always define page name
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'edit_post');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
@@ -265,8 +265,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
 $template->displayTemplate('forum/forum_edit_post.tpl', $smarty);

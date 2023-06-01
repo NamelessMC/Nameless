@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.cookies')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'cookie_divider';
 const PANEL_PAGE = 'cookie_settings';
 $page_title = $cookie_language->get('cookie', 'cookies');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     $errors = [];
@@ -94,7 +94,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('cookies/cookies.tpl', $smarty);

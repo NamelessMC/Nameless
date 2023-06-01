@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 $page_title = $language->get('admin', 'minecraft');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     // Check token
@@ -111,7 +111,7 @@ if ($minecraft_enabled == 1) {
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('integrations/minecraft/minecraft.tpl', $smarty);

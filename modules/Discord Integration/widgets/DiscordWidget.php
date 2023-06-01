@@ -31,7 +31,7 @@ class DiscordWidget extends WidgetBase {
         $this->_name = 'Discord';
         $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Integrations -> Discord tab first!';
-        $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_widgets/discord.php';
+        $this->_settings = Constants::ROOT_PATH . '/modules/Discord Integration/includes/admin_widgets/discord.php';
         $this->_order = $widget_query->order ?? null;
     }
 

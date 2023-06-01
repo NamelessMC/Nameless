@@ -28,25 +28,25 @@ Debugging::setCanGenerateDebugLink(defined('DEBUGGING') && DEBUGGING);
 // All paths should be writable, but recursively checking everything would take too much time.
 // Only check the most important paths.
 $writable_check_paths = [
-    ROOT_PATH,
-    ROOT_PATH . '/cache',
-    ROOT_PATH . '/cache/logs',
-    ROOT_PATH . '/cache/sitemaps',
-    ROOT_PATH . '/cache/templates_c',
-    ROOT_PATH . '/uploads',
-    ROOT_PATH . '/core/config.php'
+    Constants::ROOT_PATH,
+    Constants::ROOT_PATH . '/cache',
+    Constants::ROOT_PATH . '/cache/logs',
+    Constants::ROOT_PATH . '/cache/sitemaps',
+    Constants::ROOT_PATH . '/cache/templates_c',
+    Constants::ROOT_PATH . '/uploads',
+    Constants::ROOT_PATH . '/core/config.php'
 ];
 
 foreach ($writable_check_paths as $path) {
     if (is_dir($path) && !is_writable($path)) {
         die('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
-        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>');
+        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(Constants::ROOT_PATH) . '</code></p>');
     }
 }
 
-if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
+if (!file_exists(Constants::ROOT_PATH . '/cache/templates_c')) {
     try {
-        mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
+        mkdir(Constants::ROOT_PATH . '/cache/templates_c', 0777, true);
     } catch (Exception $e) {
         die('Unable to create <strong>/cache</strong> directories, please check your file permissions.');
     }
@@ -329,7 +329,7 @@ if ($page != 'install') {
         'file_exists',
         'array_key_exists'
     ];
-    $securityPolicy->secure_dir = [ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates'];
+    $securityPolicy->secure_dir = [Constants::ROOT_PATH . '/custom/templates', Constants::ROOT_PATH . '/custom/panel_templates'];
     $smarty->enableSecurity($securityPolicy);
 
     // Basic Smarty variables
@@ -455,8 +455,8 @@ if ($page != 'install') {
     });
 
     foreach ($enabled_modules as $module) {
-        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
-            require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+        if (file_exists(Constants::ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
+            require(Constants::ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
         }
     }
 
@@ -475,7 +475,7 @@ if ($page != 'install') {
                 )) {
                 // Can continue as normal
             } else {
-                require(ROOT_PATH . '/core/includes/maintenance.php');
+                require(Constants::ROOT_PATH . '/core/includes/maintenance.php');
                 die();
             }
         } else {

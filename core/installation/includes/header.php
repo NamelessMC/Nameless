@@ -1,5 +1,5 @@
 <?php
-$readme = file(ROOT_PATH . '/README.md');
+$readme = file(Constants::ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
 if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')) {

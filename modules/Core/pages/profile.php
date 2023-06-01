@@ -30,7 +30,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $page_title = $language->get('user', 'profile');
 }
 
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/frontend_init.php');
 
 $template->assets()->include([
     DARK_MODE
@@ -65,10 +65,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             // Update banner
                             if (isset($_POST['banner'])) {
                                 // Check image specified actually exists
-                                if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
+                                if (is_file(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
                                     // Exists
                                     // Is it an image file?
-                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
+                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
                                         // Yes, update settings
                                         $user->update(
                                             [
@@ -505,7 +505,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             // Custom profile banners
             $banners = [];
 
-            $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images']);
+            $image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'profile_images']);
             $images = scandir($image_path);
 
             // Only display jpeg, png, jpg, gif
@@ -524,7 +524,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 ];
             }
 
-            $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]);
+            $image_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]);
 
             if (is_dir($image_path)) {
                 $images = scandir($image_path);
@@ -862,8 +862,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
     $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+    require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
     // Display template
     $template->displayTemplate('profile.tpl', $smarty);
@@ -883,8 +883,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
         $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
-        require(ROOT_PATH . '/core/templates/navbar.php');
-        require(ROOT_PATH . '/core/templates/footer.php');
+        require(Constants::ROOT_PATH . '/core/templates/navbar.php');
+        require(Constants::ROOT_PATH . '/core/templates/footer.php');
 
         // Display template
         $template->displayTemplate('user_not_exist.tpl', $smarty);

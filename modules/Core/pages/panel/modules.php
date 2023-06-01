@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.modules')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,7 +18,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'modules';
 const PANEL_PAGE = 'modules';
 $page_title = $language->get('admin', 'modules');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -42,12 +42,12 @@ if (!isset($_GET['action'])) {
         }
 
         if (!$exists) {
-            if (!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
+            if (!file_exists(Constants::ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
                 continue;
             }
 
             try {
-                require_once ROOT_PATH . '/modules/' . $item->name . '/init.php';
+                require_once Constants::ROOT_PATH . '/modules/' . $item->name . '/init.php';
             } catch (Exception $e) {
                 $term = 'unable_to_load_module';
 
@@ -171,13 +171,13 @@ if (!isset($_GET['action'])) {
             $name = Output::getClean($name[0]->name);
 
             // Ensure module is valid
-            if (!file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
+            if (!file_exists(Constants::ROOT_PATH . '/modules/' . $name . '/init.php')) {
                 Redirect::to(URL::build('/panel/modules'));
             }
 
             $module = null;
 
-            require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
+            require_once(Constants::ROOT_PATH . '/modules/' . $name . '/init.php');
 
             /** @phpstan-ignore-next-line */
             if ($module instanceof Module) {
@@ -272,8 +272,8 @@ if (!isset($_GET['action'])) {
             // Store
             $cache->store('enabled_modules', $modules);
 
-            if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
-                require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
+            if (file_exists(Constants::ROOT_PATH . '/modules/' . $name . '/init.php')) {
+                require_once(Constants::ROOT_PATH . '/modules/' . $name . '/init.php');
                 $module->onDisable();
             }
 
@@ -289,7 +289,7 @@ if (!isset($_GET['action'])) {
     if ($_GET['action'] == 'install') {
         if (Token::check()) {
             // Install any new modules
-            $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
+            $directories = glob(Constants::ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
             define('MODULE_INSTALL', true);
             $errors = [];
@@ -297,14 +297,14 @@ if (!isset($_GET['action'])) {
             foreach ($directories as $directory) {
                 $folders = explode('/', $directory);
 
-                if (file_exists(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
+                if (file_exists(Constants::ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php')) {
                     $exists = DB::getInstance()->get('modules', ['name', $folders[count($folders) - 1]])->results();
 
                     if (!count($exists)) {
                         $module = null;
 
                         try {
-                            require_once(ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
+                            require_once(Constants::ROOT_PATH . '/modules/' . $folders[count($folders) - 1] . '/init.php');
 
                             /** @phpstan-ignore-next-line */
                             if ($module instanceof Module) {
@@ -380,7 +380,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('core/modules.tpl', $smarty);

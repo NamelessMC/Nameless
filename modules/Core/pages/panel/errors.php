@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.errors')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -18,11 +18,11 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'error_logs');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
     if (Token::check()) {
-        file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
+        file_put_contents(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
         Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
         Redirect::to(URL::build('/panel/core/errors'));
     } else {
@@ -67,8 +67,8 @@ if (isset($_GET['log'])) {
             break;
     }
 
-    if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
+    if (file_exists(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
+        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
         $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
@@ -118,7 +118,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 if (!isset($_GET['log'])) {

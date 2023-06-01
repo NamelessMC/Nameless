@@ -375,10 +375,10 @@ class Forum_Module extends Module {
                     Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
 
                     // Dashboard stats
-                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
+                    require_once(Constants::ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, $latest_topics_count));
 
-                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
+                    require_once(Constants::ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, $latest_posts_count));
 
                 }

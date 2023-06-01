@@ -13,7 +13,7 @@ abstract class UpgradeScript {
 
     public function __construct() {
         $this->_cache = new Cache(
-            ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
+            ['name' => 'nameless', 'extension' => '.cache', 'path' => Constants::ROOT_PATH . '/cache/']
         );
     }
 
@@ -24,7 +24,7 @@ abstract class UpgradeScript {
      * @return UpgradeScript|null Instance of UpgradeScript from file
      */
     public static function get(string $current_version): ?UpgradeScript {
-        $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
+        $path = Constants::ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
 
         if (!file_exists($path)) {
             return null;
@@ -122,7 +122,7 @@ abstract class UpgradeScript {
      */
     protected function deleteFiles($paths): void {
         foreach ((array) $paths as $path) {
-            $path = ROOT_PATH . '/' . $path;
+            $path = Constants::ROOT_PATH . '/' . $path;
             if (!file_exists($path)) {
                 $this->log("'$path' does not exist, cannot delete.");
                 continue;

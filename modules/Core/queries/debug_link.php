@@ -2,7 +2,7 @@
 
 // Can user generate the debug link?
 if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -25,11 +25,11 @@ foreach ($modules as $item) {
     }
 
     if (!$exists) {
-        if (!file_exists(ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
+        if (!file_exists(Constants::ROOT_PATH . '/modules/' . $item->name . '/init.php')) {
             continue;
         }
 
-        require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
+        require_once(Constants::ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
     $namelessmc_modules[$module->getName()] = [
@@ -44,7 +44,7 @@ foreach ($modules as $item) {
 
 $templates_query = DB::getInstance()->get('templates', ['id', '<>', 0])->results();
 foreach ($templates_query as $fe_template) {
-    $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($fe_template->name), 'template.php']);
+    $template_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'custom', 'templates', Output::getClean($fe_template->name), 'template.php']);
 
     if (file_exists($template_path)) {
         require_once($template_path);
@@ -63,7 +63,7 @@ foreach ($templates_query as $fe_template) {
 $panel_templates_query = DB::getInstance()->get('panel_templates', ['id', '<>', 0])->results();
 foreach ($panel_templates_query as $panel_template) {
 
-    $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'panel_templates', Output::getClean($panel_template->name), 'template.php']);
+    $template_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'custom', 'panel_templates', Output::getClean($panel_template->name), 'template.php']);
 
     if (file_exists($template_path)) {
         require_once($template_path);
@@ -175,7 +175,7 @@ if ($uuid->count()) {
 
 $logs = [];
 foreach (['fatal', 'warning', 'notice', 'other', 'custom'] as $type) {
-    $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']);
+    $file_path = implode(DIRECTORY_SEPARATOR, [Constants::ROOT_PATH, 'cache', 'logs', $type . '-log.log']);
     $logs[$type] = file_exists($file_path) ? Util::readFileEnd($file_path, $max_bytes = 10_000) : '';
 }
 
@@ -258,8 +258,8 @@ $data = [
         'disk_free_space' => disk_free_space('./'),
         'memory_total_space' => ini_get('memory_limit'),
         'memory_used_space' => memory_get_usage(),
-        'config_writable' => is_writable(ROOT_PATH . '/core/config.php'),
-        'cache_writable' => is_writable(ROOT_PATH . '/cache'),
+        'config_writable' => is_writable(Constants::ROOT_PATH . '/core/config.php'),
+        'cache_writable' => is_writable(Constants::ROOT_PATH . '/cache'),
     ],
 ];
 

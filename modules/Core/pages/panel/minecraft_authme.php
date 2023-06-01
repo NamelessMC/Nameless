@@ -10,7 +10,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.authme')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once(Constants::ROOT_PATH . '/403.php');
     die();
 }
 
@@ -19,7 +19,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'authme';
 $page_title = $language->get('admin', 'authme_integration');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(Constants::ROOT_PATH . '/core/templates/backend_init.php');
 
 // Handle input
 if (Input::exists()) {
@@ -144,7 +144,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require(Constants::ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
 $template->displayTemplate('integrations/minecraft/minecraft_authme.tpl', $smarty);
