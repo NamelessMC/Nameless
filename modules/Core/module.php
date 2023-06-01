@@ -834,7 +834,7 @@ class Core_Module extends Module {
                     }
 
                     if (!is_null($default) && isset($default->ip)) {
-                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
+                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name, 'id' => $default->id];
 
                         // Get query type
                         $query_type = Util::getSetting('query_type', 'internal');
