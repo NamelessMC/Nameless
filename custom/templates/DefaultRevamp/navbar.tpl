@@ -106,7 +106,11 @@
                 <div class="ui stackable grid">
                     <div class="ui middle aligned row">
                         <div class="eight wide column">
+                          {if isset($LOGO_IMAGE)} 
+                          <img src="{$LOGO_IMAGE}" alt="{$SITE_NAME}" width="100" height="100">
+                          {else}
                             <h1>{$SITE_NAME}</h1>
+                          {/if}
                         </div>
                         <div class="eight wide column">
                             {if isset($MINECRAFT) && isset($SERVER_QUERY)}
