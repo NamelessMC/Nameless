@@ -63,17 +63,18 @@ class PluginQuery {
         $cache->setCache('latest_query');
 
         foreach ($servers as $server) {
-            $server_id = $server->id;
-            $data = $cache->retrieve($server_id);
+            $server_id = $server['id'];
+          
             if (!$cache->isCached($server_id) && $accumulate === true) {
                 $to_return[] = [
-                    'name' => Output::getClean($data['name']),
+                    'name' => Output::getClean($server['name']),
                     'status_value' => 0,
                     'status' => $language->get('general', 'offline'),
                     'server_offline' => $language->get('general', 'server_offline')
                 ];
             } else {
                 // Server is online
+                $data = $cache->retrieve($server_id);
                 if ($accumulate === false) {
                     $to_return[] = [
                         'name' => Output::getClean($server['name']),

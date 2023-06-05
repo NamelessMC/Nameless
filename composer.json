@@ -29,7 +29,8 @@
         "samerton/i18next": "^1.0.1",
         "robmorgan/phinx": "^0.12.13",
         "symfony/http-foundation": "^5.4.17",
-        "joypixels/emoji-toolkit": "^7.0"
+        "joypixels/emoji-toolkit": "^7.0",
+        "php-di/php-di": "^6.4"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.9.9",
