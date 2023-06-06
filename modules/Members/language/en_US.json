@@ -13,5 +13,7 @@
     "members/group": "Group...",
     "members/no_results_header": "No results found",
     "members/no_results_text": "Your search returned no results",
-    "members/viewable_groups": "Viewable groups"
+    "members/viewable_groups": "Viewable groups",
+    "members/no_overview_lists_enabled": "No overview lists are enabled.",
+    "members/settings_updated_successfully": "Settings updated successfully."
 }
