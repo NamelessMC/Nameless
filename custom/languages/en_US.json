@@ -1209,5 +1209,12 @@
     "admin/require_minecraft_username_on_registration": "Require Minecraft Username on registration?",
     "user/like": "Like",
     "user/profile_post_reply": "Profile Post Reply",
-    "api/webhook_added": "The webhook has been created"
+    "api/webhook_added": "The webhook has been created",
+    "admin/user_banned_webhook": "{{punished}} has been banned from the website by {{punisher}}.",
+    "admin/user_warned_webhook": "{{punished}} has been warned by {{punisher}}.",
+    "admin/clone_group": "Clone group",
+    "admin/auto_language_help": "If enabled, guests & logged out users will be able to let the website automatically detect their preferred language.",
+    "admin/authme_db_test_connection": "Test Connection",
+    "admin/authme_db_connection_success": "Connection successful",
+    "admin/authme_db_connection_failed": "Connection failed"
 }
