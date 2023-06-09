@@ -469,3 +469,8 @@ footer.sticky-footer {
     height: 16px;
     width: 16px;
 }
+
+/* Make buttons dimmed when parent table row is not hovered */
+.forumEditingRow:not(:hover) .btn {
+    opacity: 0.5;
+}

@@ -55,7 +55,7 @@
                                     <label for="InputParent">{$SELECT_PARENT_FORUM}</label>
                                     <select class="form-control" id="InputParent" name="parent">
                                         {foreach from=$PARENT_FORUMS item=item}
-                                        <option value="{$item.id}">{$item.name}</option>
+                                            <option value="{$item.id}" {if isset($PRESELECTED_CATEGORY) && $PRESELECTED_CATEGORY == $item.id}selected{/if}>{$item.name}</option>
                                         {/foreach}
                                     </select>
                                 </div>

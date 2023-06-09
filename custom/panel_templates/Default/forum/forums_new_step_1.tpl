@@ -78,6 +78,9 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
+                                    {if $PRESELECTED_CATEGORY}
+                                        <input type="hidden" name="pre_selected_category" value="{$PRESELECTED_CATEGORY}">
+                                    {/if}
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                                 </div>
                             </form>

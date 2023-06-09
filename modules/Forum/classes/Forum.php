@@ -796,16 +796,30 @@ class Forum {
      * @return array An array of the ids of the labels the user has access to
      */
     public static function getAccessibleLabels(array $labels, array $user_groups): array {
-        return array_reduce($labels, function(&$prev, $topic_label) use ($user_groups) {
+        return array_reduce($labels, static function (&$prev, $topic_label) use ($user_groups) {
             $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->first();
             if ($label) {
                 $label_group_ids = explode(',', $label->gids);
-                $hasPerm = array_reduce($user_groups, fn($prev, $group_id) => $prev || in_array($group_id, $label_group_ids));
+                $hasPerm = array_reduce($user_groups, static fn ($prev, $group_id) => $prev || in_array($group_id, $label_group_ids));
                 if ($hasPerm) {
                     $prev[] = $label->id;
                 }
             }
             return $prev;
         }, []);
+    }
+
+    public function recursiveGetSubForums(int $parent_id, array $current = []): array {
+        $forums = $this->_db->query(
+            'SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order',
+            [$parent_id]
+        );
+        if ($forums->count()) {
+            foreach ($forums->results() as $forum) {
+                $current[$parent_id][] = $forum;
+                $current = $this->recursiveGetSubForums($forum->id, $current);
+            }
+        }
+        return $current;
     }
 }
