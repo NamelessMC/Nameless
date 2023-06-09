@@ -993,7 +993,7 @@ class User {
      * @return bool Whether profile privatizing is allowed and if they have permission to use it.
      */
     public function canPrivateProfile(): bool {
-        return Util::getSetting('private_profile') === '1' && $this->hasPermission('usercp.private_profile');
+        return Settings::get('private_profile') === '1' && $this->hasPermission('usercp.private_profile');
     }
 
     /**
@@ -1002,7 +1002,7 @@ class User {
      * @return bool Whether the user can bypass private profiles
      */
     public function canBypassPrivateProfile(): bool {
-        return Util::getSetting('private_profile') === '1' && $this->hasPermission('profile.private.bypass');
+        return Settings::get('private_profile') === '1' && $this->hasPermission('profile.private.bypass');
     }
 
     /**

@@ -42,7 +42,7 @@ if (Input::exists()) {
             ]);
 
             if ($validation->passed()) {
-                Util::setSetting('discord', Input::get('discord_guild_id'));
+                Settings::set('discord', Input::get('discord_guild_id'));
 
                 $success = Discord::getLanguageTerm('discord_settings_updated');
 
@@ -58,12 +58,12 @@ if (Input::exists()) {
                         'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
                         'linkEnd' => '</a>',
                     ]);
-                    Util::setSetting('discord_integration', '0');
+                    Settings::set('discord_integration', '0');
                 } else {
-                    Util::setSetting('discord_integration', '1');
+                    Settings::set('discord_integration', '1');
                 }
             } else {
-                Util::setSetting('discord_integration', '0');
+                Settings::set('discord_integration', '0');
             }
         }
 

@@ -28,15 +28,15 @@ function return_json($output, ?bool $error = false) {
 $cache->setCache('queue');
 $last_run = intval($cache->retrieve('last_run') ?? 0);
 
-$interval = floatval(Util::getSetting('queue_interval') ?? 1);
-$runner = Util::getSetting('queue_runner');
+$interval = floatval(Settings::get('queue_interval') ?? 1);
+$runner = Settings::get('queue_runner');
 
 if ($runner == 'cron') {
     if (!isset($_GET['cron'])) {
         return_json('Invalid cron URL', true);
     }
 
-    if (Input::get('key') != Util::getSetting('cron_key')) {
+    if (Input::get('key') != Settings::get('cron_key')) {
         return_json('Invalid cron key', true);
     }
 }

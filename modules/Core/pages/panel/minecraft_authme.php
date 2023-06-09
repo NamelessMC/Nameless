@@ -28,7 +28,7 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['enable_authme'])) {
             // Either enable or disable Authme integration
-            Util::setSetting('authme', Input::get('enable_authme'));
+            Settings::set('authme', Input::get('enable_authme'));
         } else {
             // AuthMe config settings
             $validation = Validate::check($_POST, [
@@ -105,7 +105,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Is AuthMe enabled?
-if (Util::getSetting('authme')) {
+if (Settings::get('authme')) {
     // Retrieve AuthMe database details
     $authme_db = Config::get('authme', []);
 
@@ -137,7 +137,7 @@ $smarty->assign([
     'AUTHME_INFO' => $language->get('admin', 'authme_integration_info'),
     'INFO' => $language->get('general', 'info'),
     'ENABLE_AUTHME' => $language->get('admin', 'enable_authme'),
-    'ENABLE_AUTHME_VALUE' => (Util::getSetting('authme') == '1'),
+    'ENABLE_AUTHME_VALUE' => (Settings::get('authme') == '1'),
     'AUTHME' => $language->get('admin', 'authme_integration'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft')
 ]);

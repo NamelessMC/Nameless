@@ -21,7 +21,7 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function onLinkRequest(User $user) {
-        $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
+        $link_method = Settings::get('integration_link_method', 'bot', 'Discord Integration');
         if ($link_method == 'oauth') {
             // Link with oauth
             Session::put('oauth_method', 'link_integration');
@@ -142,7 +142,7 @@ class DiscordIntegration extends IntegrationBase {
     }
 
     public function allowLinking(): bool {
-        $link_method = Util::getSetting('integration_link_method', 'bot', 'Discord Integration');
+        $link_method = Settings::get('integration_link_method', 'bot', 'Discord Integration');
         if ($link_method == 'oauth') {
             return NamelessOAuth::getInstance()->isEnabled('discord');
         } else {

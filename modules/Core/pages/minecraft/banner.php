@@ -16,7 +16,7 @@ if (!function_exists('exif_imagetype')) {
 }
 
 // Minecraft integration?
-if (Util::getSetting('mc_integration')) {
+if (Settings::get('mc_integration')) {
     if (isset($directories[count($directories) - 1]) && !empty($directories[count($directories) - 1])) {
         // Server specified
         $banner = $directories[count($directories) - 1];
