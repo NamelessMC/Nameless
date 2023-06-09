@@ -67,22 +67,25 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
         // TODO: use nl2_users_meta table when it's added
-        $cache->setCache('minecraft_last_online');
-        try {
-            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+        if (Util::getSetting('mc_integration')) {
+            $cache->setCache('minecraft_last_online');
+            try {
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
-            foreach ($_POST['players'] as $uuid => $player) {
-                $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
-                if ($integrationUser->exists()) {
-                    $this->updateUsername($integrationUser, $player);
-                    $cache->store($integrationUser->data()->identifier, [date('U'), $server_id]);
-                    if (isset($player['placeholders']) && count($player['placeholders'])) {
-                        $this->updatePlaceholders($integrationUser->getUser(), $player);
+                foreach ($_POST['players'] as $uuid => $player) {
+                    $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                    if ($integrationUser->exists()) {
+                        $this->updateUsername($integrationUser, $player);
+                        $cache->store($integrationUser->data()->identifier, [date('U'), $server_id]);
+
+                        if (isset($player['placeholders']) && count($player['placeholders'])) {
+                            $this->updatePlaceholders($integrationUser->getUser(), $player);
+                        }
                     }
                 }
+            } catch (Exception $e) {
+                $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
             }
-        } catch (Exception $e) {
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
         // Server query

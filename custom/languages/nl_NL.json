@@ -1223,5 +1223,19 @@
     "admin/authme_db_connection_failed": "Connectie gefaald",
     "admin/sent_mass_message": "Succesvol een massabericht gestuurd.",
     "api/groups_updates_successfully": "Groepen geüpdatet",
-    "user/banned_from_registering": "Je IP is verbannen, je kunt je niet registreren."
+    "user/banned_from_registering": "Je IP is verbannen, je kunt je niet registreren.",
+    "admin/user_warned_webhook": "{{punished}} is gewaarschuwd door {{punisher}}.",
+    "admin/auto_language_help": "Indien ingeschakeld, kunnen gasten en uitgelogde gebruikers de website automatisch hun voorkeurstaal laten detecteren.",
+    "admin/clone_group": "Maak kopie van groep",
+    "admin/enable_auto_language": "Automatische taaldetectie aanzetten?",
+    "admin/query_type": "Querytype",
+    "admin/internal": "Intern",
+    "admin/external": "Extern",
+    "admin/plugin": "Plug-in",
+    "admin/emoji_style": "Emoji-stijl",
+    "admin/emoji_native": "Browser's eigen",
+    "admin/emoji_joypixels": "JoyPixels",
+    "admin/confirm_delete_placeholder": "Weet je zeker dat je deze placeholder wilt verwijderen?",
+    "admin/discord_hook": "Discord",
+    "admin/emoji_twemoji": "Twemoji"
 }

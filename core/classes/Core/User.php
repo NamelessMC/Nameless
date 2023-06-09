@@ -6,7 +6,7 @@
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener
- * @version 2.0.2
+ * @version 2.1.1
  * @license MIT
  */
 class User {
@@ -130,7 +130,7 @@ class User {
      * @return bool True on success, false if they already have it.
      */
     public function addGroup(int $group_id, int $expire = 0): bool {
-        if (array_key_exists($group_id, $this->_groups ?? [])) {
+        if (array_key_exists($group_id, $this->getGroups())) {
             return false;
         }
 
@@ -547,6 +547,7 @@ class User {
             $default_group = Group::find(1, 'default_group');
             $default_group_id = $default_group->id ?? 1;
 
+            $this->_groups = [];
             $this->addGroup($default_group_id);
         }
 
