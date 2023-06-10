@@ -6,9 +6,12 @@ if (!defined('ROOT_PATH')) {
 
 $config = Config::get('mysql');
 
+$dir = defined('PHINX_MIGRATIONS_DIR') ? PHINX_MIGRATIONS_DIR : __DIR__ ;
+$table = defined('PHINX_DB_TABLE') ? PHINX_DB_TABLE : 'nl2_phinxlog';
+
 return [
     'paths' => [
-        'migrations' => __DIR__,
+        'migrations' => $dir,
     ],
     'environments' => [
         'nameless' => [
@@ -20,7 +23,11 @@ return [
             'port' => $config['port'],
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'default_migration_table' => 'nl2_phinxlog',
+            'default_migration_table' => $table,
         ],
+    ],
+    'feature_flags' => [
+        'column_null_default' => false,
+        'unsigned_primary_keys' => false,
     ],
 ];

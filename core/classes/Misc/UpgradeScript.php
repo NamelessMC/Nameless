@@ -145,7 +145,7 @@ abstract class UpgradeScript {
      * Execute any pending database migrations.
      */
     protected function runMigrations(): void {
-        PhinxAdapter::migrate();
+        PhinxAdapter::migrate('Core');
     }
 
     /**
