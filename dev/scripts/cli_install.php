@@ -68,12 +68,20 @@ $folders = [
     './cache',
     './cache/templates_c'
 ];
+$whitelist = [
+    '0_DO_NOT_DELETE.txt',
+    '.htaccess',
+];
 foreach ($folders as $folder) {
     if (is_dir($folder)) {
         $files = glob($folder . '/*');
         foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file);
+            if (!in_array(basename($file), $whitelist)) {
+                if (is_file($file)) {
+                    unlink($file);
+                } else if (is_dir($file)) {
+                    rmdir($file);
+                }
             }
         }
     }

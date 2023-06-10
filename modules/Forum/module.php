@@ -46,7 +46,6 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/forum/lock', 'pages/forum/lock.php');
         $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
         $pages->add('Forum', '/forum/search', 'pages/forum/search.php');
-        $pages->add('Forum', '/queries/forum_reactions', 'queries/reactions.php');
 
         // UserCP
         $pages->add('Forum', '/user/following_topics', 'pages/user/following_topics.php');

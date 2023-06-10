@@ -279,7 +279,7 @@ body.pushable>.pusher {
     margin-top: 1rem;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
-    font-size: .85em;
+    font-size: 12px;
 }
 
 #topic-post #post-content {
@@ -295,7 +295,7 @@ body.pushable>.pusher {
 }
 
 .reaction-button {
-    opacity: 30%;
+    opacity: 50%;
 }
 
 .reaction-button:hover, .reaction-button-selected {

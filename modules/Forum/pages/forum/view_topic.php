@@ -727,7 +727,7 @@ $smarty->assign('REPLIES', $replies);
 if ($reactions_enabled) {
     $smarty->assign([
         'REACTIONS' => $all_reactions,
-        'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
+        'REACTIONS_URL' => URL::build('/queries/reactions'),
     ]);
 }
 

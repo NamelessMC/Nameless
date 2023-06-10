@@ -294,7 +294,7 @@
         <div class="header">
             {$REACTIONS_TEXT}
         </div>
-        <div class="content">
+        <div class="scrolling content">
         </div>
     </div>
 
@@ -425,7 +425,7 @@
     const openReactionModal = (post_id, reaction_id) => {
         const modal = $('#modal-reactions');
         modal.modal('show');
-        modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui text loader"></div></div>');
+        modal.find('.content').html('<div class="ui active centered inline loader"></div>');
         $.get("{$REACTIONS_URL}", {
             post: post_id,
             type: 'profile_post',

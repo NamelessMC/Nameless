@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     ]);
 
     // modal
-    die($template->getTemplate('forum/reactions_modal.tpl', $smarty));
+    die($template->getTemplate('reactions_modal.tpl', $smarty));
 } else {
     // add reaction
     if (!Token::check()) {

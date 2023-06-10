@@ -819,7 +819,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'REACTIONS' => $reactions,
         'REACTIONS_BY_USER' => $reactions_by_user,
         'REACTIONS_TEXT' => $language->get('user', 'reactions'),
-        'REACTIONS_URL' => URL::build('/queries/forum_reactions'),
+        'REACTIONS_URL' => URL::build('/queries/reactions'),
         'USER_ID' => (($user->isLoggedIn()) ? $user->data()->id : 0),
     ]);
 

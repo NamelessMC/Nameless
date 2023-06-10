@@ -391,9 +391,10 @@
                 type: 'post',
             }, (responseText) => {
                 if (responseText.startsWith('Reaction ')) {
+                    window.location.replace(window.location.href.replace(/#.*$/, '') + '#post-' + post_id);
                     window.location.reload();
                 } else {
-                    console.error(responseText)
+                    console.error(responseText);
                 }
             });
         }
@@ -401,7 +402,7 @@
         const openReactionModal = (post_id, reaction_id) => {
             const modal = $('#modal-reactions');
             modal.modal('show');
-            modal.find('.content').html('<div class="ui active inverted dimmer"><div class="ui loader"></div></div>');
+            modal.find('.content').html('<div class="ui active centered inline loader"></div>');
             $.get("{$REACTIONS_URL}", {
                 post: post_id,
                 type: 'post',
