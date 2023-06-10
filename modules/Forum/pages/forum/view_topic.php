@@ -534,13 +534,7 @@ $smarty->assign('PAGINATION', $pagination);
 // Replies
 $replies = [];
 $all_reactions = Reaction::find(true, 'enabled');
-if (!count($all_reactions)) {
-    $all_reactions = [];
-} else {
-    foreach ($all_reactions as $reaction) {
-        $reaction->html = Text::renderEmojis($reaction->html);
-    }
-}
+
 $reactions_by_user = [];
 // Display the correct number of posts
 foreach ($results->data as $n => $nValue) {
@@ -673,6 +667,11 @@ foreach ($results->data as $n => $nValue) {
                 }
             }
         }
+
+        // sort $post_reactions by their reactions order value
+        usort($post_reactions, static function($a, $b) use ($all_reactions) {
+            return $all_reactions[$a['id']]->order - $all_reactions[$b['id']]->order;
+        });
     }
 
     // Purify post content
@@ -726,7 +725,6 @@ $smarty->assign('REPLIES', $replies);
 // Reactions
 if ($reactions_enabled) {
     $smarty->assign([
-        'REACTIONS' => $all_reactions,
         'REACTIONS_URL' => URL::build('/queries/reactions'),
     ]);
 }

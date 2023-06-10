@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'group_style' => $reaction_user->getGroupStyle(),
                 'group_html' => $reaction_user->getAllGroupHtml(),
                 'reacted_time' => date(DATE_FORMAT, $reaction->time),
-                'reaction_html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
+                'reaction_html' => $all_reactions[$reaction->reaction_id]->html,
             ];
             continue;
         }
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     'group_style' => $reaction_user->getGroupStyle(),
                     'group_html' => $reaction_user->getAllGroupHtml(),
                     'reacted_time' => date(DATE_FORMAT, $reaction->time),
-                    'reaction_html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
+                    'reaction_html' => $all_reactions[$reaction->reaction_id]->html,
                 ],
             ],
         ];
@@ -136,6 +136,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return strtotime($a['reacted_time']) < strtotime($b['reacted_time']);
         });
     }
+
+    usort($formatted_reactions, static function($a, $b) use ($all_reactions) {
+        if ($a['id'] === 0) {
+            return -1;
+        }
+        if ($b['id'] === 0) {
+            return 1;
+        }
+
+        return $all_reactions[$a['id']]->order - $all_reactions[$b['id']]->order;
+    });
 
     $smarty->assign([
         'ACTIVE_TAB' => $_GET['tab'],

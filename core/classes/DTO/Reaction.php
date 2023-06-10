@@ -23,7 +23,7 @@ class Reaction {
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;
-        $this->html = $row->html;
+        $this->html = Text::renderEmojis($row->html);
         $this->enabled = $row->enabled;
         $this->type = $row->type;
         $this->order = $row->order;

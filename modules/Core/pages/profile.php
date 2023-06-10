@@ -379,41 +379,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     if (isset($_GET['action']) && $user->isLoggedIn()) {
         switch ($_GET['action']) {
-            case 'react':
-                if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
-                    // Post ID required
-                    Redirect::to($profile_user->getProfileURL());
-                }
-
-                // Does the post exist?
-                $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_GET['post']])->results();
-                if (!count($post)) {
-                    Redirect::to($profile_user->getProfileURL());
-                }
-
-                // Can't like our own post
-                if ($post[0]->author_id == $user->data()->id) {
-                    Redirect::to($profile_user->getProfileURL());
-                }
-
-                // Liking or unliking?
-                $post_likes = DB::getInstance()->get('user_profile_wall_posts_reactions', [['post_id', $_GET['post']], ['user_id', $user->data()->id]]);
-                if ($post_likes->count()) {
-                    // Unlike
-                    DB::getInstance()->delete('user_profile_wall_posts_reactions', ['id', $post_likes->first()->id]);
-                } else {
-                    // Like
-                    DB::getInstance()->insert('user_profile_wall_posts_reactions', [
-                        'user_id' => $user->data()->id,
-                        'post_id' => $_GET['post'],
-                        'reaction_id' => 1,
-                        'time' => date('U')
-                    ]);
-                }
-
-                // Redirect
-                Redirect::to($profile_user->getProfileURL());
-
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
                     if ($user->hasPermission('modcp.profile_banner_reset')) {
@@ -613,6 +578,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $wall_posts_query = DB::getInstance()->orderWhere('user_profile_wall_posts', 'user_id = ' . $query->id, 'time', 'DESC')->results();
 
     $reactions_by_user = [];
+    $all_reactions = Reaction::find(true, 'enabled');
     if (count($wall_posts_query)) {
         // Pagination
         $paginator = new Paginator(
@@ -646,7 +612,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         $reactions['reactions'][$reaction->id] = [
                             'id' => $reaction->id,
                             'name' => $reaction->name,
-                            'html' => Text::renderEmojis($reaction->html),
+                            'html' => $reaction->html,
                             'count' => 1,
                         ];
                     } else {
@@ -657,6 +623,11 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 $reactions['count'] = $language->get('user', 'x_reactions', ['count' => 0]);
                 $reactions['reactions'] = [];
             }
+
+            // Sort reactions by their order
+            usort($reactions['reactions'], static function ($a, $b) use ($all_reactions) {
+                return $all_reactions[$a['id']]->order - $all_reactions[$b['id']]->order;
+            });
 
             // Get replies
             $replies = [];
@@ -707,7 +678,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user->data()->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
             ];
         }
     } else {
@@ -808,15 +778,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $smarty->assign('ABOUT_FIELDS', $fields);
 
-    $reactions = Reaction::find(true, 'enabled');
-    if (!count($reactions)) {
-        $reactions = [];
-    }
-    foreach ($reactions as $reaction) {
-        $reaction->html = Text::renderEmojis($reaction->html);
-    }
     $smarty->assign([
-        'REACTIONS' => $reactions,
+        'REACTIONS' => $all_reactions,
         'REACTIONS_BY_USER' => $reactions_by_user,
         'REACTIONS_TEXT' => $language->get('user', 'reactions'),
         'REACTIONS_URL' => URL::build('/queries/reactions'),
