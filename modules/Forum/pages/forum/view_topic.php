@@ -657,8 +657,9 @@ foreach ($results->data as $n => $nValue) {
                         $reaction = $all_reactions[$item->reaction_id];
                         $post_reactions[$item->reaction_id] = [
                             'id' => $reaction->id,
-                            'html' => Text::renderEmojis($reaction->html),
+                            'html' => $reaction->html,
                             'name' => $reaction->name,
+                            'order' => $reaction->order,
                             'count' => 1,
                         ];
                     }
@@ -669,8 +670,8 @@ foreach ($results->data as $n => $nValue) {
         }
 
         // sort $post_reactions by their reactions order value
-        usort($post_reactions, static function($a, $b) use ($all_reactions) {
-            return $all_reactions[$a['id']]->order - $all_reactions[$b['id']]->order;
+        usort($post_reactions, static function($a, $b) {
+            return $a['order'] - $b['order'];
         });
     }
 

@@ -607,12 +607,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     // Get reaction name and icon
-                    $reaction = Reaction::find($wall_post_reaction->reaction_id);
+                    $reaction = $all_reactions[$wall_post_reaction->reaction_id];
                     if (!isset($reactions['reactions'][$reaction->id])) {
                         $reactions['reactions'][$reaction->id] = [
                             'id' => $reaction->id,
                             'name' => $reaction->name,
                             'html' => $reaction->html,
+                            'order' => $reaction->order,
                             'count' => 1,
                         ];
                     } else {
@@ -625,8 +626,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
 
             // Sort reactions by their order
-            usort($reactions['reactions'], static function ($a, $b) use ($all_reactions) {
-                return $all_reactions[$a['id']]->order - $all_reactions[$b['id']]->order;
+            usort($reactions['reactions'], static function ($a, $b) {
+                return $a['order'] - $b['order'];
             });
 
             // Get replies

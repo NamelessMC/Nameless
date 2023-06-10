@@ -19,7 +19,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
         foreach (Reaction::find(true, 'enabled') as $reaction) {
             $reactions[$reaction->id] = [
                 'name' => $reaction->name,
-                'html' => Text::renderEmojis($reaction->html),
+                'html' => $reaction->html,
                 'recieved' => 0,
                 'given' => 0,
                 'type' => $reaction->type,

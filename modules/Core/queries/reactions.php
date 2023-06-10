@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'id' => 0,
         'name' => 'All',
         'html' => '',
+        'order' => 0,
         'count' => 0,
         'users' => [],
     ];
@@ -104,7 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $formatted_reactions[$reaction->reaction_id] = [
             'id' => $reaction->reaction_id,
             'name' => $all_reactions[$reaction->reaction_id]->name,
-            'html' => Text::renderEmojis($all_reactions[$reaction->reaction_id]->html),
+            'html' => $all_reactions[$reaction->reaction_id]->html,
+            'order' => $all_reactions[$reaction->reaction_id]->order,
             'count' => 1,
             'users' => [
                 [
@@ -137,15 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         });
     }
 
-    usort($formatted_reactions, static function($a, $b) use ($all_reactions) {
-        if ($a['id'] === 0) {
-            return -1;
-        }
-        if ($b['id'] === 0) {
-            return 1;
-        }
-
-        return $all_reactions[$a['id']]->order - $all_reactions[$b['id']]->order;
+    usort($formatted_reactions, static function($a, $b) {
+        return $a['order'] - $b['order'];
     });
 
     $smarty->assign([
