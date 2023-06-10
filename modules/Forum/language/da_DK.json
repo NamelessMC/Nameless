@@ -1,1 +1,17 @@
-{}
+{
+    "forum/all_topics_unfollowed": "Alle emner bliver ikke flugt mere.",
+    "forum/available_hooks": "Ledig Hooks",
+    "forum/topic_reply": "emne svar",
+    "forum/can_create_topic": "kan oprette emner?",
+    "forum/can_post_reply": "kan svar?",
+    "forum/can_view_forum": "kan se forum?",
+    "forum/confirm_delete_post": "Er du sikker på at du vil slette dette opslag?",
+    "forum/confirm_delete_topic": "Er du sikker på du vil slette dette emne?",
+    "forum/by": "ved",
+    "forum/can_edit_topic": "kan redigere deres emne?",
+    "forum/edit": "Redigere",
+    "forum/delete_topic": "slet emne",
+    "forum/delete_forum": "Slet forum",
+    "forum/delete_topics_and_posts": "Slet enme og opslag",
+    "forum/average_posts": "Gennemsnitligt antal brugerindlæg"
+}
