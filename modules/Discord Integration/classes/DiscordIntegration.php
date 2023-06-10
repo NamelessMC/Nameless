@@ -168,9 +168,9 @@ class DiscordIntegration extends IntegrationBase {
         // Link integration if user registered using discord oauth
         if (Session::exists('oauth_register_data')) {
             $data = json_decode(Session::get('oauth_register_data'), true);
-            if ($data['provider'] == 'discord' && isset($data['data']['username']) && isset($data['data']['discriminator'])) {
+            if ($data['provider'] == 'discord' && isset($data['data']['username'])) {
 
-                $username = $data['data']['username'] . '#' . $data['data']['discriminator'];
+                $username = $data['data']['username'];
                 $discord_id = $data['data']['id'];
                 if ($this->validateIdentifier($discord_id) && $this->validateUsername($username)) {
                     $integrationUser = new IntegrationUser($this);
