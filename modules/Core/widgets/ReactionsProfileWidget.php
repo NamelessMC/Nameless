@@ -76,6 +76,9 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
         }
 
         $this->_smarty->assign([
+            'REACTIONS' => $this->_language->get('user', 'reactions'),
+            'GIVEN' => $this->_language->get('user', 'given'),
+            'RECEIVED' => $this->_language->get('user', 'received'),
             'REACTION_SCORE' => $this->_language->get('user', 'reaction_score'),
             'ALL_REACTIONS' => $reactions,
             'REACTION_SCORE_AGGREGATE' => $reaction_score_aggregate,

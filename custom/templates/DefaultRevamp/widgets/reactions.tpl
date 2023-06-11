@@ -1,12 +1,12 @@
 <div class="ui fluid card">
     <div class="content">
-        <h4 class="ui header">Reactions</h4>
+        <h4 class="ui header">{$REACTIONS}</h4>
         <table class="ui table center aligned">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Received</th>
-                    <th>Given</th>
+                    <th>{$RECEIVED}</th>
+                    <th>{$GIVEN}</th>
                 </tr>
             </thead>
             <tbody>
