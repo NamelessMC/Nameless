@@ -12,20 +12,25 @@ class Reaction {
     public const TYPE_POSITIVE = 2;
     public const TYPE_NEGATIVE = 0;
     public const TYPE_NEUTRAL = 1;
+    public const TYPE_CUSTOM = 3;
 
     public int $id;
     public string $name;
     public string $html;
+    public string $raw_html;
     public bool $enabled;
     public int $type;
     public int $order;
+    public ?int $custom_score;
 
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->name = $row->name;
         $this->html = Text::renderEmojis($row->html);
+        $this->raw_html = $row->html;
         $this->enabled = $row->enabled;
         $this->type = $row->type;
+        $this->custom_score = $row->custom_score;
         $this->order = $row->order;
     }
 

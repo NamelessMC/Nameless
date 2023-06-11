@@ -54,9 +54,18 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 $type = $language->get('admin', 'positive');
                 break;
 
+            case Reaction::TYPE_CUSTOM:
+                $type = $language->get('admin', 'custom_score');
+                break;
+
             default:
                 $type = $language->get('admin', 'negative');
                 break;
+        }
+
+        $custom_score = $reaction->custom_score ?? 0;
+        if ($custom_score > 0) {
+            $custom_score = '+' . $custom_score;
         }
 
         $template_reactions[] = [
@@ -66,7 +75,8 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'html' => $reaction->html,
             'type_id' => $reaction->type,
             'type' => $type,
-            'enabled' => $reaction->enabled
+            'enabled' => $reaction->enabled,
+            'custom_score' => $custom_score,
         ];
     }
 
@@ -103,7 +113,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                                 Validate::MAX => 255
                             ],
                             'type' => [
-                                Validate::REQUIRED => true
+                                Validate::REQUIRED => true,
+                                Validate::IN => [
+                                    Reaction::TYPE_POSITIVE,
+                                    Reaction::TYPE_NEUTRAL,
+                                    Reaction::TYPE_NEGATIVE,
+                                    Reaction::TYPE_CUSTOM,
+                                ],
                             ]
                         ])->messages([
                             'name' => [
@@ -125,24 +141,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                                 $enabled = 0;
                             }
 
-                            switch (Input::get('type')) {
-                                case Reaction::TYPE_NEUTRAL:
-                                    $type = Reaction::TYPE_NEUTRAL;
-                                    break;
-                                case Reaction::TYPE_POSITIVE:
-                                    $type = Reaction::TYPE_POSITIVE;
-                                    break;
-                                default:
-                                    $type = Reaction::TYPE_NEGATIVE;
-                                    break;
-                            }
-
                             // Update database
                             DB::getInstance()->insert('reactions', [
                                 'name' => Input::get('name'),
                                 'html' => Input::get('html'),
-                                'type' => $type,
-                                'enabled' => $enabled
+                                'type' => Input::get('type'),
+                                'enabled' => $enabled,
+                                'custom_score' => (int) Input::get('custom_score'),
                             ]);
 
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
@@ -170,13 +175,17 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     'HTML' => $language->get('admin', 'html'),
                     'HTML_VALUE' => Output::getClean(Input::get('html')),
                     'TYPE' => $language->get('admin', 'type'),
+                    'TYPE_VALUE' => Output::getClean(Input::get('type')),
                     'POSITIVE' => $language->get('admin', 'positive'),
                     'NEGATIVE' => $language->get('admin', 'negative'),
                     'NEUTRAL' => $language->get('admin', 'neutral'),
-                    'ENABLED' => $language->get('admin', 'enabled')
+                    'CUSTOM_SCORE' => $language->get('admin', 'custom_score'),
+                    'CUSTOM_SCORE_VALUE' => Output::getClean(Input::get('custom_score')),
+                    'ENABLED' => $language->get('admin', 'enabled'),
+                    'EDITING' => false,
                 ]);
 
-                $template_file = 'core/reactions_new.tpl';
+                $template_file = 'core/reactions_form.tpl';
 
                 break;
 
@@ -244,7 +253,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         Validate::MAX => 255
                     ],
                     'type' => [
-                        Validate::REQUIRED => true
+                        Validate::REQUIRED => true,
+                        Validate::IN => [
+                            Reaction::TYPE_POSITIVE,
+                            Reaction::TYPE_NEUTRAL,
+                            Reaction::TYPE_NEGATIVE,
+                            Reaction::TYPE_CUSTOM,
+                        ],
                     ]
                 ])->messages([
                     'name' => [
@@ -266,25 +281,19 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         $enabled = 0;
                     }
 
-                    switch (Input::get('type')) {
-                        case Reaction::TYPE_NEUTRAL:
-                            $type = Reaction::TYPE_NEUTRAL;
-                            break;
-                        case Reaction::TYPE_POSITIVE:
-                            $type = Reaction::TYPE_POSITIVE;
-                            break;
-                        default:
-                            $type = Reaction::TYPE_NEGATIVE;
-                            break;
+                    $fields = [
+                        'name' => Output::getClean(Input::get('name')),
+                        'html' => Output::getPurified(Input::get('html')),
+                        'type' => $type = Input::get('type'),
+                        'enabled' => $enabled,
+                    ];
+
+                    if ($type == Reaction::TYPE_CUSTOM) {
+                        $fields['custom_score'] = Input::get('custom_score');
                     }
 
                     // Update database
-                    DB::getInstance()->update('reactions', $_GET['id'], [
-                        'name' => Output::getClean(Input::get('name')),
-                        'html' => Output::getPurified(Input::get('html')),
-                        'type' => $type,
-                        'enabled' => $enabled
-                    ]);
+                    DB::getInstance()->update('reactions', $_GET['id'], $fields);
 
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
                     Redirect::to(URL::build('/panel/core/reactions'));
@@ -312,17 +321,21 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'NAME' => $language->get('admin', 'name'),
             'NAME_VALUE' => Output::getClean($reaction->name),
             'HTML' => $language->get('admin', 'html'),
-            'HTML_VALUE' => Output::getClean($reaction->html),
+            'HTML_VALUE' => Output::getClean($reaction->raw_html),
             'TYPE' => $language->get('admin', 'type'),
             'POSITIVE' => $language->get('admin', 'positive'),
             'NEUTRAL' => $language->get('admin', 'neutral'),
             'NEGATIVE' => $language->get('admin', 'negative'),
+            'CUSTOM' => $language->get('admin', 'custom_score'),
+            'CUSTOM_SCORE' => $language->get('admin', 'custom_score'),
+            'CUSTOM_SCORE_VALUE' => $reaction->custom_score ?? 0,
             'TYPE_VALUE' => $reaction->type,
             'ENABLED' => $language->get('admin', 'enabled'),
-            'ENABLED_VALUE' => $reaction->enabled
+            'ENABLED_VALUE' => $reaction->enabled,
+            'EDITING' => true,
         ]);
 
-        $template_file = 'core/reactions_edit.tpl';
+        $template_file = 'core/reactions_form.tpl';
     }
 }
 

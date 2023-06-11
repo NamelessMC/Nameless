@@ -47,6 +47,7 @@
     "forum/forum_permissions": "Forum permissions",
     "forum/forum_redirect_warning": "Notice: you are about to leave this site! Are you sure you want to proceed to {{url}}?",
     "forum/forum_search": "Forum Search",
+    "forum/forum_score": "Forum score",
     "forum/forum_type": "Forum type",
     "forum/forum_type_category": "Category",
     "forum/forum_type_forum": "Forum",

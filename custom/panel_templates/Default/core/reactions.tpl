@@ -58,11 +58,12 @@
                                             <tr data-id="{$reaction.id}">
                                                 <td><a href="{$reaction.edit_link}">{$reaction.name}</a></td>
                                                 <td>{$reaction.html}</td>
-                                                <td>{$reaction.type}</td>
-                                                <td>{if $reaction.enabled eq 1}
-                                                    <i class="fa fa-check-circle fa-fw text-success"></i>
+                                                <td>{$reaction.type} {if $reaction.type_id eq 3}({$reaction.custom_score}){/if}</td>
+                                                <td>
+                                                    {if $reaction.enabled eq 1}
+                                                        <i class="fa fa-check-circle fa-fw text-success"></i>
                                                     {else}
-                                                    <i class="fa fa-times-circle fa-fw text-danger"></i>
+                                                        <i class="fa fa-times-circle fa-fw text-danger"></i>
                                                     {/if}
                                                 </td>
                                             </tr>

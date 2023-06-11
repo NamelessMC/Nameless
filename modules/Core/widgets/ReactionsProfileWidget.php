@@ -7,11 +7,15 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
         'given' => [],
     ];
 
-    public function __construct(Smarty $smarty) {
+    private Language $_language;
+
+    public function __construct(Smarty $smarty, Language $language) {
         $this->_name = 'Reactions';
         $this->_description = 'Displays a users recieved and given reactions on their profile.';
         $this->_module = 'Core';
+
         $this->_smarty = $smarty;
+        $this->_language = $language;
     }
 
     public function initialise(User $user): void {
@@ -20,53 +24,110 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
             $reactions[$reaction->id] = [
                 'name' => $reaction->name,
                 'html' => $reaction->html,
+                'type' => $reaction->type,
                 'recieved' => 0,
                 'given' => 0,
-                'type' => $reaction->type,
+                'custom_score' => $reaction->custom_score ?? 1,
+                'contexts' => [],
             ];
         }
-        foreach (self::$_collectors['recieved'] as $collector) {
-            $received = $collector($user);
-            foreach ($received as $reaction) {
-                $reactions[$reaction->reaction_id]['recieved']++;
-            }
-        }
-        foreach (self::$_collectors['given'] as $collector) {
-            $given = $collector($user);
-            foreach ($given as $reaction) {
-                $reactions[$reaction->reaction_id]['given']++;
-            }
-        }
+
+        $this->calculateCounts('recieved', $user, $reactions);
+        $this->calculateCounts('given', $user, $reactions);
+
         // Sort by most recieved
         usort($reactions, static function ($a, $b) {
-            return $b['recieved'] <=> $a['recieved'];
+            return $b['recieved'] > $a['recieved'];
         });
 
-        $reaction_score = 0;
+        $reaction_score_aggregate = 0;
+        $context_reaction_scores = [];
         foreach ($reactions as $reaction) {
-            if ($reaction['type'] === Reaction::TYPE_POSITIVE) {
-                $reaction_score += $reaction['recieved'];
-            } else if ($reaction['type'] === Reaction::TYPE_NEGATIVE) {
-                $reaction_score -= $reaction['recieved'];
+            foreach ($reaction['contexts'] as $context => $context_reactions) {
+                if (!isset($context_reaction_scores[$context])) {
+                    $context_reaction_scores[$context] = 0;
+                }
+                if ($reaction['type'] === Reaction::TYPE_POSITIVE) {
+                    $context_reaction_scores[$context] += $context_reactions['recieved'];
+                    $reaction_score_aggregate += $context_reactions['recieved'];
+                } else if ($reaction['type'] === Reaction::TYPE_NEGATIVE) {
+                    $context_reaction_scores[$context] -= $context_reactions['recieved'];
+                    $reaction_score_aggregate -= $context_reactions['recieved'];
+                } else if ($reaction['type'] === Reaction::TYPE_CUSTOM) {
+                    $context_reaction_scores[$context] += $context_reactions['recieved'] * $reaction['custom_score'];
+                    $reaction_score_aggregate += $context_reactions['recieved'] * $reaction['custom_score'];
+                }
             }
         }
 
-        if ($reaction_score > 0) {
-            $reaction_score = '+' . $reaction_score;
+        // Format reaction scores
+        if ($reaction_score_aggregate > 0) {
+            $reaction_score_aggregate = '+' . $reaction_score_aggregate;
+        }
+
+        foreach ($this->allContexts() as $context) {
+            if (!isset($context_reaction_scores[$context])) {
+                $context_reaction_scores[$context] = 0;
+            }
+            $score = $context_reaction_scores[$context];
+            if ($score > 0) {
+                $context_reaction_scores[$context] = '+' . $score;
+            }
         }
 
         $this->_smarty->assign([
+            'REACTION_SCORE' => $this->_language->get('user', 'reaction_score'),
             'ALL_REACTIONS' => $reactions,
-            'REACTION_SCORE' => $reaction_score,
+            'REACTION_SCORE_AGGREGATE' => $reaction_score_aggregate,
+            'CONTEXT_REACTION_SCORES' => $context_reaction_scores,
         ]);
         $this->_content = $this->_smarty->fetch('widgets/reactions.tpl');
     }
 
-    public static function addRecievedCollector(Closure $collector): void {
-        self::$_collectors['recieved'][] = $collector;
+    private function calculateCounts(string $type, User $user, array &$reactions): void {
+        foreach (self::$_collectors[$type] as $collector) {
+            $context = $collector['context'];
+            $collector = $collector['collector'];
+            $received = $collector($user);
+            foreach ($received as $reaction) {
+                $this->incrementReactionCount($context, $reactions, $reaction->reaction_id, $type);
+            }
+        }
     }
 
-    public static function addGivenCollector(Closure $collector): void {
-        self::$_collectors['given'][] = $collector;
+    private function incrementReactionCount(string $context, array &$reactions, int $reaction_id, string $type): void {
+        if (!isset($reactions[$reaction_id]['contexts'][$context])) {
+            $reactions[$reaction_id]['contexts'][$context] = [
+                'recieved' => 0,
+                'given' => 0,
+            ];
+        }
+
+        $reactions[$reaction_id][$type]++;
+        $reactions[$reaction_id]['contexts'][$context][$type]++;
+    }
+
+    private function allContexts(): array {
+        $contexts = [];
+        foreach (self::$_collectors as $collectors) {
+            foreach ($collectors as $collector) {
+                $contexts[] = $collector['context'];
+            }
+        }
+        return array_unique($contexts);
+    }
+
+    public static function addRecievedCollector(string $context, Closure $collector): void {
+        self::$_collectors['recieved'][] = [
+            'context' => $context,
+            'collector' => $collector,
+        ];
+    }
+
+    public static function addGivenCollector(string $context, Closure $collector): void {
+        self::$_collectors['given'][] = [
+            'context' => $context,
+            'collector' => $collector,
+        ];
     }
 }

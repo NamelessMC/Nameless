@@ -19,7 +19,20 @@ class HighestReactionScoresMemberListProvider extends MemberListProvider {
 
     protected function generator(): array {
         return [
-            'SELECT COUNT(fr.user_received) AS `count`, fr.user_received FROM nl2_forums_reactions fr JOIN nl2_reactions r ON r.id = fr.reaction_id WHERE r.type = 2 GROUP BY fr.user_received ORDER BY `count` DESC',
+            <<<SQL
+            SELECT 
+                (SUM(IF(r.type = 2, 1, 0)) - SUM(IF(r.type = 0, 1, 0)) + SUM(IF(r.type = 3, r.custom_score, 0))) AS `count`,
+                fr.user_received
+            FROM
+                nl2_forums_reactions fr
+            JOIN nl2_reactions r ON r.id = fr.reaction_id
+            WHERE
+                r.enabled = TRUE AND r.type IN (0, 2, 3)
+            GROUP BY
+                fr.user_received
+            ORDER BY
+                `count` DESC;
+            SQL,
             'user_received',
             'count'
         ];

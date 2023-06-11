@@ -28,7 +28,7 @@ if (!isset($_GET['action'])) {
     $profile_widgets_list = [];
 
     // List widgets
-    /** @var Widgets $widgets */
+    /** @var AbstractWidget $widget */
     foreach ($widgets->getAll() as $widget) {
         $widget_id = DB::getInstance()->get('widgets', ['name', $widget->getName()])->first()->id;
 

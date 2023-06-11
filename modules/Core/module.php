@@ -702,11 +702,12 @@ class Core_Module extends Module {
             $widgets->add(new StatsWidget($smarty, $language, $cache));
 
             // Reactions profile widget
-            $widgets->add(new ReactionsProfileWidget($smarty));
-            ReactionsProfileWidget::addGivenCollector(static function (User $user) {
+            $widgets->add(new ReactionsProfileWidget($smarty, $language));
+            $profile_posts_score = $language->get('user', 'profile_posts_score');
+            ReactionsProfileWidget::addGivenCollector($profile_posts_score, static function (User $user) {
                 return DB::getInstance()->get('user_profile_wall_posts_reactions', ['user_id', $user->data()->id])->results();
             });
-            ReactionsProfileWidget::addRecievedCollector(static function (User $user) {
+            ReactionsProfileWidget::addRecievedCollector($profile_posts_score, static function (User $user) {
                 return DB::getInstance()->query('SELECT r.reaction_id FROM nl2_user_profile_wall_posts_reactions r JOIN nl2_user_profile_wall_posts w ON r.post_id = w.id WHERE w.author_id = ?', [
                     $user->data()->id
                 ])->results();

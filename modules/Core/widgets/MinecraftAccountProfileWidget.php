@@ -7,10 +7,10 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
 
     public function __construct(Smarty $smarty, Cache $cache, Language $language) {
         $this->_name = 'Minecraft Account';
-        $this->_description = "Displays a users Minecraft account on their profile.";
+        $this->_description = 'Displays a users Minecraft account on their profile.';
         $this->_module = 'Core';
-        $this->_smarty = $smarty;
 
+        $this->_smarty = $smarty;
         $this->_cache = $cache;
         $this->_language = $language;
     }

@@ -236,11 +236,11 @@ class Forum_Module extends Module {
             // Latest posts
             $widgets->add(new LatestPostsWidget($this->_forum_language, $smarty, $cache, $user, $this->_language));
 
-            ReactionsProfileWidget::addRecievedCollector(static function (User $user) {
+            $forum_score = $this->_forum_language->get('forum', 'forum_score');
+            ReactionsProfileWidget::addRecievedCollector($forum_score, static function (User $user) {
                 return DB::getInstance()->get('forums_reactions', ['user_received', $user->data()->id])->results();
             });
-
-            ReactionsProfileWidget::addGivenCollector(static function (User $user) {
+            ReactionsProfileWidget::addGivenCollector($forum_score, static function (User $user) {
                 return DB::getInstance()->get('forums_reactions', ['user_given', $user->data()->id])->results();
             });
         }
