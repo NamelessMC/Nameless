@@ -12,7 +12,7 @@ final class CreateIntegrationsTable extends AbstractMigration
         $table
             ->addColumn('name', 'string', ['length' => 32])
             ->addColumn('enabled', 'boolean', ['default' => true])
-            ->addColumn('can_unlink', 'boolean', ['default' => true])
+            ->addColumn('can_be_unlink', 'boolean', ['default' => true])
             ->addColumn('required', 'boolean', ['default' => false])
             ->addColumn('order', 'integer', ['length' => 11, 'default' => 0]);
 

@@ -58,8 +58,8 @@
                                     <label class="custom-control-label" for="InputEnabled">{$ENABLED}</label>
                                 </div>
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="can_unlink" value="0">
-                                    <input type="checkbox" name="can_unlink" class="custom-control-input"
+                                    <input type="hidden" name="can_be_unlink" value="0">
+                                    <input type="checkbox" name="can_be_unlink" class="custom-control-input"
                                         id="InputCanUnlink" value="1" {if $CAN_UNLINK_VALUE} checked{/if}>
                                     <label class="custom-control-label"
                                         for="InputCanUnlink">{$CAN_UNLINK_INTEGRATION}</label>

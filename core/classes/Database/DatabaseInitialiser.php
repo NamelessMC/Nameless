@@ -139,7 +139,7 @@ class DatabaseInitialiser {
         $this->_db->insert('integrations', [
             'name' => 'Minecraft',
             'enabled' => true,
-            'can_unlink' => false,
+            'can_be_unlink' => false,
             'required' => false,
         ]);
 
@@ -147,7 +147,7 @@ class DatabaseInitialiser {
         $this->_db->insert('integrations', [
             'name' => 'Discord',
             'enabled' => true,
-            'can_unlink' => true,
+            'can_be_unlink' => true,
             'required' => false
         ]);
     }

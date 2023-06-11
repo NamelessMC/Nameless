@@ -63,7 +63,7 @@
     "admin/cache_cleared": "Template cache cleared",
     "admin/cache_not_writable": "The cache directory is not writable.",
     "admin/can_edit_own_group": "Can edit own group's permissions",
-    "admin/can_unlink": "Can Unlink",
+    "admin/can_be_unlink": "Can Unlink",
     "admin/can_unlink_integration": "Can users unlink integration?",
     "admin/can_view_announcement": "Can view Announcement",
     "admin/can_view_staffcp": "Can the group view the StaffCP?",
