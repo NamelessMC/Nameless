@@ -184,6 +184,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         ]);
 
         Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
+
+        $context = 'forum_post';
     } else {
         // Check if the user has already reacted to this post
         $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [['post_id', $post->id], ['user_id', $user->data()->id]]);
@@ -191,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $reaction = $user_reacted->first();
             if ($reaction->reaction_id == $_POST['reaction']) {
                 DB::getInstance()->delete('user_profile_wall_posts_reactions', $reaction->id);
+                // TODO reaction delete event
                 die('Reaction deleted');
             }
 
@@ -199,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'time' => date('U'),
             ]);
 
+            // TODO allow mutliple reactions
             die('Reaction changed');
         }
 
@@ -209,7 +213,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'reaction_id' => $_POST['reaction'],
             'time' => date('U'),
         ]);
+
+        $context = 'profile_post';
     }
+
+    EventHandler::executeEvent(new UserReactionAddedEvent(
+        $user->data()->id,
+        $post->id,
+        Reaction::find($_POST['reaction']), // TODO refactor
+        $context,
+    ));
 
     die('Reaction added');
 }
