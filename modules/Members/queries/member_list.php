@@ -11,7 +11,7 @@ if (!$overview) {
 }
 
 $cache->setCache('member_list_queries');
-$key = ($list . '_page_' . $page) . ($overview ? '_overview' : '') . (Util::getSetting('member_list_hide_banned', false, 'Members') ? '_hide_banned' : '');
+$key = ($list . '_page_' . $page) . ($overview ? '_overview' : '') . (Settings::get('member_list_hide_banned', false, 'Members') ? '_hide_banned' : '');
 if ($cache->isCached($key)) {
     die($cache->retrieve($key));
 }

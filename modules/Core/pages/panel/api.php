@@ -31,7 +31,7 @@ if (!isset($_GET['view'])) {
                 $new_api_key = SecureRandom::alphanumeric();
 
                 // Update key
-                Util::setSetting('mc_api_key', $new_api_key);
+                Settings::set('mc_api_key', $new_api_key);
 
                 // Cache
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
@@ -41,11 +41,11 @@ if (!isset($_GET['view'])) {
                 Redirect::to(URL::build('/panel/core/api'));
             }
 
-            Util::setSetting('use_api', Input::get('enable_api'));
+            Settings::set('use_api', Input::get('enable_api'));
 
             // Update Username sync
             $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
-            Util::setSetting('username_sync', $username_sync);
+            Settings::set('username_sync', $username_sync);
 
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/api'));
@@ -172,7 +172,7 @@ if (isset($errors) && count($errors)) {
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
-    $api_enabled = Util::getSetting('use_api');
+    $api_enabled = Settings::get('use_api');
 
     $smarty->assign(
         [
@@ -191,7 +191,7 @@ if (!isset($_GET['view'])) {
             'ENABLE_API' => $language->get('admin', 'enable_api'),
             'API_ENABLED' => $api_enabled,
             'API_KEY' => $language->get('admin', 'api_key'),
-            'API_KEY_VALUE' => Util::getSetting('mc_api_key'),
+            'API_KEY_VALUE' => Settings::get('mc_api_key'),
             'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
@@ -204,7 +204,7 @@ if (!isset($_GET['view'])) {
             'COPY' => $language->get('admin', 'copy'),
             'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
             'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
-            'USERNAME_SYNC_VALUE' => Util::getSetting('username_sync') === '1',
+            'USERNAME_SYNC_VALUE' => Settings::get('username_sync') === '1',
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
             'COPIED' => $language->get('general', 'copied'),

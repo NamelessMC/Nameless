@@ -259,8 +259,8 @@ if (isset($_GET['view'])) {
             ]);
 
             if ($validation->passed()) {
-                Util::setSetting('queue_runner', Input::get('runner'));
-                Util::setSetting('queue_interval', floatval(Input::get('interval')));
+                Settings::set('queue_runner', Input::get('runner'));
+                Settings::set('queue_interval', floatval(Input::get('interval')));
 
                 Session::flash('queue_success', $language->get('user', 'settings_updated_successfully'));
             } else {
@@ -279,19 +279,19 @@ if (isset($_GET['view'])) {
     $runners = [
         [
             'label' => $language->get('admin', 'queue_runner_ajax'),
-            'selected' => Util::getSetting('queue_runner') == 'ajax',
+            'selected' => Settings::get('queue_runner') == 'ajax',
             'value' => 'ajax',
         ],
         [
             'label' => $language->get('admin', 'queue_runner_cron'),
-            'selected' => Util::getSetting('queue_runner') == 'cron',
+            'selected' => Settings::get('queue_runner') == 'cron',
             'value' => 'cron',
         ],
     ];
 
-    if (!($cron_key = Util::getSetting('cron_key'))) {
+    if (!($cron_key = Settings::get('cron_key'))) {
         $cron_key = SecureRandom::alphanumeric();
-        Util::setSetting('cron_key', $cron_key);
+        Settings::set('cron_key', $cron_key);
     }
 
     $smarty->assign([
@@ -300,7 +300,7 @@ if (isset($_GET['view'])) {
         'QUEUE_INFO' => $language->get('admin', 'queue_info'),
         'QUEUE_CRON_URL' => rtrim(URL::getSelfURL(), '/') . URL::build('/queries/queue', 'cron&key=' . $cron_key),
         'QUEUE_INTERVAL' => $language->get('admin', 'queue_interval'),
-        'QUEUE_INTERVAL_VALUE' => Util::getSetting('queue_interval', 1),
+        'QUEUE_INTERVAL_VALUE' => Settings::get('queue_interval', 1),
         'QUEUE_RUNNER' => $language->get('admin', 'queue_runner'),
         'QUEUE_RUNNERS' => $runners,
         'QUEUE_STATUS_LINK' => URL::build('/panel/core/queue', 'view=status'),

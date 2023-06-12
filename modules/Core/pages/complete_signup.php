@@ -24,7 +24,7 @@ if (!isset($_GET['c'])) {
 }
 
 // Ensure API is enabled
-if (Util::getSetting('use_api') !== '1') {
+if (Settings::get('use_api') !== '1') {
     die('API is disabled');
 }
 

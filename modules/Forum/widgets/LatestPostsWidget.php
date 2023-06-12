@@ -55,7 +55,7 @@ class LatestPostsWidget extends WidgetBase {
             $template_array = $this->_cache->retrieve('discussions');
 
         } else {
-            $limit = (int) Util::getSetting('latest_posts_limit', 5, 'Forum');
+            $limit = (int) Settings::get('latest_posts_limit', 5, 'Forum');
             // Generate latest posts
             $discussions = $forum->getLatestDiscussions($user_groups, ($this->_user->isLoggedIn() ? $this->_user->data()->id : 0), $limit);
 

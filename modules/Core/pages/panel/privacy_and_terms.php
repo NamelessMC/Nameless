@@ -100,14 +100,14 @@ if (isset($errors) && count($errors)) {
 // Get privacy policy + terms
 $site_terms = DB::getInstance()->get('privacy_terms', ['name', 'terms'])->results();
 if (!count($site_terms)) {
-    $site_terms = Util::getSetting('t_and_c_site');
+    $site_terms = Settings::get('t_and_c_site');
 } else {
     $site_terms = $site_terms[0]->value;
 }
 
 $site_privacy = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
 if (!count($site_privacy)) {
-    $site_privacy = Util::getSetting('privacy_policy');
+    $site_privacy = Settings::get('privacy_policy');
 } else {
     $site_privacy = $site_privacy[0]->value;
 }

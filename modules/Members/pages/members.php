@@ -14,7 +14,7 @@ $page_title = $members_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (isset($_GET['group'])) {
-    if (!in_array($_GET['group'], json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true))) {
+    if (!in_array($_GET['group'], json_decode(Settings::get('member_list_viewable_groups', '{}', 'Members'), true))) {
         Redirect::to(URL::build('/members'));
     }
 
@@ -40,7 +40,7 @@ if (isset($_GET['group'])) {
 }
 
 $new_members = [];
-if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+if (Settings::get('member_list_hide_banned', false, 'Members')) {
     $query = DB::getInstance()->query('SELECT id FROM nl2_users WHERE isbanned = 0 ORDER BY joined DESC LIMIT 12');
 } else {
     $query = DB::getInstance()->query('SELECT id FROM nl2_users ORDER BY joined DESC LIMIT 12');
@@ -57,7 +57,7 @@ if (isset($error)) {
 }
 
 $groups = [];
-foreach (json_decode(Util::getSetting('member_list_viewable_groups', '{}', 'Members'), true) as $group_id) {
+foreach (json_decode(Settings::get('member_list_viewable_groups', '{}', 'Members'), true) as $group_id) {
     $group = Group::find($group_id);
     if (!$group) {
         continue;
