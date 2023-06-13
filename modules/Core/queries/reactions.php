@@ -1,13 +1,4 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
- *
- *  License: MIT
- *
- *  React to a post or get a reaction summary modal
- */
 
 // Validate form input
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -150,79 +141,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     // modal
     die($template->getTemplate('reactions_modal.tpl', $smarty));
-} else {
-    // add reaction
-    if (!Token::check()) {
-        die('Invalid token');
-    }
-
-    if ($post_type === 'post') {
-        // Check if the user has already reacted to this post with the same reaction
-        $user_reacted = DB::getInstance()->get('forums_reactions', [
-            ['post_id', $post->id], ['user_given', $user->data()->id], ['reaction_id', $_POST['reaction']]
-        ]);
-        if ($user_reacted->count()) {
-            $reaction = $user_reacted->first();
-            if ($reaction->reaction_id == $_POST['reaction']) {
-                DB::getInstance()->delete('forums_reactions', $reaction->id);
-                EventHandler::executeEvent(new UserReactionDeletedEvent(
-                    $user,
-                    Reaction::find($_POST['reaction']), // TODO refactor
-                    'forum_post'
-                ));
-                die('Reaction deleted');
-            }
-        }
-
-        // Input new reaction
-        DB::getInstance()->insert('forums_reactions', [
-            'post_id' => $post->id,
-            'user_received' => $post->post_creator,
-            'user_given' => $user->data()->id,
-            'reaction_id' => $_POST['reaction'],
-            'time' => date('U'),
-        ]);
-
-        Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
-
-        $receiver = new User($post->post_creator);
-        $context = 'forum_post';
-    } else {
-        // Check if the user has already reacted to this post with this reaction
-        $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [
-            ['post_id', $post->id], ['user_id', $user->data()->id], ['reaction_id', $_POST['reaction']]
-        ]);
-        if ($user_reacted->count()) {
-            $reaction = $user_reacted->first();
-            if ($reaction->reaction_id == $_POST['reaction']) {
-                DB::getInstance()->delete('user_profile_wall_posts_reactions', $reaction->id);
-                EventHandler::executeEvent(new UserReactionDeletedEvent(
-                   $user,
-                   Reaction::find($_POST['reaction']), // TODO refactor
-                     'profile_post'
-                ));
-                die('Reaction deleted');
-            }
-        }
-
-        // Input new reaction
-        DB::getInstance()->insert('user_profile_wall_posts_reactions', [
-            'post_id' => $post->id,
-            'user_id' => $user->data()->id,
-            'reaction_id' => $_POST['reaction'],
-            'time' => date('U'),
-        ]);
-
-        $receiver = new User(DB::getInstance()->get('user_profile_wall_posts', ['id', $post->id])->first()->author_id);
-        $context = 'profile_post';
-    }
-
-    EventHandler::executeEvent(new UserReactionAddedEvent(
-        $user,
-        $receiver,
-        Reaction::find($_POST['reaction']), // TODO refactor
-        $context,
-    ));
-
-    die('Reaction added');
 }
+
+// add reaction
+if (!Token::check()) {
+    die('Invalid token');
+}
+
+if ($post_type === 'post') {
+    // Check if the user has already reacted to this post with the same reaction
+    $user_reacted = DB::getInstance()->get('forums_reactions', [
+        ['post_id', $post->id], ['user_given', $user->data()->id], ['reaction_id', $_POST['reaction']]
+    ]);
+    if ($user_reacted->count()) {
+        $reaction = $user_reacted->first();
+        if ($reaction->reaction_id == $_POST['reaction']) {
+            DB::getInstance()->delete('forums_reactions', $reaction->id);
+            EventHandler::executeEvent(new UserReactionDeletedEvent(
+                $user,
+                Reaction::find($_POST['reaction']), // TODO refactor
+                'forum_post'
+            ));
+            die('Reaction deleted');
+        }
+    }
+
+    // Input new reaction
+    DB::getInstance()->insert('forums_reactions', [
+        'post_id' => $post->id,
+        'user_received' => $post->post_creator,
+        'user_given' => $user->data()->id,
+        'reaction_id' => $_POST['reaction'],
+        'time' => date('U'),
+    ]);
+
+    Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
+
+    $receiver = new User($post->post_creator);
+    $context = 'forum_post';
+} else {
+    // Check if the user has already reacted to this post with this reaction
+    $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [
+        ['post_id', $post->id], ['user_id', $user->data()->id], ['reaction_id', $_POST['reaction']]
+    ]);
+    if ($user_reacted->count()) {
+        $reaction = $user_reacted->first();
+        if ($reaction->reaction_id == $_POST['reaction']) {
+            DB::getInstance()->delete('user_profile_wall_posts_reactions', $reaction->id);
+            EventHandler::executeEvent(new UserReactionDeletedEvent(
+                $user,
+                Reaction::find($_POST['reaction']), // TODO refactor
+                'profile_post',
+            ));
+            die('Reaction deleted');
+        }
+    }
+
+    // Input new reaction
+    DB::getInstance()->insert('user_profile_wall_posts_reactions', [
+        'post_id' => $post->id,
+        'user_id' => $user->data()->id,
+        'reaction_id' => $_POST['reaction'],
+        'time' => date('U'),
+    ]);
+
+    $receiver = new User(DB::getInstance()->get('user_profile_wall_posts', ['id', $post->id])->first()->author_id);
+    $context = 'profile_post';
+}
+
+EventHandler::executeEvent(new UserReactionAddedEvent(
+    $user,
+    $receiver,
+    Reaction::find($_POST['reaction']), // TODO refactor
+    $context,
+));
+
+die('Reaction added');
