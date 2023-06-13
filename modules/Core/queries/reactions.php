@@ -157,21 +157,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     if ($post_type === 'post') {
-        // Check if the user has already reacted to this post
-        $user_reacted = DB::getInstance()->get('forums_reactions', [['post_id', $post->id], ['user_given', $user->data()->id]]);
+        // Check if the user has already reacted to this post with the same reaction
+        $user_reacted = DB::getInstance()->get('forums_reactions', [
+            ['post_id', $post->id], ['user_given', $user->data()->id], ['reaction_id', $_POST['reaction']]
+        ]);
         if ($user_reacted->count()) {
             $reaction = $user_reacted->first();
             if ($reaction->reaction_id == $_POST['reaction']) {
                 DB::getInstance()->delete('forums_reactions', $reaction->id);
+                EventHandler::executeEvent(new UserReactionDeletedEvent(
+                    $user,
+                    Reaction::find($_POST['reaction']), // TODO refactor
+                    'forum_post'
+                ));
                 die('Reaction deleted');
             }
-
-            DB::getInstance()->update('forums_reactions', $reaction->id, [
-                'reaction_id' => $_POST['reaction'],
-                'time' => date('U'),
-            ]);
-
-            die('Reaction changed');
         }
 
         // Input new reaction
@@ -185,25 +185,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
 
+        $receiver = new User($post->post_creator);
         $context = 'forum_post';
     } else {
-        // Check if the user has already reacted to this post
-        $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [['post_id', $post->id], ['user_id', $user->data()->id]]);
+        // Check if the user has already reacted to this post with this reaction
+        $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [
+            ['post_id', $post->id], ['user_id', $user->data()->id], ['reaction_id', $_POST['reaction']]
+        ]);
         if ($user_reacted->count()) {
             $reaction = $user_reacted->first();
             if ($reaction->reaction_id == $_POST['reaction']) {
                 DB::getInstance()->delete('user_profile_wall_posts_reactions', $reaction->id);
-                // TODO reaction delete event
+                EventHandler::executeEvent(new UserReactionDeletedEvent(
+                   $user,
+                   Reaction::find($_POST['reaction']), // TODO refactor
+                     'profile_post'
+                ));
                 die('Reaction deleted');
             }
-
-            DB::getInstance()->update('user_profile_wall_posts_reactions', $reaction->id, [
-                'reaction_id' => $_POST['reaction'],
-                'time' => date('U'),
-            ]);
-
-            // TODO allow mutliple reactions
-            die('Reaction changed');
         }
 
         // Input new reaction
@@ -214,12 +213,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'time' => date('U'),
         ]);
 
+        $receiver = new User(DB::getInstance()->get('user_profile_wall_posts', ['id', $post->id])->first()->author_id);
         $context = 'profile_post';
     }
 
     EventHandler::executeEvent(new UserReactionAddedEvent(
-        $user->data()->id,
-        $post->id,
+        $user,
+        $receiver,
         Reaction::find($_POST['reaction']), // TODO refactor
         $context,
     ));

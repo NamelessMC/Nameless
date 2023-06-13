@@ -1,24 +1,21 @@
 <?php
 
-class UserReactionAddedEvent extends AbstractEvent {
+class UserReactionDeletedEvent extends AbstractEvent {
 
-    public User $giver;
-    public User $reciever;
+    public User $user;
     public Reaction $reaction;
     public string $context;
 
     public static function description(): string {
-        return (new Language())->get('admin', 'reaction_added_event_info');
+        return (new Language())->get('admin', 'reaction_deleted_event_info');
     }
 
     public function __construct(
-        User $giver,
-        User $reciever,
+        User $user,
         Reaction $reaction,
         string $context
     ) {
-        $this->giver = $giver;
-        $this->reciever = $reciever;
+        $this->user = $user;
         $this->reaction = $reaction;
 
         if (!in_array($context, Reaction::CONTEXTS)) {
