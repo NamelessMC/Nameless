@@ -143,13 +143,12 @@ class Text {
         $style = $force_style ?? Settings::get('emoji_style', 'twemoji');
         switch ($style) {
             case 'twemoji':
-                return Twemoji::text($text)->toHtml(fn () => '');
+                return Twemoji::text($text)->toHtml();
             case 'joypixels':
                 // Jank workaround can be removed if/when https://github.com/joypixels/emoji-toolkit/issues/55 is implemented
                 return (new class extends Client {
                     public $emojiSize = '64';
                     public $ignoredRegexp = '';
-                    public $imageTitleTag = false;
                 })->toImage($text);
             case 'native':
             default:

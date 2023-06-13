@@ -144,7 +144,7 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
         MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
-        MemberListManager::getInstance()->registerListProvider(new HighestReactionScoresMemberListProvider($forum_language));
+        MemberListManager::getInstance()->registerListProvider(new HighestForumReactionScoresMemberListProvider($forum_language));
 
         MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
             return [

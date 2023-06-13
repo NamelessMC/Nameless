@@ -553,7 +553,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'USERNAME_COLOUR' => $profile_user->getGroupStyle(),
         'USER_TITLE' => Output::getClean($query->user_title),
         'FOLLOW' => $language->get('user', 'follow'),
-        'AVATAR' => $profile_user->getAvatar(),
+        'AVATAR' => $profile_user->getAvatar(500),
         'BANNER' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . (($query->banner) ? Output::getClean($query->banner) : 'profile.jpg'),
         'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayname())]),
         'FEED' => $language->get('user', 'feed'),
@@ -594,7 +594,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         // Display the correct number of posts
         foreach ($results->data as $nValue) {
             // Get reactions
-            $reactions = [];
+            $post_reactions = [];
             $reactions_query = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $nValue->id])->results();
             if (count($reactions_query)) {
                 $reactions['count'] = count($reactions_query) === 1
@@ -608,8 +608,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                     // Get reaction name and icon
                     $reaction = $all_reactions[$wall_post_reaction->reaction_id];
-                    if (!isset($reactions['reactions'][$reaction->id])) {
-                        $reactions['reactions'][$reaction->id] = [
+                    if (!isset($post_reactions[$reaction->id])) {
+                        $post_reactions[$reaction->id] = [
                             'id' => $reaction->id,
                             'name' => $reaction->name,
                             'html' => $reaction->html,
@@ -617,16 +617,13 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             'count' => 1,
                         ];
                     } else {
-                        $reactions['reactions'][$reaction->id]['count']++;
+                        $post_reactions[$reaction->id]['count']++;
                     }
                 }
-            } else {
-                $reactions['count'] = $language->get('user', 'x_reactions', ['count' => 0]);
-                $reactions['reactions'] = [];
             }
 
             // Sort reactions by their order
-            usort($reactions['reactions'], static function ($a, $b) {
+            usort($post_reactions, static function ($a, $b) {
                 return $a['order'] - $b['order'];
             });
 
@@ -661,7 +658,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             } else {
                 $replies['count'] = $language->get('user', 'x_replies', ['count' => 0]);
             }
-            $replies_query = null;
 
             $post_user = new User($nValue->author_id);
             $content = EventHandler::executeEvent('renderProfilePost', ['content' => $nValue->content])['content'];
@@ -676,7 +672,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'content' => $content,
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
-                'reactions' => $reactions,
+                'reactions' => $post_reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
             ];

@@ -441,13 +441,11 @@ class User {
             $data_obj->{$key} = $value;
         }
 
-        if (Util::getSetting('mc_integration')) {
-            $integrationUser = $this->getIntegration('Minecraft');
-            if ($integrationUser != null) {
-                $data_obj->uuid = $integrationUser->data()->identifier;
-            } else {
-                $data_obj->uuid = '';
-            }
+        $integrationUser = $this->getIntegration('Minecraft');
+        if ($integrationUser != null) {
+            $data_obj->uuid = $integrationUser->data()->identifier;
+        } else {
+            $data_obj->uuid = '';
         }
 
         return AvatarSource::getAvatarFromUserData($data_obj, $this->hasPermission('usercp.gif_avatar'), $size, $full);
@@ -564,6 +562,8 @@ class User {
             return $this->_integrations;
         }
 
+        $integrations = Integrations::getInstance();
+
         if (isset(self::$_integration_cache[$this->data()->id])) {
             $integrations_query = self::$_integration_cache[$this->data()->id];
         } else {
@@ -576,7 +576,6 @@ class User {
             self::$_integration_cache[$this->data()->id] = $integrations_query;
         }
 
-        $integrations = Integrations::getInstance();
         $integrations_list = [];
         foreach ($integrations_query as $item) {
             $integration = $integrations->getIntegration($item->integration_name);
@@ -607,10 +606,6 @@ class User {
      * @return array Their placeholders.
      */
     public function getPlaceholders(): array {
-        if (!Util::getSetting('mc_integration')) {
-          return [];
-        }
-
         if (isset($this->_placeholders)) {
             return $this->_placeholders;
         }

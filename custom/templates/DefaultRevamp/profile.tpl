@@ -108,12 +108,12 @@
                                     <div class="text forum_post">
                                         {$post.content}
                                     </div>
-                                    {if ((isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID) || count($post.reactions.reactions))}
+                                    {if ((isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID) || count($post.reactions))}
                                         <div class="ui mini message" id="reactions">
-                                            {if count($post.reactions.reactions)}
+                                            {if count($post.reactions)}
                                                 <span class="left aligned">
                                                     {assign i 1}
-                                                    {foreach from=$post.reactions.reactions item=reaction}
+                                                    {foreach from=$post.reactions item=reaction}
                                                         {if $i != 1} &nbsp; {/if}
                                                             <span style="cursor: pointer;" onclick="openReactionModal({$post.id}, {$reaction.id})" data-tooltip="{$reaction.name}">
                                                                 {$reaction.html} {$reaction.count}

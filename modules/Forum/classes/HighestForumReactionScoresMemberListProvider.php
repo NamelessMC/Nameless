@@ -8,10 +8,10 @@
  * @version 2.1.0
  * @license MIT
  */
-class HighestReactionScoresMemberListProvider extends MemberListProvider {
+class HighestForumReactionScoresMemberListProvider extends MemberListProvider {
 
     public function __construct(Language $language) {
-        $this->_name = 'highest_reaction_scores';
+        $this->_name = 'highest_forum_reaction_scores';
         $this->_friendly_name = $language->get('forum', 'highest_reaction_scores');
         $this->_module = 'Forum';
         $this->_icon = 'star icon';

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Base Widget class
  *

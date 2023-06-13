@@ -653,16 +653,14 @@ foreach ($results->data as $n => $nValue) {
                 }
 
                 if (!isset($post_reactions[$item->reaction_id])) {
-                    if (array_key_exists($item->reaction_id, $all_reactions)) {
-                        $reaction = $all_reactions[$item->reaction_id];
-                        $post_reactions[$item->reaction_id] = [
-                            'id' => $reaction->id,
-                            'html' => $reaction->html,
-                            'name' => $reaction->name,
-                            'order' => $reaction->order,
-                            'count' => 1,
-                        ];
-                    }
+                    $reaction = $all_reactions[$item->reaction_id];
+                    $post_reactions[$item->reaction_id] = [
+                        'id' => $reaction->id,
+                        'html' => $reaction->html,
+                        'name' => $reaction->name,
+                        'order' => $reaction->order,
+                        'count' => 1,
+                    ];
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
@@ -727,6 +725,7 @@ $smarty->assign('REPLIES', $replies);
 if ($reactions_enabled) {
     $smarty->assign([
         'REACTIONS_URL' => URL::build('/queries/reactions'),
+        'REACTIONS_TEXT' => $language->get('user', 'reactions'),
     ]);
 }
 
@@ -762,8 +761,6 @@ if ($user->isLoggedIn()) {
         ]);
     }
 }
-
-$smarty->assign('REACTIONS_TEXT', $language->get('user', 'reactions'));
 
 // Existing quick reply content
 $content = null;

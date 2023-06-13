@@ -62,6 +62,8 @@ if (!isset($_GET['action'])) {
         'ENABLE' => $language->get('admin', 'enable'),
         'DISABLE' => $language->get('admin', 'disable'),
         'EDIT' => $language->get('general', 'edit'),
+        'SITE_WIDGETS' => $language->get('admin', 'site_widgets'),
+        'PROFILE_WIDGETS' => $language->get('admin', 'profile_widgets'),
         'WIDGETS_LIST' => $widgets_list,
         'PROFILE_WIDGETS_LIST' => $profile_widgets_list,
     ]);

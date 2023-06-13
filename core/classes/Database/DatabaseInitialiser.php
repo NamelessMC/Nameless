@@ -157,35 +157,43 @@ class DatabaseInitialiser {
             'name' => 'Like',
             'html' => '👍',
             'enabled' => true,
-            'type' => 2
+            'type' => Reaction::TYPE_POSITIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Dislike',
             'html' => '👎',
             'enabled' => true,
-            'type' => 0
+            'type' => Reaction::TYPE_NEGATIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Meh',
             'html' => '😐',
             'enabled' => true,
-            'type' => 1
+            'type' => Reaction::TYPE_NEUTRAL,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Helpful',
             'html' => '🛠️',
             'enabled' => true,
-            'type' => 2
+            'type' => Reaction::TYPE_POSITIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Creative',
             'html' => '🌈',
             'enabled' => true,
-            'type' => 2
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Amazing',
+            'html' => '⭐',
+            'enabled' => true,
+            'type' => Reaction::TYPE_CUSTOM,
+            'custom_score' => 5,
         ]);
     }
 

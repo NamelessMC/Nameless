@@ -55,7 +55,7 @@
     "forum/forums": "Forums",
     "forum/group": "Group",
     "forum/has_no_parent": "No parent",
-    "forum/highest_reaction_scores": "Highest reaction scores",
+    "forum/highest_reaction_scores": "Highest forum reaction scores",
     "forum/in": "in",
     "forum/include_in_hook": "Include events from this forum in webhooks?",
     "forum/input_forum_title": "Please input a forum title.",
