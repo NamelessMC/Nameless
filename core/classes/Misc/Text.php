@@ -140,7 +140,7 @@ class Text {
      * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
      */
     public static function renderEmojis(string $text, string $force_style = null): string {
-        $style = $force_style ?? Util::getSetting('emoji_style', 'twemoji');
+        $style = $force_style ?? Settings::get('emoji_style', 'twemoji');
         switch ($style) {
             case 'twemoji':
                 return Twemoji::text($text)->toHtml(fn () => '');

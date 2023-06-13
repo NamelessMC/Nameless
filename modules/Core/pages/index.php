@@ -10,7 +10,7 @@
  */
 
 // Home page or portal?
-if (Util::getSetting('home_type') === 'portal') {
+if (Settings::get('home_type') === 'portal') {
     require('portal.php');
 } else {
     require('home.php');

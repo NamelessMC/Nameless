@@ -14,12 +14,12 @@ return new class extends UpgradeScript {
                 // Default to 10
                 $query_interval = 10;
             }
-            Util::setSetting('minecraft_query_interval', $query_interval);
+            Settings::set('minecraft_query_interval', $query_interval);
         }
 
         // Replace `external_query` with `query_type`
-        Util::setSetting('query_type', Util::getSetting('external_query') == 1 ? 'external' : 'internal');
-        Util::setSetting('external_query', null);
+        Settings::set('query_type', Settings::get('external_query') == 1 ? 'external' : 'internal');
+        Settings::set('external_query', null);
 
         // Forum post conversion
         ConvertForumPostTask::schedule();
@@ -28,7 +28,7 @@ return new class extends UpgradeScript {
         GenerateSitemap::schedule(new Language('core', 'en_UK'));
 
         // Add all groups to member list selectable groups
-        Util::setSetting('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
+        Settings::set('member_list_viewable_groups', json_encode(array_map(static fn (Group $group) => $group->id, Group::all())), 'Members');
 
         Config::set('core.installed', true);
 

@@ -24,7 +24,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         if (isset($_POST['verify_command'])) {
-            Util::setSetting('minecraft_verify_command', $_POST['verify_command']);
+            Settings::set('minecraft_verify_command', $_POST['verify_command']);
         }
 
         try {
@@ -66,8 +66,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
-        // TODO: use nl2_users_meta table when it's added
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             $cache->setCache('minecraft_last_online');
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -90,7 +89,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
 
         // Server query
         try {
-            $query_type = Util::getSetting('query_type', 'internal');
+            $query_type = Settings::get('query_type', 'internal');
             if ($query_type == 'plugin') {
                 $players_list = [];
                 foreach ($_POST['players'] as $uuid => $player) {
@@ -119,14 +118,14 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             ]);
         }
 
-        if (Util::getSetting('username_sync')) {
+        if (Settings::get('username_sync')) {
             $user = $integrationUser->getUser();
             if (!$user->exists() || $player['name'] == $user->data()->username) {
                 return;
             }
 
             // Update username
-            if (Util::getSetting('displaynames') === '1') {
+            if (Settings::get('displaynames') === '1') {
                 $user->update([
                     'username' => $player['name']
                 ]);

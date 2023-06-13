@@ -27,9 +27,9 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_minecraft'])) {
             // Either enable or disable Minecraft integration
-            Util::setSetting(Settings::MINECRAFT_INTEGRATION, Input::get('enable_minecraft'));
+            Settings::set(Settings::MINECRAFT_INTEGRATION, Input::get('enable_minecraft'));
         } else if (isset($_POST['premium'])) {
-            Util::setSetting('uuid_linking', Input::get('enable_premium_accounts'));
+            Settings::set('uuid_linking', Input::get('enable_premium_accounts'));
         }
     } else {
         // Invalid token
@@ -55,8 +55,8 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if Minecraft integration is enabled
-$minecraft_enabled = Util::getSetting(Settings::MINECRAFT_INTEGRATION);
-$uuid_linking = Util::getSetting('uuid_linking');
+$minecraft_enabled = Settings::get(Settings::MINECRAFT_INTEGRATION);
+$uuid_linking = Settings::get('uuid_linking');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

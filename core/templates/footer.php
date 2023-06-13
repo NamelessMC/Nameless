@@ -14,7 +14,7 @@
 $social_media_icons = [];
 
 // Facebook
-$social_media = Util::getSetting('fb_url');
+$social_media = Settings::get('fb_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'fb',
@@ -25,7 +25,7 @@ if ($social_media != null) {
 }
 
 // Twitter
-$social_media = Util::getSetting('twitter_url');
+$social_media = Settings::get('twitter_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'tw',
@@ -36,7 +36,7 @@ if ($social_media != null) {
 }
 
 // Youtube
-$social_media = Util::getSetting('youtube_url');
+$social_media = Settings::get('youtube_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'gp',
@@ -50,7 +50,7 @@ if ($social_media != null) {
 // Assign to Smarty variables
 $smarty->assign([
     'SOCIAL_MEDIA_ICONS' => $social_media_icons,
-    'PAGE_LOAD_TIME' => Util::getSetting('page_loading'),
+    'PAGE_LOAD_TIME' => Settings::get('page_loading'),
     'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ]);
 

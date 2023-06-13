@@ -169,10 +169,10 @@ $_SESSION['install_timezone'] = in_array($timezone = getEnvVar('NAMELESS_TIMEZON
 
 DatabaseInitialiser::runPreUser();
 
-Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
-Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
-Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
+Settings::set('sitename', getEnvVar('NAMELESS_SITE_NAME'));
+Settings::set('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
+Settings::set('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
+Settings::set('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 

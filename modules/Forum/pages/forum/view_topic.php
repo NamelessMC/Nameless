@@ -393,7 +393,7 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
 }
 
 // Are reactions enabled?
-$reactions_enabled = Util::getSetting('forum_reactions') === '1';
+$reactions_enabled = Settings::get('forum_reactions') === '1';
 $smarty->assign('REACTIONS_ENABLED', $reactions_enabled);
 
 // Assign Smarty variables to pass to template

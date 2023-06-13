@@ -17,7 +17,7 @@ if ($cache->isCached('news-' . $groups_key)) {
     $forum = new Forum();
 
     $latest_news = $forum->getLatestNews(
-        Util::getSetting('news_items_front_page', 5, 'forum'),
+        Settings::get('news_items_front_page', 5, 'forum'),
         $user->getAllGroupIds()
     ); // Get latest 5 items
 
