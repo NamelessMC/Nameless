@@ -181,10 +181,6 @@ if (!isset($_GET['action'])) {
             }
         }
 
-        if (is_null($active_pages)) {
-            $active_pages = [];
-        }
-
         if ($widget_instance->getSettings() !== null) {
             $smarty->assign([
                 'SETTINGS' => $language->get('admin', 'settings'),
