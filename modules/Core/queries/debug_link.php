@@ -144,7 +144,7 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
         'id' => (int) $integration->data()->id,
         'name' => $integration->data()->name,
         'enabled' => (bool) $integration->data()->enabled,
-        'can_be_unlink' => (bool) $integration->data()->can_be_unlink,
+        'can_unlink' => (bool) $integration->data()->can_unlink,
         'required' => (bool) $integration->data()->required,
         'order' => (int) $integration->data()->order
     ];

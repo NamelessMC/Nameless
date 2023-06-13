@@ -61,7 +61,7 @@
                                             <td>{if $integration.enabled eq 1}<i
                                                     class="fa fa-check-circle text-success"></i>{else}<i
                                                     class="fa fa-times-circle text-danger"></i>{/if}</td>
-                                            <td>{if $integration.can_be_unlink eq 1}<i
+                                            <td>{if $integration.can_unlink eq 1}<i
                                                     class="fa fa-check-circle text-success"></i>{else}<i
                                                     class="fa fa-times-circle text-danger"></i>{/if}</td>
                                             <td>{if $integration.required eq 1}<i

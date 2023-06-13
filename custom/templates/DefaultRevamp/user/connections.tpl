@@ -78,7 +78,7 @@
                                 <input type="submit" class="ui mini orange button" value="{$VERIFY}">
                             </form>
                             {/if}
-                            {if $integration.can_be_unlink}
+                            {if $integration.can_unlink}
                             <form class="ui form" action="" method="post" style="display: inline">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="hidden" name="action" value="unlink">

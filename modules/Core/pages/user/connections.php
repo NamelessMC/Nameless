@@ -34,7 +34,7 @@ if (Input::exists()) {
 
         } else if (Input::get('action') === 'unlink') {
             // Unlink Integration
-            if ($integration->data()->can_be_unlink) {
+            if ($integration->data()->can_unlink) {
                 $integration->onUnlinkRequest($user);
             }
 
@@ -78,7 +78,7 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
         'name' => Output::getClean($integration->getName()),
         'icon' => Output::getClean($integration->geticon()),
         'required' => $integration->data()->required,
-        'can_be_unlink' => $integration->data()->can_be_unlink,
+        'can_unlink' => $integration->data()->can_unlink,
         'connected' => $connected,
         'username' => $username,
         'verified' => $verified

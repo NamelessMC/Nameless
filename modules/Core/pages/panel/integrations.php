@@ -32,7 +32,7 @@ if (!isset($_GET['integration'])) {
             'icon' => Output::getClean($integration->getIcon()),
             'edit_link' => URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()),
             'enabled' => $integration->isEnabled(),
-            'can_be_unlink' => $integration->data()->can_be_unlink,
+            'can_unlink' => $integration->data()->can_unlink,
             'required' => $integration->data()->required,
         ];
     }
@@ -40,7 +40,7 @@ if (!isset($_GET['integration'])) {
     $smarty->assign([
         'INTEGRATIONS_LIST' => $integrations_list,
         'ENABLED' => $language->get('admin', 'enabled'),
-        'CAN_UNLINK' => $language->get('admin', 'can_be_unlink'),
+        'CAN_UNLINK' => $language->get('admin', 'can_unlink'),
         'REQUIRED' => $language->get('admin', 'required')
     ]);
 
@@ -59,7 +59,7 @@ if (!isset($_GET['integration'])) {
             if (Input::get('action') === 'general_settings') {
                 DB::getInstance()->update('integrations', $integration->data()->id, [
                     'enabled' => Output::getClean(Input::get('enabled')),
-                    'can_be_unlink' => Output::getClean(Input::get('can_be_unlink')),
+                    'can_unlink' => Output::getClean(Input::get('can_unlink')),
                     'required' => Output::getClean(Input::get('required'))
                 ]);
 
@@ -88,7 +88,7 @@ if (!isset($_GET['integration'])) {
         'ENABLED' => $language->get('admin', 'enabled'),
         'ENABLED_VALUE' => $integration->isEnabled(),
         'CAN_UNLINK_INTEGRATION' => $language->get('admin', 'can_unlink_integration'),
-        'CAN_UNLINK_VALUE' => $integration->data()->can_be_unlink,
+        'CAN_UNLINK_VALUE' => $integration->data()->can_unlink,
         'REQUIRE_INTEGRATION' => $language->get('admin', 'require_integration'),
         'REQUIRED_VALUE' => $integration->data()->required,
     ]);
