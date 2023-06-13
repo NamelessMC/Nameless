@@ -415,9 +415,10 @@
             reaction: reaction_id,
         }, (responseText) => {
             if (responseText.startsWith('Reaction ')) {
+                window.location.replace(window.location.href.replace(/#.*$/, '') + '#post-' + post_id);
                 window.location.reload();
             } else {
-                console.error(responseText)
+                console.error(responseText);
             }
         });
     }
