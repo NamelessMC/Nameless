@@ -26,6 +26,9 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
             'USERNAME' => $integrationUser->data()->username,
             'UUID' => $integrationUser->data()->identifier,
             'UUID_FORMATTED' => ProfileUtils::formatUUID($integrationUser->data()->identifier),
+            'LAST_SEEN_TEXT' => $this->_language->get('user', 'last_seen'),
+            'ON' => $this->_language->get('general', 'on'),
+            'MINECRAFT_ACCOUNT' => $this->_language->get('user', 'minecraft_account'),
         ]);
 
         $this->_cache->setCache('minecraft_last_online');
@@ -37,6 +40,7 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
                 $server_name = $server->name;
                 $server_ip = $server->ip;
             } else {
+                $this->_smarty->assign('SERVER_UNKNOWN', true);
                 $server_name = $this->_language->get('admin', 'unknown');
                 $server_ip = $this->_language->get('admin', 'unknown');
             }
@@ -49,6 +53,7 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
             ]);
         } else {
             $this->_smarty->assign([
+                'ALL_UNKNOWN' => true,
                 'LAST_ONLINE' => $this->_language->get('admin', 'unknown'),
                 'LAST_ONLINE_AGO' => $this->_language->get('admin', 'unknown'),
                 'LAST_ONLINE_SERVER' => $this->_language->get('admin', 'unknown'),

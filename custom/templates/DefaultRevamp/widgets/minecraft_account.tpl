@@ -1,12 +1,15 @@
 <div class="ui fluid card">
     <div class="content" style="padding-bottom: 0;">
-        <h4 class="ui header">Minecraft Account</h4>
+        <h4 class="ui header">{$MINECRAFT_ACCOUNT}</h4>
         <div class="center aligned">
             <canvas id="skin_container"></canvas>
         </div>
     </div>
     <div class="extra content">
-        Last seen: <span data-tooltip="{$LAST_ONLINE}">{$LAST_ONLINE_AGO}</span> on <span data-tooltip="{$LAST_ONLINE_SERVER_IP}">{$LAST_ONLINE_SERVER}</span>
+        {$LAST_SEEN_TEXT} <span {if !$ALL_UNKNOWN}data-tooltip="{$LAST_ONLINE}"{/if}>{$LAST_ONLINE_AGO}</span> {$ON} <span {if !$ALL_UNKNOWN && !$SERVER_UNKNOWN}onclick="copy('#last_seen_ip')" style="cursor: pointer;" data-tooltip="{$LAST_ONLINE_SERVER_IP}"{/if}>{$LAST_ONLINE_SERVER}</span>
+        {if !$ALL_UNKNOWN && !$SERVER_UNKNOWN}
+            <span style="display: none;" id="last_seen_ip">{$LAST_ONLINE_SERVER_IP}</span>
+        {/if}
     </div>
 </div>
 
