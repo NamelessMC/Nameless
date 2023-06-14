@@ -14,12 +14,6 @@ class Reaction {
     public const TYPE_NEUTRAL = 1;
     public const TYPE_CUSTOM = 3;
 
-    public const CONTEXTS = [
-        'forum_post',
-        'profile_post',
-        // Allow modules to register custom contexts?
-    ];
-
     public int $id;
     public string $name;
     public string $html;

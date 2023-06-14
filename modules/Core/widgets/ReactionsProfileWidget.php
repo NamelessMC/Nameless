@@ -2,11 +2,6 @@
 
 class ReactionsProfileWidget extends ProfileWidgetBase {
 
-    private static array $_collectors = [
-        'recieved' => [],
-        'given' => [],
-    ];
-
     private Language $_language;
 
     public function __construct(Smarty $smarty, Language $language) {
@@ -65,7 +60,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
             $reaction_score_aggregate = '+' . $reaction_score_aggregate;
         }
 
-        foreach ($this->allContexts() as $context) {
+        foreach (ReactionContextsManager::getInstance()->validContextFriendlyNames($this->_language) as $context) {
             if (!isset($context_reaction_scores[$context])) {
                 $context_reaction_scores[$context] = 0;
             }
@@ -88,12 +83,11 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
     }
 
     private function calculateCounts(string $type, User $user, array &$reactions): void {
-        foreach (self::$_collectors[$type] as $collector) {
-            $context = $collector['context'];
-            $collector = $collector['collector'];
-            $received = $collector($user);
+        $method = $type === 'recieved' ? 'getUserReceived' : 'getUserGiven';
+        foreach (ReactionContextsManager::getInstance()->getContexts() as $reactionContext) {
+            $received = $reactionContext->{$method}($user);
             foreach ($received as $reaction) {
-                $this->incrementReactionCount($context, $reactions, $reaction->reaction_id, $type);
+                $this->incrementReactionCount($reactionContext->friendlyName($this->_language), $reactions, $reaction->reaction_id, $type);
             }
         }
     }
@@ -108,29 +102,5 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
 
         $reactions[$reaction_id][$type]++;
         $reactions[$reaction_id]['contexts'][$context][$type]++;
-    }
-
-    private function allContexts(): array {
-        $contexts = [];
-        foreach (self::$_collectors as $collectors) {
-            foreach ($collectors as $collector) {
-                $contexts[] = $collector['context'];
-            }
-        }
-        return array_unique($contexts);
-    }
-
-    public static function addRecievedCollector(string $context, Closure $collector): void {
-        self::$_collectors['recieved'][] = [
-            'context' => $context,
-            'collector' => $collector,
-        ];
-    }
-
-    public static function addGivenCollector(string $context, Closure $collector): void {
-        self::$_collectors['given'][] = [
-            'context' => $context,
-            'collector' => $collector,
-        ];
     }
 }

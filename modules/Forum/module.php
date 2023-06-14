@@ -165,6 +165,8 @@ class Forum_Module extends Module {
                     )->first()->count,
             ];
         });
+
+        ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
     }
 
     public function onInstall() {
@@ -235,14 +237,6 @@ class Forum_Module extends Module {
         if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Latest posts
             $widgets->add(new LatestPostsWidget($this->_forum_language, $smarty, $cache, $user, $this->_language));
-
-            $forum_score = $this->_forum_language->get('forum', 'forum_score');
-            ReactionsProfileWidget::addRecievedCollector($forum_score, static function (User $user) {
-                return DB::getInstance()->get('forums_reactions', ['user_received', $user->data()->id])->results();
-            });
-            ReactionsProfileWidget::addGivenCollector($forum_score, static function (User $user) {
-                return DB::getInstance()->get('forums_reactions', ['user_given', $user->data()->id])->results();
-            });
         }
 
         // Front end or back end?

@@ -2,45 +2,39 @@
 
 // Validate form input
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
+    if (!isset($_GET['reactable_id']) || !is_numeric($_GET['reactable_id'])) {
+        http_response_code(400);
         die('Invalid input');
     }
-    $post_id = $_GET['post'];
-    $post_type = $_GET['type'];
+    $reactable_id = $_GET['reactable_id'];
+    $context = $_GET['context'];
 } else {
     // User must be logged in to proceed
     if (!$user->isLoggedIn()) {
+        http_response_code(401);
         die('Not logged in');
     }
 
-    if (!isset($_POST['post'], $_POST['reaction']) || !is_numeric($_POST['post']) || !is_numeric($_POST['reaction'])) {
+    if (!isset($_POST['reactable_id'], $_POST['reaction_id']) || !is_numeric($_POST['reactable_id']) || !is_numeric($_POST['reaction_id'])) {
+        http_response_code(400);
         die('Invalid input');
     }
-    $post_id = $_POST['post'];
-    $post_type = $_POST['type'];
+    $reactable_id = $_POST['reactable_id'];
+    $context = $_POST['context'];
 }
 
-// Get post information
-$post = DB::getInstance()->get($post_type === 'post' ? 'posts' : 'user_profile_wall_posts', ['id', $post_id]);
+$reaction_context = ReactionContextsManager::getInstance()->getContext($context);
 
-if (!$post->count()) {
-    die('Invalid post');
+if (!$reaction_context->isEnabled()) {
+    http_response_code(400);
+    die('Reactions disabled in this context');
 }
 
-$post = $post->first();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $post_type === 'post') {
-    // Are reactions enabled?
-    if (Util::getSetting('forum_reactions') !== '1') {
-        die('Reactions disabled');
-    }
-
-    $topic_id = $post->topic_id;
-
-    // Check user can actually view the post
-    if (!((new Forum())->forumExist($post->forum_id, $user->getAllGroupIds()))) {
-        die('Invalid post');
-    }
+// Ensure exists
+$reactable = $reaction_context->validateReactable($reactable_id, $user);
+if (!$reactable) {
+    http_response_code(400);
+    die('Invalid reactable');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -63,20 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'users' => [],
     ];
 
-    if ($post_type === 'post') {
-        $reactions = DB::getInstance()->get('forums_reactions', ['post_id', $post->id]);
-    } else {
-        $reactions = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $post->id]);
-    }
-
-    if ($reactions->count()) {
-        $reactions = $reactions->results();
-    } else {
-        $reactions = [];
-    }
+    $reactions = $reaction_context->getAllReactions($reactable_id);
 
     foreach ($reactions as $reaction) {
-        $reaction_user = new User($reaction->{$post_type === 'post' ? 'user_given' : 'user_id'});
+        $reaction_user = new User($reaction->{$reaction_context->reactionUserIdColumn()});
 
         if (isset($formatted_reactions[$reaction->reaction_id])) {
             $formatted_reactions[$reaction->reaction_id]['count']++;
@@ -145,75 +129,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // add reaction
 if (!Token::check()) {
+    http_response_code(400);
     die('Invalid token');
 }
 
-if ($post_type === 'post') {
-    // Check if the user has already reacted to this post with the same reaction
-    $user_reacted = DB::getInstance()->get('forums_reactions', [
-        ['post_id', $post->id], ['user_given', $user->data()->id], ['reaction_id', $_POST['reaction']]
-    ]);
-    if ($user_reacted->count()) {
-        $reaction = $user_reacted->first();
-        if ($reaction->reaction_id == $_POST['reaction']) {
-            DB::getInstance()->delete('forums_reactions', $reaction->id);
-            EventHandler::executeEvent(new UserReactionDeletedEvent(
-                $user,
-                Reaction::find($_POST['reaction']), // TODO refactor
-                'forum_post'
-            ));
-            die('Reaction deleted');
-        }
-    }
+$reaction = Reaction::find($_POST['reaction_id']);
 
-    // Input new reaction
-    DB::getInstance()->insert('forums_reactions', [
-        'post_id' => $post->id,
-        'user_received' => $post->post_creator,
-        'user_given' => $user->data()->id,
-        'reaction_id' => $_POST['reaction'],
-        'time' => date('U'),
-    ]);
+if ($reaction_id = $reaction_context->hasReacted($user, $reaction, $reactable_id)) {
+    $reaction_context->deleteReaction($reaction_id);
+    EventHandler::executeEvent(new UserReactionDeletedEvent(
+        $user,
+        $reaction,
+        $reaction_context->name(),
+    ));
 
-    Log::getInstance()->log(Log::Action('forums/react'), $_POST['reaction']);
-
-    $receiver = new User($post->post_creator);
-    $context = 'forum_post';
-} else {
-    // Check if the user has already reacted to this post with this reaction
-    $user_reacted = DB::getInstance()->get('user_profile_wall_posts_reactions', [
-        ['post_id', $post->id], ['user_id', $user->data()->id], ['reaction_id', $_POST['reaction']]
-    ]);
-    if ($user_reacted->count()) {
-        $reaction = $user_reacted->first();
-        if ($reaction->reaction_id == $_POST['reaction']) {
-            DB::getInstance()->delete('user_profile_wall_posts_reactions', $reaction->id);
-            EventHandler::executeEvent(new UserReactionDeletedEvent(
-                $user,
-                Reaction::find($_POST['reaction']), // TODO refactor
-                'profile_post',
-            ));
-            die('Reaction deleted');
-        }
-    }
-
-    // Input new reaction
-    DB::getInstance()->insert('user_profile_wall_posts_reactions', [
-        'post_id' => $post->id,
-        'user_id' => $user->data()->id,
-        'reaction_id' => $_POST['reaction'],
-        'time' => date('U'),
-    ]);
-
-    $receiver = new User(DB::getInstance()->get('user_profile_wall_posts', ['id', $post->id])->first()->author_id);
-    $context = 'profile_post';
+    http_response_code(200);
+    die('Reaction deleted');
 }
 
+$receiver = $reaction_context->determineReceiver($reactable);
+$reaction_context->giveReaction($user, $receiver, $reaction, $reactable_id);
 EventHandler::executeEvent(new UserReactionAddedEvent(
     $user,
     $receiver,
-    Reaction::find($_POST['reaction']), // TODO refactor
-    $context,
+    $reaction,
+    $reaction_context->name(),
 ));
 
+http_response_code(200);
 die('Reaction added');

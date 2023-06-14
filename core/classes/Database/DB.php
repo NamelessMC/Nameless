@@ -185,6 +185,15 @@ class DB {
     }
 
     /**
+     * Get whether any results exist.
+     *
+     * @return bool Whether any results exist.
+     */
+    public function exists(): bool {
+        return $this->_count > 0;
+    }
+
+    /**
      * Get the last inserted ID
      *
      * @return string|false ID of the last inserted row or false on failure

@@ -18,7 +18,7 @@ class UserReactionDeletedEvent extends AbstractEvent {
         $this->user = $user;
         $this->reaction = $reaction;
 
-        if (!in_array($context, Reaction::CONTEXTS)) {
+        if (!in_array($context, ReactionContextsManager::getInstance()->validContextNames())) {
             throw new InvalidArgumentException("Invalid context provided: {$context}.");
         }
 

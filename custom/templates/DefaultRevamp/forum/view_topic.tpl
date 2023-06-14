@@ -386,9 +386,9 @@
         const submitReaction = (post_id, reaction_id) => {
             $.post("{$REACTIONS_URL}", {
                 token: "{$TOKEN}",
-                reaction: reaction_id,
-                post: post_id,
-                type: 'post',
+                reaction_id: reaction_id,
+                reactable_id: post_id,
+                context: 'forum_post',
             }, (responseText) => {
                 if (responseText.startsWith('Reaction ')) {
                     window.location.replace(window.location.href.replace(/#.*$/, '') + '#post-' + post_id);
@@ -396,6 +396,8 @@
                 } else {
                     console.error(responseText);
                 }
+            }).fail((response) => {
+                console.error(response);
             });
         }
 
@@ -404,11 +406,13 @@
             modal.modal('show');
             modal.find('.content').html('<div class="ui active centered inline loader"></div>');
             $.get("{$REACTIONS_URL}", {
-                post: post_id,
-                type: 'post',
+                reactable_id: post_id,
+                context: 'forum_post',
                 tab: reaction_id,
             }, (responseText) => {
                 modal.find('.content').html(responseText);
+            }).fail((response) => {
+                console.error(response);
             });
         }
     </script>

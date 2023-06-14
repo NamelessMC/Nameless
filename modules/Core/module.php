@@ -549,6 +549,8 @@ class Core_Module extends Module {
                 $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
             ];
         });
+
+        ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
     }
 
     public static function getDashboardGraphs(): array {
@@ -703,18 +705,9 @@ class Core_Module extends Module {
 
             // Reactions profile widget
             $widgets->add(new ReactionsProfileWidget($smarty, $language));
-            $profile_posts_score = $language->get('user', 'profile_posts_score');
-            ReactionsProfileWidget::addGivenCollector($profile_posts_score, static function (User $user) {
-                return DB::getInstance()->get('user_profile_wall_posts_reactions', ['user_id', $user->data()->id])->results();
-            });
-            ReactionsProfileWidget::addRecievedCollector($profile_posts_score, static function (User $user) {
-                return DB::getInstance()->query('SELECT r.reaction_id FROM nl2_user_profile_wall_posts_reactions r JOIN nl2_user_profile_wall_posts w ON r.post_id = w.id WHERE w.author_id = ?', [
-                    $user->data()->id
-                ])->results();
-            });
 
             // Minecraft account profile widget
-            if (Util::getSetting('mc_integration')) {
+            if (Settings::get('mc_integration')) {
                 $widgets->add(new MinecraftAccountProfileWidget($smarty, $cache, $language));
             }
         }
