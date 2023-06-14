@@ -16,11 +16,11 @@
 <style>
     @font-face {
         font-family: 'Minecraft';
-        src: url('https://bs-community.github.io/skinview3d/font/minecraft.woff2') format('woff2');
+        src: url('{$MINECRAFT_FONT_URL}') format('woff2');
     }
 </style>
 
-<script src="https://bs-community.github.io/skinview3d/js/skinview3d.bundle.js"></script>
+<script src="{$SKINVIEW_3D_JS_URL}"></script>
 
 <script>
     const skinViewer = new skinview3d.SkinViewer({

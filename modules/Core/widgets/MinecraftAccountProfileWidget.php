@@ -22,6 +22,10 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
             return;
         }
 
+        $config_path = defined('CONFIG_PATH')
+            ? CONFIG_PATH
+            : '';
+
         $this->_smarty->assign([
             'USERNAME' => $integrationUser->data()->username,
             'UUID' => $integrationUser->data()->identifier,
@@ -29,6 +33,10 @@ class MinecraftAccountProfileWidget extends ProfileWidgetBase {
             'LAST_SEEN_TEXT' => $this->_language->get('user', 'last_seen'),
             'ON' => $this->_language->get('general', 'on'),
             'MINECRAFT_ACCOUNT' => $this->_language->get('user', 'minecraft_account'),
+            'MINECRAFT_FONT_URL' => $config_path . '/core/assets/vendor/skinview3d/assets/minecraft.woff2',
+            // TODO: can't use AssetTree since this JS is included before the asset JS is included
+            // so it can't resolve the skinview3d object
+            'SKINVIEW_3D_JS_URL' => $config_path . '/core/assets/vendor/skinview3d/bundles/skinview3d.bundle.js',
         ]);
 
         $this->_cache->setCache('minecraft_last_online');

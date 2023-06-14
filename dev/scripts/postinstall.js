@@ -73,6 +73,11 @@ const publicAssets = {
     'themes',
     'tinymce.min.js',
   ],
+  'skinview3d': [
+    'bundles/skinview3d.bundle.js',
+    'bundles/skinview3d.bundle.js.map',
+    'assets/minecraft.woff2',
+  ],
 };
 
 fse.emptyDirSync('core/assets/vendor');
