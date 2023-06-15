@@ -11,6 +11,8 @@ abstract class AbstractWidget {
     protected Smarty $_smarty;
     protected WidgetData $_data;
 
+    private Cache $_cache;
+
     /**
      * Get the name of this widget.
      *
@@ -102,14 +104,7 @@ abstract class AbstractWidget {
      * Clear the cache for this widget, should be called when any settings of it are changed.
      */
     final public function clearCache(): void {
-        $cache = new Cache();
-        $cache->setCache(
-            $this instanceof ProfileWidgetBase
-                ? 'profile_widgets'
-                : 'widgets'
-        );
-
-        $cache->erase($this->getName());
+        $this->cache()->erase($this->getName());
     }
 
     /**
@@ -123,12 +118,7 @@ abstract class AbstractWidget {
             return $this->_data;
         }
 
-        $cache = new Cache();
-        $cache->setCache(
-            $this instanceof ProfileWidgetBase
-                ? 'profile_widgets'
-                : 'widgets'
-        );
+        $cache = $this->cache();
 
         if ($cache->isCached($this->getName())) {
             return $this->_data = new WidgetData($cache->retrieve($this->getName()));
@@ -155,5 +145,19 @@ abstract class AbstractWidget {
         $cache->store($this->getName(), $data);
 
         return $this->_data = $data;
+    }
+
+    private function cache(): Cache {
+        $cache = $this->_cache ??= new Cache([
+            'name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'
+        ]);
+
+        $cache->setCache(
+            $this instanceof ProfileWidgetBase
+                ? 'profile_widgets'
+                : 'widgets'
+        );
+
+        return $cache;
     }
 }
