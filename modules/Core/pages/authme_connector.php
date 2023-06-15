@@ -167,17 +167,9 @@ if (Input::exists()) {
                     $user = new User($user_id);
                     $user->addGroup($default_group);
 
-                    EventHandler::executeEvent('registerUser', [
-                            'user_id' => $user_id,
-                            'username' => $user->getDisplayname(),
-                            'content' => $language->get('user', 'user_x_has_registered', [
-                                'user' => $user->getDisplayname(),
-                            ]),
-                            'avatar_url' => $user->getAvatar(128, true),
-                            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-                            'language' => $language,
-                        ]
-                    );
+                    EventHandler::executeEvent(new UserRegisteredEvent(
+                        $user,
+                    ));
 
                     // Link the minecraft integration
                     $integration->successfulRegistration($user);
