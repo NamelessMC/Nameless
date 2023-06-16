@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * Provides support for giving and receiving reactions on forum posts.
+ *
+ * @package NamelessMC\Misc
+ * @author Aberdeener
+ * @version 2.2.0
+ * @license MIT
+ * @see ReactionContext, ReactionContextsManager
+ */
 class ForumPostReactionContext extends ReactionContext {
 
     private Language $_forum_language;

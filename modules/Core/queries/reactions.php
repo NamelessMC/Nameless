@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Alert notifications for reactions? We should add some sort of debounce to prevent spamming notifications
+
 // Validate form input
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!isset($_GET['reactable_id']) || !is_numeric($_GET['reactable_id'])) {
