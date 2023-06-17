@@ -452,14 +452,14 @@ if ($page != 'install') {
     // Load module dependencies
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php')) {
-            require ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php';
+            require_once ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php';
         }
     }
 
     // Load modules
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
-            require ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
+            require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
         }
     }
 
