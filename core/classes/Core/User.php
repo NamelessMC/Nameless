@@ -144,6 +144,7 @@ class User {
         $group = Group::find($group_id);
         if ($group) {
             $this->_groups[$group_id] = $group;
+            self::$_group_cache[$this->data()->id][$group_id] = $group;
         }
 
         EventHandler::executeEvent(new UserGroupAddedEvent(
@@ -524,28 +525,26 @@ class User {
         }
 
         if (isset(self::$_group_cache[$this->data()->id])) {
-            $groups_query = self::$_group_cache[$this->data()->id];
+            $this->_groups = self::$_group_cache[$this->data()->id];
         } else {
             $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
             if ($groups_query->count()) {
-                $groups_query = $groups_query->results();
+                foreach ($groups_query->results() as $item) {
+                    $this->_groups[$item->id] = new Group($item);
+                }
             } else {
-                $groups_query = [];
+                $this->_groups = [];
             }
-            self::$_group_cache[$this->data()->id] = $groups_query;
+
+            self::$_group_cache[$this->data()->id] = $this->_groups;
         }
 
-        if ($groups_query) {
-            foreach ($groups_query as $item) {
-                $this->_groups[$item->id] = new Group($item);
-            }
-        } else {
+        if (!count($this->_groups)) {
             // Get default group
             // TODO: Use PRE_VALIDATED_DEFAULT ?
             $default_group = Group::find(1, 'default_group');
             $default_group_id = $default_group->id ?? 1;
 
-            $this->_groups = [];
             $this->addGroup($default_group_id);
         }
 
@@ -676,6 +675,7 @@ class User {
         $group = Group::find($group_id);
         if ($group) {
             $this->_groups[$group_id] = $group;
+            self::$_group_cache[$this->data()->id] = $this->_groups;
         }
     }
 
@@ -706,6 +706,7 @@ class User {
         ));
 
         unset($this->_groups[$group_id]);
+        unset(self::$_group_cache[$this->data()->id][$group_id]);
 
         return true;
     }
