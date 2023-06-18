@@ -183,7 +183,7 @@ class DatabaseInitialiser {
         Settings::set('recaptcha_type', 'Recaptcha3');
         Settings::set('recaptcha_login', '0');
         Settings::set('email_verification', '1');
-        Settings::set('nameless_version', '2.1.0');
+        Settings::set('nameless_version', '2.1.1');
         Settings::set('version_checked', date('U'));
         Settings::set('phpmailer', '0');
         Settings::set('user_avatars', '0');
