@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.1.0
+ * @version 2.1.1
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
@@ -81,12 +81,14 @@ class DiscordIntegration extends IntegrationBase {
         $validation = Validate::check(['username' => $username], [
             'username' => [
                 Validate::REQUIRED => true,
-                Validate::REGEX => '/^.{2,32}#[0-9]{4}$/'
+                Validate::MIN => 2,
+                Validate::MAX => 32
             ]
         ])->messages([
             'username' => [
                 Validate::REQUIRED => $this->_language->get('admin', 'integration_username_required', ['integration' => $this->getName()]),
-                Validate::REGEX => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()])
+                Validate::MIN => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()]),
+                Validate::MAX => $this->_language->get('admin', 'integration_username_invalid', ['integration' => $this->getName()])
             ]
         ]);
 
@@ -166,9 +168,9 @@ class DiscordIntegration extends IntegrationBase {
         // Link integration if user registered using discord oauth
         if (Session::exists('oauth_register_data')) {
             $data = json_decode(Session::get('oauth_register_data'), true);
-            if ($data['provider'] == 'discord' && isset($data['data']['username']) && isset($data['data']['discriminator'])) {
+            if ($data['provider'] == 'discord' && isset($data['data']['username'])) {
 
-                $username = $data['data']['username'] . '#' . $data['data']['discriminator'];
+                $username = $data['data']['username'];
                 $discord_id = $data['data']['id'];
                 if ($this->validateIdentifier($discord_id) && $this->validateUsername($username)) {
                     $integrationUser = new IntegrationUser($this);

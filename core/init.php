@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+ *  NamelessMC version 2.1.1
  *
  *  License: MIT
  *
@@ -454,9 +454,17 @@ if ($page != 'install') {
         return $a['priority'] - $b['priority'];
     });
 
+    // Load module dependencies
+    foreach ($enabled_modules as $module) {
+        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php')) {
+            require_once ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php';
+        }
+    }
+
+    // Load modules
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
-            require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
+            require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
         }
     }
 

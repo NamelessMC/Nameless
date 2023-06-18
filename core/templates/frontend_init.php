@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.3
+ *  NamelessMC version 2.1.1
  *
  *  License: MIT
  *
@@ -33,7 +33,7 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 }
 
 // Check if any integrations is required before user can continue
-if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
+if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections' && PAGE != 'oauth') {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
         if ($integration->data()->required && $integration->allowLinking()) {
             $integrationUser = $user->getIntegration($integration->getName());

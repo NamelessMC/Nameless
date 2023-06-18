@@ -885,7 +885,7 @@
     "time/less_than_a_minute": "pred menej ako minútou",
     "time/over_x_years": "pred viac ako {{count}} rokmi",
     "user/1_new_alert": "Máte 1 nové upozornenie",
-    "user/1_new_message": "Máte {{count}} novú správu",
+    "user/1_new_message": "Máte 1 novú správu",
     "user/1_reaction": "1 reakcia",
     "user/1_reply": "1 odpoveď",
     "user/about": "O užívateľovi",
@@ -1319,5 +1319,6 @@
     "admin/queue_task_output": "Výstup úlohy",
     "admin/queue_task_invalid_status_to_cancel": "Úloha nie je v platnom stavu pre jej zrušenie",
     "admin/queue_task_status": "Stav",
-    "admin/reset_og_image": "Resetovať OG image"
+    "admin/reset_og_image": "Resetovať OG image",
+    "general/registration_disabled_message_fallback": "Registrácia je momentálne zakázaná."
 }

@@ -1100,7 +1100,7 @@
     "time/less_than_a_minute": "less than a minute ago",
     "time/over_x_years": "over {{count}} years ago",
     "user/1_new_alert": "You have 1 new alert",
-    "user/1_new_message": "You have {{count}} new message",
+    "user/1_new_message": "You have 1 new message",
     "user/1_reaction": "1 reaction",
     "user/1_reply": "1 reply",
     "user/about": "About",

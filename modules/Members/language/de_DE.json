@@ -1,0 +1,19 @@
+{
+    "members/members": "Mitglieder",
+    "members/member_lists": "Mitgliederlisten",
+    "members/find_member": "Mitglied suchen",
+    "members/no_results_text": "Deine Suche ergab keine Ergebnisse",
+    "members/new_members": "Neue Mitglieder",
+    "members/no_members": "Keine Mitglieder gefunden.",
+    "members/member_list_hide_banned_users": "Gesperrte Benutzer ausblenden?",
+    "members/member_list_toggled_enabled": "Erfolgreich die Liste {{list}} aktiviert.",
+    "members/member_list_toggled_disabled": "Die Liste {{list}} wurde erfolgreich deaktiviert.",
+    "members/view_all": "Alle anzeigen",
+    "members/name": "Name...",
+    "members/view_group": "Gruppe anzeigen",
+    "members/group": "Gruppe...",
+    "members/viewable_groups": "Sichtbare Gruppen",
+    "members/no_results_header": "Keine Ergebnisse gefunden",
+    "members/no_overview_lists_enabled": "Es sind keine Übersichtslisten aktiviert.",
+    "members/settings_updated_successfully": "Einstellungen erfolgreich aktualisiert."
+}

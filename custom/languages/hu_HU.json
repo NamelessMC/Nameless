@@ -473,7 +473,7 @@
     "admin/authme_db_connection_failed": "Csatlakozás sikertelen",
     "admin/group_sync_server": "Válassz egy Minecraft szervert a csoportszinkronizáláshoz",
     "admin/query_type_help": "Ha az alapértelmezett belső szerver lekérdezés nem működik, próbálkozz egy másik lehetőséggel.",
-    "general/sql_query": "SQL Lekérdezés",
+    "general/sql_query": "Lekérdezés",
     "admin/query_type": "Lekérdezés típusa",
     "admin/internal": "Belső",
     "admin/external": "Külső",

@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ *  NamelessMC version 2.1.1
  *
  *  License: MIT
  *
@@ -21,8 +21,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $module_version = '2.1.1';
+        $nameless_version = '2.1.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -834,7 +834,7 @@ class Core_Module extends Module {
                     }
 
                     if (!is_null($default) && isset($default->ip)) {
-                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
+                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name, 'id' => $default->id];
 
                         // Get query type
                         $query_type = Util::getSetting('query_type', 'internal');
