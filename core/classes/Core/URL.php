@@ -86,6 +86,16 @@ class URL {
     }
 
     /**
+     * Build an asset path
+     *
+     * @param string $path Contains the asset path relative to the root Nameless directory
+     * @return string
+     */
+    public static function buildAssetPath(string $path): string {
+        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/' . ltrim($path, '/');
+    }
+
+    /**
      * Get the server name.
      *
      * @param bool $show_protocol Whether to show http(s) at front or not.
