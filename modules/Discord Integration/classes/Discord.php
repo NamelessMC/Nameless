@@ -60,7 +60,7 @@ class Discord {
 
         $result = self::botRequest('/applyRoleChanges', json_encode([
             'guild_id' => self::getGuildId(),
-            'api_key' => Util::getSetting('mc_api_key'),
+            'api_key' => Settings::get('mc_api_key'),
             'role_changes' => $role_changes
         ]));
 
@@ -100,7 +100,7 @@ class Discord {
      * @return bool Whether the Discord bot is set up properly
      */
     public static function isBotSetup(): bool {
-        return self::$_is_bot_setup ??= Util::getSetting('discord_integration');
+        return self::$_is_bot_setup ??= Settings::get('discord_integration');
     }
 
     /**
@@ -125,7 +125,7 @@ class Discord {
      * @return string|null Discord guild ID for this site
      */
     public static function getGuildId(): ?string {
-        return Util::getSetting('discord');
+        return Settings::get('discord');
     }
 
     /**

@@ -6,7 +6,7 @@
  * @author Partydragen
  * @version 2.0.0-pr8
  * @license MIT
- * @deprecated Use Util::getSetting and Util::setSetting with $module parameter instead
+ * @deprecated Use Util::getSetting and Util::setSetting with $module parameter instead. Will be removed in 2.2.0
  */
 class Configuration {
 

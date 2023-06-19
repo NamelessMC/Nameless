@@ -17,7 +17,7 @@ if (!$user->isLoggedIn()) {
 }
 
 // Are reactions enabled?
-if (Util::getSetting('forum_reactions') !== '1') {
+if (Settings::get('forum_reactions') !== '1') {
     Redirect::to(URL::build('/forum'));
 }
 

@@ -18,7 +18,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
     public function execute(Nameless2API $api): void {
         if (isset($_POST['url'])) {
             try {
-                Util::setSetting('discord_bot_url', $_POST['url']);
+                Settings::set('discord_bot_url', $_POST['url']);
             } catch (Exception $e) {
                 $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_URL, $e->getMessage(), 500);
             }
@@ -26,7 +26,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
         if (isset($_POST['guild_id'])) {
             try {
-                Util::setSetting('discord', $_POST['guild_id']);
+                Settings::set('discord', $_POST['guild_id']);
             } catch (Exception $e) {
                 $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_GUILD_ID, $e->getMessage(), 500);
             }
@@ -34,7 +34,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
         if (isset($_POST['bot_username'])) {
             try {
-                Util::setSetting('discord_bot_username', $_POST['bot_username']);
+                Settings::set('discord_bot_username', $_POST['bot_username']);
             } catch (Exception $e) {
                 $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), 500);
             }
@@ -42,11 +42,11 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
         // If bot url and username is empty then its setup for the first time
         if (empty(BOT_URL) && empty(BOT_USERNAME)) {
-            Util::setSetting('discord_integration', 1);
+            Settings::set('discord_integration', 1);
         }
 
         if (isset($_POST['bot_user_id'])) {
-            Util::setSetting('discord_bot_user_id', $_POST['bot_user_id']);
+            Settings::set('discord_bot_user_id', $_POST['bot_user_id']);
         }
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
