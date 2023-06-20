@@ -3,7 +3,7 @@
 class UserReactionAddedEvent extends AbstractEvent {
 
     public User $giver;
-    public User $reciever;
+    public User $receiver;
     public Reaction $reaction;
     public string $context;
 
@@ -13,12 +13,12 @@ class UserReactionAddedEvent extends AbstractEvent {
 
     public function __construct(
         User $giver,
-        User $reciever,
+        User $receiver,
         Reaction $reaction,
         string $context
     ) {
         $this->giver = $giver;
-        $this->reciever = $reciever;
+        $this->receiver = $receiver;
         $this->reaction = $reaction;
 
         if (!in_array($context, ReactionContextsManager::getInstance()->validContextNames())) {

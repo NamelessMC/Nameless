@@ -52,7 +52,7 @@ class Reaction {
      * @return array<int, Reaction>|Reaction
      */
     public static function find(string $value, string $column = 'id') {
-        $rows = DB::getInstance()->query("SELECT * FROM nl2_reactions WHERE `$column` = $value ORDER BY `order`");
+        $rows = DB::getInstance()->query("SELECT * FROM nl2_reactions WHERE `$column` = ? ORDER BY `order`", [$value]);
         if (!$rows->count()) {
             return [];
         }

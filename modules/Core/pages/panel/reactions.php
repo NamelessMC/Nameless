@@ -282,7 +282,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
 
                     $fields = [
-                        'name' => Output::getClean(Input::get('name')),
+                        'name' => Input::get('name'),
                         'html' => Output::getPurified(Input::get('html')),
                         'type' => $type = Input::get('type'),
                         'enabled' => $enabled,
