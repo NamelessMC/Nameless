@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents a context in which reactions can be given and recieved.
+ * Represents a context in which reactions can be given and received.
  *
  * @package NamelessMC\Misc
  * @author Aberdeener
@@ -28,12 +28,12 @@ abstract class ReactionContext {
     }
 
     /**
-     * Get all the reactions that the user has recieved in this context.
+     * Get all the reactions that the user has received in this context.
      * This should return data from the contexts table which contains the reactionable ID,
      * the reaction ID, and the user ID of the user who gave the reaction.
      *
      * @param User $user User to get the reactions for.
-     * @return array Array of reactions that the user has recieved in this context.
+     * @return array Array of reactions that the user has received in this context.
      */
     abstract public function getUserReceived(User $user): array;
 

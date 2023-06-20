@@ -6,7 +6,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
 
     public function __construct(Smarty $smarty, Language $language) {
         $this->_name = 'Reactions';
-        $this->_description = 'Displays a users recieved and given reactions on their profile.';
+        $this->_description = 'Displays a users received and given reactions on their profile.';
         $this->_module = 'Core';
 
         $this->_smarty = $smarty;
@@ -20,19 +20,19 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
                 'name' => $reaction->name,
                 'html' => $reaction->html,
                 'type' => $reaction->type,
-                'recieved' => 0,
+                'received' => 0,
                 'given' => 0,
                 'custom_score' => $reaction->custom_score ?? 1,
                 'contexts' => [],
             ];
         }
 
-        $this->calculateCounts('recieved', $user, $reactions);
+        $this->calculateCounts('received', $user, $reactions);
         $this->calculateCounts('given', $user, $reactions);
 
-        // Sort by most recieved
+        // Sort by most received
         usort($reactions, static function ($a, $b) {
-            return $b['recieved'] > $a['recieved'];
+            return $b['received'] > $a['received'];
         });
 
         $reaction_score_aggregate = 0;
@@ -43,14 +43,14 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
                     $context_reaction_scores[$context] = 0;
                 }
                 if ($reaction['type'] === Reaction::TYPE_POSITIVE) {
-                    $context_reaction_scores[$context] += $context_reactions['recieved'];
-                    $reaction_score_aggregate += $context_reactions['recieved'];
+                    $context_reaction_scores[$context] += $context_reactions['received'];
+                    $reaction_score_aggregate += $context_reactions['received'];
                 } else if ($reaction['type'] === Reaction::TYPE_NEGATIVE) {
-                    $context_reaction_scores[$context] -= $context_reactions['recieved'];
-                    $reaction_score_aggregate -= $context_reactions['recieved'];
+                    $context_reaction_scores[$context] -= $context_reactions['received'];
+                    $reaction_score_aggregate -= $context_reactions['received'];
                 } else if ($reaction['type'] === Reaction::TYPE_CUSTOM) {
-                    $context_reaction_scores[$context] += $context_reactions['recieved'] * $reaction['custom_score'];
-                    $reaction_score_aggregate += $context_reactions['recieved'] * $reaction['custom_score'];
+                    $context_reaction_scores[$context] += $context_reactions['received'] * $reaction['custom_score'];
+                    $reaction_score_aggregate += $context_reactions['received'] * $reaction['custom_score'];
                 }
             }
         }
@@ -83,7 +83,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
     }
 
     private function calculateCounts(string $type, User $user, array &$reactions): void {
-        $method = $type === 'recieved' ? 'getUserReceived' : 'getUserGiven';
+        $method = $type === 'received' ? 'getUserReceived' : 'getUserGiven';
         foreach (ReactionContextsManager::getInstance()->getContexts() as $reactionContext) {
             $received = $reactionContext->{$method}($user);
             foreach ($received as $reaction) {
@@ -95,7 +95,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
     private function incrementReactionCount(string $context, array &$reactions, int $reaction_id, string $type): void {
         if (!isset($reactions[$reaction_id]['contexts'][$context])) {
             $reactions[$reaction_id]['contexts'][$context] = [
-                'recieved' => 0,
+                'received' => 0,
                 'given' => 0,
             ];
         }

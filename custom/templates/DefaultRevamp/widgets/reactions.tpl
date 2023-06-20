@@ -13,7 +13,7 @@
                 {foreach from=$ALL_REACTIONS item=reaction}
                     <tr>
                         <td data-toggle="tooltip" data-content="{$reaction.name}">{$reaction.html}</td>
-                        <td>{$reaction.recieved}</td>
+                        <td>{$reaction.received}</td>
                         <td>{$reaction.given}</td>
                     </tr>
                 {/foreach}
