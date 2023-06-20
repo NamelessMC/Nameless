@@ -1,5 +1,9 @@
 <?php
 
+if (PHP_SAPI !== 'cli') {
+    die('This script must be run from the command line.');
+}
+
 $language_files = glob('modules/*/language/*.json');
 $language_files = array_merge($language_files, glob('custom/languages/*.json'));
 
