@@ -4,6 +4,7 @@ class ForumPostSeeder extends Seeder {
 
     public array $tables = [
         'nl2_posts',
+        'nl2_forums_reactions',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {
@@ -34,6 +35,7 @@ class ForumPostSeeder extends Seeder {
                     'post_date' => $created->format('Y-m-d H:i:s'),
                     'created' => $created->format('U'),
                 ]);
+                $post_id = $db->lastId();
 
                 $db->update('forums', ['id', $topic->forum_id], [
                     'last_post_date' => $created->format('U'),
@@ -45,14 +47,14 @@ class ForumPostSeeder extends Seeder {
                     return;
                 }
 
-                $this->times($faker->numberBetween(0, 5), function () use ($db, $faker, $user, $users) {
-                    $post_id = $db->lastId();
+                $reactions = DB::getInstance()->get('reactions', ['id', '<>', '0'])->results();
+                $this->times($faker->numberBetween(15, 50), function () use ($db, $faker, $user, $users, $post_id, $created, $reactions) {
                     $db->insert('forums_reactions', [
                         'post_id' => $post_id,
                         'user_received' => $user->id,
                         'user_given' => $faker->randomElement($users)->id,
-                        'reaction_id' => $faker->randomElement([1, 2, 3]),
-                        'time' => date('U'),
+                        'reaction_id' => $faker->randomElement($reactions)->id,
+                        'time' => $this->since($created->format('U'), $faker)->format('U'),
                     ]);
                 });
             });

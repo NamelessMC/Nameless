@@ -38,12 +38,14 @@
 
                             <div class="row" style="margin-bottom: 10px;">
                                 <div class="col-md-9">
-                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{$EDITING_REACTION}</h5>
+                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{($EDITING) ? $EDITING_REACTION : $CREATING_REACTION}</h5>
                                 </div>
                                 <div class="col-md-3">
                                     <span class="float-md-right">
                                         <a href="#" class="btn btn-warning" onclick="showCancelModal()">{$CANCEL}</a>
-                                        <a href="#" class="btn btn-danger" onclick="showDeleteModal()">{$DELETE}</a>
+                                        {if $EDITING}
+                                            <a href="#" class="btn btn-danger" onclick="showDeleteModal()">{$DELETE}</a>
+                                        {/if}
                                     </span>
                                 </div>
                             </div>
@@ -65,13 +67,21 @@
                                         placeholder="{$HTML}" value="{$HTML_VALUE}">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="InputReactionType">{$TYPE}</label>
-                                    <select name="type" class="form-control" id="InputReactionType">
-                                        <option value="2" {if $TYPE_VALUE eq 2} selected{/if}>{$POSITIVE}</option>
-                                        <option value="1" {if $TYPE_VALUE eq 1} selected{/if}>{$NEUTRAL}</option>
-                                        <option value="-1" {if $TYPE_VALUE eq 0} selected{/if}>{$NEGATIVE}</option>
-                                    </select>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <label for="InputReactionType">{$TYPE}</label>
+                                        <select name="type" class="form-control" id="InputReactionType">
+                                            <option value="2" {if $TYPE_VALUE eq 2} selected{/if}>{$POSITIVE}</option>
+                                            <option value="1" {if $TYPE_VALUE eq 1} selected{/if}>{$NEUTRAL}</option>
+                                            <option value="-1" {if $TYPE_VALUE eq 0} selected{/if}>{$NEGATIVE}</option>
+                                            <option value="3" {if $TYPE_VALUE eq 3} selected{/if}>{$CUSTOM_SCORE}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col" id="custom-score">
+                                        <label for="InputReactionCustomScore">{$CUSTOM_SCORE}</label>
+                                        <input type="number" class="form-control" name="custom_score" id="InputReactionCustomScore"
+                                               placeholder="0" value="{$CUSTOM_SCORE_VALUE}">
+                                    </div>
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">
@@ -126,29 +136,31 @@
             </div>
         </div>
 
-        <!-- Delete modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {$CONFIRM_DELETE}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                        <form action="{$DELETE_LINK}" method="post" style="display: inline">
-                            <input type="hidden" name="token" value="{$TOKEN}" />
-                            <input type="submit" class="btn btn-primary" value="{$YES}" />
-                        </form>
+        {if $EDITING}
+            <!-- Delete modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {$CONFIRM_DELETE}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                            <form action="{$DELETE_LINK}" method="post" style="display: inline">
+                                <input type="hidden" name="token" value="{$TOKEN}" />
+                                <input type="submit" class="btn btn-primary" value="{$YES}" />
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {/if}
 
         <!-- End Wrapper -->
     </div>
@@ -161,9 +173,28 @@
             $('#cancelModal').modal().show();
         }
 
-        function showDeleteModal() {
-            $('#deleteModal').modal().show();
+        {if $EDITING}
+            function showDeleteModal() {
+                $('#deleteModal').modal().show();
+            }
+        {/if}
+
+        document.getElementById('InputReactionType').addEventListener('change', (e) => {
+            toggleCustomScoreField(e.target.value);
+        });
+
+        const toggleCustomScoreField = (type) => {
+            const enabled = type == '3';
+            const div = document.getElementById('custom-score');
+            if (enabled) {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+            document.getElementsByName('custom_score')[0].required = enabled;
         }
+
+        toggleCustomScoreField({$TYPE_VALUE});
     </script>
 
 </body>

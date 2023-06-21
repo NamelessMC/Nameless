@@ -155,23 +155,45 @@ class DatabaseInitialiser {
     private function initialiseReactions(): void {
         $this->_db->insert('reactions', [
             'name' => 'Like',
-            'html' => '<i class="fas fa-thumbs-up text-success"></i>',
+            'html' => '👍',
             'enabled' => true,
-            'type' => 2
+            'type' => Reaction::TYPE_POSITIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Dislike',
-            'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
+            'html' => '👎',
             'enabled' => true,
-            'type' => 0
+            'type' => Reaction::TYPE_NEGATIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Meh',
-            'html' => '<i class="fas fa-meh text-warning"></i>',
+            'html' => '😐',
             'enabled' => true,
-            'type' => 1
+            'type' => Reaction::TYPE_NEUTRAL,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Helpful',
+            'html' => '🛠️',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Creative',
+            'html' => '🌈',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Amazing',
+            'html' => '⭐',
+            'enabled' => true,
+            'type' => Reaction::TYPE_CUSTOM,
+            'custom_score' => 5,
         ]);
     }
 

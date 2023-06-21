@@ -64,7 +64,10 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+
         if (Settings::get('mc_integration')) {
+            $cache->setCache('minecraft_last_online');
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
@@ -72,6 +75,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                     if ($integrationUser->exists()) {
                         $this->updateUsername($integrationUser, $player);
+                        $cache->store($integrationUser->data()->identifier, [date('U'), $server_id]);
 
                         if (isset($player['placeholders']) && count($player['placeholders'])) {
                             $this->updatePlaceholders($integrationUser->getUser(), $player);
@@ -92,7 +96,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $players_list[] = ['id' => $uuid, 'name' => $player['name']];
                 }
 
-                $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
                 $cache->setCache('latest_query');
                 $cache->store($server_id, [
                     'player_count' => count($_POST['players']),

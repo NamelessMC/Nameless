@@ -16,21 +16,13 @@ class OnlineStaffWidget extends WidgetBase {
     private Language $_language;
 
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
-        // Get widget
-        $widget_query = self::getData('Online Staff');
-
-        $this->_cache = $cache;
-        $this->_smarty = $smarty;
-        $this->_language = $language;
-
-        parent::__construct(self::parsePages($widget_query));
-
-        // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Online Staff';
-        $this->_location = $widget_query->location;
         $this->_description = 'Displays a list of online staff members on your website.';
-        $this->_order = $widget_query->order;
+        $this->_smarty = $smarty;
+
+        $this->_cache = $cache;
+        $this->_language = $language;
     }
 
     public function initialise(): void {

@@ -9,9 +9,10 @@
  *  Forum module - front page module
  */
 
+$groups_key = implode('-', $user->getAllGroupIds());
 $cache->setCache('news_cache');
-if ($cache->isCached('news')) {
-    $news = $cache->retrieve('news');
+if ($cache->isCached('news-' . $groups_key)) {
+    $news = $cache->retrieve('news-' . $groups_key);
 } else {
     $forum = new Forum();
 
@@ -47,7 +48,7 @@ if ($cache->isCached('news')) {
         ];
     }
 
-    $cache->store('news', $news, 60);
+    $cache->store('news-' . $groups_key, $news, 60);
 }
 
 $timeago = new TimeAgo(TIMEZONE);

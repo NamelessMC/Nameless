@@ -51,6 +51,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/users', 'queries/users.php');
         $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
         $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
+        $pages->add('Core', '/queries/reactions', 'queries/reactions.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
@@ -548,6 +549,8 @@ class Core_Module extends Module {
                 $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
             ];
         });
+
+        ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
     }
 
     public static function getDashboardGraphs(): array {
@@ -699,6 +702,14 @@ class Core_Module extends Module {
 
             // Statistics
             $widgets->add(new StatsWidget($smarty, $language, $cache));
+
+            // Reactions profile widget
+            $widgets->add(new ReactionsProfileWidget($smarty, $language));
+
+            // Minecraft account profile widget
+            if (Settings::get('mc_integration')) {
+                $widgets->add(new MinecraftAccountProfileWidget($smarty, $cache, $language));
+            }
         }
 
         // Validate user hook

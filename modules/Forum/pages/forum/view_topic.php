@@ -392,12 +392,9 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     }
 }
 
-if ($user->isLoggedIn()) {
-    $template->addJSScript('var quotedPosts = [];');
-}
-
 // Are reactions enabled?
 $reactions_enabled = Settings::get('forum_reactions') === '1';
+$smarty->assign('REACTIONS_ENABLED', $reactions_enabled);
 
 // Assign Smarty variables to pass to template
 $parent_category = DB::getInstance()->get('forums', ['id', $forum_parent[0]->parent])->results();
@@ -536,6 +533,9 @@ $smarty->assign('PAGINATION', $pagination);
 
 // Replies
 $replies = [];
+$all_reactions = Reaction::find(true, 'enabled');
+
+$reactions_by_user = [];
 // Display the correct number of posts
 foreach ($results->data as $n => $nValue) {
     $post_creator = new User($nValue->post_creator);
@@ -643,40 +643,34 @@ foreach ($results->data as $n => $nValue) {
 
     // Get post reactions
     $post_reactions = [];
-    $total_karma = 0;
     if ($reactions_enabled) {
         $post_reactions_query = DB::getInstance()->get('forums_reactions', ['post_id', $nValue->id])->results();
 
         if (count($post_reactions_query)) {
             foreach ($post_reactions_query as $item) {
+                if ($item->user_given == $user->data()->id) {
+                    $reactions_by_user[$nValue->id][] = $item->reaction_id;
+                }
+
                 if (!isset($post_reactions[$item->reaction_id])) {
-                    $post_reactions[$item->reaction_id]['count'] = 1;
-
-                    $reaction = DB::getInstance()->get('reactions', ['id', $item->reaction_id])->results();
-                    $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
-                    $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
-
-                    if ($reaction[0]->type == 2) {
-                        $total_karma++;
-                    } else {
-                        if ($reaction[0]->type == 0) {
-                            $total_karma--;
-                        }
-                    }
+                    $reaction = $all_reactions[$item->reaction_id];
+                    $post_reactions[$item->reaction_id] = [
+                        'id' => $reaction->id,
+                        'html' => $reaction->html,
+                        'name' => $reaction->name,
+                        'order' => $reaction->order,
+                        'count' => 1,
+                    ];
                 } else {
                     $post_reactions[$item->reaction_id]['count']++;
                 }
-
-                $reaction_user = new User($item->user_given);
-                $post_reactions[$item->reaction_id]['users'][] = [
-                    'username' => $reaction_user->getDisplayname(true),
-                    'nickname' => $reaction_user->getDisplayname(),
-                    'style' => $reaction_user->getGroupStyle(),
-                    'avatar' => $reaction_user->getAvatar(),
-                    'profile' => $reaction_user->getProfileURL()
-                ];
             }
         }
+
+        // sort $post_reactions by their reactions order value
+        usort($post_reactions, static function($a, $b) {
+            return $a['order'] - $b['order'];
+        });
     }
 
     // Purify post content
@@ -711,7 +705,6 @@ foreach ($results->data as $n => $nValue) {
         'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
         'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
-        'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
         'post_date' => $post_date,
         'buttons' => $buttons,
@@ -723,24 +716,25 @@ foreach ($results->data as $n => $nValue) {
             : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
-        'karma' => $total_karma
     ];
 }
 
 $smarty->assign('REPLIES', $replies);
 
+// Reactions
+if ($reactions_enabled) {
+    $smarty->assign([
+        'REACTIONS_URL' => URL::build('/queries/reactions'),
+        'REACTIONS_TEXT' => $language->get('user', 'reactions'),
+    ]);
+}
+
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $reactions = DB::getInstance()->get('reactions', ['enabled', true])->results();
-        if (!count($reactions)) {
-            $reactions = [];
-        }
-
         $smarty->assign([
-            'LIKE' => $language->get('user', 'like'),
-            'REACTIONS' => $reactions,
-            'REACTIONS_URL' => URL::build('/forum/reactions')
+            'REACTIONS' => $all_reactions,
+            'REACTIONS_BY_USER' => $reactions_by_user,
         ]);
     }
 
@@ -767,8 +761,6 @@ if ($user->isLoggedIn()) {
         ]);
     }
 }
-
-$smarty->assign('REACTIONS_TEXT', $language->get('user', 'reactions'));
 
 // Existing quick reply content
 $content = null;
