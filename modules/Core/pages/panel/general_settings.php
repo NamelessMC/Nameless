@@ -80,10 +80,10 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            Util::setSetting('sitename', Input::get('sitename'));
+            Settings::set('sitename', Input::get('sitename'));
 
             // Email address
-            Util::setSetting('incoming_email', Input::get('contact_email'));
+            Settings::set('incoming_email', Input::get('contact_email'));
 
             // Language
             // Get current default language
@@ -105,7 +105,7 @@ if (Input::exists()) {
 
             // Timezone
             try {
-                Util::setSetting('timezone', $_POST['timezone']);
+                Settings::set('timezone', $_POST['timezone']);
             } catch (Exception $e) {
                 $errors = [$e->getMessage()];
             }
@@ -120,16 +120,16 @@ if (Input::exists()) {
             }
             // TODO allow to select a custom page to use content as homepage
 
-            Util::setSetting('home_type', $home_type);
+            Settings::set('home_type', $home_type);
 
             // Private profile
-            Util::setSetting('private_profile', $_POST['privateProfile'] ? '1' : '0');
+            Settings::set('private_profile', $_POST['privateProfile'] ? '1' : '0');
 
             // Registration displaynames
-            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
+            Settings::set('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
 
             // Emoji style
-            Util::setSetting('emoji_style', $_POST['emoji_style']);
+            Settings::set('emoji_style', $_POST['emoji_style']);
 
             // Friendly URLs
             $friendly = Input::get('friendlyURL') == 'true';
@@ -160,10 +160,10 @@ if (Input::exists()) {
             }
 
             // Login method
-            Util::setSetting('login_method', $_POST['login_method']);
+            Settings::set('login_method', $_POST['login_method']);
 
             // Auto language
-            Util::setSetting('auto_language_detection', $_POST['auto_language'] === 'true' ? 1 : 0);
+            Settings::set('auto_language_detection', $_POST['auto_language'] === 'true' ? 1 : 0);
 
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
@@ -209,7 +209,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = Output::getClean(Util::getSetting('incoming_email'));
+$contact_email = Output::getClean(Settings::get('incoming_email'));
 
 $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
@@ -220,10 +220,10 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = Util::getSetting('timezone');
-$private_profile = Util::getSetting('private_profile');
-$displaynames = Util::getSetting('displaynames');
-$method = Util::getSetting('login_method');
+$timezone = Settings::get('timezone');
+$private_profile = Settings::get('private_profile');
+$displaynames = Settings::get('displaynames');
+$method = Settings::get('login_method');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -258,7 +258,7 @@ $smarty->assign([
     'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
     'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
     'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
-    'HOMEPAGE_VALUE' => Util::getSetting('home_type'),
+    'HOMEPAGE_VALUE' => Settings::get('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
@@ -287,11 +287,11 @@ $smarty->assign([
         'twemojiExample' => Text::renderEmojis('😀', 'twemoji'),
         'joypixelsExample' => Text::renderEmojis('😀', 'joypixels'),
     ]),
-    'EMOJI_STYLE_VALUE' => Util::getSetting('emoji_style', 'twemoji'),
+    'EMOJI_STYLE_VALUE' => Settings::get('emoji_style', 'twemoji'),
     'NATIVE' => $language->get('admin', 'emoji_native'),
     'TWEMOJI' => $language->get('admin', 'emoji_twemoji'),
     'JOYPIXELS' => $language->get('admin', 'emoji_joypixels'),
-    'AUTO_LANGUAGE_VALUE' => Util::getSetting('auto_language_detection'),
+    'AUTO_LANGUAGE_VALUE' => Settings::get('auto_language_detection'),
     'ENABLE_AUTO_LANGUAGE' => $language->get('admin', 'enable_auto_language'),
     'AUTO_LANGUAGE_HELP' => $language->get('admin', 'auto_language_help'),
 ]);

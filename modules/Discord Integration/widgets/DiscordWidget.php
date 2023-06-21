@@ -17,22 +17,14 @@ class DiscordWidget extends WidgetBase {
     private ?string $_guild_id;
 
     public function __construct(Cache $cache, Smarty $smarty) {
-        $this->_cache = $cache;
-        $this->_guild_id = Discord::getGuildId();
-        $this->_smarty = $smarty;
-
-        // Get widget
-        $widget_query = self::getData('Discord');
-
-        parent::__construct(self::parsePages($widget_query), true);
-
-        // Set widget variables
         $this->_module = 'Discord Integration';
         $this->_name = 'Discord';
-        $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Integrations -> Discord tab first!';
         $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_widgets/discord.php';
-        $this->_order = $widget_query->order ?? null;
+        $this->_smarty = $smarty;
+
+        $this->_cache = $cache;
+        $this->_guild_id = Discord::getGuildId();
     }
 
     public function initialise(): void {

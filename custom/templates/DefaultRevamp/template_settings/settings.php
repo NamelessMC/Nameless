@@ -21,7 +21,7 @@ if (Input::exists()) {
             $cache->store('navbarColour', $_POST['navbarColour']);
         }
 
-        Util::setSetting('home_custom_content', Input::get('home_custom_content'));
+        Settings::set('home_custom_content', Input::get('home_custom_content'));
 
         Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
     } else {
@@ -117,7 +117,7 @@ $current_template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 
-$current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Util::getSetting('home_custom_content')));
+$current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Settings::get('home_custom_content')));
 
 $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),

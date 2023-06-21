@@ -1,6 +1,6 @@
 {
   "name": "nameless",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "repository": "https://github.com/NamelessMC/Nameless",
   "license": "MIT",
   "private": true,
@@ -23,7 +23,8 @@
     "moment": "^2.29.4",
     "popper.js": "^1.16.1",
     "select2": "4.1.0-rc.0",
-    "tinymce": "^5.10.7"
+    "tinymce": "^5.10.7",
+    "skinview3d": "^3.0.0-alpha.1"
   },
   "scripts": {
     "postinstall": "node ./dev/scripts/postinstall.js"

@@ -102,7 +102,7 @@ abstract class MemberListProvider {
         [$sql, $id_column, $count_column] = $this->generator();
 
         $rows = DB::getInstance()->query($sql)->results();
-        if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+        if (Settings::get('member_list_hide_banned', false, 'Members')) {
             $rows = $this->filterBanned($rows, $id_column);
         }
 
@@ -148,7 +148,7 @@ abstract class MemberListProvider {
         [$sql, $id_column] = $this->generator();
         $rows = DB::getInstance()->query($sql)->results();
 
-        if (Util::getSetting('member_list_hide_banned', false, 'Members')) {
+        if (Settings::get('member_list_hide_banned', false, 'Members')) {
             $rows = $this->filterBanned($rows, $id_column);
         }
 

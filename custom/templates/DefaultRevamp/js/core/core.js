@@ -13,8 +13,12 @@ function copy(element) {
     if (window.isSecureContext) {
         navigator.clipboard.writeText(target.text());
     } else {
-        target.select();
-        document.execCommand('copy');
+        const temp = document.createElement("textarea");
+        temp.value = target.text();
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("Copy");
+        temp.remove();
     }
 
     $('body').toast({

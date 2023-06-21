@@ -56,8 +56,8 @@ if (Input::exists()) {
             $cache->setCache('nav_location');
             $cache->store('forum_location', $location);
 
-            Util::setSetting('forum_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
-            Util::setSetting('news_items_front_page', $_POST['news_items'], 'forum');
+            Settings::set('forum_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
+            Settings::set('news_items_front_page', $_POST['news_items'], 'forum');
 
             Session::flash('admin_forums_settings', $forum_language->get('forum', 'settings_updated_successfully'));
         } else {
@@ -111,9 +111,9 @@ $smarty->assign([
     'LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
     'LINK_NONE' => $language->get('admin', 'page_link_none'),
     'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
-    'USE_REACTIONS_VALUE' => Util::getSetting('forum_reactions') === '1',
+    'USE_REACTIONS_VALUE' => Settings::get('forum_reactions') === '1',
     'NEWS_ITEMS_ON_FRONT_PAGE' => $forum_language->get('forum', 'news_items_front_page_limit'),
-    'NEWS_ITEMS_ON_FRONT_PAGE_VALUE' => Util::getSetting('news_items_front_page', 5, 'forum'),
+    'NEWS_ITEMS_ON_FRONT_PAGE_VALUE' => Settings::get('news_items_front_page', 5, 'forum'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')

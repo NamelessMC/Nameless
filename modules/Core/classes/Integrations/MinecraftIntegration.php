@@ -22,7 +22,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     private function flashVerifyCommand(string $verification_code): void {
-        $verification_command = Output::getClean(Util::getSetting('minecraft_verify_command', '/verify'));
+        $verification_command = Output::getClean(Settings::get('minecraft_verify_command', '/verify'));
         $message = $this->_language->get('user', 'validate_account_command', ['command' => $verification_command . ' ' . $verification_code]);
         Session::flash('connections_success', $message);
     }
@@ -148,7 +148,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+        if (Settings::get('mc_username_registration', '1', 'Minecraft Integration') != '1') {
             return;
         }
 
@@ -162,7 +162,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function afterRegistrationValidation() {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+        if (Settings::get('mc_username_registration', '1', 'Minecraft Integration') != '1') {
             return;
         }
 
@@ -187,7 +187,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     public function successfulRegistration(User $user) {
-        if (Util::getSetting('mc_username_registration', '1', 'Minecraft Integration') != '1') {
+        if (Settings::get('mc_username_registration', '1', 'Minecraft Integration') != '1') {
             return;
         }
 
@@ -228,7 +228,7 @@ class MinecraftIntegration extends IntegrationBase {
      * @return array
      */
     public function getUuidByUsername(string $username): array {
-        if (Util::getSetting('uuid_linking')) {
+        if (Settings::get('uuid_linking')) {
             return $this->getOnlineModeUuid($username);
         }
 

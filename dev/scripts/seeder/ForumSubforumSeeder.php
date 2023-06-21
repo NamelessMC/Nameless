@@ -13,7 +13,7 @@ class ForumSubforumSeeder extends Seeder {
             'create_topic' => false,
             'edit_topic' => false,
             'create_post' => false,
-            'view_other_topics' => false,
+            'view_other_topics' => true,
             'moderate' => false,
         ],
         1 => [

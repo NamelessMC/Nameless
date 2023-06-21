@@ -265,7 +265,7 @@ if (isset($_GET['do'])) {
                         }
 
                         // Private profiles enabled?
-                        $private_profiles = Util::getSetting('private_profile');
+                        $private_profiles = Settings::get('private_profile');
                         if ($private_profiles === '1') {
                             if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
                                 $privateProfile = 1;
@@ -288,7 +288,7 @@ if (isset($_GET['do'])) {
                             'gravatar' => $gravatar,
                         ];
 
-                        if ($user->data()->register_method === 'authme' && Util::getSetting('authme')) {
+                        if ($user->data()->register_method === 'authme' && Settings::get('authme')) {
                             $data['authme_sync_password'] = Input::get('authmeSync');
                         }
 
@@ -655,10 +655,10 @@ if (isset($_GET['do'])) {
         $smarty->assign('ENABLE_LINK', URL::build('/user/settings/', 'do=enable_tfa'));
     }
 
-    if ($user->data()->register_method && Util::getSetting('authme')) {
+    if ($user->data()->register_method && Settings::get('authme')) {
         $smarty->assign([
             'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
-            'AUTHME_SYNC_PASSWORD_INFO' => $language->get('user', Util::getSetting('login_method') === 'username'
+            'AUTHME_SYNC_PASSWORD_INFO' => $language->get('user', Settings::get('login_method') === 'username'
                 ? 'authme_sync_password_setting'
                 : 'authme_sync_password_setting_email'
             ),

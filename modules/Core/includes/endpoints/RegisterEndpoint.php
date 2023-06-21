@@ -67,7 +67,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_EMAIL_ALREADY_EXISTS);
         }
 
-        if (Util::getSetting('email_verification') === '1') {
+        if (Settings::get('email_verification') === '1') {
             // Send email to verify
             $this->sendRegistrationEmail($api, $_POST['username'], $_POST['email']);
         } else {

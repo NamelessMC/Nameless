@@ -31,7 +31,7 @@ if (Session::exists('home_error')) {
     $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
 }
 
-$home_type = Util::getSetting('home_type');
+$home_type = Settings::get('home_type');
 
 $smarty->assign('HOME_TYPE', $home_type);
 
@@ -40,7 +40,7 @@ if ($home_type === 'news') {
         require(ROOT_PATH . '/' . $module);
     }
 } else if ($home_type === 'custom') {
-    $smarty->assign('CUSTOM_HOME_CONTENT', Util::getSetting('home_custom_content'));
+    $smarty->assign('CUSTOM_HOME_CONTENT', Settings::get('home_custom_content'));
 }
 
 // Assign to Smarty variables

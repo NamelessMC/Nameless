@@ -43,7 +43,7 @@ if (Input::exists()) {
             ];
 
             // Are custom usernames enabled?
-            if (Util::getSetting('displaynames') === '1') {
+            if (Settings::get('displaynames') === '1') {
                 $to_validation['nickname'] = [
                     Validate::REQUIRED => true,
                     Validate::MIN => 3,
@@ -117,7 +117,7 @@ if (Input::exists()) {
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['username']);
-                if (Util::getSetting('displaynames') === '1') {
+                if (Settings::get('displaynames') === '1') {
                     $nickname = Input::get('nickname');
                 } else {
                     $nickname = $mcname;
@@ -167,17 +167,9 @@ if (Input::exists()) {
                     $user = new User($user_id);
                     $user->addGroup($default_group);
 
-                    EventHandler::executeEvent('registerUser', [
-                            'user_id' => $user_id,
-                            'username' => $user->getDisplayname(),
-                            'content' => $language->get('user', 'user_x_has_registered', [
-                                'user' => $user->getDisplayname(),
-                            ]),
-                            'avatar_url' => $user->getAvatar(128, true),
-                            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-                            'language' => $language,
-                        ]
-                    );
+                    EventHandler::executeEvent(new UserRegisteredEvent(
+                        $user,
+                    ));
 
                     // Link the minecraft integration
                     $integration->successfulRegistration($user);
@@ -197,7 +189,7 @@ if (Input::exists()) {
 
                     unset($_SESSION['authme']);
 
-                    if (Util::getSetting('email_verification') === '1') {
+                    if (Settings::get('email_verification') === '1') {
                         // Send registration email
                         sendRegisterEmail($language, $email, $mcname, $user_id, $code);
 
@@ -400,7 +392,7 @@ if (!isset($_GET['step'])) {
     $fields = new Fields();
     // Step 2
     // Are custom usernames enabled?
-    if (Util::getSetting('displaynames') === '1') {
+    if (Settings::get('displaynames') === '1') {
         $info = $language->get('user', 'authme_email_help_2');
         $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, Output::getClean(Input::get('nickname')));
     } else {

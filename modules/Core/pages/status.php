@@ -9,7 +9,7 @@
  *  Status page
  */
 
-if (!Util::getSetting('mc_integration') || !Util::getSetting('status_page')) {
+if (!Settings::get('mc_integration') || !Settings::get('status_page')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }

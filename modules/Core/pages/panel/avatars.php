@@ -53,7 +53,7 @@ if (isset($_GET['action'])) {
                     $order++;
                 }
             }
-            Util::setSetting('avatar_source_settings', json_encode($new_settings));
+            Settings::set('avatar_source_settings', json_encode($new_settings));
 
             die('Ok');
         }
@@ -80,7 +80,7 @@ if (isset($_GET['action'])) {
                     ];
                 }
             }
-            Util::setSetting('avatar_source_settings', json_encode($new_settings));
+            Settings::set('avatar_source_settings', json_encode($new_settings));
 
             Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/avatars'));
