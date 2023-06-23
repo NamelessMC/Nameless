@@ -1181,6 +1181,7 @@
     "user/incorrect_password": "Your password is incorrect.",
     "user/integration_identifier_already_linked": "{{integration}} identifier is already linked to another user.",
     "user/integration_required_to_continue": "Please connect and verify the required connections before continuing to use this website.",
+    "user/integration_linked": "You have successfully linked your {{integration}} account.",
     "user/integration_unlinked": "You have successfully unlinked your {{integration}} account.",
     "user/integration_username_already_linked": "{{integration}} username is already linked to another user.",
     "user/invalid_email": "Your email is invalid.",
