@@ -75,6 +75,7 @@ class DiscordIntegration extends IntegrationBase {
         }, $user->getAllGroupIds()));
 
         Discord::updateDiscordRoles($user, $roles, []);
+        Session::flash('connections_success', $this->_language->get('user', 'integration_linked', ['integration' => Output::getClean($this->_name)]));
     }
 
     public function validateUsername(string $username, int $integration_user_id = 0): bool {
