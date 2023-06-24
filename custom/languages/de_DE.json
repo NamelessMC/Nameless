@@ -1320,5 +1320,17 @@
     "admin/discord_hook": "Discord",
     "admin/event_supports_discord": "Dieses Ereignis unterstützt Discord-Webhooks und hat eine eigene Einbettung.",
     "admin/event_supports_normal": "Dieses Ereignis unterstützt normale Webhooks.",
-    "general/registration_disabled_message_fallback": "Die Registrierung ist derzeit deaktiviert."
+    "general/registration_disabled_message_fallback": "Die Registrierung ist derzeit deaktiviert.",
+    "admin/custom_score": "Benutzerdefinierte Punktzahl",
+    "admin/profile_widgets": "Profil Widgets",
+    "admin/reaction_added_event_info": "Reaktion hinzugefügt",
+    "admin/reaction_deleted_event_info": "Reaktion gelöscht",
+    "admin/site_widgets": "Website-Widgets",
+    "general/on": "an",
+    "user/given": "Gegeben",
+    "user/minecraft_account": "Minecraft Account",
+    "user/profile_posts_score": "Bewertung der Profilbeiträge",
+    "user/reaction_score": "Bewertung der Reaktion",
+    "user/received": "Empfangen",
+    "user/integration_linked": "Du hast dein {{integration}}-Konto erfolgreich verknüpft."
 }
