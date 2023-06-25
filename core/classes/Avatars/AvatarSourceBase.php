@@ -55,7 +55,7 @@ abstract class AvatarSourceBase {
     }
 
     private function getDatabaseSettings(): array {
-        $settings = json_decode(Util::getSetting('avatar_source_settings'), true);
+        $settings = json_decode(Settings::get('avatar_source_settings'), true);
         if (isset($settings[$this->getSafeName()])) {
             return $settings[$this->getSafeName()];
         }
@@ -65,7 +65,7 @@ abstract class AvatarSourceBase {
             'order' => 10,
         ];
 
-        Util::setSetting('avatar_source_settings', json_encode($settings));
+        Settings::set('avatar_source_settings', json_encode($settings));
 
         return $settings[$this->getSafeName()];
     }

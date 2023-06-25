@@ -11,7 +11,7 @@ class UploadedImageAvatarSource extends AvatarSourceBase {
     public function get(User $user): ?string {
         $base_url = ($this->_full_url ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars';
 
-        if (Util::getSetting('custom_user_avatars') && $user->data()->has_avatar) {
+        if (Settings::get('custom_user_avatars') && $user->data()->has_avatar) {
             $exts = ['png', 'jpg', 'jpeg'];
 
             if ($user->hasPermission('usercp.gif_avatar')) {
@@ -26,7 +26,7 @@ class UploadedImageAvatarSource extends AvatarSourceBase {
         }
 
         // Fallback to default avatar image if it is set
-        $custom_default_avatar = Util::getSetting('custom_default_avatar');
+        $custom_default_avatar = Settings::get('custom_default_avatar');
         if ($custom_default_avatar) {
             if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . $custom_default_avatar)) {
                 return "{$base_url}/defaults/{$custom_default_avatar}";

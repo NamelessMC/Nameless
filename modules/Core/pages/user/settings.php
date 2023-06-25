@@ -623,7 +623,7 @@ if (isset($_GET['do'])) {
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
     ]);
 
-    if (Util::getSetting('custom_user_avatars')) {
+    if (Settings::get('custom_user_avatars')) {
         $smarty->assign([
             'CUSTOM_AVATARS' => true,
             'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',

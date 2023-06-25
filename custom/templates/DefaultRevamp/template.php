@@ -113,7 +113,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             $JSVariables['avatarSource'] = MinecraftAvatarSource::getUrlToFormat();
         }
 

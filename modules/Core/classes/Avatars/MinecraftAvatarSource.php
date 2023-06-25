@@ -40,7 +40,7 @@ class MinecraftAvatarSource extends AvatarSourceBase {
      */
     private static function getActiveSource(): MinecraftAvatarSourceBase {
         if (!isset(self::$_active_source)) {
-            $source = Util::getSetting('minecraft_avatar_source', CravatarMinecraftAvatarSource::class);
+            $source = Settings::get('minecraft_avatar_source', CravatarMinecraftAvatarSource::class);
             self::$_active_source = self::$_sources[$source];
         }
 
@@ -62,7 +62,7 @@ class MinecraftAvatarSource extends AvatarSourceBase {
      * @return string Perspective.
      */
     private static function getPerspective(): string {
-        return Util::getSetting('minecraft_avatar_perspective', 'face');
+        return Settings::get('minecraft_avatar_perspective', 'face');
     }
 
     /**

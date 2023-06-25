@@ -441,7 +441,7 @@ class Core_Module extends Module {
         AvatarSource::getInstance()->registerSource(new GravatarAvatarSource($language));
 
         // TODO: Move into MC Integration module
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             AvatarSource::getInstance()->registerSource(new MinecraftAvatarSource($language));
             MinecraftAvatarSource::registerSource(new CrafatarMinecraftAvatarSource());
             MinecraftAvatarSource::registerSource(new CraftheadMinecraftAvatarSource());
