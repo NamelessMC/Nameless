@@ -276,7 +276,7 @@ body.pushable>.pusher {
 }
 
 #reactions {
-    margin-top: 1rem;
+    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: 12px;
@@ -288,7 +288,6 @@ body.pushable>.pusher {
 }
 
 #topic-post #post-content {
-    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: .85em;
@@ -1088,6 +1087,17 @@ select {
     height: 1em;
     width: 1em;
     vertical-align: middle;
+}
+
+/*
+ *  [ USER MENTIONS ]
+ */
+
+.user-mention {
+    background: #e7edf3;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: bold;
 }
 
 /*
