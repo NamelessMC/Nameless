@@ -1503,6 +1503,7 @@ body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
 
 body.dark #modal-reactions .ui.menu {
     background-color: #282828;
+    overflow-x: auto;
 }
 
 body.dark #modal-reactions .ui.menu .item {
@@ -1515,6 +1516,10 @@ body.dark #modal-reactions .ui.menu .item.active {
 
 body.dark #modal-reactions .ui.large.selection.divided.list.middle.aligned .item .content {
     color: #fff;
+}
+
+body.dark ::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 /*
