@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -278,8 +278,7 @@ if (Input::exists()) {
                             $data['id'],
                         );
                         $auto_verify_oauth_email = $data['email'] === Input::get('email')
-                            && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data'])
-                            && DB::getInstance()->get('users', ['email', $data['email']])->count() === 0;
+                            && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']);
 
                         Session::delete('oauth_register_data');
                     }
