@@ -291,6 +291,7 @@
 
 {if $REACTIONS_ENABLED}
     <div class="ui small modal" id="modal-reactions">
+        <i class="close icon"></i>
         <div class="header">
             {$REACTIONS_TEXT}
         </div>

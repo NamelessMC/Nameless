@@ -288,13 +288,17 @@ body.pushable>.pusher {
 }
 
 #topic-post #post-content {
-    margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
-    font-size: .85em;
+}
+
+#post-content #reactions {
+    margin-top: auto;
 }
 
 .reaction-button {
+    margin-left: 5px;
+    margin-right: 5px;
     opacity: 50%;
 }
 
@@ -1238,6 +1242,11 @@ body.dark .ui.threaded.comments .comment .text {
     color: #fff;
 }
 
+body.dark .ui.segment .forum_post a,
+body.dark .ui.comments .comment .forum_post a {
+    color: #62b6f7;
+}
+
 body.dark .ui.card .meta,
 .ui.cards>.card .meta,
 body.dark .ui.header,
@@ -1388,7 +1397,12 @@ body.dark .ui.table tbody tr td.selectable:hover {
     }
 }
 
-body.dark .forum_post {
+body.dark .forum_post,
+body.dark .ui.comments .forum_post.text {
+    color: #fff;
+}
+
+body.dark .ui.comments .comment .author {
     color: #fff;
 }
 
@@ -1485,6 +1499,22 @@ body.dark .cc-window.cc-floating .cc-link {
 body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
     background-color: #282828;
     border-color: transparent;
+}
+
+body.dark #modal-reactions .ui.menu {
+    background-color: #282828;
+}
+
+body.dark #modal-reactions .ui.menu .item {
+    color: #fff;
+}
+
+body.dark #modal-reactions .ui.menu .item.active {
+    background-color: #222;
+}
+
+body.dark #modal-reactions .ui.large.selection.divided.list.middle.aligned .item .content {
+    color: #fff;
 }
 
 /*
