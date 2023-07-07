@@ -1331,6 +1331,7 @@ body.dark .ui.form input[type=url] {
     color: #fff;
 }
 
+body.dark .ui.mini.message,
 body.dark .ui.mini.info.message {
     background-color: #282828;
     box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
