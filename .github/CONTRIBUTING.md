@@ -90,5 +90,4 @@ After adding a new module to core, you need to do the following:
 
 1. Ensure you have a clean copy of the source code without leftover files from testing. For example, clone the Nameless repository into a new directory
 2. Run ./dev/scripts/release.sh. Release zip files are produced and placed in `./release`.
-3. TODO: Add instructions for producing a zip only containing files changed since the last release
-4. TODO: Add instructions for publishing a release
+3. TODO: Add instructions for publishing a release
