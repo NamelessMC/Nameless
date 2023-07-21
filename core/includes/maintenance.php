@@ -28,7 +28,7 @@ if (!$user->isLoggedIn()) {
 $smarty->assign(
     [
         'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),
-        'MAINTENANCE_MESSAGE' => Output::getPurified(Util::getSetting('maintenance_message', 'Maintenance mode is enabled.')),
+        'MAINTENANCE_MESSAGE' => Output::getPurified(Settings::get('maintenance_message', 'Maintenance mode is enabled.')),
         'RETRY' => $language->get('errors', 'maintenance_retry')
     ]
 );

@@ -16,7 +16,7 @@ if ($cache->isCached('result')) {
     echo $cache->retrieve('result');
 } else {
     // Get query type
-    $query_type = Util::getSetting('query_type', 'internal');
+    $query_type = Settings::get('query_type', 'internal');
     $full_ip = [
         'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
         'pre' => $server->pre,

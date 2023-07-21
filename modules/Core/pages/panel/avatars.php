@@ -25,10 +25,10 @@ if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
             try {
-                Util::setSetting('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
-                Util::setSetting('default_avatar_type', Input::get('default_avatar'));
-                Util::setSetting('avatar_site', Input::get('avatar_source'));
-                Util::setSetting('avatar_type', Input::get('avatar_perspective'));
+                Settings::set('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
+                Settings::set('default_avatar_type', Input::get('default_avatar'));
+                Settings::set('avatar_site', Input::get('avatar_source'));
+                Settings::set('avatar_type', Input::get('avatar_perspective'));
 
                 $cache->setCache('avatar_settings_cache');
                 $cache->store('custom_avatars', $custom_avatars);
@@ -42,7 +42,7 @@ if (Input::exists()) {
             if (isset($_POST['avatar'])) {
                 // Selecting a new default avatar
                 try {
-                    Util::setSetting('custom_default_avatar', Input::get('avatar'));
+                    Settings::set('custom_default_avatar', Input::get('avatar'));
                     $cache->setCache('avatar_settings_cache');
                     $cache->store('default_avatar_image', Input::get('avatar'));
                 } catch (Exception $e) {
@@ -114,14 +114,14 @@ $smarty->assign([
     'CUSTOM_AVATARS' => $language->get('admin', 'allow_custom_avatars'),
     'CUSTOM_AVATARS_VALUE' => defined('CUSTOM_AVATARS'),
     'DEFAULT_AVATAR' => $language->get('admin', 'default_avatar'),
-    'DEFAULT_AVATAR_VALUE' => Util::getSetting('default_avatar_type'),
+    'DEFAULT_AVATAR_VALUE' => Settings::get('default_avatar_type'),
     'MINECRAFT_AVATAR' => $language->get('admin', 'minecraft_avatar'),
     'CUSTOM_AVATAR' => $language->get('admin', 'custom_avatar'),
     'MINECRAFT_AVATAR_SOURCE' => $language->get('admin', 'minecraft_avatar_source'),
     'MINECRAFT_AVATAR_VALUES' => AvatarSource::getAllSourceNames(),
-    'MINECRAFT_AVATAR_VALUE' => Util::getSetting('avatar_site'),
+    'MINECRAFT_AVATAR_VALUE' => Settings::get('avatar_site'),
     'MINECRAFT_AVATAR_PERSPECTIVE' => $language->get('admin', 'minecraft_avatar_perspective'),
-    'MINECRAFT_AVATAR_PERSPECTIVE_VALUE' => Util::getSetting('avatar_type'),
+    'MINECRAFT_AVATAR_PERSPECTIVE_VALUE' => Settings::get('avatar_type'),
     'MINECRAFT_AVATAR_PERSPECTIVE_VALUES' => AvatarSource::getAllPerspectives(),
     'HEAD' => $language->get('admin', 'head'),
     'FACE' => $language->get('admin', 'face'),
@@ -129,7 +129,7 @@ $smarty->assign([
     'SELECT_DEFAULT_AVATAR' => $language->get('admin', 'select_default_avatar'),
     'IMAGES' => $template_images,
     'NO_AVATARS' => $language->get('admin', 'no_avatars_available'),
-    'DEFAULT_AVATAR_IMAGE' => Util::getSetting('custom_default_avatar'),
+    'DEFAULT_AVATAR_IMAGE' => Settings::get('custom_default_avatar'),
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
     'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'DRAG_FILES_HERE' => $language->get('admin', 'drag_files_here'),

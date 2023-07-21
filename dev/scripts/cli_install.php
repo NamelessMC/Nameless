@@ -68,12 +68,20 @@ $folders = [
     './cache',
     './cache/templates_c'
 ];
+$whitelist = [
+    '0_DO_NOT_DELETE.txt',
+    '.htaccess',
+];
 foreach ($folders as $folder) {
     if (is_dir($folder)) {
         $files = glob($folder . '/*');
         foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file);
+            if (!in_array(basename($file), $whitelist)) {
+                if (is_file($file)) {
+                    unlink($file);
+                } else if (is_dir($file)) {
+                    rmdir($file);
+                }
             }
         }
     }
@@ -144,7 +152,7 @@ if ($reinstall) {
 
 print('✍️  Creating tables...' . PHP_EOL);
 
-$message = PhinxAdapter::migrate();
+$message = PhinxAdapter::migrate('Core');
 
 if (!str_contains($message, 'All Done')) {
     print($message);
@@ -161,10 +169,10 @@ $_SESSION['install_timezone'] = in_array($timezone = getEnvVar('NAMELESS_TIMEZON
 
 DatabaseInitialiser::runPreUser();
 
-Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
-Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
-Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
+Settings::set('sitename', getEnvVar('NAMELESS_SITE_NAME'));
+Settings::set('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
+Settings::set('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
+Settings::set('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 

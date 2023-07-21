@@ -158,7 +158,7 @@
     "admin/email_message_message": "Zpráva",
     "admin/email_message_options": "Možnosti",
     "admin/email_message_subject": "Předmět",
-    "admin/email_message_thanks": "Poděkování",
+    "admin/email_message_thanks": "Děkujeme",
     "admin/email_password_hidden": "Heslo není z bezpečnostních důvodů zobrazeno.",
     "admin/email_port_invalid": "Zadejte platný e-mailový port.",
     "admin/email_preview_popup": "Náhled",
@@ -1320,5 +1320,17 @@
     "admin/discord_hook": "Discord",
     "admin/event_supports_discord": "Tato událost podporuje Discord webhooky a má vlastní vložení.",
     "admin/event_supports_normal": "Tato událost podporuje normální webhooky.",
-    "general/registration_disabled_message_fallback": "Registrace jsou momentálně zakázány."
+    "general/registration_disabled_message_fallback": "Registrace jsou momentálně zakázány.",
+    "user/integration_linked": "Úspěšně jste připojili svůj účet {{integration}}.",
+    "user/profile_posts_score": "Skóre profilových příspěvků",
+    "admin/custom_score": "Vlastní skóre",
+    "admin/profile_widgets": "Profilové widgety",
+    "admin/reaction_added_event_info": "Reakce přidána",
+    "admin/reaction_deleted_event_info": "Reakce odstraněna",
+    "admin/site_widgets": "Webové widgety",
+    "general/on": "zapnuto",
+    "user/given": "Uděleno",
+    "user/minecraft_account": "Účet Minecraft",
+    "user/reaction_score": "Reakční skóre",
+    "user/received": "Obdrženo"
 }

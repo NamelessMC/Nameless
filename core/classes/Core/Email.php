@@ -43,7 +43,7 @@ class Email {
             'replyto' => $reply_to ?? self::getReplyTo(),
         ];
 
-        if (Util::getSetting('phpmailer') == '1') {
+        if (Settings::get('phpmailer') == '1') {
             return self::sendMailer($email);
         }
 
@@ -56,7 +56,7 @@ class Email {
      */
     public static function getReplyTo(): array {
         return [
-            'email' => Util::getSetting('incoming_email'),
+            'email' => Settings::get('incoming_email'),
             'name' => SITE_NAME
         ];
     }
@@ -69,7 +69,7 @@ class Email {
     private static function sendPHP(array $email) {
         error_clear_last();
 
-        $outgoing_email = Util::getSetting('outgoing_email');
+        $outgoing_email = Settings::get('outgoing_email');
         $incoming_email = $email['replyto']['email'];
 
         $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';

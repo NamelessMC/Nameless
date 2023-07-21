@@ -94,61 +94,57 @@
                             <h5>{$FIND_MODULES}</h5>
                             <br />
 
-                            {if isset($WEBSITE_MODULES_ERROR)}
-                            <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_MODULES}</div>
-                            {/if}
-
                             {if count($WEBSITE_MODULES)}
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <colgroup>
-                                        <col width="70%">
-                                        <col width="20%">
-                                        <col width="10%">
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>{$MODULE}</th>
-                                            <th>{$STATS}</th>
-                                            <th>{$ACTIONS}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$WEBSITE_MODULES item=item}
-                                        <tr>
-                                            <td>
-                                                <strong>{$item.name}</strong> <small>{$item.latest_version}</small>
-                                                <br />
-                                                <small>{$item.author_x}</small>
-                                                <br />
-                                                <small>{$item.updated_x}</small>
-                                            </td>
-                                            <td>
-                                                <div class="star-rating view">
-                                                    <span class="far fa-star" data-rating="1"
-                                                        style="color:gold;"></span>
-                                                    <span class="far fa-star" data-rating="2" style="color:gold"></span>
-                                                    <span class="far fa-star" data-rating="3"
-                                                        style="color:gold;"></span>
-                                                    <span class="far fa-star" data-rating="4"
-                                                        style="color:gold;"></span>
-                                                    <span class="far fa-star" data-rating="5"
-                                                        style="color:gold;"></span>
-                                                    <input type="hidden" name="rating" class="rating-value"
-                                                        value="{($item.rating/10)|round}">
-                                                </div>
-                                                {$item.downloads_full}<br />
-                                                {$item.views_full}
-                                            </td>
-                                            <td><a href="{$item.url}" target="_blank"
-                                                    class="btn btn-primary btn-sm">{$VIEW} &raquo;</a></td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <colgroup>
+                                            <col width="70%">
+                                            <col width="20%">
+                                            <col width="10%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>{$MODULE}</th>
+                                                <th>{$STATS}</th>
+                                                <th>{$ACTIONS}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$WEBSITE_MODULES item=item}
+                                            <tr>
+                                                <td>
+                                                    <strong>{$item.name}</strong> <small>{$item.latest_version}</small>
+                                                    <br />
+                                                    <small>{$item.author_x}</small>
+                                                    <br />
+                                                    <small>{$item.updated_x}</small>
+                                                </td>
+                                                <td>
+                                                    <div class="star-rating view">
+                                                        <span class="far fa-star" data-rating="1"
+                                                            style="color:gold;"></span>
+                                                        <span class="far fa-star" data-rating="2" style="color:gold"></span>
+                                                        <span class="far fa-star" data-rating="3"
+                                                            style="color:gold;"></span>
+                                                        <span class="far fa-star" data-rating="4"
+                                                            style="color:gold;"></span>
+                                                        <span class="far fa-star" data-rating="5"
+                                                            style="color:gold;"></span>
+                                                        <input type="hidden" name="rating" class="rating-value"
+                                                            value="{($item.rating/10)|round}">
+                                                    </div>
+                                                    {$item.downloads_full}<br />
+                                                    {$item.views_full}
+                                                </td>
+                                                <td><a href="{$item.url}" target="_blank"
+                                                        class="btn btn-primary btn-sm">{$VIEW} &raquo;</a></td>
+                                            </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {else}
-                            <div class="alert alert-warning">{$WEBSITE_MODULES_ERROR}</div>
+                                <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_MODULES}</div>
                             {/if}
 
                             <a href="{$VIEW_ALL_MODULES_LINK}" class="btn btn-primary"

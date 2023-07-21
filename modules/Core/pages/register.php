@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -23,11 +23,11 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
-if (!Util::getSetting('registration_enabled')) {
+if (!Settings::get('registration_enabled')) {
     // Registration is disabled, display a message
     // Get registration disabled message and assign to Smarty variable
     $fallback_message = $language->get('general', 'registration_disabled_message_fallback');
-    $message = Output::getPurified(Util::getSetting('registration_disabled_message', $fallback_message));
+    $message = Output::getPurified(Settings::get('registration_disabled_message', $fallback_message));
 
     $smarty->assign([
         'REGISTRATION_DISABLED' => $message,
@@ -48,9 +48,9 @@ if (!Util::getSetting('registration_enabled')) {
     die();
 }
 
-if (Util::getSetting('mc_integration')) {
+if (Settings::get('mc_integration')) {
     // Check if AuthMe is enabled
-    $authme_enabled = Util::getSetting('authme');
+    $authme_enabled = Settings::get('authme');
 
     if ($authme_enabled == 1) {
         // Authme connector
@@ -108,7 +108,7 @@ if (Input::exists()) {
                 // ]
             ];
 
-            if (Util::getSetting('displaynames') === '1') {
+            if (Settings::get('displaynames') === '1') {
                 // Nickname enabled
                 $to_validation['nickname'] = [
                     Validate::REQUIRED => true,
@@ -278,8 +278,7 @@ if (Input::exists()) {
                             $data['id'],
                         );
                         $auto_verify_oauth_email = $data['email'] === Input::get('email')
-                            && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data'])
-                            && DB::getInstance()->get('users', ['email', $data['email']])->count() === 0;
+                            && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']);
 
                         Session::delete('oauth_register_data');
                     }
@@ -303,7 +302,7 @@ if (Input::exists()) {
                         $user,
                     ));
 
-                    if (!$auto_verify_oauth_email && Util::getSetting('email_verification') === '1') {
+                    if (!$auto_verify_oauth_email && Settings::get('email_verification') === '1') {
                         // Send registration email
                         sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
@@ -343,7 +342,7 @@ if (isset($errors)) {
 $fields = new Fields();
 
 // Are custom usernames enabled?
-if (Util::getSetting('displaynames') === '1') {
+if (Settings::get('displaynames') === '1') {
     $nickname_value = ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : '');
 
     $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $nickname_value);

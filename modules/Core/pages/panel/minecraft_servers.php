@@ -182,13 +182,12 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $query_type = Util::getSetting('query_type', 'internal');
+            $query_type = Settings::get('query_type', 'internal');
             if ($query_type === 'external') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
             $smarty->assign([
-                'ADDING_SERVER' => $language->get('admin', 'adding_server'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -391,7 +390,7 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $query_type = Util::getSetting('query_type', 'internal');
+            $query_type = Settings::get('query_type', 'internal');
 
             if ($query_type == 'external') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
@@ -532,22 +531,22 @@ if (isset($_GET['action'])) {
                 }
 
                 // Group sync server
-                Util::setSetting('group_sync_mc_server', $new_group_sync_server);
+                Settings::set('group_sync_mc_server', $new_group_sync_server);
 
                 // Query type
-                Util::setSetting('query_type', $query_type);
+                Settings::set('query_type', $query_type);
 
                 // Player list limit
                 if ($player_list_limit != null) { // In case the field is hidden, we don't want to change this value
-                    Util::setSetting('player_list_limit', $player_list_limit);
+                    Settings::set('player_list_limit', $player_list_limit);
                 }
 
                 // Status page
-                Util::setSetting('status_page', $status);
+                Settings::set('status_page', $status);
                 // Query interval
 
                 if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
-                    Util::setSetting('minecraft_query_interval', $_POST['interval']);
+                    Settings::set('minecraft_query_interval', $_POST['interval']);
                 }
 
                 $success = $language->get('admin', 'minecraft_settings_updated_successfully');
@@ -589,10 +588,10 @@ if (isset($_GET['action'])) {
     }
 
     // Settings
-    $query_type = Util::getSetting('query_type', 'internal');
-    $status_page = Util::getSetting('status_page');
-    $group_sync_server = Util::getSetting('group_sync_mc_server');
-    $player_list_limit = Util::getSetting('player_list_limit', '20');
+    $query_type = Settings::get('query_type', 'internal');
+    $status_page = Settings::get('status_page');
+    $group_sync_server = Settings::get('group_sync_mc_server');
+    $player_list_limit = Settings::get('player_list_limit', '20');
 
     $smarty->assign([
         'NEW_SERVER' => $language->get('admin', 'add_server'),
@@ -615,7 +614,7 @@ if (isset($_GET['action'])) {
         'INTERNAL' => $language->get('admin', 'internal'),
         'EXTERNAL' => $language->get('admin', 'external'),
         'PLUGIN' => $language->get('admin', 'plugin'),
-        'QUERY_INTERVAL_VALUE' => Util::getSetting('minecraft_query_interval'),
+        'QUERY_INTERVAL_VALUE' => Settings::get('minecraft_query_interval'),
         'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
         'INFO' => $language->get('general', 'info'),
         'QUERY_TYPE_INFO' => $language->get('admin', 'query_type_help'),

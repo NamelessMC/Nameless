@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ *  NamelessMC version 2.1.1
  *
  *  License: MIT
  *
@@ -20,8 +20,8 @@ class Forum_Module extends Module {
 
         $name = 'Forum';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $module_version = '2.1.1';
+        $nameless_version = '2.1.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -45,7 +45,6 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/forum/edit', 'pages/forum/edit.php');
         $pages->add('Forum', '/forum/lock', 'pages/forum/lock.php');
         $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
-        $pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
         $pages->add('Forum', '/forum/search', 'pages/forum/search.php');
 
         // UserCP
@@ -145,7 +144,7 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
         MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
-        MemberListManager::getInstance()->registerListProvider(new HighestReactionScoresMemberListProvider($forum_language));
+        MemberListManager::getInstance()->registerListProvider(new HighestForumReactionScoresMemberListProvider($forum_language));
 
         MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
             return [
@@ -166,6 +165,8 @@ class Forum_Module extends Module {
                     )->first()->count,
             ];
         });
+
+        ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
     }
 
     public function onInstall() {

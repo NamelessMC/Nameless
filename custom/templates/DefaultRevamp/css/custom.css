@@ -271,24 +271,41 @@ body.pushable>.pusher {
     }
 }
 
+.ui.comments {
+    max-width: none;
+}
+
+#reactions {
+    margin-top: 1rem;
+    padding: .7em 1.2em .7em 1.2em;
+    min-height: 32.5px;
+    font-size: 12px;
+}
+
 #topic-post #post-content {
     display: flex;
     flex-direction: column;
 }
 
-#topic-post #post-content #reactions {
+#topic-post #post-content {
     margin-top: auto;
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
     font-size: .85em;
 }
 
-#topic-post #post-content #reactions form {
-    display: inline-block;
+.reaction-button {
+    opacity: 50%;
 }
 
-#topic-post #post-content #reactions .icon {
-    margin-right: .3em;
+.reaction-button:hover, .reaction-button-selected {
+    opacity: 100%;
+    cursor: pointer;
+}
+
+/** Reaction modal tab buttons display non-native emojis as 2.5em wide by default */
+.ui.menu .item > img:not(.ui) {
+    width: 1em;
 }
 
 #topic-post #post-meta {

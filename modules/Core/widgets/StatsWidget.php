@@ -15,21 +15,13 @@ class StatsWidget extends WidgetBase {
     private Language $_language;
 
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
-        $this->_cache = $cache;
-        $this->_smarty = $smarty;
-        $this->_language = $language;
-
-        // Get widget
-        $widget_query = self::getData('Statistics');
-
-        parent::__construct(self::parsePages($widget_query));
-
-        // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Statistics';
-        $this->_location = $widget_query->location;
         $this->_description = 'Displays the basic statistics of your website.';
-        $this->_order = $widget_query->order;
+        $this->_smarty = $smarty;
+
+        $this->_cache = $cache;
+        $this->_language = $language;
     }
 
     public function initialise(): void {

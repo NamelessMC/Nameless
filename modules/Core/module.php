@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ *  NamelessMC version 2.1.1
  *
  *  License: MIT
  *
@@ -21,8 +21,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $module_version = '2.1.1';
+        $nameless_version = '2.1.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -51,13 +51,14 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/users', 'queries/users.php');
         $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
         $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
+        $pages->add('Core', '/queries/reactions', 'queries/reactions.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
         $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
         }
         $pages->add('Core', '/oauth', 'pages/oauth.php');
@@ -121,7 +122,7 @@ class Core_Module extends Module {
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));
 
-        if (Util::getSetting('queue_runner', 'ajax') == 'ajax') {
+        if (Settings::get('queue_runner', 'ajax') == 'ajax') {
             $pages->addAjaxScript(URL::build('/queries/queue'));
         }
 
@@ -425,9 +426,9 @@ class Core_Module extends Module {
         ]);
 
         // Captcha
-        $captchaPublicKey = Util::getSetting('recaptcha_key', '');
-        $captchaPrivateKey = Util::getSetting('recaptcha_secret', '');
-        $activeCaptcha = Util::getSetting('recaptcha_type', 'Recaptcha3');
+        $captchaPublicKey = Settings::get('recaptcha_key', '');
+        $captchaPrivateKey = Settings::get('recaptcha_secret', '');
+        $activeCaptcha = Settings::get('recaptcha_type', 'Recaptcha3');
 
         CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
@@ -505,7 +506,7 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
@@ -548,6 +549,8 @@ class Core_Module extends Module {
                 $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
             ];
         });
+
+        ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
     }
 
     public static function getDashboardGraphs(): array {
@@ -672,16 +675,16 @@ class Core_Module extends Module {
         if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');
-            $fb_url = Util::getSetting('fb_url');
+            $fb_url = Settings::get('fb_url');
             if ($fb_url) {
                 $widgets->add(new FacebookWidget($smarty, $fb_url));
             }
 
             // Twitter
-            $twitter = Util::getSetting('twitter_url');
+            $twitter = Settings::get('twitter_url');
 
             if ($twitter) {
-                $theme = Util::getSetting('twitter_style');
+                $theme = Settings::get('twitter_style');
                 $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
             }
 
@@ -699,10 +702,18 @@ class Core_Module extends Module {
 
             // Statistics
             $widgets->add(new StatsWidget($smarty, $language, $cache));
+
+            // Reactions profile widget
+            $widgets->add(new ReactionsProfileWidget($smarty, $language));
+
+            // Minecraft account profile widget
+            if (Settings::get('mc_integration')) {
+                $widgets->add(new MinecraftAccountProfileWidget($smarty, $cache, $language));
+            }
         }
 
         // Validate user hook
-        $validate_action = Util::getSetting('validate_user_action');
+        $validate_action = Settings::get('validate_user_action');
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
@@ -754,7 +765,7 @@ class Core_Module extends Module {
             }
         }
 
-        if (Util::getSetting('mc_integration') && Util::getSetting('status_page')) {
+        if (Settings::get('mc_integration') && Settings::get('status_page')) {
             // Add status link to navbar
             $cache->setCache('navbar_order');
             if (!$cache->isCached('status_order')) {
@@ -775,7 +786,7 @@ class Core_Module extends Module {
         }
 
         // Only add leaderboard link if there is at least one enabled placeholder and MC integration enabled
-        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1') {
+        if (Settings::get('mc_integration') && Settings::get('placeholders') === '1') {
             $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
             if (count($leaderboard_placeholders)) {
@@ -801,7 +812,7 @@ class Core_Module extends Module {
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
-            if (Util::getSetting('mc_integration')) {
+            if (Settings::get('mc_integration')) {
                 // Query main server
                 $cache->setCache('mc_default_server');
 
@@ -837,7 +848,7 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name, 'id' => $default->id];
 
                         // Get query type
-                        $query_type = Util::getSetting('query_type', 'internal');
+                        $query_type = Settings::get('query_type', 'internal');
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
@@ -938,7 +949,7 @@ class Core_Module extends Module {
                             'REGISTERED_DATE' => date(DATE_FORMAT, $user_query->joined),
                         ]);
 
-                        if ($user->canBypassPrivateProfile() || (!Util::getSetting('private_profile') || !$user_query->private_profile)) {
+                        if ($user->canBypassPrivateProfile() || (!Settings::get('private_profile') || !$user_query->private_profile)) {
                             $smarty->assign([
                                 'LAST_SEEN' => $language->get('user', 'last_seen_x', [
                                     'lastSeenAt' => $timeago->inWords($user_query->last_online, $language),
@@ -1566,7 +1577,7 @@ class Core_Module extends Module {
 
     public function getDebugInfo(): array {
         $servers = [];
-        $group_sync_server_id = Util::getSetting('group_sync_mc_server');
+        $group_sync_server_id = Settings::get('group_sync_mc_server');
         foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
             $servers[(int)$server->id] = [
                 'id' => (int)$server->id,
@@ -1582,10 +1593,10 @@ class Core_Module extends Module {
 
         return [
             'minecraft' => [
-                'mc_integration' => (bool)Util::getSetting(Settings::MINECRAFT_INTEGRATION),
-                'uuid_linking' => (bool)Util::getSetting('uuid_linking'),
-                'username_sync' => (bool)Util::getSetting('username_sync'),
-                'query_type' => Util::getSetting('query_type', 'internal'),
+                'mc_integration' => (bool)Settings::get(Settings::MINECRAFT_INTEGRATION),
+                'uuid_linking' => (bool)Settings::get('uuid_linking'),
+                'username_sync' => (bool)Settings::get('username_sync'),
+                'query_type' => Settings::get('query_type', 'internal'),
                 'servers' => $servers,
             ]
         ];

@@ -48,7 +48,7 @@ class KeyAuthEndpoint extends EndpointBase {
      * @return bool Whether it matches or not.
      */
     private function validateKey(Nameless2API $api, string $api_key): bool {
-        $correct_key = Util::getSetting('mc_api_key');
+        $correct_key = Settings::get('mc_api_key');
         if ($correct_key === null) {
             die('API key is null');
         }

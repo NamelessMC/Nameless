@@ -9,18 +9,18 @@ class Discord_Module extends Module {
 
         $name = 'Discord Integration';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $module_version = '2.1.1';
+        $nameless_version = '2.1.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
-        $bot_url = Util::getSetting('discord_bot_url');
+        $bot_url = Settings::get('discord_bot_url');
         if ($bot_url === null) {
             $bot_url = '';
         }
         define('BOT_URL', $bot_url);
 
-        $bot_username = Util::getSetting('discord_bot_username');
+        $bot_username = Settings::get('discord_bot_username');
         if ($bot_username === null) {
             $bot_username = '';
         }

@@ -177,11 +177,12 @@
     "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden.",
     "forum/latest_posts_widget_cached": "Das Widget für die neuesten Beiträge wird eine Minute lang zwischengespeichert, so dass deine Änderungen möglicherweise nicht sofort wirksam werden.",
     "forum/latest_posts_limit": "Letzte Beiträge begrenzen",
-    "forum/highest_reaction_scores": "Höchster Reaktionsanzahl",
+    "forum/highest_reaction_scores": "Höchste Reaktionswerte im Forum",
     "forum/most_posts": "Die meisten Beiträge",
     "forum/reaction_score": "Reaktionsanzahl",
     "forum/no_posts_found": "Keine Beiträge gefunden.",
     "forum/news_items_front_page_limit": "Anzahl der News, die auf der Titelseite angezeigt werden sollen",
     "forum/news_items_max": "Die Anzahl der News sollte mindestens {{max}} sein",
-    "forum/news_items_min": "Die Anzahl der News sollte mindestens {{min}} sein"
+    "forum/news_items_min": "Die Anzahl der News sollte mindestens {{min}} sein",
+    "forum/forum_score": "Forum Punkte"
 }

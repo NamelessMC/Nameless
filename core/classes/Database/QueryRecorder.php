@@ -19,7 +19,17 @@ class QueryRecorder extends Instanceable {
      * @return array SQL queries
      */
     public function getSqlStack(): array {
-        return array_reverse($this->_query_stack);
+        $stack = array_reverse($this->_query_stack);
+
+        // Compile queries - replace bound parameters with their values and syntax highlight
+        foreach ($stack as &$query) {
+            $query['sql_query'] = $this->compileQuery(
+                $query['sql_string'],
+                $query['sql_params']
+            );
+        }
+
+        return $stack;
     }
 
     /**
@@ -38,7 +48,8 @@ class QueryRecorder extends Instanceable {
         $this->_query_stack[] = [
             'number' => $this->_query_stack_num,
             'frame' => ErrorHandler::parseFrame(null, $backtrace['file'], $backtrace['line'], $this->_query_stack_num),
-            'sql_query' => $this->compileQuery($sql, $params)
+            'sql_string' => $sql,
+            'sql_params' => $params,
         ];
 
         $this->_query_stack_num++;

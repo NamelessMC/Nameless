@@ -17,7 +17,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Retrieve privacy policy from database
 $policy = DB::getInstance()->get('privacy_terms', ['name', 'privacy'])->results();
 if (!count($policy)) {
-    $policy = Output::getPurified(Util::getSetting('privacy_policy'));
+    $policy = Output::getPurified(Settings::get('privacy_policy'));
 } else {
     $policy = Output::getPurified($policy[0]->value);
 }
