@@ -23,4 +23,4 @@ parameters:
             path: ../modules/Core/pages/panel/users_reports.php
     reportUnmatchedIgnoredErrors: false
 includes:
-    - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - ../vendor/phpstan/phpstan-deprecation-rules/rules.neon
