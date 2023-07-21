@@ -188,7 +188,6 @@ if (isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'ADDING_SERVER' => $language->get('admin', 'adding_server'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
