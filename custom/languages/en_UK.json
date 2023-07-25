@@ -148,6 +148,8 @@
     "admin/disabled": "Disabled",
     "admin/discord_hook": "Discord",
     "admin/display_field_on_forum": "Display field on forum?",
+    "admin/default_description": "Default Description",
+    "admin/default_keywords": "Default Keywords",
     "admin/download": "Download",
     "admin/download_sitemap": "Download Sitemap",
     "admin/downloads_x": "Downloads: {{downloads}}",

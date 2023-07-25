@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.1
+ *  NamelessMC version 2.2.0
  *
  *  License: MIT
  *
@@ -118,6 +118,11 @@ if (!defined('PAGE_DESCRIPTION')) {
         if ($og_image) {
             $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $og_image);
         }
+    } else {
+        $smarty->assign([
+            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified(Settings::get('default_meta_description', ''))),
+            'PAGE_KEYWORDS' => Output::getPurified(Settings::get('default_meta_keywords', '')),
+        ]);
     }
 } else {
     $smarty->assign([

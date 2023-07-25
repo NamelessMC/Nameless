@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.2.0
  *
  *  License: MIT
  *
@@ -64,6 +64,10 @@ if (!isset($_GET['metadata'])) {
                 if (Input::get('type') == 'google_analytics') {
                     Settings::set('ga_script', Input::get('analyticsid'));
                     $success = $language->get('admin', 'seo_settings_updated_successfully');
+                } else if (Input::get('type') == 'meta') {
+                    Settings::set('default_meta_description', Input::get('default_description'));
+                    Settings::set('default_meta_keywords', Input::get('default_keywords'));
+                    $success = $language->get('admin', 'seo_settings_updated_successfully');
                 }
             }
         } else {
@@ -97,6 +101,13 @@ if (!isset($_GET['metadata'])) {
             $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
         }
     }
+
+    $smarty->assign([
+        'DEFAULT_DESCRIPTION' => $language->get('admin', 'default_description'),
+        'DEFAULT_DESCRIPTION_VALUE' => Settings::get('default_meta_description'),
+        'DEFAULT_KEYWORDS' => $language->get('admin', 'default_keywords'),
+        'DEFAULT_KEYWORDS_VALUE' => Settings::get('default_meta_keywords'),
+    ]);
 
     $template_file = 'core/seo.tpl';
 } else {
