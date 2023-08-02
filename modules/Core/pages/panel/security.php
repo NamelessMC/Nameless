@@ -188,7 +188,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'group_sync_logs');
-            $logs_set = DB::getInstance()->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC LIMIT 500')->results();
+            $logs_set = DB::getInstance()->orderWhere('logs', 'action LIKE \'%_role_set\' OR action LIKE \'%_group_set\'OR action = \'mc_group_sync_set\' ', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 5;
             $col_titles = [
