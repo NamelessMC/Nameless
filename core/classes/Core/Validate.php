@@ -159,7 +159,7 @@ class Validate {
                         if (empty($source[$array][$matches[1]])) {
                             $missing = true;
                         }
-                    } else if (empty($value)) {
+                    } else if (empty($value) && $value !== '0') {
                         $missing = true;
                     }
 
