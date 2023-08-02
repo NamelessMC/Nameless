@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -74,7 +74,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'acp_logins');
-            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_login\'', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_login\'', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 3;
             $col_titles = [
@@ -111,7 +111,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'template_changes');
-            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_template_update\'', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_template_update\'', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 4;
             $col_titles = [
@@ -152,7 +152,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'email_logs');
-            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_email_mass_message\'', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_email_mass_message\'', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 3;
             $col_titles = [
@@ -188,7 +188,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'group_sync_logs');
-            $logs_set = DB::getInstance()->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC')->results();
+            $logs_set = DB::getInstance()->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 5;
             $col_titles = [
@@ -246,7 +246,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'all_logs');
-            $logs = DB::getInstance()->orderWhere('logs', 'id <> 0', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'id <> 0', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 5;
             $col_titles = [
