@@ -73,7 +73,7 @@
                                         <select name="type" class="form-control" id="InputReactionType">
                                             <option value="2" {if $TYPE_VALUE eq 2} selected{/if}>{$POSITIVE}</option>
                                             <option value="1" {if $TYPE_VALUE eq 1} selected{/if}>{$NEUTRAL}</option>
-                                            <option value="-1" {if $TYPE_VALUE eq 0} selected{/if}>{$NEGATIVE}</option>
+                                            <option value="0" {if $TYPE_VALUE eq 0} selected{/if}>{$NEGATIVE}</option>
                                             <option value="3" {if $TYPE_VALUE eq 3} selected{/if}>{$CUSTOM_SCORE}</option>
                                         </select>
                                     </div>
