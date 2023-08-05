@@ -148,6 +148,10 @@ class Language {
             'name' => 'Latvian (Latvia)',
             'htmlCode' => 'lv',
         ],
+        'sl_SI' => [
+            'name' => 'Slovenian',
+            'htmlCode' => 'sl',
+        ],
     ];
 
     /**
