@@ -5,7 +5,6 @@
     "admin/activate": "Activate",
     "admin/active": "Aktiv",
     "admin/add_server": "Lägg till Server",
-    "admin/adding_server": "Lägger till Server",
     "admin/admin_dir_still_exists": "Varning! Katalogen /moduler/Core/pages/admin finns fortfarande. Ta bort denna katalog, tack.",
     "admin/administrator": "Administratör",
     "admin/administrator_permission_info": "Medlemmar med denna behörighet kommer att ha alla behörigheter. Detta är en farlig behörighet att ge.",

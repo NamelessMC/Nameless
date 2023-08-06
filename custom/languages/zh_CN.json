@@ -5,7 +5,6 @@
     "admin/activate": "启用",
     "admin/active": "应用中的",
     "admin/add_server": "添加服务器",
-    "admin/adding_server": "添加服务器中",
     "admin/admin_dir_still_exists": "警告! /modules/Core/pages/admin 目录仍存在。请删除这个目录。",
     "admin/administrator": "管理员",
     "admin/administrator_permission_info": "拥有管理员权限的用户将会拥有所有权限。您只应授予受信任的用户此权限。",

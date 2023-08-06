@@ -5,7 +5,6 @@
     "admin/activate": "アクティベート",
     "admin/active": "アクティブ",
     "admin/add_server": "サーバー追加",
-    "admin/adding_server": "サーバー追加",
     "admin/admin_dir_still_exists": "警告！modules/Core/pages/adminディレクトリがまだ存在しています。ディレクトリを削除してください。",
     "admin/administrator": "管理者",
     "admin/administrator_permission_info": "この権限を持つメンバーは、すべての権限を持つことになります。これは許可するのは危険です。",

@@ -5,7 +5,6 @@
     "admin/activate": "Activeer",
     "admin/active": "Actief",
     "admin/add_server": "Server toevoegen",
-    "admin/adding_server": "Server toevoegen",
     "admin/admin_dir_still_exists": "Waarschuwing! De map /modules/Core/pages/admin bestaat nog steeds. Gelieve deze te verwijderen.",
     "admin/administrator": "Administrator",
     "admin/administrator_permission_info": "Leden met deze toestemming hebben alle rechten. Dit is een gevaarlijke toestemming om te geven.",

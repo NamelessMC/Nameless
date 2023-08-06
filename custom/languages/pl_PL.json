@@ -5,7 +5,6 @@
     "admin/activate": "Aktywuj",
     "admin/active": "Aktywny",
     "admin/add_server": "Dodaj Serwer",
-    "admin/adding_server": "Dodawanie serwera",
     "admin/admin_dir_still_exists": "Uwaga! Katalog /modules/Core/pages/admin</strong> nadal istnieje. Możesz go usunąć, ponieważ nie jest już do niczego potrzebny.",
     "admin/administrator_permission_info": "Użytkownik z tym uprawnieniem będzie miał wszystkie uprawnienia. Nadawanie tej permisji może być niebezpieczne.",
     "admin/all_logs": "Wszystkie Logi",

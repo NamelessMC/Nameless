@@ -5,7 +5,6 @@
     "admin/activate": "Aktivovať",
     "admin/active": "Aktívny",
     "admin/add_server": "Pridať server",
-    "admin/adding_server": "Pridávanie serveru",
     "admin/admin_dir_still_exists": "Varovanie! Adresár /modules/Core/pages/admin stále existuje. Prosím odstráňte tento adresár.",
     "admin/administrator": "Administrátor",
     "admin/administrator_permission_info": "Členovia s týmto povolením budú mať všetky povolenia. Toto je nebezpečné povolenie na udelenie.",

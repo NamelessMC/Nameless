@@ -3,7 +3,6 @@
     "admin/action": "Action",
     "admin/action_info": "Action ข้อมูล",
     "admin/add_server": "เพิ่มเซิร์ฟเวอร์",
-    "admin/adding_server": "กำลังเพิ่มเซิร์ฟเวอร์",
     "admin/admin_dir_still_exists": "คำเตือน! <strong>modules/Core/pages/admin</strong> directory ยังคงมีอยู่ โปรดลบ directory นี้",
     "admin/administrator": "ผู้ดูแลระบบ",
     "admin/administrator_permission_info": "สมาชิกที่ได้รับอนุญาตนี้จะได้รับสิทธิ์ทุกสิทธิ์ นี่เป็นการอนุญาตที่ไม่ปลอดภัยที่จะให้",
