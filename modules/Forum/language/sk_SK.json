@@ -183,5 +183,6 @@
     "forum/most_posts": "Najviac príspevkov",
     "forum/news_items_front_page_limit": "Počet noviniek zobrazujúcich sa na hlavnej stránke",
     "forum/reaction_score": "Reakčné skóre",
-    "forum/highest_reaction_scores": "Najvyššie reakčné skóre"
+    "forum/highest_reaction_scores": "Najvyššie skóre reakcií na fóre",
+    "forum/forum_score": "Skóre fóra"
 }
