@@ -5,7 +5,6 @@
     "admin/activate": "Activer",
     "admin/active": "Actif",
     "admin/add_server": "Ajouter un serveur",
-    "admin/adding_server": "Ajout du serveur",
     "admin/admin_dir_still_exists": "Attention ! Le répertoire /modules/Core/pages/admin existe toujours. Veuillez supprimer ce répertoire.",
     "admin/all_logs": "Tout les logs",
     "admin/allow_custom_avatars": "Autoriser les avatars personnalisés des utilisateurs ?",

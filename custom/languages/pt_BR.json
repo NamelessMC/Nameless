@@ -5,7 +5,6 @@
     "admin/activate": "Ativar",
     "admin/active": "Ativo",
     "admin/add_server": "<i class=\"fas fa-plus-circle\"></i> Adicionar servidor",
-    "admin/adding_server": "Adicionando Servidor",
     "admin/admin_dir_still_exists": "Aviso! O diretório modules/Core/pages/admin ainda existe. Por favor, remova este diretório.",
     "admin/administrator": "Administrador",
     "admin/administrator_permission_info": "Os membros com esta permissão terão todas as permissões. Esta é uma permissão perigosa a ser concedida.",

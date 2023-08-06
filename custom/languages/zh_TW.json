@@ -3,7 +3,6 @@
     "admin/activate": "使用",
     "admin/active": "使用中",
     "admin/add_server": "新增",
-    "admin/adding_server": "新增伺服器中",
     "admin/allow_custom_avatars": "允許使用者使用自訂頭像?",
     "admin/authme_db_address": "AuthMe 資料庫位置",
     "admin/authme_db_name": "AuthMe 資料庫名稱",

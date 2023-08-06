@@ -10,7 +10,6 @@
     "admin/activate": "Kích hoạt",
     "admin/active": "Kích hoạt",
     "admin/add_server": "Thêm máy chủ",
-    "admin/adding_server": "Thêm máy chủ",
     "admin/admin_dir_still_exists": "Lưu ý! Thư mục /modules/Core/pages/admin còn tồn tại. Hãy xoá thư mục đó đi.",
     "admin/administrator": "Quản trị viên",
     "admin/administrator_permission_info": "Thành viên có quyền này sẽ có mọi quyền. Đây là một sự cho phép nguy hiểm để cấp.",

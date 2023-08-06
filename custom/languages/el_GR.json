@@ -222,7 +222,6 @@
     "admin/user_group_added_hook_info": "Προστέθηκε ομάδα χρηστών",
     "admin/user_group_removed_hook_info": "Ομάδα χρηστών αφαιρέθηκε",
     "admin/add_server": "Προσθήκη Server",
-    "admin/adding_server": "Προσθήκη Server",
     "admin/all_logs": "Όλα τα αρχεία καταγραφής",
     "admin/allow_custom_avatars": "Να επιτρέπετε προσαρμοσμένα avatars χρηστών;"
 }

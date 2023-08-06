@@ -4,7 +4,6 @@
     "admin/activate": "Aktivieren",
     "admin/active": "Aktiv",
     "admin/add_server": "Server hinzufügen",
-    "admin/adding_server": "Server hinzufügen",
     "admin/admin_dir_still_exists": "Warnung! Das Verzeichnis /modules/Core/pages/admin existiert noch. Bitte entferne dieses Verzeichnis.",
     "admin/administrator": "Administrator",
     "admin/administrator_permission_info": "Mitglieder mit dieser Berechtigung haben alle Berechtigungen. Es ist gefährlich diese Berechtigung zu setzen.",

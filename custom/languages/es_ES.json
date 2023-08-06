@@ -5,7 +5,6 @@
     "admin/activate": "Activar",
     "admin/active": "Activo",
     "admin/add_server": "Añadir servidor",
-    "admin/adding_server": "Añadir servidor",
     "admin/admin_dir_still_exists": "¡Advertencia! El directorio modules/Core/pages/admin todavía existe. Por favor, elimine este directorio.",
     "admin/administrator": "Administrator",
     "admin/administrator_permission_info": "Los miembros con este permiso tendrán todos los permisos. Este es un permiso peligroso de conceder.",

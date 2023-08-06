@@ -5,7 +5,6 @@
     "admin/activate": "Aktyvuoti",
     "admin/active": "Aktyvus",
     "admin/add_server": "Pridėti Serverį",
-    "admin/adding_server": "Serverio Pridėjimas",
     "admin/admin_dir_still_exists": "Įspėjimas! <strong>modules/Core/pages/admin</strong> folderis dar egzistuoja. Prašuome pašalinti ši folderi.",
     "admin/all_logs": "Visi Žurnalai",
     "admin/allow_custom_avatars": "Leisti individualius naudotojo avatarus?",

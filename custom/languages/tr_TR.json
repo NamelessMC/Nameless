@@ -5,7 +5,6 @@
     "admin/activate": "Aktif",
     "admin/active": "Aktif",
     "admin/add_server": "Sunucu Ekle",
-    "admin/adding_server": "Suncuu Ekleme",
     "admin/admin_dir_still_exists": "Uyarı! modules/Core/pages/admin dizini hala mevcut. Lütfen bu dizini kaldırın.",
     "admin/all_logs": "Tüm günlükler",
     "admin/allow_custom_avatars": "Özel kullanıcı resimlerine izin verilsin mi?",
