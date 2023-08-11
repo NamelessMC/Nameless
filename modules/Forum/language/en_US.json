@@ -182,6 +182,7 @@
     "forum/news_items_front_page_limit": "Number of news items to display on front page",
     "forum/reaction_score": "Reaction score",
     "forum/no_posts_found": "No posts found.",
-    "forum/highest_reaction_scores": "Highest reaction scores",
-    "forum/most_posts": "Most posts"
+    "forum/highest_reaction_scores": "Highest forum reaction scores",
+    "forum/most_posts": "Most posts",
+    "forum/forum_score": "Forum score"
 }
