@@ -1319,5 +1319,17 @@
     "general/oauth_email_not_verified_automatically": "Email will not be verified automatically",
     "general/registered_members": "Registered members",
     "general/staff_members": "Staff members",
-    "general/sql_query": "Query"
+    "general/sql_query": "Query",
+    "user/integration_linked": "You have successfully linked your {{integration}} account.",
+    "user/minecraft_account": "Minecraft Account",
+    "user/received": "Received",
+    "user/reaction_score": "Reaction Score",
+    "admin/profile_widgets": "Profile Widgets",
+    "admin/reaction_added_event_info": "Reaction Added",
+    "admin/reaction_deleted_event_info": "Reaction Deleted",
+    "admin/site_widgets": "Site Widgets",
+    "user/given": "Given",
+    "user/profile_posts_score": "Profile Posts Score",
+    "admin/custom_score": "Custom Score",
+    "general/on": "on"
 }
