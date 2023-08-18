@@ -261,6 +261,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('SUBFORUMS', $subforum_array);
     $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
     $smarty->assign('FORUM_TITLE', Output::getPurified($forum_query->forum_title));
+    $smarty->assign('FORUM_DESCRIPTION', Output::getPurified($forum_query->forum_description));
     $smarty->assign('FORUM_ICON', Output::getPurified($forum_query->icon));
     $smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 
