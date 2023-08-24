@@ -16,7 +16,6 @@ class UpdateGroupsEndpoint extends KeyAuthEndpoint {
 
         if (!Settings::get('mc_integration') || $server_id != Settings::get('group_sync_mc_server')) {
             $api->returnArray(['message' => $api->getLanguage()->get('api', 'groups_updates_ignored')]);
-            return;
         }
 
         $group_sync_log = [];
