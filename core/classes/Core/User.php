@@ -134,6 +134,12 @@ class User {
             return false;
         }
 
+        $group = Group::find($group_id);
+        if (!$group) {
+            ErrorHandler::logWarning('Could not add invalid group ' . $group_id . ' to user ' . $this->data()->id);
+            return false;
+        }
+
         $this->_db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
             $this->data()->id,
             $group_id,
@@ -141,11 +147,8 @@ class User {
             $expire
         ]);
 
-        $group = Group::find($group_id);
-        if ($group) {
-            $this->_groups[$group_id] = $group;
-            self::$_group_cache[$this->data()->id][$group_id] = $group;
-        }
+        $this->_groups[$group_id] = $group;
+        self::$_group_cache[$this->data()->id][$group_id] = $group;
 
         EventHandler::executeEvent(new UserGroupAddedEvent(
             $this,
@@ -658,6 +661,12 @@ class User {
      * @return false|void
      */
     public function setGroup(int $group_id, int $expire = 0) {
+        $group = Group::find($group_id);
+        if (!$group) {
+            ErrorHandler::logWarning('Could not set invalid group ' . $group_id . ' to user ' . $this->data()->id);
+            return false;
+        }
+
         if ($this->data()->id == 1) {
             return false;
         }
@@ -672,11 +681,9 @@ class User {
         ]);
 
         $this->_groups = [];
-        $group = Group::find($group_id);
-        if ($group) {
-            $this->_groups[$group_id] = $group;
-            self::$_group_cache[$this->data()->id] = $this->_groups;
-        }
+        $this->_groups[$group_id] = $group;
+        self::$_group_cache[$this->data()->id] = $this->_groups;
+
     }
 
     /**
