@@ -1222,5 +1222,14 @@
     "admin/emoji_style": "絵文字の種類",
     "installer/timezone": "タイムゾーン",
     "admin/authme_db_test_connection": "接続テスト",
-    "admin/authme_db_connection_success": "接続に成功"
+    "admin/authme_db_connection_success": "接続に成功",
+    "admin/custom_score": "カスタムスコア",
+    "admin/discord_hook": "Discord",
+    "admin/event_supports_normal": "このイベントは通常のウェブフックをサポートしています。",
+    "admin/enable_auto_language": "言語の自動検出を有効にしますか？",
+    "admin/query_type": "クエリの種類",
+    "admin/emoji_twemoji": "Twemoji",
+    "admin/emoji_joypixels": "JoyPixels",
+    "admin/emoji_native": "ネイティブ",
+    "admin/confirm_delete_placeholder": "このプレースホルダーを削除してもよろしいですか？"
 }
