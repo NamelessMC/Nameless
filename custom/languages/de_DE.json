@@ -1331,5 +1331,6 @@
     "user/profile_posts_score": "Bewertung der Profilbeiträge",
     "user/reaction_score": "Bewertung der Reaktion",
     "user/received": "Empfangen",
-    "user/integration_linked": "Du hast dein {{integration}}-Konto erfolgreich verknüpft."
+    "user/integration_linked": "Du hast dein {{integration}}-Konto erfolgreich verknüpft.",
+    "api/groups_updates_ignored": "Gruppen-Sync-Anfrage wird ignoriert, weil die Minecraft-Integration deaktiviert ist oder der Server nicht als Gruppen-Sync-Server im StaffCP konfiguriert ist."
 }
