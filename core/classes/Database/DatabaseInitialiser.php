@@ -208,11 +208,10 @@ class DatabaseInitialiser {
         Settings::set('nameless_version', '2.1.1');
         Settings::set('version_checked', date('U'));
         Settings::set('phpmailer', '0');
-        Settings::set('user_avatars', '0');
-        Settings::set('avatar_site', 'cravatar');
+        Settings::set('minecraft_avatar_source', CravatarMinecraftAvatarSource::class);
         Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
         Settings::set('discord_integration', '0');
-        Settings::set('avatar_type', 'helmavatar');
+        Settings::set('minecraft_avatar_perspective', 'face');
         Settings::set('home_type', 'news');
         Settings::set('forum_reactions', '1');
         Settings::set('error_reporting', '0');
@@ -225,7 +224,6 @@ class DatabaseInitialiser {
         Settings::set('timezone', $_SESSION['install_timezone']);
         Settings::set('maintenance', '0');
         Settings::set('maintenance_message', 'This website is currently in maintenance mode.');
-        Settings::set('default_avatar_type', 'minecraft');
         Settings::set('private_profile', '1');
         Settings::set('validate_user_action', '{"action":"promote","group":1}');
         Settings::set('login_method', 'email');

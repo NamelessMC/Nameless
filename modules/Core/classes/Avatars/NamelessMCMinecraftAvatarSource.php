@@ -7,7 +7,7 @@
  * @version 2.0.0-pr12
  * @license MIT
  */
-class NamelessMCAvatarSource extends AvatarSourceBase {
+class NamelessMCMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct(Language $language) {
         $this->_name = 'Nameless';
@@ -18,7 +18,7 @@ class NamelessMCAvatarSource extends AvatarSourceBase {
     }
 
     public function getUrlToFormat(string $perspective): string {
-        if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
+        if (defined('FRIENDLY_URLS') && FRIENDLY_URLS) {
             return URL::build('/avatar/{identifier}');
         }
 

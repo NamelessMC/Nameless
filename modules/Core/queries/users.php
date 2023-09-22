@@ -20,14 +20,13 @@ if (!isset($_GET['search']) || strlen($_GET['search']) < 2) {
 $query = '%' . $_GET['search'] . '%';
 
 $limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? 'LIMIT ' . (int) $_GET['limit'] : '';
-$users = DB::getInstance()->query("SELECT id, username, nickname, gravatar, email, has_avatar, avatar_updated FROM nl2_users WHERE username LIKE ? OR nickname LIKE ? $limit", [
+$users = DB::getInstance()->query("SELECT id, username, nickname FROM nl2_users WHERE username LIKE ? OR nickname LIKE ? $limit", [
     $query, $query
 ])->results();
 
 foreach ($users as $user) {
     $user->profile_url = URL::build('/profile/' . urlencode($user->username));
-    $user->avatar_url = AvatarSource::getAvatarFromUserData($user);
-    unset($user->gravatar, $user->email, $user->has_avatar, $user->avatar_updated);
+    $user->avatar_url = AvatarSource::getInstance()->getAvatarForUser($user->id);
 }
 
 echo json_encode(['results' => $users], JSON_PRETTY_PRINT);

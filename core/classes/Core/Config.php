@@ -159,12 +159,6 @@ class Config {
             return explode('.', $path);
         }
 
-        // TODO: Remove for 2.1.0
-        if (str_contains($path, '/')) {
-            ErrorHandler::logWarning("Legacy config path: {$path}. Please use periods to seperate paths.");
-            return explode('/', $path);
-        }
-
         return $path;
     }
 

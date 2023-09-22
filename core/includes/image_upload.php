@@ -100,10 +100,6 @@ switch ($_POST['type']) {
 
     default:
         // Default to normal avatar upload
-        if (!defined('CUSTOM_AVATARS')) {
-            die('Custom avatar uploading is disabled');
-        }
-
         $folder = 'avatars';
         $image->setName($user->data()->id);
         break;

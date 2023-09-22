@@ -7,7 +7,7 @@
  * @version 2.0.0-pr12
  * @license MIT
  */
-class CraftheadAvatarSource extends AvatarSourceBase {
+class CraftheadMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct() {
         $this->_name = 'Crafthead';
@@ -16,6 +16,7 @@ class CraftheadAvatarSource extends AvatarSourceBase {
             'face' => 'helm',
             'head' => 'cube'
         ];
+        $this->_supports_usernames = true;
     }
 
     public function getUrlToFormat(string $perspective): string {

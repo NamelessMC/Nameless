@@ -7,7 +7,7 @@
  * @version 2.0.0-pr12
  * @license MIT
  */
-class MCHeadsAvatarSource extends AvatarSourceBase {
+class MCHeadsMinecraftAvatarSource extends MinecraftAvatarSourceBase {
 
     public function __construct() {
         $this->_name = 'MC-Heads';
@@ -16,6 +16,7 @@ class MCHeadsAvatarSource extends AvatarSourceBase {
             'face' => 'avatar',
             'head' => 'head'
         ];
+        $this->_supports_usernames = true;
     }
 
     public function getUrlToFormat(string $perspective): string {

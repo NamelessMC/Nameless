@@ -330,6 +330,8 @@ if (isset($_GET['do'])) {
                             }
                         }
 
+                        AvatarSource::getInstance()->clearUserAvatarCache($user);
+
                         Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
                         Redirect::to(URL::build('/user/settings'));
 
@@ -409,7 +411,7 @@ if (isset($_GET['do'])) {
                     ],
                     'email' => [
                         Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
-                        Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                        Validate::EMAIL => $language->get('user', 'email_invalid') . '<br />'
                     ]
                 ]);
 
@@ -616,11 +618,12 @@ if (isset($_GET['do'])) {
         'INFO' => $language->get('general', 'info'),
         'ENABLED' => $language->get('user', 'enabled'),
         'DISABLED' => $language->get('user', 'disabled'),
+        'GRAVATAR_ENABLED' => AvatarSource::getInstance()->getSourceBySafeName(GravatarAvatarSource::class)->isEnabled(),
         'GRAVATAR' => $language->get('user', 'gravatar'),
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
     ]);
 
-    if (defined('CUSTOM_AVATARS')) {
+    if (Settings::get('custom_user_avatars')) {
         $smarty->assign([
             'CUSTOM_AVATARS' => true,
             'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',

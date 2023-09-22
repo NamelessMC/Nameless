@@ -434,25 +434,12 @@ class User {
      * Get this user's avatar.
      *
      * @param int $size Size of image to render in pixels.
-     * @param bool $full Whether to use full site URL or not, for external loading - ie discord webhooks.
+     * @param bool $full_url Whether to use full site URL or not, for external loading - ie discord webhooks.
      *
      * @return string URL to their avatar image.
      */
-    public function getAvatar(int $size = 128, bool $full = false): string {
-        $data_obj = new stdClass();
-        // Convert UserData object to stdClass so we can dynamically add the 'uuid' property
-        foreach (get_object_vars($this->data()) as $key => $value) {
-            $data_obj->{$key} = $value;
-        }
-
-        $integrationUser = $this->getIntegration('Minecraft');
-        if ($integrationUser != null) {
-            $data_obj->uuid = $integrationUser->data()->identifier;
-        } else {
-            $data_obj->uuid = '';
-        }
-
-        return AvatarSource::getAvatarFromUserData($data_obj, $this->hasPermission('usercp.gif_avatar'), $size, $full);
+    public function getAvatar(int $size = 128, bool $full_url = false): string {
+        return AvatarSource::getInstance()->getAvatarForUser($this, $size, $full_url);
     }
 
     /**

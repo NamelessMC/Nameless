@@ -38,78 +38,59 @@
 
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
+                            <div class="card shadow border-left-primary">
+                                <div class="card-body">
+                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                    {$AVATARS_INFO}
+                                </div>
+                            </div>
+                            <br />
 
                             <form action="" method="post">
-                                <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="custom_avatars" value="0">
-                                    <input id="inputCustomAvatars" name="custom_avatars" type="checkbox"
-                                        class="custom-control-input" value="1" {if $CUSTOM_AVATARS_VALUE eq 1}
-                                        checked{/if} />
-                                    <label class="custom-control-label"
-                                        for="inputCustomAvatars">{$CUSTOM_AVATARS}</label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputDefaultAvatar">{$DEFAULT_AVATAR}</label>
-                                    <select class="form-control" name="default_avatar" id="inputDefaultAvatar">
-                                        <option value="minecraft" {if $DEFAULT_AVATAR_VALUE eq "minecraft" }
-                                            selected{/if}>{$MINECRAFT_AVATAR}</option>
-                                        {if $CUSTOM_AVATARS_VALUE eq 1}
-                                        <option value="custom" {if $DEFAULT_AVATAR_VALUE eq "custom" } selected{/if}>
-                                            {$CUSTOM_AVATAR}</option>
-                                        {/if}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputMinecraftAvatarSource">{$MINECRAFT_AVATAR_SOURCE}</label>
-                                    <select class="form-control" name="avatar_source" id="inputMinecraftAvatarSource">
-                                        {foreach from=$MINECRAFT_AVATAR_VALUES key=name item=url}
-                                        <option value="{$name}" {if $name eq $MINECRAFT_AVATAR_VALUE} selected{/if}>
-                                            {$url}</option>
+                                <table class="table table-borderless table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Module</th>
+                                            <th>Enabled</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sortable">
+                                        {foreach $AVATAR_SOURCES as $source}
+                                            <tr data-safe_name="{$source->getSafeName()}">
+                                                <td>
+                                                    {$source->getName()}
+                                                </td>
+                                                <td>
+                                                    {$source->getModule()}
+                                                </td>
+                                                <td>
+                                                    <div class="form-group custom-control custom-switch">
+                                                        <input type="hidden" name="toggle[{$source->getSafeName()}]" value="0">
+                                                        <input id="toggle[{$source->getSafeName()}]" name="toggle[{$source->getSafeName()}]" type="checkbox" class="custom-control-input" value="1" {if $source->isEnabled() || !$source->canBeDisabled() eq 1}checked{/if} {if !$source->canBeDisabled()}disabled{/if} />
+                                                        <label for="toggle[{$source->getSafeName()}]" class="custom-control-label"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="float-md-right">
+                                                        <div class="btn btn-secondary btn-sm">
+                                                            <i class="fa fa-arrows-alt"></i>
+                                                        </div>
+                                                        {if $source->getSettings()}
+                                                            <a href="{$source->getSettingsUrl()}" class="btn btn-info btn-sm">Settings</a>
+                                                        {/if}
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         {/foreach}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAvatarPerspective">{$MINECRAFT_AVATAR_PERSPECTIVE}</label>
-                                    <select class="form-control" name="avatar_perspective" id="inputAvatarPerspective">
-                                    </select>
-                                </div>
+                                    </tbody>
+                                </table>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                                 </div>
                             </form>
-
-                            <hr />
-
-                            <strong>{$DEFAULT_AVATAR}</strong>
-
-                            <br /><br />
-
-                            <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#uploadModal">{$UPLOAD_NEW_IMAGE}</button>
-
-                            <br /><br />
-
-                            {if count($IMAGES)}
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="selectDefaultAvatar">{$SELECT_DEFAULT_AVATAR}</label>
-                                    <select class="image-picker show-html" id="selectDefaultAvatar" name="avatar">
-                                        {foreach from=$IMAGES key=key item=item}
-                                        <option data-img-src="{$key}" value="{$item}" {if $DEFAULT_AVATAR_IMAGE eq
-                                            $item} selected{/if}>{$item}</option>
-                                        {/foreach}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                                </div>
-                            </form>
-                            {else}
-                            {$NO_AVATARS}
-                            {/if}
-
                         </div>
                     </div>
 
@@ -127,78 +108,48 @@
             <!-- End Content Wrapper -->
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="uploadModalLabel">{$UPLOAD_NEW_IMAGE}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="{$CLOSE}">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Upload modal -->
-                        <form action="{$UPLOAD_FORM_ACTION}" class="dropzone" id="upload_avatar_dropzone">
-                            <div class="dz-message" data-dz-message>
-                                <span>{$DRAG_FILES_HERE}</span>
-                            </div>
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="hidden" name="type" value="default_avatar">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" onclick="location.reload();"
-                            data-dismiss="modal">{$CLOSE}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- End Wrapper -->
     </div>
 
-    <script>
-
-        const perspective_selector = document.getElementById('inputAvatarPerspective');
-        const source_selector = document.getElementById('inputMinecraftAvatarSource');
-        source_selector.addEventListener('change', () => reloadPerspectives(source_selector.value));
-
-        document.onLoad = reloadPerspectives(source_selector.value, true);
-
-        function reloadPerspectives(source, firstLoad = false) {
-            removeOptions(perspective_selector);
-            {foreach $MINECRAFT_AVATAR_PERSPECTIVE_VALUES key=source item=perspectives}
-                if ('{$source}' == source) {
-                    {foreach $perspectives item=$perspective}
-                        if (firstLoad) {
-                            {if $perspective|strtolower eq $MINECRAFT_AVATAR_PERSPECTIVE_VALUE|strtolower}
-                                option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}', true, true);
-                                perspective_selector.add(option, undefined);
-                            {else}
-                                option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
-                                perspective_selector.add(option, undefined);
-                            {/if}
-                        } else {
-                            option = new Option('{$perspective|ucfirst}', '{$perspective|ucfirst}');
-                            perspective_selector.add(option, undefined);
-                        }
-                    {/foreach}
-                }
-            {/foreach}
-        }
-
-        function removeOptions(selectElement) {
-            var i, L = selectElement.options.length - 1;
-            for (i = L; i >= 0; i--) {
-                selectElement.remove(i);
-            }
-        }
-
-    </script>
-
     {include file='scripts.tpl'}
+
+    <script>
+        $(document).ready(function () {
+            $("#sortable").sortable({
+                start: function (event, ui) {
+                    let start_pos = ui.item.index();
+                    ui.item.data('startPos', start_pos);
+                },
+                update: function (event, ui) {
+                    let sources = $("#sortable").children();
+                    let toSubmit = [];
+                    sources.each(function () {
+                        toSubmit.push($(this).data().safe_name);
+                    });
+
+                    $.ajax({
+                        url: "{$REORDER_DRAG_URL}",
+                        type: "GET",
+                        data: {
+                            action: "order",
+                            {literal}sources: JSON.stringify(toSubmit){/literal},
+                            token: "{$TOKEN}"
+                        },
+                        success: function (response) {
+                            // Success
+                            if (response === 'Invalid Token') {
+                                window.location.reload();
+                            }
+                        },
+                        error: function (xhr) {
+                            // Error
+                            console.log(xhr);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 
