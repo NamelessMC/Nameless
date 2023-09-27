@@ -1,7 +1,29 @@
 # NamelessMC v2 Changelog
 
-## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.1.1...v2)
-> [Milestone](https://github.com/NamelessMC/Nameless/milestone/21)
+## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.1.2...develop)
+> [Milestone](https://github.com/NamelessMC/Nameless/milestone/22)
+
+## [2.1.2](https://github.com/NamelessMC/Nameless/compare/v2.1.1...v2.1.2) - 2023-09-30
+### Added
+- No additions this release
+
+### Changed
+- Small misc improvements [#3389](https://github.com/NamelessMC/Nameless/pull/3389)
+- Add PHP_SAPI checks on scripts [#3403](https://github.com/NamelessMC/Nameless/pull/3403)
+- Rewrite release script to fix checksums in upgrade package [#3414](https://github.com/NamelessMC/Nameless/pull/3414)
+- Ignore group sync request instead of returning error [#3433](https://github.com/NamelessMC/Nameless/pull/3433)
+- Limit logs & support group sync from modules [#3426](https://github.com/NamelessMC/Nameless/pull/3426)
+- Ignore adding group if it's invalid [#3436](https://github.com/NamelessMC/Nameless/pull/3436)
+- Updated translations
+
+### Fixed
+- Rework user group cache issue [#3398](https://github.com/NamelessMC/Nameless/pull/3398)
+- Re-add deleted term + fix Discord OAuth link success message [#3403](https://github.com/NamelessMC/Nameless/pull/3403)
+- Fix typo in en_US translation [#3412](https://github.com/NamelessMC/Nameless/pull/3412)
+- Fix auto verify OAuth email [#3413](https://github.com/NamelessMC/Nameless/pull/3413)
+- Fix forum index showing topics without view other topics permission [#3410](https://github.com/NamelessMC/Nameless/pull/3410)
+- Fix phpdoc build, pin version [#3438](https://github.com/NamelessMC/Nameless/pull/3438)
+- Fix single/double quote not working within member list username CSS [#3427](https://github.com/NamelessMC/Nameless/pull/3427)
 
 ## [2.1.1](https://github.com/NamelessMC/Nameless/compare/v2.1.0...v2.1.1) - 2023-06-18
 ### Added
