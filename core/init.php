@@ -69,16 +69,15 @@ if ($page != 'install') {
      */
 
     $container = new \DI\Container();
-    $container->set('Cache', \DI\create()->constructor(
-        [
+    $container->set(Cache::class, function () {
+        return new Cache([
             'name' => 'nameless',
             'extension' => '.cache',
             'path' => ROOT_PATH . '/cache/'
-        ]
-    ));
+        ]);
+    });
 
-    /** @var Cache $cache */
-    $cache = $container->get('Cache');
+    $cache = $container->get(Cache::class);
 
     // Friendly URLs?
     define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
@@ -107,11 +106,11 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
-    PhinxAdapter::ensureUpToDate();
+    PhinxAdapter::ensureUpToDate('Core');
 
     // Error reporting
     if (!defined('DEBUGGING')) {
-        if (Util::getSetting('error_reporting') === '1') {
+        if (Settings::get('error_reporting') === '1') {
             ini_set('display_startup_errors', 1);
             ini_set('display_errors', 1);
             error_reporting(-1);
@@ -123,8 +122,7 @@ if ($page != 'install') {
         }
     }
 
-    /** @var Smarty $smarty */
-    $smarty = $container->get('Smarty');
+    $smarty = $container->get(Smarty::class);
 
     if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
@@ -132,7 +130,7 @@ if ($page != 'install') {
     }
 
     // Get the Nameless version
-    define('NAMELESS_VERSION', Util::getSetting('nameless_version'));
+    define('NAMELESS_VERSION', Settings::get('nameless_version'));
 
     // Set the date format
     define('DATE_FORMAT', Config::get('core.date_format') ?: 'd M Y, H:i');
@@ -183,7 +181,7 @@ if ($page != 'install') {
     }
 
     // Set timezone
-    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Util::getSetting('timezone', 'Europe/London'));
+    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Settings::get('timezone', 'Europe/London'));
     date_default_timezone_set(TIMEZONE);
 
     // Language
@@ -203,7 +201,7 @@ if ($page != 'install') {
     define('DEFAULT_LANGUAGE', $default_language);
 
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
-        if (Util::getSetting('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
+        if (Settings::get('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             // Attempt to get the requested language from the browser if it exists
             $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
             if ($automatic_locale !== false) {
@@ -224,13 +222,14 @@ if ($page != 'install') {
             define('LANGUAGE', $language[0]->short_code);
         }
     }
-    $container->set('Language', \DI\create()->constructor('core', LANGUAGE));
+    $container->set(Language::class, function () {
+        return new Language('core', LANGUAGE);
+    });
 
-    /** @var Language $language */
-    $language = $container->get('Language');
+    $language = $container->get(Language::class);
 
     // Site name
-    $sitename = Util::getSetting('sitename');
+    $sitename = Settings::get('sitename');
     if ($sitename === null) {
         die('No sitename in settings table');
     }
@@ -376,8 +375,7 @@ if ($page != 'install') {
         define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
     }
 
-    /** @var Widgets $widgets */
-    $widgets = $container->get('Widgets');
+    $widgets = $container->get(Widgets::class);
 
     // Navbar links
     $navigation = new Navigation();
@@ -393,7 +391,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
 
     // Placeholders enabled?
-    if (Util::getSetting('placeholders') === '1') {
+    if (Settings::get('placeholders') === '1') {
         $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholders'));
     }
 
@@ -417,11 +415,8 @@ if ($page != 'install') {
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
-    /** @var Endpoints $endpoints */
-    $endpoints = $container->get('Endpoints');
-
-    /** @var Announcements $announcements */
-    $announcements = $container->get('Announcements');
+    $endpoints = $container->get(Endpoints::class);
+    $announcements = $container->get(Announcements::class);
 
     // Modules
     $cache->setCache('modulescache');
@@ -447,7 +442,7 @@ if ($page != 'install') {
         ];
     }
 
-    $pages = $container->get('Pages');
+    $pages = $container->get(Pages::class);
 
     // Sort by priority
     usort($enabled_modules, static function ($a, $b) {
@@ -469,7 +464,7 @@ if ($page != 'install') {
     }
 
     // Maintenance mode?
-    if (Util::getSetting('maintenance') === '1') {
+    if (Settings::get('maintenance') === '1') {
         // Enabled
         // Admins only beyond this point
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
@@ -660,7 +655,7 @@ if ($page != 'install') {
         }
 
         // Auto language enabled?
-        if (Util::getSetting('auto_language_detection')) {
+        if (Settings::get('auto_language_detection')) {
             $smarty->assign('AUTO_LANGUAGE', true);
         }
     }

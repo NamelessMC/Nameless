@@ -177,11 +177,12 @@
     "forum/your_posts": "A hozzászólásaid száma",
     "forum/latest_posts_widget_cached": "A legfrissebb bejegyzések widgetet egy percig a gyorsítótárban van tárolva, ezért előfordulhat, hogy a módosítások nem lépnek azonnal érvénybe.",
     "forum/latest_posts_limit": "A legújabb bejegyzések korlátja",
-    "forum/highest_reaction_scores": "A legmagasabb reakciópontszámok",
+    "forum/highest_reaction_scores": "A legmagasabb fórum reakciópontszámok",
     "forum/most_posts": "Legtöbb poszt",
     "forum/reaction_score": "Reakciópontszám",
     "forum/news_items_max": "A hírek száma maximum {{max}} legyen",
     "forum/news_items_min": "A hírek száma minimum {{min}} legyen",
     "forum/news_items_front_page_limit": "A címlapon megjelenítendő hírek száma",
-    "forum/no_posts_found": "Nem található bejegyzés."
+    "forum/no_posts_found": "Nem található bejegyzés.",
+    "forum/forum_score": "Fórum pontszáma"
 }

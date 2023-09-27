@@ -5,7 +5,6 @@
     "admin/activate": "Povolit",
     "admin/active": "Aktivní",
     "admin/add_server": "Přidat server",
-    "admin/adding_server": "Přidávání serveru",
     "admin/admin_dir_still_exists": "Varování! Adresář modules/Core/pages/admin stále existuje. Odstraňte jej prosím.",
     "admin/administrator": "Administrátor",
     "admin/administrator_permission_info": "Členové s tímto oprávněním mají všechna oprávnění. Udělovat toto oprávnění je nebezpečné.",
@@ -1332,5 +1331,6 @@
     "user/given": "Uděleno",
     "user/minecraft_account": "Účet Minecraft",
     "user/reaction_score": "Reakční skóre",
-    "user/received": "Obdrženo"
+    "user/received": "Obdrženo",
+    "api/groups_updates_ignored": "Požadavek na synchronizaci skupiny je ignorován, protože integrace Minecraftu je zakázána nebo server není nakonfigurován jako server pro synchronizaci skupiny v panelu."
 }

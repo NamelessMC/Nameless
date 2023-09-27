@@ -3,9 +3,9 @@
 class GenerateSitemap extends Task {
 
     public function run(): string {
-        $cache = $this->_container->get('Cache');
-        $language = $this->_container->get('Language');
-        $pages = $this->_container->get('Pages');
+        $cache = $this->_container->get(Cache::class);
+        $language = $this->_container->get(Language::class);
+        $pages = $this->_container->get(Pages::class);
 
         $errors = [];
         $index = rtrim(URL::getSelfURL(), '/') .

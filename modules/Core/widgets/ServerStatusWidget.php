@@ -16,21 +16,13 @@ class ServerStatusWidget extends WidgetBase {
     private Language $_language;
 
     public function __construct(Smarty $smarty, Language $language, Cache $cache) {
-        $this->_language = $language;
-        $this->_smarty = $smarty;
-        $this->_cache = $cache;
-
-        // Get widget
-        $widget_query = self::getData('Server Status');
-
-        parent::__construct(self::parsePages($widget_query));
-
-        // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Server Status';
-        $this->_location = $widget_query->location ?? null;
         $this->_description = 'Display your Minecraft server status.';
-        $this->_order = $widget_query->order ?? null;
+        $this->_smarty = $smarty;
+
+        $this->_language = $language;
+        $this->_cache = $cache;
     }
 
     public function initialise(): void {

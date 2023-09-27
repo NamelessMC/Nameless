@@ -18,7 +18,7 @@ class PluginQuery {
      */
     public static function singleQuery(int $server_id, Language $language): array {
 
-        $player_list_limit = Util::getSetting('player_list_limit', 20);
+        $player_list_limit = Settings::get('player_list_limit', 20);
 
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('latest_query');

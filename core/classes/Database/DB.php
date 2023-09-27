@@ -185,6 +185,15 @@ class DB {
     }
 
     /**
+     * Get whether any results exist.
+     *
+     * @return bool Whether any results exist.
+     */
+    public function exists(): bool {
+        return $this->_count > 0;
+    }
+
+    /**
      * Get the last inserted ID
      *
      * @return string|false ID of the last inserted row or false on failure
@@ -206,10 +215,14 @@ class DB {
      * Perform a SELECT query on the database.
      *
      * @param string $table The table to select from.
-     * @param array $where The where clause.
+     * @param mixed $where The where clause. If not an array, it will be used for "id" column lookup.
      * @return static|false This instance if successful, false otherwise.
      */
-    public function get(string $table, array $where = []) {
+    public function get(string $table, $where = []) {
+        if (!is_array($where)) {
+            $where = ['id', '=', $where];
+        }
+
         return $this->action('SELECT *', $table, $where);
     }
 
@@ -217,10 +230,14 @@ class DB {
      * Perform a DELETE query on the database.
      *
      * @param string $table The table to delete from.
-     * @param array $where The where clause.
+     * @param mixed $where The where clause. If not an array, it will be used for "id" column lookup.
      * @return static|false This instance if successful, false otherwise.
      */
-    public function delete(string $table, array $where) {
+    public function delete(string $table, $where) {
+        if (!is_array($where)) {
+            $where = ['id', '=', $where];
+        }
+
         return $this->action('DELETE', $table, $where);
     }
 

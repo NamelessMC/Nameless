@@ -1,5 +1,5 @@
 {
-    "forum/available_hooks": "Available Hooks",
+    "forum/available_hooks": "Dostępne Moduły",
     "forum/average_posts": "Średnia liczba postów użytkowników",
     "forum/by": "przez",
     "forum/can_create_topic": "Może tworzyć tematy?",
@@ -10,7 +10,7 @@
     "forum/can_view_other_topics": "Może przeglądać tematy innych użytkowników?",
     "forum/confirm_delete_post": "Jesteś pewny że chcesz usunąć ten post?",
     "forum/confirm_delete_topic": "Jesteś pewny że chcesz usunąć ten temat?",
-    "forum/content_min_2": "Zawartość teamtu musi mieć co najmniej 2 znaki",
+    "forum/content_min_2": "Zawartość tematu musi mieć co najmniej 2 znaki",
     "forum/content_required": "Wpisz zawartość tematu",
     "forum/creating_forum": "Tworzenie nowego forum",
     "forum/creating_label": "Tworzenie nowej etykiety",
@@ -156,5 +156,12 @@
     "forum/views": "wyświetlenia",
     "forum/x_posts": "{{count}} postów",
     "forum/x_topics": "{{count}} tematów",
-    "forum/your_posts": "Liczba twoich postów"
+    "forum/your_posts": "Liczba twoich postów",
+    "forum/all_topics_unfollowed": "Wszystkie tematy przestały być obserwowane.",
+    "forum/topic_reply": "Odpowiedz na temat",
+    "forum/confirm_unfollow_all_topics": "Czy na pewno chcesz przestać obserwować wszystkie tematy?",
+    "forum/content_max_50000": "Treść Twojego postu nie może być dłuższa niż 50.000 znaków",
+    "forum/default_labels": "Domyślne Etykiety",
+    "forum/default_labels_info": "Zostaną one przypisane do nowego tematu na forum, chyba że zostaną zastąpione podczas tworzenia tematu. Ctrl + Kliknij, aby wybrać wiele",
+    "forum/following_topics": "Obserwowane Tematy"
 }

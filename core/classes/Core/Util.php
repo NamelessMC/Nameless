@@ -171,7 +171,7 @@ class Util {
      * @param string $module Module name to keep settings separate from other modules. Set module
      *                       to 'Core' for global settings.
      * @return ?string Setting from DB or $fallback.
-     * @deprecated Use Settings::get() instead.
+     * @deprecated Use Settings::get() instead. Will be removed in 2.2.0
      */
     public static function getSetting(string $setting, ?string $fallback = null, string $module = 'core'): ?string {
         return Settings::get($setting, $fallback, $module);
@@ -184,7 +184,7 @@ class Util {
      * @param string|null $new_value New setting value, or null to delete
      * @param string $module Module name to keep settings separate from other modules. Set module
      *                       to 'Core' for global settings.
-     * @deprecated Use Settings::set() instead.
+     * @deprecated Use Settings::set() instead. Will be removed in 2.2.0
      */
     public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
         Settings::set($setting, $new_value, $module);

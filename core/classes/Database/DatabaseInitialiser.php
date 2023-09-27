@@ -65,7 +65,7 @@ class DatabaseInitialiser {
             'order' => 4
         ]);
 
-        Util::setSetting('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
+        Settings::set('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
     }
 
     private function initialiseLanguages(): void {
@@ -155,61 +155,83 @@ class DatabaseInitialiser {
     private function initialiseReactions(): void {
         $this->_db->insert('reactions', [
             'name' => 'Like',
-            'html' => '<i class="fas fa-thumbs-up text-success"></i>',
+            'html' => '👍',
             'enabled' => true,
-            'type' => 2
+            'type' => Reaction::TYPE_POSITIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Dislike',
-            'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
+            'html' => '👎',
             'enabled' => true,
-            'type' => 0
+            'type' => Reaction::TYPE_NEGATIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Meh',
-            'html' => '<i class="fas fa-meh text-warning"></i>',
+            'html' => '😐',
             'enabled' => true,
-            'type' => 1
+            'type' => Reaction::TYPE_NEUTRAL,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Helpful',
+            'html' => '🛠️',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Creative',
+            'html' => '🌈',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Amazing',
+            'html' => '⭐',
+            'enabled' => true,
+            'type' => Reaction::TYPE_CUSTOM,
+            'custom_score' => 5,
         ]);
     }
 
     private function initialiseSettings(): void {
-        Util::setSetting('registration_enabled', '1');
-        Util::setSetting('displaynames', '0');
-        Util::setSetting('uuid_linking', '1');
-        Util::setSetting('recaptcha', '0');
-        Util::setSetting('recaptcha_type', 'Recaptcha3');
-        Util::setSetting('recaptcha_login', '0');
-        Util::setSetting('email_verification', '1');
-        Util::setSetting('nameless_version', '2.1.2');
-        Util::setSetting('version_checked', date('U'));
-        Util::setSetting('phpmailer', '0');
-        Util::setSetting('user_avatars', '0');
-        Util::setSetting('avatar_site', 'cravatar');
-        Util::setSetting(Settings::MINECRAFT_INTEGRATION, '1');
-        Util::setSetting('discord_integration', '0');
-        Util::setSetting('avatar_type', 'helmavatar');
-        Util::setSetting('home_type', 'news');
-        Util::setSetting('forum_reactions', '1');
-        Util::setSetting('error_reporting', '0');
-        Util::setSetting('page_loading', '0');
-        Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
-        Util::setSetting('use_api', 0);
-        Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
-        Util::setSetting('query_type', 'internal');
-        Util::setSetting('player_list_limit', '20');
-        Util::setSetting('timezone', $_SESSION['install_timezone']);
-        Util::setSetting('maintenance', '0');
-        Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
-        Util::setSetting('default_avatar_type', 'minecraft');
-        Util::setSetting('private_profile', '1');
-        Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
-        Util::setSetting('login_method', 'email');
-        Util::setSetting('username_sync', '1');
-        Util::setSetting('status_page', '0');
-        Util::setSetting('placeholders', '0');
+        Settings::set('registration_enabled', '1');
+        Settings::set('displaynames', '0');
+        Settings::set('uuid_linking', '1');
+        Settings::set('recaptcha', '0');
+        Settings::set('recaptcha_type', 'Recaptcha3');
+        Settings::set('recaptcha_login', '0');
+        Settings::set('email_verification', '1');
+        Settings::set('nameless_version', '2.1.2');
+        Settings::set('version_checked', date('U'));
+        Settings::set('phpmailer', '0');
+        Settings::set('user_avatars', '0');
+        Settings::set('avatar_site', 'cravatar');
+        Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
+        Settings::set('discord_integration', '0');
+        Settings::set('avatar_type', 'helmavatar');
+        Settings::set('home_type', 'news');
+        Settings::set('forum_reactions', '1');
+        Settings::set('error_reporting', '0');
+        Settings::set('page_loading', '0');
+        Settings::set('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
+        Settings::set('use_api', 0);
+        Settings::set('mc_api_key', SecureRandom::alphanumeric());
+        Settings::set('query_type', 'internal');
+        Settings::set('player_list_limit', '20');
+        Settings::set('timezone', $_SESSION['install_timezone']);
+        Settings::set('maintenance', '0');
+        Settings::set('maintenance_message', 'This website is currently in maintenance mode.');
+        Settings::set('default_avatar_type', 'minecraft');
+        Settings::set('private_profile', '1');
+        Settings::set('validate_user_action', '{"action":"promote","group":1}');
+        Settings::set('login_method', 'email');
+        Settings::set('username_sync', '1');
+        Settings::set('status_page', '0');
+        Settings::set('placeholders', '0');
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
@@ -232,7 +254,7 @@ class DatabaseInitialiser {
                         'for any loss of data which may come about, for example a hacking attempt. ' .
                         'The website is run independently from the software creators, and any content' .
                         ' is the responsibility of the website administration.';
-        Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
+        Settings::set('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
     }
 
     private function initialiseTasks(): void {

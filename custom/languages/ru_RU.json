@@ -5,7 +5,6 @@
     "admin/activate": "Активировать",
     "admin/active": "Активный",
     "admin/add_server": "Добавить сервер",
-    "admin/adding_server": "Добавление сервера",
     "admin/admin_dir_still_exists": "Предупреждение! Каталог modules/Core/pages/admin всё ещё существует. Пожалуйста, удалите этот каталог.",
     "admin/administrator": "Администратор",
     "admin/administrator_permission_info": "Пользователи смогут иметь доступ ко всему на сайте. Это может ввести за собой риски при выдаче пользователям.",

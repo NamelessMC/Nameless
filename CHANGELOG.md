@@ -51,6 +51,32 @@
 - Fix outdated event [#3394](https://github.com/NamelessMC/Nameless/pull/3394)
 - Fix OAuth linking for forced integrations [#3395](https://github.com/NamelessMC/Nameless/pull/3395)
 
+## [2.1.1](https://github.com/NamelessMC/Nameless/compare/v2.1.0...v2.1.1) - 2023-06-18
+### Added
+- Add Russian translation for Members module [#3352](https://github.com/NamelessMC/Nameless/pull/3352)
+
+### Changed
+- Add all missing languages to the Members module [#3350](https://github.com/NamelessMC/Nameless/pull/3350)
+- Remove unable to update groups catch [#3360](https://github.com/NamelessMC/Nameless/pull/3360)
+- Call compileQueries only when needed [#3386](https://github.com/NamelessMC/Nameless/pull/3386)
+- Remove Discord discriminator requirement [#3374](https://github.com/NamelessMC/Nameless/pull/3374)
+- Require module autoload file before module init [#3397](https://github.com/NamelessMC/Nameless/pull/3397)
+
+### Fixed
+- Fix AuthMe enabled value [#3349](https://github.com/NamelessMC/Nameless/pull/3349)
+- Ensure Minecraft integration is enabled [#3356](https://github.com/NamelessMC/Nameless/pull/3356)
+- Include .htaccess file in release zip [#3362](https://github.com/NamelessMC/Nameless/pull/3362)
+- Fix missing cache settings [#3361](https://github.com/NamelessMC/Nameless/pull/3361)
+- Fix user group issue [#3365](https://github.com/NamelessMC/Nameless/pull/3365)
+- Fix forum title/description encoding on edit [#3359](https://github.com/NamelessMC/Nameless/pull/3359)
+- Remove placeholder from singular message [#3369](https://github.com/NamelessMC/Nameless/pull/3369)
+- Fix not being able to see Members page in Navigation settings [#3372](https://github.com/NamelessMC/Nameless/pull/3372)
+- Fix multi query [#3383](https://github.com/NamelessMC/Nameless/pull/3383)
+- Fix icon not being properly shown [#3377](https://github.com/NamelessMC/Nameless/pull/3377)
+- Fix ghost player on status page [#3351](https://github.com/NamelessMC/Nameless/pull/3351)
+- Fix outdated event [#3394](https://github.com/NamelessMC/Nameless/pull/3394)
+- Fix OAuth linking for forced integrations [#3395](https://github.com/NamelessMC/Nameless/pull/3395)
+
 ## [2.1.0](https://github.com/NamelessMC/Nameless/compare/v2.0.3...v2.1.0) - 2023-05-01
 ### Added
 - Add dark mode toggle switch [#2877](https://github.com/NamelessMC/Nameless/pull/2877)

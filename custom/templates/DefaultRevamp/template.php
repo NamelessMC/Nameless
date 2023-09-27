@@ -109,7 +109,7 @@ class DefaultRevamp_Template extends TemplateBase {
             'debugging' => (defined('DEBUGGING') && DEBUGGING == 1) ? '1' : '0',
             'loggedIn' => $this->_user->isLoggedIn() ? '1' : '0',
             'cookie' => defined('COOKIE_NOTICE') ? '1' : '0',
-            'loadingTime' => Util::getSetting('page_loading') === '1' ? PAGE_LOAD_TIME : '',
+            'loadingTime' => Settings::get('page_loading') === '1' ? PAGE_LOAD_TIME : '',
             'route' => $route,
             'csrfToken' => Token::get(),
         ];

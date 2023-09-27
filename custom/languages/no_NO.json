@@ -4,7 +4,6 @@
     "admin/activate": "Aktiver",
     "admin/active": "Aktiv",
     "admin/add_server": "Legg til en server",
-    "admin/adding_server": "Legger til en server",
     "admin/admin_dir_still_exists": "Advarsel! /modules/Core/pages/admin-mappen eksisterer fortsatt. Vennligst fjern denne mappen.",
     "admin/all_logs": "Alle logger",
     "admin/allow_custom_avatars": "Tillatt egne avatarer?",

@@ -5,7 +5,6 @@
     "admin/activate": "Активувати",
     "admin/active": "Активний",
     "admin/add_server": "Додати сервер",
-    "admin/adding_server": "Додавання сервера",
     "admin/admin_dir_still_exists": "Попередження! Каталог modules/Core/pages/admin все ще існує. Будь ласка, видаліть цей каталог.",
     "admin/administrator": "Адміністратор",
     "admin/administrator_permission_info": "Учасники з цим дозволом матимуть усі дозволи. Надавати цей дозвіл небеспечно.",

@@ -145,7 +145,7 @@ abstract class UpgradeScript {
      * Execute any pending database migrations.
      */
     protected function runMigrations(): void {
-        PhinxAdapter::migrate();
+        PhinxAdapter::migrate('Core');
     }
 
     /**
@@ -154,7 +154,7 @@ abstract class UpgradeScript {
      * @param string $version Version to set
      */
     protected function setVersion(string $version): void {
-        Util::setSetting('nameless_version', $version);
-        Util::setSetting('version_update', null);
+        Settings::set('nameless_version', $version);
+        Settings::set('version_update', null);
     }
 }
