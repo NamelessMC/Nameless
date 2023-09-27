@@ -6,7 +6,7 @@
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener
- * @version 2.1.1
+ * @version 2.2.0
  * @license MIT
  */
 class User {
@@ -1065,5 +1065,43 @@ class User {
                 $last_updated
             ]);
         }
+    }
+
+    /**
+     * Get user's notification preferences
+     *
+     * TODO: return type (PHP 8)
+     *
+     * @param string $type Optional type of notification to filter by
+     *
+     * @return UserNotificationData|UserNotificationData[]|null
+     */
+    public function getNotificationPreferences(string $type = '') {
+        if ($this->exists()) {
+            $where = 'user_id = ?';
+            $whereVars = [$this->data()->id];
+
+            if (!empty($type)) {
+                $where .= ' AND `type` = ?';
+                $whereVars[] = $type;
+            }
+
+            $this->_db->get(
+                <<<SQL
+                    SELECT `type`, `alert`, `email`
+                    FROM nl2_users_notification_preferences
+                    WHERE $where
+                SQL,
+                $whereVars
+            );
+
+            if (!empty($type)) {
+                return $this->_db->first();
+            }
+
+            return $this->_db->results();
+        }
+
+        return null;
     }
 }
