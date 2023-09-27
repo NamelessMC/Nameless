@@ -5,7 +5,7 @@
  *
  *  For NamelessMC
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.1
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -24,8 +24,8 @@ if (!class_exists('Default_Panel_Template')) {
 
             parent::__construct(
                 'Default',  // Template name
-                '2.1.1',  // Template version
-                '2.1.1',  // Nameless version template is made for
+                '2.1.2',  // Template version
+                '2.1.2',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 

@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.1.1
+ * @version 2.1.2
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
