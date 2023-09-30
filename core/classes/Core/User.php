@@ -6,7 +6,7 @@
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener
- * @version 2.1.1
+ * @version 2.1.2
  * @license MIT
  */
 class User {
@@ -134,6 +134,12 @@ class User {
             return false;
         }
 
+        $group = Group::find($group_id);
+        if (!$group) {
+            ErrorHandler::logWarning('Could not add invalid group ' . $group_id . ' to user ' . $this->data()->id);
+            return false;
+        }
+
         $this->_db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
             $this->data()->id,
             $group_id,
@@ -141,10 +147,8 @@ class User {
             $expire
         ]);
 
-        $group = Group::find($group_id);
-        if ($group) {
-            $this->_groups[$group_id] = $group;
-        }
+        $this->_groups[$group_id] = $group;
+        self::$_group_cache[$this->data()->id][$group_id] = $group;
 
         EventHandler::executeEvent(new UserGroupAddedEvent(
             $this,
@@ -524,28 +528,26 @@ class User {
         }
 
         if (isset(self::$_group_cache[$this->data()->id])) {
-            $groups_query = self::$_group_cache[$this->data()->id];
+            $this->_groups = self::$_group_cache[$this->data()->id];
         } else {
             $groups_query = $this->_db->query('SELECT nl2_groups.* FROM nl2_users_groups INNER JOIN nl2_groups ON group_id = nl2_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
             if ($groups_query->count()) {
-                $groups_query = $groups_query->results();
+                foreach ($groups_query->results() as $item) {
+                    $this->_groups[$item->id] = new Group($item);
+                }
             } else {
-                $groups_query = [];
+                $this->_groups = [];
             }
-            self::$_group_cache[$this->data()->id] = $groups_query;
+
+            self::$_group_cache[$this->data()->id] = $this->_groups;
         }
 
-        if ($groups_query) {
-            foreach ($groups_query as $item) {
-                $this->_groups[$item->id] = new Group($item);
-            }
-        } else {
+        if (!count($this->_groups)) {
             // Get default group
             // TODO: Use PRE_VALIDATED_DEFAULT ?
             $default_group = Group::find(1, 'default_group');
             $default_group_id = $default_group->id ?? 1;
 
-            $this->_groups = [];
             $this->addGroup($default_group_id);
         }
 
@@ -659,6 +661,12 @@ class User {
      * @return false|void
      */
     public function setGroup(int $group_id, int $expire = 0) {
+        $group = Group::find($group_id);
+        if (!$group) {
+            ErrorHandler::logWarning('Could not set invalid group ' . $group_id . ' to user ' . $this->data()->id);
+            return false;
+        }
+
         if ($this->data()->id == 1) {
             return false;
         }
@@ -673,10 +681,9 @@ class User {
         ]);
 
         $this->_groups = [];
-        $group = Group::find($group_id);
-        if ($group) {
-            $this->_groups[$group_id] = $group;
-        }
+        $this->_groups[$group_id] = $group;
+        self::$_group_cache[$this->data()->id] = $this->_groups;
+
     }
 
     /**
@@ -706,6 +713,7 @@ class User {
         ));
 
         unset($this->_groups[$group_id]);
+        unset(self::$_group_cache[$this->data()->id][$group_id]);
 
         return true;
     }

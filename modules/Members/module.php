@@ -2,7 +2,7 @@
 /*
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.1
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -20,8 +20,8 @@ class Members_Module extends Module {
 
         $name = 'Members';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
-        $module_version = '2.1.1';
-        $nameless_version = '2.1.1';
+        $module_version = '2.1.2';
+        $nameless_version = '2.1.2';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
