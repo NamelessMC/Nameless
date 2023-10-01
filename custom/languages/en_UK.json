@@ -1290,6 +1290,7 @@
     "user/to": "To",
     "user/topic_updates": "Get emails for topics you follow",
     "user/two_factor_auth": "Two Factor Authentication",
+    "user/two_factor_auth_code": "Two Factor Authentication Code",
     "user/unable_to_connect_to_authme_db": "Unable to connect to the AuthMe database. If this error persists, please contact an administrator.",
     "user/unable_to_send_forgot_password_email": "Unable to send forgot password email. Please contact an administrator.",
     "user/unblock_user": "Unblock User",

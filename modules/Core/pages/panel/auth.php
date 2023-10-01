@@ -41,24 +41,40 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             $user = new User();
-            $login = $user->adminLogin($user->data()->email, Input::get('password'), 'email');
 
-            if ($login) {
-                // Get IP
-                $ip = HttpUtils::getRemoteAddress();
+            if ($user->checkCredentials($user->data()->email, Input::get('password'))) {
+                $success = true;
 
-                // Create log
-                Log::getInstance()->log(Log::Action('admin/login'));
+                if ($user->data()->tfa_type === 1 && $user->data()->tfa_complete == 1) {
+                    $success = false;
+                    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
-                // Redirect to a certain page?
-                if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
-                    Redirect::back();
-                } else {
-                    Redirect::to(URL::build('/panel'));
+                    if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
+                        Session::flash('adm_auth_error', $language->get('user', 'invalid_tfa'));
+                    } else {
+                        $success = true;
+                    }
                 }
-            }
 
-            Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
+                if ($success) {
+                    // Get IP
+                    $ip = HttpUtils::getRemoteAddress();
+
+                    // Create log
+                    Log::getInstance()->log(Log::Action('admin/login'));
+
+                    $user->adminLogin($user->data()->email, Input::get('password'));
+
+                    // Redirect to a certain page?
+                    if (isset($_SESSION['last_page']) && substr($_SESSION['last_page'], -1) != '=') {
+                        Redirect::back();
+                    } else {
+                        Redirect::to(URL::build('/panel'));
+                    }
+                }
+            } else {
+                Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
+            }
         } else {
             Session::flash('adm_auth_error', $language->get('user', 'incorrect_details'));
         }
@@ -75,6 +91,13 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel')
 ]);
+
+if ($user->data()->tfa_type === 1 && $user->data()->tfa_complete == 1) {
+    $smarty->assign([
+        'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+        'TFA_ENTER_CODE' => $language->get('user', 'two_factor_auth_code'),
+    ]);
+}
 
 if (Session::exists('adm_auth_error')) {
     $smarty->assign('ERROR', Session::flash('adm_auth_error'));
