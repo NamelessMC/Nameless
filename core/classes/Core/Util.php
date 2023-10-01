@@ -47,8 +47,8 @@ class Util {
      * @return bool Whether the action succeeded or not.
      */
     public static function recursiveRemoveDirectory(string $directory): bool {
-        // safety precaution, only allow deleting files in "custom" directory
-        if (!str_contains($directory, 'custom')) {
+        // safety precaution, only allow deleting files in "custom" or "modules" directory
+        if (str_contains($directory, "Core") || !str_contains($directory, 'custom') || !str_contains($directory, 'modules')) {
             return false;
         }
 
