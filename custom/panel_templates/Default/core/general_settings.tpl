@@ -217,6 +217,17 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <div class="col-md-6">
+                                            <label for="inputRequirePanelTFA">{$REQUIRE_STAFFCP_TFA}</label>
+                                            <select name="require_staffcp_tfa" class="form-control" id="inputRequirePanelTFA">
+                                                <option value="true" {if $REQUIRE_STAFFCP_TFA_VALUE} selected{/if}>
+                                                    {$ENABLED}
+                                                </option>
+                                                <option value="false" {if !$REQUIRE_STAFFCP_TFA_VALUE} selected{/if}>
+                                                    {$DISABLED}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">

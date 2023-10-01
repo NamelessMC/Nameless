@@ -573,6 +573,7 @@
     "admin/render_profile_post_hook_info": "Render profile post",
     "admin/report_hook_info": "Report creation",
     "admin/require_integration": "Require users to link and verify integration",
+    "admin/require_two_factor_for_staffcp": "Require two factor authentication for StaffCP login (if enabled for the user)",
     "admin/required": "Required",
     "admin/resend_activation_email": "Resend Activation Email",
     "admin/reset_background": "Reset Background",

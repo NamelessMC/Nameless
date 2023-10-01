@@ -45,7 +45,11 @@ if (Input::exists()) {
             if ($user->checkCredentials($user->data()->email, Input::get('password'))) {
                 $success = true;
 
-                if ($user->data()->tfa_type === 1 && $user->data()->tfa_complete == 1) {
+                if (
+                    Settings::get('require_staffcp_tfa') &&
+                    $user->data()->tfa_type === 1 &&
+                    $user->data()->tfa_complete == 1
+                ) {
                     $success = false;
                     $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
 
@@ -92,7 +96,11 @@ $smarty->assign([
     'CANCEL' => $language->get('general', 'cancel')
 ]);
 
-if ($user->data()->tfa_type === 1 && $user->data()->tfa_complete == 1) {
+if (
+    Settings::get('require_staffcp_tfa') &&
+    $user->data()->tfa_type === 1 &&
+    $user->data()->tfa_complete == 1
+) {
     $smarty->assign([
         'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
         'TFA_ENTER_CODE' => $language->get('user', 'two_factor_auth_code'),
