@@ -1,4 +1,19 @@
 <?php
+/**
+ * Query to retrieve reactions data
+ *
+ * @author Aberdeener
+ * @version 2.2.0
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
+ */
 
 // TODO: Alert notifications for reactions? We should add some sort of debounce to prevent spamming notifications
 
@@ -120,13 +135,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         return $a['order'] - $b['order'];
     });
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ACTIVE_TAB' => $_GET['tab'],
         'REACTIONS' => $formatted_reactions,
     ]);
 
     // modal
-    die($template->getTemplate('reactions_modal.tpl', $smarty));
+    die($template->getTemplate('reactions_modal'));
 }
 
 // add reaction

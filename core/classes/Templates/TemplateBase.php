@@ -46,6 +46,9 @@ abstract class TemplateBase {
      */
     protected array $_js = [];
 
+    /** @var TemplateEngine Template engine instance */
+    protected TemplateEngine $_engine;
+
     public function __construct(string $name, string $version, string $nameless_version, string $author) {
         $this->_name = $name;
         $this->_version = $version;
@@ -170,29 +173,31 @@ abstract class TemplateBase {
     }
 
     /**
-     * Render this template with Smarty engine.
+     * Render this template.
+     *
+     * @param string $template Template file to render, relative to template base directory
      */
-    public function displayTemplate(string $template, Smarty $smarty): void {
+    public function displayTemplate(string $template): void {
         [$css, $js] = $this->assets()->compile();
 
         // Put the assets at the start of the arrays, so they load first (SBAdmin requires JQuery first, etc.)
         array_unshift($this->_css, ...$css);
         array_unshift($this->_js, ...$js);
 
-        $smarty->assign([
+        $this->_engine->addVariables([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS()
+            'TEMPLATE_JS' => $this->getJS(),
         ]);
 
         if (defined('PHPDEBUGBAR') && PHPDEBUGBAR) {
             $debugBar = DebugBarHelper::getInstance()->getDebugBar()->getJavascriptRenderer();
-            $smarty->assign([
+            $this->_engine->addVariables([
                 'DEBUGBAR_JS' => $debugBar->renderHead(),
-                'DEBUGBAR_HTML' => $debugBar->render()
+                'DEBUGBAR_HTML' => $debugBar->render(),
             ]);
         }
 
-        $smarty->display($template);
+        $this->_engine->render($template);
     }
 
     /**
@@ -213,12 +218,27 @@ abstract class TemplateBase {
         return $this->_js;
     }
 
-    public function getTemplate(string $template, Smarty $smarty): string {
-        $smarty->assign([
+    /**
+     * Fetches template HTML instead of rendering it
+     *
+     * @param string $template
+     * @return string Generated HTML
+     */
+    public function getTemplate(string $template): string {
+        $this->_engine->addVariables([
             'TEMPLATE_CSS' => $this->getCSS(),
             'TEMPLATE_JS' => $this->getJS()
         ]);
 
-        return $smarty->fetch($template);
+        return $this->_engine->fetch($template);
+    }
+
+    /**
+     * Get template engine
+     *
+     * @return TemplateEngine
+     */
+    public function getEngine(): TemplateEngine {
+        return $this->_engine;
     }
 }

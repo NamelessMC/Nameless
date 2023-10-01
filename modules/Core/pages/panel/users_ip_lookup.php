@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel user IP lookup page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel IP lookup page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('modcp.ip_lookup')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'ip_lookup';
 $page_title = $language->get('moderator', 'ip_lookup');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -56,18 +65,18 @@ if (isset($_GET['uid'])) {
             ]);
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'ACCOUNTS' => $accounts,
             'COUNT_ACCOUNTS' => $count_accounts,
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/users/ip_lookup')
+            'BACK_LINK' => URL::build('/panel/users/ip_lookup'),
         ]);
 
-        $template_file = 'core/users_ip_lookup_results.tpl';
+        $template_file = 'core/users_ip_lookup_results';
     } else {
         $errors = [$language->get('moderator', 'no_ips_with_username')];
 
-        $template_file = 'core/users_ip_lookup.tpl';
+        $template_file = 'core/users_ip_lookup';
     }
 } else {
     if (isset($_GET['ip'])) {
@@ -78,7 +87,7 @@ if (isset($_GET['uid'])) {
         if (!count($ip_accounts)) {
             $errors = [$language->get('moderator', 'no_accounts_with_that_ip')];
 
-            $template_file = 'core/users_ip_lookup.tpl';
+            $template_file = 'core/users_ip_lookup';
         } else {
             $accounts = [];
 
@@ -102,7 +111,7 @@ if (isset($_GET['uid'])) {
                 $count_accounts = $language->get('moderator', 'count_accounts_with_ip', ['count' => count($ip_accounts), 'address' => Output::getClean($_GET['ip'])]);
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'IP_SEARCH' => true,
                 'ACCOUNTS' => $accounts,
                 'COUNT_ACCOUNTS' => $count_accounts,
@@ -110,7 +119,7 @@ if (isset($_GET['uid'])) {
                 'BACK_LINK' => URL::build('/panel/users/ip_lookup')
             ]);
 
-            $template_file = 'core/users_ip_lookup_results.tpl';
+            $template_file = 'core/users_ip_lookup_results';
         }
     } else {
         if (Input::exists()) {
@@ -141,25 +150,25 @@ if (isset($_GET['uid'])) {
             }
         }
 
-        $template_file = 'core/users_ip_lookup.tpl';
+        $template_file = 'core/users_ip_lookup';
     }
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -167,12 +176,12 @@ $smarty->assign([
     'IP_LOOKUP' => $language->get('moderator', 'ip_lookup'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

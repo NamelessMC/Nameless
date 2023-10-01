@@ -1,12 +1,21 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Login page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Login page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Set page name variable
@@ -248,13 +257,13 @@ Session::put('oauth_method', 'login');
 // Sign in template
 // Generate content
 if ($login_method == 'email') {
-    $smarty->assign('EMAIL', $language->get('user', 'email'));
+    $template->getEngine()->addVariable('EMAIL', $language->get('user', 'email'));
 } else if ($login_method == 'email_or_username') {
-    $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
+    $template->getEngine()->addVariable('USERNAME', $language->get('user', 'email_or_username'));
 } else if (Settings::get('mc_integration')) {
-    $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
+    $template->getEngine()->addVariable('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
-    $smarty->assign('USERNAME', $language->get('user', 'username'));
+    $template->getEngine()->addVariable('USERNAME', $language->get('user', 'username'));
 }
 
 // Add "login with..." message to provider array
@@ -265,7 +274,7 @@ foreach ($providers as $name => $provider) {
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'USERNAME_INPUT' => ($login_method == 'email' ? Output::getClean(Input::get('email')) : Output::getClean(Input::get('username'))),
     'PASSWORD' => $language->get('user', 'password'),
     'REMEMBER_ME' => $language->get('user', 'remember_me'),
@@ -284,17 +293,17 @@ $smarty->assign([
 ]);
 
 if (Session::exists('oauth_error')) {
-    $smarty->assign('ERROR', [Session::flash('oauth_error')]);
+    $template->getEngine()->addVariable('ERROR', [Session::flash('oauth_error')]);
 } else if (isset($return_error)) {
-    $smarty->assign('ERROR', $return_error);
+    $template->getEngine()->addVariable('ERROR', $return_error);
 }
 
 if (Session::exists('login_success')) {
-    $smarty->assign('SUCCESS', Session::flash('login_success'));
+    $template->getEngine()->addVariable('SUCCESS', Session::flash('login_success'));
 }
 
 if ($captcha) {
-    $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+    $template->getEngine()->addVariable('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles([CaptchaBase::getActiveProvider()->getJavascriptSource() => []]);
 
     $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-login');
@@ -313,8 +322,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('login.tpl', $smarty);
+$template->displayTemplate('login');

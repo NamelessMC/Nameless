@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+/**
+ * Staff panel email errors page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel API page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'email_errors');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['do'])) {
     if (in_array($_GET['do'], ['delete', 'purge'])) {
@@ -74,7 +83,7 @@ if (isset($_GET['do'])) {
                 break;
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'BACK_LINK' => URL::build('/panel/core/emails/errors'),
             'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
             'USERNAME' => $language->get('user', 'username'),
@@ -101,7 +110,7 @@ if (isset($_GET['do'])) {
             if (count($user_validated)) {
                 $user_validated = $user_validated[0];
                 if ($user_validated->active == 0) {
-                    $smarty->assign([
+                    $template->getEngine()->addVariables([
                         'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($error->user_id) . '&amp;action=validate'),
                         'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
                     ]);
@@ -112,7 +121,7 @@ if (isset($_GET['do'])) {
             if (count($user_error)) {
                 $user_error = $user_error[0];
                 if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
-                    $smarty->assign([
+                    $template->getEngine()->addVariables([
                         'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
                         'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
                         'REGISTRATION_LINK_VALUE' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
@@ -121,7 +130,7 @@ if (isset($_GET['do'])) {
             }
         }
 
-        $template_file = 'core/emails_errors_view.tpl';
+        $template_file = 'core/emails_errors_view';
     } else {
         Redirect::to(URL::build('/panel/core/emails/errors'));
     }
@@ -150,7 +159,7 @@ if (isset($_GET['do'])) {
     $results = $paginator->getLimited($email_errors, 10, $p, count($email_errors));
     $pagination = $paginator->generate(7, URL::build('/panel/core/emails/errors'));
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'BACK_LINK' => URL::build('/panel/core/emails'),
         'TYPE' => $language->get('admin', 'type'),
         'DATE' => $language->get('general', 'date'),
@@ -192,7 +201,7 @@ if (isset($_GET['do'])) {
             ];
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'EMAIL_ERRORS_ARRAY' => $template_errors,
             'DELETE_LINK' => URL::build('/panel/core/emails/errors/', 'do=delete&id={x}'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -205,21 +214,19 @@ if (isset($_GET['do'])) {
             'PAGINATION' => $pagination
         ]);
     } else {
-        $smarty->assign([
-            'NO_ERRORS' => $language->get('admin', 'no_email_errors')
-        ]);
+        $template->getEngine()->addVariable('NO_ERRORS', $language->get('admin', 'no_email_errors'));
     }
 
-    $template_file = 'core/emails_errors.tpl';
+    $template_file = 'core/emails_errors';
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('emails_errors_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('emails_errors_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
@@ -228,13 +235,13 @@ if (Session::exists('emails_errors_error')) {
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -248,7 +255,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

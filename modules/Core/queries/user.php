@@ -1,4 +1,21 @@
 <?php
+/**
+ * Query to retrieve public data about a user
+ * Gets user ID from 'id' GET request
+ *
+ * @author Samerton
+ * @version 2.2.0
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
+ */
+
 // Check user ID is specified
 if (!isset($_GET['id'])) {
     die(json_encode(['html' => 'Error: Invalid ID']));
@@ -41,7 +58,7 @@ if (!is_numeric($_GET['id'])) {
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PROFILE' => $profile,
     'USERNAME' => $username,
     'NICKNAME' => $nickname,
@@ -64,5 +81,5 @@ echo json_encode([
     'avatar' => $avatar,
     'style' => $style,
     'groups' => $groups,
-    'html' => $template->getTemplate('user_popover.tpl', $smarty)
+    'html' => $template->getTemplate('user_popover')
 ], JSON_PRETTY_PRINT);

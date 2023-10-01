@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+/**
+ * Staff panel custom pages page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel custom pages page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.pages')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'pages';
 const PANEL_PAGE = 'custom_pages';
 $page_title = $language->get('admin', 'custom_pages');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -37,7 +46,7 @@ if (!isset($_GET['action'])) {
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'NEW_PAGE' => $language->get('admin', 'new_page'),
         'NEW_PAGE_LINK' => URL::build('/panel/core/pages/', 'action=new'),
         'EDIT' => $language->get('general', 'edit'),
@@ -51,7 +60,7 @@ if (!isset($_GET['action'])) {
         'DELETE_LINK' => URL::build('/panel/core/pages', 'action=delete'),
     ]);
 
-    $template_file = 'core/pages.tpl';
+    $template_file = 'core/pages';
 } else {
     switch ($_GET['action']) {
         case 'new':
@@ -198,7 +207,7 @@ if (!isset($_GET['action'])) {
                 $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => $content])['content'];
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/core/pages'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -228,7 +237,7 @@ if (!isset($_GET['action'])) {
                 'GROUP' => $language->get('admin', 'group'),
                 'VIEW_PAGE' => $language->get('admin', 'view_page'),
                 'GUESTS' => $language->get('user', 'guests'),
-                'GROUPS' => $template_array
+                'GROUPS' => $template_array,
             ]);
 
             $template->assets()->include([
@@ -237,7 +246,7 @@ if (!isset($_GET['action'])) {
 
             $template->addJSScript(Input::createTinyEditor($language, 'inputContent', $content, true, true));
 
-            $template_file = 'core/pages_new.tpl';
+            $template_file = 'core/pages_new';
 
             break;
 
@@ -494,7 +503,7 @@ if (!isset($_GET['action'])) {
 
             $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => ($_POST['content'] ?: $page->content)])['content'];
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/core/pages'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -533,7 +542,7 @@ if (!isset($_GET['action'])) {
                 'VIEW_PAGE' => $language->get('admin', 'view_page'),
                 'GUESTS' => $language->get('user', 'guests'),
                 'GROUPS' => $template_array,
-                'GUEST_PERMS' => $guest_can_view
+                'GUEST_PERMS' => $guest_can_view,
             ]);
 
             $template->assets()->include([
@@ -542,7 +551,7 @@ if (!isset($_GET['action'])) {
 
             $template->addJSScript(Input::createTinyEditor($language, 'inputContent', $content, true, true));
 
-            $template_file = 'core/pages_edit.tpl';
+            $template_file = 'core/pages_edit';
 
             break;
 
@@ -576,32 +585,32 @@ if (Session::exists('admin_pages_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'PAGES' => $language->get('admin', 'pages'),
     'CUSTOM_PAGES' => $language->get('admin', 'custom_pages'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

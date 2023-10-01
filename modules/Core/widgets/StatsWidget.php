@@ -2,9 +2,9 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Statistics Widget // By Xemah // https://xemah.me
  */
@@ -14,11 +14,11 @@ class StatsWidget extends WidgetBase {
     private Cache $_cache;
     private Language $_language;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
         $this->_module = 'Core';
         $this->_name = 'Statistics';
         $this->_description = 'Displays the basic statistics of your website.';
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
 
         $this->_cache = $cache;
         $this->_language = $language;
@@ -92,7 +92,7 @@ class StatsWidget extends WidgetBase {
                 $total_posts = $this->_cache->retrieve('total_posts');
             }
 
-            $this->_smarty->assign([
+            $this->_engine->addVariables([
                 'FORUM_STATISTICS' => $this->_language->get('general', 'forum_statistics'),
                 'TOTAL_THREADS' => $this->_language->get('general', 'total_threads'),
                 'TOTAL_THREADS_VALUE' => $total_topics,
@@ -101,7 +101,7 @@ class StatsWidget extends WidgetBase {
             ]);
         }
 
-        $this->_smarty->assign([
+        $this->_engine->addVariables([
             'STATISTICS' => $this->_language->get('general', 'statistics'),
             'USERS_REGISTERED' => $this->_language->get('general', 'users_registered'),
             'USERS_REGISTERED_VALUE' => $users_registered,
@@ -115,6 +115,6 @@ class StatsWidget extends WidgetBase {
             'TOTAL_ONLINE_VALUE' => $online_guests + $online_users,
         ]);
 
-        $this->_content = $this->_smarty->fetch('widgets/statistics.tpl');
+        $this->_content = $this->_engine->fetch('widgets/statistics');
     }
 }

@@ -1,17 +1,28 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Member list page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @license MIT
+ * @version 2.2.0
  *
- *  Member list page
+ * @var array $template_pagination
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Language $members_language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 const PAGE = 'members';
 $page_title = $members_language->get('members', 'members');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 if (isset($_GET['group'])) {
     if (!in_array($_GET['group'], json_decode(Settings::get('member_list_viewable_groups', '{}', 'Members'), true))) {
@@ -20,7 +31,7 @@ if (isset($_GET['group'])) {
 
     $viewing_list = 'group';
     $viewing_group = Group::find($_GET['group']);
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'VIEWING_GROUP' => [
             'id' => $viewing_group->id,
             'name' => Output::getClean($viewing_group->name),
@@ -53,7 +64,7 @@ foreach ($query->results() as $new_member) {
 }
 
 if (isset($error)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERROR' => $error,
     ]);
@@ -86,9 +97,7 @@ if ($viewing_list !== 'overview') {
         $template_pagination_right ?? null
     );
     $paginator->setValues($member_count, 20, $_GET['p'] ?? 1);
-    $smarty->assign([
-        'PAGINATION' => $paginator->generate(6, URL::build('/members/', $url_param)),
-    ]);
+    $template->getEngine()->addVariable('PAGINATION', $paginator->generate(6, URL::build('/members/', $url_param)));
 }
 
 // Sort sidebar lists to have displayOnOverview lists first
@@ -97,7 +106,7 @@ usort($sidebar_lists, static function ($a, $b) {
     return $b->displayOnOverview() - $a->displayOnOverview();
 });
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'MEMBERS' => $members_language->get('members', 'members'),
     'SIDEBAR_MEMBER_LISTS' => $sidebar_lists,
     'MEMBER_LISTS_VIEWING' => $lists_viewing,
@@ -126,8 +135,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('members/members.tpl', $smarty);
+$template->displayTemplate('members/members');

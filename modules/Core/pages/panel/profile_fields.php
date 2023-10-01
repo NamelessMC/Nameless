@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr11
+/**
+ * Staff panel profile fields page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel profile fields page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.fields')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'custom_profile_fields';
 $page_title = $language->get('admin', 'custom_fields');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -99,7 +108,7 @@ if (isset($_GET['action'])) {
             }
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'CREATING_PROFILE_FIELD' => $language->get('admin', 'creating_profile_field'),
             'CANCEL' => $language->get('general', 'cancel'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -121,10 +130,10 @@ if (isset($_GET['action'])) {
             'EDITABLE_HELP' => $language->get('admin', 'profile_field_editable_help'),
             'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
             'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
-            'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
+            'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help'),
         ]);
 
-        $template_file = 'core/profile_fields_create.tpl';
+        $template_file = 'core/profile_fields_create';
 
     } else {
         if ($_GET['action'] == 'edit') {
@@ -222,7 +231,7 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'EDITING_PROFILE_FIELD' => $language->get('admin', 'editing_profile_field'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'DELETE' => $language->get('general', 'delete'),
@@ -255,10 +264,10 @@ if (isset($_GET['action'])) {
                 'EDITABLE_HELP' => $language->get('admin', 'profile_field_editable_help'),
                 'REQUIRED_HELP' => $language->get('admin', 'profile_field_required_help'),
                 'PUBLIC_HELP' => $language->get('admin', 'profile_field_public_help'),
-                'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help')
+                'DISPLAY_FIELD_ON_FORUM_HELP' => $language->get('admin', 'profile_field_forum_help'),
             ]);
 
-            $template_file = 'core/profile_fields_edit.tpl';
+            $template_file = 'core/profile_fields_edit';
         } else {
             Redirect::to(URL::build('/panel/core/profile_fields'));
         }
@@ -292,7 +301,7 @@ if (isset($_GET['action'])) {
         ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'FIELDS' => $template_fields,
         'NO_FIELDS' => $language->get('admin', 'no_custom_fields'),
         'NEW_FIELD' => $language->get('admin', 'new_field'),
@@ -305,7 +314,7 @@ if (isset($_GET['action'])) {
         'FORUM_POSTS' => $language->get('admin', 'forum_posts')
     ]);
 
-    $template_file = 'core/profile_fields.tpl';
+    $template_file = 'core/profile_fields';
 }
 
 if (Session::exists('profile_field_success')) {
@@ -313,30 +322,30 @@ if (Session::exists('profile_field_success')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
     'PROFILE_FIELDS' => $language->get('admin', 'custom_fields'),
-    'PAGE' => PANEL_PAGE
+    'PAGE' => PANEL_PAGE,
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Forum view topic page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  View topic page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var string $route
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Set the page name for the active link in navbar
@@ -20,13 +31,13 @@ $tid = explode('/', $route);
 $tid = $tid[count($tid) - 1];
 
 if (!strlen($tid)) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once ROOT_PATH . '/404.php';
     die();
 }
 
 $tid = explode('-', $tid);
 if (!is_numeric($tid[0])) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once ROOT_PATH . '/404.php';
     die();
 }
 $tid = $tid[0];
@@ -36,7 +47,7 @@ $user_groups = $user->getAllGroupIds();
 
 $list = $forum->topicExist($tid);
 if (!$list) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once ROOT_PATH . '/404.php';
     die();
 }
 
@@ -45,13 +56,13 @@ $topic = DB::getInstance()->get('topics', ['id', $tid])->results();
 $topic = $topic[0];
 
 if ($topic->deleted == 1) {
-    require_once(ROOT_PATH . '/404.php');
+    require_once ROOT_PATH . '/404.php';
     die();
 }
 
 $list = $forum->canViewForum($topic->forum_id, $user_groups);
 if (!$list) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -64,7 +75,7 @@ if ($user->isLoggedIn()) {
 if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->forum_id, $user_groups)) {
     // Only allow viewing stickied topics
     if ($topic->sticky == 0) {
-        require_once(ROOT_PATH . '/403.php');
+        require_once ROOT_PATH . '/403.php';
         die();
     }
 }
@@ -102,7 +113,7 @@ if (isset($_GET['pid'])) {
             Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
         }
     } else {
-        require_once(ROOT_PATH . '/404.php');
+        require_once ROOT_PATH . '/404.php';
     }
     die();
 }
@@ -161,15 +172,15 @@ if (count($page_metadata)) {
 }
 
 $page_title = ((strlen(Output::getClean($topic->topic_title)) > 20) ? Output::getClean(mb_substr($topic->topic_title, 0, 20)) . '...' : Output::getClean($topic->topic_title)) . ' - ' . $language->get('general', 'page_x', ['page' => $p]);
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
-// Assign author + title to Smarty variables
+// Assign author + title to template variables
 // Get first post
 $first_post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$tid])->first();
 
 $topic_user = new User($topic->topic_creator);
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'TOPIC_TITLE' => Output::getClean($topic->topic_title),
     'TOPIC_AUTHOR_USERNAME' => $topic_user->getDisplayname(),
     'TOPIC_AUTHOR_MCNAME' => $topic_user->getDisplayname(true),
@@ -221,7 +232,7 @@ if ($topic->labels) {
     }
 }
 
-$smarty->assign(['TOPIC_LABEL' => $label, 'TOPIC_LABELS' => $labels]);
+$template->getEngine()->addVariables(['TOPIC_LABEL' => $label, 'TOPIC_LABELS' => $labels]);
 
 // Get all posts in the topic
 $posts = $forum->getPosts($tid);
@@ -394,9 +405,9 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
 
 // Are reactions enabled?
 $reactions_enabled = Settings::get('forum_reactions') === '1';
-$smarty->assign('REACTIONS_ENABLED', $reactions_enabled);
+$template->getEngine()->addVariable('REACTIONS_ENABLED', $reactions_enabled);
 
-// Assign Smarty variables to pass to template
+// Assign template variables to pass to template
 $parent_category = DB::getInstance()->get('forums', ['id', $forum_parent[0]->parent])->results();
 
 $breadcrumbs = [
@@ -448,17 +459,17 @@ $breadcrumbs[] = [
     'link' => URL::build('/forum')
 ];
 
-$smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
+$template->getEngine()->addVariable('BREADCRUMBS', array_reverse($breadcrumbs));
 
 // Display session messages
 if (Session::exists('success_post')) {
-    $smarty->assign('SESSION_SUCCESS_POST', Session::flash('success_post'));
+    $template->getEngine()->addVariable('SESSION_SUCCESS_POST', Session::flash('success_post'));
 }
 if (Session::exists('failure_post')) {
-    $smarty->assign('SESSION_FAILURE_POST', Session::flash('failure_post'));
+    $template->getEngine()->addVariable('SESSION_FAILURE_POST', Session::flash('failure_post'));
 }
 if (isset($error) && count($error)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $error
     ]);
@@ -468,29 +479,29 @@ if (isset($error) && count($error)) {
 
 // Can the user post a reply?
 if ($user->isLoggedIn() && $can_reply) {
-    $smarty->assign('CAN_REPLY', true);
+    $template->getEngine()->addVariable('CAN_REPLY', true);
 
     // Is the topic locked?
     if ($topic->locked != 1) { // Not locked
-        $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
+        $template->getEngine()->addVariable('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
     } else { // Locked
         if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
             // Can post anyway
-            $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
+            $template->getEngine()->addVariable('NEW_REPLY', $forum_language->get('forum', 'new_reply'));
         } else {
             // Can't post
-            $smarty->assign('NEW_REPLY', $forum_language->get('forum', 'topic_locked'));
+            $template->getEngine()->addVariable('NEW_REPLY', $forum_language->get('forum', 'topic_locked'));
         }
     }
 }
 
 if ($topic->locked == 1) {
-    $smarty->assign('LOCKED', true);
+    $template->getEngine()->addVariable('LOCKED', true);
 }
 
 // Is the user a moderator?
 if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
         'LOCK_URL' => URL::build('/forum/lock/', 'tid=' . urlencode($tid)),
@@ -512,7 +523,7 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
 }
 
 // Sharing
-$smarty->assign([
+$template->getEngine()->addVariables([
     'SHARE' => $forum_language->get('forum', 'share'),
     'SHARE_TWITTER' => $forum_language->get('forum', 'share_twitter'),
     'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title)),
@@ -529,7 +540,7 @@ $paginator = new Paginator(
 $results = $paginator->getLimited($posts, 10, $p, count($posts));
 $pagination = $paginator->generate(7, URL::build('/forum/topic/' . $tid . '-' . $forum->titleToURL($topic->topic_title)));
 
-$smarty->assign('PAGINATION', $pagination);
+$template->getEngine()->addVariable('PAGINATION', $pagination);
 
 // Replies
 $replies = [];
@@ -561,7 +572,7 @@ foreach ($results->data as $n => $nValue) {
 
     if ($user->isLoggedIn()) {
         // Assign token
-        $smarty->assign('TOKEN', $token);
+        $template->getEngine()->addVariable('TOKEN', $token);
 
         // Edit button
         if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
@@ -719,11 +730,11 @@ foreach ($results->data as $n => $nValue) {
     ];
 }
 
-$smarty->assign('REPLIES', $replies);
+$template->getEngine()->addVariable('REPLIES', $replies);
 
 // Reactions
 if ($reactions_enabled) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'REACTIONS_URL' => URL::build('/queries/reactions'),
         'REACTIONS_TEXT' => $language->get('user', 'reactions'),
     ]);
@@ -732,7 +743,7 @@ if ($reactions_enabled) {
 if ($user->isLoggedIn()) {
     // Reactions
     if ($reactions_enabled) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'REACTIONS' => $all_reactions,
             'REACTIONS_BY_USER' => $reactions_by_user,
         ]);
@@ -750,12 +761,12 @@ if ($user->isLoggedIn()) {
             ]);
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'UNFOLLOW' => $forum_language->get('forum', 'unfollow'),
             'UNFOLLOW_URL' => URL::build('/forum/topic/' . $tid . '/', 'action=unfollow')
         ]);
     } else {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'FOLLOW' => $forum_language->get('forum', 'follow'),
             'FOLLOW_URL' => URL::build('/forum/topic/' . $tid . '/', 'action=follow')
         ]);
@@ -769,7 +780,7 @@ $content = null;
 if ($user->isLoggedIn() && $can_reply) {
     if ($forum->canModerateForum($forum_parent[0]->id, $user_groups) || $topic->locked != 1) {
         if ($topic->locked == 1) {
-            $smarty->assign('TOPIC_LOCKED_NOTICE', $forum_language->get('forum', 'topic_locked_notice'));
+            $template->getEngine()->addVariable('TOPIC_LOCKED_NOTICE', $forum_language->get('forum', 'topic_locked_notice'));
         }
 
         if (isset($_POST['content'])) {
@@ -777,18 +788,16 @@ if ($user->isLoggedIn() && $can_reply) {
             $content = EventHandler::executeEvent('renderPostEdit', ['content' => $_POST['content']])['content'];
         }
 
-        $smarty->assign([
-            'SUBMIT' => $language->get('general', 'submit')
-        ]);
+        $template->getEngine()->addVariable('SUBMIT', $language->get('general', 'submit'));
     }
 } else {
     if ($topic->locked == 1) {
-        $smarty->assign('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
+        $template->getEngine()->addVariable('TOPIC_LOCKED', $forum_language->get('forum', 'topic_locked'));
     }
 }
 
-// Assign Smarty language variables
-$smarty->assign([
+// Assign template language variables
+$template->getEngine()->addVariables([
     'POSTS' => $forum_language->get('forum', 'posts'),
     'BY' => ucfirst($forum_language->get('forum', 'by')),
     'CANCEL' => $language->get('general', 'cancel'),
@@ -854,8 +863,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('forum/view_topic.tpl', $smarty);
+$template->displayTemplate('forum/view_topic');

@@ -1,12 +1,21 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * User connections page
  *
- *  License: MIT
+ * @author Partydragen
+ * @license MIT
+ * @version 2.2.0
  *
- *  UserCP connections
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -17,7 +26,7 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_connections';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -86,7 +95,7 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
 }
 
 // Language values
-$smarty->assign([
+$template->getEngine()->addVariables([
     'TOKEN' => Token::get(),
     'USER_CP' => $language->get('user', 'user_cp'),
     'CONNECTIONS' => $language->get('user', 'connections'),
@@ -108,14 +117,14 @@ if (Session::exists('connections_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
     ]);
@@ -124,12 +133,12 @@ if (isset($errors) && count($errors)) {
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
+require ROOT_PATH . '/core/templates/cc_navbar.php';
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('user/connections.tpl', $smarty);
+$template->displayTemplate('user/connections');

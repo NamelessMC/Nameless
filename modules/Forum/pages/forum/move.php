@@ -1,17 +1,27 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Forum move topic page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Move a topic
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'move_topic');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $forum = new Forum();
 
@@ -124,8 +134,8 @@ foreach ($categories as $category) {
     }
 }
 
-// Assign Smarty variables
-$smarty->assign([
+// Assign template variables
+$template->getEngine()->addVariables([
     'MOVE_TOPIC' => $forum_language->get('forum', 'move_topic'),
     'MOVE_TO' => $forum_language->get('forum', 'move_topic_to'),
     'TOKEN' => Token::get(),
@@ -133,7 +143,7 @@ $smarty->assign([
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic->id)),
-    'FORUMS' => $template_forums
+    'FORUMS' => $template_forums,
 ]);
 
 // Load modules + template
@@ -141,8 +151,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('forum/move.tpl', $smarty);
+$template->displayTemplate('forum/move');

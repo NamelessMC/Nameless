@@ -1,21 +1,30 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr0
+/**
+ * Staff panel Minecraft server banners page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel Minecraft server banners page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.banners')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
 if (!function_exists('exif_imagetype')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -24,7 +33,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'server_banners';
 $page_title = $language->get('admin', 'server_banners');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['server']) && !isset($_GET['edit'])) {
     $servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();
@@ -39,17 +48,17 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             ];
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'SERVERS' => $template_array,
             'EDIT' => $language->get('general', 'edit'),
-            'VIEW' => $language->get('general', 'view')
+            'VIEW' => $language->get('general', 'view'),
         ]);
 
     } else {
-        $smarty->assign('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
+        $template->getEngine()->addVariable('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
     }
 
-    $template_file = 'integrations/minecraft/minecraft_server_banners.tpl';
+    $template_file = 'integrations/minecraft/minecraft_server_banners';
 
 } else {
     if (isset($_GET['server'])) {
@@ -61,15 +70,15 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
         }
         $server = $server[0];
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/minecraft/banners'),
             'SERVER_NAME' => Output::getClean($server->name),
             'BANNER_URL' => URL::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
-            'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/')
+            'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'),
         ]);
 
-        $template_file = 'integrations/minecraft/minecraft_server_banners_view.tpl';
+        $template_file = 'integrations/minecraft/minecraft_server_banners_view';
 
     } else {
         // Edit
@@ -129,16 +138,16 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             $n++;
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/minecraft/banners'),
             'SERVER_NAME' => Output::getClean($server->name),
             'BANNER_BACKGROUND' => $language->get('admin', 'banner_background'),
             'BANNER_BACKGROUND_VALUE' => Output::getClean($server->banner_background),
-            'IMAGES' => $template_images
+            'IMAGES' => $template_images,
         ]);
 
-        $template_file = 'integrations/minecraft/minecraft_server_banners_edit.tpl';
+        $template_file = 'integrations/minecraft/minecraft_server_banners_edit';
     }
 }
 
@@ -146,20 +155,20 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -168,12 +177,12 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'SERVER_BANNERS' => $language->get('admin', 'server_banners')
+    'SERVER_BANNERS' => $language->get('admin', 'server_banners'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

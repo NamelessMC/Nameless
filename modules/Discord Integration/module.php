@@ -1,4 +1,11 @@
 <?php
+/**
+ * NamelessMC Discord Module
+ *
+ * @author Aberdeener
+ * @version 2.2.0
+ * @license MIT
+ */
 
 class Discord_Module extends Module {
 
@@ -9,8 +16,8 @@ class Discord_Module extends Module {
 
         $name = 'Discord Integration';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
-        $module_version = '2.1.2';
-        $nameless_version = '2.1.2';
+        $module_version = '2.2.0';
+        $nameless_version = '2.2.0';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -50,13 +57,13 @@ class Discord_Module extends Module {
     public function onEnable() {
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
         PermissionHandler::registerPermissions($this->getName(), [
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
 
         if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
-            $widgets->add(new DiscordWidget($cache, $smarty));
+            $widgets->add(new DiscordWidget($cache));
         }
 
         if (!defined('FRONT_END')) {

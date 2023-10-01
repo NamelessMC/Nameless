@@ -3,9 +3,9 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Twitter Widget
  */
@@ -15,11 +15,11 @@ class TwitterWidget extends WidgetBase {
     private string $_twitter_url;
     private string $_theme;
 
-    public function __construct(Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
+    public function __construct(TemplateEngine $engine, ?string $twitter = '', ?string $theme = '') {
         $this->_module = 'Core';
         $this->_name = 'Twitter';
         $this->_description = 'Display your Twitter feed on your site. Make sure you have entered your Twitter URL in the StaffCP -> Core -> Social Media tab first!';
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
 
         $this->_twitter_url = $twitter;
         $this->_theme = $theme;

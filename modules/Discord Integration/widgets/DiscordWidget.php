@@ -4,9 +4,9 @@
  *  Made by Partydragen
  *  Updated by BrightSkyz
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Discord Widget
  */
@@ -16,12 +16,11 @@ class DiscordWidget extends WidgetBase {
     private Cache $_cache;
     private ?string $_guild_id;
 
-    public function __construct(Cache $cache, Smarty $smarty) {
+    public function __construct(Cache $cache) {
         $this->_module = 'Discord Integration';
         $this->_name = 'Discord';
         $this->_description = 'Display your Discord channel on your site. Make sure you have entered your Discord widget details in the StaffCP -> Integrations -> Discord tab first!';
         $this->_settings = ROOT_PATH . '/modules/Discord Integration/includes/admin_widgets/discord.php';
-        $this->_smarty = $smarty;
 
         $this->_cache = $cache;
         $this->_guild_id = Discord::getGuildId();

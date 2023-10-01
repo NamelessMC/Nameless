@@ -1,16 +1,18 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Staff panel navbar generation
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel navbar
+ * @var Language $language
+ * @var Navigation $staffcp_nav
+ * @var TemplateBase $template
  */
 
-// Assign to Smarty variables
-$smarty->assign([
+// Assign to template variables
+$template->getEngine()->addVariables([
     'SITE_NAME' => Output::getClean(SITE_NAME),
     'PANEL_INDEX' => URL::build('/panel'),
     'NAV_LINKS' => $staffcp_nav->returnNav('top'),
