@@ -6,7 +6,7 @@
  * @license MIT
  * @version 2.2.0
  *
- * @var array $template_pagination
+ * @var ?array $template_pagination
  * @var Cache $cache
  * @var FakeSmarty $smarty
  * @var Language $language
@@ -90,9 +90,13 @@ if ($viewing_list !== 'overview') {
         ? 'group=' . $_GET['group']
         : 'list=' . $viewing_list;
 
+    if (!isset($template_pagination)) {
+        $template_pagination = [];
+    }
+
     $template_pagination['div'] = $template_pagination['div'] .= ' centered';
     $paginator = new Paginator(
-        $template_pagination ?? null,
+        $template_pagination,
         $template_pagination_left ?? null,
         $template_pagination_right ?? null
     );
