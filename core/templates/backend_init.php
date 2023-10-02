@@ -7,6 +7,7 @@
  * @version 2.2.0
  *
  * @var Cache $cache
+ * @var Language $language
  * @var Navigation $cc_nav
  * @var string $page_title
  * @var TemplateBase $template
@@ -36,3 +37,6 @@ if (!empty($favicon_image)) {
 }
 
 $template->getEngine()->addVariable('TITLE', $page_title);
+
+// Initialise widgets
+$widgets = new Widgets($cache, $language, $template);
