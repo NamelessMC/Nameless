@@ -224,5 +224,8 @@ if ($user->isLoggedIn()) {
     }
 }
 
+// Initialise widgets
+$widgets = new Widgets($cache, $language, $template);
+
 // TODO: remove in 2.3.0
 $smarty = new FakeSmarty($template->getEngine());

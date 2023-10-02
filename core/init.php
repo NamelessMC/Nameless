@@ -326,8 +326,6 @@ if ($page != 'install') {
         define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
     }
 
-    $widgets = $container->get(Widgets::class);
-
     // Navbar links
     $navigation = new Navigation();
     $cc_nav = new Navigation();
