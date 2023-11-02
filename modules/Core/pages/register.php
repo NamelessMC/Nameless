@@ -272,11 +272,6 @@ if (Input::exists()) {
 
                     if (Session::exists('oauth_register_data')) {
                         $data = json_decode(Session::get('oauth_register_data'), true);
-                        NamelessOAuth::getInstance()->saveUserProvider(
-                            $user_id,
-                            $data['provider'],
-                            $data['id'],
-                        );
                         $auto_verify_oauth_email = $data['email'] === Input::get('email')
                             && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']);
 
