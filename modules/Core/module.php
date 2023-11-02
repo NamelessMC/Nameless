@@ -508,6 +508,8 @@ class Core_Module extends Module {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
+        Integrations::getInstance()->registerIntegration(new GoogleIntegration($language));
+
         EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
 
         // TODO: Use [class, 'method'] callable syntax
