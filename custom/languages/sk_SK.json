@@ -1331,5 +1331,8 @@
     "admin/reaction_deleted_event_info": "Reakcia odstránená",
     "admin/site_widgets": "Widgety webu",
     "admin/custom_score": "Vlastné skóre",
-    "user/given": "Dané"
+    "user/given": "Dané",
+    "api/groups_updates_ignored": "Požiadavka na synchronizáciu skupiny je ignorovaná, pretože integrácia Minecraftu je vypnutá alebo server nie je nakonfigurovaný ako server na synchronizáciu skupiny v systéme StaffCP.",
+    "admin/default_description": "Predvolený opis",
+    "admin/default_keywords": "Predvolené kľúčové slová"
 }
