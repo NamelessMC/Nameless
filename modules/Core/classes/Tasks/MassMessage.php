@@ -37,6 +37,7 @@ class MassMessage extends Task {
             $this->getData()['title'],
             $this->getData()['content'],
             $recipients->results(),
+            $this->getUserId(),
             $this->getData()['callback']
         );
         $notification->send();

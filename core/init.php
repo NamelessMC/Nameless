@@ -106,6 +106,8 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
+    PhinxAdapter::migrate('core');
+
     PhinxAdapter::ensureUpToDate('Core');
 
     // Error reporting
@@ -385,10 +387,11 @@ if ($page != 'install') {
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
-    $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
     $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/connections'));
-    $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
+    $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
+    $cc_nav->add('cc_notification_settings', $language->get('user', 'notification_settings'), URL::build('/user/notification_settings'));
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
+    $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
 
     // Placeholders enabled?
     if (Settings::get('placeholders') === '1') {

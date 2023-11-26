@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * User alerts page
  *
- *  License: MIT
- *
- *  User alerts page
+ * @author Samerton
+ * @version 2.2.0
+ * @license MIT
+ */
+
+/**
+ * @var Cache $cache
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -16,30 +27,32 @@ if (!$user->isLoggedIn()) {
 
 // Always define page name for navbar
 const PAGE = 'cc_alerts';
-$page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+$page_title = $language->get('user', 'alerts');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['view'])) {
     if (!isset($_GET['action'])) {
         // Get alerts
-        $alerts = DB::getInstance()->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC')->results();
+        $alerts = DB::getInstance()->query('SELECT * FROM nl2_alerts WHERE user_id = ? ORDER BY `created` DESC LIMIT 30ß', [$user->data()->id]);
 
         $alerts_limited = [];
         $n = 0;
 
-        if (count($alerts) > 30) {
+        if ($alerts->count() > 30) {
             $limit = 30;
         } else {
-            $limit = count($alerts);
+            $limit = $alerts->count();
         }
+
+        $alerts = $alerts->results();
 
         while ($n < $limit) {
             // Only display 30 alerts
             // Get date
             $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
-            $alerts[$n]->date_nice = $timeago->inWords($alerts[$n]->created, $language);
+            $alerts[$n]->date_nice = $timeAgo->inWords($alerts[$n]->created, $language);
             $alerts[$n]->view_link = URL::build('/user/alerts/', 'view=' . urlencode($alerts[$n]->id));
 
             $alerts_limited[] = $alerts[$n];
@@ -60,7 +73,6 @@ if (!isset($_GET['view'])) {
             'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
             'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
             'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
-            'TOKEN' => Token::get()
         ]);
 
         // Load modules + template
@@ -94,18 +106,51 @@ if (!isset($_GET['view'])) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    // Check the alert belongs to the user..
-    $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
+    // Check the alert belongs to the user...
+    $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']]);
 
-    if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
+    if (!$alert->count() || $alert->first()->user_id != $user->data()->id) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    if ($alert[0]->read == 0) {
-        DB::getInstance()->update('alerts', $alert[0]->id, [
+    $alert = $alert->first();
+
+    if (isset($_GET['delete'])) {
+        if (Token::check()) {
+            DB::getInstance()->delete('alerts', $alert->id);
+            Redirect::to('/user/alerts');
+        }
+
+        Session::flash('alerts_error', $language->get('general', 'invalid_token'));
+        Redirect::to(URL::build('/user/alerts', 'view=' . $alert->id));
+    }
+
+    if ($alert->read == 0) {
+        DB::getInstance()->update('alerts', $alert->id, [
             'read' => true,
         ]);
     }
 
-    Redirect::to($alert[0]->url != '#' ? $alert[0]->url : URL::build('/user/alerts'));
+    if (!$alert->content_rich) {
+        Redirect::to($alert->url !== '#' ? $alert->url : URL::build('/user/alerts'));
+    }
+
+    if (Session::exists('alerts_error')) {
+        $smarty->assign('ERROR', Session::flash('alerts_error'));
+    }
+
+    if ($alert->url !== '#') {
+        $smarty->assign([
+            'VIEW' => $language->get('general', 'view'),
+            'VIEW_LINK' => $alert->url,
+        ]);
+    }
+
+    $smarty->assign([
+        'USER_CP' => $language->get('user', 'user_cp'),
+        'ALERTS' => $language->get('user', 'alerts'),
+        'DELETE' => $language->get('general', 'delete'),
+        'DELETE_LINK' => URL::build('/'),
+        'ALERT_TITLE' => Output::getClean
+    ]);
 }

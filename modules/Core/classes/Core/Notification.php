@@ -11,6 +11,7 @@
 
 class Notification {
 
+    private int $_authorId;
     private array $_recipients = [];
     private string $_title;
     private string $_type;
@@ -24,6 +25,7 @@ class Notification {
      * @param string $title Title of notification
      * @param string $content Notification content
      * @param int|int[] $recipients Notification recipient or recipients - array of user IDs
+     * @param ?int $authorId User ID that sent the notification
      * @param ?callable $contentCallback Optional callback to perform for each recipient's content
      *
      * @throws NotificationTypeNotFoundException
@@ -33,12 +35,14 @@ class Notification {
         string $title,
         string $content,
         $recipients,
+        int $authorId = null,
         callable $contentCallback = null
     ) {
-        if (!in_array($type, self::getTypes())) {
+        if (!in_array($type, array_column(self::getTypes(), 'key'))) {
             throw new NotificationTypeNotFoundException("Type $type not registered");
         }
 
+        $this->_authorId = $authorId;
         $this->_title = $title;
         $this->_type = $type;
 
@@ -53,46 +57,68 @@ class Notification {
     }
 
     public function send(): void {
-        /** @var int $recipient */
+        /** @var array $recipient */
         foreach ($this->_recipients as $recipient) {
+            $id = $recipient['id'];
+            $content = $recipient['content'];
+
             $preferences = DB::getInstance()->query(
                 <<<SQL
                     SELECT `alert`, `email`
                     FROM nl2_users_notification_preferences
                     WHERE `type` = ? AND `user_id` = ?
                 SQL,
-                [$this->_type, $recipient]
+                [$this->_type, $id]
             )->first();
 
             if ($preferences->alert) {
-                $this->sendAlert();
+                $this->sendAlert($id, $content);
             }
             if ($preferences->email) {
-                $this->sendEmail();
+                $this->sendEmail($id, $content);
             }
         }
     }
 
-    public function sendAlert(): void {
+    public function sendAlert(int $userId, string $content): void {
+        $text = ['content' => $this->_title];
 
+        Alert::create($userId, $this->_type, $text, $text, null, $content);
     }
 
-    public function sendEmail(): void {
+    public function sendEmail(int $userId, string $content): void {
+        $task = (new SendEmail())->fromNew(
+            Module::getIdFromName('Core'),
+            'Send Email Notification',
+            [
+                'content' => $content,
+                'title' => $this->_title,
+            ],
+            Date::next()->getTimestamp(), // TODO: schedule a date/time?
+            'User',
+            $userId,
+            false,
+            null,
+            $this->_authorId
+        );
 
+        Queue::schedule($task);
     }
 
     /**
      * Register a custom notification type
      * @param string $type
+     * @param string $value Human readable
+     * @param int $moduleId
      * @return void
      */
-    public static function addType(string $type): void {
-        self::$_types[] = $type;
+    public static function addType(string $type, string $value, int $moduleId): void {
+        self::$_types[] = ['key' => $type, 'value' => $value, 'module' => $moduleId];
     }
 
     /**
      * Returns all registered notification types
-     * @return string[]
+     * @return array
      */
     public static function getTypes(): array {
         return self::$_types;
