@@ -1334,5 +1334,7 @@
     "user/received": "Obdrženo",
     "api/groups_updates_ignored": "Požadavek na synchronizaci skupiny je ignorován, protože integrace Minecraftu je zakázána nebo server není nakonfigurován jako server pro synchronizaci skupiny v panelu.",
     "admin/default_description": "Výchozí popis",
-    "admin/default_keywords": "Výchozí klíčová slova"
+    "admin/default_keywords": "Výchozí klíčová slova",
+    "admin/require_two_factor_for_staffcp": "Vyžadovat dvoufaktorové ověření pro přihlášení do panelu (pokud jej má uživatel povolené)",
+    "user/two_factor_auth_code": "Kód dvoufaktorového ověření"
 }
