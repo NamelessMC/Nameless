@@ -57,11 +57,27 @@ if (!isset($_GET['integration'])) {
 
         if (Token::check()) {
             if (Input::get('action') === 'general_settings') {
+                // Update general settings
                 DB::getInstance()->update('integrations', $integration->data()->id, [
                     'enabled' => Output::getClean(Input::get('enabled')),
                     'can_unlink' => Output::getClean(Input::get('can_unlink')),
                     'required' => Output::getClean(Input::get('required'))
                 ]);
+
+                Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
+                Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
+            } else if (Input::get('action') === 'oauth') {
+                // Update OAuth settings
+                $provider_name = strtolower($integration->getName());
+
+                $client_id = Input::get("client-id");
+                $client_secret = Input::get("client-secret");
+                if ($client_id && $client_secret) {
+                    NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable") == 'on' ? 1 : 0);
+                } else {
+                    NamelessOAuth::getInstance()->setEnabled($provider_name, 0);
+                }
+                NamelessOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
 
                 Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
                 Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
@@ -79,6 +95,37 @@ if (!isset($_GET['integration'])) {
                 'integration' => Output::getClean($integration->getName())
             ]);
         }
+    }
+
+    // OAuth integration?
+    $provider_name = strtolower($integration->getName());
+    $provider = NamelessOAuth::getInstance()->getProvider($provider_name);
+    if ($provider != null) {
+        [$client_id, $client_secret] = NamelessOAuth::getInstance()->getCredentials($provider_name);
+
+        $oauth_provider_data = [
+            'name' => $provider_name,
+            'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
+            'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
+            'icon' => $provider_data['icon'] ?? null,
+            'logo_url' => $provider_data['logo_url'] ?? null,
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
+            'client_url' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . $provider_name, 'non-friendly'),
+        ];
+
+        $smarty->assign([
+            'OAUTH' => $language->get('admin', 'oauth'),
+            'OAUTH_INFO' => $language->get('admin', 'oauth_info', [
+                'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
+                'docLinkEnd' => '</a>'
+            ]),
+            'REDIRECT_URL' => $language->get('admin', 'redirect_url'),
+            'CLIENT_ID' => $language->get('admin', 'client_id'),
+            'CLIENT_SECRET' => $language->get('admin', 'client_secret'),
+            'OAUTH_URL' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider={{provider}}', 'non-friendly'),
+            'OAUTH_PROVIDER_DATA' => $oauth_provider_data
+        ]);
     }
 
     $smarty->assign([

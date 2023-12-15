@@ -88,6 +88,67 @@
                         </div>
                     {/if}
 
+                    {if isset($OAUTH)}
+                        <h5>{$OAUTH}</h5>
+                        <div class="card shadow border-left-primary">
+                            <div class="card-body">
+                                <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                {$OAUTH_INFO}
+                            </div>
+                        </div>
+                        <br />
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card shadow mb-4">
+                                        <div class="card-body">
+                                            <div class="form-group custom-control custom-switch">
+                                                <input id="enable" name="enable"
+                                                       type="checkbox" class="custom-control-input" {if $OAUTH_PROVIDER_DATA['enabled']
+                                                && $OAUTH_PROVIDER_DATA['setup']} checked{/if} />
+                                                <label for="enable" id="enable"
+                                                       class="custom-control-label">
+                                                    {$OAUTH_PROVIDER_DATA['name']|ucfirst}
+                                                    {if $OAUTH_PROVIDER_DATA['logo_url']}
+                                                        <img src="{$OAUTH_PROVIDER_DATA['logo_url']}" alt="{$OAUTH_PROVIDER_DATA['name']|ucfirst} Logo" style="width: 16px; height: auto;">
+                                                    {elseif $OAUTH_PROVIDER_DATA['icon']}
+                                                        <i class="{$OAUTH_PROVIDER_DATA['icon']}"></i>
+                                                    {/if}
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="client-id">{$CLIENT_ID}</label>
+                                                <input type="text" name="client-id" class="form-control"
+                                                       id="client-id" placeholder="Client ID"
+                                                       value="{$OAUTH_PROVIDER_DATA['client_id']}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="client-secret">{$CLIENT_SECRET}</label>
+                                                <input type="password" name="client-secret"
+                                                       class="form-control" id="client-secret"
+                                                       placeholder="Client Secret" value="{$OAUTH_PROVIDER_DATA['client_secret']}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="client-url">{$REDIRECT_URL}</label>
+                                                <input type="text" class="form-control" id="client-url"
+                                                       readonly value="{$OAUTH_PROVIDER_DATA['client_url']}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="hidden" name="action" value="oauth">
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                            </div>
+                        </form>
+                    {/if}
+
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>
 

@@ -43,6 +43,20 @@ class NamelessOAuth extends Instanceable {
     }
 
     /**
+     * Get or create an instance of a specific provider.
+     *
+     * @param string $provider The provider name
+     * @return null|array An array of registered OAuth provider.
+     */
+    public function getProvider(string $provider): ?array {
+        if (array_key_exists($provider, $this->_providers)) {
+            return $this->_providers[$provider];
+        }
+
+        return null;
+    }
+
+    /**
      * Determine if OAuth is available if at least one provider is setup.
      *
      * @return bool If any provider is setup
