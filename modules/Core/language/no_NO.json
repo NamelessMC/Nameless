@@ -1008,7 +1008,7 @@
     "admin/ban_hook_info": "Bruker utestengt",
     "admin/custom_content": "Egendefinert innhold",
     "admin/editing_integration_for_x": "Redigerer {{integration}}-integreringen for {{user}}",
-    "admin/email_language_info": "Ser du ikke språket ditt? Sjekk om språkfilen er skrivbar av webserveren i /custom/languages/.",
+    "admin/email_language_info": "Ser du ikke språket ditt? Sjekk om språkfilen er skrivbar av webserveren i /modules/Core/language/.",
     "admin/bedrock_help": "Velg dette alternativet hvis serveren er en Bedrock-server.",
     "admin/captcha_general": "Aktiver Captcha på registreringssiden?",
     "admin/captcha_login": "Aktiver Captcha på påloggingssiden?",

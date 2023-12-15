@@ -982,7 +982,7 @@
     "admin/bedrock": "Bedrock?",
     "user/group_has_been_added": "Il gruppo {{group}} è stato aggiunto all’utente {{user}}",
     "user/group_has_been_removed": "Il gruppo {{group}} è stato rimosso dall’utente {{user}}",
-    "admin/email_language_info": "Non vedi la tua lingua? Assicurati che il file sia scrivibile dal tuo webserver in /custom/languages/.",
+    "admin/email_language_info": "Non vedi la tua lingua? Assicurati che il file sia scrivibile dal tuo webserver in /modules/Core/language/.",
     "user/no_providers": "Nessun provider di autenticazione è stato configurato.",
     "general/normal": "Normale",
     "general/orange": "Arancio",

@@ -165,7 +165,7 @@
     "admin/email_errors": "Lỗi email",
     "admin/email_errors_logged": "Lỗi email đã được ghi lại",
     "admin/email_errors_purged_successfully": "Lỗi email đã được xóa thành công.",
-    "admin/email_language_info": "Bạn không thấy ngôn ngữ của mình? Đảm bảo rằng tệp ngôn ngữ có thể ghi trên webserver của bạn trong /custom/languages/.",
+    "admin/email_language_info": "Bạn không thấy ngôn ngữ của mình? Đảm bảo rằng tệp ngôn ngữ có thể ghi trên webserver của bạn trong /modules/Core/language/.",
     "admin/email_logs": "Email hàng loạt",
     "admin/email_message_greeting": "Lời chào",
     "admin/email_message_message": "Tin nhắn",

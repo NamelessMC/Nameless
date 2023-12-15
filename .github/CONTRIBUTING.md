@@ -79,7 +79,7 @@ Deprecations rule of thumb:
 After adding a new module to core, you need to do the following:
 1. Update the `Dockerfile.phpdoc` file to include the new module classes folder (this generates our [PHPDoc](https://phpdoc.namelessmc.com/) site)
 2. Update `composer.json` to autoload the new module classes folder
-3. Add a new term to the `custom/languages/en_UK.json` file for the module description to be shown during instal
+3. Add a new term to the `modules/Core/language/en_UK.json` file for the module description to be shown during instal
     - The term should be in the format `module_{module_name}_description`
     - Don't forget to add it to the `WHITELISTED_TERMS` array in `dev/scripts/find_unused_language_terms.sh`
 4. Create new database entry to install it by default

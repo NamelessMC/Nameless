@@ -5,7 +5,7 @@ if (PHP_SAPI !== 'cli') {
 }
 
 $language_files = glob('modules/*/language/*.json');
-$language_files = array_merge($language_files, glob('custom/languages/*.json'));
+$language_files = array_merge($language_files, glob('modules/Core/language/*.json'));
 
 foreach ($language_files as $language_file) {
     $modified = false;

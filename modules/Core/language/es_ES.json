@@ -1058,7 +1058,7 @@
     "admin/announcement_hook_info": "Creación de anuncios",
     "admin/can_unlink": "Puede desvincularse",
     "admin/can_unlink_integration": "¿Pueden los usuarios desvincularse de la integración?",
-    "admin/email_language_info": "¿No ve su idioma? Asegúrese de que su archivo de idioma es escribible por su servidor web en /custom/languages/.",
+    "admin/email_language_info": "¿No ve su idioma? Asegúrese de que su archivo de idioma es escribible por su servidor web en /modules/Core/language/.",
     "admin/identifier": "Identificador",
     "admin/integration_identifier_invalid": "El identificador {{integration}} no es válido.",
     "admin/integration_identifier_required": "Se requiere el identificador {{integration}}.",

@@ -1080,7 +1080,7 @@
     "general/and_x_more": "и {{count}}",
     "general/internet_explorer_header": "Internet Explorer",
     "general/internet_explorer_info": "Internet Explorer iне поддерживается. Перейдите на более современный браузер.",
-    "admin/email_language_info": "Отсутствует ваш язык? Убедитесь, что файл с переводом доступен для записи в /custom/languages.",
+    "admin/email_language_info": "Отсутствует ваш язык? Убедитесь, что файл с переводом доступен для записи в /modules/Core/language.",
     "admin/facebook_url": "Facebook URL",
     "admin/integration": "Интеграция",
     "admin/integration_sync_not_supported": "Синхронизация недоступна для данного сервиса!",
