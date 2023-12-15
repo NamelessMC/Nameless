@@ -199,7 +199,7 @@ class Language {
 
         // Require file
         if ($module === 'core') {
-            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', '__lng__.json']);
+            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'language', '__lng__.json']);
         } else {
             $path = str_replace('/', DIRECTORY_SEPARATOR, $module) . DIRECTORY_SEPARATOR . '__lng__.json';
         }

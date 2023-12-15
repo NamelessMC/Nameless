@@ -1072,7 +1072,7 @@
     "admin/authme_db_password_hidden": "Das Passwort der AuthMe-Datenbank ist aus Sicherheitsgründen verborgen.",
     "admin/bedrock_help": "Wähle diese Option, wenn der Server ein Bedrock-Server ist.",
     "admin/can_unlink_integration": "Können Benutzer die Integration aufheben?",
-    "admin/email_language_info": "Du siehst deine Sprache nicht? Vergewisser dich, dass die Sprachdatei in /custom/languages/ für deinen Webserver schreibbar ist.",
+    "admin/email_language_info": "Du siehst deine Sprache nicht? Vergewisser dich, dass die Sprachdatei in /modules/Core/language/ für deinen Webserver schreibbar ist.",
     "admin/enable_placeholders": "Platzhalter aktivieren?",
     "admin/group_order": "Gruppen Sortiertung",
     "admin/integration": "Integration",

@@ -925,7 +925,7 @@
     "admin/api_endpoints_info": "API Endpoint-urile permit modulelor să creeze metode pentru aplicațiile externe (precum Minecraft și Discord) să interacționeze cu website-ul tau. Verifică documentația pentru API {{docLinkStart}}aici{{docLinkEnd}}",
     "admin/clear_cache": "Curata Cache-ul template-urilor",
     "admin/editing_integration_for_x": "Editand integrarea {{integration}} pentru {{user}}",
-    "admin/email_language_info": "Nu vezi limba ta? Asigura-te ca fila de limba are permisiuni de scriere de catre webserver-ul tau in /custom/languages.",
+    "admin/email_language_info": "Nu vezi limba ta? Asigura-te ca fila de limba are permisiuni de scriere de catre webserver-ul tau in /modules/Core/language.",
     "admin/use_external_mail_server": "Foloseste server de mail extern",
     "admin/force_tfa_warning": "Asigura-te ca stii ce face asta sau risti sa te blochezi pe tine si pe restul membrilor din grup pe dinafara.",
     "admin/debug_link_toast": "Link-ul de depanare a fost copiat!<br>Vizualizeaza logul {{linkStart}}aici{{linkEnd}}",

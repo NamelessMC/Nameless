@@ -1071,7 +1071,7 @@
     "admin/can_unlink": "Dá sa odpojiť",
     "admin/can_unlink_integration": "Môžu používatelia odpojiť integráciu?",
     "admin/cloning_group": "Klonovanie skupiny {{group}}",
-    "admin/email_language_info": "Nevidíte svoj jazyk? Uistite sa, že do jeho jazykového súboru môže váš webový server zapisovať v /custom/languages/.",
+    "admin/email_language_info": "Nevidíte svoj jazyk? Uistite sa, že do jeho jazykového súboru môže váš webový server zapisovať v /modules/Core/language/.",
     "admin/group_cloned_successfully": "Skupina bola úspešne naklonovaná.",
     "admin/host": "Host",
     "admin/integration": "Integrácia",

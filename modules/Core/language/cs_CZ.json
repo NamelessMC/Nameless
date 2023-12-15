@@ -1053,7 +1053,7 @@
     "admin/debug_link_toast": "{{linkStart}}Klikněte sem{{linkEnd}} pro zobrazení ladicího odkazu.",
     "admin/editing_integration_for_x": "Úprava integrace {{integration}} u uživatele {{user}}",
     "admin/editing_integration_x": "Úprava integrace {{integration}}",
-    "admin/email_language_info": "Nevidíte váš jazyk? Ujistěte se, že je jeho jazykový soubor v adresáři /custom/languages/ zapisovatelný vaším webovým serverem.",
+    "admin/email_language_info": "Nevidíte váš jazyk? Ujistěte se, že je jeho jazykový soubor v adresáři /modules/Core/language/ zapisovatelný vaším webovým serverem.",
     "admin/email_port": "Port",
     "admin/group_cloned_successfully": "Skupina úspěšně naklonována.",
     "admin/identifier": "Identifikátor",

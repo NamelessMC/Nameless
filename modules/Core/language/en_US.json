@@ -1080,7 +1080,7 @@
     "admin/can_unlink": "Can Unlink",
     "admin/can_unlink_integration": "Can users unlink integration?",
     "admin/editing_integration_x": "Editing integration {{integration}}",
-    "admin/email_language_info": "Not seeing your language? Make sure its language file is writable by your webserver in /custom/languages/.",
+    "admin/email_language_info": "Not seeing your language? Make sure its language file is writable by your webserver in /modules/Core/language/.",
     "admin/group_cloned_successfully": "Group cloned successfully.",
     "admin/integration": "Integration",
     "admin/integration_identifier": "{{integration}} Identifier",
