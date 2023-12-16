@@ -119,7 +119,7 @@ if ($image['file']) {
                 Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
             }
 
-            http_response_code(500);
+            http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
             $error = $image->getError() ?: 'Unknown error, check logs for more details';
             ErrorHandler::logWarning('Image upload error: ' . $error);
             die($error);
@@ -155,7 +155,7 @@ if ($image['file']) {
 
         die('OK');
     } catch (Exception $e) {
-        http_response_code(500);
+        http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         $error = $e->getMessage() ?: 'Unknown error, check logs for more details';
         ErrorHandler::logWarning('Image upload exception: ' . $error);
         die($error);
