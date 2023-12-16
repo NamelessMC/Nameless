@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 /**
  * Allows an endpoint to require an API key to be present (and valid) in the request.
  *
@@ -31,23 +32,22 @@ class KeyAuthEndpoint extends EndpointBase {
             // Some hosting providers remove the Authorization header, fall back to non-standard X-API-Key heeader
             $api_key_header = HttpUtils::getHeader('X-API-Key');
             if ($api_key_header === null) {
-                $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
+                $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header', Response::HTTP_UNAUTHORIZED);
             }
 
             $api_key = $api_key_header;
         }
 
-        return $this->validateKey($api, $api_key);
+        return $this->validateKey($api_key);
     }
 
     /**
      * Validate provided API key to make sure it matches.
      *
-     * @param Nameless2API $api Instance of API to use for database connection.
      * @param string $api_key API key to check.
      * @return bool Whether it matches or not.
      */
-    private function validateKey(Nameless2API $api, string $api_key): bool {
+    private function validateKey(string $api_key): bool {
         $correct_key = Settings::get('mc_api_key');
         if ($correct_key === null) {
             die('API key is null');

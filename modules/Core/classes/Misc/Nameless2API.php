@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 /**
  * NamelessMC API v2 class
  *
@@ -53,9 +54,8 @@ class Nameless2API {
                 $_SERVER['REQUEST_METHOD'],
                 $this
             );
-
         } catch (Exception $e) {
-            $this->throwError(self::ERROR_UNKNOWN_ERROR, $e->getMessage());
+            $this->throwError(self::ERROR_UNKNOWN_ERROR, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -67,7 +67,7 @@ class Nameless2API {
      * @param int $status HTTP status code
      * @return never
      */
-    public function throwError(string $error, $meta = null, int $status = 400): void {
+    public function throwError(string $error, $meta = null, int $status = Response::HTTP_BAD_REQUEST): void {
         $this->returnArray(
             array_merge(['error' => $error], $meta ? ['meta' => $meta] : []),
             $status
@@ -112,7 +112,7 @@ class Nameless2API {
      * @param int $status HTTP status code
      * @return never
      */
-    public function returnArray(array $array, int $status = 200): void {
+    public function returnArray(array $array, int $status = Response::HTTP_OK): void {
         http_response_code($status);
 
         die(self::encodeJson($array));
