@@ -56,6 +56,9 @@ if (Config::exists() && Config::get('core.installed') === true) {
 }
 
 if (isset($_GET['language'])) {
+    if (str_contains($_GET['language'], '/')) {
+        die('Language code must not contain slash');
+    }
     // Set language
     if (is_file('modules/Core/language/' . $_GET['language'] . '.json')) {
         $_SESSION['installer_language'] = $_GET['language'];
