@@ -25,16 +25,16 @@ $_SESSION['tfa'] = true;
 if (Session::exists('tfa_signin')) {
     $smarty->assign([
         'ERROR_TITLE' => $language->get('general', 'error'),
-        'ERROR' => Session::flash('tfa_signin')
+        'ERROR'       => Session::flash('tfa_signin'),
     ]);
 }
 
 // Smarty variables
 $smarty->assign([
     'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
-    'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
-    'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'TFA_ENTER_CODE'  => $language->get('user', 'tfa_enter_code'),
+    'TOKEN'           => Token::get(),
+    'SUBMIT'          => $language->get('general', 'submit'),
 ]);
 
 // Load modules + template
@@ -42,8 +42,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH.'/core/templates/navbar.php';
+require ROOT_PATH.'/core/templates/footer.php';
 
 // Display template
 $template->displayTemplate('tfa.tpl', $smarty);

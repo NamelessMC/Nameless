@@ -14,12 +14,13 @@
 
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
-    class Default_Panel_Template extends TemplateBase {
-
+    class Default_Panel_Template extends TemplateBase
+    {
         private Language $_language;
 
         // Constructor - set template name, version, Nameless version and author here
-        public function __construct(Smarty $smarty, Language $language) {
+        public function __construct(Smarty $smarty, Language $language)
+        {
             $this->_language = $language;
 
             parent::__construct(
@@ -38,13 +39,13 @@ if (!class_exists('Default_Panel_Template')) {
             ]);
 
             $this->addCSSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/sb-admin-2.min.css' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/sb-admin-2.min.css'     => [],
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' => [],
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/custom.css?v=211' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/css/custom.css?v=211'       => [],
             ]);
 
             $this->addJSFiles([
-                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
             ]);
 
             $this->addJSScript('
@@ -133,10 +134,11 @@ if (!class_exists('Default_Panel_Template')) {
 
             ');
 
-            $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo.png');
+            $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '').'/core/assets/img/namelessmc_logo.png');
         }
 
-        public function onPageLoad() {
+        public function onPageLoad()
+        {
             $page_load = microtime(true) - PAGE_START_TIME;
             define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
@@ -152,7 +154,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'api':
                         $this->assets()->include([
-                            AssetTree::DATATABLES
+                            AssetTree::DATATABLES,
                         ]);
 
                         $this->addJSScript('
@@ -160,15 +162,15 @@ if (!class_exists('Default_Panel_Template')) {
                                 var apiEndpointsTable = $(\'.dataTables-endpoints\').DataTable({
                                     pageLength: 50,
                                     language: {
-                                        "lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
-                                        "zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
-                                        "info": "' . $this->_language->get('table', 'page_x_of_y') . '",
-                                        "infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
-                                        "infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
-                                        "search": "' . $this->_language->get('general', 'search') . '",
+                                        "lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
+                                        "zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
+                                        "info": "'.$this->_language->get('table', 'page_x_of_y').'",
+                                        "infoEmpty": "'.$this->_language->get('table', 'no_records').'",
+                                        "infoFiltered": "'.$this->_language->get('table', 'filtered').'",
+                                        "search": "'.$this->_language->get('general', 'search').'",
                                         "paginate": {
-                                            "next": "' . $this->_language->get('general', 'next') . '",
-                                            "previous": "' . $this->_language->get('general', 'previous') . '"
+                                            "next": "'.$this->_language->get('general', 'next').'",
+                                            "previous": "'.$this->_language->get('general', 'previous').'"
                                         }
                                     }
                                 });
@@ -187,9 +189,9 @@ if (!class_exists('Default_Panel_Template')) {
                         // Dropzone options
                         Dropzone.options.upload_avatar_dropzone = {
                             maxFilesize: 2,
-                            dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
-                            dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
-                            dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '"
+                            dictDefaultMessage: "'.$this->_language->get('admin', 'drag_files_here').'",
+                            dictInvalidFileType: "'.$this->_language->get('admin', 'invalid_file_type').'",
+                            dictFileTooBig: "'.$this->_language->get('admin', 'file_too_big').'"
                         };
 
                         $(".image-picker").imagepicker();
@@ -282,15 +284,15 @@ if (!class_exists('Default_Panel_Template')) {
                             $(\'.dataTables-pages\').dataTable({
                                 responsive: true,
                                 language: {
-                                    "lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
-                                    "zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
-                                    "info": "' . $this->_language->get('table', 'page_x_of_y') . '",
-                                    "infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
-                                    "infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
-                                    "search": "' . $this->_language->get('general', 'search') . '",
+                                    "lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
+                                    "zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
+                                    "info": "'.$this->_language->get('table', 'page_x_of_y').'",
+                                    "infoEmpty": "'.$this->_language->get('table', 'no_records').'",
+                                    "infoFiltered": "'.$this->_language->get('table', 'filtered').'",
+                                    "search": "'.$this->_language->get('general', 'search').'",
                                     "paginate": {
-                                        "next": "' . $this->_language->get('general', 'next') . '",
-                                        "previous": "' . $this->_language->get('general', 'previous') . '"
+                                        "next": "'.$this->_language->get('general', 'next').'",
+                                        "previous": "'.$this->_language->get('general', 'previous').'"
                                     }
                                 }
                             });
@@ -316,7 +318,7 @@ if (!class_exists('Default_Panel_Template')) {
                                     responsive: true,
                                     processing: true,
                                     serverSide: true,
-                                    ajax: "' . URL::build('/queries/admin_users') . '",
+                                    ajax: "'.URL::build('/queries/admin_users').'",
                                     columns: [
                                         { data: "id", hidden: true },
                                         { data: "username" },
@@ -324,32 +326,30 @@ if (!class_exists('Default_Panel_Template')) {
                                         { data: "joined" }
                                     ],
                                     language: {
-                                        "lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
-                                        "zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
-                                        "info": "' . $this->_language->get('table', 'page_x_of_y') . '",
-                                        "infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
-                                        "infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
-                                        "search": "' . $this->_language->get('general', 'search') . '",
+                                        "lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
+                                        "zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
+                                        "info": "'.$this->_language->get('table', 'page_x_of_y').'",
+                                        "infoEmpty": "'.$this->_language->get('table', 'no_records').'",
+                                        "infoFiltered": "'.$this->_language->get('table', 'filtered').'",
+                                        "search": "'.$this->_language->get('general', 'search').'",
                                         "paginate": {
-                                            "next": "' . $this->_language->get('general', 'next') . '",
-                                            "previous": "' . $this->_language->get('general', 'previous') . '"
+                                            "next": "'.$this->_language->get('general', 'next').'",
+                                            "previous": "'.$this->_language->get('general', 'previous').'"
                                         }
                                     }
                                 });
 
                                 $(\'.dataTables-users tbody\').on(\'click\', \'tr\', function(){
-                                    window.location.href = "' . URL::build('/panel/user/') . '" + usersTable.row(this).data().id;
+                                    window.location.href = "'.URL::build('/panel/user/').'" + usersTable.row(this).data().id;
                                 });
                             });
                             ');
-
                         }
 
                         break;
 
                     case 'minecraft':
                         if (!defined('MINECRAFT_PAGE')) {
-
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
                                 var changeCheckbox = document.querySelector(\'.js-check-change\');
@@ -369,9 +369,7 @@ if (!class_exists('Default_Panel_Template')) {
                                 };
                             }
                             ');
-
-                        } else if (MINECRAFT_PAGE == 'authme') {
-
+                        } elseif (MINECRAFT_PAGE == 'authme') {
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
                                 var changeCheckbox = document.querySelector(\'.js-check-change\');
@@ -381,12 +379,11 @@ if (!class_exists('Default_Panel_Template')) {
                                 };
                             }
                             ');
-
-                        } else if (MINECRAFT_PAGE == 'servers') {
+                        } elseif (MINECRAFT_PAGE == 'servers') {
                             $this->assets()->include([
                                 AssetTree::JQUERY_UI,
                             ]);
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
+                        } elseif (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
                             .error_log {
                                 width: 100%;
@@ -401,8 +398,7 @@ if (!class_exists('Default_Panel_Template')) {
                                 background-color: #eceeef;
                             }
                             ');
-
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
+                        } elseif (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->assets()->include([
                                     AssetTree::IMAGE_PICKER,
@@ -431,18 +427,18 @@ if (!class_exists('Default_Panel_Template')) {
                                 $(\'.dataTable\').dataTable({
                                     responsive: true,
                                     language: {
-                                        "lengthMenu": "' . $this->_language->get('table', 'display_records_per_page') . '",
-                                        "zeroRecords": "' . $this->_language->get('table', 'nothing_found') . '",
-                                        "info": "' . $this->_language->get('table', 'page_x_of_y') . '",
-                                        "infoEmpty": "' . $this->_language->get('table', 'no_records') . '",
-                                        "infoFiltered": "' . $this->_language->get('table', 'filtered') . '",
-                                        "search": "' . $this->_language->get('general', 'search') . '",
+                                        "lengthMenu": "'.$this->_language->get('table', 'display_records_per_page').'",
+                                        "zeroRecords": "'.$this->_language->get('table', 'nothing_found').'",
+                                        "info": "'.$this->_language->get('table', 'page_x_of_y').'",
+                                        "infoEmpty": "'.$this->_language->get('table', 'no_records').'",
+                                        "infoFiltered": "'.$this->_language->get('table', 'filtered').'",
+                                        "search": "'.$this->_language->get('general', 'search').'",
                                         "paginate": {
-                                            "next": "' . $this->_language->get('general', 'next') . '",
-                                            "previous": "' . $this->_language->get('general', 'previous') . '"
+                                            "next": "'.$this->_language->get('general', 'next').'",
+                                            "previous": "'.$this->_language->get('general', 'previous').'"
                                         }
                                     },
-                                    order: [[ ' . SORT . ', \'desc\']]
+                                    order: [[ '.SORT.', \'desc\']]
                                 });
                             });
                             ');
@@ -459,9 +455,9 @@ if (!class_exists('Default_Panel_Template')) {
                         // Dropzone options
                         Dropzone.options.upload_background_dropzone = {
                             maxFilesize: 2,
-                            dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
-                            dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
-                            dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '",
+                            dictDefaultMessage: "'.$this->_language->get('admin', 'drag_files_here').'",
+                            dictInvalidFileType: "'.$this->_language->get('admin', 'invalid_file_type').'",
+                            dictFileTooBig: "'.$this->_language->get('admin', 'file_too_big').'",
                             error: function(file, response) {
                                 console.log("ERROR");
                                 console.log(file);
@@ -476,9 +472,9 @@ if (!class_exists('Default_Panel_Template')) {
 
                         Dropzone.options.upload_banner_dropzone = {
                             maxFilesize: 2,
-                            dictDefaultMessage: "' . $this->_language->get('admin', 'drag_files_here') . '",
-                            dictInvalidFileType: "' . $this->_language->get('admin', 'invalid_file_type') . '",
-                            dictFileTooBig: "' . $this->_language->get('admin', 'file_too_big') . '",
+                            dictDefaultMessage: "'.$this->_language->get('admin', 'drag_files_here').'",
+                            dictInvalidFileType: "'.$this->_language->get('admin', 'invalid_file_type').'",
+                            dictFileTooBig: "'.$this->_language->get('admin', 'file_too_big').'",
                             error: function(file, response) {
                                 console.log("ERROR");
                                 console.log(file);
@@ -498,7 +494,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'forums':
                         $this->assets()->include([
                             AssetTree::TINYMCE,
-                            AssetTree::JQUERY_UI
+                            AssetTree::JQUERY_UI,
                         ]);
 
                         if (isset($_GET['forum'])) {

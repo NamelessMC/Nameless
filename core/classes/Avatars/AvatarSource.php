@@ -2,13 +2,14 @@
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *
- * @package NamelessMC\Avatars
  * @author Aberdeener
+ *
  * @version 2.0.0-pr10
+ *
  * @license MIT
  */
-class AvatarSource {
-
+class AvatarSource
+{
     protected static array $_sources = [];
 
     protected static AvatarSourceBase $_active_source;
@@ -18,11 +19,12 @@ class AvatarSource {
      * Uses active avatar source to get the URL of their Minecraft avatar.
      *
      * @param string $uuid UUID of avatar to get.
-     * @param int $size Size in pixels to render avatar at. Default 128
+     * @param int    $size Size in pixels to render avatar at. Default 128
      *
      * @return string Compiled URL of avatar image.
      */
-    public static function getAvatarFromUUID(string $uuid, int $size = 128): string {
+    public static function getAvatarFromUUID(string $uuid, int $size = 128): string
+    {
         return self::getActiveSource()->getAvatar($uuid, self::getDefaultPerspective(), $size);
     }
 
@@ -30,18 +32,19 @@ class AvatarSource {
      * Get a user's avatar from their raw data object.
      * Used by the API for TinyMCE mention avatars to avoid reloading the user from the database.
      *
-     * @param object $data User data to use
-     * @param bool $allow_gifs Whether to allow GIFs or not ()
-     * @param int $size Size in pixels to render avatar at. Default 128
-     * @param bool $full Whether to return the full URL or just the path
+     * @param object $data       User data to use
+     * @param bool   $allow_gifs Whether to allow GIFs or not ()
+     * @param int    $size       Size in pixels to render avatar at. Default 128
+     * @param bool   $full       Whether to return the full URL or just the path
      *
      * @return string Full URL of avatar image.
      */
-    public static function getAvatarFromUserData(object $data, bool $allow_gifs = false, int $size = 128, bool $full = false): string {
+    public static function getAvatarFromUserData(object $data, bool $allow_gifs = false, int $size = 128, bool $full = false): string
+    {
         // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
         if (defined('CUSTOM_AVATARS')) {
             if ($data->gravatar) {
-                return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($data->email))) . '?s=' . $size;
+                return 'https://secure.gravatar.com/avatar/'.md5(strtolower(trim($data->email))).'?s='.$size;
             }
 
             if ($data->has_avatar) {
@@ -52,9 +55,9 @@ class AvatarSource {
                 }
 
                 foreach ($exts as $ext) {
-                    if (file_exists(ROOT_PATH . '/uploads/avatars/' . $data->id . '.' . $ext)) {
+                    if (file_exists(ROOT_PATH.'/uploads/avatars/'.$data->id.'.'.$ext)) {
                         // We don't check the validity here since we know the file exists for sure
-                        return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/' . $data->id . '.' . $ext . '?v=' . urlencode($data->avatar_updated);
+                        return ($full ? rtrim(URL::getSelfURL(), '/') : '').((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/avatars/'.$data->id.'.'.$ext.'?v='.urlencode($data->avatar_updated);
                     }
                 }
             }
@@ -62,9 +65,9 @@ class AvatarSource {
 
         // Fallback to default avatar image if it is set and the avatar type is custom
         if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
-            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+            if (file_exists(ROOT_PATH.'/uploads/avatars/defaults/'.DEFAULT_AVATAR_IMAGE)) {
                 // We don't check the validity here since we know the file exists for sure
-                return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+                return ($full ? rtrim(URL::getSelfURL(), '/') : '').((defined('CONFIG_PATH')) ? CONFIG_PATH.'/' : '/').'uploads/avatars/defaults/'.DEFAULT_AVATAR_IMAGE;
             }
         }
 
@@ -96,10 +99,12 @@ class AvatarSource {
      * Determine if a URL is a valid image URL for avatars.
      *
      * @param string $url URL to check
+     *
      * @return bool Whether the URL is a valid image URL
      */
-    private static function validImageUrl(string $url): bool {
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+    private static function validImageUrl(string $url): bool
+    {
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH.'/cache/']);
         $cache->setCache('avatar_validity');
 
         if ($cache->isCached($url)) {
@@ -107,6 +112,7 @@ class AvatarSource {
         }
 
         $is_valid = false;
+
         try {
             $response = HttpClient::createClient()->head($url);
             $headers = $response->getHeaders();
@@ -117,6 +123,7 @@ class AvatarSource {
         }
 
         $cache->store($url, $is_valid, 3600);
+
         return $is_valid;
     }
 
@@ -125,7 +132,8 @@ class AvatarSource {
      *
      * @return AvatarSourceBase The active source.
      */
-    public static function getActiveSource(): AvatarSourceBase {
+    public static function getActiveSource(): AvatarSourceBase
+    {
         return self::$_active_source;
     }
 
@@ -135,7 +143,8 @@ class AvatarSource {
      *
      * @param string $name Name of source to set as active.
      */
-    public static function setActiveSource(string $name): void {
+    public static function setActiveSource(string $name): void
+    {
         $source = self::getSourceByName($name);
         if ($source === null) {
             $source = self::getSourceByName('cravatar');
@@ -149,7 +158,8 @@ class AvatarSource {
      *
      * @return string Perspective.
      */
-    private static function getDefaultPerspective(): string {
+    private static function getDefaultPerspective(): string
+    {
         if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
             return DEFAULT_AVATAR_PERSPECTIVE;
         }
@@ -162,7 +172,8 @@ class AvatarSource {
      *
      * @return AvatarSourceBase|null Instance if found, null if not found.
      */
-    public static function getSourceByName(string $name): ?AvatarSourceBase {
+    public static function getSourceByName(string $name): ?AvatarSourceBase
+    {
         foreach (self::getAllSources() as $source) {
             if (strtolower($source->getName()) == strtolower($name)) {
                 return $source;
@@ -177,7 +188,8 @@ class AvatarSource {
      *
      * @return AvatarSourceBase[]
      */
-    public static function getAllSources(): iterable {
+    public static function getAllSources(): iterable
+    {
         return self::$_sources;
     }
 
@@ -186,10 +198,12 @@ class AvatarSource {
      *
      * @return string URL with placeholders.
      */
-    public static function getUrlToFormat(): string {
+    public static function getUrlToFormat(): string
+    {
         // Default to Cravatar
         if (!isset(self::$_active_source)) {
-            require_once(ROOT_PATH . '/modules/Core/classes/Avatars/CravatarAvatarSource.php');
+            require_once ROOT_PATH.'/modules/Core/classes/Avatars/CravatarAvatarSource.php';
+
             return (new CravatarAvatarSource())->getUrlToFormat(self::getDefaultPerspective());
         }
 
@@ -201,7 +215,8 @@ class AvatarSource {
      *
      * @param AvatarSourceBase $source Instance of avatar source to register.
      */
-    public static function registerSource(AvatarSourceBase $source): void {
+    public static function registerSource(AvatarSourceBase $source): void
+    {
         self::$_sources[] = $source;
     }
 
@@ -211,7 +226,8 @@ class AvatarSource {
      *
      * @return array<string, string> List of names.
      */
-    public static function getAllSourceNames(): array {
+    public static function getAllSourceNames(): array
+    {
         $names = [];
 
         foreach (self::getAllSources() as $source) {
@@ -227,7 +243,8 @@ class AvatarSource {
      *
      * @return array<string, array<string>> Array of source => [] perspectives.
      */
-    public static function getAllPerspectives(): array {
+    public static function getAllPerspectives(): array
+    {
         $perspectives = [];
 
         foreach (self::getAllSources() as $source) {

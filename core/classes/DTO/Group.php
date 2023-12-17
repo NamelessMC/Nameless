@@ -2,13 +2,14 @@
 /**
  * Represents a group.
  *
- * @package NamelessMC\DTO
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class Group {
-
+class Group
+{
     public int $id;
     public string $name;
     public string $group_html;
@@ -22,7 +23,8 @@ class Group {
     public bool $force_tfa;
     public bool $deleted;
 
-    public function __construct(object $row) {
+    public function __construct(object $row)
+    {
         $this->id = $row->id;
         $this->name = $row->name;
         $this->group_html = $row->group_html;
@@ -40,25 +42,29 @@ class Group {
     /**
      * @return array<int, Group>
      */
-    public static function all(): array {
+    public static function all(): array
+    {
         $rows = DB::getInstance()->query('SELECT * FROM nl2_groups ORDER BY `order`')->results();
         $fields = [];
         foreach ($rows as $row) {
             $fields[$row->id] = new Group($row);
         }
+
         return $fields;
     }
 
     /**
      * @param string $value
      * @param string $column
+     *
      * @return Group|null
      */
-    public static function find(string $value, string $column = 'id'): ?Group {
+    public static function find(string $value, string $column = 'id'): ?Group
+    {
         $row = DB::getInstance()->get('groups', [$column, $value])->first();
+
         return $row
             ? new Group($row)
             : null;
     }
-
 }

@@ -47,69 +47,69 @@ if ($cache->isCached('navbarColour')) {
 
 $nav_colours = [
     [
-        'value' => 'white',
-        'name' => $language->get('general', 'default'),
-        'selected' => ($navbarColour == 'white')
+        'value'    => 'white',
+        'name'     => $language->get('general', 'default'),
+        'selected' => ($navbarColour == 'white'),
     ],
     [
-        'value' => 'red',
-        'name' => $language->get('general', 'red'),
-        'selected' => ($navbarColour == 'red')
+        'value'    => 'red',
+        'name'     => $language->get('general', 'red'),
+        'selected' => ($navbarColour == 'red'),
     ],
     [
-        'value' => 'orange',
-        'name' => $language->get('general', 'orange'),
-        'selected' => ($navbarColour == 'orange')
+        'value'    => 'orange',
+        'name'     => $language->get('general', 'orange'),
+        'selected' => ($navbarColour == 'orange'),
     ],
     [
-        'value' => 'yellow',
-        'name' => $language->get('general', 'yellow'),
-        'selected' => ($navbarColour == 'yellow')
+        'value'    => 'yellow',
+        'name'     => $language->get('general', 'yellow'),
+        'selected' => ($navbarColour == 'yellow'),
     ],
     [
-        'value' => 'olive',
-        'name' => $language->get('general', 'olive'),
-        'selected' => ($navbarColour == 'olive')
+        'value'    => 'olive',
+        'name'     => $language->get('general', 'olive'),
+        'selected' => ($navbarColour == 'olive'),
     ],
     [
-        'value' => 'green',
-        'name' => $language->get('general', 'green'),
-        'selected' => ($navbarColour == 'green')
+        'value'    => 'green',
+        'name'     => $language->get('general', 'green'),
+        'selected' => ($navbarColour == 'green'),
     ],
     [
-        'value' => 'teal',
-        'name' => $language->get('general', 'teal'),
-        'selected' => ($navbarColour == 'teal')
+        'value'    => 'teal',
+        'name'     => $language->get('general', 'teal'),
+        'selected' => ($navbarColour == 'teal'),
     ],
     [
-        'value' => 'blue',
-        'name' => $language->get('general', 'blue'),
-        'selected' => ($navbarColour == 'blue')
+        'value'    => 'blue',
+        'name'     => $language->get('general', 'blue'),
+        'selected' => ($navbarColour == 'blue'),
     ],
     [
-        'value' => 'violet',
-        'name' => $language->get('general', 'violet'),
-        'selected' => ($navbarColour == 'violet')
+        'value'    => 'violet',
+        'name'     => $language->get('general', 'violet'),
+        'selected' => ($navbarColour == 'violet'),
     ],
     [
-        'value' => 'purple',
-        'name' => $language->get('general', 'purple'),
-        'selected' => ($navbarColour == 'purple')
+        'value'    => 'purple',
+        'name'     => $language->get('general', 'purple'),
+        'selected' => ($navbarColour == 'purple'),
     ],
     [
-        'value' => 'pink',
-        'name' => $language->get('general', 'pink'),
-        'selected' => ($navbarColour == 'pink')
+        'value'    => 'pink',
+        'name'     => $language->get('general', 'pink'),
+        'selected' => ($navbarColour == 'pink'),
     ],
     [
-        'value' => 'brown',
-        'name' => $language->get('general', 'brown'),
-        'selected' => ($navbarColour == 'brown')
+        'value'    => 'brown',
+        'name'     => $language->get('general', 'brown'),
+        'selected' => ($navbarColour == 'brown'),
     ],
     [
-        'value' => 'grey',
-        'name' => $language->get('general', 'grey'),
-        'selected' => ($navbarColour == 'grey')
+        'value'    => 'grey',
+        'name'     => $language->get('general', 'grey'),
+        'selected' => ($navbarColour == 'grey'),
     ],
 ];
 
@@ -120,13 +120,13 @@ $current_template->assets()->include([
 $current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Settings::get('home_custom_content')));
 
 $smarty->assign([
-    'SUBMIT' => $language->get('general', 'submit'),
-    'ENABLED' => $language->get('admin', 'enabled'),
-    'DISABLED' => $language->get('admin', 'disabled'),
-    'DARK_MODE' => $language->get('admin', 'dark_mode'),
-    'DARK_MODE_VALUE' => $darkMode,
-    'NAVBAR_COLOUR' => $language->get('admin', 'navbar_colour'),
-    'NAVBAR_COLOURS' => $nav_colours,
+    'SUBMIT'              => $language->get('general', 'submit'),
+    'ENABLED'             => $language->get('admin', 'enabled'),
+    'DISABLED'            => $language->get('admin', 'disabled'),
+    'DARK_MODE'           => $language->get('admin', 'dark_mode'),
+    'DARK_MODE_VALUE'     => $darkMode,
+    'NAVBAR_COLOUR'       => $language->get('admin', 'navbar_colour'),
+    'NAVBAR_COLOURS'      => $nav_colours,
     'HOME_CUSTOM_CONTENT' => $language->get('admin', 'home_custom_content'),
-    'SETTINGS_TEMPLATE' => ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.tpl'
+    'SETTINGS_TEMPLATE'   => ROOT_PATH.'/custom/templates/DefaultRevamp/template_settings/settings.tpl',
 ]);

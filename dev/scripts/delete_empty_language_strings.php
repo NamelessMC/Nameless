@@ -1,7 +1,7 @@
 <?php
 
 if (PHP_SAPI !== 'cli') {
-    die('This script must be run from the command line.');
+    exit('This script must be run from the command line.');
 }
 
 $language_files = glob('modules/*/language/*.json');

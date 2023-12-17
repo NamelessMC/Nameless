@@ -1,16 +1,17 @@
 <?php
 /**
- * Integrations class
+ * Integrations class.
  *
- * @package NamelessMC\Integrations
  * @author Partydragen
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class Integrations extends Instanceable {
-
+class Integrations extends Instanceable
+{
     /**
-     * @var IntegrationBase[] $integrations The array of integrations
+     * @var IntegrationBase[] The array of integrations
      */
     private array $_integrations = [];
 
@@ -19,7 +20,8 @@ class Integrations extends Instanceable {
      *
      * @param IntegrationBase $integration Instance of intagration to register.
      */
-    public function registerIntegration(IntegrationBase $integration): void {
+    public function registerIntegration(IntegrationBase $integration): void
+    {
         $this->_integrations[$integration->getName()] = $integration;
     }
 
@@ -30,7 +32,8 @@ class Integrations extends Instanceable {
      *
      * @return IntegrationBase|null Instance of integration with same name, null if it doesnt exist.
      */
-    public function getIntegration(string $name): ?IntegrationBase {
+    public function getIntegration(string $name): ?IntegrationBase
+    {
         foreach ($this->_integrations as $integration) {
             if (strcasecmp($name, $integration->getName()) == 0) {
                 return $integration;
@@ -45,7 +48,8 @@ class Integrations extends Instanceable {
      *
      * @return IntegrationBase[] List of integrations.
      */
-    public function getAll(): iterable {
+    public function getAll(): iterable
+    {
         $integrations = $this->_integrations;
 
         uasort($integrations, static function (IntegrationBase $a, IntegrationBase $b) {
@@ -60,7 +64,8 @@ class Integrations extends Instanceable {
      *
      * @return IntegrationBase[] List of integrations.
      */
-    public function getEnabledIntegrations(): iterable {
+    public function getEnabledIntegrations(): iterable
+    {
         $integrations = $this->_integrations;
 
         $enabled_integrations = [];

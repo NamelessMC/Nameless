@@ -11,17 +11,17 @@
 
 const BACK_END = true;
 
-$template_path = ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE;
-$smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
+$template_path = ROOT_PATH.'/custom/panel_templates/'.PANEL_TEMPLATE;
+$smarty->setCompileDir(ROOT_PATH.'/cache/templates_c');
 
-if (file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/template.php')) {
-    $smarty->setTemplateDir(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE);
+if (file_exists(ROOT_PATH.'/custom/panel_templates/'.PANEL_TEMPLATE.'/template.php')) {
+    $smarty->setTemplateDir(ROOT_PATH.'/custom/panel_templates/'.PANEL_TEMPLATE);
 
-    require(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/template.php');
+    require ROOT_PATH.'/custom/panel_templates/'.PANEL_TEMPLATE.'/template.php';
 } else {
-    $smarty->setTemplateDir(ROOT_PATH . '/custom/panel_templates/Default');
+    $smarty->setTemplateDir(ROOT_PATH.'/custom/panel_templates/Default');
 
-    require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
+    require ROOT_PATH.'/custom/panel_templates/Default/template.php';
 }
 
 $cache->setCache('backgroundcache');

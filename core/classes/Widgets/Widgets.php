@@ -1,14 +1,15 @@
 <?php
 /**
- * Widget management class
+ * Widget management class.
  *
- * @package NamelessMC\Misc
  * @author Samerton
+ *
  * @version 2.0.0-pr8
+ *
  * @license MIT
  */
-class Widgets {
-
+class Widgets
+{
     private DB $_db;
     private Cache $_cache;
     private Language $_language;
@@ -28,7 +29,7 @@ class Widgets {
         // Assign name to use in cache file
         $this->_name = $name;
         $this->_cache = $cache;
-        $this->_cache->setCache($this->_name . '-widgets');
+        $this->_cache->setCache($this->_name.'-widgets');
 
         $this->_db = DB::getInstance();
         $this->_language = $language;
@@ -45,7 +46,8 @@ class Widgets {
      *
      * @param AbstractWidget $widget Instance of widget to register.
      */
-    public function add(AbstractWidget $widget): void {
+    public function add(AbstractWidget $widget): void
+    {
         $this->_widgets[$widget->getName()] = $widget;
     }
 
@@ -54,10 +56,11 @@ class Widgets {
      *
      * @param AbstractWidget $widget Instance of widget to enable.
      */
-    public function enable(AbstractWidget $widget): void {
+    public function enable(AbstractWidget $widget): void
+    {
         // Add widget to enabled widget list
         $this->_enabled[$widget->getName()] = true;
-        $this->_cache->setCache($this->_name . '-widgets');
+        $this->_cache->setCache($this->_name.'-widgets');
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
@@ -71,9 +74,10 @@ class Widgets {
      *
      * @param AbstractWidget $widget Instance of widget to disable.
      */
-    public function disable(AbstractWidget $widget): void {
+    public function disable(AbstractWidget $widget): void
+    {
         unset($this->_enabled[$widget->getName()]);
-        $this->_cache->setCache($this->_name . '-widgets');
+        $this->_cache->setCache($this->_name.'-widgets');
         $this->_cache->store('enabled', $this->_enabled);
 
         // Update database
@@ -89,19 +93,21 @@ class Widgets {
      *
      * @return AbstractWidget|null Instance of widget with same name, null if it doesn't exist.
      */
-    public function getWidget(string $name): ?AbstractWidget {
+    public function getWidget(string $name): ?AbstractWidget
+    {
         return $this->_widgets[$name] ?? null;
     }
 
     /**
      * Get code for all enabled widgets on the current page.
      *
-     * @param string $location Either `left` or `right`.
+     * @param string    $location     Either `left` or `right`.
      * @param User|null $profile_user User object of the profile page.
      *
      * @return array List of HTML to be displayed.
      */
-    public function getWidgets(string $location, User $profile_user = null): array {
+    public function getWidgets(string $location, User $profile_user = null): array
+    {
         $ret = [];
 
         foreach ($this->getAll() as $item) {
@@ -135,14 +141,14 @@ class Widgets {
                     $ret[] = $content;
                 }
             } catch (Exception $e) {
-                ErrorHandler::logWarning('Unable to load widget ' . $item->getName() . ': ' . $e->getMessage());
+                ErrorHandler::logWarning('Unable to load widget '.$item->getName().': '.$e->getMessage());
                 $this->_smarty->assign([
-                    'WIDGET_ERROR_TITLE' => $this->_language->get('general', 'unable_to_load_widget'),
+                    'WIDGET_ERROR_TITLE'   => $this->_language->get('general', 'unable_to_load_widget'),
                     'WIDGET_ERROR_CONTENT' => $this->_language->get('general', 'problem_loading_widget', [
-                        'widget' => Output::getClean($item->getName())
+                        'widget' => Output::getClean($item->getName()),
                     ]),
                     'WIDGET_ERROR_MESSAGE' => $e->getMessage(),
-                    'WIDGET_NAME' => Output::getClean($item->getName()),
+                    'WIDGET_NAME'          => Output::getClean($item->getName()),
                 ]);
                 $ret[] = $this->_smarty->fetch('widgets/widget_error.tpl');
             }
@@ -156,7 +162,8 @@ class Widgets {
      *
      * @return AbstractWidget[] List of widgets.
      */
-    public function getAll(): iterable {
+    public function getAll(): iterable
+    {
         $widgets = $this->_widgets;
 
         uasort($widgets, static function (AbstractWidget $a, AbstractWidget $b) {
@@ -173,7 +180,8 @@ class Widgets {
      *
      * @return bool Whether this widget is enabled or not.
      */
-    public function isEnabled(AbstractWidget $widget): bool {
+    public function isEnabled(AbstractWidget $widget): bool
+    {
         return array_key_exists($widget->getName(), $this->_enabled);
     }
 
@@ -183,7 +191,8 @@ class Widgets {
      *
      * @return string Name of this instance.
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 }

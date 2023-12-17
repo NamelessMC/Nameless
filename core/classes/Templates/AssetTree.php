@@ -4,14 +4,16 @@
  * Template asset tree.
  * In different class to keep the TemplateAssets class clean.
  *
- * @package NamelessMC\Templates
  * @see AssetResolver
+ *
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class AssetTree {
-
+class AssetTree
+{
     /**
      * @var string Font Awesome v6.1 (CSS)
      */
@@ -87,12 +89,12 @@ class AssetTree {
 
     /**
      * @var mixed Tree of all available assets, with their applicable CSS/JS files.
-     * In the case an asset depends on other assets within the tree, they are defined as "depends".
+     *            In the case an asset depends on other assets within the tree, they are defined as "depends".
      */
     protected const ASSET_TREE = [
         self::FONT_AWESOME => [
             'css' => [
-                'vendor/@fortawesome/fontawesome-free/css/all.min.css'
+                'vendor/@fortawesome/fontawesome-free/css/all.min.css',
             ],
         ],
         self::BOOTSTRAP => [
@@ -104,7 +106,7 @@ class AssetTree {
             ],
             'after' => [
                 self::JQUERY_UI,
-            ]
+            ],
         ],
         self::BOOTSTRAP_COLORPICKER => [
             'css' => [
@@ -252,7 +254,7 @@ class AssetTree {
             ],
             'after' => [
                 self::JQUERY,
-            ]
+            ],
         ],
     ];
 }

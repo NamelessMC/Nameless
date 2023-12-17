@@ -1,10 +1,11 @@
 <?php
+
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
             $message = PhinxAdapter::migrate('Core');
             $json = [
-                'message' => $language->get('installer', 'database_configured'),
+                'message'      => $language->get('installer', 'database_configured'),
                 'redirect_url' => '?step=site_configuration',
             ];
 
@@ -18,7 +19,7 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
                 DatabaseInitialiser::runPreUser();
 
                 $json = [
-                    'success' => true,
+                    'success'      => true,
                     'redirect_url' => '?step=admin_account_setup',
                 ];
 
@@ -27,12 +28,12 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
         }
     } catch (Exception $e) {
         $json = [
-            'error' => true,
+            'error'   => true,
             'message' => $e->getMessage(),
         ];
     }
 
     header('Content-Type: application/json');
     echo json_encode($json);
-    die();
+    exit;
 }

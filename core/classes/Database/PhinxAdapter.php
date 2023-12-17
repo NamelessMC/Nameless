@@ -1,16 +1,16 @@
 <?php
 
-class PhinxAdapter {
-
+class PhinxAdapter
+{
     /**
      * Checks the number of existing migration files compared to executed migrations in the database.
      * Alternatively we could check the output of a Phinx command, but that takes ~8x as long to execute.
      *
      * TODO: return type as array|never (8.1)
      *
-     * @param string $module Module name
-     * @param ?string $migrationDir Migration directory
-     * @param bool $returnResults If true the results will be returned - otherwise script execution is ended
+     * @param string  $module        Module name
+     * @param ?string $migrationDir  Migration directory
+     * @param bool    $returnResults If true the results will be returned - otherwise script execution is ended
      *
      * @return array|void
      */
@@ -29,14 +29,15 @@ class PhinxAdapter {
         }
 
         if (!$migrationDir) {
-            $migrationDir = __DIR__ . '/../../migrations';
+            $migrationDir = __DIR__.'/../../migrations';
         }
 
         $migration_files = array_map(
             static function ($file_name) {
                 [$version, $migration_name] = explode('_', $file_name, 2);
                 $migration_name = str_replace(['.php', '_'], '', ucwords($migration_name, '_'));
-                return $version . '_' . $migration_name;
+
+                return $version.'_'.$migration_name;
             },
             array_filter(scandir($migrationDir), static function ($file_name) {
                 // Pattern that matches Phinx migration file names (eg: 20230403000000_create_stroopwafel_table.php)
@@ -45,7 +46,7 @@ class PhinxAdapter {
         );
 
         $migration_database_entries = array_map(static function ($row) {
-            return $row->version . '_' . $row->migration_name;
+            return $row->version.'_'.$row->migration_name;
         }, DB::getInstance()->query("SELECT version, migration_name FROM $table")->results());
 
         $missing = array_diff($migration_files, $migration_database_entries);
@@ -54,16 +55,16 @@ class PhinxAdapter {
         if ($returnResults) {
             return [
                 'missing' => count($missing),
-                'extra' => count($extra)
+                'extra'   => count($extra),
             ];
         }
 
         // Likely a pull from the repo dev branch or migrations
         // weren't run during an upgrade script.
         if (($missing_count = count($missing)) > 0) {
-            echo "There are $missing_count migrations files which have not been executed:" . '<br>';
+            echo "There are $missing_count migrations files which have not been executed:".'<br>';
             foreach ($missing as $missing_migration) {
-                echo " - $missing_migration" . '<br>';
+                echo " - $missing_migration".'<br>';
             }
         }
 
@@ -73,22 +74,22 @@ class PhinxAdapter {
             if ($missing_count > 0) {
                 echo '<br>';
             }
-            echo "There are $extra_count executed migrations which do not have migration files associated:" . '<br>';
+            echo "There are $extra_count executed migrations which do not have migration files associated:".'<br>';
             foreach ($extra as $extra_migration) {
-                echo " - $extra_migration" . '<br>';
+                echo " - $extra_migration".'<br>';
             }
         }
 
         if ($missing_count > 0 || $extra_count > 0) {
-            die();
+            exit;
         }
     }
 
     /**
      * Runs any pending migrations. Used for installation and upgrades. Resource heavy, only call when needed.
-     * Logs output of Phinx to other-log.log file
+     * Logs output of Phinx to other-log.log file.
      *
-     * @param string $module Module name
+     * @param string  $module       Module name
      * @param ?string $migrationDir Migration directory to use
      *
      * @return string Output of the migration command from Phinx as if it was executed in the console.
@@ -107,12 +108,12 @@ class PhinxAdapter {
         }
 
         define('PHINX_DB_TABLE', $table);
-        define('PHINX_MIGRATIONS_DIR', $migrationDir ?? (__DIR__ . '/../../migrations'));
+        define('PHINX_MIGRATIONS_DIR', $migrationDir ?? (__DIR__.'/../../migrations'));
 
         $output = (new Phinx\Wrapper\TextWrapper(
             new Phinx\Console\PhinxApplication(),
             [
-                'configuration' => __DIR__ . '/../../migrations/phinx.php',
+                'configuration' => __DIR__.'/../../migrations/phinx.php',
             ]
         ))->getMigrate();
 
@@ -123,15 +124,15 @@ class PhinxAdapter {
 
     /**
      * Rolls back migrations
-     * Logs output of Phinx to other-log.log file
+     * Logs output of Phinx to other-log.log file.
      *
-     * @param string $module Module name
+     * @param string $module       Module name
      * @param string $migrationDir Migration directory to use
-     * @param int $since Version of earliest migration to rollback, default 0 for all
-     *
-     * @return string Output of the migration command from Phinx as if it was executed in the console.
+     * @param int    $since        Version of earliest migration to rollback, default 0 for all
      *
      * @throws Exception If unable to rollback
+     *
+     * @return string Output of the migration command from Phinx as if it was executed in the console.
      */
     public static function rollback(
         string $module,
@@ -149,7 +150,7 @@ class PhinxAdapter {
 
         if (
             $table === 'nl2_phinxlog' ||
-            strtolower($migrationDir) === (__DIR__ . '/../../migrations')
+            strtolower($migrationDir) === (__DIR__.'/../../migrations')
         ) {
             throw new Exception('Cannot rollback core migrations');
         }
@@ -160,7 +161,7 @@ class PhinxAdapter {
         $output = (new Phinx\Wrapper\TextWrapper(
             new Phinx\Console\PhinxApplication(),
             [
-                'configuration' => __DIR__ . '/../../migrations/phinx.php',
+                'configuration' => __DIR__.'/../../migrations/phinx.php',
             ]
         ))->getRollback(null, $since);
 
@@ -168,5 +169,4 @@ class PhinxAdapter {
 
         return $output;
     }
-
 }

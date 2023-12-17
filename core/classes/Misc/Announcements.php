@@ -2,16 +2,18 @@
 /**
  * Announcement management class for creating and getting announcements.
  *
- * @package NamelessMC\Misc
  * @author Aberdeener
+ *
  * @version 2.1.0
+ *
  * @license MIT
  */
-class Announcements {
-
+class Announcements
+{
     private Cache $_cache;
 
-    public function __construct(Cache $cache) {
+    public function __construct(Cache $cache)
+    {
         $this->_cache = $cache;
     }
 
@@ -19,17 +21,18 @@ class Announcements {
      * Get all announcements matching the param filters.
      * If they have a cookie set for an announcement, it will be skipped.
      *
-     * @param string|null $page Name of the page they're viewing.
+     * @param string|null $page        Name of the page they're viewing.
      * @param string|null $custom_page Title of custom page they're viewing.
-     * @param array $user_groups All this user's groups.
+     * @param array       $user_groups All this user's groups.
      *
      * @return Announcement[] Array of announcements they should see on this specific page with their groups.
      */
-    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): iterable {
+    public function getAvailable(?string $page = null, ?string $custom_page = null, array $user_groups = [0]): iterable
+    {
         $announcements = [];
 
         foreach ($this->getAll() as $announcement) {
-            if (Cookie::exists('announcement-' . $announcement->id)) {
+            if (Cookie::exists('announcement-'.$announcement->id)) {
                 continue;
             }
 
@@ -54,7 +57,8 @@ class Announcements {
      *
      * @return Announcement[] All announcements.
      */
-    public function getAll(): iterable {
+    public function getAll(): iterable
+    {
         $this->_cache->setCache('custom_announcements');
 
         if ($this->_cache->isCached('custom_announcements')) {
@@ -79,7 +83,8 @@ class Announcements {
      *
      * @return array<string> Name of all pages announcements can be on.
      */
-    public static function getPages(Pages $pages): array {
+    public static function getPages(Pages $pages): array
+    {
         $available_pages = [];
 
         foreach ($pages->returnPages() as $page) {
@@ -98,7 +103,8 @@ class Announcements {
      *
      * @return string Comma seperated list of page names.
      */
-    public static function getPagesCsv(?string $pages_json = null): ?string {
+    public static function getPagesCsv(?string $pages_json = null): ?string
+    {
         $pages = json_decode($pages_json);
 
         if (!$pages) {
@@ -111,28 +117,29 @@ class Announcements {
     /**
      * Edit an existing announcement.
      *
-     * @param int $id ID of announcement to edit.
-     * @param array<string> $pages Array of page names this announcement should be on.
-     * @param array<int> $groups Array of group IDs this announcement should be visible to.
-     * @param string $text_colour Hex code of text colour to use.
-     * @param string $background_colour Hex code of background banner colour of announcement.
-     * @param string $icon HTML to use to display icon on announcement.
-     * @param bool $closable Whether this announcement should have an "x" to close and hide, or be shown 24/7.
-     * @param string $header Header text to show at top of announcement.
-     * @param string $message Main text to show in announcement.
-     * @param int $order Order of this announcement to use for sorting.
+     * @param int           $id                ID of announcement to edit.
+     * @param array<string> $pages             Array of page names this announcement should be on.
+     * @param array<int>    $groups            Array of group IDs this announcement should be visible to.
+     * @param string        $text_colour       Hex code of text colour to use.
+     * @param string        $background_colour Hex code of background banner colour of announcement.
+     * @param string        $icon              HTML to use to display icon on announcement.
+     * @param bool          $closable          Whether this announcement should have an "x" to close and hide, or be shown 24/7.
+     * @param string        $header            Header text to show at top of announcement.
+     * @param string        $message           Main text to show in announcement.
+     * @param int           $order             Order of this announcement to use for sorting.
      */
-    public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
+    public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool
+    {
         DB::getInstance()->update('custom_announcements', $id, [
-            'pages' => json_encode($pages),
-            'groups' => json_encode($groups),
-            'text_colour' => $text_colour,
+            'pages'             => json_encode($pages),
+            'groups'            => json_encode($groups),
+            'text_colour'       => $text_colour,
             'background_colour' => $background_colour,
-            'icon' => $icon,
-            'closable' => $closable ? 1 : 0,
-            'header' => $header,
-            'message' => $message,
-            'order' => $order
+            'icon'              => $icon,
+            'closable'          => $closable ? 1 : 0,
+            'header'            => $header,
+            'message'           => $message,
+            'order'             => $order,
         ]);
 
         $this->resetCache();
@@ -144,7 +151,8 @@ class Announcements {
      * Erase and regenerate announcement cache file.
      * Used when creating or editing announcements.
      */
-    public function resetCache(): void {
+    public function resetCache(): void
+    {
         $this->_cache->setCache('custom_announcements');
 
         if ($this->_cache->isCached('custom_announcements')) {
@@ -157,28 +165,29 @@ class Announcements {
     /**
      * Create an announcement.
      *
-     * @param User $user User who is creating the announcement.
-     * @param array<string> $pages Array of page names this announcement should be on.
-     * @param array<int> $groups Array of group IDs this announcement should be visible to.
-     * @param string $text_colour Hex code of text colour to use.
-     * @param string $background_colour Hex code of background banner colour of announcement.
-     * @param string $icon HTML to use to display icon on announcement.
-     * @param bool $closable Whether this announcement should have an "x" to close and hide, or be shown 24/7.
-     * @param string $header Header text to show at top of announcement.
-     * @param string $message Main text to show in announcement.
-     * @param int $order Order of this announcement to use for sorting.
+     * @param User          $user              User who is creating the announcement.
+     * @param array<string> $pages             Array of page names this announcement should be on.
+     * @param array<int>    $groups            Array of group IDs this announcement should be visible to.
+     * @param string        $text_colour       Hex code of text colour to use.
+     * @param string        $background_colour Hex code of background banner colour of announcement.
+     * @param string        $icon              HTML to use to display icon on announcement.
+     * @param bool          $closable          Whether this announcement should have an "x" to close and hide, or be shown 24/7.
+     * @param string        $header            Header text to show at top of announcement.
+     * @param string        $message           Main text to show in announcement.
+     * @param int           $order             Order of this announcement to use for sorting.
      */
-    public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool {
+    public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool
+    {
         DB::getInstance()->insert('custom_announcements', [
-            'pages' => json_encode($pages),
-            'groups' => json_encode($groups),
-            'text_colour' => $text_colour,
+            'pages'             => json_encode($pages),
+            'groups'            => json_encode($groups),
+            'text_colour'       => $text_colour,
             'background_colour' => $background_colour,
-            'icon' => $icon,
-            'closable' => $closable ? 1 : 0,
-            'header' => $header,
-            'message' => $message,
-            'order' => $order
+            'icon'              => $icon,
+            'closable'          => $closable ? 1 : 0,
+            'header'            => $header,
+            'message'           => $message,
+            'order'             => $order,
         ]);
 
         $this->resetCache();

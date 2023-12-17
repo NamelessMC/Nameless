@@ -6,13 +6,14 @@ use xPaw\MinecraftQuery;
 /**
  * Abstraction over xPaw\MinecraftQuery & xPaw\MinecraftPing to make them fit with our needs.
  *
- * @package NamelessMC\Minecraft
  * @author Samerton
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class MCQuery {
-
+class MCQuery
+{
     private const COLOUR_CHAR = '§';
 
     private const COLOURS = [
@@ -35,15 +36,17 @@ class MCQuery {
     ];
 
     /**
-     * Query a single server
+     * Query a single server.
      *
-     * @param array $ip Array ['ip' => string, 'pre' => int] - 'ip' contains ip:port, 'pre' 1 for pre-Minecraft 1.7 otherwise 0
-     * @param string $type Type of query to use (`internal` or `external`).
-     * @param bool $bedrock Whether this is a Bedrock server or not.
+     * @param array    $ip       Array ['ip' => string, 'pre' => int] - 'ip' contains ip:port, 'pre' 1 for pre-Minecraft 1.7 otherwise 0
+     * @param string   $type     Type of query to use (`internal` or `external`).
+     * @param bool     $bedrock  Whether this is a Bedrock server or not.
      * @param Language $language Query language object.
+     *
      * @return array Array containing query result.
      */
-    public static function singleQuery(array $ip, string $type, bool $bedrock, Language $language): array {
+    public static function singleQuery(array $ip, string $type, bool $bedrock, Language $language): array
+    {
         try {
             $query_ip = explode(':', $ip['ip']);
             if ($type == 'internal') {
@@ -55,7 +58,7 @@ class MCQuery {
                 if (count($query_ip) != 2) {
                     return [
                         'error' => true,
-                        'value' => 'split IP by : must contain exactly two components'
+                        'value' => 'split IP by : must contain exactly two components',
                     ];
                 }
 
@@ -74,39 +77,40 @@ class MCQuery {
                         $player_list = $query['players']['sample'] ?? [];
 
                         return [
-                            'status_value' => 1,
-                            'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query['players']['online']),
-                            'player_count_max' => Output::getClean($query['players']['max']),
-                            'player_list' => $player_list,
+                            'status_value'       => 1,
+                            'status'             => $language->get('general', 'online'),
+                            'player_count'       => Output::getClean($query['players']['online']),
+                            'player_count_max'   => Output::getClean($query['players']['max']),
+                            'player_list'        => $player_list,
                             'format_player_list' => self::formatPlayerList($player_list),
-                            'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
-                            'motd' => self::getMotd(
+                            'x_players_online'   => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
+                            'motd'               => self::getMotd(
                                 is_string($text = $query['description']) ? $text : $text['text'],
                                 $query['description']['extra'] ?? [],
                             ),
-                            'version' => $query['version']['name']
+                            'version' => $query['version']['name'],
                         ];
                     }
                 } else {
                     $querier = new MinecraftQuery();
                     $querier->ConnectBedrock($query_ip[0], $query_ip[1], 5);
                     $query = $querier->GetInfo();
+
                     return [
-                        'status_value' => 1,
-                        'status' => $language->get('general', 'online'),
-                        'player_count' => Output::getClean($query['Players']),
+                        'status_value'     => 1,
+                        'status'           => $language->get('general', 'online'),
+                        'player_count'     => Output::getClean($query['Players']),
                         'player_count_max' => Output::getClean($query['MaxPlayers']),
                         'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
-                        'motd' => $query['HostName'],
-                        'version' => $query['Version']
+                        'motd'             => $query['HostName'],
+                        'version'          => $query['Version'],
                     ];
                 }
 
                 return [
-                    'status_value' => 0,
-                    'status' => $language->get('general', 'offline'),
-                    'server_offline' => $language->get('general', 'server_offline')
+                    'status_value'   => 0,
+                    'status'         => $language->get('general', 'offline'),
+                    'server_offline' => $language->get('general', 'server_offline'),
                 ];
             }
 
@@ -114,23 +118,23 @@ class MCQuery {
             if (count($query_ip) > 2) {
                 return [
                     'error' => true,
-                    'value' => 'split IP by : contains more than two components'
+                    'value' => 'split IP by : contains more than two components',
                 ];
             }
 
-            $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($bedrock ? 19132 : 25565)), $bedrock);
+            $query = ExternalMCQuery::query($query_ip[0], $query_ip[1] ?? ($bedrock ? 19132 : 25565), $bedrock);
 
             if ($query !== false && !$query->error && isset($query->response)) {
                 $player_list = $query->response->players->list ?? [];
 
                 return [
-                    'status_value' => 1,
-                    'status' => $language->get('general', 'online'),
-                    'player_count' => Output::getClean($query->response->players->online),
-                    'player_count_max' => Output::getClean($query->response->players->max),
-                    'player_list' => $player_list,
+                    'status_value'       => 1,
+                    'status'             => $language->get('general', 'online'),
+                    'player_count'       => Output::getClean($query->response->players->online),
+                    'player_count_max'   => Output::getClean($query->response->players->max),
+                    'player_list'        => $player_list,
                     'format_player_list' => self::formatPlayerList($player_list),
-                    'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
+                    'x_players_online'   => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
                     // TODO: external query does not return bedrock MOTD at all
                     'motd' => self::getMotd(
                         json_decode(json_encode($query->response->description->text), true) ?? '',
@@ -140,9 +144,9 @@ class MCQuery {
             }
 
             return [
-                'status_value' => 0,
-                'status' => $language->get('general', 'offline'),
-                'server_offline' => $language->get('general', 'server_offline')
+                'status_value'   => 0,
+                'status'         => $language->get('general', 'offline'),
+                'server_offline' => $language->get('general', 'server_offline'),
             ];
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -150,15 +154,15 @@ class MCQuery {
             $query_ip = explode(':', $ip['ip']);
 
             DB::getInstance()->insert('query_errors', [
-                    'date' => date('U'),
-                    'error' => $error,
-                    'ip' => $query_ip[0],
-                    'port' => $query_ip[1] ?? 25565
+                'date'  => date('U'),
+                'error' => $error,
+                'ip'    => $query_ip[0],
+                'port'  => $query_ip[1] ?? 25565,
             ]);
 
             return [
                 'error' => true,
-                'value' => $error
+                'value' => $error,
             ];
         }
     }
@@ -167,14 +171,16 @@ class MCQuery {
      * Formats a list of players into something useful for the frontend.
      *
      * @param array $player_list Unformatted array of players in format 'id' => string (UUID), 'name' => string (username)
+     *
      * @return array Array of formatted players
      **/
-    public static function formatPlayerList(array $player_list): array {
+    public static function formatPlayerList(array $player_list): array
+    {
         $formatted = [];
 
         $integration = Integrations::getInstance()->getIntegration('Minecraft');
         foreach ($player_list as $player) {
-            $player = (array)$player;
+            $player = (array) $player;
 
             $integration_user = new IntegrationUser($integration, str_replace('-', '', $player['id']), 'identifier');
             if ($integration_user->exists()) {
@@ -193,9 +199,9 @@ class MCQuery {
 
             $formatted[] = [
                 'username' => Output::getClean($player['name']),
-                'uuid' => Output::getClean($player['id']),
-                'avatar' => $avatar,
-                'profile' => $profile
+                'uuid'     => Output::getClean($player['id']),
+                'avatar'   => $avatar,
+                'profile'  => $profile,
             ];
         }
 
@@ -203,15 +209,17 @@ class MCQuery {
     }
 
     /**
-     * Query multiple servers
+     * Query multiple servers.
      *
-     * @param array $servers Servers
-     * @param string $type Type of query to use (internal or external)
-     * @param Language $language Query language object
-     * @param bool $accumulate Whether to return as one accumulated result or not
+     * @param array    $servers    Servers
+     * @param string   $type       Type of query to use (internal or external)
+     * @param Language $language   Query language object
+     * @param bool     $accumulate Whether to return as one accumulated result or not
+     *
      * @return array Array containing query result
      */
-    public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate): array {
+    public static function multiQuery(array $servers, string $type, Language $language, bool $accumulate): array
+    {
         $to_return = [];
         $total_count = 0;
         $status = 0;
@@ -226,10 +234,10 @@ class MCQuery {
                 try {
                     if ($server['bedrock']) {
                         $ping = new MinecraftQuery();
-                        $ping->ConnectBedrock($query_ip[0], ($query_ip[1] ?? 19132), 5);
+                        $ping->ConnectBedrock($query_ip[0], $query_ip[1] ?? 19132, 5);
                         $query = $ping->GetInfo();
                     } else {
-                        $ping = new MinecraftPing($query_ip[0], ($query_ip[1] ?? 25565), 5);
+                        $ping = new MinecraftPing($query_ip[0], $query_ip[1] ?? 25565, 5);
 
                         if ($server['pre'] == 1) {
                             $query = $ping->QueryOldPre17();
@@ -241,10 +249,10 @@ class MCQuery {
                     $query = [];
 
                     DB::getInstance()->insert('query_errors', [
-                        'date' => date('U'),
+                        'date'  => date('U'),
                         'error' => $e->getMessage(),
-                        'ip' => $query_ip[0],
-                        'port' => ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565))
+                        'ip'    => $query_ip[0],
+                        'port'  => ($query_ip[1] ?? ($server['bedrock'] ? 19132 : 25565)),
                     ]);
                 }
 
@@ -252,10 +260,10 @@ class MCQuery {
                 if ($server['bedrock']) {
                     if ($accumulate === false) {
                         $to_return[] = [
-                            'name' => Output::getClean($server['name']),
-                            'status_value' => 1,
-                            'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query['Players']),
+                            'name'             => Output::getClean($server['name']),
+                            'status_value'     => 1,
+                            'status'           => $language->get('general', 'online'),
+                            'player_count'     => Output::getClean($query['Players']),
                             'player_count_max' => Output::getClean($query['MaxPlayers']),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['Players'])]),
                         ];
@@ -265,13 +273,13 @@ class MCQuery {
                         }
                         $total_count += $query['Players'];
                     }
-                } else if (isset($query['players'])) {
+                } elseif (isset($query['players'])) {
                     if ($accumulate === false) {
                         $to_return[] = [
-                            'name' => Output::getClean($server['name']),
-                            'status_value' => 1,
-                            'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query['players']['online']),
+                            'name'             => Output::getClean($server['name']),
+                            'status_value'     => 1,
+                            'status'           => $language->get('general', 'online'),
+                            'player_count'     => Output::getClean($query['players']['online']),
                             'player_count_max' => Output::getClean($query['players']['max']),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query['players']['online'])]),
                         ];
@@ -281,12 +289,12 @@ class MCQuery {
                         }
                         $total_count += $query['players']['online'];
                     }
-                } else if ($accumulate === true) {
+                } elseif ($accumulate === true) {
                     $to_return[] = [
-                        'name' => Output::getClean($server['name']),
-                        'status_value' => 0,
-                        'status' => $language->get('general', 'offline'),
-                        'server_offline' => $language->get('general', 'server_offline')
+                        'name'           => Output::getClean($server['name']),
+                        'status_value'   => 0,
+                        'status'         => $language->get('general', 'offline'),
+                        'server_offline' => $language->get('general', 'server_offline'),
                     ];
                 }
             }
@@ -294,7 +302,6 @@ class MCQuery {
             if (isset($ping) && $ping instanceof MinecraftPing) {
                 $ping->close();
             }
-
         } else {
             // External query
             foreach ($servers as $server) {
@@ -305,15 +312,15 @@ class MCQuery {
 
                 $is_bedrock = isset($server['bedrock']) && $server['bedrock'] === true;
 
-                $query = ExternalMCQuery::query($query_ip[0], ($query_ip[1] ?? ($is_bedrock ? 19132 : 25565)), $is_bedrock);
+                $query = ExternalMCQuery::query($query_ip[0], $query_ip[1] ?? ($is_bedrock ? 19132 : 25565), $is_bedrock);
 
                 if ($query !== false && !$query->error && isset($query->response)) {
                     if ($accumulate === false) {
                         $to_return[] = [
-                            'name' => Output::getClean($server['name']),
-                            'status_value' => 1,
-                            'status' => $language->get('general', 'online'),
-                            'player_count' => Output::getClean($query->response->players->online),
+                            'name'             => Output::getClean($server['name']),
+                            'status_value'     => 1,
+                            'status'           => $language->get('general', 'online'),
+                            'player_count'     => Output::getClean($query->response->players->online),
                             'player_count_max' => Output::getClean($query->response->players->max),
                             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => Output::getClean($query->response->players->online)]),
                         ];
@@ -323,12 +330,12 @@ class MCQuery {
                         }
                         $total_count += $query->response->players->online;
                     }
-                } else if ($accumulate === true) {
+                } elseif ($accumulate === true) {
                     $to_return[] = [
-                        'name' => Output::getClean($server['name']),
-                        'status_value' => 0,
-                        'status' => $language->get('general', 'offline'),
-                        'server_offline' => $language->get('general', 'server_offline')
+                        'name'           => Output::getClean($server['name']),
+                        'status_value'   => 0,
+                        'status'         => $language->get('general', 'offline'),
+                        'server_offline' => $language->get('general', 'server_offline'),
                     ];
                 }
             }
@@ -337,7 +344,7 @@ class MCQuery {
         if ($accumulate === true) {
             $to_return = [
                 'status_value' => $status,
-                'status' => $status == 1
+                'status'       => $status == 1
                     ? $language->get('general', 'online')
                     : $language->get('general', 'offline'),
                 'status_full' => $status == 1
@@ -351,13 +358,15 @@ class MCQuery {
     }
 
     /**
-     * Convert a Minecraft MOTD to its legacy colour codes
+     * Convert a Minecraft MOTD to its legacy colour codes.
      *
-     * @param string $text Legacy MOTD single-line text
-     * @param array $modern_format Array of modern MOTD format strings
+     * @param string $text          Legacy MOTD single-line text
+     * @param array  $modern_format Array of modern MOTD format strings
+     *
      * @return string MOTD as legacy MC colours
      */
-    private static function getMotd(string $text, array $modern_format): string {
+    private static function getMotd(string $text, array $modern_format): string
+    {
         if ($text !== '') {
             return $text;
         }
@@ -373,13 +382,13 @@ class MCQuery {
 
         $motd = '';
         foreach ($modern_format as $word) {
-            $motd .= self::COLOUR_CHAR . 'r';
+            $motd .= self::COLOUR_CHAR.'r';
             if (isset($word['color'])) {
                 $motd .= self::getColor($word['color']);
             }
 
             if (isset($word['bold']) && $word['bold'] === true) {
-                $motd .= self::COLOUR_CHAR . 'l';
+                $motd .= self::COLOUR_CHAR.'l';
             }
 
             $motd .= trim($word['text'], ' ');
@@ -389,18 +398,20 @@ class MCQuery {
     }
 
     /**
-     * Find the closest MC colour to a given hex colour
+     * Find the closest MC colour to a given hex colour.
      *
      * @param string $rgb RGB colour code
+     *
      * @return string The closest Minecraft colour code to the given RGB value
      */
-    private static function getColor(string $rgb): string {
+    private static function getColor(string $rgb): string
+    {
         if (strpos($rgb, '#') === 0) {
             $rgb = substr($rgb, 1);
         }
 
         $smallestDiff = null;
-        $closestColor = "";
+        $closestColor = '';
         foreach (self::COLOURS as $hex => $char) {
             $diff = self::colorDiff($hex, $rgb);
             if ($smallestDiff === null || $diff < $smallestDiff) {
@@ -409,17 +420,19 @@ class MCQuery {
             }
         }
 
-        return self::COLOUR_CHAR . $closestColor;
+        return self::COLOUR_CHAR.$closestColor;
     }
 
     /**
-     * Find the numerical difference between two RGB colours
+     * Find the numerical difference between two RGB colours.
      *
      * @param mixed $rgb1 RGB colour code
      * @param mixed $rgb2 RGB colour code
+     *
      * @return int The difference between two RGB colours
      */
-    private static function colorDiff($rgb1, $rgb2): int {
+    private static function colorDiff($rgb1, $rgb2): int
+    {
         $red1 = hexdec(substr($rgb1, 0, 2));
         $green1 = hexdec(substr($rgb1, 2, 2));
         $blue1 = hexdec(substr($rgb1, 4, 2));

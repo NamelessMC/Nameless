@@ -1,21 +1,21 @@
 <?php
 
-class IntegrityChecker {
-
+class IntegrityChecker
+{
     /**
-     * Files with relative paths starting with a string in this array are ignored
+     * Files with relative paths starting with a string in this array are ignored.
      */
     const IGNORED_PATHS = [
-        'cache/', # The htaccess file is included again, below
+        'cache/', // The htaccess file is included again, below
         'cache/logs/',
         'cache/templates_c/',
-        'templates/', # The default template is included again, below
-        'modules/', # Default modules are included again, below
+        'templates/', // The default template is included again, below
+        'modules/', // Default modules are included again, below
         'uploads/',
     ];
 
     /**
-     * Override a path within an ignored path to be included in the scan
+     * Override a path within an ignored path to be included in the scan.
      */
     // TODO: Have constants for default template and module names somewhere, so it doesn't have to be hardcoded here (and in other code)
     const INCLUDED_PATHS = [
@@ -30,7 +30,8 @@ class IntegrityChecker {
     /**
      * @return bool If the file should be ignored from integrity checking, according to IGNORED_PATHS and INCLUDED_PATHS.
      */
-    private static function isIgnored($path): bool {
+    private static function isIgnored($path): bool
+    {
         foreach (self::INCLUDED_PATHS as $include) {
             if (str_starts_with($path, $include)) {
                 return false;
@@ -46,8 +47,9 @@ class IntegrityChecker {
         return false;
     }
 
-    private static function checksumsPath(): string {
-        return ROOT_PATH . '/checksums.json';
+    private static function checksumsPath(): string
+    {
+        return ROOT_PATH.'/checksums.json';
     }
 
     /**
@@ -55,7 +57,8 @@ class IntegrityChecker {
      *
      * @return array An associative array (relative file path as key, checksum as value).
      */
-    public static function generateChecksums(): array {
+    public static function generateChecksums(): array
+    {
         $checksums_dict = [];
 
         // Iterate over all files, recursively
@@ -87,7 +90,8 @@ class IntegrityChecker {
      *
      * @param array $checksums An associative array (relative file path as key, checksum as value).
      */
-    public static function saveChecksums(array $checksums): void {
+    public static function saveChecksums(array $checksums): void
+    {
         $json = json_encode($checksums);
         file_put_contents(self::checksumsPath(), $json);
     }
@@ -96,14 +100,16 @@ class IntegrityChecker {
      * Load checksums from checksums.json file into an associative array.
      *
      * @return array|null An associative array (relative file path as key, checksum as value) or null if the checksum
-     * file does not exist.
+     *                    file does not exist.
      */
-    public static function loadChecksums() {
+    public static function loadChecksums()
+    {
         if (!is_file(self::checksumsPath())) {
             return null;
         }
 
         $json = file_get_contents(self::checksumsPath());
+
         return json_decode($json, true);
     }
 
@@ -113,13 +119,15 @@ class IntegrityChecker {
      *
      * @return array Array of errors strings, empty if no issues were found.
      */
-    public static function verifyChecksums(): array {
+    public static function verifyChecksums(): array
+    {
         $errors = [];
 
         $expected_checksums = self::loadChecksums();
 
         if ($expected_checksums == null) {
             $errors[] = 'Checksums file is missing, integrity cannot be verified';
+
             return $errors;
         }
 
@@ -127,22 +135,21 @@ class IntegrityChecker {
 
         foreach ($actual_checksums as $path => $checksum) {
             if (!array_key_exists($path, $expected_checksums)) {
-                $errors[] = 'Extra file: ' . $path;
+                $errors[] = 'Extra file: '.$path;
                 continue;
             }
 
             if ($checksum !== $expected_checksums[$path]) {
-                $errors[] = 'Checksum mismatch: ' . $path;
+                $errors[] = 'Checksum mismatch: '.$path;
             }
         }
 
         foreach ($expected_checksums as $path => $checksum) {
             if (!self::isIgnored($path) && !array_key_exists($path, $actual_checksums)) {
-                $errors[] = 'Missing file: ' . $path;
+                $errors[] = 'Missing file: '.$path;
             }
         }
 
         return $errors;
     }
-
 }

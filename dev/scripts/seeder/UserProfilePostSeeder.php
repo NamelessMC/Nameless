@@ -1,14 +1,15 @@
 <?php
 
-class UserProfilePostSeeder extends Seeder {
-
+class UserProfilePostSeeder extends Seeder
+{
     public array $tables = [
         'nl2_user_profile_wall_posts',
         'nl2_user_profile_wall_posts_replies',
         'nl2_user_profile_wall_posts_reactions',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
         $this->times(PROFILE_POST_COUNT, function () use ($db, $faker, $users) {
@@ -19,10 +20,10 @@ class UserProfilePostSeeder extends Seeder {
             }
 
             $db->insert('user_profile_wall_posts', [
-                'user_id' => $user->id,
+                'user_id'   => $user->id,
                 'author_id' => $author->id,
-                'time' => $this->since($author->joined, $faker)->format('U'),
-                'content' => $faker->text,
+                'time'      => $this->since($author->joined, $faker)->format('U'),
+                'content'   => $faker->text,
             ]);
         });
 
@@ -32,10 +33,10 @@ class UserProfilePostSeeder extends Seeder {
             $author_id = $faker->randomElement($profile_posts)->author_id;
 
             $db->insert('user_profile_wall_posts_replies', [
-                'post_id' => $post->id,
+                'post_id'   => $post->id,
                 'author_id' => $author_id,
-                'time' => $this->since($post->time, $faker)->format('U'),
-                'content' => $faker->text,
+                'time'      => $this->since($post->time, $faker)->format('U'),
+                'content'   => $faker->text,
             ]);
         });
 
@@ -45,10 +46,10 @@ class UserProfilePostSeeder extends Seeder {
             $user_id = $faker->randomElement($profile_posts)->user_id;
 
             $db->insert('user_profile_wall_posts_reactions', [
-                'user_id' => $user_id,
-                'post_id' => $post->id,
+                'user_id'     => $user_id,
+                'post_id'     => $post->id,
                 'reaction_id' => $faker->randomElement($reactions)->id,
-                'time' => $this->since($post->time, $faker)->format('U'),
+                'time'        => $this->since($post->time, $faker)->format('U'),
             ]);
         });
     }

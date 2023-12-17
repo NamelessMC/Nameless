@@ -1,18 +1,19 @@
 <?php
 
-class MinecraftPlaceholderDataSeeder extends Seeder {
-
+class MinecraftPlaceholderDataSeeder extends Seeder
+{
     public array $tables = [
         'nl2_users_placeholders',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $placeholders = $db->get('placeholders_settings', ['server_id', '<>', 0])->results();
         $users = $db->get('users', ['id', '<>', 0])->results();
         $saved = [];
         $user_uuids = [];
 
-        $this->times(1000, function() use ($db, $faker, $placeholders, $users, &$saved, &$user_uuids) {
+        $this->times(1000, function () use ($db, $faker, $placeholders, $users, &$saved, &$user_uuids) {
             $placeholder = $faker->randomElement($placeholders);
             $user = $faker->randomElement($users);
 
@@ -28,10 +29,10 @@ class MinecraftPlaceholderDataSeeder extends Seeder {
             }
 
             $db->insert('users_placeholders', [
-                'server_id' => $placeholder->server_id,
-                'uuid' => $uuid,
-                'name' => $placeholder->name,
-                'value' => $faker->numberBetween(0, 1000),
+                'server_id'    => $placeholder->server_id,
+                'uuid'         => $uuid,
+                'name'         => $placeholder->name,
+                'value'        => $faker->numberBetween(0, 1000),
                 'last_updated' => $this->since($user->joined, $faker)->format('U'),
             ]);
 

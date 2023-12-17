@@ -9,7 +9,7 @@
  *  Installer
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 if (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING'])) {
     define('DEBUGGING', 1);
@@ -25,7 +25,7 @@ $page = 'install';
 $install_path = str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])));
 
 // Start initialising the page
-require(ROOT_PATH . '/core/init.php');
+require ROOT_PATH.'/core/init.php';
 
 // Disable error reporting
 error_reporting(0);
@@ -37,7 +37,7 @@ date_default_timezone_set('Europe/London');
 // Select language
 if (
     isset($_SESSION['installer_language'])
-    && is_file('modules/Core/language/' . $_SESSION['installer_language'] . '.json')
+    && is_file('modules/Core/language/'.$_SESSION['installer_language'].'.json')
 ) {
     $language_short_code = $_SESSION['installer_language'];
 } else {
@@ -51,19 +51,20 @@ $language = new Language('core', $language_short_code);
 $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), 1);
 
 if (Config::exists() && Config::get('core.installed') === true) {
-    require(ROOT_PATH . '/core/installation/already_installed.php');
+    require ROOT_PATH.'/core/installation/already_installed.php';
+
     return;
 }
 
 if (isset($_GET['language'])) {
     if (str_contains($_GET['language'], '/')) {
-        die('Language code must not contain slash');
+        exit('Language code must not contain slash');
     }
     // Set language
-    if (is_file('modules/Core/language/' . $_GET['language'] . '.json')) {
+    if (is_file('modules/Core/language/'.$_GET['language'].'.json')) {
         $_SESSION['installer_language'] = $_GET['language'];
-        die('OK');
+        exit('OK');
     }
-    die($_GET['language'] . ' is not a valid language');
+    exit($_GET['language'].' is not a valid language');
 }
-require(ROOT_PATH . '/core/installation/installer.php');
+require ROOT_PATH.'/core/installation/installer.php';

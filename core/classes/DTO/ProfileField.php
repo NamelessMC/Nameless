@@ -2,13 +2,14 @@
 /**
  * Represents a custom profile field.
  *
- * @package NamelessMC\DTO
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class ProfileField {
-
+class ProfileField
+{
     public int $id;
     public string $name;
     public int $type;
@@ -19,7 +20,8 @@ class ProfileField {
     public bool $forum_posts;
     public bool $editable;
 
-    public function __construct(object $row) {
+    public function __construct(object $row)
+    {
         $this->id = $row->id;
         $this->name = $row->name;
         $this->type = $row->type;
@@ -34,21 +36,25 @@ class ProfileField {
     /**
      * @return array<int, ProfileField>
      */
-    public static function all(): array {
+    public static function all(): array
+    {
         $rows = DB::getInstance()->get('profile_fields', ['id', '<>', 0])->results();
         $fields = [];
         foreach ($rows as $row) {
             $fields[$row->id] = new ProfileField($row);
         }
+
         return $fields;
     }
 
     /**
      * @param string $value
      * @param string $column
+     *
      * @return array<int, ProfileField>|ProfileField
      */
-    public static function find(string $value, string $column = 'id') {
+    public static function find(string $value, string $column = 'id')
+    {
         $rows = DB::getInstance()->get('profile_fields', [$column, $value]);
         if (!$rows->count()) {
             return [];
@@ -65,5 +71,4 @@ class ProfileField {
 
         return $fields;
     }
-
 }

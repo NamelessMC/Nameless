@@ -19,7 +19,7 @@ session_start();
 
 // Page variable must be set
 if (!isset($page)) {
-    die('$page variable is unset. Cannot continue.');
+    exit('$page variable is unset. Cannot continue.');
 }
 
 Debugging::setCanViewDetailedError(defined('DEBUGGING') && DEBUGGING);
@@ -29,26 +29,26 @@ Debugging::setCanGenerateDebugLink(defined('DEBUGGING') && DEBUGGING);
 // Only check the most important paths.
 $writable_check_paths = [
     ROOT_PATH,
-    ROOT_PATH . '/cache',
-    ROOT_PATH . '/cache/logs',
-    ROOT_PATH . '/cache/sitemaps',
-    ROOT_PATH . '/cache/templates_c',
-    ROOT_PATH . '/uploads',
-    ROOT_PATH . '/core/config.php'
+    ROOT_PATH.'/cache',
+    ROOT_PATH.'/cache/logs',
+    ROOT_PATH.'/cache/sitemaps',
+    ROOT_PATH.'/cache/templates_c',
+    ROOT_PATH.'/uploads',
+    ROOT_PATH.'/core/config.php',
 ];
 
 foreach ($writable_check_paths as $path) {
     if (is_dir($path) && !is_writable($path)) {
-        die('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
-        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>');
+        exit('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
+        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: '.Output::getClean(ROOT_PATH).'</code></p>');
     }
 }
 
-if (!file_exists(ROOT_PATH . '/cache/templates_c')) {
+if (!file_exists(ROOT_PATH.'/cache/templates_c')) {
     try {
-        mkdir(ROOT_PATH . '/cache/templates_c', 0777, true);
+        mkdir(ROOT_PATH.'/cache/templates_c', 0777, true);
     } catch (Exception $e) {
-        die('Unable to create <strong>/cache</strong> directories, please check your file permissions.');
+        exit('Unable to create <strong>/cache</strong> directories, please check your file permissions.');
     }
 }
 
@@ -60,6 +60,7 @@ if (!Config::exists()) {
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
     $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
+
     return;
 }
 
@@ -71,9 +72,9 @@ if ($page != 'install') {
     $container = new \DI\Container();
     $container->set(Cache::class, function () {
         return new Cache([
-            'name' => 'nameless',
+            'name'      => 'nameless',
             'extension' => '.cache',
-            'path' => ROOT_PATH . '/cache/'
+            'path'      => ROOT_PATH.'/cache/',
         ]);
     });
 
@@ -96,12 +97,12 @@ if ($page != 'install') {
     if ($host !== null) {
         if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
             if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
-                Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
+                Redirect::to('https://www.'.$host.$_SERVER['REQUEST_URI']);
             } else {
-                Redirect::to('https://' . $host . $_SERVER['REQUEST_URI']);
+                Redirect::to('https://'.$host.$_SERVER['REQUEST_URI']);
             }
-        } else if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
-            Redirect::to(HttpUtils::getProtocol() . '://www.' . $host . $_SERVER['REQUEST_URI']);
+        } elseif (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
+            Redirect::to(HttpUtils::getProtocol().'://www.'.$host.$_SERVER['REQUEST_URI']);
         }
     }
 
@@ -165,14 +166,14 @@ if ($page != 'install') {
                 unset($directories[$i]);
             }
 
-            define('CONFIG_PATH', '/' . Config::get('core.path'));
+            define('CONFIG_PATH', '/'.Config::get('core.path'));
 
             $directories = array_values($directories);
         }
 
         $directory = implode('/', $directories);
 
-        $directory = '/' . $directory;
+        $directory = '/'.$directory;
 
         // Remove the trailing /
         if (strlen($directory) > 1) {
@@ -200,7 +201,7 @@ if ($page != 'install') {
 
     define('DEFAULT_LANGUAGE', $default_language);
 
-    if (!$user->isLoggedIn() || !($user->data()->language_id)) {
+    if (!$user->isLoggedIn() || !$user->data()->language_id) {
         if (Settings::get('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             // Attempt to get the requested language from the browser if it exists
             $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
@@ -231,12 +232,12 @@ if ($page != 'install') {
     // Site name
     $sitename = Settings::get('sitename');
     if ($sitename === null) {
-        die('No sitename in settings table');
+        exit('No sitename in settings table');
     }
     define('SITE_NAME', $sitename);
 
     // Template
-    if (!$user->isLoggedIn() || !($user->data()->theme_id)) {
+    if (!$user->isLoggedIn() || !$user->data()->theme_id) {
         // Default template for guests
         $cache->setCache('templatecache');
         $template = $cache->retrieve('default');
@@ -313,7 +314,7 @@ if ($page != 'install') {
         'explode',
         'implode',
         'strtolower',
-        'strtoupper'
+        'strtoupper',
     ];
     $securityPolicy->php_functions = [
         'isset',
@@ -326,24 +327,24 @@ if ($page != 'install') {
         'nl2br',
         'is_numeric',
         'file_exists',
-        'array_key_exists'
+        'array_key_exists',
     ];
-    $securityPolicy->secure_dir = [ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates'];
+    $securityPolicy->secure_dir = [ROOT_PATH.'/custom/templates', ROOT_PATH.'/custom/panel_templates'];
     $smarty->enableSecurity($securityPolicy);
 
     // Basic Smarty variables
     $smarty->assign([
-        'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
-        'OG_URL' => Output::getClean(rtrim(URL::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
-        'SITE_NAME' => Output::getClean(SITE_NAME),
-        'SITE_HOME' => URL::build('/'),
+        'CONFIG_PATH'   => defined('CONFIG_PATH') ? CONFIG_PATH.'/' : '/',
+        'OG_URL'        => Output::getClean(rtrim(URL::getSelfURL(), '/').$_SERVER['REQUEST_URI']),
+        'SITE_NAME'     => Output::getClean(SITE_NAME),
+        'SITE_HOME'     => URL::build('/'),
         'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
-        'GUEST' => $language->get('user', 'guest')
+        'GUEST'         => $language->get('user', 'guest'),
     ]);
     $cache->setCache('backgroundcache');
     if ($cache->isCached('og_image')) {
         // Assign the image value now, some pages may override it (via Page Metadata config)
-        $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $cache->retrieve('og_image'));
+        $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/').$cache->retrieve('og_image'));
     }
 
     // Avatars
@@ -422,7 +423,7 @@ if ($page != 'install') {
     $cache->setCache('modulescache');
     if (!$cache->isCached('enabled_modules')) {
         $cache->store('enabled_modules', [
-            ['name' => 'Core', 'priority' => 1]
+            ['name' => 'Core', 'priority' => 1],
         ]);
         $cache->store('module_core', true);
     }
@@ -437,8 +438,8 @@ if ($page != 'install') {
 
     if (!isset($core_exists)) {
         $enabled_modules[] = [
-            'name' => 'Core',
-            'priority' => 1
+            'name'     => 'Core',
+            'priority' => 1,
         ];
     }
 
@@ -451,15 +452,15 @@ if ($page != 'install') {
 
     // Load module dependencies
     foreach ($enabled_modules as $module) {
-        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php')) {
-            require_once ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php';
+        if (file_exists(ROOT_PATH.'/modules/'.$module['name'].'/autoload.php')) {
+            require_once ROOT_PATH.'/modules/'.$module['name'].'/autoload.php';
         }
     }
 
     // Load modules
     foreach ($enabled_modules as $module) {
-        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
-            require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
+        if (file_exists(ROOT_PATH.'/modules/'.$module['name'].'/init.php')) {
+            require_once ROOT_PATH.'/modules/'.$module['name'].'/init.php';
         }
     }
 
@@ -470,16 +471,16 @@ if ($page != 'install') {
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
             // Maintenance mode
             if (isset($_GET['route']) && (
-                    rtrim($_GET['route'], '/') === '/login'
-                    || rtrim($_GET['route'], '/') === '/forgot_password'
-                    || str_contains($_GET['route'], '/api/')
-                    || str_contains($_GET['route'], 'queries')
-                    || str_contains($_GET['route'], 'oauth/')
-                )) {
+                rtrim($_GET['route'], '/') === '/login'
+                || rtrim($_GET['route'], '/') === '/forgot_password'
+                || str_contains($_GET['route'], '/api/')
+                || str_contains($_GET['route'], 'queries')
+                || str_contains($_GET['route'], 'oauth/')
+            )) {
                 // Can continue as normal
             } else {
-                require(ROOT_PATH . '/core/includes/maintenance.php');
-                die();
+                require ROOT_PATH.'/core/includes/maintenance.php';
+                exit;
             }
         } else {
             // Display notice to admin stating maintenance mode is enabled
@@ -507,12 +508,12 @@ if ($page != 'install') {
                     }
 
                     $hook_array[] = [
-                        'id' => $hook->id,
-                        'url' => Output::getClean($hook->url),
+                        'id'     => $hook->id,
+                        'url'    => Output::getClean($hook->url),
                         'action' => $hook->action == 1
                             ? [WebHook::class, 'execute']
                             : [DiscordHook::class, 'execute'],
-                        'events' => json_decode($hook->events, true)
+                        'events' => json_decode($hook->events, true),
                     ];
                 }
                 $cache->store('hooks', $hook_array);
@@ -548,11 +549,11 @@ if ($page != 'install') {
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
             $user->update([
                 'last_online' => date('U'),
-                'lastip' => $ip
+                'lastip'      => $ip,
             ]);
         } else {
             $user->update([
-                'last_online' => date('U')
+                'last_online' => date('U'),
             ]);
         }
 
@@ -562,7 +563,7 @@ if ($page != 'install') {
             // Create the entry now
             DB::getInstance()->insert('users_ips', [
                 'user_id' => $user->data()->id,
-                'ip' => $ip
+                'ip'      => $ip,
             ]);
         } else {
             if (count($user_ip_logged) > 1) {
@@ -579,7 +580,7 @@ if ($page != 'install') {
                     // Not yet logged, do so now
                     DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
-                        'ip' => $ip
+                        'ip'      => $ip,
                     ]);
                 }
             } else {
@@ -587,7 +588,7 @@ if ($page != 'install') {
                 if ($user_ip_logged[0]->user_id != $user->data()->id) {
                     DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
-                        'ip' => $ip
+                        'ip'      => $ip,
                     ]);
                 }
             }
@@ -614,28 +615,28 @@ if ($page != 'install') {
         $user_integrations = [];
         foreach ($user->getIntegrations() as $integrationUser) {
             $user_integrations[$integrationUser->getIntegration()->getName()] = [
-                'username' => Output::getClean($integrationUser->data()->username),
-                'identifier' => Output::getClean($integrationUser->data()->identifier)
+                'username'   => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier),
             ];
         }
 
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', [
-            'username' => $user->getDisplayname(true),
-            'nickname' => $user->getDisplayname(),
-            'profile' => $user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/' . urlencode($user->data()->id) . '-' . urlencode($user->data()->username)),
+            'username'       => $user->getDisplayname(true),
+            'nickname'       => $user->getDisplayname(),
+            'profile'        => $user->getProfileURL(),
+            'panel_profile'  => URL::build('/panel/user/'.urlencode($user->data()->id).'-'.urlencode($user->data()->username)),
             'username_style' => $user->getGroupStyle(),
-            'user_title' => Output::getClean($user->data()->user_title),
-            'avatar' => $user->getAvatar(),
-            'integrations' => $user_integrations
+            'user_title'     => Output::getClean($user->data()->user_title),
+            'avatar'         => $user->getAvatar(),
+            'integrations'   => $user_integrations,
         ]);
 
         // Panel access?
         if ($user->canViewStaffCP()) {
             $smarty->assign([
                 'PANEL_LINK' => URL::build('/panel'),
-                'PANEL' => $language->get('moderator', 'staff_cp')
+                'PANEL'      => $language->get('moderator', 'staff_cp'),
             ]);
         }
     } else {

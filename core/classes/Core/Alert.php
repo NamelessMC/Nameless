@@ -2,23 +2,25 @@
 /**
  * Provides access to create & get alerts for a user, as well as their PMs.
  *
- * @package NamelessMC\Core
  * @author Samerton
+ *
  * @version 2.0.0-pr8
+ *
  * @license MIT
  */
-class Alert {
-
+class Alert
+{
     /**
      * Creates an alert for the specified user.
      *
-     * @param int $user_id Contains the ID of the user who we are creating the alert for.
-     * @param string $type Contains the alert type, eg 'tag' for user tagging.
-     * @param array $text_short Contains the alert text in short form for the dropdown.
-     * @param array $text Contains full information about the alert.
-     * @param string $link Contains link to view the alert, defaults to #.
+     * @param int    $user_id    Contains the ID of the user who we are creating the alert for.
+     * @param string $type       Contains the alert type, eg 'tag' for user tagging.
+     * @param array  $text_short Contains the alert text in short form for the dropdown.
+     * @param array  $text       Contains full information about the alert.
+     * @param string $link       Contains link to view the alert, defaults to #.
      */
-    public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void {
+    public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#'): void
+    {
         $db = DB::getInstance();
 
         $language = $db->query('SELECT nl2_languages.short_code AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_id]);
@@ -30,24 +32,25 @@ class Alert {
         $language = new Language($text_short['path'], $language->first()->short_code);
 
         $db->insert('alerts', [
-            'user_id' => $user_id,
-            'type' => $type,
-            'url' => $link,
-            'content_short' => str_replace(($text_short['replace'] ?? ''), ($text_short['replace_with'] ?? ''), $language->get($text_short['file'], $text_short['term'])),
-            'content' => str_replace(($text['replace'] ?? ''), ($text['replace_with'] ?? ''), $language->get($text['file'], $text['term'])),
-            'created' => date('U')
+            'user_id'       => $user_id,
+            'type'          => $type,
+            'url'           => $link,
+            'content_short' => str_replace($text_short['replace'] ?? '', $text_short['replace_with'] ?? '', $language->get($text_short['file'], $text_short['term'])),
+            'content'       => str_replace($text['replace'] ?? '', $text['replace_with'] ?? '', $language->get($text['file'], $text['term'])),
+            'created'       => date('U'),
         ]);
     }
 
     /**
      * Get user alerts.
      *
-     * @param int $user_id Contains the ID of the user who we are getting alerts for.
-     * @param bool $all Do we want to get all alerts (including read), or not; defaults to false).
+     * @param int  $user_id Contains the ID of the user who we are getting alerts for.
+     * @param bool $all     Do we want to get all alerts (including read), or not; defaults to false).
      *
      * @return array All their alerts.
      */
-    public static function getAlerts(int $user_id, bool $all = false): array {
+    public static function getAlerts(int $user_id, bool $all = false): array
+    {
         $db = DB::getInstance();
 
         if ($all == true) {
@@ -60,12 +63,13 @@ class Alert {
     /**
      * Get a users unread messages.
      *
-     * @param int $user_id The ID of the user who we are getting messages for.
-     * @param bool $all Get all alerts (including read), or not. Defaults to false.
+     * @param int  $user_id The ID of the user who we are getting messages for.
+     * @param bool $all     Get all alerts (including read), or not. Defaults to false.
      *
      * @return array All their messages matching the $all filter.
      */
-    public static function getPMs(int $user_id, bool $all = false): array {
+    public static function getPMs(int $user_id, bool $all = false): array
+    {
         $db = DB::getInstance();
 
         if ($all == true) {
@@ -83,12 +87,12 @@ class Alert {
                 $pm_full = $pm_full[0];
 
                 $pms[] = [
-                    'id' => $pm_full->id,
-                    'title' => Output::getClean($pm_full->title),
-                    'created' => $pm_full->created,
-                    'author_id' => $pm_full->author_id,
+                    'id'              => $pm_full->id,
+                    'title'           => Output::getClean($pm_full->title),
+                    'created'         => $pm_full->created,
+                    'author_id'       => $pm_full->author_id,
                     'last_reply_user' => $pm_full->last_reply_user,
-                    'last_reply_date' => $pm_full->last_reply_date
+                    'last_reply_date' => $pm_full->last_reply_date,
                 ];
             }
 
@@ -109,12 +113,12 @@ class Alert {
                 $pm_full = $pm_full[0];
 
                 $unread[] = [
-                    'id' => $pm_full->id,
-                    'title' => Output::getClean($pm_full->title),
-                    'created' => $pm_full->created,
-                    'author_id' => $pm_full->author_id,
+                    'id'              => $pm_full->id,
+                    'title'           => Output::getClean($pm_full->title),
+                    'created'         => $pm_full->created,
+                    'author_id'       => $pm_full->author_id,
                     'last_reply_user' => $pm_full->last_reply_user,
-                    'last_reply_date' => $pm_full->last_reply_date
+                    'last_reply_date' => $pm_full->last_reply_date,
                 ];
             }
         }
