@@ -397,8 +397,12 @@ if ($oauth_flow) {
 }
 
 // Add "continue with..." message to provider array
-$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
-foreach ($providers as $name => $provider) {
+$providers = [];
+foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $provider) {
+    if (!NamelessOAuth::getInstance()->isEnabled($name))
+        continue;
+
+    $providers[$name] = $provider;
     $providers[$name]['continue_with'] = $language->get('user', 'continue_with', [
         'provider' => ucfirst($name)
     ]);
@@ -421,7 +425,7 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
-    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_AVAILABLE' => count($providers),
     'OAUTH_PROVIDERS' => $providers,
 ]);
 

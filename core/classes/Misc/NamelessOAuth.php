@@ -57,20 +57,6 @@ class NamelessOAuth extends Instanceable {
     }
 
     /**
-     * Determine if OAuth is available if at least one provider is setup.
-     *
-     * @return bool If any provider is setup
-     */
-    public function isAvailable(): bool {
-        foreach (array_keys($this->_providers) as $provider) {
-            if ($this->isSetup($provider)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Get an array of provider names and their URL & icon.
      *
      * @return array Array of provider names and their instances
@@ -180,10 +166,6 @@ class NamelessOAuth extends Instanceable {
      * @return bool If the provider is setup
      */
     public function isSetup(string $provider): bool {
-        if (!$this->isEnabled($provider)) {
-            return false;
-        }
-
         [$client_id, $client_secret] = $this->getCredentials($provider);
 
         return $client_id !== '' && $client_secret !== '';

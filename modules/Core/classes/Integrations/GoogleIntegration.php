@@ -108,7 +108,7 @@ class GoogleIntegration extends IntegrationBase {
     }
 
     public function allowLinking(): bool {
-        return NamelessOAuth::getInstance()->isEnabled('google');
+        return NamelessOAuth::getInstance()->isSetup('google');
     }
 
     public function onRegistrationPageLoad(Fields $fields) {

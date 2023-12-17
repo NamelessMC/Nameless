@@ -89,31 +89,34 @@
                     {/if}
 
                     {if isset($OAUTH)}
-                        <h5>{$OAUTH}</h5>
-                        <div class="card shadow border-left-primary">
-                            <div class="card-body">
-                                <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                {$OAUTH_INFO}
-                            </div>
-                        </div>
-                        <br />
                         <form action="" method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-4">
                                         <div class="card-body">
+
+                                            <h5>{$OAUTH} {if $OAUTH_PROVIDER_DATA['logo_url']}
+                                                    <img src="{$OAUTH_PROVIDER_DATA['logo_url']}" alt="{$OAUTH_PROVIDER_DATA['name']|ucfirst} Logo" style="width: 16px; height: auto;">
+                                                {elseif $OAUTH_PROVIDER_DATA['icon']}
+                                                    <i class="{$OAUTH_PROVIDER_DATA['icon']}"></i>
+                                                {/if}</h5>
+                                            <hr />
+                                            <div class="card shadow border-left-primary">
+                                                <div class="card-body">
+                                                    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
+                                                    {$OAUTH_INFO}
+                                                </div>
+                                            </div>
+
+                                            <br />
+
                                             <div class="form-group custom-control custom-switch">
                                                 <input id="enable" name="enable"
                                                        type="checkbox" class="custom-control-input" {if $OAUTH_PROVIDER_DATA['enabled']
                                                 && $OAUTH_PROVIDER_DATA['setup']} checked{/if} />
                                                 <label for="enable" id="enable"
                                                        class="custom-control-label">
-                                                    {$OAUTH_PROVIDER_DATA['name']|ucfirst}
-                                                    {if $OAUTH_PROVIDER_DATA['logo_url']}
-                                                        <img src="{$OAUTH_PROVIDER_DATA['logo_url']}" alt="{$OAUTH_PROVIDER_DATA['name']|ucfirst} Logo" style="width: 16px; height: auto;">
-                                                    {elseif $OAUTH_PROVIDER_DATA['icon']}
-                                                        <i class="{$OAUTH_PROVIDER_DATA['icon']}"></i>
-                                                    {/if}
+                                                    {$REGISTER_LOGIN_WITH_OAUTH}
                                                 </label>
                                             </div>
 

@@ -107,8 +107,8 @@ if (!isset($_GET['integration'])) {
             'name' => $provider_name,
             'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
             'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
-            'icon' => $provider_data['icon'] ?? null,
-            'logo_url' => $provider_data['logo_url'] ?? null,
+            'icon' => $provider['icon'] ?? null,
+            'logo_url' => $provider['logo_url'] ?? null,
             'client_id' => $client_id,
             'client_secret' => $client_secret,
             'client_url' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . $provider_name, 'non-friendly'),
@@ -123,6 +123,7 @@ if (!isset($_GET['integration'])) {
             'REDIRECT_URL' => $language->get('admin', 'redirect_url'),
             'CLIENT_ID' => $language->get('admin', 'client_id'),
             'CLIENT_SECRET' => $language->get('admin', 'client_secret'),
+            'REGISTER_LOGIN_WITH_OAUTH' => $language->get('admin', 'register_login_with_oauth'),
             'OAUTH_URL' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider={{provider}}', 'non-friendly'),
             'OAUTH_PROVIDER_DATA' => $oauth_provider_data
         ]);
