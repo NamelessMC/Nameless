@@ -11,6 +11,7 @@ $errors = IntegrityChecker::verifyChecksums();
 
 if (count($errors) === 0) {
     echo "No errors found!\n";
+
     return;
 }
 

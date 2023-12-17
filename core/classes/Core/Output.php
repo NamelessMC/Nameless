@@ -7,8 +7,8 @@
  * @version 2.0.0-pr8
  * @license MIT
  */
-class Output {
-
+class Output
+{
     /**
      * @var HTMLPurifier Static purifier instance.
      */
@@ -18,20 +18,22 @@ class Output {
      * Returns a clean version of an inputted string.
      * Will remove HTML, convert HTML entities, and strip slashes.
      *
-     * @param ?string $input The string which will be cleaned
+     * @param  ?string $input The string which will be cleaned
      * @return ?string Cleaned version of string.
      */
-    public static function getClean(?string $input): ?string {
+    public static function getClean(?string $input): ?string
+    {
         return $input === null ? null : htmlspecialchars($input, ENT_QUOTES);
     }
 
     /**
      * Returns a decoded version of a clean string.
      *
-     * @param ?string $input Contains the clean string which will be decoded.
+     * @param  ?string $input Contains the clean string which will be decoded.
      * @return ?string Decoded string.
      */
-    public static function getDecoded(?string $input): ?string {
+    public static function getDecoded(?string $input): ?string
+    {
         return $input === null ? null : htmlspecialchars_decode($input, ENT_QUOTES);
     }
 
@@ -39,14 +41,14 @@ class Output {
      * Returns a purified version of an inputted string with HTMLPurifier.
      * Will not remove any HTML tags.
      *
-     * @param string|null $input String which will be purified.
-     * @param bool $escape_invalid Should invalid HTML be escaped instead of fully removed?
+     * @param string|null $input          String which will be purified.
+     * @param bool        $escape_invalid Should invalid HTML be escaped instead of fully removed?
      *
      * @return string Purified string.
      */
-    public static function getPurified(?string $input, bool $escape_invalid = false): string {
+    public static function getPurified(?string $input, bool $escape_invalid = false): string
+    {
         if (!isset(self::$_purifier)) {
-
             $purifierConfig = HTMLPurifier_Config::createDefault();
 
             // Config settings
@@ -81,13 +83,13 @@ class Output {
     }
 
     /**
-     * urlencode() a string without encoding slashes
+     * urlencode() a string without encoding slashes.
      *
-     * @param string $input String to encode
+     * @param  string $input String to encode
      * @return string Encoded string
      */
-    public static function urlEncodeAllowSlashes(string $input): string {
+    public static function urlEncodeAllowSlashes(string $input): string
+    {
         return str_replace('%2F', '/', urlencode($input));
     }
-
 }
