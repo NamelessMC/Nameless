@@ -1,11 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class MoveEmailSettingsToConfig extends AbstractMigration {
-
-    public function change(): void {
+final class MoveEmailSettingsToConfig extends AbstractMigration
+{
+    public function change(): void
+    {
         // New installations won't have the old email.php config file
         if (!is_file(ROOT_PATH . '/core/email.php')) {
             return;
@@ -33,5 +35,4 @@ final class MoveEmailSettingsToConfig extends AbstractMigration {
             // Not a big problem if we can't delete the file, for example if it's not writable. It's not worth crashing the upgrader.
         }
     }
-
 }

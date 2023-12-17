@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract task class for queue task implementations
+ * Abstract task class for queue task implementations.
  *
  * @package NamelessMC\Queue
  * @author Samerton
@@ -8,31 +8,32 @@
  * @license MIT
  */
 
-use \DI\Container;
+use DI\Container;
 
-abstract class Task {
+abstract class Task
+{
     /**
-     * Cancelled status
+     * Cancelled status.
      */
     public const STATUS_CANCELLED = 'cancelled';
     /**
-     * Completed status
+     * Completed status.
      */
     public const STATUS_COMPLETED = 'completed';
     /**
-     * Error status
+     * Error status.
      */
     public const STATUS_ERROR = 'error';
     /**
-     * Failed status - when task has been in error status 3 times
+     * Failed status - when task has been in error status 3 times.
      */
     public const STATUS_FAILED = 'failed';
     /**
-     * In progress status
+     * In progress status.
      */
     public const STATUS_IN_PROGRESS = 'in_progress';
     /**
-     * Ready status
+     * Ready status.
      */
     public const STATUS_READY = 'ready';
 
@@ -122,19 +123,21 @@ abstract class Task {
     protected Container $_container;
 
     /**
-     * Initialise new empty task
+     * Initialise new empty task.
      */
-    public function __construct() {
+    public function __construct()
+    {
     }
 
     /**
-     * Initialise task from ID
+     * Initialise task from ID.
      * @param int $id
      *
      * @throws Exception
      * @return ?Task
      */
-    public function fromId(int $id): ?Task {
+    public function fromId(int $id): ?Task
+    {
         $task = DB::getInstance()->query('SELECT * FROM nl2_queue WHERE `id` = ?', [$id]);
 
         if ($task->count()) {
@@ -163,16 +166,16 @@ abstract class Task {
     }
 
     /**
-     * Initialise new task
-     * @param int $moduleId Module ID to which this task belongs
-     * @param string $name Name of the task
-     * @param ?array $data Any data which needs passing into the task when it executes
-     * @param int $scheduledFor Unix timestamp representing the earliest time from which the task will be executed
-     * @param ?string $entity Optional entity the task is associated with
-     * @param ?int $entityId Optional entity ID the task is associated with
-     * @param bool $fragment Whether to fragment the task's execution or not (split up into multiple runs)
-     * @param ?int $fragmentTotal Total number of items which need processing if fragmenting
-     * @param ?int $userId Optional user ID which triggered this task's execution
+     * Initialise new task.
+     * @param int     $moduleId      Module ID to which this task belongs
+     * @param string  $name          Name of the task
+     * @param ?array  $data          Any data which needs passing into the task when it executes
+     * @param int     $scheduledFor  Unix timestamp representing the earliest time from which the task will be executed
+     * @param ?string $entity        Optional entity the task is associated with
+     * @param ?int    $entityId      Optional entity ID the task is associated with
+     * @param bool    $fragment      Whether to fragment the task's execution or not (split up into multiple runs)
+     * @param ?int    $fragmentTotal Total number of items which need processing if fragmenting
+     * @param ?int    $userId        Optional user ID which triggered this task's execution
      *
      * @return Task
      */
@@ -204,101 +207,115 @@ abstract class Task {
     /**
      * @return int|null
      */
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->_id;
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return void
      */
-    public function setData(array $data = []) {
+    public function setData(array $data = [])
+    {
         $this->_data = $data;
     }
 
     /**
      * @return array
      */
-    public function getData(): array {
+    public function getData(): array
+    {
         return $this->_data ?? [];
     }
 
     /**
-     * @param array $output
+     * @param  array $output
      * @return void
      */
-    public function setOutput(array $output = []) {
+    public function setOutput(array $output = [])
+    {
         $this->_output = $output;
     }
 
     /**
-     * @param Container $container
+     * @param  Container $container
      * @return void
      */
-    public function setContainer(Container $container) {
+    public function setContainer(Container $container)
+    {
         $this->_container = $container;
     }
 
     /**
      * @return array
      */
-    public function getOutput(): array {
+    public function getOutput(): array
+    {
         return $this->_output ?? [];
     }
 
     /**
      * @return ?int
      */
-    public function getAttempts(): ?int {
+    public function getAttempts(): ?int
+    {
         return $this->_attempts;
     }
 
     /**
      * @return ?string
      */
-    public function getEntity(): ?string {
+    public function getEntity(): ?string
+    {
         return $this->_entity;
     }
 
     /**
      * @return ?int
      */
-    public function getEntityId(): ?int {
+    public function getEntityId(): ?int
+    {
         return $this->_entityId;
     }
 
     /**
      * @return ?int
      */
-    public function getExecutedAt(): ?int {
+    public function getExecutedAt(): ?int
+    {
         return $this->_executedAt;
     }
 
     /**
      * @return int
      */
-    public function getModuleId(): int {
+    public function getModuleId(): int
+    {
         return $this->_moduleId;
     }
 
     /**
      * @return string
      */
-    public function getTask(): string {
+    public function getTask(): string
+    {
         return $this->_task;
     }
 
     /**
      * @return string
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 
     /**
      * @return int
      */
-    public function getScheduledFor(): int {
+    public function getScheduledFor(): int
+    {
         return $this->_scheduledFor;
     }
 
@@ -306,49 +323,55 @@ abstract class Task {
      * Will this task be fragmented?
      * @return bool
      */
-    public function getWillFragment(): bool {
+    public function getWillFragment(): bool
+    {
         return $this->_fragment;
     }
 
     /**
      * @return ?int
      */
-    public function getFragmentTotal(): ?int {
+    public function getFragmentTotal(): ?int
+    {
         return $this->_fragmentTotal;
     }
 
     /**
-     * @param int $next Index to resume processing on next time the task is run
+     * @param  int  $next Index to resume processing on next time the task is run
      * @return void
      */
-    public function setFragmentNext(int $next) {
+    public function setFragmentNext(int $next)
+    {
         $this->_fragmentNext = $next;
     }
 
     /**
      * @return ?int
      */
-    public function getFragmentNext(): ?int {
+    public function getFragmentNext(): ?int
+    {
         return $this->_fragmentNext;
     }
 
     /**
      * @return string
      */
-    public function getStatus(): string {
+    public function getStatus(): string
+    {
         return $this->_status;
     }
 
     /**
      * @return ?int
      */
-    public function getUserId(): ?int {
+    public function getUserId(): ?int
+    {
         return $this->_userId;
     }
 
     /**
-     * Run the task
+     * Run the task.
      * @return string Status of task following execution
      */
-    abstract function run(): string;
+    abstract public function run(): string;
 }

@@ -25,7 +25,7 @@ $_SESSION['tfa'] = true;
 if (Session::exists('tfa_signin')) {
     $smarty->assign([
         'ERROR_TITLE' => $language->get('general', 'error'),
-        'ERROR' => Session::flash('tfa_signin')
+        'ERROR' => Session::flash('tfa_signin'),
     ]);
 }
 
@@ -34,7 +34,7 @@ $smarty->assign([
     'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
     'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 // Load modules + template

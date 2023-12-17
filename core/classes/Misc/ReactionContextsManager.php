@@ -8,9 +8,9 @@
  * @license MIT
  * @see ReactionContext
  */
-class ReactionContextsManager extends Instanceable {
-
-    /** @var ReactionContext[]  */
+class ReactionContextsManager extends Instanceable
+{
+    /** @var ReactionContext[] */
     private array $_contexts = [];
 
     /**
@@ -18,17 +18,19 @@ class ReactionContextsManager extends Instanceable {
      *
      * @param ReactionContext $context Reaction context to register.
      */
-    public function provideContext(ReactionContext $context): void {
+    public function provideContext(ReactionContext $context): void
+    {
         $this->_contexts[$context->name()] = $context;
     }
 
     /**
      * Get a reaction context by name.
      *
-     * @param string $name Name of reaction context to get.
+     * @param  string               $name Name of reaction context to get.
      * @return ReactionContext|null Reaction context with the given name, or throws error if it does not exist.
      */
-    public function getContext(string $name): ?ReactionContext {
+    public function getContext(string $name): ?ReactionContext
+    {
         if (!isset($this->_contexts[$name])) {
             throw new InvalidArgumentException('Invalid reaction context name: ' . $name);
         }
@@ -41,7 +43,8 @@ class ReactionContextsManager extends Instanceable {
      *
      * @return ReactionContext[] All registered reaction contexts.
      */
-    public function getContexts(): array {
+    public function getContexts(): array
+    {
         return $this->_contexts;
     }
 
@@ -50,7 +53,8 @@ class ReactionContextsManager extends Instanceable {
      *
      * @return string[] All valid reaction context names.
      */
-    public function validContextNames(): array {
+    public function validContextNames(): array
+    {
         return array_map(static function (ReactionContext $context) {
             return $context->name();
         }, $this->enabledContexts());
@@ -59,10 +63,11 @@ class ReactionContextsManager extends Instanceable {
     /**
      * Get all valid reaction context friendly names.
      *
-     * @param Language $language Language to translate friendly names in.
+     * @param  Language $language Language to translate friendly names in.
      * @return string[] All valid reaction context friendly names.
      */
-    public function validContextFriendlyNames(Language $language): array {
+    public function validContextFriendlyNames(Language $language): array
+    {
         return array_map(static function (ReactionContext $context) use ($language) {
             return $context->friendlyName($language);
         }, $this->enabledContexts());
@@ -73,7 +78,8 @@ class ReactionContextsManager extends Instanceable {
      *
      * @return ReactionContext[] All enabled reaction contexts.
      */
-    private function enabledContexts(): array {
+    private function enabledContexts(): array
+    {
         return array_filter($this->_contexts, static function (ReactionContext $context) {
             return $context->isEnabled();
         });
