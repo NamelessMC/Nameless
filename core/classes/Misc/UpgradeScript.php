@@ -3,27 +3,33 @@
  * Used for abstracting common tasks done during upgrades.
  *
  * @package NamelessMC\Misc
+ *
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-abstract class UpgradeScript {
-
+abstract class UpgradeScript
+{
     protected Cache $_cache;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_cache = new Cache(
             ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
     }
 
     /**
-     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesn't exist
+     * Get instance of UpgradeScript for a specific NamelessMC version, null if it doesn't exist.
      *
      * @param string $current_version Current NamelessMC version (ie: `2.0.0-pr12`, `2.0.0`)
+     *
      * @return UpgradeScript|null Instance of UpgradeScript from file
      */
-    public static function get(string $current_version): ?UpgradeScript {
+    public static function get(string $current_version): ?UpgradeScript
+    {
         $path = ROOT_PATH . '/core/includes/updates/' . str_replace('.', '', $current_version) . '.php';
 
         if (!file_exists($path)) {
@@ -34,7 +40,7 @@ abstract class UpgradeScript {
     }
 
     /**
-     * Execute this UpgradeScript
+     * Execute this UpgradeScript.
      */
     abstract public function run(): void;
 
@@ -43,28 +49,33 @@ abstract class UpgradeScript {
      *
      * @param string $message Message to log
      */
-    protected function log(string $message): void {
+    protected function log(string $message): void
+    {
         echo $message . '<br/>';
         ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $message);
     }
 
     /**
-     * Run a single database query
+     * Run a single database query.
      *
      * @param Closure $query Function which returns the query
+     *
      * @return mixed The result of the closure, if any
      */
-    protected function databaseQuery(Closure $query) {
+    protected function databaseQuery(Closure $query)
+    {
         return $this->databaseQueries([$query])[0];
     }
 
     /**
-     * Run multiple queries
+     * Run multiple queries.
      *
      * @param Closure[] $queries Array of queries to execute one after another
+     *
      * @return array Results from queries in order
      */
-    protected function databaseQueries(array $queries): array {
+    protected function databaseQueries(array $queries): array
+    {
         $results = [];
 
         foreach ($queries as $query) {
@@ -80,25 +91,24 @@ abstract class UpgradeScript {
     }
 
     /**
-     * Delete one or more folders or files in a path
+     * Delete one or more folders or files in a path.
      *
-     * @param string $path Prefix path to append to each of the files in `$files` array
-     * @param array $files Name of folders/files in `$path` to delete. Use `*` for all folders/files
-     * @param bool $recursive Whether to recursively delete
+     * @param string $path      Prefix path to append to each of the files in `$files` array
+     * @param array  $files     Name of folders/files in `$path` to delete. Use `*` for all folders/files
+     * @param bool   $recursive Whether to recursively delete
      */
-    protected function deleteFilesInPath(string $path, array $files, bool $recursive = false): void {
+    protected function deleteFilesInPath(string $path, array $files, bool $recursive = false): void
+    {
         if (in_array('*', $files)) {
             $files = scandir($path);
         }
 
         foreach ($files as $file) {
-
             if ($file[0] == '.') {
                 continue;
             }
 
             if (file_exists($newFile = implode(DIRECTORY_SEPARATOR, [$path, $file]))) {
-
                 if (is_dir($newFile)) {
                     if ($recursive) {
                         $this->deleteFilesInPath($newFile, ['*'], true);
@@ -107,20 +117,19 @@ abstract class UpgradeScript {
                 } else {
                     $this->deleteFiles($newFile);
                 }
-
             } else {
                 $this->log("'$newFile' does not exist, cannot delete.");
             }
-
         }
     }
 
     /**
-     * Delete a single folder or file
+     * Delete a single folder or file.
      *
      * @param string|array $paths Path to folder or file to delete
      */
-    protected function deleteFiles($paths): void {
+    protected function deleteFiles($paths): void
+    {
         foreach ((array) $paths as $path) {
             $path = ROOT_PATH . '/' . $path;
             if (!file_exists($path)) {
@@ -130,6 +139,7 @@ abstract class UpgradeScript {
 
             if (!is_writable($path)) {
                 $this->log("'$path' is not writable, cannot delete.");
+
                 return;
             }
 
@@ -144,7 +154,8 @@ abstract class UpgradeScript {
     /**
      * Execute any pending database migrations.
      */
-    protected function runMigrations(): void {
+    protected function runMigrations(): void
+    {
         PhinxAdapter::migrate('Core');
     }
 
@@ -153,7 +164,8 @@ abstract class UpgradeScript {
      *
      * @param string $version Version to set
      */
-    protected function setVersion(string $version): void {
+    protected function setVersion(string $version): void
+    {
         Settings::set('nameless_version', $version);
         Settings::set('version_update', null);
     }

@@ -3,12 +3,15 @@
  * Module base class as well as management class.
  *
  * @package NamelessMC\Core
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-abstract class Module {
-
+abstract class Module
+{
     /**
      * @var Module[] Array of all modules
      */
@@ -48,22 +51,24 @@ abstract class Module {
     /**
      * Call `onPageLoad()` function for all registered modules.
      *
-     * @param User $user User viewing the page.
-     * @param Pages $pages Instance of pages class.
-     * @param Cache $cache Instance of cache to pass.
-     * @param Smarty $smarty Instance of smarty to pass.
-     * @param Navigation[] $navs Array of loaded navigation menus.
-     * @param Widgets $widgets Instance of widget class to pass.
+     * @param User         $user     User viewing the page.
+     * @param Pages        $pages    Instance of pages class.
+     * @param Cache        $cache    Instance of cache to pass.
+     * @param Smarty       $smarty   Instance of smarty to pass.
+     * @param Navigation[] $navs     Array of loaded navigation menus.
+     * @param Widgets      $widgets  Instance of widget class to pass.
      * @param TemplateBase $template Template to pass.
      */
-    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void {
+    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void
+    {
         foreach (self::getModules() as $module) {
             $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
         }
     }
 
     /** @return Module[] */
-    public static function getModules(): iterable {
+    public static function getModules(): iterable
+    {
         return self::$_modules;
     }
 
@@ -71,12 +76,12 @@ abstract class Module {
      * Handle page loading for this module.
      * Often used to register permissions, sitemaps, widgets, etc.
      *
-     * @param User $user User viewing the page.
-     * @param Pages $pages Instance of pages class.
-     * @param Cache $cache Instance of cache to pass.
-     * @param Smarty $smarty Instance of smarty to pass.
-     * @param Navigation[] $navs Array of loaded navigation menus.
-     * @param Widgets $widgets Instance of widget class to pass.
+     * @param User              $user     User viewing the page.
+     * @param Pages             $pages    Instance of pages class.
+     * @param Cache             $cache    Instance of cache to pass.
+     * @param Smarty            $smarty   Instance of smarty to pass.
+     * @param Navigation[]      $navs     Array of loaded navigation menus.
+     * @param Widgets           $widgets  Instance of widget class to pass.
      * @param TemplateBase|null $template Active template to render.
      */
     abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
@@ -86,7 +91,8 @@ abstract class Module {
      *
      * @return array Array with module order and any failed modules.
      */
-    public static function determineModuleOrder(): array {
+    public static function determineModuleOrder(): array
+    {
         $module_order = ['Core'];
         $failed = [];
 
@@ -110,7 +116,8 @@ abstract class Module {
         return ['modules' => $module_order, 'failed' => $failed];
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 
@@ -119,7 +126,8 @@ abstract class Module {
      *
      * @return array Array of module names that this module should load after.
      */
-    public function getLoadAfter(): array {
+    public function getLoadAfter(): array
+    {
         return $this->_load_after;
     }
 
@@ -128,7 +136,8 @@ abstract class Module {
      *
      * @return array Array of module names that this module should load before.
      */
-    public function getLoadBefore(): array {
+    public function getLoadBefore(): array
+    {
         return $this->_load_before;
     }
 
@@ -152,7 +161,8 @@ abstract class Module {
      *
      * @return string The author of this module.
      */
-    public function getAuthor(): string {
+    public function getAuthor(): string
+    {
         return $this->_author;
     }
 
@@ -161,7 +171,8 @@ abstract class Module {
      *
      * @return string The version of this module.
      */
-    public function getVersion(): string {
+    public function getVersion(): string
+    {
         return $this->_version;
     }
 
@@ -170,28 +181,30 @@ abstract class Module {
      *
      * @return string The supported NamelessMC version of this module.
      */
-    public function getNamelessVersion(): string {
+    public function getNamelessVersion(): string
+    {
         return $this->_nameless_version;
     }
 
     /**
-     * Get this module's ID
+     * Get this module's ID.
      *
      * @return int The ID for the module
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return DB::getInstance()->query('SELECT `id` FROM nl2_modules WHERE `name` = ?', [$this->_name])->first()->id;
     }
 
     /**
-     * Get a module ID from name
+     * Get a module ID from name.
      *
      * @param string $name Module name
      *
      * @return ?int Module ID
-     *
      */
-    public static function getIdFromName(string $name): ?int {
+    public static function getIdFromName(string $name): ?int
+    {
         $query = DB::getInstance()->get('modules', ['name', $name]);
 
         if ($query->count()) {
@@ -202,13 +215,14 @@ abstract class Module {
     }
 
     /**
-     * Get a module name from ID
+     * Get a module name from ID.
      *
      * @param int $id Module ID
      *
      * @return ?string Module name
      */
-    public static function getNameFromId(int $id): ?string {
+    public static function getNameFromId(int $id): ?string
+    {
         $query = DB::getInstance()->get('modules', ['id', $id]);
 
         if ($query->count()) {

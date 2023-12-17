@@ -1,26 +1,30 @@
 <?php
 /**
- * Report creation class
+ * Report creation class.
  *
  * @package NamelessMC\Misc
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr8
+ *
  * @license MIT
  */
-class Report {
-
+class Report
+{
     public const ORIGIN_WEBSITE = 0;
     public const ORIGIN_API = 1;
 
     /**
      * Create a report.
      *
-     * @param Language $language Language to use for messages.
-     * @param User $user_reporting User making the report.
-     * @param User $reported_user User being reported.
-     * @param array $data Array containing report data.
+     * @param Language $language       Language to use for messages.
+     * @param User     $user_reporting User making the report.
+     * @param User     $reported_user  User being reported.
+     * @param array    $data           Array containing report data.
      */
-    public static function create(Language $language, User $user_reporting, User $reported_user, array $data): void {
+    public static function create(Language $language, User $user_reporting, User $reported_user, array $data): void
+    {
         $db = DB::getInstance();
 
         $db->insert('reports', array_merge($data, [
@@ -39,7 +43,7 @@ class Report {
             $groups = '(';
             foreach ($moderator_groups as $group) {
                 if (is_numeric($group->id)) {
-                    $groups .= ((int)$group->id) . ',';
+                    $groups .= ((int) $group->id) . ',';
                 }
             }
             $groups = rtrim($groups, ',') . ')';

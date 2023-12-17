@@ -1,7 +1,7 @@
 <?php
 
-class MinecraftServerSeeder extends Seeder {
-
+class MinecraftServerSeeder extends Seeder
+{
     public array $tables = [
         'nl2_mc_servers',
     ];
@@ -15,7 +15,8 @@ class MinecraftServerSeeder extends Seeder {
         'server.minewind.com',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $default_id = $faker->randomElement([1, 2, 3, 4, 5]);
 
         $id = 1;

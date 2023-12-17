@@ -3,12 +3,15 @@
  * Contains data about all the registered pages in the application.
  *
  * @package NamelessMC\Core
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr8
+ *
  * @license MIT
  */
-class Pages {
-
+class Pages
+{
     /**
      * @var array Array of all the registered pages.
      */
@@ -37,37 +40,39 @@ class Pages {
     /**
      * Defines a page and assigns it to a module.
      *
-     * @param string $module Module which the page belongs to.
-     * @param string $url URL string.
-     * @param string $file Path (from module folder) to page file.
-     * @param string $name Name of page.
-     * @param bool $widgets Can widgets be used on the page? Default false.
+     * @param string $module  Module which the page belongs to.
+     * @param string $url     URL string.
+     * @param string $file    Path (from module folder) to page file.
+     * @param string $name    Name of page.
+     * @param bool   $widgets Can widgets be used on the page? Default false.
      */
-    public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false): void {
+    public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false): void
+    {
         $this->_pages[$url] = [
             'module' => $module,
             'file' => $file,
             'name' => $name,
             'widgets' => $widgets,
-            'id' => $this->_id++
+            'id' => $this->_id++,
         ];
     }
 
     /**
      * Defines a custom page.
      *
-     * @param string $url URL string.
-     * @param string $name Name of page.
-     * @param bool $widgets Can widgets be used on the page? Default false.
+     * @param string $url     URL string.
+     * @param string $name    Name of page.
+     * @param bool   $widgets Can widgets be used on the page? Default false.
      */
-    public function addCustom(string $url, string $name, bool $widgets = false): void {
+    public function addCustom(string $url, string $name, bool $widgets = false): void
+    {
         $this->_pages[$url] = [
             'module' => 'Core',
             'file' => 'custom.php',
             'name' => $name,
             'widgets' => $widgets,
             'custom' => true,
-            'id' => $this->_id++
+            'id' => $this->_id++,
         ];
     }
 
@@ -76,7 +81,8 @@ class Pages {
      *
      * @return array All pages.
      */
-    public function returnPages(): array {
+    public function returnPages(): array
+    {
         return $this->_pages;
     }
 
@@ -85,7 +91,8 @@ class Pages {
      *
      * @return array All pages which allow widgets.
      */
-    public function returnWidgetPages(): array {
+    public function returnWidgetPages(): array
+    {
         $ret = [];
 
         foreach ($this->_pages as $page) {
@@ -99,11 +106,13 @@ class Pages {
 
     /**
      * Register a method for sitemap generation.
+     *
      * @see \SitemapPHP\Sitemap
      *
      * @param callable $method Array callable of the sitemap class and method to execute.
      */
-    public function registerSitemapMethod(callable $method): void {
+    public function registerSitemapMethod(callable $method): void
+    {
         $this->_sm_methods[] = $method;
     }
 
@@ -112,20 +121,24 @@ class Pages {
      *
      * @return array<callable> Array of sitemap methods.
      */
-    public function getSitemapMethods(): array {
+    public function getSitemapMethods(): array
+    {
         return $this->_sm_methods;
     }
 
     /**
-     * Get page by ID
+     * Get page by ID.
      *
      * @param int $page_id ID of page to find.
+     *
      * @return array Page information.
      */
-    public function getPageById(int $page_id): ?array {
+    public function getPageById(int $page_id): ?array
+    {
         foreach ($this->_pages as $key => $page) {
             if ($page['id'] == $page_id) {
                 $page['key'] = $key;
+
                 return $page;
             }
         }
@@ -137,12 +150,15 @@ class Pages {
      * Get page by URL.
      *
      * @param string $url URL of page to find.
+     *
      * @return array Page information.
      */
-    public function getPageByURL(string $url): ?array {
+    public function getPageByURL(string $url): ?array
+    {
         foreach ($this->_pages as $key => $page) {
             if ($key == $url) {
                 $page['key'] = $key;
+
                 return $page;
             }
         }
@@ -155,14 +171,16 @@ class Pages {
      *
      * @return array Details of current page.
      */
-    public function getActivePage(): array {
+    public function getActivePage(): array
+    {
         return $this->_active_page;
     }
 
     /**
      * Set the page the user currently viewing.
      */
-    public function setActivePage(array $page): void {
+    public function setActivePage(array $page): void
+    {
         $this->_active_page = $page;
     }
 
@@ -171,7 +189,8 @@ class Pages {
      *
      * @param string $script URL of js script to add.
      */
-    public function addAjaxScript(string $script): void {
+    public function addAjaxScript(string $script): void
+    {
         $this->_ajax_requests[] = $script;
     }
 
@@ -180,7 +199,8 @@ class Pages {
      *
      * @return array All registered ajax script URLs.
      */
-    public function getAjaxScripts(): array {
+    public function getAjaxScripts(): array
+    {
         return $this->_ajax_requests;
     }
 }

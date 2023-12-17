@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
@@ -16,8 +17,8 @@ final class CreateUsersGroupsTable extends AbstractMigration
             ->addColumn('expire', 'integer', ['length' => 11, 'default' => 0]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE',])
-            ->addForeignKey('group_id', 'nl2_groups', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE',]);
+            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE'])
+            ->addForeignKey('group_id', 'nl2_groups', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE']);
 
         $table
             ->addIndex(['user_id', 'group_id'], ['unique' => true]);

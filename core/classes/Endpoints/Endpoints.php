@@ -1,15 +1,20 @@
 <?php
+
 use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Endpoint management class.
  *
  * @package NamelessMC\Endpoints
+ *
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class Endpoints {
-
+class Endpoints
+{
     use MatchesRoutes;
     use ManagesTransformers;
 
@@ -17,22 +22,24 @@ class Endpoints {
     private iterable $_endpoints = [];
 
     /**
-     * Get all registered Endpoints
+     * Get all registered Endpoints.
      *
      * @return EndpointBase[] All endpoints.
      */
-    public function getAll(): iterable {
+    public function getAll(): iterable
+    {
         return $this->_endpoints;
     }
 
     /**
      * Find an endpoint which matches this request and `execute()` it.
      *
-     * @param string $route Route to find endpoint for.
-     * @param string $method HTTP method to find endpoint for.
-     * @param Nameless2API $api Instance of api instance to provide the endpoint.
+     * @param string       $route  Route to find endpoint for.
+     * @param string       $method HTTP method to find endpoint for.
+     * @param Nameless2API $api    Instance of api instance to provide the endpoint.
      */
-    public function handle(string $route, string $method, Nameless2API $api): void {
+    public function handle(string $route, string $method, Nameless2API $api): void
+    {
         $available_methods = [];
         $matched_endpoint = null;
 
@@ -60,7 +67,7 @@ class Endpoints {
 
                     $reflection = new ReflectionMethod($endpoint, 'execute');
                     if ($reflection->getNumberOfParameters() !== (count($vars) + 1)) {
-                        throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . " arguments. Endpoint: " . $endpoint->getRoute());
+                        throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . ' arguments. Endpoint: ' . $endpoint->getRoute());
                     }
 
                     $endpoint->execute(
@@ -69,6 +76,7 @@ class Endpoints {
                             return $this::transform($api, $type, $value);
                         }, array_keys($vars), $vars)
                     );
+
                     return;
                 }
             }
@@ -88,12 +96,14 @@ class Endpoints {
      *
      * @param string $path Path to scan from.
      */
-    public function loadEndpoints(string $path): void {
+    public function loadEndpoints(string $path): void
+    {
         $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
         foreach ($rii as $file) {
             if ($file->isDir()) {
                 $this->loadEndpoints($file);
+
                 return;
             }
 

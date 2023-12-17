@@ -3,15 +3,18 @@
  * Provides utilities for retrieving/handling language strings.
  *
  * @package NamelessMC\Core
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
 
 use samerton\i18next\i18next;
 
-class Language {
-
+class Language
+{
     /**
      * @var array Metadata about different languages available
      */
@@ -174,7 +177,8 @@ class Language {
      *
      * @return string Active language name.
      */
-    public function getActiveLanguage(): string {
+    public function getActiveLanguage(): string
+    {
         return $this->_activeLanguage;
     }
 
@@ -183,18 +187,21 @@ class Language {
      *
      * @return string Active language path.
      */
-    public function getActiveLanguageFile(): string {
+    public function getActiveLanguageFile(): string
+    {
         return $this->_activeLanguageFile;
     }
 
     /**
-     * Construct Language class
+     * Construct Language class.
      *
-     * @param string $module Path to the custom language files to use, "core" by default for builtin language files.
+     * @param string      $module          Path to the custom language files to use, "core" by default for builtin language files.
      * @param string|null $active_language The translation to use.
+     *
      * @throws RuntimeException If the language file cannot be found.
      */
-    public function __construct(string $module = 'core', string $active_language = null) {
+    public function __construct(string $module = 'core', string $active_language = null)
+    {
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
 
         // Require file
@@ -224,14 +231,16 @@ class Language {
     }
 
     /**
-     * Return a term in the currently active language
+     * Return a term in the currently active language.
      *
-     * @param string $section Section name.
-     * @param ?string $term The term to translate.
-     * @param array $variables Any variables to pass through to the translation.
+     * @param string  $section   Section name.
+     * @param ?string $term      The term to translate.
+     * @param array   $variables Any variables to pass through to the translation.
+     *
      * @return string Translated phrase.
      */
-    public function get(string $section, ?string $term = null, array $variables = []): string {
+    public function get(string $section, ?string $term = null, array $variables = []): string
+    {
         if ($term) {
             $section .= '/' . $term;
         }
@@ -245,7 +254,8 @@ class Language {
      *
      * @return Closure(int, array<string>)|null Closure or null if not available.
      */
-    public function getPluralForm(): ?Closure {
+    public function getPluralForm(): ?Closure
+    {
         if ($this->_activeLanguage === 'ru_RU' || $this->_activeLanguage === 'uk_UA') {
             return static function (int $count, array $forms) {
                 if ($count % 10 === 1 && $count % 100 !== 11) {
@@ -254,6 +264,7 @@ class Language {
                 if ($count % 10 >= 2 && $count % 10 <= 4 && ($count % 100 < 10 || $count % 100 >= 20)) {
                     return $forms[1];
                 }
+
                 return $forms[2];
             };
         }
@@ -266,25 +277,28 @@ class Language {
      * Used for email message editing & dropdown name editing.
      *
      * @param string $section Name of file without extension to edit.
-     * @param string $term Term which value to change.
-     * @param string $value New value to set for term.
+     * @param string $term    Term which value to change.
+     * @param string $value   New value to set for term.
      */
-    public function set(string $section, string $term, string $value): void {
+    public function set(string $section, string $term, string $value): void
+    {
         $json = json_decode(file_get_contents($this->_activeLanguageFile), true);
 
         $json[$section . '/' . $term] = $value;
 
         ksort($json);
-        file_put_contents($this->_activeLanguageFile, json_encode($json, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+        file_put_contents($this->_activeLanguageFile, json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
     /**
      * Attempt to get a language code from browser headers for setting an automatic language for guests.
      *
      * @param string $header <code>HTTP_ACCEPT_LANGUAGE</code> header.
+     *
      * @return false|array The browsers preferred language and its name, or false if there is no valid preferred language.
      */
-    public static function acceptFromHttp(string $header) {
+    public static function acceptFromHttp(string $header)
+    {
         // If the Intl extension is enabled, try to use the Locale::acceptFromHttp class,
         // which is more accurate than the below method, but often contains more specific languages than we support.
         if (

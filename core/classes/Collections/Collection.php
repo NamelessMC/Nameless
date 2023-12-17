@@ -1,29 +1,35 @@
 <?php
 /**
- * Base Collection class
+ * Base Collection class.
  *
  * @package NamelessMC\Collections
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class Collection {
-
+class Collection
+{
     /** @var CollectionItemBase[] */
     private array $_items;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_items = [];
     }
 
-    public function addItem(CollectionItemBase $item): void {
+    public function addItem(CollectionItemBase $item): void
+    {
         $this->_items[] = $item;
     }
 
     /**
      * @return CollectionItemBase[]
      */
-    public function getEnabledItems(): array {
+    public function getEnabledItems(): array
+    {
         $items = [];
 
         foreach ($this->_items as $item) {
@@ -42,7 +48,8 @@ class Collection {
     /**
      * @return CollectionItemBase[]
      */
-    public function getAllItems(): array {
+    public function getAllItems(): array
+    {
         $items = $this->_items;
         uasort($items, static function (CollectionItemBase $a, CollectionItemBase $b) {
             return $a->getOrder() - $b->getOrder();

@@ -3,12 +3,15 @@
  * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
  *
  * @package NamelessMC\GroupSync
+ *
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-final class GroupSyncManager extends Instanceable {
-
+final class GroupSyncManager extends Instanceable
+{
     /** @var GroupSyncInjector[] */
     private iterable $_injectors = [];
     /** @var GroupSyncInjector[] */
@@ -20,7 +23,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @param GroupSyncInjector $injector New injector.
      */
-    public function registerInjector(GroupSyncInjector $injector): void {
+    public function registerInjector(GroupSyncInjector $injector): void
+    {
         if (in_array($injector->getColumnName(), $this->getColumnNames())) {
             throw new RuntimeException("GroupSyncInjector column name {$injector->getColumnName()} already taken.");
         }
@@ -33,7 +37,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @return string[] All column names
      */
-    public function getColumnNames(): array {
+    public function getColumnNames(): array
+    {
         return array_map(static function (GroupSyncInjector $injector) {
             return $injector->getColumnName();
         }, $this->_injectors);
@@ -45,7 +50,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @param GroupSyncInjector $injector Injector to add column for.
      */
-    public function registerInjectorColumn(GroupSyncInjector $injector): void {
+    public function registerInjectorColumn(GroupSyncInjector $injector): void
+    {
         DB::getInstance()->addColumn('group_sync', $injector->getColumnName(), "{$injector->getColumnType()} NULL DEFAULT NULL");
     }
 
@@ -54,7 +60,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @return GroupSyncInjector[] Registered injectors
      */
-    public function getInjectors(): iterable {
+    public function getInjectors(): iterable
+    {
         return $this->_injectors;
     }
 
@@ -62,14 +69,16 @@ final class GroupSyncManager extends Instanceable {
      * Create a new `Validate` instance and add the injector defined
      * rules and messages to it.
      *
-     * @param array $source Input array to validate, often `$_POST`
+     * @param array    $source   Input array to validate, often `$_POST`
      * @param Language $language Language to use for error messages
      *
      * @return Validate New `Validate` instance
      */
-    public function makeValidator(array $source, Language $language): Validate {
+    public function makeValidator(array $source, Language $language): Validate
+    {
         return Validate::check(
-            $source, $this->compileValidatorRules()
+            $source,
+            $this->compileValidatorRules()
         )->messages(
             $this->compileValidatorMessages($language)
         );
@@ -81,7 +90,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @return array<string, array<string, mixed>> Array of each enabled injectors array of rules
      */
-    private function compileValidatorRules(): array {
+    private function compileValidatorRules(): array
+    {
         $rules = [];
 
         foreach ($this->getEnabledInjectors() as $injector) {
@@ -103,7 +113,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @return GroupSyncInjector[] Enabled injectors
      */
-    public function getEnabledInjectors(): iterable {
+    public function getEnabledInjectors(): iterable
+    {
         if (!isset($this->_enabled_injectors)) {
             $this->_enabled_injectors = [];
 
@@ -126,7 +137,8 @@ final class GroupSyncManager extends Instanceable {
      *
      * @return array<string, array<string, string>>
      */
-    private function compileValidatorMessages(Language $language): array {
+    private function compileValidatorMessages(Language $language): array
+    {
         $messages = [];
 
         foreach ($this->getEnabledInjectors() as $column_name => $injector) {
@@ -140,13 +152,14 @@ final class GroupSyncManager extends Instanceable {
      * Execute respective `addGroup()` or `removeGroup()` function on each of the injectors
      * synced to the changed group.
      *
-     * @param User $user NamelessMC user to apply changes to
+     * @param User   $user                   NamelessMC user to apply changes to
      * @param string $sending_injector_class Class name of injector broadcasting this change
-     * @param array $group_ids Array of Group IDs native to the sending injector which were added/removed to the user
+     * @param array  $group_ids              Array of Group IDs native to the sending injector which were added/removed to the user
      *
      * @return array Array of logs of changed groups
      */
-    public function broadcastChange(User $user, string $sending_injector_class, array $group_ids): array {
+    public function broadcastChange(User $user, string $sending_injector_class, array $group_ids): array
+    {
         $sending_injector = $this->getInjectorByClass($sending_injector_class);
 
         if ($sending_injector === null) {
@@ -175,9 +188,7 @@ final class GroupSyncManager extends Instanceable {
 
         $batched_changes = [];
         foreach ($rules as $rule) {
-
             foreach ($this->getEnabledInjectors() as $injector) {
-
                 if ($injector == $sending_injector) {
                     continue;
                 }
@@ -281,9 +292,10 @@ final class GroupSyncManager extends Instanceable {
      * @param string $class Class name to get injector from
      *
      * @return GroupSyncInjector|null Instance of injector, null if it doesn't exist
-     * or isn't enabled
+     *                                or isn't enabled
      */
-    public function getInjectorByClass(string $class): ?GroupSyncInjector {
+    public function getInjectorByClass(string $class): ?GroupSyncInjector
+    {
         foreach ($this->getEnabledInjectors() as $injector) {
             if ($injector instanceof $class) {
                 return $injector;

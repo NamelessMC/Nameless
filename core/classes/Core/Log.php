@@ -1,14 +1,17 @@
 <?php
 /**
- * Log handling class
+ * Log handling class.
  *
  * @package NamelessMC\Core
+ *
  * @author Timothy Gibbons
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class Log extends Instanceable {
-
+class Log extends Instanceable
+{
     /**
      * @var array Mapping of log Actions to their language key
      */
@@ -31,13 +34,13 @@ class Log extends Instanceable {
                 'email' => [
                     'update' => 'acp_email_update',
                     'test' => 'acp_email_test',
-                    'mass_message' => 'acp_email_mass_message'
+                    'mass_message' => 'acp_email_mass_message',
                 ],
                 'nav' => 'admin_nav_update',
                 'reaction' => [
                     'update' => 'acp_reaction_update',
                     'add' => 'acp_reaction_add',
-                    'delete' => 'acp_reaction_remove'
+                    'delete' => 'acp_reaction_remove',
                 ],
                 'social' => 'acp_social_update',
                 'term' => 'acp_term_update',
@@ -165,7 +168,7 @@ class Log extends Instanceable {
         ],
         'misc' => [
             'report' => 'report',
-            'curl_error' => 'curl_error'
+            'curl_error' => 'curl_error',
         ],
         'api' => [
             // TODO
@@ -175,13 +178,14 @@ class Log extends Instanceable {
             'role_set' => 'discord_role_set',
         ],
         'mc_group_sync' => [
-            'role_set' => 'mc_group_sync_set'
-        ]
+            'role_set' => 'mc_group_sync_set',
+        ],
     ];
 
     private DB $_db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_db = DB::getInstance();
     }
 
@@ -189,9 +193,11 @@ class Log extends Instanceable {
      * Get an action from the Action array.
      *
      * @param string $path The path to the action.
+     *
      * @return string|array The keys
      */
-    public static function Action(string $path) {
+    public static function Action(string $path)
+    {
         $path = explode('/', $path);
         $config = self::$_actions;
 
@@ -208,11 +214,13 @@ class Log extends Instanceable {
      * Logs an action.
      *
      * @param string $action The action being logged
-     * @param string $info Some more information about what the action is about
-     * @param ?int $user The User ID who is doing the action
+     * @param string $info   Some more information about what the action is about
+     * @param ?int   $user   The User ID who is doing the action
+     *
      * @return bool Return true or false if inserted into the database.
      */
-    public function log(string $action, string $info = '', ?int $user = null): bool {
+    public function log(string $action, string $info = '', ?int $user = null): bool
+    {
         if ($user === null) {
             $userTemp = new User();
             $user = ($userTemp->isLoggedIn() ? $userTemp->data()->id : 0);

@@ -1,29 +1,34 @@
 <?php
 
 /**
- * Input class
+ * Input class.
  *
  * @package NamelessMC\Core
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr8
+ *
  * @license MIT
  */
-class Input {
-
+class Input
+{
     /**
      * Check that specified input type exists.
      *
      * @param string $type Check for either POST or GET submission (optional, defaults to POST)
+     *
      * @return bool Whether it exists or not.
      */
-    public static function exists(string $type = 'post'): bool {
+    public static function exists(string $type = 'post'): bool
+    {
         switch ($type) {
-            case 'post';
-                // Check the $_POST variable
-                return !empty($_POST);
-            case 'get';
-                // Check the $_GET variable
-                return !empty($_GET);
+            case 'post':
+            // Check the $_POST variable
+            return !empty($_POST);
+            case 'get':
+            // Check the $_GET variable
+            return !empty($_GET);
             default:
                 // Otherwise, return false
                 return false;
@@ -34,9 +39,11 @@ class Input {
      * Get input with specified name.
      *
      * @param string $item Name of element containing input to get.
+     *
      * @return mixed Value of element in input.
      */
-    public static function get(string $item) {
+    public static function get(string $item)
+    {
         if (isset($_POST[$item])) {
             return $_POST[$item];
         }
@@ -49,17 +56,18 @@ class Input {
     }
 
     /**
-     * Create a new TinyMCE instance
+     * Create a new TinyMCE instance.
      *
      * @param Language $language Instance of language class to use for translation.
-     * @param string $name Name of input field ID.
-     * @param ?string $content Any default content to insert
-     * @param bool $mentions Whether to enable mention autocompletion/parsing or not.
-     * @param bool $admin Enable admin only features
+     * @param string   $name     Name of input field ID.
+     * @param ?string  $content  Any default content to insert
+     * @param bool     $mentions Whether to enable mention autocompletion/parsing or not.
+     * @param bool     $admin    Enable admin only features
      *
      * @return string Script to render on page
      */
-    public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false, bool $admin = false): string {
+    public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false, bool $admin = false): string
+    {
         if (
             (defined('DARK_MODE') && DARK_MODE) ||
             (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
@@ -114,9 +122,9 @@ class Input {
             ";
         }
 
-        $js .= "
+        $js .= '
             tinymce.init({
-              verify_html: " . ($admin ? 'false' : 'true') . ",
+              verify_html: ' . ($admin ? 'false' : 'true') . ",
               selector: '#$name',
               browser_spellcheck: true,
               contextmenu: false,
@@ -130,7 +138,7 @@ class Input {
               external_plugins: {
                 'spoiler': '" . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . "/core/assets/plugins/tinymce_spoiler/plugin.min.js',
               },
-              toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample " . ($admin ? "code" : "") . " hr image link numlist bullist | spoiler-add spoiler-remove',
+              toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample " . ($admin ? 'code' : '') . " hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
               skin: '$skin'," .
@@ -182,12 +190,12 @@ class Input {
 
                   xhr.send(formData);
                 },
-                " . ($admin ? 'valid_children: "+body[style],+body[link],+*[*]",' : '') . "
-                extended_valid_elements: " . ($admin ?
+                " . ($admin ? 'valid_children: "+body[style],+body[link],+*[*]",' : '') . '
+                extended_valid_elements: ' . ($admin ?
                     '"script[src|async|defer|type|charset],+@[data-options]"'
-                : 'undefined') . "
+                : 'undefined') . '
             });
-        ";
+        ';
 
         return $js;
     }

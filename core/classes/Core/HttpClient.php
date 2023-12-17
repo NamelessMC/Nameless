@@ -3,8 +3,8 @@
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use GuzzleHttp\Profiling\Debugbar\Profiler;
+use GuzzleHttp\Profiling\Middleware as ProfilingMiddleware;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -12,17 +12,22 @@ use Psr\Http\Message\ResponseInterface;
  * Wrapper around GuzzleHttp\Client.
  *
  * @see GuzzleHttp\Client
+ *
  * @package NamelessMC\Core
+ *
  * @author Aberdeener
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-class HttpClient {
-
+class HttpClient
+{
     private ?ResponseInterface $_response;
     private string $_error;
 
-    private function __construct(?ResponseInterface $response, string $error) {
+    private function __construct(?ResponseInterface $response, string $error)
+    {
         $this->_response = $response;
         $this->_error = $error;
     }
@@ -31,11 +36,13 @@ class HttpClient {
      * Make a GET request to a URL.
      * Failures will automatically be logged along with the error.
      *
-     * @param string $url URL to send request to.
-     * @param array $options Options to set with the GuzzleClient.
+     * @param string $url     URL to send request to.
+     * @param array  $options Options to set with the GuzzleClient.
+     *
      * @return HttpClient New HttpClient instance.
      */
-    public static function get(string $url, array $options = []): HttpClient {
+    public static function get(string $url, array $options = []): HttpClient
+    {
         $guzzleClient = self::createClient($options);
 
         $error = '';
@@ -57,12 +64,14 @@ class HttpClient {
      * Make a POST request to a URL.
      * Failures will automatically be logged along with the error.
      *
-     * @param string $url URL to send request to.
-     * @param string|array $data JSON request body to attach to request, or array of key value pairs if form-urlencoded.
-     * @param array $options Options to set with the GuzzleClient.
+     * @param string       $url     URL to send request to.
+     * @param string|array $data    JSON request body to attach to request, or array of key value pairs if form-urlencoded.
+     * @param array        $options Options to set with the GuzzleClient.
+     *
      * @return HttpClient New HttpClient instance.
      */
-    public static function post(string $url, $data, array $options = []): HttpClient {
+    public static function post(string $url, $data, array $options = []): HttpClient
+    {
         $guzzleClient = self::createClient($options);
 
         $error = '';
@@ -87,9 +96,11 @@ class HttpClient {
      * Make a new Guzzle Client instance and attach it to the debug bar to display requests.
      *
      * @param array $options Options to provide Guzzle instance.
+     *
      * @return Client New Guzzle instance.
      */
-    public static function createClient(array $options = []): Client {
+    public static function createClient(array $options = []): Client
+    {
         $debugBar = DebugBarHelper::getInstance()->getDebugBar();
         $stack = HandlerStack::create();
 
@@ -106,48 +117,54 @@ class HttpClient {
     }
 
     /**
-     * Get the response body
+     * Get the response body.
      *
      * @return string The response body
      */
-    public function contents(): string {
+    public function contents(): string
+    {
         return $this->_response->getBody()->getContents();
     }
 
     /**
-     * Get the response body as a decoded JSON object
+     * Get the response body as a decoded JSON object.
      *
      * @param bool $assoc Whether to decode the JSON as a PHP array if true or PHP object.
+     *
      * @return mixed The response body
      */
-    public function json(bool $assoc = false) {
+    public function json(bool $assoc = false)
+    {
         return json_decode($this->contents(), $assoc);
     }
 
     /**
-     * Get the response HTTP status code
+     * Get the response HTTP status code.
      *
      * @return int The response code
      */
-    public function getStatus(): int {
+    public function getStatus(): int
+    {
         return $this->_response->getStatusCode();
     }
 
     /**
-     * Check if the response has an error
+     * Check if the response has an error.
      *
      * @return bool Whether the response has an error or not
      */
-    public function hasError(): bool {
+    public function hasError(): bool
+    {
         return $this->getError() !== '';
     }
 
     /**
-     * Get the error message
+     * Get the error message.
      *
      * @return string The error message
      */
-    public function getError(): string {
+    public function getError(): string
+    {
         if ($this->_error !== '') {
             return Output::getClean($this->_error);
         }
@@ -158,5 +175,4 @@ class HttpClient {
 
         return '';
     }
-
 }

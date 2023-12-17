@@ -1,23 +1,29 @@
 <?php
 /**
- * Queue management class
+ * Queue management class.
  *
  * @package NamelessMC\Queue
+ *
  * @author Samerton
+ *
  * @version 2.1.0
+ *
  * @license MIT
  */
 
-use \DI\Container;
+use DI\Container;
 
-class Queue {
+class Queue
+{
     /**
-     * Schedule a task
+     * Schedule a task.
      *
      * @param Task $task
+     *
      * @return bool Whether the task was scheduled successfully or not
      */
-    public static function schedule(Task $task): bool {
+    public static function schedule(Task $task): bool
+    {
         if (!$task->getTask()) {
             return false;
         }
@@ -25,7 +31,7 @@ class Queue {
         $db = DB::getInstance();
 
         $db->query(
-            <<<SQL
+            <<<'SQL'
             INSERT INTO nl2_queue
                 (
                  module_id,
@@ -60,17 +66,18 @@ class Queue {
     }
 
     /**
-     * Process the next 5 tasks in the queue
+     * Process the next 5 tasks in the queue.
      *
      * @param Container $container Dependency injection container
      *
      * @return array Processed tasks
      */
-    public static function process(Container $container): array {
+    public static function process(Container $container): array
+    {
         $db = DB::getInstance();
 
         $pendingTasks = DB::getInstance()->query(
-            <<<SQL
+            <<<'SQL'
             SELECT `nl2_queue`.`id`, `nl2_queue`.`task`, `nl2_queue`.`name`, `nl2_queue`.`attempts`, `nl2_queue`.`output`
             FROM nl2_queue LEFT JOIN nl2_modules ON module_id=nl2_modules.id
             WHERE nl2_modules.enabled = 1 AND scheduled_for <= ? AND status IN (?, ?)
@@ -96,7 +103,7 @@ class Queue {
                 ];
             }
 
-            $in = implode(',', array_map(static fn() => '?', $tasks));
+            $in = implode(',', array_map(static fn () => '?', $tasks));
             $db->query("UPDATE nl2_queue SET `status` = ? WHERE `id` IN ($in)", [Task::STATUS_IN_PROGRESS, ...array_keys($tasks)]);
 
             foreach ($tasks as $id => $task) {
@@ -109,7 +116,7 @@ class Queue {
 
                     try {
                         /** @var Task $instance */
-                        $instance = (new $task['task'])->fromId($id);
+                        $instance = (new $task['task']())->fromId($id);
                         $instance->setContainer($container);
 
                         $status = $instance->run();
@@ -124,7 +131,6 @@ class Queue {
                             $fragmentNext = $instance->getFragmentNext();
                             $fragment = $fragmentNext ? ',`fragment_next` = ?' : '';
                         }
-
                     } catch (Exception $e) {
                         $status = $attempts >= 3 ? Task::STATUS_FAILED : Task::STATUS_ERROR;
                         $output = ['error' => "Unable to execute task {$task['name']}: {$e->getMessage()}"];
@@ -171,11 +177,12 @@ class Queue {
     }
 
     /**
-     * Cancel a task by ID
+     * Cancel a task by ID.
      *
      * @param int $taskId
      */
-    public static function cancelTaskById(int $taskId): void {
+    public static function cancelTaskById(int $taskId): void
+    {
         DB::getInstance()->update('queue', $taskId, [
             'status' => Task::STATUS_CANCELLED,
         ]);
@@ -183,11 +190,12 @@ class Queue {
     }
 
     /**
-     * Requeue a task by ID
+     * Requeue a task by ID.
      *
      * @param int $taskId
      */
-    public static function requeueTaskById(int $taskId): void {
+    public static function requeueTaskById(int $taskId): void
+    {
         DB::getInstance()->update('queue', $taskId, [
             'status' => Task::STATUS_READY,
         ]);

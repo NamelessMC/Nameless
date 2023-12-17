@@ -3,12 +3,15 @@
  * Base class templates should extend to add functionality.
  *
  * @package NamelessMC\Templates
+ *
  * @author Samerton
+ *
  * @version 2.0.0-pr13
+ *
  * @license MIT
  */
-abstract class TemplateBase {
-
+abstract class TemplateBase
+{
     /**
      * @var string The template name
      */
@@ -46,7 +49,8 @@ abstract class TemplateBase {
      */
     protected array $_js = [];
 
-    public function __construct(string $name, string $version, string $nameless_version, string $author) {
+    public function __construct(string $name, string $version, string $nameless_version, string $author)
+    {
         $this->_name = $name;
         $this->_version = $version;
         $this->_nameless_version = $nameless_version;
@@ -58,7 +62,8 @@ abstract class TemplateBase {
      */
     abstract public function onPageLoad();
 
-    public function assets(): AssetResolver {
+    public function assets(): AssetResolver
+    {
         return $this->_assets_resolver ??= new AssetResolver();
     }
 
@@ -67,7 +72,8 @@ abstract class TemplateBase {
      *
      * @param array $files Files to be loaded.
      */
-    public function addCSSFiles(array $files): void {
+    public function addCSSFiles(array $files): void
+    {
         if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_css[] = '
@@ -87,7 +93,8 @@ abstract class TemplateBase {
      *
      * @param string|null $style Styling to add.
      */
-    public function addCSSStyle(string $style = null): void {
+    public function addCSSStyle(string $style = null): void
+    {
         if ($style) {
             $this->_css[] = '<style>' . $style . '</style>';
         }
@@ -98,7 +105,8 @@ abstract class TemplateBase {
      *
      * @param array $files Files to be loaded.
      */
-    public function addJSFiles(array $files): void {
+    public function addJSFiles(array $files): void
+    {
         if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_js[] = '
@@ -118,7 +126,8 @@ abstract class TemplateBase {
      *
      * @param string|null $script
      */
-    public function addJSScript(string $script = null): void {
+    public function addJSScript(string $script = null): void
+    {
         if ($script) {
             $this->_js[] = '<script type="text/javascript">' . $script . '</script>';
         }
@@ -129,7 +138,8 @@ abstract class TemplateBase {
      *
      * @return string Name of template.
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 
@@ -138,7 +148,8 @@ abstract class TemplateBase {
      *
      * @return string Version of template.
      */
-    public function getVersion(): string {
+    public function getVersion(): string
+    {
         return $this->_version;
     }
 
@@ -147,7 +158,8 @@ abstract class TemplateBase {
      *
      * @return string NamelessMC version of template.
      */
-    public function getNamelessVersion(): string {
+    public function getNamelessVersion(): string
+    {
         return $this->_nameless_version;
     }
 
@@ -156,7 +168,8 @@ abstract class TemplateBase {
      *
      * @return string Author name of template.
      */
-    public function getAuthor(): string {
+    public function getAuthor(): string
+    {
         return $this->_author;
     }
 
@@ -165,14 +178,16 @@ abstract class TemplateBase {
      *
      * @return string Settings URL of template.
      */
-    public function getSettings(): string {
+    public function getSettings(): string
+    {
         return $this->_settings;
     }
 
     /**
      * Render this template with Smarty engine.
      */
-    public function displayTemplate(string $template, Smarty $smarty): void {
+    public function displayTemplate(string $template, Smarty $smarty): void
+    {
         [$css, $js] = $this->assets()->compile();
 
         // Put the assets at the start of the arrays, so they load first (SBAdmin requires JQuery first, etc.)
@@ -181,14 +196,14 @@ abstract class TemplateBase {
 
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS()
+            'TEMPLATE_JS' => $this->getJS(),
         ]);
 
         if (defined('PHPDEBUGBAR') && PHPDEBUGBAR) {
             $debugBar = DebugBarHelper::getInstance()->getDebugBar()->getJavascriptRenderer();
             $smarty->assign([
                 'DEBUGBAR_JS' => $debugBar->renderHead(),
-                'DEBUGBAR_HTML' => $debugBar->render()
+                'DEBUGBAR_HTML' => $debugBar->render(),
             ]);
         }
 
@@ -200,7 +215,8 @@ abstract class TemplateBase {
      *
      * @return array Array of strings of CSS.
      */
-    public function getCSS(): array {
+    public function getCSS(): array
+    {
         return $this->_css;
     }
 
@@ -209,14 +225,16 @@ abstract class TemplateBase {
      *
      * @return array Array of strings of JS.
      */
-    public function getJS(): array {
+    public function getJS(): array
+    {
         return $this->_js;
     }
 
-    public function getTemplate(string $template, Smarty $smarty): string {
+    public function getTemplate(string $template, Smarty $smarty): string
+    {
         $smarty->assign([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS()
+            'TEMPLATE_JS' => $this->getJS(),
         ]);
 
         return $smarty->fetch($template);

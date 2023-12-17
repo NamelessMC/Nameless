@@ -14,12 +14,13 @@
 
 // Always have the following if statement around your class
 if (!class_exists('Default_Panel_Template')) {
-    class Default_Panel_Template extends TemplateBase {
-
+    class Default_Panel_Template extends TemplateBase
+    {
         private Language $_language;
 
         // Constructor - set template name, version, Nameless version and author here
-        public function __construct(Smarty $smarty, Language $language) {
+        public function __construct(Smarty $smarty, Language $language)
+        {
             $this->_language = $language;
 
             parent::__construct(
@@ -136,7 +137,8 @@ if (!class_exists('Default_Panel_Template')) {
             $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo.png');
         }
 
-        public function onPageLoad() {
+        public function onPageLoad()
+        {
             $page_load = microtime(true) - PAGE_START_TIME;
             define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
@@ -152,7 +154,7 @@ if (!class_exists('Default_Panel_Template')) {
 
                     case 'api':
                         $this->assets()->include([
-                            AssetTree::DATATABLES
+                            AssetTree::DATATABLES,
                         ]);
 
                         $this->addJSScript('
@@ -342,14 +344,12 @@ if (!class_exists('Default_Panel_Template')) {
                                 });
                             });
                             ');
-
                         }
 
                         break;
 
                     case 'minecraft':
                         if (!defined('MINECRAFT_PAGE')) {
-
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
                                 var changeCheckbox = document.querySelector(\'.js-check-change\');
@@ -369,9 +369,7 @@ if (!class_exists('Default_Panel_Template')) {
                                 };
                             }
                             ');
-
-                        } else if (MINECRAFT_PAGE == 'authme') {
-
+                        } elseif (MINECRAFT_PAGE == 'authme') {
                             $this->addJSScript('
                             if ($(\'.js-check-change\').length) {
                                 var changeCheckbox = document.querySelector(\'.js-check-change\');
@@ -381,12 +379,11 @@ if (!class_exists('Default_Panel_Template')) {
                                 };
                             }
                             ');
-
-                        } else if (MINECRAFT_PAGE == 'servers') {
+                        } elseif (MINECRAFT_PAGE == 'servers') {
                             $this->assets()->include([
                                 AssetTree::JQUERY_UI,
                             ]);
-                        } else if (MINECRAFT_PAGE == 'query_errors') {
+                        } elseif (MINECRAFT_PAGE == 'query_errors') {
                             $this->addCSSStyle('
                             .error_log {
                                 width: 100%;
@@ -401,8 +398,7 @@ if (!class_exists('Default_Panel_Template')) {
                                 background-color: #eceeef;
                             }
                             ');
-
-                        } else if (MINECRAFT_PAGE == 'server_banners') {
+                        } elseif (MINECRAFT_PAGE == 'server_banners') {
                             if (isset($_GET['edit'])) {
                                 $this->assets()->include([
                                     AssetTree::IMAGE_PICKER,
@@ -498,7 +494,7 @@ if (!class_exists('Default_Panel_Template')) {
                     case 'forums':
                         $this->assets()->include([
                             AssetTree::TINYMCE,
-                            AssetTree::JQUERY_UI
+                            AssetTree::JQUERY_UI,
                         ]);
 
                         if (isset($_GET['forum'])) {
