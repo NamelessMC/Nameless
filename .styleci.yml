@@ -10,3 +10,4 @@ disabled:
   - concat_without_spaces
   - include
   - die_to_exit
+  - phpdoc_separation
