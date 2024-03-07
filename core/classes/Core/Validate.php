@@ -97,6 +97,11 @@ class Validate {
     public const NOT_START_WITH = 'not_start_with';
 
     /**
+     * @var string Check that the value does not contain a pattern
+     */
+    public const NOT_CONTAIN = 'not_contain';
+
+    /**
      * @var string Set a rate limit
      */
     public const RATE_LIMIT = 'rate_limit';
@@ -363,6 +368,24 @@ class Validate {
                             }
                             break;
                         }
+                        break;
+
+                    case self::NOT_CONTAIN:
+                        if (!is_array($rule_value)) {
+                            $rule_value = [$rule_value];
+                        }
+
+                        foreach ($rule_value as $term) {
+                            if (strpos(strtolower($value), strtolower($term)) !== false) {
+                                $validator->addError([
+                                    'field' => $item,
+                                    'rule' => self::NOT_CONTAIN,
+                                    'fallback' => "$item must not contain $term",
+                                ]);
+                                break;
+                            }
+                        }
+
                         break;
 
                     case self::IN:
