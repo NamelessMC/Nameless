@@ -5,16 +5,16 @@
     "license": "MIT",
     "config": {
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         }
     },
     "require": {
-        "php": ">=7.4",
-        "jdorn/sql-formatter": "^1.2.17",
-        "smarty/smarty": "^4.3",
-        "ezyang/htmlpurifier": "^4.16",
-        "samayo/bulletproof": "^4.0.1",
-        "phpmailer/phpmailer": "^6.7.1",
+        "php": ">=8.1",
+        "jdorn/sql-formatter": "^1.2",
+        "smarty/smarty": "^4.1",
+        "ezyang/htmlpurifier": "^4.14",
+        "samayo/bulletproof": "^4.0",
+        "phpmailer/phpmailer": "^6.6",
         "evert/sitemap-php": "^1.2",
         "robthree/twofactorauth": "^1.8.2",
         "league/oauth2-client": "^2.6.1",
@@ -33,11 +33,12 @@
         "php-di/php-di": "^6.4"
     },
     "require-dev": {
-        "phpstan/phpstan": "1.6.9",
-        "maximebf/debugbar": "^1.18.1",
-        "junker/debugbar-smarty": "^0.2.1",
-        "hannesvdvreken/guzzle-debugbar": "^3.0.1",
-        "fakerphp/faker": "^1.21"
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-deprecation-rules": "^1.1.3",
+        "maximebf/debugbar": "^1.18",
+        "junker/debugbar-smarty": "^0.2",
+        "hannesvdvreken/guzzle-debugbar": "^3.0",
+        "fakerphp/faker": "^1.19"
     },
     "autoload": {
         "classmap": [
