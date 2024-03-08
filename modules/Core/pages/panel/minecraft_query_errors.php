@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel Minecraft query errors page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel Minecraft query errors page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.query_errors')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,7 +28,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'query_errors';
 $page_title = $language->get('admin', 'query_errors');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['id'])) {
     if (isset($_GET['action']) && $_GET['action'] == 'purge') {
@@ -64,17 +73,17 @@ if (!isset($_GET['id'])) {
             ];
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'PAGINATION' => $pagination,
             'QUERY_ERRORS_ARRAY' => $template_array,
             'SERVER_ADDRESS' => $language->get('admin', 'server_address'),
             'SERVER_PORT' => $language->get('admin', 'server_port'),
             'DATE' => $language->get('general', 'date'),
-            'ACTIONS' => $language->get('general', 'actions')
+            'ACTIONS' => $language->get('general', 'actions'),
         ]);
     }
 
-    $template_file = 'integrations/minecraft/minecraft_query_errors.tpl';
+    $template_file = 'integrations/minecraft/minecraft_query_errors';
 
 } else {
     // View an error
@@ -94,7 +103,7 @@ if (!isset($_GET['id'])) {
         Redirect::to(URL::build('/panel/minecraft/query_errors'));
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'VIEWING_ERROR' => $language->get('admin', 'viewing_query_error'),
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/minecraft/query_errors'),
@@ -110,10 +119,10 @@ if (!isset($_GET['id'])) {
         'SERVER_ADDRESS_VALUE' => Output::getClean($query_error->ip),
         'SERVER_PORT_VALUE' => Output::getClean($query_error->port),
         'DATE_VALUE' => date(DATE_FORMAT, $query_error->date),
-        'ERROR_MESSAGE' => Output::getClean($query_error->error)
+        'ERROR_MESSAGE' => Output::getClean($query_error->error),
     ]);
 
-    $template_file = 'integrations/minecraft/minecraft_query_errors_view.tpl';
+    $template_file = 'integrations/minecraft/minecraft_query_errors_view';
 
 }
 
@@ -129,20 +138,20 @@ if (Session::exists('panel_query_errors_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -161,12 +170,12 @@ $smarty->assign([
     'PURGE_QUERY_ERRORS' => $language->get('admin', 'purge_errors'),
     'PURGE_QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=purge'),
     'CONFIRM_PURGE_ERRORS' => $language->get('admin', 'confirm_purge_errors'),
-    'NO_QUERY_ERRORS' => $language->get('admin', 'no_query_errors')
+    'NO_QUERY_ERRORS' => $language->get('admin', 'no_query_errors'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

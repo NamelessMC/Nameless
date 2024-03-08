@@ -1,12 +1,21 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * User alerts page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  User alerts page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -17,7 +26,7 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_alerts';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $timeago = new TimeAgo(TIMEZONE);
 
@@ -48,11 +57,11 @@ if (!isset($_GET['view'])) {
         }
 
         if (Session::exists('alerts_error')) {
-            $smarty->assign('ERROR', Session::flash('alerts_error'));
+            $template->getEngine()->addVariable('ERROR', Session::flash('alerts_error'));
         }
 
         // Language values
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'USER_CP' => $language->get('user', 'user_cp'),
             'ALERTS' => $language->get('user', 'alerts'),
             'ALERTS_LIST' => $alerts_limited,
@@ -66,15 +75,15 @@ if (!isset($_GET['view'])) {
         // Load modules + template
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-        require(ROOT_PATH . '/core/templates/cc_navbar.php');
+        require ROOT_PATH . '/core/templates/cc_navbar.php';
 
         $template->onPageLoad();
 
-        require(ROOT_PATH . '/core/templates/navbar.php');
-        require(ROOT_PATH . '/core/templates/footer.php');
+        require ROOT_PATH . '/core/templates/navbar.php';
+        require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
-        $template->displayTemplate('user/alerts.tpl', $smarty);
+        $template->displayTemplate('user/alerts');
 
     } else {
         if ($_GET['action'] == 'purge') {
@@ -94,7 +103,7 @@ if (!isset($_GET['view'])) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    // Check the alert belongs to the user..
+    // Check the alert belongs to the user
     $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
 
     if (!count($alert) || $alert[0]->user_id != $user->data()->id) {

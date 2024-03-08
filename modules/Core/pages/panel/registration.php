@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel registration page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel registration page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.registration')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'registration';
 $page_title = $language->get('admin', 'registration');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Deal with input
 if (Input::exists()) {
@@ -114,23 +123,23 @@ if (Session::exists('registration_success')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($captcha_warning)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'CAPTCHA_WARNINGS' => [$captcha_warning, $language->get('admin', 'invalid_recaptcha_settings_info')],
-        'WARNING' => $language->get('general', 'warning')
+        'WARNING' => $language->get('general', 'warning'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -167,7 +176,7 @@ foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $prov
     ];
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'EMAIL_VERIFICATION' => $language->get('admin', 'email_verification'),
     'EMAIL_VERIFICATION_VALUE' => Settings::get('email_verification') === '1',
     'CAPTCHA_GENERAL' => $language->get('admin', 'captcha_general'),
@@ -211,7 +220,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('core/registration.tpl', $smarty);
+$template->displayTemplate('core/registration');

@@ -2,7 +2,7 @@
 /*
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.2
+ *  NamelessMC version 2.2.0
  *
  *  License: MIT
  *
@@ -16,11 +16,11 @@ class ProfilePostsWidget extends WidgetBase {
     private User $_user;
     private TimeAgo $_timeago;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
+    public function __construct(TemplateEngine $engine, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
         $this->_module = 'Core';
         $this->_name = 'Latest Profile Posts';
         $this->_description = 'Display the latest profile posts on your site.';
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
 
         $this->_language = $language;
         $this->_cache = $cache;
@@ -91,14 +91,14 @@ class ProfilePostsWidget extends WidgetBase {
             $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);
         }
         if (count($posts_array) >= 1) {
-            $this->_smarty->assign([
+            $this->_engine->addVariables([
                 'PROFILE_POSTS_ARRAY' => $posts_array
             ]);
         }
-        $this->_smarty->assign([
+        $this->_engine->addVariables([
             'LATEST_PROFILE_POSTS' => $this->_language->get('user', 'latest_profile_posts'),
             'NO_PROFILE_POSTS' => $this->_language->get('user', 'no_profile_posts')
         ]);
-        $this->_content = $this->_smarty->fetch('widgets/profile_posts.tpl');
+        $this->_content = $this->_engine->fetch('widgets/profile_posts');
     }
 }

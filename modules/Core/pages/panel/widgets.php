@@ -1,16 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel widgets page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel widgets page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.widgets')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +28,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'layout';
 const PANEL_PAGE = 'widgets';
 $page_title = $language->get('admin', 'widgets');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -58,7 +68,7 @@ if (!isset($_GET['action'])) {
         return $a['order'] - $b['order'];
     });
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ENABLE' => $language->get('admin', 'enable'),
         'DISABLE' => $language->get('admin', 'disable'),
         'EDIT' => $language->get('general', 'edit'),
@@ -68,7 +78,7 @@ if (!isset($_GET['action'])) {
         'PROFILE_WIDGETS_LIST' => $profile_widgets_list,
     ]);
 
-    $template_file = 'core/widgets.tpl';
+    $template_file = 'core/widgets';
 } else {
     if ($_GET['action'] == 'enable') {
         // Enable a widget
@@ -184,7 +194,7 @@ if (!isset($_GET['action'])) {
         }
 
         if ($widget_instance->getSettings() !== null) {
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'SETTINGS' => $language->get('admin', 'settings'),
                 'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . urlencode($widget->id)),
             ]);
@@ -195,7 +205,7 @@ if (!isset($_GET['action'])) {
             $location = 'right';
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
                 'widget' => Text::bold(Output::getClean($widget->name)),
             ]),
@@ -235,7 +245,7 @@ if (!isset($_GET['action'])) {
 
             require_once($widget_instance->getSettings());
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'EDITING_WIDGET' => $language->get('admin', 'editing_widget_x', [
                     'widget' => Text::bold(Output::getClean($widget->name)),
                 ]),
@@ -243,7 +253,7 @@ if (!isset($_GET['action'])) {
                 'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)),
             ]);
 
-            $template_file = 'core/widget_settings.tpl';
+            $template_file = 'core/widget_settings';
         } else {
             Redirect::to('/panel/core/widgets');
         }
@@ -259,20 +269,20 @@ if (Session::exists('admin_widgets_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'LAYOUT' => $language->get('admin', 'layout'),
@@ -284,7 +294,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

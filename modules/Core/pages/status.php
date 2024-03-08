@@ -1,26 +1,35 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Status page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Status page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!Settings::get('mc_integration') || !Settings::get('status_page')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
 const PAGE = 'status';
 $page_title = $language->get('general', 'status');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $servers = DB::getInstance()->orderWhere('mc_servers', 'display = 1', '`order`', 'ASC')->results();
 
-$smarty->assign(
+$template->getEngine()->addVariables(
     [
         'STATUS' => $language->get('general', 'status'),
         'IP' => $language->get('general', 'ip'),
@@ -38,8 +47,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('status.tpl', $smarty);
+$template->displayTemplate('status');

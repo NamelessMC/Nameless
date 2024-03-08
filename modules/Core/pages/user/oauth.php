@@ -1,13 +1,21 @@
 <?php
-
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * User OAuth page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @license MIT
+ * @version 2.2.0
  *
- *  User OAuth page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -18,7 +26,7 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_oauth';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -53,20 +61,20 @@ foreach ($providers as $name => $data) {
 }
 
 if (Session::exists('oauth_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $language->get('general', 'success'),
         'SUCCESS_MESSAGE' => Session::flash('oauth_success'),
     ]);
 }
 
 if (Session::exists('oauth_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR' => $language->get('general', 'error'),
         'ERROR_MESSAGE' => Session::flash('oauth_error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'TOKEN' => Token::get(),
     'NO' => $language->get('general', 'no'),
     'YES' => $language->get('general', 'yes'),
@@ -84,12 +92,12 @@ $smarty->assign([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
+require ROOT_PATH . '/core/templates/cc_navbar.php';
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('user/oauth.tpl', $smarty);
+$template->displayTemplate('user/oauth');

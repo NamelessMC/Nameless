@@ -4,12 +4,12 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
 
     private Language $_language;
 
-    public function __construct(Smarty $smarty, Language $language) {
+    public function __construct(TemplateEngine $engine, Language $language) {
         $this->_name = 'Reactions';
         $this->_description = 'Displays a users received and given reactions on their profile.';
         $this->_module = 'Core';
 
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
         $this->_language = $language;
     }
 
@@ -70,7 +70,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
             }
         }
 
-        $this->_smarty->assign([
+        $this->_engine->addVariables([
             'REACTIONS_TEXT' => $this->_language->get('user', 'reactions'),
             'GIVEN' => $this->_language->get('user', 'given'),
             'RECEIVED' => $this->_language->get('user', 'received'),
@@ -79,7 +79,7 @@ class ReactionsProfileWidget extends ProfileWidgetBase {
             'REACTION_SCORE_AGGREGATE' => $reaction_score_aggregate,
             'CONTEXT_REACTION_SCORES' => $context_reaction_scores,
         ]);
-        $this->_content = $this->_smarty->fetch('widgets/reactions.tpl');
+        $this->_content = $this->_engine->fetch('widgets/reactions');
     }
 
     private function calculateCounts(string $type, User $user, array &$reactions): void {

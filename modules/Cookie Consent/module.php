@@ -1,12 +1,10 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.2
+/**
+ * NamelessMC Cookie Consent Module
  *
- *  License: MIT
- *
- *  Cookie Consent module file
+ * @author Samerton
+ * @version 2.2.0
+ * @license MIT
  */
 
 class CookieConsent_Module extends Module {
@@ -19,9 +17,9 @@ class CookieConsent_Module extends Module {
         $this->_cookie_language = $cookie_language;
 
         $name = 'Cookie Consent';
-        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.2';
-        $nameless_version = '2.1.2';
+        $author = '<a href="https://samerton.dev" target="_blank" rel="nofollow noopener">Samerton</a>';
+        $module_version = '2.2.0';
+        $nameless_version = '2.2.0';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -52,7 +50,7 @@ class CookieConsent_Module extends Module {
         // Not necessary for CookieConsent
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
         $language = $this->_language;
 
         // AdminCP
@@ -97,7 +95,7 @@ class CookieConsent_Module extends Module {
                 );
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'COOKIE_URL' => $cookie_url,
                 'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
                 'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),

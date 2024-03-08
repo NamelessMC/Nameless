@@ -3,7 +3,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
  *  License: MIT
  *
@@ -14,8 +14,8 @@ class FacebookWidget extends WidgetBase {
 
     private string $_fb_url;
 
-    public function __construct(Smarty $smarty, ?string $fb_url = '') {
-        $this->_smarty = $smarty;
+    public function __construct(TemplateEngine $engine, ?string $fb_url = '') {
+        $this->_engine = $engine;
 
         // Set widget variables
         $this->_module = 'Core';

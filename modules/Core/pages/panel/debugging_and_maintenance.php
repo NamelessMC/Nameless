@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel debugging + maintenance page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel debugging + maintenance page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.debugging')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'debugging_and_maintenance');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Input
 if (Input::exists()) {
@@ -63,27 +72,27 @@ if (Input::exists()) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('debugging_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('debugging_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 if ($user->hasPermission('admincp.errors')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR_LOGS' => $language->get('admin', 'error_logs'),
-        'ERROR_LOGS_LINK' => URL::build('/panel/core/errors')
+        'ERROR_LOGS_LINK' => URL::build('/panel/core/errors'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -108,7 +117,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('core/debugging_and_maintenance.tpl', $smarty);
+$template->displayTemplate('core/debugging_and_maintenance');

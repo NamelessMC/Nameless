@@ -1,17 +1,27 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Staff panel forum settings page
  *
- *  License: MIT
+ * @author Partydragen
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel forums page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Can the user view the panel?
 if (!$user->handlePanelPageLoad('admincp.forums')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,7 +29,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'forum';
 const PANEL_PAGE = 'forum_settings';
 $page_title = $forum_language->get('forum', 'forums');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -87,20 +97,20 @@ if (Session::exists('admin_forums_settings_errors')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'FORUM' => $forum_language->get('forum', 'forum'),
@@ -121,12 +131,12 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('forum/forums_settings.tpl', $smarty);
+$template->displayTemplate('forum/forums_settings');

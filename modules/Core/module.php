@@ -1,12 +1,10 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.2
+/**
+ * NamelessMC Core Module
  *
- *  License: MIT
- *
- *  Core module file
+ * @author Samerton
+ * @version 2.2.0
+ * @license MIT
  */
 
 class Core_Module extends Module {
@@ -21,8 +19,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.2';
-        $nameless_version = '2.1.2';
+        $module_version = '2.2.0';
+        $nameless_version = '2.2.0';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -587,7 +585,15 @@ class Core_Module extends Module {
         // Not necessary for Core
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    public function onPageLoad(
+        User $user,
+        Pages $pages,
+        Cache $cache,
+        $smarty,
+        iterable $navs,
+        Widgets $widgets,
+        ?TemplateBase $template
+    ) {
         $language = $this->_language;
 
         // Permissions
@@ -677,7 +683,7 @@ class Core_Module extends Module {
             $cache->setCache('social_media');
             $fb_url = Settings::get('fb_url');
             if ($fb_url) {
-                $widgets->add(new FacebookWidget($smarty, $fb_url));
+                $widgets->add(new FacebookWidget($template->getEngine(), $fb_url));
             }
 
             // Twitter
@@ -685,30 +691,30 @@ class Core_Module extends Module {
 
             if ($twitter) {
                 $theme = Settings::get('twitter_style');
-                $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
+                $widgets->add(new TwitterWidget($template->getEngine(), $twitter, $theme));
             }
 
             // Profile Posts
-            $widgets->add(new ProfilePostsWidget($smarty, $language, $cache, $user, new TimeAgo(TIMEZONE)));
+            $widgets->add(new ProfilePostsWidget($template->getEngine(), $language, $cache, $user, new TimeAgo(TIMEZONE)));
 
             // Online staff
-            $widgets->add(new OnlineStaffWidget($smarty, $language, $cache));
+            $widgets->add(new OnlineStaffWidget($template->getEngine(), $language, $cache));
 
             // Online users
-            $widgets->add(new OnlineUsersWidget($cache, $smarty, $language));
+            $widgets->add(new OnlineUsersWidget($cache, $template->getEngine(), $language));
 
             // Online users
-            $widgets->add(new ServerStatusWidget($smarty, $language, $cache));
+            $widgets->add(new ServerStatusWidget($template->getEngine(), $language, $cache));
 
             // Statistics
-            $widgets->add(new StatsWidget($smarty, $language, $cache));
+            $widgets->add(new StatsWidget($template->getEngine(), $language, $cache));
 
             // Reactions profile widget
-            $widgets->add(new ReactionsProfileWidget($smarty, $language));
+            $widgets->add(new ReactionsProfileWidget($template->getEngine(), $language));
 
             // Minecraft account profile widget
             if (Settings::get('mc_integration')) {
-                $widgets->add(new MinecraftAccountProfileWidget($smarty, $cache, $language));
+                $widgets->add(new MinecraftAccountProfileWidget($template->getEngine(), $cache, $language));
             }
         }
 
@@ -747,7 +753,7 @@ class Core_Module extends Module {
                 }
 
                 if (!is_string($update_check) && $update_check->updateAvailable()) {
-                    $smarty->assign([
+                    $template->getEngine()->addVariables([
                         'NEW_UPDATE' => $update_check->isUrgent()
                             ? $language->get('admin', 'new_urgent_update_available')
                             : $language->get('admin', 'new_update_available'),
@@ -910,49 +916,53 @@ class Core_Module extends Module {
                     }
                 }
 
-                $smarty->assign('MINECRAFT', true);
+                $template->getEngine()->addVariable('MINECRAFT', true);
 
                 if (isset($result)) {
-                    $smarty->assign('SERVER_QUERY', $result);
+                    $template->getEngine()->addVariable('SERVER_QUERY', $result);
                 }
 
                 if (!is_null($default) && isset($default->ip)) {
-                    $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
-                        'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
-                    ]));
-                    $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
-                    $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
-                    $smarty->assign('COPIED', $language->get('general', 'copied'));
+                    $template->getEngine()->addVariables([
+                        'CONNECT_WITH' => $language->get('general', 'connect_with_ip_x', [
+                            'address' => '<span id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</span>',
+                        ]),
+                        'DEFAULT_IP' => Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')),
+                        'CLICK_TO_COPY_TOOLTIP' => $language->get('general', 'click_to_copy_tooltip'),
+                        'COPIED' => $language->get('general', 'copied'),
+                    ]);
                 } else {
-                    $smarty->assign('CONNECT_WITH', '');
-                    $smarty->assign('DEFAULT_IP', '');
+                    $template->getEngine()->addVariables([
+                        'CONNECT_WITH' => '',
+                        'DEFAULT_IP' => '',
+                    ]);
                 }
 
-                $smarty->assign('SERVER_OFFLINE', $language->get('general', 'server_offline'));
+                $template->getEngine()->addVariable('SERVER_OFFLINE', $language->get('general', 'server_offline'));
 
             }
 
             if (defined('PAGE') && PAGE == 'user_query') {
                 // Collection
-                $user_id = $smarty->getTemplateVars('USER_ID');
+                $user_id = $template->getEngine()->getVariable('USER_ID');
 
-                $timeago = new TimeAgo(TIMEZONE);
+                $timeAgo = new TimeAgo(TIMEZONE);
 
                 if ($user_id) {
                     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
                     if (count($user_query)) {
                         $user_query = new UserData($user_query[0]);
-                        $smarty->assign([
+                        $template->getEngine()->addVariables([
                             'REGISTERED' => $language->get('user', 'registered_x', [
-                                'registeredAt' => $timeago->inWords($user_query->joined, $language),
+                                'registeredAt' => $timeAgo->inWords($user_query->joined, $language),
                             ]),
                             'REGISTERED_DATE' => date(DATE_FORMAT, $user_query->joined),
                         ]);
 
                         if ($user->canBypassPrivateProfile() || (!Settings::get('private_profile') || !$user_query->private_profile)) {
-                            $smarty->assign([
+                            $template->getEngine()->addVariables([
                                 'LAST_SEEN' => $language->get('user', 'last_seen_x', [
-                                    'lastSeenAt' => $timeago->inWords($user_query->last_online, $language),
+                                    'lastSeenAt' => $timeAgo->inWords($user_query->last_online, $language),
                                 ]),
                                 'LAST_SEEN_DATE' => date(DATE_FORMAT, $user_query->last_online)
                             ]);
@@ -1482,26 +1492,26 @@ class Core_Module extends Module {
                 self::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
 
                 // Dashboard stats
-                require_once(ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php');
-                CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($smarty, $language, $cache));
+                require_once ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php';
+                CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($template->getEngine(), $language, $cache));
 
-                require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php');
-                CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($smarty, $language, $cache));
+                require_once ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php';
+                CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($template->getEngine(), $language, $cache));
 
                 // Dashboard items
                 if ($user->hasPermission('modcp.punishments')) {
-                    require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php');
-                    CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($smarty, $language, $cache));
+                    require_once ROOT_PATH . '/modules/Core/collections/panel/RecentPunishments.php';
+                    CollectionManager::addItemToCollection('dashboard_main_items', new RecentPunishmentsItem($template->getEngine(), $language, $cache));
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
-                    require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php');
-                    CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($smarty, $language, $cache));
+                    require_once ROOT_PATH . '/modules/Core/collections/panel/RecentReports.php';
+                    CollectionManager::addItemToCollection('dashboard_main_items', new RecentReportsItem($template->getEngine(), $language, $cache));
                 }
 
                 if ($user->hasPermission('admincp.users')) {
-                    require_once(ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php');
-                    CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($smarty, $language, $cache));
+                    require_once ROOT_PATH . '/modules/Core/collections/panel/RecentRegistrations.php';
+                    CollectionManager::addItemToCollection('dashboard_main_items', new RecentRegistrationsItem($template->getEngine(), $language, $cache));
                 }
             }
 

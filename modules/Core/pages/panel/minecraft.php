@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel Minecraft page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel Minecraft page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 $page_title = $language->get('admin', 'minecraft');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (Input::exists()) {
     // Check token
@@ -41,16 +50,16 @@ if (Input::exists()) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -58,7 +67,7 @@ if (isset($errors) && count($errors)) {
 $minecraft_enabled = Settings::get(Settings::MINECRAFT_INTEGRATION);
 $uuid_linking = Settings::get('uuid_linking');
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -74,44 +83,44 @@ $smarty->assign([
 
 if ($minecraft_enabled == 1) {
     if ($user->hasPermission('admincp.minecraft.authme')) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'AUTHME' => $language->get('admin', 'authme_integration'),
-            'AUTHME_LINK' => URL::build('/panel/minecraft/authme')
+            'AUTHME_LINK' => URL::build('/panel/minecraft/authme'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.servers')) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'SERVERS' => $language->get('admin', 'minecraft_servers'),
-            'SERVERS_LINK' => URL::build('/panel/minecraft/servers')
+            'SERVERS_LINK' => URL::build('/panel/minecraft/servers'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.query_errors')) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'QUERY_ERRORS' => $language->get('admin', 'query_errors'),
-            'QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/query_errors')
+            'QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/query_errors'),
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.banners') && function_exists('exif_imagetype')) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'BANNERS' => $language->get('admin', 'server_banners'),
-            'BANNERS_LINK' => URL::build('/panel/minecraft/banners')
+            'BANNERS_LINK' => URL::build('/panel/minecraft/banners'),
         ]);
     }
 
     if ($user->hasPermission('admincp.core.placeholders')) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
-            'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholders')
+            'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholders'),
         ]);
     }
 }
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('integrations/minecraft/minecraft.tpl', $smarty);
+$template->displayTemplate('integrations/minecraft/minecraft');

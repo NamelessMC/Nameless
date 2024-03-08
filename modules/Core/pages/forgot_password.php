@@ -1,18 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Forgot Password page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Forgot password page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var string $route
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 const PAGE = 'forgot_password';
 
 $page_title = str_replace('?', '', $language->get('user', 'forgot_password'));
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Ensure user is not logged in
 if ($user->isLoggedIn()) {
@@ -80,20 +90,20 @@ if (!isset($_GET['c'])) {
     }
 
     if (isset($error)) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'ERROR_TITLE' => $language->get('general', 'error'),
             'ERROR' => $error
         ]);
     } else {
         if (isset($success)) {
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'SUCCESS_TITLE' => $language->get('general', 'success'),
                 'SUCCESS' => $success
             ]);
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
         'FORGOT_PASSWORD_INSTRUCTIONS' => $language->get('user', 'forgot_password_instructions'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
@@ -105,11 +115,11 @@ if (!isset($_GET['c'])) {
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('forgot_password.tpl', $smarty);
+    $template->displayTemplate('forgot_password');
 } else {
     // Check code exists
     $target_user = new User($_GET['c'], 'reset_code');
@@ -165,13 +175,13 @@ if (!isset($_GET['c'])) {
     }
 
     if (isset($errors) && count($errors)) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'ERROR_TITLE' => $language->get('general', 'error'),
             'ERROR' => $errors
         ]);
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'FORGOT_PASSWORD' => str_replace('?', '', $language->get('user', 'forgot_password')),
         'ENTER_NEW_PASSWORD' => $language->get('user', 'enter_new_password'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
@@ -186,9 +196,9 @@ if (!isset($_GET['c'])) {
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('change_password.tpl', $smarty);
+    $template->displayTemplate('change_password');
 }

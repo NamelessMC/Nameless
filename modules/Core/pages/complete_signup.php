@@ -1,19 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * API signup completion
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  API signup completion
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 $page = 'complete_signup';
 const PAGE = 'complete_signup';
 $page_title = $language->get('general', 'register');
 
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -90,15 +99,15 @@ if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
 }
 
-// Smarty variables
+// Template variables
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $errors
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'REGISTER' => $language->get('general', 'register'),
     'PASSWORD' => $language->get('user', 'password'),
     'CONFIRM_PASSWORD' => $language->get('user', 'confirm_password'),
@@ -113,7 +122,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
-$template->displayTemplate('complete_signup.tpl', $smarty);
+$template->displayTemplate('complete_signup');

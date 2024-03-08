@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Staff panel queue page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel queue page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.queue')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,22 +27,22 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'queue';
 $page_title = $language->get('admin', 'queue');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('queue_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('queue_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (Session::exists('queue_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => Session::flash('queue_error'),
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -42,7 +51,7 @@ if (isset($_GET['view'])) {
         case 'status':
             // List queue tasks
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/queue'),
                 'CANCEL' => $language->get('admin', 'queue_cancel_task'),
@@ -104,7 +113,7 @@ if (isset($_GET['view'])) {
                 });
             ');
 
-            $template_file = 'core/queue_status.tpl';
+            $template_file = 'core/queue_status';
             break;
 
         case 'task':
@@ -156,14 +165,14 @@ if (isset($_GET['view'])) {
             }
 
             if (in_array($task->status, [Task::STATUS_READY, Task::STATUS_ERROR, Task::STATUS_IN_PROGRESS])) {
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'CANCEL_TASK' => $language->get('admin', 'queue_cancel_task'),
                     'CONFIRM_CANCEL_TASK' => $language->get('admin', 'queue_cancel_task_confirm'),
                 ]);
             }
 
             if (in_array($task->status, [Task::STATUS_FAILED, Task::STATUS_CANCELLED, Task::STATUS_IN_PROGRESS])) {
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'CONFIRM_REQUEUE_TASK' => $language->get('admin', 'queue_requeue_task_confirm'),
                     'REQUEUE_TASK' => $language->get('admin', 'queue_requeue_task'),
                 ]);
@@ -173,7 +182,7 @@ if (isset($_GET['view'])) {
                 $taskUser = new User($task->user_id);
 
                 if ($taskUser->exists()) {
-                    $smarty->assign([
+                    $template->getEngine()->addVariables([
                         'TASK_TRIGGERED_BY' => $language->get('admin', 'queue_task_triggered_by'),
                         'TASK_USERNAME' => $taskUser->getDisplayname(),
                         'TASK_USERNAME_STYLE' => $taskUser->getGroupStyle(),
@@ -184,7 +193,7 @@ if (isset($_GET['view'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'ACTIONS' => $language->get('general', 'actions'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'BACK' => $language->get('general', 'back'),
@@ -224,7 +233,7 @@ if (isset($_GET['view'])) {
                 'YES' => $language->get('general', 'yes'),
             ]);
 
-            $template_file = 'core/queue_task.tpl';
+            $template_file = 'core/queue_task';
             break;
 
         default:
@@ -294,7 +303,7 @@ if (isset($_GET['view'])) {
         Settings::set('cron_key', $cron_key);
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUBMIT' => $language->get('general', 'submit'),
         'INFO' => $language->get('general', 'info'),
         'QUEUE_INFO' => $language->get('admin', 'queue_info'),
@@ -306,10 +315,10 @@ if (isset($_GET['view'])) {
         'QUEUE_STATUS_LINK' => URL::build('/panel/core/queue', 'view=status'),
     ]);
 
-    $template_file = 'core/queue.tpl';
+    $template_file = 'core/queue';
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -324,4 +333,4 @@ $template->onPageLoad();
 require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

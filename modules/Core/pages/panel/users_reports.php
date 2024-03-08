@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel user reports page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel reports page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('modcp.reports')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'reports';
 $page_title = $language->get('moderator', 'reports');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 $timeago = new TimeAgo(TIMEZONE);
 
@@ -38,9 +47,9 @@ if (!isset($_GET['id'])) {
             $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']));
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'CHANGE_VIEW' => $language->get('moderator', 'view_closed'),
-            'CHANGE_VIEW_LINK' => $change_view_link
+            'CHANGE_VIEW_LINK' => $change_view_link,
         ]);
     } else {
         // Get closed reports
@@ -54,9 +63,9 @@ if (!isset($_GET['id'])) {
             $change_view_link = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']));
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'CHANGE_VIEW' => $language->get('moderator', 'view_open'),
-            'CHANGE_VIEW_LINK' => $change_view_link
+            'CHANGE_VIEW_LINK' => $change_view_link,
         ]);
     }
 
@@ -132,21 +141,21 @@ if (!isset($_GET['id'])) {
             ];
         }
 
-        $smarty->assign('PAGINATION', $pagination);
+        $template->getEngine()->addVariable('PAGINATION', $pagination);
     } else {
         if (!isset($_GET['view'])) {
-            $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
+            $template->getEngine()->addVariable('NO_REPORTS', $language->get('moderator', 'no_open_reports'));
         } else {
-            $smarty->assign('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
+            $template->getEngine()->addVariable('NO_REPORTS', $language->get('moderator', 'no_closed_reports'));
         }
     }
 
     if (isset($_GET['uid'])) {
-        $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname((int)$_GET['uid'])));
+        $template->getEngine()->addVariable('VIEWING_USER', Output::getClean($user->idToNickname((int)$_GET['uid'])));
     }
 
-    // Smarty variables
-    $smarty->assign([
+    // Template variables
+    $template->getEngine()->addVariables([
         'ALL_REPORTS' => $reports,
         'VIEW' => $language->get('general', 'view'),
         'USER_REPORTED' => $language->get('moderator', 'user_reported'),
@@ -158,7 +167,7 @@ if (!isset($_GET['id'])) {
         'API' => $language->get('general', 'origin_api'),
     ]);
 
-    $template_file = 'core/users_reports.tpl';
+    $template_file = 'core/users_reports';
 } else {
     // Get report by ID
     if (!isset($_GET['action'])) {
@@ -211,11 +220,11 @@ if (!isset($_GET['id'])) {
 
         // Get comments
         $comments = DB::getInstance()->get('reports_comments', ['report_id', $report->id])->results();
-        $smarty_comments = [];
+        $template_comments = [];
         foreach ($comments as $comment) {
             $comment_user = new User($comment->commenter_id);
 
-            $smarty_comments[] = [
+            $template_comments[] = [
                 'username' => $comment_user->getDisplayname(),
                 'profile' => URL::build('/panel/user/' . urlencode($comment->commenter_id . '-' . $comment_user->data()->username)),
                 'style' => $comment_user->getGroupStyle(),
@@ -259,8 +268,8 @@ if (!isset($_GET['id'])) {
 
         $reporter_user = new User($report->reporter_id);
 
-        // Smarty variables
-        $smarty->assign([
+        // Template variables
+        $template->getEngine()->addVariables([
             'REPORTS_LINK' => URL::build('/panel/users/reports'),
             'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
             'BACK' => $language->get('general', 'back'),
@@ -277,7 +286,7 @@ if (!isset($_GET['id'])) {
             'REPORTER_USER_PROFILE' => URL::build('/panel/user/' . urlencode($report->reporter_id . '-' . $reporter_user->data()->username)),
             'REPORTER_USER_STYLE' => $reporter_user->getGroupStyle(),
             'REPORTER_USER_AVATAR' => $reporter_user->getAvatar(),
-            'COMMENTS' => $smarty_comments,
+            'COMMENTS' => $template_comments,
             'COMMENTS_TEXT' => $language->get('moderator', 'comments'),
             'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
             'NEW_COMMENT' => $language->get('moderator', 'new_comment'),
@@ -289,18 +298,18 @@ if (!isset($_GET['id'])) {
 
         // Close/reopen link
         if ($report->status == 0) {
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . urlencode($report->id)),
-                'CLOSE_REPORT' => $language->get('moderator', 'close_report')
+                'CLOSE_REPORT' => $language->get('moderator', 'close_report'),
             ]);
         } else {
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . urlencode($report->id)),
-                'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
+                'REOPEN_REPORT' => $language->get('moderator', 'reopen_report'),
             ]);
         }
 
-        $template_file = 'core/users_reports_view.tpl';
+        $template_file = 'core/users_reports_view';
     } else {
         if ($_GET['action'] == 'close') {
             // Close report
@@ -390,32 +399,32 @@ if (Session::exists('report_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
     'REPORTS' => $language->get('moderator', 'reports'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

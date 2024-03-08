@@ -1,7 +1,26 @@
 <?php
+/**
+ * Staff panel members settings page
+ *
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
+ *
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Language $members_language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
+ */
 
 if (!$user->handlePanelPageLoad('admincp.members')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -10,7 +29,7 @@ const PARENT_PAGE = 'members';
 const PANEL_PAGE = 'members_settings';
 
 $page_title = $members_language->get('members', 'members');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -53,16 +72,16 @@ $link_location = $cache->retrieve('members_location');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('admin_members_settings')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('admin_members_settings'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (Session::exists('admin_members_settings_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR' => Session::flash('admin_members_settings_error'),
-        'ERRORS_TITLE' => $language->get('general', 'success')
+        'ERRORS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
@@ -74,7 +93,7 @@ foreach (Group::all() as $group) {
     ];
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'MEMBERS' => $members_language->get('members', 'members'),
@@ -98,7 +117,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('members/members_settings.tpl', $smarty);
+$template->displayTemplate('members/members_settings');

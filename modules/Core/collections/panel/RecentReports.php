@@ -2,20 +2,20 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Recent reports dashboard collection item
  */
 
 class RecentReportsItem extends CollectionItemBase {
 
-    private Smarty $_smarty;
+    private TemplateEngine $_engine;
     private Language $_language;
     private Cache $_cache;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
         $cache->setCache('dashboard_main_items_collection');
         if ($cache->isCached('recent_reports')) {
             $from_cache = $cache->retrieve('recent_reports');
@@ -29,7 +29,7 @@ class RecentReportsItem extends CollectionItemBase {
 
         parent::__construct($order, $enabled);
 
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
         $this->_language = $language;
         $this->_cache = $cache;
     }
@@ -96,7 +96,7 @@ class RecentReportsItem extends CollectionItemBase {
             $this->_cache->store('recent_reports_data', $data, 60);
         }
 
-        $this->_smarty->assign([
+        $this->_engine->addVariables([
             'RECENT_REPORTS' => $this->_language->get('moderator', 'recent_reports'),
             'REPORTS' => $data,
             'NO_REPORTS' => $this->_language->get('moderator', 'no_open_reports'),
@@ -108,7 +108,7 @@ class RecentReportsItem extends CollectionItemBase {
             'VIEW' => $this->_language->get('general', 'view')
         ]);
 
-        return $this->_smarty->fetch('collections/dashboard_items/recent_reports.tpl');
+        return $this->_engine->fetch('collections/dashboard_items/recent_reports');
     }
 
     public function getWidth(): float {

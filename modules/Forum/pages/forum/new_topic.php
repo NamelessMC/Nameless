@@ -1,18 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Forum new topic page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  New topic page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Always define page name
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'new_topic');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
@@ -46,7 +56,7 @@ $current_forum = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE id = ?
 $forum_title = Output::getClean($current_forum->forum_title);
 
 // Topic labels
-$smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
+$template->getEngine()->addVariable('LABELS_TEXT', $forum_language->get('forum', 'label'));
 $labels = [];
 
 $default_labels = $current_forum->default_labels ? explode(',', $current_forum->default_labels) : [];
@@ -232,11 +242,11 @@ $token = Token::get();
 
 // Generate content for template
 if (isset($error)) {
-    $smarty->assign('ERROR', $error);
+    $template->getEngine()->addVariable('ERROR', $error);
 }
 
 $creating_topic_in = $forum_language->get('forum', 'creating_topic_in_x', ['forum' => $forum_title]);
-$smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
+$template->getEngine()->addVariable('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about forum
 $forum_query = DB::getInstance()->get('forums', ['id', $fid])->results();
@@ -247,8 +257,8 @@ if ($forum_query->topic_placeholder) {
     $placeholder = Output::getPurified($forum_query->topic_placeholder);
 }
 
-// Smarty variables
-$smarty->assign([
+// Template variables
+$template->getEngine()->addVariables([
     'LABELS' => $labels,
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title'),
     'TOPIC_VALUE' => ((isset($_POST['title']) && $_POST['title']) ? Output::getClean(Input::get('title')) : ''),
@@ -284,8 +294,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('forum/new_topic.tpl', $smarty);
+$template->displayTemplate('forum/new_topic');

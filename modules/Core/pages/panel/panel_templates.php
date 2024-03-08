@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel panel templates page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel - panel templates page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.panel_templates')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'layout';
 const PANEL_PAGE = 'panel_templates';
 $page_title = $language->get('admin', 'panel_templates');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['action'])) {
     // Get all templates
@@ -64,7 +73,7 @@ if (!isset($_GET['action'])) {
 
     $template = $current_template;
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'WARNING' => $language->get('admin', 'warning'),
         'ACTIVATE' => $language->get('admin', 'activate'),
         'DEACTIVATE' => $language->get('admin', 'deactivate'),
@@ -87,7 +96,7 @@ if (!isset($_GET['action'])) {
         'ACTIONS' => $language->get('general', 'actions')
     ]);
 
-    $template_file = 'core/panel_templates.tpl';
+    $template_file = 'core/panel_templates';
 
 } else {
     switch ($_GET['action']) {
@@ -266,7 +275,7 @@ if (!isset($_GET['action'])) {
 
         case 'clear_cache':
             if (Token::check()) {
-                $smarty->clearAllCache();
+                $template->getEngine()->clearCache();
                 Session::flash('admin_templates', $language->get('admin', 'cache_cleared'));
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
@@ -291,32 +300,32 @@ if (Session::exists('admin_templates_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'LAYOUT' => $language->get('admin', 'layout'),
     'PANEL_TEMPLATES' => $language->get('admin', 'panel_templates'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

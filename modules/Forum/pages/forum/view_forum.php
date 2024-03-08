@@ -1,12 +1,23 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Forum view forum page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  View forum page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var string $route
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Always define page name
@@ -74,7 +85,7 @@ if (count($page_metadata)) {
 
 $page_title = $forum_language->get('forum', 'forum');
 $page_title .= ' - ' . $language->get('general', 'page_x', ['page' => $p]);
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // Redirect forum?
 if ($forum_query->redirect_forum == 1) {
@@ -82,7 +93,7 @@ if ($forum_query->redirect_forum == 1) {
         Redirect::to(Output::getClean($forum_query->redirect_url));
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'CONFIRM_REDIRECT' => $forum_language->get('forum', 'forum_redirect_warning', ['url' => Output::getClean($forum_query->redirect_url)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
@@ -95,14 +106,16 @@ if ($forum_query->redirect_forum == 1) {
 
     $template->onPageLoad();
 
-    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+    $template->getEngine()->addVariables([
+        'WIDGETS_LEFT' => $widgets->getWidgets('left'),
+        'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
+    ]);
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('forum/view_forum_confirm_redirect.tpl', $smarty);
+    $template->displayTemplate('forum/view_forum_confirm_redirect');
 } else {
     // Get all topics
     if ($user->isLoggedIn()) {
@@ -121,10 +134,10 @@ if ($forum_query->redirect_forum == 1) {
     $stickies = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
 
     // Search bar
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SEARCH_URL' => URL::build('/forum/search'),
         'SEARCH' => $language->get('general', 'search'),
-        'TOKEN' => Token::get()
+        'TOKEN' => Token::get(),
     ]);
 
     // Breadcrumbs and search bar - same for latest discussions view + table view
@@ -171,13 +184,10 @@ if ($forum_query->redirect_forum == 1) {
         'link' => URL::build('/forum')
     ];
 
-    $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
-
-    // Server status module
-    $smarty->assign('SERVER_STATUS', '');
-
-    // Assignments
-    $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
+    $template->getEngine()->addVariables([
+        'BREADCRUMBS' => array_reverse($breadcrumbs),
+        'FORUM_INDEX_LINK' => URL::build('/forum'),
+    ]);
 
     // Any subforums?
     $subforums = DB::getInstance()->query('SELECT * FROM nl2_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
@@ -245,44 +255,45 @@ if ($forum_query->redirect_forum == 1) {
     }
 
     // Assign language variables
-    $smarty->assign('FORUMS', $forum_language->get('forum', 'forums'));
-    $smarty->assign('DISCUSSION', $forum_language->get('forum', 'discussion'));
-    $smarty->assign('TOPIC', $forum_language->get('forum', 'topic'));
-    $smarty->assign('STATS', $forum_language->get('forum', 'stats'));
-    $smarty->assign('LAST_REPLY', $forum_language->get('forum', 'last_reply'));
-    $smarty->assign('BY', $forum_language->get('forum', 'by'));
-    $smarty->assign('VIEWS', $forum_language->get('forum', 'views'));
-    $smarty->assign('POSTS', $forum_language->get('forum', 'posts'));
-    $smarty->assign('STATISTICS', $forum_language->get('forum', 'stats'));
-    $smarty->assign('OVERVIEW', $forum_language->get('forum', 'overview'));
-    $smarty->assign('LATEST_DISCUSSIONS_TITLE', $forum_language->get('forum', 'latest_discussions'));
-    $smarty->assign('TOPICS', $forum_language->get('forum', 'topics'));
-    $smarty->assign('NO_TOPICS', $forum_language->get('forum', 'no_topics_short'));
-    $smarty->assign('SUBFORUMS', $subforum_array);
-    $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
-    $smarty->assign('FORUM_TITLE', Output::getPurified($forum_query->forum_title));
-    $smarty->assign('FORUM_DESCRIPTION', Output::getPurified($forum_query->forum_description));
-    $smarty->assign('FORUM_ICON', Output::getPurified($forum_query->icon));
-    $smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
+    $template->getEngine()->addVariables([
+        'FORUMS' => $forum_language->get('forum', 'forums'),
+        'DISCUSSION' => $forum_language->get('forum', 'discussion'),
+        'TOPIC' => $forum_language->get('forum', 'topic'),
+        'STATS' => $forum_language->get('forum', 'stats'),
+        'LAST_REPLY' => $forum_language->get('forum', 'last_reply'),
+        'BY' => $forum_language->get('forum', 'by'),
+        'VIEWS' => $forum_language->get('forum', 'views'),
+        'POSTS' => $forum_language->get('forum', 'posts'),
+        'STATISTICS' => $forum_language->get('forum', 'stats'),
+        'OVERVIEW' => $forum_language->get('forum', 'overview'),
+        'LATEST_DISCUSSIONS_TITLE' => $forum_language->get('forum', 'latest_discussions'),
+        'TOPICS' => $forum_language->get('forum', 'topics'),
+        'NO_TOPICS' => $forum_language->get('forum', 'no_topics_short'),
+        'SUBFORUMS' => $subforum_array,
+        'SUBFORUM_LANGUAGE' => $forum_language->get('forum', 'subforums'),
+        'FORUM_TITLE' => Output::getPurified($forum_query->forum_title),
+        'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
+        'FORUM_ICON' => Output::getPurified($forum_query->icon),
+        'STICKY_TOPICS' => $forum_language->get('forum', 'sticky_topics'),
+        'NEW_TOPIC' => $forum_language->get('forum', 'new_topic'),
+    ]);
 
     // Can the user post here?
     if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
-        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
+        $template->getEngine()->addVariable('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
     } else {
-        $smarty->assign('NEW_TOPIC_BUTTON', false);
+        $template->getEngine()->addVariable('NEW_TOPIC_BUTTON', false);
     }
-
-    $smarty->assign('NEW_TOPIC', $forum_language->get('forum', 'new_topic'));
 
     // Topics
     if (!count($stickies) && !count($topics)) {
         // No topics yet
-        $smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
+        $template->getEngine()->addVariable('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 
         if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
-            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
+            $template->getEngine()->addVariable('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
         } else {
-            $smarty->assign('NEW_TOPIC_BUTTON', false);
+            $template->getEngine()->addVariable('NEW_TOPIC_BUTTON', false);
         }
 
         $no_topics_exist = true;
@@ -291,7 +302,7 @@ if ($forum_query->redirect_forum == 1) {
         $labels_cache = [];
 
         $sticky_array = [];
-        // Assign sticky threads to smarty variable
+        // Assign sticky threads to template variable
         foreach ($stickies as $sticky) {
             // Get number of replies to a topic
             $replies = DB::getInstance()->get('posts', ['topic_id', $sticky->id])->results();
@@ -394,9 +405,9 @@ if ($forum_query->redirect_forum == 1) {
         $pagination = $paginator->generate(7, URL::build('/forum/view/' . urlencode($fid) . '-' . $forum->titleToURL($forum_query->forum_title)));
 
         if (count($topics)) {
-            $smarty->assign('PAGINATION', $pagination);
+            $template->getEngine()->addVariable('PAGINATION', $pagination);
         } else {
-            $smarty->assign('PAGINATION', '');
+            $template->getEngine()->addVariable('PAGINATION', '');
         }
 
         $template_array = [];
@@ -489,9 +500,11 @@ if ($forum_query->redirect_forum == 1) {
             ];
         }
 
-        // Assign to Smarty variable
-        $smarty->assign('STICKY_DISCUSSIONS', $sticky_array);
-        $smarty->assign('LATEST_DISCUSSIONS', $template_array);
+        // Assign to template variable
+        $template->getEngine()->addVariables([
+            'STICKY_DISCUSSIONS' => $sticky_array,
+            'LATEST_DISCUSSIONS' => $template_array,
+        ]);
     }
 
     // Load modules + template
@@ -499,16 +512,18 @@ if ($forum_query->redirect_forum == 1) {
 
     $template->onPageLoad();
 
-    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+    $template->getEngine()->addVariables([
+        'WIDGETS_LEFT' => $widgets->getWidgets('left'),
+        'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
+    ]);
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
     if (isset($no_topics_exist)) {
-        $template->displayTemplate('forum/view_forum_no_discussions.tpl', $smarty);
+        $template->displayTemplate('forum/view_forum_no_discussions');
     } else {
-        $template->displayTemplate('forum/view_forum.tpl', $smarty);
+        $template->displayTemplate('forum/view_forum');
     }
 }

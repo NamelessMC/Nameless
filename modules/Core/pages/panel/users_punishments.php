@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel user punishments page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel punishments page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('modcp.punishments')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -20,7 +29,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'punishments';
 $page_title = $language->get('moderator', 'punishments');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -327,26 +336,26 @@ if (isset($_GET['user'])) {
     }
 
     if ($user->hasPermission('modcp.punishments.reset_avatar')) {
-        $smarty->assign('RESET_AVATAR', $language->get('moderator', 'reset_avatar'));
+        $template->getEngine()->addVariable('RESET_AVATAR', $language->get('moderator', 'reset_avatar'));
     }
 
     if ($user->hasPermission('modcp.punishments.warn')) {
-        $smarty->assign('WARN', $language->get('moderator', 'warn'));
+        $template->getEngine()->addVariable('WARN', $language->get('moderator', 'warn'));
     }
 
     if ($user->hasPermission('modcp.punishments.ban')) {
-        $smarty->assign('BAN', $language->get('moderator', 'ban'));
+        $template->getEngine()->addVariable('BAN', $language->get('moderator', 'ban'));
     }
 
     if ($user->hasPermission('modcp.punishments.banip')) {
-        $smarty->assign('BAN_IP', $language->get('moderator', 'ban_ip'));
+        $template->getEngine()->addVariable('BAN_IP', $language->get('moderator', 'ban_ip'));
     }
 
     if ($user->hasPermission('modcp.punishments.revoke')) {
-        $smarty->assign('REVOKE_PERMISSION', true);
+        $template->getEngine()->addVariable('REVOKE_PERMISSION', true);
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'HAS_AVATAR' => $query->has_avatar,
         'BACK_LINK' => URL::build('/panel/user/' . urlencode($view_user->data()->id)),
         'BACK' => $language->get('general', 'back'),
@@ -367,10 +376,10 @@ if (isset($_GET['user'])) {
         'AVATAR' => $view_user->getAvatar(),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no')
+        'NO' => $language->get('general', 'no'),
     ]);
 
-    $template_file = 'core/users_punishments_user.tpl';
+    $template_file = 'core/users_punishments_user';
 } else {
     if (Input::exists() && isset($_POST['username'])) {
         if (Token::check()) {
@@ -416,7 +425,7 @@ if (isset($_GET['user'])) {
         $results = $paginator->getLimited($punishments, 10, $p, count($punishments));
         $pagination = $paginator->generate(7, URL::build('/panel/users/punishments/'));
 
-        $smarty_results = [];
+        $template_results = [];
         foreach ($results->data as $result) {
             switch ($result->type) {
                 case 1:
@@ -436,7 +445,7 @@ if (isset($_GET['user'])) {
             $target_user = new User($result->punished);
             $staff_user = new User($result->staff);
 
-            $smarty_results[] = [
+            $template_results[] = [
                 'username' => $target_user->getDisplayname(true),
                 'nickname' => $target_user->getDisplayname(),
                 'profile' => URL::build('/panel/user/' . urlencode($result->punished . '-' . $target_user->data()->username)),
@@ -457,28 +466,28 @@ if (isset($_GET['user'])) {
             ];
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'PAGINATION' => $pagination,
             'STAFF' => $language->get('moderator', 'staff'),
             'ACTIONS' => $language->get('moderator', 'actions'),
             'WHEN' => $language->get('moderator', 'when'),
             'VIEW_USER' => $language->get('moderator', 'view_user'),
             'TYPE' => $language->get('moderator', 'type'),
-            'RESULTS' => $smarty_results,
+            'RESULTS' => $template_results,
             'ACKNOWLEDGED' => $language->get('moderator', 'acknowledged'),
-            'REVOKED' => $language->get('moderator', 'revoked')
+            'REVOKED' => $language->get('moderator', 'revoked'),
         ]);
     } else {
-        $smarty->assign('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
+        $template->getEngine()->addVariable('NO_PUNISHMENTS', $language->get('moderator', 'no_punishments_found'));
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'USERNAME' => $language->get('user', 'username'),
         'SEARCH' => $language->get('general', 'search'),
-        'CANCEL' => $language->get('general', 'cancel')
+        'CANCEL' => $language->get('general', 'cancel'),
     ]);
 
-    $template_file = 'core/users_punishments.tpl';
+    $template_file = 'core/users_punishments';
 }
 
 if (Session::exists('user_punishment_success')) {
@@ -486,32 +495,32 @@ if (Session::exists('user_punishment_success')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
     'PUNISHMENTS' => $language->get('moderator', 'punishments'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

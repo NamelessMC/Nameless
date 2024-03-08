@@ -2,19 +2,19 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Total users dashboard collection item
  */
 
 class TotalUsersItem extends CollectionItemBase {
 
-    private Smarty $_smarty;
+    private TemplateEngine $_engine;
     private Language $_language;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
         $cache->setCache('dashboard_stats_collection');
         if ($cache->isCached('total_users')) {
             $from_cache = $cache->retrieve('total_users');
@@ -28,7 +28,7 @@ class TotalUsersItem extends CollectionItemBase {
 
         parent::__construct($order, $enabled);
 
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
         $this->_language = $language;
     }
 
@@ -36,11 +36,11 @@ class TotalUsersItem extends CollectionItemBase {
         // Get the number of total users
         $users_query = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_users')->first()->c;
 
-        $this->_smarty->assign([
+        $this->_engine->addVariables([
             'TITLE' => $this->_language->get('admin', 'total_users'),
             'VALUE' => $users_query
         ]);
 
-        return $this->_smarty->fetch('collections/dashboard_stats/total_users.tpl');
+        return $this->_engine->fetch('collections/dashboard_stats/total_users');
     }
 }

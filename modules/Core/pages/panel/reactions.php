@@ -1,16 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel reactions page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel reactions page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +28,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'reactions';
 $page_title = $language->get('user', 'reactions');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 $template->assets()->include(
     AssetTree::JQUERY_UI,
@@ -28,16 +38,16 @@ $template->assets()->include(
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('api_reactions')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('api_reactions'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (Session::exists('api_reactions_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => [Session::flash('api_reactions_error')],
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -80,7 +90,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'NEW_REACTION' => $language->get('admin', 'new_reaction'),
         'NEW_REACTION_LINK' => URL::build('/panel/core/reactions/', 'action=new'),
         'NAME' => $language->get('admin', 'name'),
@@ -92,7 +102,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         'REORDER_DRAG_URL' => URL::build('/panel/core/reactions', 'action=order'),
     ]);
 
-    $template_file = 'core/reactions.tpl';
+    $template_file = 'core/reactions';
 } else {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
@@ -162,7 +172,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
                 }
 
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'CANCEL' => $language->get('general', 'cancel'),
                     'CANCEL_LINK' => URL::build('/panel/core/reactions'),
                     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -185,7 +195,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     'EDITING' => false,
                 ]);
 
-                $template_file = 'core/reactions_form.tpl';
+                $template_file = 'core/reactions_form';
 
                 break;
 
@@ -307,7 +317,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             }
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'CANCEL' => $language->get('general', 'cancel'),
             'CANCEL_LINK' => URL::build('/panel/core/reactions'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -335,30 +345,30 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'EDITING' => true,
         ]);
 
-        $template_file = 'core/reactions_form.tpl';
+        $template_file = 'core/reactions_form';
     }
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
     'REACTIONS' => $language->get('user', 'reactions'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

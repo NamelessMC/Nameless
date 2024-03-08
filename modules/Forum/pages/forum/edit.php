@@ -1,18 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Forum edit post page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Edit post page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Always define page name
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'edit_post');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
@@ -183,21 +193,22 @@ if (Input::exists()) {
 }
 
 if (isset($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR_TITLE' => $language->get('general', 'error'),
         'ERRORS' => $errors
     ]);
 }
 
-$smarty->assign('EDITING_POST', $forum_language->get('forum', 'edit_post'));
+$template->getEngine()->addVariable('EDITING_POST', $forum_language->get('forum', 'edit_post'));
 
 if (isset($edit_title, $post_labels)) {
-    $smarty->assign('EDITING_TOPIC', true);
-
-    $smarty->assign('TOPIC_TITLE_VALUE', $post_title);
+    $template->getEngine()->addVariables([
+        'EDITING_TOPIC' => true,
+        'TOPIC_TITLE_VALUE' => $post_title,
+        'LABELS_TEXT' => $forum_language->get('forum', 'label'),
+    ]);
 
     // Topic labels
-    $smarty->assign('LABELS_TEXT', $forum_language->get('forum', 'label'));
     $labels = [];
 
     $forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
@@ -237,7 +248,7 @@ if (isset($edit_title, $post_labels)) {
         }
     }
 
-    $smarty->assign('LABELS', $labels);
+    $template->getEngine()->addVariable('LABELS', $labels);
 }
 
 // Purify post content
@@ -246,7 +257,7 @@ $content = EventHandler::executeEvent('renderPostEdit', [
     'user' => $user
 ])['content'];
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
@@ -267,8 +278,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('forum/forum_edit_post.tpl', $smarty);
+$template->displayTemplate('forum/forum_edit_post');

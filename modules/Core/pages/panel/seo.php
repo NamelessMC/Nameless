@@ -1,16 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.2.0
+/**
+ * Staff panel SEO page
  *
- *  License: MIT
+ * @author Partydragen
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel seo page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.seo')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,9 +28,9 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'seo';
 $page_title = $language->get('admin', 'seo');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -82,34 +92,34 @@ if (!isset($_GET['metadata'])) {
             $cache->setCache('sitemap_cache');
             if ($cache->isCached('updated')) {
                 $updated = $cache->retrieve('updated');
-                $updated = $timeago->inWords($updated, $language);
+                $updated = $timeAgo->inWords($updated, $language);
             } else {
                 $updated = $language->get('admin', 'unknown');
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'SITEMAP_LAST_GENERATED' => $language->get('admin', 'sitemap_last_generated_x', [
                     'generatedAt' => Text::bold($updated)
                 ]),
                 'SITEMAP_LINK' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'SITEMAP_FULL_LINK' => rtrim(URL::getSelfURL(), '/') . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/cache/sitemaps/sitemap-index.xml',
                 'DOWNLOAD_SITEMAP' => $language->get('admin', 'download_sitemap'),
-                'LINK' => $language->get('admin', 'sitemap_link')
+                'LINK' => $language->get('admin', 'sitemap_link'),
             ]);
 
         } else {
-            $smarty->assign('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
+            $template->getEngine()->addVariable('SITEMAP_NOT_GENERATED', $language->get('admin', 'sitemap_not_generated_yet'));
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'DEFAULT_DESCRIPTION' => $language->get('admin', 'default_description'),
         'DEFAULT_DESCRIPTION_VALUE' => Settings::get('default_meta_description'),
         'DEFAULT_KEYWORDS' => $language->get('admin', 'default_keywords'),
         'DEFAULT_KEYWORDS_VALUE' => Settings::get('default_meta_keywords'),
     ]);
 
-    $template_file = 'core/seo.tpl';
+    $template_file = 'core/seo';
 } else {
     $page = $pages->getPageById($_GET['metadata']);
     if (is_null($page)) {
@@ -198,7 +208,7 @@ if (!isset($_GET['metadata'])) {
         $n++;
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/seo'),
         'EDITING_PAGE' => $language->get('admin', 'editing_page_x', [
@@ -212,24 +222,24 @@ if (!isset($_GET['metadata'])) {
         'OG_IMAGES_ARRAY' => $og_images,
     ]);
 
-    $template_file = 'core/seo_metadata_edit.tpl';
+    $template_file = 'core/seo_metadata_edit';
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -250,7 +260,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);
