@@ -68,6 +68,18 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="InputBannedTerms">
+                                        {$BANNED_TERMS}
+                                    </label>
+                                    <span class="badge badge-info">
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                           data-placement="top" title="{$INFO}"
+                                           data-content="{$BANNED_TERMS_INFO}"></i>
+                                    </span>
+                                    <textarea id="InputBannedTerms" class="form-control" name="banned_terms">{$BANNED_TERMS_VALUE}</textarea>
+                                </div>
+
+                                <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}" />
                                 </div>
