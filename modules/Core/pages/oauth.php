@@ -179,6 +179,10 @@ if (Session::get('oauth_method') === 'link_integration') {
     // Link the user integration
     $integration->successfulRegistration($user);
 
+    if ($integration->getErrors()) {
+        Session::flash('connections_error', $integration->getErrors()[0]);
+    }
+
     Session::delete('oauth_register_data');
     Session::delete('oauth_method');
     Redirect::to(URL::build('/user/connections'));

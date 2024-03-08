@@ -7,7 +7,7 @@ fi
 
 UNUSED_TERMS_FOUND=false
 FILES=(
-  "custom/languages/en_UK.json"
+  "modules/Core/language/en_UK.json"
   "modules/Forum/language/en_UK.json"
   "modules/Cookie Consent/language/en_UK.json"
   "modules/Discord Integration/language/en_UK.json"

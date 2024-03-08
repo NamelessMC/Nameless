@@ -1048,7 +1048,7 @@
     "user/x_replies": "{{count}} respostas",
     "user/you_have_been_banned": "Você foi banido!",
     "user/you_have_received_a_warning": "Você recebeu uma advertencia!",
-    "admin/email_language_info": "Não está vendo seu idioma? Certifique-se de que seu arquivo de idioma seja gravável pelo seu servidor web em /custom/languages/.",
+    "admin/email_language_info": "Não está vendo seu idioma? Certifique-se de que seu arquivo de idioma seja gravável pelo seu servidor web em /modules/Core/language/.",
     "admin/can_unlink": "Pode desvincular",
     "admin/at_least_one_external": "Insira pelo menos 1 grupo externo (Minecraft ou Discord)",
     "admin/ban_hook_info": "Usuário banido",

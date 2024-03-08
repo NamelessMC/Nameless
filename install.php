@@ -37,7 +37,7 @@ date_default_timezone_set('Europe/London');
 // Select language
 if (
     isset($_SESSION['installer_language'])
-    && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')
+    && is_file('modules/Core/language/' . $_SESSION['installer_language'] . '.json')
 ) {
     $language_short_code = $_SESSION['installer_language'];
 } else {
@@ -56,8 +56,11 @@ if (Config::exists() && Config::get('core.installed') === true) {
 }
 
 if (isset($_GET['language'])) {
+    if (str_contains($_GET['language'], '/')) {
+        die('Language code must not contain slash');
+    }
     // Set language
-    if (is_file('custom/languages/' . $_GET['language'] . '.json')) {
+    if (is_file('modules/Core/language/' . $_GET['language'] . '.json')) {
         $_SESSION['installer_language'] = $_GET['language'];
         die('OK');
     }

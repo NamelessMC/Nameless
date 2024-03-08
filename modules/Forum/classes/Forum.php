@@ -799,6 +799,16 @@ class Forum {
     }
 
     /**
+     * Get banned terms from the Forum module
+     *
+     * @return array Array of banned terms
+     */
+    public static function getBannedTerms(): array {
+        $terms = Settings::get('banned_terms', '', 'forum');
+        return explode("\n", $terms);
+    }
+
+    /**
      * Get the latest post in a "View own topic" forum
      * This could be a topic created by the user, or a sticky topic
      *

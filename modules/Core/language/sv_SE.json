@@ -1079,7 +1079,7 @@
     "admin/delete_hook": "Är du säker på att du vill radera denna hook?",
     "admin/editing_integration_for_x": "Ändrar {{integration}} integrationen för {{user}}",
     "admin/editing_integration_x": "Ändrar integrationen {{integration}}",
-    "admin/email_language_info": "Ser inte ditt språk? Dubbelkolla att språk-filen är skrivbar av din webbserver i /custom/languages/.",
+    "admin/email_language_info": "Ser inte ditt språk? Dubbelkolla att språk-filen är skrivbar av din webbserver i /modules/Core/language/.",
     "admin/integration": "Integration",
     "admin/oauth_info": "Konfigurera OAuth-leverantörerna för att tillåta användare att logga in med deras sociala nätverks-konton. {{docLinkStart}}Kolla våran dokumentation för hjälp{{docLinkEnd}}.",
     "admin/page": "Sida",
