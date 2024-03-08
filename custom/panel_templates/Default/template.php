@@ -306,19 +306,19 @@ if (!class_exists('Default_Panel_Template')) {
 
                             $url_parameters = [];
                             if (isset($_GET['group'])) {
-                                $url_parameters[] = 'group=' . $_GET['group'];
+                                $url_parameters[] = 'group=' . Output::getClean($_GET['group']);
                             }
 
                             if (isset($_GET['integration'])) {
-                                $url_parameters[] = 'integration=' . $_GET['integration'];
+                                $url_parameters[] = 'integration=' . Output::getClean($_GET['integration']);
                             }
 
                             if (isset($_GET['banned'])) {
-                                $url_parameters[] = 'banned=' . $_GET['banned'];
+                                $url_parameters[] = 'banned=' . Output::getClean($_GET['banned']);
                             }
 
                             if (isset($_GET['active'])) {
-                                $url_parameters[] = 'active=' . $_GET['active'];
+                                $url_parameters[] = 'active=' . Output::getClean($_GET['active']);
                             }
 
                             $this->addJSScript('
