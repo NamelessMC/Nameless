@@ -34,6 +34,7 @@ class DebugBarHelper extends Instanceable {
         $debugbar->addCollector($requestCollector);
 
         $debugbar->addCollector(EventCollector::getInstance());
+        $debugbar->addCollector(CacheCollector::getInstance());
 
         $configCollector = new ConfigCollector();
         $configCollector->useHtmlVarDumper();
