@@ -1,14 +1,14 @@
 <?php
 /**
- * Management of input fields
+ * Management of input fields.
  *
  * @package NamelessMC\Core
  * @author Partydragen
  * @version 2.0.0-pr13
  * @license MIT
  */
-class Fields {
-
+class Fields
+{
     public const TEXT = 1;
     public const TEXTAREA = 2;
     public const DATE = 3;
@@ -27,16 +27,17 @@ class Fields {
     /**
      * Add a field to this fields instance.
      *
-     * @param string $key Unique name for the field item.
-     * @param int $type Field type.
-     * @param string $label The label for this field.
-     * @param bool $required Require user to fill this field.
-     * @param string|array $value Default value for this field.
-     * @param string|null $placeholder Field placeholder.
-     * @param string|null $info Field information.
-     * @param int|null $order Field order.
+     * @param string       $key         Unique name for the field item.
+     * @param int          $type        Field type.
+     * @param string       $label       The label for this field.
+     * @param bool         $required    Require user to fill this field.
+     * @param string|array $value       Default value for this field.
+     * @param string|null  $placeholder Field placeholder.
+     * @param string|null  $info        Field information.
+     * @param int|null     $order       Field order.
      */
-    public function add(string $key, int $type, string $label, bool $required = false, $value = '', ?string $placeholder = null, ?string $info = null, ?int $order = null): void {
+    public function add(string $key, int $type, string $label, bool $required = false, $value = '', ?string $placeholder = null, ?string $info = null, ?int $order = null): void
+    {
         $this->_fields[$key] = [
             'name' => $label,
             'type' => $type,
@@ -45,22 +46,23 @@ class Fields {
             'placeholder' => $placeholder ?? $label,
             'info' => $info ?? '',
             'options' => [],
-            'order' => $order ?? count($this->_fields)
+            'order' => $order ?? count($this->_fields),
         ];
     }
 
     /**
      * Add a option to a field.
      *
-     * @param string $field Add the option to this field.
-     * @param string $value Field value.
+     * @param string $field  Add the option to this field.
+     * @param string $value  Field value.
      * @param string $option The option to display.
      */
-    public function addOption(string $field, string $value, string $option): void {
+    public function addOption(string $field, string $value, string $option): void
+    {
         if (isset($this->_fields[$field])) {
             $this->_fields[$field]['options'][] = [
                 'value' => $value,
-                'option' => $option
+                'option' => $option,
             ];
         }
     }
@@ -70,7 +72,8 @@ class Fields {
      *
      * @return array List of fields.
      */
-    public function getAll(): iterable {
+    public function getAll(): iterable
+    {
         $fields = $this->_fields;
 
         uasort($fields, static function ($a, $b) {

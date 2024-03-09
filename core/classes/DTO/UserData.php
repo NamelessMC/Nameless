@@ -7,8 +7,8 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-class UserData {
-
+class UserData
+{
     public int $id;
     public string $username;
     public string $nickname;
@@ -42,7 +42,8 @@ class UserData {
     public ?string $register_method;
     public bool $authme_sync_password;
 
-    public function __construct(object $row) {
+    public function __construct(object $row)
+    {
         $this->id = $row->id;
         $this->username = $row->username;
         $this->nickname = $row->nickname;
@@ -76,5 +77,4 @@ class UserData {
         $this->register_method = $row->register_method;
         $this->authme_sync_password = $row->authme_sync_password;
     }
-
 }

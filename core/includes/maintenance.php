@@ -19,7 +19,7 @@ if (!$user->isLoggedIn()) {
     $smarty->assign(
         [
             'LOGIN' => $language->get('general', 'sign_in'),
-            'LOGIN_LINK' => URL::build('/login')
+            'LOGIN_LINK' => URL::build('/login'),
         ]
     );
 }
@@ -29,7 +29,7 @@ $smarty->assign(
     [
         'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),
         'MAINTENANCE_MESSAGE' => Output::getPurified(Settings::get('maintenance_message', 'Maintenance mode is enabled.')),
-        'RETRY' => $language->get('errors', 'maintenance_retry')
+        'RETRY' => $language->get('errors', 'maintenance_retry'),
     ]
 );
 

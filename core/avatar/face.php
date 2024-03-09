@@ -17,8 +17,8 @@ $user = $_GET['u'] ?? '';
 $view = isset($_GET['v']) ? $_GET['v'][0] : 'f';
 $view = in_array($view, ['f', 'l', 'r', 'b']) ? $view : 'f';
 
-function get_skin($user, $cache) {
-
+function get_skin($user, $cache)
+{
     // Check cache
     $cache->setCache('avatarCache_' . $user);
     if ($cache->isCached($user)) {
@@ -49,7 +49,6 @@ function get_skin($user, $cache) {
     $output .= 'Ne9AAAAAElFTkSuQmCC';
     $output = base64_decode($output);
     if ($user != '') {
-
         $json = HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->json();
 
         if (isset($json->properties[0]->value)) {

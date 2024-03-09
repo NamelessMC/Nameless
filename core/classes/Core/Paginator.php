@@ -8,8 +8,8 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-class Paginator {
-
+class Paginator
+{
     /**
      * @var int The number of items per page.
      */
@@ -41,11 +41,12 @@ class Paginator {
     private string $_rightContent;
 
     /**
-     * @param array|null $class Optional array of class names, if provided the required element keys are ul, li and a
-     * @param string|null $leftContent Optional string to display in "previous" button, default &laquo;
+     * @param array|null  $class        Optional array of class names, if provided the required element keys are ul, li and a
+     * @param string|null $leftContent  Optional string to display in "previous" button, default &laquo;
      * @param string|null $rightContent Optional string to display in "next" button, default &raquo;
      */
-    public function __construct(?array $class = [], ?string $leftContent = null, ?string $rightContent = null) {
+    public function __construct(?array $class = [], ?string $leftContent = null, ?string $rightContent = null)
+    {
         if (!is_array($class) || !count($class)) {
             $this->_class = ['ul' => 'pagination d-inline-flex', 'li' => 'page-item {x}', 'a' => 'page-link'];
         } else {
@@ -57,16 +58,17 @@ class Paginator {
     }
 
     /**
-     * Generate object of provided data
+     * Generate object of provided data.
      *
-     * @param array $data Data to paginate.
-     * @param int $limit Number of items per page.
-     * @param int $page Current page.
-     * @param int $total Total number of items.
+     * @param array $data  Data to paginate.
+     * @param int   $limit Number of items per page.
+     * @param int   $page  Current page.
+     * @param int   $total Total number of items.
      *
      * @return object
      */
-    public function getLimited(array $data, int $limit = 10, int $page = 1, int $total = 10): object {
+    public function getLimited(array $data, int $limit = 10, int $page = 1, int $total = 10): object
+    {
         $this->_limit = $limit;
         $this->_page = $page;
 
@@ -94,11 +96,12 @@ class Paginator {
     /**
      * Generate HTML for data to be presented with.
      *
-     * @param int $links Number of links to be shown on each page.
-     * @param string $href URL prefix to use when next page is clicked.
+     * @param  int    $links Number of links to be shown on each page.
+     * @param  string $href  URL prefix to use when next page is clicked.
      * @return string Generated HTML to display in template.
      */
-    public function generate(int $links, string $href = '?'): string {
+    public function generate(int $links, string $href = '?'): string
+    {
         $href .= '&';
 
         $last = ceil($this->_total / $this->_limit);
@@ -113,13 +116,13 @@ class Paginator {
         }
 
         if (empty($this->_class['ul'])) {
-            $class = str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), ($this->_class['a']));
+            $class = str_replace('{x}', $this->_page == 1 ? ' disabled ' : '', $this->_class['a']);
 
             $html .= '<a class="' . $class . '" href="' . (($this->_page == 1) ? '#' : $href . 'p=' . ($this->_page - 1)) . '">' . $this->_leftContent . '</a>';
         } else {
             $class = str_replace('{x}', ($this->_page == 1) ? ' disabled' : '', $this->_class['li']);
 
-            $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', ($this->_page == 1 ? ' disabled ' : ''), $this->_class['a']) . '" href="';
+            $html .= '<li class="' . $class . '"><a class="' . str_replace('{x}', $this->_page == 1 ? ' disabled ' : '', $this->_class['a']) . '" href="';
             if ($this->_page == 1) {
                 $html .= '#';
             } else {
@@ -180,13 +183,14 @@ class Paginator {
     }
 
     /**
-     * Set values of instance variables, alternative function if we don't have all the $data
+     * Set values of instance variables, alternative function if we don't have all the $data.
      *
      * @param int $total Total number of items
      * @param int $limit Number of items per page
-     * @param int $page Current page
+     * @param int $page  Current page
      */
-    public function setValues(int $total, int $limit, int $page): void {
+    public function setValues(int $total, int $limit, int $page): void
+    {
         $this->_total = $total;
         $this->_limit = $limit;
         $this->_page = $page;

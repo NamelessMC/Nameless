@@ -7,8 +7,8 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-abstract class EndpointBase {
-
+abstract class EndpointBase
+{
     public const AUTH_TYPE_API_KEY = 'API Key';
     public const AUTH_TYPE_NONE = 'None';
     public const AUTH_TYPE_CUSTOM = 'Custom';
@@ -23,7 +23,8 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's route.
      */
-    final public function getRoute(): string {
+    final public function getRoute(): string
+    {
         return $this->_route;
     }
 
@@ -32,7 +33,8 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's modules name.
      */
-    final public function getModule(): string {
+    final public function getModule(): string
+    {
         return $this->_module;
     }
 
@@ -41,7 +43,8 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's description.
      */
-    final public function getDescription(): string {
+    final public function getDescription(): string
+    {
         return $this->_description;
     }
 
@@ -50,7 +53,8 @@ abstract class EndpointBase {
      *
      * @return string Endpoint's method.
      */
-    final public function getMethod(): string {
+    final public function getMethod(): string
+    {
         return $this->_method;
     }
 
@@ -61,7 +65,8 @@ abstract class EndpointBase {
      *
      * @return string The auth type.
      */
-    final public function getAuthType(): string {
+    final public function getAuthType(): string
+    {
         switch (get_parent_class($this)) {
             case KeyAuthEndpoint::class:
                 return self::AUTH_TYPE_API_KEY;
@@ -76,11 +81,10 @@ abstract class EndpointBase {
      * Determine if this request is authorized to use this Endpoint.
      * Default implementations:
      * - NoAuthEndpoint to return true
-     * - KeyAuthEndpoint to return true if the API key in header is valid
+     * - KeyAuthEndpoint to return true if the API key in header is valid.
      *
-     * @param Nameless2API $api Instance of Nameless2API.
+     * @param  Nameless2API $api Instance of Nameless2API.
      * @return bool
      */
     abstract public function isAuthorised(Nameless2API $api): bool;
-
 }
