@@ -1,7 +1,7 @@
 <?php
 
-class ForumSubforumSeeder extends Seeder {
-
+class ForumSubforumSeeder extends Seeder
+{
     public array $tables = [
         'nl2_forums',
         'nl2_forums_permissions',
@@ -42,7 +42,8 @@ class ForumSubforumSeeder extends Seeder {
         ],
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $categories = $db->get('forums', ['forum_type', 'category'])->results();
 
         foreach ($categories as $category) {

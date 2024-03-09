@@ -1,7 +1,7 @@
 <?php
 
-class IntegrationData {
-
+class IntegrationData
+{
     public int $id;
     public string $name;
     public bool $enabled;
@@ -9,7 +9,8 @@ class IntegrationData {
     public bool $required;
     public int $order;
 
-    public function __construct(object $row) {
+    public function __construct(object $row)
+    {
         $this->id = $row->id;
         $this->name = $row->name;
         $this->enabled = $row->enabled;
@@ -17,5 +18,4 @@ class IntegrationData {
         $this->required = $row->required;
         $this->order = $row->order;
     }
-
 }
