@@ -22,7 +22,7 @@
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails_mass_message')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -30,7 +30,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'announcements';
 const PANEL_PAGE = 'mass_message';
 $page_title = $language->get('admin', 'mass_message');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Handle input
 if (Input::exists()) {
@@ -98,7 +98,7 @@ if (Input::exists()) {
                 $clause = '';
                 if (!isset($_POST['ignore_opt_in']) || !$_POST['ignore_opt_in']) {
                     $join = 'INNER JOIN nl2_users_notification_preferences unp ON unp.user_id = u.id';
-                    $clause = 'unp.`type` = \'mass_message\' AND unp.enabled = 1';
+                    $clause = 'unp.`type` = \'mass_message\' AND (unp.alert = 1 OR unp.email = 1)';
                 }
 
                 if (!empty($excludedUsers) || !empty($includedUsers)) {
@@ -142,6 +142,7 @@ if (Input::exists()) {
                 }
 
                 $total = $users->count();
+                $users = $users->results();
 
                 $task = (new MassMessage())->fromNew(
                     Module::getIdFromName('Core'),
@@ -151,7 +152,8 @@ if (Input::exists()) {
                         'content' => Input::get('content'),
                         'title' => Input::get('subject'),
                         'type' => 'mass_message',
-                        'users' => $users->results()
+                        'users' => $users,
+                        'skip_purify' => (bool) Input::get('unsafe_html'),
                     ],
                     date('U'),
                     null,
@@ -163,40 +165,10 @@ if (Input::exists()) {
 
                 Queue::schedule($task);
 
-                echo <<<SQL
-                        SELECT u.id FROM nl2_users u
-                        $join
-                        WHERE $clause
-                        SQL;
-                die();
-
-                // TODO: user settings page for notification settings
-                // TODO: revamp alerts page to allow for rich HTML?
-
-//                $users = DB::getInstance()->get('users', ['id', '<>', 0])->results();
-//
-//                foreach ($users as $email_user) {
-//                    $sent = Email::send(
-//                        ['email' => $email_user->email, 'name' => $email_user->username],
-//                        Input::get('subject'),
-//                        str_replace(['{username}', '{sitename}'], [$email_user->username, SITE_NAME], Output::getPurified(Input::get('content'))),
-//                    );
-//
-//                    if (isset($sent['error'])) {
-//                        DB::getInstance()->insert('email_errors', [
-//                            'type' => Email::MASS_MESSAGE,
-//                            'content' => $sent['error'],
-//                            'at' => date('U'),
-//                            'user_id' => $user->data()->id
-//                        ]);
-//
-//                        $errors[] = $language->get('admin', 'mass_email_failed_check_logs');
-//                    } else {
-//                        Session::flash('emails_success', $language->get('admin', 'sent_mass_message'));
-//                    }
-//                }
-
                 Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
+
+                Session::flash('mass_message_success', $language->get('admin', 'sent_mass_message'));
+                Redirect::to(URL::build('/panel/core/mass_message'));
             } else {
                 $errors = [$language->get('admin', 'mass_message_type_required')];
             }
@@ -244,23 +216,23 @@ $template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'message', null, false, true));
+$template->addJSScript(Input::createTinyEditor($language, 'message', null, true, true));
 
-if (Session::exists('emails_success')) {
-    $success = Session::flash('emails_success');
+if (Session::exists('mass_message_success')) {
+    $success = Session::flash('mass_message_success');
 }
 
 if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -271,12 +243,12 @@ $smarty->assign([
     'EMAILS' => $language->get('admin', 'emails'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 $template->displayTemplate($template_file, $smarty);

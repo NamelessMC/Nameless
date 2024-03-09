@@ -514,7 +514,6 @@ class Core_Module extends Module {
 
         EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
 
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, GenerateNotificationContentEvent::class);
         EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::purify');
         EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);

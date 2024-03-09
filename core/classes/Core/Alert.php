@@ -12,14 +12,16 @@ class Alert
     /**
      * Creates an alert for the specified user.
      *
+     * @deprecated Use Alert::send instead
+     *
      * @param int $user_id Contains the ID of the user who we are creating the alert for.
      * @param string $type Contains the alert type, eg 'tag' for user tagging.
      * @param array $text_short Contains the alert text in short form for the dropdown.
      * @param array $text Contains full information about the alert.
-     * @param string $link Contains link to view the alert, defaults to #.
+     * @param ?string $link Contains link to view the alert, defaults to #.
      * @param ?string $content Optional alert content.
      */
-    public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#', string $content = null): void
+    public static function create(int $user_id, string $type, array $text_short, array $text, ?string $link = '#', string $content = null): void
     {
         $db = DB::getInstance();
 
@@ -40,6 +42,28 @@ class Alert
             'url' => $link,
             'content_short' => $text_short,
             'content' => $text,
+            'content_rich' => $content,
+            'created' => date('U'),
+        ]);
+    }
+
+    /**
+     * Post a new alert to a user
+     *
+     * @param int         $userId
+     * @param string      $title
+     * @param string      $content
+     * @param string|null $link Optional link to redirect the user to on click
+     * @return void
+     */
+    public static function send(int $userId, string $title, string $content, ?string $link = '')
+    {
+        DB::getInstance()->insert('alerts', [
+            'user_id' => $userId,
+            'type' => 'alert',
+            'url' => $link ?? '',
+            'content_short' => $title, // Column maintained for legacy reasons
+            'content' => $title,
             'content_rich' => $content,
             'created' => date('U'),
         ]);

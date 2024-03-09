@@ -19,7 +19,7 @@ class MassMessage extends Task {
         if (!empty($this->getData()['users'])) {
             $whereIn = implode(',', array_map(static fn ($u) => '?', $this->getData()['users']));
             $where = "WHERE id IN ($whereIn)";
-            $whereVars = $this->getData()['users'];
+            $whereVars = array_map(static fn ($u) => $u['id'], $this->getData()['users']);
         }
 
         $recipients = DB::getInstance()->query(
@@ -36,24 +36,22 @@ class MassMessage extends Task {
             $this->getData()['type'],
             $this->getData()['title'],
             $this->getData()['content'],
-            $recipients->results(),
+            array_map(static fn ($r) => $r->id, $recipients->results()),
             $this->getUserId(),
-            $this->getData()['callback']
+            $this->getData()['callback'],
+            $this->getData()['skip_purify'] ?? false
         );
         $notification->send();
 
-        $this->setOutput(['start' => $start, 'end' => $end, 'next_status' => $nextStatus]);
+        $this->setOutput(['userIds' => $whereVars, 'start' => $start, 'end' => $end, 'next_status' => $nextStatus]);
         $this->setFragmentNext($end);
 
         return $nextStatus;
     }
 
-    public static function parseContent(int $userId, string $content): string {
+    public static function parseContent(int $userId, string $title, string $content, bool $skipPurify = false): string {
         $user = new User($userId);
-        $event = EventHandler::executeEvent(GenerateNotificationContentEvent::class, [
-            'content' => $content,
-            'user' => $user,
-        ]);
+        $event = EventHandler::executeEvent(new GenerateNotificationContentEvent($content, $title, $user, $skipPurify));
 
         return $event['content'];
     }

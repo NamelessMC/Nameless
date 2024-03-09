@@ -25,8 +25,9 @@ class Notification {
      * @param string $title Title of notification
      * @param string $content Notification content
      * @param int|int[] $recipients Notification recipient or recipients - array of user IDs
-     * @param ?int $authorId User ID that sent the notification
+     * @param int       $authorId        User ID that sent the notification
      * @param ?callable $contentCallback Optional callback to perform for each recipient's content
+     * @param bool      $skipPurify      Whether to skip content purifying, default false
      *
      * @throws NotificationTypeNotFoundException
      */
@@ -35,8 +36,9 @@ class Notification {
         string $title,
         string $content,
         $recipients,
-        int $authorId = null,
-        callable $contentCallback = null
+        int $authorId,
+        callable $contentCallback = null,
+        bool $skipPurify = false
     ) {
         if (!in_array($type, array_column(self::getTypes(), 'key'))) {
             throw new NotificationTypeNotFoundException("Type $type not registered");
@@ -50,8 +52,8 @@ class Notification {
             $recipients = [$recipients];
         }
 
-        $this->_recipients = array_map(static function ($recipient) use ($content, $contentCallback) {
-            $newContent = $contentCallback($recipient, $content);
+        $this->_recipients = array_map(static function ($recipient) use ($content, $contentCallback, $skipPurify, $title) {
+            $newContent = $contentCallback($recipient, $title, $content, $skipPurify);
             return ['id' => $recipient, 'content' => $newContent];
         }, $recipients);
     }
@@ -80,13 +82,11 @@ class Notification {
         }
     }
 
-    public function sendAlert(int $userId, string $content): void {
-        $text = ['content' => $this->_title];
-
-        Alert::create($userId, $this->_type, $text, $text, null, $content);
+    private function sendAlert(int $userId, string $content): void {
+        Alert::send($userId, $this->_title, $content);
     }
 
-    public function sendEmail(int $userId, string $content): void {
+    private function sendEmail(int $userId, string $content): void {
         $task = (new SendEmail())->fromNew(
             Module::getIdFromName('Core'),
             'Send Email Notification',
@@ -94,7 +94,7 @@ class Notification {
                 'content' => $content,
                 'title' => $this->_title,
             ],
-            Date::next()->getTimestamp(), // TODO: schedule a date/time?
+            date('U'), // TODO: schedule a date/time?
             'User',
             $userId,
             false,

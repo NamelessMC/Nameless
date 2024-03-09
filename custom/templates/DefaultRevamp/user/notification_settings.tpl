@@ -14,6 +14,29 @@
             <div class="ui segment">
                 <h3 class="ui header">{$NOTIFICATION_SETTINGS_TITLE}</h3>
 
+                {if isset($SUCCESS)}
+                    <div class="ui success icon message">
+                        <i class="check icon"></i>
+                        <div class="content">
+                            <div class="header">{$SUCCESS_TITLE}</div>
+                            {$SUCCESS}
+                        </div>
+                    </div>
+                {/if}
+
+                {if isset($ERRORS)}
+                    <div class="ui error icon message">
+                        <i class="x icon"></i>
+                        <div class="content">
+                            <ul class="list">
+                                {foreach from=$ERRORS item=error}
+                                    <li>{$error}</li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                {/if}
+
                 <form action="" method="post">
                     <table class="ui definition celled table">
                         <thead>
@@ -29,13 +52,13 @@
                                     <td>{$setting.value}</td>
                                     <td>
                                         <div class="ui toggle checkbox">
-                                            <input type="checkbox" name="{$setting.type}:alert">
+                                            <input type="checkbox" name="{$setting.type}:alert"{if $setting.alert} checked{/if}>
                                             <label class="screenreader-only">{$ALERT}</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="ui toggle checkbox">
-                                            <input type="checkbox" name="{$setting.type}:email">
+                                            <input type="checkbox" name="{$setting.type}:email"{if $setting.email} checked{/if}>
                                             <label class="screenreader-only">{$EMAIL}</label>
                                         </div>
                                     </td>
