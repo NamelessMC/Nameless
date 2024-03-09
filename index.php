@@ -89,7 +89,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage
-        $homepage = $pages->getPageByURL(Settings::get('default_homepage'));
+        $homepage = $pages->getPageByURL(Settings::get('home_type'));
         if ($homepage != null) {
             $pages->setActivePage($homepage);
             require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $homepage['module'], $homepage['file']]));
@@ -98,7 +98,7 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
             require(ROOT_PATH . '/modules/Core/pages/index.php');
         }
 
-        Settings::get('default_homepage');
+        Settings::get('home_type');
     }
     die();
 }

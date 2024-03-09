@@ -111,7 +111,7 @@ if (Input::exists()) {
             }
 
             // Default Homepage
-            Settings::set('default_homepage', $_POST['homepage']);
+            Settings::set('home_type', $_POST['homepage']);
 
             // Private profile
             Settings::set('private_profile', $_POST['privateProfile'] ? '1' : '0');
@@ -219,7 +219,20 @@ $private_profile = Settings::get('private_profile');
 $displaynames = Settings::get('displaynames');
 $method = Settings::get('login_method');
 
-$homepage_pages = [];
+$homepage_pages = [[
+    'value' => 'news',
+    'name' => $language->get('admin', 'homepage_news'),
+    'module' => 'Core'
+], [
+    'value' => 'portal',
+    'name' => $language->get('admin', 'portal'),
+    'module' => 'Core'
+], [
+    'value' => 'custom',
+    'name' => $language->get('admin', 'custom_content'),
+    'module' => 'Core'
+]];
+
 foreach ($pages->returnPages() as $key => $page) {
     if (str_contains($key, '/panel/') || str_contains($key, '/queries/') || str_contains($key, '/user/')) {
         continue;
@@ -227,6 +240,7 @@ foreach ($pages->returnPages() as $key => $page) {
 
     $homepage_pages[] = [
         'value' => $key,
+        'name' => $key,
         'module' => $page['module']
     ];
 }
@@ -262,7 +276,7 @@ $smarty->assign([
     'DEFAULT_TIMEZONE_VALUE' => $timezone,
     'HOMEPAGE_TYPE' => $language->get('admin', 'default_homepage'),
     'HOMEPAGE_PAGES' => $homepage_pages,
-    'HOMEPAGE_VALUE' => Settings::get('default_homepage'),
+    'HOMEPAGE_VALUE' => Settings::get('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
     'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [

@@ -99,7 +99,7 @@
                                             <label for="inputHomepage">{$HOMEPAGE_TYPE}</label>
                                             <select name="homepage" class="form-control" id="inputHomepage">
                                                 {foreach from=$HOMEPAGE_PAGES item=page}
-                                                    <option value="{$page.value}" {if $HOMEPAGE_VALUE eq {$page.value} } selected{/if}>{$page.module} - {$page.value}</option>
+                                                    <option value="{$page.value}" {if $HOMEPAGE_VALUE eq {$page.value} } selected{/if}>{$page.module} - {$page.name}</option>
                                                 {/foreach}
                                             </select>
                                         </div>

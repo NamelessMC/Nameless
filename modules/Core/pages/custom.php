@@ -10,7 +10,7 @@
  */
 
 // Check whenever route is homepage or not
-$page_route = empty($route) ? Settings::get('default_homepage') : rtrim($route, '/');
+$page_route = empty($route) ? Settings::get('home_type') : rtrim($route, '/');
 
 // Get page info from URL
 $custom_page = DB::getInstance()->get('custom_pages', ['url', $page_route]);
