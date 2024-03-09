@@ -1,14 +1,15 @@
 <?php
 
-class UserProfilePostSeeder extends Seeder {
-
+class UserProfilePostSeeder extends Seeder
+{
     public array $tables = [
         'nl2_user_profile_wall_posts',
         'nl2_user_profile_wall_posts_replies',
         'nl2_user_profile_wall_posts_reactions',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
         $this->times(PROFILE_POST_COUNT, function () use ($db, $faker, $users) {
