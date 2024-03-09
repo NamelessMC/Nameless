@@ -33,7 +33,7 @@ $smarty->assign(
         'HOME' => $language->get('errors', '403_home'),
         'LOGIN' => $language->get('general', 'sign_in'),
         'LOGIN_LINK' => URL::build('/login'),
-        'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
+        'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : ''),
     ]
 );
 

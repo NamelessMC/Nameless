@@ -1,12 +1,13 @@
 <?php
 
-class ForumTopicSeeder extends Seeder {
-
+class ForumTopicSeeder extends Seeder
+{
     public array $tables = [
         'nl2_topics',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $forums = $db->get('forums', ['id', '<>', 0])->results();
         $users = $db->get('users', ['id', '<>', 0])->results();
 

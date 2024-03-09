@@ -8,21 +8,24 @@
  * @version 2.0.0-pr8
  * @license MIT
  */
-abstract class CollectionItemBase {
-
+abstract class CollectionItemBase
+{
     private int $_order;
     private bool $_enabled;
 
-    public function __construct(int $order, bool $enabled) {
+    public function __construct(int $order, bool $enabled)
+    {
         $this->_order = $order;
         $this->_enabled = $enabled;
     }
 
-    public function getOrder(): int {
+    public function getOrder(): int
+    {
         return $this->_order;
     }
 
-    public function isEnabled(): bool {
+    public function isEnabled(): bool
+    {
         return $this->_enabled;
     }
 
