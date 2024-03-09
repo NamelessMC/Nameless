@@ -335,7 +335,7 @@ if (!class_exists('Default_Panel_Template')) {
                                     responsive: true,
                                     processing: true,
                                     serverSide: true,
-                                    ajax: "' . URL::build('/queries/admin_users', implode("&", $url_parameters)) . '",
+                                    ajax: "' . URL::build('/queries/admin_users', implode('&', $url_parameters)) . '",
                                     columns: [
                                         { data: "id", hidden: true },
                                         { data: "username" },
