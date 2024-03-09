@@ -5,7 +5,7 @@
 // Validate form input
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!isset($_GET['reactable_id']) || !is_numeric($_GET['reactable_id'])) {
-        http_response_code(400);
+        http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         die('Invalid input');
     }
     $reactable_id = $_GET['reactable_id'];
@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else {
     // User must be logged in to proceed
     if (!$user->isLoggedIn()) {
-        http_response_code(401);
+        http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_UNAUTHORIZED);
         die('Not logged in');
     }
 
     if (!isset($_POST['reactable_id'], $_POST['reaction_id']) || !is_numeric($_POST['reactable_id']) || !is_numeric($_POST['reaction_id'])) {
-        http_response_code(400);
+        http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         die('Invalid input');
     }
     $reactable_id = $_POST['reactable_id'];
@@ -28,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 $reaction_context = ReactionContextsManager::getInstance()->getContext($context);
 
 if (!$reaction_context->isEnabled()) {
-    http_response_code(400);
+    http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
     die('Reactions disabled in this context');
 }
 
 // Ensure exists
 $reactable = $reaction_context->validateReactable($reactable_id, $user);
 if (!$reactable) {
-    http_response_code(400);
+    http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
     die('Invalid reactable');
 }
 
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // add reaction
 if (!Token::check()) {
-    http_response_code(400);
+    http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
     die('Invalid token');
 }
 
@@ -145,7 +145,7 @@ if ($reaction_id = $reaction_context->hasReacted($user, $reaction, $reactable_id
         $reaction_context->name(),
     ));
 
-    http_response_code(200);
+    http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_OK);
     die('Reaction deleted');
 }
 
@@ -158,5 +158,5 @@ EventHandler::executeEvent(new UserReactionAddedEvent(
     $reaction_context->name(),
 ));
 
-http_response_code(200);
+http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_OK);
 die('Reaction added');

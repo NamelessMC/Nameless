@@ -652,7 +652,7 @@
     "admin/confirm_delete_page": "Er du sikker på, at du vil slette denne side?",
     "admin/confirm_group_deletion": "Er du sikker på, at du vil slette denne gruppe {{group}}?",
     "admin/creating_announcement": "Oprettelse af meddelelse",
-    "admin/email_language_info": "Kan du ikke se dit sprog? Sørg for, at dens sprogfil er skrivbar af din hjemmeside i /custom/languages/.",
+    "admin/email_language_info": "Kan du ikke se dit sprog? Sørg for, at dens sprogfil er skrivbar af din hjemmeside i /modules/Core/language/.",
     "admin/email_port_invalid": "Indsæt venligst en gyldig e-mail port.",
     "admin/emails_mass_message_loading": "Indlæser... Lad være med at genindlæse siden. Dette kan tage et stykke tid.",
     "admin/enable_minecraft_integration": "Vil du aktivere Minecraft-integration?",

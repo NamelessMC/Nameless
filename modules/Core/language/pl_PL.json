@@ -1023,7 +1023,7 @@
     "user/x_replies": "{{count}} komentarzy",
     "user/you_have_been_banned": "Zostałeś zbanowany!",
     "user/you_have_received_a_warning": "Dostałeś ostrzeżenie!",
-    "admin/email_language_info": "Nie widzisz swojego języka? Upewnij się, że plik językowy jest zapisywany przez serwer WWW w katalogu /custom/languages/.",
+    "admin/email_language_info": "Nie widzisz swojego języka? Upewnij się, że plik językowy jest zapisywany przez serwer WWW w katalogu /modules/Core/language/.",
     "admin/administrator": "Administrator",
     "admin/at_least_one_external": "Podaj co najmniej 1 grupę zewnętrzną (Minecraft lub Discord)",
     "admin/authme_db_password_hidden": "Hasło do bazy danych AuthMe jest ukryte ze względów bezpieczeństwa.",

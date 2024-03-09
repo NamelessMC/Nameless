@@ -7,9 +7,8 @@
  * @version 2.1.0
  * @license MIT
  */
-
-abstract class IntegrationBase {
-
+abstract class IntegrationBase
+{
     private DB $_db;
     private IntegrationData $_data;
     protected string $_icon;
@@ -20,7 +19,8 @@ abstract class IntegrationBase {
     protected string $_name;
     protected ?int $_order;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_db = DB::getInstance();
 
         $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name]);
@@ -32,7 +32,7 @@ abstract class IntegrationBase {
         } else {
             // Register integration to database
             $this->_db->query('INSERT INTO nl2_integrations (name) VALUES (?)', [
-                $this->_name
+                $this->_name,
             ]);
 
             $integration = $this->_db->query('SELECT * FROM nl2_integrations WHERE name = ?', [$this->_name])->first();
@@ -47,7 +47,8 @@ abstract class IntegrationBase {
      *
      * @return string Name of integration.
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 
@@ -56,7 +57,8 @@ abstract class IntegrationBase {
      *
      * @return string Icon of integration.
      */
-    public function getIcon(): string {
+    public function getIcon(): string
+    {
         return $this->_icon;
     }
 
@@ -65,16 +67,18 @@ abstract class IntegrationBase {
      *
      * @return string Integration settings path.
      */
-    public function getSettings(): ?string {
+    public function getSettings(): ?string
+    {
         return $this->_settings;
     }
 
     /**
-     * Get if this integration is enabled
+     * Get if this integration is enabled.
      *
      * @return bool Check if integration is enabled
      */
-    public function isEnabled(): bool {
+    public function isEnabled(): bool
+    {
         return $this->data()->enabled;
     }
 
@@ -83,7 +87,8 @@ abstract class IntegrationBase {
      *
      * @return int Display order of integration.
      */
-    public function getOrder(): ?int {
+    public function getOrder(): ?int
+    {
         return $this->_order;
     }
 
@@ -92,34 +97,38 @@ abstract class IntegrationBase {
      *
      * @return IntegrationData This integration's data.
      */
-    public function data(): IntegrationData {
+    public function data(): IntegrationData
+    {
         return $this->_data;
     }
 
     /**
-     * Add an error to the errors array
+     * Add an error to the errors array.
      *
      * @param string $error The error message
      */
-    public function addError(string $error): void {
+    public function addError(string $error): void
+    {
         $this->_errors[] = $error;
     }
 
     /**
-     * Get any errors from the functions given by this integration
+     * Get any errors from the functions given by this integration.
      *
      * @return array Any errors
      */
-    public function getErrors(): array {
+    public function getErrors(): array
+    {
         return $this->_errors;
     }
 
     /**
-     * Get language
+     * Get language.
      *
      * @return Language Get language
      */
-    public function getLanguage(): Language {
+    public function getLanguage(): Language
+    {
         return $this->_language;
     }
 
@@ -128,35 +137,36 @@ abstract class IntegrationBase {
      *
      * @return bool Whether to allow linking with this integration
      */
-    public function allowLinking(): bool {
+    public function allowLinking(): bool
+    {
         return true;
     }
 
     /**
-     * Called when user wants to link their account from user connections page, Does not need to be verified
+     * Called when user wants to link their account from user connections page, Does not need to be verified.
      */
     abstract public function onLinkRequest(User $user);
 
     /**
-     * Called when user wants to continue to verify their integration user from connections page
+     * Called when user wants to continue to verify their integration user from connections page.
      */
     abstract public function onVerifyRequest(User $user);
 
     /**
-     * Called when user wants to unlink their integration user from connections page
+     * Called when user wants to unlink their integration user from connections page.
      */
     abstract public function onUnlinkRequest(User $user);
 
     /**
-     * Called when the user have successfully validated the ownership of the account
+     * Called when the user have successfully validated the ownership of the account.
      */
     abstract public function onSuccessfulVerification(IntegrationUser $integrationUser);
 
     /**
      * Validate username when it being linked or updated.
      *
-     * @param string $username The username value to validate.
-     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     * @param string $username            The username value to validate.
+     * @param int    $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
      */
@@ -165,30 +175,30 @@ abstract class IntegrationBase {
     /**
      * Validate identifier when it being linked or updated.
      *
-     * @param string $identifier The identifier value to validate.
-     * @param int $integration_user_id The integration user id to ignore during duplicate check.
+     * @param string $identifier          The identifier value to validate.
+     * @param int    $integration_user_id The integration user id to ignore during duplicate check.
      *
      * @return bool Whether this validation passed or not.
      */
     abstract public function validateIdentifier(string $identifier, int $integration_user_id = 0): bool;
 
     /**
-     * Called when register page being loaded
+     * Called when register page being loaded.
      */
     abstract public function onRegistrationPageLoad(Fields $fields);
 
     /**
-     * Called before registration validation
+     * Called before registration validation.
      */
     abstract public function beforeRegistrationValidation(Validate $validate);
 
     /**
-     * Called after registration validation
+     * Called after registration validation.
      */
     abstract public function afterRegistrationValidation();
 
     /**
-     * Called when user is successfully registered
+     * Called when user is successfully registered.
      */
     abstract public function successfulRegistration(User $user);
 

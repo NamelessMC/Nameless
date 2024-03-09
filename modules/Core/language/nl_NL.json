@@ -1038,7 +1038,7 @@
     "admin/api_endpoints_info": "API eindpunten staan Modules toe dat externe applicaties (zoals Minecraft en Discord) te kunnen communiceren met je NamelessMC website. {{docLinkStart}}Bekijk de API documentatie hier{{docLinkEnd}}",
     "admin/debug_link": "Debug link",
     "admin/debug_link_toast": "{{linkStart}}Klik hier{{linkEnd}} om de debuglink te bekijken.",
-    "admin/email_language_info": "Zie je je taal niet? Zorg ervoor dat de taalbestanden schrijfbaar zijn door je webserver in /custom/languages/.",
+    "admin/email_language_info": "Zie je je taal niet? Zorg ervoor dat de taalbestanden schrijfbaar zijn door je webserver in /modules/Core/language/.",
     "admin/at_least_one_external": "Vul alstublieft minstens 1 externe groep in (Minecraft of Discord)",
     "admin/ban_hook_info": "Gebruiker verbannen",
     "admin/bedrock": "Bedrock?",

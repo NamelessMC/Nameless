@@ -1079,7 +1079,7 @@
     "admin/custom_content": "自定义内容",
     "admin/editing_integration_for_x": "正在修改 {{user}} 的 {{integration}} 集成",
     "admin/editing_integration_x": "正在修改 {{integration}} 集成",
-    "admin/email_language_info": "找不到你的语言? 请确保在 /custom/languages 目录中的语言文件可写。",
+    "admin/email_language_info": "找不到你的语言? 请确保在 /modules/Core/language 目录中的语言文件可写。",
     "admin/favicon_image_x": "Favicon 图片: {{imageName}}",
     "admin/group_cloned_successfully": "成功复制了群组。",
     "admin/home_custom_content": "主页自定义内容",

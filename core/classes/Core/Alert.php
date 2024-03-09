@@ -7,8 +7,8 @@
  * @version 2.0.0-pr8
  * @license MIT
  */
-class Alert {
-
+class Alert
+{
     /**
      * Creates an alert for the specified user.
      *
@@ -19,7 +19,8 @@ class Alert {
      * @param string $link Contains link to view the alert, defaults to #.
      * @param ?string $content Optional alert content.
      */
-    public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#', string $content = null): void {
+    public static function create(int $user_id, string $type, array $text_short, array $text, string $link = '#', string $content = null): void
+    {
         $db = DB::getInstance();
 
         $language = $db->query('SELECT nl2_languages.short_code AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_id]);
@@ -47,12 +48,13 @@ class Alert {
     /**
      * Get user alerts.
      *
-     * @param int $user_id Contains the ID of the user who we are getting alerts for.
-     * @param bool $all Do we want to get all alerts (including read), or not; defaults to false).
+     * @param int  $user_id Contains the ID of the user who we are getting alerts for.
+     * @param bool $all     Do we want to get all alerts (including read), or not; defaults to false).
      *
      * @return array All their alerts.
      */
-    public static function getAlerts(int $user_id, bool $all = false): array {
+    public static function getAlerts(int $user_id, bool $all = false): array
+    {
         $db = DB::getInstance();
 
         if ($all == true) {
@@ -65,12 +67,13 @@ class Alert {
     /**
      * Get a users unread messages.
      *
-     * @param int $user_id The ID of the user who we are getting messages for.
-     * @param bool $all Get all alerts (including read), or not. Defaults to false.
+     * @param int  $user_id The ID of the user who we are getting messages for.
+     * @param bool $all     Get all alerts (including read), or not. Defaults to false.
      *
      * @return array All their messages matching the $all filter.
      */
-    public static function getPMs(int $user_id, bool $all = false): array {
+    public static function getPMs(int $user_id, bool $all = false): array
+    {
         $db = DB::getInstance();
 
         if ($all == true) {
@@ -93,7 +96,7 @@ class Alert {
                     'created' => $pm_full->created,
                     'author_id' => $pm_full->author_id,
                     'last_reply_user' => $pm_full->last_reply_user,
-                    'last_reply_date' => $pm_full->last_reply_date
+                    'last_reply_date' => $pm_full->last_reply_date,
                 ];
             }
 
@@ -119,7 +122,7 @@ class Alert {
                     'created' => $pm_full->created,
                     'author_id' => $pm_full->author_id,
                     'last_reply_user' => $pm_full->last_reply_user,
-                    'last_reply_date' => $pm_full->last_reply_date
+                    'last_reply_date' => $pm_full->last_reply_date,
                 ];
             }
         }

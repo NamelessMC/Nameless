@@ -1,0 +1,13 @@
+risky: false
+version: 7.4
+preset: recommended
+monolithic: true
+finder:
+  name: "*.php"
+disabled:
+  - align_double_arrow
+  - phpdoc_no_package
+  - concat_without_spaces
+  - include
+  - die_to_exit
+  - phpdoc_separation

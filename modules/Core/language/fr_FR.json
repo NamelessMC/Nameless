@@ -957,7 +957,7 @@
     "admin/editing_integration_x": "Modification de l’intégration {{integration}}}",
     "admin/editing_language": "Édition du langage",
     "admin/editing_messages": "Édition du Message",
-    "admin/email_language_info": "Tu ne vois pas ton langage? Assurez-vous que son fichier de langue est en écriture par votre serveur web dans /custom/languages/ .",
+    "admin/email_language_info": "Tu ne vois pas ton langage? Assurez-vous que son fichier de langue est en écriture par votre serveur web dans /modules/Core/language/ .",
     "admin/email_logs": "Masse Emails",
     "admin/email_message_greeting": "Salutation",
     "admin/email_message_message": "Message",

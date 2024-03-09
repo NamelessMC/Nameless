@@ -1,6 +1,4 @@
 import subprocess
-from subprocess import PIPE
-import itertools
 import shutil
 from pathlib import Path
 import sys
@@ -82,6 +80,7 @@ def create_archives(archive_name, cwd):
 def regenerate_vendor_files():
     print('Re-generating vendor files')
     shutil.rmtree('core/assets/vendor', ignore_errors=True)
+    subprocess.check_call(['npm', 'ci', '-q', '--cache', '.node_cache'])
     subprocess.check_call(['composer', 'update'])
     subprocess.check_call(['composer', 'install', '--no-dev', '--no-interaction'])
 

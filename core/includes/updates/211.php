@@ -5,6 +5,6 @@ return new class() extends UpgradeScript {
     {
         $this->runMigrations();
 
-        $this->setVersion('2.1.1');
+        $this->setVersion('2.1.2');
     }
 };
