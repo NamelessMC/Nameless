@@ -155,7 +155,7 @@ if (!isset($_GET['view'])) {
         'DELETE' => $language->get('general', 'delete'),
         'DELETE_LINK' => URL::build('/user/alerts/', 'view=' . $alert->id . '&delete'),
         'ALERT_TITLE' => Output::getClean($alert->content),
-        'ALERT_CONTENT' => Output::getPurified($alert->content_rich),
+        'ALERT_CONTENT' => $alert->bypass_purify ? $alert->content_rich : Output::getPurified($alert->content_rich),
         'ALERT_DATE' => date(DATE_FORMAT, $alert->created),
         'ALERT_DATE_NICE' => $timeAgo->inWords($alert->created, $language),
         'ALERT_READ' => $alert->read,

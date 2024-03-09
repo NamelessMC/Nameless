@@ -132,11 +132,13 @@ if (Input::exists()) {
                         [...$excludedUsers, ...$includedUsers]
                     );
                 } else {
+                    $where = $clause ? "WHERE $clause" : '';
+
                     $users = DB::getInstance()->query(
                         <<<SQL
                         SELECT u.id FROM nl2_users u
                         $join
-                        WHERE $clause
+                        $where
                         SQL
                     );
                 }

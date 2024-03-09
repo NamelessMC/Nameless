@@ -13,6 +13,7 @@ class Notification {
 
     private int $_authorId;
     private array $_recipients = [];
+    private bool $_skipPurify;
     private string $_title;
     private string $_type;
 
@@ -45,6 +46,7 @@ class Notification {
         }
 
         $this->_authorId = $authorId;
+        $this->_skipPurify = $skipPurify;
         $this->_title = $title;
         $this->_type = $type;
 
@@ -83,7 +85,7 @@ class Notification {
     }
 
     private function sendAlert(int $userId, string $content): void {
-        Alert::send($userId, $this->_title, $content);
+        Alert::send($userId, $this->_title, $content, null, $this->_skipPurify);
     }
 
     private function sendEmail(int $userId, string $content): void {

@@ -53,10 +53,11 @@ class Alert
      * @param  int         $userId
      * @param  string      $title
      * @param  string      $content
-     * @param  string|null $link    Optional link to redirect the user to on click
+     * @param  string|null $link       Optional link to redirect the user to on click
+     * @param  bool        $skipPurify If true the content will not be purified before displaying to user - use with care
      * @return void
      */
-    public static function send(int $userId, string $title, string $content, ?string $link = '')
+    public static function send(int $userId, string $title, string $content, ?string $link = '', bool $skipPurify = false)
     {
         DB::getInstance()->insert('alerts', [
             'user_id' => $userId,
@@ -66,6 +67,7 @@ class Alert
             'content' => $title,
             'content_rich' => $content,
             'created' => date('U'),
+            'bypass_purify' => $skipPurify,
         ]);
     }
 
