@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
@@ -34,5 +35,5 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
     header('Content-Type: application/json');
     echo json_encode($json);
-    die();
+    die;
 }

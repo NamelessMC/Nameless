@@ -1,7 +1,7 @@
 <?php
 
-abstract class AbstractWidget {
-
+abstract class AbstractWidget
+{
     protected string $_name;
     protected string $_content;
     protected string $_description;
@@ -18,7 +18,8 @@ abstract class AbstractWidget {
      *
      * @return string Name of widget.
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 
@@ -27,7 +28,8 @@ abstract class AbstractWidget {
      *
      * @return string Location of widget.
      */
-    public function getLocation(): string {
+    public function getLocation(): string
+    {
         return $this->getData()->location;
     }
 
@@ -36,7 +38,8 @@ abstract class AbstractWidget {
      *
      * @return string Widget settings URL.
      */
-    public function getSettings(): ?string {
+    public function getSettings(): ?string
+    {
         return $this->_settings;
     }
 
@@ -45,7 +48,8 @@ abstract class AbstractWidget {
      *
      * @return string Description of widget.
      */
-    public function getDescription(): string {
+    public function getDescription(): string
+    {
         return $this->_description;
     }
 
@@ -54,7 +58,8 @@ abstract class AbstractWidget {
      *
      * @return string Name of module.
      */
-    public function getModule(): string {
+    public function getModule(): string
+    {
         return $this->_module;
     }
 
@@ -63,7 +68,8 @@ abstract class AbstractWidget {
      *
      * @return int Display order of widget.
      */
-    public function getOrder(): int {
+    public function getOrder(): int
+    {
         return $this->getData()->order;
     }
 
@@ -72,7 +78,8 @@ abstract class AbstractWidget {
      *
      * @return Smarty Instance in use.
      */
-    public function getSmarty(): ?Smarty {
+    public function getSmarty(): ?Smarty
+    {
         return $this->_smarty;
     }
 
@@ -85,7 +92,8 @@ abstract class AbstractWidget {
      *
      * @return string Content/HTML of this widget.
      */
-    public function display(): string {
+    public function display(): string
+    {
         if (defined('COOKIE_CHECK') && !COOKIES_ALLOWED && $this->_requires_cookies) {
             return $this->_smarty->fetch('widgets/cookie_notice.tpl');
         }
@@ -103,7 +111,8 @@ abstract class AbstractWidget {
     /**
      * Clear the cache for this widget, should be called when any settings of it are changed.
      */
-    final public function clearCache(): void {
+    final public function clearCache(): void
+    {
         $this->cache()->erase($this->getName());
     }
 
@@ -113,7 +122,8 @@ abstract class AbstractWidget {
      *
      * @return WidgetData Widget data.
      */
-    protected function getData(): WidgetData {
+    protected function getData(): WidgetData
+    {
         if (isset($this->_data)) {
             return $this->_data;
         }
@@ -147,9 +157,10 @@ abstract class AbstractWidget {
         return $this->_data = $data;
     }
 
-    private function cache(): Cache {
+    private function cache(): Cache
+    {
         $cache = $this->_cache ??= new Cache([
-            'name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'
+            'name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/',
         ]);
 
         $cache->setCache(

@@ -7,11 +7,10 @@
  * @version 2.2.0
  * @license MIT
  */
-interface HasWebhookParams {
-
+interface HasWebhookParams
+{
     /**
      * @return array Array of parameters to send to the webhook
      */
     public function webhookParams(): array;
-
 }
