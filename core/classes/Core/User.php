@@ -1124,7 +1124,7 @@ class User
     }
 
     /**
-     * Get user's notification preferences
+     * Get user's notification preferences.
      *
      * TODO: return type (PHP 8)
      *
@@ -1132,7 +1132,8 @@ class User
      *
      * @return UserNotificationData|UserNotificationData[]|null
      */
-    public function getNotificationPreferences(string $type = '') {
+    public function getNotificationPreferences(string $type = '')
+    {
         if ($this->exists()) {
             $where = 'user_id = ?';
             $whereVars = [$this->data()->id];
