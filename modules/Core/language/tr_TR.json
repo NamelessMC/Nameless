@@ -915,7 +915,7 @@
     "admin/announcements": "Duyurular",
     "admin/api_endpoints": "API uç noktası",
     "admin/hooks": "Webhooklar",
-    "admin/email_language_info": "Dilinizi görmüyor musunuz? Dil dosyasının web sunucunuz tarafından /custom/languages/ içinde yazılabilir olduğundan emin olun.",
+    "admin/email_language_info": "Dilinizi görmüyor musunuz? Dil dosyasının web sunucunuz tarafından /modules/Core/language/ içinde yazılabilir olduğundan emin olun.",
     "emails/forum_topic_reply_message": "{{author}}, takip ettiğiniz bir konuyu yanıtladı. İçerik: {{content}}",
     "general/red": "Kırmızı",
     "installer/step_conversion": "Dönüştür",

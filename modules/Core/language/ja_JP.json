@@ -1076,7 +1076,7 @@
     "admin/can_unlink": "リンク解除可能",
     "admin/editing_integration_for_x": "{{user}}の{{integration}}連携を編集",
     "admin/linking_integration_for_x": "{{user}}の{{integration}} 連携をリンク",
-    "admin/email_language_info": "あなたの言語が表示されませんか？ウェブサーバーの/custom/languages/にある言語ファイルが書き込み可能であることを確認してください。",
+    "admin/email_language_info": "あなたの言語が表示されませんか？ウェブサーバーの/modules/Core/language/にある言語ファイルが書き込み可能であることを確認してください。",
     "admin/page_url_contains_nameless_path": "カスタムページがNamelessMCのページを上書きしてしまいます。",
     "admin/placeholders_last_updated_time": "最終更新: {{time}}",
     "admin/require_integration": "ユーザーにリンクと連携の検証を要求する",

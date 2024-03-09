@@ -310,7 +310,7 @@
     "admin/editing_profile_field": "Profil mező szerkesztése",
     "admin/editing_widget_x": "{{widget}} Widget szerkesztése",
     "admin/email_errors_purged_successfully": "E-mail hibák sikeresen törölve.",
-    "admin/email_language_info": "Nem látod a nyelved? Győződj meg arról, hogy a nyelvi fájl a webszerver által írható a /custom/languages/ mappában.",
+    "admin/email_language_info": "Nem látod a nyelved? Győződj meg arról, hogy a nyelvi fájl a webszerver által írható a /modules/Core/language/ mappában.",
     "admin/email_resent_successfully": "E-mail újraküldés sikeres.",
     "admin/enable_api": "API Engedélyezése?",
     "user/avatar_set_successfully": "Avatár beállítása sikeres.",

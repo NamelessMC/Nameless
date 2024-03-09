@@ -34,7 +34,7 @@ The following list is a brief summary of the features available in v2:
 - ✨ Pretty URL option (requires mod_rewrite or special nginx config).
 - 🎛 Widgets: allows modules to create widgets which can be displayed on most user-facing pages and display almost anything.
 - ⏳ Queue: schedule tasks to happen at a certain point in the future
-- 🚩 Translated into [over 20 languages](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages)
+- 🚩 Translated into [over 20 languages](https://github.com/NamelessMC/Nameless/tree/v2/modules/Core/language)
 
 
 #### Customising Nameless

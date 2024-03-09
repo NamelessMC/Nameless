@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @param string $url New Discord bot URL
@@ -20,7 +21,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
             try {
                 Settings::set('discord_bot_url', $_POST['url']);
             } catch (Exception $e) {
-                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_URL, $e->getMessage(), 500);
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_URL, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
@@ -28,7 +29,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
             try {
                 Settings::set('discord', $_POST['guild_id']);
             } catch (Exception $e) {
-                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_GUILD_ID, $e->getMessage(), 500);
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_GUILD_ID, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
@@ -36,7 +37,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
             try {
                 Settings::set('discord_bot_username', $_POST['bot_username']);
             } catch (Exception $e) {
-                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), 500);
+                $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 

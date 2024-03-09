@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @param string $username The username of the new user to create
@@ -171,7 +172,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             return ['user_id' => $user_id];
 
         } catch (Exception $e) {
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage());
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_CREATE_ACCOUNT, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -210,7 +211,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     'user_id' => $user_id
             ]);
 
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL);
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);

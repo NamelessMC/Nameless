@@ -31,7 +31,7 @@ $smarty->assign(
         'BACK' => $language->get('errors', '404_back'),
         'HOME' => $language->get('errors', '404_home'),
         'ERROR' => $language->get('errors', '404_error'),
-        'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
+        'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : ''),
     ]
 );
 
