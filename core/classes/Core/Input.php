@@ -20,11 +20,11 @@ class Input
     {
         switch ($type) {
             case 'post':
-            // Check the $_POST variable
-            return !empty($_POST);
+                // Check the $_POST variable
+                return !empty($_POST);
             case 'get':
-            // Check the $_GET variable
-            return !empty($_GET);
+                // Check the $_GET variable
+                return !empty($_GET);
             default:
                 // Otherwise, return false
                 return false;
