@@ -258,8 +258,12 @@ if ($login_method == 'email') {
 }
 
 // Add "login with..." message to provider array
-$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
-foreach ($providers as $name => $provider) {
+$providers = [];
+foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $provider) {
+    if (!NamelessOAuth::getInstance()->isEnabled($name))
+        continue;
+
+    $providers[$name] = $provider;
     $providers[$name]['log_in_with'] = $language->get('user', 'log_in_with', [
         'provider' => ucfirst($name)
     ]);
@@ -278,7 +282,7 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
-    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_AVAILABLE' => count($providers),
     'OAUTH_PROVIDERS' => $providers,
     'OR' => $language->get('general', 'or'),
 ]);

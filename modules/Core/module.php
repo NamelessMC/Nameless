@@ -67,7 +67,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
-        $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/user/notification_settings', 'pages/user/notification_settings.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
@@ -114,7 +113,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
         $pages->add('Core', '/panel/users/integrations', 'pages/panel/users_integrations.php');
-        $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
         $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
@@ -511,6 +509,8 @@ class Core_Module extends Module {
         if (Settings::get('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
+
+        Integrations::getInstance()->registerIntegration(new GoogleIntegration($language));
 
         EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
 
@@ -1536,10 +1536,6 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
-            }
-
-            if ($user->hasPermission('admincp.users.edit')) {
-                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
             }
 
             if ($user->hasPermission('modcp.ip_lookup')) {
