@@ -107,8 +107,6 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
-    PhinxAdapter::migrate('core');
-
     PhinxAdapter::ensureUpToDate('Core');
 
     // Error reporting
