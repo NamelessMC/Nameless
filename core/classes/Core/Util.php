@@ -72,8 +72,8 @@ class Util
     /**
      * Get an array containing all timezone lists.
      *
-     * @return array All timezones.
      * @throws Exception
+     * @return array     All timezones.
      */
     public static function listTimezones(): array
     {
