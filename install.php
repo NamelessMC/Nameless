@@ -52,6 +52,7 @@ $install_path = substr(str_replace('\\', '/', substr(__DIR__, strlen($_SERVER['D
 
 if (Config::exists() && Config::get('core.installed') === true) {
     require(ROOT_PATH . '/core/installation/already_installed.php');
+
     return;
 }
 

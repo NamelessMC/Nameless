@@ -8,24 +8,25 @@
  * @version 2.0.0-pr9
  * @license MIT
  */
-class ErrorHandler {
-
+class ErrorHandler
+{
     /**
      * Defined for easy changing.
-     * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line
+     * This constant indicates how many LOC from each frame's PHP file to show before and after the highlighted line.
      */
     private const LINE_BUFFER = 20;
 
     /**
      * Catch an error. If it is a fatal error, pass execution to catchException(), otherwise make a log entry.
      *
-     * @param int $error_number PHP universal error number of this error.
-     * @param string $error_string Error message.
-     * @param string $error_file Path of file which this error was thrown at.
-     * @param int $error_line Line of $error_file which error occurred at.
-     * @return bool False if error reporting is disabled, true otherwise.
+     * @param  int    $error_number PHP universal error number of this error.
+     * @param  string $error_string Error message.
+     * @param  string $error_file   Path of file which this error was thrown at.
+     * @param  int    $error_line   Line of $error_file which error occurred at.
+     * @return bool   False if error reporting is disabled, true otherwise.
      */
-    public static function catchError(int $error_number, string $error_string, string $error_file, int $error_line): bool {
+    public static function catchError(int $error_number, string $error_string, string $error_file, int $error_line): bool
+    {
         if (!(error_reporting() & $error_number)) {
             return false;
         }
@@ -60,16 +61,17 @@ class ErrorHandler {
      * If this is called manually, the error_string, error_file and error_line must be manually provided,
      * and a single trace frame will be generated for it.
      *
-     * @param Throwable|null $exception Exception/Error to catch and render trace from. If null, other variables will be used to render trace.
-     * @param string|null $error_string Main error message to be shown on top of page. Used when $exception is null.
-     * @param string|null $error_file Path to most recent frame's file. Used when $exception is null.
-     * @param int|null $error_line Line in $error_file which caused Exception. Used when $exception is null.
+     * @param Throwable|null $exception    Exception/Error to catch and render trace from. If null, other variables will be used to render trace.
+     * @param string|null    $error_string Main error message to be shown on top of page. Used when $exception is null.
+     * @param string|null    $error_file   Path to most recent frame's file. Used when $exception is null.
+     * @param int|null       $error_line   Line in $error_file which caused Exception. Used when $exception is null.
      */
-    public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void {
+    public static function catchException(?Throwable $exception, ?string $error_string = null, ?string $error_file = null, ?int $error_line = null): void
+    {
         // Define variables based on if a Throwable was caught by the compiler, or if this was called manually
         $error_string = is_null($exception) ? $error_string : $exception->getMessage();
         $error_file = is_null($exception) ? $error_file : $exception->getFile();
-        $error_line = is_null($exception) ? (int)$error_line : $exception->getLine();
+        $error_line = is_null($exception) ? (int) $error_line : $exception->getLine();
 
         // Create a log entry for viewing in staffcp
         self::logError('fatal', $error_file . '(' . $error_line . '): ' . $error_string);
@@ -89,21 +91,19 @@ class ErrorHandler {
 
             // Loop all frames in the exception trace & get relevent information
             if ($exception != null) {
-
                 $i = count($exception->getTrace());
 
                 foreach ($exception->getTrace() as $frame) {
-
                     // Check if previous frame had same file and line number (ie: DB->query(...) reports same file and line twice in a row)
                     if (end($frames)['file'] == $frame['file'] && end($frames)['line'] == $frame['line']) {
-                        ++$skip_frames;
+                        $skip_frames++;
                         continue;
                     }
 
                     // Skip frame if it is a closure
                     // @phpstan-ignore-next-line (it does not know that $frame['function'] is valid)
                     if (isset($frame['function']) && $frame['function'] === '{closure}') {
-                        ++$skip_frames;
+                        $skip_frames++;
                         continue;
                     }
 
@@ -177,7 +177,7 @@ class ErrorHandler {
         ]);
 
         $smarty->display(ROOT_PATH . '/core/includes/error.tpl');
-        die();
+        die;
     }
 
     /**
@@ -185,18 +185,21 @@ class ErrorHandler {
      *
      * @return bool Whether the error page should be in plain text rather than a user friendly HTML page.
      */
-    private static function shouldUsePlainText(): bool {
+    private static function shouldUsePlainText(): bool
+    {
         $route = $_REQUEST['route'] ?? '';
+
         return str_contains($route, '/api/v2/') || str_contains($route, '/queries/') || isset($_SERVER['HTTP_X_REQUESTED_WITH']);
     }
 
     /**
      * Write error to specific log file.
      *
-     * @param string $type Which category/file to log this to. Must be: `warning`, `notice`, `other` or `fatal`.
+     * @param string $type     Which category/file to log this to. Must be: `warning`, `notice`, `other` or `fatal`.
      * @param string $contents The message to be saved.
      */
-    private static function logError(string $type, string $contents): void {
+    private static function logError(string $type, string $contents): void
+    {
         $dir_exists = false;
 
         try {
@@ -218,15 +221,16 @@ class ErrorHandler {
 
     /**
      * Returns frame array from specified information.
-     * Leaving number as null will use Exception trace count + 1 (for most recent frame)
+     * Leaving number as null will use Exception trace count + 1 (for most recent frame).
      *
-     * @param Throwable|null $exception Exception object caught and whose trace to count. If null, $number will be used for frame number.
-     * @param string $frame_file Path to file which was referenced in this frame.
-     * @param int $frame_line Line number of $frame_file which Exception was thrown at.
-     * @param int|null $number Higher number = more recent frame. If null, will use $exception trace count + 1.
-     * @return array This frame in an array form.
+     * @param  Throwable|null $exception  Exception object caught and whose trace to count. If null, $number will be used for frame number.
+     * @param  string         $frame_file Path to file which was referenced in this frame.
+     * @param  int            $frame_line Line number of $frame_file which Exception was thrown at.
+     * @param  int|null       $number     Higher number = more recent frame. If null, will use $exception trace count + 1.
+     * @return array          This frame in an array form.
      */
-    public static function parseFrame(?Throwable $exception, string $frame_file, int $frame_line, ?int $number = null): array {
+    public static function parseFrame(?Throwable $exception, string $frame_file, int $frame_line, ?int $number = null): array
+    {
         $lines = file($frame_file);
 
         return [
@@ -235,18 +239,19 @@ class ErrorHandler {
             'line' => $frame_line,
             'start_line' => (is_array($lines) && count($lines) >= self::LINE_BUFFER && ($frame_line - self::LINE_BUFFER > 0)) ? ($frame_line - self::LINE_BUFFER) : 1,
             'highlight_line' => (is_array($lines) && count($lines) >= self::LINE_BUFFER && $frame_line - self::LINE_BUFFER > 0) ? (self::LINE_BUFFER + 1) : $frame_line,
-            'code' => self::parseFile($lines, $frame_line)
+            'code' => self::parseFile($lines, $frame_line),
         ];
     }
 
     /**
      * Create purified and truncated string from a file for use with error source code preview.
      *
-     * @param array|bool $lines Array of lines in this file. If false, will return nothing (means PHP cannot access file).
-     * @param int $error_line Line to center output around.
-     * @return string Truncated string from this file.
+     * @param  array|bool $lines      Array of lines in this file. If false, will return nothing (means PHP cannot access file).
+     * @param  int        $error_line Line to center output around.
+     * @return string     Truncated string from this file.
      */
-    private static function parseFile($lines, int $error_line): string {
+    private static function parseFile($lines, int $error_line): string
+    {
         if ($lines == false || count($lines) < 1) {
             return '';
         }
@@ -269,7 +274,8 @@ class ErrorHandler {
      * Called at end of every execution on page load.
      * If an error exists, and the type is fatal, pass execution to catchException().
      */
-    public static function catchShutdownError(): void {
+    public static function catchShutdownError(): void
+    {
         $error = error_get_last();
 
         if ($error === null) {
@@ -287,7 +293,8 @@ class ErrorHandler {
      *
      * @param string $contents Error to write to file.
      */
-    public static function logCustomError(string $contents): void {
+    public static function logCustomError(string $contents): void
+    {
         self::logError('other', $contents);
     }
 
@@ -296,8 +303,8 @@ class ErrorHandler {
      *
      * @param string $contents Warning to write to file.
      */
-    public static function logWarning(string $contents): void {
+    public static function logWarning(string $contents): void
+    {
         self::logError('warning', $contents);
     }
-
 }

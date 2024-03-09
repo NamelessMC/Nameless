@@ -138,7 +138,7 @@ if ($image['file']) {
 
             $user->update([
                 'has_avatar' => true,
-                'avatar_updated' => date('U')
+                'avatar_updated' => date('U'),
             ]);
 
             Session::flash('settings_success', $language->get('user', 'avatar_set_successfully'));
@@ -147,7 +147,7 @@ if ($image['file']) {
 
         if (Input::get('type') === 'profile_banner') {
             $user->update([
-                'banner' => Output::getClean($user->data()->id . '/' . $image->getName() . '.' . $image->getMime())
+                'banner' => Output::getClean($user->data()->id . '/' . $image->getName() . '.' . $image->getMime()),
             ]);
 
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
