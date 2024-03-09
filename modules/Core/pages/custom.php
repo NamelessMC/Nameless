@@ -9,8 +9,11 @@
  *  Custom page
  */
 
+// Check whenever route is homepage or not
+$page_route = empty($route) ? Settings::get('default_homepage') : rtrim($route, '/');
+
 // Get page info from URL
-$custom_page = DB::getInstance()->get('custom_pages', ['url', rtrim($route, '/')]);
+$custom_page = DB::getInstance()->get('custom_pages', ['url', $page_route]);
 if (!$custom_page->count()) {
     require(ROOT_PATH . '/404.php');
     die();

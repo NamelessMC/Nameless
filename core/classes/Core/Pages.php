@@ -63,7 +63,7 @@ class Pages {
     public function addCustom(string $url, string $name, bool $widgets = false): void {
         $this->_pages[$url] = [
             'module' => 'Core',
-            'file' => 'custom.php',
+            'file' => 'pages/custom.php',
             'name' => $name,
             'widgets' => $widgets,
             'custom' => true,
