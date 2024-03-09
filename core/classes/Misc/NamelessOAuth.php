@@ -48,7 +48,7 @@ class NamelessOAuth extends Instanceable
     /**
      * Get or create an instance of a specific provider.
      *
-     * @param string $provider The provider name
+     * @param  string     $provider The provider name
      * @return null|array An array of registered OAuth provider.
      */
     public function getProvider(string $provider): ?array
@@ -176,10 +176,6 @@ class NamelessOAuth extends Instanceable
      */
     public function isSetup(string $provider): bool
     {
-        if (!$this->isEnabled($provider)) {
-            return false;
-        }
-
         [$client_id, $client_secret] = $this->getCredentials($provider);
 
         return $client_id !== '' && $client_secret !== '';
@@ -229,79 +225,6 @@ class NamelessOAuth extends Instanceable
         $this->_db->query(
             'INSERT INTO nl2_oauth (provider, client_id, client_secret) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE client_id=?, client_secret=?',
             [$provider, $client_id, $client_secret, $client_id, $client_secret]
-        );
-    }
-
-    /**
-     * Check if a NamelessMC user has already connected their account to a specific provider.
-     *
-     * @param  string $provider    The provider name
-     * @param  string $provider_id The provider user ID
-     * @return bool   Whether the user is already linked to the provider
-     */
-    public function userExistsByProviderId(string $provider, string $provider_id): bool
-    {
-        return $this->_db->query(
-            'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
-            [$provider, $provider_id]
-        )->count() > 0;
-    }
-
-    /**
-     * Get the NamelessMC user ID for a specific provider user ID.
-     *
-     * @param  string $provider    The provider name
-     * @param  string $provider_id The provider user ID for lookup
-     * @return int    The NamelessMC user ID of the user linked to the provider
-     */
-    public function getUserIdFromProviderId(string $provider, string $provider_id): int
-    {
-        return $this->_db->query(
-            'SELECT user_id FROM nl2_oauth_users WHERE provider = ? AND provider_id = ?',
-            [$provider, $provider_id]
-        )->first()->user_id;
-    }
-
-    /**
-     * Save a new user linked to a specific provider.
-     *
-     * @param string $user_id     The NamelessMC user ID
-     * @param string $provider    The provider name
-     * @param string $provider_id The provider user ID
-     */
-    public function saveUserProvider(string $user_id, string $provider, string $provider_id): void
-    {
-        $this->_db->query(
-            'INSERT INTO nl2_oauth_users (user_id, provider, provider_id) VALUES (?, ?, ?)',
-            [$user_id, $provider, $provider_id]
-        );
-    }
-
-    /**
-     * Get an array of provider names and provider user IDs for a specific user.
-     *
-     * @param  int   $user_id The NamelessMC user ID
-     * @return array The array
-     */
-    public function getAllProvidersForUser(int $user_id): array
-    {
-        return $this->_db->query(
-            'SELECT * FROM nl2_oauth_users WHERE user_id = ?',
-            [$user_id]
-        )->results();
-    }
-
-    /**
-     * Delete a user's provider data.
-     *
-     * @param int    $user_id  The provider name
-     * @param string $provider The provider user ID
-     */
-    public function unlinkProviderForUser(int $user_id, string $provider): void
-    {
-        $this->_db->query(
-            'DELETE FROM nl2_oauth_users WHERE user_id = ? AND provider = ?',
-            [$user_id, $provider]
         );
     }
 

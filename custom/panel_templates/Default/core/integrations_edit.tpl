@@ -123,7 +123,7 @@
                                             <div class="form-group">
                                                 <label for="client-id">{$CLIENT_ID}</label>
                                                 <input type="text" name="client-id" class="form-control"
-                                                       id="client-id" placeholder="Client ID"
+                                                       id="client-id" placeholder="{$CLIENT_ID}"
                                                        value="{$OAUTH_PROVIDER_DATA['client_id']}">
                                             </div>
 
@@ -131,7 +131,7 @@
                                                 <label for="client-secret">{$CLIENT_SECRET}</label>
                                                 <input type="password" name="client-secret"
                                                        class="form-control" id="client-secret"
-                                                       placeholder="Client Secret" value="{$OAUTH_PROVIDER_DATA['client_secret']}">
+                                                       placeholder="{$CLIENT_SECRET}" value="{$OAUTH_PROVIDER_DATA['client_secret']}">
                                             </div>
 
                                             <div class="form-group">
