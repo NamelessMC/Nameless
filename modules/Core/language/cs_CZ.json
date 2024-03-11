@@ -1095,7 +1095,7 @@
     "general/offline": "Offline",
     "general/online": "Online",
     "general/player_count": "{{onlinePlayers}}/{{totalPlayers}}",
-    "admin/oauth_info": "Nastavte poskytovatele OAuth pro umožnění přihlašování pomocí účtů na sociálních sítích. {{docLinkStart}}Pro více informací si přečtěte dokumentaci{{docLinkEnd}}.",
+    "admin/oauth_info": "Nastavte poskytovatele OAuth pro umožnění propojení a přihlášení pomocí účtů na sociálních sítích. {{docLinkStart}}Pro více informací si přečtěte dokumentaci{{docLinkEnd}}.",
     "admin/require_integration": "Vyžaduje uživatele si propojit a ověřit integraci",
     "admin/unlink_account_confirm": "Opravdu chcete vynuceně zrušit propojení tohoto poskytovatele od tohoto uživatele?",
     "admin/viewing_integrations_for_x": "Prohlížení integrací uživatele {{user}}",
@@ -1336,5 +1336,6 @@
     "admin/default_description": "Výchozí popis",
     "admin/default_keywords": "Výchozí klíčová slova",
     "admin/require_two_factor_for_staffcp": "Vyžadovat dvoufaktorové ověření pro přihlášení do panelu (pokud jej má uživatel povolené)",
-    "user/two_factor_auth_code": "Kód dvoufaktorového ověření"
+    "user/two_factor_auth_code": "Kód dvoufaktorového ověření",
+    "admin/register_login_with_oauth": "Umožnit uživateli registrovat a přihlásit se s touto integrací?"
 }
