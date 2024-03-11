@@ -339,7 +339,7 @@
     "admin/no_servers_defined": "Es wurden noch keine Server definiert",
     "admin/notice_log": "Notice Protokolle",
     "admin/oauth": "OAuth",
-    "admin/oauth_info": "Konfiguriere den OAuth-Provider, damit sich die Benutzer mit ihren Konten in sozialen Netzwerken anmelden können. {{docLinkStart}}Schau dir die Dokumentation an, um Hilfe zu erhalten{{docLinkEnd}}.",
+    "admin/oauth_info": "Konfiguriere den OAuth-Provider, um Benutzern die Verknüpfung und Anmeldung mit ihren Konten in sozialen Netzwerken zu ermöglichen. {{docLinkStart}}Such in unserer Dokumentation nach Hilfe{{docLinkEnd}}.",
     "admin/other_log": "Andere Protokolle",
     "admin/outgoing_email": "Ausgehende E-Mail Addresse",
     "admin/outgoing_email_info": "Dies ist die Absender Emailadresse die NamelessMC benutzt.",
@@ -1336,5 +1336,6 @@
     "admin/default_description": "Standard Beschreibung",
     "admin/default_keywords": "Standard-Schlüsselwörter",
     "admin/require_two_factor_for_staffcp": "Erforderst du eine Zwei-Faktor-Authentifizierung für die StaffCP-Anmeldung? (falls für den Benutzer aktiviert)",
-    "user/two_factor_auth_code": "Zwei-Faktor-Authentifizierungscode"
+    "user/two_factor_auth_code": "Zwei-Faktor-Authentifizierungscode",
+    "admin/register_login_with_oauth": "Erlaube Benutzern, sich mit dieser Integration zu registrieren und anzumelden?"
 }
