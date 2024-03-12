@@ -63,15 +63,15 @@ class Endpoints
                     }
 
                     $reflection = new ReflectionMethod($endpoint, 'execute');
-                    if ($reflection->getNumberOfParameters() !== (count($vars) + 1)) {
-                        throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . ' arguments. Endpoint: ' . $endpoint->getRoute());
+                    if ($reflection->getNumberOfParameters() !== (count($endpoint->customParams()) + count($vars) + 1)) {
+                        throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($endpoint->customParams()) + count($vars) + 1) . ' arguments. Endpoint: ' . $endpoint->getRoute());
                     }
 
                     $endpoint->execute(
                         $api,
-                        ...array_map(function ($type, $value) use ($api) {
+                        ...array_merge($endpoint->customParams(), array_map(function ($type, $value) use ($api) {
                             return $this::transform($api, $type, $value);
-                        }, array_keys($vars), $vars)
+                        }, array_keys($vars), $vars))
                     );
 
                     return;
