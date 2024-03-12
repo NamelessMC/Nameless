@@ -65,7 +65,7 @@ class Pages
     {
         $this->_pages[$url] = [
             'module' => 'Core',
-            'file' => 'custom.php',
+            'file' => 'pages/custom.php',
             'name' => $name,
             'widgets' => $widgets,
             'custom' => true,
