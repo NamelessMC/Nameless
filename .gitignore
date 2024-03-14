@@ -9,6 +9,7 @@
 /vendor
 /core/assets/vendor
 /uploads/avatars/**
+/uploads/logos/**
 /node_modules/
 composer.lock
 checksums.json
