@@ -142,7 +142,7 @@ if (!isset($_GET['view'])) {
         $smarty->assign('ERROR', Session::flash('alerts_error'));
     }
 
-    if ($alert->url && $alert->urk !== '#') {
+    if ($alert->url && $alert->url !== '#') {
         $smarty->assign([
             'VIEW' => $language->get('user', 'alerts_follow_link'),
             'VIEW_LINK' => urlencode($alert->url),
