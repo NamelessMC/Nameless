@@ -47,6 +47,7 @@ if (!isset($_GET['action'])) {
             }
 
             try {
+                /** @var Module $module */
                 require_once ROOT_PATH . '/modules/' . $item->name . '/init.php';
             } catch (Exception $e) {
                 $term = 'unable_to_load_module';
@@ -74,6 +75,8 @@ if (!isset($_GET['action'])) {
                 'actualVersion' => Text::bold(NAMELESS_VERSION)
             ]) : false,
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
+            'uninstall_link' => ($module->getName() != 'Core' ? URL::build('/panel/core/modules/', 'action=uninstall&m=' . urlencode($item->id)) : null),
+            'confirm_uninstall' => $language->get('admin', 'uninstall_confirm', ['item' => Output::getClean($module->getName())]),
             'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
             'enabled' => $item->enabled
         ];
@@ -133,6 +136,7 @@ if (!isset($_GET['action'])) {
         'AUTHOR' => $language->get('admin', 'author'),
         'ENABLE' => $language->get('admin', 'enable'),
         'DISABLE' => $language->get('admin', 'disable'),
+        'UNINSTALL' => $language->get('admin', 'uninstall'),
         'MODULE_LIST' => $template_array,
         'FIND_MODULES' => $language->get('admin', 'find_modules'),
         'WEBSITE_MODULES' => $all_modules,
@@ -333,6 +337,64 @@ if (!isset($_GET['action'])) {
 
         Redirect::to(URL::build('/panel/core/modules'));
     }
+
+    if ($_GET['action'] === 'uninstall') {
+        // Disable a module
+        if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
+            die('Invalid module!');
+        }
+
+        if (Token::check($_POST['token'])) {
+            // Get module name
+            $name = DB::getInstance()->get('modules', ['id', $_GET['m']])->results();
+            $name = Output::getClean($name[0]->name);
+
+            foreach (Module::getModules() as $item) {
+                if (in_array($name, $item->getLoadAfter())) {
+                    // Unable to disable module
+                    Session::flash('admin_modules_error', $language->get('admin', 'unable_to_uninstall_module', ['module' => Output::getClean($item->getName())]));
+                    Redirect::to(URL::build('/panel/core/modules'));
+                }
+            }
+
+            DB::getInstance()->delete('modules', [
+                'id' => $_GET['m'],
+            ]);
+
+            // Cache
+            $cache->setCache('modulescache');
+            $modules = [];
+
+            $order = Module::determineModuleOrder();
+
+            foreach ($order['modules'] as $key => $item) {
+                if ($item != $name) {
+                    $modules[] = [
+                        'name' => $item,
+                        'priority' => $key
+                    ];
+                }
+            }
+
+            // Store
+            $cache->store('enabled_modules', $modules);
+
+            if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
+                /** @var Module $module */
+                require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
+                $module->onUninstall();
+            }
+
+            if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/modules/' . $name)) {
+                Session::flash('admin_modules_error', $language->get('admin', 'unable_to_delete_module_files'));
+            }
+
+            Session::flash('admin_modules', $language->get('admin', 'module_uninstalled'));
+
+        } else {
+            Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
+        }
+    }
 }
 
 if (Session::exists('admin_modules')) {
@@ -367,7 +429,8 @@ $smarty->assign([
     'MODULES' => $language->get('admin', 'modules'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
+    'CANCEL' => $language->get('general', 'cancel'),
 ]);
 
 $template->onPageLoad();

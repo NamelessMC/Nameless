@@ -67,7 +67,7 @@
                                             <div class="float-md-right">
                                                 {if $module.enabled}
                                                 {if $module.disable_link}
-                                                <form action="{$module.disable_link}" method="post">
+                                                <form action="{$module.disable_link}" method="post" style="display:inline">
                                                     <input type="hidden" name="token" value="{$TOKEN}" />
                                                     <input type="submit" class="btn btn-danger btn-sm"
                                                         value="{$DISABLE}" />
@@ -77,11 +77,16 @@
                                                         class="fa fa-lock"></i></a>
                                                 {/if}
                                                 {else}
-                                                <form action="{$module.enable_link}" method="post">
+                                                <form action="{$module.enable_link}" method="post" style="display:inline">
                                                     <input type="hidden" name="token" value="{$TOKEN}" />
                                                     <input type="submit" class="btn btn-primary btn-sm"
                                                         value="{$ENABLE}" />
                                                 </form>
+                                                {/if}
+                                                {if $module.uninstall_link}
+                                                    <button class="btn btn-danger btn-sm" onclick="uninstallModule('{$module.uninstall_link}', '{$module.confirm_uninstall}')" style="display:inline">
+                                                        {$UNINSTALL}
+                                                    </button>
                                                 {/if}
                                             </div>
                                         </td>
@@ -168,6 +173,29 @@
             <!-- End Content Wrapper -->
         </div>
 
+        <div class="modal fade" id="uninstallModuleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$UNINSTALL}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="" method="post" id="uninstallModuleForm">
+                        <div class="modal-body">
+                            <p id="confirmUninstallModule"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
+                            <input type="submit" class="btn btn-primary" value="{$UNINSTALL}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- End Wrapper -->
     </div>
 
@@ -189,6 +217,14 @@
         };
 
         SetRatingStar();
+    </script>
+
+    <script type="text/javascript">
+        function uninstallModule(action, confirmationText) {
+          $('#uninstallModuleForm').attr('action', action);
+          $('#confirmUninstallModule').html(confirmationText);
+          $('#uninstallModuleModal').modal().show();
+        }
     </script>
 
 </body>
