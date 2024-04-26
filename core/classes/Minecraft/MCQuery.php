@@ -377,6 +377,10 @@ class MCQuery
 
         $motd = '';
         foreach ($modern_format as $word) {
+            if (!is_array($word)) {
+                continue;
+            }
+
             $motd .= self::COLOUR_CHAR . 'r';
             if (isset($word['color'])) {
                 $motd .= self::getColor($word['color']);
