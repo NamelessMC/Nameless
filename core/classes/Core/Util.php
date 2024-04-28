@@ -49,8 +49,13 @@ class Util
      */
     public static function recursiveRemoveDirectory(string $directory): bool
     {
-        // safety precaution, only allow deleting files in "custom" or "modules" directory
-        if (str_contains($directory, 'Core') || !str_contains($directory, 'custom') || !str_contains($directory, 'modules')) {
+        // safety precaution, only allow deleting files in "custom", "modules" or "uploads" directory
+        if (
+            str_contains($directory, 'Core') ||
+            !str_contains($directory, 'custom') ||
+            !str_contains($directory, 'modules') ||
+            !str_contains($directory, 'uploads')
+        ) {
             return false;
         }
 
