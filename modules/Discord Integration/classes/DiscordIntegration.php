@@ -147,7 +147,7 @@ class DiscordIntegration extends IntegrationBase {
     public function allowLinking(): bool {
         $link_method = Settings::get('integration_link_method', 'bot', 'Discord Integration');
         if ($link_method == 'oauth') {
-            return NamelessOAuth::getInstance()->isEnabled('discord');
+            return NamelessOAuth::getInstance()->isSetup('discord');
         } else {
             return Discord::isBotSetup();
         }

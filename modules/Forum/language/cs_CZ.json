@@ -184,5 +184,8 @@
     "forum/news_items_max": "Počet novinek by měl být maximálně {{max}}",
     "forum/news_items_min": "Počet novinek by měl být alespoň {{min}}",
     "forum/news_items_front_page_limit": "Počet novinek, které mají být zobrazeny na hlavní stránce",
-    "forum/forum_score": "Skóre fóra"
+    "forum/forum_score": "Skóre fóra",
+    "forum/banned_terms": "Zakázané výrazy",
+    "forum/banned_terms_info": "Jeden výraz na řádek, nejsou rozlišována malá a velká písmena",
+    "forum/content_contains_banned_term": "Váš příspěvek obsahuje zakázaný výraz"
 }
