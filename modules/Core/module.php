@@ -317,6 +317,7 @@ class Core_Module extends Module {
         EventHandler::registerEvent(UserProfilePostCreatedEvent::class);
         EventHandler::registerEvent(UserProfilePostReplyCreatedEvent::class);
         EventHandler::registerEvent(UserRegisteredEvent::class);
+        EventHandler::registerEvent(UserUpdatedEvent::class);
         EventHandler::registerEvent(UserValidatedEvent::class);
         EventHandler::registerEvent(UserWarnedEvent::class);
 
