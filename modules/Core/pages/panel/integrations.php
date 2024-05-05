@@ -24,10 +24,24 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $integrations = Integrations::getInstance();
 
 if (!isset($_GET['integration'])) {
+    if (Input::exists()) {
+        $errors = [];
+
+        if (Token::check()) {
+            Settings::set('username_sync', Input::get('sync_username_integration'));
+
+            Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
+            Redirect::to(URL::build('/panel/core/integrations'));
+        } else {
+            $errors[] = $language->get('general', 'invalid_token');
+        }
+    }
+
     // Get integrations list
     $integrations_list = [];
     foreach ($integrations->getAll() as $integration) {
         $integrations_list[] = [
+            'id' =>  $integration->data()->id,
             'name' => Output::getClean($integration->getName()),
             'icon' => Output::getClean($integration->getIcon()),
             'edit_link' => URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()),
@@ -41,7 +55,11 @@ if (!isset($_GET['integration'])) {
         'INTEGRATIONS_LIST' => $integrations_list,
         'ENABLED' => $language->get('admin', 'enabled'),
         'CAN_UNLINK' => $language->get('admin', 'can_unlink'),
-        'REQUIRED' => $language->get('admin', 'required')
+        'REQUIRED' => $language->get('admin', 'required'),
+        'DISABLED' => $language->get('admin', 'disabled'),
+        'SYNC_USERNAME_INTEGRATION' => $language->get('admin', 'sync_username_integration'),
+        'SYNC_USERNAME_INTEGRATION_INFO' => $language->get('admin', 'sync_username_integration_info'),
+        'SYNC_USERNAME_VALUE' => Settings::get('username_sync'),
     ]);
 
     $template_file = 'core/integrations.tpl';

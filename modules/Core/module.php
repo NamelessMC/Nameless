@@ -1591,7 +1591,7 @@ class Core_Module extends Module {
             'minecraft' => [
                 'mc_integration' => (bool)Settings::get(Settings::MINECRAFT_INTEGRATION),
                 'uuid_linking' => (bool)Settings::get('uuid_linking'),
-                'username_sync' => (bool)Settings::get('username_sync'),
+                'username_sync' => Settings::get('username_sync'),
                 'query_type' => Settings::get('query_type', 'internal'),
                 'servers' => $servers,
             ]

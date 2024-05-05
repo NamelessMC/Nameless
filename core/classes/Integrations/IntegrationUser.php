@@ -93,6 +93,20 @@ class IntegrationUser
         if (!$this->_db->update('users_integrations', $this->data()->id, $fields)) {
             throw new RuntimeException('There was a problem updating integration user.');
         }
+
+        // Sync username to website username?
+        if (isset($fields['username']) && Settings::get('username_sync') == $this->data()->integration_id) {
+            if (Settings::get('displaynames') === '1') {
+                $this->getUser()->update([
+                    'username' => $fields['username']
+                ]);
+            } else {
+                $this->getUser()->update([
+                    'username' => $fields['username'],
+                    'nickname' => $fields['username']
+                ]);
+            }
+        }
     }
 
     /**

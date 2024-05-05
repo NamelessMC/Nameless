@@ -83,15 +83,6 @@
                                     <label class="custom-control-label" for="enable_api">{$ENABLE_API}</label>
                                 </div>
 
-                                <div class="form-group custom-control custom-switch">
-                                    <input name="username_sync" id="username_sync" type="checkbox"
-                                        class="custom-control-input" {if $USERNAME_SYNC_VALUE eq 1} checked{/if} />
-                                    <label class="custom-control-label" for="username_sync">{$USERNAME_SYNC}</label>
-                                    <span class="badge badge-info">
-                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
-                                            data-placement="top" title="{$INFO}"
-                                            data-content="{$USERNAME_SYNC_INFO}"></i></span>
-                                </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
