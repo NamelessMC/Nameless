@@ -25,6 +25,7 @@
                         <h1 class="h3 mb-0 text-gray-800">{$ANNOUNCEMENTS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                            <li class="breadcrumb-item active">{$COMMUNICATIONS}</li>
                             <li class="breadcrumb-item active">{$ANNOUNCEMENTS}</li>
                         </ol>
                     </div>
