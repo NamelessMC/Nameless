@@ -98,12 +98,12 @@ class IntegrationUser
         if (isset($fields['username']) && Settings::get('username_sync') == $this->data()->integration_id) {
             if (Settings::get('displaynames') === '1') {
                 $this->getUser()->update([
-                    'username' => $fields['username']
+                    'username' => $fields['username'],
                 ]);
             } else {
                 $this->getUser()->update([
                     'username' => $fields['username'],
-                    'nickname' => $fields['username']
+                    'nickname' => $fields['username'],
                 ]);
             }
         }
