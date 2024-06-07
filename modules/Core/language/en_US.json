@@ -183,8 +183,6 @@
     "admin/enable_player_list": "Enable player list?",
     "admin/enable_registration": "Enable registration?",
     "admin/enable_status_query": "Enable status query?",
-    "admin/enable_username_sync": "Enable username sync?",
-    "admin/enable_username_sync_info": "If enabled, website usernames will be updated to match in-game usernames. This happens when the in-game plugin sends a list of UUIDs and usernames, for online players, to the website.",
     "admin/enabled": "Enabled",
     "admin/enter_authme_db_details": "Please enter valid database details.",
     "admin/error_deleted_successfully": "The error has been deleted successfully.",

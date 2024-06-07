@@ -174,8 +174,6 @@
     "admin/enable_player_list": "Spelerslijst aanzetten?",
     "admin/enable_registration": "Schakel registratie in?",
     "admin/enable_status_query": "Status query aanzetten?",
-    "admin/enable_username_sync": "Gebruikersnaam synchroniseren?",
-    "admin/enable_username_sync_info": "Indien ingeschakeld, zullen de gebruikersnamen van de website worden aangepast aan de ingame gebruikersnamen. Dit zal gebeuren wanneer de plugin in minecraft een lijst verzend van UUIDs en gebruikersnamen, voor online spelers, naar de website.",
     "admin/enabled": "Ingeschakeld",
     "admin/enter_authme_db_details": "Vul geldige database gegevens in.",
     "admin/error_deleted_successfully": "De fout is met succes verwijderd.",

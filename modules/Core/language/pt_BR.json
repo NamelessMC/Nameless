@@ -179,8 +179,6 @@
     "admin/enable_player_list": "Ativar a lista de jogadores?",
     "admin/enable_registration": "Ativar cadastro?",
     "admin/enable_status_query": "Ativar o status da query?",
-    "admin/enable_username_sync": "Ativar sincronização de nome de usuário?",
-    "admin/enable_username_sync_info": "Se ativado, os nomes de usuário do site serão atualizados para corresponder aos nomes de usuário do jogo. Isto acontece quando o plugin do jogo envia uma liste de UUIDs e nomes de usuário, para jogadores online, para o site.",
     "admin/enabled": "Ativado",
     "admin/enter_authme_db_details": "Insira os detalhes do banco de dados válidos.",
     "admin/error_deleted_successfully": "O erro foi excluído com sucesso.",

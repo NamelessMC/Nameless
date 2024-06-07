@@ -181,8 +181,6 @@
     "admin/enable_player_list": "Povoliť zoznam hráčov?",
     "admin/enable_registration": "Povoliť registráciu?",
     "admin/enable_status_query": "Povoliť query stav?",
-    "admin/enable_username_sync": "Povoliť synchronizáciu užívateľského mena?",
-    "admin/enable_username_sync_info": "Ak je táto možnosť povolená, užívateľské mená na webstránke sa aktualizujú tak, aby sa zhodovali s užívateľskými menami v hre. Stáva sa to, keď plugin v hre odošle na webovú stránku zoznam UUID a používateľských mien pre online hráčov.",
     "admin/enabled": "Povolené",
     "admin/enter_authme_db_details": "Prosím zadajte platné údaje o databáze.",
     "admin/error_deleted_successfully": "Chyba bola úspešne odstránená.",

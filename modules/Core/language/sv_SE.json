@@ -165,8 +165,6 @@
     "admin/enable_player_list": "Aktivera spelarlistan?",
     "admin/enable_registration": "Aktivera registrering?",
     "admin/enable_status_query": "Aktivera status query?",
-    "admin/enable_username_sync": "Aktivera synkronisering av användarnamn?",
-    "admin/enable_username_sync_info": "Om det är aktiverat kommer webbplatsens användarnamn att uppdateras så att de matchar användarnamn in-game. Detta händer när in-game tillägget skickar en lista av alla UUID:s och användarnamn, för aktiva players, till webbsidan.",
     "admin/enabled": "Aktiverat",
     "admin/enter_authme_db_details": "Var god och ange giltiga databasuppgifter.",
     "admin/error_deleted_successfully": "Felet har tagits bort.",

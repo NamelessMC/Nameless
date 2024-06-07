@@ -183,8 +183,6 @@
     "admin/enable_player_list": "プレイヤーリストを有効にしますか？",
     "admin/enable_registration": "新規登録を許可しますか？",
     "admin/enable_status_query": "ステータスクエリを有効にしますか？",
-    "admin/enable_username_sync": "ユーザーネームの同期を有効にしますか？",
-    "admin/enable_username_sync_info": "有効にすると、ウェブサイトのユーザー名をMinecraftユーザー名と同期します。これはゲーム内プラグインがオンラインプレイヤーのUUIDとユーザー名一覧をウェブサイトに送信する際に動作します。",
     "admin/enabled": "有効",
     "admin/enter_authme_db_details": "有効なデータベース情報を入力してください。",
     "admin/error_deleted_successfully": "エラーは正常に削除されました。",

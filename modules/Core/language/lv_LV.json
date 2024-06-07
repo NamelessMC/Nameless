@@ -196,8 +196,6 @@
     "admin/enable_player_list": "Vai iespējot spēlētāju sarakstu?",
     "admin/enable_registration": "Vai iespējot reģistrāciju?",
     "admin/enable_status_query": "Vai iespējot statusa vaicājumu?",
-    "admin/enable_username_sync": "Vai iespējot lietotājvārda sinhronizāciju?",
-    "admin/enable_username_sync_info": "Ja iespējots, vietņu lietotājvārdi tiks atjaunināti, lai tie atbilstu spēles lietotājvārdiem. ",
     "admin/enabled": "Iespējots",
     "admin/enter_authme_db_details": "Lūdzu, ievadiet derīgu datu bāzes informāciju.",
     "admin/error_deleted_successfully": "Kļūda ir veiksmīgi izdzēsta.",

@@ -171,8 +171,6 @@
     "admin/enable_player_list": "Spielerliste aktivieren?",
     "admin/enable_registration": "Registrierung aktivieren?",
     "admin/enable_status_query": "Aktiviere Status Abfrage?",
-    "admin/enable_username_sync": "Benutzernamen-Synchronisation aktivieren?",
-    "admin/enable_username_sync_info": "Wenn diese Option aktiviert ist, werden die Benutzernamen der Website aktualisiert, damit sie mit den Benutzernamen im Spiel übereinstimmen. Dies geschieht, wenn das In-Game-Plugin eine Liste von UUIDs und Benutzernamen für Online-Spieler an die Website sendet.",
     "admin/enabled": "Aktiviert",
     "admin/enter_authme_db_details": "Bitte gebe gültige Datenbank Informationen ein.",
     "admin/error_deleted_successfully": "Der Fehler wurde erfolgreich gelöscht.",
