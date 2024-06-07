@@ -181,5 +181,8 @@
     "forum/highest_reaction_scores": "Punteggi reazioni più alti",
     "forum/most_posts": "Maggior numero di post",
     "forum/reaction_score": "Punteggio reazioni",
-    "forum/news_items_front_page_limit": "Numero di nuovi oggetti da visualizzare sulla pagina principale"
+    "forum/news_items_front_page_limit": "Numero di nuovi oggetti da visualizzare sulla pagina principale",
+    "forum/banned_terms": "Termini Banditi",
+    "forum/banned_terms_info": "Un termine per linea, caso insensibile",
+    "forum/content_contains_banned_term": "Il tuo post contiene un termine bandito"
 }
