@@ -97,8 +97,6 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
             $pages->setActivePage($pages->getPageByURL('/'));
             require(ROOT_PATH . '/modules/Core/pages/index.php');
         }
-
-        Settings::get('home_type');
     }
     die;
 }
