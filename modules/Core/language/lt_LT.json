@@ -130,8 +130,6 @@
     "admin/enable_player_list": "Įjungti žaidėjų sąrašą?",
     "admin/enable_registration": "Leisti registraciją?",
     "admin/enable_status_query": "Įjungti būsenos užklausą?",
-    "admin/enable_username_sync": "Įjungti vartotojo vardo sinchronizaciją?",
-    "admin/enable_username_sync_info": "Jei įjungta, svetainės vatotojų vardai bus atnaujinti, kad atitiktų žaidimo vatotojų vardus.",
     "admin/enabled": "Įjungtas",
     "admin/enter_authme_db_details": "Įveskite teisingus duomenų bazės duomenis.",
     "admin/error_deleted_successfully": "Klaida sėkmingai ištrinta.",

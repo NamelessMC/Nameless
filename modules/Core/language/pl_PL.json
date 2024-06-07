@@ -175,8 +175,6 @@
     "admin/enable_player_list": "Włączyć listę graczy?",
     "admin/enable_registration": "Włączyć rejestrację?",
     "admin/enable_status_query": "Włączyć sprawdzanie statusu?",
-    "admin/enable_username_sync": "Włączyć synchronizację nazw użytkowników?",
-    "admin/enable_username_sync_info": "Gdy ta opcja jest włączona, nazwy użytkowników na stronie będą zmienione tak, aby były takie same jak w grze.",
     "admin/enabled": "Włączony",
     "admin/enter_authme_db_details": "Wprowadź poprawne dane bazy danych.",
     "admin/error_deleted_successfully": "Błąd został usunięty pomyślnie.",

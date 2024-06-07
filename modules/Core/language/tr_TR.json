@@ -136,8 +136,6 @@
     "admin/enable_player_list": "Oyuncu listesi etkinleştirilsin mi?",
     "admin/enable_registration": "Kayıt etkinleştirilsin mi?",
     "admin/enable_status_query": "Durum sorgusu etkinleştirilsin mi?",
-    "admin/enable_username_sync": "Kullanıcı adı senkronizasyonu etkinleştirilsin mi?",
-    "admin/enable_username_sync_info": "Etkinleştirilirse, web sitesi kullanıcı adları oyun içi kullanıcı adlarıyla eşleşecek şekilde güncellenecektir. Bu, oyun içi eklenti, çevrimiçi oyuncular için web sitesine UUID'lerin ve kullanıcı adlarının bir listesini gönderdiğinde gerçekleşir.",
     "admin/enabled": "Aktif",
     "admin/enter_authme_db_details": "Lütfen geçerli veritabanı bilgilerini girin.",
     "admin/error_deleted_successfully": "Hata başarıyla silindi.",

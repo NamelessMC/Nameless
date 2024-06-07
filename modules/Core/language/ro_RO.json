@@ -128,8 +128,6 @@
     "admin/enable_player_list": "Activați lista de jucători?",
     "admin/enable_registration": "Activați înregistrarea?",
     "admin/enable_status_query": "Activați interogarea de stare?",
-    "admin/enable_username_sync": "Activați sincronizarea numelor de utilizator?",
-    "admin/enable_username_sync_info": "Daca este activat, numele de utilizator de pe site va fi actualizat pentru a se potrivi cu numele de utilizator din joc. Acest lucru se intampla cand pluginul din joc trimite o lista cu UUID-uri si nume, pentru jucatorii online catre website.",
     "admin/enabled": "Activat",
     "admin/enter_authme_db_details": "Vă rugăm să introduceți datele valide ale bazei de date.",
     "admin/error_deleted_successfully": "Eroarea a fost ștearsă cu succes.",

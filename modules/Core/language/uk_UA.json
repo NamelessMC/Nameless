@@ -176,8 +176,6 @@
     "admin/enable_player_list": "Увімкнути список користувачів?",
     "admin/enable_registration": "Увімкнути реєстрацію?",
     "admin/enable_status_query": "Увімкнути запит статусу сервера?",
-    "admin/enable_username_sync": "Увімкнути синхронізацію імен користувачів?",
-    "admin/enable_username_sync_info": "Якщо цей параметр увімкнено, імена користувачів веб-сайту будуть оновлені відповідно до ігрових імен користувачів.",
     "admin/enabled": "Увімкнено",
     "admin/enter_authme_db_details": "Введіть правильні дані бази даних.",
     "admin/error_deleted_successfully": "Помилка була успішно вилучена.",

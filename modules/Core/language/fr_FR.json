@@ -156,8 +156,6 @@
     "admin/enable_player_list": "Activer la liste des joueurs?",
     "admin/enable_registration": "Activer les enregistrements ?",
     "admin/enable_status_query": "Activer la requête de statut?",
-    "admin/enable_username_sync": "Activer la synchronisation du nom d’utilisateur ?",
-    "admin/enable_username_sync_info": "Si activé, les noms d’utilisateur du site Web seront mis à jour pour correspondre aux noms d’utilisateur in-game. Cela se produit lorsque le plugin in-game envoie une liste d’UUIDs et de noms d’utilisateur, pour les joueurs en ligne, au site Web .",
     "admin/enabled": "Activé",
     "admin/enter_authme_db_details": "Veuillez saisir les données valides de la base de données.",
     "admin/error_deleted_successfully": "L'erreur a été supprimée avec succès.",

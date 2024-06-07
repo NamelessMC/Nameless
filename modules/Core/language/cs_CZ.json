@@ -180,8 +180,6 @@
     "admin/enable_player_list": "Zapnout seznam hráčů?",
     "admin/enable_registration": "Zapnout registrace?",
     "admin/enable_status_query": "Zapnout zjišťování stavu?",
-    "admin/enable_username_sync": "Zapnout synchronizaci uživatelských jmen?",
-    "admin/enable_username_sync_info": "Pokud povolíte tuto možnost, uživatelská jména na webu budou aktualizována tak, aby odpovídala uživatelským jménům ve hře. Toto se bude dít, když herní plugin odešle seznam UUID a uživatelských jmen online hráčů na web.",
     "admin/enabled": "Povoleno",
     "admin/enter_authme_db_details": "Zadejte platné podrobnosti databáze.",
     "admin/error_deleted_successfully": "Chyba byla úspěšně odstraněna.",

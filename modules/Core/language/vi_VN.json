@@ -196,8 +196,6 @@
     "admin/enable_player_list": "Bật danh sách người chơi?",
     "admin/enable_registration": "Cho phép đăng ký?",
     "admin/enable_status_query": "Bật trạng thái?",
-    "admin/enable_username_sync": "Bật đồng bộ hóa tên người dùng?",
-    "admin/enable_username_sync_info": "Nếu được bật, tên người dùng trang web sẽ được cập nhật để khớp với tên người dùng trong trò chơi. Điều này xảy ra khi plugin trong trò chơi gửi danh sách UUID và tên người dùng, dành cho người chơi trực tuyến, đến trang web.",
     "admin/enabled": "Cho phép",
     "admin/enter_authme_db_details": "Vui lòng nhập chi tiết cơ sở dữ liệu hợp lệ.",
     "admin/error_deleted_successfully": "Lỗi đã được xóa thành công.",

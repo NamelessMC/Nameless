@@ -172,8 +172,6 @@
     "admin/enable_player_list": "เปิดใช้งานรายชื่อผู้เล่นหรือไม่",
     "admin/enable_registration": "เปิดใช้งานการลงทะเบียนหรือไม่",
     "admin/enable_status_query": "เปิดใช้งานการสืบค้น status หรือไม่",
-    "admin/enable_username_sync": "เปิดใช้งานการซิงค์ชื่อผู้ใช้ไหม",
-    "admin/enable_username_sync_info": "หากเปิดใช้งาน ชื่อผู้ใช้ของเว็บไซต์จะได้รับการอัปเดตเพื่อให้ตรงกับชื่อผู้ใช้ในเกม",
     "admin/enabled": "เปิดใช้งาน",
     "admin/enter_authme_db_details": "กรุณากรอกรายละเอียดฐานข้อมูลที่ถูกต้อง",
     "admin/error_deleted_successfully": "ข้อผิดพลาดถูกลบเรียบร้อยแล้ว",

@@ -178,8 +178,6 @@
     "admin/enable_player_list": "是否启用玩家列表?",
     "admin/enable_registration": "是否启用注册?",
     "admin/enable_status_query": "是否启用联机状态查询?",
-    "admin/enable_username_sync": "是否启用用户名同步?",
-    "admin/enable_username_sync_info": "如果启用，网站用户名将被更新以匹配游戏中用户名。",
     "admin/enabled": "已启用",
     "admin/enter_authme_db_details": "请输入有效的数据库详细信息。",
     "admin/error_deleted_successfully": "错误日志已成功删除。",

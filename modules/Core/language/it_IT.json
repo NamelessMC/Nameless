@@ -165,8 +165,6 @@
     "admin/enable_player_list": "Abilitare la lista player?",
     "admin/enable_registration": "Abilitare le registrazioni?",
     "admin/enable_status_query": "Abilitare la query di stato?",
-    "admin/enable_username_sync": "Abilitare la sincronizzazione degli username?",
-    "admin/enable_username_sync_info": "Se abilitato, gli username verranno aggiornati per corrispondere agli username in gioco. Questo accade quando il plugin invia una lista degli UUIDs e username, per i players online, al sito.",
     "admin/enabled": "Abilitato",
     "admin/enter_authme_db_details": "Per favore, inserisci dei dettagli database validi.",
     "admin/error_deleted_successfully": "L'errore è stato cancellato con successo.",
