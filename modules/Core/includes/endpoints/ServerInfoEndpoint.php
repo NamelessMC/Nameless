@@ -118,25 +118,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 'username' => Output::getClean($player['name'])
             ]);
         }
-
-        if (Settings::get('username_sync')) {
-            $user = $integrationUser->getUser();
-            if (!$user->exists() || $player['name'] == $user->data()->username) {
-                return;
-            }
-
-            // Update username
-            if (Settings::get('displaynames') === '1') {
-                $user->update([
-                    'username' => $player['name']
-                ]);
-            } else {
-                $user->update([
-                    'username' => $player['name'],
-                    'nickname' => $player['name']
-                ]);
-            }
-        }
     }
 
     private function updatePlaceholders(User $user, $player): void {
