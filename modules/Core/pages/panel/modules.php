@@ -339,7 +339,7 @@ if (!isset($_GET['action'])) {
     }
 
     if ($_GET['action'] === 'uninstall') {
-        // Disable a module
+        // Uninstall a module
         if (!isset($_GET['m']) || !is_numeric($_GET['m']) || $_GET['m'] == 1) {
             die('Invalid module!');
         }
@@ -357,9 +357,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            DB::getInstance()->delete('modules', [
-                'id' => $_GET['m'],
-            ]);
+            DB::getInstance()->delete('modules', ['id', $_GET['m']]);
 
             // Cache
             $cache->setCache('modulescache');
@@ -390,6 +388,7 @@ if (!isset($_GET['action'])) {
             }
 
             Session::flash('admin_modules', $language->get('admin', 'module_uninstalled'));
+            Redirect::to(URL::build('/panel/core/modules'));
 
         } else {
             Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));

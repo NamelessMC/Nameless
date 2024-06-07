@@ -386,6 +386,7 @@
     "admin/module": "Module",
     "admin/module_disabled": "Module disabled.",
     "admin/module_enabled": "Module enabled.",
+    "admin/module_uninstalled": "Module uninstalled.",
     "admin/module_outdated": "We have detected that this module is intended for Nameless version {{intendedVersion}}, but you are running Nameless version {{actualVersion}}",
     "admin/module_x": "Module: {{module}}",
     "admin/modules": "Modules",

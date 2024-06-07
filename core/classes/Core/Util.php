@@ -52,9 +52,11 @@ class Util
         // safety precaution, only allow deleting files in "custom", "modules" or "uploads" directory
         if (
             str_contains($directory, 'Core') ||
-            !str_contains($directory, 'custom') ||
-            !str_contains($directory, 'modules') ||
-            !str_contains($directory, 'uploads')
+            (
+                !str_contains(realpath($directory), 'custom') &&
+                !str_contains(realpath($directory), 'modules') &&
+                !str_contains(realpath($directory), 'uploads')
+            )
         ) {
             return false;
         }
