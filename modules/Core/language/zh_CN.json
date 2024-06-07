@@ -1161,5 +1161,8 @@
     "admin/api_disabled": "API 已禁用",
     "admin/debugging_enabled": "启用调试，敏感信息可能会暴露给未经授权的访问者。 调试只能用于开发，不能用于公共站点。",
     "general/default": "默认",
-    "admin/debug_link_info": "重要 - 仅与您信任的人分享此链接！"
+    "admin/debug_link_info": "重要 - 仅与您信任的人分享此链接！",
+    "admin/authme_db_test_connection": "测试连接",
+    "admin/authme_db_connection_success": "连接成功",
+    "admin/authme_db_connection_failed": "连接失败"
 }
