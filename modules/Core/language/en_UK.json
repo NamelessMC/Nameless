@@ -82,6 +82,8 @@
     "admin/clone_group": "Clone group",
     "admin/closable": "Closable",
     "admin/communications": "Communications",
+    "admin/compat_pdo_version_info": "Either MySQL version {{mysql}} or MariaDB version {{mariadb}} is recommended.",
+    "admin/compat_php_version_info": "PHP version {{php}} is recommended.",
     "admin/config_not_writable": "Your core\/config.php file is not writable. Please check file permissions.",
     "admin/configuration": "Configuration",
     "admin/confirm_api_regen": "Are you sure you want to regenerate your API key?",
