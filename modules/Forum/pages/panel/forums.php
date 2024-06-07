@@ -238,7 +238,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     $hooks_array = [];
                     if (count($hooks_query)) {
                         foreach ($hooks_query as $hook) {
-                            if (in_array('newTopic', json_decode($hook->events))) {
+                            $events = json_decode($hook->events, true);
+                            if (in_array('newTopic', $events) || in_array('topicReply', $events)) {
                                 $hooks_array[] = [
                                     'id' => $hook->id,
                                     'name' => Output::getClean($hook->name),
@@ -693,7 +694,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             $hooks_array = [];
             if (count($hooks_query)) {
                 foreach ($hooks_query as $hook) {
-                    if (in_array('newTopic', json_decode($hook->events))) {
+                    $events = json_decode($hook->events, true);
+                    if (in_array('newTopic', $events) || in_array('topicReply', $events)) {
                         $hooks_array[] = [
                             'id' => $hook->id,
                             'name' => Output::getClean($hook->name),
