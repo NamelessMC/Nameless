@@ -17,7 +17,6 @@
  * @var User         $user
  * @var Widgets      $widgets
  */
-
 header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 
 const PAGE = 404;

@@ -12,7 +12,6 @@
  * @var string       $page_title
  * @var TemplateBase $template
  */
-
 const BACK_END = true;
 
 if (file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/template.php')) {

@@ -11,7 +11,6 @@
  * @var string   $page_title
  * @var User     $user
  */
-
 const FRONT_END = true;
 
 // Set current page URL in session, provided it's not the login page

@@ -19,7 +19,6 @@
  * @var User         $user
  * @var Widgets      $widgets
  */
-
 if (isset($_POST['username'])) {
     $_SESSION['username'] = $_POST['username'];
 } else {

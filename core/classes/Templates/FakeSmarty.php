@@ -8,7 +8,6 @@
  * @version 2.2.0
  * @deprecated
  */
-
 class FakeSmarty
 {
     private TemplateEngine $_engine;

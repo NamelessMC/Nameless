@@ -6,7 +6,6 @@
  * @license MIT
  * @version 2.2.0
  */
-
 abstract class TemplateEngine
 {
     private array $_variables;
@@ -22,7 +21,7 @@ abstract class TemplateEngine
      * TODO: mixed type for $value
      *
      * @param  string $key
-     * @param  mixed $value
+     * @param  mixed  $value
      * @return void
      */
     public function addVariable(string $key, $value): void
@@ -67,7 +66,7 @@ abstract class TemplateEngine
      *
      * @param string $templateFile Path to template file to render.
      */
-    public abstract function render(string $templateFile): void;
+    abstract public function render(string $templateFile): void;
 
     /**
      * Fetch a generated template file using the set template engine.
@@ -75,10 +74,10 @@ abstract class TemplateEngine
      * @param  string $templateFile Path to template file to render.
      * @return string HTML to render
      */
-    public abstract function fetch(string $templateFile): string;
+    abstract public function fetch(string $templateFile): string;
 
     /**
      * Clear template cache directory.
      */
-    public abstract function clearCache(): void;
+    abstract public function clearCache(): void;
 }

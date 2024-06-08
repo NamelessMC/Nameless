@@ -9,5 +9,4 @@
  * @var Navigation   $cc_nav
  * @var TemplateBase $template
  */
-
 $template->getEngine()->addVariable('CC_NAV_LINKS', $cc_nav->returnNav());

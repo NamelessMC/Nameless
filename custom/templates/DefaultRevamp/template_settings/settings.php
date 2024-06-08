@@ -1,18 +1,15 @@
 <?php
 /**
- * Default Revamp template settings
+ * Default Revamp template settings.
  *
  * @author Samerton
  * @version 2.2.0
  * @license MIT
- */
-
-/**
- * @var Cache $cache
- * @var Language $language
+ *
+ * @var Cache        $cache
+ * @var Language     $language
  * @var TemplateBase $current_template
  */
-
 if (Input::exists()) {
     if (Token::check()) {
         $cache->setCache('template_settings');

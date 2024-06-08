@@ -6,14 +6,13 @@
  * @license MIT
  * @version 2.2.0
  */
-
 class SmartyTemplateEngine extends TemplateEngine
 {
     private Smarty $_smarty;
 
     /**
-     * @param string $template      Template name to load
-     * @param bool   $panelTemplate Whether this is a panel template or not
+     * @param  string          $template      Template name to load
+     * @param  bool            $panelTemplate Whether this is a panel template or not
      * @throws SmartyException
      */
     public function __construct(string $template, bool $panelTemplate = false)
@@ -77,6 +76,7 @@ class SmartyTemplateEngine extends TemplateEngine
         $templateFile = str_replace('.tpl', '', $templateFile);
 
         $this->_smarty->assign($this->getVariables());
+
         return $this->_smarty->fetch("$templateFile.tpl");
     }
 

@@ -36,5 +36,5 @@ $template->getEngine()->addVariables([
         'user_title' => Output::getClean($user->data()->user_title),
         'avatar' => $user->getAvatar(),
         'integrations' => $user_integrations ?? [],
-    ]
+    ],
 ]);

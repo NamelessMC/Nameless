@@ -19,7 +19,6 @@
  * @var User         $user
  * @var Widgets      $widgets
  */
-
 $pages = new Pages();
 
 const PAGE = 'maintenance';

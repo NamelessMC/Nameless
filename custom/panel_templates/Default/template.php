@@ -16,7 +16,6 @@
 if (!class_exists('Default_Panel_Template')) {
     class Default_Panel_Template extends SmartyTemplateBase
     {
-
         private Language $_language;
 
         // Constructor - set template name, version, Nameless version and author here
