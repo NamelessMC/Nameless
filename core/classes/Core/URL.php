@@ -145,7 +145,7 @@ class URL
      */
     public static function isExternalURL(string $url): bool
     {
-        if ($url[0] == '/' && $url[1] != '/') {
+        if (($url[0] == '/' && $url[1] != '/') || $url[0] == '#') {
             return false;
         }
 
@@ -164,11 +164,11 @@ class URL
     public static function replaceAnchorsWithText(string $data): string
     {
         return preg_replace_callback('/]*href=["|\']([^"|\']*)["|\'][^>]*>([^<]*)<\/a>/i', static function ($m): string {
-            if (!str_contains($m[1], self::getSelfURL())) {
+            if (self::isExternalUrl($m[1])) {
                 return 'href="' . $m[1] . '" rel="nofollow noopener" target="_blank">' . $m[2] . '</a>';
             }
 
-            return 'href="' . $m[1] . '" target="_blank">' . $m[2] . '</a>';
+            return $m[0];
         }, $data);
     }
 
