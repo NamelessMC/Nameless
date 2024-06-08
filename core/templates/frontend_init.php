@@ -1,15 +1,15 @@
 <?php
 /**
- * Frontend initialisation
+ * Frontend initialisation.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  *
- * @var Cache $cache
+ * @var Cache    $cache
  * @var Language $language
- * @var string $page_title
- * @var User $user
+ * @var string   $page_title
+ * @var User     $user
  */
 
 const FRONT_END = true;
@@ -79,7 +79,7 @@ $template->getEngine()->addVariables([
     'SITE_NAME' => Output::getClean(SITE_NAME),
     'SITE_HOME' => URL::build('/'),
     'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
-    'GUEST' => $language->get('user', 'guest')
+    'GUEST' => $language->get('user', 'guest'),
 ]);
 
 $cache->setCache('backgroundcache');
@@ -217,7 +217,7 @@ if ($user->isLoggedIn()) {
     if ($user->canViewStaffCP()) {
         $template->getEngine()->addVariables([
             'PANEL_LINK' => URL::build('/panel'),
-            'PANEL' => $language->get('moderator', 'staff_cp')
+            'PANEL' => $language->get('moderator', 'staff_cp'),
         ]);
     }
 }

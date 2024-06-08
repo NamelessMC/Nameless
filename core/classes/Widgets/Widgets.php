@@ -20,10 +20,10 @@ class Widgets
     private string $_name;
 
     /**
-     * @param Cache $cache
-     * @param Language $language
+     * @param Cache        $cache
+     * @param Language     $language
      * @param TemplateBase $template
-     * @param string $name
+     * @param string       $name
      */
     public function __construct(
         Cache $cache,

@@ -1,13 +1,13 @@
 <?php
 /**
- * Footer initialisation
+ * Footer initialisation.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  *
- * @var Language $language
- * @var Navigation $navigation
+ * @var Language     $language
+ * @var Navigation   $navigation
  * @var TemplateBase $template
  */
 

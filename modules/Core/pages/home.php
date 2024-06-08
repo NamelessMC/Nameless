@@ -22,7 +22,7 @@
 // Always define page name
 const PAGE = 'index';
 $page_title = $language->get('general', 'home');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->assets()->include([
     DARK_MODE
@@ -51,7 +51,7 @@ if ($home_type === 'news') {
     foreach ($front_page_modules as $module) {
         require(ROOT_PATH . '/' . $module);
     }
-} else if ($home_type === 'custom') {
+} elseif ($home_type === 'custom') {
     $template->getEngine()->addVariable('CUSTOM_HOME_CONTENT', Settings::get('home_custom_content'));
 }
 

@@ -233,9 +233,9 @@ abstract class TemplateBase
     }
 
     /**
-     * Fetches template HTML instead of rendering it
+     * Fetches template HTML instead of rendering it.
      *
-     * @param string $template
+     * @param  string $template
      * @return string Generated HTML
      */
     public function getTemplate(string $template): string
@@ -249,11 +249,12 @@ abstract class TemplateBase
     }
 
     /**
-     * Get template engine
+     * Get template engine.
      *
      * @return TemplateEngine
      */
-    public function getEngine(): TemplateEngine {
+    public function getEngine(): TemplateEngine
+    {
         return $this->_engine;
     }
 }

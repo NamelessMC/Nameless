@@ -409,7 +409,7 @@ if ($page != 'install') {
     // Load modules
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
-             require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
+            require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
         }
     }
 
@@ -568,7 +568,6 @@ if ($page != 'install') {
                 'identifier' => Output::getClean($integrationUser->data()->identifier),
             ];
         }
-
     } else {
         // Perform tasks for guests
         if (!$_SESSION['checked'] || (isset($_SESSION['checked']) && $_SESSION['checked'] <= strtotime('-5 minutes'))) {

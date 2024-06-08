@@ -9,7 +9,7 @@ abstract class AbstractWidget
     protected ?string $_settings = null;
     protected bool $_requires_cookies = false;
     /**
-     * Will be removed in 2.3.0
+     * Will be removed in 2.3.0.
      * @var ?Smarty
      * @deprecated
      */
@@ -80,7 +80,7 @@ abstract class AbstractWidget
     }
 
     /**
-     * Get Smarty instance in use by this widget. Removed in 2.3.0
+     * Get Smarty instance in use by this widget. Removed in 2.3.0.
      *
      * @return Smarty Instance in use.
      * @deprecated
@@ -93,9 +93,10 @@ abstract class AbstractWidget
     /**
      * Get template engine in use by this widget.
      *
-     * @return TemplateEngine Engine in use
+     * @return TemplateEngine Engine in use.
      */
-    public function getTemplateEngine(): ?TemplateEngine {
+    public function getTemplateEngine(): ?TemplateEngine
+    {
         return $this->_engine;
     }
 

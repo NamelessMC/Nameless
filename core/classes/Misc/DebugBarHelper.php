@@ -58,17 +58,20 @@ class DebugBarHelper extends Instanceable
         $this->_debugBar = $debugbar;
     }
 
-    public function addCollector(DataCollector $collector): void {
+    public function addCollector(DataCollector $collector): void
+    {
         $this->_debugBar->addCollector($collector);
     }
 
-    public function addSmartyCollector(Smarty $smarty): void {
+    public function addSmartyCollector(Smarty $smarty): void
+    {
         $smartyCollector = new SmartyCollector($smarty);
         $smartyCollector->useHtmlVarDumper();
         $this->addCollector($smartyCollector);
     }
 
-    public function addTwigCollector(Environment $twig, Profile $profile): void {
+    public function addTwigCollector(Environment $twig, Profile $profile): void
+    {
         $twig->addExtension(new ProfilerExtension($profile));
         $this->addCollector(new NamespacedTwigProfileCollector($profile));
     }

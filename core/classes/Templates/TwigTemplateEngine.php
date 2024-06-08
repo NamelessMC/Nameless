@@ -1,6 +1,6 @@
 <?php
 /**
- * Twig template engine
+ * Twig template engine.
  *
  * @author Samerton
  * @license MIT
@@ -13,13 +13,15 @@ use Twig\Loader\FilesystemLoader;
 use Twig\Profiler\Profile;
 use Twig\Sandbox\SecurityPolicy;
 
-class TwigTemplateEngine extends TemplateEngine {
+class TwigTemplateEngine extends TemplateEngine
+{
     private Environment $_twig;
 
     /**
-     * @param string $template Template name to load
+     * @param string $template Template name to load.
      */
-    public function __construct(string $template) {
+    public function __construct(string $template)
+    {
         $loader = new FilesystemLoader(ROOT_PATH . '/custom/templates/' . $template);
         $twig = new Environment($loader, [
             'cache' => ROOT_PATH . '/cache/twig',
@@ -39,17 +41,20 @@ class TwigTemplateEngine extends TemplateEngine {
         parent::__construct();
     }
 
-    public function render(string $templateFile): void {
+    public function render(string $templateFile): void
+    {
         echo $this->fetch($templateFile);
     }
 
-    public function fetch(string $templateFile): string {
+    public function fetch(string $templateFile): string
+    {
         $templateFile = str_replace('.tpl', '', $templateFile);
 
         return $this->_twig->render("$templateFile.twig", $this->getVariables());
     }
 
-    public function clearCache(): void {
+    public function clearCache(): void
+    {
         $dir = ROOT_PATH . '/cache/twig';
 
         foreach (glob($dir . '/*') as $file) {

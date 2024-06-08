@@ -1,6 +1,6 @@
 <?php
 /**
- * Maintenance page
+ * Maintenance page.
  *
  * TODO: move this file
  *
@@ -8,16 +8,16 @@
  * @license MIT
  * @version 2.2.0
  *
- * @var Cache $cache
- * @var FakeSmarty $smarty
- * @var Language $language
- * @var Navigation $cc_nav
- * @var Navigation $navigation
- * @var Navigation $staffcp_nav
- * @var Pages $pages
+ * @var Cache        $cache
+ * @var FakeSmarty   $smarty
+ * @var Language     $language
+ * @var Navigation   $cc_nav
+ * @var Navigation   $navigation
+ * @var Navigation   $staffcp_nav
+ * @var Pages        $pages
  * @var TemplateBase $template
- * @var User $user
- * @var Widgets $widgets
+ * @var User         $user
+ * @var Widgets      $widgets
  */
 
 $pages = new Pages();

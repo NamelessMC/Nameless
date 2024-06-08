@@ -1,21 +1,21 @@
 <?php
 /**
- * Staff panel templates page
+ * Staff panel templates page.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  *
- * @var Cache $cache
- * @var FakeSmarty $smarty
- * @var Language $language
- * @var Navigation $cc_nav
- * @var Navigation $navigation
- * @var Navigation $staffcp_nav
- * @var Pages $pages
+ * @var Cache        $cache
+ * @var FakeSmarty   $smarty
+ * @var Language     $language
+ * @var Navigation   $cc_nav
+ * @var Navigation   $navigation
+ * @var Navigation   $staffcp_nav
+ * @var Pages        $pages
  * @var TemplateBase $template
- * @var User $user
- * @var Widgets $widgets
+ * @var User         $user
+ * @var Widgets      $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.templates')) {
@@ -356,7 +356,7 @@ if (!isset($_GET['action'])) {
                 if ($template->getSettings()) {
                     require_once($template->getSettings());
 
-                    $template->getEngine()->addVariables([
+                    $current_template->getEngine()->addVariables([
                         'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
                             'template' => Text::bold(Output::getClean($template_query->name))
                         ]),

@@ -1,12 +1,12 @@
 <?php
 /**
- * User settings area navbar generation
+ * User settings area navbar generation.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  *
- * @var Navigation $cc_nav
+ * @var Navigation   $cc_nav
  * @var TemplateBase $template
  */
 

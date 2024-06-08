@@ -154,10 +154,10 @@ class DefaultRevamp_Template extends SmartyTemplateBase
 }
 
 /**
- * @var Cache $cache
+ * @var Cache    $cache
  * @var Language $language
- * @var User $user
- * @var Pages $pages
+ * @var User     $user
+ * @var Pages    $pages
  */
 $template = new DefaultRevamp_Template($cache, $language, $user, $pages);
 $template_pagination = ['div' => 'ui mini pagination menu', 'a' => '{x}item'];

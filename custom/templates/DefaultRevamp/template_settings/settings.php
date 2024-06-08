@@ -1,12 +1,16 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Default Revamp template settings
  *
- *  License: MIT
- *
- *  DefaultRevamp template settings
+ * @author Samerton
+ * @version 2.2.0
+ * @license MIT
+ */
+
+/**
+ * @var Cache $cache
+ * @var Language $language
+ * @var TemplateBase $current_template
  */
 
 if (Input::exists()) {
@@ -119,7 +123,7 @@ $current_template->assets()->include([
 
 $current_template->addJSScript(Input::createTinyEditor($language, 'inputHomeCustomContent', Settings::get('home_custom_content')));
 
-$smarty->assign([
+$current_template->getEngine()->addVariables([
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),

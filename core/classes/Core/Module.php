@@ -56,7 +56,8 @@ abstract class Module
      * @param Widgets                $widgets  Instance of widget class to pass.
      * @param TemplateBase           $template Template to pass.
      */
-    public static function loadPage(User $user, Pages $pages, Cache $cache, $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void {
+    public static function loadPage(User $user, Pages $pages, Cache $cache, $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void
+    {
         foreach (self::getModules() as $module) {
             $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
         }

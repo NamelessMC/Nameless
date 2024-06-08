@@ -1,16 +1,16 @@
 <?php
 /**
- * Navbar initialisation
+ * Navbar initialisation.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  *
  * @var Announcements $announcements
- * @var Language $language
- * @var Navigation $navigation
- * @var TemplateBase $template
- * @var User $user
+ * @var Language      $language
+ * @var Navigation    $navigation
+ * @var TemplateBase  $template
+ * @var User          $user
  */
 
 // User area - DEPRECATED, will be removed at some point

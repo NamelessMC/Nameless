@@ -136,7 +136,7 @@ if (!class_exists('Default_Panel_Template')) {
 
             ');
 
-            $this->getEngine()->addVariable('NAMELESS_LOGO', (URL::buildAssetPath('/core/assets/img/namelessmc_logo.png')));
+            $this->getEngine()->addVariable('NAMELESS_LOGO', URL::buildAssetPath('/core/assets/img/namelessmc_logo.png'));
         }
 
         public function onPageLoad()

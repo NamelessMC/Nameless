@@ -1,20 +1,23 @@
 <?php
 /**
- * Smarty template engine
+ * Smarty template engine.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  */
 
-class SmartyTemplateEngine extends TemplateEngine {
+class SmartyTemplateEngine extends TemplateEngine
+{
     private Smarty $_smarty;
 
     /**
-     * @param string $template Template name to load
-     * @param bool $panelTemplate Whether this is a panel template or not
+     * @param string $template      Template name to load
+     * @param bool   $panelTemplate Whether this is a panel template or not
+     * @throws SmartyException
      */
-    public function __construct(string $template, bool $panelTemplate = false) {
+    public function __construct(string $template, bool $panelTemplate = false)
+    {
         $smarty = new Smarty();
 
         $securityPolicy = new Smarty_Security($smarty);
@@ -29,7 +32,7 @@ class SmartyTemplateEngine extends TemplateEngine {
             'explode',
             'implode',
             'strtolower',
-            'strtoupper'
+            'strtoupper',
         ];
         $securityPolicy->php_functions = [
             'isset',
@@ -42,7 +45,7 @@ class SmartyTemplateEngine extends TemplateEngine {
             'nl2br',
             'is_numeric',
             'file_exists',
-            'array_key_exists'
+            'array_key_exists',
         ];
         $securityPolicy->secure_dir = [ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates'];
         $smarty->enableSecurity($securityPolicy);
@@ -64,18 +67,21 @@ class SmartyTemplateEngine extends TemplateEngine {
         parent::__construct();
     }
 
-    public function render(string $templateFile): void {
+    public function render(string $templateFile): void
+    {
         echo $this->fetch($templateFile);
     }
 
-    public function fetch(string $templateFile): string {
+    public function fetch(string $templateFile): string
+    {
         $templateFile = str_replace('.tpl', '', $templateFile);
 
         $this->_smarty->assign($this->getVariables());
         return $this->_smarty->fetch("$templateFile.tpl");
     }
 
-    public function clearCache(): void {
+    public function clearCache(): void
+    {
         $this->_smarty->clearAllCache();
     }
 }

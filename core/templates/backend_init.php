@@ -1,15 +1,15 @@
 <?php
 /**
- * Staff panel initialisation
+ * Staff panel initialisation.
  *
  * @author Samerton
  * @license MIT
  * @version 2.2.0
  *
- * @var Cache $cache
- * @var Language $language
- * @var Navigation $cc_nav
- * @var string $page_title
+ * @var Cache        $cache
+ * @var Language     $language
+ * @var Navigation   $cc_nav
+ * @var string       $page_title
  * @var TemplateBase $template
  */
 
