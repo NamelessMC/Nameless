@@ -52,7 +52,7 @@ class Members_Module extends Module {
         $language = $this->_language;
 
         // AdminCP
-        PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
+        PermissionRegistry::registerPermissions($language->get('moderator', 'staff_cp'), [
             'admincp.members' => $this->_members_language->get('members', 'member_lists')
         ]);
 

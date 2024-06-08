@@ -33,6 +33,7 @@ class Report {
         $id = $db->lastId();
 
         // Alert moderators
+        // todo
         $moderator_groups = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\'')->results();
 
         if (count($moderator_groups)) {

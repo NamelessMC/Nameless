@@ -68,14 +68,7 @@ if ($page != 'install') {
      * Initialise
      */
 
-    $container = new \DI\Container();
-    $container->set(Cache::class, function () {
-        return new Cache([
-            'name' => 'nameless',
-            'extension' => '.cache',
-            'path' => ROOT_PATH . '/cache/'
-        ]);
-    });
+    $container = NamelessContainer::getInstance();
 
     $cache = $container->get(Cache::class);
 
@@ -417,6 +410,9 @@ if ($page != 'install') {
 
     $endpoints = $container->get(Endpoints::class);
     $announcements = $container->get(Announcements::class);
+    $permission_cache = $container->get(PermissionCache::class);
+    // $permission_cache->flush();
+    $permission_calculator = $container->get(PermissionCalculator::class);
 
     // Modules
     $cache->setCache('modulescache');

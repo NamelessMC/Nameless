@@ -591,12 +591,12 @@ class Core_Module extends Module {
         $language = $this->_language;
 
         // Permissions
-        PermissionHandler::registerPermissions($language->get('admin', 'administrator'), [
+        PermissionRegistry::registerPermissions($language->get('admin', 'administrator'), [
             'administrator' => $language->get('admin', 'administrator') . ' &raquo; ' . $language->get('admin', 'administrator_permission_info'),
         ]);
 
         // AdminCP
-        PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
+        PermissionRegistry::registerPermissions($language->get('moderator', 'staff_cp'), [
             'admincp.core' => $language->get('admin', 'core'),
             'admincp.core.api' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'api'),
             'admincp.core.seo' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'seo'),
@@ -654,7 +654,7 @@ class Core_Module extends Module {
         ]);
 
         // UserCP
-        PermissionHandler::registerPermissions('UserCP', [
+        PermissionRegistry::registerPermissions('UserCP', [
             'usercp.messaging' => $language->get('user', 'messaging'),
             'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature'),
             'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile'),
@@ -664,7 +664,7 @@ class Core_Module extends Module {
         ]);
 
         // Profile Page
-        PermissionHandler::registerPermissions('Profile', [
+        PermissionRegistry::registerPermissions('Profile', [
             'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile')
         ]);
 

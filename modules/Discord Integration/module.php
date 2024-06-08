@@ -51,7 +51,7 @@ class Discord_Module extends Module {
     }
 
     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
-        PermissionHandler::registerPermissions($this->getName(), [
+        PermissionRegistry::registerPermissions($this->getName(), [
             'admincp.discord' => $this->_language->get('admin', 'integrations') . ' &raquo; ' . Discord::getLanguageTerm('discord'),
         ]);
 

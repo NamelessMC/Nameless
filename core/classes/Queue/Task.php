@@ -232,10 +232,10 @@ abstract class Task {
     }
 
     /**
-     * @param Container $container
+     * @param NamelessContainer $container
      * @return void
      */
-    public function setContainer(Container $container) {
+    public function setContainer(NamelessContainer $container) {
         $this->_container = $container;
     }
 

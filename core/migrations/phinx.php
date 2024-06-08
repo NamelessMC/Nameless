@@ -23,7 +23,7 @@ return [
             'port' => $config['port'],
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'default_migration_table' => $table,
+            'migration_table' => $table,
         ],
     ],
     'feature_flags' => [

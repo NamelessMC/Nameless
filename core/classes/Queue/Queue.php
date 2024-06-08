@@ -62,11 +62,11 @@ class Queue {
     /**
      * Process the next 5 tasks in the queue
      *
-     * @param Container $container Dependency injection container
+     * @param NamelessContainer $container Dependency injection container
      *
      * @return array Processed tasks
      */
-    public static function process(Container $container): array {
+    public static function process(NamelessContainer $container): array {
         $db = DB::getInstance();
 
         $pendingTasks = DB::getInstance()->query(

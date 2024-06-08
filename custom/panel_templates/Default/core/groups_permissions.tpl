@@ -49,37 +49,38 @@
                             <!-- Success and Error Alerts -->
                             {include file='includes/alerts.tpl'}
 
-                            <form action="" method="post">
-                                {foreach from=$ALL_PERMISSIONS key=key item=item}
+                            {foreach from=$ALL_PERMISSIONS key=key item=item}
                                 <h3 class="mt-3">{$key|escape}</h3>
+
                                 {if $item|@count > 1}
-                                <a href="#" onclick="return selectAllPerms('{$key|escape}');">{$SELECT_ALL}</a>
-                                |
-                                <a href="#" onclick="return deselectAllPerms('{$key|escape}');">{$DESELECT_ALL}</a>
+                                    <span class="btn btn-link" onclick="return selectAllPerms('{$key|escape}');">{$SELECT_ALL}</span>
+                                    <span class="btn btn-link" onclick="return inheritAllPerms('{$key|escape}');">{$INHERIT_ALL}</span>
+                                    <span class="btn btn-link" onclick="return deselectAllPerms('{$key|escape}');">{$DESELECT_ALL}</span>
                                 {/if}
-                                <!-- </h3> -->
-                                <div id="perm-section-{$key|escape}">
-                                    {foreach from=$item key=permission item=title}
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="permissions[{$permission|escape}]"
-                                            id="permissions-checkbox-[{$permission|escape}]"
-                                            class="custom-control-input" value="1" {if is_array($PERMISSIONS_VALUES) &&
-                                            array_key_exists($permission|escape, $PERMISSIONS_VALUES)} checked{/if}>
-                                        <label class="custom-control-label"
-                                            for="permissions-checkbox-[{$permission|escape}]">
-                                            {$title}
-                                        </label>
-                                    </div>
-                                    {/foreach}
-                                </div>
-                                {/foreach}
 
-                                <div class="form-group mt-3">
+                                <table class="table table-striped" id="permission-section-{$key|escape}">
+                                    <tbody>
+                                        {foreach from=$item key=permission item=title}
+                                            <tr>
+                                                <td>{$title}</td>
+                                                <td class="btn-group pull-right" id="permission-buttons-{$permission}">
+                                                    <button type="button" class="btn btn-success" id="permission-allow-{$permission}" onclick="togglePermissionButtons('allow', '{$permission}')" {if array_key_exists($permission, $GROUP_PERMISSIONS) && $GROUP_PERMISSIONS[$permission] == 1} disabled{/if}>Allow</button>
+                                                    <button type="button" class="btn btn-secondary" id="permission-inherit-{$permission}" onclick="togglePermissionButtons('inherit', '{$permission}')" {if array_key_exists($permission, $GROUP_PERMISSIONS) && $GROUP_PERMISSIONS[$permission] == -1} disabled{/if}>Inherit</button>
+                                                    <button type="button" class="btn btn-danger" id="permission-deny-{$permission}" onclick="togglePermissionButtons('deny', '{$permission}')" {if array_key_exists($permission, $GROUP_PERMISSIONS) && $GROUP_PERMISSIONS[$permission] == 0} disabled{/if}>Deny</button>
+                                                </td>
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                            {/foreach}
+
+                            <div class="form-group mt-3">
+                                <button type="button" class="btn btn-primary" onclick="submitForm()">{$SUBMIT}</button>
+                                <form id="permissions-form" method="post">
                                     <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                                </div>
-                            </form>
-
+                                    <input type="hidden" name="permissions" value="">
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -104,32 +105,51 @@
     {include file='scripts.tpl'}
 
     <script type="text/javascript">
+        const permissions = {$GROUP_PERMISSIONS_JSON};
+
         function selectAllPerms(sectionName) {
-            let section = $('#perm-section-' + sectionName);
-            section.find('.custom-control-input').each(function () {
-                $(this).prop('checked', true);
-                onChange(this);
-            });
-            return false;
+            toggleTypeForSection(sectionName, 'allow');
         }
 
         function deselectAllPerms(sectionName) {
-            let section = $('#perm-section-' + sectionName);
-            section.find('.custom-control-input').each(function () {
-                $(this).prop('checked', false);
-                onChange(this);
-            });
-            return false;
+            toggleTypeForSection(sectionName, 'deny');
         }
 
-        function onChange(el) {
-            if (typeof Event === 'function' || !document.fireEvent) {
-                var event = document.createEvent('HTMLEvents');
-                event.initEvent('change', true, true);
-                el.dispatchEvent(event);
-            } else {
-                el.fireEvent('onchange');
+        function inheritAllPerms(sectionName) {
+            toggleTypeForSection(sectionName, 'inherit');
+        }
+
+        function toggleTypeForSection(sectionName, type) {
+            const buttons = document.getElementById('permission-section-' + sectionName).querySelectorAll('button');
+            for (const button of buttons) {
+                const bits = button.id.split('-');
+                const buttonValue = bits[1];
+                const permission = bits[2];
+                if (buttonValue === type) {
+                    togglePermissionButtons(buttonValue, permission);
+                }
+            };
+        }
+
+        function togglePermissionButtons(value, permission) {
+            const enableButton = document.getElementById('permission-' + value + '-' + permission);
+            enableButton.disabled = true;
+            const buttons = document.getElementById('permission-buttons-' + permission).querySelectorAll('button');
+            for (const button of buttons) {
+                if (button.id !== enableButton.id) {
+                    button.disabled = false;
+                }
             }
+            if (value === 'inherit') {
+                delete permissions[permission];
+                return;
+            }
+            permissions[permission] = value === 'allow' ? 1 : 0;
+        }
+
+        function submitForm() {
+            document.getElementsByName('permissions')[0].value = JSON.stringify(permissions);
+            document.getElementById('permissions-form').submit();
         }
     </script>
 

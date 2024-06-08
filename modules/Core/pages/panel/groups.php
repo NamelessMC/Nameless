@@ -354,7 +354,6 @@ if (isset($_GET['action'])) {
                                     'group_username_css' => ($_POST['username_css'] ? Input::get('username_css') : null),
                                     'admin_cp' => Input::get('staff'),
                                     'staff' => Input::get('staff'),
-                                    'permissions' => $group->permissions,
                                     'default_group' => $default,
                                     'order' => Input::get('order'),
                                     'force_tfa' => Input::get('tfa')
@@ -446,17 +445,8 @@ if (isset($_GET['action'])) {
 
                 if (Token::check()) {
                     // Token valid
-                    // Build new JSON object for permissions
-                    $perms = [];
-                    if (isset($_POST['permissions']) && count($_POST['permissions'])) {
-                        foreach ($_POST['permissions'] as $permission => $value) {
-                            $perms[$permission] = 1;
-                        }
-                    }
-                    $perms_json = json_encode($perms);
-
                     try {
-                        DB::getInstance()->update('groups', $group->id, ['permissions' => $perms_json]);
+                        $permission_cache->upsert(Group::class, $group->id, json_decode($_POST['permissions'], true));
 
                         Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
                         Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)));
@@ -472,10 +462,13 @@ if (isset($_GET['action'])) {
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
-                'PERMISSIONS_VALUES' => json_decode($group->permissions, true),
-                'ALL_PERMISSIONS' => PermissionHandler::getPermissions(),
+                'GROUP_PERMISSIONS' => $permission_cache->getOrLoad(Group::class, $group->id),
+                'GROUP_PERMISSIONS_JSON' => json_encode($permission_cache->getOrLoad(Group::class, $group->id)),
+                'ALL_PERMISSIONS' => PermissionRegistry::getPermissions(),
                 'SELECT_ALL' => $language->get('admin', 'select_all'),
-                'DESELECT_ALL' => $language->get('admin', 'deselect_all')
+                'DESELECT_ALL' => $language->get('admin', 'deselect_all'),
+                'INHERIT_ALL' => $language->get('admin', 'inherit_all'),
+                'PERMISSION_UPDATE_URL' => URL::build('/panel/core/groups/', 'action=permissions&group=' . urlencode($group->id)),
             ]);
 
             $template_file = 'core/groups_permissions.tpl';

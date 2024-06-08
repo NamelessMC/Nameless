@@ -467,19 +467,9 @@ class User {
             return false;
         }
 
-        foreach ($this->getGroups() as $group) {
-            $permissions = json_decode($group->permissions, true) ?? [];
-
-            if (isset($permissions['administrator']) && $permissions['administrator'] == 1) {
-                return true;
-            }
-
-            if (isset($permissions[$permission]) && $permissions[$permission] == 1) {
-                return true;
-            }
-        }
-
-        return false;
+        return NamelessContainer::getInstance()
+            ->get(PermissionCalculator::class)
+            ->userHasPermission($this, $permission);
     }
 
     /**

@@ -30,7 +30,6 @@ class Group {
         $this->group_username_css = $row->group_username_css;
         $this->admin_cp = $row->admin_cp;
         $this->staff = $row->staff;
-        $this->permissions = $row->permissions;
         $this->default_group = $row->default_group;
         $this->order = $row->order;
         $this->force_tfa = $row->force_tfa;
