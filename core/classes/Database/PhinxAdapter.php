@@ -19,8 +19,6 @@ class PhinxAdapter
         ?string $migrationDir = null,
         bool $returnResults = false
     ) {
-        return;
-
         $module = strtolower($module);
 
         if ($module === 'core') {
