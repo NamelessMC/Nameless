@@ -123,10 +123,12 @@ if (!count($news)) {
 if ($user->hasPermission('admincp.core.debugging')) {
     $compat_success = [];
     $compat_warnings = [];
+    $compat_warnings_help = [];
     $compat_errors = [];
 
     if (PHP_VERSION_ID < 80200) {
         $compat_warnings[] = 'PHP ' . PHP_VERSION;
+        $compat_warnings_help[] = $language->get('admin', 'compat_php_version_info', ['php' => '8.0+']);
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
     }
@@ -188,9 +190,16 @@ if ($user->hasPermission('admincp.core.debugging')) {
     if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '8.0', '>=')) ||
         ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.5', '>='))) {
         $compat_success[] = $pdo_driver . ' Server ' . $pdo_server_version;
+
     } else if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=')) ||
         ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>='))) {
         $compat_warnings[] = $pdo_driver . ' Server ' . $pdo_server_version;
+        $compat_warnings_help[] = $language->get(
+            'admin',
+            'compat_pdo_version_info',
+            ['mysql' => '8.0+', 'mariadb' => '10.5+']
+        );
+
     } else {
         $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
     }
@@ -216,12 +225,14 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_warnings[] = $language->get('admin', 'panel_template_third_party', [
             'name' => Text::bold($template->getName()),
         ]);
+        $compat_warnings_help[] = null;
     }
 
     $template->getEngine()->addVariables([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
         'COMPAT_WARNINGS' => $compat_warnings,
+        'COMPAT_WARNINGS_INFO' => $compat_warnings_help,
         'COMPAT_ERRORS' => $compat_errors,
     ]);
 }
@@ -253,6 +264,7 @@ $template->getEngine()->addVariables([
     'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', [
         'version' => Text::bold(NAMELESS_VERSION)
     ]),
+    'INFO' => $language->get('general', 'info'),
 ]);
 
 $template->onPageLoad();

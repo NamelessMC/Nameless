@@ -4,11 +4,11 @@ use DebugBar\Bridge\NamespacedTwigProfileCollector;
 use DebugBar\DataCollector\ConfigCollector;
 use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\MemoryCollector;
+use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
 use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\DebugBar;
-use DebugBar\DataCollector\PDO\PDOCollector;
 use Junker\DebugBar\Bridge\SmartyCollector;
 use Twig\Environment;
 use Twig\Extension\ProfilerExtension;
@@ -22,14 +22,15 @@ use Twig\Profiler\Profile;
  * @version 2.2.0
  * @license MIT
  */
-class DebugBarHelper extends Instanceable {
-
+class DebugBarHelper extends Instanceable
+{
     private ?DebugBar $_debugBar = null;
 
     /**
-     * Enable the PHPDebugBar
+     * Enable the PHPDebugBar.
      */
-    public function enable(): void {
+    public function enable(): void
+    {
         $debugbar = new DebugBar();
 
         $debugbar->addCollector(new TimeDataCollector());
@@ -72,8 +73,8 @@ class DebugBarHelper extends Instanceable {
         $this->addCollector(new NamespacedTwigProfileCollector($profile));
     }
 
-    public function getDebugBar(): ?DebugBar {
+    public function getDebugBar(): ?DebugBar
+    {
         return $this->_debugBar;
     }
-
 }

@@ -22,7 +22,7 @@ if ($social_media != null) {
         'short' => 'fb',
         'long' => 'facebook',
         'link' => Output::getClean($social_media),
-        'text' => 'Facebook'
+        'text' => 'Facebook',
     ];
 }
 
@@ -33,7 +33,7 @@ if ($social_media != null) {
         'short' => 'tw',
         'long' => 'twitter',
         'link' => Output::getClean($social_media),
-        'text' => 'Twitter'
+        'text' => 'Twitter',
     ];
 }
 
@@ -44,7 +44,7 @@ if ($social_media != null) {
         'short' => 'gp',
         'long' => 'youtube',
         'link' => Output::getClean($social_media),
-        'text' => 'YouTube'
+        'text' => 'YouTube',
     ];
 }
 

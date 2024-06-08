@@ -7,13 +7,14 @@
  * @version 2.0.0-pr12
  * @license MIT
  */
-class Placeholders extends Instanceable {
-
+class Placeholders extends Instanceable
+{
     private DB $_db;
 
     private array $_all_placeholders;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->_db = DB::getInstance();
 
         $placeholders_query = $this->_db->get('placeholders_settings', ['name', '<>', ''])->results();
@@ -49,7 +50,8 @@ class Placeholders extends Instanceable {
      *
      * @return array All placeholders.
      */
-    public function getAllPlaceholders(): array {
+    public function getAllPlaceholders(): array
+    {
         return $this->_all_placeholders;
     }
 
@@ -60,7 +62,8 @@ class Placeholders extends Instanceable {
      *
      * @param string $name Name of placeholder
      */
-    public function registerPlaceholder(int $server_id, string $name): void {
+    public function registerPlaceholder(int $server_id, string $name): void
+    {
         $this->_db->query('INSERT IGNORE INTO nl2_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
     }
 
@@ -71,7 +74,8 @@ class Placeholders extends Instanceable {
      *
      * @return array Their placeholders.
      */
-    public function loadUserPlaceholders(string $uuid): array {
+    public function loadUserPlaceholders(string $uuid): array
+    {
         $binUuid = hex2bin(str_replace('-', '', $uuid));
 
         $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
@@ -105,7 +109,8 @@ class Placeholders extends Instanceable {
      *
      * @return array Array of placeholders which have leaderboard enabled.
      */
-    public function getLeaderboardPlaceholders(): array {
+    public function getLeaderboardPlaceholders(): array
+    {
         return array_filter($this->_all_placeholders, static function ($placeholder) {
             return $placeholder->leaderboard;
         });
@@ -114,13 +119,13 @@ class Placeholders extends Instanceable {
     /**
      * Get leaderboard data for a specific leaderboard.
      *
-     * @param int $server_id Server ID to get this placeholder from.
+     * @param int    $server_id        Server ID to get this placeholder from.
      * @param string $placeholder_name Unique name of placeholder to get data for.
      *
      * @return array Array of leaderboard data.
      */
-    public function getLeaderboardData(int $server_id, string $placeholder_name): array {
-
+    public function getLeaderboardData(int $server_id, string $placeholder_name): array
+    {
         $sort = $this->getPlaceholder($server_id, sha1($placeholder_name))->leaderboard_sort;
 
         // We have to add 0 to value so mysql converts from the TEXT field to an integer value
@@ -136,12 +141,13 @@ class Placeholders extends Instanceable {
     /**
      * Get placeholder data by server id and  name of placeholder.
      *
-     * @param int $server_id Server ID to get this placeholder from, if it exists across multiple.
+     * @param int    $server_id        Server ID to get this placeholder from, if it exists across multiple.
      * @param string $placeholder_name Name of placeholder - must be hashed with sha1.
      *
      * @return object|null This placeholder's data, null if not exist.
      */
-    public function getPlaceholder(int $server_id, string $placeholder_name): ?object {
+    public function getPlaceholder(int $server_id, string $placeholder_name): ?object
+    {
         foreach ($this->_all_placeholders as $placeholder) {
             if ($placeholder->server_id == $server_id && $placeholder->safe_name == $placeholder_name) {
                 return $placeholder;

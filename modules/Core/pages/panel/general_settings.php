@@ -174,6 +174,9 @@ if (Input::exists()) {
             // Auto language
             Settings::set('auto_language_detection', $_POST['auto_language'] === 'true' ? 1 : 0);
 
+            // StaffCP two-factor auth
+            Settings::set('require_staffcp_tfa', $_POST['require_staffcp_tfa'] === 'true' ? 1 : 0);
+
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
             Session::flash('general_language', $language->get('admin', 'settings_updated_successfully'));
@@ -303,6 +306,8 @@ $template->getEngine()->addVariables([
     'AUTO_LANGUAGE_VALUE' => Settings::get('auto_language_detection'),
     'ENABLE_AUTO_LANGUAGE' => $language->get('admin', 'enable_auto_language'),
     'AUTO_LANGUAGE_HELP' => $language->get('admin', 'auto_language_help'),
+    'REQUIRE_STAFFCP_TFA' => $language->get('admin', 'require_two_factor_for_staffcp'),
+    'REQUIRE_STAFFCP_TFA_VALUE' => Settings::get('require_staffcp_tfa'),
 ]);
 
 $template->onPageLoad();

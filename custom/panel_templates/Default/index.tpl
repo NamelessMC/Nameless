@@ -115,15 +115,22 @@
                                     {$NAMELESS_VERSION}
                                     <hr />
                                     {foreach from=$COMPAT_SUCCESS item=item}
-                                    <i class="fas fa-check-circle text-success"></i> {$item}
-                                    <br />
+                                        <i class="fas fa-check-circle text-success"></i> {$item}
+                                        <br />
                                     {/foreach}
                                     {if count($COMPAT_WARNINGS)}
-                                    <hr />
-                                    {foreach from=$COMPAT_WARNINGS item=item}
-                                    <i class="fas fa-check-circle text-warning"></i> {$item}
-                                    <br />
-                                    {/foreach}
+                                        <hr />
+                                        {foreach from=$COMPAT_WARNINGS item=item key=index}
+                                            <i class="fas fa-check-circle text-warning"></i> {$item}
+                                            {if isset($COMPAT_WARNINGS_INFO[$index])}
+                                                <span class="badge badge-info">
+                                                    <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                                       data-placement="top" title="{$INFO}"
+                                                       data-content="{$COMPAT_WARNINGS_INFO[$index]}"></i>
+                                                </span>
+                                            {/if}
+                                            <br />
+                                        {/foreach}
                                     {/if}
                                     {if count($COMPAT_ERRORS)}
                                     <hr />

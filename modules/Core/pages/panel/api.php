@@ -54,10 +54,6 @@ if (!isset($_GET['view'])) {
 
             Settings::set('use_api', Input::get('enable_api'));
 
-            // Update Username sync
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
-            Settings::set('username_sync', $username_sync);
-
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/api'));
             //Log::getInstance()->log(Log::Action('admin/api/change'));
@@ -181,44 +177,43 @@ if (!isset($_GET['view'])) {
     // Is the API enabled?
     $api_enabled = Settings::get('use_api');
 
-    $template->getEngine()->addVariables([
-        'PARENT_PAGE' => PARENT_PAGE,
-        'DASHBOARD' => $language->get('admin', 'dashboard'),
-        'CONFIGURATION' => $language->get('admin', 'configuration'),
-        'API' => $language->get('admin', 'api'),
-        'PAGE' => PANEL_PAGE,
-        'API_INFO' => $language->get('admin', 'api_info', [
-            'pluginLinkStart' => '<a href="https://plugin.namelessmc.com" target="_blank">',
-            'pluginLinkEnd' => '</a>',
-            'botLinkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link" target="_blank">',
-            'botLinkEnd' => '</a>',
-        ]),
-        'INFO' => $language->get('general', 'info'),
-        'ENABLE_API' => $language->get('admin', 'enable_api'),
-        'API_ENABLED' => $api_enabled,
-        'API_KEY' => $language->get('admin', 'api_key'),
-        'API_KEY_VALUE' => Settings::get('mc_api_key'),
-        'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
-        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
-        'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
-        'YES' => $language->get('general', 'yes'),
-        'NO' => $language->get('general', 'no'),
-        'CHANGE' => $language->get('general', 'change'),
-        'API_URL' => $language->get('admin', 'api_url'),
-        'API_URL_VALUE' => rtrim(URL::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
-        'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
-        'COPY' => $language->get('admin', 'copy'),
-        'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
-        'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
-        'USERNAME_SYNC_VALUE' => Settings::get('username_sync') === '1',
-        'TOKEN' => Token::get(),
-        'SUBMIT' => $language->get('general', 'submit'),
-        'COPIED' => $language->get('general', 'copied'),
-        'GROUP_SYNC' => $language->get('admin', 'group_sync'),
-        'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
-        'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-        'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints'),
-    ]);
+    $template->getEngine()->addVariables(
+        [
+            'PARENT_PAGE' => PARENT_PAGE,
+            'DASHBOARD' => $language->get('admin', 'dashboard'),
+            'CONFIGURATION' => $language->get('admin', 'configuration'),
+            'API' => $language->get('admin', 'api'),
+            'PAGE' => PANEL_PAGE,
+            'API_INFO' => $language->get('admin', 'api_info', [
+                'pluginLinkStart' => '<a href="https://plugin.namelessmc.com" target="_blank">',
+                'pluginLinkEnd' => '</a>',
+                'botLinkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link" target="_blank">',
+                'botLinkEnd' => '</a>',
+            ]),
+            'INFO' => $language->get('general', 'info'),
+            'ENABLE_API' => $language->get('admin', 'enable_api'),
+            'API_ENABLED' => $api_enabled,
+            'API_KEY' => $language->get('admin', 'api_key'),
+            'API_KEY_VALUE' => Settings::get('mc_api_key'),
+            'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
+            'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+            'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
+            'YES' => $language->get('general', 'yes'),
+            'NO' => $language->get('general', 'no'),
+            'CHANGE' => $language->get('general', 'change'),
+            'API_URL' => $language->get('admin', 'api_url'),
+            'API_URL_VALUE' => rtrim(URL::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
+            'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
+            'COPY' => $language->get('admin', 'copy'),
+            'TOKEN' => Token::get(),
+            'SUBMIT' => $language->get('general', 'submit'),
+            'COPIED' => $language->get('general', 'copied'),
+            'GROUP_SYNC' => $language->get('admin', 'group_sync'),
+            'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+            'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+            'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints'),
+        ]
+    );
 
     $template_file = 'core/api';
 } else {

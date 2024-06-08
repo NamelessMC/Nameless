@@ -184,5 +184,8 @@
     "forum/news_items_front_page_limit": "Anzahl der News, die auf der Titelseite angezeigt werden sollen",
     "forum/news_items_max": "Die Anzahl der News sollte mindestens {{max}} sein",
     "forum/news_items_min": "Die Anzahl der News sollte mindestens {{min}} sein",
-    "forum/forum_score": "Forum Punkte"
+    "forum/forum_score": "Forum Punkte",
+    "forum/banned_terms": "Verbotene Begriffe",
+    "forum/banned_terms_info": "Ein Begriff pro Zeile, Groß- und Kleinschreibung wird nicht berücksichtigt",
+    "forum/content_contains_banned_term": "Der Inhalt deines Beitrags enthält einen verbotenen Begriff"
 }

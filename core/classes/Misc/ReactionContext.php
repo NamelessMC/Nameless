@@ -7,23 +7,24 @@
  * @version 2.2.0
  * @license MIT
  */
-abstract class ReactionContext {
-
+abstract class ReactionContext
+{
     /**
      * @return string Name of the reaction context which should be used when calling the `/queries/reactions` endpoint as the `context` parameter.
      */
     abstract public function name(): string;
 
     /**
-     * @param Language $language Language to get the friendly name in.
-     * @return string Friendly name of the reaction context. Used when displaying scores in the Reactions profile widget
+     * @param  Language $language Language to get the friendly name in.
+     * @return string   Friendly name of the reaction context. Used when displaying scores in the Reactions profile widget
      */
     abstract public function friendlyName(Language $language): string;
 
     /**
      * @return bool Whether this reaction context is enabled. If false, the reaction context will not be available for use.
      */
-    public function isEnabled(): bool {
+    public function isEnabled(): bool
+    {
         return true;
     }
 
@@ -32,7 +33,7 @@ abstract class ReactionContext {
      * This should return data from the contexts table which contains the reactionable ID,
      * the reaction ID, and the user ID of the user who gave the reaction.
      *
-     * @param User $user User to get the reactions for.
+     * @param  User  $user User to get the reactions for.
      * @return array Array of reactions that the user has received in this context.
      */
     abstract public function getUserReceived(User $user): array;
@@ -42,7 +43,7 @@ abstract class ReactionContext {
      * This should return data from the contexts table which contains the reactionable ID,
      * the reaction ID, and the user ID of the user who gave the reaction.
      *
-     * @param User $user User to get the reactions for.
+     * @param  User  $user User to get the reactions for.
      * @return array Array of reactions that the user has given in this context.
      */
     abstract public function getUserGiven(User $user): array;
@@ -65,10 +66,10 @@ abstract class ReactionContext {
     /**
      * Record a reaction being given for a given reactable.
      *
-     * @param User $user User who is giving the reaction.
-     * @param User $receiver User who is receiving the reaction (generally the owner of the reactionable object).
-     * @param Reaction $reaction Reaction to give.
-     * @param int $reactable_id ID of the reactable that the user is reacting to.
+     * @param User     $user         User who is giving the reaction.
+     * @param User     $receiver     User who is receiving the reaction (generally the owner of the reactionable object).
+     * @param Reaction $reaction     Reaction to give.
+     * @param int      $reactable_id ID of the reactable that the user is reacting to.
      */
     abstract public function giveReaction(User $user, User $receiver, Reaction $reaction, int $reactable_id): void;
 
@@ -82,7 +83,7 @@ abstract class ReactionContext {
     /**
      * Get all the reactions that have been given to the given reactionable.
      *
-     * @param int $reactionable_id ID of the reactionable to get the reactions for.
+     * @param  int   $reactionable_id ID of the reactionable to get the reactions for.
      * @return array Array of reactions that have been given to the given reactionable.
      */
     abstract public function getAllReactions(int $reactionable_id): array;
@@ -100,8 +101,8 @@ abstract class ReactionContext {
      * Determine which User owns the given reactable.
      * Used to give them a reaction point.
      *
-     * @param object $reactable Reactable object to get the receiver for.
-     * @return User User who owns the given reactable.
+     * @param  object $reactable Reactable object to get the receiver for.
+     * @return User   User who owns the given reactable.
      */
     abstract public function determineReceiver(object $reactable): User;
 }

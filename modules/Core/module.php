@@ -65,7 +65,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/user/settings', 'pages/user/settings.php');
         $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
         $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
-        $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
+        $pages->add('Core', '/user/notification_settings', 'pages/user/notification_settings.php');
         $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
         $pages->add('Core', '/user/connections', 'pages/user/connections.php');
@@ -82,7 +82,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
         $pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
-        $pages->add('Core', '/panel/core/emails/mass_message', 'pages/panel/emails_mass_message.php');
+        $pages->add('Core', '/panel/core/mass_message', 'pages/panel/mass_message.php');
         $pages->add('Core', '/panel/core/navigation', 'pages/panel/navigation.php');
         $pages->add('Core', '/panel/core/privacy_and_terms', 'pages/panel/privacy_and_terms.php');
         $pages->add('Core', '/panel/core/reactions', 'pages/panel/reactions.php');
@@ -111,7 +111,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
         $pages->add('Core', '/panel/users/integrations', 'pages/panel/users_integrations.php');
-        $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
         $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
@@ -303,6 +302,7 @@ class Core_Module extends Module {
 
         // -- Events
         EventHandler::registerEvent(AnnouncementCreatedEvent::class);
+        EventHandler::registerEvent(GenerateNotificationContentEvent::class);
         EventHandler::registerEvent(GroupClonedEvent::class);
         EventHandler::registerEvent(ReportCreatedEvent::class);
         EventHandler::registerEvent(UserBannedEvent::class);
@@ -508,7 +508,13 @@ class Core_Module extends Module {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
+        Integrations::getInstance()->registerIntegration(new GoogleIntegration($language));
+
         EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
+
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::purify');
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
 
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
@@ -528,6 +534,7 @@ class Core_Module extends Module {
 
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
 
+        // TODO: ContentHook::decode is deprecated - do we need to decode profile posts saved in the DB using the queue??
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'purify']);
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'renderEmojis']);
@@ -549,6 +556,9 @@ class Core_Module extends Module {
         });
 
         ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
+
+        // Notifications
+        Notification::addType('mass_message', $language->get('notification', 'mass_message'), Module::getIdFromName('Core'));
     }
 
     public static function getDashboardGraphs(): array {
@@ -612,7 +622,7 @@ class Core_Module extends Module {
             'admincp.core.debugging' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance'),
             'admincp.errors' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance') . ' &raquo; ' . $language->get('admin', 'error_logs'),
             'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
-            'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails_mass_message'),
+            'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'mass_message'),
             'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
             'admincp.core.queue' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'queue'),
             'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
@@ -1163,7 +1173,7 @@ class Core_Module extends Module {
                 }
             }
 
-            if ($user->hasPermission('admincp.core.announcements')) {
+            if ($user->hasPermission('admincp.core.announcements') || $user->hasPermission('admincp.core.emails_mass_message')) {
                 if (!$cache->isCached('announcements_order')) {
                     $order = 4;
                     $cache->store('announcements_order', 4);
@@ -1178,7 +1188,22 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('announcements_icon');
                 }
 
-                $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $order, $icon);
+                $navs[2]->addDropdown('announcements', $language->get('admin', 'communications'), 'top', $order, $icon);
+
+                if ($user->hasPermission('admincp.core.announcements')) {
+                    $navs[2]->addItemToDropdown('announcements', 'announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $icon, 1);
+                }
+
+                if ($user->hasPermission('admincp.core.emails_mass_message')) {
+                    if (!$cache->isCached('mass_message_icon')) {
+                        $icon = '<i class="nav-icon fas fa-envelopes-bulk"></i>';
+                        $cache->store('mass_message_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('mass_message_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('announcements', 'mass_message', $language->get('admin', 'mass_message'), URL::build('/panel/core/mass_message'), 'top', null, $icon, 1);
+                }
             }
 
             if ($user->hasPermission('admincp.integrations')) {
@@ -1523,10 +1548,6 @@ class Core_Module extends Module {
                 self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
             }
 
-            if ($user->hasPermission('admincp.users.edit')) {
-                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
-            }
-
             if ($user->hasPermission('modcp.ip_lookup')) {
                 self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup/', 'uid={id}'));
             }
@@ -1605,7 +1626,7 @@ class Core_Module extends Module {
             'minecraft' => [
                 'mc_integration' => (bool)Settings::get(Settings::MINECRAFT_INTEGRATION),
                 'uuid_linking' => (bool)Settings::get('uuid_linking'),
-                'username_sync' => (bool)Settings::get('username_sync'),
+                'username_sync' => Settings::get('username_sync'),
                 'query_type' => Settings::get('query_type', 'internal'),
                 'servers' => $servers,
             ]

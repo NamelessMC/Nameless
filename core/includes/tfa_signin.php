@@ -44,7 +44,7 @@ $template->getEngine()->addVariables([
     'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
     'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 // Load modules + template

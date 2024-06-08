@@ -1,16 +1,16 @@
 <?php
 
-class PhinxAdapter {
-
+class PhinxAdapter
+{
     /**
      * Checks the number of existing migration files compared to executed migrations in the database.
      * Alternatively we could check the output of a Phinx command, but that takes ~8x as long to execute.
      *
      * TODO: return type as array|never (8.1)
      *
-     * @param string $module Module name
-     * @param ?string $migrationDir Migration directory
-     * @param bool $returnResults If true the results will be returned - otherwise script execution is ended
+     * @param string  $module        Module name
+     * @param ?string $migrationDir  Migration directory
+     * @param bool    $returnResults If true the results will be returned - otherwise script execution is ended
      *
      * @return array|void
      */
@@ -38,6 +38,7 @@ class PhinxAdapter {
             static function ($file_name) {
                 [$version, $migration_name] = explode('_', $file_name, 2);
                 $migration_name = str_replace(['.php', '_'], '', ucwords($migration_name, '_'));
+
                 return $version . '_' . $migration_name;
             },
             array_filter(scandir($migrationDir), static function ($file_name) {
@@ -56,7 +57,7 @@ class PhinxAdapter {
         if ($returnResults) {
             return [
                 'missing' => count($missing),
-                'extra' => count($extra)
+                'extra' => count($extra),
             ];
         }
 
@@ -82,15 +83,15 @@ class PhinxAdapter {
         }
 
         if ($missing_count > 0 || $extra_count > 0) {
-            die();
+            die;
         }
     }
 
     /**
      * Runs any pending migrations. Used for installation and upgrades. Resource heavy, only call when needed.
-     * Logs output of Phinx to other-log.log file
+     * Logs output of Phinx to other-log.log file.
      *
-     * @param string $module Module name
+     * @param string  $module       Module name
      * @param ?string $migrationDir Migration directory to use
      *
      * @return string Output of the migration command from Phinx as if it was executed in the console.
@@ -125,15 +126,14 @@ class PhinxAdapter {
 
     /**
      * Rolls back migrations
-     * Logs output of Phinx to other-log.log file
+     * Logs output of Phinx to other-log.log file.
      *
-     * @param string $module Module name
+     * @param string $module       Module name
      * @param string $migrationDir Migration directory to use
-     * @param int $since Version of earliest migration to rollback, default 0 for all
-     *
-     * @return string Output of the migration command from Phinx as if it was executed in the console.
+     * @param int    $since        Version of earliest migration to rollback, default 0 for all
      *
      * @throws Exception If unable to rollback
+     * @return string    Output of the migration command from Phinx as if it was executed in the console.
      */
     public static function rollback(
         string $module,
@@ -170,5 +170,4 @@ class PhinxAdapter {
 
         return $output;
     }
-
 }

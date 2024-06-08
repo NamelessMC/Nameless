@@ -311,7 +311,7 @@ $template->getEngine()->addVariables([
     'PAGE' => PANEL_PAGE,
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'CONFIGURATION' => $language->get('admin', 'configuration'),
+    'COMMUNICATIONS' => $language->get('admin', 'communications'),
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),

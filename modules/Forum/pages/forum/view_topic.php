@@ -259,13 +259,15 @@ if (Input::exists()) {
             'content' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 2,
-                Validate::MAX => 50000
+                Validate::MAX => 50000,
+                Validate::NOT_CONTAIN => Forum::getBannedTerms(),
             ]
         ])->messages([
             'content' => [
                 Validate::REQUIRED => $forum_language->get('forum', 'content_required'),
                 Validate::MIN => $forum_language->get('forum', 'content_min_2'),
-                Validate::MAX => $forum_language->get('forum', 'content_max_50000')
+                Validate::MAX => $forum_language->get('forum', 'content_max_50000'),
+                Validate::NOT_CONTAIN => $forum_language->get('forum', 'content_contains_banned_term'),
             ]
         ]);
 

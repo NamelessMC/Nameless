@@ -34,7 +34,7 @@ $writable_check_paths = [
     ROOT_PATH . '/cache/sitemaps',
     ROOT_PATH . '/cache/templates_c',
     ROOT_PATH . '/uploads',
-    ROOT_PATH . '/core/config.php'
+    ROOT_PATH . '/core/config.php',
 ];
 
 foreach ($writable_check_paths as $path) {
@@ -60,6 +60,7 @@ if (!Config::exists()) {
 if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
     $pages = new Pages();
     $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
+
     return;
 }
 
@@ -73,7 +74,7 @@ if ($page != 'install') {
         return new Cache([
             'name' => 'nameless',
             'extension' => '.cache',
-            'path' => ROOT_PATH . '/cache/'
+            'path' => ROOT_PATH . '/cache/',
         ]);
     });
 
@@ -100,7 +101,7 @@ if ($page != 'install') {
             } else {
                 Redirect::to('https://' . $host . $_SERVER['REQUEST_URI']);
             }
-        } else if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
+        } elseif (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
             Redirect::to(HttpUtils::getProtocol() . '://www.' . $host . $_SERVER['REQUEST_URI']);
         }
     }
@@ -197,7 +198,7 @@ if ($page != 'install') {
 
     define('DEFAULT_LANGUAGE', $default_language);
 
-    if (!$user->isLoggedIn() || !($user->data()->language_id)) {
+    if (!$user->isLoggedIn() || !$user->data()->language_id) {
         if (Settings::get('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             // Attempt to get the requested language from the browser if it exists
             $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
@@ -233,7 +234,7 @@ if ($page != 'install') {
     define('SITE_NAME', $sitename);
 
     // Template
-    if (!$user->isLoggedIn() || !($user->data()->theme_id)) {
+    if (!$user->isLoggedIn() || !$user->data()->theme_id) {
         // Default template for guests
         $cache->setCache('templatecache');
         $template = $cache->retrieve('default');
@@ -336,8 +337,8 @@ if ($page != 'install') {
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
     $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
     $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/connections'));
+    $cc_nav->add('cc_notification_settings', $language->get('user', 'notification_settings'), URL::build('/user/notification_settings'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
-    $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
 
     // Placeholders enabled?
     if (Settings::get('placeholders') === '1') {
@@ -371,7 +372,7 @@ if ($page != 'install') {
     $cache->setCache('modulescache');
     if (!$cache->isCached('enabled_modules')) {
         $cache->store('enabled_modules', [
-            ['name' => 'Core', 'priority' => 1]
+            ['name' => 'Core', 'priority' => 1],
         ]);
         $cache->store('module_core', true);
     }
@@ -387,7 +388,7 @@ if ($page != 'install') {
     if (!isset($core_exists)) {
         $enabled_modules[] = [
             'name' => 'Core',
-            'priority' => 1
+            'priority' => 1,
         ];
     }
 
@@ -419,16 +420,16 @@ if ($page != 'install') {
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
             // Maintenance mode
             if (isset($_GET['route']) && (
-                    rtrim($_GET['route'], '/') === '/login'
-                    || rtrim($_GET['route'], '/') === '/forgot_password'
-                    || str_contains($_GET['route'], '/api/')
-                    || str_contains($_GET['route'], 'queries')
-                    || str_contains($_GET['route'], 'oauth/')
-                )) {
+                rtrim($_GET['route'], '/') === '/login'
+                || rtrim($_GET['route'], '/') === '/forgot_password'
+                || str_contains($_GET['route'], '/api/')
+                || str_contains($_GET['route'], 'queries')
+                || str_contains($_GET['route'], 'oauth/')
+            )) {
                 // Can continue as normal
             } else {
                 require(ROOT_PATH . '/core/includes/maintenance.php');
-                die();
+                die;
             }
         } else {
             // Display notice to admin stating maintenance mode is enabled
@@ -461,7 +462,7 @@ if ($page != 'install') {
                         'action' => $hook->action == 1
                             ? [WebHook::class, 'execute']
                             : [DiscordHook::class, 'execute'],
-                        'events' => json_decode($hook->events, true)
+                        'events' => json_decode($hook->events, true),
                     ];
                 }
                 $cache->store('hooks', $hook_array);
@@ -497,11 +498,11 @@ if ($page != 'install') {
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
             $user->update([
                 'last_online' => date('U'),
-                'lastip' => $ip
+                'lastip' => $ip,
             ]);
         } else {
             $user->update([
-                'last_online' => date('U')
+                'last_online' => date('U'),
             ]);
         }
 
@@ -511,7 +512,7 @@ if ($page != 'install') {
             // Create the entry now
             DB::getInstance()->insert('users_ips', [
                 'user_id' => $user->data()->id,
-                'ip' => $ip
+                'ip' => $ip,
             ]);
         } else {
             if (count($user_ip_logged) > 1) {
@@ -528,7 +529,7 @@ if ($page != 'install') {
                     // Not yet logged, do so now
                     DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
-                        'ip' => $ip
+                        'ip' => $ip,
                     ]);
                 }
             } else {
@@ -536,7 +537,7 @@ if ($page != 'install') {
                 if ($user_ip_logged[0]->user_id != $user->data()->id) {
                     DB::getInstance()->insert('users_ips', [
                         'user_id' => $user->data()->id,
-                        'ip' => $ip
+                        'ip' => $ip,
                     ]);
                 }
             }
@@ -564,7 +565,7 @@ if ($page != 'install') {
         foreach ($user->getIntegrations() as $integrationUser) {
             $user_integrations[$integrationUser->getIntegration()->getName()] = [
                 'username' => Output::getClean($integrationUser->data()->username),
-                'identifier' => Output::getClean($integrationUser->data()->identifier)
+                'identifier' => Output::getClean($integrationUser->data()->identifier),
             ];
         }
 

@@ -1,14 +1,15 @@
 <?php
 
-class UserSeeder extends Seeder {
-
+class UserSeeder extends Seeder
+{
     public array $tables = [
         'nl2_users',
         'nl2_users_groups',
         'nl2_users_integrations',
     ];
 
-    public function run(DB $db, \Faker\Generator $faker): void {
+    public function run(DB $db, \Faker\Generator $faker): void
+    {
         $password = password_hash('password', PASSWORD_BCRYPT, ['cost' => 13]);
 
         $db->insert('users', [
@@ -32,14 +33,15 @@ class UserSeeder extends Seeder {
             0,
         ]);
         $db->query(
-            'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+            'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [
                 $user_id,
                 1,
                 str_replace('-', '', $faker->unique()->uuid),
                 'admin',
                 1,
                 date('U'),
-                null
+                null,
             ]
         );
 
@@ -98,14 +100,15 @@ class UserSeeder extends Seeder {
             }
 
             $db->query(
-                'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+                'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                [
                     $user_id,
                     1,
                     str_replace('-', '', $faker->unique()->uuid),
                     $username,
                     1,
                     date('U'),
-                    null
+                    null,
                 ]
             );
         });

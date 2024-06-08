@@ -281,11 +281,6 @@ if (Input::exists()) {
 
                     if (Session::exists('oauth_register_data')) {
                         $data = json_decode(Session::get('oauth_register_data'), true);
-                        NamelessOAuth::getInstance()->saveUserProvider(
-                            $user_id,
-                            $data['provider'],
-                            $data['id'],
-                        );
                         $auto_verify_oauth_email = $data['email'] === Input::get('email')
                             && NamelessOAuth::getInstance()->hasVerifiedEmail($data['provider'], $data['data']);
 
@@ -411,8 +406,12 @@ if ($oauth_flow) {
 }
 
 // Add "continue with..." message to provider array
-$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
-foreach ($providers as $name => $provider) {
+$providers = [];
+foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $provider) {
+    if (!NamelessOAuth::getInstance()->isEnabled($name))
+        continue;
+
+    $providers[$name] = $provider;
     $providers[$name]['continue_with'] = $language->get('user', 'continue_with', [
         'provider' => ucfirst($name)
     ]);
@@ -435,7 +434,7 @@ $template->getEngine()->addVariables([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'OR' => $language->get('general', 'or'),
     'OAUTH_FLOW' => $oauth_flow,
-    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_AVAILABLE' => count($providers),
     'OAUTH_PROVIDERS' => $providers,
 ]);
 

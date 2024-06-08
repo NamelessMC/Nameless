@@ -9,8 +9,8 @@
  *    DefaultRevamp Template
  */
 
-class DefaultRevamp_Template extends SmartyTemplateBase {
-
+class DefaultRevamp_Template extends SmartyTemplateBase
+{
     private array $_template;
 
     /** @var Language */
@@ -22,7 +22,8 @@ class DefaultRevamp_Template extends SmartyTemplateBase {
     /** @var Pages */
     private Pages $_pages;
 
-    public function __construct(Cache $cache, Language $language, User $user, Pages $pages) {
+    public function __construct(Cache $cache, Language $language, User $user, Pages $pages)
+    {
         $template = [
             'name' => 'DefaultRevamp',
             'version' => '2.2.0',
@@ -66,7 +67,7 @@ class DefaultRevamp_Template extends SmartyTemplateBase {
 
         $this->getEngine()->addVariables([
             'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
-            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour
+            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour,
         ]);
 
         if (defined('AUTO_LANGUAGE_VALUE')) {
@@ -79,12 +80,13 @@ class DefaultRevamp_Template extends SmartyTemplateBase {
         $this->_pages = $pages;
     }
 
-    public function onPageLoad() {
+    public function onPageLoad()
+    {
         $page_load = microtime(true) - PAGE_START_TIME;
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=211' => []
+            $this->_template['path'] . 'css/custom.css?v=211' => [],
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
