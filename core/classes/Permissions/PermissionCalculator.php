@@ -32,16 +32,8 @@ class PermissionCalculator
 
         if ($result === PermissionTristate::INHERIT) {
             foreach ($user->getGroups() as $group) {
-                $group_permissions = $this->_permission_cache->getOrLoad(Group::class, $group->id);
-
-                $result = $group_permissions[$permission] ?? PermissionTristate::INHERIT;
-
-                if ($result === PermissionTristate::TRUE) {
+                if ($this->groupHasPermission($group, $permission)) {
                     return true;
-                }
-
-                if ($result === PermissionTristate::FALSE) {
-                    return false;
                 }
             }
         }
