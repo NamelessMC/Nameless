@@ -239,8 +239,8 @@ foreach ($pages->returnPages() as $key => $page) {
     }
 
     $homepage_pages[] = [
-        'value' => $key,
-        'name' => $key,
+        'value' => Output::getPurified($key),
+        'name' => Output::getPurified($key),
         'module' => $page['module']
     ];
 }
