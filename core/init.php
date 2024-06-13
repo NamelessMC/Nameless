@@ -476,6 +476,7 @@ if ($page != 'install') {
                 || str_contains($_GET['route'], '/api/')
                 || str_contains($_GET['route'], 'queries')
                 || str_contains($_GET['route'], 'oauth/')
+                || str_contains($_GET['route'], 'store/listener')
             )) {
                 // Can continue as normal
             } else {
