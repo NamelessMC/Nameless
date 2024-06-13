@@ -49,8 +49,15 @@ class Util
      */
     public static function recursiveRemoveDirectory(string $directory): bool
     {
-        // safety precaution, only allow deleting files in "custom" directory
-        if (!str_contains($directory, 'custom')) {
+        // safety precaution, only allow deleting files in "custom", "modules" or "uploads" directory
+        if (
+            str_contains($directory, 'Core') ||
+            (
+                !str_contains(realpath($directory), 'custom') &&
+                !str_contains(realpath($directory), 'modules') &&
+                !str_contains(realpath($directory), 'uploads')
+            )
+        ) {
             return false;
         }
 
@@ -59,10 +66,8 @@ class Util
                 if (!self::recursiveRemoveDirectory($file)) {
                     return false;
                 }
-            } else {
-                if (!unlink($file)) {
-                    return false;
-                }
+            } elseif (!unlink($file)) {
+                return false;
             }
         }
 
@@ -74,7 +79,8 @@ class Util
     /**
      * Get an array containing all timezone lists.
      *
-     * @return array All timezones.
+     * @throws Exception
+     * @return array     All timezones.
      */
     public static function listTimezones(): array
     {

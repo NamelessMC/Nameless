@@ -34,11 +34,12 @@ class ServerStatusWidget extends WidgetBase {
         if ($this->_cache->isCached('server_status')) {
             $server_array = $this->_cache->retrieve('server_status');
         } else {
-            $server = DB::getInstance()->query('SELECT * FROM nl2_mc_servers WHERE is_default = 1')->results();
-            $server = $server[0];
+            $server = DB::getInstance()->query('SELECT * FROM nl2_mc_servers WHERE is_default = 1');
 
-            if ($server != null) {
+            if ($server->count()) {
+                $server = $server->first();
                 $server_array_request = HttpClient::get(rtrim(URL::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id));
+
                 if (!$server_array_request->hasError()) {
                     $server_array = $server_array_request->json(true);
                     foreach ($server_array as $key => $value) {
@@ -49,9 +50,16 @@ class ServerStatusWidget extends WidgetBase {
                             $server_array[$key] = Output::getClean($value);
                         }
                     }
-                    $server_array['name'] = $server->name;
-                    $server_array['join_at'] = $server->ip;
+                } else {
+                    $server_array = [
+                        'status_value' => 0,
+                        'status' => $this->_language->get('general', 'offline'),
+                        'server_offline' => $this->_language->get('general', 'server_offline'),
+                    ];
                 }
+
+                $server_array['name'] = Output::getClean($server->name);
+                $server_array['join_at'] = Output::getClean($server->ip);
 
                 $this->_cache->store('server_status', $server_array, 120);
             }

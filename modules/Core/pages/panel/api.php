@@ -43,10 +43,6 @@ if (!isset($_GET['view'])) {
 
             Settings::set('use_api', Input::get('enable_api'));
 
-            // Update Username sync
-            $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
-            Settings::set('username_sync', $username_sync);
-
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
             Redirect::to(URL::build('/panel/core/api'));
             //Log::getInstance()->log(Log::Action('admin/api/change'));
@@ -202,9 +198,6 @@ if (!isset($_GET['view'])) {
             'API_URL_VALUE' => rtrim(URL::getSelfURL(), '/') . rtrim(URL::build('/api/v2/', '', 'non-friendly'), '/'),
             'ENABLE_API_FOR_URL' => $language->get('admin', 'api_disabled'),
             'COPY' => $language->get('admin', 'copy'),
-            'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
-            'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
-            'USERNAME_SYNC_VALUE' => Settings::get('username_sync') === '1',
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
             'COPIED' => $language->get('general', 'copied'),

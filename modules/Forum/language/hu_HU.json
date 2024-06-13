@@ -184,5 +184,8 @@
     "forum/news_items_min": "A hírek száma minimum {{min}} legyen",
     "forum/news_items_front_page_limit": "A címlapon megjelenítendő hírek száma",
     "forum/no_posts_found": "Nem található bejegyzés.",
-    "forum/forum_score": "Fórum pontszáma"
+    "forum/forum_score": "Fórum pontszáma",
+    "forum/banned_terms": "Tiltott Kifejezések",
+    "forum/banned_terms_info": "Soronként egy kifejezés",
+    "forum/content_contains_banned_term": "A bejegyzésed tartalma tiltott kifejezést tartalmaz"
 }

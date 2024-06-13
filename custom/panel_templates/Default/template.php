@@ -306,6 +306,23 @@ if (!class_exists('Default_Panel_Template')) {
                                 AssetTree::DATATABLES,
                             ]);
 
+                            $url_parameters = [];
+                            if (isset($_GET['group'])) {
+                                $url_parameters[] = 'group=' . Output::getClean($_GET['group']);
+                            }
+
+                            if (isset($_GET['integration'])) {
+                                $url_parameters[] = 'integration=' . Output::getClean($_GET['integration']);
+                            }
+
+                            if (isset($_GET['banned'])) {
+                                $url_parameters[] = 'banned=' . Output::getClean($_GET['banned']);
+                            }
+
+                            if (isset($_GET['active'])) {
+                                $url_parameters[] = 'active=' . Output::getClean($_GET['active']);
+                            }
+
                             $this->addJSScript('
                             $(document).ready(function() {
                                 var usersTable = $(\'.dataTables-users\').DataTable({
@@ -318,7 +335,7 @@ if (!class_exists('Default_Panel_Template')) {
                                     responsive: true,
                                     processing: true,
                                     serverSide: true,
-                                    ajax: "' . URL::build('/queries/admin_users') . '",
+                                    ajax: "' . URL::build('/queries/admin_users', implode('&', $url_parameters)) . '",
                                     columns: [
                                         { data: "id", hidden: true },
                                         { data: "username" },

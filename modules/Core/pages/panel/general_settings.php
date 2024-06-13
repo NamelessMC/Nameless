@@ -24,10 +24,10 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
-        $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*');
+        $languages = glob('modules' . DIRECTORY_SEPARATOR . 'Core' . DIRECTORY_SEPARATOR . 'language' . DIRECTORY_SEPARATOR . '*');
         foreach ($languages as $item) {
             // cursed
-            $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[2])[0];
+            $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[3])[0];
 
             // Is it already in the database?
             $exists = DB::getInstance()->get('languages', ['short_code', $short_code])->results();
@@ -208,7 +208,7 @@ $contact_email = Output::getClean(Settings::get('incoming_email'));
 $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
 for ($i = 0; $i < $count; $i++) {
-    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
+    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'language', $languages[$i]->short_code . '.json']);
     if (!file_exists($language_path)) {
         unset($languages[$i]);
     }

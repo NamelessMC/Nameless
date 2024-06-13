@@ -184,5 +184,8 @@
     "forum/news_items_front_page_limit": "Número de noticias a mostrar en la página principal",
     "forum/news_items_max": "El número de noticias debe ser al menos {{max}}",
     "forum/news_items_min": "El número de noticias debe ser como mínimo {{min}}",
-    "forum/forum_score": "Puntuación en el foro"
+    "forum/forum_score": "Puntuación en el foro",
+    "forum/content_contains_banned_term": "El contenido de tu entrada contiene un término prohibido",
+    "forum/banned_terms": "Términos prohibidos",
+    "forum/banned_terms_info": "Un término por línea, sin distinción entre mayúsculas y minúsculas"
 }

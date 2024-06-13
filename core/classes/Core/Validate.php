@@ -375,7 +375,7 @@ class Validate
                         }
 
                         foreach ($rule_value as $term) {
-                            if (strpos(strtolower($value), strtolower($term)) !== false) {
+                            if (strpos(strtolower($value), strtolower(trim($term))) !== false) {
                                 $validator->addError([
                                     'field' => $item,
                                     'rule' => self::NOT_CONTAIN,
