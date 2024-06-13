@@ -474,6 +474,11 @@ if (isset($_GET['do'])) {
     $language_query = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 
     foreach ($language_query as $item) {
+        $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'language', $item->short_code . '.json']);
+        if (!file_exists($language_path)) {
+            continue;
+        }
+
         $languages[] = [
             'name' => Output::getClean($item->name),
             'active' => $user->data()->language_id == $item->id
