@@ -10,5 +10,5 @@
  */
 
 $smarty->assign([
-    'CC_NAV_LINKS' => $cc_nav->returnNav('top')
+    'CC_NAV_LINKS' => $cc_nav->returnNav('top'),
 ]);

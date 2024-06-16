@@ -19,7 +19,7 @@
     {if $DETAILED_ERROR}
         <div class="ui inverted borderless menu" style="border-radius: 0;">
             <span class="item">
-                <img style="width: 30px; height: 30px;" src="core/assets/img/namelessmc_logo.png" alt="Logo">&nbsp;
+                <img style="width: 30px; height: 30px;" src="{$LOGO}" alt="Logo">&nbsp;
             </span>
             <div class="right menu">
                 <a class="item" target="_blank" href="https://discord.gg/nameless">

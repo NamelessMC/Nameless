@@ -64,7 +64,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
         }
     }
 
-    $forum_reactions = Util::getSetting('forum_reactions');
+    $forum_reactions = Settings::get('forum_reactions');
 
     $smarty->assign([
         'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),
@@ -238,7 +238,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     $hooks_array = [];
                     if (count($hooks_query)) {
                         foreach ($hooks_query as $hook) {
-                            if (in_array('newTopic', json_decode($hook->events))) {
+                            $events = json_decode($hook->events, true);
+                            if (in_array('newTopic', $events) || in_array('topicReply', $events)) {
                                 $hooks_array[] = [
                                     'id' => $hook->id,
                                     'name' => Output::getClean($hook->name),
@@ -537,13 +538,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                                 // Update the forum
                                 $to_update = [
-                                    'forum_title' => Output::getClean(Input::get('title')),
-                                    'forum_description' => Output::getClean(Input::get('description')),
+                                    'forum_title' => Input::get('title'),
+                                    'forum_description' => Input::get('description'),
                                     'news' => Input::get('display'),
                                     'parent' => $parent,
                                     'redirect_forum' => $redirect,
                                     'icon' => Input::get('icon'),
-                                    'forum_type' => Output::getClean(Input::get('forum_type')),
+                                    'forum_type' => Input::get('forum_type'),
                                     'topic_placeholder' => Input::get('topic_placeholder'),
                                     'hooks' => $hooks,
                                     'default_labels' => $default_labels
@@ -693,7 +694,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             $hooks_array = [];
             if (count($hooks_query)) {
                 foreach ($hooks_query as $hook) {
-                    if (in_array('newTopic', json_decode($hook->events))) {
+                    $events = json_decode($hook->events, true);
+                    if (in_array('newTopic', $events) || in_array('topicReply', $events)) {
                         $hooks_array[] = [
                             'id' => $hook->id,
                             'name' => Output::getClean($hook->name),

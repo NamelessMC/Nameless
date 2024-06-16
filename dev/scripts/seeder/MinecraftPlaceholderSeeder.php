@@ -1,25 +1,26 @@
 <?php
 
-class MinecraftPlaceholderSeeder extends Seeder {
-
+class MinecraftPlaceholderSeeder extends Seeder
+{
     public array $tables = [
         'nl2_placeholders_settings',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $db->query('UPDATE nl2_settings SET value = ? WHERE name = ?', [
             1, 'placeholders',
         ]);
 
         $servers = $db->get('mc_servers', ['id', '<>', 0])->results();
 
-        $this->times(5, function() use ($db, $faker, $servers) {
+        $this->times(5, function () use ($db, $faker, $servers) {
             $name = str_replace(' ', '_', $faker->words(2, true));
 
             if ($faker->boolean) {
                 $friendly_name = $name;
                 /** @phpstan-ignore-next-line Bad */
-            } else if ($faker->boolean) {
+            } elseif ($faker->boolean) {
                 $friendly_name = str_replace('_', ' ', $name);
             } else {
                 $friendly_name = $faker->words(2, true);

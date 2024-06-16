@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -20,8 +20,8 @@ class CookieConsent_Module extends Module {
 
         $name = 'Cookie Consent';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $module_version = '2.1.2';
+        $nameless_version = '2.1.2';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 

@@ -1,13 +1,13 @@
 <?php
 
-$query_interval = Util::getSetting('minecraft_query_interval', 10);
+$query_interval = Settings::get('minecraft_query_interval', 10);
 
 // Check cache to see when servers were last queried
 $cache->setCache('server_query_cache');
 
 if (isset($_GET['key'])) {
     // Get key from database - check it matches
-    $key = Util::getSetting('unique_id');
+    $key = Settings::get('unique_id');
     if ($key === null || $_GET['key'] != $key) {
         die();
     }
@@ -22,7 +22,7 @@ if (isset($_GET['key'])) {
 }
 
 // Get query type
-$query_type = Util::getSetting('query_type', 'internal');
+$query_type = Settings::get('query_type', 'internal');
 
 // Query
 $servers = DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results();

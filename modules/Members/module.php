@@ -2,7 +2,7 @@
 /*
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ *  NamelessMC version 2.1.2
  *
  *  License: MIT
  *
@@ -20,8 +20,8 @@ class Members_Module extends Module {
 
         $name = 'Members';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $module_version = '2.1.2';
+        $nameless_version = '2.1.2';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -56,44 +56,42 @@ class Members_Module extends Module {
             'admincp.members' => $this->_members_language->get('members', 'member_lists')
         ]);
 
-        if (defined('FRONT_END')) {
-            $cache->setCache('navbar_order');
-            if (!$cache->isCached('members_order')) {
-                $members_order = 5;
-                $cache->store('members_order', 5);
-            } else {
-                $members_order = $cache->retrieve('members_order');
-            }
+        $cache->setCache('navbar_order');
+        if (!$cache->isCached('members_order')) {
+            $members_order = 5;
+            $cache->store('members_order', 5);
+        } else {
+            $members_order = $cache->retrieve('members_order');
+        }
 
-            $cache->setCache('navbar_icons');
-            if (!$cache->isCached('members_icon')) {
-                $members_icon = '';
-            } else {
-                $members_icon = $cache->retrieve('members_icon');
-            }
+        $cache->setCache('navbar_icons');
+        if (!$cache->isCached('members_icon')) {
+            $members_icon = '';
+        } else {
+            $members_icon = $cache->retrieve('members_icon');
+        }
 
-            $cache->setCache('nav_location');
-            if (!$cache->isCached('members_location')) {
-                $link_location = 1;
-                $cache->store('members_location', 1);
-            } else {
-                $link_location = $cache->retrieve('members_location');
-            }
+        $cache->setCache('nav_location');
+        if (!$cache->isCached('members_location')) {
+            $link_location = 1;
+            $cache->store('members_location', 1);
+        } else {
+            $link_location = $cache->retrieve('members_location');
+        }
 
-            switch ($link_location) {
-                case 1:
-                    // Navbar
-                    $navs[0]->add('members', $this->_members_language->get('members', 'members'), URL::build('/members'), 'top', null, $members_order, $members_icon);
-                    break;
-                case 2:
-                    // "More" dropdown
-                    $navs[0]->addItemToDropdown('more_dropdown', 'members', $this->_members_language->get('members', 'members'), URL::build('/members'), 'top', null, $members_icon, $members_order);
-                    break;
-                case 3:
-                    // Footer
-                    $navs[0]->add('members', $this->_members_language->get('members', 'members'), URL::build('/members'), 'footer', null, $members_order, $members_icon);
-                    break;
-            }
+        switch ($link_location) {
+            case 1:
+                // Navbar
+                $navs[0]->add('members', $this->_members_language->get('members', 'members'), URL::build('/members'), 'top', null, $members_order, $members_icon);
+                break;
+            case 2:
+                // "More" dropdown
+                $navs[0]->addItemToDropdown('more_dropdown', 'members', $this->_members_language->get('members', 'members'), URL::build('/members'), 'top', null, $members_icon, $members_order);
+                break;
+            case 3:
+                // Footer
+                $navs[0]->add('members', $this->_members_language->get('members', 'members'), URL::build('/members'), 'footer', null, $members_order, $members_icon);
+                break;
         }
 
         if (defined('BACK_END')) {

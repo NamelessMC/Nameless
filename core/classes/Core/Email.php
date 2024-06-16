@@ -12,8 +12,8 @@ use PHPMailer\PHPMailer\SMTP;
  * @version 2.0.0-pr13
  * @license MIT
  */
-class Email {
-
+class Email
+{
     public const REGISTRATION = 1;
     public const FORGOT_PASSWORD = 3;
     public const API_REGISTRATION = 4;
@@ -28,14 +28,15 @@ class Email {
     /**
      * Send an email.
      *
-     * @param array $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
-     * @param string $subject Subject of the email.
-     * @param string $message Message of the email.
-     * @param array|null $reply_to Array containing `'email'` and `'name'` strings for the reply-to address,
-     * if not provided the default setting will be used.
+     * @param  array      $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
+     * @param  string     $subject   Subject of the email.
+     * @param  string     $message   Message of the email.
+     * @param  array|null $reply_to  Array containing `'email'` and `'name'` strings for the reply-to address,
+     *                               if not provided the default setting will be used.
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
      */
-    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null) {
+    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null)
+    {
         $email = [
             'to' => $recipient,
             'subject' => $subject,
@@ -43,7 +44,7 @@ class Email {
             'replyto' => $reply_to ?? self::getReplyTo(),
         ];
 
-        if (Util::getSetting('phpmailer') == '1') {
+        if (Settings::get('phpmailer') == '1') {
             return self::sendMailer($email);
         }
 
@@ -51,25 +52,28 @@ class Email {
     }
 
     /**
-     * Get reply to array for send()
+     * Get reply to array for send().
      * @return array Array with reply-to email address and name
      */
-    public static function getReplyTo(): array {
+    public static function getReplyTo(): array
+    {
         return [
-            'email' => Util::getSetting('incoming_email'),
-            'name' => SITE_NAME
+            'email' => Settings::get('incoming_email'),
+            'name' => SITE_NAME,
         ];
     }
+
     /**
      * Send an email using PHP's `mail()` function.
      *
-     * @param array $email Array containing `to`, `subject`, `message` and `headers` values.
+     * @param  array      $email Array containing `to`, `subject`, `message` and `headers` values.
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
-    private static function sendPHP(array $email) {
+    private static function sendPHP(array $email)
+    {
         error_clear_last();
 
-        $outgoing_email = Util::getSetting('outgoing_email');
+        $outgoing_email = Settings::get('outgoing_email');
         $incoming_email = $email['replyto']['email'];
 
         $encoded_subject = '=?UTF-8?B?' . base64_encode($email['subject']) . '?=';
@@ -87,7 +91,7 @@ class Email {
         }
 
         return [
-            'error' => error_get_last()['message'] ?? 'Unknown error'
+            'error' => error_get_last()['message'] ?? 'Unknown error',
         ];
     }
 
@@ -96,10 +100,11 @@ class Email {
      *
      * @see PHPMailer
      *
-     * @param array $email Array of email data to send.
+     * @param  array      $email Array of email data to send.
      * @return array|bool Returns true if email sent, otherwise returns an array containing the error.
      */
-    private static function sendMailer(array $email) {
+    private static function sendMailer(array $email)
+    {
         try {
             // Initialise PHPMailer
             $mail = new PHPMailer(true);
@@ -141,12 +146,11 @@ class Email {
             }
 
             return [
-                'error' => $mail->ErrorInfo
+                'error' => $mail->ErrorInfo,
             ];
-
         } catch (Exception $e) {
             return [
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -154,21 +158,23 @@ class Email {
     /**
      * Add a custom placeholder/variable for email messages.
      *
-     * @param string $key The key to use for the placeholder, should be enclosed in square brackets.
+     * @param string                                   $key   The key to use for the placeholder, should be enclosed in square brackets.
      * @param string|Closure(Language, string): string $value The value to replace the placeholder with.
      */
-    public static function addPlaceholder(string $key, $value): void {
+    public static function addPlaceholder(string $key, $value): void
+    {
         self::$_message_placeholders[$key] = $value;
     }
 
     /**
      * Format an email template and replace placeholders.
      *
-     * @param string $email Name of email to format.
-     * @param Language $viewing_language Instance of Language class to use for translations.
-     * @return string Formatted email.
+     * @param  string   $email            Name of email to format.
+     * @param  Language $viewing_language Instance of Language class to use for translations.
+     * @return string   Formatted email.
      */
-    public static function formatEmail(string $email, Language $viewing_language): string {
+    public static function formatEmail(string $email, Language $viewing_language): string
+    {
         $placeholders = array_keys(self::$_message_placeholders);
 
         $placeholder_values = [];

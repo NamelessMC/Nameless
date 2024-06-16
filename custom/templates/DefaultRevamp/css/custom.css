@@ -271,24 +271,45 @@ body.pushable>.pusher {
     }
 }
 
+.ui.comments {
+    max-width: none;
+}
+
+#reactions {
+    margin-top: 1rem;
+    padding: .7em 1.2em .7em 1.2em;
+    min-height: 32.5px;
+    font-size: 12px;
+}
+
 #topic-post #post-content {
     display: flex;
     flex-direction: column;
 }
 
-#topic-post #post-content #reactions {
-    margin-top: auto;
+#topic-post #post-content {
     padding: .7em 1.2em .7em 1.2em;
     min-height: 32.5px;
-    font-size: .85em;
 }
 
-#topic-post #post-content #reactions form {
-    display: inline-block;
+#post-content #reactions {
+    margin-top: auto;
 }
 
-#topic-post #post-content #reactions .icon {
-    margin-right: .3em;
+.reaction-button {
+    margin-left: 5px;
+    margin-right: 5px;
+    opacity: 50%;
+}
+
+.reaction-button:hover, .reaction-button-selected {
+    opacity: 100%;
+    cursor: pointer;
+}
+
+/** Reaction modal tab buttons display non-native emojis as 2.5em wide by default */
+.ui.menu .item > img:not(.ui) {
+    width: 1em;
 }
 
 #topic-post #post-meta {
@@ -1221,6 +1242,11 @@ body.dark .ui.threaded.comments .comment .text {
     color: #fff;
 }
 
+body.dark .ui.segment .forum_post a,
+body.dark .ui.comments .comment .forum_post a {
+    color: #62b6f7;
+}
+
 body.dark .ui.card .meta,
 .ui.cards>.card .meta,
 body.dark .ui.header,
@@ -1314,6 +1340,7 @@ body.dark .ui.form input[type=url] {
     color: #fff;
 }
 
+body.dark .ui.mini.message,
 body.dark .ui.mini.info.message {
     background-color: #282828;
     box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
@@ -1370,7 +1397,12 @@ body.dark .ui.table tbody tr td.selectable:hover {
     }
 }
 
-body.dark .forum_post {
+body.dark .forum_post,
+body.dark .ui.comments .forum_post.text {
+    color: #fff;
+}
+
+body.dark .ui.comments .comment .author {
     color: #fff;
 }
 
@@ -1469,10 +1501,46 @@ body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
     border-color: transparent;
 }
 
+body.dark #modal-reactions .ui.menu {
+    background-color: #282828;
+    overflow-x: auto;
+}
+
+body.dark #modal-reactions .ui.menu .item {
+    color: #fff;
+}
+
+body.dark #modal-reactions .ui.menu .item.active {
+    background-color: #222;
+}
+
+body.dark #modal-reactions .ui.large.selection.divided.list.middle.aligned .item .content {
+    color: #fff;
+}
+
+body.dark ::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
 /*
-   * Colours
-   */
+ * Colours
+ */
 
 body.dark .white {
     color: #fff;
+}
+
+/*
+ * Accessiblity
+ */
+
+.screenreader-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
 }

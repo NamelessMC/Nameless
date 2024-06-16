@@ -1,12 +1,13 @@
 <?php
 
-class ProfileFieldsDataSeeder extends Seeder {
-
+class ProfileFieldsDataSeeder extends Seeder
+{
     public array $tables = [
         'nl2_users_profile_fields',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $profile_fields = $db->get('profile_fields', ['id', '<>', 0])->results();
 
         foreach ($db->get('users', ['id', '<>', '0'])->results() as $user) {

@@ -9,14 +9,15 @@
  *  Forum module - front page module
  */
 
+$groups_key = implode('-', $user->getAllGroupIds());
 $cache->setCache('news_cache');
-if ($cache->isCached('news')) {
-    $news = $cache->retrieve('news');
+if ($cache->isCached('news-' . $groups_key)) {
+    $news = $cache->retrieve('news-' . $groups_key);
 } else {
     $forum = new Forum();
 
     $latest_news = $forum->getLatestNews(
-        Util::getSetting('news_items_front_page', 5, 'forum'),
+        Settings::get('news_items_front_page', 5, 'forum'),
         $user->getAllGroupIds()
     ); // Get latest 5 items
 
@@ -47,7 +48,7 @@ if ($cache->isCached('news')) {
         ];
     }
 
-    $cache->store('news', $news, 60);
+    $cache->store('news-' . $groups_key, $news, 60);
 }
 
 $timeago = new TimeAgo(TIMEZONE);

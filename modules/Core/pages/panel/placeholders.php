@@ -93,7 +93,7 @@ if (isset($_GET['leaderboard'])) {
 
             if (Input::get('action') === 'settings') {
                 // Update placeholders value
-                Util::setSetting('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
+                Settings::set('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
 
                 foreach ($all_placeholders as $placeholder) {
                     $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
@@ -161,7 +161,7 @@ if (isset($_GET['leaderboard'])) {
         'MINECRAFT' => $language->get('admin', 'minecraft'),
         'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
         'ENABLE_PLACEHOLDERS' => $language->get('admin', 'enable_placeholders'),
-        'ENABLE_PLACEHOLDERS_VALUE' => Util::getSetting('placeholders') === '1',
+        'ENABLE_PLACEHOLDERS_VALUE' => Settings::get('placeholders') === '1',
         'DELETE' => $language->get('admin', 'delete'),
         'CONFIRM_DELETE_PLACEHOLDER' => $language->get('admin', 'confirm_delete_placeholder'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),

@@ -9,14 +9,16 @@
     "discord_integration/discord_widget_theme": "Thème Discord Widget",
     "discord_integration/discord_widget_error": "Une erreur s'est produite lors de l'obtention du widget Discord : {{error}}.",
     "discord_integration/discord_id_required": "Veuillez entrer votre ID de serveur Discord.",
-    "discord_integration/discord_id_confirm": "Veuillez exécuter la commande \"/verify {{token}}\" dans Discord pour terminer la liaison de votre compte Discord.",
-    "discord_integration/discord_id_length": "Veuillez vous assurer que votre ID de serveur Discord comporte 18 caractères.",
+    "discord_integration/discord_id_confirm": "Veuillez exécuter la commande \"/verify token:{{token}}\" dans Discord pour terminer la liaison de votre compte Discord.",
+    "discord_integration/discord_id_length": "Veuillez vous assurer que votre ID de serveur Discord est compris entre {{min}} et {{max}} chiffres.",
     "discord_integration/discord_role_id": "Discord Role ID",
     "discord_integration/discord": "Discord",
     "discord_integration/discord_id_numeric": "Veuillez vous assurer que votre ID de serveur Discord est numérique (uniquement des chiffres).",
     "discord_integration/discord_invite_info": "Pour inviter le bot Nameless Link sur votre serveur Discord, cliquez sur {{inviteLinkStart}} ici{{inviteLinkEnd}}. Ensuite, exécutez la commande {{command}} pour lier le robot à votre site Web. Vous pouvez également {{selfHostLinkStart}} héberger le robot vous-même{{selfHostLinkEnd}}.",
-    "discord_integration/discord_role_id_length": "L'identifiant de rôle Discord doit comporter 18 chiffres.",
+    "discord_integration/discord_role_id_length": "L'ID du rôle Discord doit être compris entre {{min}} et {{max}} chiffres.",
     "discord_integration/discord_role_id_numeric": "L'ID de rôle Discord doit être numérique.",
     "discord_integration/discord_widget_disabled": "Le widget est désactivé pour le serveur Discord spécifié. Veuillez accéder à l'onglet \"Widget\" dans les paramètres de votre serveur Discord, et assurez-vous que le widget Discord est activé et que l'ID est correct.",
-    "discord_integration/enable_discord_integration": "Activer l'intégration de Discord ?"
+    "discord_integration/enable_discord_integration": "Activer l'intégration de Discord ?",
+    "discord_integration/discord_bot": "Bot Discord",
+    "discord_integration/link_method": "Méthode de liaison"
 }

@@ -139,67 +139,6 @@
                         </div>
                     </div>
 
-                    <h5>{$OAUTH}</h5>
-                    <div class="card shadow border-left-primary">
-                        <div class="card-body">
-                            <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                            {$OAUTH_INFO}
-                        </div>
-                    </div>
-                    <br />
-                    <form action="" method="post">
-                        <div class="row">
-                            {foreach from=$OAUTH_PROVIDER_DATA key="provider_name" item="provider_data"}
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="form-group custom-control custom-switch text-center">
-                                            <input id="enable-{$provider_name}" name="enable-{$provider_name}"
-                                                type="checkbox" class="custom-control-input" {if $provider_data['enabled']
-                                                && $provider_data['setup']} checked{/if} />
-                                            <label for="enable-{$provider_name}" id="enable-{$provider_name}"
-                                                class="custom-control-label">
-                                                {$provider_name|ucfirst}
-                                                {if $provider_data['logo_url']}
-                                                    <img src="{$provider_data['logo_url']}" alt="{$provider_name|ucfirst} Logo" style="width: 16px; height: auto;">
-                                                {elseif $provider_data['icon']}
-                                                    <i class="{$provider_data['icon']}"></i>
-                                                {/if}
-                                            </label>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="client-id-{$provider_name}">{$CLIENT_ID}</label>
-                                            <input type="text" name="client-id-{$provider_name}" class="form-control"
-                                                   id="client-id-{$provider_name}" placeholder="Client ID"
-                                                   value="{$provider_data['client_id']}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="client-secret-{$provider_name}">{$CLIENT_SECRET}</label>
-                                            <input type="password" name="client-secret-{$provider_name}"
-                                                   class="form-control" id="client-secret-{$provider_name}"
-                                                   placeholder="Client Secret" value="{$provider_data['client_secret']}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="client-url-{$provider_name}">{$REDIRECT_URL}</label>
-                                            <input type="text" class="form-control" id="client-url-{$provider_name}"
-                                                   readonly value="{$OAUTH_URL|replace:'{{provider}}':$provider_name}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {/foreach}
-                        </div>
-
-                        <div class="form-group">
-                            <input type="hidden" name="action" value="oauth">
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                        </div>
-                    </form>
-
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>
 

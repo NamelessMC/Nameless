@@ -5,22 +5,23 @@
  * this script was made with the primary goal of making the install process automatic for hosting providers + our API test suite.
  */
 
-function getEnvVar(string $name, string $fallback = null, array $valid_values = null) {
+function getEnvVar(string $name, string $fallback = null, array $valid_values = null)
+{
     $value = getenv($name);
     $required = $fallback === null;
 
     if ($value === false && $required) {
-        print("⚠️  Required environment variable '$name' is not set!" . PHP_EOL);
+        echo "⚠️  Required environment variable '$name' is not set!" . PHP_EOL;
         exit(1);
     }
 
     if (!$value && $fallback !== null) {
         $value = $fallback;
-        print("ℹ️  Environment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL);
+        echo "ℹ️  Environment variable '$name' is not set, using fallback '$fallback'" . PHP_EOL;
     }
 
     if ($valid_values != null && !in_array($value, $valid_values)) {
-        print("⚠️  Environment variable '$name' has invalid value");
+        echo "⚠️  Environment variable '$name' has invalid value";
         exit(1);
     }
 
@@ -32,26 +33,26 @@ if (PHP_SAPI !== 'cli') {
 }
 
 if (!isset($argv[1]) || $argv[1] !== '--iSwearIKnowWhatImDoing') {
-    print("🚫 You don't know what you're doing." . PHP_EOL);
+    echo "🚫 You don't know what you're doing." . PHP_EOL;
     exit(1);
 }
 
-print(PHP_EOL);
+echo PHP_EOL;
 
 $reinstall = false;
 if (isset($argv[2]) && $argv[2] == '--reinstall') {
     $reinstall = true;
-    print('🧨 Reinstall mode enabled! ' . PHP_EOL . PHP_EOL);
+    echo '🧨 Reinstall mode enabled! ' . PHP_EOL . PHP_EOL;
 }
 
 if (!file_exists('./vendor/autoload.php')) {
-    print('⚠️  You need to run "composer install" first!' . PHP_EOL);
+    echo '⚠️  You need to run "composer install" first!' . PHP_EOL;
     exit(1);
 }
 
 if (!$reinstall && file_exists('./core/config.php')) {
-    print('⚠️  NamelessMC is already installed! ' . PHP_EOL);
-    print("🧨 If you want to reinstall, run this script with the '--reinstall' flag." . PHP_EOL);
+    echo '⚠️  NamelessMC is already installed! ' . PHP_EOL;
+    echo "🧨 If you want to reinstall, run this script with the '--reinstall' flag." . PHP_EOL;
     exit(1);
 }
 
@@ -62,25 +63,33 @@ foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_CONTACT_EMAIL', 'NAMELESS_SITE_OU
 
 $start = microtime(true);
 
-print('🗑  Deleting cache directories...' . PHP_EOL);
+echo '🗑  Deleting cache directories...' . PHP_EOL;
 // clear the cache directories
 $folders = [
     './cache',
-    './cache/templates_c'
+    './cache/templates_c',
+];
+$whitelist = [
+    '0_DO_NOT_DELETE.txt',
+    '.htaccess',
 ];
 foreach ($folders as $folder) {
     if (is_dir($folder)) {
         $files = glob($folder . '/*');
         foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file);
+            if (!in_array(basename($file), $whitelist)) {
+                if (is_file($file)) {
+                    unlink($file);
+                } elseif (is_dir($file)) {
+                    rmdir($file);
+                }
             }
         }
     }
 }
 
 if ($reinstall) {
-    print('🗑  Deleting old config.php file...' . PHP_EOL);
+    echo '🗑  Deleting old config.php file...' . PHP_EOL;
     // delete the core/config.php file
     if (is_file('./core/config.php')) {
         unlink('./core/config.php');
@@ -89,10 +98,10 @@ if ($reinstall) {
 
 const ROOT_PATH = __DIR__ . '/../..';
 
-print('♻️  Registering autoloader...' . PHP_EOL);
+echo '♻️  Registering autoloader...' . PHP_EOL;
 require './vendor/autoload.php';
 
-print('✍️  Creating new config.php file...' . PHP_EOL);
+echo '✍️  Creating new config.php file...' . PHP_EOL;
 $conf = [
     'mysql' => [
         'host' => getEnvVar('NAMELESS_DATABASE_ADDRESS', '127.0.0.1'),
@@ -129,7 +138,7 @@ $conf = [
 Config::write($conf);
 
 if ($reinstall) {
-    print('🗑️  Deleting old database...' . PHP_EOL);
+    echo '🗑️  Deleting old database...' . PHP_EOL;
     $instance = DB::getCustomInstance(
         $conf['mysql']['host'],
         $conf['mysql']['db'],
@@ -138,22 +147,22 @@ if ($reinstall) {
         $conf['mysql']['port']
     );
     $instance->query('DROP DATABASE IF EXISTS `' . $conf['mysql']['db'] . '`');
-    print('✍️  Creating new database...' . PHP_EOL);
+    echo '✍️  Creating new database...' . PHP_EOL;
     $instance->query('CREATE DATABASE `' . $conf['mysql']['db'] . '`');
 }
 
-print('✍️  Creating tables...' . PHP_EOL);
+echo '✍️  Creating tables...' . PHP_EOL;
 
-$message = PhinxAdapter::migrate();
+$message = PhinxAdapter::migrate('Core');
 
 if (!str_contains($message, 'All Done')) {
-    print($message);
+    echo $message;
     exit(1);
 }
 
 Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK'));
 
-print('✍️  Inserting default data to database...' . PHP_EOL);
+echo '✍️  Inserting default data to database...' . PHP_EOL;
 
 $_SESSION['install_timezone'] = in_array($timezone = getEnvVar('NAMELESS_TIMEZONE', 'Europe/London'), DateTimeZone::listIdentifiers())
     ? $timezone
@@ -161,12 +170,12 @@ $_SESSION['install_timezone'] = in_array($timezone = getEnvVar('NAMELESS_TIMEZON
 
 DatabaseInitialiser::runPreUser();
 
-Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
-Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
-Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
+Settings::set('sitename', getEnvVar('NAMELESS_SITE_NAME'));
+Settings::set('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
+Settings::set('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
+Settings::set('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
 
-print('👮 Creating admin account...' . PHP_EOL);
+echo '👮 Creating admin account...' . PHP_EOL;
 
 $username = getEnvVar('NAMELESS_ADMIN_USERNAME', 'admin');
 $password = getEnvVar('NAMELESS_ADMIN_PASSWORD', 'password');
@@ -215,10 +224,10 @@ DatabaseInitialiser::runPostUser();
 
 Config::set('core.installed', true);
 
-print(PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL);
-print(PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path']);
-print(PHP_EOL . '🔑 Admin username: ' . $username);
-print(PHP_EOL . '🔑 Admin email: ' . $email);
-print(PHP_EOL . '🔑 Admin password: ' . $password);
-print(PHP_EOL);
+echo PHP_EOL . '✅ Installation complete! (Took ' . round(microtime(true) - $start, 2) . ' seconds)' . PHP_EOL;
+echo PHP_EOL . '🖥  URL: http://' . $conf['core']['hostname'] . $conf['core']['path'];
+echo PHP_EOL . '🔑 Admin username: ' . $username;
+echo PHP_EOL . '🔑 Admin email: ' . $email;
+echo PHP_EOL . '🔑 Admin password: ' . $password;
+echo PHP_EOL;
 exit(0);

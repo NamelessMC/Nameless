@@ -7,18 +7,18 @@
  * @version 2.0.1
  * @license MIT
  */
-class PluginQuery {
-
+class PluginQuery
+{
     /**
-     * Query a server by its server id
+     * Query a server by its server id.
      *
-     * @param int $server_id The Nameless server id to get the data for.
-     * @param Language $language Query language object.
-     * @return array Array containing query result.
+     * @param  int      $server_id The Nameless server id to get the data for.
+     * @param  Language $language  Query language object.
+     * @return array    Array containing query result.
      */
-    public static function singleQuery(int $server_id, Language $language): array {
-
-        $player_list_limit = Util::getSetting('player_list_limit', 20);
+    public static function singleQuery(int $server_id, Language $language): array
+    {
+        $player_list_limit = Settings::get('player_list_limit', 20);
 
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('latest_query');
@@ -27,7 +27,7 @@ class PluginQuery {
             return [
                 'status_value' => 0,
                 'status' => $language->get('general', 'offline'),
-                'server_offline' => $language->get('general', 'server_offline')
+                'server_offline' => $language->get('general', 'server_offline'),
             ];
         }
 
@@ -43,19 +43,20 @@ class PluginQuery {
             'format_player_list' => MCQuery::formatPlayerList($player_list),
             'x_players_online' => $language->get('general', 'currently_x_players_online', ['count' => $data['player_count']]),
             'motd' => $data['motd'] ?? '',
-            'version' => ''
+            'version' => '',
         ];
     }
 
     /**
-     * Query multiple servers
+     * Query multiple servers.
      *
-     * @param array $servers Servers
-     * @param Language $language Query language object
-     * @param bool $accumulate Whether to return as one accumulated result or not
-     * @return array Array containing query result
+     * @param  array    $servers    Servers
+     * @param  Language $language   Query language object
+     * @param  bool     $accumulate Whether to return as one accumulated result or not
+     * @return array    Array containing query result
      */
-    public static function multiQuery(array $servers, Language $language, bool $accumulate) : array {
+    public static function multiQuery(array $servers, Language $language, bool $accumulate): array
+    {
         $to_return = [];
         $total_count = 0;
         $status = 0;
@@ -63,17 +64,18 @@ class PluginQuery {
         $cache->setCache('latest_query');
 
         foreach ($servers as $server) {
-            $server_id = $server->id;
-            $data = $cache->retrieve($server_id);
+            $server_id = $server['id'];
+
             if (!$cache->isCached($server_id) && $accumulate === true) {
                 $to_return[] = [
-                    'name' => Output::getClean($data['name']),
+                    'name' => Output::getClean($server['name']),
                     'status_value' => 0,
                     'status' => $language->get('general', 'offline'),
-                    'server_offline' => $language->get('general', 'server_offline')
+                    'server_offline' => $language->get('general', 'server_offline'),
                 ];
             } else {
                 // Server is online
+                $data = $cache->retrieve($server_id);
                 if ($accumulate === false) {
                     $to_return[] = [
                         'name' => Output::getClean($server['name']),

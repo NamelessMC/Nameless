@@ -49,10 +49,13 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         }
 
         // First get any forums where this user is the last user who posted
-        $latest_forums = [];
+        $latest_forums = [$post->forum_id];
         $latest_forums_query = DB::getInstance()->query('SELECT `id` FROM nl2_forums WHERE `last_user_posted` = ?', [$banned_user->data()->id]);
         if ($latest_forums_query->count()) {
             $latest_forums = array_map(fn($latest_forum) => $latest_forum->id, $latest_forums_query->results());
+            if (!in_array($post->forum_id, $latest_forums)) {
+                $latest_forums[] = $post->forum_id;
+            }
         }
 
         // Now get any topics where this user is the last user who posted

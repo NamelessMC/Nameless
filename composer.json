@@ -27,7 +27,7 @@
         "ircmaxell/password-compat": "^1.0.4",
         "astrotomic/php-twemoji": "^0.2.2",
         "samerton/i18next": "^1.0.1",
-        "robmorgan/phinx": "^0.12.13",
+        "robmorgan/phinx": "^0.13.4",
         "symfony/http-foundation": "^5.4.17",
         "joypixels/emoji-toolkit": "^7.0",
         "geoip2/geoip2": "^2.13",

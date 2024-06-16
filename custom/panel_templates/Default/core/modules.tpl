@@ -67,7 +67,7 @@
                                             <div class="float-md-right">
                                                 {if $module.enabled}
                                                 {if $module.disable_link}
-                                                <form action="{$module.disable_link}" method="post">
+                                                <form action="{$module.disable_link}" method="post" style="display:inline">
                                                     <input type="hidden" name="token" value="{$TOKEN}" />
                                                     <input type="submit" class="btn btn-danger btn-sm"
                                                         value="{$DISABLE}" />
@@ -77,11 +77,16 @@
                                                         class="fa fa-lock"></i></a>
                                                 {/if}
                                                 {else}
-                                                <form action="{$module.enable_link}" method="post">
+                                                <form action="{$module.enable_link}" method="post" style="display:inline">
                                                     <input type="hidden" name="token" value="{$TOKEN}" />
                                                     <input type="submit" class="btn btn-primary btn-sm"
                                                         value="{$ENABLE}" />
                                                 </form>
+                                                {/if}
+                                                {if $module.uninstall_link}
+                                                    <button class="btn btn-danger btn-sm" onclick="uninstallModule('{$module.uninstall_link}', '{$module.confirm_uninstall}')" style="display:inline">
+                                                        {$UNINSTALL}
+                                                    </button>
                                                 {/if}
                                             </div>
                                         </td>
@@ -94,61 +99,57 @@
                             <h5>{$FIND_MODULES}</h5>
                             <br />
 
-                            {if isset($WEBSITE_MODULES_ERROR)}
-                            <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_MODULES}</div>
-                            {/if}
-
                             {if count($WEBSITE_MODULES)}
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <colgroup>
-                                        <col width="70%">
-                                        <col width="20%">
-                                        <col width="10%">
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th>{$MODULE}</th>
-                                            <th>{$STATS}</th>
-                                            <th>{$ACTIONS}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$WEBSITE_MODULES item=item}
-                                        <tr>
-                                            <td>
-                                                <strong>{$item.name}</strong> <small>{$item.latest_version}</small>
-                                                <br />
-                                                <small>{$item.author_x}</small>
-                                                <br />
-                                                <small>{$item.updated_x}</small>
-                                            </td>
-                                            <td>
-                                                <div class="star-rating view">
-                                                    <span class="far fa-star" data-rating="1"
-                                                        style="color:gold;"></span>
-                                                    <span class="far fa-star" data-rating="2" style="color:gold"></span>
-                                                    <span class="far fa-star" data-rating="3"
-                                                        style="color:gold;"></span>
-                                                    <span class="far fa-star" data-rating="4"
-                                                        style="color:gold;"></span>
-                                                    <span class="far fa-star" data-rating="5"
-                                                        style="color:gold;"></span>
-                                                    <input type="hidden" name="rating" class="rating-value"
-                                                        value="{($item.rating/10)|round}">
-                                                </div>
-                                                {$item.downloads_full}<br />
-                                                {$item.views_full}
-                                            </td>
-                                            <td><a href="{$item.url}" target="_blank"
-                                                    class="btn btn-primary btn-sm">{$VIEW} &raquo;</a></td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <colgroup>
+                                            <col width="70%">
+                                            <col width="20%">
+                                            <col width="10%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>{$MODULE}</th>
+                                                <th>{$STATS}</th>
+                                                <th>{$ACTIONS}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$WEBSITE_MODULES item=item}
+                                            <tr>
+                                                <td>
+                                                    <strong>{$item.name}</strong> <small>{$item.latest_version}</small>
+                                                    <br />
+                                                    <small>{$item.author_x}</small>
+                                                    <br />
+                                                    <small>{$item.updated_x}</small>
+                                                </td>
+                                                <td>
+                                                    <div class="star-rating view">
+                                                        <span class="far fa-star" data-rating="1"
+                                                            style="color:gold;"></span>
+                                                        <span class="far fa-star" data-rating="2" style="color:gold"></span>
+                                                        <span class="far fa-star" data-rating="3"
+                                                            style="color:gold;"></span>
+                                                        <span class="far fa-star" data-rating="4"
+                                                            style="color:gold;"></span>
+                                                        <span class="far fa-star" data-rating="5"
+                                                            style="color:gold;"></span>
+                                                        <input type="hidden" name="rating" class="rating-value"
+                                                            value="{($item.rating/10)|round}">
+                                                    </div>
+                                                    {$item.downloads_full}<br />
+                                                    {$item.views_full}
+                                                </td>
+                                                <td><a href="{$item.url}" target="_blank"
+                                                        class="btn btn-primary btn-sm">{$VIEW} &raquo;</a></td>
+                                            </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
                             {else}
-                            <div class="alert alert-warning">{$WEBSITE_MODULES_ERROR}</div>
+                                <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_MODULES}</div>
                             {/if}
 
                             <a href="{$VIEW_ALL_MODULES_LINK}" class="btn btn-primary"
@@ -172,6 +173,29 @@
             <!-- End Content Wrapper -->
         </div>
 
+        <div class="modal fade" id="uninstallModuleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$UNINSTALL}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="" method="post" id="uninstallModuleForm">
+                        <div class="modal-body">
+                            <p id="confirmUninstallModule"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
+                            <input type="submit" class="btn btn-primary" value="{$UNINSTALL}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- End Wrapper -->
     </div>
 
@@ -193,6 +217,14 @@
         };
 
         SetRatingStar();
+    </script>
+
+    <script type="text/javascript">
+        function uninstallModule(action, confirmationText) {
+          $('#uninstallModuleForm').attr('action', action);
+          $('#confirmUninstallModule').html(confirmationText);
+          $('#uninstallModuleModal').modal().show();
+        }
     </script>
 
 </body>

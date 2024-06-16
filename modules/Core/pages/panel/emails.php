@@ -155,10 +155,10 @@ if (isset($_GET['action'])) {
                 Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
             } else {
-                Util::setSetting('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
+                Settings::set('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
 
                 if (!empty($_POST['email'])) {
-                    Util::setSetting('outgoing_email', $_POST['email']);
+                    Settings::set('outgoing_email', $_POST['email']);
                 }
 
                 if ($_POST['port'] && !is_numeric($_POST['port'])) {
@@ -187,14 +187,14 @@ if (isset($_GET['action'])) {
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign([
-            'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-            'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
+            'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
+            'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
         ]);
     }
 
     $smarty->assign([
-        'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-        'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
+        'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
+        'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
         'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
         'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/core/emails/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
@@ -202,7 +202,7 @@ if (isset($_GET['action'])) {
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
         'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/errors'),
         'ENABLE_MAILER' => $language->get('admin', 'use_external_mail_server'),
-        'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
+        'ENABLE_MAILER_VALUE' => Settings::get('phpmailer'),
         'INFO' => $language->get('general', 'info'),
         'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
             'docLinkStart' => "<a href='https://docs.namelessmc.com/smtp' target='_blank'>",
@@ -210,7 +210,7 @@ if (isset($_GET['action'])) {
         ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
-        'OUTGOING_EMAIL_VALUE' => Output::getClean(Util::getSetting('outgoing_email')),
+        'OUTGOING_EMAIL_VALUE' => Output::getClean(Settings::get('outgoing_email')),
         'USERNAME' => $language->get('user', 'username'),
         'USERNAME_VALUE' => Output::getClean(Config::get('email.username', '')),
         'PASSWORD' => $language->get('user', 'password'),

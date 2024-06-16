@@ -192,7 +192,7 @@ if ($forum_query->redirect_forum == 1) {
                 if ($forum->canViewOtherTopics($subforum->id, $user_groups)) {
                     $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subforum->id])->results();
                 } else {
-                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND (topic_creator = ? OR sticky = 1) ORDER BY topic_reply_date DESC', [$subforum->id, $user_id])->results();
                 }
 
                 $subforum_topics = count($latest_post);
@@ -261,6 +261,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('SUBFORUMS', $subforum_array);
     $smarty->assign('SUBFORUM_LANGUAGE', $forum_language->get('forum', 'subforums'));
     $smarty->assign('FORUM_TITLE', Output::getPurified($forum_query->forum_title));
+    $smarty->assign('FORUM_DESCRIPTION', Output::getPurified($forum_query->forum_description));
     $smarty->assign('FORUM_ICON', Output::getPurified($forum_query->icon));
     $smarty->assign('STICKY_TOPICS', $forum_language->get('forum', 'sticky_topics'));
 

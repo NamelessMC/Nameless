@@ -12,8 +12,8 @@ use Symfony\Component\HttpFoundation\IpUtils;
  * @version 2.0.0
  * @license MIT
  */
-class HttpUtils {
-
+class HttpUtils
+{
     private static Reader $_geoIpReader;
 
     /**
@@ -21,7 +21,8 @@ class HttpUtils {
      *
      * @return ?string Client IP address, or null if there is no remote address, for example in CLI environment
      */
-    public static function getRemoteAddress(): ?string {
+    public static function getRemoteAddress(): ?string
+    {
         if (!self::isTrustedProxy()) {
             // Client is not a trusted proxy, we can only trust its actual remote address
             return $_SERVER['REMOTE_ADDR'];
@@ -66,7 +67,7 @@ class HttpUtils {
                 foreach (explode(';', trim($part1)) as $part2) {
                     $part2 = explode('=', $part2);
                     if (count($part2) != 2) {
-                        die("Invalid Forwarded header");
+                        die('Invalid Forwarded header');
                     }
 
                     if ($part2[0] === 'for') {
@@ -96,12 +97,14 @@ class HttpUtils {
      *
      * @return string 'http' if HTTP or 'https' if HTTPS. If the protocol is not known, for example when using the CLI, 'http' is always returned.
      */
-    public static function getProtocol(): string {
+    public static function getProtocol(): string
+    {
         $x_forwarded_proto = self::getHeader('X-Forwarded-Proto');
         if ($x_forwarded_proto !== null) {
             if ($x_forwarded_proto !== 'http' && $x_forwarded_proto !== 'https') {
                 die('Invalid X-Forwarded-Proto header, should be "http" or "https" but it is "' . Output::getClean($x_forwarded_proto) . '".');
             }
+
             return $x_forwarded_proto;
         }
 
@@ -117,7 +120,8 @@ class HttpUtils {
      *
      * @return ?int Port number, or null when using the CLI
      */
-    public static function getPort(): ?int {
+    public static function getPort(): ?int
+    {
         $x_forwarded_port = self::getHeader('X-Forwarded-Port');
         if ($x_forwarded_port !== null) {
             return (int) $x_forwarded_port;
@@ -129,7 +133,7 @@ class HttpUtils {
         if ($x_forwarded_proto !== null) {
             if ($x_forwarded_proto === 'https') {
                 return 443;
-            } else if ($x_forwarded_proto === 'http') {
+            } elseif ($x_forwarded_proto === 'http') {
                 return 80;
             }
         }
@@ -146,16 +150,19 @@ class HttpUtils {
      *
      * @return bool Whether the trusted proxies option is configured or not
      */
-    public static function isTrustedProxiesConfigured(): bool {
+    public static function isTrustedProxiesConfigured(): bool
+    {
         $config_proxies = Config::get('core.trustedProxies');
         $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+
         return ($config_proxies !== false && is_array($config_proxies)) || $env_proxies !== false;
     }
 
     /**
      * @return array List of trusted proxy networks according to config file and environment
      */
-    public static function getTrustedProxies(): array {
+    public static function getTrustedProxies(): array
+    {
         $trusted_proxies = [];
 
         // Add trusted proxies from config file
@@ -182,7 +189,8 @@ class HttpUtils {
      *
      * @return bool Whether the client is a trusted proxy or not.
      */
-    private static function isTrustedProxy(): bool {
+    private static function isTrustedProxy(): bool
+    {
         $trusted_proxies = self::getTrustedProxies();
 
         foreach ($trusted_proxies as $trustedProxy) {
@@ -199,7 +207,8 @@ class HttpUtils {
      *
      * @return string Address that may be used for security purposes
      */
-    private static function firstNonProxyAddress(array $addresses): string {
+    private static function firstNonProxyAddress(array $addresses): string
+    {
         if (count($addresses) === 0) {
             throw new InvalidArgumentException('Addresses must not be empty');
         }
@@ -232,21 +241,24 @@ class HttpUtils {
     }
 
     /**
-     * Get header value
-     * @param string $header_name Header name
+     * Get header value.
+     * @param  string  $header_name Header name
      * @return ?string Header value, or null if header is not present in request
      */
-    public static function getHeader(string $header_name): ?string {
+    public static function getHeader(string $header_name): ?string
+    {
         $headers = getallheaders();
         foreach ($headers as $key => $value) {
             if (strcasecmp($key, $header_name) === 0) {
                 return $value;
             }
         }
+
         return null;
     }
 
-    public static function getIpCountry(string $ip): string {
+    public static function getIpCountry(string $ip): string
+    {
         if (in_array($ip, ['localhost', '127.0.0.1', '::1'])) {
             return 'Unknown';
         }
@@ -272,5 +284,4 @@ class HttpUtils {
 
         return $country;
     }
-
 }

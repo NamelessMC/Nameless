@@ -1,7 +1,7 @@
 <?php
 
-class IntegrationUserData {
-
+class IntegrationUserData
+{
     public int $id;
     public int $integration_id;
     public string $user_id;
@@ -13,7 +13,8 @@ class IntegrationUserData {
     public bool $show_publicly;
     public int $last_sync;
 
-    public function __construct(object $row) {
+    public function __construct(object $row)
+    {
         $this->id = $row->id;
         $this->integration_id = $row->integration_id;
         $this->user_id = $row->user_id;
@@ -25,5 +26,4 @@ class IntegrationUserData {
         $this->show_publicly = $row->show_publicly;
         $this->last_sync = $row->last_sync;
     }
-
 }

@@ -1,8 +1,9 @@
 <?php
+
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
-            $message = PhinxAdapter::migrate();
+            $message = PhinxAdapter::migrate('Core');
             $json = [
                 'message' => $language->get('installer', 'database_configured'),
                 'redirect_url' => '?step=site_configuration',
@@ -34,5 +35,5 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
 
     header('Content-Type: application/json');
     echo json_encode($json);
-    die();
+    die;
 }

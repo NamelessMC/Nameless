@@ -20,7 +20,7 @@ if ($user->isLoggedIn()) {
 }
 
 // Get login method
-$login_method = Util::getSetting('login_method');
+$login_method = Settings::get('login_method');
 
 $captcha = CaptchaBase::isCaptchaEnabled('recaptcha_login');
 
@@ -160,7 +160,7 @@ if (Input::exists()) {
                         // Sync AuthMe password
                         $authme_db = Config::get('authme');
 
-                        if (Util::getSetting('mc_integration') && Util::getSetting('authme') && DB::getInstance()->get('users', ['id', $user_id])->first()->authme_sync_password) {
+                        if (Settings::get('mc_integration') && Settings::get('authme') && DB::getInstance()->get('users', ['id', $user_id])->first()->authme_sync_password) {
                             try {
                                 // Check user exists in database and validate password
                                 $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
@@ -251,15 +251,19 @@ if ($login_method == 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
 } else if ($login_method == 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-} else if (Util::getSetting('mc_integration')) {
+} else if (Settings::get('mc_integration')) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
     $smarty->assign('USERNAME', $language->get('user', 'username'));
 }
 
 // Add "login with..." message to provider array
-$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
-foreach ($providers as $name => $provider) {
+$providers = [];
+foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $provider) {
+    if (!NamelessOAuth::getInstance()->isEnabled($name))
+        continue;
+
+    $providers[$name] = $provider;
     $providers[$name]['log_in_with'] = $language->get('user', 'log_in_with', [
         'provider' => ucfirst($name)
     ]);
@@ -278,7 +282,7 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
-    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
+    'OAUTH_AVAILABLE' => count($providers),
     'OAUTH_PROVIDERS' => $providers,
     'OR' => $language->get('general', 'or'),
 ]);

@@ -11,8 +11,8 @@ use JoyPixels\Client;
  * @version 2.0.0
  * @license MIT
  */
-class Text {
-
+class Text
+{
     /**
      * Truncates text.
      *
@@ -27,14 +27,15 @@ class Text {
      * @link http://book.cakephp.org/view/1469/Text#truncate-1625
      * @link https://github.com/cakephp/cakephp/blob/master/LICENSE
      *
-     * @param string $text String to truncate.
-     * @param int $length Length of returned string, including ellipsis.
-     * @param array $options An array of html attributes and options.
+     * @param  string $text    String to truncate.
+     * @param  int    $length  Length of returned string, including ellipsis.
+     * @param  array  $options An array of html attributes and options.
      * @return string Trimmed string.
      */
-    public static function truncate(string $text, int $length = 750, array $options = []): string {
+    public static function truncate(string $text, int $length = 750, array $options = []): string
+    {
         $default = [
-            'ending' => '...', 'exact' => true, 'html' => false
+            'ending' => '...', 'exact' => true, 'html' => false,
         ];
         $options = array_merge($default, $options);
         extract($options);
@@ -125,28 +126,30 @@ class Text {
      * Wrap text in HTML `<strong>` tags. Used for when variables in translations are bolded,
      * since we want as little HTML in the translation strings as possible.
      *
-     * @param string $text Text to wrap
+     * @param  string $text Text to wrap
      * @return string Text wrapped in `<strong>` tags
      */
-    public static function bold(string $text): string {
+    public static function bold(string $text): string
+    {
         return '<strong>' . $text . '</strong>';
     }
 
     /**
      * Replace emojis with their style equivalent.
      *
-     * @param string $text Text to parse
-     * @param string|null $force_style Style to apply to the emoji image, will use the site default if null
-     * @return string Text with emojis replaced with URLs to their Twemoji equivalent.
+     * @param  string      $text        Text to parse
+     * @param  string|null $force_style Style to apply to the emoji image, will use the site default if null
+     * @return string      Text with emojis replaced with URLs to their Twemoji equivalent.
      */
-    public static function renderEmojis(string $text, string $force_style = null): string {
-        $style = $force_style ?? Util::getSetting('emoji_style', 'twemoji');
+    public static function renderEmojis(string $text, string $force_style = null): string
+    {
+        $style = $force_style ?? Settings::get('emoji_style', 'twemoji');
         switch ($style) {
             case 'twemoji':
                 return Twemoji::text($text)->toHtml();
             case 'joypixels':
                 // Jank workaround can be removed if/when https://github.com/joypixels/emoji-toolkit/issues/55 is implemented
-                return (new class extends Client {
+                return (new class() extends Client {
                     public $emojiSize = '64';
                     public $ignoredRegexp = '';
                 })->toImage($text);
@@ -157,10 +160,11 @@ class Text {
     }
 
     /**
-     * @param string|null $content HTML content to use in Discord embed
-     * @return string HTML content with tags removed and newlines converted to Discord's linebreaks
+     * @param  string|null $content HTML content to use in Discord embed
+     * @return string      HTML content with tags removed and newlines converted to Discord's linebreaks
      */
-    public static function embedSafe(?string $content): string {
+    public static function embedSafe(?string $content): string
+    {
         if ($content === null) {
             return '';
         }
@@ -170,6 +174,8 @@ class Text {
             [' ', '', "\r\n", "\r\n", "\r\n"],
             $content
         ));
+
+        $content = html_entity_decode($content);
 
         return self::truncate($content, 512, [
             'html' => true,

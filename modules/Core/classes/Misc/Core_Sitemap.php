@@ -20,7 +20,7 @@ class Core_Sitemap {
         $sitemap->addItem(URL::build('/login'), 0.8);
         $sitemap->addItem(URL::build('/register'));
 
-        $home_type = Util::getSetting('home_type');
+        $home_type = Settings::get('home_type');
 
         if ($home_type === 'portal') {
             $sitemap->addItem(URL::build('/home'), 0.9);
@@ -39,7 +39,7 @@ class Core_Sitemap {
         $pages = $db->query('SELECT id, url FROM nl2_custom_pages WHERE sitemap = 1 AND id IN (SELECT page_id FROM nl2_custom_pages_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($pages as $page) {
-            $sitemap->addItem(URL::build(urlencode($page->url)));
+            $sitemap->addItem(URL::build(Output::urlEncodeAllowSlashes($page->url)));
         }
 
     }

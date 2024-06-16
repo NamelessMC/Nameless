@@ -17,23 +17,15 @@ class ProfilePostsWidget extends WidgetBase {
     private TimeAgo $_timeago;
 
     public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
-        $this->_language = $language;
+        $this->_module = 'Core';
+        $this->_name = 'Latest Profile Posts';
+        $this->_description = 'Display the latest profile posts on your site.';
         $this->_smarty = $smarty;
+
+        $this->_language = $language;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_timeago = $timeago;
-
-        // Get widget
-        $widget_query = self::getData('Latest Profile Posts');
-
-        parent::__construct(self::parsePages($widget_query));
-
-        // Set widget variables
-        $this->_module = 'Core';
-        $this->_name = 'Latest Profile Posts';
-        $this->_location = $widget_query->location ?? null;
-        $this->_description = 'Display the latest profile posts on your site.';
-        $this->_order = $widget_query->order ?? null;
     }
 
     public function initialise(): void {

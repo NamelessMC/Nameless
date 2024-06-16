@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.3
+ *  NamelessMC version 2.2.0
  *
  *  License: MIT
  *
@@ -25,15 +25,13 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
         if (defined('CONFIG_PATH')) {
             $_SESSION['last_page'] = substr($_SESSION['last_page'], strlen(CONFIG_PATH));
         }
-
     } else {
         $_SESSION['last_page'] = URL::build($_GET['route'] ?? '/');
     }
-
 }
 
 // Check if any integrations is required before user can continue
-if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
+if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections' && PAGE != 'oauth') {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
         if ($integration->data()->required && $integration->allowLinking()) {
             $integrationUser = $user->getIntegration($integration->getName());
@@ -75,7 +73,7 @@ if ($user->isLoggedIn()) {
                     'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
                     'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
                     'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . urlencode($warning->id))
+                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . urlencode($warning->id)),
                 ]);
                 break;
             }
@@ -110,19 +108,24 @@ if (!defined('PAGE_DESCRIPTION')) {
     if ($page_metadata->count()) {
         $page_metadata = $page_metadata->first();
         $smarty->assign([
-            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified($page_metadata->description)),
-            'PAGE_KEYWORDS' => Output::getPurified($page_metadata->tags),
+            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), addslashes(strip_tags($page_metadata->description))),
+            'PAGE_KEYWORDS' => addslashes(strip_tags($page_metadata->tags)),
         ]);
 
         $og_image = $page_metadata->image;
         if ($og_image) {
             $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $og_image);
         }
+    } else {
+        $smarty->assign([
+            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), addslashes(strip_tags(Settings::get('default_meta_description', '')))),
+            'PAGE_KEYWORDS' => addslashes(strip_tags(Settings::get('default_meta_keywords', ''))),
+        ]);
     }
 } else {
     $smarty->assign([
-        'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified(PAGE_DESCRIPTION)),
-        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? Output::getPurified(PAGE_KEYWORDS) : '')
+        'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), addslashes(strip_tags(PAGE_DESCRIPTION))),
+        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? addslashes(strip_tags(PAGE_KEYWORDS)) : ''),
     ]);
 }
 
@@ -148,7 +151,7 @@ if (!empty($favicon_image)) {
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 }
 
-$analytics_id = Util::getSetting('ga_script');
+$analytics_id = Settings::get('ga_script');
 if ($analytics_id) {
     $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));
 }
@@ -160,5 +163,5 @@ $smarty->assign([
     'ENABLED' => $language->get('user', 'enabled'),
     'DISABLED' => $language->get('user', 'disabled'),
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
-    'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
+    'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null,
 ]);
