@@ -514,11 +514,14 @@ class User
         return false;
     }
 
-    public function getActiveSessions(): array {
+    public function getActiveSessions(): array
+    {
         return DB::getInstance()->query(
-            'SELECT * FROM nl2_users_session WHERE user_id = ? AND active = 1 ORDER BY last_seen DESC', [
-                $this->data()->id
-            ])->results();
+            'SELECT * FROM nl2_users_session WHERE user_id = ? AND active = 1 ORDER BY last_seen DESC',
+            [
+                $this->data()->id,
+            ]
+        )->results();
     }
 
     /**
