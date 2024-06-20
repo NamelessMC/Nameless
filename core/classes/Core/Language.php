@@ -44,6 +44,10 @@ class Language
             'name' => 'English US',
             'htmlCode' => 'en',
         ],
+        'fa_IR' => [
+            'name' => 'Persian (Iran)',
+            'htmlCode' => 'fa',
+        ],
         'fr_FR' => [
             'name' => 'French',
             'htmlCode' => 'fr',
