@@ -11,9 +11,8 @@ if __name__ == '__main__':
 
     name = sys.argv[1]
 
-    modules = [e.name for e in Path('modules').iterdir() if e.name != 'Core']
+    modules = [e.name for e in Path('modules').iterdir()]
     paths = [Path('modules', module, 'language', name + '.json') for module in modules]
-    paths.append(Path('custom', 'languages', name + '.json'))
 
     for path in paths:
         with path.open('bw+') as f:
