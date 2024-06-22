@@ -47,6 +47,7 @@ class Language
         'fa_IR' => [
             'name' => 'Persian (Iran)',
             'htmlCode' => 'fa',
+            'rtl' => true,
         ],
         'fr_FR' => [
             'name' => 'French',
