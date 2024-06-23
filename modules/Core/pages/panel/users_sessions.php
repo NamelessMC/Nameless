@@ -1,12 +1,21 @@
 <?php
-/*
- *  Made by Supercrafter100
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.3
+/**
+ * StaffCP user sessions page.
  *
- *  License: MIT
+ * @author Supercrafter100
+ * @version 2.2.0
+ * @license MIT
  *
- *  Panel user sessions page
+ * @var Cache $cache
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 if (!$user->handlePanelPageLoad('admincp.users.sessions')) {
     require_once(ROOT_PATH . '/403.php');
@@ -37,8 +46,8 @@ if (Input::exists()) {
             DB::getInstance()->update('users_session', $_POST['sid'], [
                 'active' => false
             ]);
-            $success = $language->get('general', 'logout_session_successfully');
-        } else if ($_POST['action'] === 'logout_other_sessions') {
+            $success = $language->get('general', 'logout_session_successful');
+        } elseif ($_POST['action'] === 'logout_other_sessions') {
             $view_user->logoutAllOtherSessions();
             $success = $language->get('admin', 'sessions_logged_out');
         }
@@ -46,12 +55,10 @@ if (Input::exists()) {
         $errors[] = $language->get('general', 'invalid_token');
     }
 }
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 $sessions = $view_user->getActiveSessions();
 $user_sessions_list = [];
 
-// TODO: Should we display all sessions, or just active ones? Over time, the list could get very long if we display all sessions.
-// Not really any reason to show inactive ones, since they can't action on them.
 foreach ($sessions as $session) {
     $agent = new \Jenssegers\Agent\Agent();
     $agent->setUserAgent($session->user_agent);
@@ -65,7 +72,7 @@ foreach ($sessions as $session) {
         'device_browser_version' => $agent->version($agent->browser()),
         'method' => $session->login_method,
         'last_seen_short' => $session->last_seen
-            ? $timeago->inWords($session->last_seen, $language)
+            ? $timeAgo->inWords($session->last_seen, $language)
             : $language->get('admin', 'unknown'),
         'last_seen_long' => $session->last_seen
             ? date(DATE_FORMAT, $session->last_seen)

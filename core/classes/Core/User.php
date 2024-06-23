@@ -114,7 +114,26 @@ class User
         if ($field !== 'hash') {
             $data = $this->_db->get('users', [$field, $value]);
         } else {
-            $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
+            $data = $this->_db->query(
+                <<<'SQL'
+                SELECT
+                    nl2_users.*
+                FROM nl2_users
+                    LEFT JOIN nl2_users_session
+                    ON nl2_users.id = nl2_users_session.user_id
+                WHERE
+                    nl2_users_session.hash = ?
+                    AND nl2_users_session.active = 1
+                    AND (
+                        nl2_users_session.expires_at IS NULL
+                        OR nl2_users_session.expires_at > ?
+                    )
+                SQL,
+                [
+                    $value,
+                    time(),
+                ]
+            );
         }
 
         if ($data->count()) {
@@ -288,6 +307,7 @@ class User
             // Valid credentials
             // TODO: job to remove old sessions?
             $hash = SecureRandom::alphanumeric();
+            $expiresAt = $remember ? time() + Config::get('remember.cookie_expiry') : null;
 
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
@@ -297,14 +317,14 @@ class User
                 'login_method' => $is_admin ? 'admin' : $method,
                 'user_agent' => $_SERVER['HTTP_USER_AGENT'],
                 'ip' => HttpUtils::getRemoteAddress(),
+                'expires_at' => $expiresAt,
             ]);
 
             Session::put($sessionName, $hash);
 
             if ($remember) {
-                $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry, HttpUtils::getProtocol() === 'https', true);
+                Cookie::put($cookieName, $hash, $expiresAt, HttpUtils::getProtocol() === 'https', true, false);
             }
 
             return true;
@@ -522,6 +542,21 @@ class User
                 $this->data()->id,
             ]
         )->results();
+    }
+
+    /**
+     * Log the user out from a selected session.
+     *
+     * @param string $sessionId Selected session ID.
+     *
+     * @return void
+     */
+    public function logoutSessionById(string $sessionId): void
+    {
+        DB::getInstance()->query('UPDATE nl2_users_session SET `active` = 0 WHERE user_id = ? AND id = ?', [
+            $this->data()->id,
+            $sessionId,
+        ]);
     }
 
     /**

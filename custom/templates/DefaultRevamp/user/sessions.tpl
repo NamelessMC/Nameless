@@ -80,14 +80,18 @@
 {if $CAN_LOGOUT_ALL}
     <div class="ui small modal" id="modal-logout-all">
         <div class="header">
-            {$LINK} {$provider_name|ucfirst}
+            {$LOGOUT}
         </div>
         <div class="content">
-            {$OAUTH_MESSAGES[$provider_name]['link_confirm']}
+            {$LOGOUT_ALL_CONFIRM}
         </div>
         <div class="actions">
             <a class="ui negative button">{$NO}</a>
-            <a class="ui green button" href="{$provider_data.url}">{$CONFIRM}</a>
+            <form action="" method="post" style="display: inline;">
+                <input type="hidden" name="token" value="{$TOKEN}" />
+                <input type="hidden" name="action" value="logout_other_sessions" />
+                <input type="submit" class="ui green button" value="{$YES}" />
+            </form>
         </div>
     </div>
 {/if}
@@ -102,7 +106,11 @@
         </div>
         <div class="actions">
             <a class="ui negative button">{$NO}</a>
-            <a class="ui green button" href="{$BASE_URL}user/logout/{$session.id}">{$CONFIRM}</a>
+            <form action="" method="post" style="display: inline;">
+                <input type="hidden" name="token" value="{$TOKEN}" />
+                <input type="hidden" name="session_hash" value="{$session.id}" />
+                <input type="submit" class="ui green button" value="{$YES}" />
+            </form>
         </div>
     </div>
 {/foreach}

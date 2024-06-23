@@ -257,9 +257,9 @@ class HttpUtils
         return null;
     }
 
-    public static function getIpCountry(string $ip): string
+    public static function getIpCountry(?string $ip): string
     {
-        if (in_array($ip, ['localhost', '127.0.0.1', '::1'])) {
+        if (!$ip || in_array($ip, ['localhost', '127.0.0.1', '::1'])) {
             return 'Unknown';
         }
 
