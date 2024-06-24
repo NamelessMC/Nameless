@@ -1349,5 +1349,14 @@
     "notification/mass_message": "Mensaje masivo",
     "user/alerts_follow_link": "Seguir enlace de alerta",
     "user/notification_settings_updated_successfully": "Los ajustes de las notificaciones se han actualizado correctamente.",
-    "admin/register_login_with_oauth": "¿Permitir al usuario registrarse e iniciar sesión usando esta integración?"
+    "admin/register_login_with_oauth": "¿Permitir al usuario registrarse e iniciar sesión usando esta integración?",
+    "admin/compat_pdo_version_info": "Se recomienda la versión {{mysql}} de MySQL o la versión {{mariadb}} de MariaDB.",
+    "admin/sync_username_integration": "¿Sincronizar el nombre de usuario con la integración?",
+    "admin/sync_username_integration_info": "Si se activa, los nombres de usuario del sitio web se actualizarán para que coincidan con los nombres de usuario de la integración.",
+    "admin/module_uninstalled": "Módulo desinstalado.",
+    "admin/unable_to_delete_module_files": "No se ha podido eliminar el módulo por completo. Compruebe los permisos del archivo.",
+    "admin/unable_to_uninstall_module": "No se puede desinstalar el módulo - el módulo {{module}} depende de él.",
+    "admin/uninstall": "Desinstalar",
+    "admin/uninstall_confirm": "¿Estás seguro de que quieres desinstalar {{item}}?",
+    "admin/compat_php_version_info": "Se recomienda la versión {{php}} de PHP."
 }
