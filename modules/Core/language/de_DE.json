@@ -1349,5 +1349,14 @@
     "general/new": "Neu",
     "notification/mass_message": "Massen Nachricht",
     "user/alerts_follow_link": "Aleart-Link folgen",
-    "user/notification_settings": "Benachrichtigungseinstellungen"
+    "user/notification_settings": "Benachrichtigungseinstellungen",
+    "admin/compat_pdo_version_info": "Es wird entweder die MySQL-Version {{mysql}} oder die MariaDB-Version {{mariadb}} empfohlen.",
+    "admin/unable_to_delete_module_files": "Das Modul kann nicht vollständig gelöscht werden. Bitte überprüfe die Dateiberechtigungen.",
+    "admin/sync_username_integration": "Benutzernamen mit Integration synchronisieren?",
+    "admin/sync_username_integration_info": "Wenn diese Option aktiviert ist, werden die Benutzernamen der Website so aktualisiert, dass sie den Benutzernamen der Integration entsprechen.",
+    "admin/module_uninstalled": "Das Modul wurde deinstalliert.",
+    "admin/uninstall_confirm": "Bist du sicher, dass du {{item}} deinstallieren möchtest?",
+    "admin/compat_php_version_info": "Die PHP-Version {{php}} wird empfohlen.",
+    "admin/unable_to_uninstall_module": "Modul kann nicht deinstalliert werden - das Modul {{module}} hängt von ihm ab.",
+    "admin/uninstall": "Deinstallieren"
 }
