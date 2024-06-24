@@ -1349,5 +1349,14 @@
     "general/new": "Nové",
     "notification/mass_message": "Hromadná zpráva",
     "user/notification_settings": "Nastavení oznámení",
-    "user/notification_settings_updated_successfully": "Nastavení oznámení úspěšně aktualizována."
+    "user/notification_settings_updated_successfully": "Nastavení oznámení úspěšně aktualizována.",
+    "admin/compat_pdo_version_info": "Je doporučeno MySQL s verzí {{mysql}} nebo MariaDB s verzí {{mariadb}}.",
+    "admin/compat_php_version_info": "Je doporučeno PHP s verzí {{php}}.",
+    "admin/unable_to_uninstall_module": "Nepodařilo se odinstalovat doplněk - závisí na něm doplněk {{module}}.",
+    "admin/sync_username_integration": "Synchronizovat uživatelská jména s integrací?",
+    "admin/sync_username_integration_info": "Pokud je povoleno, budou uživatelská jména na webu aktualizována tak, aby se shodovala s jmény v integraci.",
+    "admin/module_uninstalled": "Doplněk odinstalován.",
+    "admin/unable_to_delete_module_files": "Nepodařilo se kompletně odstranit doplněk. Zkontrolujte prosím oprávnění souborů.",
+    "admin/uninstall": "Odinstalovat",
+    "admin/uninstall_confirm": "Opravdu chcete odinstalovat {{item}}?"
 }
