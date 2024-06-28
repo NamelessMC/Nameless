@@ -364,8 +364,8 @@ class Validate
                                     'rule' => self::NOT_START_WITH,
                                     'fallback' => "$item must not start with $denied_value.",
                                 ]);
+                                break;
                             }
-                            break;
                         }
                         break;
 
