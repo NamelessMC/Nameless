@@ -1,12 +1,21 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.2
+/**
+ * Registration page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Registration page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Ensure user isn't already logged in
@@ -19,17 +28,17 @@ $page = 'register';
 const PAGE = 'register';
 $page_title = $language->get('general', 'register');
 
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Check if registration is enabled
 if (!Settings::get('registration_enabled')) {
     // Registration is disabled, display a message
-    // Get registration disabled message and assign to Smarty variable
+    // Get registration disabled message and assign to template variable
     $fallback_message = $language->get('general', 'registration_disabled_message_fallback');
     $message = Output::getPurified(Settings::get('registration_disabled_message', $fallback_message));
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'REGISTRATION_DISABLED' => $message,
         'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account')
     ]);
@@ -39,11 +48,11 @@ if (!Settings::get('registration_enabled')) {
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('registration_disabled.tpl', $smarty);
+    $template->displayTemplate('registration_disabled');
 
     die();
 }
@@ -54,7 +63,7 @@ if (Settings::get('mc_integration')) {
 
     if ($authme_enabled == 1) {
         // Authme connector
-        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
+        require implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']);
         die();
     }
 }
@@ -329,9 +338,9 @@ if (Input::exists()) {
 }
 
 if (isset($errors)) {
-    $smarty->assign('REGISTRATION_ERROR', $errors);
+    $template->getEngine()->addVariable('REGISTRATION_ERROR', $errors);
 } else if (Session::exists('oauth_error')) {
-    $smarty->assign('REGISTRATION_ERROR', Session::flash('oauth_error'));
+    $template->getEngine()->addVariable('REGISTRATION_ERROR', Session::flash('oauth_error'));
 }
 
 $fields = new Fields();
@@ -350,7 +359,7 @@ if ($email_value === '' && Session::exists('oauth_register_data')) {
     $email_value = json_decode(Session::get('oauth_register_data'), true)['email'];
 }
 
-$smarty->assign('EMAIL_INPUT', $email_value);
+$template->getEngine()->addVariable('EMAIL_INPUT', $email_value);
 
 $fields->add('username', Fields::TEXT, $language->get('user', 'username'), true, $username_value);
 $fields->add('email', Fields::EMAIL, $language->get('user', 'email_address'), true, $email_value);
@@ -382,7 +391,7 @@ foreach (ProfileField::all() as $field) {
 $oauth_flow = Session::exists('oauth_register_data');
 if ($oauth_flow) {
     $data = json_decode(Session::get('oauth_register_data'), true);
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'OAUTH_MESSAGE_CONTINUE' => $language->get('general', 'oauth_message_continue', [
             'provider' => ucfirst($data['provider'])
         ]),
@@ -408,8 +417,8 @@ foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $prov
     ]);
 }
 
-// Assign Smarty variables
-$smarty->assign([
+// Assign template variables
+$template->getEngine()->addVariables([
     'FIELDS' => $fields->getAll(),
     'I_AGREE' => $language->get('user', 'i_agree'),
     'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
@@ -430,7 +439,7 @@ $smarty->assign([
 ]);
 
 if ($captcha) {
-    $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+    $template->getEngine()->addVariable('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
     $template->addJSFiles([CaptchaBase::getActiveProvider()->getJavascriptSource() => []]);
 
     $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-register');
@@ -449,8 +458,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('register.tpl', $smarty);
+$template->displayTemplate('register');

@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel user integrations page
  *
- *  License: MIT
+ * @author Partydragen
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel users page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,7 +28,7 @@ const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'users';
 const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     Redirect::to(URL::build('/panel/users'));
@@ -54,7 +63,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'VIEWING_USER_INTEGRATIONS' => $language->get('admin', 'viewing_integrations_for_x', [
             'user' =>  Output::getClean($view_user->data()->username),
         ]),
@@ -73,10 +82,10 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         'UNLINK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
         'USERNAME' => $language->get('user', 'username'),
         'IDENTIFIER' => $language->get('admin', 'identifier'),
-        'VERIFIED' => $language->get('admin', 'verified')
+        'VERIFIED' => $language->get('admin', 'verified'),
     ]);
 
-    $template_file = 'core/users_integrations.tpl';
+    $template_file = 'core/users_integrations';
 } else if (isset($_GET['integration'])) {
     switch ($_GET['action']) {
         case 'link':
@@ -128,7 +137,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'INTEGRATION_TITLE' => $language->get('admin', 'linking_integration_for_x', [
                     'integration' => Output::getClean($integration->getName()),
                     'user' => Output::getClean($view_user->data()->username),
@@ -142,7 +151,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),
             ]);
 
-            $template_file = 'core/users_integrations_form.tpl';
+            $template_file = 'core/users_integrations_form';
 
             break;
 
@@ -187,7 +196,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'INTEGRATION_TITLE' => $language->get('admin', 'editing_integration_for_x', [
                     'integration' => Output::getClean($integration->getName()),
                     'user' => Output::getClean($view_user->data()->username),
@@ -202,7 +211,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'SYNC_INTEGRATION' => $language->get('admin', 'sync_integration'),
             ]);
 
-            $template_file = 'core/users_integrations_form.tpl';
+            $template_file = 'core/users_integrations_form';
 
             break;
 
@@ -231,7 +240,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -240,7 +249,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'USER_ID' => $view_user->data()->id,
-    'BACK' => $language->get('general', 'back')
+    'BACK' => $language->get('general', 'back'),
 ]);
 
 if (Session::exists('integrations_success')) {
@@ -252,16 +261,16 @@ if (Session::exists('integrations_errors')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -270,7 +279,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

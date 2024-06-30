@@ -8,7 +8,13 @@ abstract class AbstractWidget
     protected string $_module;
     protected ?string $_settings = null;
     protected bool $_requires_cookies = false;
-    protected Smarty $_smarty;
+    /**
+     * Will be removed in 2.3.0.
+     * @var ?Smarty
+     * @deprecated
+     */
+    protected ?Smarty $_smarty;
+    protected ?TemplateEngine $_engine;
     protected WidgetData $_data;
 
     private Cache $_cache;
@@ -74,13 +80,24 @@ abstract class AbstractWidget
     }
 
     /**
-     * Get Smarty instance in use by this widget.
+     * Get Smarty instance in use by this widget. Removed in 2.3.0.
      *
      * @return Smarty Instance in use.
+     * @deprecated
      */
     public function getSmarty(): ?Smarty
     {
         return $this->_smarty;
+    }
+
+    /**
+     * Get template engine in use by this widget.
+     *
+     * @return TemplateEngine Engine in use.
+     */
+    public function getTemplateEngine(): ?TemplateEngine
+    {
+        return $this->_engine;
     }
 
     /**
@@ -95,7 +112,10 @@ abstract class AbstractWidget
     public function display(): string
     {
         if (defined('COOKIE_CHECK') && !COOKIES_ALLOWED && $this->_requires_cookies) {
-            return $this->_smarty->fetch('widgets/cookie_notice.tpl');
+            return
+                $this->_engine ?
+                    $this->_engine->fetch('widgets/cookie_notice.tpl') :
+                    $this->_smarty->fetch('widgets/cookie_notice.tpl');
         }
 
         return $this->_content;

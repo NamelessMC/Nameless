@@ -1,17 +1,27 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * Forum merge topics page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Merge two topics together
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 const PAGE = 'forum';
 $page_title = $forum_language->get('forum', 'merge_topics');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $forum = new Forum();
 
@@ -73,8 +83,7 @@ $token = Token::get();
 // Get topics
 $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE forum_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$forum_id, $topic_id])->results();
 
-// Smarty
-$smarty->assign([
+$template->getEngine()->addVariables([
     'MERGE_TOPICS' => $forum_language->get('forum', 'merge_topics'),
     'MERGE_INSTRUCTIONS' => $forum_language->get('forum', 'merge_instructions'),
     'TOKEN' => Token::get(),
@@ -90,8 +99,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('forum/merge.tpl', $smarty);
+$template->displayTemplate('forum/merge');

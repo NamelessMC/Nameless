@@ -1,16 +1,27 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel API page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel API page
+ * @var Cache $cache
+ * @var Endpoints $endpoints
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.api')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +29,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'api';
 $page_title = $language->get('admin', 'api');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['view'])) {
     if (Input::exists()) {
@@ -149,28 +160,24 @@ if (!isset($_GET['view'])) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('api_success')) {
-    $smarty->assign(
-        [
-            'SUCCESS' => Session::flash('api_success'),
-            'SUCCESS_TITLE' => $language->get('general', 'success')
-        ]
-    );
+    $template->getEngine()->addVariables([
+        'SUCCESS' => Session::flash('api_success'),
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
+    ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign(
-        [
-            'ERRORS' => $errors,
-            'ERRORS_TITLE' => $language->get('general', 'error')
-        ]
-    );
+    $template->getEngine()->addVariables([
+        'ERRORS' => $errors,
+        'ERRORS_TITLE' => $language->get('general', 'error'),
+    ]);
 }
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
     $api_enabled = Settings::get('use_api');
 
-    $smarty->assign(
+    $template->getEngine()->addVariables(
         [
             'PARENT_PAGE' => PARENT_PAGE,
             'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -204,11 +211,11 @@ if (!isset($_GET['view'])) {
             'GROUP_SYNC' => $language->get('admin', 'group_sync'),
             'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
             'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-            'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints')
+            'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints'),
         ]
     );
 
-    $template_file = 'core/api.tpl';
+    $template_file = 'core/api';
 } else {
 
     if ($_GET['view'] == 'group_sync') {
@@ -222,34 +229,32 @@ if (!isset($_GET['view'])) {
             $group_sync_values[] = $rule_values;
         }
 
-        $smarty->assign(
-            [
-                'PARENT_PAGE' => PARENT_PAGE,
-                'DASHBOARD' => $language->get('admin', 'dashboard'),
-                'CONFIGURATION' => $language->get('admin', 'configuration'),
-                'API' => $language->get('admin', 'api'),
-                'PAGE' => PANEL_PAGE,
-                'INFO' => $language->get('general', 'info'),
-                'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/api'),
-                'TOKEN' => Token::get(),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'GROUP_SYNC_VALUES' => $group_sync_values,
-                'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
-                'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
-                'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
-                'LANGUAGE' => $language,
-                'DELETE' => $language->get('general', 'delete'),
-                'NEW_RULE' => $language->get('admin', 'new_rule'),
-                'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
-                'NONE' => $language->get('general', 'none'),
-                'DISABLED' => $language->get('admin', 'disabled')
-            ]
-        );
+        $template->getEngine()->addVariables([
+            'PARENT_PAGE' => PARENT_PAGE,
+            'DASHBOARD' => $language->get('admin', 'dashboard'),
+            'CONFIGURATION' => $language->get('admin', 'configuration'),
+            'API' => $language->get('admin', 'api'),
+            'PAGE' => PANEL_PAGE,
+            'INFO' => $language->get('general', 'info'),
+            'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
+            'BACK' => $language->get('general', 'back'),
+            'BACK_LINK' => URL::build('/panel/core/api'),
+            'TOKEN' => Token::get(),
+            'SUBMIT' => $language->get('general', 'submit'),
+            'GROUP_SYNC_VALUES' => $group_sync_values,
+            'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
+            'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
+            'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
+            'LANGUAGE' => $language,
+            'DELETE' => $language->get('general', 'delete'),
+            'NEW_RULE' => $language->get('admin', 'new_rule'),
+            'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
+            'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+            'NONE' => $language->get('general', 'none'),
+            'DISABLED' => $language->get('admin', 'disabled'),
+        ]);
 
-        $template_file = 'core/api_group_sync.tpl';
+        $template_file = 'core/api_group_sync';
     } else {
         if ($_GET['view'] == 'api_endpoints') {
 
@@ -265,38 +270,36 @@ if (!isset($_GET['view'])) {
                 ];
             }
 
-            $smarty->assign(
-                [
-                    'PARENT_PAGE' => PARENT_PAGE,
-                    'DASHBOARD' => $language->get('admin', 'dashboard'),
-                    'CONFIGURATION' => $language->get('admin', 'configuration'),
-                    'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-                    'PAGE' => PANEL_PAGE,
-                    'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/api'),
-                    'ROUTE' => $language->get('admin', 'route'),
-                    'DESCRIPTION' => $language->get('admin', 'description'),
-                    'MODULE' => $language->get('admin', 'module'),
-                    'METHOD' => $language->get('admin', 'method'),
-                    'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info', [
-                        'docLinkStart' => '<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">',
-                        'docLinkEnd' => '</a>'
-                    ]),
-                    'ENDPOINTS_ARRAY' => $endpoints_array,
-                    'TYPE' => $language->get('admin', 'type'),
-                    'TRANSFORMERS' => $language->get('admin', 'transformers'),
-                    'TRANSFORMERS_ARRAY' => Endpoints::getAllTransformers(),
-                ]
-            );
+            $template->getEngine()->addVariables([
+                'PARENT_PAGE' => PARENT_PAGE,
+                'DASHBOARD' => $language->get('admin', 'dashboard'),
+                'CONFIGURATION' => $language->get('admin', 'configuration'),
+                'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
+                'PAGE' => PANEL_PAGE,
+                'BACK' => $language->get('general', 'back'),
+                'BACK_LINK' => URL::build('/panel/core/api'),
+                'ROUTE' => $language->get('admin', 'route'),
+                'DESCRIPTION' => $language->get('admin', 'description'),
+                'MODULE' => $language->get('admin', 'module'),
+                'METHOD' => $language->get('admin', 'method'),
+                'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info', [
+                    'docLinkStart' => '<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">',
+                    'docLinkEnd' => '</a>'
+                ]),
+                'ENDPOINTS_ARRAY' => $endpoints_array,
+                'TYPE' => $language->get('admin', 'type'),
+                'TRANSFORMERS' => $language->get('admin', 'transformers'),
+                'TRANSFORMERS_ARRAY' => Endpoints::getAllTransformers(),
+            ]);
 
-            $template_file = 'core/api_endpoints.tpl';
+            $template_file = 'core/api_endpoints';
         }
     }
 }
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

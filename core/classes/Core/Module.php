@@ -4,7 +4,7 @@
  *
  * @package NamelessMC\Core
  * @author Samerton
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 abstract class Module
@@ -48,15 +48,15 @@ abstract class Module
     /**
      * Call `onPageLoad()` function for all registered modules.
      *
-     * @param User         $user     User viewing the page.
-     * @param Pages        $pages    Instance of pages class.
-     * @param Cache        $cache    Instance of cache to pass.
-     * @param Smarty       $smarty   Instance of smarty to pass.
-     * @param Navigation[] $navs     Array of loaded navigation menus.
-     * @param Widgets      $widgets  Instance of widget class to pass.
-     * @param TemplateBase $template Template to pass.
+     * @param User                   $user     User viewing the page.
+     * @param Pages                  $pages    Instance of pages class.
+     * @param Cache                  $cache    Instance of cache to pass.
+     * @param FakeSmarty|Smarty|null $smarty   Instance of Smarty to pass
+     * @param Navigation[]           $navs     Array of loaded navigation menus.
+     * @param Widgets                $widgets  Instance of widget class to pass.
+     * @param TemplateBase           $template Template to pass.
      */
-    public static function loadPage(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void
+    public static function loadPage(User $user, Pages $pages, Cache $cache, $smarty, iterable $navs, Widgets $widgets, TemplateBase $template): void
     {
         foreach (self::getModules() as $module) {
             $module->onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template);
@@ -76,12 +76,12 @@ abstract class Module
      * @param User              $user     User viewing the page.
      * @param Pages             $pages    Instance of pages class.
      * @param Cache             $cache    Instance of cache to pass.
-     * @param Smarty            $smarty   Instance of smarty to pass.
+     * @param FakeSmarty|Smarty $smarty   Instance of smarty to pass, to be removed in 2.3.0
      * @param Navigation[]      $navs     Array of loaded navigation menus.
      * @param Widgets           $widgets  Instance of widget class to pass.
      * @param TemplateBase|null $template Active template to render.
      */
-    abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
+    abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
 
     /**
      * Determine loading arrangement of modules.

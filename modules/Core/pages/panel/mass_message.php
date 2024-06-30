@@ -10,12 +10,12 @@
 
 /**
  * @var Cache $cache
+ * @var FakeSmarty $smarty
  * @var Language $language
  * @var Navigation $cc_nav
  * @var Navigation $navigation
  * @var Navigation $staffcp_nav
  * @var Pages $pages
- * @var Smarty $smarty
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -184,7 +184,7 @@ if (Input::exists()) {
 
 $allGroups = DB::getInstance()->query('SELECT id, name FROM nl2_groups')->results();
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'SENDING_MASS_MESSAGE' => $language->get('admin', 'sending_mass_message'),
     'COMMUNICATIONS' => $language->get('admin', 'communications'),
     'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
@@ -225,20 +225,20 @@ if (Session::exists('mass_message_success')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -253,4 +253,4 @@ $template->onPageLoad();
 require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

@@ -3,9 +3,9 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Online staff widget
  */
@@ -15,11 +15,11 @@ class OnlineStaffWidget extends WidgetBase {
     private Cache $_cache;
     private Language $_language;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
         $this->_module = 'Core';
         $this->_name = 'Online Staff';
         $this->_description = 'Displays a list of online staff members on your website.';
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
 
         $this->_cache = $cache;
         $this->_language = $language;
@@ -59,20 +59,20 @@ class OnlineStaffWidget extends WidgetBase {
                 }
             }
 
-            $this->_smarty->assign([
+            $this->_engine->addVariables([
                 'ONLINE_STAFF' => $this->_language->get('general', 'online_staff'),
                 'ONLINE_STAFF_LIST' => $staff_members,
                 'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => count($online)]),
             ]);
 
         } else {
-            $this->_smarty->assign([
+            $this->_engine->addVariables([
                 'ONLINE_STAFF' => $this->_language->get('general', 'online_staff'),
                 'NO_STAFF_ONLINE' => $this->_language->get('general', 'no_online_staff'),
                 'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => 0]),
             ]);
         }
 
-        $this->_content = $this->_smarty->fetch('widgets/online_staff.tpl');
+        $this->_content = $this->_engine->fetch('widgets/online_staff');
     }
 }

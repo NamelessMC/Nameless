@@ -9,12 +9,12 @@
 
 /**
  * @var Cache $cache
+ * @var FakeSmarty $smarty
  * @var Language $language
  * @var Navigation $cc_nav
  * @var Navigation $navigation
  * @var Navigation $staffcp_nav
  * @var Pages $pages
- * @var Smarty $smarty
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -67,11 +67,11 @@ if (!isset($_GET['view'])) {
         }
 
         if (Session::exists('alerts_error')) {
-            $smarty->assign('ERROR', Session::flash('alerts_error'));
+            $template->getEngine()->addVariable('ERROR', Session::flash('alerts_error'));
         }
 
         // Language values
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'USER_CP' => $language->get('user', 'user_cp'),
             'ALERTS' => $language->get('user', 'alerts'),
             'ALERTS_LIST' => $alerts,
@@ -91,7 +91,7 @@ if (!isset($_GET['view'])) {
         require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
-        $template->displayTemplate('user/alerts.tpl', $smarty);
+        $template->displayTemplate('user/alerts');
 
     } elseif ($_GET['action'] == 'purge') {
         if (Token::check()) {
@@ -109,7 +109,7 @@ if (!isset($_GET['view'])) {
         Redirect::to(URL::build('/user/alerts'));
     }
 
-    // Check the alert belongs to the user...
+    // Check the alert belongs to the user
     $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']]);
 
     if (!$alert->count() || $alert->first()->user_id !== $user->data()->id) {
@@ -139,17 +139,17 @@ if (!isset($_GET['view'])) {
     }
 
     if (Session::exists('alerts_error')) {
-        $smarty->assign('ERROR', Session::flash('alerts_error'));
+        $template->getEngine()->addVariable('ERROR', Session::flash('alerts_error'));
     }
 
     if ($alert->url && $alert->url !== '#') {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'VIEW' => $language->get('user', 'alerts_follow_link'),
             'VIEW_LINK' => urlencode($alert->url),
         ]);
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'USER_CP' => $language->get('user', 'user_cp'),
         'ALERTS' => $language->get('user', 'alerts'),
         'DELETE' => $language->get('general', 'delete'),
@@ -175,5 +175,5 @@ if (!isset($_GET['view'])) {
     require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('user/alert.tpl', $smarty);
+    $template->displayTemplate('user/alert.tpl');
 }

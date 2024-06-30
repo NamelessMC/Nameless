@@ -1,12 +1,22 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Forum search page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Forum search page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!isset($forum) || (!$forum instanceof Forum)) {
@@ -16,7 +26,7 @@ if (!isset($forum) || (!$forum instanceof Forum)) {
 const PAGE = 'forum';
 
 // Initialise
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
@@ -160,7 +170,7 @@ if (isset($_GET['s'])) {
         $results = $paginator->getLimited($results, 10, $p, count($results));
         $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . urlencode($search) . '&'));
 
-        $smarty->assign('PAGINATION', $pagination);
+        $template->getEngine()->addVariable('PAGINATION', $pagination);
 
         // Posts to display on the page
         $posts = [];
@@ -178,7 +188,7 @@ if (isset($_GET['s'])) {
                 'post_author_profile' => $post_user->getProfileURL(),
                 'post_author_style' => $post_user->getGroupStyle(),
                 'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
-                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
+                'post_date_friendly' => $timeAgo->inWords($results->data[$n]['post_date'], $language),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
                 'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
@@ -188,19 +198,19 @@ if (isset($_GET['s'])) {
 
         $results = null;
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'RESULTS' => $posts,
             'READ_FULL_POST' => $forum_language->get('forum', 'read_full_post')
         ]);
     } else {
-        $smarty->assign('NO_RESULTS', $forum_language->get('forum', 'no_results_found'));
+        $template->getEngine()->addVariable('NO_RESULTS', $forum_language->get('forum', 'no_results_found'));
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
         'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
         'NEW_SEARCH_URL' => URL::build('/forum/search'),
-        'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
+        'SEARCH_TERM' => Output::getClean($_GET['s']),
     ]);
 
     // Load modules + template
@@ -208,22 +218,22 @@ if (isset($_GET['s'])) {
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('forum/search_results.tpl', $smarty);
+    $template->displayTemplate('forum/search_results');
 } else {
     // Search bar
     if (isset($error)) {
-        $smarty->assign('ERROR', $error);
+        $template->getEngine()->addVariable('ERROR', $error);
     } else {
         if (Session::exists('search_error')) {
-            $smarty->assign('ERROR', Session::flash('search_error'));
+            $template->getEngine()->addVariable('ERROR', Session::flash('search_error'));
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),
         'FORM_ACTION' => URL::build('/forum/search'),
         'SEARCH' => $language->get('general', 'search'),
@@ -237,9 +247,9 @@ if (isset($_GET['s'])) {
 
     $template->onPageLoad();
 
-    require(ROOT_PATH . '/core/templates/navbar.php');
-    require(ROOT_PATH . '/core/templates/footer.php');
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
 
     // Display template
-    $template->displayTemplate('forum/search.tpl', $smarty);
+    $template->displayTemplate('forum/search');
 }

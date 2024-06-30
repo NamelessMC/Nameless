@@ -1,23 +1,32 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel index page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel index page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad()) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
 const PAGE = 'panel';
 const PANEL_PAGE = 'dashboard';
 $page_title = $language->get('admin', 'dashboard');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -105,9 +114,9 @@ if ($cache->isCached('news')) {
 }
 
 if (!count($news)) {
-    $smarty->assign('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
+    $template->getEngine()->addVariable('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
 } else {
-    $smarty->assign('NEWS', $news);
+    $template->getEngine()->addVariable('NEWS', $news);
 }
 
 // Compatibility
@@ -219,7 +228,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_warnings_help[] = null;
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SERVER_COMPATIBILITY' => $language->get('admin', 'server_compatibility'),
         'COMPAT_SUCCESS' => $compat_success,
         'COMPAT_WARNINGS' => $compat_warnings,
@@ -229,18 +238,14 @@ if ($user->hasPermission('admincp.core.debugging')) {
 }
 
 if (is_dir(ROOT_PATH . '/modules/Core/pages/admin')) {
-    $smarty->assign([
-        'DIRECTORY_WARNING' => $language->get('admin', 'admin_dir_still_exists')
-    ]);
+    $template->getEngine()->addVariable('DIRECTORY_WARNING', $language->get('admin', 'admin_dir_still_exists'));
 } else {
     if (is_dir(ROOT_PATH . '/modules/Core/pages/mod')) {
-        $smarty->assign([
-            'DIRECTORY_WARNING' => $language->get('admin', 'mod_dir_still_exists')
-        ]);
+        $template->getEngine()->addVariable('DIRECTORY_WARNING', $language->get('admin', 'mod_dir_still_exists'));
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'DASHBOARD_STATS' => CollectionManager::getEnabledCollection('dashboard_stats'),
     'PAGE' => PANEL_PAGE,
@@ -264,7 +269,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('index.tpl', $smarty);
+$template->displayTemplate('index');

@@ -1,14 +1,12 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * User settings area navbar generation.
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  UserCP navbar generation
+ * @var Navigation   $cc_nav
+ * @var TemplateBase $template
  */
-
-$smarty->assign([
-    'CC_NAV_LINKS' => $cc_nav->returnNav('top'),
-]);
+$template->getEngine()->addVariable('CC_NAV_LINKS', $cc_nav->returnNav());

@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel groups page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel groups page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.groups')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'groups';
 const PANEL_PAGE = 'groups';
 $page_title = $language->get('admin', 'groups');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -120,7 +129,7 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'CREATING_NEW_GROUP' => $language->get('admin', 'creating_group'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -139,7 +148,7 @@ if (isset($_GET['action'])) {
                 'FORCE_TFA' => $language->get('admin', 'force_tfa')
             ]);
 
-            $template_file = 'core/groups_new.tpl';
+            $template_file = 'core/groups_new';
 
             break;
 
@@ -154,12 +163,12 @@ if (isset($_GET['action'])) {
             }
 
             if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'OWN_GROUP' => $language->get('admin', 'cant_edit_this_group'),
                     'INFO' => $language->get('general', 'info')
                 ]);
             } else {
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'PERMISSIONS' => $language->get('admin', 'permissions'),
                     'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . urlencode($group->id)),
                     'DELETE' => $language->get('general', 'delete'),
@@ -268,7 +277,7 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'GROUP_TITLE' => Output::getClean($group->name),
                 'GROUP_ID' => Output::getClean($group->id),
                 'NAME' => $language->get('admin', 'name'),
@@ -297,7 +306,7 @@ if (isset($_GET['action'])) {
                 'FORCE_TFA_VALUE' => $group->force_tfa
             ]);
 
-            $template_file = 'core/groups_form.tpl';
+            $template_file = 'core/groups_form';
 
             break;
 
@@ -392,7 +401,7 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'GROUP_TITLE' => $language->get('admin', 'cloning_group', [
                     'group' => Output::getClean($group->name)
                 ]),
@@ -423,7 +432,7 @@ if (isset($_GET['action'])) {
                 'FORCE_TFA_VALUE' => $group->force_tfa
             ]);
 
-            $template_file = 'core/groups_form.tpl';
+            $template_file = 'core/groups_form';
 
             break;
 
@@ -468,7 +477,7 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
@@ -478,7 +487,7 @@ if (isset($_GET['action'])) {
                 'DESELECT_ALL' => $language->get('admin', 'deselect_all')
             ]);
 
-            $template_file = 'core/groups_permissions.tpl';
+            $template_file = 'core/groups_permissions';
 
             break;
 
@@ -514,7 +523,7 @@ if (isset($_GET['action'])) {
         ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'GROUP_ID' => $language->get('admin', 'group_id'),
         'NAME' => $language->get('admin', 'name'),
         'USERS' => $language->get('admin', 'users'),
@@ -529,24 +538,24 @@ if (isset($_GET['action'])) {
         'REORDER_DRAG_URL' => URL::build('/panel/core/groups', 'action=order')
     ]);
 
-    $template_file = 'core/groups.tpl';
+    $template_file = 'core/groups';
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'GROUPS' => $language->get('admin', 'groups'),
@@ -562,7 +571,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

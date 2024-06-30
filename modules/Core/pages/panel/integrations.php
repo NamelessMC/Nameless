@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Staff panel integrations page
  *
- *  License: MIT
+ * @author Partydragen
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel integrations page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.integrations.edit')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,7 +28,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'integrations';
 const EDITING_USER = true;
 $page_title = $language->get('admin', 'integrations');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 $integrations = Integrations::getInstance();
 
@@ -51,7 +60,7 @@ if (!isset($_GET['integration'])) {
         ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'INTEGRATIONS_LIST' => $integrations_list,
         'ENABLED' => $language->get('admin', 'enabled'),
         'CAN_UNLINK' => $language->get('admin', 'can_unlink'),
@@ -62,7 +71,7 @@ if (!isset($_GET['integration'])) {
         'SYNC_USERNAME_VALUE' => Settings::get('username_sync'),
     ]);
 
-    $template_file = 'core/integrations.tpl';
+    $template_file = 'core/integrations';
 } else {
     // View integration settings
     $integration = $integrations->getIntegration($_GET['integration']);
@@ -132,7 +141,7 @@ if (!isset($_GET['integration'])) {
             'client_url' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . $provider_name, 'non-friendly'),
         ];
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'OAUTH' => $language->get('admin', 'oauth'),
             'OAUTH_INFO' => $language->get('admin', 'oauth_info', [
                 'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
@@ -147,7 +156,7 @@ if (!isset($_GET['integration'])) {
         ]);
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'EDITING_INTEGRATION' => $language->get('admin', 'editing_integration_x', ['integration' => Output::getClean($integration->getName())]),
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/core/integrations'),
@@ -159,10 +168,10 @@ if (!isset($_GET['integration'])) {
         'REQUIRED_VALUE' => $integration->data()->required,
     ]);
 
-    $template_file = 'core/integrations_edit.tpl';
+    $template_file = 'core/integrations_edit';
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -182,16 +191,16 @@ if (Session::exists('integrations_errors')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -200,7 +209,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

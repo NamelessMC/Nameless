@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel email management page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Email management page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.emails')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'emails');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
 if (Session::exists('editing_language')) {
@@ -37,7 +46,7 @@ $emails = [
 if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'test') {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
             'BACK' => $language->get('general', 'back'),
             'BACK_LINK' => URL::build('/panel/core/emails')
@@ -60,7 +69,7 @@ if (isset($_GET['action'])) {
                 $success = $language->get('admin', 'test_email_success');
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'TEST_EMAIL_QUERY' => $language->get('admin', 'test_email_query'),
                 'TEST_EMAIL_SUGGEST_1' => $language->get('admin', 'test_email_suggest_1'),
                 'TEST_EMAIL_SUGGEST_2' => $language->get('admin', 'test_email_suggest_2'),
@@ -70,7 +79,7 @@ if (isset($_GET['action'])) {
                 ])
             ]);
         } else {
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'SEND_TEST_EMAIL_INFO' => $language->get('admin', 'send_test_email_info', [
                     'email' => Text::bold(Output::getClean($user->data()->email))
                 ]),
@@ -80,7 +89,7 @@ if (isset($_GET['action'])) {
             ]);
         }
 
-        $template_file = 'core/emails_test.tpl';
+        $template_file = 'core/emails_test';
     } else {
         if ($_GET['action'] == 'edit_messages') {
 
@@ -95,7 +104,7 @@ if (isset($_GET['action'])) {
                 }
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/core/emails'),
                 'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
@@ -119,16 +128,14 @@ if (isset($_GET['action'])) {
                 'TOKEN' => Token::get()
             ]);
 
-            $template_file = 'core/emails_edit_messages.tpl';
+            $template_file = 'core/emails_edit_messages';
         } else {
             if ($_GET['action'] == 'preview') {
                 $viewing_language = new Language('core', Session::get('editing_language'));
 
-                $smarty->assign([
-                    'MESSAGE' => Email::formatEmail($_GET['email'], $viewing_language)
-                ]);
+                $template->getEngine()->addVariable('MESSAGE', Email::formatEmail($_GET['email'], $viewing_language));
 
-                $template_file = 'core/emails_edit_messages_preview.tpl';
+                $template_file = 'core/emails_edit_messages_preview';
             }
         }
     }
@@ -186,15 +193,13 @@ if (isset($_GET['action'])) {
     }
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
-        $smarty->assign([
-            'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
+        $template->getEngine()->addVariables([
+            'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
             'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
         ]);
     }
 
-    $smarty->assign([
-        'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
-        'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
+    $template->getEngine()->addVariables([
         'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
         'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/core/emails/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
@@ -225,7 +230,7 @@ if (isset($_GET['action'])) {
         'TOKEN' => Token::get()
     ]);
 
-    $template_file = 'core/emails.tpl';
+    $template_file = 'core/emails';
 }
 
 // Load modules + template
@@ -236,20 +241,20 @@ if (Session::exists('emails_success')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -261,7 +266,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

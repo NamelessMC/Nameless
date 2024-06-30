@@ -1,11 +1,10 @@
 <?php
-
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Online users widget
  */
@@ -15,13 +14,13 @@ class OnlineUsersWidget extends WidgetBase {
     private Cache $_cache;
     private Language $_language;
 
-    public function __construct(Cache $cache, Smarty $smarty, Language $language) {
+    public function __construct(Cache $cache, TemplateEngine $engine, Language $language) {
         $this->_module = 'Core';
         $this->_name = 'Online Users';
         $this->_description = 'Displays a list of online users on your website.';
         $this->_settings = ROOT_PATH . '/modules/Core/includes/admin_widgets/online_users.php';
 
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
         $this->_cache = $cache;
         $this->_language = $language;
     }
@@ -79,7 +78,7 @@ class OnlineUsersWidget extends WidgetBase {
                 }
             }
 
-            $this->_smarty->assign([
+            $this->_engine->addVariables([
                 'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
                 'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
                 'ONLINE_USERS_LIST' => $users,
@@ -87,13 +86,13 @@ class OnlineUsersWidget extends WidgetBase {
             ]);
 
         } else {
-            $this->_smarty->assign([
+            $this->_engine->addVariables([
                 'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
                 'NO_USERS_ONLINE' => $this->_language->get('general', 'no_online_users'),
                 'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => 0])
             ]);
         }
 
-        $this->_content = $this->_smarty->fetch('widgets/online_users.tpl');
+        $this->_content = $this->_engine->fetch('widgets/online_users');
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use DebugBar\Bridge\NamespacedTwigProfileCollector;
 use DebugBar\DataCollector\ConfigCollector;
+use DebugBar\DataCollector\DataCollector;
 use DebugBar\DataCollector\MemoryCollector;
 use DebugBar\DataCollector\PDO\PDOCollector;
 use DebugBar\DataCollector\PhpInfoCollector;
@@ -8,13 +10,16 @@ use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\DebugBar;
 use Junker\DebugBar\Bridge\SmartyCollector;
+use Twig\Environment;
+use Twig\Extension\ProfilerExtension;
+use Twig\Profiler\Profile;
 
 /**
  * Class to help integrate the PHPDebugBar with NamelessMC.
  *
  * @package NamelessMC\Misc
  * @author Aberdeener
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class DebugBarHelper extends Instanceable
@@ -24,7 +29,7 @@ class DebugBarHelper extends Instanceable
     /**
      * Enable the PHPDebugBar.
      */
-    public function enable(Smarty $smarty): void
+    public function enable(): void
     {
         $debugbar = new DebugBar();
 
@@ -47,14 +52,28 @@ class DebugBarHelper extends Instanceable
         $pdoCollector->setRenderSqlWithParams(true, '`');
         $debugbar->addCollector($pdoCollector);
 
-        $smartyCollector = new SmartyCollector($smarty);
-        $smartyCollector->useHtmlVarDumper();
-        $debugbar->addCollector($smartyCollector);
-
         $debugbar->addCollector(new PhpInfoCollector());
         $debugbar->addCollector(new MemoryCollector());
 
         $this->_debugBar = $debugbar;
+    }
+
+    public function addCollector(DataCollector $collector): void
+    {
+        $this->_debugBar->addCollector($collector);
+    }
+
+    public function addSmartyCollector(Smarty $smarty): void
+    {
+        $smartyCollector = new SmartyCollector($smarty);
+        $smartyCollector->useHtmlVarDumper();
+        $this->addCollector($smartyCollector);
+    }
+
+    public function addTwigCollector(Environment $twig, Profile $profile): void
+    {
+        $twig->addExtension(new ProfilerExtension($profile));
+        $this->addCollector(new NamespacedTwigProfileCollector($profile));
     }
 
     public function getDebugBar(): ?DebugBar

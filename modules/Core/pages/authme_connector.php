@@ -1,17 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * AuthMe connector
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Authme connector
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 $page_title = $language->get('general', 'register');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
+require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Use recaptcha?
 $captcha = CaptchaBase::isCaptchaEnabled();
@@ -348,13 +357,13 @@ if (Input::exists()) {
 }
 
 if (count($errors)) {
-    $smarty->assign('ERRORS', $errors);
+    $template->getEngine()->addVariable('ERRORS', $errors);
 }
 
-$smarty->assign('ERROR', $language->get('general', 'error'));
+$template->getEngine()->addVariable('ERROR', $language->get('general', 'error'));
 
 if (!isset($_GET['step'])) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'AUTHME_SETUP' => Config::get('authme'),
         'AUTHME_NOT_SETUP' => $language->get('user', 'authme_not_setup'),
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
@@ -373,7 +382,7 @@ if (!isset($_GET['step'])) {
 
     // Recaptcha
     if ($captcha) {
-        $smarty->assign('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
+        $template->getEngine()->addVariable('CAPTCHA', CaptchaBase::getActiveProvider()->getHtml());
         $template->addJSFiles([CaptchaBase::getActiveProvider()->getJavascriptSource() => []]);
 
         $submitScript = CaptchaBase::getActiveProvider()->getJavascriptSubmit('form-contact');
@@ -387,7 +396,7 @@ if (!isset($_GET['step'])) {
         }
     }
 
-    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme.tpl';
+    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme';
 } else {
     $fields = new Fields();
     // Step 2
@@ -418,7 +427,7 @@ if (!isset($_GET['step'])) {
         );
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'CONNECT_WITH_AUTHME' => $language->get('user', 'connect_with_authme'),
         'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
         'AUTHME_SYNC_PASSWORD_HELP' => $language->get('user', 'authme_sync_password_help'),
@@ -430,7 +439,7 @@ if (!isset($_GET['step'])) {
         'SUBMIT' => $language->get('general', 'submit'),
     ]);
 
-    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email.tpl';
+    $template_file = ROOT_PATH . '/custom/templates/' . TEMPLATE . '/authme_email';
 }
 
 // Load modules + template
@@ -438,7 +447,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

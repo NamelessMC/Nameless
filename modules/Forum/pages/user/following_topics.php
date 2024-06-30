@@ -1,12 +1,22 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Forum user following topics page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  User "following topics" page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -17,10 +27,10 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_following_topics';
 $page_title = $forum_language->get('forum', 'following_topics');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $forum = new Forum();
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 if (Input::exists() && Input::get('action') == 'purge') {
     if (Token::check(Input::get('token'))) {
@@ -47,9 +57,9 @@ $results = $paginator->getLimited($topics, 10, $p, count($topics));
 $pagination = $paginator->generate(7, URL::build('/user/following_topics/'));
 
 if (count($topics)) {
-    $smarty->assign('PAGINATION', $pagination);
+    $template->getEngine()->addVariable('PAGINATION', $pagination);
 } else {
-    $smarty->assign('PAGINATION', '');
+    $template->getEngine()->addVariable('PAGINATION', '');
 }
 
 $template_array = [];
@@ -70,7 +80,7 @@ foreach ($results->data as $nValue) {
 
     $template_array[] = [
         'topic_title' => Output::getClean($topic->topic_title),
-        'topic_date' => $timeago->inWords($topic->topic_date, $language),
+        'topic_date' => $timeAgo->inWords($topic->topic_date, $language),
         'topic_date_full' => date(DATE_FORMAT, $topic->topic_date),
         'topic_author_id' => Output::getClean($authors[$topic->topic_creator]->data()->id),
         'topic_author_nickname' => $authors[$topic->topic_creator]->getDisplayname(),
@@ -84,7 +94,7 @@ foreach ($results->data as $nValue) {
         'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
         'reply_author_style' => $authors[$topic->topic_last_user]->getGroupStyle(),
         'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
-        'reply_date' => $timeago->inWords($topic->topic_reply_date, $language),
+        'reply_date' => $timeAgo->inWords($topic->topic_reply_date, $language),
         'reply_date_full' => date(DATE_FORMAT, $topic->topic_reply_date),
         'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
         'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
@@ -94,11 +104,11 @@ foreach ($results->data as $nValue) {
 }
 
 if (Session::exists('success_post')) {
-    $smarty->assign('SUCCESS_MESSAGE', Session::flash('success_post'));
+    $template->getEngine()->addVariable('SUCCESS_MESSAGE', Session::flash('success_post'));
 }
 
 // Language values
-$smarty->assign([
+$template->getEngine()->addVariables([
     'USER_CP' => $language->get('user', 'user_cp'),
     'FOLLOWING_TOPICS' => $forum_language->get('forum', 'following_topics'),
     'TOPICS_LIST' => $template_array,
@@ -116,12 +126,12 @@ $smarty->assign([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
+require ROOT_PATH . '/core/templates/cc_navbar.php';
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('forum/following_topics.tpl', $smarty);
+$template->displayTemplate('forum/following_topics');

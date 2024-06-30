@@ -1,11 +1,10 @@
 <?php
-
 /*
  *  Made by Aberdeener
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.2.0
  *
- *  License: MIT
+ *  Licence: MIT
  *
  *  Profile Posts Widget
  */
@@ -15,11 +14,11 @@ class ServerStatusWidget extends WidgetBase {
     private Cache $_cache;
     private Language $_language;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache) {
+    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
         $this->_module = 'Core';
         $this->_name = 'Server Status';
         $this->_description = 'Display your Minecraft server status.';
-        $this->_smarty = $smarty;
+        $this->_engine = $engine;
 
         $this->_language = $language;
         $this->_cache = $cache;
@@ -66,7 +65,7 @@ class ServerStatusWidget extends WidgetBase {
         }
 
         if (count($server_array) >= 1) {
-            $this->_smarty->assign(
+            $this->_engine->addVariables(
                 [
                     'SERVER' => $server_array,
                     'ONLINE' => $this->_language->get('general', 'online'),
@@ -76,12 +75,12 @@ class ServerStatusWidget extends WidgetBase {
                 ]
             );
         }
-        $this->_smarty->assign(
+        $this->_engine->addVariables(
             [
                 'SERVER_STATUS' => $this->_language->get('general', 'server_status'),
                 'NO_SERVERS' => $this->_language->get('general', 'no_default_server')
             ]
         );
-        $this->_content = $this->_smarty->fetch('widgets/server_status.tpl');
+        $this->_content = $this->_engine->fetch('widgets/server_status');
     }
 }

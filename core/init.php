@@ -123,11 +123,8 @@ if ($page != 'install') {
         }
     }
 
-    $smarty = $container->get(Smarty::class);
-
     if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
-        DebugBarHelper::getInstance()->enable($smarty);
     }
 
     // Get the Nameless version
@@ -206,7 +203,7 @@ if ($page != 'install') {
             // Attempt to get the requested language from the browser if it exists
             $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
             if ($automatic_locale !== false) {
-                $smarty->assign('AUTO_LANGUAGE_VALUE', $automatic_locale[1]);
+                define('AUTO_LANGUAGE_VALUE', $automatic_locale[1]);
                 $default_language = $automatic_locale[0];
             }
         }
@@ -301,52 +298,6 @@ if ($page != 'install') {
         define('PANEL_TEMPLATE', $template);
     }
 
-    // Smarty
-    $securityPolicy = new Smarty_Security($smarty);
-    $securityPolicy->php_modifiers = [
-        'escape',
-        'count',
-        'key',
-        'round',
-        'ucfirst',
-        'defined',
-        'date',
-        'explode',
-        'implode',
-        'strtolower',
-        'strtoupper',
-    ];
-    $securityPolicy->php_functions = [
-        'isset',
-        'empty',
-        'count',
-        'sizeof',
-        'in_array',
-        'is_array',
-        'time',
-        'nl2br',
-        'is_numeric',
-        'file_exists',
-        'array_key_exists',
-    ];
-    $securityPolicy->secure_dir = [ROOT_PATH . '/custom/templates', ROOT_PATH . '/custom/panel_templates'];
-    $smarty->enableSecurity($securityPolicy);
-
-    // Basic Smarty variables
-    $smarty->assign([
-        'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
-        'OG_URL' => Output::getClean(rtrim(URL::getSelfURL(), '/') . $_SERVER['REQUEST_URI']),
-        'SITE_NAME' => Output::getClean(SITE_NAME),
-        'SITE_HOME' => URL::build('/'),
-        'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
-        'GUEST' => $language->get('user', 'guest'),
-    ]);
-    $cache->setCache('backgroundcache');
-    if ($cache->isCached('og_image')) {
-        // Assign the image value now, some pages may override it (via Page Metadata config)
-        $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $cache->retrieve('og_image'));
-    }
-
     // Avatars
     $cache->setCache('avatar_settings_cache');
     if ($cache->isCached('custom_avatars') && $cache->retrieve('custom_avatars') == 1) {
@@ -375,8 +326,6 @@ if ($page != 'install') {
     } else {
         define('DEFAULT_AVATAR_PERSPECTIVE', 'face');
     }
-
-    $widgets = $container->get(Widgets::class);
 
     // Navbar links
     $navigation = new Navigation();
@@ -484,7 +433,7 @@ if ($page != 'install') {
             }
         } else {
             // Display notice to admin stating maintenance mode is enabled
-            $smarty->assign('MAINTENANCE_ENABLED', $language->get('admin', 'maintenance_enabled'));
+            define('BYPASS_MAINTENANCE', true);
         }
     }
 
@@ -619,26 +568,6 @@ if ($page != 'install') {
                 'identifier' => Output::getClean($integrationUser->data()->identifier),
             ];
         }
-
-        // Basic user variables
-        $smarty->assign('LOGGED_IN_USER', [
-            'username' => $user->getDisplayname(true),
-            'nickname' => $user->getDisplayname(),
-            'profile' => $user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/' . urlencode($user->data()->id) . '-' . urlencode($user->data()->username)),
-            'username_style' => $user->getGroupStyle(),
-            'user_title' => Output::getClean($user->data()->user_title),
-            'avatar' => $user->getAvatar(),
-            'integrations' => $user_integrations,
-        ]);
-
-        // Panel access?
-        if ($user->canViewStaffCP()) {
-            $smarty->assign([
-                'PANEL_LINK' => URL::build('/panel'),
-                'PANEL' => $language->get('moderator', 'staff_cp'),
-            ]);
-        }
     } else {
         // Perform tasks for guests
         if (!$_SESSION['checked'] || (isset($_SESSION['checked']) && $_SESSION['checked'] <= strtotime('-5 minutes'))) {
@@ -657,7 +586,7 @@ if ($page != 'install') {
 
         // Auto language enabled?
         if (Settings::get('auto_language_detection')) {
-            $smarty->assign('AUTO_LANGUAGE', true);
+            define('AUTO_LANGUAGE', true);
         }
     }
 

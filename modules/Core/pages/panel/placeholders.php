@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Staff panel placeholders page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel placeholders page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.placeholders')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,11 +28,11 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'placeholders';
 $page_title = $language->get('admin', 'placeholders');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 
-$template_file = 'integrations/minecraft/placeholders.tpl';
+$template_file = 'integrations/minecraft/placeholders';
 
 if (isset($_GET['leaderboard'])) {
 
@@ -33,7 +42,7 @@ if (isset($_GET['leaderboard'])) {
 
     if ($placeholder != null) {
 
-        $template_file = 'integrations/minecraft/placeholders_leaderboard.tpl';
+        $template_file = 'integrations/minecraft/placeholders_leaderboard';
 
         if (Input::exists()) {
 
@@ -59,7 +68,7 @@ if (isset($_GET['leaderboard'])) {
             }
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'PAGE' => PANEL_PAGE,
             'PARENT_PAGE' => PARENT_PAGE,
             'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -79,7 +88,7 @@ if (isset($_GET['leaderboard'])) {
             'LEADERBOARD_SORT' => $language->get('admin', 'placeholder_leaderboard_sort'),
             'INTEGRATIONS' => $language->get('admin', 'integrations'),
             'MINECRAFT' => $language->get('admin', 'minecraft'),
-            'MINECRAFT_LINK' => URL::build('/panel/minecraft')
+            'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
         ]);
     } else {
         Redirect::to(URL::build('/panel/minecraft/placeholders'));
@@ -135,7 +144,7 @@ if (isset($_GET['leaderboard'])) {
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'PAGE' => PANEL_PAGE,
         'PARENT_PAGE' => PARENT_PAGE,
         'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -175,22 +184,22 @@ if (isset($_GET['leaderboard'])) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('placeholders_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('placeholders_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

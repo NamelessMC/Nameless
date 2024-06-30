@@ -9,12 +9,12 @@
 
 /**
  * @var Cache $cache
+ * @var FakeSmarty $smarty
  * @var Language $language
  * @var Navigation $cc_nav
  * @var Navigation $navigation
  * @var Navigation $staffcp_nav
  * @var Pages $pages
- * @var Smarty $smarty
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -104,19 +104,19 @@ foreach (Notification::getTypes() as $type) {
 }
 
 if (Session::exists('notification_settings_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('notification_settings_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'USER_CP' => $language->get('user', 'user_cp'),
     'NOTIFICATION_SETTINGS_TITLE' => $language->get('user', 'notification_settings'),
     'NOTIFICATION_SETTINGS' => $mappedPreferences,
@@ -138,4 +138,4 @@ require ROOT_PATH . '/core/templates/navbar.php';
 require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('user/notification_settings.tpl', $smarty);
+$template->displayTemplate('user/notification_settings.tpl');

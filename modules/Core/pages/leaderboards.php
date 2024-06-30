@@ -1,35 +1,45 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Leaderboards page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @license MIT
+ * @version 2.2.0
  *
- *  Leaderboards page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var string $route
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // MC integration and Placeholders enabled?
 if (!Settings::get('mc_integration') || Settings::get('placeholders') !== '1') {
-    require_once(ROOT_PATH . '/404.php');
+    require_once ROOT_PATH . '/404.php';
     die();
 }
 
 $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
 if (!count($leaderboard_placeholders)) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
 const PAGE = 'leaderboards';
 $page_title = $language->get('general', 'leaderboards');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $leaderboard_placeholders_data = [];
 $leaderboard_users = [];
 
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
@@ -58,13 +68,13 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
         $row_data->username = Output::getClean($leaderboard_users[$uuid]->data()->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
-        $row_data->last_updated = ucfirst($timeago->inWords($row->last_updated, $language));
+        $row_data->last_updated = ucfirst($timeAgo->inWords($row->last_updated, $language));
 
         $leaderboard_placeholders_data[] = $row_data;
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PLAYER' => $language->get('admin', 'placeholders_player'),
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
@@ -110,8 +120,8 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('leaderboards.tpl', $smarty);
+$template->displayTemplate('leaderboards');

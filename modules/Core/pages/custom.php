@@ -1,18 +1,28 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Custom page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Custom page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var string $route
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Get page info from URL
 $custom_page = DB::getInstance()->get('custom_pages', ['url', rtrim($route, '/')]);
 if (!$custom_page->count()) {
-    require(ROOT_PATH . '/404.php');
+    require ROOT_PATH . '/404.php';
     die();
 }
 
@@ -47,7 +57,7 @@ if ($user->isLoggedIn()) {
 }
 
 if (!isset($can_view)) {
-    require(ROOT_PATH . '/403.php');
+    require ROOT_PATH . '/403.php';
     die();
 }
 
@@ -60,7 +70,7 @@ if ($custom_page->redirect) {
 define('PAGE', $custom_page->id);
 define('CUSTOM_PAGE', $custom_page->title);
 $page_title = Output::getClean($custom_page->title);
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $template->assets()->include([
     DARK_MODE
@@ -77,7 +87,7 @@ $content = EventHandler::executeEvent('renderCustomPage', [
     'skip_purify' => $custom_page->all_html ?? false
 ])['content'];
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
     'CONTENT' => $content,
@@ -85,11 +95,11 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 if ($custom_page->basic) {
-    $template->displayTemplate('custom_basic.tpl', $smarty);
+    $template->displayTemplate('custom_basic');
 } else {
-    $template->displayTemplate('custom.tpl', $smarty);
+    $template->displayTemplate('custom');
 }

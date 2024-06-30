@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel Minecraft servers page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel Minecraft servers page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.minecraft.servers')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,7 +28,7 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'servers';
 $page_title = $language->get('admin', 'minecraft_servers');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -184,10 +193,10 @@ if (isset($_GET['action'])) {
             // Display query information alert only if external query is selected
             $query_type = Settings::get('query_type', 'internal');
             if ($query_type === 'external') {
-                $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
+                $template->getEngine()->addVariable('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -223,10 +232,10 @@ if (isset($_GET['action'])) {
                 'ENABLE_PLAYER_LIST_INFO' => $language->get('admin', 'player_list_help'),
                 'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
                 'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
-                'SERVER_QUERY_PORT_VALUE' => Output::getClean(Input::get('query_port'))
+                'SERVER_QUERY_PORT_VALUE' => Output::getClean(Input::get('query_port')),
             ]);
 
-            $template_file = 'integrations/minecraft/minecraft_servers_new.tpl';
+            $template_file = 'integrations/minecraft/minecraft_servers_new';
 
             break;
 
@@ -393,10 +402,10 @@ if (isset($_GET['action'])) {
             $query_type = Settings::get('query_type', 'internal');
 
             if ($query_type == 'external') {
-                $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
+                $template->getEngine()->addVariable('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'EDITING_SERVER' => $language->get('admin', 'editing_server'),
                 'SERVER_ID' => $server_editing->id,
                 'CANCEL' => $language->get('general', 'cancel'),
@@ -440,10 +449,10 @@ if (isset($_GET['action'])) {
                 'ENABLE_PLAYER_LIST_VALUE' => ($server_editing->player_list == 1),
                 'SERVER_QUERY_PORT' => $language->get('admin', 'server_query_port'),
                 'SERVER_QUERY_PORT_INFO' => $language->get('admin', 'server_query_port_help'),
-                'SERVER_QUERY_PORT_VALUE' => Output::getClean($server_editing->query_port)
+                'SERVER_QUERY_PORT_VALUE' => Output::getClean($server_editing->query_port),
             ]);
 
-            $template_file = 'integrations/minecraft/minecraft_servers_edit.tpl';
+            $template_file = 'integrations/minecraft/minecraft_servers_edit';
 
             break;
 
@@ -584,7 +593,7 @@ if (isset($_GET['action'])) {
         }
 
     } else {
-        $smarty->assign('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
+        $template->getEngine()->addVariable('NO_SERVERS', $language->get('admin', 'no_servers_defined'));
     }
 
     // Settings
@@ -593,7 +602,7 @@ if (isset($_GET['action'])) {
     $group_sync_server = Settings::get('group_sync_mc_server');
     $player_list_limit = Settings::get('player_list_limit', '20');
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'NEW_SERVER' => $language->get('admin', 'add_server'),
         'NEW_SERVER_LINK' => URL::build('/panel/minecraft/servers/', 'action=new'),
         'CONFIRM_DELETE_SERVER' => $language->get('admin', 'confirm_delete_server'),
@@ -624,10 +633,10 @@ if (isset($_GET['action'])) {
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
         'STATUS_PAGE_VALUE' => ($status_page == '1'),
         'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers', 'action=order'),
-        'SERVERS' => $template_array
+        'SERVERS' => $template_array,
     ]);
 
-    $template_file = 'integrations/minecraft/minecraft_servers.tpl';
+    $template_file = 'integrations/minecraft/minecraft_servers';
 
 }
 
@@ -643,20 +652,20 @@ if (Session::exists('admin_mc_servers_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
@@ -665,12 +674,12 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'MINECRAFT_SERVERS' => $language->get('admin', 'minecraft_servers')
+    'MINECRAFT_SERVERS' => $language->get('admin', 'minecraft_servers'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);
