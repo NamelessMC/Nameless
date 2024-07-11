@@ -37,11 +37,13 @@ class DefaultRevamp_Template extends TemplateBase
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
+        $semanticInclude = defined('HTML_RTL') && HTML_RTL ? AssetTree::FOMANTIC_UI_RTL : AssetTree::FOMANTIC_UI;
+
         $this->assets()->include([
             AssetTree::FONT_AWESOME,
             AssetTree::JQUERY,
             AssetTree::JQUERY_COOKIE,
-            AssetTree::FOMANTIC_UI,
+            $semanticInclude,
         ]);
 
         $smarty->assign('TEMPLATE', $template);

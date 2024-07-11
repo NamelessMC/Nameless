@@ -220,7 +220,6 @@ class Language
         }
 
         if (!defined('HTML_RTL')) {
-            /** @phpstan-ignore-next-line - none of our languages are RTL (yet) */
             define('HTML_RTL', self::LANGUAGES[$this->_activeLanguage]['rtl'] ?? false);
         }
 

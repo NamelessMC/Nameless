@@ -81,9 +81,13 @@ class AssetTree
      */
     public const TINYMCE_SPOILER = 'TINYMCE_SPOILER';
     /**
-     * @var string Fomantic-UI bundle v2.8 (CSS + JS)
+     * @var string Fomantic-UI bundle (CSS + JS)
      */
     public const FOMANTIC_UI = 'FOMANTIC_UI';
+    /**
+     * @var string Fomantic-UI RTL bundle (CSS + JS). CSS sadly not bundled in NPM package so manually built in assets/css
+     */
+    public const FOMANTIC_UI_RTL = 'FOMANTIC_UI_RTL';
 
     /**
      * @var mixed Tree of all available assets, with their applicable CSS/JS files.
@@ -246,6 +250,17 @@ class AssetTree
         self::FOMANTIC_UI => [
             'css' => [
                 'vendor/fomantic-ui/dist/semantic.min.css',
+            ],
+            'js' => [
+                'vendor/fomantic-ui/dist/semantic.min.js',
+            ],
+            'after' => [
+                self::JQUERY,
+            ],
+        ],
+        self::FOMANTIC_UI_RTL => [
+            'css' => [
+                'css/semantic.rtl.min.css',
             ],
             'js' => [
                 'vendor/fomantic-ui/dist/semantic.min.js',
