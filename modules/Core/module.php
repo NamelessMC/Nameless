@@ -63,14 +63,14 @@ class Core_Module extends Module {
         }
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
-        $pages->add('Core', '/user', 'pages/user/index.php');
-        $pages->add('Core', '/user/settings', 'pages/user/settings.php');
-        $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
-        $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
-        $pages->add('Core', '/user/notification_settings', 'pages/user/notification_settings.php');
-        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
+        $pages->add('Core', '/user', 'pages/user/index.php', 'cc_overview');
+        $pages->add('Core', '/user/settings', 'pages/user/settings.php', 'cc_settings');
+        $pages->add('Core', '/user/messaging', 'pages/user/messaging.php', 'cc_messaging');
+        $pages->add('Core', '/user/alerts', 'pages/user/alerts.php', 'cc_alerts');
+        $pages->add('Core', '/user/notification_settings', 'pages/user/notification_settings.php', 'cc_notification_settings');
+        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php', 'cc_placeholders');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
-        $pages->add('Core', '/user/connections', 'pages/user/connections.php');
+        $pages->add('Core', '/user/connections', 'pages/user/connections.php', 'cc_connections');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
