@@ -75,6 +75,7 @@ foreach ($sessions as $session) {
         ]),
         'is_admin' => $session->login_method === 'admin',
         'is_remembered' => $session->remember_me,
+        'last_active' => $language->get('user', 'last_active_x', ['lastActive' => $timeAgo->inWords($session->last_seen, $language)]),
         'last_seen_timeago' => $timeAgo->inWords($session->last_seen, $language),
         'last_seen' => date(DATE_FORMAT, $session->last_seen),
         'device_type' => $agent->deviceType(),
@@ -107,6 +108,9 @@ $smarty->assign([
     'LOGOUT_OTHER_SESSIONS' => $language->get('user', 'logout_other_sessions'),
     'LOGOUT_ALL_CONFIRM' => $language->get('general', 'log_out_all_sessions_confirm'),
     'LOGOUT_CONFIRM' => $language->get('general', 'log_out_selected_session_confirm'),
+    'ADMIN_LOGGED_IN' => $language->get('admin', 'admin_logged_in'),
+    'REMEMBERED' => $language->get('user', 'remembered'),
+    'THIS_DEVICE' => $language->get('user', 'this_device'),
 ]);
 
 // Load modules + template

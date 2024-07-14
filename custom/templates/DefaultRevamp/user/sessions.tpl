@@ -49,16 +49,16 @@
                             <div class="nine wide column">
                                 <span>{$session.device_os} &middot; {$session.device_browser} {$session.device_browser_version}</span>
                                 <br>
-                                {$session.location}, {if $session.is_current}<span class="ui success text">This device</span>{else}<span data-tooltip="{$session.last_seen}">Last active {$session.last_seen_timeago}</span>{/if}
+                                {$session.location}, {if $session.is_current}<span class="ui success text">{$THIS_DEVICE}</span>{else}<span data-tooltip="{$session.last_seen}">{$session.last_active}</span>{/if}
                                 {if $session.is_admin}
                                     <br>
                                     <span class="ui mini label">
-                                        <i class="user secret icon"></i> Admin logged in
+                                        <i class="user secret icon"></i> {$ADMIN_LOGGED_IN}
                                     </span>
                                 {elseif $session.is_remembered}
                                     <br>
                                     <span class="ui mini label">
-                                        <i class="check icon"></i> Remembered
+                                        <i class="check icon"></i> {$REMEMBERED}
                                     </span>
                                 {/if}
                             </div>
