@@ -1083,6 +1083,7 @@
     "moderator/recent_registrations": "Recent Registrations",
     "moderator/recent_reports": "Recent Reports",
     "moderator/reopen_report": "Reopen report",
+    "moderator/report_alert": "New report created",
     "moderator/report_closed": "Report closed successfully.",
     "moderator/report_comment_invalid": "Invalid comment content. Please ensure you have entered a comment between 1 and 10,000 characters.",
     "moderator/report_reopened": "Report reopened successfully.",
