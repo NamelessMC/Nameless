@@ -131,6 +131,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="InputPurgeUsers">{$PURGE_USERS_AFTER}</label>
+                                    <span class="badge badge-info">
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                           title="{$INFO}" data-placement="top" data-content="{$PURGE_USERS_AFTER_INFO}"></i>
+                                    </span>
+                                    <input type="number" min="0" name="purge_users" class="form-control" id="InputPurgeUsers"
+                                           value="{$PURGE_USERS_AFTER_VALUE}">
+                                </div>
+                                <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                                 </div>
