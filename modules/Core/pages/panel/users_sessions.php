@@ -18,7 +18,7 @@
  * @var Widgets $widgets
  */
 if (!$user->handlePanelPageLoad('admincp.users.sessions')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -26,7 +26,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'sessions';
 $page_title = $language->get('admin', 'user_sessions');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -65,11 +65,11 @@ foreach ($sessions as $session) {
 
     $user_sessions_list[] = [
         'id' => $session->id,
-        'ip' => $session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')',
-        'device_type' => $agent->deviceType(),
-        'device_os' => $agent->platform(),
-        'device_browser' => $agent->browser(),
-        'device_browser_version' => $agent->version($agent->browser()),
+        'ip' => Output::getClean($session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')'),
+        'device_type' => Output::getClean($agent->deviceType()),
+        'device_os' => Output::getClean($agent->platform()),
+        'device_browser' => Output::getClean($agent->browser()),
+        'device_browser_version' => Output::getClean($agent->version($agent->browser())),
         'method' => $session->login_method,
         'last_seen_short' => $session->last_seen
             ? $timeAgo->inWords($session->last_seen, $language)
@@ -78,7 +78,7 @@ foreach ($sessions as $session) {
             ? date(DATE_FORMAT, $session->last_seen)
             : $language->get('admin', 'unknown'),
         'is_current' => in_array($session->hash, [
-            Session::get(Config::get('session.session_name')), Session::get(Config::get('session.admin_name'))
+            Session::get(Config::get('session.session_name')), Session::get(Config::get('session.admin_name')),
         ]),
     ];
 }
@@ -105,23 +105,23 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'USER_ID' => $view_user->data()->id,
-    'BACK' => $language->get('general', 'back')
+    'BACK' => $language->get('general', 'back'),
 ]);
 
 if (isset($success)) {
     $smarty->assign([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
     $smarty->assign([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $template->onPageLoad();
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 $template->displayTemplate('core/users_sessions.tpl', $smarty);

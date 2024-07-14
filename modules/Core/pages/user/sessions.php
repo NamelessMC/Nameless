@@ -78,11 +78,11 @@ foreach ($sessions as $session) {
         'last_active' => $language->get('user', 'last_active_x', ['lastActive' => $timeAgo->inWords($session->last_seen, $language)]),
         'last_seen_timeago' => $timeAgo->inWords($session->last_seen, $language),
         'last_seen' => date(DATE_FORMAT, $session->last_seen),
-        'device_type' => $agent->deviceType(),
-        'device_os' => $agent->platform(),
-        'device_browser' => $agent->browser(),
-        'device_browser_version' => $agent->version($agent->browser()),
-        'location' => $session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')',
+        'device_type' => Output::getClean($agent->deviceType()),
+        'device_os' => Output::getClean($agent->platform()),
+        'device_browser' => Output::getClean($agent->browser()),
+        'device_browser_version' => Output::getClean($agent->version($agent->browser())),
+        'location' => Output::getClean($session->ip . ' (' . HttpUtils::getIpCountry($session->ip) . ')'),
     ];
 }
 
