@@ -305,7 +305,6 @@ class User
             }
         } elseif ($this->checkCredentials($username, $password, $method) === true) {
             // Valid credentials
-            // TODO: job to remove old sessions?
             $hash = SecureRandom::alphanumeric();
             $expiresAt = $remember ? time() + Config::get('remember.cookie_expiry') : null;
 
