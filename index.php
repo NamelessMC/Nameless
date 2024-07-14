@@ -89,8 +89,14 @@ if (!isset($_GET['route']) || $_GET['route'] == '/') {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage
-        $pages->setActivePage($pages->getPageByURL('/'));
-        require(ROOT_PATH . '/modules/Core/pages/index.php');
+        $homepage = $pages->getPageByURL(Settings::get('home_type'));
+        if ($homepage != null) {
+            $pages->setActivePage($homepage);
+            require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $homepage['module'], $homepage['file']]));
+        } else {
+            $pages->setActivePage($pages->getPageByURL('/'));
+            require(ROOT_PATH . '/modules/Core/pages/index.php');
+        }
     }
     die;
 }
