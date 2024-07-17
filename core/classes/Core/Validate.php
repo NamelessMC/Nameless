@@ -501,9 +501,9 @@ class Validate
      * Add an array of information to generate an error message to the $_to_convert array.
      * These errors will be translated in the `errors()` function later.
      *
-     * @param string $item field item
+     * @param string $item  field item
      * @param string $error error message
-     * @param array $meta error metadata
+     * @param array  $meta  error metadata
      */
     public function addCustomError(string $item, string $error, array $meta = []): void
     {
@@ -511,7 +511,7 @@ class Validate
             'field' => $item,
             'rule' => self::CUSTOM,
             'fallback' => $error,
-            'meta' => $meta
+            'meta' => $meta,
         ];
     }
 
