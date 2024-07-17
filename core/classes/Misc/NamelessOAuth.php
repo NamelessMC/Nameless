@@ -179,7 +179,7 @@ class NamelessOAuth extends Instanceable
     {
         [$client_id, $client_secret] = $this->getCredentials($provider);
 
-        return $client_id !== '' && $client_secret !== '';
+        return $client_id !== null && $client_id !== '' && $client_secret !== '';
     }
 
     /**

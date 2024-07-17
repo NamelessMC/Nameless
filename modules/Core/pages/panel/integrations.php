@@ -45,7 +45,7 @@ if (!isset($_GET['integration'])) {
             'name' => Output::getClean($integration->getName()),
             'icon' => Output::getClean($integration->getIcon()),
             'edit_link' => URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()),
-            'enabled' => $integration->isEnabled(),
+            'enabled' => $integration->isEnabled() && $integration->allowLinking(),
             'can_unlink' => $integration->data()->can_unlink,
             'required' => $integration->data()->required,
         ];
