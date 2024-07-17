@@ -82,6 +82,7 @@ class NamelessOAuth extends Instanceable
                         'email',
                     ],
                 ]),
+                'display_name' => $provider_data['display_name'] ?? ucfirst($provider_name),
                 'icon' => $provider_data['icon'] ?? null,
                 'logo_url' => $provider_data['logo_url'] ?? null,
                 'logo_css' => isset($provider_data['logo_css'])
