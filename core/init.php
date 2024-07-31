@@ -38,9 +38,20 @@ $writable_check_paths = [
 ];
 
 foreach ($writable_check_paths as $path) {
-    if (is_dir($path) && !is_writable($path)) {
-        die('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
-        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>');
+    if (is_dir($path) && is_writable($path)) {
+        $message = '<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
+        the correct user.</p>';
+
+        if (function_exists('posix_geteuid')) {
+            $uid = posix_geteuid();
+            $gid = posix_getegid();
+            $chown_command = 'sudo chown -R ' . $uid . ':' . $gid . ' ' . Output::getClean(ROOT_PATH);
+            $message .= '<p>The command to fix this for your system was determined to be: <code>' . $chown_command . '</code>. Please check if it makes sense before running it.</p>';
+        } else {
+            $message .= '<p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>';
+        }
+
+        die($message);
     }
 }
 
