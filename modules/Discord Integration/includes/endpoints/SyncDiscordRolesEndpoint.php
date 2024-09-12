@@ -3,13 +3,13 @@
 /**
  * @param int $user The NamelessMC user ID to edit
  * @param string $roles An array of Discord Role ID to give to the user
- * @deprecated Use SyncDiscordRolesEndpoint instead
+ *
  * @return string JSON Array
  */
-class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
+class SyncDiscordRolesEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'discord/set-roles';
+        $this->_route = 'discord/sync-roles';
         $this->_module = 'Discord Integration';
         $this->_description = 'Set a NamelessMC user\'s according to the supplied Discord Role ID list';
         $this->_method = 'POST';
@@ -24,10 +24,11 @@ class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
 
         $user = $api->getUser('id', $_POST['user']);
 
-        $log_array = GroupSyncManager::getInstance()->broadcastChange(
+        $log_array = GroupSyncManager::getInstance()->broadcastGroupChange(
             $user,
             DiscordGroupSyncInjector::class,
-            $_POST['roles'] ?? []
+            $_POST['add'] ?? [],
+            $_POST['remove'] ?? []
         );
 
         if (count($log_array)) {
