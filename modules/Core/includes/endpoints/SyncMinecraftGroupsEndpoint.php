@@ -3,14 +3,14 @@
 class SyncMinecraftGroupsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'minecraft/sync-groups';
+        $this->_route = 'minecraft/{user}/sync-groups';
         $this->_module = 'Core';
         $this->_description = 'Update a users groups based on added or removed groups from the Minecraft server';
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
-        $api->validateParams($_POST, ['server_id', 'user']);
+    public function execute(Nameless2API $api, User $user): void {
+        $api->validateParams($_POST, ['server_id']);
 
         $server_id = $_POST['server_id'];
         $integration = Integrations::getInstance()->getIntegration('Minecraft');
@@ -18,8 +18,6 @@ class SyncMinecraftGroupsEndpoint extends KeyAuthEndpoint {
         if (!$integration || $server_id != Settings::get('group_sync_mc_server')) {
             $api->returnArray(['message' => $api->getLanguage()->get('api', 'groups_updates_ignored')]);
         }
-
-        $user = $api->getUser('id', $_POST['user']);
 
         $log = GroupSyncManager::getInstance()->broadcastGroupChange(
             $user,

@@ -373,34 +373,30 @@ final class GroupSyncManager extends Instanceable
         }
 
         foreach ($batched_changes as $injector_class => $data) {
-            $add = $data['add'];
-            $remove = $data['remove'];
-
             /** @var GroupSyncInjector&BatchableGroupSyncInjector $injector */
             $injector = $this->getInjectorByClass($injector_class);
             $injector_column = $injector->getColumnName();
 
-            if ($injector instanceof BatchableGroupSyncInjector) {
-                /** @var GroupSyncInjector&BatchableGroupSyncInjector $injector */
-                $batchable_injector = $injector;
-                if (count($add)) {
-                    $result = $injector->batchAddGroups($user, $add);
-                    if (is_array($result)) {
-                        foreach ($result as $res) {
-                            if ($res['status'] === 'added') {
-                                $logs['added'][] = "{$injector_column} -> {$res['group_id']}";
-                            }
+            $add = $data['add'];
+            $remove = $data['remove'];
+
+            if (count($add)) {
+                $result = $injector->batchAddGroups($user, $add);
+                if (is_array($result)) {
+                    foreach ($result as $res) {
+                        if ($res['status'] === 'added') {
+                            $logs['added'][] = "{$injector_column} -> {$res['group_id']}";
                         }
                     }
                 }
+            }
 
-                if (count($remove)) {
-                    $result = $injector->batchRemoveGroups($user, $remove);
-                    if (is_array($result)) {
-                        foreach ($result as $res) {
-                            if ($res['status'] === 'removed') {
-                                $logs['removed'][] = "{$injector_column} -> {$res['group_id']}";
-                            }
+            if (count($remove)) {
+                $result = $injector->batchRemoveGroups($user, $remove);
+                if (is_array($result)) {
+                    foreach ($result as $res) {
+                        if ($res['status'] === 'removed') {
+                            $logs['removed'][] = "{$injector_column} -> {$res['group_id']}";
                         }
                     }
                 }
