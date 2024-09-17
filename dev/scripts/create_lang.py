@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 import sys
 from pathlib import Path
 
-# 2 letter country code: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 # 2 letter language code: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+# 2 letter country code: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
