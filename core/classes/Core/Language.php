@@ -105,6 +105,10 @@ class Language
             'name' => 'Albanian',
             'htmlCode' => 'sq',
         ],
+        'sr_RS' => [
+            'name' => 'Serbian',
+            'htmlCode' => 'sr',
+        ],
         'es_419' => [
             'name' => 'Spanish',
             'htmlCode' => 'es',
