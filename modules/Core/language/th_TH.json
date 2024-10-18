@@ -1011,5 +1011,18 @@
     "admin/activate": "เปิดใช้งาน",
     "admin/active": "ใช้งานอยู่",
     "admin/announcement_hook_info": "การสร้างประกาศ",
-    "admin/announcement_order": "ลำดับ"
+    "admin/announcement_order": "ลำดับ",
+    "admin/user_link_integration_hook_info": "เชื่อมโยงการเชื่อมต่อของผู้ใช้",
+    "admin/user_verify_integration_hook_info": "ยืนยันการเชื่อมต่อของผู้ใช้",
+    "admin/user_integration_updated_successfully": "อัปเดตการเชื่อมต่อของผู้ใช้สำเร็จแล้ว",
+    "admin/user_password_changed_successfully": "เปลี่ยนรหัสผ่านของผู้ใช้สำเร็จแล้ว",
+    "admin/user_group_removed_hook_info": "ลบกลุ่มผู้ใช้แล้ว",
+    "admin/user_banned_webhook": "{{punished}} ถูกแบนจากเว็บไซต์โดย {{punisher}}",
+    "admin/user_warned_webhook": "{{punished}} ถูกเตือนโดย {{punisher}}",
+    "admin/user_group_added_hook_info": "เพิ่มกลุ่มผู้ใช้แล้ว",
+    "admin/user_new_profile_post_hook_info": "โพสต์โปรไฟล์ใหม่",
+    "admin/user_profile_post_reply_hook_info": "ตอบกลับโพสต์โปรไฟล์",
+    "admin/verified": "ยืนยันแล้ว",
+    "admin/user_unlink_integration_hook_info": "ยกเลิกการเชื่อมโยงการเชื่อมต่อของผู้ใช้",
+    "admin/viewing_integrations_for_x": "กำลังดูการเชื่อมต่อของผู้ใช้สำหรับ {{user}}"
 }
