@@ -169,6 +169,9 @@ class Forum_Module extends Module {
 
             ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
         }
+
+        // Notifications
+        Notification::addType('followed_topics', $forum_language->get('notification', 'topics_you_follow'), Module::getIdFromName('Forum'));
     }
 
     public function onInstall() {

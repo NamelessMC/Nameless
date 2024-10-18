@@ -187,5 +187,6 @@
     "forum/x_topics": "{{count}} topics",
     "forum/your_posts": "Your post count",
     "forum/latest_posts_widget_cached": "The latest posts widget is cached for one minute, your changes may not take effect immediately.",
-    "forum/latest_posts_limit": "Latest posts limit"
+    "forum/latest_posts_limit": "Latest posts limit",
+    "notification/topics_you_follow": "Topics you follow"
 }

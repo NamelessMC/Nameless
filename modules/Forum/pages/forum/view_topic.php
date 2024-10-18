@@ -309,63 +309,45 @@ if (Input::exists()) {
             ));
 
             // Alerts + Emails
-            $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
-            if (count($users_following)) {
+            $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid]);
+            if ($users_following->count()) {
+
                 $users_following_info = [];
                 foreach ($users_following as $user_following) {
                     if ($user_following->user_id != $user->data()->id) {
-                        if ($user_following->existing_alerts == 0) {
-                            Alert::create(
-                                $user_following->user_id,
-                                'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
-                            );
-                            DB::getInstance()->update('topics_following', $user_following->id, [
-                                'existing_alerts' => 1
-                            ]);
+
+                        // Get user language
+                        $user_language = DB::getInstance()->query('SELECT nl2_languages.short_code AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?', [$user_following->user_id]);
+                        if (!$user_language->count()) {
+                            return;
                         }
-                        $user_info = DB::getInstance()->get('users', ['id', $user_following->user_id])->results();
-                        if ($user_info[0]->topic_updates) {
-                            $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
-                        }
-                    }
-                }
-                $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
-                $html = file_get_contents($path);
+                        $user_language = new Language(ROOT_PATH . '/modules/Forum/language', $user_language->first()->short_code);
 
-                $message = str_replace(
-                    ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
-                    [
-                        Output::getClean(SITE_NAME),
-                        $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
-                        $language->get('emails', 'greeting'),
-                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
-                        $language->get('emails', 'thanks')
-                    ],
-                    $html
-                );
-                $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]);
+                        $notification = new Notification(
+                            'followed_topics',
+                            $user_language->get('forum', 'new_reply_in_topic', [
+                                'author' => Output::getClean($user->data()->nickname),
+                                'topic' => Output::getClean($topic->topic_title),
+                            ]),
+                            $user_language->get('forum', 'new_reply_in_topic', [
+                                'author' => Output::getClean($user->data()->nickname),
+                                'topic' => Output::getClean($topic->topic_title),
+                            ]),
+                            $user_following->user_id,
+                            $user_following->user_id,
+                            null,
+                            false
+                        );
+                        $notification->send();
 
-                foreach ($users_following_info as $user_info) {
-                    $sent = Email::send(
-                        ['email' => $user_info['email'], 'name' => $user_info['username']],
-                        $subject,
-                        $message,
-                    );
-
-                    if (isset($sent['error'])) {
-                        DB::getInstance()->insert('email_errors', [
-                            'type' => Email::FORUM_TOPIC_REPLY,
-                            'content' => $sent['error'],
-                            'at' => date('U'),
-                            'user_id' => ($user->data()->id)
+                        DB::getInstance()->update('topics_following', $user_following->id, [
+                            'existing_alerts' => 1
                         ]);
+
                     }
                 }
             }
+
             Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
             Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
         } else {

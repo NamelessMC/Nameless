@@ -16,6 +16,7 @@ class Notification {
     private bool $_skipPurify;
     private string $_title;
     private string $_type;
+    private string $_link;
 
     private static array $_types = [];
 
@@ -29,6 +30,7 @@ class Notification {
      * @param int       $authorId        User ID that sent the notification
      * @param ?callable $contentCallback Optional callback to perform for each recipient's content
      * @param bool      $skipPurify      Whether to skip content purifying, default false
+     * @param ?string   $link            Optional link to redirect the user to on click
      *
      * @throws NotificationTypeNotFoundException
      */
@@ -39,7 +41,8 @@ class Notification {
         $recipients,
         int $authorId,
         callable $contentCallback = null,
-        bool $skipPurify = false
+        bool $skipPurify = false,
+        string $link = null
     ) {
         if (!in_array($type, array_column(self::getTypes(), 'key'))) {
             throw new NotificationTypeNotFoundException("Type $type not registered");
@@ -49,6 +52,7 @@ class Notification {
         $this->_skipPurify = $skipPurify;
         $this->_title = $title;
         $this->_type = $type;
+        $this->_link = $link;
 
         if (!is_array($recipients)) {
             $recipients = [$recipients];
@@ -85,7 +89,7 @@ class Notification {
     }
 
     private function sendAlert(int $userId, string $content): void {
-        Alert::send($userId, $this->_title, $content, null, $this->_skipPurify);
+        Alert::send($userId, $this->_title, $content, $this->_link, $this->_skipPurify);
     }
 
     private function sendEmail(int $userId, string $content): void {
@@ -95,6 +99,7 @@ class Notification {
             [
                 'content' => $content,
                 'title' => $this->_title,
+                'link' => $this->_link,
             ],
             date('U'), // TODO: schedule a date/time?
             'User',
