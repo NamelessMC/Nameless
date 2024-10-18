@@ -44,6 +44,11 @@ class Language
             'name' => 'English US',
             'htmlCode' => 'en',
         ],
+        'fa_IR' => [
+            'name' => 'Persian (Iran)',
+            'htmlCode' => 'fa',
+            'rtl' => true,
+        ],
         'fr_FR' => [
             'name' => 'French',
             'htmlCode' => 'fr',
@@ -99,6 +104,10 @@ class Language
         'sq_AL' => [
             'name' => 'Albanian',
             'htmlCode' => 'sq',
+        ],
+        'sr_RS' => [
+            'name' => 'Serbian',
+            'htmlCode' => 'sr',
         ],
         'es_419' => [
             'name' => 'Spanish',

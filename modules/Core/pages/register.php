@@ -404,7 +404,7 @@ foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $prov
 
     $providers[$name] = $provider;
     $providers[$name]['continue_with'] = $language->get('user', 'continue_with', [
-        'provider' => ucfirst($name)
+        'provider' => Output::getClean($provider['display_name'])
     ]);
 }
 

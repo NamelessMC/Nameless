@@ -162,7 +162,7 @@ if (!isset($_GET['action'])) {
                     $order = ($_POST['order'] ?? 10);
 
                     $location = Input::get('location');
-                    if (!in_array($location, ['left', 'right'])) {
+                    if (!in_array($location, ['left', 'right', 'top', 'footer'])) {
                         $location = 'right';
                     }
 
@@ -191,7 +191,7 @@ if (!isset($_GET['action'])) {
         }
 
         $location = Output::getClean($widget_instance->getLocation());
-        if (!in_array($location, ['left', 'right'])) {
+        if (!in_array($location, ['left', 'right', 'top', 'footer'])) {
             $location = 'right';
         }
 
@@ -208,6 +208,8 @@ if (!isset($_GET['action'])) {
             'WIDGET_LOCATION' => $language->get('admin', 'widget_location'),
             'LEFT' => $language->get('admin', 'left'),
             'RIGHT' => $language->get('admin', 'right'),
+            'TOP' => $language->get('admin', 'top'),
+            'FOOTER' => $language->get('admin', 'footer'),
             'ACTIVE_PAGES' => $active_pages,
             'POSSIBLE_PAGES' => $pages->returnWidgetPages(),
             'MODULE' => $language->get('admin', 'module'),

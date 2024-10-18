@@ -63,15 +63,15 @@ class Core_Module extends Module {
         }
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
-        $pages->add('Core', '/user', 'pages/user/index.php');
-        $pages->add('Core', '/user/settings', 'pages/user/settings.php');
-        $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
-        $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
-        $pages->add('Core', '/user/sessions', 'pages/user/sessions.php');
-        $pages->add('Core', '/user/notification_settings', 'pages/user/notification_settings.php');
-        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
+        $pages->add('Core', '/user', 'pages/user/index.php', 'cc_overview');
+        $pages->add('Core', '/user/settings', 'pages/user/settings.php', 'cc_settings');
+        $pages->add('Core', '/user/messaging', 'pages/user/messaging.php', 'cc_messaging');
+        $pages->add('Core', '/user/alerts', 'pages/user/alerts.php', 'cc_alerts');
+        $pages->add('Core', '/user/sessions', 'pages/user/sessions.php', 'cc_sessions');
+        $pages->add('Core', '/user/notification_settings', 'pages/user/notification_settings.php', 'cc_notification_settings');
+        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php', 'cc_placeholders');
         $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
-        $pages->add('Core', '/user/connections', 'pages/user/connections.php');
+        $pages->add('Core', '/user/connections', 'pages/user/connections.php', 'cc_connections');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
@@ -550,14 +550,16 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
 
-        MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));
-        MemberListManager::getInstance()->registerListProvider(new StaffMembersListProvider($language));
+        if (Util::isModuleEnabled('Members')) {
+            MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));
+            MemberListManager::getInstance()->registerListProvider(new StaffMembersListProvider($language));
 
-        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
-            return [
-                $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
-            ];
-        });
+            MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
+                return [
+                    $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
+                ];
+            });
+        }
 
         ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
 

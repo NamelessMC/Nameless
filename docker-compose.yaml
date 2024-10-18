@@ -14,6 +14,9 @@
 # Reinstall:
 # docker compose exec php php -f dev/scripts/cli_install.php '--' '--iSwearIKnowWhatImDoing' '--reinstall'
 #
+# Run phpstan:
+# docker compose exec php vendor/bin/phpstan --configuration=dev/phpstan.neon
+#
 # Uninstall
 # docker compose down
 # rm -rf core/config.php cache/*
@@ -31,7 +34,7 @@ services:
             - type: bind
               source: .
               target: /data
-        user: '1000' # set this to your user id!
+        user: '1000:1000' # set this to your user id!
         depends_on: [php]
         environment:
             PHP_FPM: php:9000
@@ -42,7 +45,7 @@ services:
             - type: bind
               source: .
               target: /data
-        user: '1000' # set this to your user id!
+        user: '1000:1000' # set this to your user id!
         environment:
             NAMELESS_HOSTNAME: localhost
             NAMELESS_DATABASE_ADDRESS: db

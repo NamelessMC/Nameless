@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @deprecated SyncMinecraftGroupsEndpoint should be used instead
+ */
 class UpdateGroupsEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
