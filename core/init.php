@@ -38,7 +38,7 @@ $writable_check_paths = [
 ];
 
 foreach ($writable_check_paths as $path) {
-    if (is_dir($path) && is_writable($path)) {
+    if (is_dir($path) && !is_writable($path)) {
         $message = '<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
         the correct user.</p>';
 
