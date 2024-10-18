@@ -6,6 +6,7 @@
  * @param string $content The content of the report
  * @param string $reported_username The username of the reported user (optional, required if reported not provided)
  * @param string $reported_uid A unique ID for the reported user (optional, required if reported not provided)
+ * @param string $server_id A server ID the report is associated with
  *
  * @return string JSON Array
  */
@@ -79,8 +80,9 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             'reported_id' => $user_reported_id,
             'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
-            'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
-            'reported_uuid' => $_POST['reported_uid'] ? $_POST['reported_uid'] : $reported_uuid ?? 'none',
+            'reported_mcname' => $_POST['reported_username'] ?: $reported_user->getDisplayname(),
+            'reported_uuid' => $_POST['reported_uid'] ?: $reported_uuid ?? 'none',
+            'server_id' => $_POST['server_id'],
         ]);
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'report_created')], 201);

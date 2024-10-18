@@ -89,36 +89,52 @@ if (!isset($_GET['id'])) {
             $comments = DB::getInstance()->get('reports_comments', ['report_id', $report->id])->results();
             $comments = count($comments);
 
-            $user_reported = null;
-            if ($report->reported_id != 0) {
+            if (!$report->reported_id) {
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
+                if ($integration != null) {
+                    $reported_user = new IntegrationUser($integration, $report->reported_uuid, 'identifier');
+                    if ($reported_user->exists()) {
+                        $reported_user = $reported_user->getUser();
+
+                        $reported_user_profile = URL::build('/panel/user/' . urlencode($reported_user->data()->id . '-' . $reported_user->data()->username));
+                        $reported_user_style = $reported_user->getGroupStyle();
+                        $reported_user_avatar = $reported_user->getAvatar();
+                    } else {
+                        $reported_user_profile = '#';
+                        $reported_user_style = '';
+                        $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                    }
+                } else {
+                    $reported_user_profile = '#';
+                    $reported_user_style = '';
+                    $reported_user_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($report->reported_uuid));
+                }
+
+                $reported_user_name = Output::getClean($report->reported_mcname);
+            } else {
                 $reported_user = new User($report->reported_id);
 
-                if ($reported_user->exists()) {
-                    // Reported user exists
-                    $user_reported = $reported_user->getDisplayname();
-                    $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
-                    $user_style = $reported_user->getGroupStyle();
-                    $user_avatar = $reported_user->getAvatar();
-                }
-            }
-
-            if ($user_reported === null) {
-                // Reported user doesn't exist, use their username and uuid
-                $user_reported = Output::getClean($report->reported_mcname);
-                $user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $report->reported_mcname));
-                $user_style = '';
-                $user_avatar = AvatarSource::getAvatarFromUUID($report->reported_uuid ?? $report->reported_mcname);
+                $reported_user_name = $reported_user->getDisplayname();
+                $reported_user_profile = URL::build('/panel/user/' . urlencode($report->reported_id . '-' . $reported_user->data()->username));
+                $reported_user_style = $reported_user->getGroupStyle();
+                $reported_user_avatar = $reported_user->getAvatar();
             }
 
             $updated_by_user = new User($report->updated_by);
 
+            $server = null;
+            if ($report->server_id) {
+                $server = Output::getClean(DB::getInstance()->get('mc_servers', ['id', $report->server_id])->first()->name);
+            }
+
             $reports[] = [
                 'id' => $report->id,
                 'type' => $report->type,
-                'user_reported' => $user_reported,
-                'user_profile' => $user_profile,
-                'user_reported_style' => $user_style,
-                'user_reported_avatar' => $user_avatar,
+                'server' => $server,
+                'user_reported' => $reported_user_name,
+                'user_profile' => $reported_user_profile,
+                'user_reported_style' => $reported_user_style,
+                'user_reported_avatar' => $reported_user_avatar,
                 'reported_at' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
                 'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
                 'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
@@ -128,7 +144,7 @@ if (!isset($_GET['id'])) {
                 'updated_by_avatar' => $updated_by_user->getAvatar(),
                 'updated_at' => ($report->updated ? $timeago->inWords($report->updated, $language) : $timeago->inWords($report->date_updated, $language)),
                 'updated_at_full' => ($report->updated ? date(DATE_FORMAT, $report->updated) : date(DATE_FORMAT, strtotime($report->date_updated))),
-                'comments' => $comments
+                'comments' => $comments,
             ];
         }
 
@@ -258,6 +274,11 @@ if (!isset($_GET['id'])) {
         }
 
         $reporter_user = new User($report->reporter_id);
+
+        if ($report->server_id) {
+            $server = DB::getInstance()->get('mc_servers', ['id', $report->server_id])->first()->name;
+            $smarty->assign('REPORT_SERVER', Output::getClean($server));
+        }
 
         // Smarty variables
         $smarty->assign([
