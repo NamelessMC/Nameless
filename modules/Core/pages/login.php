@@ -265,7 +265,7 @@ foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $prov
 
     $providers[$name] = $provider;
     $providers[$name]['log_in_with'] = $language->get('user', 'log_in_with', [
-        'provider' => ucfirst($name)
+        'provider' => Output::getClean($provider['display_name'])
     ]);
 }
 

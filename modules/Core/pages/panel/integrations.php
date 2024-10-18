@@ -45,7 +45,7 @@ if (!isset($_GET['integration'])) {
             'name' => Output::getClean($integration->getName()),
             'icon' => Output::getClean($integration->getIcon()),
             'edit_link' => URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()),
-            'enabled' => $integration->isEnabled(),
+            'enabled' => $integration->isEnabled() && $integration->allowLinking(),
             'can_unlink' => $integration->data()->can_unlink,
             'required' => $integration->data()->required,
         ];
@@ -90,12 +90,13 @@ if (!isset($_GET['integration'])) {
 
                 $client_id = Input::get("client-id");
                 $client_secret = Input::get("client-secret");
+
+                NamelessOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
                 if ($client_id && $client_secret) {
                     NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable") == 'on' ? 1 : 0);
                 } else {
                     NamelessOAuth::getInstance()->setEnabled($provider_name, 0);
                 }
-                NamelessOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
 
                 Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
                 Redirect::to(URL::build('/panel/core/integrations/', 'integration=' . $integration->getName()));
