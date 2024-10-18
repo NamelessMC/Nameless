@@ -262,7 +262,7 @@
     "general/brown": "Barna",
     "general/grey": "Szürke",
     "time/about_1_month": "kb. egy hónapja",
-    "user/1_new_message": "Van 1 új értesítésed",
+    "user/1_new_message": "Van 1 új üzeneted",
     "user/1_reaction": "1 reakció",
     "user/agree_t_and_c": "Elolvastam és elfogadom a {{linkStart}}Felhasznélási feltételeket{{linkEnd}}.",
     "user/authme_help": "Kérlek add meg a játékfiókod adatait. Ha még nincs játékfiókod csatlakozz a szerverhez és regisztrálj egy játékfiókot majd add meg itt.",
@@ -621,5 +621,18 @@
     "user/invalid_mcname": "Az Minecraft felhasználóneved érvénytelen.",
     "user/invalid_recaptcha": "Érvénytelen reCAPTCHA-válasz.",
     "user/invalid_tfa": "Érvénytelen kód, próbáld újra.",
-    "user/participants": "Résztvevők"
+    "user/participants": "Résztvevők",
+    "admin/rating_x": "Értékelés: {{rating}}",
+    "admin/reaction_deleted_successfully": "A reakció sikeresen törölve.",
+    "admin/queue_task_status": "Állapot",
+    "admin/re-authenticate": "Kérlek, hitelesít újra",
+    "admin/reaction_created_successfully": "A reakció sikeresen létrehozva.",
+    "admin/redirect_url": "Átirányítási URL",
+    "admin/reaction_deleted_event_info": "Reakció törölve",
+    "admin/reason": "Kitiltás Oka",
+    "admin/recent_users": "Új Felhasználók",
+    "admin/register_hook_info": "Felhasználó regisztráció",
+    "admin/reaction_edited_successfully": "A reakció sikeresen szerkesztve.",
+    "admin/reaction_added_event_info": "Reakció hozzáadva",
+    "admin/registered": "Regisztráltak"
 }
