@@ -79,12 +79,14 @@ class User
                 $hash = Session::get($this->_sessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isLoggedIn = true;
+                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
             if (Session::exists($this->_admSessionName)) {
                 $hash = Session::get($this->_admSessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isAdmLoggedIn = true;
+                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
         } else {
@@ -112,7 +114,26 @@ class User
         if ($field !== 'hash') {
             $data = $this->_db->get('users', [$field, $value]);
         } else {
-            $data = $this->_db->query('SELECT nl2_users.* FROM nl2_users LEFT JOIN nl2_users_session ON nl2_users.id = user_id WHERE hash = ? AND nl2_users_session.active = 1', [$value]);
+            $data = $this->_db->query(
+                <<<'SQL'
+                SELECT
+                    nl2_users.*
+                FROM nl2_users
+                    LEFT JOIN nl2_users_session
+                    ON nl2_users.id = nl2_users_session.user_id
+                WHERE
+                    nl2_users_session.hash = ?
+                    AND nl2_users_session.active = 1
+                    AND (
+                        nl2_users_session.expires_at IS NULL
+                        OR nl2_users_session.expires_at > ?
+                    )
+                SQL,
+                [
+                    $value,
+                    time(),
+                ]
+            );
         }
 
         if ($data->count()) {
@@ -285,21 +306,24 @@ class User
         } elseif ($this->checkCredentials($username, $password, $method) === true) {
             // Valid credentials
             $hash = SecureRandom::alphanumeric();
+            $expiresAt = $remember ? time() + Config::get('remember.cookie_expiry') : null;
 
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
                 'hash' => $hash,
                 'remember_me' => $remember,
-                'active' => 1,
+                'active' => true,
                 'login_method' => $is_admin ? 'admin' : $method,
+                'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+                'ip' => HttpUtils::getRemoteAddress(),
+                'expires_at' => $expiresAt,
             ]);
 
             Session::put($sessionName, $hash);
 
             if ($remember) {
-                $expiry = $is_admin ? 3600 : Config::get('remember.cookie_expiry');
                 $cookieName = $is_admin ? ($this->_cookieName . '_adm') : $this->_cookieName;
-                Cookie::put($cookieName, $hash, $expiry, HttpUtils::getProtocol() === 'https', true);
+                Cookie::put($cookieName, $hash, $expiresAt, HttpUtils::getProtocol() === 'https', true, false);
             }
 
             return true;
@@ -507,6 +531,31 @@ class User
         }
 
         return false;
+    }
+
+    public function getActiveSessions(): array
+    {
+        return DB::getInstance()->query(
+            'SELECT * FROM nl2_users_session WHERE user_id = ? AND active = 1 ORDER BY last_seen DESC',
+            [
+                $this->data()->id,
+            ]
+        )->results();
+    }
+
+    /**
+     * Log the user out from a selected session.
+     *
+     * @param string $sessionId Selected session ID.
+     *
+     * @return void
+     */
+    public function logoutSessionById(string $sessionId): void
+    {
+        DB::getInstance()->query('UPDATE nl2_users_session SET `active` = 0 WHERE user_id = ? AND id = ?', [
+            $this->data()->id,
+            $sessionId,
+        ]);
     }
 
     /**
@@ -1093,7 +1142,7 @@ class User
     }
 
     /**
-     * Save/update this users placeholders.
+     * Save/update this user's placeholders.
      *
      * @param int   $server_id    Server ID from staffcp -> integrations to assoc these placeholders with.
      * @param array $placeholders Key/value array of placeholders name/value from API endpoint.

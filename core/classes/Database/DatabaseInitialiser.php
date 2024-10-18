@@ -269,6 +269,7 @@ class DatabaseInitialiser
     private function initialiseTasks(): void
     {
         GenerateSitemap::schedule(new Language('core', 'en_UK'));
+        PurgeExpiredSessions::schedule(new Language('core', 'en_UK'));
     }
 
     private function initialiseTemplates(): void

@@ -30,5 +30,15 @@
     Deny from all
   </files>
 
+  # Prevent access to GeoIP database
+  <files "*.mmdb">
+    Deny from all
+  </files>
+
+  # Prevent access to log files
+  <files "*.log">
+    Deny from all
+  </files>
+
   # Prevent Apache from removing the Authorization header, we need to check it for the API.
   CGIPassAuth On
