@@ -176,5 +176,13 @@
     "forum/unfollow_all_topics": "Ontvolg alle onderwerpen",
     "forum/user_object": "Gebruikersobject",
     "forum/latest_posts_limit": "Postlimiet",
-    "forum/latest_posts_widget_cached": "De widget heeft een cache van een minuut, wijzigingen zullen niet direct zichtbaar zijn."
+    "forum/latest_posts_widget_cached": "De widget heeft een cache van een minuut, wijzigingen zullen niet direct zichtbaar zijn.",
+    "forum/news_items_max": "Aantal nieuwsberichten hoort tenminste {{max}} te zijn",
+    "forum/news_items_front_page_limit": "Aantal nieuwsberichten om te tonen op de voorpagina",
+    "forum/highest_reaction_scores": "Hoogste forumreactiescore",
+    "forum/banned_terms": "Verboden termen",
+    "forum/banned_terms_info": "Een term per regel, niet hoofdlettergevoelig",
+    "forum/content_contains_banned_term": "De tekst bevat een verboden term",
+    "forum/most_posts": "Meeste forumposts",
+    "forum/forum_score": "Forumscore"
 }
