@@ -6,7 +6,7 @@
  * @package NamelessMC\Core
  * @author Samerton
  * @author Aberdeener
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class Validate
@@ -105,6 +105,11 @@ class Validate
      * @var string Set a rate limit
      */
     public const RATE_LIMIT = 'rate_limit';
+
+    /**
+     * @var string Custom validation check
+     */
+    public const CUSTOM = 'custom';
 
     private DB $_db;
 
@@ -443,6 +448,32 @@ class Validate
                         }
 
                         break;
+
+                    case self::CUSTOM:
+                        if (!$rule_value instanceof Closure) {
+                            throw new Exception('Custom rule must be a instance of closure.');
+                        }
+
+                        $reflection = new ReflectionFunction($rule_value);
+                        $reflectionParams = $reflection->getParameters();
+                        if (count($reflectionParams) !== 2) {
+                            throw new InvalidArgumentException('Custom rule closure must take 2 arguments (Validate and the field item).');
+                        }
+
+                        // if they've provided a typehint for the first argument, make sure it's taking Validate
+                        $param = $reflectionParams[0];
+                        if ($param->getType() instanceof ReflectionNamedType && $param->getType()->getName() !== Validate::class) {
+                            throw new InvalidArgumentException('Custom rule closure must take Validate as the first argument.');
+                        }
+
+                        // check that the second argument is a string
+                        $param = $reflectionParams[1];
+                        if ($param->getType() instanceof ReflectionNamedType && $param->getType()->getName() !== 'string') {
+                            throw new InvalidArgumentException('Custom rule closure must take a string as the second argument.');
+                        }
+
+                        $rule_value($validator, $item);
+                        break;
                 }
             }
         }
@@ -464,6 +495,24 @@ class Validate
     private function addError(array $error): void
     {
         $this->_to_convert[] = $error;
+    }
+
+    /**
+     * Add an array of information to generate an error message to the $_to_convert array.
+     * These errors will be translated in the `errors()` function later.
+     *
+     * @param string $item  field item
+     * @param string $error error message
+     * @param array  $meta  error metadata
+     */
+    public function addCustomError(string $item, string $error, array $meta = []): void
+    {
+        $this->_to_convert[] = [
+            'field' => $item,
+            'rule' => self::CUSTOM,
+            'fallback' => $error,
+            'meta' => $meta,
+        ];
     }
 
     /**
