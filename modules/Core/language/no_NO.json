@@ -217,7 +217,6 @@
     "admin/head": "Hode",
     "admin/header": "Overskrift",
     "admin/header_required": "En overskrift er påkrevd.",
-    "admin/homepage_type": "Forsidetype",
     "admin/hook_created": "Hook har blitt opprettet.",
     "admin/hook_deleted": "Hook har blitt slettet",
     "admin/hook_edited": "Hook har blitt endret.",

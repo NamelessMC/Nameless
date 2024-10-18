@@ -256,8 +256,6 @@
     "admin/header": "Virsraksts",
     "admin/header_required": "Nepieciešama galvene.",
     "admin/home_custom_content": "Sākums Pielāgots saturs",
-    "admin/homepage_news": "Jaunumi",
-    "admin/homepage_type": "Mājas lapas veids",
     "admin/hook_created": "Āķis veiksmīgi izveidots.",
     "admin/hook_deleted": "Āķis veiksmīgi izdzēsts.",
     "admin/hook_edited": "Āķis ir veiksmīgi rediģēts",

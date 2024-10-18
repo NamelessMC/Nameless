@@ -228,7 +228,6 @@
     "admin/head": "หัว",
     "admin/header": "หัวข้อ",
     "admin/header_required": "ต้องระบุส่วนหัว",
-    "admin/homepage_type": "ประเภทหน้าแรก",
     "admin/hook_created": "สร้าง hook เรียบร้อยแล้ว",
     "admin/hook_deleted": "ลบ Hook เรียบร้อยแล้ว",
     "admin/hook_edited": "แก้ไข hook เรียบร้อยแล้ว",

@@ -229,7 +229,6 @@
     "admin/head": "Głowa",
     "admin/header": "Tytuł",
     "admin/header_required": "Tytuł jest wymagany.",
-    "admin/homepage_type": "Typ strony głównej",
     "admin/hook_created": "Hook stworzony pomyślnie.",
     "admin/hook_deleted": "Hook usunięty pomyślnie.",
     "admin/hook_edited": "Hook edytowany pomyślnie",
