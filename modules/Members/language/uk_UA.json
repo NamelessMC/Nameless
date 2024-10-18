@@ -1,1 +1,19 @@
-{}
+{
+    "members/members": "Учасники",
+    "members/new_members": "Нові учасники",
+    "members/no_members": "Учасників не знайдено.",
+    "members/member_lists": "Список учасників",
+    "members/member_list_hide_banned_users": "Приховати заблокованих користувачів?",
+    "members/member_list_toggled_enabled": "Успішно увімкнено список {{list}}.",
+    "members/view_all": "Переглянути все",
+    "members/find_member": "Знайти учасника",
+    "members/member_list_toggled_disabled": "Успішно вимкнено список {{list}}.",
+    "members/name": "Ім'я...",
+    "members/view_group": "Переглянути групу",
+    "members/viewable_groups": "Групи для перегляду",
+    "members/group": "Група...",
+    "members/no_results_header": "Немає результатів",
+    "members/no_results_text": "За вашим запитом нічого не знайдено",
+    "members/no_overview_lists_enabled": "Списки оглядів не ввімкнено.",
+    "members/settings_updated_successfully": "Налаштування успішно оновлено."
+}

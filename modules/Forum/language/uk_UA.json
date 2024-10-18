@@ -101,7 +101,7 @@
     "forum/pre_post_edit_hook_info": "Попер. зміна посту",
     "forum/pre_topic_create_hook_info": "Попер. створення топіка",
     "forum/quote": "Цитувати",
-    "forum/quoted_post": "Пост доданий до цитованих повідомлень.",
+    "forum/quoted_post": "Допис додано до цитованих повідомлень.",
     "forum/re": "Відповідь: ",
     "forum/recent_posts": "Останні пости",
     "forum/recent_topics": "Останні топіки",
@@ -176,5 +176,16 @@
     "forum/user_no_posts": "Цей користувач ще не зробив жодного повідомлення на форумі.",
     "forum/x_topics": "{{count}} топиків",
     "forum/latest_posts_widget_cached": "Віджет останніх повідомлень кешується протягом однієї хвилини, ваші зміни можуть вступити в силу не відразу.",
-    "forum/latest_posts_limit": "Обмеження на останні повідомлення"
+    "forum/latest_posts_limit": "Обмеження на останні повідомлення",
+    "forum/news_items_front_page_limit": "Кількість новин для відображення на головній сторінці",
+    "forum/highest_reaction_scores": "Найвищі оцінки реакції на форумі",
+    "forum/banned_terms": "Заборонені терміни",
+    "forum/banned_terms_info": "Один термін у рядку, без урахування регістру",
+    "forum/content_contains_banned_term": "Вміст вашого допису містить заборонений термін",
+    "forum/most_posts": "Більшість дописів",
+    "forum/news_items_min": "Кількість новин має бути не менше {{min}}",
+    "forum/no_posts_found": "Дописів не знайдено.",
+    "forum/reaction_score": "Оцінка реакції",
+    "forum/forum_score": "Оцінка форуму",
+    "forum/news_items_max": "Кількість новин має бути не більше {{max}}"
 }

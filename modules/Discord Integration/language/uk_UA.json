@@ -2,7 +2,7 @@
     "discord_integration/discord_bot_setup": "Бот налаштований?",
     "discord_integration/discord_guild_id": "ID Discord серверу",
     "discord_integration/discord_id_confirm": "Будь ласка, виконайте команду \"/verify token:{{token}}\" в Discord, щоб завершити прив'язку вашого облікового запису в Discord.",
-    "discord_integration/discord_id_help": "Щоб дізнатись як знайти ID Вашого серверу в Discord, прочитайте {{linkStart}}цей{{linkEnd}} посібник",
+    "discord_integration/discord_id_help": "Щоб дізнатись як знайти ID Вашого серверу в Discord, прочитайте {{linkStart}}цей посібник.{{linkEnd}}",
     "discord_integration/discord_id_length": "Переконайтеся, що ID Вашого Discord серверу в проміжку від {{min}} до {{max}}.",
     "discord_integration/discord_id_numeric": "Переконайтеся, що ID Вашого Discord серверу складається з цифр.",
     "discord_integration/discord_id_required": "Введіть ID Вашого Discord серверу.",
