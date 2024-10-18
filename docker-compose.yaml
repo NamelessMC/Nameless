@@ -31,7 +31,7 @@ services:
             - type: bind
               source: .
               target: /data
-        user: '1000' # set this to your user id!
+        user: '1000:1000' # set this to your user id!
         depends_on: [php]
         environment:
             PHP_FPM: php:9000
@@ -42,7 +42,7 @@ services:
             - type: bind
               source: .
               target: /data
-        user: '1000' # set this to your user id!
+        user: '1000:1000' # set this to your user id!
         environment:
             NAMELESS_HOSTNAME: localhost
             NAMELESS_DATABASE_ADDRESS: db
