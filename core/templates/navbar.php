@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.2.0
  *
  *  License: MIT
  *
@@ -190,6 +190,8 @@ $smarty->assign([
     ),
     'INTERNET_EXPLORER_HEADER' => $language->get('general', 'internet_explorer_header'),
     'INTERNET_EXPLORER_INFO' => $language->get('general', 'internet_explorer_info'),
+    'WIDGETS_TOP' => $widgets->getWidgets('top'),
+    'WIDGETS_FOOTER' => $widgets->getWidgets('footer'),
 ]);
 
 if ($user->isLoggedIn()) {
