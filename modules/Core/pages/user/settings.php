@@ -80,6 +80,10 @@ if (isset($_GET['do'])) {
                             // Logout all other sessions for this user
                             $user->logoutAllOtherSessions();
 
+                            EventHandler::executeEvent(new UserUpdatedEvent(
+                                $user,
+                            ));
+
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
                             Redirect::to(URL::build('/user/settings'));
@@ -124,6 +128,10 @@ if (isset($_GET['do'])) {
                         'tfa_secret' => null,
                         'tfa_complete' => false
                     ]);
+
+                    EventHandler::executeEvent(new UserUpdatedEvent(
+                        $user,
+                    ));
 
                     Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
                     Redirect::to(URL::build('/user/settings'));
@@ -329,6 +337,10 @@ if (isset($_GET['do'])) {
                                 ]);
                             }
                         }
+
+                        EventHandler::executeEvent(new UserUpdatedEvent(
+                            $user,
+                        ));
 
                         Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
                         Redirect::to(URL::build('/user/settings'));
