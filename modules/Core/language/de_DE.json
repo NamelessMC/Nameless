@@ -1358,5 +1358,7 @@
     "admin/uninstall_confirm": "Bist du sicher, dass du {{item}} deinstallieren möchtest?",
     "admin/compat_php_version_info": "Die PHP-Version {{php}} wird empfohlen.",
     "admin/unable_to_uninstall_module": "Modul kann nicht deinstalliert werden - das Modul {{module}} hängt von ihm ab.",
-    "admin/uninstall": "Deinstallieren"
+    "admin/uninstall": "Deinstallieren",
+    "admin/default_homepage": "Standard-Homepage",
+    "moderator/report_alert": "Neuer Report erstellt"
 }
