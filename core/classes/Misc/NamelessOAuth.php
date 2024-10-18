@@ -77,7 +77,7 @@ class NamelessOAuth extends Instanceable
 
             $providers[$provider_name] = [
                 'url' => $provider->getAuthorizationUrl([
-                    'scope' => [
+                    'scope' => $provider_data['scopes'] ?? [
                         $provider_data['scope_id_name'],
                         'email',
                     ],
