@@ -477,13 +477,10 @@ if ($page != 'install') {
     }
 
     // Load new modules
-    $composer_json = ROOT_PATH . '/composer.lock';
-    if (file_exists($composer_json)) {
-        $packages = json_decode(file_get_contents($composer_json), true)['packages'];
-        foreach ($packages as $package) {
-            if ($package['type'] === 'nameless-module') {
-                require_once ROOT_PATH . '/vendor/' . $package['name'] . '/init.php';
-            }
+    $packages = json_decode(file_get_contents(ROOT_PATH . '/composer.lock'), true)['packages'];
+    foreach ($packages as $package) {
+        if ($package['type'] === 'nameless-module') {
+            require_once ROOT_PATH . '/vendor/' . $package['name'] . '/init.php';
         }
     }
 
