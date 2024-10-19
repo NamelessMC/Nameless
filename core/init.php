@@ -469,10 +469,18 @@ if ($page != 'install') {
         }
     }
 
-    // Load modules
+    // Load classic modules
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
+        }
+    }
+
+    // Load new modules
+    $packages = json_decode(file_get_contents(ROOT_PATH . '/composer.lock'), true)['packages'];
+    foreach ($packages as $package) {
+        if ($package['type'] === 'nameless-module') {
+            require_once ROOT_PATH . '/vendor/' . $package['name'] . '/init.php';
         }
     }
 
