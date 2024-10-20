@@ -86,7 +86,7 @@ class EventHandler
      * @param callable|class-string $callback Listener callback to execute when event is executed. If class name is provided, we will assume there is a static "execute" method on the class.
      * @param int                   $priority Execution priority - higher gets executed first
      */
-    public static function registerListener(string $event, $callback, int $priority = 10): void
+    public static function registerListener(string $event, $callback, int $priority = 10, \DI\Container $container = null): void
     {
         $name = class_exists($event) && is_subclass_of($event, AbstractEvent::class)
             ? $event::name()
@@ -97,8 +97,17 @@ class EventHandler
             self::registerEvent($event, $event);
         }
 
+        // TODO cleanup
         if (is_string($callback) && class_exists($callback)) {
-            $callback = [$callback, 'execute'];
+            if (!is_subclass_of($callback, \NamelessMC\Framework\Events\Listener::class)) {
+                $callback = [$callback, 'execute'];
+            } else {
+                // TODO could this initialization be moved closer to when it's actually called?
+                // when it's here, modules can't do things in their constructor such as setting
+                // the cache location since it could get overwritten by any code that sets cache between
+                // this and when the listener is actually called
+                $callback = [$container->make($callback), 'handle'];
+            }
         }
 
         self::$_events[$name]['listeners'][] = [

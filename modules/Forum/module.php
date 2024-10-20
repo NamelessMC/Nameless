@@ -143,11 +143,12 @@ class Forum_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
 
-        if (Util::isModuleEnabled('Members')) {
-            MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
-            MemberListManager::getInstance()->registerListProvider(new HighestForumReactionScoresMemberListProvider($forum_language));
+        // if (Util::isModuleEnabled('Members')) {
+            $memberListManager = self::$container->get('NamelessMC\Members\MemberListManager');
+            $memberListManager->registerListProvider(new MostPostsMemberListProvider($forum_language));
+            $memberListManager->registerListProvider(new HighestForumReactionScoresMemberListProvider($forum_language));
 
-            MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+            $memberListManager->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
                 return [
                     $forum_language->get('forum', 'posts_title') =>
                         DB::getInstance()->query(
@@ -157,7 +158,7 @@ class Forum_Module extends Module {
                 ];
             });
 
-            MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
+            $memberListManager->registerMemberMetadataProvider(function (User $member) use ($forum_language) {
                 return [
                     $forum_language->get('forum', 'reaction_score') =>
                         DB::getInstance()->query(
@@ -167,8 +168,8 @@ class Forum_Module extends Module {
                 ];
             });
 
-            ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
-        }
+             ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
+       // }
     }
 
     public function onInstall() {

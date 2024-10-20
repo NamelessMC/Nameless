@@ -518,17 +518,6 @@ if (!class_exists('Default_Panel_Template')) {
                             $this->addJSScript(Input::createTinyEditor($this->_language, 'InputPlaceholder', null, false, true));
                         }
                         break;
-
-                    case 'member_lists':
-                        $this->addJSScript('
-                            if ($(\'.js-check-change\').length) {
-                                var changeCheckbox = document.querySelector(\'.js-check-change\');
-
-                                changeCheckbox.onchange = function () {
-                                    $(\'#toggleHideBannedUsers\').submit();
-                                };
-                            }
-                            ');
                 }
             }
         }

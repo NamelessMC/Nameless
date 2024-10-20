@@ -53,11 +53,11 @@ if (defined('PAGE') && PAGE != 404) {
 $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
 
 if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) {
-    $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/' . TEMPLATE);
+    $smarty->addTemplateDir(ROOT_PATH . '/custom/templates/' . TEMPLATE);
 
     require(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php');
 } else {
-    $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/DefaultRevamp');
+    $smarty->addTemplateDir(ROOT_PATH . '/custom/templates/DefaultRevamp');
 
     require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 }

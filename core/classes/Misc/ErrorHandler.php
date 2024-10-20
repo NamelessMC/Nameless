@@ -107,6 +107,12 @@ class ErrorHandler
                         continue;
                     }
 
+                    // Skip frame if it is a function call (Composer autoload, etc)
+                    if (!isset($frame['file'])) {
+                        $skip_frames++;
+                        continue;
+                    }
+
                     $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                     $i--;
                 }

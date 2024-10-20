@@ -1,4 +1,5 @@
 <?php
+use NamelessMC\Members\MemberListProvider;
 /**
  * Registered members member list provider
  *

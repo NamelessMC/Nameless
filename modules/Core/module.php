@@ -550,16 +550,17 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
 
-        if (Util::isModuleEnabled('Members')) {
-            MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));
-            MemberListManager::getInstance()->registerListProvider(new StaffMembersListProvider($language));
+        // if (Util::isModuleEnabled('Members')) {
+            $memberListManager = self::$container->get('NamelessMC\Members\MemberListManager');
+            $memberListManager->registerListProvider(new RegisteredMembersListProvider($language));
+            $memberListManager->registerListProvider(new StaffMembersListProvider($language));
 
-            MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
+            $memberListManager->registerMemberMetadataProvider(function (User $member) use ($language) {
                 return [
                     $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
                 ];
             });
-        }
+        // }
 
         ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
 

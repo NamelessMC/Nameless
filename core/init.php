@@ -81,6 +81,7 @@ if ($page != 'install') {
      */
 
     $container = new \DI\Container();
+    Module::$container = $container;
     $container->set(Cache::class, function () {
         return new Cache([
             'name' => 'nameless',
@@ -118,7 +119,7 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
-    PhinxAdapter::ensureUpToDate('Core');
+    // PhinxAdapter::ensureUpToDate('Core');
 
     // Error reporting
     if (!defined('DEBUGGING')) {
@@ -234,9 +235,9 @@ if ($page != 'install') {
             define('LANGUAGE', $language[0]->short_code);
         }
     }
-    $container->set(Language::class, function () {
-        return new Language('core', LANGUAGE);
-    });
+    $coreLanguage = fn() => new Language('core', LANGUAGE);
+    $container->set(Language::class, $coreLanguage);
+    $container->set('coreLanguage', $coreLanguage);
 
     $language = $container->get(Language::class);
 
@@ -477,10 +478,18 @@ if ($page != 'install') {
     }
 
     // Load new modules
-    $packages = json_decode(file_get_contents(ROOT_PATH . '/composer.lock'), true)['packages'];
+    $packages = json_decode(file_get_contents(ROOT_PATH . '/vendor/composer/installed.json'), true)['packages'];
     foreach ($packages as $package) {
         if ($package['type'] === 'nameless-module') {
-            require_once ROOT_PATH . '/vendor/' . $package['name'] . '/init.php';
+            $extra = $package['extra'];
+            /** @var NamelessMC\Framework\Extend\BaseExtender[] $extenders */
+            $extenders = require_once ROOT_PATH . '/vendor/' . $package['name'] . '/module.php';
+            foreach ($extenders as $extender) {
+                $extender->setModuleName(
+                    $package['extra']['nameless_module']['name'],
+                    $package['extra']['nameless_module']['display_name']
+                )->extend($container);
+            }
         }
     }
 

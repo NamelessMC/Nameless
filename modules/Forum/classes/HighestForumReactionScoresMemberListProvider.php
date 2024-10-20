@@ -1,4 +1,5 @@
 <?php
+use NamelessMC\Members\MemberListProvider;
 
 /**
  * Highest reaction scores member list provider
