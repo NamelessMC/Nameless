@@ -23,7 +23,7 @@ class FrontendPages extends BaseExtender {
         $frontendNavigation = $container->get('FrontendNavigation');
 
         foreach ($this->pages as $page) {
-            // Remove loading / from path - allows devs to ->register('/')
+            // Remove leading / from path - allows devs to ->register('/')
             $path = ltrim($page['path'], '/');
             $path = "/{$this->moduleName}/{$path}";
             // Remove ending / if it exists

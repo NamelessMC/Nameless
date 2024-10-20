@@ -114,15 +114,36 @@ if (array_key_exists($route, $all_pages)) {
     }
 
     if ($active_page['controllerBased']) {
+        $languageKey = "{$active_page['module']}Language";
+
         if (str_contains($route, 'queries')) {
             /** @var \NamelessMC\Framework\Queries\Query */
             $controller = $container->make($active_page['file']);
             $controller->handle();
+        } elseif (str_contains($route, 'panel')) {
+            /** @var \NamelessMC\Framework\Pages\PanelPage */
+            $controller = $container->make($active_page['file'], [
+                $languageKey => $container->get($languageKey),
+            ]);
+
+            if (!$user->handlePanelPageLoad($controller->permission())) {
+                require_once(ROOT_PATH . '/403.php');
+                die();
+            }
+
+            require_once(ROOT_PATH . '/core/templates/backend_init.php');
+
+            $controller->render();
+            Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+            define('PAGE', 'panel');
+            define('PARENT_PAGE', $active_page['module']);
+            define('PANEL_PAGE', $controller->pageName());
+            $smarty->assign(['TITLE' => $active_page['name'], 'PAGE' => $controller->pageName()]);
+            $template->onPageLoad();
+            require(ROOT_PATH . '/core/templates/panel_navbar.php');
+            return $template->displayTemplate($controller->viewFile(), $smarty);
         } else {
-            require_once(ROOT_PATH . '/core/templates/frontend_init.php');
-            // todo: may have to change shit for panel pages or queries
-            $languageKey = "{$active_page['module']}Language";
-    
+            require_once(ROOT_PATH . '/core/templates/frontend_init.php');    
             /** @var \NamelessMC\Framework\Pages\Page */
             $controller = $container->make($active_page['file'], [
                 'templatePagination' => $template_pagination,
