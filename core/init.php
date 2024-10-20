@@ -395,6 +395,8 @@ if ($page != 'install') {
     $cc_nav = new Navigation();
     $staffcp_nav = new Navigation(true); // $staffcp_nav = panel nav
 
+    $container->set('FrontendNavigation', $navigation);
+
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
