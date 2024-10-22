@@ -183,7 +183,7 @@ if (!isset($_GET['action'])) {
 
                     // We need to boot it so that the Lifecycle Extenders are loaded
                     ComposerModuleDiscovery::bootModule($container, $composerModule);
-                    // TODO run their migrations
+                    $composerModule->runMigrations();
                     $composerModule->onEnable();
 
                     DB::getInstance()->update('modules', $_GET['m'], [
@@ -307,8 +307,8 @@ if (!isset($_GET['action'])) {
                 // Check if composer module
                 foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
                     if ($composerModule->getName() === $name) { // compare by ID?
+                        $composerModule->rollbackMigrations();
                         $composerModule->onDisable();
-                        // TODO run their down migrations
                     }
                 }
             }
