@@ -25,3 +25,4 @@ jobs:
           path: 'modules/Members'
           deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
           force: true
+          branch: 'master'
