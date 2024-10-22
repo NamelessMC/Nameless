@@ -481,20 +481,7 @@ if ($page != 'install') {
     }
 
     // Load new modules
-    $packages = json_decode(file_get_contents(ROOT_PATH . '/vendor/composer/installed.json'), true)['packages'];
-    foreach ($packages as $package) {
-        if ($package['type'] === 'nameless-module') {
-            $extra = $package['extra'];
-            /** @var NamelessMC\Framework\Extend\BaseExtender[] $extenders */
-            $extenders = require_once ROOT_PATH . '/vendor/' . $package['name'] . '/module.php';
-            foreach ($extenders as $extender) {
-                $extender->setModuleName(
-                    $package['extra']['nameless_module']['name'],
-                    $package['extra']['nameless_module']['display_name']
-                )->extend($container);
-            }
-        }
-    }
+    ComposerModuleDiscovery::bootModules($container, $enabled_modules, ComposerModuleDiscovery::discoverModules());
 
     // Maintenance mode?
     if (Settings::get('maintenance') === '1') {

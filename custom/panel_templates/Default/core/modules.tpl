@@ -54,6 +54,9 @@
                                     <tr>
                                         <td>
                                             <strong>{$module.name}</strong> <small>{$module.version}</small>
+                                            {if $module.repository_url}
+                                                <a class="ml-1" href="{$module.repository_url}" target="_blank"><i class="fab fa-github fa-fw text-github"></i></a>
+                                            {/if}
                                             {if $module.version_mismatch}
                                             &nbsp;
                                             <button role="button" class="btn btn-sm btn-warning" data-toggle="popover"
