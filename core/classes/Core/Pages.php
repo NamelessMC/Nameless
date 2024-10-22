@@ -44,10 +44,11 @@ class Pages
      * @param bool   $widgets Can widgets be used on the page? Default false.
      * @param bool   $controllerBased Is the page controller based? Default false.
      */
-    public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false, bool $controllerBased = false): void
+    public function add(string $module, string $url, string $file, string $name = '', bool $widgets = false, string $moduleSafeName = null, bool $controllerBased = false): void
     {
         $this->_pages[$url] = [
             'module' => $module,
+            'moduleSafeName' => $moduleSafeName,
             'file' => $file,
             'name' => $name,
             'widgets' => $widgets,

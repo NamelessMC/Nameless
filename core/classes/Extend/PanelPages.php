@@ -27,8 +27,14 @@ class PanelPages extends BaseExtender {
         /** @var \Navigation */
         $panelNavigation = $container->get('PanelNavigation');
 
-        $moduleSidebarOrder = $cache->fetch("{$this->moduleName}_order", fn () => 10);
+        $moduleSidebarOrder = array_reduce(array_filter($cache->retrieveAll(), function ($item) {
+            return str_ends_with($item, '_order');
+        }, ARRAY_FILTER_USE_KEY), function ($carry, $item) {
+            return $item > $carry ? $item : $carry;
+        }, 0) + 1;
         $panelNavigation->add("{$this->moduleName}_divider", mb_strtoupper($this->moduleDisplayName), 'divider', 'top', null, $moduleSidebarOrder);
+
+        $lastSubPageOrder = $moduleSidebarOrder;
 
         foreach ($this->pages as $page) {
             // Remove loading / from path - allows devs to ->register('/')
@@ -36,21 +42,23 @@ class PanelPages extends BaseExtender {
             $path = "/panel/{$this->moduleName}/{$path}";
             // Remove ending / if it exists
             $path = rtrim($path, '/');
+            $order = $lastSubPageOrder + 0.1;
+            $lastSubPageOrder = $order;
 
             $friendlyName = $moduleLanguage->get($page['friendly_name_translation']);
 
             if ($user->hasPermission($page['permission'])) {
-                $pageIcon = $cache->fetch("{$page['name']}_icon", fn () => '<i class="nav-icon fas fa-cogs"></i>');
-
-                $panelNavigation->add($page['name'], $friendlyName, \URL::build($path), 'top', null, $moduleSidebarOrder + 0.1, $pageIcon);
+                $pageIcon = "<i class='nav-icon {$page['icon']}'></i>";
+                $panelNavigation->add($page['name'], $friendlyName, \URL::build($path), 'top', null, $order, $pageIcon);
             }
 
             $pages->add(
-                $this->moduleName,
+                $this->moduleDisplayName,
                 $path,
                 $page['handler'],
                 $friendlyName,
                 false,
+                $this->moduleName,
                 true,
             );
         }
@@ -63,13 +71,14 @@ class PanelPages extends BaseExtender {
         }
     }
 
-    public function register(string $path, string $name, string $friendlyNameTranslation, string $handler, string $permission): PanelPages {
+    public function register(string $path, string $name, string $friendlyNameTranslation, string $handler, string $permission, string $icon): PanelPages {
         $this->pages[] = [
             'path' => $path,
             'name' => $name,
             'friendly_name_translation' => $friendlyNameTranslation,
             'handler' => $handler,
             'permission' => $permission,
+            'icon' => $icon,
         ];
 
         return $this;

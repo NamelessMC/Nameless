@@ -114,7 +114,7 @@ if (array_key_exists($route, $all_pages)) {
     }
 
     if ($active_page['controllerBased']) {
-        $languageKey = "{$active_page['module']}Language";
+        $languageKey = "{$active_page['moduleSafeName']}Language";
 
         if (str_contains($route, 'queries')) {
             /** @var \NamelessMC\Framework\Queries\Query */
@@ -136,7 +136,7 @@ if (array_key_exists($route, $all_pages)) {
             $controller->render();
             Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
             define('PAGE', 'panel');
-            define('PARENT_PAGE', $active_page['module']);
+            define('PARENT_PAGE', $active_page['moduleSafeName']);
             define('PANEL_PAGE', $controller->pageName());
             $smarty->assign(['TITLE' => $active_page['name'], 'PAGE' => $controller->pageName()]);
             $template->onPageLoad();

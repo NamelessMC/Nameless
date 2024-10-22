@@ -239,6 +239,7 @@ $smarty->assign([
     'GENERATE' => $language->get('admin', 'generate_sitemap'),
     'GOOGLE_ANALYTICS_VALUE' => Settings::get('ga_script'),
     'PAGE_TITLE' => $language->get('admin', 'page'),
+    'PAGE_MODULE' => $language->get('admin', 'module'),
     'PAGE_LIST' => $pages->returnPages(),
     'EDIT_LINK' => URL::build('/panel/core/seo/', 'metadata={x}'),
     'GOOGLE_ANALYTICS' => $language->get('admin', 'google_analytics'),

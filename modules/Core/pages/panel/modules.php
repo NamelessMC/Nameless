@@ -438,6 +438,7 @@ if (!isset($_GET['action'])) {
                 }
             } else {
                 // Check if composer module
+                // TODO, should we try to run the `composer remove` command?
                 foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
                     if ($composerModule->getName() === $name) { // compare by ID?
                         $composerModule->rollbackMigrations();

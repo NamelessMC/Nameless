@@ -49,19 +49,6 @@ class Navigation
         float $order = 10,
         ?string $icon = ''
     ): void {
-        if ($this->_panel && $location == 'top') {
-            // Discard order
-            // TODO: only a temporary solution to the link conflict issue in the StaffCP
-            if (count($this->_topNavbar)) {
-                $key = array_keys($this->_topNavbar)[count($this->_topNavbar) - 1];
-                $previous_order = $this->_topNavbar[$key]['order'];
-            } else {
-                $previous_order = 0;
-            }
-
-            $order = $previous_order + 1;
-        }
-
         // Add the link to the navigation
         if ($location === 'top') {
             // Add to top navbar

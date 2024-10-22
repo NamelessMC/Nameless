@@ -57,11 +57,12 @@ class FrontendPages extends BaseExtender {
             }    
 
             $pages->add(
-                $this->moduleName,
+                $this->moduleDisplayName,
                 $path,
                 $page['handler'],
                 $pageFriendlyName,
                 $page['allowWidgets'],
+                $this->moduleName,
                 true,
             );
         }

@@ -111,16 +111,6 @@ class ComposerModuleWrapper extends Module
         return $provider->provide();
     }
 
-    private function migrationsPath(): string
-    {
-        return ROOT_PATH . '/vendor/' . $this->_packageName . '/migrations';
-    }
-    
-    private function hasMigrations(): bool
-    {
-        return file_exists($this->migrationsPath());
-    }
-
     public function runMigrations(): void
     {
         if (!$this->hasMigrations()) {
@@ -137,6 +127,16 @@ class ComposerModuleWrapper extends Module
         }
 
         PhinxAdapter::rollback($this->getPrivateName(), $this->migrationsPath());
+    }
+
+    private function migrationsPath(): string
+    {
+        return ROOT_PATH . '/vendor/' . $this->_packageName . '/migrations';
+    }
+    
+    private function hasMigrations(): bool
+    {
+        return file_exists($this->migrationsPath());
     }
 
     private function callLifecycleHooks(array $hooks): void

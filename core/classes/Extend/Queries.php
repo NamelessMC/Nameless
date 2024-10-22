@@ -20,11 +20,12 @@ class Queries extends BaseExtender {
             $path = rtrim($path, '/');
 
             $pages->add(
-                $this->moduleName,
+                $this->moduleDisplayName,
                 $path,
                 $page['handler'],
                 '',
                 false,
+                $this->moduleName,
                 true,
             );
         }
