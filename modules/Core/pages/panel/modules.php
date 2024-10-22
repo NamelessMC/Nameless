@@ -371,7 +371,6 @@ if (!isset($_GET['action'])) {
                     DB::getInstance()->insert('modules', [
                         'name' => $composerModule->getName(),
                     ]);
-                    $composerModule->runMigrations();
                     $composerModule->onInstall();
                 }
             }
@@ -441,7 +440,7 @@ if (!isset($_GET['action'])) {
                 // TODO, should we try to run the `composer remove` command?
                 foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
                     if ($composerModule->getName() === $name) { // compare by ID?
-                        $composerModule->rollbackMigrations();
+                        $composerModule->onUninstall();
                     }
                 }
             }

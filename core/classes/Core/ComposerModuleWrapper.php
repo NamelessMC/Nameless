@@ -1,7 +1,6 @@
 <?php
 class ComposerModuleWrapper extends Module
 {
-    private bool $_inVendor;
     private string $_packageName;
     private string $_privateName;
     private string $_authorName;
@@ -12,12 +11,12 @@ class ComposerModuleWrapper extends Module
     private array $_onInstall = [];
     private array $_onEnable = [];
     private array $_onDisable = [];
+    private array $_onUninstall = [];
 
     // Misc
     private string $_debugInfoProvider;
 
     public function __construct(
-        bool $inVendor,
         string $packageName,
         string $privateName,
         string $displayName,
@@ -27,7 +26,6 @@ class ComposerModuleWrapper extends Module
         string $namelessVersion,
         string $repositoryUrl
     ) {
-        $this->_inVendor = $inVendor;
         $this->_packageName = $packageName;
         $this->_privateName = $privateName;
         $this->_authorName = $authorName;
@@ -35,11 +33,6 @@ class ComposerModuleWrapper extends Module
         $this->_repositoryUrl = $repositoryUrl;
 
         parent::__construct($this, $displayName, $authorName, $moduleVersion, $namelessVersion);
-    }
-
-    public function isInVendor(): bool
-    {
-        return $this->_inVendor;
     }
 
     public function getPackageName(): string
@@ -77,6 +70,11 @@ class ComposerModuleWrapper extends Module
         $this->_onDisable = $callbacks;
     }
 
+    public function setOnUninstall(array $callbacks): void
+    {
+        $this->_onUninstall = $callbacks;
+    }
+
     public function setDebugInfoProvider(string $provider): void
     {
         $this->_debugInfoProvider = $provider;
@@ -89,6 +87,7 @@ class ComposerModuleWrapper extends Module
 
     public function onInstall()
     {
+        $this->runMigrations();
         $this->callLifecycleHooks($this->_onInstall);
     }
 
@@ -104,7 +103,9 @@ class ComposerModuleWrapper extends Module
 
     public function onUninstall()
     {
-        // ...
+        // TODO, should this be before or after
+        $this->rollbackMigrations();
+        $this->callLifecycleHooks($this->_onUninstall);
     }
 
     public function getDebugInfo(): array
@@ -119,7 +120,7 @@ class ComposerModuleWrapper extends Module
         return $provider->provide();
     }
 
-    public function runMigrations(): void
+    private function runMigrations(): void
     {
         if (!$this->hasMigrations()) {
             return;
@@ -128,7 +129,7 @@ class ComposerModuleWrapper extends Module
         PhinxAdapter::migrate($this->getPrivateName(), $this->migrationsPath());
     }
 
-    public function rollbackMigrations(): void
+    private function rollbackMigrations(): void
     {
         if (!$this->hasMigrations()) {
             return;
