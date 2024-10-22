@@ -12,6 +12,9 @@ class ComposerModuleWrapper extends Module
     private array $_onEnable = [];
     private array $_onDisable = [];
 
+    // Misc
+    private string $_debugInfoProvider;
+
     public function __construct(
         string $packageName,
         string $privateName,
@@ -66,9 +69,9 @@ class ComposerModuleWrapper extends Module
         $this->_onDisable = $callbacks;
     }
 
-    public function setOnUninstall(array $callbacks): void
+    public function setDebugInfoProvider(string $provider): void
     {
-        $this->_onUninstall = $callbacks;
+        $this->_debugInfoProvider = $provider;
     }
 
     public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template)
@@ -98,7 +101,14 @@ class ComposerModuleWrapper extends Module
 
     public function getDebugInfo(): array
     {
-        return [];
+        if (!$this->_debugInfoProvider) {
+            return [];
+        }
+
+        /** @var \NamelessMC\Framework\Debugging\DebugInfoProvider */
+        $provider = self::$container->make($this->_debugInfoProvider);
+
+        return $provider->provide();
     }
 
     private function callLifecycleHooks(array $hooks): void

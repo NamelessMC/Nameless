@@ -39,6 +39,7 @@ foreach ($modules as $item) {
         'module_version' => $module->getVersion(),
         'namelessmc_version' => $module->getNamelessVersion(),
         'debug_info' => $module->getDebugInfo(),
+        'type' => $module instanceof ComposerModuleWrapper ? 'composer' : 'classic',
     ];
 }
 
