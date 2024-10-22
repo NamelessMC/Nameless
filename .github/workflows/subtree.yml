@@ -1,5 +1,10 @@
 name: Update Subtrees
 
+# it should be like this if this is accepted:
+# on:
+#   push:
+#     branches:
+#       - develop
 on: [push, pull_request]
 
 jobs:
