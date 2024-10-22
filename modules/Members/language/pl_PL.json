@@ -1,0 +1,19 @@
+{
+    "members/members": "Użytkownicy",
+    "members/new_members": "Nowi użytkownicy",
+    "members/member_lists": "Lista Użytkowników",
+    "members/member_list_hide_banned_users": "Ukryć zbanowanych użytkowników?",
+    "members/find_member": "Znajdź użytkownika",
+    "members/no_members": "Nie znaleziono użytkowników.",
+    "members/view_all": "Zobacz wszystkich",
+    "members/view_group": "Zobacz grupę",
+    "members/viewable_groups": "Widoczne grupy",
+    "members/group": "Grupa...",
+    "members/name": "Nazwa...",
+    "members/no_results_header": "Nie znaleziono wyników",
+    "members/member_list_toggled_enabled": "Pomyślnie włączono {{lista}} listę.",
+    "members/member_list_toggled_disabled": "Pomyślnie wyłączono {{lista}} listę.",
+    "members/settings_updated_successfully": "Ustawienia zostały pomyślnie zaktualizowane.",
+    "members/no_results_text": "Twoje wyszukiwanie nie przyniosło żadnych wyników",
+    "members/no_overview_lists_enabled": "Żadne listy przeglądowe nie są włączone."
+}

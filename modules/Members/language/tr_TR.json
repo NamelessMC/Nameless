@@ -1,0 +1,19 @@
+{
+    "members/members": "Üyeler",
+    "members/new_members": "Yeni Üyeler",
+    "members/no_members": "Hiç bir üye bulunamadı.",
+    "members/member_lists": "Üye Listesi",
+    "members/member_list_hide_banned_users": "Yasaklanan kullanıcıları gizle?",
+    "members/member_list_toggled_enabled": "Başarıyla {{list}} listesi aktifleştirildi.",
+    "members/member_list_toggled_disabled": "Başarıyla {{list}} listesi devre dışı bırakıldı.",
+    "members/view_all": "Hepsini göster",
+    "members/find_member": "Üye bul",
+    "members/name": "İsim...",
+    "members/view_group": "Grubu gör",
+    "members/group": "Grup...",
+    "members/viewable_groups": "Görünebilen gruplar",
+    "members/no_results_header": "Sonuçlar bulunamadı",
+    "members/no_results_text": "Aradığınız sonuçlar geri bulunamadı",
+    "members/no_overview_lists_enabled": "Genel listeler aktif değil.",
+    "members/settings_updated_successfully": "Ayarlar başarıyla güncellendi."
+}

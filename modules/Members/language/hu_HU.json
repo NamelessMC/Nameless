@@ -1,0 +1,19 @@
+{
+    "members/settings_updated_successfully": "A beállítások frissítése sikeresen megtörtént.",
+    "members/members": "Tagok",
+    "members/new_members": "Új tagok",
+    "members/no_members": "Nem találhatók tagok.",
+    "members/member_lists": "Taglisták",
+    "members/member_list_hide_banned_users": "Tiltott tagok elrejtése?",
+    "members/member_list_toggled_disabled": "A {{list}} lista sikeresen kikapcsolva.",
+    "members/member_list_toggled_enabled": "A {{list}} lista sikeresen bekapcsolva.",
+    "members/view_all": "Összes megtekintése",
+    "members/find_member": "Tag keresése",
+    "members/name": "Név...",
+    "members/view_group": "Csoport megtekintése",
+    "members/group": "Csoport...",
+    "members/viewable_groups": "Megtekinthető csoportok",
+    "members/no_results_header": "Nincs találat",
+    "members/no_results_text": "A keresésed nem eredményezett találatot",
+    "members/no_overview_lists_enabled": "Nincsenek áttekintő listák engedélyezve."
+}

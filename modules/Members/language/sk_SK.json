@@ -1,0 +1,19 @@
+{
+    "members/members": "Užívatelia",
+    "members/new_members": "Noví užívatelia",
+    "members/member_list_toggled_enabled": "List {{list}} bol úspešne povolený.",
+    "members/no_results_header": "Neboli nájdené žiadne výsledky",
+    "members/no_members": "Žiadny užívatelia neboli nájdení.",
+    "members/member_lists": "List užívateľov",
+    "members/member_list_hide_banned_users": "Skryť zabanovaných užívateľov?",
+    "members/member_list_toggled_disabled": "List {{list}} bol úspešne zakázaný.",
+    "members/view_all": "Zobraziť všetko",
+    "members/find_member": "Hľadať užívateľa",
+    "members/name": "Meno...",
+    "members/view_group": "Zobraziť skupinu",
+    "members/group": "Skupina...",
+    "members/viewable_groups": "Viditeľné skupiny",
+    "members/no_results_text": "Vaše hľadanie nevrátilo žiadne výsledky",
+    "members/no_overview_lists_enabled": "Nie sú povolené žiadne prehľadové zoznamy.",
+    "members/settings_updated_successfully": "Nastavenia boli úspešne aktualizované."
+}

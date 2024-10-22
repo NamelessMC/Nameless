@@ -1,0 +1,19 @@
+{
+    "members/members": "成员",
+    "members/new_members": "新成员",
+    "members/no_members": "未找到成员。",
+    "members/member_lists": "成员列表",
+    "members/member_list_hide_banned_users": "隐藏被封禁的用户？",
+    "members/member_list_toggled_enabled": "成功启用了 {{list}} 列表。",
+    "members/member_list_toggled_disabled": "成功禁用了 {{list}} 列表。",
+    "members/view_all": "查看全部",
+    "members/find_member": "查找成员",
+    "members/viewable_groups": "可查看的组",
+    "members/no_results_header": "未找到结果",
+    "members/no_results_text": "你的搜索没有返回任何结果",
+    "members/no_overview_lists_enabled": "未启用概览列表。",
+    "members/settings_updated_successfully": "设置已成功更新。",
+    "members/name": "名称...",
+    "members/view_group": "查看成员列表",
+    "members/group": "组..."
+}

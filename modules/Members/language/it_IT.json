@@ -1,0 +1,18 @@
+{
+    "members/member_list_toggled_enabled": "Abilitata la lista {{list}} con successo.",
+    "members/no_results_text": "La tua ricerca ha riportato nessun risultato",
+    "members/members": "Membri",
+    "members/new_members": "Nuovi Membri",
+    "members/no_members": "Nessun membro trovato.",
+    "members/member_lists": "Lista Membri",
+    "members/member_list_hide_banned_users": "Nascondi utenti banditi?",
+    "members/member_list_toggled_disabled": "Disabilitata la lista {{list}} con successo.",
+    "members/find_member": "Cerca utente",
+    "members/name": "Nome..",
+    "members/group": "Gruppo..",
+    "members/viewable_groups": "Gruppi visualizzabili",
+    "members/no_results_header": "Nessun risultato trovato",
+    "members/settings_updated_successfully": "Impostazioni aggiornate con successo.",
+    "members/view_group": "Visualizza Gruppo",
+    "members/view_all": "Visualizza tutto"
+}

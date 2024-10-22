@@ -1,6 +1,7 @@
 <?php
 class ComposerModuleWrapper extends Module
 {
+    private bool $_inVendor;
     private string $_packageName;
     private string $_privateName;
     private string $_authorName;
@@ -16,6 +17,7 @@ class ComposerModuleWrapper extends Module
     private string $_debugInfoProvider;
 
     public function __construct(
+        bool $inVendor,
         string $packageName,
         string $privateName,
         string $displayName,
@@ -25,6 +27,7 @@ class ComposerModuleWrapper extends Module
         string $namelessVersion,
         string $repositoryUrl
     ) {
+        $this->_inVendor = $inVendor;
         $this->_packageName = $packageName;
         $this->_privateName = $privateName;
         $this->_authorName = $authorName;
@@ -32,6 +35,11 @@ class ComposerModuleWrapper extends Module
         $this->_repositoryUrl = $repositoryUrl;
 
         parent::__construct($this, $displayName, $authorName, $moduleVersion, $namelessVersion);
+    }
+
+    public function isInVendor(): bool
+    {
+        return $this->_inVendor;
     }
 
     public function getPackageName(): string

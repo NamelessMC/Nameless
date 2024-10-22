@@ -1,0 +1,19 @@
+{
+    "members/members": "Members",
+    "members/new_members": "New members",
+    "members/no_members": "No members found.",
+    "members/member_lists": "Member Lists",
+    "members/member_list_hide_banned_users": "Hide banned users?",
+    "members/member_list_toggled_enabled": "Successfully enabled {{list}} list.",
+    "members/member_list_toggled_disabled": "Successfully disabled {{list}} list.",
+    "members/view_all": "View all",
+    "members/find_member": "Find member",
+    "members/name": "Name...",
+    "members/view_group": "View group",
+    "members/group": "Group...",
+    "members/no_results_header": "No results found",
+    "members/no_results_text": "Your search returned no results",
+    "members/viewable_groups": "Viewable groups",
+    "members/no_overview_lists_enabled": "No overview lists are enabled.",
+    "members/settings_updated_successfully": "Settings updated successfully."
+}
