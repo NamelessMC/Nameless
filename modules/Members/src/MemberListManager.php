@@ -1,5 +1,10 @@
 <?php
 
+namespace NamelessMC\Members;
+
+use Closure;
+use RuntimeException;
+
 /**
  * Member list providers manager. Provides a way to register and retrieve member list providers.
  * @see MemberListProvider
@@ -9,7 +14,7 @@
  * @version 2.1.0
  * @license MIT
  */
-class MemberListManager extends Instanceable {
+class MemberListManager {
 
     private array $_lists = [];
 
@@ -96,10 +101,10 @@ class MemberListManager extends Instanceable {
     /**
      * Get the metadata for a given user. Pipes the user through all registered metadata providers.
      *
-     * @param User $user The user to get the metadata for
+     * @param \User $user The user to get the metadata for
      * @return array The metadata for the given user
      */
-    public function getMemberMetadata(User $user): array {
+    public function getMemberMetadata(\User $user): array {
         $metadata = [];
         foreach ($this->_metadata_providers as $provider) {
             $metadata += $provider($user);

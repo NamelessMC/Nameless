@@ -1,5 +1,7 @@
 <?php
 
+use NamelessMC\Members\MemberListProvider;
+
 class StaffMembersListProvider extends MemberListProvider {
 
     public function __construct(Language $language) {

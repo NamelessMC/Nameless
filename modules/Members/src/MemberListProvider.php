@@ -1,5 +1,7 @@
 <?php
 
+namespace NamelessMC\Members;
+
 /**
  * Base class for member list providers.
  *
@@ -56,7 +58,7 @@ abstract class MemberListProvider {
      * @return string A URL to this specific member list page
      */
     public function url(): string {
-        return URL::build('/members', 'list=' . $this->getName());
+        return \URL::build('/members', 'list=' . $this->getName());
     }
 
     /**
@@ -68,9 +70,9 @@ abstract class MemberListProvider {
             return $this->_enabled;
         }
 
-        $enabled = DB::getInstance()->get('member_lists', ['name', $this->getName()])->first()->enabled;
+        $enabled = \DB::getInstance()->get('member_lists', ['name', $this->getName()])->first()->enabled;
         if ($enabled === null) {
-            DB::getInstance()->insert('member_lists', [
+            \DB::getInstance()->insert('member_lists', [
                 'name' => $this->getName(),
                 'friendly_name' => $this->getFriendlyName(),
                 'module' => $this->getModule(),
@@ -98,11 +100,11 @@ abstract class MemberListProvider {
      * @param int $page The page number to display, starting at 1 - pages are 20 members long
      * @return array An array of members to display on the member list page
      */
-    public function getMembers(bool $overview, int $page): array {
+    public function getMembers(bool $overview, int $page, MemberListManager $memberListManager): array {
         [$sql, $id_column, $count_column] = $this->generator();
 
-        $rows = DB::getInstance()->query($sql)->results();
-        if (Settings::get('member_list_hide_banned', false, 'Members')) {
+        $rows = \DB::getInstance()->query($sql)->results();
+        if (\Settings::get('member_list_hide_banned', false, 'Members')) {
             $rows = $this->filterBanned($rows, $id_column);
         }
 
@@ -111,18 +113,17 @@ abstract class MemberListProvider {
         $list_members = [];
         $limit = $overview ? 5 : 20;
 
-
         foreach ($rows as $row) {
             if (count($list_members) === $limit) {
                 break;
             }
 
             $user_id = $row->{$id_column};
-            $member = new User($user_id);
+            $member = new \User($user_id);
 
             $list_members[] = array_merge(
                 [
-                    'username' => Output::getClean($member->data()->username),
+                    'username' => \Output::getClean($member->data()->username),
                     'avatar_url' => $member->getAvatar(),
                     'group_style' => $member->getGroupStyle(),
                     'profile_url' => $member->getProfileURL(),
@@ -132,7 +133,7 @@ abstract class MemberListProvider {
                     ? []
                     : [
                         'group_html' => $member->getAllGroupHtml(),
-                        'metadata' => MemberListManager::getInstance()->getMemberMetadata($member),
+                        'metadata' => $memberListManager->getMemberMetadata($member),
                     ],
             );
         }
@@ -146,9 +147,9 @@ abstract class MemberListProvider {
      */
     public function getMemberCount(): int {
         [$sql, $id_column] = $this->generator();
-        $rows = DB::getInstance()->query($sql)->results();
+        $rows = \DB::getInstance()->query($sql)->results();
 
-        if (Settings::get('member_list_hide_banned', false, 'Members')) {
+        if (\Settings::get('member_list_hide_banned', false, 'Members')) {
             $rows = $this->filterBanned($rows, $id_column);
         }
 
@@ -168,7 +169,7 @@ abstract class MemberListProvider {
             return [];
         }
 
-        $banned_users = DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids) AND isbanned = 1")->results();
+        $banned_users = \DB::getInstance()->query("SELECT id, isbanned FROM nl2_users WHERE id IN ($ids) AND isbanned = 1")->results();
         return array_filter($rows, static function ($row) use ($banned_users, $id_column) {
             foreach ($banned_users as $banned_user) {
                 if ($banned_user->id == $row->{$id_column}) {

@@ -3,6 +3,7 @@
   "members/new_members": "New members",
   "members/no_members": "No members found.",
   "members/member_lists": "Member Lists",
+  "members/member_list_settings": "Settings",
   "members/member_list_hide_banned_users": "Hide banned users?",
   "members/member_list_toggled_enabled": "Successfully enabled {{list}} list.",
   "members/member_list_toggled_disabled": "Successfully disabled {{list}} list.",

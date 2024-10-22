@@ -70,6 +70,7 @@ if (!isset($_GET['action'])) {
             'nameless_version' => Output::getClean($module->getNamelessVersion()),
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
+            'repository_url' => $module instanceof ComposerModuleWrapper ? Output::getClean($module->getRepositoryUrl()) : null,
             'version_mismatch' => !Util::isCompatible($module->getNamelessVersion(), NAMELESS_VERSION) ? $language->get('admin', 'module_outdated', [
                 'intendedVersion' => Text::bold(Output::getClean($module->getNamelessVersion())),
                 'actualVersion' => Text::bold(NAMELESS_VERSION)
@@ -161,14 +162,44 @@ if (!isset($_GET['action'])) {
             // Get module name
             $name = DB::getInstance()->get('modules', ['id', $_GET['m']])->results();
             if (!count($name)) {
-                Redirect::to(URL::build('/panel/modules'));
+                Redirect::to(URL::build('/panel/core/modules'));
             }
 
             $name = Output::getClean($name[0]->name);
 
+            // Check if composer module
+            foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
+                if ($composerModule->getName() === $name) { // compare by ID?
+                    $modules = [];
+
+                    $order = Module::determineModuleOrder();
+
+                    foreach ($order['modules'] as $key => $item) {
+                        $modules[] = [
+                            'name' => $item,
+                            'priority' => $key
+                        ];
+                    }
+
+                    // We need to boot it so that the Lifecycle Extenders are loaded
+                    ComposerModuleDiscovery::bootModule($container, $composerModule);
+                    $composerModule->onEnable();
+
+                    DB::getInstance()->update('modules', $_GET['m'], [
+                        'enabled' => true,
+                    ]);
+
+                    $cache->setCache('modulescache');
+                    $cache->store('enabled_modules', $modules);
+
+                    Session::flash('admin_modules', $language->get('admin', 'module_enabled'));
+                    Redirect::to(URL::build('/panel/core/modules'));
+                }
+            }
+
             // Ensure module is valid
             if (!file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
-                Redirect::to(URL::build('/panel/modules'));
+                Redirect::to(URL::build('/panel/core/modules'));
             }
 
             $module = null;
@@ -271,6 +302,13 @@ if (!isset($_GET['action'])) {
             if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
                 require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
                 $module->onDisable();
+            } else {
+                // Check if composer module
+                foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
+                    if ($composerModule->getName() === $name) { // compare by ID?
+                        $composerModule->onDisable();
+                    }
+                }
             }
 
             Session::flash('admin_modules', $language->get('admin', 'module_disabled'));
@@ -284,7 +322,7 @@ if (!isset($_GET['action'])) {
 
     if ($_GET['action'] == 'install') {
         if (Token::check()) {
-            // Install any new modules
+            // Install any new classic modules
             $directories = glob(ROOT_PATH . '/modules/*', GLOB_ONLYDIR);
 
             define('MODULE_INSTALL', true);
@@ -322,6 +360,19 @@ if (!isset($_GET['action'])) {
                             ]);
                         }
                     }
+                }
+            }
+
+            // Install any new composer modules
+            foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
+                $exists = DB::getInstance()->get('modules', ['name', $composerModule->getName()])->results();
+
+                if (!count($exists)) {
+                    DB::getInstance()->insert('modules', [
+                        'name' => $composerModule->getName(),
+                    ]);
+                    $composerModule->runMigrations();
+                    $composerModule->onInstall();
                 }
             }
 
@@ -381,10 +432,18 @@ if (!isset($_GET['action'])) {
                 /** @var Module $module */
                 require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
                 $module->onUninstall();
-            }
 
-            if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/modules/' . $name)) {
-                Session::flash('admin_modules_error', $language->get('admin', 'unable_to_delete_module_files'));
+                if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/modules/' . $name)) {
+                    Session::flash('admin_modules_error', $language->get('admin', 'unable_to_delete_module_files'));
+                }
+            } else {
+                // Check if composer module
+                // TODO, should we try to run the `composer remove` command?
+                foreach (ComposerModuleDiscovery::discoverModules() as $composerModule) {
+                    if ($composerModule->getName() === $name) { // compare by ID?
+                        $composerModule->rollbackMigrations();
+                    }
+                }
             }
 
             Session::flash('admin_modules', $language->get('admin', 'module_uninstalled'));

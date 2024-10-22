@@ -10,14 +10,12 @@ class PhinxAdapter
      *
      * @param string  $module        Module name
      * @param ?string $migrationDir  Migration directory
-     * @param bool    $returnResults If true the results will be returned - otherwise script execution is ended
      *
      * @return array|void
      */
     public static function ensureUpToDate(
         string $module,
-        ?string $migrationDir = null,
-        bool $returnResults = false
+        ?string $migrationDir = null
     ) {
         $module = strtolower($module);
 
@@ -51,13 +49,6 @@ class PhinxAdapter
 
         $missing = array_diff($migration_files, $migration_database_entries);
         $extra = array_diff($migration_database_entries, $migration_files);
-
-        if ($returnResults) {
-            return [
-                'missing' => count($missing),
-                'extra' => count($extra),
-            ];
-        }
 
         // Likely a pull from the repo dev branch or migrations
         // weren't run during an upgrade script.

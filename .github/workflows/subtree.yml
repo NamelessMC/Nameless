@@ -1,0 +1,33 @@
+name: Update Subtrees
+
+# it should be like this if this is accepted:
+# on:
+#   push:
+#     branches:
+#       - develop
+on: [push, pull_request]
+
+jobs:
+  sync-downstream:
+    runs-on: ubuntu-latest
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     module:
+    #       - members
+
+    name: Update downstream Members module repository
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: nxtlvlsoftware/git-subtree-action@1.1
+        with:
+          # repo: 'NamelessMC/${{ matrix.module }}-module'
+          # path: 'modules/${{ matrix.module }}'
+          repo: 'NamelessMC/members-module'
+          path: 'modules/Members'
+          deploy_key: ${{ secrets.DOWNSTREAM_GITHUB_DEPLOY_KEY }}
+          force: true
+          branch: 'main'

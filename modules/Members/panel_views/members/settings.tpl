@@ -105,6 +105,14 @@
         $('#groups').select2({
             placeholder: "{$NO_ITEM_SELECTED}"
         });
+
+        if ($('.js-check-change').length) {
+            var changeCheckbox = document.querySelector('.js-check-change');
+
+            changeCheckbox.onchange = function () {
+                $('#toggleHideBannedUsers').submit();
+            }
+        }
     </script>
 
 </body>

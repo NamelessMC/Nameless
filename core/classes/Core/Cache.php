@@ -295,6 +295,18 @@ class Cache
         return $results;
     }
 
+    public function fetch(string $key, callable $callback, int $expiration = 0)
+    {
+        if ($this->isCached($key)) {
+            return $this->retrieve($key);
+        }
+
+        $data = $callback();
+        $this->store($key, $data, $expiration);
+
+        return $data;
+    }
+
     /**
      * Erase cached entry by its key.
      *

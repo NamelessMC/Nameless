@@ -99,12 +99,14 @@
                                     <thead>
                                         <tr>
                                             <th>{$PAGE_TITLE}</th>
+                                            <th>{$PAGE_MODULE}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {foreach from=$PAGE_LIST key=key item=item}
                                         <tr>
                                             <td><a href="{$EDIT_LINK|replace:'{x}':$item.id}">{$key|escape}</a></td>
+                                            <td>{$item.module}</a></td>
                                         </tr>
                                         {/foreach}
                                     </tbody>

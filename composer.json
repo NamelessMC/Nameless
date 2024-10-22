@@ -8,6 +8,7 @@
             "php": "7.4"
         }
     },
+    "minimum-stability": "dev",
     "require": {
         "php": ">=7.4",
         "jdorn/sql-formatter": "^1.2.17",
@@ -53,8 +54,10 @@
             "modules/Discord Integration/widgets",
             "modules/Forum/classes",
             "modules/Forum/hooks",
-            "modules/Forum/widgets",
-            "modules/Members/classes"
-        ]
+            "modules/Forum/widgets"
+        ],
+        "psr-4": {
+            "NamelessMC\\Members\\": "modules/Members/src"
+        }
     }
 }

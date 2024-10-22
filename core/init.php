@@ -81,6 +81,7 @@ if ($page != 'install') {
      */
 
     $container = new \DI\Container();
+    Module::$container = $container;
     $container->set(Cache::class, function () {
         return new Cache([
             'name' => 'nameless',
@@ -234,9 +235,9 @@ if ($page != 'install') {
             define('LANGUAGE', $language[0]->short_code);
         }
     }
-    $container->set(Language::class, function () {
-        return new Language('core', LANGUAGE);
-    });
+    $coreLanguage = fn() => new Language('core', LANGUAGE);
+    $container->set(Language::class, $coreLanguage);
+    $container->set('coreLanguage', $coreLanguage);
 
     $language = $container->get(Language::class);
 
@@ -394,6 +395,9 @@ if ($page != 'install') {
     $cc_nav = new Navigation();
     $staffcp_nav = new Navigation(true); // $staffcp_nav = panel nav
 
+    $container->set('FrontendNavigation', $navigation);
+    $container->set('PanelNavigation', $staffcp_nav);
+
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
@@ -469,12 +473,15 @@ if ($page != 'install') {
         }
     }
 
-    // Load modules
+    // Load classic modules
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
         }
     }
+
+    // Load new modules
+    ComposerModuleDiscovery::bootModules($container, $enabled_modules, ComposerModuleDiscovery::discoverModules());
 
     // Maintenance mode?
     if (Settings::get('maintenance') === '1') {

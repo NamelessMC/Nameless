@@ -106,17 +106,68 @@ $route = rtrim(strtok($_GET['route'], '?'), '/');
 $all_pages = $pages->returnPages();
 
 if (array_key_exists($route, $all_pages)) {
-    $pages->setActivePage($all_pages[$route]);
-    if (isset($all_pages[$route]['custom'])) {
+    $active_page = $all_pages[$route];
+    $pages->setActivePage($active_page);
+    if (isset($active_page['custom'])) {
         require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
         die;
     }
 
-    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $all_pages[$route]['module'], $all_pages[$route]['file']]);
+    if ($active_page['controllerBased']) {
+        $languageKey = "{$active_page['moduleSafeName']}Language";
 
-    if (file_exists($path)) {
-        require($path);
-        die;
+        if (str_contains($route, 'queries')) {
+            /** @var \NamelessMC\Framework\Queries\Query */
+            $controller = $container->make($active_page['file']);
+            $controller->handle();
+        } elseif (str_contains($route, 'panel')) {
+            /** @var \NamelessMC\Framework\Pages\PanelPage */
+            $controller = $container->make($active_page['file'], [
+                $languageKey => $container->get($languageKey),
+            ]);
+
+            if (!$user->handlePanelPageLoad($controller->permission())) {
+                require_once(ROOT_PATH . '/403.php');
+                die();
+            }
+
+            require_once(ROOT_PATH . '/core/templates/backend_init.php');
+
+            $controller->render();
+            Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+            define('PAGE', 'panel');
+            define('PARENT_PAGE', $active_page['moduleSafeName']);
+            define('PANEL_PAGE', $controller->pageName());
+            $smarty->assign(['TITLE' => $active_page['name'], 'PAGE' => $controller->pageName()]);
+            $template->onPageLoad();
+            require(ROOT_PATH . '/core/templates/panel_navbar.php');
+            return $template->displayTemplate($controller->viewFile(), $smarty);
+        } else {
+            require_once(ROOT_PATH . '/core/templates/frontend_init.php');    
+            /** @var \NamelessMC\Framework\Pages\Page */
+            $controller = $container->make($active_page['file'], [
+                'templatePagination' => $template_pagination,
+                 // TODO: php-di does not use parameter names to resolve entries (it uses the typed class names),
+                 // so if this is not provided it will use the root \Language class definition,
+                 // which is the Core language. we can possibly make modules use #[Inject]
+                $languageKey => $container->get($languageKey),
+            ]);
+            $controller->render();
+            Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+            define('PAGE', $controller->pageName());
+            $smarty->assign('TITLE', $active_page['name']);
+            $template->onPageLoad();
+            require(ROOT_PATH . '/core/templates/navbar.php');
+            require(ROOT_PATH . '/core/templates/footer.php');
+            return $template->displayTemplate($controller->viewFile(), $smarty);
+        }
+    } else {
+        $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $active_page['module'], $active_page['file']]);
+
+        if (file_exists($path)) {
+            require($path);
+            die;
+        }
     }
 } else {
     // Use recursion to check - might have URL parameters in path

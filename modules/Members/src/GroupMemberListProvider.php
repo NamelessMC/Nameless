@@ -1,5 +1,7 @@
 <?php
 
+namespace NamelessMC\Members;
+
 class GroupMemberListProvider extends MemberListProvider {
 
     private int $_group_id;
