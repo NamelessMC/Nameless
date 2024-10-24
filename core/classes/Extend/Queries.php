@@ -13,10 +13,8 @@ class Queries extends BaseExtender {
         $pages = $container->get(\Pages::class);
 
         foreach ($this->pages as $page) {
-            // Remove leading / from path - allows devs to ->register('/')
             $path = ltrim($page['path'], '/');
-            $path = "/queries/{$this->moduleName}/{$path}";
-            // Remove ending / if it exists
+            $path = "/queries/{$path}";
             $path = rtrim($path, '/');
 
             $pages->add(

@@ -143,7 +143,23 @@ if (array_key_exists($route, $all_pages)) {
             require(ROOT_PATH . '/core/templates/panel_navbar.php');
             return $template->displayTemplate($controller->viewFile(), $smarty);
         } else {
-            require_once(ROOT_PATH . '/core/templates/frontend_init.php');    
+            require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+            $frontendAssets = $container->has('FrontendAssets') ? $container->get('FrontendAssets') : [];
+            $template->addJSFiles($frontendAssets['globalJsFiles'] ?? []);
+            $template->addCSSFiles($frontendAssets['globalCssFiles'] ?? []);
+            $template->addJSFiles($frontendAssets['jsFiles'][$active_page['safeName']] ?? []);
+            $template->addCSSFiles($frontendAssets['cssFiles'][$active_page['safeName']] ?? []);
+
+            $frontendMiddlewares = $container->has('FrontendMiddleware') ? $container->get('FrontendMiddleware') : [];
+            foreach ($frontendMiddlewares as $moduleName => $frontendMiddleware) {
+                /** @var \NamelessMC\Framework\Pages\Middleware $middleware */
+                $middleware = $container->make($frontendMiddleware, [
+                    $languageKey => $container->get($languageKey), // this should be the language key for the module that owns the middleware
+                ]);
+                $middleware->handle();
+            }
+
             /** @var \NamelessMC\Framework\Pages\Page */
             $controller = $container->make($active_page['file'], [
                 'templatePagination' => $template_pagination,

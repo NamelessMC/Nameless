@@ -119,6 +119,7 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
+    // TODO should this run for all modules?
     PhinxAdapter::ensureUpToDate('Core');
 
     // Error reporting

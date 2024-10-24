@@ -28,7 +28,7 @@ class GenerateSitemap extends Task {
         $methods = $pages->getSitemapMethods();
 
         foreach ($methods as $method) {
-            if (!class_exists($method[0])) {
+            if (!is_callable($method)) {
                 $errors[] = $language->get(
                     'admin',
                     'unable_to_load_sitemap_file_x',

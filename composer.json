@@ -34,7 +34,8 @@
         "geoip2/geoip2": "^2.13",
         "jenssegers/agent": "^2.6",
         "php-di/php-di": "^6.4",
-        "namelessmc/members-module": "dev-main"
+        "namelessmc/members-module": "dev-main",
+        "namelessmc/cookie-consent-module": "dev-main"
     },
     "require-dev": {
         "phpstan/phpstan": "1.6.9",
@@ -46,7 +47,6 @@
     "autoload": {
         "classmap": [
             "core/classes",
-            "modules/Cookie Consent/classes",
             "modules/Core/classes",
             "modules/Core/hooks",
             "modules/Core/widgets",

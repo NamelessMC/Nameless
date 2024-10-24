@@ -7,7 +7,6 @@ use DI\Container;
 class FrontendPages extends BaseExtender {
 
     private $pages = [];
-    private $templateDirectories = [];
 
     public function extend(Container $container): void {
         /** @var \Language */
@@ -23,12 +22,7 @@ class FrontendPages extends BaseExtender {
         $frontendNavigation = $container->get('FrontendNavigation');
 
         foreach ($this->pages as $page) {
-            // Remove leading / from path - allows devs to ->register('/')
-            $path = ltrim($page['path'], '/');
-            $path = "/{$this->moduleName}/{$path}";
-            // Remove ending / if it exists
-            $path = rtrim($path, '/');
-
+            $path = $page['path'];
             $pageName = $page['name'];
             $pageFriendlyName = $moduleLanguage->get($page['friendly_name_translation']);
 
@@ -64,14 +58,8 @@ class FrontendPages extends BaseExtender {
                 $page['allowWidgets'],
                 $this->moduleName,
                 true,
+                $pageName,
             );
-        }
-
-        /** @var \Smarty */
-        $smarty = $container->get(\Smarty::class);
-
-        foreach ($this->templateDirectories as $directory) {
-            $smarty->addTemplateDir($directory);
         }
     }
 
@@ -83,12 +71,6 @@ class FrontendPages extends BaseExtender {
             'handler' => $handler,
             'allowWidgets' => $allowWidgets
         ];
-
-        return $this;
-    }
-
-    public function templateDirectory(string $path): FrontendPages {
-        $this->templateDirectories[] = $path;
 
         return $this;
     }

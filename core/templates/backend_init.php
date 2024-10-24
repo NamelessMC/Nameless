@@ -24,6 +24,15 @@ if (file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/temp
     require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
 }
 
+foreach (Module::getModules() as $module) {
+    // TODO needs enabled check
+    if ($module instanceof ComposerModuleWrapper) {
+        if ($module->hasPanelViews()) {
+            $smarty->addTemplateDir($module->panelViewsPath());
+        }
+    }
+}
+
 $cache->setCache('backgroundcache');
 $logo_image = $cache->retrieve('logo_image');
 

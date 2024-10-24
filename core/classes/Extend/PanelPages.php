@@ -7,8 +7,6 @@ use DI\Container;
 class PanelPages extends BaseExtender {
 
     private $pages = [];
-    private $templateDirectories = [];
-
 
     public function extend(Container $container): void {
         /** @var \Language */
@@ -37,11 +35,10 @@ class PanelPages extends BaseExtender {
         $lastSubPageOrder = $moduleSidebarOrder;
 
         foreach ($this->pages as $page) {
-            // Remove loading / from path - allows devs to ->register('/')
             $path = ltrim($page['path'], '/');
-            $path = "/panel/{$this->moduleName}/{$path}";
-            // Remove ending / if it exists
+            $path = "/panel/{$path}";
             $path = rtrim($path, '/');
+
             $order = $lastSubPageOrder + 0.1;
             $lastSubPageOrder = $order;
 
@@ -62,13 +59,6 @@ class PanelPages extends BaseExtender {
                 true,
             );
         }
-
-        /** @var \Smarty */
-        $smarty = $container->get(\Smarty::class);
-
-        foreach ($this->templateDirectories as $directory) {
-            $smarty->addTemplateDir($directory);
-        }
     }
 
     public function register(string $path, string $name, string $friendlyNameTranslation, string $handler, string $permission, string $icon): PanelPages {
@@ -80,12 +70,6 @@ class PanelPages extends BaseExtender {
             'permission' => $permission,
             'icon' => $icon,
         ];
-
-        return $this;
-    }
-
-    public function templateDirectory(string $path): PanelPages {
-        $this->templateDirectories[] = $path;
 
         return $this;
     }

@@ -73,6 +73,11 @@ abstract class TemplateBase
     {
         if (count($files)) {
             foreach ($files as $href => $file) {
+                if (is_int($href)) {
+                    $href = $file;
+                    $file = [];
+                }
+
                 $this->_css[] = '
                 <link' . (isset($file['rel']) ? ' rel="' . $file['rel'] . '"' : ' rel="stylesheet"') . ' 
                 href="' . $href . '"' .
@@ -106,6 +111,11 @@ abstract class TemplateBase
     {
         if (count($files)) {
             foreach ($files as $href => $file) {
+                if (is_int($href)) {
+                    $href = $file;
+                    $file = [];
+                }
+
                 $this->_js[] = '
                 <script type="text/javascript" 
                     src="' . $href . '"' .

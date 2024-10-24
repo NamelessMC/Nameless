@@ -120,6 +120,26 @@ class ComposerModuleWrapper extends Module
         return $provider->provide();
     }
 
+    public function frontendViewsPath(): string
+    {
+        return ROOT_PATH . '/vendor/' . $this->_packageName . '/views';
+    }
+
+    public function hasFrontendViews(): bool
+    {
+        return file_exists($this->frontendViewsPath());
+    }
+
+    public function panelViewsPath(): string
+    {
+        return ROOT_PATH . '/vendor/' . $this->_packageName . '/panel_views';
+    }
+
+    public function hasPanelViews(): bool
+    {
+        return file_exists($this->panelViewsPath());
+    }
+
     private function runMigrations(): void
     {
         if (!$this->hasMigrations()) {
