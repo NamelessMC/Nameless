@@ -141,7 +141,7 @@
     "forum/views": "перегляди",
     "forum/x_posts": "{{count}} дописів",
     "forum/your_posts": "Твоя кількість дописів",
-    "forum/all_topics_unfollowed": "Відстеження тем припинено.",
+    "forum/all_topics_unfollowed": "Відстеження всіх тем припинено.",
     "forum/can_edit_topic": "Чи може редагувати свої теми?",
     "forum/can_view_other_topics": "Чи може переглядати інші теми?",
     "forum/confirm_delete_topic": "Ти впевнений, що хочеш видалити цю тему?",
