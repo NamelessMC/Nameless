@@ -43,7 +43,7 @@
     "forum/forum_name": "Название форума",
     "forum/forum_name_maximum": "Название форума должно содержать не более 150 символов.",
     "forum/forum_name_minimum": "Название форума должно состоять не менее чем из 2 символов.",
-    "forum/forum_permissions": "Настройка прав",
+    "forum/forum_permissions": "Права на форуме",
     "forum/forum_redirect_warning": "Внимание: вы собираетесь покинуть этот сайт! Вы уверены, что хотите перейти на {{url}}?",
     "forum/forum_search": "Поиск по форуму",
     "forum/forum_type": "Тип форума",
@@ -183,5 +183,8 @@
     "forum/reaction_score": "Оценка реакции",
     "forum/news_items_max": "Количество новостей должно быть не больше {{max}}",
     "forum/news_items_front_page_limit": "Количество новостей для отображения на главной странице",
-    "forum/news_items_min": "Количество новостей должно быть не менее {{min}}"
+    "forum/news_items_min": "Количество новостей должно быть не менее {{min}}",
+    "forum/banned_terms": "Запрещённые выражения",
+    "forum/banned_terms_info": "Одно выражение в строке, без учета регистра",
+    "forum/content_contains_banned_term": "Содержание вашего поста содержит запрещенное выражение"
 }
