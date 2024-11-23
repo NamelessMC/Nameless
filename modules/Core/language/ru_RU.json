@@ -1358,5 +1358,21 @@
     "general/logout_session_successful": "Сеанс успешно завершен.",
     "user/received": "Получено",
     "admin/require_two_factor_for_staffcp": "Требовать двухфакторную аутентификацию для входа в ПУ (если включено для пользователя)",
-    "general/new": "Новый"
+    "general/new": "Новый",
+    "moderator/report_alert": "Создан новый репорт",
+    "user/logout_other_sessions": "Завершить иные сессии",
+    "user/last_active_x": "Последний раз был(-а) активен(-на) {{lastActive}}",
+    "admin/admin_logged_in": "Администратор вошёл в систему",
+    "admin/generate_notification_content_hook_info": "Генерирует контент уведомления перед отправкой",
+    "admin/last_seen": "Был онлайн последний раз",
+    "admin/mass_message_exclusions_override_inclusions": "Исключенные группы/пользователи переопределяют включенные группы/пользователей",
+    "notification/mass_message": "Массовое сообщение",
+    "user/alerts_follow_link": "Перейти по ссылке оповещения",
+    "user/profile_posts_score": "Количество постов",
+    "user/reaction_score": "Количество реакций",
+    "api/groups_updates_ignored": "Запрос на групповую синхронизацию игнорируется, поскольку интеграция с Minecraft отключена или сервер не настроен как сервер групповой синхронизации в StaffCP.",
+    "user/given": "Выдано",
+    "admin/custom_score": "Пользовательский счёт",
+    "admin/top": "Топ",
+    "admin/footer": "Футер"
 }
