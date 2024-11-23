@@ -1358,5 +1358,22 @@
     "admin/unable_to_uninstall_module": "Modul kann nicht deinstalliert werden - das Modul {{module}} hängt von ihm ab.",
     "admin/uninstall": "Deinstallieren",
     "admin/default_homepage": "Standard-Homepage",
-    "moderator/report_alert": "Neuer Report erstellt"
+    "moderator/report_alert": "Neuer Report erstellt",
+    "admin/admin_logged_in": "Administrator eingeloggt",
+    "admin/viewing_sessions_for_x": "Anmeldesitzungen für {{user}} anzeigen",
+    "general/device": "Gerät",
+    "general/log_out_all_sessions_confirm": "Bist du sicher das du alle Sitzungen beenden möchtest?",
+    "user/remembered": "Erinnert",
+    "admin/last_seen": "Zuletzt gesehen",
+    "admin/purge_sessions": "Bereinigte Sitzungen",
+    "admin/sessions_purged": "{{count}} Sitzungen erfolgreich bereinigt.",
+    "admin/user_sessions": "Benutzer-Anmeldesitzungen",
+    "general/log_out_selected_session_confirm": "Bist du sicher das du die ausgewählte Sitzungen beenden möchtest?",
+    "user/last_active_x": "Zuletzt aktiv {{lastActive}}",
+    "user/logout_other_sessions": "Andere Sitzungen ausloggen",
+    "admin/top": "Oben",
+    "admin/footer": "Fußzeile",
+    "general/logout_session_successful": "Sitzung erfolgreich abgemeldet.",
+    "general/sessions": "Sitzungen",
+    "user/this_device": "Dieses Gerät"
 }
