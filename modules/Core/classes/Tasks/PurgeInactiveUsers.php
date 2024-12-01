@@ -13,13 +13,13 @@ class PurgeInactiveUsers extends Task {
         } else {
             $cutoff_timestamp = strtotime("$cutoff days ago");
             $total = DB::getInstance()->query(
-                'SELECT COUNT(*) c FROM nl2_users WHERE active = 0 AND joined < ?',
+                'SELECT COUNT(*) c FROM nl2_users WHERE active = 0 AND isbanned = 0 AND joined < ?',
                 [$cutoff_timestamp]
             )->first()->c;
 
             if ($total) {
                 $users = DB::getInstance()->query(
-                    'SELECT id FROM nl2_users WHERE active = 0 AND joined < ?',
+                    'SELECT id FROM nl2_users WHERE active = 0 AND isbanned = 0 AND joined < ?',
                     [$cutoff_timestamp]
                 )->results();
 
