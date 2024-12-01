@@ -37,4 +37,9 @@ if (!empty($favicon_image)) {
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 }
 
-$smarty->assign('TITLE', $page_title);
+$smarty->assign([
+    'DARK_MODE_ENABLED' => defined('DARK_MODE') && DARK_MODE ? DARK_MODE : '0',
+    'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
+    'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null,
+    'TITLE' => $page_title,
+]);

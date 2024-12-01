@@ -184,9 +184,10 @@
 
     {if count($GRAPHS)}
     <script type="text/javascript">
+        const darkMode = {$DARK_MODE_ENABLED};
         Chart.defaults.global.defaultFontFamily = 'Nunito,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 
-        if (currentPanelTheme === "dark") {
+        if (darkMode) {
             Chart.defaults.global.defaultFontColor = 'rgb(189,189,189)';
         } else {
             Chart.defaults.global.defaultFontColor = '#858796';
@@ -250,10 +251,10 @@
                         ]
                     },
                     tooltips: {
-                        backgroundColor: currentPanelTheme === "dark" ? "#161c25" : "#f8f9fc",
-                        bodyFontColor: currentPanelTheme === "dark" ? "rgb(189,189,189)" : "#858796",
-                        titleFontColor: currentPanelTheme === "dark" ? "rgb(189,189,189)" : "#6e707e",
-                        borderColor: currentPanelTheme !== "dark" ? "#dddfeb" : "#161c25",
+                        backgroundColor: darkMode ? "#161c25" : "#f8f9fc",
+                        bodyFontColor: darkMode ? "rgb(189,189,189)" : "#858796",
+                        titleFontColor: darkMode ? "rgb(189,189,189)" : "#6e707e",
+                        borderColor: darkMode ? "#dddfeb" : "#161c25",
                         titleMarginBottom: 10,
                         titleFontSize: 14,
                         borderWidth: 1,

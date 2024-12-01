@@ -48,91 +48,75 @@ if (!class_exists('Default_Panel_Template')) {
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/sb-admin-2.js' => [],
             ]);
 
-            $this->addJSScript('
-                // Dark and light theme switch
-                var currentPanelTheme = $.cookie("nmc_panel_theme");
+            // Dark mode
+            $dark_mode = defined('DARK_MODE') && DARK_MODE ? DARK_MODE : 0;
 
-                if (currentPanelTheme == null) {
-                    $.cookie("nmc_panel_theme", "light", { path: "/" });
-                } else {
-                    if (currentPanelTheme == "dark") {
-                        $("html").addClass("dark");
-                        if ($("#dark_mode").length) {
-                            $("#dark_mode").prop("checked", true);
+            $this->addJSScript(
+                <<<JS
+                    // Dark and light theme switch
+                    if ($dark_mode == 1) {
+                        \$("html").addClass("dark");
+                        if (\$("#dark_mode").length) {
+                            \$("#dark_mode").prop("checked", true);
                         }
                     }
-                }
 
-                // Prevents light flicker on dark mode
-                $("body").addClass("visible");
+                    // Prevents light flicker on dark mode
+                    \$("body").addClass("visible");
 
-                if ($("#dark_mode").length) {
-                    var changeCheckbox = document.querySelector("#dark_mode");
-                    changeCheckbox.onchange = function() {
-                        if (currentPanelTheme == "dark") {
-                            $.cookie("nmc_panel_theme", "light", { path: "/" });
-                        };
-                        if (currentPanelTheme == "light") {
-                            $.cookie("nmc_panel_theme", "dark", { path: "/" });
-                        };
-                        location.reload();
-                        return false;
-                    };
-                }
+                    // Sidebar Fixes
+                    if (\$(".sidebar").length) {
+                        \$(".nav-icon").addClass("fa-fw");
+                        \$(".nav-icon").removeClass("nav-icon");
 
-                // Sidebar Fixes
-                if ($(".sidebar").length) {
-                    $(".nav-icon").addClass("fa-fw");
-                    $(".nav-icon").removeClass("nav-icon");
+                        let sidebarState = sessionStorage.getItem("sidebar");
+                        \$(".sidebar").toggleClass(sidebarState);
 
-                    let sidebarState = sessionStorage.getItem("sidebar");
-                    $(".sidebar").toggleClass(sidebarState);
+                        \$("#sidebarToggle, #sidebarToggleTop").on("click", function(e) {
+                              \$("body").toggleClass("sidebar-toggled");
+                              \$(".sidebar").toggleClass("toggled");
+                              if (\$(".sidebar").hasClass("toggled")) {
+                                sessionStorage.setItem("sidebar", "toggled");
+                                \$(".sidebar .collapse").collapse("hide");
+                              } else {
+                                sessionStorage.setItem("sidebar", "");
+                              };
+                        });
 
-                    $("#sidebarToggle, #sidebarToggleTop").on("click", function(e) {
-                          $("body").toggleClass("sidebar-toggled");
-                          $(".sidebar").toggleClass("toggled");
-                          if ($(".sidebar").hasClass("toggled")) {
-                            sessionStorage.setItem("sidebar", "toggled");
-                            $(".sidebar .collapse").collapse("hide");
-                          } else {
-                            sessionStorage.setItem("sidebar", "");
-                          };
-                    });
-
-                    if ($(window).width() < 768) {
-                        $(".sidebar").addClass("toggled")
-                    }
-                }
-
-                // Some popover stuff
-                $(document).ready(function(){
-                    $(\'[data-toggle="tooltip"]\').tooltip();
-                });
-                $(document).ready(function(){
-                    $(\'[data-toggle="popover"]\').popover({trigger:\'manual\',html:true}).on("mouseenter", function() {
-                      var _this = this;
-                      $(this).popover("show");
-                      $(".popover").on("mouseleave", function() {
-                        $(_this).popover(\'hide\');
-                      });
-                    }).on("mouseleave", function() {
-                      var _this = this;
-                      setTimeout(function() {
-                        if (!$(".popover:hover").length) {
-                          $(_this).popover("hide")
+                        if (\$(window).width() < 768) {
+                            \$(".sidebar").addClass("toggled")
                         }
-                      }, 250);
-                    });
-                });
+                    }
 
-                // Fix settings dropdown
-                if ($(".settings-dropdown").length) {
-                    $(".settings-dropdown .dropdown-menu .dropdown-item select").click(function(e) {
-                        e.stopPropagation();
+                    // Some popover stuff
+                    \$(document).ready(function(){
+                        \$('[data-toggle="tooltip"]').tooltip();
                     });
-                }
+                    \$(document).ready(function(){
+                        \$('[data-toggle="popover"]').popover({trigger:'manual',html:true}).on("mouseenter", function() {
+                          var _this = this;
+                          \$(this).popover("show");
+                          \$(".popover").on("mouseleave", function() {
+                            \$(_this).popover('hide');
+                          });
+                        }).on("mouseleave", function() {
+                          var _this = this;
+                          setTimeout(function() {
+                            if (!\$(".popover:hover").length) {
+                              \$(_this).popover("hide")
+                            }
+                          }, 250);
+                        });
+                    });
 
-            ');
+                    // Fix settings dropdown
+                    if (\$(".settings-dropdown").length) {
+                        \$(".settings-dropdown .dropdown-menu .dropdown-item select").click(function(e) {
+                            e.stopPropagation();
+                        });
+                    }
+                JS
+            );
 
             $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo.png');
         }
