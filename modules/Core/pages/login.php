@@ -231,6 +231,11 @@ if (Input::exists()) {
             } else {
                 // Validation failed
                 $return_error = $validation->errors();
+
+                // If the account is banned, update the validation to only show this, and no others
+                if (in_array($language->get('user', 'account_banned'), $return_error)) {
+                    $return_error = [$language->get('user', 'account_banned')];
+                }
             }
         } else {
             // reCAPTCHA failed
