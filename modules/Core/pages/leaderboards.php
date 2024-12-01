@@ -53,12 +53,20 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
             $leaderboard_users[$uuid] = $integration_user;
         }
 
+        $last_updated = $timeago->inWords($row->last_updated, $language);
+
         $row_data->server_id = $leaderboard_placeholder->server_id;
         $row_data->name = $leaderboard_placeholder->name;
         $row_data->username = Output::getClean($leaderboard_users[$uuid]->data()->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
         $row_data->value = $row->value;
-        $row_data->last_updated = ucfirst($timeago->inWords($row->last_updated, $language));
+        $row_data->last_updated_string = $language->get('general', 'last_updated', ['lastUpdated' => $last_updated]);
+        $row_data->last_updated = $last_updated;
+        $row_data->last_updated_full = date(DATE_FORMAT, $row->last_updated);
+        $row_data->style = $leaderboard_users[$uuid]->getUser()->getGroupStyle();
+        $row_data->profile = $leaderboard_users[$uuid]->getUser()->getProfileURL();
+        $row_data->groups = $leaderboard_users[$uuid]->getUser()->getAllGroupHtml();
+        $row_data->groupIds = $leaderboard_users[$uuid]->getUser()->getAllGroupIds();
 
         $leaderboard_placeholders_data[] = $row_data;
     }

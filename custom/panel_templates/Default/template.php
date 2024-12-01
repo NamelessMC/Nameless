@@ -429,6 +429,10 @@ if (!class_exists('Default_Panel_Template')) {
 
                                 $this->addJSScript('$(".image-picker").imagepicker();');
                             }
+                        } elseif (MINECRAFT_PAGE === 'placeholders') {
+                            $this->assets()->include([
+                                AssetTree::JQUERY_UI,
+                            ]);
                         }
 
                         break;

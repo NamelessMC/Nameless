@@ -17,7 +17,13 @@ class Placeholders extends Instanceable
     {
         $this->_db = DB::getInstance();
 
-        $placeholders_query = $this->_db->get('placeholders_settings', ['name', '<>', ''])->results();
+        $placeholders_query = $this->_db->query(
+            <<<'SQL'
+                SELECT *
+                FROM nl2_placeholders_settings
+                ORDER BY `order`
+            SQL
+        )->results();
         $placeholders = [];
 
         foreach ($placeholders_query as $placeholder) {
@@ -78,7 +84,7 @@ class Placeholders extends Instanceable
     {
         $binUuid = hex2bin(str_replace('-', '', $uuid));
 
-        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
+        $placeholder_query = $this->_db->query('SELECT * FROM nl2_users_placeholders up JOIN nl2_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ? ORDER BY ps.`order`', [$binUuid]);
 
         if (!$placeholder_query->count()) {
             return [];

@@ -275,6 +275,31 @@ body.pushable>.pusher {
     max-width: none;
 }
 
+.ui.grid.segment.leaderboard_table {
+    margin-top: 0;
+}
+
+.leaderboard_table .ui.list {
+    margin-left: -10px;
+}
+
+.leaderboard_table .ui.list li a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.leaderboard_table .middle.aligned.content {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;;
+    white-space: nowrap;
+}
+
+.leaderboard_table ol li:before {
+    display: none;
+}
+
 #reactions {
     margin-top: 1rem;
     padding: .7em 1.2em .7em 1.2em;
@@ -1202,6 +1227,16 @@ body.dark .ui.vertical.menu {
     border: 1px solid rgba(0, 0, 0, 0.125);
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+body.dark .ui.vertical.menu .active.item {
+    background-color: #464646;
+}
+
+body.dark .ui.vertical.pointing.menu .active.item:after {
+    background-color: #464646;
+    border-top: 1px solid #464646;
+    border-right: 1px solid #464646;
 }
 
 body.dark .ui.segment#profile-header {

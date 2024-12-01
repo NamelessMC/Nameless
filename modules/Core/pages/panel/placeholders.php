@@ -79,55 +79,74 @@ if (isset($_GET['leaderboard'])) {
             'LEADERBOARD_SORT' => $language->get('admin', 'placeholder_leaderboard_sort'),
             'INTEGRATIONS' => $language->get('admin', 'integrations'),
             'MINECRAFT' => $language->get('admin', 'minecraft'),
-            'MINECRAFT_LINK' => URL::build('/panel/minecraft')
+            'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
+            'REORDER_DRAG_URL' => URL::build('/panel/minecraft/placeholders', 'action=order'),
         ]);
     } else {
         Redirect::to(URL::build('/panel/minecraft/placeholders'));
     }
 
 } else {
-
     if (Input::exists()) {
-
         if (Token::check()) {
+            switch (Input::get('action')) {
+                case 'settings':
+                    // Update placeholders value
+                    Settings::set('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
 
-            if (Input::get('action') === 'settings') {
-                // Update placeholders value
-                Settings::set('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
+                    foreach ($all_placeholders as $placeholder) {
+                        $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
+                        $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
+                        $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                        $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
 
-                foreach ($all_placeholders as $placeholder) {
-                    $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
-                    $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
-                    $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
-                    $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                        DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
+                            $friendly_name,
+                            $show_on_profile,
+                            $show_on_forum,
+                            $placeholder->name,
+                            $placeholder->server_id
+                        ]);
+                    }
 
-                    DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
-                        $friendly_name,
-                        $show_on_profile,
-                        $show_on_forum,
-                        $placeholder->name,
-                        $placeholder->server_id
-                    ]);
-                }
+                    Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
+                    Redirect::to(URL::build('/panel/minecraft/placeholders'));
 
-                Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
-                Redirect::to(URL::build('/panel/minecraft/placeholders'));
-            } else {
-                // Deleting placeholder
-                $placeholder_safe_name = Input::get('placeholder_safe_name');
-                $server_id = Input::get('server_id');
+                case 'order':
+                    if (isset($_POST['placeholders'])) {
+                        $placeholders = json_decode($_POST['placeholders'])->placeholders;
 
-                $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
-                if ($placeholder) {
-                    DB::getInstance()->query('DELETE FROM nl2_placeholders_settings WHERE name = ? AND server_id = ?', [
-                        $placeholder->name,
-                        $placeholder->server_id,
-                    ]);
+                        $i = 1;
+                        foreach ($placeholders as $item) {
+                            $exploded = explode('-', $item);
+                            $server_id = array_shift($exploded);
+                            $placeholder_name = implode('-', $exploded);
 
-                    die('Ok');
-                }
+                            DB::getInstance()->query('UPDATE nl2_placeholders_settings SET `order` = ? WHERE `name` = ? AND server_id = ?', [
+                                $i++,
+                                $placeholder_name,
+                                $server_id,
+                            ]);
+                        }
+                    }
+                    die('Complete');
 
-                die('No placeholder found');
+                default:
+                    // Deleting placeholder
+                    $placeholder_safe_name = Input::get('placeholder_safe_name');
+                    $server_id = Input::get('server_id');
+
+                    $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
+                    if ($placeholder) {
+                        DB::getInstance()->query('DELETE FROM nl2_placeholders_settings WHERE name = ? AND server_id = ?', [
+                            $placeholder->name,
+                            $placeholder->server_id,
+                        ]);
+
+                        die('Ok');
+                    }
+
+                    die('No placeholder found');
             }
 
         } else {
@@ -143,6 +162,7 @@ if (isset($_GET['leaderboard'])) {
         'TOKEN' => Token::get(),
         'INFO' => $language->get('general', 'info'),
         'SUBMIT' => $language->get('general', 'submit'),
+        'DRAG_AND_DROP_INFO' => $language->get('admin', 'drag_and_drop'),
         'PLACEHOLDERS_INFO' => $language->get('admin', 'placeholders_info'),
         'ALL_PLACEHOLDERS' => $all_placeholders,
         'NO_PLACEHOLDERS' => $language->get('admin', 'placeholders_none'),
