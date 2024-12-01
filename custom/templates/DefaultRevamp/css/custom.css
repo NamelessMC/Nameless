@@ -296,15 +296,22 @@ body.pushable>.pusher {
     margin-top: auto;
 }
 
-.reaction-button {
+.reaction-button, .reaction-button-selected {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.reaction-button {
     opacity: 50%;
 }
 
 .reaction-button:hover, .reaction-button-selected {
     opacity: 100%;
     cursor: pointer;
+}
+
+#modal-reactions .ui.menu {
+    overflow-x: auto;
 }
 
 /** Reaction modal tab buttons display non-native emojis as 2.5em wide by default */
@@ -1501,9 +1508,12 @@ body.dark .cc-window.cc-floating .cc-highlight .cc-btn.cc-allow {
     border-color: transparent;
 }
 
+body.dark #reactions.ui.mini.message span {
+    color: #fff;
+}
+
 body.dark #modal-reactions .ui.menu {
     background-color: #282828;
-    overflow-x: auto;
 }
 
 body.dark #modal-reactions .ui.menu .item {

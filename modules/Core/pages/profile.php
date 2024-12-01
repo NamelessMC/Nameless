@@ -87,72 +87,77 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'new_post':
                     if (Token::check()) {
-                        $validation = Validate::check($_POST, [
-                            'post' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 1,
-                                Validate::MAX => 10000,
-                                Validate::RATE_LIMIT => 3,
-                            ],
-                        ])
-                            ->message($language->get('user', 'invalid_wall_post'))
-                            ->messages([
+                        if ($user->hasPermission('profile.post')) {
+                            $validation = Validate::check($_POST, [
                                 'post' => [
-                                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
-                                ]
-                            ]);
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 10000,
+                                    Validate::RATE_LIMIT => 3,
+                                ],
+                            ])
+                                ->message($language->get('user', 'invalid_wall_post'))
+                                ->messages([
+                                    'post' => [
+                                        Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
+                                    ]
+                                ]);
 
-                        if ($validation->passed()) {
-                            // Validation successful
-                            // Input into database
-                            DB::getInstance()->insert(
-                                'user_profile_wall_posts',
-                                [
-                                    'user_id' => $query->id,
-                                    'author_id' => $user->data()->id,
-                                    'time' => date('U'),
-                                    'content' => Input::get('post')
-                                ]
-                            );
-
-                            EventHandler::executeEvent(new UserProfilePostCreatedEvent(
-                                $user,
-                                $profile_user,
-                                Input::get('post'),
-                            ));
-
-                            if ($query->id !== $user->data()->id) {
-                                // Alert user
-                                Alert::create(
-                                    $query->id,
-                                    'profile_post',
+                            if ($validation->passed()) {
+                                // Validation successful
+                                // Input into database
+                                DB::getInstance()->insert(
+                                    'user_profile_wall_posts',
                                     [
-                                        'path' => 'core',
-                                        'file' => 'user',
-                                        'term' => 'new_wall_post',
-                                        'replace' => '{{author}}',
-                                        'replace_with' => $user->getDisplayname()
-                                    ],
-                                    [
-                                        'path' => 'core',
-                                        'file' => 'user',
-                                        'term' => 'new_wall_post',
-                                        'replace' => '{{author}}',
-                                        'replace_with' => $user->getDisplayname()
-                                    ],
-                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId()))
+                                        'user_id' => $query->id,
+                                        'author_id' => $user->data()->id,
+                                        'time' => date('U'),
+                                        'content' => Input::get('post')
+                                    ]
                                 );
+
+                                EventHandler::executeEvent(new UserProfilePostCreatedEvent(
+                                    $user,
+                                    $profile_user,
+                                    Input::get('post'),
+                                ));
+
+                                if ($query->id !== $user->data()->id) {
+                                    // Alert user
+                                    Alert::create(
+                                        $query->id,
+                                        'profile_post',
+                                        [
+                                            'path' => 'core',
+                                            'file' => 'user',
+                                            'term' => 'new_wall_post',
+                                            'replace' => '{{author}}',
+                                            'replace_with' => $user->getDisplayname()
+                                        ],
+                                        [
+                                            'path' => 'core',
+                                            'file' => 'user',
+                                            'term' => 'new_wall_post',
+                                            'replace' => '{{author}}',
+                                            'replace_with' => $user->getDisplayname()
+                                        ],
+                                        URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId()))
+                                    );
+                                }
+
+                                $cache->setCache('profile_posts_widget');
+                                $cache->eraseAll();
+
+                                // Redirect to clear input
+                                Redirect::to($profile_user->getProfileURL());
                             }
 
-                            $cache->setCache('profile_posts_widget');
-                            $cache->eraseAll();
+                            // Validation failed
+                            $error = $validation->errors()[0];
 
-                            // Redirect to clear input
-                            Redirect::to($profile_user->getProfileURL());
+                        } else {
+                            $error = $language->get('errors', 'no_permission');
                         }
-
-                        // Validation failed
-                        $error = $validation->errors()[0];
                     } else {
                         $error = $language->get('general', 'invalid_token');
                     }
@@ -160,123 +165,153 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 case 'reply':
                     if (Token::check()) {
-                        $validation = Validate::check($_POST, [
-                            'reply' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 1,
-                                Validate::MAX => 10000
-                            ],
-                            'post' => [
-                                Validate::REQUIRED => true,
-                                Validate::RATE_LIMIT => 3,
-                            ]
-                        ])
-                            ->message($language->get('user', 'invalid_wall_post'))
-                            ->messages([
+                        if ($user->hasPermission('profile.post')) {
+                            $validation = Validate::check($_POST, [
+                                'reply' => [
+                                    Validate::REQUIRED => true,
+                                    Validate::MIN => 1,
+                                    Validate::MAX => 10000
+                                ],
                                 'post' => [
-                                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta),
+                                    Validate::REQUIRED => true,
+                                    Validate::RATE_LIMIT => 3,
                                 ]
-                            ]);
+                            ])
+                                ->message($language->get('user', 'invalid_wall_post'))
+                                ->messages([
+                                    'post' => [
+                                        Validate::RATE_LIMIT => static fn($meta) => $language->get(
+                                            'general',
+                                            'rate_limit',
+                                            $meta
+                                        ),
+                                    ]
+                                ]);
 
-                        if ($validation->passed()) {
-                            // Validation successful
+                            if ($validation->passed()) {
+                                // Validation successful
 
-                            // Ensure post exists
-                            $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post']])->results();
-                            if (!count($post)) {
+                                // Ensure post exists
+                                $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post']]
+                                )->results();
+                                if (!count($post)) {
+                                    Redirect::to($profile_user->getProfileURL());
+                                }
+
+                                // Input into database
+                                DB::getInstance()->insert(
+                                    'user_profile_wall_posts_replies',
+                                    [
+                                        'post_id' => $_POST['post'],
+                                        'author_id' => $user->data()->id,
+                                        'time' => date('U'),
+                                        'content' => Input::get('reply')
+                                    ]
+                                );
+
+                                EventHandler::executeEvent(
+                                    new UserProfilePostReplyCreatedEvent(
+                                        $user,
+                                        $profile_user,
+                                        Input::get('reply'),
+                                    )
+                                );
+
+                                if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
+                                    Alert::create(
+                                        $query->id,
+                                        'profile_post',
+                                        [
+                                            'path' => 'core',
+                                            'file' => 'user',
+                                            'term' => 'new_wall_post',
+                                            'replace' => '{{author}}',
+                                            'replace_with' => $user->getDisplayname(),
+                                        ],
+                                        [
+                                            'path' => 'core',
+                                            'file' => 'user',
+                                            'term' => 'new_wall_post',
+                                            'replace' => '{{author}}',
+                                            'replace_with' => $user->getDisplayname(),
+                                        ],
+                                        URL::build(
+                                            '/profile/' . urlencode(
+                                                $profile_user->getDisplayname(true)
+                                            ) . '/#post-' . urlencode($_POST['post'])
+                                        )
+                                    );
+                                } else {
+                                    if ($post[0]->author_id != $user->data()->id) {
+                                        // Alert post author
+                                        if ($post[0]->author_id == $query->id) {
+                                            Alert::create(
+                                                $query->id,
+                                                'profile_post_reply',
+                                                [
+                                                    'path' => 'core',
+                                                    'file' => 'user',
+                                                    'term' => 'new_wall_post_reply_your_profile',
+                                                    'replace' => '{{author}}',
+                                                    'replace_with' => $user->getDisplayname(),
+                                                ],
+                                                [
+                                                    'path' => 'core',
+                                                    'file' => 'user',
+                                                    'term' => 'new_wall_post_reply_your_profile',
+                                                    'replace' => '{{author}}',
+                                                    'replace_with' => $user->getDisplayname()
+                                                ],
+                                                URL::build(
+                                                    '/profile/' . urlencode(
+                                                        $profile_user->getDisplayname(true)
+                                                    ) . '/#post-' . urlencode($_POST['post'])
+                                                )
+                                            );
+                                        } else {
+                                            Alert::create(
+                                                $post[0]->author_id,
+                                                'profile_post_reply',
+                                                [
+                                                    'path' => 'core',
+                                                    'file' => 'user',
+                                                    'term' => 'new_wall_post_reply',
+                                                    'replace' => ['{{author}}', '{{user}}'],
+                                                    'replace_with' => [
+                                                        $user->getDisplayname(),
+                                                        $profile_user->getDisplayname()
+                                                    ]
+                                                ],
+                                                [
+                                                    'path' => 'core',
+                                                    'file' => 'user',
+                                                    'term' => 'new_wall_post_reply',
+                                                    'replace' => ['{{author}}', '{{user}}'],
+                                                    'replace_with' => [
+                                                        $user->getDisplayname(),
+                                                        $profile_user->getDisplayname()
+                                                    ]
+                                                ],
+                                                URL::build(
+                                                    '/profile/' . urlencode(
+                                                        $profile_user->getDisplayname(true)
+                                                    ) . '/#post-' . urlencode($_POST['post'])
+                                                )
+                                            );
+                                        }
+                                    }
+                                }
+
+                                // Redirect to clear input
                                 Redirect::to($profile_user->getProfileURL());
                             }
 
-                            // Input into database
-                            DB::getInstance()->insert(
-                                'user_profile_wall_posts_replies',
-                                [
-                                    'post_id' => $_POST['post'],
-                                    'author_id' => $user->data()->id,
-                                    'time' => date('U'),
-                                    'content' => Input::get('reply')
-                                ]
-                            );
+                            // Validation failed
+                            $error = $validation->errors()[0];
 
-                            EventHandler::executeEvent(new UserProfilePostReplyCreatedEvent(
-                                $user,
-                                $profile_user,
-                                Input::get('reply'),
-                            ));
-
-                            if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
-                                Alert::create(
-                                    $query->id,
-                                    'profile_post',
-                                    [
-                                        'path' => 'core',
-                                        'file' => 'user',
-                                        'term' => 'new_wall_post',
-                                        'replace' => '{{author}}',
-                                        'replace_with' => $user->getDisplayname(),
-                                    ],
-                                    [
-                                        'path' => 'core',
-                                        'file' => 'user',
-                                        'term' => 'new_wall_post',
-                                        'replace' => '{{author}}',
-                                        'replace_with' => $user->getDisplayname(),
-                                    ],
-                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
-                                );
-                            } else {
-                                if ($post[0]->author_id != $user->data()->id) {
-                                    // Alert post author
-                                    if ($post[0]->author_id == $query->id) {
-                                        Alert::create(
-                                            $query->id,
-                                            'profile_post_reply',
-                                            [
-                                                'path' => 'core',
-                                                'file' => 'user',
-                                                'term' => 'new_wall_post_reply_your_profile',
-                                                'replace' => '{{author}}',
-                                                'replace_with' => $user->getDisplayname(),
-                                            ],
-                                            [
-                                                'path' => 'core',
-                                                'file' => 'user',
-                                                'term' => 'new_wall_post_reply_your_profile',
-                                                'replace' => '{{author}}',
-                                                'replace_with' => $user->getDisplayname()
-                                            ],
-                                            URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
-                                        );
-                                    } else {
-                                        Alert::create(
-                                            $post[0]->author_id,
-                                            'profile_post_reply',
-                                            [
-                                                'path' => 'core',
-                                                'file' => 'user',
-                                                'term' => 'new_wall_post_reply',
-                                                'replace' => ['{{author}}', '{{user}}'],
-                                                'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
-                                            ],
-                                            [
-                                                'path' => 'core',
-                                                'file' => 'user',
-                                                'term' => 'new_wall_post_reply',
-                                                'replace' => ['{{author}}', '{{user}}'],
-                                                'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
-                                            ],
-                                            URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
-                                        );
-                                    }
-                                }
-                            }
-
-                            // Redirect to clear input
-                            Redirect::to($profile_user->getProfileURL());
+                        } else {
+                            $error = $language->get('errors', 'no_permission');
                         }
-
-                        // Validation failed
-                        $error = $validation->errors()[0];
                     } else {
                         $error = $language->get('general', 'invalid_token');
                     }
@@ -776,6 +811,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     $smarty->assign('ABOUT_FIELDS', $fields);
 
     $smarty->assign([
+        'CAN_PROFILE_POST' => $user->isLoggedIn() && $user->hasPermission('profile.post'),
         'REACTIONS' => $all_reactions,
         'REACTIONS_BY_USER' => $reactions_by_user,
         'REACTIONS_TEXT' => $language->get('user', 'reactions'),

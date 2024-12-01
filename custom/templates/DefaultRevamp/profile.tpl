@@ -79,7 +79,7 @@
             </div>
             <div class="ui bottom attached tab segment active" data-tab="feed" id="profile-feed">
                 <h3 class="ui header">{$FEED}</h3>
-                {if isset($LOGGED_IN)}
+                {if isset($LOGGED_IN) && $CAN_PROFILE_POST}
                     <form class="ui reply form" action="" method="post" id="form-profile-post">
                         <div class="field">
                             <textarea name="post" placeholder="{$POST_ON_WALL}"></textarea>
@@ -139,9 +139,11 @@
                                     {/if}
                                     {if isset($LOGGED_IN_USER)}
                                         <div class="actions">
-                                            <a data-toggle="modal" data-target="#modal-reply-{$post.id}">
-                                                {$REPLY} {if ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}
-                                            </a>
+                                            {if $CAN_PROFILE_POST}
+                                                <a data-toggle="modal" data-target="#modal-reply-{$post.id}">
+                                                    {$REPLY} {if ($post.replies.count|regex_replace:'/[^0-9]+/':'' !=0)}({$post.replies.count|regex_replace:'/[^0-9]+/':''}){/if}
+                                                </a>
+                                            {/if}
                                             {if (isset($CAN_MODERATE) && $CAN_MODERATE == 1) || $post.self == 1}
                                                 <a data-toggle="modal" data-target="#modal-edit-{$post.id}">{$EDIT}</a>
                                                 <a onclick="{literal}if(confirm(confirmDelete)){$('#form-delete-post-{/literal}{$post.id}{literal}').submit();}{/literal}">

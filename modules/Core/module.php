@@ -680,7 +680,8 @@ class Core_Module extends Module {
 
         // Profile Page
         PermissionHandler::registerPermissions('Profile', [
-            'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile')
+            'profile.private.bypass' => $language->get('general', 'bypass') . ' &raquo; ' . $language->get('user', 'private_profile'),
+            'profile.post' => $language->get('user', 'profile') . ' &raquo; ' . $language->get('user', 'profile_posts'),
         ]);
 
         // Sitemap
