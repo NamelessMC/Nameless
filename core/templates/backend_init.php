@@ -36,7 +36,7 @@ if (!empty($favicon_image)) {
     $template->getEngine()->addVariable('FAVICON', Output::getClean($favicon_image));
 }
 
-$template->getEngine()->assign([
+$template->getEngine()->addVariables([
     'DARK_MODE_ENABLED' => defined('DARK_MODE') && DARK_MODE ? DARK_MODE : '0',
     'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null,

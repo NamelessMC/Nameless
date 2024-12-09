@@ -13,7 +13,7 @@
  * @var Navigation $navigation
  * @var Navigation $staffcp_nav
  * @var Pages $pages
- * @var Smarty $smarty
+ * @var FakeSmarty $smarty
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -48,14 +48,14 @@ if (Input::exists()) {
 }
 
 if (Session::exists('user_sessions_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $language->get('general', 'success'),
         'SUCCESS_MESSAGE' => Session::flash('user_sessions_success'),
     ]);
 }
 
 if (Session::exists('user_sessions_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERROR' => $language->get('general', 'error'),
         'ERROR_MESSAGE' => Session::flash('user_sessions_error'),
     ]);
@@ -96,7 +96,7 @@ if (count($sessions) === 2) {
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'TOKEN' => Token::get(),
     'NO' => $language->get('general', 'no'),
     'YES' => $language->get('general', 'yes'),
@@ -124,4 +124,4 @@ require ROOT_PATH . '/core/templates/navbar.php';
 require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('user/sessions.tpl', $smarty);
+$template->displayTemplate('user/sessions.tpl');

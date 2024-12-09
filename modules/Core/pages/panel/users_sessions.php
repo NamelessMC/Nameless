@@ -12,7 +12,7 @@
  * @var Navigation $navigation
  * @var Navigation $staffcp_nav
  * @var Pages $pages
- * @var Smarty $smarty
+ * @var FakeSmarty $smarty
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -83,7 +83,7 @@ foreach ($sessions as $session) {
     ];
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'VIEWING_USER_SESSIONS' => $language->get('admin', 'viewing_sessions_for_x', [
         'user' =>  Output::getClean($view_user->data()->username),
     ]),
@@ -94,9 +94,6 @@ $smarty->assign([
     'LOGOUT' => $language->get('general', 'log_out'),
     'IP_ADDRESS' => $language->get('admin', 'ip_address'),
     'LAST_SEEN' => $language->get('admin', 'last_seen'),
-]);
-
-$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -109,14 +106,14 @@ $smarty->assign([
 ]);
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
@@ -124,4 +121,4 @@ if (isset($errors) && count($errors)) {
 
 $template->onPageLoad();
 require ROOT_PATH . '/core/templates/panel_navbar.php';
-$template->displayTemplate('core/users_sessions.tpl', $smarty);
+$template->displayTemplate('core/users_sessions.tpl');
