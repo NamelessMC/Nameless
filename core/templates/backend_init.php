@@ -11,6 +11,7 @@
  * @var Navigation   $cc_nav
  * @var string       $page_title
  * @var TemplateBase $template
+ * @var User         $user
  */
 const BACK_END = true;
 
@@ -35,7 +36,12 @@ if (!empty($favicon_image)) {
     $template->getEngine()->addVariable('FAVICON', Output::getClean($favicon_image));
 }
 
-$template->getEngine()->addVariable('TITLE', $page_title);
+$template->getEngine()->assign([
+    'DARK_MODE_ENABLED' => defined('DARK_MODE') && DARK_MODE ? DARK_MODE : '0',
+    'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
+    'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null,
+    'TITLE' => $page_title,
+]);
 
 // Initialise widgets
 $widgets = new Widgets($cache, $language, $template);

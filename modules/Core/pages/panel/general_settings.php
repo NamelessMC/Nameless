@@ -33,10 +33,10 @@ require_once ROOT_PATH . '/core/templates/backend_init.php';
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
-        $languages = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*');
+        $languages = glob('modules' . DIRECTORY_SEPARATOR . 'Core' . DIRECTORY_SEPARATOR . 'language' . DIRECTORY_SEPARATOR . '*');
         foreach ($languages as $item) {
             // cursed
-            $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[2])[0];
+            $short_code = explode('.', explode(DIRECTORY_SEPARATOR, $item)[3])[0];
 
             // Is it already in the database?
             $exists = DB::getInstance()->get('languages', ['short_code', $short_code])->results();
@@ -119,17 +119,8 @@ if (Input::exists()) {
                 $errors = [$e->getMessage()];
             }
 
-            // Portal
-            if ($_POST['homepage'] === 'portal') {
-                $home_type = 'portal';
-            } else if ($_POST['homepage'] === 'news') {
-                $home_type = 'news';
-            } else if ($_POST['homepage'] === 'custom') {
-                $home_type = 'custom';
-            }
-            // TODO allow to select a custom page to use content as homepage
-
-            Settings::set('home_type', $home_type);
+            // Default Homepage
+            Settings::set('home_type', $_POST['homepage']);
 
             // Private profile
             Settings::set('private_profile', $_POST['privateProfile'] ? '1' : '0');
@@ -226,7 +217,7 @@ $contact_email = Output::getClean(Settings::get('incoming_email'));
 $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
 for ($i = 0; $i < $count; $i++) {
-    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'languages', $languages[$i]->short_code . '.json']);
+    $language_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'language', $languages[$i]->short_code . '.json']);
     if (!file_exists($language_path)) {
         unset($languages[$i]);
     }
@@ -236,6 +227,32 @@ $timezone = Settings::get('timezone');
 $private_profile = Settings::get('private_profile');
 $displaynames = Settings::get('displaynames');
 $method = Settings::get('login_method');
+
+$homepage_pages = [[
+    'value' => 'news',
+    'name' => $language->get('admin', 'homepage_news'),
+    'module' => 'Core'
+], [
+    'value' => 'portal',
+    'name' => $language->get('admin', 'portal'),
+    'module' => 'Core'
+], [
+    'value' => 'custom',
+    'name' => $language->get('admin', 'custom_content'),
+    'module' => 'Core'
+]];
+
+foreach ($pages->returnPages() as $key => $page) {
+    if (str_contains($key, '/panel/') || str_contains($key, '/queries/') || str_contains($key, '/user/')) {
+        continue;
+    }
+
+    $homepage_pages[] = [
+        'value' => Output::getPurified($key),
+        'name' => Output::getPurified($key),
+        'module' => $page['module']
+    ];
+}
 
 $template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
@@ -266,10 +283,8 @@ $template->getEngine()->addVariables([
     'DEFAULT_TIMEZONE' => $language->get('admin', 'default_timezone'),
     'DEFAULT_TIMEZONE_LIST' => Util::listTimezones(),
     'DEFAULT_TIMEZONE_VALUE' => $timezone,
-    'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
-    'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
-    'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
+    'HOMEPAGE_TYPE' => $language->get('admin', 'default_homepage'),
+    'HOMEPAGE_PAGES' => $homepage_pages,
     'HOMEPAGE_VALUE' => Settings::get('home_type'),
     'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
     'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
@@ -307,7 +322,7 @@ $template->getEngine()->addVariables([
     'ENABLE_AUTO_LANGUAGE' => $language->get('admin', 'enable_auto_language'),
     'AUTO_LANGUAGE_HELP' => $language->get('admin', 'auto_language_help'),
     'REQUIRE_STAFFCP_TFA' => $language->get('admin', 'require_two_factor_for_staffcp'),
-    'REQUIRE_STAFFCP_TFA_VALUE' => Settings::get('require_staffcp_tfa'),
+    'REQUIRE_STAFFCP_TFA_VALUE' => Settings::get('require_staffcp_tfa')
 ]);
 
 $template->onPageLoad();

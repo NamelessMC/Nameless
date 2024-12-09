@@ -109,7 +109,7 @@
     "forum/new_topic": "New Topic",
     "forum/new_topic_text": "Topic created in {{forum}} by {{author}}",
     "forum/news_items_front_page_limit": "Number of news items to display on front page",
-    "forum/news_items_max": "Number of news items should be at least {{max}}",
+    "forum/news_items_max": "Number of news items should be at most {{max}}",
     "forum/news_items_min": "Number of news items should be at least {{min}}",
     "forum/no_forums": "No forums",
     "forum/no_label_types_defined": "No label types have been defined yet.",

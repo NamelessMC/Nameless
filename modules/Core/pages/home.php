@@ -46,6 +46,9 @@ if (Session::exists('home_error')) {
 }
 
 $home_type = Settings::get('home_type');
+if ($home_type === '/') {
+    $home_type = 'news';
+}
 
 if ($home_type === 'news') {
     foreach ($front_page_modules as $module) {

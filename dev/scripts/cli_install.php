@@ -116,7 +116,7 @@ $conf = [
     ],
     'remember' => [
         'cookie_name' => 'nl2',
-        'cookie_expiry' => 604800,
+        'cookie_expiry' => 2629800,
     ],
     'session' => [
         'session_name' => '2user',

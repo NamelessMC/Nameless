@@ -77,11 +77,12 @@ class NamelessOAuth extends Instanceable
 
             $providers[$provider_name] = [
                 'url' => $provider->getAuthorizationUrl([
-                    'scope' => [
+                    'scope' => $provider_data['scopes'] ?? [
                         $provider_data['scope_id_name'],
                         'email',
                     ],
                 ]),
+                'display_name' => $provider_data['display_name'] ?? ucfirst($provider_name),
                 'icon' => $provider_data['icon'] ?? null,
                 'logo_url' => $provider_data['logo_url'] ?? null,
                 'logo_css' => isset($provider_data['logo_css'])
@@ -178,7 +179,7 @@ class NamelessOAuth extends Instanceable
     {
         [$client_id, $client_secret] = $this->getCredentials($provider);
 
-        return $client_id !== '' && $client_secret !== '';
+        return $client_id !== null && $client_id !== '' && $client_secret !== '';
     }
 
     /**

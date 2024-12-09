@@ -1,4 +1,4 @@
-FROM phpdoc/phpdoc:3.4 as doc_builder
+FROM phpdoc/phpdoc:3.5 AS doc_builder
 
 COPY . /source
 

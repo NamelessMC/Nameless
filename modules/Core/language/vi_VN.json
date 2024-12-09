@@ -251,8 +251,6 @@
     "admin/header_required": "Tiêu đề là bắt buộc.",
     "admin/header": "Tiêu đề",
     "admin/home_custom_content": "Trang chủ Nội dung Tùy chỉnh",
-    "admin/homepage_news": "Bảng tin mới",
-    "admin/homepage_type": "Loại trang chủ",
     "admin/hook_deleted": "Đã xóa hook thành công.",
     "admin/hook_edited": "Đã chỉnh sửa hook thành công",
     "admin/hook_events": "Sự kiện để kích hoạt webhook này",

@@ -39,8 +39,19 @@ $writable_check_paths = [
 
 foreach ($writable_check_paths as $path) {
     if (is_dir($path) && !is_writable($path)) {
-        die('<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
-        the correct user.</p><p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>');
+        $message = '<p>Your website directory or a subdirectory is not writable. Please ensure all files and directories are owned by
+        the correct user.</p>';
+
+        if (function_exists('posix_geteuid')) {
+            $uid = posix_geteuid();
+            $gid = posix_getegid();
+            $chown_command = 'sudo chown -R ' . $uid . ':' . $gid . ' ' . Output::getClean(ROOT_PATH);
+            $message .= '<p>The command to fix this for your system was determined to be: <code>' . $chown_command . '</code>. Please check if it makes sense before running it.</p>';
+        } else {
+            $message .= '<p><strong>Example</strong> command to change owner recursively: <code>sudo chown -R www-data: ' . Output::getClean(ROOT_PATH) . '</code></p>';
+        }
+
+        die($message);
     }
 }
 
@@ -339,6 +350,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/connections'));
     $cc_nav->add('cc_notification_settings', $language->get('user', 'notification_settings'), URL::build('/user/notification_settings'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
+    $cc_nav->add('cc_sessions', $language->get('general', 'sessions'), URL::build('/user/sessions'));
 
     // Placeholders enabled?
     if (Settings::get('placeholders') === '1') {
@@ -425,6 +437,7 @@ if ($page != 'install') {
                 || str_contains($_GET['route'], '/api/')
                 || str_contains($_GET['route'], 'queries')
                 || str_contains($_GET['route'], 'oauth/')
+                || str_contains($_GET['route'], 'store/listener')
             )) {
                 // Can continue as normal
             } else {

@@ -66,6 +66,8 @@
                                     <select name="location" class="form-control" id="inputLocation">
                                         <option value="right" {if $LOCATION eq 'right' } selected{/if}>{$RIGHT}</option>
                                         <option value="left" {if $LOCATION eq 'left' } selected{/if}>{$LEFT}</option>
+                                        <option value="top" {if $LOCATION eq 'top' } selected{/if}>{$TOP}</option>
+                                        <option value="footer" {if $LOCATION eq 'footer' } selected{/if}>{$FOOTER}</option>
                                     </select>
                                 </div>
 

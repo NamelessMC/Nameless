@@ -9,7 +9,7 @@ location / {
 }
 
 # Deny access to some file types and directories
-location ~ \.(tpl|cache|htaccess)$ {
+location ~ \.(tpl|cache|htaccess|mmdb|log)$ {
     return 403;
 }
 

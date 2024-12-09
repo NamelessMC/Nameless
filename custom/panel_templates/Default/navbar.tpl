@@ -11,7 +11,7 @@
 
     <div class="custom-control custom-switch">
         <input type="hidden" name="dark_mode" value="0">
-        <input onclick="switchTheme()" id="dark_mode" name="dark_mode" type="checkbox" class="custom-control-input"
+        <input onclick="toggleDarkLightMode()" id="dark_mode" name="dark_mode" type="checkbox" class="custom-control-input"
             value="1">
         <label class="custom-control-label" for="dark_mode">
             {$MODE_TOGGLE}

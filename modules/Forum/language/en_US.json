@@ -177,12 +177,13 @@
     "forum/label_type_in_use": "Label type is being used, cannot be deleted.",
     "forum/latest_posts_widget_cached": "The latest posts widget is cached for one minute, your changes may not take effect immediately.",
     "forum/latest_posts_limit": "Latest posts limit",
-    "forum/news_items_max": "Number of news items should be at least {{max}}",
+    "forum/news_items_max": "Number of news items should be at most {{max}}",
     "forum/news_items_min": "Number of news items should be at least {{min}}",
     "forum/news_items_front_page_limit": "Number of news items to display on front page",
     "forum/reaction_score": "Reaction score",
     "forum/no_posts_found": "No posts found.",
     "forum/highest_reaction_scores": "Highest forum reaction scores",
     "forum/most_posts": "Most posts",
-    "forum/forum_score": "Forum score"
+    "forum/forum_score": "Forum score",
+    "forum/banned_terms": "https://1drv.ms/u/c/bacbe79844883efd/Eenf2AWn87FLgiiXQmdEQOYBvJfrpdVAZZQ-iBwPSuZdhg"
 }

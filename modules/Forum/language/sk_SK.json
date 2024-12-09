@@ -184,5 +184,8 @@
     "forum/news_items_front_page_limit": "Počet noviniek zobrazujúcich sa na hlavnej stránke",
     "forum/reaction_score": "Reakčné skóre",
     "forum/highest_reaction_scores": "Najvyššie skóre reakcií na fóre",
-    "forum/forum_score": "Skóre fóra"
+    "forum/forum_score": "Skóre fóra",
+    "forum/banned_terms": "Zakázané výrazy",
+    "forum/banned_terms_info": "Jeden výraz na riadok, nerozlišuje sa veľkosť písmen",
+    "forum/content_contains_banned_term": "Obsah vášho príspevku obsahuje zakázaný výraz"
 }

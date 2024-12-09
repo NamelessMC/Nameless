@@ -87,6 +87,11 @@ if (Input::exists()) {
             $validation_action = json_decode(Settings::get('validate_user_action'), true);
             $new_value = json_encode(['action' => $validation_action['action'] ?? 'promote', 'group' => $_POST['promote_group']]);
             Settings::set('validate_user_action', $new_value);
+
+            if (is_numeric(Input::get('purge_users')) && (int) Input::get('purge_users') >= 0) {
+                // Purge users after x days
+                Settings::set('purge_inactive_users_cutoff', Input::get('purge_users'));
+            }
         }
 
         if (!count($errors)) {
@@ -177,6 +182,9 @@ $template->getEngine()->addVariables([
     'SUBMIT' => $language->get('general', 'submit'),
     'ENABLE_REGISTRATION' => $language->get('admin', 'enable_registration'),
     'REGISTRATION_ENABLED' => $registration_enabled,
+    'PURGE_USERS_AFTER' => $language->get('admin', 'purge_inactive_users_after'),
+    'PURGE_USERS_AFTER_INFO' => $language->get('admin', 'purge_inactive_users_info'),
+    'PURGE_USERS_AFTER_VALUE' => Settings::get('purge_inactive_users_cutoff', '0'),
 ]);
 
 $template->onPageLoad();

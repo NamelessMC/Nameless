@@ -240,6 +240,11 @@ if (Input::exists()) {
             } else {
                 // Validation failed
                 $return_error = $validation->errors();
+
+                // If the account is banned, update the validation to only show this, and no others
+                if (in_array($language->get('user', 'account_banned'), $return_error)) {
+                    $return_error = [$language->get('user', 'account_banned')];
+                }
             }
         } else {
             // reCAPTCHA failed
@@ -274,7 +279,7 @@ foreach (NamelessOAuth::getInstance()->getProvidersAvailable() as $name => $prov
 
     $providers[$name] = $provider;
     $providers[$name]['log_in_with'] = $language->get('user', 'log_in_with', [
-        'provider' => ucfirst($name)
+        'provider' => Output::getClean($provider['display_name'])
     ]);
 }
 

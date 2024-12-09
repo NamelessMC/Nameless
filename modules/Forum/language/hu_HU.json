@@ -180,7 +180,7 @@
     "forum/highest_reaction_scores": "A legmagasabb fórum reakciópontszámok",
     "forum/most_posts": "Legtöbb poszt",
     "forum/reaction_score": "Reakciópontszám",
-    "forum/news_items_max": "A hírek száma maximum {{max}} legyen",
+    "forum/news_items_max": "A hírek száma legfeljebb {{max}} lehet",
     "forum/news_items_min": "A hírek száma minimum {{min}} legyen",
     "forum/news_items_front_page_limit": "A címlapon megjelenítendő hírek száma",
     "forum/no_posts_found": "Nem található bejegyzés.",

@@ -175,6 +175,8 @@ class Text
             $content
         ));
 
+        $content = html_entity_decode($content);
+
         return self::truncate($content, 512, [
             'html' => true,
         ]);

@@ -182,7 +182,7 @@
     "forum/highest_reaction_scores": "Puntuaciones más altas de reacciones en el foro",
     "forum/reaction_score": "Puntuación de reacción",
     "forum/news_items_front_page_limit": "Número de noticias a mostrar en la página principal",
-    "forum/news_items_max": "El número de noticias debe ser al menos {{max}}",
+    "forum/news_items_max": "El número de noticias debe ser como máximo {{max}}",
     "forum/news_items_min": "El número de noticias debe ser como mínimo {{min}}",
     "forum/forum_score": "Puntuación en el foro",
     "forum/content_contains_banned_term": "El contenido de tu entrada contiene un término prohibido",

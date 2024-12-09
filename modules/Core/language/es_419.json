@@ -231,7 +231,6 @@
     "admin/head": "Cabeza",
     "admin/header": "Encabezado",
     "admin/header_required": "El encabezado es obligatorio",
-    "admin/homepage_type": "Tipo de pagina de inicio",
     "admin/hook_created": "Hook creado con éxito.",
     "admin/hook_deleted": "Hook eliminado con éxito.",
     "admin/hook_edited": "Gancho editado con éxito",
