@@ -46,7 +46,7 @@ class Members_Module extends Module {
         // Not necessary for CookieConsent
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, TemplateBase $template) {
         $language = $this->_language;
 
         // AdminCP

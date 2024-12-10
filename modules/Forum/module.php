@@ -192,7 +192,7 @@ class Forum_Module extends Module {
         $smarty,
         iterable $navs,
         Widgets $widgets,
-        ?TemplateBase $template
+        TemplateBase $template
     ) {
         // AdminCP
         PermissionHandler::registerPermissions('Forum', [

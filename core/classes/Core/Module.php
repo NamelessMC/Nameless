@@ -79,9 +79,9 @@ abstract class Module
      * @param FakeSmarty|Smarty $smarty   Instance of smarty to pass, to be removed in 2.3.0
      * @param Navigation[]      $navs     Array of loaded navigation menus.
      * @param Widgets           $widgets  Instance of widget class to pass.
-     * @param TemplateBase|null $template Active template to render.
+     * @param TemplateBase      $template Active template to render.
      */
-    abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, iterable $navs, Widgets $widgets, ?TemplateBase $template);
+    abstract public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, iterable $navs, Widgets $widgets, TemplateBase $template);
 
     /**
      * Determine loading arrangement of modules.

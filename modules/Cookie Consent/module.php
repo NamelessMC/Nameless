@@ -50,7 +50,7 @@ class CookieConsent_Module extends Module {
         // Not necessary for CookieConsent
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, TemplateBase $template) {
         $language = $this->_language;
 
         // AdminCP
@@ -74,37 +74,35 @@ class CookieConsent_Module extends Module {
             $cookie_url = URL::build('/cookies');
 
             // Add JS script
-            if ($template) {
-                $template->addCSSFiles([
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
-                ]);
-                $template->addJSFiles([
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
-                ]);
-                $template->addJSScript(
-                    CookieConsent::generateScript(
-                        array_merge($options, [
-                            'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
-                            'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
-                            'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
-                            'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
-                            'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
-                            'href' => $cookie_url,
-                        ])
-                    )
-                );
-            }
-
-            $template->getEngine()->addVariables([
-                'COOKIE_URL' => $cookie_url,
-                'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
-                'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),
-                'COOKIE_NOTICE_CONFIGURE' => $this->_cookie_language->get('cookie', 'configure_cookies'),
-                'COOKIE_DECISION_MADE' => (bool)Cookie::get('cookieconsent_status'),
+            $template->addCSSFiles([
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
             ]);
-
-            $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
+            $template->addJSFiles([
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
+            ]);
+            $template->addJSScript(
+                CookieConsent::generateScript(
+                    array_merge($options, [
+                        'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
+                        'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
+                        'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
+                        'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
+                        'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
+                        'href' => $cookie_url,
+                    ])
+                )
+            );
         }
+
+        $template->getEngine()->addVariables([
+            'COOKIE_URL' => $cookie_url,
+            'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
+            'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),
+            'COOKIE_NOTICE_CONFIGURE' => $this->_cookie_language->get('cookie', 'configure_cookies'),
+            'COOKIE_DECISION_MADE' => (bool)Cookie::get('cookieconsent_status'),
+        ]);
+
+        $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
 
         if (defined('BACK_END')) {
             $cache->setCache('panel_sidebar');
