@@ -23,7 +23,7 @@ class MentionsParser
      */
     public static function parse(int $author_id, string $value, string $link = null, array $alert_short = null, array $alert_full = null): string
     {
-        if (preg_match_all('/@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
+        if (preg_match_all('/(?<!\/)@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
             $matches = $matches[1];
 
             foreach ($matches as $possible_username) {
@@ -33,10 +33,10 @@ class MentionsParser
                     $user = new User($possible_username, 'nickname');
 
                     if ($user->exists()) {
-                        $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
+                        $value = preg_replace('/(?<!\/)' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
 
                         // Check if user is blocked by OP
-                        if ($link && ($alert_full && $alert_short) && ($user->data()->id != $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
+                        if ($value && $link && ($alert_full && $alert_short) && ($user->data()->id != $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
                             Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
                             break;
                         }

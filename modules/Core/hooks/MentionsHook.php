@@ -68,6 +68,44 @@ class MentionsHook extends HookBase {
         return $params;
     }
 
+    /**
+     * Strips [user] tags and parses the ID to username
+     * e.g. [user]1[/user] would instead become (at)Username
+     *
+     * @param array $params
+     * @return array
+     */
+    public static function stripPost(array $params = []): array {
+        if (parent::validateParams($params, ['content'])) {
+            $params['content'] = preg_replace_callback(
+                '/\[user\](.*?)\[\/user\]/ism',
+                static function (array $match) {
+                    if (isset(MentionsHook::$_cache[$match[1]])) {
+                        $userNickname = MentionsHook::$_cache[$match[1]][2];
+                    } else {
+                        $user = new User($match[1]);
+
+                        if (!$user->exists()) {
+                            return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
+                        }
+
+                        $userId = $user->data()->id;
+                        $userStyle = $user->getGroupStyle();
+                        $userNickname = $user->data()->nickname;
+                        $userProfileUrl = $user->getProfileURL();
+
+                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                    }
+
+                    return '@' . Output::getClean($userNickname);
+                },
+                $params['content']
+            );
+        }
+
+        return $params;
+    }
+
     private static function validate(array $params): bool {
         return parent::validateParams($params, ['content', 'user']);
     }
