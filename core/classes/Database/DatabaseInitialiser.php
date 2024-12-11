@@ -270,6 +270,7 @@ class DatabaseInitialiser
     {
         GenerateSitemap::schedule(new Language('core', 'en_UK'));
         PurgeExpiredSessions::schedule(new Language('core', 'en_UK'));
+        PurgeInactiveUsers::schedule(new Language('core', 'en_UK'));
     }
 
     private function initialiseTemplates(): void
