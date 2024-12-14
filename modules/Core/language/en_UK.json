@@ -252,6 +252,8 @@
     "admin/force_tfa": "Force Two Factor Authentication for group members?",
     "admin/force_tfa_alert": "Your group requires you to have Two Factor Authentication enabled.",
     "admin/force_tfa_warning": "Please ensure you know what this does, or else you risk locking out yourself and all the group members.",
+    "admin/edit_user_tfa_disabled": "Two factor authentication has successfully been disabled for this user.",
+    "admin/disable_tfa": "Disable 2FA",
     "admin/force_www": "Force www?",
     "admin/forgot_password_email": "Forgot Password Email",
     "admin/forum_posts": "Display on Forum",
