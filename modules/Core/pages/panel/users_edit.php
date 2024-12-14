@@ -61,7 +61,10 @@ if (isset($_GET['action'])) {
     } else if ($_GET['action'] == 'disable_tfa') {
         if (Token::check()) {
             $view_user->update([
-                'tfa_enabled' => false
+                'tfa_enabled' => false,
+                'tfa_type' => 0,
+                'tfa_secret' => null,
+                'tfa_complete' => false
             ]);
 
             Session::flash('edit_user_success', $language->get('admin', 'edit_user_tfa_disabled'));
