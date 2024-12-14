@@ -36,7 +36,7 @@ if (isset($_GET['do'])) {
         if (!isset($_GET['s'])) {
 
             // Generate secret
-            $cache->setCache("users_tfa");
+            $cache->setCache('users_tfa');
             $secret = $cache->retrieve($user->data()->id);
             if (!$secret) {
                 $secret = $tfa->createSecret();
