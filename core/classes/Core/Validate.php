@@ -299,9 +299,9 @@ class Validate
                         break;
 
                     case self::IS_ACTIVE:
-                        $check = $validator->_db->get('users', [$item, $value]);
+                        $check = $validator->_db->query("SELECT * FROM nl2_users WHERE username = ? OR email = ?", [$value, $value]);
                         if (!$check->count()) {
-                            break;
+                            break; // Something went pretty fricking wrong but okay
                         }
 
                         $isuseractive = $check->first()->active;
