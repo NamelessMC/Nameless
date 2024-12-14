@@ -301,7 +301,7 @@ class Validate
                     case self::IS_ACTIVE:
                         $check = $validator->_db->query("SELECT * FROM nl2_users WHERE username = ? OR email = ?", [$value, $value]);
                         if (!$check->count()) {
-                            break; // Something went pretty fricking wrong but okay
+                            break;
                         }
 
                         $isuseractive = $check->first()->active;
