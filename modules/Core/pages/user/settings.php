@@ -34,12 +34,17 @@ if (isset($_GET['do'])) {
         $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
 
         if (!isset($_GET['s'])) {
-            // Generate secret
-            $secret = $tfa->createSecret();
 
-            $user->update([
-                'tfa_secret' => $secret
-            ]);
+            // Generate secret
+            $cache->setCache("users_tfa");
+            $secret = $cache->retrieve($user->data()->id);
+            if (!$secret) {
+                $secret = $tfa->createSecret();
+                $cache->store($user->data()->id, $secret, 60);
+                $user->update([
+                    'tfa_secret' => $secret
+                ]);
+            }
 
             if (Session::exists('force_tfa_alert')) {
                 $errors[] = Session::get('force_tfa_alert');
