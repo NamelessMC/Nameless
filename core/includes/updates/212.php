@@ -1,13 +1,8 @@
 <?php
-
-return new class() extends UpgradeScript {
-    public function run(): void
-    {
+return new class extends UpgradeScript {
+    public function run(): void {
         $this->runMigrations();
 
-        PurgeExpiredSessions::schedule(new Language('core', 'en_UK'));
-        PurgeInactiveUsers::schedule(new Language('core', 'en_UK'));
-
-        $this->setVersion('2.2.0');
+        $this->setVersion('2.1.3');
     }
 };
