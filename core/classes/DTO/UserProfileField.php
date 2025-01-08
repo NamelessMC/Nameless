@@ -4,7 +4,7 @@
  *
  * @package NamelessMC\DTO
  * @author Aberdeener
- * @version 2.0.0-pr13
+ * @version 2.1.3
  * @license MIT
  */
 class UserProfileField extends ProfileField {
@@ -20,6 +20,11 @@ class UserProfileField extends ProfileField {
         $this->upf_id = $row->upf_id;
     }
 
+    public function purifyValue(): ?string
+    {
+        // TODO: option for field to support HTML
+        return Output::getClean($this->value);
+    }
 
     public function updated() {
         return date(DATE_FORMAT, $this->updated);

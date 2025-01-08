@@ -615,13 +615,16 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Profile fields
-    $fields = $post_creator->getProfileFields(false, true);
+    $fields = array_map(
+        fn($field): object => (object) ['name' => Output::getClean($field->name), 'value' => $field->purifyValue()],
+        $post_creator->getProfileFields(false, true)
+    );
 
     // User integrations
     $user_integrations = [];
     foreach ($post_creator->getIntegrations() as $key => $integrationUser) {
         if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
-            $fields[] = [
+            $fields[] = (object) [
                 'name' => Output::getClean($key),
                 'value' => Output::getClean($integrationUser->data()->username)
             ];
@@ -635,9 +638,9 @@ foreach ($results->data as $n => $nValue) {
 
     $forum_placeholders = $post_creator->getForumPlaceholders();
     foreach ($forum_placeholders as $forum_placeholder) {
-        $fields[] = [
-            'name' => $forum_placeholder->friendly_name,
-            'value' => $forum_placeholder->value
+        $fields[] = (object) [
+            'name' => Output::getClean($forum_placeholder->friendly_name),
+            'value' => Output::getClean($forum_placeholder->value),
         ];
     }
 
