@@ -41,7 +41,7 @@ if (isset($_GET['action'])) {
             if ($user_query->active == 0) {
                 $view_user->update([
                     'active' => true,
-                    'reset_code' => ''
+                    'reset_code' => null,
                 ]);
 
                 EventHandler::executeEvent(new UserValidatedEvent(

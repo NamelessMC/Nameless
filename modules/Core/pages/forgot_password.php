@@ -19,7 +19,7 @@ if ($user->isLoggedIn()) {
     Redirect::to(URL::build('/'));
 }
 
-if (!isset($_GET['c'])) {
+if (empty($_GET['c'])) {
     // Enter email address form
     if (Input::exists()) {
         if (Token::check()) {
