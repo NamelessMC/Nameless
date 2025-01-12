@@ -11,10 +11,10 @@
  */
 abstract class TwigTemplateBase extends TemplateBase
 {
-    public function __construct(string $name, string $version, string $nameless_version, string $author)
+    public function __construct(string $name, string $version, string $nameless_version, string $author, string $dir)
     {
         parent::__construct($name, $version, $nameless_version, $author);
 
-        $this->_engine = new TwigTemplateEngine($name);
+        $this->_engine = new TwigTemplateEngine($dir);
     }
 }

@@ -28,7 +28,7 @@ if (!class_exists('Default_Panel_Template')) {
                 '2.2.0',  // Template version
                 '2.2.0',  // Nameless version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>',  // Author, you can use HTML here
-                true, // Set to true for panel templates
+                __DIR__, // Specify the path to the template
             );
 
             $this->assets()->include([

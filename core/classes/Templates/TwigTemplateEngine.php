@@ -18,11 +18,11 @@ class TwigTemplateEngine extends TemplateEngine
     private Environment $_twig;
 
     /**
-     * @param string $template Template name to load.
+     * @param string $dir Path to template directory
      */
-    public function __construct(string $template)
+    public function __construct(string $dir)
     {
-        $loader = new FilesystemLoader(ROOT_PATH . '/custom/templates/' . $template);
+        $loader = new FilesystemLoader($dir);
         $twig = new Environment($loader, [
             'cache' => ROOT_PATH . '/cache/twig',
         ]);

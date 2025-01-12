@@ -8,14 +8,14 @@
  */
 class SmartyTemplateEngine extends TemplateEngine
 {
+    protected Smarty_Security $_securityPolicy;
     private Smarty $_smarty;
 
     /**
-     * @param  string          $template      Template name to load
-     * @param  bool            $panelTemplate Whether this is a panel template or not
+     * @param  string          $dir Path to template directory
      * @throws SmartyException
      */
-    public function __construct(string $template, bool $panelTemplate = false)
+    public function __construct(string $dir)
     {
         $smarty = new Smarty();
 
@@ -50,17 +50,13 @@ class SmartyTemplateEngine extends TemplateEngine
         $smarty->enableSecurity($securityPolicy);
 
         $smarty->setCompileDir(ROOT_PATH . '/cache/templates_c');
-
-        if ($panelTemplate) {
-            $smarty->setTemplateDir(ROOT_PATH . '/custom/panel_templates/' . $template);
-        } else {
-            $smarty->setTemplateDir(ROOT_PATH . '/custom/templates/' . $template);
-        }
+        $smarty->setTemplateDir($dir);
 
         if (defined('PHPDEBUGBAR')) {
             DebugBarHelper::getInstance()->addSmartyCollector($smarty);
         }
 
+        $this->_securityPolicy = $securityPolicy;
         $this->_smarty = $smarty;
 
         parent::__construct();
@@ -83,5 +79,18 @@ class SmartyTemplateEngine extends TemplateEngine
     public function clearCache(): void
     {
         $this->_smarty->clearAllCache();
+    }
+
+
+    /**
+     * Add an extra directory to the Smarty security policy
+     *
+     * @param string $dir Directory to add to policy
+     * @return void
+     */
+    public function addSecurityPolicyDirectory(string $dir): void
+    {
+        $this->_securityPolicy->secure_dir = [...$this->_securityPolicy->secure_dir, $dir];
+        $this->_smarty->enableSecurity($this->_securityPolicy);
     }
 }

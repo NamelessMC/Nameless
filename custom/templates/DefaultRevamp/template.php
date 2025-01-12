@@ -33,7 +33,7 @@ class DefaultRevamp_Template extends SmartyTemplateBase
 
         $template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
 
-        parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
+        parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author'], __DIR__);
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 

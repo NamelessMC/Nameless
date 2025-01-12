@@ -55,6 +55,14 @@ abstract class TemplateBase
         $this->_version = $version;
         $this->_nameless_version = $nameless_version;
         $this->_author = $author;
+
+        /*
+         * Temporary assignment to Smarty template engine for backwards compatibility for templates which extend TemplateBase
+         * This will be removed in 2.3.0 - breaking change!
+         */
+        if (!isset($this->_engine)) {
+            $this->_engine = new SmartyTemplateEngine(ROOT_PATH . '/custom/templates/' . $name);
+        }
     }
 
     /**
