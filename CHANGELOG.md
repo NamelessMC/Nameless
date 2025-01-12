@@ -1,7 +1,18 @@
 # NamelessMC v2 Changelog
 
-## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.1.2...develop)
+## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.1.3...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/22)
+
+## [2.1.3](https://github.com/NamelessMC/Nameless/compare/v2.1.2...v2.1.3) - 2025-01-08
+### Added
+- No additions this release
+
+### Changed
+- No changes this release
+
+### Fixed
+- Purify custom fields before display
+- Fix empty reset code being usable
 
 ## [2.1.2](https://github.com/NamelessMC/Nameless/compare/v2.1.1...v2.1.2) - 2023-09-30
 ### Added

@@ -87,6 +87,99 @@ class HttpClient
     }
 
     /**
+     * Make a PUT request to a URL.
+     * Failures will automatically be logged along with the error.
+     *
+     * @param  string       $url     URL to send request to.
+     * @param  string|array $data    JSON request body to attach to request, or array of key value pairs if form-urlencoded.
+     * @param  array        $options Options to set with the GuzzleClient.
+     * @return HttpClient   New HttpClient instance.
+     */
+    public static function put(string $url, $data, array $options = []): HttpClient
+    {
+        $guzzleClient = self::createClient($options);
+
+        $error = '';
+
+        try {
+            $response = $guzzleClient->put($url, [
+                // if the data is an array, we assume they want to send it as form-urlencoded, otherwise it's json
+                is_array($data) ? 'form_params' : 'body' => $data,
+            ]);
+        } catch (GuzzleException $exception) {
+            $error = $exception->getMessage();
+            Log::getInstance()->log(Log::Action('misc/curl_error'), $exception->getMessage());
+        }
+
+        return new HttpClient(
+            $response ?? null,
+            $error
+        );
+    }
+
+    /**
+     * Make a PATCH request to a URL.
+     * Failures will automatically be logged along with the error.
+     *
+     * @param  string       $url     URL to send request to.
+     * @param  string|array $data    JSON request body to attach to request, or array of key value pairs if form-urlencoded.
+     * @param  array        $options Options to set with the GuzzleClient.
+     * @return HttpClient   New HttpClient instance.
+     */
+    public static function patch(string $url, $data, array $options = []): HttpClient
+    {
+        $guzzleClient = self::createClient($options);
+
+        $error = '';
+
+        try {
+            $response = $guzzleClient->patch($url, [
+                // if the data is an array, we assume they want to send it as form-urlencoded, otherwise it's json
+                is_array($data) ? 'form_params' : 'body' => $data,
+            ]);
+        } catch (GuzzleException $exception) {
+            $error = $exception->getMessage();
+            Log::getInstance()->log(Log::Action('misc/curl_error'), $exception->getMessage());
+        }
+
+        return new HttpClient(
+            $response ?? null,
+            $error
+        );
+    }
+
+    /**
+     * Make a DELETE request to a URL.
+     * Failures will automatically be logged along with the error.
+     *
+     * @param  string       $url     URL to send request to.
+     * @param  string|array $data    JSON request body to attach to request, or array of key value pairs if form-urlencoded.
+     * @param  array        $options Options to set with the GuzzleClient.
+     * @return HttpClient   New HttpClient instance.
+     */
+    public static function delete(string $url, $data, array $options = []): HttpClient
+    {
+        $guzzleClient = self::createClient($options);
+
+        $error = '';
+
+        try {
+            $response = $guzzleClient->delete($url, [
+                // if the data is an array, we assume they want to send it as form-urlencoded, otherwise it's json
+                is_array($data) ? 'form_params' : 'body' => $data,
+            ]);
+        } catch (GuzzleException $exception) {
+            $error = $exception->getMessage();
+            Log::getInstance()->log(Log::Action('misc/curl_error'), $exception->getMessage());
+        }
+
+        return new HttpClient(
+            $response ?? null,
+            $error
+        );
+    }
+
+    /**
      * Make a new Guzzle Client instance and attach it to the debug bar to display requests.
      *
      * @param  array  $options Options to provide Guzzle instance.

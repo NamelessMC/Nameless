@@ -50,7 +50,7 @@ if (isset($_GET['action'])) {
             if ($user_query->active == 0) {
                 $view_user->update([
                     'active' => true,
-                    'reset_code' => ''
+                    'reset_code' => null,
                 ]);
 
                 EventHandler::executeEvent(new UserValidatedEvent(
@@ -66,6 +66,17 @@ if (isset($_GET['action'])) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
+        }
+    } else if ($_GET['action'] == 'disable_tfa') {
+        if (Token::check()) {
+            $view_user->update([
+                'tfa_enabled' => false,
+                'tfa_type' => 0,
+                'tfa_secret' => null,
+                'tfa_complete' => false
+            ]);
+
+            Session::flash('edit_user_success', $language->get('admin', 'edit_user_tfa_disabled'));
         }
     } else {
         throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
@@ -319,6 +330,9 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
         'NEW_PASSWORD' => $language->get('user', 'new_password'),
         'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
         'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
+
+        'DISABLE_TFA' => $language->get('admin', 'disable_tfa'),
+        'DISABLE_TFA_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=disable_tfa')
     ]);
 }
 
