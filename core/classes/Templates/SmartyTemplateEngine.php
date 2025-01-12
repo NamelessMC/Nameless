@@ -81,11 +81,10 @@ class SmartyTemplateEngine extends TemplateEngine
         $this->_smarty->clearAllCache();
     }
 
-
     /**
-     * Add an extra directory to the Smarty security policy
+     * Add an extra directory to the Smarty security policy.
      *
-     * @param string $dir Directory to add to policy
+     * @param  string $dir Directory to add to policy
      * @return void
      */
     public function addSecurityPolicyDirectory(string $dir): void
