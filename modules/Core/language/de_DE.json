@@ -1375,5 +1375,14 @@
     "admin/footer": "Fußzeile",
     "general/logout_session_successful": "Sitzung erfolgreich abgemeldet.",
     "general/sessions": "Sitzungen",
-    "user/this_device": "Dieses Gerät"
+    "user/this_device": "Dieses Gerät",
+    "admin/purge_inactive_users": "Inaktive Benutzer löschen",
+    "admin/purge_inactive_users_after": "Inaktive Benutzer nach (Tagen) löschen",
+    "admin/purge_inactive_users_info": "Wenn der Wert größer als 0 ist, werden Benutzer, die ihre Konten nach der angegebenen Anzahl von Tagen nicht validiert haben, automatisch gelöscht.",
+    "general/last_updated": "Zuletzt aktualisiert: {{lastUpdated}}",
+    "user/profile_posts": "Profil Beiträge",
+    "errors/no_permission": "Dafür hast du keine Berechtigung.",
+    "admin/drag_and_drop": "Du kannst die Elemente mit drag and drop in die Liste ziehen.",
+    "admin/edit_user_tfa_disabled": "Die Zwei-Faktor-Authentifizierung wurde für diesen Benutzer erfolgreich deaktiviert.",
+    "admin/disable_tfa": "2FA deaktivieren"
 }
