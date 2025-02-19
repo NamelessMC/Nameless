@@ -1375,5 +1375,14 @@
     "user/this_device": "Цей пристрій",
     "admin/top": "Топ",
     "admin/footer": "Футер",
-    "user/remembered": "Згадано"
+    "user/remembered": "Згадано",
+    "admin/purge_inactive_users_after": "Вигнати неактивних користувачів після (днів)",
+    "general/last_updated": "Останнє оновлення: {{lastUpdated}}",
+    "user/profile_posts": "Дописи профілю",
+    "admin/purge_inactive_users": "Вигнати неактивних користувачів",
+    "admin/purge_inactive_users_info": "Якщо встановити значення більше 0, це автоматично видалить користувачів, які не підтвердили свої облікові записи після вказаної кількості днів",
+    "errors/no_permission": "У тебе немає прав для цього.",
+    "admin/drag_and_drop": "Ти можеш перетягувати елементи в цьому списку.",
+    "admin/edit_user_tfa_disabled": "Двофакторну автентифікацію успішно вимкнено для цього користувача.",
+    "admin/disable_tfa": "Вимкнути 2ФА"
 }
