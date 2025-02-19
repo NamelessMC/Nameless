@@ -184,5 +184,6 @@
     "forum/news_items_front_page_limit": "Numero di nuovi oggetti da visualizzare sulla pagina principale",
     "forum/banned_terms": "Termini Banditi",
     "forum/banned_terms_info": "Un termine per linea, caso insensibile",
-    "forum/content_contains_banned_term": "Il tuo post contiene un termine bandito"
+    "forum/content_contains_banned_term": "Il tuo post contiene un termine bandito",
+    "forum/forum_score": "Punti forum"
 }

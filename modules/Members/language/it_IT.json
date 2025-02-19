@@ -14,5 +14,6 @@
     "members/no_results_header": "Nessun risultato trovato",
     "members/settings_updated_successfully": "Impostazioni aggiornate con successo.",
     "members/view_group": "Visualizza Gruppo",
-    "members/view_all": "Visualizza tutto"
+    "members/view_all": "Visualizza tutto",
+    "members/no_overview_lists_enabled": "Niente overview, la lista e attiva."
 }

@@ -1307,5 +1307,6 @@
     "admin/mass_message_excluded_users": "Escludi Utenti",
     "admin/mass_message_exclusions_override_inclusions": "Gruppi/utenti esclusi sostituiscono gruppi/utenti inclusi",
     "admin/mass_message_ignore_opt_in": "Ignorare e-mail opt-in?",
-    "admin/custom_score": "Punteggio personalizzato"
+    "admin/custom_score": "Punteggio personalizzato",
+    "admin/admin_logged_in": "Admin entrato dentro"
 }
