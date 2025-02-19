@@ -1375,5 +1375,14 @@
     "admin/viewing_sessions_for_x": "Prohlížení relací přihlášení uživatele {{user}}",
     "general/log_out_all_sessions_confirm": "Opravdu chcete ukončit všechny ostatní relace?",
     "general/logout_session_successful": "Relace úspěšně odhlášena.",
-    "user/logout_other_sessions": "Odhlásit se z ostatních relací"
+    "user/logout_other_sessions": "Odhlásit se z ostatních relací",
+    "admin/purge_inactive_users": "Odstranit neaktivní uživatele",
+    "errors/no_permission": "Nemáte oprávnění k této akci.",
+    "user/profile_posts": "Profilové příspěvky",
+    "admin/purge_inactive_users_after": "Odstranit neaktivní uživatele po (dny)",
+    "admin/purge_inactive_users_info": "Pokud je nastavenana hodnotu větší než 0, odstraní tato funkce automaticky uživatele, kteří neověřili svou e-mailovou adresu po zadaném počtu dní",
+    "admin/drag_and_drop": "V tomto seznamu můžete přesouvat položky jejich přetažením.",
+    "general/last_updated": "Naposledy aktualizováno: {{lastUpdated}}",
+    "admin/edit_user_tfa_disabled": "Dvoufázové ověřování bylo u tohoto uživatele úspěšně zakázáno.",
+    "admin/disable_tfa": "Zakázat 2FA"
 }
