@@ -52,6 +52,7 @@ class CookieConsent_Module extends Module {
 
     public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, TemplateBase $template) {
         $language = $this->_language;
+        $cookie_url = URL::build('/cookies');
 
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
@@ -70,8 +71,6 @@ class CookieConsent_Module extends Module {
             } else {
                 $options = $cache->retrieve('options');
             }
-
-            $cookie_url = URL::build('/cookies');
 
             // Add JS script
             $template->addCSSFiles([
