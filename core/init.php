@@ -136,6 +136,7 @@ if ($page != 'install') {
 
     if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
         define('PHPDEBUGBAR', true);
+        DebugBarHelper::getInstance()->enable();
     }
 
     // Get the Nameless version
