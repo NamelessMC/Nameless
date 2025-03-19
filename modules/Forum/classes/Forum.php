@@ -804,7 +804,12 @@ class Forum {
      * @return array Array of banned terms
      */
     public static function getBannedTerms(): array {
-        $terms = Settings::get('banned_terms', '', 'forum');
+        $terms = Settings::get('banned_terms', null, 'forum');
+
+        if (!$terms) {
+            return [];
+        }
+
         return explode("\n", $terms);
     }
 
