@@ -543,6 +543,8 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'replaceAnchors'], 5);
         EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);
 
+        EventHandler::registerListener(UserRegisteredEvent::class, DefaultUserNotificationPreferencesHook::class);
+
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
@@ -562,7 +564,12 @@ class Core_Module extends Module {
         ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
 
         // Notifications
-        Notification::addType('mass_message', $language->get('notification', 'mass_message'), Module::getIdFromName('Core'));
+        Notification::addType(
+            'mass_message',
+            $language->get('notification', 'mass_message'),
+            Module::getIdFromName('Core'),
+            ['alert' => true, 'email' => true],
+        );
     }
 
     public static function getDashboardGraphs(): array {

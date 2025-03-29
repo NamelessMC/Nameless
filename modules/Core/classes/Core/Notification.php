@@ -110,12 +110,18 @@ class Notification {
     /**
      * Register a custom notification type
      * @param string $type
-     * @param string $value Human readable
-     * @param int $moduleId
+     * @param string $value              Human-readable
+     * @param int    $moduleId
+     * @param array  $defaultPreferences Set of default preferences in form preferenceKey => true/false
      * @return void
      */
-    public static function addType(string $type, string $value, int $moduleId): void {
-        self::$_types[] = ['key' => $type, 'value' => $value, 'module' => $moduleId];
+    public static function addType(string $type, string $value, int $moduleId, array $defaultPreferences = []): void {
+        self::$_types[] = [
+            'key' => $type,
+            'value' => $value,
+            'module' => $moduleId,
+            'defaultPreferences' => $defaultPreferences
+        ];
     }
 
     /**

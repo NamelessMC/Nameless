@@ -49,7 +49,7 @@ class ContentHook extends HookBase {
     /**
      * Decodes post content
      *
-     * @deprecated Will be removed in 2.2.0!
+     * @deprecated Will be removed in 2.3.0!
      *
      * @param array $params
      * @return array
