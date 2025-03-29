@@ -1,7 +1,81 @@
 # NamelessMC v2 Changelog
 
-## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.1.3...develop)
-> [Milestone](https://github.com/NamelessMC/Nameless/milestone/22)
+## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
+> [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
+
+## [2.2.0](https://github.com/NamelessMC/Nameless/compare/v2.1.3...v2.2.0) - 2025-tbd
+### Added
+- Support custom migration tables [#3380](https://github.com/NamelessMC/Nameless/pull/3380)
+- Reactions revamp and profile widgets [#3272](https://github.com/NamelessMC/Nameless/pull/3272)
+- Add Slovenian language [#3428](https://github.com/NamelessMC/Nameless/pull/3428)
+- Add forum description variable [#3431](https://github.com/NamelessMC/Nameless/pull/3431)
+- Add default page description and keywords [#3422](https://github.com/NamelessMC/Nameless/pull/3422)
+- StaffCP two factor auth [#3448](https://github.com/NamelessMC/Nameless/pull/3448)
+- Add ability to ban terms in forum content [#3488](https://github.com/NamelessMC/Nameless/pull/3488)
+- Add ability to view users by group [#3484](https://github.com/NamelessMC/Nameless/pull/3484)
+- Mass message rework [#3494](https://github.com/NamelessMC/Nameless/pull/3494)
+- Add sync website username with integration [#3505](https://github.com/NamelessMC/Nameless/pull/3505)
+- Add uninstall option to modules [#3449](https://github.com/NamelessMC/Nameless/pull/3449)
+- Allow custom endpoint params [#3493](https://github.com/NamelessMC/Nameless/pull/3493)
+- Add tooltips for warnings in StaffCP compatibility box [#3510](https://github.com/NamelessMC/Nameless/pull/3510)
+- Add Persian (Iran) language [#3519](https://github.com/NamelessMC/Nameless/pull/3519)
+- Add ability to select default homepage [#3492](https://github.com/NamelessMC/Nameless/pull/3492)
+- Add user account settings to available announcement pages [#3526](https://github.com/NamelessMC/Nameless/pull/3526)
+- Add Serbian language [#3539](https://github.com/NamelessMC/Nameless/pull/3539)
+- Record server ID when creating report via API and display in staff panel [#3524](https://github.com/NamelessMC/Nameless/pull/3524)
+- Add OAuth display name [#3530](https://github.com/NamelessMC/Nameless/pull/3530)
+- New group sync endpoints with separate add/remove lists [#3538](https://github.com/NamelessMC/Nameless/pull/3538)
+- Add top & footer widget locations [#3533](https://github.com/NamelessMC/Nameless/pull/3533)
+- Add user sessions page [#3278](https://github.com/NamelessMC/Nameless/pull/3278)
+- Add permissions for posting on profiles [#3557](https://github.com/NamelessMC/Nameless/pull/3557)
+- Add ability to re-order placeholders [#3559](https://github.com/NamelessMC/Nameless/pull/3559)
+- Add queue task to purge inactive users [#3525](https://github.com/NamelessMC/Nameless/pull/3525)
+- Add button on staff panel edit user page to disable 2FA for that user [#3568](https://github.com/NamelessMC/Nameless/pull/3568)
+- Add Put/Patch/Delete to HTTPClient [#3572](https://github.com/NamelessMC/Nameless/pull/3572)
+- Add Smarty/Twig template engines [#3452](https://github.com/NamelessMC/Nameless/pull/3452)
+- Add default notification preferences [#3590](https://github.com/NamelessMC/Nameless/pull/3590)
+
+### Changed
+- Event system DX improvements [#3226](https://github.com/NamelessMC/Nameless/pull/3226)
+- Replace Util::getSetting/Util::setSetting usages [#3387](https://github.com/NamelessMC/Nameless/pull/3387)
+- Move core language files into modules/Core [#3469](https://github.com/NamelessMC/Nameless/pull/3469)
+- Use Symfony Response HTTP status code constants [#3472](https://github.com/NamelessMC/Nameless/pull/3472)
+- Enable StyleCI [#3475](https://github.com/NamelessMC/Nameless/pull/3475)
+- Merging of OAuth and connections [#3460](https://github.com/NamelessMC/Nameless/pull/3460)
+- Strip HTML tags from page description [#3490](https://github.com/NamelessMC/Nameless/pull/3490)
+- Trim forum banned terms to ensure cross system compatiblity [#3491](https://github.com/NamelessMC/Nameless/pull/3491)
+- Allow Store module to bypass maintenance [#3517](https://github.com/NamelessMC/Nameless/pull/3517)
+- Don't hardcode OAuth scopes [#3536](https://github.com/NamelessMC/Nameless/pull/3536)
+- Add PHP 8.4 to pipelines [#3558](https://github.com/NamelessMC/Nameless/pull/3558)
+- Sync dark mode between panel and frontend [#3561](https://github.com/NamelessMC/Nameless/pull/3561)
+- Cache 2FA code for 1 minute whilst setting it up [#3570](https://github.com/NamelessMC/Nameless/pull/3570)
+- Disallow overriding forum iFrame width/height
+- Add IP check to forum topic view count logic
+- Improve validation against forum search queries
+- Updated translations
+
+### Fixed
+- Fix flag spammer not always updating last post correctly [#3471](https://github.com/NamelessMC/Nameless/pull/3471)
+- Fix OAuth integration linking errors [#3442](https://github.com/NamelessMC/Nameless/pull/3442)
+- Prevent directory traversal using language parameter [#3470](https://github.com/NamelessMC/Nameless/pull/3470)
+- Fix misleading error in server status widget if server is offline [#3499](https://github.com/NamelessMC/Nameless/pull/3499)
+- Fix server status error if MOTD format contains string instead of array [#3502](https://github.com/NamelessMC/Nameless/pull/3502)
+- Fix null being passed into array map within Discord webhook builder [#3497](https://github.com/NamelessMC/Nameless/pull/3497)
+- Fix internal links not respecting target set by editor [#3513](https://github.com/NamelessMC/Nameless/pull/3513)
+- Fix custom page url incorrectly encoded in sitemap [#3512](https://github.com/NamelessMC/Nameless/pull/3512)
+- Fix Discord webhook entity decoding [#3509](https://github.com/NamelessMC/Nameless/pull/3509)
+- Fix issue with validation rule "not start with" [#3522](https://github.com/NamelessMC/Nameless/pull/3522)
+- Check if Members module is enabled before registering list providers [#3515](https://github.com/NamelessMC/Nameless/pull/3515)
+- Fix missing report created term for alerts [#3527](https://github.com/NamelessMC/Nameless/pull/3527)
+- Update phpdoc to fix CI builds [#3537](https://github.com/NamelessMC/Nameless/pull/3537)
+- Dynamic permission fix message [#3534](https://github.com/NamelessMC/Nameless/pull/3534)
+- Fix being unable to centre images via editor [#3560](https://github.com/NamelessMC/Nameless/pull/3560)
+- Fix misleading error logging in if the user is banned [#3562](https://github.com/NamelessMC/Nameless/pull/3562)
+- Fix users being able to bypass email verification [#3569](https://github.com/NamelessMC/Nameless/pull/3569)
+- Fix mentions incorrectly parsed if preceded by forward slash [#3563](https://github.com/NamelessMC/Nameless/pull/3563)
+- Fix cookie_url causes fatal error [#3581](https://github.com/NamelessMC/Nameless/pull/3581)
+- Prevent bypass of forum reply submission time limit
+- Fix foreign key on topic_last_user column such that the topic is not deleted when a replier's account is deleted
 
 ## [2.1.3](https://github.com/NamelessMC/Nameless/compare/v2.1.2...v2.1.3) - 2025-01-08
 ### Added
