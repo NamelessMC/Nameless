@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Fake Smarty class to help with migration to 2.2.0 template system
  * It aims to wrap around TemplateBase to ensure $smarty->assign still works until 2.3.0, when this will be removed.

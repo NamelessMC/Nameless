@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides a baseline for custom group sync injectors.
  *

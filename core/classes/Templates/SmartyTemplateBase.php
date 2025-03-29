@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class which templates should extend to add functionality.
  * Uses Smarty template engine.

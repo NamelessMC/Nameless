@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class templates should extend to add functionality.
  *
@@ -101,7 +102,7 @@ abstract class TemplateBase
      *
      * @param string|null $style Styling to add.
      */
-    public function addCSSStyle(string $style = null): void
+    public function addCSSStyle(?string $style = null): void
     {
         if ($style) {
             $this->_css[] = '<style>' . $style . '</style>';
@@ -134,7 +135,7 @@ abstract class TemplateBase
      *
      * @param string|null $script
      */
-    public function addJSScript(string $script = null): void
+    public function addJSScript(?string $script = null): void
     {
         if ($script) {
             $this->_js[] = '<script type="text/javascript">' . $script . '</script>';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to help manage global state of various debugging variables.
  * TODO: Make `Debugging::enabled()` instead of needing to do `defined('DEBUGGING') && DEBUGGING`.

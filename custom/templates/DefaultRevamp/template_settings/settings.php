@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Default Revamp template settings.
  *

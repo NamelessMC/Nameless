@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class integrations need to extend.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
  *

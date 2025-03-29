@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a context in which reactions can be given and received.
  *

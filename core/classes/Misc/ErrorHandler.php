@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles rendering the exception page as well as logging errors.
  *

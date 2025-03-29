@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Abstract task class for queue task implementations.
  *

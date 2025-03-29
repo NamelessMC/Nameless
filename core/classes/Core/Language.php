@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides utilities for retrieving/handling language strings.
  *
@@ -205,7 +206,7 @@ class Language
      * @param  string|null      $active_language The translation to use.
      * @throws RuntimeException If the language file cannot be found.
      */
-    public function __construct(string $module = 'core', string $active_language = null)
+    public function __construct(string $module = 'core', ?string $active_language = null)
     {
         $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles caching for NamelessMC.
  *

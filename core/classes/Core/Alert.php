@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides access to create & get alerts for a user, as well as their PMs.
  *
@@ -21,7 +22,7 @@ class Alert
      * @param ?string $link       Contains link to view the alert, defaults to #.
      * @param ?string $content    Optional alert content.
      */
-    public static function create(int $user_id, string $type, array $text_short, array $text, ?string $link = '#', string $content = null): void
+    public static function create(int $user_id, string $type, array $text_short, array $text, ?string $link = '#', ?string $content = null): void
     {
         $db = DB::getInstance();
 

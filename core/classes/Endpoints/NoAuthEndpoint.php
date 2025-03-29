@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Allows an endpoint to not require any authorisation.
  *

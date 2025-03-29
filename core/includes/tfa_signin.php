@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Two-factor auth sign-in page.
  *

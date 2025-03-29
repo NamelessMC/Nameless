@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides static methods for cleansing user input before storing in the database.
  *

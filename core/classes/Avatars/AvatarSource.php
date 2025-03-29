@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *

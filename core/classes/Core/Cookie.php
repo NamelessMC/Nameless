@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Easy read/write of cookies.
  *

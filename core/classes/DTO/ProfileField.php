@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a custom profile field.
  *

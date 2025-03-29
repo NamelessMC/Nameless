@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Queries Minecraft servers using the NamelessMC plugin.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Repesents a single navigation menu.
  *
@@ -45,7 +46,7 @@ class Navigation
         string $title,
         string $link,
         string $location = 'top',
-        string $target = null,
+        ?string $target = null,
         float $order = 10,
         ?string $icon = ''
     ): void {
@@ -140,7 +141,7 @@ class Navigation
      * @param string      $icon     Icon to prepend to nav item
      * @param int         $order    Nav item order
      */
-    public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', string $target = null, string $icon = '', int $order = 10): void
+    public function addItemToDropdown(string $dropdown, string $name, string $title, string $link, string $location = 'top', ?string $target = null, string $icon = '', int $order = 10): void
     {
         // Add the item
         if ($location == 'top' && isset($this->_topNavbar[$dropdown])) {

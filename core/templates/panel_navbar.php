@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Staff panel navbar generation.
  *

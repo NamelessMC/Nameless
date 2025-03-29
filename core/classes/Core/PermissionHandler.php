@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Allows modules to define permissions.
  *

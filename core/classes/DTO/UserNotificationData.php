@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents notification data which belongs to a user.
  *

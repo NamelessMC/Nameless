@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents data which belongs to a user.
  *

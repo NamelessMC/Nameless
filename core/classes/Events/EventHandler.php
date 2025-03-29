@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles registering and triggering events.
  *

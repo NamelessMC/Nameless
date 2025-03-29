@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents an event which has specific parameters to send to a webhook.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a integration user.
  *
@@ -14,7 +15,7 @@ class IntegrationUser
     private User $_user;
     private IntegrationBase $_integration;
 
-    public function __construct(IntegrationBase $integration, string $value = null, string $field = 'id', $query_data = null)
+    public function __construct(IntegrationBase $integration, ?string $value = null, string $field = 'id', $query_data = null)
     {
         $this->_db = DB::getInstance();
         $this->_integration = $integration;
@@ -118,7 +119,7 @@ class IntegrationUser
      * @param bool        $verified   Verified the ownership of the integration account
      * @param string|null $code       (optional) The verification code to verify the ownership
      */
-    public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, string $code = null): void
+    public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, ?string $code = null): void
     {
         $this->_db->query(
             'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)',

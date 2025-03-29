@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Builds a Discord webhook to represent an event as a Discord embed.
  *

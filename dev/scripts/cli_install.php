@@ -1,11 +1,12 @@
 <?php
+
 /*
  * there is NO SUPPORT offered for this script.
  * this script is provided AS IS and without any warranty.
  * this script was made with the primary goal of making the install process automatic for hosting providers + our API test suite.
  */
 
-function getEnvVar(string $name, string $fallback = null, array $valid_values = null)
+function getEnvVar(string $name, ?string $fallback = null, ?array $valid_values = null)
 {
     $value = getenv($name);
     $required = $fallback === null;

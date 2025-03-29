@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Used for abstracting common tasks done during upgrades.
  *

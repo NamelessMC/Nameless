@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides static methods to get and set configuration values from the `core/config.php` file.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles parsing username mentions in forum posts.
  *
@@ -21,7 +22,7 @@ class MentionsParser
      *
      * @return string Parsed post content.
      */
-    public static function parse(int $author_id, string $value, string $link = null, array $alert_short = null, array $alert_full = null): string
+    public static function parse(int $author_id, string $value, ?string $link = null, ?array $alert_short = null, ?array $alert_full = null): string
     {
         if (preg_match_all('/(?<!\/)@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
             $matches = $matches[1];

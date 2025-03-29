@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Navbar initialisation.
  *

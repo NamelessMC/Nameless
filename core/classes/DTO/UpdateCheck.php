@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple object to make checking result of an update check more consistent.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Manages registering and retrieving PAPI placeholders.
  *

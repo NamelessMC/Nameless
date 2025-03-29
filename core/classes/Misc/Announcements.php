@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Announcement management class for creating and getting announcements.
  *

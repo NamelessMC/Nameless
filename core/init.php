@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -118,7 +119,7 @@ if ($page != 'install') {
     }
 
     // Ensure database is up-to-date
-    PhinxAdapter::ensureUpToDate('Core');
+//    PhinxAdapter::ensureUpToDate('Core');
 
     // Error reporting
     if (!defined('DEBUGGING')) {

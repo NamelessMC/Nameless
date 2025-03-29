@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Management of input fields.
  *

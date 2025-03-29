@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Validates and generates CSRF tokens.
  *
@@ -46,7 +47,7 @@ class Token
      * @throws Exception
      * @return bool      Whether token matches.
      */
-    public static function check(string $token = null): bool
+    public static function check(?string $token = null): bool
     {
         if ($token === null) {
             $token = Input::get('token');

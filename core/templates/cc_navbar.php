@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User settings area navbar generation.
  *

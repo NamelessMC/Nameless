@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Helps build URLs which match the site's URL configuration.
  *

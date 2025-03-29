@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class Captcha providers should extend.
  *

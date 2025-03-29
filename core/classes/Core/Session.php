@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides access to get/set/delete session data.
  *

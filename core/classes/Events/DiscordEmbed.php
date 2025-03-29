@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Builds a Discord embed to represent an event.
  *

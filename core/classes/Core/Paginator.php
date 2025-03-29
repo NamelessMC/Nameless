@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Helps paginate data to an HTML table easily.
  *

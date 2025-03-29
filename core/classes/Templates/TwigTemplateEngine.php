@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Twig template engine.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base for hook implementations.
  *

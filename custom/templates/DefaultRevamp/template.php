@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  Made by Samerton | Revamped by Xemah
  *    https://github.com/NamelessMC/Nameless/

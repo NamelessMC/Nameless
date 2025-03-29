@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class endpoints need to extend.
  *

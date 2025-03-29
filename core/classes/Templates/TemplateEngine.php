@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base template engine class to be extended.
  *

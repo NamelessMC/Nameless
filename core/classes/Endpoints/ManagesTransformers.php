@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Contains methods to register + apply API route binding transformers.
  *

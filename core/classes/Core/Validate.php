@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Validates an array of data.
  * Often used for POST requests.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents an event which is able to be sent as a Discord embed.
  *

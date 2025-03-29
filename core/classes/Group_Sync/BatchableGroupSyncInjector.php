@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a GroupSyncInjector which can add multiple groups to a {@see User} at once.
  *

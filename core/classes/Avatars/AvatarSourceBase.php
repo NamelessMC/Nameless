@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Abstract class for modules create custom avatar sources.
  *

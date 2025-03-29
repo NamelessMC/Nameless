@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides static access to manage and get Collections.
  *

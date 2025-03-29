@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Queue management class.
  *

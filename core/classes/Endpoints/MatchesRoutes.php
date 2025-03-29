@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Contains methods for matching API requests with endpoint routes.
  *

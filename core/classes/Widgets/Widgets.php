@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Widget management class.
  *
@@ -111,7 +112,7 @@ class Widgets
      *
      * @return array List of HTML to be displayed.
      */
-    public function getWidgets(string $location, User $profile_user = null): array
+    public function getWidgets(string $location, ?User $profile_user = null): array
     {
         $ret = [];
 

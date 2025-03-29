@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides methods to generate a MinecraftProfile from a username or UUID.
  *

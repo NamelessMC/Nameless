@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Contains data about all the registered pages in the application.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Module base class as well as management class.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Allows easy read/write to configuration values for a module stored in the database.
  *

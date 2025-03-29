@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Records PDO queries to display on exception page.
  *

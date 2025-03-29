@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a user, logged in or not.
  *
@@ -67,7 +68,7 @@ class User
      */
     private bool $_isAdmLoggedIn = false;
 
-    public function __construct(string $user = null, string $field = 'id')
+    public function __construct(?string $user = null, string $field = 'id')
     {
         $this->_db = DB::getInstance();
         $this->_sessionName = Config::get('session.session_name');
@@ -966,7 +967,7 @@ class User
      * @param  string|null $permission Permission required for this page.
      * @return bool
      */
-    public function handlePanelPageLoad(string $permission = null): bool
+    public function handlePanelPageLoad(?string $permission = null): bool
     {
         // Set page user is trying to access in session, to allow for redirection post-auth
         if (FRIENDLY_URLS === true) {

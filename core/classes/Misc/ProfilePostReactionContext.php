@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provides support for giving and receiving reactions on profile posts.
  *

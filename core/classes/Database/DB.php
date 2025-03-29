@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Creates a singleton connection to the database with credentials from the config file.
  *
@@ -263,7 +264,7 @@ class DB
      * @param  bool   $isSelect Whether the statement is a select, defaults to null
      * @return static This DB instance.
      */
-    public function query(string $sql, array $params = [], bool $isSelect = null)
+    public function query(string $sql, array $params = [], ?bool $isSelect = null)
     {
         $this->_error = false;
         if ($this->_statement = $this->_pdo->prepare($sql)) {

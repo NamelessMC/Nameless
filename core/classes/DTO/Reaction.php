@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a reaction.
  *
