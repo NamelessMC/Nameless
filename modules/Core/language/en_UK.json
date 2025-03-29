@@ -292,6 +292,7 @@
     "admin/header": "Header",
     "admin/header_required": "Header is required.",
     "admin/home_custom_content": "Home Custom Content",
+    "admin/homepage_news": "News",
     "admin/default_homepage": "Default Homepage",
     "admin/hook_created": "Hook created successfully.",
     "admin/hook_deleted": "Hook deleted successfully.",
