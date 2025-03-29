@@ -278,7 +278,7 @@ class HttpUtils
             return 'Unknown';
         }
 
-        $country = $record->country->name;
+        $country = $record->country->name ?? 'Unknown';
 
         $cache->store($ip, $country, 3600);
 
