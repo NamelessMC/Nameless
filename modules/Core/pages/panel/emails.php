@@ -194,7 +194,7 @@ if (isset($_GET['action'])) {
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $template->getEngine()->addVariables([
-            'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
+            'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
             'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
         ]);
     }

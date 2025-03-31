@@ -164,9 +164,9 @@ class Forum_Module extends Module {
                         )->first()->count,
                 ];
             });
-
-            ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
         }
+
+        ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
     }
 
     public function onInstall() {
