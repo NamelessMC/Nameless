@@ -28,4 +28,14 @@ class FakeSmarty
             $this->_engine->addVariables($key);
         }
     }
+
+    public function render(string $templateFile): void
+    {
+        $this->_engine->render($templateFile);
+    }
+
+    public function fetch(string $templateFile): string
+    {
+        return $this->_engine->fetch($templateFile);
+    }
 }

@@ -10,8 +10,10 @@ class WidgetData
     {
         $this->location = $data->location;
         $this->order = $data->order;
-        $this->pages = is_array($data->pages)
-            ? $data->pages
-            : json_decode($data->pages);
+        $this->pages = $data->pages === null
+            ? []
+            : (is_array($data->pages)
+                ? $data->pages
+                : json_decode($data->pages));
     }
 }

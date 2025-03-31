@@ -10,10 +10,10 @@ abstract class AbstractWidget
     protected bool $_requires_cookies = false;
     /**
      * Will be removed in 2.3.0.
-     * @var ?Smarty
+     * @var Smarty|FakeSmarty|null
      * @deprecated
      */
-    protected ?Smarty $_smarty;
+    protected $_smarty;
     protected ?TemplateEngine $_engine;
     protected WidgetData $_data;
 

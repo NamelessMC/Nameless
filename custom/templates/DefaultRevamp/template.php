@@ -87,7 +87,7 @@ class DefaultRevamp_Template extends SmartyTemplateBase
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=211' => [],
+            $this->_template['path'] . 'css/custom.css?v=220' => [],
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
