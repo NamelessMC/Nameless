@@ -1384,5 +1384,6 @@
     "admin/drag_and_drop": "V tomto seznamu můžete přesouvat položky jejich přetažením.",
     "general/last_updated": "Naposledy aktualizováno: {{lastUpdated}}",
     "admin/edit_user_tfa_disabled": "Dvoufázové ověřování bylo u tohoto uživatele úspěšně zakázáno.",
-    "admin/disable_tfa": "Zakázat 2FA"
+    "admin/disable_tfa": "Zakázat 2FA",
+    "admin/homepage_news": "Novinky"
 }
