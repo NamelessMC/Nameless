@@ -1384,5 +1384,6 @@
     "errors/no_permission": "Dafür hast du keine Berechtigung.",
     "admin/drag_and_drop": "Du kannst die Elemente mit drag and drop in die Liste ziehen.",
     "admin/edit_user_tfa_disabled": "Die Zwei-Faktor-Authentifizierung wurde für diesen Benutzer erfolgreich deaktiviert.",
-    "admin/disable_tfa": "2FA deaktivieren"
+    "admin/disable_tfa": "2FA deaktivieren",
+    "admin/homepage_news": "News"
 }

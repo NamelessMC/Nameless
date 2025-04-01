@@ -187,5 +187,12 @@
     "forum/forum_score": "Forum Punkte",
     "forum/banned_terms": "Verbotene Begriffe",
     "forum/banned_terms_info": "Ein Begriff pro Zeile, Groß- und Kleinschreibung wird nicht berücksichtigt",
-    "forum/content_contains_banned_term": "Der Inhalt deines Beitrags enthält einen verbotenen Begriff"
+    "forum/content_contains_banned_term": "Der Inhalt deines Beitrags enthält einen verbotenen Begriff",
+    "forum/news_items_numeric": "Anzahl der Nachrichten muss numerisch sein",
+    "forum/spam_timer_info": "Die Anzahl der Sekunden, die ein Benutzer nach dem Erstellen eines neuen Beitrags oder Themas warten muss, bevor er einen weiteren Beitrag erstellen kann",
+    "forum/news_items_required": "Anzahl der Nachrichten muss angegeben werden",
+    "forum/spam_timer": "Spam Timer",
+    "forum/spam_timer_min": "Der Spam-Timer muss mindestens {{min}} sein",
+    "forum/spam_timer_numeric": "Spam-Timer muss numerisch sein",
+    "forum/spam_timer_required": "Spam-Timer muss vorhanden sein"
 }
