@@ -77,6 +77,7 @@ if (!isset($_GET['view'])) {
             'ALERTS_LIST' => $alerts,
             'DELETE_ALL' => $language->get('user', 'delete_all'),
             'DELETE_ALL_LINK' => URL::build('/user/alerts/', 'action=purge'),
+            'TOKEN' => Token::get(),
             'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
         ]);
 
@@ -154,6 +155,7 @@ if (!isset($_GET['view'])) {
         'ALERTS' => $language->get('user', 'alerts'),
         'DELETE' => $language->get('general', 'delete'),
         'DELETE_LINK' => URL::build('/user/alerts/', 'view=' . $alert->id . '&delete'),
+        'TOKEN' => Token::get(),
         'ALERT_TITLE' => Output::getClean($alert->content),
         'ALERT_CONTENT' => $alert->bypass_purify ? $alert->content_rich : Output::getPurified($alert->content_rich),
         'ALERT_DATE' => date(DATE_FORMAT, $alert->created),
