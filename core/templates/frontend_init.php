@@ -41,7 +41,7 @@ if (
 }
 
 // Check if any integrations is required before user can continue
-if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections' && PAGE != 'oauth') {
+if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections' && PAGE != 'oauth' && !(PAGE == 'cc_settings' && $_GET['do'] == 'enable_tfa')) {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
         if ($integration->data()->required && $integration->allowLinking()) {
             $integrationUser = $user->getIntegration($integration->getName());
