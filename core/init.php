@@ -495,7 +495,6 @@ if ($page != 'install') {
 
     if ($cache->isCached('pre_validation_default')) {
         $group_id = $cache->retrieve('pre_validation_default');
-
     } else {
         $group_id = DB::getInstance()->get('groups', ['default_group', '1'])->results();
         $group_id = $group_id[0]->id;
