@@ -529,7 +529,7 @@ class DB
         $where_clauses = [];
         foreach ($clauses as $clause) {
             if (!is_array($clause)) {
-                continue;
+                throw new InvalidArgumentException('Where clause must be an array');
             }
 
             if (count($clause) !== count($clause, COUNT_RECURSIVE)) {
