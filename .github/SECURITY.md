@@ -9,7 +9,7 @@ The following NamelessMC releases are supported by the development team
 | Version   | Supported          |
 |-----------|--------------------|
 | 2.2.0     | :white_check_mark: |
-| <= 2.1.3  | :x:                |
+| <= 2.1.4  | :x:                |
 | <= 1.0.22 | :x:                |
 
 ## Reporting a Vulnerability

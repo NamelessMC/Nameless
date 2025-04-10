@@ -3,7 +3,7 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
 
-## [2.2.0](https://github.com/NamelessMC/Nameless/compare/v2.1.3...v2.2.0) - 2025-tbd
+## [2.2.0](https://github.com/NamelessMC/Nameless/compare/v2.1.4...v2.2.0) - 2025-04-18
 ### Added
 - Support custom migration tables [#3380](https://github.com/NamelessMC/Nameless/pull/3380)
 - Reactions revamp and profile widgets [#3272](https://github.com/NamelessMC/Nameless/pull/3272)
@@ -76,6 +76,16 @@
 - Fix cookie_url causes fatal error [#3581](https://github.com/NamelessMC/Nameless/pull/3581)
 - Prevent bypass of forum reply submission time limit
 - Fix foreign key on topic_last_user column such that the topic is not deleted when a replier's account is deleted
+
+## [2.1.4](https://github.com/NamelessMC/Nameless/compare/v2.1.3...v2.1.4) - 2025-04-10
+### Added
+- No additions this release
+
+### Changed
+- No changes this release
+
+### Fixed
+- Throw invalid argument exception if clause is not an array when constructing where clauses
 
 ## [2.1.3](https://github.com/NamelessMC/Nameless/compare/v2.1.2...v2.1.3) - 2025-01-08
 ### Added
