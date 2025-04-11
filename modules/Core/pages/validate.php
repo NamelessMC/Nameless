@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.3.0
  *
  *  License: MIT
  *
@@ -29,15 +29,41 @@ if (isset($_GET['c'])) {
             $user,
         ));
 
+        if (Session::exists('validate_email')) {
+            Session::delete('validate_email');
+        }
+
         GroupSyncManager::getInstance()->broadcastChange(
             $user,
             NamelessMCGroupSyncInjector::class,
             [$user->getMainGroup()->id]
         );
 
-        Session::flash('home', $language->get('user', 'validation_complete'));
+        Session::flash('login_success', $language->get('user', 'validation_complete'));
+        Redirect::to(URL::build('/login'));
     } else {
         Session::flash('home_error', $language->get('user', 'validation_error'));
     }
+
+    Redirect::to(URL::build('/'));
+} else if (Session::exists('validate_email')) {
+    $template->getEngine()->addVariables([
+        'VALIDATE_EMAIL' => $language->get('user', 'validate_email'),
+        'VALIDATE_EMAIL_INFO' => $language->get('user', 'validate_email_info', [
+            'email' => Output::getClean(Session::get('validate_email'))
+        ]),
+    ]);
+} else {
+    Redirect::to(URL::build('/'));
 }
-Redirect::to(URL::build('/'));
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('validate');

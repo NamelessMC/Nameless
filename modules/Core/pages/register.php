@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var FakeSmarty $smarty
@@ -310,7 +310,8 @@ if (Input::exists()) {
                         // Send registration email
                         sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
-                        Session::flash('home', $language->get('user', 'registration_check_email'));
+                        Session::put('validate_email', Output::getClean(Input::get('email')));
+                        Redirect::to(URL::build('/validate'));
                     } else {
                         // Redirect straight to verification link
                         Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
