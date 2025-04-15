@@ -1102,7 +1102,7 @@
     "installer/session_doesnt_exist": "Nepodařilo se detekovat relaci (session). Ukládání relací je požadavek pro používání softwaru Nameless. Zkuste to prosím znovu po vymazání cookies ve vašem webovém prohlížeči. Pokud chyba i nadále přetrvává, kontaktujte váš webový hosting pro podporu.",
     "user/integration_identifier_already_linked": "Identifikátor {{integration}} je již propojen s jiným uživatelem.",
     "user/no_user_found_with_provider": "S tímto účtem {{provider}} nebyl nalezen žádný uživatel.",
-    "user/oauth_already_linked": "S tímto účtem {{provider}} je již propojen jiný uživatel NamelessMC.",
+    "user/oauth_already_linked": "S tímto účtem {{provider}} je již propojen jiný uživatel.",
     "user/user_has_unlinked_integration": "Uživatel {{user}} zrušil propojení svého účtu s účtem {{integration}}.",
     "user/integration_required_to_continue": "Před použitím tohoto webu se prosím připojte a ověřte vyžadovaná připojením.",
     "user/integration_unlinked": "Úspěšně jste zrušili propojení vašeho účtu {{integration}}.",
