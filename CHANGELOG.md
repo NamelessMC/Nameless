@@ -49,6 +49,8 @@
 - Add PHP 8.4 to pipelines [#3558](https://github.com/NamelessMC/Nameless/pull/3558)
 - Sync dark mode between panel and frontend [#3561](https://github.com/NamelessMC/Nameless/pull/3561)
 - Cache 2FA code for 1 minute whilst setting it up [#3570](https://github.com/NamelessMC/Nameless/pull/3570)
+- Dark mode updates [#3598](https://github.com/NamelessMC/Nameless/pull/3598)
+- Remove "NamelessMC" from OAuth error message [#3602](https://github.com/NamelessMC/Nameless/pull/3602)
 - Disallow overriding forum iFrame width/height
 - Add IP check to forum topic view count logic
 - Improve validation against forum search queries
@@ -76,6 +78,11 @@
 - Fix cookie_url causes fatal error [#3581](https://github.com/NamelessMC/Nameless/pull/3581)
 - Prevent bypass of forum reply submission time limit
 - Fix foreign key on topic_last_user column such that the topic is not deleted when a replier's account is deleted
+- General template system/reactions context fixes [#3595](https://github.com/NamelessMC/Nameless/pull/3595)
+- Fix invalid token clearing alerts [#3596](https://github.com/NamelessMC/Nameless/pull/3596)
+- Fix endless loop when integrations/2FA is forced [#3597](https://github.com/NamelessMC/Nameless/pull/3597)
+- Fix group sync rules following validation updates [#3599](https://github.com/NamelessMC/Nameless/pull/3599)
+- Move PRE_VALIDATED_DEFAULT constant so that it is available on the backend [#3600](https://github.com/NamelessMC/Nameless/pull/3600)
 
 ## [2.1.4](https://github.com/NamelessMC/Nameless/compare/v2.1.3...v2.1.4) - 2025-04-10
 ### Added
