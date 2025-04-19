@@ -14,6 +14,6 @@ class WidgetData
             ? []
             : (is_array($data->pages)
                 ? $data->pages
-                : json_decode($data->pages));
+                : json_decode($data->pages, true));
     }
 }
