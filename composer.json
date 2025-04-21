@@ -5,11 +5,11 @@
     "license": "MIT",
     "config": {
         "platform": {
-            "php": "7.4"
+            "php": "8.2"
         }
     },
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.2",
         "jdorn/sql-formatter": "^1.2.17",
         "smarty/smarty": "^4.3",
         "ezyang/htmlpurifier": "^4.16",
