@@ -128,7 +128,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
 
     if (PHP_VERSION_ID < 80200) {
         $compat_warnings[] = 'PHP ' . PHP_VERSION;
-        $compat_warnings_help[] = $language->get('admin', 'compat_php_version_info', ['php' => '8.0+']);
+        $compat_warnings_help[] = $language->get('admin', 'compat_php_version_info', ['php' => '8.2+']);
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
     }
