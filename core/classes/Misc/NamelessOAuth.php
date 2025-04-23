@@ -117,7 +117,7 @@ class NamelessOAuth extends Instanceable
         }
 
         [$clientId, $clientSecret] = $this->getCredentials($provider);
-        $url = rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . urlencode($provider), 'non-friendly');
+        $url = strtolower(rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . urlencode($provider), 'non-friendly'));
         $options = [
             'clientId' => $clientId,
             'clientSecret' => $clientSecret,
