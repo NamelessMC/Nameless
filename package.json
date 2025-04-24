@@ -14,7 +14,7 @@
     "datatables.net": "^1.11.5",
     "datatables.net-bs4": "^1.11.5",
     "dropzone": "5.9.3",
-    "fomantic-ui": "^2.9.1",
+    "fomantic-ui": "^2.9.4",
     "fs-extra": "^11.0.0",
     "image-picker": "^0.3.1",
     "jquery": "^3.6.0",
