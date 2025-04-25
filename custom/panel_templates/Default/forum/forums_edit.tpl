@@ -78,9 +78,24 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="InputIcon">{$FORUM_ICON}</label>
-                                    <input type="text" name="icon" class="form-control" id="InputIcon"
-                                        placeholder='<i class="fas fa-comment icon">' value="{$FORUM_ICON_VALUE}">
+                                    <label for="InputIcon">
+                                        {$FORUM_ICON}
+                                        <span class="badge badge-info" data-toggle="popover" data-title="{$INFO}" data-content="{$ICON_INFO}">
+                                            <i class="fa fa-question"></i>
+                                        </span>
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                  id="nav-icon-picker"
+                                                  style="cursor: pointer;"
+                                            >
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="icon" class="form-control" id="InputIcon"
+                                               placeholder="fa-solid fa-comment" value="{$FORUM_ICON_VALUE}">
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -387,6 +402,17 @@
 
             $("#InputHooks").select2({ placeholder: "{$NO_ITEM_SELECTED}" });
             $("#InputDefaultLabels").select2({ placeholder: "{$NO_ITEM_SELECTED}" });
+
+            new UniversalIconPicker('#nav-icon-picker', {
+                allowEmpty: false,
+                iconLibraries: [
+                    'fomantic-ui.min.json',
+                    'font-awesome.min.json',
+                ],
+                onSelect: (icon) => {
+                    document.getElementById('InputIcon').value = icon.iconClass;
+                }
+            });
         });
     </script>
 

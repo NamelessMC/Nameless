@@ -44,6 +44,7 @@ const publicAssets = {
     'dist/semantic.min.css',
     'dist/semantic.min.js',
     'dist/themes/default',
+    'dist/components/icon.min.css',
   ],
   'image-picker': [
     'image-picker/image-picker.css',
@@ -77,6 +78,9 @@ const publicAssets = {
     'bundles/skinview3d.bundle.js',
     'bundles/skinview3d.bundle.js.map',
     'assets/minecraft.woff2',
+  ],
+  '@migliori/universal-icon-picker': [
+      'assets',
   ],
 };
 

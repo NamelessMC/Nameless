@@ -30,6 +30,10 @@ const PANEL_PAGE = 'announcements';
 $page_title = $language->get('admin', 'announcements');
 require_once ROOT_PATH . '/core/templates/backend_init.php';
 
+$template->assets()->include(
+    AssetTree::ICON_PICKER,
+);
+
 if (!isset($_GET['action'])) {
     // View all announcements
 
