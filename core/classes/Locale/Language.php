@@ -246,11 +246,7 @@ class Language
      */
     public function get(string $section, string $term, array $variables = []): string
     {
-        if ($term) {
-            $section .= '/' . $term;
-        }
-
-        return $this->_i18n->getTranslation($section, $variables);
+        return $this->_i18n->getTranslation($section . '/' . $term, $variables);
     }
 
     /**
