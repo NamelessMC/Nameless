@@ -25,7 +25,6 @@ class UserData
     public ?string $reset_code;
     public bool $has_avatar;
     public bool $gravatar;
-    public bool $topic_updates;
     public bool $private_profile;
     public ?int $last_online;
     public ?string $user_title;
@@ -59,7 +58,6 @@ class UserData
         $this->reset_code = $row->reset_code;
         $this->has_avatar = $row->has_avatar;
         $this->gravatar = $row->gravatar;
-        $this->topic_updates = $row->topic_updates;
         $this->private_profile = $row->private_profile;
         $this->last_online = $row->last_online;
         $this->user_title = $row->user_title;

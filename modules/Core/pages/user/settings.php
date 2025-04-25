@@ -304,13 +304,6 @@ if (isset($_GET['do'])) {
                             $data['authme_sync_password'] = Input::get('authmeSync');
                         }
 
-                        // Is forum enabled? Update topic Updates
-                        if ($forum_enabled) {
-                            $topicUpdates = Input::get('topicUpdates');
-
-                            $data['topic_updates'] = $topicUpdates;
-                        }
-
                         $user->update($data);
 
                         Log::getInstance()->log(Log::Action('user/ucp/update'));
@@ -582,13 +575,6 @@ if (isset($_GET['do'])) {
         $template->getEngine()->addVariables([
             'SIGNATURE' => $language->get('user', 'signature'),
             'SIGNATURE_VALUE' => $signature
-        ]);
-    }
-
-    if ($forum_enabled) {
-        $template->getEngine()->addVariables([
-            'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
-            'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', $user->data()->id])->first()->topic_updates
         ]);
     }
 

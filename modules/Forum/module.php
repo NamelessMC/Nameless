@@ -167,6 +167,13 @@ class Forum_Module extends Module {
         }
 
         ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
+
+        Notification::addType(
+            'forum_topic_reply',
+            $forum_language->get('forum', 'forum_topic_replies'),
+            Module::getIdFromName('Forum'),
+            ['alert' => false, 'email' => true],
+        );
     }
 
     public function onInstall() {
