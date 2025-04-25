@@ -1139,6 +1139,8 @@
     "moderator/x_closed_report": "{{user}} closed this report.",
     "moderator/x_reopened_report": "{{user}} reopened this report.",
     "notification/mass_message": "Mass Message",
+    "notification/mass_messages": "Mass Messages",
+    "notification/reports": "Reports",
     "table/display_records_per_page": "Display _MENU_ records per page",
     "table/filtered": "(filtered from _MAX_ total records)",
     "table/no_records": "No records available",
