@@ -111,43 +111,15 @@ class EventHandler
     /**
      * Execute an event.
      *
-     * @param  AbstractEvent|string $event  Event name to call, or instance of event to execute.
+     * @param  AbstractEvent $event  Event name to call, or instance of event to execute.
      * @param  array                $params Params to pass to the event's function, not required when a class-based event is used.
      * @return array|null           Response of lissteners, can be any type or null
      */
-    public static function executeEvent($event, array $params = []): ?array
+    public static function executeEvent(AbstractEvent $event, array $params = []): AbstractEvent
     {
-        if ($event instanceof AbstractEvent) {
-            $name = $event::name();
-            $params = $event->params();
-            $event_object = $event;
-        } else {
-            $name = $event;
-        }
-
-        if (!isset(self::$_events[$name])) {
-            return null;
-        }
-
-        // If they did not pass an event class name (ie: UserRegisteredEvent::class),
-        // attempt to find the event class name from the event name (ie: 'registeredUser')
-        // and create an event object from the params if it exists.
-        if (!isset($event_object)) {
-            $class_name = self::$_events[$name]['class_name'];
-            if ($class_name !== null) {
-                try {
-                    $event_object = $class_name::fromArray($params);
-                } catch (Error $error) {
-                    if (str_contains($error->getMessage(), 'Unknown named parameter')) {
-                        $parameter = str_replace('Unknown named parameter ', '', $error->getMessage());
-
-                        throw new InvalidArgumentException("Unknown parameter $parameter array passed to event '$name' executor");
-                    }
-
-                    throw $error;
-                }
-            }
-        }
+        $name = $event::name();
+        $params = $event->params();
+        $event_object = $event;
 
         if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
             EventCollector::getInstance()->called($name, $params);
@@ -169,12 +141,8 @@ class EventHandler
 
             foreach ($listeners as $listener) {
                 $callback = $listener['callback'];
-                $pass_object = self::shouldPassEventObject($callback);
-                if ($pass_object && !isset($event_object)) {
-                    throw new RuntimeException("Listener expects class, but '$name' is not a class-based event");
-                }
 
-                $response = $callback($pass_object ? $event_object : $params);
+                $response = $callback($event);
                 if (self::$_events[$name]['return']) {
                     $params = $response;
                 }
@@ -193,19 +161,14 @@ class EventHandler
                 $callback = $webhook['action'];
                 // We are more flexible with webhooks, since a single webhook listener
                 // is likely going to handle a variety of different events (DiscordHook for example).
-                if (isset($event_object)) {
-                    // We don't have a way to add a "webhook" property to an
-                    // arbitrary event object, so we'll just pass the webhook
-                    // URL as a second parameter to the callback.
-                    $callback($event_object, $webhook['url']);
-                } else {
-                    $params['webhook'] = $webhook['url'];
-                    $callback($params);
-                }
+                // We don't have a way to add a "webhook" property to an
+                // arbitrary event object, so we'll just pass the webhook
+                // URL as a second parameter to the callback.
+                $callback($event, $webhook['url']);
             }
         }
 
-        return $params;
+        return $event;
     }
 
     /**
@@ -253,26 +216,5 @@ class EventHandler
         }
 
         return self::$_events[$event];
-    }
-
-    /**
-     * Determine whether a callback should be passed an event object or an array.
-     * Example: `function (UserRegisteredEvent $event) {}` should be passed an event object,
-     * whereas `function (array $params) {}` should be passed an array.
-     *
-     * @param  callable            $callback Callback to check.
-     * @throws ReflectionException If the callback is not a valid callable.
-     * @return bool                Whether the callback should be passed an event object or an array.
-     */
-    private static function shouldPassEventObject(callable $callback): bool
-    {
-        // We need to convert [ClassName::class, 'method'] arrays to closures, and "ClassName::method" strings to closures.
-        if (is_array($callback) || is_string($callback)) {
-            $callback = Closure::fromCallable($callback);
-        }
-        $reflection = new ReflectionFunction($callback);
-        $param_type = $reflection->getParameters()[0]->getType();
-
-        return !(!$param_type || $param_type->getName() === 'array');
     }
 }

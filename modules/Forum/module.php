@@ -61,7 +61,7 @@ class Forum_Module extends Module {
 
         // -- Pipelines
 
-        EventHandler::registerEvent('prePostCreate',
+        /*EventHandler::registerEvent('prePostCreate',
             $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
             [
                 'content' => $this->_language->get('general', 'content'),
@@ -108,18 +108,11 @@ class Forum_Module extends Module {
             ],
             true,
             true
-        );
+        );*/
 
-        EventHandler::registerEvent('renderPost',
-            $this->_forum_language->get('forum', 'render_post'),
-            [
-                'content' => $this->_language->get('general', 'content')
-            ],
-            true,
-            true
-        );
+        EventHandler::registerEvent(RenderPostEvent::class);
 
-        EventHandler::registerEvent('renderPostEdit',
+        /*EventHandler::registerEvent('renderPostEdit',
             $this->_forum_language->get('forum', 'render_post_edit'),
             [
                 'content' => $this->_language->get('general', 'content')
@@ -133,10 +126,10 @@ class Forum_Module extends Module {
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
 
-        EventHandler::registerListener('renderPost', 'ContentHook::purify');
-        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 5);
-        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
+        EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'purify']);
+        EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener(RenderPostEvent::class, [MentionsHook::class, 'parsePost'], 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);

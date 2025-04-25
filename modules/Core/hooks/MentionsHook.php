@@ -37,9 +37,9 @@ class MentionsHook extends HookBase {
         return $params;
     }
 
-    public static function parsePost(array $params = []): array {
-        if (parent::validateParams($params, ['content'])) {
-            $params['content'] = preg_replace_callback(
+    public static function parsePost(AbstractEvent $event): void {
+        if (isset($event->content)) {
+            $event->content = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
                 static function (array $match) {
                     if (isset(MentionsHook::$_cache[$match[1]])) {
@@ -61,11 +61,9 @@ class MentionsHook extends HookBase {
 
                     return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . Output::getClean($userNickname) . '</a>';
                 },
-                $params['content']
+                $event->content
             );
         }
-
-        return $params;
     }
 
     /**
