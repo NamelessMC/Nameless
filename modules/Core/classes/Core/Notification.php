@@ -60,19 +60,21 @@ class Notification {
             $recipients = [$recipients];
         }
 
-        $this->_recipients = array_map(static function ($recipientId) use ($content, $contentCallback, $skipPurify, $title) {
-            if ($title instanceof LanguageKey || $content instanceof LanguageKey) {
-                $languageCode = DB::getInstance()->query(
-                    'SELECT nl2_languages.short_code AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id = ?',
-                    [$recipientId]
-                )->first()?->short_code ?? DEFAULT_LANGUAGE;
+        if ($title instanceof LanguageKey || $content instanceof LanguageKey) {
+            $languageCodes = DB::getInstance()->query(
+                'SELECT nl2_users.id, COALESCE(nl2_languages.short_code, NULL) AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id IN (' . str_repeat('?', count($recipients)) . ')',
+                $recipients
+            )->results();
+            $languageCodes = array_column($languageCodes, 'short_code', 'id');
+        }
 
-                if ($title instanceof LanguageKey) {
-                    $title = $title->translate($languageCode);
-                }
-                if ($content instanceof LanguageKey) {
-                    $content = $content->translate($languageCode);
-                }
+        $this->_recipients = array_map(static function ($recipientId) use ($content, $contentCallback, $skipPurify, $title, $languageCodes) {
+            $recipientLanguageCode = $languageCodes[$recipientId] ?? DEFAULT_LANGUAGE;
+            if ($title instanceof LanguageKey) {
+                $title = $title->translate($recipientLanguageCode);
+            }
+            if ($content instanceof LanguageKey) {
+                $content = $content->translate($recipientLanguageCode);
             }
 
             $newContent = $contentCallback ? $contentCallback($recipientId, $title, $content, $skipPurify) : $content;
