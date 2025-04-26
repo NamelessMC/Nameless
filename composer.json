@@ -37,10 +37,10 @@
     },
     "require-dev": {
         "phpstan/phpstan": "1.6.9",
-        "maximebf/debugbar": "^1.18.1",
         "junker/debugbar-smarty": "^0.2.1",
-        "hannesvdvreken/guzzle-debugbar": "^3.0.1",
-        "fakerphp/faker": "^1.21"
+        "hannesvdvreken/guzzle-debugbar": "^4.0.1",
+        "fakerphp/faker": "^1.21",
+        "php-debugbar/php-debugbar": "^2.1"
     },
     "autoload": {
         "classmap": [
