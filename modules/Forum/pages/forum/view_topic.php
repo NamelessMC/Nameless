@@ -339,7 +339,7 @@ if (Input::exists()) {
                     $tid,
                     $user->data()->id
                 ])->results();
-                $users_following = array_map(fn ($user) => $user->id, $users_following);
+                $users_following = array_map(fn ($row) => $row->user_id, $users_following);
 
                 $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
                 $html = file_get_contents($path);
@@ -359,7 +359,7 @@ if (Input::exists()) {
 
                 $notification = new Notification(
                     'forum_topic_reply',
-                    new LanguageKey('forum', 'new_reply_in_topic', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
+                    new LanguageKey('forum', 'new_reply_in_topic', ['author' => $user->data()->username, 'topic' => $topic->topic_title], ROOT_PATH . '/modules/Forum/language'),
                     $message,
                     $users_following,
                     $user->data()->id,
