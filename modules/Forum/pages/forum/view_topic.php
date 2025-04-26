@@ -335,7 +335,7 @@ if (Input::exists()) {
                 ));
 
                 // Notifications
-                $users_following = DB::getInstance()->query('SELECT DISTINCT(user_id) FROM nl2_topics_following WHERE topic_id = ? AND user_id != ?', [
+                $users_following = DB::getInstance()->query('SELECT DISTINCT(user_id) FROM nl2_topics_following WHERE topic_id = ? AND user_id != ? AND existing_alerts = 0', [
                     $tid,
                     $user->data()->id
                 ])->results();

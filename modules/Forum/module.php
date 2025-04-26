@@ -172,7 +172,7 @@ class Forum_Module extends Module {
             'forum_topic_reply',
             $forum_language->get('forum', 'forum_topic_replies'),
             Module::getIdFromName('Forum'),
-            ['alert' => false, 'email' => true],
+            ['alert' => true, 'email' => true],
         );
     }
 
