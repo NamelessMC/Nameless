@@ -371,7 +371,7 @@ if (Input::exists()) {
 
                 DB::getInstance()->query('UPDATE nl2_topics_following SET existing_alerts = 1 WHERE topic_id = ? AND user_id IN (' . implode(',', array_map(static fn ($_) => '?', $users_following)) . ')', [
                     $tid,
-                    $users_following,
+                    ...$users_following,
                 ]);
 
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
