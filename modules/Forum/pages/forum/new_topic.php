@@ -205,7 +205,7 @@ if (Input::exists()) {
 
                     // new
                     'mention_notification_type' => 'forum_topic_mention',
-                    'mention_notification_type_title' => new LanguageKey('forum', 'user_tag_info', [
+                    'mention_notification_title' => new LanguageKey('forum', 'user_tag_info', [
                         'author' => $user->getDisplayname(),
                     ], ROOT_PATH . '/modules/Forum/language'),
                 ])['content'];

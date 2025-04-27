@@ -301,11 +301,17 @@ if (Input::exists()) {
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('prePostCreate', [
-                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                    'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    //'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                    //'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                     'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                     'content' => $content,
                     'user' => $user,
+
+                    // new:
+                    'mention_notification_type' => 'forum_topic_mention',
+                    'mention_notification_title' => new LanguageKey('forum', 'user_tag_info', [
+                        'author' => $user->getDisplayname(),
+                    ], ROOT_PATH . '/modules/Forum/language'),
                 ])['content'];
 
                 DB::getInstance()->update('posts', $last_post_id, [
@@ -369,10 +375,12 @@ if (Input::exists()) {
                 );
                 $notification->send();
 
-                DB::getInstance()->query('UPDATE nl2_topics_following SET existing_alerts = 1 WHERE topic_id = ? AND user_id IN (' . implode(',', array_map(static fn ($_) => '?', $users_following)) . ')', [
-                    $tid,
-                    ...$users_following,
-                ]);
+                if (count($users_following)) {
+                    DB::getInstance()->query('UPDATE nl2_topics_following SET existing_alerts = 1 WHERE topic_id = ? AND user_id IN (' . implode(',', array_map(static fn ($_) => '?', $users_following)) . ')', [
+                        $tid,
+                        ...$users_following,
+                    ]);
+                }
 
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
                 Redirect::to(URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id));

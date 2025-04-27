@@ -17,10 +17,12 @@ class MentionsHook extends HookBase {
                 $params['user']->data()->id,
                 $params['content'],
                 $params['alert_url'] ?? null,
+                // new:
                 $params['mention_notification_type'] ?? null,
+                $params['mention_notification_title'] ?? null,
                 // old:
-                $params['alert_short'] ?? null,
-                $params['alert_full'] ?? null,
+                // $params['alert_short'] ?? null,
+                // $params['alert_full'] ?? null,
             );
         }
 

@@ -174,6 +174,13 @@ class Forum_Module extends Module {
             Module::getIdFromName('Forum'),
             ['alert' => true, 'email' => true],
         );
+
+        Notification::addType(
+            'forum_topic_mention',
+            $forum_language->get('forum', 'forum_topic_mentions'),
+            Module::getIdFromName('Forum'),
+            ['alert' => true, 'email' => true],
+        );
     }
 
     public function onInstall() {

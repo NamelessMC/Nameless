@@ -56,6 +56,10 @@ class Notification {
             $recipients = [$recipients];
         }
 
+        if (count($recipients) === 0) {
+            return;
+        }
+
         if ($title instanceof LanguageKey || $content instanceof LanguageKey) {
             $languageCodes = DB::getInstance()->query(
                 'SELECT nl2_users.id, COALESCE(nl2_languages.short_code, NULL) AS `short_code` FROM nl2_users LEFT JOIN nl2_languages ON nl2_languages.id = nl2_users.language_id WHERE nl2_users.id IN (' . implode(',', array_map(static fn ($_) => '?', $recipients)) . ')',

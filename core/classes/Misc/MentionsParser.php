@@ -18,28 +18,31 @@ class MentionsParser
      * @param string  $value       Post content.
      * @param ?string $link        Link back to post.
      * @param ?string $notificationType Type of notification to send.
-     * @param ?LanguageKey $alertTitle Title of alert.
+     * @param ?LanguageKey $notificationTitle Title of alert.
      *
      * @return string Parsed post content.
      */
-    public static function parse(int $author_id, string $value, ?string $link = null, ?string $notificationType = null, ?LanguageKey $title = null): string
+    public static function parse(int $author_id, string $value, ?string $link = null, ?string $notificationType = null, ?LanguageKey $notificationTitle = null): string
     {
         if (preg_match_all('/(?<!\/)@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
             $nicknames = $matches[1];
-            $receipients = self::getReceipients($nicknames, $author_id);
-
-            foreach ($receipients as $receipient) {
-                $value = preg_replace('/(?<!\/)' . preg_quote("@$receipient->nickname", '/') . '/', '[user]' . $receipient->id . '[/user]', $value);
-            }
+            $receipients = DB::getInstance()->query(
+                'SELECT u.id, u.nickname FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ') AND NOT EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?)', [
+                ...$nicknames,
+                $author_id,
+            ])->results();
 
             // TODO: emails content?
             // We don't always want to send a notification, e.g. if this is called during custom page creation
             if ($notificationType) {
+                $notificationRecipients = array_filter($receipients, fn ($receipient) => $receipient->id !== $author_id);
+                $notificationRecipients = array_column($notificationRecipients, 'id');
+
                 $notification = new Notification(
                     $notificationType,
-                    $title,
+                    $notificationTitle,
                     $value,
-                    $receipients,
+                    $notificationRecipients,
                     $author_id,
                     null,
                     false,
@@ -48,18 +51,13 @@ class MentionsParser
 
                 $notification->send();
             }
+
+            // Convert the @username mentions to [user] tags after sending the notification, since we want it to be readable in the email content.
+            foreach ($receipients as $receipient) {
+                $value = preg_replace('/(?<!\/)' . preg_quote("@$receipient->nickname", '/') . '/', '[user]' . $receipient->id . '[/user]', $value);
+            }
         }
 
         return $value;
-    }
-
-    private static function getReceipients(array $nicknames, int $authorId): array
-    {
-        return DB::getInstance()->query(
-            'SELECT u.id, u.nickname FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ') AND u.id != ? AND NOT EXISTS (SELECT 1 FROM nl2_users_blocked ub WHERE ub.user_id = u.id AND ub.blocked_user_id = ?)',
-            $nicknames,
-            $authorId,
-            $authorId,
-        )->results();
     }
 }
