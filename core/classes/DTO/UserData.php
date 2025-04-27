@@ -31,7 +31,6 @@ class UserData
     public ?string $user_title;
     public ?int $theme_id;
     public ?int $language_id;
-    public int $warning_points;
     public ?bool $night_mode;
     public bool $tfa_enabled;
     public int $tfa_type;
@@ -66,7 +65,6 @@ class UserData
         $this->user_title = $row->user_title;
         $this->theme_id = $row->theme_id;
         $this->language_id = $row->language_id;
-        $this->warning_points = $row->warning_points;
         $this->night_mode = $row->night_mode;
         $this->tfa_enabled = $row->tfa_enabled;
         $this->tfa_type = $row->tfa_type;

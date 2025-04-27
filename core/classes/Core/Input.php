@@ -90,7 +90,7 @@ class Input
                                             .then((resp) => resp.json())
                                             .then(function (data) {
                                                 const results = [];
-    
+
                                                 for (const user of data) {
                                                     results.push({
                                                         value: '@' + user.nickname,
@@ -100,7 +100,7 @@ class Input
                                                 }
 
                                                 results.sort((a, b) => a.text.toLowerCase().localeCompare(b.text.toLowerCase()))
-    
+
                                                 resolve(results);
                                             });
                                     });
@@ -133,7 +133,7 @@ class Input
               external_plugins: {
                 'spoiler': '" . (defined('CONFIG_PATH') ? CONFIG_PATH : '') . "/core/assets/plugins/tinymce_spoiler/plugin.min.js',
               },
-              toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample " . ($admin ? 'code' : '') . " hr image link numlist bullist | spoiler-add spoiler-remove',
+              toolbar: 'undo redo | bold italic underline strikethrough formatselect fontsizeselect fontselect forecolor backcolor ltr rtl emoticons | alignleft aligncenter alignright alignjustify | codesample " . ($admin ? 'code' : '') . " hr image link numlist bullist | spoiler-add spoiler-remove',
               spoiler_caption: '{$language->get('general', 'spoiler')}',
               default_link_target: '_blank',
               skin: '$skin'," .
