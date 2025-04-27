@@ -239,10 +239,10 @@ class Language
     /**
      * Return a term in the currently active language.
      *
-     * @param  string  $section   Section name.
-     * @param  string  $term      The term to translate.
-     * @param  array   $variables Any variables to pass through to the translation.
-     * @return string  Translated phrase.
+     * @param  string $section   Section name.
+     * @param  string $term      The term to translate.
+     * @param  array  $variables Any variables to pass through to the translation.
+     * @return string Translated phrase.
      */
     public function get(string $section, string $term, array $variables = []): string
     {

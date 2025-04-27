@@ -32,6 +32,7 @@ class LanguageKey
     public function translate(string $languageCode): string
     {
         $language = new Language($this->modulePath, $languageCode);
+
         return $language->get($this->section, $this->term, $this->variables);
     }
 }
