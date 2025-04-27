@@ -3,6 +3,16 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
 
+## [2.2.1](https://github.com/NamelessMC/Nameless/compare/v2.2.0...v2.2.1) - 2025-04-21
+### Added
+- No additions this release
+
+### Changed
+- Updated translations
+
+### Fixed
+- Fix widgets type error [#3610](https://github.com/NamelessMC/Nameless/pull/3610)
+
 ## [2.2.0](https://github.com/NamelessMC/Nameless/compare/v2.1.4...v2.2.0) - 2025-04-18
 ### Added
 - Support custom migration tables [#3380](https://github.com/NamelessMC/Nameless/pull/3380)

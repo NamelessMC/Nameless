@@ -19,8 +19,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.2.0';
-        $nameless_version = '2.2.0';
+        $module_version = '2.2.1';
+        $nameless_version = '2.2.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 

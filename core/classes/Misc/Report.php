@@ -39,7 +39,10 @@ class Report
         $notification = new Notification(
             'report',
             new LanguageKey('moderator', 'report_alert'),
-            null,
+            new LanguageKey('moderator', 'report_email', [
+                'linkStart' => '<a href="' . rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id) . '">',
+                'linkEnd' => '</a>',
+            ]),
             array_map(fn ($moderator) => $moderator->id, $moderators),
             $user_reporting->data()->id,
             null,

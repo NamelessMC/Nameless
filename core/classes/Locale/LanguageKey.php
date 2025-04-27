@@ -18,6 +18,7 @@ class LanguageKey
     public function __construct(string $section, string $term, array $variables = [], ?string $modulePath = 'core')
     {
         $language = new Language($modulePath, 'en_UK');
+
         $translation = $language->get($section, $term);
         if ($translation === $section . '/' . $term) {
             throw new InvalidArgumentException('Invalid language key: ' . $section . '/' . $term);

@@ -24,7 +24,7 @@ class Notification {
      *
      * @param string $type Type of notification
      * @param string|LanguageKey $title Title of notification
-     * @param string|LanguageKey|null $content Notification content
+     * @param string|LanguageKey $content Notification content. For alerts, if $alertUrl is set, this will ignored. If $alertUrl is not set, this will be the content of the alert. This will always be the content of the email.
      * @param int|int[] $recipients Notification recipient or recipients - array of user IDs
      * @param int       $authorId        User ID that sent the notification
      * @param ?callable $contentCallback Optional callback to perform for each recipient's content
@@ -36,7 +36,7 @@ class Notification {
     public function __construct(
         string $type,
         string|LanguageKey $title,
-        string|LanguageKey|null $content,
+        string|LanguageKey $content,
         int|array $recipients,
         int $authorId,
         ?callable $contentCallback = null,
@@ -112,10 +112,11 @@ class Notification {
         }
     }
 
-    private function sendAlert(int $userId, string $title, ?string $content): void {
+    private function sendAlert(int $userId, string $title, string $content): void {
         Alert::send(
             $userId,
             $title,
+            // if $this->_alertUrl is set, we don't want to send the content as the alert content
             $this->_alertUrl ? null : $content,
             $this->_alertUrl,
             $this->_skipPurify
