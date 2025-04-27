@@ -272,11 +272,9 @@ body.pushable>.pusher {
 }
 
 .user-mention {
-    background-color: #f5f5f5; /* Clean off-white, less heavy than #eceeef */
-    border-radius: 0.25rem; /* Less round, sharper corners */
-    padding: 2px 4px; /* Slightly more padding for balance */
-    color: #1a1a1a; /* Dark text for contrast */
-    text-decoration: none; /* No underline */
+    background-color: #f5f5f5;
+    border-radius: 0.25rem;
+    padding: 2px 4px;
 }
 
 .ui.comments {
@@ -1580,6 +1578,12 @@ body.dark #modal-reactions .ui.large.selection.divided.list.middle.aligned .item
 
 body.dark ::-webkit-scrollbar-corner {
     background-color: transparent;
+}
+
+body.dark .user-mention {
+    background-color: #565151;
+    border-radius: 0.25rem;
+    padding: 2px 4px;
 }
 
 /*
