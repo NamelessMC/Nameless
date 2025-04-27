@@ -113,7 +113,7 @@ class Notification {
             $userId,
             $title,
             // if $this->_alertUrl is set, we don't want to send the content as the alert content
-            $this->_alertUrl ? null : $content ?? '',
+            $this->_alertUrl ? null : $content,
             $this->_alertUrl,
             $this->_skipPurify
         );
