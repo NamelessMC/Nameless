@@ -140,6 +140,7 @@ class Forum_Module extends Module {
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderPostEdit', 'MentionsHook::stripPost', 5);
 
         if (Util::isModuleEnabled('Members')) {
             MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));

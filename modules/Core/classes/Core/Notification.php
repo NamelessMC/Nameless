@@ -129,7 +129,7 @@ class Notification {
             'Send Email Notification',
             [
                 'content' => $content,
-                'title' => $title, // TODO: should this prefix "SITE_NAME - "?
+                'title' => SITE_NAME . ' - ' . $title,
             ],
             date('U'), // TODO: schedule a date/time?
             'User',

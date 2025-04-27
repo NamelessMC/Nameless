@@ -301,13 +301,9 @@ if (Input::exists()) {
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('prePostCreate', [
-                    //'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                    //'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
                     'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                     'content' => $content,
                     'user' => $user,
-
-                    // new:
                     'mention_notification_type' => 'forum_topic_mention',
                     'mention_notification_title' => new LanguageKey('forum', 'user_tag_info', [
                         'author' => $user->getDisplayname(),
