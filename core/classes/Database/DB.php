@@ -520,10 +520,10 @@ class DB
      *                        column, operator (default =), value, and glue (default AND).
      * @return array The where clause string, and parameters to bind.
      */
-    public static function makeWhere(array $clauses): array
+    private function makeWhere(array $clauses): array
     {
         if (count($clauses) === count($clauses, COUNT_RECURSIVE)) {
-            return self::makeWhere([$clauses]);
+            return $this->makeWhere([$clauses]);
         }
 
         $where_clauses = [];
@@ -533,7 +533,7 @@ class DB
             }
 
             if (count($clause) !== count($clause, COUNT_RECURSIVE)) {
-                self::makeWhere(...$clause);
+                $this->makeWhere(...$clause);
                 continue;
             }
 

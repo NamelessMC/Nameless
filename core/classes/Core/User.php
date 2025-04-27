@@ -1066,20 +1066,9 @@ class User
      */
     public function isBlocked(int $user, int $blocked): bool
     {
-        if ($user && $blocked) {
-            $possible_users = $this->_db->get('blocked_users', ['user_id', $user]);
-            if ($possible_users->count()) {
-                $possible_users = $possible_users->results();
-
-                foreach ($possible_users as $possible_user) {
-                    if ($possible_user->user_blocked_id == $blocked) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return DB::getInstance()->query('SELECT 1 FROM nl2_users_blocked WHERE user_id = ? AND blocked_user_id = ?',
+            [$user, $blocked]
+        )->exists();
     }
 
     /**

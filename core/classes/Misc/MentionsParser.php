@@ -17,43 +17,49 @@ class MentionsParser
      * @param int     $author_id   User ID of post creator.
      * @param string  $value       Post content.
      * @param ?string $link        Link back to post.
-     * @param ?array  $alert_short Short alert info, leave null to not alert user.
-     * @param ?array  $alert_full  Full alert info, leave null to not alert user.
+     * @param ?string $notificationType Type of notification to send.
+     * @param ?LanguageKey $alertTitle Title of alert.
      *
      * @return string Parsed post content.
      */
-    public static function parse(int $author_id, string $value, ?string $link = null, ?array $alert_short = null, ?array $alert_full = null): string
+    public static function parse(int $author_id, string $value, ?string $link = null, ?string $notificationType = null, ?LanguageKey $title = null): string
     {
         if (preg_match_all('/(?<!\/)@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
-            $matches = $matches[1];
+            $nicknames = $matches[1];
+            $receipients = self::getReceipients($nicknames, $author_id);
 
-            foreach ($matches as $possible_username) {
-                $user = null;
+            foreach ($receipients as $receipient) {
+                $value = preg_replace('/(?<!\/)' . preg_quote("@$receipient->nickname", '/') . '/', '[user]' . $receipient->id . '[/user]', $value);
+            }
 
-                while (($possible_username != '') && !$user) {
-                    $user = new User($possible_username, 'nickname');
+            // TODO: emails content?
+            // We don't always want to send a notification, e.g. if this is called during custom page creation
+            if ($notificationType) {
+                $notification = new Notification(
+                    $notificationType,
+                    $title,
+                    $value,
+                    $receipients,
+                    $author_id,
+                    null,
+                    false,
+                    $link,
+                );
 
-                    if ($user->exists()) {
-                        $value = preg_replace('/(?<!\/)' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
-
-                        // Check if user is blocked by OP
-                        if ($value && $link && ($alert_full && $alert_short) && ($user->data()->id != $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
-                            Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
-                            break;
-                        }
-                    }
-
-                    // chop last word off of it
-                    $new_possible_username = preg_replace('/([^A-Za-z0-9]|[A-Za-z0-9]+)$/', '', $possible_username);
-                    if ($new_possible_username !== $possible_username) {
-                        $possible_username = $new_possible_username;
-                    } else {
-                        break;
-                    }
-                }
+                $notification->send();
             }
         }
 
         return $value;
+    }
+
+    private static function getReceipients(array $nicknames, int $authorId): array
+    {
+        return DB::getInstance()->query(
+            'SELECT u.id, u.nickname FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ') AND u.id != ? AND NOT EXISTS (SELECT 1 FROM nl2_users_blocked ub WHERE ub.user_id = u.id AND ub.blocked_user_id = ?)',
+            $nicknames,
+            $authorId,
+            $authorId,
+        )->results();
     }
 }
