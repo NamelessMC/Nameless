@@ -47,10 +47,6 @@ class Notification {
             throw new NotificationTypeNotFoundException("Type $type not registered");
         }
 
-        if ($content === null && $alertUrl === null) {
-            throw new InvalidArgumentException('Either content or alertUrl must be provided');
-        }
-
         $this->_authorId = $authorId;
         $this->_skipPurify = $skipPurify;
         $this->_type = $type;
