@@ -53,7 +53,7 @@ class Alert
      *
      * @param  int         $userId
      * @param  string      $title
-     * @param  string|null      $content
+     * @param  string|null $content
      * @param  string|null $link       Optional link to redirect the user to on click
      * @param  bool        $skipPurify If true the content will not be purified before displaying to user - use with care
      * @return void
