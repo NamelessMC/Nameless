@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var FakeSmarty $smarty
@@ -713,7 +713,7 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Purify post content
-    $content = EventHandler::executeEvent('renderPost', ['content' => $nValue->post_content])['content'];
+    $content = EventHandler::executeEvent(new RenderPostEvent($nValue->post_content))['content'];
 
     // Get post date
     if (is_null($nValue->created)) {

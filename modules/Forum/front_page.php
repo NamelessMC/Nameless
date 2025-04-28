@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var Language $forum_language
@@ -46,7 +46,7 @@ if ($cache->isCached('news-' . $groups_key)) {
             'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
-            'content' => EventHandler::executeEvent(new RenderPostEvent($item['content']))->content,
+            'content' => EventHandler::executeEvent(new RenderPostEvent($item['content']))['content'],
             'label' => $item['label'],
             'labels' => $item['labels']
         ];

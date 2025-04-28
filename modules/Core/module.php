@@ -322,7 +322,7 @@ class Core_Module extends Module {
 
         // -- Pipelines
 
-        EventHandler::registerEvent('preCustomPageCreate',
+        /*EventHandler::registerEvent('preCustomPageCreate',
             $language->get('admin', 'pre_custom_page_create_hook_info'),
             [
                 'content' => $language->get('general', 'content'),
@@ -385,7 +385,7 @@ class Core_Module extends Module {
             ],
             true,
             true
-        );
+        );*/
 
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
@@ -519,7 +519,7 @@ class Core_Module extends Module {
         EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
 
         // TODO: Use [class, 'method'] callable syntax
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
+        /*EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
@@ -541,7 +541,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'purify']);
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'renderEmojis']);
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'replaceAnchors'], 5);
-        EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);
+        EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);*/
 
         EventHandler::registerListener(UserRegisteredEvent::class, DefaultUserNotificationPreferencesHook::class);
 

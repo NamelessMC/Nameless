@@ -3,7 +3,7 @@
  * NamelessMC Forum Module
  *
  * @author Samerton
- * @version 2.2.0
+ * @version 2.3.0
  * @license MIT
  */
 
@@ -124,15 +124,15 @@ class Forum_Module extends Module {
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
-        EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
+        EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');*/
 
         EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'purify']);
         EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'renderEmojis'], 10);
         EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'replaceAnchors'], 5);
         EventHandler::registerListener(RenderPostEvent::class, [MentionsHook::class, 'parsePost'], 5);
 
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
+        /*EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);*/
 
         if (Util::isModuleEnabled('Members')) {
             MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
