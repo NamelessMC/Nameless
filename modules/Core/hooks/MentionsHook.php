@@ -9,6 +9,8 @@
 
 class MentionsHook extends HookBase {
 
+    private const USER_BBCODE_REGEX = '/\[user\](.*?)\[\/user\]/ism';
+
     private static array $_cache = [];
 
     /**
@@ -44,7 +46,7 @@ class MentionsHook extends HookBase {
 
     /**
      * Parses the [user] tags in a post and replaces them with a link to the user's profile.
-     * e.g. [user]1[/user] would instead become <a href="profile/username">@Username</a>
+     * e.g. [user]1[/user] would instead become <a href="profile/username">@username</a>
      *
      * @param array $params
      * @return array
@@ -52,27 +54,16 @@ class MentionsHook extends HookBase {
     public static function parsePost(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
             $params['content'] = preg_replace_callback(
-                '/\[user\](.*?)\[\/user\]/ism',
+                self::USER_BBCODE_REGEX,
                 static function (array $match) {
                     $userId = $match[1];
+                    $userData = self::getUserData($userId);
 
-                    if (isset(MentionsHook::$_cache[$userId])) {
-                        [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$userId];
-                    } else {
-                        $user = new User($userId);
-
-                        if (!$user->exists()) {
-                            return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
-                        }
-
-                        $userId = $user->data()->id;
-                        $userStyle = $user->getGroupStyle();
-                        $userNickname = $user->data()->nickname;
-                        $userProfileUrl = $user->getProfileURL();
-
-                        MentionsHook::$_cache[$userId] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                    if ($userData === null) {
+                        return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
                     }
 
+                    [$userId, $userStyle, $userNickname, $userProfileUrl] = $userData;
                     return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . Output::getClean($userNickname) . '</a>';
                 },
                 $params['content']
@@ -92,34 +83,50 @@ class MentionsHook extends HookBase {
     public static function stripPost(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
             $params['content'] = preg_replace_callback(
-                '/\[user\](.*?)\[\/user\]/ism',
+                self::USER_BBCODE_REGEX,
                 static function (array $match) {
                     $userId = $match[1];
+                    $userData = self::getUserData($userId);
 
-                    if (isset(MentionsHook::$_cache[$userId])) {
-                        $userNickname = MentionsHook::$_cache[$userId][2];
-                    } else {
-                        $user = new User($userId);
-
-                        if (!$user->exists()) {
-                            return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
-                        }
-
-                        $userId = $user->data()->id;
-                        $userStyle = $user->getGroupStyle();
-                        $userNickname = $user->data()->nickname;
-                        $userProfileUrl = $user->getProfileURL();
-
-                        MentionsHook::$_cache[$userId] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                    if ($userData === null) {
+                        return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
                     }
 
-                    return '@' . Output::getClean($userNickname);
+                    $nickname = $userData[2];
+
+                    return '@' . Output::getClean($nickname);
                 },
                 $params['content']
             );
         }
 
         return $params;
+    }
+
+    /**
+     * Get cached user data or fetch and cache if not exists
+     *
+     * @param string $userId User ID to look up
+     * @return array Array containing [userId, userStyle, userNickname, userProfileUrl] or null if user doesn't exist
+     */
+    private static function getUserData(string $userId): ?array {
+        if (isset(self::$_cache[$userId])) {
+            return self::$_cache[$userId];
+        }
+
+        $user = new User($userId);
+        if (!$user->exists()) {
+            return null;
+        }
+
+        $userData = [
+            $user->data()->id,
+            $user->getGroupStyle(),
+            $user->data()->nickname,
+            $user->getProfileURL()
+        ];
+
+        return self::$_cache[$userId] = $userData;
     }
 
     private static function validate(array $params): bool {
