@@ -44,7 +44,7 @@ class ConvertProfilePosts extends Task {
         $hasBeenScheduled = DB::getInstance()->query('SELECT COUNT(*) c FROM nl2_queue WHERE `task` = \'ConvertProfilePosts\'')->first()->c;
 
         if (!$hasBeenScheduled) {
-            $totalForumPosts = DB::getInstance()->query('SELECT COUNT(*) c FROM nl2_posts')->first()->c;
+            $totalProfilePosts = DB::getInstance()->query('SELECT COUNT(*) c FROM nl2_user_profile_wall_posts')->first()->c;
 
             Queue::schedule((new ConvertProfilePosts())->fromNew(
                 Module::getIdFromName('Core'),
@@ -54,7 +54,7 @@ class ConvertProfilePosts extends Task {
                 null,
                 null,
                 true,
-                $totalForumPosts
+                $totalProfilePosts
             ));
         }
     }
