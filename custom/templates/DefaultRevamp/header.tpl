@@ -4,8 +4,6 @@ value=""}{/if}
 value=" lang='en'"}{/if}
 {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq true}{assign var="HTMLRTL" value=" dir='rtl'"}{else}{assign
 var="HTMLRTL" value=" dir='ltr'"}{/if}
-{if "LANG_CHARSET"|defined}{assign var="METACHARSET" value="{$smarty.const.LANG_CHARSET}"}{else}{assign
-var="METACHARSET" value="utf-8"}{/if}
 {if isset($PAGE_DESCRIPTION) && $PAGE_DESCRIPTION|count_characters > 0}{assign var="PAGEDESCRIPTION"
 value="{$PAGE_DESCRIPTION}"}{else}{assign var="PAGEDESCRIPTION" value=" "}{/if}
 {if isset($PAGE_KEYWORDS) && $PAGE_KEYWORDS|count_characters > 0}{assign var="PAGEKEYWORDS"
@@ -16,7 +14,7 @@ value="{$PAGE_KEYWORDS}"}{else}{assign var="PAGEKEYWORDS" value=" "}{/if}
 
     <head>
 
-        <meta charset="{$METACHARSET}">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 
