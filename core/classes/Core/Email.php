@@ -14,6 +14,8 @@ use PHPMailer\PHPMailer\SMTP;
  */
 class Email
 {
+    public const EMAIL_MAX_LENGTH = 75000;
+
     public const REGISTRATION = 1;
     public const FORGOT_PASSWORD = 3;
     public const API_REGISTRATION = 4;
