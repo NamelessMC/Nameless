@@ -535,6 +535,7 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderCustomPageEdit', 'MentionsHook::stripPost', 5);
 
         // TODO: ContentHook::decode is deprecated - do we need to decode profile posts saved in the DB using the queue??
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);

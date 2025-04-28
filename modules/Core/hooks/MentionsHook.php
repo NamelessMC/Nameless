@@ -11,6 +11,9 @@ class MentionsHook extends HookBase {
 
     private static array $_cache = [];
 
+    /**
+     * Called before content is persisted to the database.
+     */
     public static function preCreate(array $params = []): array {
         if (self::validate($params)) {
             $params['content'] = MentionsParser::parse(
@@ -25,18 +28,27 @@ class MentionsHook extends HookBase {
         return $params;
     }
 
+    /**
+     * Called before content is edited in the database.
+     */
     public static function preEdit(array $params = []): array {
         if (self::validate($params)) {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
-                URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id']))
             );
         }
 
         return $params;
     }
 
+    /**
+     * Parses the [user] tags in a post and replaces them with a link to the user's profile
+     * e.g. [user]1[/user] would instead become <a href="profile/username">@Username</a>
+     *
+     * @param array $params
+     * @return array
+     */
     public static function parsePost(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
             $params['content'] = preg_replace_callback(
@@ -69,8 +81,8 @@ class MentionsHook extends HookBase {
     }
 
     /**
-     * Strips [user] tags and parses the ID to username
-     * e.g. [user]1[/user] would instead become (at)Username
+     * Parses the [user] tags in a post and replaces them with plain mention text
+     * e.g. [user]1[/user] would instead become @username
      *
      * @param array $params
      * @return array

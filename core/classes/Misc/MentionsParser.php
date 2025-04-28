@@ -12,11 +12,13 @@
 class MentionsParser
 {
     /**
-     * Parse the given HTML to include @username tags.
+     * Parse the given HTML to include @username tags, and send notifications to mentioned users.
+     * Will not mention users who have blocked the author.
+     * Will not send notifications unless $notificationType is provided.
      *
-     * @param int     $author_id   User ID of post creator.
-     * @param string  $value       Post content.
-     * @param ?string $link        Link back to post.
+     * @param int     $author_id   User ID of post/custom page creator.
+     * @param string  $value       Post/custom page content.
+     * @param ?string $link        Link back to post for alerts.
      * @param ?string $notificationType Type of notification to send.
      * @param ?LanguageKey $notificationTitle Title of alert.
      *
@@ -52,7 +54,7 @@ class MentionsParser
                 $notification->send();
             }
 
-            // Convert the @username mentions to [user] tags after sending the notification, since we want it to be readable in the email content.
+            // Convert the @username mentions to [user] tags _after_ sending the notification, since we want it to be readable in the email content.
             foreach ($receipients as $receipient) {
                 $value = preg_replace('/(?<!\/)' . preg_quote("@$receipient->nickname", '/') . '/', '[user]' . $receipient->id . '[/user]', $value);
             }
