@@ -15,15 +15,17 @@ class MentionsHook extends HookBase {
 
     /**
      * Called before content is persisted to the database.
+     * - Replaces @mentions with [user] tags.
+     * - Sends notifications to mentioned users.
      */
     public static function preCreate(array $params = []): array {
         if (self::validate($params)) {
-            $params['content'] = MentionsParser::parse(
+            $params['content'] = MentionsParser::parseAndNotify(
                 $params['user']->data()->id,
                 $params['content'],
-                $params['alert_url'] ?? null,
-                $params['mention_notification_type'] ?? null,
-                $params['mention_notification_title'] ?? null,
+                $params['alert_url'],
+                $params['mention_notification_type'],
+                $params['mention_notification_title'],
             );
         }
 
@@ -32,6 +34,7 @@ class MentionsHook extends HookBase {
 
     /**
      * Called before content is edited in the database.
+     * - Replaces @mentions with [user] tags.
      */
     public static function preEdit(array $params = []): array {
         if (self::validate($params)) {
@@ -53,20 +56,12 @@ class MentionsHook extends HookBase {
      */
     public static function parsePost(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
-            $params['content'] = preg_replace_callback(
-                self::USER_BBCODE_REGEX,
-                static function (array $match) {
-                    $userId = $match[1];
-                    $userData = self::getUserData($userId);
-
-                    if ($userData === null) {
-                        return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
-                    }
-
+            $params['content'] = self::processUserTags(
+                $params['content'],
+                static function (array $userData) {
                     [$userId, $userStyle, $userNickname, $userProfileUrl] = $userData;
                     return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . Output::getClean($userNickname) . '</a>';
-                },
-                $params['content']
+                }
             );
         }
 
@@ -74,7 +69,7 @@ class MentionsHook extends HookBase {
     }
 
     /**
-     * Parses the [user] tags in a post and replaces them with plain mention text.
+     * Parses the [user] tags in a post and replaces them with plain text, no links.
      * e.g. [user]1[/user] would instead become @username
      *
      * @param array $params
@@ -82,25 +77,39 @@ class MentionsHook extends HookBase {
      */
     public static function stripPost(array $params = []): array {
         if (parent::validateParams($params, ['content'])) {
-            $params['content'] = preg_replace_callback(
-                self::USER_BBCODE_REGEX,
-                static function (array $match) {
-                    $userId = $match[1];
-                    $userData = self::getUserData($userId);
-
-                    if ($userData === null) {
-                        return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
-                    }
-
-                    $nickname = $userData[2];
-
-                    return '@' . Output::getClean($nickname);
-                },
-                $params['content']
+            $params['content'] = self::processUserTags(
+                $params['content'],
+                static function (array $userData) {
+                    return '@' . Output::getClean($userData[2]); // userData[2] is userNickname
+                }
             );
         }
 
         return $params;
+    }
+
+    /**
+     * Shared helper method to process user BBCode tags with a custom formatter
+     *
+     * @param string $content The content to process
+     * @param callable $formatter Function to format the user data
+     * @return string
+     */
+    private static function processUserTags(string $content, callable $formatter): string {
+        return preg_replace_callback(
+            self::USER_BBCODE_REGEX,
+            static function (array $match) use ($formatter) {
+                $userId = $match[1];
+                $userData = self::getUserData($userId);
+
+                if ($userData === null) {
+                    return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
+                }
+
+                return $formatter($userData);
+            },
+            $content
+        );
     }
 
     /**
