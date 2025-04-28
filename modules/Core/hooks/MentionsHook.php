@@ -43,7 +43,7 @@ class MentionsHook extends HookBase {
     }
 
     /**
-     * Parses the [user] tags in a post and replaces them with a link to the user's profile
+     * Parses the [user] tags in a post and replaces them with a link to the user's profile.
      * e.g. [user]1[/user] would instead become <a href="profile/username">@Username</a>
      *
      * @param array $params
@@ -54,10 +54,12 @@ class MentionsHook extends HookBase {
             $params['content'] = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
                 static function (array $match) {
-                    if (isset(MentionsHook::$_cache[$match[1]])) {
-                        [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$match[1]];
+                    $userId = $match[1];
+
+                    if (isset(MentionsHook::$_cache[$userId])) {
+                        [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$userId];
                     } else {
-                        $user = new User($match[1]);
+                        $user = new User($userId);
 
                         if (!$user->exists()) {
                             return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
@@ -68,7 +70,7 @@ class MentionsHook extends HookBase {
                         $userNickname = $user->data()->nickname;
                         $userProfileUrl = $user->getProfileURL();
 
-                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                        MentionsHook::$_cache[$userId] = [$userId, $userStyle, $userNickname, $userProfileUrl];
                     }
 
                     return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . Output::getClean($userNickname) . '</a>';
@@ -81,7 +83,7 @@ class MentionsHook extends HookBase {
     }
 
     /**
-     * Parses the [user] tags in a post and replaces them with plain mention text
+     * Parses the [user] tags in a post and replaces them with plain mention text.
      * e.g. [user]1[/user] would instead become @username
      *
      * @param array $params
@@ -92,10 +94,12 @@ class MentionsHook extends HookBase {
             $params['content'] = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
                 static function (array $match) {
-                    if (isset(MentionsHook::$_cache[$match[1]])) {
-                        $userNickname = MentionsHook::$_cache[$match[1]][2];
+                    $userId = $match[1];
+
+                    if (isset(MentionsHook::$_cache[$userId])) {
+                        $userNickname = MentionsHook::$_cache[$userId][2];
                     } else {
-                        $user = new User($match[1]);
+                        $user = new User($userId);
 
                         if (!$user->exists()) {
                             return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
@@ -106,7 +110,7 @@ class MentionsHook extends HookBase {
                         $userNickname = $user->data()->nickname;
                         $userProfileUrl = $user->getProfileURL();
 
-                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                        MentionsHook::$_cache[$userId] = [$userId, $userStyle, $userNickname, $userProfileUrl];
                     }
 
                     return '@' . Output::getClean($userNickname);

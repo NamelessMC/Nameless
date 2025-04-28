@@ -12,7 +12,7 @@
 class MentionsParser
 {
     /**
-     * Parse the given HTML to include @username tags, and send notifications to mentioned users.
+     * Parse the given content to replace @username tags with [user]<id>[/user] bbcode, and send notifications to mentioned users.
      * Will not mention users who have blocked the author.
      * Will not send notifications unless $notificationType is provided.
      *
