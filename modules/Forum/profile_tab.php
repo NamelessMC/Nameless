@@ -16,7 +16,7 @@ if (!isset($forum) || (!$forum instanceof Forum)) {
 // Get latest posts
 $latest_posts = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $query->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 15')->results();
 if (!count($latest_posts)) {
-    $smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
+    $template->getEngine()->addVariable('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
     // Check permissions
     $n = 0;
@@ -99,7 +99,7 @@ if (!count($latest_posts)) {
 }
 
 // Smarty
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PF_LATEST_POSTS' => (isset($posts)) ? $posts : [],
     'PF_LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
     'FORUM_TAB_TITLE' => $forum_language->get('forum', 'forum')

@@ -286,7 +286,7 @@ if (!isset($_GET['id'])) {
 
         if ($report->server_id) {
             $server = DB::getInstance()->get('mc_servers', ['id', $report->server_id])->first()->name;
-            $smarty->assign('REPORT_SERVER', Output::getClean($server));
+            $template->getEngine()->addVariable('REPORT_SERVER', Output::getClean($server));
         }
 
         // Template variables

@@ -34,7 +34,7 @@ if (Input::exists()) {
 $include_staff = $cache->retrieve('include_staff_in_users');
 $use_nickname_show = $cache->retrieve('show_nickname_instead');
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'INCLUDE_STAFF' => $language->get('admin', 'include_staff_in_user_widget'),
     'INCLUDE_STAFF_VALUE' => $include_staff,
     'SHOW_NICKNAME_INSTEAD' => $language->get('admin', 'show_nickname_instead_of_username'),

@@ -34,12 +34,10 @@ if ($cache->isCached('discord_widget_theme')) {
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-    ]);
+    $template->getEngine()->addVariable('ERRORS', $errors);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'DISCORD_THEME' => Discord::getLanguageTerm('discord_widget_theme'),
     'DISCORD_THEME_VALUE' => $discord_theme,
     'SETTINGS_TEMPLATE' => 'discord_integration/widgets/discord.tpl',

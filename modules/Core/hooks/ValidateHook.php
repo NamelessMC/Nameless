@@ -21,10 +21,11 @@ class ValidateHook {
 
         $validate_user->setGroup(VALIDATED_DEFAULT);
 
-        GroupSyncManager::getInstance()->broadcastChange(
+        GroupSyncManager::getInstance()->broadcastGroupChange(
             $validate_user,
             NamelessMCGroupSyncInjector::class,
-            [VALIDATED_DEFAULT]
+            [VALIDATED_DEFAULT],
+            []
         );
     }
 }

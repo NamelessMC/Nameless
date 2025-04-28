@@ -80,17 +80,6 @@ abstract class AbstractWidget
     }
 
     /**
-     * Get Smarty instance in use by this widget. Removed in 2.3.0.
-     *
-     * @return Smarty Instance in use.
-     * @deprecated
-     */
-    public function getSmarty(): ?Smarty
-    {
-        return $this->_smarty;
-    }
-
-    /**
      * Get template engine in use by this widget.
      *
      * @return TemplateEngine Engine in use.

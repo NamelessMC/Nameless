@@ -201,12 +201,16 @@ if (Input::exists()) {
                     $group_sync_log = [];
                     if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
                         if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+                            $groups_added = [];
+                            $groups_removed = [];
+
                             $user_group_ids = $view_user->getAllGroupIds();
                             $form_groups = $_POST['groups'] ?? [];
 
                             // Check for new groups to give them which they don't already have
                             foreach ($form_groups as $group_id) {
                                 if (!in_array($group_id, $user_group_ids)) {
+                                    $groups_added[] = $group_id;
                                     $view_user->addGroup($group_id);
                                 }
                             }
@@ -214,15 +218,17 @@ if (Input::exists()) {
                             // Check for groups they had, but weren't in the $_POST groups
                             foreach ($user_group_ids as $group_id) {
                                 if (!in_array($group_id, $form_groups)) {
+                                    $groups_removed[] = $group_id;
                                     $view_user->removeGroup($group_id);
                                 }
                             }
 
                             // Dispatch groupsync with all of their groups
-                            GroupSyncManager::getInstance()->broadcastChange(
+                            GroupSyncManager::getInstance()->broadcastGroupChange(
                                 $view_user,
                                 NamelessMCGroupSyncInjector::class,
-                                $view_user->getAllGroupIds(),
+                                $groups_added,
+                                $groups_removed,
                             );
                         }
                     }

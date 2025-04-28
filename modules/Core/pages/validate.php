@@ -29,10 +29,11 @@ if (isset($_GET['c'])) {
             $user,
         ));
 
-        GroupSyncManager::getInstance()->broadcastChange(
+        GroupSyncManager::getInstance()->broadcastGroupChange(
             $user,
             NamelessMCGroupSyncInjector::class,
-            [$user->getMainGroup()->id]
+            [$user->getMainGroup()->id],
+            [],
         );
 
         Session::flash('home', $language->get('user', 'validation_complete'));

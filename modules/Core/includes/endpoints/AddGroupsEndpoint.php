@@ -34,10 +34,11 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        GroupSyncManager::getInstance()->broadcastChange(
+        GroupSyncManager::getInstance()->broadcastGroupChange(
             $user,
             NamelessMCGroupSyncInjector::class,
-            $user->getAllGroupIds(),
+            $groups,
+            [],
         );
 
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'group_updated')], $log_array));
