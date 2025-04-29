@@ -288,6 +288,7 @@ if (Input::exists()) {
 
             if ($validate->passed()) {
                 $content = Input::get('content');
+                $original_content = $content;
 
                 DB::getInstance()->insert('posts', [
                     'forum_id' => $topic->forum_id,
@@ -353,7 +354,7 @@ if (Input::exists()) {
                         Output::getClean(SITE_NAME),
                         $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
-                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
+                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($original_content)]),
                         rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                         $language->get('emails', 'thanks')
                     ],

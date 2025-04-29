@@ -20,7 +20,6 @@
 
 $page_title = $language->get('general', 'register');
 require_once ROOT_PATH . '/core/templates/frontend_init.php';
-require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Use recaptcha?
 $captcha = CaptchaBase::isCaptchaEnabled();
@@ -200,7 +199,7 @@ if (Input::exists()) {
 
                     if (Settings::get('email_verification') === '1') {
                         // Send registration email
-                        sendRegisterEmail($language, $email, $mcname, $user_id, $code);
+                        Core_Emails::sendRegisterEmail($language, $email, $mcname, $user_id, $code);
 
                         Session::flash('home', $language->get('user', 'registration_check_email'));
                         Redirect::to(URL::build('/'));

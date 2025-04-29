@@ -29,7 +29,6 @@ const PAGE = 'register';
 $page_title = $language->get('general', 'register');
 
 require_once ROOT_PATH . '/core/templates/frontend_init.php';
-require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Check if registration is enabled
 if (!Settings::get('registration_enabled')) {
@@ -308,7 +307,7 @@ if (Input::exists()) {
 
                     if (!$auto_verify_oauth_email && Settings::get('email_verification') === '1') {
                         // Send registration email
-                        sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+                        Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 
                         Session::flash('home', $language->get('user', 'registration_check_email'));
                     } else {

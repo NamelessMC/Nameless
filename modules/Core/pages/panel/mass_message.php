@@ -45,7 +45,7 @@ if (Input::exists()) {
             'content' => [
                 Validate::REQUIRED => true,
                 Validate::MIN => 1,
-                Validate::MAX => EMAIL_MAX_LENGTH,
+                Validate::MAX => Email::EMAIL_MAX_LENGTH,
             ],
         ])->messages([
             'subject' => [
@@ -55,7 +55,7 @@ if (Input::exists()) {
             'content' => [
                 Validate::REQUIRED => $language->get('admin', 'mass_message_content_required'),
                 Validate::MIN => $language->get('admin', 'mass_message_content_required'),
-                Validate::MAX => $language->get('admin', 'mass_message_content_maximum', ['max' => EMAIL_MAX_LENGTH]),
+                Validate::MAX => $language->get('admin', 'mass_message_content_maximum', ['max' => Email::EMAIL_MAX_LENGTH]),
             ],
         ]);
 
