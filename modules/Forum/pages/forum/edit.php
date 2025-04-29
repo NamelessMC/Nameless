@@ -124,12 +124,21 @@ if (Input::exists()) {
 
         if ($validation->passed()) {
             // Valid post content
-            $content = EventHandler::executeEvent(isset($edit_title) ? 'preTopicEdit' : 'prePostEdit', [
-                'content' => Input::get('content'),
-                'post_id' => $post_id,
-                'topic_id' => $topic_id,
-                'user' => $user,
-            ])['content'];
+            if (isset($edit_title)) {
+                $content = EventHandler::executeEvent(new PreTopicEditEvent(
+                    Input::get('content'),
+                    $user,
+                    $topic_id,
+                    $post_id
+                ));
+            } else {
+                $content = EventHandler::executeEvent(new PrePostEditEvent(
+                    Input::get('content'),
+                    $user,
+                    $topic_id,
+                    $post_id
+                ));
+            }
 
             // Update post content
             DB::getInstance()->update('posts', $post_id, [
