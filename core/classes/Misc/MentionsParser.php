@@ -16,8 +16,8 @@ class MentionsParser
     /**
      * Parse the given content to replace @username tags with [user]<id>[/user] bbcode.
      *
-     * @param int     $author_id   User ID of post/custom page creator.
-     * @param string  $content     Post/custom page content.
+     * @param int    $author_id User ID of post/custom page creator.
+     * @param string $content   Post/custom page content.
      *
      * @return string Parsed post content.
      */
@@ -61,10 +61,12 @@ class MentionsParser
         $nicknames = $matches[1];
 
         return DB::getInstance()->query(
-            'SELECT u.id, u.nickname FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ') AND NOT EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?)', [
-            ...$nicknames,
-            $author_id,
-        ])->results();
+            'SELECT u.id, u.nickname FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ') AND NOT EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?)',
+            [
+                ...$nicknames,
+                $author_id,
+            ]
+        )->results();
     }
 
     /**
