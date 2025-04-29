@@ -313,7 +313,7 @@ class DB
      */
     private function action(string $action, string $table, array $where = [])
     {
-        [$where, $where_params] = $this->makeWhere($where);
+        [$where, $where_params] = self::makeWhere($where);
 
         $table = $this->_prefix . $table;
         $sql = "{$action} FROM {$table} {$where}";
@@ -378,7 +378,7 @@ class DB
             $where = ['id', '=', $where];
         }
 
-        [$where, $where_params] = $this->makeWhere($where);
+        [$where, $where_params] = self::makeWhere($where);
         $table = $this->_prefix . $table;
 
         $sql = "UPDATE {$table} SET {$set} $where";
@@ -520,10 +520,10 @@ class DB
      *                        column, operator (default =), value, and glue (default AND).
      * @return array The where clause string, and parameters to bind.
      */
-    private function makeWhere(array $clauses): array
+    public static function makeWhere(array $clauses): array
     {
         if (count($clauses) === count($clauses, COUNT_RECURSIVE)) {
-            return $this->makeWhere([$clauses]);
+            return self::makeWhere([$clauses]);
         }
 
         $where_clauses = [];
@@ -533,7 +533,7 @@ class DB
             }
 
             if (count($clause) !== count($clause, COUNT_RECURSIVE)) {
-                $this->makeWhere(...$clause);
+                self::makeWhere(...$clause);
                 continue;
             }
 
