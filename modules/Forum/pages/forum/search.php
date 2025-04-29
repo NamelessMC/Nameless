@@ -189,7 +189,7 @@ if (!isset($error) && isset($_GET['s'])) {
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             // Purify post content
-            $content = EventHandler::executeEvent('renderPost', ['content' => $results->data[$n]['post_content']])['content'];
+            $content = EventHandler::executeEvent(new RenderContentEvent($results->data[$n]['post_content']))['content'];
 
             $post_user = new User($results->data[$n]['post_author']);
             $posts[$n] = [

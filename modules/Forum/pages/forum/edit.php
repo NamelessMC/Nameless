@@ -252,10 +252,7 @@ if (isset($edit_title, $post_labels)) {
 }
 
 // Purify post content
-$content = EventHandler::executeEvent('renderPostEdit', [
-    'content' => $post_editing[0]->post_content,
-    'user' => $user
-])['content'];
+$content = EventHandler::executeEvent(new RenderContentEditEvent($post_editing[0]->post_content))['content'];
 
 $template->getEngine()->addVariables([
     'TOKEN' => Token::get(),

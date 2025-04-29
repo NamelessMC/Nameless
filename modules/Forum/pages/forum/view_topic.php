@@ -301,13 +301,13 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
-                $content = EventHandler::executeEvent('prePostCreate', [
-                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                    'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                    'alert_url' => URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
-                    'content' => $content,
-                    'user' => $user,
-                ])['content'];
+                $content = EventHandler::executeEvent(new PrePostCreateEvent(
+                    $content,
+                    $user,
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
+                ))['content'];
 
                 DB::getInstance()->update('posts', $last_post_id, [
                     'post_content' => $content
@@ -796,7 +796,7 @@ if ($user->isLoggedIn() && $can_reply) {
 
         if (isset($_POST['content'])) {
             // Purify post content
-            $content = EventHandler::executeEvent('renderPostEdit', ['content' => $_POST['content']])['content'];
+            $content = EventHandler::executeEvent(new RenderContentEditEvent($_POST['content']))['content'];
         }
 
         $template->getEngine()->addVariable('SUBMIT', $language->get('general', 'submit'));

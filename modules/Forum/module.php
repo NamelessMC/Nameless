@@ -60,69 +60,15 @@ class Forum_Module extends Module {
         EventHandler::registerEvent(TopicReplyCreatedEvent::class);
 
         // -- Pipelines
+        EventHandler::registerEvent(PrePostCreateEvent::class);
+        EventHandler::registerEvent(PrePostEditEvent::class);
+        EventHandler::registerEvent(PreTopicCreateEvent::class);
+        EventHandler::registerEvent(PreTopicEditEvent::class);
 
-        /*EventHandler::registerEvent('prePostCreate',
-            $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('prePostEdit',
-            $this->_forum_language->get('forum', 'pre_post_edit_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('preTopicCreate',
-            $this->_forum_language->get('forum', 'pre_topic_create_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('preTopicEdit',
-            $this->_forum_language->get('forum', 'pre_topic_edit_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'topic_title' => $this->_forum_language->get('forum', 'topic_title'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );*/
-
-        /*EventHandler::registerEvent('renderPostEdit',
-            $this->_forum_language->get('forum', 'render_post_edit'),
-            [
-                'content' => $this->_language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
-        EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
-        EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
-        EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');*/
+        EventHandler::registerListener(PrePostCreateEvent::class, [MentionsHook::class, 'preCreate']);
+        EventHandler::registerListener(PrePostEditEvent::class, [MentionsHook::class, 'preEdit']);
+        EventHandler::registerListener(PreTopicCreateEvent::class, [MentionsHook::class, 'preCreate']);
+        EventHandler::registerListener(PreTopicEditEvent::class, [MentionsHook::class, 'preEdit']);
 
         if (Util::isModuleEnabled('Members')) {
             MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));

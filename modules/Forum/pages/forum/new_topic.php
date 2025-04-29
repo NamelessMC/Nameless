@@ -196,13 +196,13 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
-                $content = EventHandler::executeEvent('preTopicCreate', [
-                    'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
-                    'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                    'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
-                    'content' => $content,
-                    'user' => $user,
-                ])['content'];
+                $content = EventHandler::executeEvent(new PreTopicCreateEvent(
+                    $content,
+                    $user,
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
+                    ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
+                    URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id))
+                ))['content'];
 
                 DB::getInstance()->update('posts', $last_post_id, [
                     'post_content' => $content
@@ -285,7 +285,7 @@ $template->getEngine()->addVariables([
 $content = $_POST['content'] ?? $forum_query->topic_placeholder ?? null;
 if ($content) {
     // Purify post content
-    $content = EventHandler::executeEvent('renderPostEdit', ['content' => $content])['content'];
+    $content = EventHandler::executeEvent(new RenderContentEditEvent($content))['content'];
 }
 
 $template->assets()->include([
