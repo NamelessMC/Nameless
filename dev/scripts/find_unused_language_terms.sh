@@ -44,7 +44,7 @@ do
 
       # If running on macOS, install GNU Grep via `brew install grep`, and change `grep` to `ggrep` below
       # The 'term' => '...' check can be removed once Notification system is fully implemented
-      if ! ggrep -r --exclude-dir=.git --exclude-dir=vendor --exclude-dir=cache --exclude-dir=node_modules \
+      if ! grep -r --exclude-dir=.git --exclude-dir=vendor --exclude-dir=cache --exclude-dir=node_modules \
               -e "get('$BEFORE_SLASH', '$AFTER_SLASH'" \
               -e "'term' => '$AFTER_SLASH'" \
               -e "getLanguageTerm('$AFTER_SLASH'" \
