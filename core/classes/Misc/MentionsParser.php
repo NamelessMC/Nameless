@@ -73,7 +73,7 @@ class MentionsParser
             'SELECT u.id, u.nickname, EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?) as blocked_author FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ')',
             [
                 $author_id,
-                ...$nicknames
+                ...$nicknames,
             ]
         )->results();
     }
