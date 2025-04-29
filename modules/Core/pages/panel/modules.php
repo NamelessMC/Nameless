@@ -69,11 +69,6 @@ if (!isset($_GET['action'])) {
                 } else {
                     $errors[] = $language->get('admin', 'unable_to_load_module', $variables);
                 }
-
-                $errors[] = $language->get('admin', $term, [
-                    'message' => $e->getMessage(),
-                    'module' => Output::getClean($item->name),
-                ]);
                 continue;
             }
         }
