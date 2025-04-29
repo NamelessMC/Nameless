@@ -134,10 +134,10 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $content = EventHandler::executeEvent('preCustomPageCreate', [
-                                'content' => Input::get('content'),
-                                'user' => $user,
-                            ])['content'];
+                            $content = EventHandler::executeEvent(new PreCustomPageCreateEvent(
+                                Input::get('content'),
+                                $user)
+                            )['content'];
 
                             DB::getInstance()->insert('custom_pages', [
                                 'url' => rtrim(Input::get('page_url'), '/'),
@@ -204,7 +204,7 @@ if (!isset($_GET['action'])) {
             $content = $_POST['content'] ?? null;
             if ($content) {
                 // Purify post content
-                $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => $content])['content'];
+                $content = EventHandler::executeEvent(new RenderContentEditEvent($content))['content'];
             }
 
             $template->getEngine()->addVariables([
@@ -332,10 +332,10 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $content = EventHandler::executeEvent('preCustomPageEdit', [
-                                'content' => Input::get('content'),
-                                'user' => $user,
-                            ])['content'];
+                            $content = EventHandler::executeEvent(new PreCustomPageEditEvent(
+                                Input::get('content'),
+                                $user,
+                            ))['content'];
 
                             DB::getInstance()->update('custom_pages', $page->id, [
                                 'url' => rtrim(Input::get('page_url'), '/'),
@@ -501,7 +501,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => ($_POST['content'] ?: $page->content)])['content'];
+            $content = EventHandler::executeEvent(new RenderContentEditEvent($_POST['content'] ?: $page->content))['content'];
 
             $template->getEngine()->addVariables([
                 'CANCEL' => $language->get('general', 'cancel'),

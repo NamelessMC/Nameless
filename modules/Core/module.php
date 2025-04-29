@@ -321,46 +321,12 @@ class Core_Module extends Module {
         EventHandler::registerEvent(UserWarnedEvent::class);
 
         // -- Pipelines
+        EventHandler::registerEvent(PreCustomPageCreateEvent::class);
+        EventHandler::registerEvent(PreCustomPageEditEvent::class);
+        EventHandler::registerEvent(RenderContentEvent::class);
+        EventHandler::registerEvent(RenderContentEditEvent::class);
 
-        /*EventHandler::registerEvent('preCustomPageCreate',
-            $language->get('admin', 'pre_custom_page_create_hook_info'),
-            [
-                'content' => $language->get('general', 'content'),
-                'user' => $language->get('general', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('preCustomPageEdit',
-            $language->get('admin', 'pre_custom_page_edit_hook_info'),
-            [
-                'content' => $language->get('general', 'content'),
-                'user' => $language->get('general', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderCustomPage',
-            $language->get('admin', 'render_custom_page_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderCustomPageEdit',
-            $language->get('admin', 'render_custom_page_edit_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderPrivateMessage',
+        /*EventHandler::registerEvent('renderPrivateMessage',
             $language->get('admin', 'render_private_message'),
             [
                 'content' => $language->get('general', 'content')
