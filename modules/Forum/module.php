@@ -124,14 +124,6 @@ class Forum_Module extends Module {
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');*/
 
-        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'purify']);
-        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'renderEmojis'], 10);
-        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'replaceAnchors'], 5);
-        EventHandler::registerListener(RenderContentEvent::class, [MentionsHook::class, 'parsePost'], 5);
-
-        /*EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);*/
-
         if (Util::isModuleEnabled('Members')) {
             MemberListManager::getInstance()->registerListProvider(new MostPostsMemberListProvider($forum_language));
             MemberListManager::getInstance()->registerListProvider(new HighestForumReactionScoresMemberListProvider($forum_language));

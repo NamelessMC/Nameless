@@ -298,7 +298,7 @@ if (!isset($_GET['action'])) {
             }
         }
 
-        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+        $content = (isset($_POST['content'])) ? EventHandler::executeEvent(new RenderContentEditEvent($_POST['content']))['content'] : null;
 
         // Assign template variables
         $template->getEngine()->addVariables([
@@ -453,7 +453,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords($nValue->created, $language),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
-                'content' => EventHandler::executeEvent('renderPrivateMessage', ['content' => $nValue->content])['content'],
+                'content' => EventHandler::executeEvent(new RenderContentEvent($nValue->content))['content'],
             ];
         }
 
@@ -485,7 +485,7 @@ if (!isset($_GET['action'])) {
             'NO' => $language->get('general', 'no'),
         ]);
 
-        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+        $content = (isset($_POST['content'])) ? EventHandler::executeEvent(new RenderContentEditEvent($_POST['content']))['content'] : null;
 
         $template->assets()->include([
             AssetTree::TINYMCE,

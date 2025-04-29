@@ -683,7 +683,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 foreach ($replies_query as $reply) {
                     $reply_user = new User($reply->author_id);
-                    $content = EventHandler::executeEvent('renderProfilePost', ['content' => $reply->content])['content'];
+                    $content = EventHandler::executeEvent(new RenderContentEvent($reply->content))['content'];
 
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
@@ -704,7 +704,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
 
             $post_user = new User($nValue->author_id);
-            $content = EventHandler::executeEvent('renderProfilePost', ['content' => $nValue->content])['content'];
+            $content = EventHandler::executeEvent(new RenderContentEvent($nValue->content))['content'];
             $wall_posts[] = [
                 'id' => $nValue->id,
                 'user_id' => Output::getClean($post_user->data()->id),

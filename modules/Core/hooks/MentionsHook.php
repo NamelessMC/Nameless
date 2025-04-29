@@ -16,9 +16,9 @@ class MentionsHook extends HookBase {
             $event->content = MentionsParser::parse(
                 $event->user->data()->id,
                 $event->content,
-                $event->alert_url ?: null,
-                $event->alert_short ?: null,
-                $event->alert_full ?: null,
+                empty($event->alert_url) ? null : $event->alert_url,
+                empty($event->alert_short) ? null : $event->alert_short,
+                empty($event->alert_full) ? null : $event->alert_full
             );
         }
     }
@@ -27,8 +27,7 @@ class MentionsHook extends HookBase {
         if (!empty($event->content) && isset($event->user)) {
             $event->content = MentionsParser::parse(
                 $event->user->data()->id,
-                $event->content,
-                URL::build('/forum/topic/' . urlencode($event->topic_id), 'pid=' . urlencode($event->post_id))
+                $event->content
             );
         }
     }
@@ -62,38 +61,43 @@ class MentionsHook extends HookBase {
         }
     }
 
+    public static function stripPost(AbstractEvent $event): void {
+        if (!empty($event->content)) {
+            self::stripContent($event->content);
+        }
+    }
+
     /**
      * Strips [user] tags and parses the ID to username
      * e.g. [user]1[/user] would instead become (at)Username
      *
-     * @param array $params
+     * @param string $content
+     * @return string
      */
-    public static function stripPost(AbstractEvent $event): void {
-        if (!empty($event->content)) {
-            $event->content = preg_replace_callback(
-                '/\[user\](.*?)\[\/user\]/ism',
-                static function (array $match) {
-                    if (isset(MentionsHook::$_cache[$match[1]])) {
-                        $userNickname = MentionsHook::$_cache[$match[1]][2];
-                    } else {
-                        $user = new User($match[1]);
+    public static function stripContent(string $content): string {
+        return preg_replace_callback(
+            '/\[user\](.*?)\[\/user\]/ism',
+            static function (array $match) {
+                if (isset(MentionsHook::$_cache[$match[1]])) {
+                    $userNickname = MentionsHook::$_cache[$match[1]][2];
+                } else {
+                    $user = new User($match[1]);
 
-                        if (!$user->exists()) {
-                            return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
-                        }
-
-                        $userId = $user->data()->id;
-                        $userStyle = $user->getGroupStyle();
-                        $userNickname = $user->data()->nickname;
-                        $userProfileUrl = $user->getProfileURL();
-
-                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                    if (!$user->exists()) {
+                        return '@' . (new Language('core', LANGUAGE))->get('general', 'deleted_user');
                     }
 
-                    return '@' . Output::getClean($userNickname);
-                },
-                $event->content
-            );
-        }
+                    $userId = $user->data()->id;
+                    $userStyle = $user->getGroupStyle();
+                    $userNickname = $user->data()->nickname;
+                    $userProfileUrl = $user->getProfileURL();
+
+                    MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                }
+
+                return '@' . Output::getClean($userNickname);
+            },
+            $content
+        );
     }
 }

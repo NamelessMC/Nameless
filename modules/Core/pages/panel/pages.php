@@ -204,7 +204,7 @@ if (!isset($_GET['action'])) {
             $content = $_POST['content'] ?? null;
             if ($content) {
                 // Purify post content
-                $content = EventHandler::executeEvent(new RenderContentEditEvent($content))['content'];
+                $content = EventHandler::executeEvent(new RenderContentEditEvent($content, true))['content'];
             }
 
             $template->getEngine()->addVariables([
@@ -501,7 +501,7 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $content = EventHandler::executeEvent(new RenderContentEditEvent($_POST['content'] ?: $page->content))['content'];
+            $content = EventHandler::executeEvent(new RenderContentEditEvent($_POST['content'] ?: $page->content, true))['content'];
 
             $template->getEngine()->addVariables([
                 'CANCEL' => $language->get('general', 'cancel'),
