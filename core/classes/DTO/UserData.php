@@ -25,13 +25,11 @@ class UserData
     public ?string $reset_code;
     public bool $has_avatar;
     public bool $gravatar;
-    public bool $topic_updates;
     public bool $private_profile;
     public ?int $last_online;
     public ?string $user_title;
     public ?int $theme_id;
     public ?int $language_id;
-    public int $warning_points;
     public ?bool $night_mode;
     public bool $tfa_enabled;
     public int $tfa_type;
@@ -60,13 +58,11 @@ class UserData
         $this->reset_code = $row->reset_code;
         $this->has_avatar = $row->has_avatar;
         $this->gravatar = $row->gravatar;
-        $this->topic_updates = $row->topic_updates;
         $this->private_profile = $row->private_profile;
         $this->last_online = $row->last_online;
         $this->user_title = $row->user_title;
         $this->theme_id = $row->theme_id;
         $this->language_id = $row->language_id;
-        $this->warning_points = $row->warning_points;
         $this->night_mode = $row->night_mode;
         $this->tfa_enabled = $row->tfa_enabled;
         $this->tfa_type = $row->tfa_type;

@@ -27,8 +27,8 @@ class DefaultRevamp_Template extends SmartyTemplateBase
     {
         $template = [
             'name' => 'DefaultRevamp',
-            'version' => '2.2.0',
-            'nl_version' => '2.2.0',
+            'version' => '2.2.1',
+            'nl_version' => '2.2.1',
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 

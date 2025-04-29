@@ -18,8 +18,8 @@ class Forum_Module extends Module {
 
         $name = 'Forum';
         $author = '<a href="https://samerton.dev" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.2.0';
-        $nameless_version = '2.2.0';
+        $module_version = '2.2.1';
+        $nameless_version = '2.2.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -158,6 +158,13 @@ class Forum_Module extends Module {
         }
 
         ReactionContextsManager::getInstance()->provideContext(new ForumPostReactionContext($forum_language));
+
+        Notification::addType(
+            'forum_topic_reply',
+            $forum_language->get('forum', 'forum_topic_replies'),
+            Module::getIdFromName('Forum'),
+            ['alert' => true, 'email' => true],
+        );
     }
 
     public function onInstall() {

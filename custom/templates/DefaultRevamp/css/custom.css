@@ -271,6 +271,12 @@ body.pushable>.pusher {
     }
 }
 
+.user-mention {
+    background-color: #f5f5f5;
+    border-radius: 0.25rem;
+    padding: 2px 4px;
+}
+
 .ui.comments {
     max-width: none;
 }
@@ -1572,6 +1578,12 @@ body.dark #modal-reactions .ui.large.selection.divided.list.middle.aligned .item
 
 body.dark ::-webkit-scrollbar-corner {
     background-color: transparent;
+}
+
+body.dark .user-mention {
+    background-color: #565151;
+    border-radius: 0.25rem;
+    padding: 2px 4px;
 }
 
 /*

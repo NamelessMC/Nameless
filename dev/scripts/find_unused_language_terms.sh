@@ -50,6 +50,7 @@ do
               -e "? '$AFTER_SLASH'" \
               -e ": '$AFTER_SLASH'" \
               -e "getLanguageTerm('$AFTER_SLASH')" \
+              -e "new LanguageKey('$BEFORE_SLASH', '$AFTER_SLASH')" \
               > /dev/null
       then
           UNUSED_TERMS_FOUND=true

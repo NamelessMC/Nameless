@@ -19,8 +19,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.2.0';
-        $nameless_version = '2.2.0';
+        $module_version = '2.2.1';
+        $nameless_version = '2.2.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -532,7 +532,14 @@ class Core_Module extends Module {
         // Notifications
         Notification::addType(
             'mass_message',
-            $language->get('notification', 'mass_message'),
+            $language->get('notification', 'mass_messages'),
+            Module::getIdFromName('Core'),
+            ['alert' => true, 'email' => true],
+        );
+
+        Notification::addType(
+            'report',
+            $language->get('notification', 'reports'),
             Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
