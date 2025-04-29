@@ -110,8 +110,6 @@ class Forum_Module extends Module {
             true
         );*/
 
-        EventHandler::registerEvent(RenderPostEvent::class);
-
         /*EventHandler::registerEvent('renderPostEdit',
             $this->_forum_language->get('forum', 'render_post_edit'),
             [
@@ -126,10 +124,10 @@ class Forum_Module extends Module {
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');*/
 
-        EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'purify']);
-        EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'renderEmojis'], 10);
-        EventHandler::registerListener(RenderPostEvent::class, [ContentHook::class, 'replaceAnchors'], 5);
-        EventHandler::registerListener(RenderPostEvent::class, [MentionsHook::class, 'parsePost'], 5);
+        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'purify']);
+        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener(RenderContentEvent::class, [MentionsHook::class, 'parsePost'], 5);
 
         /*EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);*/

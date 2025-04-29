@@ -713,7 +713,7 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Purify post content
-    $content = EventHandler::executeEvent(new RenderPostEvent($nValue->post_content))['content'];
+    $content = EventHandler::executeEvent(new RenderContentEvent($nValue->post_content))['content'];
 
     // Get post date
     if (is_null($nValue->created)) {
