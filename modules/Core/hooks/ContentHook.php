@@ -14,8 +14,7 @@ class ContentHook extends HookBase {
      *
      * @deprecated Will be removed in 2.2.0!
      *
-     * @param array $params
-     * @return array
+     * @param AbstractEvent $event
      */
     public static function codeTransform(AbstractEvent $event): void {
         if (isset($event->content)) {
@@ -49,8 +48,7 @@ class ContentHook extends HookBase {
      *
      * @deprecated Will be removed in 2.3.0!
      *
-     * @param array $params
-     * @return array
+     * @param AbstractEvent $event
      */
     public static function decode(AbstractEvent $event): void {
         if (isset($event->content)) {

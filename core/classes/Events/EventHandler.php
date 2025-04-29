@@ -83,7 +83,7 @@ class EventHandler
         $name = $event::name();
         if (!isset(self::$_events[$name])) {
             // Silently create event if it doesn't exist, maybe throw exception instead?
-            self::registerEvent($event, $event);
+            self::registerEvent($event);
         }
 
         if (is_string($callback) && class_exists($callback)) {
@@ -139,6 +139,7 @@ class EventHandler
             }
         }
 
+        // Rerun $event->params() to get latest changes from listeners
         return $event->params();
     }
 

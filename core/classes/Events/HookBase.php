@@ -5,7 +5,7 @@
  *
  * @package NamelessMC\Events
  * @author Samerton
- * @version 2.0.0-pr13
+ * @version 2.3.0
  * @license MIT
  */
 abstract class HookBase
@@ -13,13 +13,15 @@ abstract class HookBase
     /**
      * Ensure a set of parameters has all the required fields.
      *
-     * @param array $params          Array of parameters to check
-     * @param array $required_params Array of required parameter keys
+     * @param AbstractEvent $event           Event to check
+     * @param array         $required_params Array of required parameter keys
      *
      * @return bool Whether $params contains all of $required_params
      */
-    protected static function validateParams(array $params, array $required_params): bool
+    protected static function validateParams(AbstractEvent $event, array $required_params): bool
     {
+        $params = $event->params();
+
         if (empty($params)) {
             return false;
         }

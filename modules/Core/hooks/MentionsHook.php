@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0 pre-13
+ *  NamelessMC version 2.3.0
  *
  *  Mentions hook for pre-create/edit event for Core module
  */
@@ -11,34 +11,30 @@ class MentionsHook extends HookBase {
 
     private static array $_cache = [];
 
-    public static function preCreate(array $params = []): array {
-        if (self::validate($params)) {
-            $params['content'] = MentionsParser::parse(
-                $params['user']->data()->id,
-                $params['content'],
-                $params['alert_url'] ?: null,
-                $params['alert_short'] ?: null,
-                $params['alert_full'] ?: null,
+    public static function preCreate(AbstractEvent $event): void {
+        if (!empty($event->content) && isset($event->user)) {
+            $event->content = MentionsParser::parse(
+                $event->user->data()->id,
+                $event->content,
+                $event->alert_url ?: null,
+                $event->alert_short ?: null,
+                $event->alert_full ?: null,
             );
         }
-
-        return $params;
     }
 
-    public static function preEdit(array $params = []): array {
-        if (self::validate($params)) {
-            $params['content'] = MentionsParser::parse(
-                $params['user']->data()->id,
-                $params['content'],
-                URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id']))
+    public static function preEdit(AbstractEvent $event): void {
+        if (!empty($event->content) && isset($event->user)) {
+            $event->content = MentionsParser::parse(
+                $event->user->data()->id,
+                $event->content,
+                URL::build('/forum/topic/' . urlencode($event->topic_id), 'pid=' . urlencode($event->post_id))
             );
         }
-
-        return $params;
     }
 
     public static function parsePost(AbstractEvent $event): void {
-        if (isset($event->content)) {
+        if (!empty($event->content)) {
             $event->content = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
                 static function (array $match) {
@@ -71,11 +67,10 @@ class MentionsHook extends HookBase {
      * e.g. [user]1[/user] would instead become (at)Username
      *
      * @param array $params
-     * @return array
      */
-    public static function stripPost(array $params = []): array {
-        if (parent::validateParams($params, ['content'])) {
-            $params['content'] = preg_replace_callback(
+    public static function stripPost(AbstractEvent $event): void {
+        if (!empty($event->content)) {
+            $event->content = preg_replace_callback(
                 '/\[user\](.*?)\[\/user\]/ism',
                 static function (array $match) {
                     if (isset(MentionsHook::$_cache[$match[1]])) {
@@ -97,14 +92,8 @@ class MentionsHook extends HookBase {
 
                     return '@' . Output::getClean($userNickname);
                 },
-                $params['content']
+                $event->content
             );
         }
-
-        return $params;
-    }
-
-    private static function validate(array $params): bool {
-        return parent::validateParams($params, ['content', 'user']);
     }
 }
