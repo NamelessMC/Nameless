@@ -28,11 +28,20 @@ class MentionsParser
         return self::replaceWithBbcode($content, $receipients);
     }
 
+    /**
+     * Parse the given content to replace @username tags with [user]<id>[/user] bbcode, as well as send notifications to the mentioned users.
+     * Users who are tagged but have blocked the author will not receive notifications.
+     *
+     * @param int    $author_id User ID of post/custom page creator.
+     * @param string $content   Post/custom page content.
+     *
+     * @return string Parsed post content.
+     */
     public static function parseAndNotify(int $author_id, string $content, string $url, string $notificationType, LanguageKey $notificationTitle): string
     {
         $receipients = self::getRecipients($content, $author_id);
 
-        $notificationRecipients = array_filter($receipients, fn ($receipient) => $receipient->id !== $author_id);
+        $notificationRecipients = array_filter($receipients, fn ($receipient) => $receipient->id !== $author_id && !$receipient->blocked_author);
         $notificationRecipients = array_column($notificationRecipients, 'id');
 
         $notification = new Notification(
@@ -61,10 +70,10 @@ class MentionsParser
         $nicknames = $matches[1];
 
         return DB::getInstance()->query(
-            'SELECT u.id, u.nickname FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ') AND NOT EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?)',
+            'SELECT u.id, u.nickname, EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?) as blocked_author FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ')',
             [
-                ...$nicknames,
                 $author_id,
+                ...$nicknames
             ]
         )->results();
     }
