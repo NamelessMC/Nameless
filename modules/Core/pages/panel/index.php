@@ -194,11 +194,9 @@ if ($user->hasPermission('admincp.core.debugging')) {
     } else if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=')) ||
         ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>='))) {
         $compat_warnings[] = $pdo_driver . ' Server ' . $pdo_server_version;
-        $compat_warnings_help[] = $language->get(
-            'admin',
-            'compat_pdo_version_info',
-            ['mysql' => '8.0+', 'mariadb' => '10.5+']
-        );
+        $compat_warnings_help[] = $language->get('admin', 'compat_pdo_version_info', [
+            'mysql' => '8.0+', 'mariadb' => '10.5+',
+        ]);
 
     } else {
         $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;
