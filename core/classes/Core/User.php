@@ -1066,7 +1066,8 @@ class User
      */
     public function isBlocked(int $user, int $blocked): bool
     {
-        return DB::getInstance()->query('SELECT 1 FROM nl2_blocked_users WHERE user_id = ? AND user_blocked_id = ?',
+        return DB::getInstance()->query(
+            'SELECT 1 FROM nl2_blocked_users WHERE user_id = ? AND user_blocked_id = ?',
             [$user, $blocked]
         )->exists();
     }
