@@ -214,7 +214,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'post_id' => $_POST['post'],
                                         'author_id' => $user->data()->id,
                                         'time' => date('U'),
-                                        'content' => Input::get('reply')
+                                        'content' => EventHandler::executeEvent(new ContentCreateEvent(Input::get('reply'), $user))['content']
                                     ]
                                 );
 
