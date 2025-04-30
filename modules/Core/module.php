@@ -466,6 +466,9 @@ class Core_Module extends Module {
         EventHandler::registerListener(RenderContentEditEvent::class, [ContentHook::class, 'replaceAnchors'], 15);
         EventHandler::registerListener(RenderContentEditEvent::class, [MentionsHook::class, 'stripPost'], 15);
 
+        EventHandler::registerListener(ContentCreateEvent::class, [MentionsHook::class, 'preCreate']);
+        EventHandler::registerListener(ContentEditEvent::class, [MentionsHook::class, 'preEdit']);
+
         EventHandler::registerListener(PreCustomPageCreateEvent::class, [MentionsHook::class, 'preCreate']);
         EventHandler::registerListener(PreCustomPageEditEvent::class, [MentionsHook::class, 'preEdit']);
 

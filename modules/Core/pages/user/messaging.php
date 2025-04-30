@@ -235,7 +235,7 @@ if (!isset($_GET['action'])) {
                                         'pm_id' => $last_id,
                                         'author_id' => $user->data()->id,
                                         'created' => date('U'),
-                                        'content' => Input::get('content')
+                                        'content' => EventHandler::executeEvent(new ContentCreateEvent(Input::get('content'), $user))['content']
                                     ]
                                 );
 

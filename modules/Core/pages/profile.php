@@ -121,7 +121,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'user_id' => $query->id,
                                         'author_id' => $user->data()->id,
                                         'time' => date('U'),
-                                        'content' => Input::get('post')
+                                        'content' => EventHandler::executeEvent(new ContentCreateEvent(Input::get('post'), $user))['content']
                                     ]
                                 );
 

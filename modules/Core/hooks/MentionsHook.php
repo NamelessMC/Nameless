@@ -54,7 +54,7 @@ class MentionsHook extends HookBase {
      * Parses the [user] tags in a post and replaces them with a link to the user's profile.
      * e.g. [user]1[/user] would instead become <a href="profile/username">@username</a>
      *
-     * @param array $params
+     * @param AbstractEvent $event
      */
     public static function parsePost(AbstractEvent $event): void {
         if (!empty($event->content)) {
