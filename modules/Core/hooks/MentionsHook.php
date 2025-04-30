@@ -20,13 +20,20 @@ class MentionsHook extends HookBase {
      */
     public static function preCreate(AbstractEvent $event): void {
         if (!empty($event->content) && isset($event->user)) {
-            $event->content = MentionsParser::parseAndNotify(
-                $event->user->data()->id,
-                $event->content,
-                $event->alert_url,
-                $event->mention_notification_type,
-                $event->mention_notification_title,
-            );
+            if (isset($event->alert_url, $event->mention_notification_type, $event->mention_notification_title)) {
+                $event->content = MentionsParser::parseAndNotify(
+                    $event->user->data()->id,
+                    $event->content,
+                    $event->alert_url,
+                    $event->mention_notification_type,
+                    $event->mention_notification_title
+                );
+            } else {
+                $event->content = MentionsParser::parse(
+                    $event->user->data()->id,
+                    $event->content
+                );
+            }
         }
     }
 
@@ -48,7 +55,6 @@ class MentionsHook extends HookBase {
      * e.g. [user]1[/user] would instead become <a href="profile/username">@username</a>
      *
      * @param array $params
-     * @return array
      */
     public static function parsePost(AbstractEvent $event): void {
         if (!empty($event->content)) {
@@ -64,7 +70,7 @@ class MentionsHook extends HookBase {
 
     public static function stripPost(AbstractEvent $event): void {
         if (!empty($event->content)) {
-            self::stripContent($event->content);
+            $event->content = self::stripContent($event->content);
         }
     }
 

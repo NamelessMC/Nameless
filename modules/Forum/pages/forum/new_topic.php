@@ -199,11 +199,11 @@ if (Input::exists()) {
                 $content = EventHandler::executeEvent(new PreTopicCreateEvent(
                     $content,
                     $user,
+                    URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                     'forum_topic_mention',
                     new LanguageKey('forum', 'user_tag_info', [
                         'author' => $user->getDisplayname(),
                     ], ROOT_PATH . '/modules/Forum/language'),
-                    'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                 ))['content'];
 
                 DB::getInstance()->update('posts', $last_post_id, [

@@ -130,14 +130,14 @@ if (Input::exists()) {
                     $user,
                     $topic_id,
                     $post_id
-                ));
+                ))['content'];
             } else {
                 $content = EventHandler::executeEvent(new PrePostEditEvent(
                     Input::get('content'),
                     $user,
                     $topic_id,
                     $post_id
-                ));
+                ))['content'];
             }
 
             // Update post content

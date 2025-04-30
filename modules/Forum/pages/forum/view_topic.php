@@ -304,11 +304,11 @@ if (Input::exists()) {
                 $content = EventHandler::executeEvent(new PrePostCreateEvent(
                     $content,
                     $user,
+                    URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                     'forum_topic_mention',
-                    'mention_notification_title' => new LanguageKey('forum', 'user_tag_info', [
+                    new LanguageKey('forum', 'user_tag_info', [
                         'author' => $user->getDisplayname(),
-                    ], ROOT_PATH . '/modules/Forum/language'),
-                    URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id))
+                    ], ROOT_PATH . '/modules/Forum/language')
                 ))['content'];
 
                 DB::getInstance()->update('posts', $last_post_id, [
