@@ -28,7 +28,7 @@ class EventHandler
      * Register an event.
      * This must be called in the module's constructor.
      *
-     * @param class-string $event Event to add.
+     * @param  class-string $event Event to add.
      * @throws Exception
      */
     public static function registerEvent(string $event): void
@@ -69,9 +69,9 @@ class EventHandler
      * Register an event listener for a module.
      * This must be called in the module's constructor.
      *
-     * @param class-string $event Event to listen to.
-     * @param callable|class-string $callback Listener callback to execute when event is executed. If class name is provided, we will assume there is a static "execute" method on the class.
-     * @param int $priority Execution priority - higher gets executed first
+     * @param  class-string          $event    Event to listen to.
+     * @param  callable|class-string $callback Listener callback to execute when event is executed. If class name is provided, we will assume there is a static "execute" method on the class.
+     * @param  int                   $priority Execution priority - higher gets executed first
      * @throws Exception
      */
     public static function registerListener(string $event, $callback, int $priority = 10): void
@@ -100,7 +100,7 @@ class EventHandler
      * Execute an event.
      *
      * @param  AbstractEvent $event Instance of event to execute.
-     * @return array|null           Response of listeners, can be any type or null
+     * @return array|null    Response of listeners, can be any type or null
      */
     public static function executeEvent(AbstractEvent $event): ?array // Change to AbstractEvent in future
     {
