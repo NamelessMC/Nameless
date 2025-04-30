@@ -301,7 +301,7 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
-                $content = EventHandler::executeEvent(new PrePostCreateEvent(
+                $post_event = new PrePostCreateEvent(
                     $content,
                     $user,
                     URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
@@ -309,8 +309,10 @@ if (Input::exists()) {
                     new LanguageKey('forum', 'user_tag_info', [
                         'author' => $user->getDisplayname(),
                     ], ROOT_PATH . '/modules/Forum/language')
-                ))['content'];
+                );
+                EventHandler::executeEvent($post_event);
 
+                $content = $post_event->content;
                 DB::getInstance()->update('posts', $last_post_id, [
                     'post_content' => $content
                 ]);
@@ -701,7 +703,8 @@ foreach ($results->data as $n => $nValue) {
     }
 
     // Purify post content
-    $content = EventHandler::executeEvent(new RenderContentEvent($nValue->post_content))['content'];
+    $render_event = new RenderContentEvent($nValue->post_content);
+    EventHandler::executeEvent($render_event);
 
     // Get post date
     if (is_null($nValue->created)) {
@@ -735,7 +738,7 @@ foreach ($results->data as $n => $nValue) {
         'post_date_rough' => $post_date_rough,
         'post_date' => $post_date,
         'buttons' => $buttons,
-        'content' => $content,
+        'content' => $render_event->content,
         'signature' => Output::getPurified(Text::renderEmojis($signature)),
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => is_null($nValue->last_edited)
@@ -801,7 +804,9 @@ if ($user->isLoggedIn() && $can_reply) {
 
         if (isset($_POST['content'])) {
             // Purify post content
-            $content = EventHandler::executeEvent(new RenderContentEditEvent($_POST['content']))['content'];
+            $render_event = new RenderContentEditEvent($_POST['content']);
+            EventHandler::executeEvent($render_event);
+            $content = $render_event->content;
         }
 
         $template->getEngine()->addVariable('SUBMIT', $language->get('general', 'submit'));

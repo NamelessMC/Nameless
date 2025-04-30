@@ -17,12 +17,14 @@ class DiscordHook implements WebhookDispatcher {
             ? $event->toDiscordWebhook()
             : [];
 
-        $return = EventHandler::executeEvent(new DiscordWebhookFormatterEvent(
+        $return = new DiscordWebhookFormatterEvent(
             $name,
             $format,
             $params,
-        ))['format'];
+        );
+        EventHandler::executeEvent($return);
 
+        $return = $return->format;
         if ($return instanceof DiscordWebhookBuilder) {
             $return = $return->toArray();
         }

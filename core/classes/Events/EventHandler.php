@@ -98,9 +98,9 @@ class EventHandler
      * Execute an event.
      *
      * @param  AbstractEvent $event Instance of event to execute.
-     * @return array|null    Response of listeners, can be any type or null
+     * @return AbstractEvent Response of listeners, can be any type or null
      */
-    public static function executeEvent(AbstractEvent $event): ?array // Change to AbstractEvent in future
+    public static function executeEvent(AbstractEvent $event): AbstractEvent
     {
         $name = $event::name();
         $params = $event->params();
@@ -187,5 +187,4 @@ class EventHandler
 
         return self::$_events[$event];
     }
-
 }

@@ -85,15 +85,16 @@ $template->assets()->include([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-$content = EventHandler::executeEvent(new RenderContentEvent(
+$event = new RenderContentEvent(
     $custom_page->content,
     $custom_page->all_html ?? false
-))['content'];
+);
+EventHandler::executeEvent($event);
 
 $template->getEngine()->addVariables([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => $content,
+    'CONTENT' => $event->content,
 ]);
 
 $template->onPageLoad();

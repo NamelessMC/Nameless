@@ -683,7 +683,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                 foreach ($replies_query as $reply) {
                     $reply_user = new User($reply->author_id);
-                    $content = EventHandler::executeEvent(new RenderContentEvent($reply->content))['content'];
+                    $render_event = new RenderContentEvent($reply->content);
+                    EventHandler::executeEvent($render_event);
 
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
@@ -694,7 +695,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'avatar' => $reply_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
-                        'content' => $content,
+                        'content' => $render_event->content,
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
                     ];
@@ -704,7 +705,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
 
             $post_user = new User($nValue->author_id);
-            $content = EventHandler::executeEvent(new RenderContentEvent($nValue->content))['content'];
+            $render_event = new RenderContentEvent($nValue->content);
+            EventHandler::executeEvent($render_event);
             $wall_posts[] = [
                 'id' => $nValue->id,
                 'user_id' => Output::getClean($post_user->data()->id),
@@ -713,7 +715,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'profile' => $post_user->getProfileURL(),
                 'user_style' => $post_user->getGroupStyle(),
                 'avatar' => $post_user->getAvatar(),
-                'content' => $content,
+                'content' => $render_event->content,
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $post_reactions,

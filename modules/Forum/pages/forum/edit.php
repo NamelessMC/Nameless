@@ -125,24 +125,25 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Valid post content
             if (isset($edit_title)) {
-                $content = EventHandler::executeEvent(new PreTopicEditEvent(
+                $event = new PreTopicEditEvent(
                     Input::get('content'),
                     $user,
                     $topic_id,
                     $post_id
-                ))['content'];
+                );
             } else {
-                $content = EventHandler::executeEvent(new PrePostEditEvent(
+                $event = new PrePostEditEvent(
                     Input::get('content'),
                     $user,
                     $topic_id,
                     $post_id
-                ))['content'];
+                );
             }
+            EventHandler::executeEvent($event);
 
             // Update post content
             DB::getInstance()->update('posts', $post_id, [
-                'post_content' => $content,
+                'post_content' => $event->content,
                 'last_edited' => date('U')
             ]);
 
@@ -261,7 +262,8 @@ if (isset($edit_title, $post_labels)) {
 }
 
 // Purify post content
-$content = EventHandler::executeEvent(new RenderContentEditEvent($post_editing[0]->post_content))['content'];
+$render_event = new RenderContentEditEvent($post_editing[0]->post_content);
+EventHandler::executeEvent($render_event);
 
 $template->getEngine()->addVariables([
     'TOKEN' => Token::get(),
@@ -277,7 +279,7 @@ $template->assets()->include([
     AssetTree::TINYMCE,
 ]);
 
-$template->addJSScript(Input::createTinyEditor($language, 'editor', $content, true));
+$template->addJSScript(Input::createTinyEditor($language, 'editor', $render_event->content, true));
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
