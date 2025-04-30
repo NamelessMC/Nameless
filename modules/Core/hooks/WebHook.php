@@ -10,14 +10,13 @@
 class WebHook implements WebhookDispatcher {
 
     public static function execute(AbstractEvent $event, string $webhook_url): void {
-        if ($event instanceof HasWebhookParams) {
-            $params = $event->webhookParams();
-            if (!isset($params['event'])) {
-                $params['event'] = $event::name();
-            }
-        } else {
-            ErrorHandler::logWarning('Event ' . $event::name() . ' does not implement HasWebhookParams, using `params()` instead');
-            $params = $event->params();
+        if (!$event instanceof HasWebhookParams) {
+            return;
+        }
+
+        $params = $event->webhookParams();
+        if (!isset($params['event'])) {
+            $params['event'] = $event::name();
         }
 
         $json = json_encode($params, JSON_UNESCAPED_SLASHES);

@@ -5,7 +5,7 @@
  *
  * @package NamelessMC\Events
  * @author Aberdeener
- * @version 2.2.0
+ * @version 2.3.0
  * @license MIT
  */
 abstract class AbstractEvent
@@ -55,9 +55,9 @@ abstract class AbstractEvent
      * EventHandler::executeEvent(new EventClass(...));
      * ```.
      *
-     * @return array|null The response from the event, or null if the event is not returning a response
+     * @return AbstractEvent The response from the event
      */
-    final public static function dispatch(): ?array
+    final public static function dispatch(): AbstractEvent
     {
         return EventHandler::executeEvent(
             self::fromArray(func_get_args())
