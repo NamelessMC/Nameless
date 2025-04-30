@@ -29,16 +29,6 @@ abstract class AbstractEvent
     abstract public static function description(): string;
 
     /**
-     * Determine whether to return the response after executing the event.
-     *
-     * @return bool Whether to return the response after executing the event
-     */
-    public static function return(): bool
-    {
-        return false;
-    }
-
-    /**
      * Determine whether to hide this hook from users in the StaffCP, some events should be private.
      *
      * @return bool Whether to hide this hook from users in the StaffCP

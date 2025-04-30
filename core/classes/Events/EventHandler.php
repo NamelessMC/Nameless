@@ -40,7 +40,6 @@ class EventHandler
         $name = $event::name();
         // We lazy load descriptions for class-based events to avoid loading new Language instances unnecessarily
         $description = fn () => $event::description();
-        $return = $event::return();
         $internal = $event::internal();
 
         // Don't re-register if the event already exists, just update the params
@@ -59,7 +58,6 @@ class EventHandler
         self::$_events[$name] = [
             'description' => $description,
             'internal' => $internal,
-            'return' => $return,
             'listeners' => [],
             'class_name' => $event,
         ];
@@ -189,4 +187,5 @@ class EventHandler
 
         return self::$_events[$event];
     }
+
 }

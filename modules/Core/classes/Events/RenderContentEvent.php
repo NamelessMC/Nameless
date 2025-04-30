@@ -21,8 +21,4 @@ class RenderContentEvent extends AbstractEvent {
     public static function internal(): bool {
         return true;
     }
-
-    public static function return(): bool {
-        return true;
-    }
 }
