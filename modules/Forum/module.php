@@ -67,6 +67,7 @@ class Forum_Module extends Module {
 
         EventHandler::registerListener(PrePostCreateEvent::class, [MentionsHook::class, 'preCreate']);
         EventHandler::registerListener(PrePostEditEvent::class, [MentionsHook::class, 'preEdit']);
+      
         EventHandler::registerListener(PreTopicCreateEvent::class, [MentionsHook::class, 'preCreate']);
         EventHandler::registerListener(PreTopicEditEvent::class, [MentionsHook::class, 'preEdit']);
 
@@ -100,6 +101,13 @@ class Forum_Module extends Module {
         Notification::addType(
             'forum_topic_reply',
             $forum_language->get('forum', 'forum_topic_replies'),
+            Module::getIdFromName('Forum'),
+            ['alert' => true, 'email' => true],
+        );
+
+        Notification::addType(
+            'forum_topic_mention',
+            $forum_language->get('forum', 'forum_topic_mentions'),
             Module::getIdFromName('Forum'),
             ['alert' => true, 'email' => true],
         );

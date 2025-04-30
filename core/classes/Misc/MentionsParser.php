@@ -11,49 +11,87 @@
  */
 class MentionsParser
 {
+    private const USER_MENTIONS_REGEX = '/(?<!\/)@([A-Za-z0-9\-_!.]+)/';
+
     /**
-     * Parse the given HTML to include @username tags.
+     * Parse the given content to replace @username tags with [user]<id>[/user] bbcode.
      *
-     * @param int     $author_id   User ID of post creator.
-     * @param string  $value       Post content.
-     * @param ?string $link        Link back to post.
-     * @param ?array  $alert_short Short alert info, leave null to not alert user.
-     * @param ?array  $alert_full  Full alert info, leave null to not alert user.
+     * @param int    $author_id User ID of post/custom page creator.
+     * @param string $content   Post/custom page content.
      *
      * @return string Parsed post content.
      */
-    public static function parse(int $author_id, string $value, ?string $link = null, ?array $alert_short = null, ?array $alert_full = null): string
+    public static function parse(int $author_id, string $content): string
     {
-        if (preg_match_all('/(?<!\/)@([A-Za-z0-9\-_!.]+)/', $value, $matches)) {
-            $matches = $matches[1];
+        $receipients = self::getRecipients($content, $author_id);
 
-            foreach ($matches as $possible_username) {
-                $user = null;
+        return self::replaceWithBbcode($content, $receipients);
+    }
 
-                while (($possible_username != '') && !$user) {
-                    $user = new User($possible_username, 'nickname');
+    /**
+     * Parse the given content to replace @username tags with [user]<id>[/user] bbcode, as well as send notifications to the mentioned users.
+     * Users who are tagged but have blocked the author will not receive notifications.
+     *
+     * @param int    $author_id User ID of post/custom page creator.
+     * @param string $content   Post/custom page content.
+     *
+     * @return string Parsed post content.
+     */
+    public static function parseAndNotify(int $author_id, string $content, string $url, string $notificationType, LanguageKey $notificationTitle): string
+    {
+        $receipients = self::getRecipients($content, $author_id);
 
-                    if ($user->exists()) {
-                        $value = preg_replace('/(?<!\/)' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);
+        $notificationRecipients = array_filter($receipients, fn ($receipient) => $receipient->id !== $author_id && !$receipient->blocked_author);
+        $notificationRecipients = array_column($notificationRecipients, 'id');
 
-                        // Check if user is blocked by OP
-                        if ($value && $link && ($alert_full && $alert_short) && ($user->data()->id != $author_id) && !$user->isBlocked($user->data()->id, $author_id)) {
-                            Alert::create($user->data()->id, 'tag', $alert_short, $alert_full, $link);
-                            break;
-                        }
-                    }
+        $notification = new Notification(
+            $notificationType,
+            $notificationTitle,
+            // TODO: emails content - right now it will be plaintext and not use a template
+            $content,
+            $notificationRecipients,
+            $author_id,
+            null,
+            false,
+            $url,
+        );
 
-                    // chop last word off of it
-                    $new_possible_username = preg_replace('/([^A-Za-z0-9]|[A-Za-z0-9]+)$/', '', $possible_username);
-                    if ($new_possible_username !== $possible_username) {
-                        $possible_username = $new_possible_username;
-                    } else {
-                        break;
-                    }
-                }
-            }
+        $notification->send();
+
+        return self::replaceWithBbcode($content, $receipients);
+    }
+
+    /**
+     * Get users from the database based on the provided nicknames. Filters out users have blocked the author.
+     */
+    private static function getRecipients(string $content, int $author_id): array
+    {
+        preg_match_all(self::USER_MENTIONS_REGEX, $content, $matches);
+        $nicknames = $matches[1];
+
+        return DB::getInstance()->query(
+            'SELECT u.id, u.nickname, EXISTS (SELECT 1 FROM nl2_blocked_users bu WHERE bu.user_id = u.id AND bu.user_blocked_id = ?) as blocked_author FROM nl2_users u WHERE u.nickname IN (' . implode(',', array_map(static fn ($_) => '?', $nicknames)) . ')',
+            [
+                $author_id,
+                ...$nicknames,
+            ]
+        )->results();
+    }
+
+    /**
+     * Replace @username tags with [user]<id>[/user] bbcode.
+     *
+     * @param string $content     Post/custom page content.
+     * @param array  $receipients Array of user objects (with nickname and ID fields).
+     *
+     * @return string Parsed post content.
+     */
+    private static function replaceWithBbcode(string $content, array $receipients): string
+    {
+        foreach ($receipients as $receipient) {
+            $content = preg_replace('/(?<!\/)' . preg_quote("@$receipient->nickname", '/') . '/', '[user]' . $receipient->id . '[/user]', $content);
         }
 
-        return $value;
+        return $content;
     }
 }

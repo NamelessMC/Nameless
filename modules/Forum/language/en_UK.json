@@ -187,7 +187,6 @@
     "forum/use_reactions": "Use Reactions?",
     "forum/user_no_posts": "This user has not made any forum posts yet.",
     "forum/user_object": "User object",
-    "forum/user_tag": "You have been tagged in a post.",
     "forum/user_tag_info": "You have been tagged in a post by {{author}}.",
     "forum/views": "views",
     "forum/x_posts": "{{count}} posts",
@@ -195,5 +194,6 @@
     "forum/your_posts": "Your post count",
     "forum/latest_posts_widget_cached": "The latest posts widget is cached for one minute, your changes may not take effect immediately.",
     "forum/latest_posts_limit": "Latest posts limit",
-    "forum/forum_topic_replies": "Forum topic replies"
+    "forum/forum_topic_replies": "Forum topic replies",
+    "forum/forum_topic_mentions": "Forum topic mentions"
 }
