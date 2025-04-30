@@ -114,6 +114,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
                             if ($validation->passed()) {
                                 // Validation successful
+                                $event = new ContentCreateEvent(Input::get('post'), $user);
+                                EventHandler::executeEvent($event);
+
                                 // Input into database
                                 DB::getInstance()->insert(
                                     'user_profile_wall_posts',
@@ -121,7 +124,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'user_id' => $query->id,
                                         'author_id' => $user->data()->id,
                                         'time' => date('U'),
-                                        'content' => EventHandler::executeEvent(new ContentCreateEvent(Input::get('post'), $user))['content']
+                                        'content' => $event->content
                                     ]
                                 );
 
@@ -207,6 +210,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     Redirect::to($profile_user->getProfileURL());
                                 }
 
+                                $event = new ContentCreateEvent(Input::get('reply'), $user);
+                                EventHandler::executeEvent($event);
+
                                 // Input into database
                                 DB::getInstance()->insert(
                                     'user_profile_wall_posts_replies',
@@ -214,7 +220,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'post_id' => $_POST['post'],
                                         'author_id' => $user->data()->id,
                                         'time' => date('U'),
-                                        'content' => EventHandler::executeEvent(new ContentCreateEvent(Input::get('reply'), $user))['content']
+                                        'content' => $event->content
                                     ]
                                 );
 

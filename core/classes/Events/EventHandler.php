@@ -103,10 +103,9 @@ class EventHandler
     public static function executeEvent(AbstractEvent $event): AbstractEvent
     {
         $name = $event::name();
-        $params = $event->params();
 
         if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
-            EventCollector::getInstance()->called($name, $params);
+            EventCollector::getInstance()->called($name, $event->params());
         }
 
         // Execute module listeners
@@ -137,8 +136,7 @@ class EventHandler
             }
         }
 
-        // Rerun $event->params() to get latest changes from listeners
-        return $event->params();
+        return $event;
     }
 
     /**

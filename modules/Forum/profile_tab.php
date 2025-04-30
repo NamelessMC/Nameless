@@ -83,10 +83,13 @@ if (!count($latest_posts)) {
             $date_full = date(DATE_FORMAT, $latest_post->created);
         }
 
+        $render_event = new RenderContentEvent($latest_post->post_content);
+        EventHandler::executeEvent($render_event);
+
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
-            'content' => EventHandler::executeEvent(new RenderContentEvent($latest_post->post_content))['content'],
+            'content' => $render_event->content,
             'date_friendly' => $date_friendly,
             'date_full' => $date_full
         ];
