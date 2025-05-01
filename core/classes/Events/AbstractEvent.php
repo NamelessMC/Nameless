@@ -50,21 +50,6 @@ abstract class AbstractEvent
     }
 
     /**
-     * Helper method to dispatch an event, equivalent to
-     * ```php
-     * EventHandler::executeEvent(new EventClass(...));
-     * ```.
-     *
-     * @return AbstractEvent The response from the event
-     */
-    final public static function dispatch(): AbstractEvent
-    {
-        return EventHandler::executeEvent(
-            self::fromArray(func_get_args())
-        );
-    }
-
-    /**
      * Create an instance of the event from an array of parameters.
      *
      * @param  array         $params The parameters to pass to the event
