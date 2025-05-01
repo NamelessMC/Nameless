@@ -16,14 +16,6 @@ class PreTopicCreateEvent extends AbstractEvent {
         $this->mention_notification_title = $mention_notification_title;
     }
 
-    public static function name(): string {
-        return 'preTopicCreate';
-    }
-
-    public static function description(): string {
-        return 'preTopicCreate';
-    }
-
     public static function internal(): bool {
         return true;
     }

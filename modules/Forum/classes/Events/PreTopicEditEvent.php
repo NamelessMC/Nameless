@@ -14,14 +14,6 @@ class PreTopicEditEvent extends AbstractEvent {
         $this->post_id = $post_id;
     }
 
-    public static function name(): string {
-        return 'preTopicEdit';
-    }
-
-    public static function description(): string {
-        return 'preTopicEdit';
-    }
-
     public static function internal(): bool {
         return true;
     }

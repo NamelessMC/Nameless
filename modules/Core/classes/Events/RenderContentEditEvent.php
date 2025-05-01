@@ -14,14 +14,6 @@ class RenderContentEditEvent extends AbstractEvent {
         $this->skip_purify = $skip_purify;
     }
 
-    public static function name(): string {
-        return 'renderContentEdit';
-    }
-
-    public static function description(): string {
-        return 'renderContentEdit';
-    }
-
     public static function internal(): bool {
         return true;
     }

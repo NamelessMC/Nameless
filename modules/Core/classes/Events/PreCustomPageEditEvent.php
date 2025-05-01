@@ -10,14 +10,6 @@ class PreCustomPageEditEvent extends AbstractEvent {
         $this->user = $user;
     }
 
-    public static function name(): string {
-        return 'preCustomPageEdit';
-    }
-
-    public static function description(): string {
-        return 'preCustomPageEdit';
-    }
-
     public static function internal(): bool {
         return true;
     }

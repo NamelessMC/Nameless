@@ -14,14 +14,6 @@ class PrePostEditEvent extends AbstractEvent {
         $this->post_id = $post_id;
     }
 
-    public static function name(): string {
-        return 'prePostEdit';
-    }
-
-    public static function description(): string {
-        return 'prePostEdit';
-    }
-
     public static function internal(): bool {
         return true;
     }

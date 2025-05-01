@@ -10,14 +10,6 @@ class ContentCreateEvent extends AbstractEvent {
         $this->user = $user;
     }
 
-    public static function name(): string {
-        return 'contentCreate';
-    }
-
-    public static function description(): string {
-        return 'contentCreate';
-    }
-
     public static function internal(): bool {
         return true;
     }

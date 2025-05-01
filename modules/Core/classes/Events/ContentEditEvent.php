@@ -10,14 +10,6 @@ class ContentEditEvent extends AbstractEvent {
         $this->user = $user;
     }
 
-    public static function name(): string {
-        return 'contentEdit';
-    }
-
-    public static function description(): string {
-        return 'contentEdit';
-    }
-
     public static function internal(): bool {
         return true;
     }

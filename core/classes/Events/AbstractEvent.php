@@ -26,7 +26,10 @@ abstract class AbstractEvent
      *
      * @return string The description of the event
      */
-    abstract public static function description(): string;
+    public static function description(): string
+    {
+        return static::name();
+    }
 
     /**
      * Determine whether to hide this hook from users in the StaffCP, some events should be private.

@@ -10,14 +10,6 @@ class PreCustomPageCreateEvent extends AbstractEvent {
         $this->user = $user;
     }
 
-    public static function name(): string {
-        return 'preCustomPageCreate';
-    }
-
-    public static function description(): string {
-        return 'preCustomPageCreate';
-    }
-
     public static function internal(): bool {
         return true;
     }
