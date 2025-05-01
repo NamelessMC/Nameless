@@ -98,7 +98,7 @@ class EventHandler
      * Execute an event.
      *
      * @template T of AbstractEvent
-     * @param T $event
+     * @param  T $event
      * @return T
      */
     public static function executeEvent(AbstractEvent $event): AbstractEvent

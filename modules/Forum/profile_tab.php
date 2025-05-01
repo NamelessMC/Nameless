@@ -83,7 +83,8 @@ if (!count($latest_posts)) {
             $date_full = date(DATE_FORMAT, $latest_post->created);
         }
 
-        $render_event = EventHandler::executeEvent(new RenderContentEvent($latest_post->post_content));
+        $render_event = new RenderContentEvent($latest_post->post_content);
+        EventHandler::executeEvent(new RenderContentEvent($latest_post->post_content));
 
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
