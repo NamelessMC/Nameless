@@ -26,6 +26,11 @@ class Cache
     private string $_extension = '.cache';
 
     /**
+     * Whether to collect cache data.
+     */
+    private bool $_record_collector = false;
+
+    /**
      * Create a new Cache instance.
      *
      * @param  string|array $config (optional)
@@ -42,6 +47,8 @@ class Cache
                 $this->setExtension($config['extension']);
             }
         }
+
+        $this->_record_collector = defined('DEBUGGING') && DEBUGGING && class_exists('DebugBar\DebugBar');
     }
 
     /**
@@ -81,7 +88,9 @@ class Cache
             $is_cached = false;
         }
 
-        CacheCollector::getInstance()->recordCheck("{$this->_cachename}:{$key}", $is_cached);
+        if ($this->_record_collector) {
+            CacheCollector::getInstance()->recordCheck("{$this->_cachename}:{$key}", $is_cached);
+        }
 
         return $is_cached;
     }
@@ -249,7 +258,9 @@ class Cache
         $cacheData = json_encode($dataArray);
         file_put_contents($this->getCacheDir(), $cacheData);
 
-        CacheCollector::getInstance()->recordSet("{$this->_cachename}:{$key}", $data, $expiration);
+        if ($this->_record_collector) {
+            CacheCollector::getInstance()->recordSet("{$this->_cachename}:{$key}", $data, $expiration);
+        }
 
         return $this;
     }
@@ -268,7 +279,9 @@ class Cache
         $type = $timestamp ? 'time' : 'data';
 
         if (!isset($cachedData[$key][$type])) {
-            CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
+            if ($this->_record_collector) {
+                CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
+            }
 
             return null;
         }
@@ -276,14 +289,19 @@ class Cache
         if (!$timestamp) {
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
-                CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
+                if ($this->_record_collector) {
+                    CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
+                }
 
                 return null;
             }
         }
 
         $data = unserialize($cachedData[$key][$type]);
-        CacheCollector::getInstance()->recordHit("{$this->_cachename}:{$key}", $data);
+
+        if ($this->_record_collector) {
+            CacheCollector::getInstance()->recordHit("{$this->_cachename}:{$key}", $data);
+        }
 
         return $data;
     }
