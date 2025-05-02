@@ -1,12 +1,10 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * NamelessMC Cookie Consent Module
  *
- *  License: MIT
- *
- *  Cookie Consent module file
+ * @author Samerton
+ * @version 2.2.0
+ * @license MIT
  */
 
 class CookieConsent_Module extends Module {
@@ -19,9 +17,9 @@ class CookieConsent_Module extends Module {
         $this->_cookie_language = $cookie_language;
 
         $name = 'Cookie Consent';
-        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.1.0';
-        $nameless_version = '2.1.0';
+        $author = '<a href="https://samerton.dev" target="_blank" rel="nofollow noopener">Samerton</a>';
+        $module_version = '2.2.1';
+        $nameless_version = '2.2.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -52,8 +50,9 @@ class CookieConsent_Module extends Module {
         // Not necessary for CookieConsent
     }
 
-    public function onPageLoad(User $user, Pages $pages, Cache $cache, Smarty $smarty, $navs, Widgets $widgets, ?TemplateBase $template) {
+    public function onPageLoad(User $user, Pages $pages, Cache $cache, $smarty, $navs, Widgets $widgets, TemplateBase $template) {
         $language = $this->_language;
+        $cookie_url = URL::build('/cookies');
 
         // AdminCP
         PermissionHandler::registerPermissions($language->get('moderator', 'staff_cp'), [
@@ -73,40 +72,36 @@ class CookieConsent_Module extends Module {
                 $options = $cache->retrieve('options');
             }
 
-            $cookie_url = URL::build('/cookies');
-
             // Add JS script
-            if ($template) {
-                $template->addCSSFiles([
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
-                ]);
-                $template->addJSFiles([
-                    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
-                ]);
-                $template->addJSScript(
-                    CookieConsent::generateScript(
-                        array_merge($options, [
-                            'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
-                            'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
-                            'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
-                            'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
-                            'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
-                            'href' => $cookie_url,
-                        ])
-                    )
-                );
-            }
-
-            $smarty->assign([
-                'COOKIE_URL' => $cookie_url,
-                'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
-                'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),
-                'COOKIE_NOTICE_CONFIGURE' => $this->_cookie_language->get('cookie', 'configure_cookies'),
-                'COOKIE_DECISION_MADE' => (bool)Cookie::get('cookieconsent_status'),
+            $template->addCSSFiles([
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
             ]);
-
-            $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
+            $template->addJSFiles([
+                (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
+            ]);
+            $template->addJSScript(
+                CookieConsent::generateScript(
+                    array_merge($options, [
+                        'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
+                        'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
+                        'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
+                        'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
+                        'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
+                        'href' => $cookie_url,
+                    ])
+                )
+            );
         }
+
+        $template->getEngine()->addVariables([
+            'COOKIE_URL' => $cookie_url,
+            'COOKIE_NOTICE_HEADER' => $this->_cookie_language->get('cookie', 'cookie_notice'),
+            'COOKIE_NOTICE_BODY' => $this->_cookie_language->get('cookie', 'cookie_notice_info'),
+            'COOKIE_NOTICE_CONFIGURE' => $this->_cookie_language->get('cookie', 'configure_cookies'),
+            'COOKIE_DECISION_MADE' => (bool)Cookie::get('cookieconsent_status'),
+        ]);
+
+        $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
 
         if (defined('BACK_END')) {
             $cache->setCache('panel_sidebar');

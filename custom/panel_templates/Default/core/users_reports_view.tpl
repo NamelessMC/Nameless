@@ -45,7 +45,7 @@
                                             target="_blank" href="{$REPORTED_USER_PROFILE}"
                                             style="{$REPORTED_USER_STYLE}">{$REPORTED_USER}</a> {if ($TYPE == 0)}|
                                         <small><a href="{$CONTENT_LINK}" target="_blank">{$VIEW_CONTENT}</a>
-                                        </small>{/if}
+                                            </small>{elseif $REPORT_SERVER}<small>{$REPORT_SERVER}</small>{/if}
                                     </h5>
                                 </div>
                                 <div class="col-md-3">

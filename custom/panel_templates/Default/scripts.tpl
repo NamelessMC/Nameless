@@ -27,3 +27,14 @@
 {if isset($DEBUGBAR_HTML)}
 {$DEBUGBAR_HTML}
 {/if}
+
+<script type="text/javascript">
+  function toggleDarkLightMode() {
+    $.post("{$DARK_LIGHT_MODE_ACTION}", { token: "{$DARK_LIGHT_MODE_TOKEN}" })
+      .done(function () {
+        window.location.reload();
+      });
+
+    return false;
+  }
+</script>

@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Base class templates should extend to add functionality.
  *
  * @package NamelessMC\Templates
  * @author Samerton
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
-abstract class TemplateBase {
-
+abstract class TemplateBase
+{
     /**
      * @var string The template name
      */
@@ -46,11 +47,23 @@ abstract class TemplateBase {
      */
     protected array $_js = [];
 
-    public function __construct(string $name, string $version, string $nameless_version, string $author) {
+    /** @var TemplateEngine Template engine instance */
+    protected TemplateEngine $_engine;
+
+    public function __construct(string $name, string $version, string $nameless_version, string $author)
+    {
         $this->_name = $name;
         $this->_version = $version;
         $this->_nameless_version = $nameless_version;
         $this->_author = $author;
+
+        /*
+         * Temporary assignment to Smarty template engine for backwards compatibility for templates which extend TemplateBase
+         * This will be removed in 2.3.0 - breaking change!
+         */
+        if (!isset($this->_engine)) {
+            $this->_engine = new SmartyTemplateEngine(ROOT_PATH . '/custom/templates/' . $name);
+        }
     }
 
     /**
@@ -58,7 +71,8 @@ abstract class TemplateBase {
      */
     abstract public function onPageLoad();
 
-    public function assets(): AssetResolver {
+    public function assets(): AssetResolver
+    {
         return $this->_assets_resolver ??= new AssetResolver();
     }
 
@@ -67,7 +81,8 @@ abstract class TemplateBase {
      *
      * @param array $files Files to be loaded.
      */
-    public function addCSSFiles(array $files): void {
+    public function addCSSFiles(array $files): void
+    {
         if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_css[] = '
@@ -87,7 +102,8 @@ abstract class TemplateBase {
      *
      * @param string|null $style Styling to add.
      */
-    public function addCSSStyle(string $style = null): void {
+    public function addCSSStyle(?string $style = null): void
+    {
         if ($style) {
             $this->_css[] = '<style>' . $style . '</style>';
         }
@@ -98,7 +114,8 @@ abstract class TemplateBase {
      *
      * @param array $files Files to be loaded.
      */
-    public function addJSFiles(array $files): void {
+    public function addJSFiles(array $files): void
+    {
         if (count($files)) {
             foreach ($files as $href => $file) {
                 $this->_js[] = '
@@ -118,7 +135,8 @@ abstract class TemplateBase {
      *
      * @param string|null $script
      */
-    public function addJSScript(string $script = null): void {
+    public function addJSScript(?string $script = null): void
+    {
         if ($script) {
             $this->_js[] = '<script type="text/javascript">' . $script . '</script>';
         }
@@ -129,7 +147,8 @@ abstract class TemplateBase {
      *
      * @return string Name of template.
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->_name;
     }
 
@@ -138,7 +157,8 @@ abstract class TemplateBase {
      *
      * @return string Version of template.
      */
-    public function getVersion(): string {
+    public function getVersion(): string
+    {
         return $this->_version;
     }
 
@@ -147,7 +167,8 @@ abstract class TemplateBase {
      *
      * @return string NamelessMC version of template.
      */
-    public function getNamelessVersion(): string {
+    public function getNamelessVersion(): string
+    {
         return $this->_nameless_version;
     }
 
@@ -156,7 +177,8 @@ abstract class TemplateBase {
      *
      * @return string Author name of template.
      */
-    public function getAuthor(): string {
+    public function getAuthor(): string
+    {
         return $this->_author;
     }
 
@@ -165,34 +187,38 @@ abstract class TemplateBase {
      *
      * @return string Settings URL of template.
      */
-    public function getSettings(): string {
+    public function getSettings(): string
+    {
         return $this->_settings;
     }
 
     /**
-     * Render this template with Smarty engine.
+     * Render this template.
+     *
+     * @param string $template Template file to render, relative to template base directory
      */
-    public function displayTemplate(string $template, Smarty $smarty): void {
+    public function displayTemplate(string $template): void
+    {
         [$css, $js] = $this->assets()->compile();
 
         // Put the assets at the start of the arrays, so they load first (SBAdmin requires JQuery first, etc.)
         array_unshift($this->_css, ...$css);
         array_unshift($this->_js, ...$js);
 
-        $smarty->assign([
+        $this->_engine->addVariables([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS()
+            'TEMPLATE_JS' => $this->getJS(),
         ]);
 
         if (defined('PHPDEBUGBAR') && PHPDEBUGBAR) {
             $debugBar = DebugBarHelper::getInstance()->getDebugBar()->getJavascriptRenderer();
-            $smarty->assign([
+            $this->_engine->addVariables([
                 'DEBUGBAR_JS' => $debugBar->renderHead(),
-                'DEBUGBAR_HTML' => $debugBar->render()
+                'DEBUGBAR_HTML' => $debugBar->render(),
             ]);
         }
 
-        $smarty->display($template);
+        $this->_engine->render($template);
     }
 
     /**
@@ -200,7 +226,8 @@ abstract class TemplateBase {
      *
      * @return array Array of strings of CSS.
      */
-    public function getCSS(): array {
+    public function getCSS(): array
+    {
         return $this->_css;
     }
 
@@ -209,16 +236,34 @@ abstract class TemplateBase {
      *
      * @return array Array of strings of JS.
      */
-    public function getJS(): array {
+    public function getJS(): array
+    {
         return $this->_js;
     }
 
-    public function getTemplate(string $template, Smarty $smarty): string {
-        $smarty->assign([
+    /**
+     * Fetches template HTML instead of rendering it.
+     *
+     * @param  string $template
+     * @return string Generated HTML
+     */
+    public function getTemplate(string $template): string
+    {
+        $this->_engine->addVariables([
             'TEMPLATE_CSS' => $this->getCSS(),
-            'TEMPLATE_JS' => $this->getJS()
+            'TEMPLATE_JS' => $this->getJS(),
         ]);
 
-        return $smarty->fetch($template);
+        return $this->_engine->fetch($template);
+    }
+
+    /**
+     * Get template engine.
+     *
+     * @return TemplateEngine
+     */
+    public function getEngine(): TemplateEngine
+    {
+        return $this->_engine;
     }
 }

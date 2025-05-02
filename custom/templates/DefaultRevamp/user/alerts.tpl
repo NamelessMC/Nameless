@@ -29,24 +29,20 @@
                 <div class="ui middle aligned relaxed selection list">
                     {nocache}
                     {if count($ALERTS_LIST)}
-                    {foreach from=$ALERTS_LIST key=name item=alert}
-                    <a class="item" href="{$alert->view_link}" data-toggle="popup">
+                    {foreach from=$ALERTS_LIST item=alert}
+                    <a class="item" href="{$alert.view_link}">
                         <i class="angle right icon"></i>
                         <div class="content">
                             <div class="description">
-                                {if $alert->read eq 0}
-                                <strong>{$alert->content}</strong>
+                                {if $alert.read eq 0}
+                                <strong>{$alert.title}</strong>
                                 {else}
-                                {$alert->content}
+                                {$alert.title}
                                 {/if}
-                                <br />{$alert->date_nice}
+                                <br />{$alert.date_nice}
                             </div>
                         </div>
                     </a>
-                    <div class="ui wide popup">
-                        <h4>{$alert->content}</h4>
-                        {$alert->date}
-                    </div>
                     {/foreach}
                     {else}
                     <div class="ui info message">

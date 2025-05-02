@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @param string $user JSON Array of user ID -> Discord username to update
@@ -35,7 +36,7 @@ class UpdateDiscordUsernames extends KeyAuthEndpoint {
                 }
             }
         } catch (Exception $e) {
-            $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), 500);
+            $api->throwError(DiscordApiErrors::ERROR_UNABLE_TO_SET_DISCORD_BOT_USERNAME, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $api->returnArray(['message' => Discord::getLanguageTerm('discord_usernames_updated'), 'updated_users' => $updated]);

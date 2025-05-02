@@ -174,5 +174,15 @@
     "forum/views": "Lượt xem",
     "forum/x_posts": "{{count}} chủ đề",
     "forum/x_topics": "{{count}} bài đăng",
-    "forum/your_posts": "Số lượng bài đăng của bạn"
+    "forum/your_posts": "Số lượng bài đăng của bạn",
+    "forum/news_items_front_page_limit": "Số lượng tin tức hiển thị trên trang đầu",
+    "forum/latest_posts_limit": "Giới hạn bài viết mới nhất",
+    "forum/latest_posts_widget_cached": "Tiện ích bài đăng mới nhất được lưu vào bộ nhớ đệm trong một phút, những thay đổi của bạn có thể không có hiệu lực ngay lập tức.",
+    "forum/no_posts_found": "Không tìm thấy bài viết.",
+    "forum/highest_reaction_scores": "Điểm phản hồi diễn đàn cao nhất",
+    "forum/most_posts": "Nhiều bài viết nhất",
+    "forum/reaction_score": "Điểm phản ứng",
+    "forum/forum_score": "Điểm diễn đàn",
+    "forum/news_items_max": "Số lượng tin tức nhiều nhất phải là {{max}}",
+    "forum/news_items_min": "Số lượng tin tức ít nhất phải là {{min}}"
 }

@@ -1,12 +1,13 @@
 <?php
 
-class ForumCategorySeeder extends Seeder {
-
+class ForumCategorySeeder extends Seeder
+{
     public array $tables = [
         'nl2_forums',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $order = 1;
         $this->times(FORUM_CATEGORY_COUNT, static function () use ($db, $faker, &$order) {
             $db->insert('forums', [

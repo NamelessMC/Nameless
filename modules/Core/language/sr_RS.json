@@ -1,0 +1,4 @@
+{
+    "user/group_has_been_removed": "Grupa {{group}} je uklonjena za korisnika {{user}}",
+    "admin/user_banned_webhook": "Korisnik {{punished}} je dobio ban zabranu sa sajta od strane {{punisher}}."
+}

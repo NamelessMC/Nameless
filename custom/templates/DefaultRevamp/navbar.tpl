@@ -196,3 +196,9 @@
                     {$MAINTENANCE_ENABLED}
                 </div>
                 {/if}
+
+                {if count($WIDGETS_TOP)}
+                    {foreach from=$WIDGETS_TOP item=widget}
+                        {$widget}
+                    {/foreach}
+                {/if}

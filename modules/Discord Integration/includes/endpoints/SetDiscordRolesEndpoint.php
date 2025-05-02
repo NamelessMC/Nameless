@@ -3,7 +3,7 @@
 /**
  * @param int $user The NamelessMC user ID to edit
  * @param string $roles An array of Discord Role ID to give to the user
- *
+ * @deprecated Use SyncDiscordRolesEndpoint instead
  * @return string JSON Array
  */
 class SetDiscordRolesEndpoint extends KeyAuthEndpoint {

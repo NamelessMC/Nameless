@@ -124,6 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
+            DefaultUserNotificationPreferencesHook::subscribeUserToDefaultNotifications(1);
+
             DatabaseInitialiser::runPostUser();
 
             $login = $user->login(Input::get('email'), Input::get('password'), true);

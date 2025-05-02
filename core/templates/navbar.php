@@ -1,12 +1,18 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+
+/**
+ * Navbar initialisation.
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Navbar generation
+ * @var Announcements $announcements
+ * @var Language      $language
+ * @var Navigation    $navigation
+ * @var TemplateBase  $template
+ * @var User          $user
+ * @var Widgets       $widgets
  */
 
 // User area - DEPRECATED, will be removed at some point
@@ -20,7 +26,7 @@ if ($user->isLoggedIn()) {
     $user_area['usercp'] = [
         'target' => '',
         'link' => URL::build('/user'),
-        'title' => $language->get('user', 'user_cp')
+        'title' => $language->get('user', 'user_cp'),
     ];
     if (defined('PAGE') && PAGE == 'usercp') {
         $user_area['usercp']['active'] = true;
@@ -34,35 +40,35 @@ if ($user->isLoggedIn()) {
             'profile' => [
                 'link' => $user->getProfileURL(),
                 'target' => '',
-                'title' => $language->get('user', 'profile')
+                'title' => $language->get('user', 'profile'),
             ],
             'separator1' => [
-                'separator' => true
+                'separator' => true,
             ],
             'user' => [
                 'link' => URL::build('/user'),
                 'target' => '',
-                'title' => $language->get('user', 'user_cp')
-            ]
-        ]
+                'title' => $language->get('user', 'user_cp'),
+            ],
+        ],
     ];
 
     if ($user->canViewStaffCP()) {
         $user_area_left['account']['items']['panel'] = [
             'link' => URL::build('/panel'),
             'target' => '',
-            'title' => $language->get('moderator', 'staff_cp')
+            'title' => $language->get('moderator', 'staff_cp'),
         ];
     }
 
     $user_area_left['account']['items']['separator2'] = [
-        'separator' => true
+        'separator' => true,
     ];
 
     $user_area_left['account']['items']['logout'] = [
         'link' => URL::build('/logout'),
         'target' => '',
-        'title' => $language->get('general', 'log_out')
+        'title' => $language->get('general', 'log_out'),
     ];
 
     /*
@@ -128,7 +134,7 @@ if ($user->isLoggedIn()) {
                 'target' => '',
             ],
             'separator_1' => [
-                'separator' => true
+                'separator' => true,
             ],
             'logout' => [
                 'title' => $language->get('general', 'log_out'),
@@ -147,14 +153,14 @@ if ($user->isLoggedIn()) {
             'login' => [
                 'link' => URL::build('/login'),
                 'target' => '',
-                'title' => $language->get('general', 'sign_in')
+                'title' => $language->get('general', 'sign_in'),
             ],
             'register' => [
                 'link' => URL::build('/register'),
                 'target' => '',
-                'title' => $language->get('general', 'register')
-            ]
-        ]
+                'title' => $language->get('general', 'register'),
+            ],
+        ],
     ];
 
     $user_section = [
@@ -171,12 +177,12 @@ if ($user->isLoggedIn()) {
             'link' => URL::build('/register'),
             'meta' => '',
             'target' => '',
-        ]
+        ],
     ];
 }
 
-// Assign to Smarty variables
-$smarty->assign([
+// Assign to template variables
+$template->getEngine()->addVariables([
     'NAVBAR_INVERSE' => '',
     'SITE_NAME' => Output::getClean(SITE_NAME),
     'NAV_LINKS' => $navigation->returnNav('top'),
@@ -189,12 +195,14 @@ $smarty->assign([
         !$user->isLoggedIn() ? [0] : $user->getAllGroupIds()
     ),
     'INTERNET_EXPLORER_HEADER' => $language->get('general', 'internet_explorer_header'),
-    'INTERNET_EXPLORER_INFO' => $language->get('general', 'internet_explorer_info')
+    'INTERNET_EXPLORER_INFO' => $language->get('general', 'internet_explorer_info'),
+    'WIDGETS_TOP' => $widgets->getWidgets('top'),
+    'WIDGETS_FOOTER' => $widgets->getWidgets('footer'),
 ]);
 
 if ($user->isLoggedIn()) {
     // Get unread alerts and messages
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ALERTS_LINK' => URL::build('/user/alerts'),
         'VIEW_ALERTS' => $language->get('user', 'view_alerts'),
         'MESSAGING_LINK' => URL::build('/user/messaging'),

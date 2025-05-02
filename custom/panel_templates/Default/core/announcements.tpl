@@ -25,6 +25,7 @@
                         <h1 class="h3 mb-0 text-gray-800">{$ANNOUNCEMENTS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
+                            <li class="breadcrumb-item active">{$COMMUNICATIONS}</li>
                             <li class="breadcrumb-item active">{$ANNOUNCEMENTS}</li>
                         </ol>
                     </div>
@@ -36,7 +37,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$ANNOUCEMENTS_INFO}</p>
+                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$ANNOUNCEMENTS_INFO}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <span class="float-md-right"><a href="{$NEW_LINK}" class="btn btn-primary"><i

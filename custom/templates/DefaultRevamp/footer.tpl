@@ -1,3 +1,8 @@
+    {if count($WIDGETS_FOOTER)}
+        {foreach from=$WIDGETS_FOOTER item=widget}
+            {$widget}
+        {/foreach}
+    {/if}
 </div>
 </div>
 

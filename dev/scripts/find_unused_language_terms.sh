@@ -7,7 +7,7 @@ fi
 
 UNUSED_TERMS_FOUND=false
 FILES=(
-  "custom/languages/en_UK.json"
+  "modules/Core/language/en_UK.json"
   "modules/Forum/language/en_UK.json"
   "modules/Cookie Consent/language/en_UK.json"
   "modules/Discord Integration/language/en_UK.json"
@@ -50,6 +50,7 @@ do
               -e "? '$AFTER_SLASH'" \
               -e ": '$AFTER_SLASH'" \
               -e "getLanguageTerm('$AFTER_SLASH')" \
+              -e "new LanguageKey('$BEFORE_SLASH', '$AFTER_SLASH')" \
               > /dev/null
       then
           UNUSED_TERMS_FOUND=true

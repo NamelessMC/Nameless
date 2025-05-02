@@ -1,4 +1,5 @@
 <?php
+
 $nameless_terms = 'This website uses "Nameless" website software. The ' .
     '"Nameless" software creators will not be held responsible for any content ' .
     'that may be experienced whilst browsing this site, nor are they responsible ' .
@@ -6,8 +7,8 @@ $nameless_terms = 'This website uses "Nameless" website software. The ' .
     'The website is run independently from the software creators, and any content' .
     ' is the responsibility of the website administration.';
 
-function create_step($name, $icon, $child_steps = []) {
-
+function create_step($name, $icon, $child_steps = [])
+{
     global $step;
 
     $active = '';
@@ -29,13 +30,11 @@ function create_step($name, $icon, $child_steps = []) {
             </div>
         </div>
     ";
-
 }
 
-function create_field($type, $label, $name, $id, $value = '', $options = [], $fallback = false) {
-
+function create_field($type, $label, $name, $id, $value = '', $options = [], $fallback = false)
+{
     if ($type == 'select') {
-
         $options_markup = '';
         foreach ($options as $option_value => $option_label) {
             $selected = ($value == $option_value ? ' selected' : ($fallback ? ($value == $option_label ? ' selected' : '') : ''));
@@ -51,22 +50,18 @@ function create_field($type, $label, $name, $id, $value = '', $options = [], $fa
                 </select>
             </div>
         ";
-
     } else {
-
         echo "
             <div class=\"field\">
                 <label for=\"$id\">$label</label>
                 <input type=\"$type\" name=\"$name\" id=\"$id\" placeholder=\"$label\" value=\"$value\" autocomplete=\"off\">
             </div>
         ";
-
     }
-
 }
 
-function validate_requirement($text, $condition) {
-
+function validate_requirement($text, $condition)
+{
     if ($condition == true) {
         echo "
             <div class=\"ui small positive message\">
@@ -90,5 +85,4 @@ function validate_requirement($text, $condition) {
             $_SESSION['requirements_validated'] = $condition;
         }
     }
-
 }

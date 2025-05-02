@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel errors page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel debugging + errors page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.errors')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'debugging_and_maintenance';
 $page_title = $language->get('admin', 'error_logs');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
     if (Token::check()) {
@@ -34,9 +43,9 @@ if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('error_log_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('error_log_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
@@ -68,19 +77,19 @@ if (isset($_GET['log'])) {
     }
 
     if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
-        $smarty->assign('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
+        $template->getEngine()->addVariable('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
-        $smarty->assign('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
+        $template->getEngine()->addVariable('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
     }
 
     if (Session::exists('error_log_error')) {
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'ERRORS' => [Session::flash('error_log_error')],
             'ERRORS_TITLE' => $language->get('general', 'error')
         ]);
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'BACK_LINK' => URL::build('/panel/core/errors'),
         'LOG_NAME' => $title,
         'ACTIONS' => $language->get('general', 'actions'),
@@ -92,7 +101,7 @@ if (isset($_GET['log'])) {
         'PURGE_LOG_LINK' => URL::build('/panel/core/errors/', 'log=' . urlencode($type) . '&do=purge')
     ]);
 } else {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'BACK_LINK' => URL::build('/panel/core/debugging_and_maintenance'),
         'FATAL_LOG' => $language->get('admin', 'fatal_log'),
         'FATAL_LOG_LINK' => URL::build('/panel/core/errors/', 'log=fatal'),
@@ -105,7 +114,7 @@ if (isset($_GET['log'])) {
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
@@ -118,11 +127,11 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
 if (!isset($_GET['log'])) {
-    $template->displayTemplate('core/errors.tpl', $smarty);
+    $template->displayTemplate('core/errors');
 } else {
-    $template->displayTemplate('core/errors_view.tpl', $smarty);
+    $template->displayTemplate('core/errors_view');
 }

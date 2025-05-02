@@ -63,7 +63,7 @@
                                             {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
                                             <select name="existing[{$group_sync['id']}][{$column_name}]"
                                                 class="form-control" id="input_{$column_name}">
-                                                <option value="0" {if {$group_sync[$column_name]} eq null} selected
+                                                <option value="none" {if {$group_sync[$column_name]} eq null} selected
                                                     {/if}>{$NONE} ({$DISABLED})</option>
                                                 {foreach from=$injector->getSelectionOptions() item=group}
                                                 <option value="{$group['id']}" {if $group_sync[$column_name] eq
@@ -107,7 +107,7 @@
                                             <select name="{$column_name}" class="form-control"
                                                 id="input_{$column_name}">
                                                 {if $column_name != $NAMELESS_INJECTOR_COLUMN}
-                                                <option value="0">{$NONE} ({$DISABLED})</option>
+                                                <option value="none">{$NONE} ({$DISABLED})</option>
                                                 {/if}
                                                 {foreach from=$injector->getSelectionOptions() item=group}
                                                 <option value="{$group['id']}">{$group['name']}</option>

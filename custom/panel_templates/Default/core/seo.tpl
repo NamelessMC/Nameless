@@ -75,7 +75,25 @@
 
                             <hr />
 
-                            <h4 style="display:inline;">{$PAGE_METADATA}</h4>
+                            <h4>{$PAGE_METADATA}</h4>
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="inputDescription">{$DEFAULT_DESCRIPTION}</label>
+                                    <textarea class="form-control" name="default_description"
+                                              id="inputDescription">{$DEFAULT_DESCRIPTION_VALUE}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputKeywords">{$DEFAULT_KEYWORDS}</label>
+                                    <input type="text" class="form-control" name="default_keywords" id="inputKeywords"
+                                           value="{$DEFAULT_KEYWORDS_VALUE}" placeholder="{$DEFAULT_KEYWORDS}">
+                                </div>
+                                <input type="hidden" name="token" value="{$TOKEN}">
+                                <input type="hidden" name="type" value="meta">
+                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                            </form>
+
+                            <br />
+
                             <div class="table-responsive">
                                 <table class="table table-striped dataTables-pages">
                                     <thead>

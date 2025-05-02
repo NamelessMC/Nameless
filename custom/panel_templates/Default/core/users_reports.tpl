@@ -85,9 +85,13 @@
                                             </td>
                                             <td>
                                                 {if $report.type eq 0}
-                                                {$WEBSITE}
+                                                    {$WEBSITE}
                                                 {else}
-                                                {$API}
+                                                    {if $report.server}
+                                                        {$report.server}
+                                                    {else}
+                                                        {$API}
+                                                    {/if}
                                                 {/if}
                                             </td>
                                             <td>

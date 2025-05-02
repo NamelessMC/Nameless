@@ -98,12 +98,9 @@
                                         <div class="col-md-6">
                                             <label for="inputHomepage">{$HOMEPAGE_TYPE}</label>
                                             <select name="homepage" class="form-control" id="inputHomepage">
-                                                <option value="news" {if $HOMEPAGE_VALUE eq 'news' } selected{/if}>
-                                                    {$HOMEPAGE_NEWS}</option>
-                                                <option value="custom" {if $HOMEPAGE_VALUE eq 'custom' } selected{/if}>
-                                                    {$HOMEPAGE_CUSTOM}</option>
-                                                <option value="portal" {if $HOMEPAGE_VALUE eq 'portal' } selected{/if}>
-                                                    {$HOMEPAGE_PORTAL}</option>
+                                                {foreach from=$HOMEPAGE_PAGES item=page}
+                                                    <option value="{$page.value}" {if $HOMEPAGE_VALUE eq {$page.value} } selected{/if}>{$page.module} - {$page.name}</option>
+                                                {/foreach}
                                             </select>
                                         </div>
                                         <div class="col-md-6">
@@ -213,6 +210,17 @@
                                                     {$ENABLED}
                                                 </option>
                                                 <option value="false" {if !$AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$DISABLED}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputRequirePanelTFA">{$REQUIRE_STAFFCP_TFA}</label>
+                                            <select name="require_staffcp_tfa" class="form-control" id="inputRequirePanelTFA">
+                                                <option value="true" {if $REQUIRE_STAFFCP_TFA_VALUE} selected{/if}>
+                                                    {$ENABLED}
+                                                </option>
+                                                <option value="false" {if !$REQUIRE_STAFFCP_TFA_VALUE} selected{/if}>
                                                     {$DISABLED}
                                                 </option>
                                             </select>

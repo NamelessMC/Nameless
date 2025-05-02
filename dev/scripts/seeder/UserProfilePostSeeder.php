@@ -1,14 +1,15 @@
 <?php
 
-class UserProfilePostSeeder extends Seeder {
-
+class UserProfilePostSeeder extends Seeder
+{
     public array $tables = [
         'nl2_user_profile_wall_posts',
         'nl2_user_profile_wall_posts_replies',
         'nl2_user_profile_wall_posts_reactions',
     ];
 
-    protected function run(DB $db, \Faker\Generator $faker): void {
+    protected function run(DB $db, \Faker\Generator $faker): void
+    {
         $users = $db->get('users', ['id', '<>', 0])->results();
 
         $this->times(PROFILE_POST_COUNT, function () use ($db, $faker, $users) {
@@ -39,14 +40,15 @@ class UserProfilePostSeeder extends Seeder {
             ]);
         });
 
-        $this->times(PROFILE_POST_REACTION_COUNT, function () use ($db, $faker, $profile_posts) {
+        $reactions = $db->get('reactions', ['id', '<>', 0])->results();
+        $this->times(PROFILE_POST_REACTION_COUNT, function () use ($db, $faker, $profile_posts, $reactions) {
             $post = $faker->randomElement($profile_posts);
             $user_id = $faker->randomElement($profile_posts)->user_id;
 
             $db->insert('user_profile_wall_posts_reactions', [
                 'user_id' => $user_id,
-                'post_id' => $post->time,
-                'reaction_id' => 1,
+                'post_id' => $post->id,
+                'reaction_id' => $faker->randomElement($reactions)->id,
                 'time' => $this->since($post->time, $faker)->format('U'),
             ]);
         });

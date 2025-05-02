@@ -1,7 +1,7 @@
 <?php
 
-class Announcement {
-
+class Announcement
+{
     public int $id;
     public string $pages;
     public string $groups;
@@ -13,7 +13,8 @@ class Announcement {
     public string $message;
     public int $order;
 
-    public function __construct(object $row) {
+    public function __construct(object $row)
+    {
         $this->id = $row->id;
         $this->pages = $row->pages;
         $this->groups = $row->groups;
@@ -26,11 +27,12 @@ class Announcement {
         $this->order = $row->order;
     }
 
-    public static function find(int $id): ?Announcement {
+    public static function find(int $id): ?Announcement
+    {
         $row = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements WHERE id = ?', [$id])->results();
+
         return $row
             ? new Announcement($row[0])
             : null;
     }
-
 }

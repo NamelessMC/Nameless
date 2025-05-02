@@ -80,6 +80,31 @@
                         </div>
                     </div>
 
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="inputSyncUsername">{$SYNC_USERNAME_INTEGRATION}</label>
+                                    <span class="badge badge-info">
+                                                <i class="fas fa-question-circle"
+                                                   data-container="body" data-toggle="popover" data-placement="top"
+                                                   title="{$INFO}" data-content='{$SYNC_USERNAME_INTEGRATION_INFO}'></i>
+                                            </span>
+                                    <select name="sync_username_integration" class="form-control" id="inputSyncUsername">
+                                        <option value="0"{if $SYNC_USERNAME_VALUE == 0} selected{/if}>{$DISABLED}</option>
+                                        {foreach $INTEGRATIONS_LIST as $integration_name => $integration}
+                                            <option value="{$integration.id}"{if $SYNC_USERNAME_VALUE == $integration.id} selected{/if}>{$integration.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="token" value="{$TOKEN}">
+                                    <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>
 

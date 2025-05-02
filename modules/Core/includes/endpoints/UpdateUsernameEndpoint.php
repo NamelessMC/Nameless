@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @param int $id The NamelessMC user to update
@@ -27,7 +28,7 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
         try {
             $api->getDb()->update('users', $user->data()->id, $fields);
         } catch (Exception $e) {
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_USERNAME, null, 500);
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_USERNAME, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'username_updated')]);

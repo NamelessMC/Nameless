@@ -59,12 +59,34 @@
                                     <input name="news_items" id="InputNewsItems" class="form-control" type="number" max="20" min="0" step="1" value="{$NEWS_ITEMS_ON_FRONT_PAGE_VALUE}" />
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="InputSpamTimer">{$SPAM_TIMER}</label>
+                                    <span class="badge badge-info">
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                           data-placement="top" title="{$INFO}"
+                                           data-content="{$SPAM_TIMER_INFO}"></i>
+                                    </span>
+                                    <input name="spam_timer" id="InputSpamTimer" class="form-control" type="number" min="1" step="1" value="{$SPAM_TIMER_VALUE}" />
+                                </div>
+
                                 <div class="form-group custom-control custom-switch">
                                     <input id="InputUseReactions" name="use_reactions" type="checkbox"
                                         class="custom-control-input" {if $USE_REACTIONS_VALUE} checked{/if} />
                                     <label for="InputUseReactions" class="custom-control-label">
                                         {$USE_REACTIONS}
                                     </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="InputBannedTerms">
+                                        {$BANNED_TERMS}
+                                    </label>
+                                    <span class="badge badge-info">
+                                        <i class="fas fa-question-circle" data-container="body" data-toggle="popover"
+                                           data-placement="top" title="{$INFO}"
+                                           data-content="{$BANNED_TERMS_INFO}"></i>
+                                    </span>
+                                    <textarea id="InputBannedTerms" class="form-control" name="banned_terms">{$BANNED_TERMS_VALUE}</textarea>
                                 </div>
 
                                 <div class="form-group">

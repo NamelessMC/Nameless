@@ -39,7 +39,7 @@
 
                             <div class="row">
                                 <div class="col-md-9">
-                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{$ADDING_SERVER}</h5>
+                                    <h5 style="margin-top: 7px; margin-bottom: 7px;">{$NEW_SERVER}</h5>
                                 </div>
                                 <div class="col-md-3">
                                     <span class="float-md-right"><button onclick="showCancelModal()" class="btn btn-warning">{$CANCEL}</button></span>

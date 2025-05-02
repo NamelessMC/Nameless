@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+/**
+ * Staff panel edit user page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel users page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.users.edit')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -29,7 +38,7 @@ const PARENT_PAGE = 'users';
 const PANEL_PAGE = 'users';
 const EDITING_USER = true;
 $page_title = $language->get('admin', 'users');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
@@ -41,7 +50,7 @@ if (isset($_GET['action'])) {
             if ($user_query->active == 0) {
                 $view_user->update([
                     'active' => true,
-                    'reset_code' => ''
+                    'reset_code' => null,
                 ]);
 
                 EventHandler::executeEvent(new UserValidatedEvent(
@@ -52,11 +61,21 @@ if (isset($_GET['action'])) {
             }
         }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-        if (sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+        if (Core_Emails::sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
+        }
+    } else if ($_GET['action'] == 'disable_tfa') {
+        if (Token::check()) {
+            $view_user->update([
+                'tfa_enabled' => false,
+                'tfa_type' => 0,
+                'tfa_secret' => null,
+                'tfa_complete' => false
+            ]);
+
+            Session::flash('edit_user_success', $language->get('admin', 'edit_user_tfa_disabled'));
         }
     } else {
         throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
@@ -271,54 +290,54 @@ if (Session::exists('edit_user_warnings')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 if (isset($warnings) && count($warnings)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'WARNINGS' => $warnings,
-        'WARNINGS_TITLE' => $language->get('admin', 'warning')
+        'WARNINGS_TITLE' => $language->get('admin', 'warning'),
     ]);
 }
 
 if ($user_query->active == 0) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
         'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=validate'),
         'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
-        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=resend_email')
+        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=resend_email'),
     ]);
 }
 
 if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'DELETE_USER' => $language->get('admin', 'delete_user'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_USER' => $language->get('admin', 'confirm_user_deletion', ['user' => Output::getClean($user_query->username)]),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-
         'NEW_PASSWORD' => $language->get('user', 'new_password'),
         'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
         'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
+
+        'DISABLE_TFA' => $language->get('admin', 'disable_tfa'),
+        'DISABLE_TFA_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=disable_tfa')
     ]);
 }
 
 $limit_groups = false;
 if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
-    $smarty->assign([
-        'CANT_EDIT_GROUP' => $language->get('admin', 'cant_modify_root_user')
-    ]);
+    $template->getEngine()->addVariable('CANT_EDIT_GROUP', $language->get('admin', 'cant_modify_root_user'));
     $limit_groups = true;
 }
 
@@ -369,7 +388,7 @@ foreach ($language_query as $item) {
     ];
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
@@ -426,7 +445,7 @@ $template->addJSScript(Input::createTinyEditor($language, 'InputSignature', null
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('core/users_edit.tpl', $smarty);
+$template->displayTemplate('core/users_edit');

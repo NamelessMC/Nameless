@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel templates page.
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel templates page
+ * @var Cache        $cache
+ * @var FakeSmarty   $smarty
+ * @var Language     $language
+ * @var Navigation   $cc_nav
+ * @var Navigation   $navigation
+ * @var Navigation   $staffcp_nav
+ * @var Pages        $pages
+ * @var TemplateBase $template
+ * @var User         $user
+ * @var Widgets      $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.styles.templates')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,7 +27,7 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'layout';
 const PANEL_PAGE = 'template';
 $page_title = $language->get('admin', 'templates');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['action'])) {
     // Get all templates
@@ -88,10 +97,9 @@ if (!isset($_GET['action'])) {
         }
 
         if (isset($all_templates_error)) {
-            $smarty->assign('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
+            $template->getEngine()->addVariable('WEBSITE_TEMPLATES_ERROR', $all_templates_error);
         } else {
             $all_templates_query = $all_templates_query->json();
-            $timeago = new TimeAgo(TIMEZONE);
 
             foreach ($all_templates_query as $item) {
                 $all_templates[] = [
@@ -123,7 +131,7 @@ if (!isset($_GET['action'])) {
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'WARNING' => $language->get('admin', 'warning'),
         'ACTIVATE' => $language->get('admin', 'activate'),
         'DEACTIVATE' => $language->get('admin', 'deactivate'),
@@ -148,10 +156,10 @@ if (!isset($_GET['action'])) {
         'VIEW' => $language->get('general', 'view'),
         'TEMPLATE' => $language->get('admin', 'template'),
         'STATS' => $language->get('admin', 'stats'),
-        'ACTIONS' => $language->get('general', 'actions')
+        'ACTIONS' => $language->get('general', 'actions'),
     ]);
 
-    $template_file = 'core/templates.tpl';
+    $template_file = 'core/templates';
 } else {
     switch ($_GET['action']) {
         case 'install':
@@ -341,13 +349,14 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/templates'));
             }
 
+            /** @var mixed $template */
             require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $template_query->name) . DIRECTORY_SEPARATOR . 'template.php');
 
             if ($template instanceof TemplateBase) {
                 if ($template->getSettings()) {
                     require_once($template->getSettings());
 
-                    $smarty->assign([
+                    $current_template->getEngine()->addVariables([
                         'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
                             'template' => Text::bold(Output::getClean($template_query->name))
                         ]),
@@ -357,7 +366,7 @@ if (!isset($_GET['action'])) {
                         'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? URL::build('/panel/core/templates/', 'template=' . urlencode($template_query->id) . '&action=permissions') : null,
                     ]);
 
-                    $template_file = 'core/template_settings.tpl';
+                    $template_file = 'core/template_settings';
                 } else {
                     Redirect::to(URL::build('/panel/core/templates'));
                 }
@@ -365,6 +374,7 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/core/templates'));
             }
 
+            /** @var TemplateBase $template */
             $template = $current_template;
 
             break;
@@ -471,7 +481,7 @@ if (!isset($_GET['action'])) {
             $guest_query = DB::getInstance()->query('SELECT 0 AS id, can_use_template FROM nl2_groups_templates WHERE group_id = 0 AND template_id = ?', [$template_query->id])->results();
             $group_query = DB::getInstance()->query('SELECT id, `name`, can_use_template FROM nl2_groups A LEFT JOIN (SELECT group_id, can_use_template FROM nl2_groups_templates WHERE template_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$template_query->id])->results();
 
-            $smarty->assign([
+            $template->getEngine()->addVariables([
                 'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
                     'template' => Text::bold(Output::getClean($template_query->name))
                 ]),
@@ -484,10 +494,10 @@ if (!isset($_GET['action'])) {
                 'GROUP' => $language->get('admin', 'group'),
                 'CAN_USE_TEMPLATE' => $language->get('admin', 'can_use_template'),
                 'SELECT_ALL' => $language->get('admin', 'select_all'),
-                'DESELECT_ALL' => $language->get('admin', 'deselect_all')
+                'DESELECT_ALL' => $language->get('admin', 'deselect_all'),
             ]);
 
-            $template_file = 'core/template_permissions.tpl';
+            $template_file = 'core/template_permissions';
 
             break;
 
@@ -505,7 +515,7 @@ if (!isset($_GET['action'])) {
             }
 
             if ($_GET['template'] == 1) {
-                $smarty->assign('DEFAULT_TEMPLATE_WARNING', $language->get('admin', 'warning_editing_default_template'));
+                $template->getEngine()->addVariable('DEFAULT_TEMPLATE_WARNING', $language->get('admin', 'warning_editing_default_template'));
             }
 
             if (!isset($_GET['file']) && !isset($_GET['dir'])) {
@@ -533,7 +543,7 @@ if (!isset($_GET['action'])) {
                     }
                 }
 
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'BACK' => $language->get('general', 'back'),
                     'BACK_LINK' => URL::build('/panel/core/templates/'),
                     'TEMPLATE_FILES' => $template_files,
@@ -544,7 +554,7 @@ if (!isset($_GET['action'])) {
                     'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? URL::build('/panel/core/templates/', 'template=' . urlencode($template_query->id) . '&action=permissions') : null,
                 ]);
 
-                $template_file = 'core/templates_list_files.tpl';
+                $template_file = 'core/templates_list_files';
             } else {
                 if (isset($_GET['dir']) && !isset($_GET['file'])) {
                     // List files in dir
@@ -587,7 +597,7 @@ if (!isset($_GET['action'])) {
                         $back_link = URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id));
                     }
 
-                    $smarty->assign([
+                    $template->getEngine()->addVariables([
                         'BACK' => $language->get('general', 'back'),
                         'BACK_LINK' => $back_link,
                         'TEMPLATE_FILES' => $template_files,
@@ -598,7 +608,7 @@ if (!isset($_GET['action'])) {
                         'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? '/panel/core/templates/?template=' . Output::getClean($template_query->id) . '&action=permissions' : null,
                     ]);
 
-                    $template_file = 'core/templates_list_files.tpl';
+                    $template_file = 'core/templates_list_files';
                 } else {
                     if (isset($_GET['file'])) {
                         $file = basename(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($template_query->name), Output::getClean($_GET['file'])]));
@@ -621,6 +631,7 @@ if (!isset($_GET['action'])) {
                             $raw_type = pathinfo($file, PATHINFO_EXTENSION);
                             $type_map = [
                                 'tpl' => 'smarty',
+                                'twig' => 'twig',
                                 'css' => 'css',
                                 'js' => 'javascript',
                                 'conf' => 'properties'
@@ -678,7 +689,7 @@ if (!isset($_GET['action'])) {
                             $template_path = Output::getClean($_GET['file']);
                         }
 
-                        $smarty->assign([
+                        $template->getEngine()->addVariables([
                             'EDITING_FILE' => $language->get('admin', 'editing_template_file_in_template', [
                                 'file' => Text::bold($template_path),
                                 'template' => Text::bold(Output::getClean($template_query->name)),
@@ -690,19 +701,20 @@ if (!isset($_GET['action'])) {
                             'NO' => $language->get('general', 'no'),
                             'CANCEL_LINK' => $cancel_link,
                             'FILE_CONTENTS' => Output::getClean(file_get_contents($file_path)),
-                            'FILE_TYPE' => $file_type
+                            'FILE_TYPE' => $file_type,
                         ]);
 
-                        $template_file = 'core/templates_edit.tpl';
+                        $template_file = 'core/templates_edit';
                     }
                 }
             }
 
-            $smarty->assign([
-                'EDITING_TEMPLATE' => $language->get('admin', 'editing_template_x', [
+            $template->getEngine()->addVariable(
+                'EDITING_TEMPLATE',
+                $language->get('admin', 'editing_template_x', [
                     'template' => Text::bold(Output::getClean($template_query->name))
-                ]),
-            ]);
+                ])
+            );
 
             break;
 
@@ -723,32 +735,32 @@ if (Session::exists('admin_templates_error')) {
 }
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'LAYOUT' => $language->get('admin', 'layout'),
     'TEMPLATES' => $language->get('admin', 'templates'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

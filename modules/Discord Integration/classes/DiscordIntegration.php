@@ -4,7 +4,7 @@
  *
  * @package Modules\Core\Integrations
  * @author Partydragen
- * @version 2.1.1
+ * @version 2.1.2
  * @license MIT
  */
 class DiscordIntegration extends IntegrationBase {
@@ -75,6 +75,7 @@ class DiscordIntegration extends IntegrationBase {
         }, $user->getAllGroupIds()));
 
         Discord::updateDiscordRoles($user, $roles, []);
+        Session::flash('connections_success', $this->_language->get('user', 'integration_linked', ['integration' => Output::getClean($this->_name)]));
     }
 
     public function validateUsername(string $username, int $integration_user_id = 0): bool {
@@ -146,7 +147,7 @@ class DiscordIntegration extends IntegrationBase {
     public function allowLinking(): bool {
         $link_method = Settings::get('integration_link_method', 'bot', 'Discord Integration');
         if ($link_method == 'oauth') {
-            return NamelessOAuth::getInstance()->isEnabled('discord');
+            return NamelessOAuth::getInstance()->isSetup('discord');
         } else {
             return Discord::isBotSetup();
         }

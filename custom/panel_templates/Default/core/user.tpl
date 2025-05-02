@@ -154,7 +154,7 @@
                                                     </td>
                                                     <td>
                                                         {if $USER_PROFILE_FIELDS[$field->id]->value}
-                                                        {$USER_PROFILE_FIELDS[$field->id]->value}
+                                                        {$USER_PROFILE_FIELDS[$field->id]->purifyValue()}
                                                         {else}
                                                         <i>{$NOT_SET}</i>
                                                         {/if}

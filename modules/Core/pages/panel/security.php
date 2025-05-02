@@ -1,26 +1,35 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel security page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel security page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.security')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
 const PAGE = 'panel';
 const PARENT_PAGE = 'security';
 const PANEL_PAGE = 'security';
-// Define the sort column #, as for group_sync we dont show IP (since its from MC server or Discord bot)
+// Define the sort column #, as for group_sync we don't show IP (since its from MC server or Discord bot)
 define('SORT', (isset($_GET['view']) && $_GET['view'] == 'group_sync') ? 1 : 2);
 $page_title = $language->get('admin', 'security');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (!isset($_GET['view'])) {
     $links = [];
@@ -60,12 +69,12 @@ if (!isset($_GET['view'])) {
         ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'PLEASE_SELECT_LOGS' => $language->get('admin', 'please_select_logs'),
-        'LINKS' => $links
+        'LINKS' => $links,
     ]);
 
-    $template_file = 'core/security.tpl';
+    $template_file = 'core/security';
 } else {
     switch ($_GET['view']) {
         case 'acp_logins':
@@ -74,7 +83,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'acp_logins');
-            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_login\'', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_login\'', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 3;
             $col_titles = [
@@ -111,7 +120,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'template_changes');
-            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_template_update\'', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_template_update\'', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 4;
             $col_titles = [
@@ -152,7 +161,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'email_logs');
-            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_email_mass_message\'', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'action = \'acp_email_mass_message\'', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 3;
             $col_titles = [
@@ -188,7 +197,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'group_sync_logs');
-            $logs_set = DB::getInstance()->orderWhere('logs', 'action = \'discord_role_set\' OR action = \'mc_group_sync_set\' ', 'time', 'DESC')->results();
+            $logs_set = DB::getInstance()->orderWhere('logs', 'action LIKE \'%_role_set\' OR action LIKE \'%_group_set\'OR action = \'mc_group_sync_set\' ', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 5;
             $col_titles = [
@@ -246,7 +255,7 @@ if (!isset($_GET['view'])) {
             }
 
             $log_title = $language->get('admin', 'all_logs');
-            $logs = DB::getInstance()->orderWhere('logs', 'id <> 0', 'time', 'DESC')->results();
+            $logs = DB::getInstance()->orderWhere('logs', 'id <> 0', 'time', 'DESC LIMIT 500')->results();
 
             $cols = 5;
             $col_titles = [
@@ -292,47 +301,47 @@ if (!isset($_GET['view'])) {
             Redirect::to(URL::build('/panel/security'));
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/security'),
         'LOG_TITLE' => $log_title,
         'COLS' => $cols,
         'COL_TITLES' => $col_titles,
-        'ROWS' => $rows
+        'ROWS' => $rows,
     ]);
 
-    $template_file = 'core/security_view.tpl';
+    $template_file = 'core/security_view';
 }
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'SECURITY' => $language->get('admin', 'security'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

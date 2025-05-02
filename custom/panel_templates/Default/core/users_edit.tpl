@@ -43,7 +43,7 @@
                                 <div class="col-md-3">
                                     <span class="float-md-right">
                                         {if isset($DELETE_USER) || isset($RESEND_ACTIVATION_EMAIL) ||
-                                        isset($VALIDATE_USER)}
+                                        isset($VALIDATE_USER) || isset($DISABLE_TFA)}
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-primary dropdown-toggle"
                                                 data-toggle="dropdown" aria-haspopup="true"
@@ -57,6 +57,8 @@
                                                     onclick="validateUser()">{$VALIDATE_USER}</a>{/if}
                                                 {if isset($CHANGE_PASSWORD)}<a class="dropdown-item" href="#"
                                                     onclick="changePassword()">{$CHANGE_PASSWORD}</a> {/if}
+                                                {if isset($DISABLE_TFA)}<a class="dropdown-item" href="#"
+                                                    onclick="disableTfa()">{$DISABLE_TFA}</a> {/if}
                                             </div>
                                         </div>
                                         {/if}
@@ -260,6 +262,10 @@
     <form style="display:none" action="{$VALIDATE_USER_LINK}" method="post" id="validateUserForm">
         <input type="hidden" name="token" value="{$TOKEN}" />
     </form>
+    <form style="display:none" action="{$DISABLE_TFA_LINK}" method="post" id="disableTfaForm">
+        <input type="hidden" name="token" value="{$TOKEN}" />
+    </form>
+
 
     {include file='scripts.tpl'}
 
@@ -279,6 +285,12 @@
         {if isset($CHANGE_PASSWORD)}
             function changePassword() {
                 $('#passwordModal').modal().show();
+            }
+        {/if}
+
+        {if isset($DISABLE_TFA)}
+            function disableTfa() {
+                $('#disableTfaForm').submit();
             }
         {/if}
 

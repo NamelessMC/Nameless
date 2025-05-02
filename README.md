@@ -34,7 +34,7 @@ The following list is a brief summary of the features available in v2:
 - ✨ Pretty URL option (requires mod_rewrite or special nginx config).
 - 🎛 Widgets: allows modules to create widgets which can be displayed on most user-facing pages and display almost anything.
 - ⏳ Queue: schedule tasks to happen at a certain point in the future
-- 🚩 Translated into [over 20 languages](https://github.com/NamelessMC/Nameless/tree/v2/custom/languages)
+- 🚩 Translated into [over 20 languages](https://github.com/NamelessMC/Nameless/tree/v2/modules/Core/language)
 
 
 #### Customising Nameless
@@ -56,7 +56,7 @@ Support can be found in one of the following places:
 - [Official support forum](https://namelessmc.com/forum)
 - [SpigotMC](https://www.spigotmc.org/threads/nameless-minecraft-website-software.34810/)
 
-Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/7-web-feature-requests/), and bugs can be reported in the [GitHub Issues](https://github.com/NamelessMC/Nameless/issues) tab.
+Feature requests can be posted on the [forum](https://namelessmc.com/forum/view/7-web-feature-requests/) or [GitHub Discussions](https://github.com/NamelessMC/Nameless/discussions/categories/ideas), and bugs can be reported in the [GitHub Issues](https://github.com/NamelessMC/Nameless/issues) tab.
 
 ## Plugin
 For Minecraft integration, you can install the Nameless Plugin. We offer support for BungeeCord, Paper, Spigot, Sponge and Velocity. You can find a list of features and installation instructions in the [plugin readme](https://github.com/NamelessMC/Nameless-Plugin/blob/master/README.md).

@@ -82,7 +82,14 @@ $provider_id = $oauth_user[NamelessOAuth::getInstance()->getUserIdName($provider
 
 // register
 if (Session::get('oauth_method') === 'register') {
-    if (NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    $integration = Integrations::getInstance()->getIntegration($provider_name);
+    if ($integration == null) {
+        Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
+        Redirect::to(URL::build('/register'));
+    }
+
+    $integrationUser = new IntegrationUser($integration, $provider_id, 'identifier');
+    if ($integrationUser->exists()) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/register'));
     }
@@ -99,12 +106,19 @@ if (Session::get('oauth_method') === 'register') {
 
 // login
 if (Session::get('oauth_method') === 'login') {
-    if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    $integration = Integrations::getInstance()->getIntegration($provider_name);
+    if ($integration == null) {
+        Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
+        Redirect::to(URL::build('/register'));
+    }
+
+    $integrationUser = new IntegrationUser($integration, $provider_id, 'identifier');
+    if (!$integrationUser->exists()) {
         Session::flash('oauth_error', $language->get('user', 'no_user_found_with_provider', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/login'));
     }
 
-    $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
+    $user_id = $integrationUser->data()->user_id;
     $user = new User($user_id);
 
     // Make sure user is validated
@@ -130,7 +144,7 @@ if (Session::get('oauth_method') === 'login') {
 
     // Log the user in
     if ((new User())->login(
-        NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
+        $user_id,
         '', true, 'oauth'
     )) {
         Log::getInstance()->log(Log::Action('user/login'));
@@ -145,25 +159,6 @@ if (Session::get('oauth_method') === 'login') {
     }
 
     throw new RuntimeException('Failed to login user with OAuth');
-}
-
-// link
-if (Session::get('oauth_method') === 'link') {
-    if (NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-        Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
-        Redirect::to(URL::build('/user/oauth'));
-    }
-
-    NamelessOAuth::getInstance()->saveUserProvider(
-        $user->data()->id,
-        $provider_name,
-        $provider_id,
-    );
-
-    Session::flash('oauth_success', $language->get('user', 'oauth_link_success', ['provider' => ucfirst($provider_name)]));
-    Session::delete('oauth_method');
-
-    Redirect::to(URL::build('/user/oauth'));
 }
 
 // link user integration
@@ -184,13 +179,8 @@ if (Session::get('oauth_method') === 'link_integration') {
     // Link the user integration
     $integration->successfulRegistration($user);
 
-    // Link their oauth details if its not linked already
-    if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
-        NamelessOAuth::getInstance()->saveUserProvider(
-            $user->data()->id,
-            $provider_name,
-            $provider_id,
-        );
+    if ($integration->getErrors()) {
+        Session::flash('connections_error', $integration->getErrors()[0]);
     }
 
     Session::delete('oauth_register_data');

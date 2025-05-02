@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
@@ -24,9 +25,9 @@ if (defined('DEBUGGING') && DEBUGGING) {
     error_reporting(-1);
 }
 
-// Ensure PHP version >= 7.4
-if (PHP_VERSION_ID < 70400) {
-    die('NamelessMC is not compatible with PHP versions older than 7.4, you are running PHP ' . PHP_VERSION);
+// Ensure PHP version >= 8.2
+if (PHP_VERSION_ID < 80200) {
+    die('NamelessMC is not compatible with PHP versions older than 8.2, you are running PHP ' . PHP_VERSION);
 }
 
 // Start page load timer
@@ -49,7 +50,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 if (isset($_GET['route']) && $_GET['route'] == '/rewrite_test') {
     require_once('rewrite_test.php');
-    die();
+    die;
 }
 
 if (!Config::exists() || Config::get('core.installed') !== true) {
@@ -85,14 +86,20 @@ require(ROOT_PATH . '/core/init.php');
 
 // Get page to load from URL
 if (!isset($_GET['route']) || $_GET['route'] == '/') {
-    if (((!isset($_GET['route']) || ($_GET['route'] != '/')) && count($directories) > 1)) {
+    if ((!isset($_GET['route']) || ($_GET['route'] != '/')) && count($directories) > 1) {
         require(ROOT_PATH . '/404.php');
     } else {
         // Homepage
-        $pages->setActivePage($pages->getPageByURL('/'));
-        require(ROOT_PATH . '/modules/Core/pages/index.php');
+        $homepage = $pages->getPageByURL(Settings::get('home_type'));
+        if ($homepage != null) {
+            $pages->setActivePage($homepage);
+            require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $homepage['module'], $homepage['file']]));
+        } else {
+            $pages->setActivePage($pages->getPageByURL('/'));
+            require(ROOT_PATH . '/modules/Core/pages/index.php');
+        }
     }
-    die();
+    die;
 }
 
 $route = rtrim(strtok($_GET['route'], '?'), '/');
@@ -103,21 +110,20 @@ if (array_key_exists($route, $all_pages)) {
     $pages->setActivePage($all_pages[$route]);
     if (isset($all_pages[$route]['custom'])) {
         require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
-        die();
+        die;
     }
 
     $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $all_pages[$route]['module'], $all_pages[$route]['file']]);
 
     if (file_exists($path)) {
         require($path);
-        die();
+        die;
     }
 } else {
     // Use recursion to check - might have URL parameters in path
     $path_array = explode('/', $route);
 
     for ($i = count($path_array) - 2; $i > 0; $i--) {
-
         $new_path = '/';
         for ($n = 1; $n <= $i; $n++) {
             $new_path .= $path_array[$n] . '/';
@@ -131,7 +137,7 @@ if (array_key_exists($route, $all_pages)) {
             if (file_exists($path)) {
                 $pages->setActivePage($all_pages[$new_path]);
                 require($path);
-                die();
+                die;
             }
         }
     }

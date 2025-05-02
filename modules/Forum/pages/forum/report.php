@@ -35,16 +35,15 @@ $post = $post[0];
 if (Token::check()) {
     // Valid token
     // Ensure user hasn't already submitted a report for this post
-    $reports = DB::getInstance()->get('reports', ['reported_post', $_POST['post']])->results();
+    $exists = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE reported_post = ? AND reporter_id = ? AND `status` = 0', [
+        $post->id,
+        $user->data()->id
+    ])->exists();
 
-    if (count($reports)) {
-        foreach ($reports as $report) {
-            if ($report->reporter_id == $user->data()->id && $report->status == 0) {
-                // User already has an open report
-                Session::flash('failure_post', $forum_language->get('forum', 'post_already_reported'));
-                Redirect::to(URL::build('/forum/topic/' . urlencode($_POST['topic'])));
-            }
-        }
+    if ($exists) {
+        // User already has an open report
+        Session::flash('failure_post', $forum_language->get('forum', 'post_already_reported'));
+        Redirect::to(URL::build('/forum/topic/' . urlencode($_POST['topic'])));
     }
 
     $validation = Validate::check($_POST, [

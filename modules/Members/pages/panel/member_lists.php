@@ -1,7 +1,26 @@
 <?php
+/**
+ * Staff panel member list page
+ *
+ * @author Aberdeener
+ * @license MIT
+ * @version 2.2.0
+ *
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Language $members_language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
+ */
 
 if (!$user->handlePanelPageLoad('admincp.members')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -10,7 +29,7 @@ const PARENT_PAGE = 'members';
 const PANEL_PAGE = 'member_lists_settings';
 
 $page_title = $members_language->get('members', 'member_lists');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -31,20 +50,20 @@ if (Input::exists()) {
 }
 
 if (Session::exists('admin_member_lists_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => [Session::flash('admin_member_lists_error')],
         'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 if (Session::exists('admin_member_lists_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('admin_member_lists_success'),
         'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'MEMBERS' => $members_language->get('members', 'members'),
@@ -65,7 +84,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('members/member_lists.tpl', $smarty);
+$template->displayTemplate('members/member_lists');

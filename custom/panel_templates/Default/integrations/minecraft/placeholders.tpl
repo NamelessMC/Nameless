@@ -39,7 +39,8 @@
                             <div class="card shadow border-left-primary">
                                 <div class="card-body">
                                     <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-                                    {$PLACEHOLDERS_INFO}
+                                    <p>{$PLACEHOLDERS_INFO}</p>
+                                    <p style="margin-bottom: 0">{$DRAG_AND_DROP_INFO}</p>
                                 </div>
                             </div>
                             <hr />
@@ -95,9 +96,9 @@
                                                 <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="sortable">
                                             {foreach from=$ALL_PLACEHOLDERS item=placeholder}
-                                                <tr>
+                                                <tr data-id="{$placeholder->server_id}-{$placeholder->name}" style="cursor: move">
                                                     <td>{$placeholder->server_id}</td>
                                                     <td><code>{$placeholder->name}</code></td>
                                                     <td>
@@ -216,7 +217,44 @@
             });
         }
     </script>
+
     {include file='scripts.tpl'}
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#sortable").sortable({
+          start: function (event, ui) {
+            let start_pos = ui.item.index();
+            ui.item.data('startPos', start_pos);
+          },
+          update: function (event, ui) {
+            let placeholders = $("#sortable").children();
+            let toSubmit = [];
+            placeholders.each(function () {
+              toSubmit.push($(this).data().id);
+            });
+
+            $.ajax({
+              url: "{$REORDER_DRAG_URL}",
+              type: "POST",
+              data: {
+                action: "order",
+                dir: "drag",
+                {literal}placeholders: JSON.stringify({"placeholders": toSubmit}){/literal},
+                token: "{$TOKEN}"
+              },
+              success: function (response) {
+                // Success
+              },
+              error: function (xhr) {
+                // Error
+                console.log(xhr);
+              }
+            });
+          }
+        });
+      });
+    </script>
 
 </body>
 

@@ -6,15 +6,16 @@
             <div class="ui relaxed">
                 <div class="content">
                     {if $SERVER.status_value eq 1}
-                    <span class="ui label large green">{$ONLINE}
-                        {else}
+                        <span class="ui label large green">{$ONLINE}
+                    {else}
                         <span class="ui label large red">{$OFFLINE}
-                            {/if}
-                            <div class="detail">{$SERVER.name}</div>
-                        </span>
+                    {/if}
+                        <div class="detail">{$SERVER.name}</div>
+                    </span>
 
-                        {if $SERVER.status_value eq 1}
-                        <div class="ui divider"></div>
+                    <div class="ui divider"></div>
+
+                    {if $SERVER.status_value eq 1}
                         <p>{$ONLINE}: <strong>{$SERVER.player_count} / {$SERVER.player_count_max}</strong></p>
                         {if isset($SERVER.format_player_list) && count($SERVER.format_player_list) && ($SERVER.player_count > 0)}
                         <p>
@@ -27,8 +28,8 @@
                         {if isset($VERSION)}
                         <p>{$VERSION}</p>
                         {/if}
-                        <p>{$IP}: <strong>{$SERVER.join_at}</strong></p>
-                        {/if}
+                    {/if}
+                    <p>{$IP}: <strong>{$SERVER.join_at}</strong></p>
                 </div>
             </div>
             {else}

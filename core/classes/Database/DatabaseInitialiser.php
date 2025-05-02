@@ -1,16 +1,18 @@
 <?php
 
-class DatabaseInitialiser {
-
+class DatabaseInitialiser
+{
     private DB $_db;
     private Cache $_cache;
 
-    private function __construct() {
+    private function __construct()
+    {
         $this->_db = DB::getInstance();
         $this->_cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
     }
 
-    public static function runPreUser() {
+    public static function runPreUser()
+    {
         $instance = new self();
         $instance->initialiseGroups();
         $instance->initialiseLanguages();
@@ -23,17 +25,19 @@ class DatabaseInitialiser {
         $instance->initialiseWidgets();
     }
 
-    public static function runPostUser() {
+    public static function runPostUser()
+    {
         $instance = new self();
         $instance->initialiseForum();
     }
 
-    private function initialiseGroups(): void {
+    private function initialiseGroups(): void
+    {
         $this->_db->insert('groups', [
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
-            'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}',
-            'order' => 3
+            'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1,"profile.post":1}',
+            'order' => 3,
         ]);
 
         $this->_db->insert('groups', [
@@ -42,7 +46,7 @@ class DatabaseInitialiser {
             'group_username_color' => '#ff0000',
             'group_username_css' => '',
             'admin_cp' => true,
-            'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.queue":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.members":1,"admincp.integrations":1,"admincp.integrations.edit":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1}',
+            'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.queue":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.members":1,"admincp.integrations":1,"admincp.integrations.edit":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1,"profile.post":1}',
             'order' => 1,
             'staff' => true,
         ]);
@@ -51,7 +55,7 @@ class DatabaseInitialiser {
             'name' => 'Moderator',
             'group_html' => '<span class="badge badge-primary">Moderator</span>',
             'admin_cp' => true,
-            'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1}',
+            'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1,"profile.post":1}',
             'order' => 2,
             'staff' => true,
         ]);
@@ -62,18 +66,19 @@ class DatabaseInitialiser {
             'group_username_color' => '#6c757d',
             'permissions' => '{}',
             'default_group' => true,
-            'order' => 4
+            'order' => 4,
         ]);
 
         Settings::set('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
     }
 
-    private function initialiseLanguages(): void {
+    private function initialiseLanguages(): void
+    {
         foreach (Language::LANGUAGES as $short_code => $meta) {
             $this->_db->insert('languages', [
                 'name' => $meta['name'],
                 'short_code' => $short_code,
-                'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0
+                'is_default' => (Session::get('default_language') == $short_code) ? 1 : 0,
             ]);
         }
 
@@ -81,7 +86,8 @@ class DatabaseInitialiser {
         $this->_cache->store('language', Session::get('default_language'));
     }
 
-    private function initialiseModules(): void {
+    private function initialiseModules(): void
+    {
         $this->_db->insert('modules', [
             'name' => 'Core',
             'enabled' => true,
@@ -111,23 +117,23 @@ class DatabaseInitialiser {
         $this->_cache->store('enabled_modules', [
             [
                 'name' => 'Core',
-                'priority' => 1
+                'priority' => 1,
             ],
             [
                 'name' => 'Forum',
-                'priority' => 4
+                'priority' => 4,
             ],
             [
                 'name' => 'Discord Integration',
-                'priority' => 7
+                'priority' => 7,
             ],
             [
                 'name' => 'Cookie Consent',
-                'priority' => 10
+                'priority' => 10,
             ],
             [
                 'name' => 'Members',
-                'priority' => 13
+                'priority' => 13,
             ],
         ]);
 
@@ -135,7 +141,8 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
-    private function initialiseIntegrations(): void {
+    private function initialiseIntegrations(): void
+    {
         $this->_db->insert('integrations', [
             'name' => 'Minecraft',
             'enabled' => true,
@@ -148,34 +155,58 @@ class DatabaseInitialiser {
             'name' => 'Discord',
             'enabled' => true,
             'can_unlink' => true,
-            'required' => false
+            'required' => false,
         ]);
     }
 
-    private function initialiseReactions(): void {
+    private function initialiseReactions(): void
+    {
         $this->_db->insert('reactions', [
             'name' => 'Like',
-            'html' => '<i class="fas fa-thumbs-up text-success"></i>',
+            'html' => '👍',
             'enabled' => true,
-            'type' => 2
+            'type' => Reaction::TYPE_POSITIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Dislike',
-            'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
+            'html' => '👎',
             'enabled' => true,
-            'type' => 0
+            'type' => Reaction::TYPE_NEGATIVE,
         ]);
 
         $this->_db->insert('reactions', [
             'name' => 'Meh',
-            'html' => '<i class="fas fa-meh text-warning"></i>',
+            'html' => '😐',
             'enabled' => true,
-            'type' => 1
+            'type' => Reaction::TYPE_NEUTRAL,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Helpful',
+            'html' => '🛠️',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Creative',
+            'html' => '🌈',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Amazing',
+            'html' => '⭐',
+            'enabled' => true,
+            'type' => Reaction::TYPE_CUSTOM,
+            'custom_score' => 5,
         ]);
     }
 
-    private function initialiseSettings(): void {
+    private function initialiseSettings(): void
+    {
         Settings::set('registration_enabled', '1');
         Settings::set('displaynames', '0');
         Settings::set('uuid_linking', '1');
@@ -183,7 +214,7 @@ class DatabaseInitialiser {
         Settings::set('recaptcha_type', 'Recaptcha3');
         Settings::set('recaptcha_login', '0');
         Settings::set('email_verification', '1');
-        Settings::set('nameless_version', '2.1.0');
+        Settings::set('nameless_version', '2.2.1');
         Settings::set('version_checked', date('U'));
         Settings::set('phpmailer', '0');
         Settings::set('user_avatars', '0');
@@ -213,17 +244,17 @@ class DatabaseInitialiser {
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
-            'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
+            'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>',
         ]);
 
         $this->_db->insert('privacy_terms', [
             'name' => 'cookies',
-            'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
+            'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.',
         ]);
 
         $this->_db->insert('privacy_terms', [
             'name' => 'privacy',
-            'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
+            'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.',
         ]);
 
         $nameless_terms = 'This website uses "Nameless" website software. The ' .
@@ -235,11 +266,15 @@ class DatabaseInitialiser {
         Settings::set('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
     }
 
-    private function initialiseTasks(): void {
+    private function initialiseTasks(): void
+    {
         GenerateSitemap::schedule(new Language('core', 'en_UK'));
+        PurgeExpiredSessions::schedule(new Language('core', 'en_UK'));
+        PurgeInactiveUsers::schedule(new Language('core', 'en_UK'));
     }
 
-    private function initialiseTemplates(): void {
+    private function initialiseTemplates(): void
+    {
         $this->_db->insert('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
@@ -265,39 +300,41 @@ class DatabaseInitialiser {
         $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     }
 
-    private function initialiseWidgets(): void {
+    private function initialiseWidgets(): void
+    {
         $this->_db->insert('widgets', [
             'name' => 'Online Staff',
             'enabled' => true,
-            'pages' => '["index","forum"]'
+            'pages' => '["index","forum"]',
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Online Users',
             'enabled' => true,
-            'pages' => '["index","forum"]'
+            'pages' => '["index","forum"]',
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
-            'pages' => '["index","forum"]'
+            'pages' => '["index","forum"]',
         ]);
 
         $this->_cache->setCache('Core-widgets');
         $this->_cache->store('enabled', [
             'Online Staff' => 1,
             'Online Users' => 1,
-            'Statistics' => 1
+            'Statistics' => 1,
         ]);
     }
 
-    private function initialiseForum() {
+    private function initialiseForum()
+    {
         $this->_db->insert('forums', [
             'forum_title' => 'Category',
             'forum_description' => 'The first forum category!',
             'forum_order' => 1,
-            'forum_type' => 'category'
+            'forum_type' => 'category',
         ]);
 
         $this->_db->insert('forums', [
@@ -306,7 +343,7 @@ class DatabaseInitialiser {
             'forum_order' => 2,
             'parent' => 1,
             'forum_type' => 'forum',
-            'news' => 1
+            'news' => 1,
         ]);
 
         $this->_db->insert('topics', [
@@ -316,14 +353,14 @@ class DatabaseInitialiser {
             'topic_last_user' => 1,
             'topic_date' => date('U'),
             'topic_reply_date' => date('U'),
-            'label' => null
+            'label' => null,
         ]);
 
         $this->_db->insert('posts', [
             'forum_id' => 2,
             'topic_id' => 1,
             'post_creator' => 1,
-            'post_content' => <<<POST
+            'post_content' => <<<'POST'
                 <p>Welcome!</p>
                 <p>To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.</p>
                 <p>If you need support, visit our Discord server: <a href="https://discord.gg/nameless" target="_blank" rel="noopener">https://discord.gg/nameless</a></p>
@@ -353,7 +390,7 @@ class DatabaseInitialiser {
                     'edit_topic' => ($i == 0 ? 0 : 1),
                     'create_post' => ($i == 0 ? 0 : 1),
                     'view_other_topics' => true,
-                    'moderate' => (($i == 2 || $i == 3) ? 1 : 0)
+                    'moderate' => (($i == 2 || $i == 3) ? 1 : 0),
                 ]);
             }
         }
@@ -361,32 +398,32 @@ class DatabaseInitialiser {
         // Forum Labels
         $this->_db->insert('forums_labels', [
             'name' => 'Default',
-            'html' => '<span class="badge badge-default">{x}</span>'
+            'html' => '<span class="badge badge-default">{x}</span>',
         ]);
 
         $this->_db->insert('forums_labels', [
             'name' => 'Primary',
-            'html' => '<span class="badge badge-primary">{x}</span>'
+            'html' => '<span class="badge badge-primary">{x}</span>',
         ]);
 
         $this->_db->insert('forums_labels', [
             'name' => 'Success',
-            'html' => '<span class="badge badge-success">{x}</span>'
+            'html' => '<span class="badge badge-success">{x}</span>',
         ]);
 
         $this->_db->insert('forums_labels', [
             'name' => 'Info',
-            'html' => '<span class="badge badge-info">{x}</span>'
+            'html' => '<span class="badge badge-info">{x}</span>',
         ]);
 
         $this->_db->insert('forums_labels', [
             'name' => 'Warning',
-            'html' => '<span class="badge badge-warning">{x}</span>'
+            'html' => '<span class="badge badge-warning">{x}</span>',
         ]);
 
         $this->_db->insert('forums_labels', [
             'name' => 'Danger',
-            'html' => '<span class="badge badge-danger">{x}</span>'
+            'html' => '<span class="badge badge-danger">{x}</span>',
         ]);
     }
 }

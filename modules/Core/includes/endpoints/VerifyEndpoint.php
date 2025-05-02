@@ -28,7 +28,7 @@ class VerifyEndpoint extends KeyAuthEndpoint {
 
         $user->update([
             'active' => true,
-            'reset_code' => ''
+            'reset_code' => null,
         ]);
 
         EventHandler::executeEvent(new UserValidatedEvent(

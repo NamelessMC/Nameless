@@ -2,7 +2,7 @@
 $readme = file(ROOT_PATH . '/README.md');
 $subheader = str_replace('#', '', $readme[0]);
 
-if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')) {
+if (isset($_SESSION['installer_language']) && is_file('modules/Core/language/' . $_SESSION['installer_language'] . '.json')) {
     $installer_language = $_SESSION['installer_language'];
 } else {
     $installer_language = 'en_UK';

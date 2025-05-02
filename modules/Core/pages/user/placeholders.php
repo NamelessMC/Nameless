@@ -1,12 +1,21 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * User placeholders page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  User placeholders page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -16,16 +25,16 @@ if (!$user->isLoggedIn()) {
 
 // Placeholders enabled?
 if (Settings::get('placeholders') !== '1') {
-    require_once(ROOT_PATH . '/404.php');
+    require_once ROOT_PATH . '/404.php';
     die();
 }
 
 // Always define page name for navbar
 const PAGE = 'cc_placeholders';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 $placeholders_list = [];
 
@@ -34,13 +43,13 @@ foreach ($user->getPlaceholders() as $placeholder) {
         'name' => $placeholder->name,
         'friendly_name' => $placeholder->friendly_name,
         'value' => $placeholder->value,
-        'last_updated' => ucfirst($timeago->inWords($placeholder->last_updated, $language)),
+        'last_updated' => ucfirst($timeAgo->inWords($placeholder->last_updated, $language)),
         'show_on_profile' => $placeholder->show_on_profile,
         'show_on_forum' => $placeholder->show_on_forum
     ];
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'USER_CP' => $language->get('user', 'user_cp'),
     'NO_PLACEHOLDERS' => $language->get('user', 'no_placeholders'),
     'PLACEHOLDERS' => $language->get('user', 'placeholders'),
@@ -56,12 +65,12 @@ $smarty->assign([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-require(ROOT_PATH . '/core/templates/cc_navbar.php');
+require ROOT_PATH . '/core/templates/cc_navbar.php';
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/navbar.php');
-require(ROOT_PATH . '/core/templates/footer.php');
+require ROOT_PATH . '/core/templates/navbar.php';
+require ROOT_PATH . '/core/templates/footer.php';
 
 // Display template
-$template->displayTemplate('user/placeholders.tpl', $smarty);
+$template->displayTemplate('user/placeholders');

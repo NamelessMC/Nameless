@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Response;
 
 class ServerInfoEndpoint extends KeyAuthEndpoint {
 
@@ -61,10 +62,13 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
             }
         } catch (Exception $e) {
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
+        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+
         if (Settings::get('mc_integration')) {
+            $cache->setCache('minecraft_last_online');
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
@@ -72,6 +76,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                     if ($integrationUser->exists()) {
                         $this->updateUsername($integrationUser, $player);
+                        $cache->store($integrationUser->data()->identifier, [date('U'), $server_id]);
 
                         if (isset($player['placeholders']) && count($player['placeholders'])) {
                             $this->updatePlaceholders($integrationUser->getUser(), $player);
@@ -79,7 +84,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     }
                 }
             } catch (Exception $e) {
-                $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
+                $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
@@ -92,7 +97,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $players_list[] = ['id' => $uuid, 'name' => $player['name']];
                 }
 
-                $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
                 $cache->setCache('latest_query');
                 $cache->store($server_id, [
                     'player_count' => count($_POST['players']),
@@ -102,7 +106,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                 ], intval($_POST['interval_seconds'] ?? 10) * 2);
             }
         } catch (Exception $e) {
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $api->returnArray(array_merge(['message' => $api->getLanguage()->get('api', 'server_info_updated')]));
@@ -113,25 +117,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $integrationUser->update([
                 'username' => Output::getClean($player['name'])
             ]);
-        }
-
-        if (Settings::get('username_sync')) {
-            $user = $integrationUser->getUser();
-            if (!$user->exists() || $player['name'] == $user->data()->username) {
-                return;
-            }
-
-            // Update username
-            if (Settings::get('displaynames') === '1') {
-                $user->update([
-                    'username' => $player['name']
-                ]);
-            } else {
-                $user->update([
-                    'username' => $player['name'],
-                    'nickname' => $player['name']
-                ]);
-            }
         }
     }
 

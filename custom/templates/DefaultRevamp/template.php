@@ -1,16 +1,17 @@
 <?php
+
 /*
  *  Made by Samerton | Revamped by Xemah
  *    https://github.com/NamelessMC/Nameless/
- *    NamelessMC version 2.1.0
+ *    NamelessMC version 2.2.0
  *
- *    License: MIT
+ *    Licence: MIT
  *
  *    DefaultRevamp Template
  */
 
-class DefaultRevamp_Template extends TemplateBase {
-
+class DefaultRevamp_Template extends SmartyTemplateBase
+{
     private array $_template;
 
     /** @var Language */
@@ -22,17 +23,18 @@ class DefaultRevamp_Template extends TemplateBase {
     /** @var Pages */
     private Pages $_pages;
 
-    public function __construct($cache, $smarty, $language, $user, $pages) {
+    public function __construct(Cache $cache, Language $language, User $user, Pages $pages)
+    {
         $template = [
             'name' => 'DefaultRevamp',
-            'version' => '2.1.0',
-            'nl_version' => '2.1.0',
+            'version' => '2.2.1',
+            'nl_version' => '2.2.1',
             'author' => '<a href="https://xemah.com/" target="_blank">Xemah</a>',
         ];
 
         $template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
 
-        parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author']);
+        parent::__construct($template['name'], $template['version'], $template['nl_version'], $template['author'], __DIR__);
 
         $this->_settings = ROOT_PATH . '/custom/templates/DefaultRevamp/template_settings/settings.php';
 
@@ -43,10 +45,10 @@ class DefaultRevamp_Template extends TemplateBase {
             AssetTree::FOMANTIC_UI,
         ]);
 
-        $smarty->assign('TEMPLATE', $template);
+        $this->getEngine()->addVariable('TEMPLATE', $template);
 
         // Other variables
-        $smarty->assign('FORUM_SPAM_WARNING_TITLE', $language->get('general', 'warning'));
+        $this->getEngine()->addVariable('FORUM_SPAM_WARNING_TITLE', $language->get('general', 'warning'));
 
         $cache->setCache('template_settings');
         $smartyDarkMode = false;
@@ -64,10 +66,14 @@ class DefaultRevamp_Template extends TemplateBase {
             }
         }
 
-        $smarty->assign([
+        $this->getEngine()->addVariables([
             'DEFAULT_REVAMP_DARK_MODE' => $smartyDarkMode,
-            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour
+            'DEFAULT_REVAMP_NAVBAR_EXTRA_CLASSES' => $smartyNavbarColour,
         ]);
+
+        if (defined('AUTO_LANGUAGE_VALUE')) {
+            $this->getEngine()->addVariable('AUTO_LANGUAGE_VALUE', AUTO_LANGUAGE_VALUE);
+        }
 
         $this->_template = $template;
         $this->_language = $language;
@@ -75,12 +81,13 @@ class DefaultRevamp_Template extends TemplateBase {
         $this->_pages = $pages;
     }
 
-    public function onPageLoad() {
+    public function onPageLoad()
+    {
         $page_load = microtime(true) - PAGE_START_TIME;
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
         $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=210' => []
+            $this->_template['path'] . 'css/custom.css?v=220' => [],
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
@@ -147,5 +154,11 @@ class DefaultRevamp_Template extends TemplateBase {
     }
 }
 
-$template = new DefaultRevamp_Template($cache, $smarty, $language, $user, $pages);
+/**
+ * @var Cache    $cache
+ * @var Language $language
+ * @var User     $user
+ * @var Pages    $pages
+ */
+$template = new DefaultRevamp_Template($cache, $language, $user, $pages);
 $template_pagination = ['div' => 'ui mini pagination menu', 'a' => '{x}item'];

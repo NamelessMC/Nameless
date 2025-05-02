@@ -1,16 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr13
+/**
+ * Staff panel user page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel user page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var string $route
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad()) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -39,22 +49,22 @@ const PAGE = 'panel';
 const PANEL_PAGE = 'users';
 const PARENT_PAGE = 'users';
 $page_title = Output::getClean($user_query->username);
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (isset($success)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => $success,
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
@@ -63,21 +73,21 @@ $user_language = $user_language[0]->name;
 
 if ($user->hasPermission('admincp.users.edit')) {
     // Email address
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'EMAIL_ADDRESS' => Output::getClean($user_query->email),
-        'EMAIL_ADDRESS_LABEL' => $language->get('user', 'email_address')
+        'EMAIL_ADDRESS_LABEL' => $language->get('user', 'email_address'),
     ]);
 }
 
 if ($user->hasPermission('modcp.ip_lookup')) {
     // Last IP
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'LAST_IP' => Output::getClean($user_query->lastip),
-        'LAST_IP_LABEL' => $language->get('admin', 'ip_address')
+        'LAST_IP_LABEL' => $language->get('admin', 'ip_address'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'PAGE' => PANEL_PAGE,
@@ -119,7 +129,7 @@ $smarty->assign([
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate('core/user.tpl', $smarty);
+$template->displayTemplate('core/user');

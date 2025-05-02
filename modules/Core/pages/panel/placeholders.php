@@ -1,16 +1,25 @@
 <?php
-/*
- *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr12
+/**
+ * Staff panel placeholders page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel placeholders page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.placeholders')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -19,11 +28,11 @@ const PARENT_PAGE = 'integrations';
 const PANEL_PAGE = 'minecraft';
 const MINECRAFT_PAGE = 'placeholders';
 $page_title = $language->get('admin', 'placeholders');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 
-$template_file = 'integrations/minecraft/placeholders.tpl';
+$template_file = 'integrations/minecraft/placeholders';
 
 if (isset($_GET['leaderboard'])) {
 
@@ -33,7 +42,7 @@ if (isset($_GET['leaderboard'])) {
 
     if ($placeholder != null) {
 
-        $template_file = 'integrations/minecraft/placeholders_leaderboard.tpl';
+        $template_file = 'integrations/minecraft/placeholders_leaderboard';
 
         if (Input::exists()) {
 
@@ -59,7 +68,7 @@ if (isset($_GET['leaderboard'])) {
             }
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'PAGE' => PANEL_PAGE,
             'PARENT_PAGE' => PARENT_PAGE,
             'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -79,55 +88,74 @@ if (isset($_GET['leaderboard'])) {
             'LEADERBOARD_SORT' => $language->get('admin', 'placeholder_leaderboard_sort'),
             'INTEGRATIONS' => $language->get('admin', 'integrations'),
             'MINECRAFT' => $language->get('admin', 'minecraft'),
-            'MINECRAFT_LINK' => URL::build('/panel/minecraft')
+            'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
+            'REORDER_DRAG_URL' => URL::build('/panel/minecraft/placeholders', 'action=order'),
         ]);
     } else {
         Redirect::to(URL::build('/panel/minecraft/placeholders'));
     }
 
 } else {
-
     if (Input::exists()) {
-
         if (Token::check()) {
+            switch (Input::get('action')) {
+                case 'settings':
+                    // Update placeholders value
+                    Settings::set('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
 
-            if (Input::get('action') === 'settings') {
-                // Update placeholders value
-                Settings::set('placeholders', (isset($_POST['placeholders_enabled']) && $_POST['placeholders_enabled'] == 'on') ? '1' : '0');
+                    foreach ($all_placeholders as $placeholder) {
+                        $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
+                        $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
+                        $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                        $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
 
-                foreach ($all_placeholders as $placeholder) {
-                    $friendly_name_input = Input::get('friendly_name-' . $placeholder->name . '-server-' . $placeholder->server_id);
-                    $friendly_name = $friendly_name_input == '' ? null : $friendly_name_input;
-                    $show_on_profile = Input::get('show_on_profile-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
-                    $show_on_forum = Input::get('show_on_forum-' . $placeholder->name . '-server-' . $placeholder->server_id) == 'on' ? 1 : 0;
+                        DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
+                            $friendly_name,
+                            $show_on_profile,
+                            $show_on_forum,
+                            $placeholder->name,
+                            $placeholder->server_id
+                        ]);
+                    }
 
-                    DB::getInstance()->query('UPDATE nl2_placeholders_settings SET friendly_name = ?, show_on_profile = ?, show_on_forum = ? WHERE name = ? AND server_id = ?', [
-                        $friendly_name,
-                        $show_on_profile,
-                        $show_on_forum,
-                        $placeholder->name,
-                        $placeholder->server_id
-                    ]);
-                }
+                    Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
+                    Redirect::to(URL::build('/panel/minecraft/placeholders'));
 
-                Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
-                Redirect::to(URL::build('/panel/minecraft/placeholders'));
-            } else {
-                // Deleting placeholder
-                $placeholder_safe_name = Input::get('placeholder_safe_name');
-                $server_id = Input::get('server_id');
+                case 'order':
+                    if (isset($_POST['placeholders'])) {
+                        $placeholders = json_decode($_POST['placeholders'])->placeholders;
 
-                $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
-                if ($placeholder) {
-                    DB::getInstance()->query('DELETE FROM nl2_placeholders_settings WHERE name = ? AND server_id = ?', [
-                        $placeholder->name,
-                        $placeholder->server_id,
-                    ]);
+                        $i = 1;
+                        foreach ($placeholders as $item) {
+                            $exploded = explode('-', $item);
+                            $server_id = array_shift($exploded);
+                            $placeholder_name = implode('-', $exploded);
 
-                    die('Ok');
-                }
+                            DB::getInstance()->query('UPDATE nl2_placeholders_settings SET `order` = ? WHERE `name` = ? AND server_id = ?', [
+                                $i++,
+                                $placeholder_name,
+                                $server_id,
+                            ]);
+                        }
+                    }
+                    die('Complete');
 
-                die('No placeholder found');
+                default:
+                    // Deleting placeholder
+                    $placeholder_safe_name = Input::get('placeholder_safe_name');
+                    $server_id = Input::get('server_id');
+
+                    $placeholder = Placeholders::getInstance()->getPlaceholder($server_id, $placeholder_safe_name);
+                    if ($placeholder) {
+                        DB::getInstance()->query('DELETE FROM nl2_placeholders_settings WHERE name = ? AND server_id = ?', [
+                            $placeholder->name,
+                            $placeholder->server_id,
+                        ]);
+
+                        die('Ok');
+                    }
+
+                    die('No placeholder found');
             }
 
         } else {
@@ -135,7 +163,7 @@ if (isset($_GET['leaderboard'])) {
         }
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'PAGE' => PANEL_PAGE,
         'PARENT_PAGE' => PARENT_PAGE,
         'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -143,6 +171,7 @@ if (isset($_GET['leaderboard'])) {
         'TOKEN' => Token::get(),
         'INFO' => $language->get('general', 'info'),
         'SUBMIT' => $language->get('general', 'submit'),
+        'DRAG_AND_DROP_INFO' => $language->get('admin', 'drag_and_drop'),
         'PLACEHOLDERS_INFO' => $language->get('admin', 'placeholders_info'),
         'ALL_PLACEHOLDERS' => $all_placeholders,
         'NO_PLACEHOLDERS' => $language->get('admin', 'placeholders_none'),
@@ -175,22 +204,22 @@ if (isset($_GET['leaderboard'])) {
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('placeholders_success')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('placeholders_success'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);

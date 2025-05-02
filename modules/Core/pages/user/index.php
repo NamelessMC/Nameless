@@ -1,12 +1,22 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+/**
+ * User overview page
  *
- *  License: MIT
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  UserCP overview
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $forum_language
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -17,7 +27,7 @@ if (!$user->isLoggedIn()) {
 // Always define page name for navbar
 const PAGE = 'cc_overview';
 $page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 $user_details = [
     $language->get('user', 'username') => $user->getDisplayname(true),
@@ -26,7 +36,7 @@ $user_details = [
 ];
 
 // Language values
-$smarty->assign([
+$template->getEngine()->addVariables([
     'USER_CP' => $language->get('user', 'user_cp'),
     'USER_DETAILS' => $language->get('user', 'user_details'),
     'USER_DETAILS_VALUES' => $user_details,
@@ -94,7 +104,7 @@ if ($forum_enabled) {
     $average_data = '[' . rtrim($average_data, ', ') . ']';
     $total_data = '[' . rtrim($total_data, ', ') . ']';
 
-    $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
+    $template->getEngine()->addVariable('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
 }
 
 if ($forum_enabled) {
@@ -186,4 +196,4 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('user/index.tpl', $smarty);
+$template->displayTemplate('user/index');

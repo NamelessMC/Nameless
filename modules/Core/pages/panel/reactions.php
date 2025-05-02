@@ -1,16 +1,26 @@
 <?php
-/*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+/**
+ * Staff panel reactions page
  *
- *  License: MIT
+ * @author Aberdeener
+ * @author Samerton
+ * @license MIT
+ * @version 2.2.0
  *
- *  Panel reactions page
+ * @var Cache $cache
+ * @var FakeSmarty $smarty
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 if (!$user->handlePanelPageLoad('admincp.core.reactions')) {
-    require_once(ROOT_PATH . '/403.php');
+    require_once ROOT_PATH . '/403.php';
     die();
 }
 
@@ -18,58 +28,69 @@ const PAGE = 'panel';
 const PARENT_PAGE = 'core_configuration';
 const PANEL_PAGE = 'reactions';
 $page_title = $language->get('user', 'reactions');
-require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once ROOT_PATH . '/core/templates/backend_init.php';
+
+$template->assets()->include(
+    AssetTree::JQUERY_UI,
+);
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('api_reactions')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'SUCCESS' => Session::flash('api_reactions'),
-        'SUCCESS_TITLE' => $language->get('general', 'success')
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
     ]);
 }
 
 if (Session::exists('api_reactions_error')) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => [Session::flash('api_reactions_error')],
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
 if (!isset($_GET['id']) && !isset($_GET['action'])) {
     // Get all reactions
-    $reactions = DB::getInstance()->get('reactions', ['id', '<>', 0])->results();
-
     $template_reactions = [];
-    if (count($reactions)) {
-        foreach ($reactions as $reaction) {
-            switch ($reaction->type) {
-                case 1:
-                    $type = $language->get('admin', 'neutral');
-                    break;
+    foreach (Reaction::all() as $reaction) {
+        switch ($reaction->type) {
+            case Reaction::TYPE_NEUTRAL:
+                $type = $language->get('admin', 'neutral');
+                break;
 
-                case 2:
-                    $type = $language->get('admin', 'positive');
-                    break;
+            case Reaction::TYPE_POSITIVE:
+                $type = $language->get('admin', 'positive');
+                break;
 
-                default:
-                    $type = $language->get('admin', 'negative');
-                    break;
-            }
+            case Reaction::TYPE_CUSTOM:
+                $type = $language->get('admin', 'custom_score');
+                break;
 
-            $template_reactions[] = [
-                'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
-                'name' => Output::getClean($reaction->name),
-                'html' => $reaction->html,
-                'type_id' => $reaction->type,
-                'type' => $type,
-                'enabled' => $reaction->enabled
-            ];
+            default:
+                $type = $language->get('admin', 'negative');
+                break;
         }
+
+        $custom_score = $reaction->custom_score ?? 0;
+        if ($custom_score > 0) {
+            $custom_score = '+' . $custom_score;
+        }
+
+        $template_reactions[] = [
+            'id' => $reaction->id,
+            'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
+            'name' => Output::getClean($reaction->name),
+            'html' => $reaction->html,
+            'type_id' => $reaction->type,
+            'type' => $type,
+            'enabled' => $reaction->enabled,
+            'custom_score' => $custom_score,
+        ];
     }
 
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'NEW_REACTION' => $language->get('admin', 'new_reaction'),
         'NEW_REACTION_LINK' => URL::build('/panel/core/reactions/', 'action=new'),
         'NAME' => $language->get('admin', 'name'),
@@ -77,10 +98,11 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
         'TYPE' => $language->get('admin', 'type'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'REACTIONS_LIST' => $template_reactions,
-        'NO_REACTIONS' => $language->get('admin', 'no_reactions')
+        'NO_REACTIONS' => $language->get('admin', 'no_reactions'),
+        'REORDER_DRAG_URL' => URL::build('/panel/core/reactions', 'action=order'),
     ]);
 
-    $template_file = 'core/reactions.tpl';
+    $template_file = 'core/reactions';
 } else {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
@@ -101,7 +123,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                                 Validate::MAX => 255
                             ],
                             'type' => [
-                                Validate::REQUIRED => true
+                                Validate::REQUIRED => true,
+                                Validate::IN => [
+                                    Reaction::TYPE_POSITIVE,
+                                    Reaction::TYPE_NEUTRAL,
+                                    Reaction::TYPE_NEGATIVE,
+                                    Reaction::TYPE_CUSTOM,
+                                ],
                             ]
                         ])->messages([
                             'name' => [
@@ -123,24 +151,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                                 $enabled = 0;
                             }
 
-                            switch (Input::get('type')) {
-                                case 1:
-                                    $type = 1;
-                                    break;
-                                case 2:
-                                    $type = 2;
-                                    break;
-                                default:
-                                    $type = 0;
-                                    break;
-                            }
-
                             // Update database
                             DB::getInstance()->insert('reactions', [
                                 'name' => Input::get('name'),
                                 'html' => Input::get('html'),
-                                'type' => $type,
-                                'enabled' => $enabled
+                                'type' => Input::get('type'),
+                                'enabled' => $enabled,
+                                'custom_score' => (int) Input::get('custom_score'),
                             ]);
 
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
@@ -155,7 +172,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     }
                 }
 
-                $smarty->assign([
+                $template->getEngine()->addVariables([
                     'CANCEL' => $language->get('general', 'cancel'),
                     'CANCEL_LINK' => URL::build('/panel/core/reactions'),
                     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -168,13 +185,17 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     'HTML' => $language->get('admin', 'html'),
                     'HTML_VALUE' => Output::getClean(Input::get('html')),
                     'TYPE' => $language->get('admin', 'type'),
+                    'TYPE_VALUE' => Output::getClean(Input::get('type')),
                     'POSITIVE' => $language->get('admin', 'positive'),
                     'NEGATIVE' => $language->get('admin', 'negative'),
                     'NEUTRAL' => $language->get('admin', 'neutral'),
-                    'ENABLED' => $language->get('admin', 'enabled')
+                    'CUSTOM_SCORE' => $language->get('admin', 'custom_score'),
+                    'CUSTOM_SCORE_VALUE' => Output::getClean(Input::get('custom_score')),
+                    'ENABLED' => $language->get('admin', 'enabled'),
+                    'EDITING' => false,
                 ]);
 
-                $template_file = 'core/reactions_new.tpl';
+                $template_file = 'core/reactions_form';
 
                 break;
 
@@ -196,18 +217,33 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 // Redirect
                 Redirect::to(URL::build('/panel/core/reactions'));
 
+            case 'order':
+                if (isset($_GET['reactions'])) {
+                    if (!Token::check()) {
+                        die('Invalid Token');
+                    }
+
+                    $reactions_list = json_decode($_GET['reactions'])->reactions;
+                    $i = 1;
+                    foreach ($reactions_list as $item) {
+                        DB::getInstance()->update('reactions', $item, [
+                            'order' => $i
+                        ]);
+                        $i++;
+                    }
+                }
+                die('Complete');
+
             default:
                 Redirect::to(URL::build('/panel/core/reactions'));
         }
     } else {
         // Get reaction
-        $reaction = DB::getInstance()->get('reactions', ['id', $_GET['id']])->results();
-        if (!count($reaction)) {
+        $reaction = Reaction::find($_GET['id']);
+        if (!$reaction) {
             // Reaction doesn't exist
             Redirect::to(URL::build('/panel/core/reactions'));
         }
-
-        $reaction = $reaction[0];
 
         // Deal with input
         if (Input::exists()) {
@@ -227,7 +263,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         Validate::MAX => 255
                     ],
                     'type' => [
-                        Validate::REQUIRED => true
+                        Validate::REQUIRED => true,
+                        Validate::IN => [
+                            Reaction::TYPE_POSITIVE,
+                            Reaction::TYPE_NEUTRAL,
+                            Reaction::TYPE_NEGATIVE,
+                            Reaction::TYPE_CUSTOM,
+                        ],
                     ]
                 ])->messages([
                     'name' => [
@@ -249,25 +291,19 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                         $enabled = 0;
                     }
 
-                    switch (Input::get('type')) {
-                        case 1:
-                            $type = 1;
-                            break;
-                        case 2:
-                            $type = 2;
-                            break;
-                        default:
-                            $type = 0;
-                            break;
+                    $fields = [
+                        'name' => Input::get('name'),
+                        'html' => Output::getPurified(Input::get('html')),
+                        'type' => $type = Input::get('type'),
+                        'enabled' => $enabled,
+                    ];
+
+                    if ($type == Reaction::TYPE_CUSTOM) {
+                        $fields['custom_score'] = Input::get('custom_score');
                     }
 
                     // Update database
-                    DB::getInstance()->update('reactions', $_GET['id'], [
-                        'name' => Output::getClean(Input::get('name')),
-                        'html' => Output::getPurified(Input::get('html')),
-                        'type' => $type,
-                        'enabled' => $enabled
-                    ]);
+                    DB::getInstance()->update('reactions', $_GET['id'], $fields);
 
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
                     Redirect::to(URL::build('/panel/core/reactions'));
@@ -281,7 +317,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             }
         }
 
-        $smarty->assign([
+        $template->getEngine()->addVariables([
             'CANCEL' => $language->get('general', 'cancel'),
             'CANCEL_LINK' => URL::build('/panel/core/reactions'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -295,40 +331,44 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             'NAME' => $language->get('admin', 'name'),
             'NAME_VALUE' => Output::getClean($reaction->name),
             'HTML' => $language->get('admin', 'html'),
-            'HTML_VALUE' => Output::getClean($reaction->html),
+            'HTML_VALUE' => Output::getClean($reaction->raw_html),
             'TYPE' => $language->get('admin', 'type'),
             'POSITIVE' => $language->get('admin', 'positive'),
             'NEUTRAL' => $language->get('admin', 'neutral'),
             'NEGATIVE' => $language->get('admin', 'negative'),
+            'CUSTOM' => $language->get('admin', 'custom_score'),
+            'CUSTOM_SCORE' => $language->get('admin', 'custom_score'),
+            'CUSTOM_SCORE_VALUE' => $reaction->custom_score ?? 0,
             'TYPE_VALUE' => $reaction->type,
             'ENABLED' => $language->get('admin', 'enabled'),
-            'ENABLED_VALUE' => $reaction->enabled
+            'ENABLED_VALUE' => $reaction->enabled,
+            'EDITING' => true,
         ]);
 
-        $template_file = 'core/reactions_edit.tpl';
+        $template_file = 'core/reactions_form';
     }
 }
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'ERRORS' => $errors,
-        'ERRORS_TITLE' => $language->get('general', 'error')
+        'ERRORS_TITLE' => $language->get('general', 'error'),
     ]);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
     'REACTIONS' => $language->get('user', 'reactions'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('general', 'submit')
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();
 
-require(ROOT_PATH . '/core/templates/panel_navbar.php');
+require ROOT_PATH . '/core/templates/panel_navbar.php';
 
 // Display template
-$template->displayTemplate($template_file, $smarty);
+$template->displayTemplate($template_file);
