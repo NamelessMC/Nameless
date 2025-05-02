@@ -81,7 +81,7 @@ class Cache
             $is_cached = false;
         }
 
-        CacheCollector::getInstance()->recordCheck($key, $is_cached);
+        CacheCollector::getInstance()->recordCheck("{$this->_cachename}:{$key}", $is_cached);
 
         return $is_cached;
     }
@@ -249,7 +249,7 @@ class Cache
         $cacheData = json_encode($dataArray);
         file_put_contents($this->getCacheDir(), $cacheData);
 
-        CacheCollector::getInstance()->recordSet($key, $data, $expiration);
+        CacheCollector::getInstance()->recordSet("{$this->_cachename}:{$key}", $data, $expiration);
 
         return $this;
     }
@@ -268,7 +268,7 @@ class Cache
         $type = $timestamp ? 'time' : 'data';
 
         if (!isset($cachedData[$key][$type])) {
-            CacheCollector::getInstance()->recordMiss($key);
+            CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
 
             return null;
         }
@@ -276,7 +276,7 @@ class Cache
         if (!$timestamp) {
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
-                CacheCollector::getInstance()->recordMiss($key);
+                CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
 
                 return null;
             }
