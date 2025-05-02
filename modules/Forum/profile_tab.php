@@ -84,7 +84,7 @@ if (!count($latest_posts)) {
         }
 
         $render_event = new RenderContentEvent($latest_post->post_content);
-        EventHandler::executeEvent(new RenderContentEvent($latest_post->post_content));
+        EventHandler::executeEvent($render_event);
 
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
