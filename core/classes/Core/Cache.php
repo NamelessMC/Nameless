@@ -269,6 +269,7 @@ class Cache
 
         if (!isset($cachedData[$key][$type])) {
             CacheCollector::getInstance()->recordMiss($key);
+
             return null;
         }
 
@@ -276,6 +277,7 @@ class Cache
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
                 CacheCollector::getInstance()->recordMiss($key);
+
                 return null;
             }
         }
