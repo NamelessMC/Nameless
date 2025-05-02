@@ -9,6 +9,13 @@ class CacheCollector extends DataCollector implements Renderable, AssetProvider
     private array $_cache_calls = [];
     private static CacheCollector $_instance;
 
+    private bool $_enabled = false;
+
+    private function __construct()
+    {
+        $this->_enabled = defined('DEBUGGING') && DEBUGGING && class_exists('DebugBar\DebugBar');
+    }
+
     public static function getInstance(): CacheCollector
     {
         return self::$_instance ??= new self();
@@ -16,6 +23,10 @@ class CacheCollector extends DataCollector implements Renderable, AssetProvider
 
     public function recordCheck(string $key, bool $is_cached): void
     {
+        if (!$this->_enabled) {
+            return;
+        }
+
         $this->recordEvent('check', [
             'key' => $key,
             'is_cached' => $is_cached,
@@ -24,6 +35,10 @@ class CacheCollector extends DataCollector implements Renderable, AssetProvider
 
     public function recordHit(string $key, $value): void
     {
+        if (!$this->_enabled) {
+            return;
+        }
+
         $this->recordEvent('hit', [
             'key' => $key,
             'value' => $value,
@@ -32,6 +47,10 @@ class CacheCollector extends DataCollector implements Renderable, AssetProvider
 
     public function recordMiss(string $key): void
     {
+        if (!$this->_enabled) {
+            return;
+        }
+
         $this->recordEvent('miss', [
             'key' => $key,
         ]);
@@ -39,6 +58,10 @@ class CacheCollector extends DataCollector implements Renderable, AssetProvider
 
     public function recordSet(string $key, $value, int $ttl): void
     {
+        if (!$this->_enabled) {
+            return;
+        }
+
         $this->recordEvent('set', [
             'key' => $key,
             'value' => $value,
