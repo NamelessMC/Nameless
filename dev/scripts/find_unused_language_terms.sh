@@ -20,6 +20,7 @@ WHITELISTED_TERMS=(
   "installer/module_forum_description"
   "installer/module_core_description"
   "installer/module_members_description"
+  "user/user_tag_info"
 )
 
 for FILE in "${FILES[@]}"

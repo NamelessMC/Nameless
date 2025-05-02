@@ -1339,6 +1339,7 @@
     "user/user_has_linked_integration": "{{user}} has linked their {{integration}} account.",
     "user/user_has_unlinked_integration": "{{user}} has unlinked their {{integration}} account.",
     "user/user_has_verified_integration": "{{user}} has verified their {{integration}} account.",
+    "user/user_tag_info": "You have been tagged in a post by {{author}}.",
     "user/user_unblocked": "User unblocked.",
     "user/user_x_has_registered": "{{user}} has joined {{siteName}}!",
     "user/user_x_has_validated": "{{user}} has validated their account!",
