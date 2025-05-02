@@ -51,16 +51,4 @@ abstract class AbstractEvent
     {
         return get_object_vars($this);
     }
-
-    /**
-     * Create an instance of the event from an array of parameters.
-     *
-     * @param  array         $params The parameters to pass to the event
-     * @return AbstractEvent The event instance
-     */
-    final public static function fromArray(array $params): AbstractEvent
-    {
-        /** @phpstan-ignore-next-line */
-        return new static(...$params);
-    }
 }
