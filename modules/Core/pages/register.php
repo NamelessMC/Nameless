@@ -317,7 +317,6 @@ if (Input::exists()) {
                         Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
                     }
 
-                    Redirect::to(URL::build('/'));
                 } else {
                     // Integrations errors
                     $errors = $integration_errors;

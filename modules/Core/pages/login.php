@@ -69,7 +69,6 @@ if (Input::exists()) {
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true,
                         Validate::RATE_LIMIT => $rate_limit,
                     ],
                     'password' => [
@@ -81,7 +80,6 @@ if (Input::exists()) {
                     'username' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true,
                         Validate::RATE_LIMIT => $rate_limit,
                     ],
                     'password' => [
