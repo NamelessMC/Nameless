@@ -62,7 +62,6 @@ class UserSeeder extends Seeder
                 'signature' => $faker->boolean ? $faker->text(500) : null,
                 'profile_views' => $faker->numberBetween(0, 500),
                 'gravatar' => $faker->boolean(20) ? 1 : 0,
-                'topic_updates' => $faker->boolean(40) ? 1 : 0,
                 'private_profile' => $faker->boolean(40) ? 1 : 0,
                 'last_online' => $this->since($joined, $faker)->format('U'),
                 'joined' => $joined,

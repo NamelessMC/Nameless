@@ -187,5 +187,12 @@
     "forum/forum_score": "Skóre fóra",
     "forum/banned_terms": "Zakázané výrazy",
     "forum/banned_terms_info": "Jeden výraz na řádek, nejsou rozlišována malá a velká písmena",
-    "forum/content_contains_banned_term": "Váš příspěvek obsahuje zakázaný výraz"
+    "forum/content_contains_banned_term": "Váš příspěvek obsahuje zakázaný výraz",
+    "forum/news_items_required": "Musíte zadat počet novinek",
+    "forum/spam_timer_info": "Počet sekund, který uživatel musí počkat po vytvoření nového příspěvku nebo tématu, než bude moci vytvořit další",
+    "forum/news_items_numeric": "Počet novinek musí být číslo",
+    "forum/spam_timer": "Časovač spamu",
+    "forum/spam_timer_min": "Časovač spamu musí být alespoň {{min}}",
+    "forum/spam_timer_numeric": "Časovač spamu musí být číslo",
+    "forum/spam_timer_required": "Musíte zadat časovač spamu"
 }

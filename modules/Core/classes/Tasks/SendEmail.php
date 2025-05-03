@@ -33,7 +33,7 @@ class SendEmail extends Task {
                 'content' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 1,
-                    Validate::MAX => EMAIL_MAX_LENGTH,
+                    Validate::MAX => Email::EMAIL_MAX_LENGTH,
                 ],
             ],
         );

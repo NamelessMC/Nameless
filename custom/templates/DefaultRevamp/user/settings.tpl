@@ -60,15 +60,6 @@
                         {/if}
                     </div>
                     {/foreach}
-                    {if isset($TOPIC_UPDATES)}
-                    <div class="field">
-                        <label for="inputTopicUpdates">{$TOPIC_UPDATES}</label>
-                        <select class="ui fluid dropdown" name="topicUpdates" id="inputTopicUpdates">
-                            <option value="1" {if ($TOPIC_UPDATES_ENABLED==true)} selected {/if}>{$ENABLED}</option>
-                            <option value="0" {if ($TOPIC_UPDATES_ENABLED==false)} selected {/if}>{$DISABLED}</option>
-                        </select>
-                    </div>
-                    {/if}
                     {if isset($AUTHME_SYNC_PASSWORD)}
                         <div class="field">
                             <label for="inputAuthmeSync">

@@ -91,8 +91,8 @@ foreach (Notification::getTypes() as $type) {
 
     $alert = $email = false;
     if ($userTypePreference !== false) {
-        $alert = $preferences[$userTypePreference]->alert === 1;
-        $email = $preferences[$userTypePreference]->email === 1;
+        $alert = (int) $preferences[$userTypePreference]->alert === 1;
+        $email = (int) $preferences[$userTypePreference]->email === 1;
     }
 
     $mappedPreferences[] = [

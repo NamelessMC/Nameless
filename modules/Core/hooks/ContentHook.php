@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0 pre-13
+ *  NamelessMC version 2.3.0
  *
  *  Content hooks
  */
@@ -14,13 +14,12 @@ class ContentHook extends HookBase {
      *
      * @deprecated Will be removed in 2.2.0!
      *
-     * @param array $params
-     * @return array
+     * @param AbstractEvent $event
      */
-    public static function codeTransform(array $params = []): array {
-        if (parent::validateParams($params, ['content'])) {
+    public static function codeTransform(AbstractEvent $event): void {
+        if (isset($event->content)) {
             $domDocument = new DOMDocument();
-            $domDocument->loadHTML(mb_convert_encoding($params['content'], 'HTML-ENTITIES', 'UTF-8'));
+            $domDocument->loadHTML(mb_convert_encoding($event->content, 'HTML-ENTITIES', 'UTF-8'));
             $tags = $domDocument->getElementsByTagName('code');
             foreach ($tags as $tag) {
                 $code = '';
@@ -40,10 +39,8 @@ class ContentHook extends HookBase {
                 $tag->nodeValue = $code;
             }
 
-            $params['content'] = $domDocument->saveHTML();
+            $event->content = $domDocument->saveHTML();
         }
-
-        return $params;
     }
 
     /**
@@ -51,38 +48,29 @@ class ContentHook extends HookBase {
      *
      * @deprecated Will be removed in 2.3.0!
      *
-     * @param array $params
-     * @return array
+     * @param AbstractEvent $event
      */
-    public static function decode(array $params = []): array {
-        if (parent::validateParams($params, ['content'])) {
-            $params['content'] = Output::getDecoded($params['content']);
+    public static function decode(AbstractEvent $event): void {
+        if (isset($event->content)) {
+            $event->content = Output::getDecoded($event->content);
         }
-
-        return $params;
     }
 
-    public static function purify(array $params = []): array {
-        if (parent::validateParams($params, ['content']) && empty($params['skip_purify'])) {
-            $params['content'] = Output::getPurified($params['content'], true);
+    public static function purify(AbstractEvent $event): void {
+        if (isset($event->content) && empty($event->skip_purify)) {
+            $event->content = Output::getPurified($event->content, true);
         }
-
-        return $params;
     }
 
-    public static function renderEmojis(array $params = []): array {
-        if (parent::validateParams($params, ['content'])) {
-            $params['content'] = Text::renderEmojis($params['content']);
+    public static function renderEmojis(AbstractEvent $event): void {
+        if (isset($event->content)) {
+            $event->content = Text::renderEmojis($event->content);
         }
-
-        return $params;
     }
 
-    public static function replaceAnchors(array $params = []): array {
-        if (parent::validateParams($params, ['content'])) {
-            $params['content'] = URL::replaceAnchorsWithText($params['content']);
+    public static function replaceAnchors(AbstractEvent $event): void {
+        if (isset($event->content)) {
+            $event->content = URL::replaceAnchorsWithText($event->content);
         }
-
-        return $params;
     }
 }

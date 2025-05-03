@@ -134,15 +134,16 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $content = EventHandler::executeEvent('preCustomPageCreate', [
-                                'content' => Input::get('content'),
-                                'user' => $user,
-                            ])['content'];
+                            $event = new PreCustomPageCreateEvent(
+                                Input::get('content'),
+                                $user
+                            );
+                            EventHandler::executeEvent($event);
 
                             DB::getInstance()->insert('custom_pages', [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
-                                'content' => $content,
+                                'content' => $event->content,
                                 'link_location' => $location,
                                 'redirect' => $redirect,
                                 'link' => $link,
@@ -204,7 +205,9 @@ if (!isset($_GET['action'])) {
             $content = $_POST['content'] ?? null;
             if ($content) {
                 // Purify post content
-                $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => $content])['content'];
+                $render_event = new RenderContentEditEvent($content, true);
+                EventHandler::executeEvent($render_event);
+                $content = $render_event->content;
             }
 
             $template->getEngine()->addVariables([
@@ -332,15 +335,16 @@ if (!isset($_GET['action'])) {
                             $sitemap = intval(isset($_POST['sitemap']) && $_POST['sitemap'] == 'on');
                             $basic = intval(isset($_POST['basic']) && $_POST['basic'] == 'on');
 
-                            $content = EventHandler::executeEvent('preCustomPageEdit', [
-                                'content' => Input::get('content'),
-                                'user' => $user,
-                            ])['content'];
+                            $event = new PreCustomPageEditEvent(
+                                Input::get('content'),
+                                $user,
+                            );
+                            EventHandler::executeEvent($event);
 
                             DB::getInstance()->update('custom_pages', $page->id, [
                                 'url' => rtrim(Input::get('page_url'), '/'),
                                 'title' => Input::get('page_title'),
-                                'content' => $content,
+                                'content' => $event->content,
                                 'link_location' => $location,
                                 'redirect' => $redirect,
                                 'link' => $link,
@@ -501,7 +505,8 @@ if (!isset($_GET['action'])) {
                 }
             }
 
-            $content = EventHandler::executeEvent('renderCustomPageEdit', ['content' => ($_POST['content'] ?: $page->content)])['content'];
+            $render_event = new RenderContentEditEvent($_POST['content'] ?: $page->content, true);
+            EventHandler::executeEvent($render_event);
 
             $template->getEngine()->addVariables([
                 'CANCEL' => $language->get('general', 'cancel'),
@@ -549,7 +554,7 @@ if (!isset($_GET['action'])) {
                 AssetTree::TINYMCE,
             ]);
 
-            $template->addJSScript(Input::createTinyEditor($language, 'inputContent', $content, true, true));
+            $template->addJSScript(Input::createTinyEditor($language, 'inputContent', $render_event->content, true, true));
 
             $template_file = 'core/pages_edit';
 

@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var FakeSmarty $smarty
@@ -228,6 +228,9 @@ if (!isset($_GET['action'])) {
                                 // Get the PM ID
                                 $last_id = DB::getInstance()->lastId();
 
+                                $event = new ContentCreateEvent(Input::get('content'), $user);
+                                EventHandler::executeEvent($event);
+
                                 // Insert post content into database
                                 DB::getInstance()->insert(
                                     'private_messages_replies',
@@ -235,7 +238,7 @@ if (!isset($_GET['action'])) {
                                         'pm_id' => $last_id,
                                         'author_id' => $user->data()->id,
                                         'created' => date('U'),
-                                        'content' => Input::get('content')
+                                        'content' => $event->content
                                     ]
                                 );
 
@@ -298,7 +301,12 @@ if (!isset($_GET['action'])) {
             }
         }
 
-        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+        $content = null;
+        if (isset($_POST['content'])) {
+            $render_event = new RenderContentEditEvent($_POST['content']);
+            EventHandler::executeEvent($render_event);
+            $content = $render_event->content;
+        }
 
         // Assign template variables
         $template->getEngine()->addVariables([
@@ -368,7 +376,8 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    $content = Input::get('content');
+                    $event = new ContentCreateEvent(Input::get('content'), $user);
+                    EventHandler::executeEvent($event);
 
                     // Insert post content into database
                     DB::getInstance()->insert(
@@ -377,7 +386,7 @@ if (!isset($_GET['action'])) {
                             'pm_id' => $pm[0]->id,
                             'author_id' => $user->data()->id,
                             'created' => date('U'),
-                            'content' => $content
+                            'content' => $event->content
                         ]
                     );
 
@@ -443,6 +452,9 @@ if (!isset($_GET['action'])) {
         foreach ($results->data as $nValue) {
             $target_user = new User($nValue->author_id);
 
+            $render_event = new RenderContentEvent($nValue->content);
+            EventHandler::executeEvent($render_event);
+
             $template_array[] = [
                 'id' => $nValue->id,
                 'author_id' => $nValue->author_id,
@@ -453,7 +465,7 @@ if (!isset($_GET['action'])) {
                 'author_groups' => $target_user->getAllGroupHtml(),
                 'message_date' => $timeago->inWords($nValue->created, $language),
                 'message_date_full' => date(DATE_FORMAT, $nValue->created),
-                'content' => EventHandler::executeEvent('renderPrivateMessage', ['content' => $nValue->content])['content'],
+                'content' => $render_event->content,
             ];
         }
 
@@ -485,7 +497,12 @@ if (!isset($_GET['action'])) {
             'NO' => $language->get('general', 'no'),
         ]);
 
-        $content = (isset($_POST['content'])) ? EventHandler::executeEvent('renderPrivateMessageEdit', ['content' => $_POST['content']])['content'] : null;
+        $content = null;
+        if (isset($_POST['content'])) {
+            $render_event = new RenderContentEditEvent($_POST['content']);
+            EventHandler::executeEvent($render_event);
+            $content = $render_event->content;
+        }
 
         $template->assets()->include([
             AssetTree::TINYMCE,

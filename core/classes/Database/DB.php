@@ -313,7 +313,7 @@ class DB
      */
     private function action(string $action, string $table, array $where = [])
     {
-        [$where, $where_params] = $this->makeWhere($where);
+        [$where, $where_params] = self::makeWhere($where);
 
         $table = $this->_prefix . $table;
         $sql = "{$action} FROM {$table} {$where}";
@@ -378,7 +378,7 @@ class DB
             $where = ['id', '=', $where];
         }
 
-        [$where, $where_params] = $this->makeWhere($where);
+        [$where, $where_params] = self::makeWhere($where);
         $table = $this->_prefix . $table;
 
         $sql = "UPDATE {$table} SET {$set} $where";
@@ -529,7 +529,7 @@ class DB
         $where_clauses = [];
         foreach ($clauses as $clause) {
             if (!is_array($clause)) {
-                continue;
+                throw new InvalidArgumentException('Where clause must be an array');
             }
 
             if (count($clause) !== count($clause, COUNT_RECURSIVE)) {

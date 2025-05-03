@@ -139,7 +139,7 @@ if (!isset($_GET['integration'])) {
             'logo_url' => $provider['logo_url'] ?? null,
             'client_id' => $client_id,
             'client_secret' => $client_secret,
-            'client_url' => rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . $provider_name, 'non-friendly'),
+            'client_url' => strtolower(rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', 'provider=' . $provider_name, 'non-friendly')),
         ];
 
         $template->getEngine()->addVariables([

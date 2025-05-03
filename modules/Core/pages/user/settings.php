@@ -304,13 +304,6 @@ if (isset($_GET['do'])) {
                             $data['authme_sync_password'] = Input::get('authmeSync');
                         }
 
-                        // Is forum enabled? Update topic Updates
-                        if ($forum_enabled) {
-                            $topicUpdates = Input::get('topicUpdates');
-
-                            $data['topic_updates'] = $topicUpdates;
-                        }
-
                         $user->update($data);
 
                         Log::getInstance()->log(Log::Action('user/ucp/update'));
@@ -585,13 +578,6 @@ if (isset($_GET['do'])) {
         ]);
     }
 
-    if ($forum_enabled) {
-        $template->getEngine()->addVariables([
-            'TOPIC_UPDATES' => $language->get('user', 'topic_updates'),
-            'TOPIC_UPDATES_ENABLED' => DB::getInstance()->get('users', ['id', $user->data()->id])->first()->topic_updates
-        ]);
-    }
-
     if ($user->canPrivateProfile()) {
         $template->getEngine()->addVariables([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile'),
@@ -672,10 +658,9 @@ if (isset($_GET['do'])) {
     if ($user->data()->register_method && Settings::get('authme')) {
         $template->getEngine()->addVariables([
             'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
-            'AUTHME_SYNC_PASSWORD_INFO' => $language->get('user', Settings::get('login_method') === 'username'
-                ? 'authme_sync_password_setting'
-                : 'authme_sync_password_setting_email'
-            ),
+            'AUTHME_SYNC_PASSWORD_INFO' => Settings::get('login_method') === 'username'
+                ? $language->get('user', 'authme_sync_password_setting')
+                : $language->get('user', 'authme_sync_password_setting_email'),
             'AUTHME_SYNC_PASSWORD_ENABLED' => $user->data()->authme_sync_password,
         ]);
     }

@@ -25,10 +25,6 @@ class DiscordWebhookFormatterEvent extends AbstractEvent {
         return 'Discord webhook formatter';
     }
 
-    public static function return(): bool {
-        return true;
-    }
-
     public static function internal(): bool {
         return true;
     }

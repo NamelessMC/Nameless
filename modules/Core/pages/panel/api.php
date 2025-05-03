@@ -66,6 +66,7 @@ if (!isset($_GET['view'])) {
     if (Input::exists()) {
         if (Token::check()) {
             if ($_POST['action'] == 'create') {
+                $_POST = array_map(fn($value) => $value === "none" ? null : $value, $_POST);
                 $validation = GroupSyncManager::getInstance()->makeValidator($_POST, $language);
 
                 $errors = [];
@@ -103,6 +104,7 @@ if (!isset($_GET['view'])) {
                     foreach ($_POST['existing'] as $group_sync_id => $values) {
                         $errors = [];
 
+                        $values = array_map(fn($value) => $value === "none" ? null : $value, $values);
                         $validator = GroupSyncManager::getInstance()->makeValidator($values, $language);
 
                         if (!$validator->passed()) {

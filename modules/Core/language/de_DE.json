@@ -1091,7 +1091,7 @@
     "user/integration_identifier_already_linked": "Die Integration {{integration}} ist bereits mit einem anderen Benutzer verknüpft.",
     "user/integration_unlinked": "Du hast dein {{integration}}-Konto erfolgreich entkoppelt.",
     "user/no_user_found_with_provider": "Kein Benutzer mit diesem {{provider}}-Konto gefunden.",
-    "user/oauth_already_linked": "Ein anderer NamelessMC-Benutzer ist bereits mit diesem {{provider}}-Konto verknüpft.",
+    "user/oauth_already_linked": "Ein anderer Benutzer ist bereits mit diesem {{provider}}-Konto verknüpft.",
     "user/oauth_login_success": "Du hast dich mit deinem {{provider}}-Konto angemeldet.",
     "user/user_has_linked_integration": "{{user}} hat sein {{integration}}-Konto verlinkt.",
     "user/user_has_unlinked_integration": "Der {{user}} hat sein {{integration}}-Konto entkoppelt.",
@@ -1384,5 +1384,6 @@
     "errors/no_permission": "Dafür hast du keine Berechtigung.",
     "admin/drag_and_drop": "Du kannst die Elemente mit drag and drop in die Liste ziehen.",
     "admin/edit_user_tfa_disabled": "Die Zwei-Faktor-Authentifizierung wurde für diesen Benutzer erfolgreich deaktiviert.",
-    "admin/disable_tfa": "2FA deaktivieren"
+    "admin/disable_tfa": "2FA deaktivieren",
+    "admin/homepage_news": "News"
 }

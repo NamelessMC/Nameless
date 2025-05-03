@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var Language $forum_language
@@ -29,6 +29,8 @@ if ($cache->isCached('news-' . $groups_key)) {
 
     foreach ($latest_news as $item) {
         $post_user = new User($item['author']);
+        $render_event = new RenderContentEvent($item['content']);
+        EventHandler::executeEvent($render_event);
 
         $news[] = [
             'id' => $item['topic_id'],
@@ -46,7 +48,7 @@ if ($cache->isCached('news-' . $groups_key)) {
             'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
-            'content' => EventHandler::executeEvent('renderPost', ['content' => $item['content']])['content'],
+            'content' => $render_event->content,
             'label' => $item['label'],
             'labels' => $item['labels']
         ];

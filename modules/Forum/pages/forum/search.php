@@ -189,7 +189,8 @@ if (!isset($error) && isset($_GET['s'])) {
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             // Purify post content
-            $content = EventHandler::executeEvent('renderPost', ['content' => $results->data[$n]['post_content']])['content'];
+            $render_event = new RenderContentEvent($results->data[$n]['post_content']);
+            EventHandler::executeEvent($render_event);
 
             $post_user = new User($results->data[$n]['post_author']);
             $posts[$n] = [
@@ -200,7 +201,7 @@ if (!isset($error) && isset($_GET['s'])) {
                 'post_author_style' => $post_user->getGroupStyle(),
                 'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
                 'post_date_friendly' => $timeAgo->inWords($results->data[$n]['post_date'], $language),
-                'content' => $content,
+                'content' => $render_event->content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
                 'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
             ];

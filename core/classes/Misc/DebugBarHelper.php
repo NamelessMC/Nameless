@@ -40,6 +40,7 @@ class DebugBarHelper extends Instanceable
         $debugbar->addCollector($requestCollector);
 
         $debugbar->addCollector(EventCollector::getInstance());
+        $debugbar->addCollector(CacheCollector::getInstance());
 
         $configCollector = new ConfigCollector();
         $configCollector->useHtmlVarDumper();
@@ -49,7 +50,7 @@ class DebugBarHelper extends Instanceable
         $debugbar->addCollector($configCollector);
 
         $pdoCollector = new PDOCollector(DB::getInstance()->getPDO());
-        $pdoCollector->setRenderSqlWithParams(true, '`');
+        $pdoCollector->setRenderSqlWithParams(true, "'");
         $debugbar->addCollector($pdoCollector);
 
         $debugbar->addCollector(new PhpInfoCollector());

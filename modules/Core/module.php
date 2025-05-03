@@ -19,8 +19,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-        $module_version = '2.2.0';
-        $nameless_version = '2.2.0';
+        $module_version = '2.2.1';
+        $nameless_version = '2.2.1';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -321,71 +321,10 @@ class Core_Module extends Module {
         EventHandler::registerEvent(UserWarnedEvent::class);
 
         // -- Pipelines
-
-        EventHandler::registerEvent('preCustomPageCreate',
-            $language->get('admin', 'pre_custom_page_create_hook_info'),
-            [
-                'content' => $language->get('general', 'content'),
-                'user' => $language->get('general', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('preCustomPageEdit',
-            $language->get('admin', 'pre_custom_page_edit_hook_info'),
-            [
-                'content' => $language->get('general', 'content'),
-                'user' => $language->get('general', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderCustomPage',
-            $language->get('admin', 'render_custom_page_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderCustomPageEdit',
-            $language->get('admin', 'render_custom_page_edit_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderPrivateMessage',
-            $language->get('admin', 'render_private_message'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderPrivateMessageEdit',
-            $language->get('admin', 'render_private_message_edit'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderProfilePost',
-            $language->get('admin', 'render_profile_post_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
+        EventHandler::registerEvent(PreCustomPageCreateEvent::class);
+        EventHandler::registerEvent(PreCustomPageEditEvent::class);
+        EventHandler::registerEvent(RenderContentEvent::class);
+        EventHandler::registerEvent(RenderContentEditEvent::class);
 
         NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
@@ -518,30 +457,20 @@ class Core_Module extends Module {
         EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
 
-        // TODO: Use [class, 'method'] callable syntax
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'purify']);
+        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener(RenderContentEvent::class, [MentionsHook::class, 'parsePost'], 5);
 
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener(RenderContentEditEvent::class, [ContentHook::class, 'purify']);
+        EventHandler::registerListener(RenderContentEditEvent::class, [ContentHook::class, 'replaceAnchors'], 15);
+        EventHandler::registerListener(RenderContentEditEvent::class, [MentionsHook::class, 'stripPost'], 15);
 
-        EventHandler::registerListener('preCustomPageCreate', 'MentionsHook::preCreate');
-        EventHandler::registerListener('preCustomPageEdit', 'MentionsHook::preEdit');
+        EventHandler::registerListener(ContentCreateEvent::class, [MentionsHook::class, 'preCreate']);
+        EventHandler::registerListener(ContentEditEvent::class, [MentionsHook::class, 'preEdit']);
 
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
-        EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
-
-        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
-
-        // TODO: ContentHook::decode is deprecated - do we need to decode profile posts saved in the DB using the queue??
-        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
-        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'purify']);
-        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'renderEmojis']);
-        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'replaceAnchors'], 5);
-        EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);
+        EventHandler::registerListener(PreCustomPageCreateEvent::class, [MentionsHook::class, 'preCreate']);
+        EventHandler::registerListener(PreCustomPageEditEvent::class, [MentionsHook::class, 'preEdit']);
 
         EventHandler::registerListener(UserRegisteredEvent::class, DefaultUserNotificationPreferencesHook::class);
 
@@ -566,7 +495,14 @@ class Core_Module extends Module {
         // Notifications
         Notification::addType(
             'mass_message',
-            $language->get('notification', 'mass_message'),
+            $language->get('notification', 'mass_messages'),
+            Module::getIdFromName('Core'),
+            ['alert' => true, 'email' => true],
+        );
+
+        Notification::addType(
+            'report',
+            $language->get('notification', 'reports'),
             Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
@@ -749,20 +685,6 @@ class Core_Module extends Module {
             EventHandler::registerListener(UserValidatedEvent::class, ValidateHook::class);
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
-
-        // Define default group pre validation
-        $cache->setCache('pre_validation_default');
-        $group_id = null;
-
-        if ($cache->isCached('pre_validation_default')) {
-            $group_id = $cache->retrieve('pre_validation_default');
-
-        } else {
-            $group_id = DB::getInstance()->get('groups', ['default_group', '1'])->results();
-            $group_id = $group_id[0]->id;
-        }
-
-        define('PRE_VALIDATED_DEFAULT', $group_id);
 
         // Check for updates
         if ($user->isLoggedIn()) {
