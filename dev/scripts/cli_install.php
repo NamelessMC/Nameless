@@ -218,7 +218,7 @@ if ($profile !== null) {
 
 $defaultNotifications = array_filter(
     Notification::getTypes(),
-    static fn($type) => $type['defaultPreferences']['alert'] || $type['defaultPreferences']['email']
+    static fn ($type) => $type['defaultPreferences']['alert'] || $type['defaultPreferences']['email']
 );
 
 foreach ($defaultNotifications as $notificationType) {

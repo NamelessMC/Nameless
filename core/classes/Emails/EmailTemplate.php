@@ -26,7 +26,7 @@ abstract class EmailTemplate
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $baseName));
     }
 
-    public abstract function subject(): LanguageKey|string;
+    abstract public function subject(): LanguageKey|string;
 
     /**
      * Add a custom placeholder/variable for email messages.

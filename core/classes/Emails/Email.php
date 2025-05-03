@@ -37,12 +37,12 @@ class Email
     }
 
     /**
-     * Internal helper method to handle common email sending logic
+     * Internal helper method to handle common email sending logic.
      *
-     * @param string $mailer Email mailer identifier
-     * @param User $recipient Recipient user object
-     * @param string $subject Email subject
-     * @param string $content Email content
+     * @param  string     $mailer    Email mailer identifier
+     * @param  User       $recipient Recipient user object
+     * @param  string     $subject   Email subject
+     * @param  string     $content   Email content
      * @return bool|array Returns true if email sent, otherwise returns an array containing the error
      */
     private static function sendInternal(string $mailer, User $recipient, string $subject, string $content)

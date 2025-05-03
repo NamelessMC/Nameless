@@ -356,10 +356,10 @@ class DB
     /**
      * Perform an UPDATE query on a table.
      *
-     * @param  string $table  The table to update.
-     * @param  array|int  $where  The where clause. If not an array, it will be used for "id" column lookup.
-     * @param  array  $fields Array of data in "column => value" format to update.
-     * @return bool   Whether an error occurred or not.
+     * @param  string    $table  The table to update.
+     * @param  array|int $where  The where clause. If not an array, it will be used for "id" column lookup.
+     * @param  array     $fields Array of data in "column => value" format to update.
+     * @return bool      Whether an error occurred or not.
      */
     public function update(string $table, array|int $where, array $fields): bool
     {
