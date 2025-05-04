@@ -11,7 +11,7 @@
     "require": {
         "php": ">=8.2",
         "jdorn/sql-formatter": "^1.2.17",
-        "smarty/smarty": "^5.0",
+        "smarty/smarty": "^4.3",
         "ezyang/htmlpurifier": "^4.16",
         "samayo/bulletproof": "^5.0",
         "phpmailer/phpmailer": "^6.7.1",
