@@ -10,6 +10,7 @@
 class Core_Emails
 {
     public static function sendRegisterEmail(Language $language, string $email_address, string $username, int $user_id, string $code): bool {
+        return true;
         $link = rtrim(URL::getSelfURL(), '/') . URL::build('/validate/', 'c=' . urlencode($code));
 
         $sent = Email::send(

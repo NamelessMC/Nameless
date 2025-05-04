@@ -1367,5 +1367,8 @@
     "user/group_has_been_added": "Group {{group}} has been added to user {{user}}",
     "user/group_has_been_removed": "Group {{group}} has been removed from user {{user}}",
     "user/validate_email": "Validate Email",
-    "user/validate_email_info": "Thanks for registering! You have been sent an email to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder."
+    "user/change_or_resend_email": "Change or resend email",
+    "user/validate_email_info": "Thanks for registering! You have been sent an email to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder.",
+    "user/validate_email_resent": "Email resent to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder.",
+    "user/validate_email_failure": "Could not send verification email, Please contact administration"
 }

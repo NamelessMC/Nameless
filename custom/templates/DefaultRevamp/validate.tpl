@@ -9,18 +9,32 @@
     <div class="ui stackable grid">
         <div class="ui centered row">
             <div class="ui sixteen wide tablet ten wide computer column">
-                <div class="ui positive message">
-                    {$VALIDATE_EMAIL_INFO}
-                </div>
+                {if isset($SUCCESS) && !isset($ERRORS)}
+                    <div class="ui success icon message">
+                        <i class="check icon"></i>
+                        <div class="content">
+                            <div class="header">{$SUCCESS_TITLE}</div>
+                            {$SUCCESS}
+                        </div>
+                    </div>
+                {/if}
+
+                {if isset($ERRORS)}
+                    <div class="ui error icon message">
+                        <i class="x icon"></i>
+                        <div class="content">
+                            <div class="header">{$ERRORS_TITLE}</div>
+                            <ul class="list">
+                                {foreach from=$ERRORS item=error}
+                                    <li>{$error}</li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                {/if}
 
                 <div class="ui center aligned">
-                    <form class="ui form" action="" method="post" id="form-sponsor">
-                        <a class="ui primary button" onClick="$('#changeEmailModal').modal('show');">{$CHANGE_EMAIL}</a>
-
-                        <input type="hidden" name="token" value="{$TOKEN}">
-                        <input type="hidden" name="type" value="paypal">
-                        <input type="submit" class="ui primary button" value="Resend Email" name="single" />
-                    </form>
+                    <a class="ui primary button" onClick="$('#changeEmailModal').modal('show');">{$CHANGE_OR_RESEND_EMAIL}</a>
                 </div>
             </div>
         </div>
@@ -30,7 +44,7 @@
 <!-- Change email modal -->
 <div class="ui small modal" id="changeEmailModal">
     <div class="header">
-        {$CHANGE_EMAIL}
+        {$CHANGE_OR_RESEND_EMAIL}
     </div>
     <div class="content">
         <form class="ui form" action="" method="post" id="validate-change-email">
@@ -39,6 +53,7 @@
                 <input type="email" name="email" id="inputEmail" value="{$EMAIL_ADDRESS_VALUE}">
             </div>
             <div class="field">
+                <input type="hidden" name="action" value="change_email">
                 <input type="hidden" name="token" value="{$TOKEN}">
             </div>
         </form>
@@ -46,7 +61,7 @@
     </div>
     <div class="actions">
         <a class="ui negative button">{$CANCEL}</a>
-        <a class="ui positive button" onclick="$('#validate-change-email').submit();">{$CHANGE_EMAIL}</a>
+        <a class="ui positive button" onclick="$('#validate-change-email').submit();">{$CHANGE_OR_RESEND_EMAIL}</a>
     </div>
 </div>
 

@@ -52,46 +52,50 @@ if (isset($_GET['c'])) {
     // Handle input
     if (Input::exists()) {
         if (Token::check()) {
-
             $target_user = new User($email_address, 'email');
-            if (Input::get('action') == 'change_email') {
-                // Change email
-                $validation = Validate::check($_POST, [
-                    'email' => [
-                        Validate::REQUIRED => true,
-                        Validate::EMAIL => true,
-                        Validate::UNIQUE => ['users', 'id:' . $target_user->data()->id],
-                    ]
-                ])->messages([
-                    'email' => [
-                        Validate::REQUIRED => $language->get('user', 'email_required'),
-                        Validate::EMAIL => $language->get('general', 'contact_message_email'),
-                        Validate::UNIQUE => $language->get('user', 'email_already_exists'),
-                    ]
-                ]);
 
-                if ($validation->passed()) {
-                    $target_user->update([
-                        'email' => Input::get('email')
-                    ]);
+            $validation = Validate::check($_POST, [
+                'email' => [
+                    Validate::REQUIRED => true,
+                    Validate::EMAIL => true,
+                    Validate::UNIQUE => ['users', 'id:' . $target_user->data()->id],
+                ]
+            ])->messages([
+                'email' => [
+                    Validate::REQUIRED => $language->get('user', 'email_required'),
+                    Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                    Validate::UNIQUE => $language->get('user', 'email_already_exists'),
+                ]
+            ]);
 
-                    // Generate validation code
+            if ($validation->passed()) {
+                if (Input::get('email') != $email_address) {
+                    // Generate new validation code for new email
                     $code = SecureRandom::alphanumeric();
+                    $email = Input::get('email');
 
-                    if (Core_Emails::sendRegisterEmail($language, Input::get('email'), $target_user->data()->username, $target_user->data()->id, $code)) {
-                        Session::flash('validate_success', $language->get('admin', 'email_resent_successfully'));
-                    } else {
-                        Session::flash('validate_error', $language->get('admin', 'email_resend_failed'));
-                    }
-
-                    Session::put('validate_email', Output::getClean(Input::get('email')));
-                    Redirect::to(URL::build('/validate'));
+                    $target_user->update([
+                        'email' => Input::get('email'),
+                        'reset_code' => $code
+                    ]);
                 } else {
-                    $errors = $validation->errors();
+                    // Resend validation email
+                    $code = $target_user->data()->reset_code;
+                    $email = $target_user->data()->email;
                 }
 
-            } else if (Input::get('action') == 'resend_email') {
-                // Resend email
+                if (Core_Emails::sendRegisterEmail($language, $email, $target_user->data()->username, $target_user->data()->id, $code)) {
+                    Session::flash('validate_success', $language->get('user', 'validate_email_resent', [
+                        'email' => Output::getClean($email)
+                    ]));
+                } else {
+                    Session::flash('validate_error', $language->get('user', 'validate_email_failure'));
+                }
+
+                Session::put('validate_email', Output::getClean($email));
+                Redirect::to(URL::build('/validate'));
+            } else {
+                $errors = $validation->errors();
             }
         } else {
             // Invalid form token
@@ -99,17 +103,40 @@ if (isset($_GET['c'])) {
         }
     }
 
-    $template->getEngine()->addVariables([
-        'VALIDATE_EMAIL' => $language->get('user', 'validate_email'),
-        'VALIDATE_EMAIL_INFO' => $language->get('user', 'validate_email_info', [
-            'email' => Output::getClean(Session::get('validate_email'))
-        ]),
+    $success = $language->get('user', 'validate_email_info', [
+        'email' => Output::getClean(Session::get('validate_email'))
+    ]);
 
-        'CHANGE_EMAIL' => $language->get('user', 'change_email_address'),
+    $template->getEngine()->addVariables([
+        'TOKEN' => Token::get(),
+        'VALIDATE_EMAIL' => $language->get('user', 'validate_email'),
+        'CHANGE_OR_RESEND_EMAIL' => $language->get('user', 'change_or_resend_email'),
         'CANCEL' => $language->get('general', 'cancel'),
         'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
         'EMAIL_ADDRESS_VALUE' => Output::getClean($email_address),
     ]);
+
+    if (Session::exists('validate_success')) {
+        $success = Session::flash('validate_success');
+    }
+
+    if (Session::exists('validate_error')) {
+        $errors = [Session::flash('validate_error')];
+    }
+
+    if (isset($success)) {
+        $template->getEngine()->addVariables([
+            'SUCCESS' => $success,
+            'SUCCESS_TITLE' => $language->get('general', 'success')
+        ]);
+    }
+
+    if (isset($errors) && count($errors)) {
+        $template->getEngine()->addVariables([
+            'ERRORS' => $errors,
+            'ERRORS_TITLE' => $language->get('general', 'error')
+        ]);
+    }
 } else {
     Redirect::to(URL::build('/'));
 }
