@@ -14,18 +14,20 @@ class ValidateHook {
             define('VALIDATED_DEFAULT', 1);
         }
 
-        $validate_user = $event->user;
-        if (!$validate_user->exists()) {
-            return;
-        }
+        $validated_user = $event->user;
 
-        $validate_user->setGroup(VALIDATED_DEFAULT);
+        $groups_before = array_keys($validated_user->getGroups());
+
+        $validated_user->setGroup(VALIDATED_DEFAULT);
+
+        $groups_after = array_keys($validated_user->getGroups());
+        $groups_to_remove = array_diff($groups_before, $groups_after);
 
         GroupSyncManager::getInstance()->broadcastGroupChange(
-            $validate_user,
+            $validated_user,
             NamelessMCGroupSyncInjector::class,
             [VALIDATED_DEFAULT],
-            []
+            $groups_to_remove,
         );
     }
 }

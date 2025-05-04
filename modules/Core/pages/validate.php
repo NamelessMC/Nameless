@@ -29,13 +29,6 @@ if (isset($_GET['c'])) {
             $user,
         ));
 
-        GroupSyncManager::getInstance()->broadcastGroupChange(
-            $user,
-            NamelessMCGroupSyncInjector::class,
-            [$user->getMainGroup()->id],
-            [],
-        );
-
         Session::flash('home', $language->get('user', 'validation_complete'));
     } else {
         Session::flash('home_error', $language->get('user', 'validation_error'));
