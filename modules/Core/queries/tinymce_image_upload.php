@@ -11,7 +11,7 @@ if (!Token::check()) {
 }
 
 $image = (new \Bulletproof\Image($_FILES))
-    ->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'post_images']))
+    ->setStorage(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'post_images']))
     ->setSize(10, 10000000 /* 10MB */)
     ->setDimension(10000, 10000)
     ->setName($user->data()->id . '-' . time());
