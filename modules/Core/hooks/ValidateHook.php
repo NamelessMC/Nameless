@@ -21,12 +21,14 @@ class ValidateHook {
         $validated_user->setGroup(VALIDATED_DEFAULT);
 
         $groups_after = array_keys($validated_user->getGroups());
+
+        $groups_to_add = array_diff($groups_after, $groups_before);
         $groups_to_remove = array_diff($groups_before, $groups_after);
 
         GroupSyncManager::getInstance()->broadcastGroupChange(
             $validated_user,
             NamelessMCGroupSyncInjector::class,
-            [VALIDATED_DEFAULT],
+            $groups_to_add,
             $groups_to_remove,
         );
     }
