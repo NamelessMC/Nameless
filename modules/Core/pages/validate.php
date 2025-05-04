@@ -59,12 +59,14 @@ if (isset($_GET['c'])) {
                     Validate::REQUIRED => true,
                     Validate::EMAIL => true,
                     Validate::UNIQUE => ['users', 'id:' . $target_user->data()->id],
+                    Validate::RATE_LIMIT => [1, 3600]
                 ]
             ])->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
                     Validate::EMAIL => $language->get('general', 'contact_message_email'),
                     Validate::UNIQUE => $language->get('user', 'email_already_exists'),
+                    Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta)
                 ]
             ]);
 
