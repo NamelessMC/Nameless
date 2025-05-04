@@ -120,9 +120,17 @@ if (Input::exists()) {
 
                 $user_query = new User($username, $method_field);
                 if ($user_query->exists()) {
-                    if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
-                        // Verify password first
-                        if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
+                    // Verify password first
+                    if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
+
+                        // Ensure a user is active
+                        if (!$user->data()->active) {
+                            Session::put('validate_email', Output::getClean($user->data()->email));
+                            Redirect::to('/validate');
+                        }
+
+                        // Handle 2FA if enabled
+                        if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
                             if (!isset($_POST['tfa_code'])) {
                                 if ($user_query->data()->tfa_type == 0) {
                                     // Emails
@@ -149,9 +157,9 @@ if (Input::exists()) {
                                     // TODO
                                 }
                             }
-                        } else {
-                            $return_error = [$language->get('user', 'incorrect_details')];
                         }
+                    } else {
+                        $return_error = [$language->get('user', 'incorrect_details')];
                     }
 
                     if (!isset($return_error)) {

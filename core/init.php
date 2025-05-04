@@ -507,12 +507,6 @@ if ($page != 'install') {
         Debugging::setCanViewDetailedError($user->hasPermission('admincp.errors'));
         Debugging::setCanGenerateDebugLink($user->hasPermission('admincp.core.debugging'));
 
-        // Ensure a user is active
-        if (!$user->data()->active && !str_contains($_GET['route'], 'logout') && !str_contains($_GET['route'], 'validate')) {
-            Session::put('validate_email', Output::getClean($user->data()->email));
-            Redirect::to('/validate');
-        }
-
         // Ensure a user is not banned
         if ($user->data()->isbanned == 1) {
             $user->logout();
