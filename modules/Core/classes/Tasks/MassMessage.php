@@ -42,18 +42,16 @@ class MassMessage extends Task {
 
         $notification = new Notification(
             'mass_message',
-            new AlertTemplate(
-                $title,
-                $content,
-            ),
-            new MassMessageEmailTemplate(
-                $title,
-                $content,
-            ),
+            $title,
+            $content,
             array_map(static fn ($r) => $r->id, $recipients->results()),
             $this->getUserId(),
             (bool) $this->getData()['bypass_notification_settings'],
         );
+        $notification->setEmailTemplate(new MassMessageEmailTemplate(
+            $title,
+            $content,
+        ));
         $notification->send();
 
         $this->setOutput(['userIds' => $whereVars, 'start' => $start, 'end' => $end, 'next_status' => $nextStatus]);
