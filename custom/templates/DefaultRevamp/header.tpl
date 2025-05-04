@@ -37,7 +37,7 @@ value="{$PAGE_KEYWORDS}"}{else}{assign var="PAGEKEYWORDS" value=" "}{/if}
         <!-- Twitter Card Properties -->
         <meta name="twitter:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
         <meta name="twitter:card" content="summary" />
-        { if isset($OG_IMAGE)}
+        {if isset($OG_IMAGE)}
             <meta name="twitter:image" content="{$OG_IMAGE}" />
         {/if}
 
