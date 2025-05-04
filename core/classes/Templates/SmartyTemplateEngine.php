@@ -93,4 +93,41 @@ class SmartyTemplateEngine extends TemplateEngine
         $this->_securityPolicy->secure_dir = [...$this->_securityPolicy->secure_dir, $dir];
         $this->_smarty->enableSecurity($this->_securityPolicy);
     }
+
+    /**
+     * Add extra PHP modifiers to the Smarty security policy.
+     *
+     * @param  array $modifiers Modifiers to add to policy
+     * @return void
+     */
+    public function addSecurityPolicyModifiers(array $modifiers): void
+    {
+        $this->_securityPolicy->php_modifiers = [...$this->_securityPolicy->php_modifiers, ...$modifiers];
+        $this->_smarty->enableSecurity($this->_securityPolicy);
+    }
+
+    /**
+     * Add extra PHP functions to the Smarty security policy.
+     *
+     * @param  array $functionNames Function names to add to policy
+     * @return void
+     */
+    public function addSecurityPolicyFunctions(array $functionNames): void
+    {
+        $this->_securityPolicy->php_functions = [...$this->_securityPolicy->php_functions, ...$functionNames];
+        $this->_smarty->enableSecurity($this->_securityPolicy);
+    }
+
+    /**
+     * Append a value to a Smarty variable
+     * This is unique to the Smarty template engine, and there is no equivalent within the Twig template engine.
+     *
+     * @param  string $key   Smarty variable to append to
+     * @param  string $value Value to append to Smarty variable
+     * @return void
+     */
+    public function append(string $key, string $value): void
+    {
+        $this->_smarty->append($key, $value);
+    }
 }
