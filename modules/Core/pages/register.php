@@ -307,7 +307,9 @@ if (Input::exists()) {
 
                     if (!$auto_verify_oauth_email && Settings::get('email_verification') === '1') {
                         // Send registration email
-                        Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+                        if (!Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code)) {
+                            Session::flash('validate_error', $language->get('user', 'validate_email_failure'));
+                        }
 
                         Session::put('validate_email', Output::getClean(Input::get('email')));
                         Redirect::to(URL::build('/validate'));
