@@ -112,11 +112,7 @@ if ($user->isLoggedIn()) {
     if ($cache->isCached('default_group')) {
         $default_group = $cache->retrieve('default_group');
     } else {
-        try {
-            $default_group = Group::find(1, 'default_group')->id;
-        } catch (Exception $e) {
-            $default_group = 1;
-        }
+        $default_group = Group::find(1, 'default_group')->id;
 
         $cache->store('default_group', $default_group);
     }

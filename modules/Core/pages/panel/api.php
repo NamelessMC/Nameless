@@ -127,11 +127,7 @@ if (!isset($_GET['view'])) {
                         }
 
                         if (!count($errors)) {
-                            try {
-                                DB::getInstance()->update('group_sync', $group_sync_id, $values);
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
-                            }
+                            DB::getInstance()->update('group_sync', $group_sync_id, $values);
                         }
                     }
 
@@ -141,12 +137,8 @@ if (!isset($_GET['view'])) {
                 } else {
                     if ($_POST['action'] == 'delete') {
                         if (isset($_POST['id'])) {
-                            try {
-                                DB::getInstance()->delete('group_sync', ['id', $_POST['id']]);
-                                Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
-                            } catch (Exception $e) {
-                                // Redirect anyway
-                            }
+                            DB::getInstance()->delete('group_sync', ['id', $_POST['id']]);
+                            Session::flash('api_success', $language->get('admin', 'group_sync_rule_deleted_successfully'));
                         }
                         die();
                     }

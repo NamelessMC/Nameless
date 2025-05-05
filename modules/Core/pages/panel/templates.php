@@ -262,31 +262,27 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 $item = $_GET['template'];
 
-                try {
-                    // Ensure template is not default or active
-                    $template = DB::getInstance()->get('templates', ['id', $item])->results();
-                    if (count($template)) {
-                        $template = $template[0];
-                        if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
-                            Redirect::to(URL::build('/panel/core/templates'));
-                        }
-
-                        $item = $template->name;
-                    } else {
+                // Ensure template is not default or active
+                $template = DB::getInstance()->get('templates', ['id', $item])->results();
+                if (count($template)) {
+                    $template = $template[0];
+                    if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
                         Redirect::to(URL::build('/panel/core/templates'));
                     }
 
-                    if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/templates/' . $item)) {
-                        Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
-                    } else {
-                        Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
-                    }
-
-                    // Delete from database
-                    DB::getInstance()->delete('templates', ['name', $item]);
-                } catch (Exception $e) {
-                    Session::flash('admin_templates_error', $e->getMessage());
+                    $item = $template->name;
+                } else {
+                    Redirect::to(URL::build('/panel/core/templates'));
                 }
+
+                if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/templates/' . $item)) {
+                    Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
+                } else {
+                    Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
+                }
+
+                // Delete from database
+                DB::getInstance()->delete('templates', ['name', $item]);
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
@@ -416,21 +412,17 @@ if (!isset($_GET['action'])) {
                         }
                     }
 
-                    try {
-                        if ($perm_exists != 0) { // Permission already exists, update
-                            // Update the permission
-                            DB::getInstance()->update('groups_templates', $update_id, [
-                                'can_use_template' => $can_use_template
-                            ]);
-                        } else { // Permission doesn't exist, create
-                            DB::getInstance()->insert('groups_templates', [
-                                'group_id' => 0,
-                                'template_id' => $template_query->id,
-                                'can_use_template' => $can_use_template,
-                            ]);
-                        }
-                    } catch (Exception $e) {
-                        $errors[] = $e->getMessage();
+                    if ($perm_exists != 0) { // Permission already exists, update
+                        // Update the permission
+                        DB::getInstance()->update('groups_templates', $update_id, [
+                            'can_use_template' => $can_use_template
+                        ]);
+                    } else { // Permission doesn't exist, create
+                        DB::getInstance()->insert('groups_templates', [
+                            'group_id' => 0,
+                            'template_id' => $template_query->id,
+                            'can_use_template' => $can_use_template,
+                        ]);
                     }
 
                     // Group template permissions
@@ -453,21 +445,17 @@ if (!isset($_GET['action'])) {
                             }
                         }
 
-                        try {
-                            if ($perm_exists != 0) { // Permission already exists, update
-                                // Update the permission
-                                DB::getInstance()->update('groups_templates', $update_id, [
-                                    'can_use_template' => $can_use_template,
-                                ]);
-                            } else { // Permission doesn't exist, create
-                                DB::getInstance()->insert('groups_templates', [
-                                    'group_id' => $group->id,
-                                    'template_id' => $template_query->id,
-                                    'can_use_template' => $can_use_template,
-                                ]);
-                            }
-                        } catch (Exception $e) {
-                            $errors[] = $e->getMessage();
+                        if ($perm_exists != 0) { // Permission already exists, update
+                            // Update the permission
+                            DB::getInstance()->update('groups_templates', $update_id, [
+                                'can_use_template' => $can_use_template,
+                            ]);
+                        } else { // Permission doesn't exist, create
+                            DB::getInstance()->insert('groups_templates', [
+                                'group_id' => $group->id,
+                                'template_id' => $template_query->id,
+                                'can_use_template' => $can_use_template,
+                            ]);
                         }
                     }
 

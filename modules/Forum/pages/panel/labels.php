@@ -126,20 +126,15 @@ if (!isset($_GET['action'])) {
 
                         $group_string = rtrim($group_string, ',');
 
-                        try {
-                            DB::getInstance()->insert('forums_topic_labels', [
-                                'fids' => $forum_string,
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'label' => Input::get('label_id'),
-                                'gids' => $group_string
-                            ]);
+                        DB::getInstance()->insert('forums_topic_labels', [
+                            'fids' => $forum_string,
+                            'name' => Output::getClean(Input::get('label_name')),
+                            'label' => Input::get('label_id'),
+                            'gids' => $group_string
+                        ]);
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
-                            Redirect::to(URL::build('/panel/forums/labels'));
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
-                        }
-
+                        Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
+                        Redirect::to(URL::build('/panel/forums/labels'));
                     } else {
                         // Validation errors
                         $errors = $validation->errors();
@@ -263,20 +258,15 @@ if (!isset($_GET['action'])) {
 
                         $group_string = rtrim($group_string, ',');
 
-                        try {
-                            DB::getInstance()->update('forums_topic_labels', $label->id, [
-                                'fids' => $forum_string,
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'label' => Input::get('label_id'),
-                                'gids' => $group_string
-                            ]);
+                        DB::getInstance()->update('forums_topic_labels', $label->id, [
+                            'fids' => $forum_string,
+                            'name' => Output::getClean(Input::get('label_name')),
+                            'label' => Input::get('label_id'),
+                            'gids' => $group_string
+                        ]);
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
-                        }
-
+                        Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
+                        Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
                     } else {
                         // Validation errors
                         $errors = $validation->errors();
@@ -433,19 +423,13 @@ if (!isset($_GET['action'])) {
                     ])->message($forum_language->get('forum', 'label_type_creation_error'));
 
                     if ($validation->passed()) {
-                        try {
-                            DB::getInstance()->insert('forums_labels', [
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'html' => Input::get('label_html')
-                            ]);
+                        DB::getInstance()->insert('forums_labels', [
+                            'name' => Output::getClean(Input::get('label_name')),
+                            'html' => Input::get('label_html')
+                        ]);
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_type_creation_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
-
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
-                        }
-
+                        Session::flash('forum_labels', $forum_language->get('forum', 'label_type_creation_success'));
+                        Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
                     } else {
                         // Validation errors
                         $errors = $validation->errors();
@@ -514,18 +498,13 @@ if (!isset($_GET['action'])) {
                     ])->message($forum_language->get('forum', 'label_type_creation_error'));
 
                     if ($validation->passed()) {
-                        try {
-                            DB::getInstance()->update('forums_labels', $label->id, [
-                                'name' => Output::getClean(Input::get('label_name')),
-                                'html' => Input::get('label_html')
-                            ]);
+                        DB::getInstance()->update('forums_labels', $label->id, [
+                            'name' => Output::getClean(Input::get('label_name')),
+                            'html' => Input::get('label_html')
+                        ]);
 
-                            Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
-                        }
-
+                        Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
+                        Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
                     } else {
                         // Validation errors
                         $errors = $validation->errors();

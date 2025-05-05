@@ -202,31 +202,27 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 $item = $_GET['template'];
 
-                try {
-                    // Ensure template is not default or active
-                    $template = DB::getInstance()->get('panel_templates', ['id', $item])->results();
-                    if (count($template)) {
-                        $template = $template[0];
-                        if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
-                            Redirect::to(URL::build('/panel/core/panel_templates'));
-                        }
-
-                        $item = $template->name;
-                    } else {
+                // Ensure template is not default or active
+                $template = DB::getInstance()->get('panel_templates', ['id', $item])->results();
+                if (count($template)) {
+                    $template = $template[0];
+                    if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
                         Redirect::to(URL::build('/panel/core/panel_templates'));
                     }
 
-                    if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
-                        Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
-                    } else {
-                        Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
-                    }
-
-                    // Delete from database
-                    DB::getInstance()->delete('templates', ['name', $item]);
-                } catch (Exception $e) {
-                    Session::flash('admin_templates_error', $e->getMessage());
+                    $item = $template->name;
+                } else {
+                    Redirect::to(URL::build('/panel/core/panel_templates'));
                 }
+
+                if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
+                    Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
+                } else {
+                    Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
+                }
+
+                // Delete from database
+                DB::getInstance()->delete('templates', ['name', $item]);
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
