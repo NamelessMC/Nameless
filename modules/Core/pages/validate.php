@@ -49,11 +49,14 @@ if (isset($_GET['c'])) {
 } else if (Session::exists('validate_email')) {
     $email_address = Session::get('validate_email');
 
+    $target_user = new User($email_address, 'email');
+    if (!$target_user->exists() || $target_user->data()->active) {
+        Redirect::to(URL::build('/'));
+    }
+
     // Handle input
     if (Input::exists()) {
         if (Token::check()) {
-            $target_user = new User($email_address, 'email');
-
             $validation = Validate::check($_POST, [
                 'email' => [
                     Validate::REQUIRED => true,
