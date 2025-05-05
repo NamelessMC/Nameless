@@ -337,7 +337,10 @@ if (Input::exists()) {
                         }
                     } catch (PDOException $exception) {
                         // Connection error
-                        ErrorHandler::logWarning('Failure connecting to AuthMe DB during registration process: ' . $exception->getCode() . ' - ' . $exception->getMessage());
+                        Logger::getDefaultLogger()->error(
+                            'Failure connecting to AuthMe DB during registration process',
+                            ['exception' => $exception]
+                        );
                         $errors[] = $language->get('user', 'unable_to_connect_to_authme_db');
                     }
                 } else {
@@ -345,7 +348,7 @@ if (Input::exists()) {
                     $errors = $validation->errors();
                 }
             } else {
-                // Invalid recaotcha
+                // Invalid recaptcha
                 $errors[] = $language->get('user', 'invalid_recaptcha');
             }
         }

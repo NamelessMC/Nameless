@@ -147,7 +147,11 @@ class Widgets
                     $ret[] = $content;
                 }
             } catch (Exception $e) {
-                ErrorHandler::logWarning('Unable to load widget ' . $item->getName() . ': ' . $e->getMessage());
+                Logger::getDefaultLogger()->error(
+                    'Unable to load widget',
+                    ['name' => $item->getName(), 'message' => $e->getMessage()]
+                );
+
                 $this->_template->getEngine()->addVariables([
                     'WIDGET_ERROR_TITLE' => $this->_language->get('general', 'unable_to_load_widget'),
                     'WIDGET_ERROR_CONTENT' => $this->_language->get('general', 'problem_loading_widget', [

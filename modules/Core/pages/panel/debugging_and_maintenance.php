@@ -85,13 +85,6 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-if ($user->hasPermission('admincp.errors')) {
-    $template->getEngine()->addVariables([
-        'ERROR_LOGS' => $language->get('admin', 'error_logs'),
-        'ERROR_LOGS_LINK' => URL::build('/panel/core/errors'),
-    ]);
-}
-
 $template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),

@@ -19,8 +19,11 @@ $image = (new \Bulletproof\Image($_FILES))
 if ($image['file']) {
     if (!$image->upload()) {
         http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_INTERNAL_SERVER_ERROR);
-        $error = $image->getError() ?: 'Unknown error, check logs for more details';
-        ErrorHandler::logWarning('TinyMCE image upload error: ' . $error);
+        $error = $image->getError() ?: 'Unknown error';
+        Logger::getDefaultLogger()->error(
+            'TinyMCE image upload error',
+            ['error' => $error]
+        );
         die($error);
     }
 

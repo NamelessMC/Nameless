@@ -81,7 +81,34 @@ if ($page != 'install') {
      * Initialise
      */
 
+    // Error reporting
+    if (!defined('DEBUGGING')) {
+        if (Settings::get('error_reporting') === '1') {
+            ini_set('display_startup_errors', 1);
+            ini_set('display_errors', 1);
+            error_reporting(-1);
+            define('DEBUGGING', 1);
+        } else {
+            // Disable by default
+            error_reporting(0);
+            ini_set('display_errors', 0);
+        }
+    }
+
+    if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
+        define('PHPDEBUGBAR', true);
+        DebugBarHelper::getInstance()->enable();
+    }
+
     $container = new \DI\Container();
+
+    // Create core Nameless logger
+    $container->set('NamelessLogger', function () {
+        return new Logger('Nameless');
+    });
+    $namelessLogger = $container->get('NamelessLogger');
+    Logger::setDefaultLogger($namelessLogger);
+
     $container->set(Cache::class, function () {
         return new Cache([
             'name' => 'nameless',
@@ -120,25 +147,6 @@ if ($page != 'install') {
 
     // Ensure database is up-to-date
     PhinxAdapter::ensureUpToDate('Core');
-
-    // Error reporting
-    if (!defined('DEBUGGING')) {
-        if (Settings::get('error_reporting') === '1') {
-            ini_set('display_startup_errors', 1);
-            ini_set('display_errors', 1);
-            error_reporting(-1);
-            define('DEBUGGING', 1);
-        } else {
-            // Disable by default
-            error_reporting(0);
-            ini_set('display_errors', 0);
-        }
-    }
-
-    if ((defined('DEBUGGING') && DEBUGGING) && class_exists('DebugBar\DebugBar')) {
-        define('PHPDEBUGBAR', true);
-        DebugBarHelper::getInstance()->enable();
-    }
 
     // Get the Nameless version
     define('NAMELESS_VERSION', Settings::get('nameless_version'));
@@ -413,6 +421,8 @@ if ($page != 'install') {
         return $a['priority'] - $b['priority'];
     });
 
+    $namelessLogger->debug('Attempting to load modules', ['modules' => $enabled_modules]);
+
     // Load module dependencies
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php')) {
@@ -424,6 +434,7 @@ if ($page != 'install') {
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require_once ROOT_PATH . '/modules/' . $module['name'] . '/init.php';
+            $namelessLogger->debug('Successfully loaded module', ['module' => $module]);
         }
     }
 

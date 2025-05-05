@@ -36,21 +36,18 @@ class ErrorHandler
         switch ($error_number) {
             case E_USER_ERROR:
                 // Pass execution to new error handler.
-                // Since we registered an exception handler, I dont think this will ever be called,
+                // Since we registered an exception handler, I don't think this will ever be called,
                 // simply a precaution.
                 self::catchException(null, $error_string, $error_file, $error_line);
                 break;
 
             case E_USER_WARNING:
-                self::logError('warning', $log_entry);
+                self::getLogger()->warning($log_entry);
                 break;
 
             case E_USER_NOTICE:
-                self::logError('notice', $log_entry);
-                break;
-
             default:
-                self::logError('other', $log_entry);
+                self::getLogger()->notice($log_entry);
                 break;
         }
 
@@ -74,10 +71,10 @@ class ErrorHandler
         $error_file = is_null($exception) ? $error_file : $exception->getFile();
         $error_line = is_null($exception) ? (int) $error_line : $exception->getLine();
 
-        // Create a log entry for viewing in staffcp
-        self::logError('fatal', $error_file . '(' . $error_line . '): ' . $error_string);
+        // Create a log entry
+        self::getLogger()->critical($error_string, ['file' => $error_file, 'line' => $error_line, 'exception' => $exception]);
 
-        // If this is an API request, print the error in plaintext and dont render the whole error trace page
+        // If this is an API request, print the error in plaintext and don't render the whole error trace page
         if (self::shouldUsePlainText()) {
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
@@ -90,7 +87,7 @@ class ErrorHandler
 
             $skip_frames = 0;
 
-            // Loop all frames in the exception trace & get relevent information
+            // Loop all frames in the exception trace & get relevant information
             if ($exception != null) {
                 $i = count($exception->getTrace());
 
@@ -197,6 +194,8 @@ class ErrorHandler
      *
      * @param string $type     Which category/file to log this to. Must be: `warning`, `notice`, `other` or `fatal`.
      * @param string $contents The message to be saved.
+     *
+     * @deprecated Will be removed in 2.4.0
      */
     private static function logError(string $type, string $contents): void
     {
@@ -292,6 +291,8 @@ class ErrorHandler
      * Not used internally, only for modules to use.
      *
      * @param string $contents Error to write to file.
+     *
+     * @deprecated Use Module::getLogger()->{debug,info,notice,warning,error} instead
      */
     public static function logCustomError(string $contents): void
     {
@@ -302,9 +303,23 @@ class ErrorHandler
      * Write a message to the 'warning' log.
      *
      * @param string $contents Warning to write to file.
+     *
+     * @deprecated Use Module::getLogger()->warning instead
      */
     public static function logWarning(string $contents): void
     {
-        self::logError('warning', $contents);
+        self::getLogger()->warning($contents);
+    }
+
+    private static function getLogger(): Logger
+    {
+        $logger = Logger::getDefaultLogger();
+
+        if (!$logger) {
+            $logger = new Logger('Nameless');
+            Logger::setDefaultLogger($logger);
+        }
+
+        return $logger;
     }
 }

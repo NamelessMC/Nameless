@@ -159,19 +159,12 @@ class Config
      * Will log a warning if a legacy path (using `/` is used).
      *
      * @param  string       $path Path to parse.
-     * @return string|array Path split into sections or plain string if no section seperator was found.
+     * @return string|array Path split into sections or plain string if no section separator was found.
      */
     private static function parsePath(string $path)
     {
         if (str_contains($path, '.')) {
             return explode('.', $path);
-        }
-
-        // TODO: Remove for 2.1.0
-        if (str_contains($path, '/')) {
-            ErrorHandler::logWarning("Legacy config path: {$path}. Please use periods to seperate paths.");
-
-            return explode('/', $path);
         }
 
         return $path;

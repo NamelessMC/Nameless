@@ -121,8 +121,11 @@ if ($image['file']) {
             }
 
             http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
-            $error = $image->getError() ?: 'Unknown error, check logs for more details';
-            ErrorHandler::logWarning('Image upload error: ' . $error);
+            $error = $image->getError() ?: 'Unknown error';
+            Logger::getDefaultLogger()->error(
+                'Unable to upload image',
+                ['error' => $image->getError()]
+            );
             die($error);
         }
 
@@ -157,8 +160,11 @@ if ($image['file']) {
         die('OK');
     } catch (Exception $e) {
         http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
-        $error = $e->getMessage() ?: 'Unknown error, check logs for more details';
-        ErrorHandler::logWarning('Image upload exception: ' . $error);
+        $error = $e->getMessage() ?: 'Unknown error';
+        Logger::getDefaultLogger()->error(
+            'Unable to upload image',
+            ['exception' => $e]
+        );
         die($error);
     }
 } else {

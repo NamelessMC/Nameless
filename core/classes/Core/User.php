@@ -163,7 +163,10 @@ class User
 
         $group = Group::find($group_id);
         if (!$group) {
-            ErrorHandler::logWarning('Could not add invalid group ' . $group_id . ' to user ' . $this->data()->id);
+            Logger::getDefaultLogger()->warning(
+                'Could not add invalid group to user',
+                ['group_id' => $group_id, 'user_id' => $this->data()->id]
+            );
 
             return false;
         }
@@ -751,7 +754,10 @@ class User
     {
         $group = Group::find($group_id);
         if (!$group) {
-            ErrorHandler::logWarning('Could not set invalid group ' . $group_id . ' to user ' . $this->data()->id);
+            Logger::getDefaultLogger()->warning(
+                'Could not set invalid group for user',
+                ['group_id' => $group_id, 'user_id' => $this->data()->id]
+            );
 
             return false;
         }

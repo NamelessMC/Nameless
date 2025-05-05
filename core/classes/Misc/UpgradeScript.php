@@ -49,7 +49,10 @@ abstract class UpgradeScript
     protected function log(string $message): void
     {
         echo $message . '<br/>';
-        ErrorHandler::logWarning('UPGRADING EXCEPTION: ' . $message);
+        Logger::getDefaultLogger()->warning(
+            'Upgrade exception',
+            ['message' => $message]
+        );
     }
 
     /**

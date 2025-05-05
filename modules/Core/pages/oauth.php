@@ -9,19 +9,28 @@ if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
 }
 
 if (!isset($_GET['provider'], $_GET['code'])) {
-    ErrorHandler::logWarning('No provider or code set when accessing OAuth');
+    Logger::getDefaultLogger()->warning(
+        'No provider or code set when accessing OAuth',
+        ['provider' => $_GET['provider'], 'code' => $_GET['code']]
+    );
     Session::flash('home_error', $language->get('general', 'oauth_no_data'));
     Redirect::to(URL::build('/'));
 }
 
 if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
-    ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
+    Logger::getDefaultLogger()->error(
+        'Invalid OAuth provider',
+        ['provider' => $_GET['provider']]
+    );
     Session::flash('home_error', $language->get('general', 'oauth_failed'));
     Redirect::to(URL::build('/'));
 }
 
 if (!Session::exists('oauth_method')) {
-    ErrorHandler::logWarning("No OAuth method set");
+    Logger::getDefaultLogger()->warning(
+        'No OAuth method set',
+        ['provider' => $_GET['provider'], 'code' => $_GET['code']]
+    );
     Session::flash('home_error', $language->get('general', 'oauth_failed'));
     Redirect::to(URL::build('/'));
 }
@@ -59,7 +68,10 @@ try {
     ]);
 } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
     Session::flash('oauth_error', $language->get('general', 'oauth_failed_setup'));
-    ErrorHandler::logWarning('An error occurred while handling an OAuth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
+    Logger::getDefaultLogger()->error(
+        'An error occurred while handling an OAuth request',
+        ['method' => Session::get('oauth_method'), 'exception' => $e]
+    );
 
     $method = Session::get('oauth_method');
     switch($method) {

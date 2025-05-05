@@ -80,7 +80,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/avatars', 'pages/panel/avatars.php');
         $pages->add('Core', '/panel/core/profile_fields', 'pages/panel/profile_fields.php');
         $pages->add('Core', '/panel/core/debugging_and_maintenance', 'pages/panel/debugging_and_maintenance.php');
-        $pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
         $pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
         $pages->add('Core', '/panel/core/mass_message', 'pages/panel/mass_message.php');

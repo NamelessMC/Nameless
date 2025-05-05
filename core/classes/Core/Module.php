@@ -21,6 +21,7 @@ abstract class Module
     private string $_nameless_version;
     private array $_load_before;
     private array $_load_after;
+    protected Logger $_logger;
 
     public function __construct(
         Module $module,
@@ -44,6 +45,8 @@ abstract class Module
 
         $this->_load_before = $load_before;
         $this->_load_after = $load_after;
+
+        $this->_logger = new Logger($name);
     }
 
     /**
@@ -228,5 +231,15 @@ abstract class Module
         }
 
         return null;
+    }
+
+    /**
+     * Get logger instance for module.
+     *
+     * @return Logger
+     */
+    public function getLogger(): Logger
+    {
+        return $this->_logger;
     }
 }

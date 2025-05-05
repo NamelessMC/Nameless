@@ -1,5 +1,6 @@
 <?php
 
+use DebugBar\Bridge\MonologCollector;
 use DebugBar\Bridge\NamespacedTwigProfileCollector;
 use DebugBar\DataCollector\ConfigCollector;
 use DebugBar\DataCollector\DataCollector;
@@ -10,6 +11,7 @@ use DebugBar\DataCollector\RequestDataCollector;
 use DebugBar\DataCollector\TimeDataCollector;
 use DebugBar\DebugBar;
 use Junker\DebugBar\Bridge\SmartyCollector;
+use Monolog\Logger as MonologLogger;
 use Twig\Environment;
 use Twig\Extension\ProfilerExtension;
 use Twig\Profiler\Profile;
@@ -62,6 +64,17 @@ class DebugBarHelper extends Instanceable
     public function addCollector(DataCollector $collector): void
     {
         $this->_debugBar->addCollector($collector);
+    }
+
+    public function addMonologCollector(MonologLogger $monolog): void
+    {
+        $collector = new MonologCollector($monolog);
+
+        if ($this->getDebugBar()->hasCollector($collector->getName())) {
+            return;
+        }
+
+        $this->getDebugBar()->addCollector($collector);
     }
 
     public function addSmartyCollector(Smarty $smarty): void
