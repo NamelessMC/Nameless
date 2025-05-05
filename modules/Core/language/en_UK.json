@@ -1370,5 +1370,5 @@
     "user/change_or_resend_email": "Change or resend email",
     "user/validate_email_info": "Thanks for registering! You have been sent an email to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder.",
     "user/validate_email_resent": "Email resent to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder.",
-    "user/validate_email_failure": "Could not send verification email, Please contact administration"
+    "user/validate_email_failure": "Could not send verification email, please contact a site administrator"
 }
