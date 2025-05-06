@@ -38,6 +38,20 @@ Here are some things you should know when contributing:
       ```console
       vendor/bin/phinx migrate -c core/migrations/phinx.php
       ```
+- To test emails locally, we reccommend using [MailHog](https://github.com/mailhog/MailHog) - it allows you to view emails sent from your local server without actually sending them to a recipient.
+    - Tweak your `core/config.php` file to use MailHog as the SMTP server:
+        ```php
+        'email' => [
+          'email' => '<some address, outgoing>',
+          'username' => '',
+          'password' => '',
+          'name' => '',
+          'host' => 'localhost',
+          'port' => 1025,
+          'smtp_auth' => false,
+          'secure' => '',
+        ],
+        ```
 
 ## Versioning
 As of NamelessMC 2.0.0, we use a unique versioning system.

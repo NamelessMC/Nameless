@@ -369,7 +369,6 @@ class DatabaseInitialiser
                 POST,
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U'),
-            'last_edited' => date('U'),
         ]);
 
         // Must be updated afterwards due to foreign key

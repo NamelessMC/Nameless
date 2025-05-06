@@ -33,12 +33,6 @@ if (isset($_GET['c'])) {
             Session::delete('validate_email');
         }
 
-        GroupSyncManager::getInstance()->broadcastChange(
-            $user,
-            NamelessMCGroupSyncInjector::class,
-            [$user->getMainGroup()->id]
-        );
-
         Session::flash('login_success', $language->get('user', 'validation_complete'));
         Redirect::to(URL::build('/login'));
     } else {

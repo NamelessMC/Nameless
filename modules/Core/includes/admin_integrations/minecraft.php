@@ -16,7 +16,7 @@ if (Input::exists()) {
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PREMIUM_ACCOUNTS' => $language->get('admin', 'force_premium_accounts'),
     'PREMIUM_ACCOUNTS_VALUE' => Settings::get('uuid_linking'),
     'REQUIRE_USERNAME_REGISTRATION' => $language->get('admin', 'require_minecraft_username_on_registration'),

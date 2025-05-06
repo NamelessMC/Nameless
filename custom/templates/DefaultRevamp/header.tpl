@@ -4,8 +4,6 @@ value=""}{/if}
 value=" lang='en'"}{/if}
 {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq true}{assign var="HTMLRTL" value=" dir='rtl'"}{else}{assign
 var="HTMLRTL" value=" dir='ltr'"}{/if}
-{if "LANG_CHARSET"|defined}{assign var="METACHARSET" value="{$smarty.const.LANG_CHARSET}"}{else}{assign
-var="METACHARSET" value="utf-8"}{/if}
 {if isset($PAGE_DESCRIPTION) && $PAGE_DESCRIPTION|count_characters > 0}{assign var="PAGEDESCRIPTION"
 value="{$PAGE_DESCRIPTION}"}{else}{assign var="PAGEDESCRIPTION" value=" "}{/if}
 {if isset($PAGE_KEYWORDS) && $PAGE_KEYWORDS|count_characters > 0}{assign var="PAGEKEYWORDS"
@@ -16,12 +14,12 @@ value="{$PAGE_KEYWORDS}"}{else}{assign var="PAGEKEYWORDS" value=" "}{/if}
 
     <head>
 
-        <meta charset="{$METACHARSET}">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 
         {if isset($FAVICON)}
-        <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
+            <link rel="shortcut icon" href="{$FAVICON}" type="image/x-icon" />
         {/if}
 
         <meta name="author" content="{$smarty.const.SITE_NAME}">
@@ -31,13 +29,17 @@ value="{$PAGE_KEYWORDS}"}{else}{assign var="PAGEKEYWORDS" value=" "}{/if}
         <meta property="og:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{$OG_URL}" />
-        <meta property="og:image" content="{$OG_IMAGE}" />
+        {if isset($OG_IMAGE)}
+            <meta property="og:image" content="{$OG_IMAGE}" />
+        {/if}
         <meta property='og:description' content="{$PAGE_DESCRIPTION}" />
 
         <!-- Twitter Card Properties -->
         <meta name="twitter:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:image" content="{$OG_IMAGE}" />
+        {if isset($OG_IMAGE)}
+            <meta name="twitter:image" content="{$OG_IMAGE}" />
+        {/if}
 
         {if isset($PAGE_DESCRIPTION) && $PAGE_DESCRIPTION|count_characters > 0}
             <meta name="twitter:description" content="{$PAGE_DESCRIPTION}" />
