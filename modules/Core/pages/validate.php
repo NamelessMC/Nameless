@@ -61,7 +61,7 @@ if (isset($_GET['c'])) {
             ])->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
-                    Validate::EMAIL => $language->get('general', 'contact_message_email'),
+                    Validate::EMAIL => $language->get('user', 'invalid_email'),
                     Validate::UNIQUE => $language->get('user', 'email_already_exists'),
                     Validate::RATE_LIMIT => static fn($meta) => $language->get('general', 'rate_limit', $meta)
                 ]
