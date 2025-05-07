@@ -40,7 +40,7 @@ if (isset($_GET['do'])) {
             Redirect::to(URL::build('/user/settings'));
         }
 
-        $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
+        $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\QRServerProvider(), Output::getClean(SITE_NAME));
 
         if (!isset($_GET['s'])) {
 

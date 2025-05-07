@@ -110,7 +110,7 @@ switch ($_POST['type']) {
         break;
 }
 
-$image->setLocation(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', $folder]));
+$image->setStorage(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', $folder]));
 
 if ($image['file']) {
     try {
