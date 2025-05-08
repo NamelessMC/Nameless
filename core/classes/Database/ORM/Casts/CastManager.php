@@ -5,14 +5,6 @@
  */
 class CastManager
 {
-    /**
-     * Apply read‐casts (int, float, bool, enum, json→array, etc).
-     *
-     * @param string      $key
-     * @param mixed       $value
-     * @param array       $casts  static::$casts from Model
-     * @return mixed
-     */
     public static function castForRead(string $key, mixed $value, array $casts): mixed
     {
         $castType = $casts[$key] ?? null;
@@ -23,9 +15,9 @@ class CastManager
 
         try {
             return match (true) {
-                $castType === 'int'       => (int) $value,
-                $castType === 'float'     => (float) $value,
-                $castType === 'bool'      => (bool) $value,
+                $castType === 'int'       => (int)$value,
+                $castType === 'float'     => (float)$value,
+                $castType === 'bool'      => (bool)$value,
                 $castType === 'decimal'   => (string) number_format((float)$value, 2, '.', ''),
                 $castType === 'uppercase' => strtoupper((string)$value),
                 $castType === 'lowercase' => strtolower((string)$value),
@@ -34,18 +26,21 @@ class CastManager
                 $castType === 'date'      => (new \DateTime((string)$value))->format('Y-m-d'),
                 $castType === 'timestamp' => (new \DateTime())->setTimestamp((int)$value),
 
-                in_array($castType, ['array','json'], true)
+                in_array($castType, ['array', 'json'], true)
                 => json_decode((string)$value, true) ?: [],
 
-                $castType === 'object'    => json_decode((string)$value),
+                $castType === 'object'
+                => json_decode((string)$value),
 
+                // enum (UnitEnum or BackedEnum)
                 is_subclass_of($castType, UnitEnum::class)
-                => $castType::from($value),
+                => call_user_func([$castType, 'from'], $value),
 
+                // custom castable
                 is_subclass_of($castType, Castable::class)
                 => (new $castType)->cast($value),
 
-                default                   => $value,
+                default => $value,
             };
         } catch (\Throwable $e) {
             throw new RuntimeException(
@@ -56,33 +51,19 @@ class CastManager
         }
     }
 
-    /**
-     * Prepare attributes for DB persistence:
-     * - encode JSON/array/object
-     * - format dates
-     * - extract enum values
-     * - invoke custom Castable
-     * - strip PK on insert
-     *
-     * @param array  $attrs
-     * @param array  $casts
-     * @param string $primaryKey
-     * @return array
-     */
     public static function prepareForWrite(array $attrs, array $casts, string $primaryKey): array
     {
         $data = $attrs;
 
         foreach ($casts as $key => $castType) {
-            if (! array_key_exists($key, $data) || $data[$key] === null) {
+            if (!array_key_exists($key, $data) || $data[$key] === null) {
                 continue;
             }
 
             $raw = $data[$key];
 
-            // handle by cast type
             switch (true) {
-                case in_array($castType, ['array','json','object'], true):
+                case in_array($castType, ['array', 'json', 'object'], true):
                     if (is_array($raw) || is_object($raw)) {
                         $data[$key] = json_encode($raw);
                     }
@@ -91,11 +72,10 @@ class CastManager
                 case $castType === 'int':
                 case $castType === 'float':
                 case $castType === 'bool':
-                    // numeric/bool types store as scalar
-                    $data[$key] = match($castType) {
-                        'int'  => (int)$raw,
-                        'float'=> (float)$raw,
-                        'bool' => $raw ? 1 : 0,
+                    $data[$key] = match ($castType) {
+                        'int'   => (int)$raw,
+                        'float' => (float)$raw,
+                        'bool'  => $raw ? 1 : 0,
                     };
                     break;
 
@@ -106,6 +86,7 @@ class CastManager
                 case $castType === 'uppercase':
                     $data[$key] = strtoupper((string)$raw);
                     break;
+
                 case $castType === 'lowercase':
                     $data[$key] = strtolower((string)$raw);
                     break;
@@ -113,15 +94,18 @@ class CastManager
                 case $castType === 'datetime':
                     $data[$key] = self::formatDateTime($raw);
                     break;
+
                 case $castType === 'date':
                     $data[$key] = self::formatDate($raw);
                     break;
+
                 case $castType === 'timestamp':
                     $data[$key] = self::formatTimestamp($raw);
                     break;
 
                 case is_subclass_of($castType, UnitEnum::class):
-                    $data[$key] = $raw instanceof UnitEnum ? $raw->value : $raw;
+                    // safe check → only BackedEnum has value
+                    $data[$key] = $raw instanceof \BackedEnum ? $raw->value : (string)$raw;
                     break;
 
                 case is_subclass_of($castType, Castable::class):
@@ -130,8 +114,7 @@ class CastManager
             }
         }
 
-        // drop primary key on new insert
-        if (! isset($attrs[$primaryKey])) {
+        if (!isset($attrs[$primaryKey])) {
             unset($data[$primaryKey]);
         }
 
