@@ -42,7 +42,7 @@ class CastManager
                 is_subclass_of($castType, UnitEnum::class)
                 => $castType::from($value),
 
-                is_subclass_of($castType, \App\Casting\Castable::class)
+                is_subclass_of($castType, Castable::class)
                 => (new $castType)->cast($value),
 
                 default                   => $value,
