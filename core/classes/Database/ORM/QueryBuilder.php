@@ -19,14 +19,14 @@ class QueryBuilder
      */
     protected array $with = [];
 
-    protected array  $wheres = [];
-    protected array  $params = [];
+    protected array $wheres = [];
+    protected array $params = [];
     protected ?string $orderBy = null;
-    protected ?int    $limit = null;
+    protected ?int $limit = null;
 
     /**
-     * @param string               $table
-     * @param string               $primaryKey
+     * @param string $table
+     * @param string $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)
@@ -38,10 +38,13 @@ class QueryBuilder
 
     /**
      * Accepts dot notation, e.g. 'statistics.server'.
+     *
+     * @param array|string $relations
+     * @return QueryBuilder
      */
     public function with(array|string $relations): static
     {
-        foreach ((array) $relations as $r) {
+        foreach ((array)$relations as $r) {
             if (str_contains($r, '.')) {
                 [$root, $child] = explode('.', $r, 2);
                 $this->with[$root][] = $child;
@@ -68,6 +71,46 @@ class QueryBuilder
         $this->params = array_merge($this->params, $vals);
 
         return $this;
+    }
+
+    /**
+     * Retrieve a single column’s values from the result set.
+     *
+     * @param string $column The column to retrieve.
+     * @param string|null $keyColumn If provided, use this column’s values as the returned array’s keys.
+     * @return array  List of values (or key=>value pairs).
+     */
+    public function pluck(string $column, ?string $keyColumn = null): array
+    {
+        $cols = "`{$column}`"
+            . ($keyColumn ? ", `{$keyColumn}`" : "");
+        $sql = "SELECT {$cols} FROM {$this->table}";
+
+        if ($this->wheres) {
+            $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
+        }
+        if ($this->orderBy) {
+            $sql .= " {$this->orderBy}";
+        }
+        if ($this->limit !== null) {
+            $sql .= " LIMIT {$this->limit}";
+        }
+
+        $rows = Model::db()
+            ->query($sql, $this->params, true)
+            ->results();
+
+        $result = [];
+        foreach ($rows as $row) {
+            $value = $row->{$column};
+            if ($keyColumn) {
+                $result[$row->{$keyColumn}] = $value;
+            } else {
+                $result[] = $value;
+            }
+        }
+
+        return $result;
     }
 
     public function orderBy(string $col, string $dir = 'ASC'): static
@@ -109,7 +152,7 @@ class QueryBuilder
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
+        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
 
         if ($this->with) {
             $models = $this->eagerLoad($models);
@@ -127,7 +170,7 @@ class QueryBuilder
     }
 
     /**
-     * @param  int         $id
+     * @param int $id
      * @return TModel|null
      */
     public function find(int $id)
@@ -136,7 +179,7 @@ class QueryBuilder
     }
 
     /**
-     * @param  array  $data
+     * @param array $data
      * @return TModel
      */
     public function create(array $data)
@@ -157,7 +200,7 @@ class QueryBuilder
 
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
 
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
@@ -206,7 +249,7 @@ class QueryBuilder
     /**
      * Eagerly load all requested relations, including nested ones.
      *
-     * @param  Model[] $models
+     * @param Model[] $models
      * @return Model[]
      */
     protected function eagerLoad(array $models): array
@@ -220,8 +263,8 @@ class QueryBuilder
 
             // get the key values to match:
             $ids = $relDef->type === 'hasMany'
-                ? array_map(fn ($m) => $m->{$relDef->localKey}, $models)
-                : array_map(fn ($m) => $m->{$relDef->localKey}, $models);
+                ? array_map(fn($m) => $m->{$relDef->localKey}, $models)
+                : array_map(fn($m) => $m->{$relDef->localKey}, $models);
             $ids = array_unique($ids);
 
             // build the child query

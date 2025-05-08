@@ -86,7 +86,7 @@ abstract class Model
     /**
      * Find a record by primary key.
      *
-     * @param  int         $id
+     * @param int $id
      * @return static|null
      */
     public static function find(int $id): ?static
@@ -97,9 +97,9 @@ abstract class Model
     /**
      * Find a record or throw if not found.
      *
-     * @param  int              $id
-     * @throws RuntimeException
+     * @param int $id
      * @return static
+     * @throws RuntimeException
      */
     public static function findOrFail(int $id): static
     {
@@ -110,7 +110,7 @@ abstract class Model
     /**
      * Create & insert a new record.
      *
-     * @param  array<string,mixed> $attrs
+     * @param array<string,mixed> $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -126,6 +126,65 @@ abstract class Model
     public static function all(): array
     {
         return static::query()->get();
+    }
+
+    /**
+     * Retrieve all records.
+     *
+     * @return static[]
+     */
+    public static function get(): array
+    {
+        return static::query()->get();
+    }
+
+    /**
+     * Retrieve all records matching the given condition.
+     *
+     * @param string $column Column name
+     * @param string $operator Comparison operator
+     * @param mixed $value Value to compare against
+     * @return QueryBuilder
+     */
+    public static function where(string $column, string $operator, mixed $value): QueryBuilder
+    {
+        return static::query()->where($column, $operator, $value);
+    }
+
+    /**
+     * Retrieve all records matching the given condition.
+     *
+     * @param string $column Column name
+     * @param array $values Values to compare against
+     * @return QueryBuilder
+     */
+    public static function whereIn(string $column, array $values): QueryBuilder
+    {
+        return static::query()->whereIn($column, $values);
+    }
+
+    /**
+     * Retrieve a single column’s values from the result set.
+     *
+     * @param string $column The column to retrieve.
+     * @param string|null $keyColumn If provided, use this column’s values as the returned array’s keys.
+     * @return array  List of values (or key=>value pairs).
+     */
+    public static function pluck(string $column, ?string $keyColumn = null): array
+    {
+        return static::query()->pluck($column, $keyColumn);
+    }
+
+
+    /**
+     * Accepts dot notation, e.g. 'statistics.server'.
+     *
+     * @param array|string $relations
+     * @return QueryBuilder
+     */
+    public static function with(array|string $relations): QueryBuilder
+    {
+        return static::query()->with($relations);
     }
 
     /**
@@ -181,9 +240,9 @@ abstract class Model
      * 2) returns casted attribute if present
      * 3) throws if attempting lazy loading of a relation
      *
-     * @param  string           $key
-     * @throws RuntimeException
+     * @param string $key
      * @return mixed
+     * @throws RuntimeException
      */
     public function __get(string $key): mixed
     {
@@ -214,7 +273,7 @@ abstract class Model
      * Magic setter: always writes into the raw attributes array.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     public function __set(string $key, mixed $value): void
     {
@@ -224,12 +283,12 @@ abstract class Model
     /**
      * Bulk-fill attributes from an array or object.
      *
-     * @param  array|object $attrs
+     * @param array|object $attrs
      * @return $this
      */
     public function fill(array|object $attrs): static
     {
-        foreach ((array) $attrs as $k => $v) {
+        foreach ((array)$attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
 
@@ -251,7 +310,7 @@ abstract class Model
     /**
      * Build an exception when attempting to lazy-load a relation.
      *
-     * @param  string           $key Relation method name
+     * @param string $key Relation method name
      * @return RuntimeException
      */
     private function relationLazyLoadException(string $key): RuntimeException
@@ -270,8 +329,8 @@ abstract class Model
     /**
      * Used by QueryBuilder to inject eager-loaded data.
      *
-     * @param string $name  Relation name
-     * @param mixed  $value Loaded relation data
+     * @param string $name Relation name
+     * @param mixed $value Loaded relation data
      */
     public function setRelation(string $name, mixed $value): void
     {
@@ -291,8 +350,8 @@ abstract class Model
     /**
      * Define a one-to-many (hasMany) relation.
      *
-     * @param  class-string<Model> $model      Related model class
-     * @param  string              $foreignKey FK column in the related table
+     * @param class-string<Model> $model Related model class
+     * @param string $foreignKey FK column in the related table
      * @return Relation
      */
     public function hasMany(string $model, string $foreignKey): Relation
@@ -308,8 +367,8 @@ abstract class Model
     /**
      * Define an inverse one-to-many (belongsTo) relation.
      *
-     * @param  class-string<Model> $model      Parent model class
-     * @param  string              $foreignKey FK column in this table
+     * @param class-string<Model> $model Parent model class
+     * @param string $foreignKey FK column in this table
      * @return Relation
      */
     public function belongsTo(string $model, string $foreignKey): Relation
