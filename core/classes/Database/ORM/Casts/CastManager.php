@@ -15,30 +15,26 @@ class CastManager
 
         try {
             return match (true) {
-                $castType === 'int' => (int)$value,
-                $castType === 'float' => (float)$value,
-                $castType === 'bool' => (bool)$value,
-                $castType === 'decimal' => (string)number_format((float)$value, 2, '.', ''),
-                $castType === 'uppercase' => strtoupper((string)$value),
-                $castType === 'lowercase' => strtolower((string)$value),
+                $castType === 'int' => (int) $value,
+                $castType === 'float' => (float) $value,
+                $castType === 'bool' => (bool) $value,
+                $castType === 'decimal' => (string) number_format((float) $value, 2, '.', ''),
+                $castType === 'uppercase' => strtoupper((string) $value),
+                $castType === 'lowercase' => strtolower((string) $value),
 
-                $castType === 'datetime' => new \DateTime((string)$value),
-                $castType === 'date' => (new \DateTime((string)$value))->format('Y-m-d'),
-                $castType === 'timestamp' => (new \DateTime())->setTimestamp((int)$value),
+                $castType === 'datetime' => new \DateTime((string) $value),
+                $castType === 'date' => (new \DateTime((string) $value))->format('Y-m-d'),
+                $castType === 'timestamp' => (new \DateTime())->setTimestamp((int) $value),
 
-                in_array($castType, ['array', 'json'], true)
-                => json_decode((string)$value, true) ?: [],
+                in_array($castType, ['array', 'json'], true) => json_decode((string) $value, true) ?: [],
 
-                $castType === 'object'
-                => json_decode((string)$value),
+                $castType === 'object' => json_decode((string) $value),
 
                 // enum (UnitEnum or BackedEnum)
-                is_subclass_of($castType, UnitEnum::class)
-                => call_user_func([$castType, 'from'], $value),
+                is_subclass_of($castType, UnitEnum::class) => call_user_func([$castType, 'from'], $value),
 
                 // custom castable
-                is_subclass_of($castType, Castable::class)
-                => (new $castType)->cast($value),
+                is_subclass_of($castType, Castable::class) => (new $castType())->cast($value),
 
                 default => $value,
             };
@@ -73,22 +69,22 @@ class CastManager
                 case $castType === 'float':
                 case $castType === 'bool':
                     $data[$key] = match ($castType) {
-                        'int' => (int)$raw,
-                        'float' => (float)$raw,
+                        'int' => (int) $raw,
+                        'float' => (float) $raw,
                         'bool' => $raw ? 1 : 0,
                     };
                     break;
 
                 case $castType === 'decimal':
-                    $data[$key] = number_format((float)$raw, 2, '.', '');
+                    $data[$key] = number_format((float) $raw, 2, '.', '');
                     break;
 
                 case $castType === 'uppercase':
-                    $data[$key] = strtoupper((string)$raw);
+                    $data[$key] = strtoupper((string) $raw);
                     break;
 
                 case $castType === 'lowercase':
-                    $data[$key] = strtolower((string)$raw);
+                    $data[$key] = strtolower((string) $raw);
                     break;
 
                 case $castType === 'datetime':
@@ -105,11 +101,11 @@ class CastManager
 
                 case is_subclass_of($castType, UnitEnum::class):
                     // safe check → only BackedEnum has value
-                    $data[$key] = $raw instanceof \BackedEnum ? $raw->value : (string)$raw;
+                    $data[$key] = $raw instanceof \BackedEnum ? $raw->value : (string) $raw;
                     break;
 
                 case is_subclass_of($castType, Castable::class):
-                    $data[$key] = (new $castType)->cast($raw);
+                    $data[$key] = (new $castType())->cast($raw);
                     break;
             }
         }
@@ -126,7 +122,8 @@ class CastManager
         if ($val instanceof \DateTimeInterface) {
             return $val->format('Y-m-d H:i:s');
         }
-        return date('Y-m-d H:i:s', strtotime((string)$val));
+
+        return date('Y-m-d H:i:s', strtotime((string) $val));
     }
 
     private static function formatDate(mixed $val): string
@@ -134,7 +131,8 @@ class CastManager
         if ($val instanceof \DateTimeInterface) {
             return $val->format('Y-m-d');
         }
-        return date('Y-m-d', strtotime((string)$val));
+
+        return date('Y-m-d', strtotime((string) $val));
     }
 
     private static function formatTimestamp(mixed $val): int
@@ -142,6 +140,7 @@ class CastManager
         if ($val instanceof \DateTimeInterface) {
             return $val->getTimestamp();
         }
-        return (int)$val;
+
+        return (int) $val;
     }
 }

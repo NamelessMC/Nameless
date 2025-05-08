@@ -14,24 +14,24 @@ class QueryBuilder
 
     /**
      * relationName => [ nested, relations ]
-     * e.g. [ 'statistics' => ['server'], 'foo' => [] ]
+     * e.g. [ 'statistics' => ['server'], 'foo' => [] ].
      * @var array<string,string[]>
      */
     protected array $with = [];
 
-    protected array  $wheres   = [];
-    protected array  $params   = [];
+    protected array  $wheres = [];
+    protected array  $params = [];
     protected ?string $orderBy = null;
-    protected ?int    $limit   = null;
+    protected ?int    $limit = null;
 
     /**
-     * @param string $table
-     * @param string $primaryKey
+     * @param string               $table
+     * @param string               $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)
     {
-        $this->table      = $table;
+        $this->table = $table;
         $this->primaryKey = $primaryKey;
         $this->modelClass = $modelClass;
     }
@@ -41,7 +41,7 @@ class QueryBuilder
      */
     public function with(array|string $relations): static
     {
-        foreach ((array)$relations as $r) {
+        foreach ((array) $relations as $r) {
             if (str_contains($r, '.')) {
                 [$root, $child] = explode('.', $r, 2);
                 $this->with[$root][] = $child;
@@ -49,6 +49,7 @@ class QueryBuilder
                 $this->with[$r] = $this->with[$r] ?? [];
             }
         }
+
         return $this;
     }
 
@@ -56,6 +57,7 @@ class QueryBuilder
     {
         $this->wheres[] = "`{$col}` {$op} ?";
         $this->params[] = $val;
+
         return $this;
     }
 
@@ -63,19 +65,22 @@ class QueryBuilder
     {
         $ph = implode(',', array_fill(0, count($vals), '?'));
         $this->wheres[] = "`{$col}` IN ({$ph})";
-        $this->params   = array_merge($this->params, $vals);
+        $this->params = array_merge($this->params, $vals);
+
         return $this;
     }
 
-    public function orderBy(string $col, string $dir='ASC'): static
+    public function orderBy(string $col, string $dir = 'ASC'): static
     {
         $this->orderBy = "ORDER BY `{$col}` {$dir}";
+
         return $this;
     }
 
     public function limit(int $l): static
     {
         $this->limit = $l;
+
         return $this;
     }
 
@@ -91,9 +96,9 @@ class QueryBuilder
         if ($this->limit !== null) {
             $sql .= " LIMIT {$this->limit}";
         }
+
         return $sql;
     }
-
 
     /**
      * @return TModel[]
@@ -104,7 +109,7 @@ class QueryBuilder
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
+        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
 
         if ($this->with) {
             $models = $this->eagerLoad($models);
@@ -122,7 +127,7 @@ class QueryBuilder
     }
 
     /**
-     * @param int $id
+     * @param  int         $id
      * @return TModel|null
      */
     public function find(int $id)
@@ -130,15 +135,14 @@ class QueryBuilder
         return $this->where($this->primaryKey, '=', $id)->first();
     }
 
-
     /**
-     * @param array $data
+     * @param  array  $data
      * @return TModel
      */
     public function create(array $data)
     {
         $cols = implode('`,`', array_keys($data));
-        $phs  = implode(',', array_fill(0, count($data), '?'));
+        $phs = implode(',', array_fill(0, count($data), '?'));
 
         Model::db()->query(
             "INSERT INTO {$this->table} (`{$cols}`) VALUES ({$phs})",
@@ -153,21 +157,22 @@ class QueryBuilder
 
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
-        return ! Model::db()->query($sql, [...array_values($data), $id])->error();
+
+        return !Model::db()->query($sql, [...array_values($data), $id])->error();
     }
 
     public function delete(mixed $id): bool
     {
-        return ! Model::db()
+        return !Model::db()
             ->query("DELETE FROM {$this->table} WHERE `{$this->primaryKey}` = ?", [$id])
             ->error();
     }
 
     public function increment(string $col, int $amt, mixed $id): bool
     {
-        return ! Model::db()->query(
+        return !Model::db()->query(
             "UPDATE {$this->table} 
              SET `{$col}` = `{$col}` + ? 
              WHERE `{$this->primaryKey}` = ?",
@@ -207,16 +212,16 @@ class QueryBuilder
     protected function eagerLoad(array $models): array
     {
         foreach ($this->with as $relName => $nested) {
-            $prototype = new $this->modelClass;
-            $relDef    = $prototype->{$relName}();
-            if (! $relDef instanceof Relation) {
+            $prototype = new $this->modelClass();
+            $relDef = $prototype->{$relName}();
+            if (!$relDef instanceof Relation) {
                 continue;
             }
 
             // get the key values to match:
             $ids = $relDef->type === 'hasMany'
-                ? array_map(fn($m) => $m->{$relDef->localKey}, $models)
-                : array_map(fn($m) => $m->{$relDef->localKey}, $models);
+                ? array_map(fn ($m) => $m->{$relDef->localKey}, $models)
+                : array_map(fn ($m) => $m->{$relDef->localKey}, $models);
             $ids = array_unique($ids);
 
             // build the child query

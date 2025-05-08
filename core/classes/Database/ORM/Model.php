@@ -33,7 +33,7 @@ abstract class Model
     /**
      * Attribute cast definitions.
      * Key = attribute name, value = cast type or class.
-     * e.g. ['status' => 'bool', 'payload' => JsonCaster::class]
+     * e.g. ['status' => 'bool', 'payload' => JsonCaster::class].
      * @var array
      */
     protected static array $casts = [];
@@ -64,7 +64,7 @@ abstract class Model
     /**
      * Optionally initialize model with attributes.
      *
-     * @param array|object $attrs  Raw DB row or attribute array
+     * @param array|object $attrs Raw DB row or attribute array
      */
     public function __construct(array|object $attrs = [])
     {
@@ -86,7 +86,7 @@ abstract class Model
     /**
      * Find a record by primary key.
      *
-     * @param int $id
+     * @param  int         $id
      * @return static|null
      */
     public static function find(int $id): ?static
@@ -97,9 +97,9 @@ abstract class Model
     /**
      * Find a record or throw if not found.
      *
-     * @param int $id
-     * @return static
+     * @param  int              $id
      * @throws RuntimeException
+     * @return static
      */
     public static function findOrFail(int $id): static
     {
@@ -110,7 +110,7 @@ abstract class Model
     /**
      * Create & insert a new record.
      *
-     * @param array<string,mixed> $attrs
+     * @param  array<string,mixed> $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -132,13 +132,13 @@ abstract class Model
      * Insert or update this model.
      * Uses CastManager to prepare attributes for persistence.
      *
-     * @return bool  True on success.
+     * @return bool True on success.
      */
     public function save(): bool
     {
         $this->fireEvent('saving');
 
-        $pk   = static::$primaryKey;
+        $pk = static::$primaryKey;
         $data = CastManager::prepareForWrite(
             $this->attributes,
             static::$casts,
@@ -157,6 +157,7 @@ abstract class Model
         }
 
         $this->fireEvent('saved');
+
         return $ok;
     }
 
@@ -170,6 +171,7 @@ abstract class Model
         $this->fireEvent('deleting');
         $ok = static::query()->delete($this->{static::$primaryKey});
         $this->fireEvent('deleted');
+
         return $ok;
     }
 
@@ -179,9 +181,9 @@ abstract class Model
      * 2) returns casted attribute if present
      * 3) throws if attempting lazy loading of a relation
      *
-     * @param string $key
-     * @return mixed
+     * @param  string           $key
      * @throws RuntimeException
+     * @return mixed
      */
     public function __get(string $key): mixed
     {
@@ -222,21 +224,22 @@ abstract class Model
     /**
      * Bulk-fill attributes from an array or object.
      *
-     * @param array|object $attrs
+     * @param  array|object $attrs
      * @return $this
      */
     public function fill(array|object $attrs): static
     {
-        foreach ((array)$attrs as $k => $v) {
+        foreach ((array) $attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
+
         return $this;
     }
 
     /**
      * Trigger a lifecycle event method if it exists.
      *
-     * @param string $event  e.g. 'saving', 'saved', 'deleting', 'deleted'
+     * @param string $event e.g. 'saving', 'saved', 'deleting', 'deleted'
      */
     protected function fireEvent(string $event): void
     {
@@ -248,7 +251,7 @@ abstract class Model
     /**
      * Build an exception when attempting to lazy-load a relation.
      *
-     * @param string $key  Relation method name
+     * @param  string           $key Relation method name
      * @return RuntimeException
      */
     private function relationLazyLoadException(string $key): RuntimeException
@@ -267,8 +270,8 @@ abstract class Model
     /**
      * Used by QueryBuilder to inject eager-loaded data.
      *
-     * @param string $name   Relation name
-     * @param mixed  $value  Loaded relation data
+     * @param string $name  Relation name
+     * @param mixed  $value Loaded relation data
      */
     public function setRelation(string $name, mixed $value): void
     {
@@ -288,8 +291,8 @@ abstract class Model
     /**
      * Define a one-to-many (hasMany) relation.
      *
-     * @param class-string<Model> $model      Related model class
-     * @param string              $foreignKey FK column in the related table
+     * @param  class-string<Model> $model      Related model class
+     * @param  string              $foreignKey FK column in the related table
      * @return Relation
      */
     public function hasMany(string $model, string $foreignKey): Relation
@@ -305,8 +308,8 @@ abstract class Model
     /**
      * Define an inverse one-to-many (belongsTo) relation.
      *
-     * @param class-string<Model> $model      Parent model class
-     * @param string              $foreignKey FK column in this table
+     * @param  class-string<Model> $model      Parent model class
+     * @param  string              $foreignKey FK column in this table
      * @return Relation
      */
     public function belongsTo(string $model, string $foreignKey): Relation
