@@ -4,7 +4,8 @@
 /**
  * Marker interface for custom attribute casters.
  */
-interface Castable {
+interface Castable
+{
     /**
      * Transform the raw DB value into whatever PHP type you need.
      *
