@@ -11,60 +11,35 @@
  */
 abstract class Model
 {
-    /**
-     * Table name prefix (e.g. 'nl2_').
-     * @var string
-     */
+    /** @var string Table name prefix (e.g. 'nl2_'). */
     public static string $prefix = 'nl2_';
 
-    /**
-     * Table name without prefix or backticks.
-     * Each subclass must override.
-     * @var string
-     */
+    /** @var string Table name without prefix/backticks. */
     protected static string $table = '';
 
-    /**
-     * Primary key column name. Default 'id'.
-     * @var string
-     */
+    /** @var string Primary key column name. */
     protected static string $primaryKey = 'id';
 
     /**
-     * Attribute cast definitions.
-     * Key = attribute name, value = cast type or class.
-     * e.g. ['status' => 'bool', 'payload' => JsonCaster::class].
-     * @var array
+     * @var array<string,string|class-string>
+     * Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
      */
     protected static array $casts = [];
 
-    /**
-     * Raw attributes loaded from the database.
-     * @var array<string,mixed>
-     */
+    /** @var array<string,mixed> Raw DB attributes. */
     protected array $attributes = [];
 
-    /**
-     * Eager-loaded relation data.
-     * Populated by QueryBuilder->eagerLoad().
-     * @var array<string,mixed>
-     */
+    /** @var array<string,mixed> Eager‐loaded relations. */
     private array $relations = [];
 
-    /**
-     * Get the global DB instance.
-     *
-     * @return DB
-     */
+    /** @return DB */
     public static function db(): DB
     {
         return DB::getInstance();
     }
 
     /**
-     * Optionally initialize model with attributes.
-     *
-     * @param array|object $attrs Raw DB row or attribute array
+     * @param array|object $attrs
      */
     public function __construct(array|object $attrs = [])
     {
@@ -84,8 +59,6 @@ abstract class Model
     }
 
     /**
-     * Find a record by primary key.
-     *
      * @param int $id
      * @return static|null
      */
@@ -95,11 +68,8 @@ abstract class Model
     }
 
     /**
-     * Find a record or throw if not found.
-     *
      * @param int $id
      * @return static
-     * @throws RuntimeException
      */
     public static function findOrFail(int $id): static
     {
@@ -108,9 +78,7 @@ abstract class Model
     }
 
     /**
-     * Create & insert a new record.
-     *
-     * @param array<string,mixed> $attrs
+     * @param array $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -118,81 +86,47 @@ abstract class Model
         return static::query()->create($attrs);
     }
 
-    /**
-     * Retrieve all records.
-     *
-     * @return static[]
-     */
+    /** @return static[] */
     public static function all(): array
     {
         return static::query()->get();
     }
 
-    /**
-     * Retrieve all records.
-     *
-     * @return static[]
-     */
+    /** @return static[] */
     public static function get(): array
     {
         return static::query()->get();
     }
 
     /**
-     * Retrieve all records matching the given condition.
-     *
-     * @param string $column Column name
-     * @param string $operator Comparison operator
-     * @param mixed $value Value to compare against
-     * @return QueryBuilder
+     * @return QueryBuilder<static>
      */
-    public static function where(string $column, string $operator, mixed $value): QueryBuilder
+    public static function where(string $column, string $op, mixed $val): QueryBuilder
     {
-        return static::query()->where($column, $operator, $value);
+        return static::query()->where($column, $op, $val);
+    }
+
+    /** @return QueryBuilder<static> */
+    public static function whereIn(string $column, array $vals): QueryBuilder
+    {
+        return static::query()->whereIn($column, $vals);
+    }
+
+    /** @return array<int|string,mixed> */
+    public static function pluck(string $col, ?string $keyCol = null): array
+    {
+        return static::query()->pluck($col, $keyCol);
     }
 
     /**
-     * Retrieve all records matching the given condition.
-     *
-     * @param string $column Column name
-     * @param array $values Values to compare against
-     * @return QueryBuilder
+     * @return QueryBuilder<static>
      */
-    public static function whereIn(string $column, array $values): QueryBuilder
+    public static function with(array|string $rels): QueryBuilder
     {
-        return static::query()->whereIn($column, $values);
+        return static::query()->with($rels);
     }
 
-    /**
-     * Retrieve a single column’s values from the result set.
-     *
-     * @param string $column The column to retrieve.
-     * @param string|null $keyColumn If provided, use this column’s values as the returned array’s keys.
-     * @return array  List of values (or key=>value pairs).
-     */
-    public static function pluck(string $column, ?string $keyColumn = null): array
-    {
-        return static::query()->pluck($column, $keyColumn);
-    }
-
-
-    /**
-     * Accepts dot notation, e.g. 'statistics.server'.
-     *
-     * @param array|string $relations
-     * @return QueryBuilder
-     */
-    public static function with(array|string $relations): QueryBuilder
-    {
-        return static::query()->with($relations);
-    }
-
-    /**
-     * Insert or update this model.
-     * Uses CastManager to prepare attributes for persistence.
-     *
-     * @return bool True on success.
-     */
+    /** @return bool */
     public function save(): bool
     {
         $this->fireEvent('saving');
@@ -205,53 +139,40 @@ abstract class Model
         );
 
         if (isset($this->attributes[$pk])) {
-            // existing record → update
             $ok = static::query()->update($data, $this->attributes[$pk]);
         } else {
-            // new record → insert
             $new = static::query()->create($data);
-            // sync newly generated attributes (e.g. primary key)
             $this->attributes = $new->attributes;
             $ok = true;
         }
 
         $this->fireEvent('saved');
-
         return $ok;
     }
 
-    /**
-     * Delete this record from the database.
-     *
-     * @return bool
-     */
+    /** @return bool */
     public function delete(): bool
     {
         $this->fireEvent('deleting');
         $ok = static::query()->delete($this->{static::$primaryKey});
         $this->fireEvent('deleted');
-
         return $ok;
     }
 
     /**
      * Magic getter:
-     * 1) returns eager-loaded relation if present
-     * 2) returns casted attribute if present
-     * 3) throws if attempting lazy loading of a relation
+     * 1) returns eager‐loaded relation
+     * 2) returns casted attribute
+     * 3) throws if relation not eager‐loaded
      *
      * @param string $key
      * @return mixed
-     * @throws RuntimeException
      */
     public function __get(string $key): mixed
     {
-        // 1) eager-loaded relation
         if (array_key_exists($key, $this->relations)) {
             return $this->relations[$key];
         }
-
-        // 2) plain attribute → cast on read
         if (array_key_exists($key, $this->attributes)) {
             return CastManager::castForRead(
                 $key,
@@ -259,60 +180,34 @@ abstract class Model
                 static::$casts
             );
         }
-
-        // 3) method exists → relation defined but not eager-loaded
         if (method_exists($this, $key)) {
             throw $this->relationLazyLoadException($key);
         }
-
-        // 4) nothing found
         return null;
     }
 
-    /**
-     * Magic setter: always writes into the raw attributes array.
-     *
-     * @param string $key
-     * @param mixed $value
-     */
+    /** Magic setter for attributes. */
     public function __set(string $key, mixed $value): void
     {
         $this->attributes[$key] = $value;
     }
 
-    /**
-     * Bulk-fill attributes from an array or object.
-     *
-     * @param array|object $attrs
-     * @return $this
-     */
+    /** @return $this */
     public function fill(array|object $attrs): static
     {
         foreach ((array)$attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
-
         return $this;
     }
 
-    /**
-     * Trigger a lifecycle event method if it exists.
-     *
-     * @param string $event e.g. 'saving', 'saved', 'deleting', 'deleted'
-     */
-    protected function fireEvent(string $event): void
+    protected function fireEvent(string $e): void
     {
-        if (method_exists($this, $event)) {
-            $this->{$event}();
+        if (method_exists($this, $e)) {
+            $this->{$e}();
         }
     }
 
-    /**
-     * Build an exception when attempting to lazy-load a relation.
-     *
-     * @param string $key Relation method name
-     * @return RuntimeException
-     */
     private function relationLazyLoadException(string $key): RuntimeException
     {
         $rel = $this->{$key}();
@@ -322,62 +217,30 @@ abstract class Model
 
         return new RuntimeException(
             "Lazy loading of relation '{$key}' is disabled.\n" .
-            "Please eager-load via:\n    {$snippet}\n"
+            "Please eager‐load via:\n    {$snippet}\n"
         );
     }
 
-    /**
-     * Used by QueryBuilder to inject eager-loaded data.
-     *
-     * @param string $name Relation name
-     * @param mixed $value Loaded relation data
-     */
+    /** @internal Used by QueryBuilder */
     public function setRelation(string $name, mixed $value): void
     {
         $this->relations[$name] = $value;
     }
 
-    /**
-     * Resolve the full table name including prefix and backticks.
-     *
-     * @return string
-     */
     protected static function tableName(): string
     {
         return '`' . static::$prefix . static::$table . '`';
     }
 
-    /**
-     * Define a one-to-many (hasMany) relation.
-     *
-     * @param class-string<Model> $model Related model class
-     * @param string $foreignKey FK column in the related table
-     * @return Relation
-     */
-    public function hasMany(string $model, string $foreignKey): Relation
+    /** Define one‐to‐many */
+    public function hasMany(string $model, string $fk): Relation
     {
-        return new Relation(
-            'hasMany',
-            $model,
-            $foreignKey,
-            static::$primaryKey
-        );
+        return new Relation('hasMany', $model, $fk, static::$primaryKey);
     }
 
-    /**
-     * Define an inverse one-to-many (belongsTo) relation.
-     *
-     * @param class-string<Model> $model Parent model class
-     * @param string $foreignKey FK column in this table
-     * @return Relation
-     */
-    public function belongsTo(string $model, string $foreignKey): Relation
+    /** Define inverse many‐to‐one */
+    public function belongsTo(string $model, string $fk): Relation
     {
-        return new Relation(
-            'belongsTo',
-            $model,
-            static::$primaryKey,
-            $foreignKey
-        );
+        return new Relation('belongsTo', $model, static::$primaryKey, $fk);
     }
 }

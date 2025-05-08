@@ -40,7 +40,7 @@ class QueryBuilder
      * Accepts dot notation, e.g. 'statistics.server'.
      *
      * @param array|string $relations
-     * @return QueryBuilder
+     * @return $this
      */
     public function with(array|string $relations): static
     {
@@ -56,34 +56,41 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * Add a basic WHERE clause.
+     *
+     * @return $this
+     */
     public function where(string $col, string $op, mixed $val): static
     {
         $this->wheres[] = "`{$col}` {$op} ?";
         $this->params[] = $val;
-
         return $this;
     }
 
+    /**
+     * Add a WHERE IN (...) clause.
+     *
+     * @return $this
+     */
     public function whereIn(string $col, array $vals): static
     {
         $ph = implode(',', array_fill(0, count($vals), '?'));
         $this->wheres[] = "`{$col}` IN ({$ph})";
         $this->params = array_merge($this->params, $vals);
-
         return $this;
     }
 
     /**
      * Retrieve a single column’s values from the result set.
      *
-     * @param string $column The column to retrieve.
-     * @param string|null $keyColumn If provided, use this column’s values as the returned array’s keys.
-     * @return array  List of values (or key=>value pairs).
+     * @param string $column
+     * @param string|null $keyColumn
+     * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
     {
-        $cols = "`{$column}`"
-            . ($keyColumn ? ", `{$keyColumn}`" : "");
+        $cols = "`{$column}`" . ($keyColumn ? ", `{$keyColumn}`" : "");
         $sql = "SELECT {$cols} FROM {$this->table}";
 
         if ($this->wheres) {
@@ -102,31 +109,42 @@ class QueryBuilder
 
         $result = [];
         foreach ($rows as $row) {
-            $value = $row->{$column};
+            $val = $row->{$column};
             if ($keyColumn) {
-                $result[$row->{$keyColumn}] = $value;
+                $result[$row->{$keyColumn}] = $val;
             } else {
-                $result[] = $value;
+                $result[] = $val;
             }
         }
 
         return $result;
     }
 
+    /**
+     * Set ORDER BY clause.
+     *
+     * @return $this
+     */
     public function orderBy(string $col, string $dir = 'ASC'): static
     {
         $this->orderBy = "ORDER BY `{$col}` {$dir}";
-
         return $this;
     }
 
+    /**
+     * Set LIMIT clause.
+     *
+     * @return $this
+     */
     public function limit(int $l): static
     {
         $this->limit = $l;
-
         return $this;
     }
 
+    /**
+     * Compile the SELECT SQL.
+     */
     protected function buildSelect(): string
     {
         $sql = "SELECT * FROM {$this->table}";
@@ -139,7 +157,6 @@ class QueryBuilder
         if ($this->limit !== null) {
             $sql .= " LIMIT {$this->limit}";
         }
-
         return $sql;
     }
 
@@ -152,7 +169,10 @@ class QueryBuilder
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
+        $models = array_map(
+            fn($r) => new $this->modelClass((array)$r),
+            $rows
+        );
 
         if ($this->with) {
             $models = $this->eagerLoad($models);
@@ -164,25 +184,25 @@ class QueryBuilder
     /**
      * @return TModel|null
      */
-    public function first()
+    public function first(): mixed
     {
         return $this->limit(1)->get()[0] ?? null;
     }
 
     /**
-     * @param int $id
      * @return TModel|null
      */
-    public function find(int $id)
+    public function find(int $id): mixed
     {
         return $this->where($this->primaryKey, '=', $id)->first();
     }
 
     /**
-     * @param array $data
+     * Insert a new record and return its Model.
+     *
      * @return TModel
      */
-    public function create(array $data)
+    public function create(array $data): mixed
     {
         $cols = implode('`,`', array_keys($data));
         $phs = implode(',', array_fill(0, count($data), '?'));
@@ -198,14 +218,19 @@ class QueryBuilder
         return new $this->modelClass($data);
     }
 
+    /**
+     * Update a record by primary key.
+     */
     public function update(array $data, mixed $id): bool
     {
         $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
-
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
     }
 
+    /**
+     * Delete a record by primary key.
+     */
     public function delete(mixed $id): bool
     {
         return !Model::db()
@@ -213,6 +238,9 @@ class QueryBuilder
             ->error();
     }
 
+    /**
+     * Increment a numeric column.
+     */
     public function increment(string $col, int $amt, mixed $id): bool
     {
         return !Model::db()->query(
@@ -223,13 +251,16 @@ class QueryBuilder
         )->error();
     }
 
+    /**
+     * Decrement a numeric column.
+     */
     public function decrement(string $col, int $amt, mixed $id): bool
     {
         return $this->increment($col, -$amt, $id);
     }
 
     /**
-     * Return the raw SQL (with placeholders) that would be executed.
+     * Return the raw SQL (with placeholders).
      */
     public function toSql(): string
     {
@@ -237,7 +268,7 @@ class QueryBuilder
     }
 
     /**
-     * Return the array of bound parameters for the SQL.
+     * Return the array of bound parameters.
      *
      * @return array<int,mixed>
      */
@@ -261,22 +292,21 @@ class QueryBuilder
                 continue;
             }
 
-            // get the key values to match:
-            $ids = $relDef->type === 'hasMany'
-                ? array_map(fn($m) => $m->{$relDef->localKey}, $models)
-                : array_map(fn($m) => $m->{$relDef->localKey}, $models);
-            $ids = array_unique($ids);
+            $ids = array_unique(array_map(
+                fn($m) => $m->{$relDef->localKey},
+                $models
+            ));
 
-            // build the child query
             $qb = $relDef->model::query()
                 ->whereIn($relDef->foreignKey, $ids);
+
             if ($nested) {
                 $qb = $qb->with($nested);
             }
-            $children = $qb->get();
 
-            // group them
+            $children = $qb->get();
             $grouped = [];
+
             if ($relDef->type === 'hasMany') {
                 foreach ($children as $c) {
                     $grouped[$c->{$relDef->foreignKey}][] = $c;
@@ -287,12 +317,11 @@ class QueryBuilder
                 }
             }
 
-            // attach to parents
             foreach ($models as $parent) {
                 $value = $relDef->type === 'hasMany'
                     ? ($grouped[$parent->{$relDef->localKey}] ?? [])
                     : ($grouped[$parent->{$relDef->localKey}] ?? null);
-                // use our setter so __get picks it up
+
                 $parent->setRelation($relName, $value);
             }
         }
