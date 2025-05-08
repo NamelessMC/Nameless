@@ -2,11 +2,14 @@
 
 /**
  * Builds & executes queries, now with nested ->with() support.
+ *
+ * @template TModel of Model
  */
 class QueryBuilder
 {
     protected string $table;
     protected string $primaryKey;
+    /** @var class-string<TModel> */
     protected string $modelClass;
 
     /**
@@ -21,6 +24,11 @@ class QueryBuilder
     protected ?string $orderBy = null;
     protected ?int    $limit   = null;
 
+    /**
+     * @param string $table
+     * @param string $primaryKey
+     * @param class-string<TModel> $modelClass
+     */
     public function __construct(string $table, string $primaryKey, string $modelClass)
     {
         $this->table      = $table;
@@ -86,8 +94,9 @@ class QueryBuilder
         return $sql;
     }
 
+
     /**
-     * @return Model[]
+     * @return TModel[]
      */
     public function get(): array
     {
@@ -104,16 +113,28 @@ class QueryBuilder
         return $models;
     }
 
+    /**
+     * @return Model|null
+     */
     public function first(): ?Model
     {
         return $this->limit(1)->get()[0] ?? null;
     }
 
+    /**
+     * @param int $id
+     * @return Model|null
+     */
     public function find(int $id): ?Model
     {
         return $this->where($this->primaryKey, '=', $id)->first();
     }
 
+
+    /**
+     * @param array $data
+     * @return Model
+     */
     public function create(array $data): Model
     {
         $cols = implode('`,`', array_keys($data));
