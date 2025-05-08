@@ -34,7 +34,7 @@ abstract class Model
      * Attribute cast definitions.
      * Key = attribute name, value = cast type or class.
      * e.g. ['status' => 'bool', 'payload' => JsonCaster::class]
-     * @var mixed[]
+     * @var array
      */
     protected static array $casts = [];
 
@@ -72,9 +72,7 @@ abstract class Model
     }
 
     /**
-     * Start a new QueryBuilder for this model.
-     *
-     * @return QueryBuilder
+     * @return QueryBuilder<static>
      */
     public static function query(): QueryBuilder
     {
