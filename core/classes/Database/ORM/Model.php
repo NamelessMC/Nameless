@@ -22,7 +22,7 @@ abstract class Model
 
     /**
      * @var array<string,string|class-string>
-     * Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
+     *                                        Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
      */
     protected static array $casts = [];
 
@@ -59,7 +59,7 @@ abstract class Model
     }
 
     /**
-     * @param int $id
+     * @param  int         $id
      * @return static|null
      */
     public static function find(int $id): ?static
@@ -68,7 +68,7 @@ abstract class Model
     }
 
     /**
-     * @param int $id
+     * @param  int    $id
      * @return static
      */
     public static function findOrFail(int $id): static
@@ -78,7 +78,7 @@ abstract class Model
     }
 
     /**
-     * @param array $attrs
+     * @param  array  $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -147,6 +147,7 @@ abstract class Model
         }
 
         $this->fireEvent('saved');
+
         return $ok;
     }
 
@@ -156,6 +157,7 @@ abstract class Model
         $this->fireEvent('deleting');
         $ok = static::query()->delete($this->{static::$primaryKey});
         $this->fireEvent('deleted');
+
         return $ok;
     }
 
@@ -165,7 +167,7 @@ abstract class Model
      * 2) returns casted attribute
      * 3) throws if relation not eager‐loaded
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function __get(string $key): mixed
@@ -183,6 +185,7 @@ abstract class Model
         if (method_exists($this, $key)) {
             throw $this->relationLazyLoadException($key);
         }
+
         return null;
     }
 
@@ -195,9 +198,10 @@ abstract class Model
     /** @return $this */
     public function fill(array|object $attrs): static
     {
-        foreach ((array)$attrs as $k => $v) {
+        foreach ((array) $attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
+
         return $this;
     }
 

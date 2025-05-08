@@ -25,8 +25,8 @@ class QueryBuilder
     protected ?int $limit = null;
 
     /**
-     * @param string $table
-     * @param string $primaryKey
+     * @param string               $table
+     * @param string               $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)
@@ -39,12 +39,12 @@ class QueryBuilder
     /**
      * Accepts dot notation, e.g. 'statistics.server'.
      *
-     * @param array|string $relations
+     * @param  array|string $relations
      * @return $this
      */
     public function with(array|string $relations): static
     {
-        foreach ((array)$relations as $r) {
+        foreach ((array) $relations as $r) {
             if (str_contains($r, '.')) {
                 [$root, $child] = explode('.', $r, 2);
                 $this->with[$root][] = $child;
@@ -65,6 +65,7 @@ class QueryBuilder
     {
         $this->wheres[] = "`{$col}` {$op} ?";
         $this->params[] = $val;
+
         return $this;
     }
 
@@ -78,19 +79,20 @@ class QueryBuilder
         $ph = implode(',', array_fill(0, count($vals), '?'));
         $this->wheres[] = "`{$col}` IN ({$ph})";
         $this->params = array_merge($this->params, $vals);
+
         return $this;
     }
 
     /**
      * Retrieve a single column’s values from the result set.
      *
-     * @param string $column
-     * @param string|null $keyColumn
+     * @param  string                  $column
+     * @param  string|null             $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
     {
-        $cols = "`{$column}`" . ($keyColumn ? ", `{$keyColumn}`" : "");
+        $cols = "`{$column}`" . ($keyColumn ? ", `{$keyColumn}`" : '');
         $sql = "SELECT {$cols} FROM {$this->table}";
 
         if ($this->wheres) {
@@ -128,6 +130,7 @@ class QueryBuilder
     public function orderBy(string $col, string $dir = 'ASC'): static
     {
         $this->orderBy = "ORDER BY `{$col}` {$dir}";
+
         return $this;
     }
 
@@ -139,6 +142,7 @@ class QueryBuilder
     public function limit(int $l): static
     {
         $this->limit = $l;
+
         return $this;
     }
 
@@ -157,6 +161,7 @@ class QueryBuilder
         if ($this->limit !== null) {
             $sql .= " LIMIT {$this->limit}";
         }
+
         return $sql;
     }
 
@@ -170,7 +175,7 @@ class QueryBuilder
             ->results();
 
         $models = array_map(
-            fn($r) => new $this->modelClass((array)$r),
+            fn ($r) => new $this->modelClass((array) $r),
             $rows
         );
 
@@ -223,8 +228,9 @@ class QueryBuilder
      */
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
+
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
     }
 
@@ -280,7 +286,7 @@ class QueryBuilder
     /**
      * Eagerly load all requested relations, including nested ones.
      *
-     * @param Model[] $models
+     * @param  Model[] $models
      * @return Model[]
      */
     protected function eagerLoad(array $models): array
@@ -293,7 +299,7 @@ class QueryBuilder
             }
 
             $ids = array_unique(array_map(
-                fn($m) => $m->{$relDef->localKey},
+                fn ($m) => $m->{$relDef->localKey},
                 $models
             ));
 
