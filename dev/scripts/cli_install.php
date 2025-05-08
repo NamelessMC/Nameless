@@ -57,11 +57,6 @@ if (!$reinstall && file_exists('./core/config.php')) {
     exit(1);
 }
 
-// check all the required environment variables are set
-foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_CONTACT_EMAIL', 'NAMELESS_SITE_OUTGOING_EMAIL', 'NAMELESS_ADMIN_EMAIL'] as $var) {
-    getEnvVar($var);
-}
-
 $start = microtime(true);
 
 echo '🗑  Deleting cache directories...' . PHP_EOL;
@@ -171,16 +166,16 @@ $_SESSION['install_timezone'] = in_array($timezone = getEnvVar('NAMELESS_TIMEZON
 
 DatabaseInitialiser::runPreUser();
 
-Settings::set('sitename', getEnvVar('NAMELESS_SITE_NAME'));
-Settings::set('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
-Settings::set('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
+Settings::set('sitename', getEnvVar('NAMELESS_SITE_NAME', 'NamelessMC'));
+Settings::set('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL', 'contact@example.com'));
+Settings::set('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL', 'no-reply@example.com'));
 Settings::set('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', ['0', '1']));
 
 echo '👮 Creating admin account...' . PHP_EOL;
 
 $username = getEnvVar('NAMELESS_ADMIN_USERNAME', 'admin');
 $password = getEnvVar('NAMELESS_ADMIN_PASSWORD', 'password');
-$email = getEnvVar('NAMELESS_ADMIN_EMAIL');
+$email = getEnvVar('NAMELESS_ADMIN_EMAIL', 'admin@example.com');
 
 $user = new User();
 $user->create([

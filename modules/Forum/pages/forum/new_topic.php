@@ -196,18 +196,19 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
-                $content = EventHandler::executeEvent('preTopicCreate', [
-                    'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
-                    'content' => $content,
-                    'user' => $user,
-                    'mention_notification_type' => 'forum_topic_mention',
-                    'mention_notification_title' => new LanguageKey('forum', 'user_tag_info', [
+                $topic_event = new PreTopicCreateEvent(
+                    $content,
+                    $user,
+                    URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
+                    'forum_topic_mention',
+                    new LanguageKey('forum', 'user_tag_info', [
                         'author' => $user->getDisplayname(),
                     ], ROOT_PATH . '/modules/Forum/language'),
-                ])['content'];
+                );
+                EventHandler::executeEvent($topic_event);
 
                 DB::getInstance()->update('posts', $last_post_id, [
-                    'post_content' => $content
+                    'post_content' => $topic_event->content
                 ]);
 
                 DB::getInstance()->update('forums', $fid, [
@@ -287,7 +288,9 @@ $template->getEngine()->addVariables([
 $content = $_POST['content'] ?? $forum_query->topic_placeholder ?? null;
 if ($content) {
     // Purify post content
-    $content = EventHandler::executeEvent('renderPostEdit', ['content' => $content])['content'];
+    $render_event = new RenderContentEditEvent($content);
+    EventHandler::executeEvent($render_event);
+    $content = $render_event->content;
 }
 
 $template->assets()->include([

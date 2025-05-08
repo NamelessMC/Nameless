@@ -125,7 +125,7 @@ class Util
      */
     public static function updateCheck()
     {
-        $uid = self::getSetting('unique_id');
+        $uid = Settings::get('unique_id');
 
         $update_check_response = HttpClient::get(
             'https://namelessmc.com/api/v2/updateCheck&uid=' . $uid .
@@ -145,10 +145,10 @@ class Util
             return $update_check->getErrorMessage();
         }
 
-        self::setSetting('version_checked', date('U'));
+        Settings::set('version_checked', date('U'));
 
         if ($update_check->updateAvailable()) {
-            self::setSetting(
+            Settings::set(
                 'version_update',
                 $update_check->isUrgent()
                 ? 'urgent'
@@ -175,35 +175,6 @@ class Util
         }
 
         return $news->contents();
-    }
-
-    /**
-     * Get a setting from the database table `nl2_settings`.
-     *
-     * @param  string  $setting  Setting to check.
-     * @param  ?string $fallback Fallback to return if $setting is not set in DB. Defaults to null.
-     * @param  string  $module   Module name to keep settings separate from other modules. Set module
-     *                           to 'Core' for global settings.
-     * @return ?string Setting from DB or $fallback.
-     * @deprecated Use Settings::get() instead. Will be removed in 2.2.0
-     */
-    public static function getSetting(string $setting, ?string $fallback = null, string $module = 'core'): ?string
-    {
-        return Settings::get($setting, $fallback, $module);
-    }
-
-    /**
-     * Modify a setting in the database table `nl2_settings`.
-     *
-     * @param string      $setting   Setting name.
-     * @param string|null $new_value New setting value, or null to delete
-     * @param string      $module    Module name to keep settings separate from other modules. Set module
-     *                               to 'Core' for global settings.
-     * @deprecated Use Settings::set() instead. Will be removed in 2.2.0
-     */
-    public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void
-    {
-        Settings::set($setting, $new_value, $module);
     }
 
     /**

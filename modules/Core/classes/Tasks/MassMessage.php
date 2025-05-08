@@ -51,8 +51,9 @@ class MassMessage extends Task {
 
     public static function parseContent(int $userId, string $title, string $content, bool $skipPurify = false): string {
         $user = new User($userId);
-        $event = EventHandler::executeEvent(new GenerateNotificationContentEvent($content, $title, $user, $skipPurify));
+        $event = new GenerateNotificationContentEvent($content, $title, $user, $skipPurify);
+        EventHandler::executeEvent($event);
 
-        return $event['content'];
+        return $event->content;
     }
 }

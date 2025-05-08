@@ -20,6 +20,7 @@ WHITELISTED_TERMS=(
   "installer/module_forum_description"
   "installer/module_core_description"
   "installer/module_members_description"
+  "user/user_tag_info"
 )
 
 for FILE in "${FILES[@]}"
@@ -34,23 +35,21 @@ do
       fi
 
       BEFORE_SLASH="${KEY%%/*}"
+
+      # TimeAgo class is a special case
+      if [[ "$BEFORE_SLASH" == "time" ]]; then
+          continue
+      fi
+
       AFTER_SLASH="${KEY#*/}"
 
       # If running on macOS, install GNU Grep via `brew install grep`, and change `grep` to `ggrep` below
+      # The 'term' => '...' check can be removed once Notification system is fully implemented
       if ! grep -r --exclude-dir=.git --exclude-dir=vendor --exclude-dir=cache --exclude-dir=node_modules \
               -e "get('$BEFORE_SLASH', '$AFTER_SLASH'" \
-              -e "get(\"$BEFORE_SLASH\", '$AFTER_SLASH'" \
-              -e "get('$BEFORE_SLASH', \"$AFTER_SLASH\"" \
-              -e "get(\"$BEFORE_SLASH\", \"$AFTER_SLASH\"" \
-              -e "'$AFTER_SLASH'," \
-              -e "= '$AFTER_SLASH'" \
-              -e "=> '$AFTER_SLASH']" \
-              -e "\['$AFTER_SLASH'\]" \
-              -e "\['$BEFORE_SLASH', '$AFTER_SLASH'\]" \
-              -e "? '$AFTER_SLASH'" \
-              -e ": '$AFTER_SLASH'" \
-              -e "getLanguageTerm('$AFTER_SLASH')" \
-              -e "new LanguageKey('$BEFORE_SLASH', '$AFTER_SLASH')" \
+              -e "'term' => '$AFTER_SLASH'" \
+              -e "getLanguageTerm('$AFTER_SLASH'" \
+              -e "new LanguageKey('$BEFORE_SLASH', '$AFTER_SLASH'" \
               > /dev/null
       then
           UNUSED_TERMS_FOUND=true

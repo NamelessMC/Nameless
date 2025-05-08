@@ -39,9 +39,15 @@ if (Input::exists()) {
             'enabled' => !$enabled
         ]);
 
-        Session::flash('admin_member_lists_success', $members_language->get('members', !$enabled ? 'member_list_toggled_enabled' : 'member_list_toggled_disabled', [
-            'list' => $list->getFriendlyName(),
-        ]));
+        $variables = [
+            'name' => $list->getFriendlyName(),
+        ];
+
+        $success = $enabled
+            ? $members_language->get('members', 'member_list_toggled_disabled', $variables)
+            : $members_language->get('members', 'member_list_toggled_enabled', $variables);
+
+        Session::flash('admin_member_lists_success', $$success);
 
         Redirect::to(URL::build('/panel/members/member_lists'));
     } else {

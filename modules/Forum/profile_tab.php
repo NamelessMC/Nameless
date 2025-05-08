@@ -2,7 +2,7 @@
 /*
  *  Made by Samerton
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.3.0
  *
  *  License: MIT
  *
@@ -16,7 +16,7 @@ if (!isset($forum) || (!$forum instanceof Forum)) {
 // Get latest posts
 $latest_posts = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $query->id . ' AND deleted = 0', 'post_date', 'DESC LIMIT 15')->results();
 if (!count($latest_posts)) {
-    $smarty->assign('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
+    $template->getEngine()->addVariable('NO_POSTS', $forum_language->get('forum', 'user_no_posts'));
 } else {
     // Check permissions
     $n = 0;
@@ -83,10 +83,13 @@ if (!count($latest_posts)) {
             $date_full = date(DATE_FORMAT, $latest_post->created);
         }
 
+        $render_event = new RenderContentEvent($latest_post->post_content);
+        EventHandler::executeEvent($render_event);
+
         $posts[] = [
             'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
-            'content' => EventHandler::executeEvent('renderPost', ['content' => $latest_post->post_content])['content'],
+            'content' => $render_event->content,
             'date_friendly' => $date_friendly,
             'date_full' => $date_full
         ];
@@ -96,7 +99,7 @@ if (!count($latest_posts)) {
 }
 
 // Smarty
-$smarty->assign([
+$template->getEngine()->addVariables([
     'PF_LATEST_POSTS' => (isset($posts)) ? $posts : [],
     'PF_LATEST_POSTS_TITLE' => $forum_language->get('forum', 'latest_posts'),
     'FORUM_TAB_TITLE' => $forum_language->get('forum', 'forum')

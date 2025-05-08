@@ -12,7 +12,7 @@ if (Input::exists()) {
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'OAUTH' => $language->get('admin', 'oauth'),
     'DISCORD_BOT' => Discord::getLanguageTerm('discord_bot'),
     'LINK_METHOD' => Discord::getLanguageTerm('link_method'),

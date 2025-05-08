@@ -5,7 +5,7 @@
 
     <head>
         <!-- Standard Meta -->
-        <meta charset="{if " LANG_CHARSET"|defined}{$smarty.const.LANG_CHARSET}{else}utf-8{/if}">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>

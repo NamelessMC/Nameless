@@ -139,7 +139,7 @@ if (Input::exists()) {
                                 // Validate code
                                 if ($user_query->data()->tfa_type == 1) {
                                     // App
-                                    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+                                    $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\QRServerProvider(), Output::getClean(SITE_NAME));
 
                                     if ($tfa->verifyCode($user_query->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                                         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));

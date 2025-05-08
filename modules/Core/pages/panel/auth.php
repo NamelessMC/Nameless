@@ -59,7 +59,7 @@ if (Input::exists()) {
                     $user->data()->tfa_complete == 1
                 ) {
                     $success = false;
-                    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+                    $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\QRServerProvider(), Output::getClean(SITE_NAME));
 
                     if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                         Session::flash('adm_auth_error', $language->get('user', 'invalid_tfa'));
@@ -109,7 +109,7 @@ if (
     $user->data()->tfa_type === 1 &&
     $user->data()->tfa_complete == 1
 ) {
-    $smarty->assign([
+    $template->getEngine()->addVariables([
         'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
         'TFA_ENTER_CODE' => $language->get('user', 'two_factor_auth_code'),
     ]);

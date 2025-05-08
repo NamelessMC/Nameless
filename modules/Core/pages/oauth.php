@@ -31,7 +31,7 @@ if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
     $user = new User($_SESSION['user_id']);
 
     // Continue the 2FA process
-    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+    $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\QRServerProvider(), Output::getClean(SITE_NAME));
     if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
         Session::flash('tfa_signin', $language->get('user', 'invalid_tfa'));
         require(ROOT_PATH . '/core/includes/tfa_signin.php');

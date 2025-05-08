@@ -40,7 +40,7 @@ if (isset($_GET['do'])) {
             Redirect::to(URL::build('/user/settings'));
         }
 
-        $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
+        $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\QRServerProvider(), Output::getClean(SITE_NAME));
 
         if (!isset($_GET['s'])) {
 
@@ -658,10 +658,9 @@ if (isset($_GET['do'])) {
     if ($user->data()->register_method && Settings::get('authme')) {
         $template->getEngine()->addVariables([
             'AUTHME_SYNC_PASSWORD' => $language->get('user', 'authme_sync_password'),
-            'AUTHME_SYNC_PASSWORD_INFO' => $language->get('user', Settings::get('login_method') === 'username'
-                ? 'authme_sync_password_setting'
-                : 'authme_sync_password_setting_email'
-            ),
+            'AUTHME_SYNC_PASSWORD_INFO' => Settings::get('login_method') === 'username'
+                ? $language->get('user', 'authme_sync_password_setting')
+                : $language->get('user', 'authme_sync_password_setting_email'),
             'AUTHME_SYNC_PASSWORD_ENABLED' => $user->data()->authme_sync_password,
         ]);
     }
