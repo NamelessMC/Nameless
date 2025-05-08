@@ -114,18 +114,18 @@ class QueryBuilder
     }
 
     /**
-     * @return Model|null
+     * @return TModel|null
      */
-    public function first(): ?Model
+    public function first()
     {
         return $this->limit(1)->get()[0] ?? null;
     }
 
     /**
      * @param int $id
-     * @return Model|null
+     * @return TModel|null
      */
-    public function find(int $id): ?Model
+    public function find(int $id)
     {
         return $this->where($this->primaryKey, '=', $id)->first();
     }
@@ -133,9 +133,9 @@ class QueryBuilder
 
     /**
      * @param array $data
-     * @return Model
+     * @return TModel
      */
-    public function create(array $data): Model
+    public function create(array $data)
     {
         $cols = implode('`,`', array_keys($data));
         $phs  = implode(',', array_fill(0, count($data), '?'));
