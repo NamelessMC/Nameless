@@ -15,15 +15,15 @@ class CastManager
 
         try {
             return match (true) {
-                $castType === 'int'       => (int)$value,
-                $castType === 'float'     => (float)$value,
-                $castType === 'bool'      => (bool)$value,
-                $castType === 'decimal'   => (string) number_format((float)$value, 2, '.', ''),
+                $castType === 'int' => (int)$value,
+                $castType === 'float' => (float)$value,
+                $castType === 'bool' => (bool)$value,
+                $castType === 'decimal' => (string)number_format((float)$value, 2, '.', ''),
                 $castType === 'uppercase' => strtoupper((string)$value),
                 $castType === 'lowercase' => strtolower((string)$value),
 
-                $castType === 'datetime'  => new \DateTime((string)$value),
-                $castType === 'date'      => (new \DateTime((string)$value))->format('Y-m-d'),
+                $castType === 'datetime' => new \DateTime((string)$value),
+                $castType === 'date' => (new \DateTime((string)$value))->format('Y-m-d'),
                 $castType === 'timestamp' => (new \DateTime())->setTimestamp((int)$value),
 
                 in_array($castType, ['array', 'json'], true)
@@ -73,9 +73,9 @@ class CastManager
                 case $castType === 'float':
                 case $castType === 'bool':
                     $data[$key] = match ($castType) {
-                        'int'   => (int)$raw,
+                        'int' => (int)$raw,
                         'float' => (float)$raw,
-                        'bool'  => $raw ? 1 : 0,
+                        'bool' => $raw ? 1 : 0,
                     };
                     break;
 
