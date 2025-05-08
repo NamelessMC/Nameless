@@ -81,6 +81,14 @@ if (isset($_GET['c'])) {
                     // Resend validation email
                     $code = $target_user->data()->reset_code;
                     $email = $target_user->data()->email;
+
+                    if (empty($code)) {
+                        $code = SecureRandom::alphanumeric();
+
+                        $target_user->update([
+                            'reset_code' => $code
+                        ]);
+                    }
                 }
 
                 if (Core_Emails::sendRegisterEmail($language, $email, $target_user->data()->username, $target_user->data()->id, $code)) {
