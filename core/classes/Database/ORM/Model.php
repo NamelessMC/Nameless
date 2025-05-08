@@ -1,24 +1,60 @@
 <?php
 
 /**
- * Base Model class providing ActiveRecord-style API
- * with proper eager + lazy loading of relations.
+ * Base ActiveRecord-style Model.
+ *
+ * Provides:
+ *  - automatic table name resolution with prefix
+ *  - basic CRUD: find, create, update, delete
+ *  - attribute casting via CastManager
+ *  - eager-only relation loading with hasMany/belongsTo
  */
 abstract class Model
 {
-    public static string $prefix       = 'nl2_';
-    protected static string $table      = '';
-    protected static string $primaryKey = 'id';
-    protected static array  $casts      = [];
-
-    /** Raw database attributes */
-    protected array $attributes = [];
-
-    /** Eager- or lazy-loaded relation data */
-    private array $relationsData = [];
+    /**
+     * Table name prefix (e.g. 'nl2_').
+     * @var string
+     */
+    public static string $prefix = 'nl2_';
 
     /**
-     * Get the DB singleton.
+     * Table name without prefix or backticks.
+     * Each subclass must override.
+     * @var string
+     */
+    protected static string $table = '';
+
+    /**
+     * Primary key column name. Default 'id'.
+     * @var string
+     */
+    protected static string $primaryKey = 'id';
+
+    /**
+     * Attribute cast definitions.
+     * Key = attribute name, value = cast type or class.
+     * e.g. ['status' => 'bool', 'payload' => JsonCaster::class]
+     * @var mixed[]
+     */
+    protected static array $casts = [];
+
+    /**
+     * Raw attributes loaded from the database.
+     * @var array<string,mixed>
+     */
+    protected array $attributes = [];
+
+    /**
+     * Eager-loaded relation data.
+     * Populated by QueryBuilder->eagerLoad().
+     * @var array<string,mixed>
+     */
+    private array $relations = [];
+
+    /**
+     * Get the global DB instance.
+     *
+     * @return DB
      */
     public static function db(): DB
     {
@@ -26,15 +62,19 @@ abstract class Model
     }
 
     /**
-     * Optionally fill initial attributes.
+     * Optionally initialize model with attributes.
+     *
+     * @param array|object $attrs  Raw DB row or attribute array
      */
-    public function __construct(array|object $attributes = [])
+    public function __construct(array|object $attrs = [])
     {
-        $this->fill($attributes);
+        $this->fill($attrs);
     }
 
     /**
-     * Start a new query for this model.
+     * Start a new QueryBuilder for this model.
+     *
+     * @return QueryBuilder
      */
     public static function query(): QueryBuilder
     {
@@ -46,7 +86,10 @@ abstract class Model
     }
 
     /**
-     * Find by primary key.
+     * Find a record by primary key.
+     *
+     * @param int $id
+     * @return static|null
      */
     public static function find(int $id): ?static
     {
@@ -54,7 +97,11 @@ abstract class Model
     }
 
     /**
-     * Throw if not found.
+     * Find a record or throw if not found.
+     *
+     * @param int $id
+     * @return static
+     * @throws RuntimeException
      */
     public static function findOrFail(int $id): static
     {
@@ -63,15 +110,18 @@ abstract class Model
     }
 
     /**
-     * Create & persist a new record.
+     * Create & insert a new record.
+     *
+     * @param array<string,mixed> $attrs
+     * @return static
      */
-    public static function create(array $attributes): static
+    public static function create(array $attrs): static
     {
-        return static::query()->create($attributes);
+        return static::query()->create($attrs);
     }
 
     /**
-     * Fetch all records.
+     * Retrieve all records.
      *
      * @return static[]
      */
@@ -81,27 +131,41 @@ abstract class Model
     }
 
     /**
-     * Save or update this record.
+     * Insert or update this model.
+     * Uses CastManager to prepare attributes for persistence.
+     *
+     * @return bool  True on success.
      */
     public function save(): bool
     {
         $this->fireEvent('saving');
 
-        if (!empty($this->{static::$primaryKey})) {
-            $ok = static::query()
-                ->update($this->attributes, $this->{static::$primaryKey});
-            $this->fireEvent('saved');
-            return $ok;
+        $pk   = static::$primaryKey;
+        $data = CastManager::prepareForWrite(
+            $this->attributes,
+            static::$casts,
+            $pk
+        );
+
+        if (isset($this->attributes[$pk])) {
+            // existing record → update
+            $ok = static::query()->update($data, $this->attributes[$pk]);
+        } else {
+            // new record → insert
+            $new = static::query()->create($data);
+            // sync newly generated attributes (e.g. primary key)
+            $this->attributes = $new->attributes;
+            $ok = true;
         }
 
-        $new = static::create($this->attributes);
-        $this->attributes = $new->attributes;
         $this->fireEvent('saved');
-        return true;
+        return $ok;
     }
 
     /**
-     * Delete this record.
+     * Delete this record from the database.
+     *
+     * @return bool
      */
     public function delete(): bool
     {
@@ -113,54 +177,44 @@ abstract class Model
 
     /**
      * Magic getter:
-     * 1) Return eager-loaded relation data from $relationsData
-     * 2) Return a normal attribute value
-     * 3) If accessing a relation method that was not eager-loaded via with(), throw an exception
+     * 1) returns eager-loaded relation if present
+     * 2) returns casted attribute if present
+     * 3) throws if attempting lazy loading of a relation
      *
      * @param string $key
      * @return mixed
-     * @throws RuntimeException if attempting to lazy-load a relation
+     * @throws RuntimeException
      */
     public function __get(string $key): mixed
     {
-        // 1) Already eager-loaded?
-        if (array_key_exists($key, $this->relationsData)) {
-            return $this->relationsData[$key];
+        // 1) eager-loaded relation
+        if (array_key_exists($key, $this->relations)) {
+            return $this->relations[$key];
         }
 
-        // 2) Plain attribute?
+        // 2) plain attribute → cast on read
         if (array_key_exists($key, $this->attributes)) {
-            return $this->castAttribute($key, $this->attributes[$key]);
-        }
-
-        // 3) Relation method exists → error with example model call
-        if (method_exists($this, $key)) {
-            // Get the relation definition
-            $rel = $this->{$key}();
-
-            // Build the snippet they need
-            $modelClass = static::class;
-            if ($rel->type === 'hasMany') {
-                $snippet = "{$modelClass}::query()->with('{$key}')->get();";
-            } else { // belongsTo
-                $snippet = "{$modelClass}::query()->with('{$key}')->find(\$id);";
-            }
-
-            throw new RuntimeException(
-                "Lazy loading of relation '{$key}' is disabled.\n"
-                . "Please eager-load it by calling your model, for example:\n\n"
-                . "    {$snippet}\n"
+            return CastManager::castForRead(
+                $key,
+                $this->attributes[$key],
+                static::$casts
             );
         }
 
-        // 4) Nothing found
+        // 3) method exists → relation defined but not eager-loaded
+        if (method_exists($this, $key)) {
+            throw $this->relationLazyLoadException($key);
+        }
+
+        // 4) nothing found
         return null;
     }
 
-
-
     /**
-     * Magic setter: put everything into attributes.
+     * Magic setter: always writes into the raw attributes array.
+     *
+     * @param string $key
+     * @param mixed  $value
      */
     public function __set(string $key, mixed $value): void
     {
@@ -168,7 +222,10 @@ abstract class Model
     }
 
     /**
-     * Fill attributes from array or object.
+     * Bulk-fill attributes from an array or object.
+     *
+     * @param array|object $attrs
+     * @return $this
      */
     public function fill(array|object $attrs): static
     {
@@ -179,7 +236,9 @@ abstract class Model
     }
 
     /**
-     * Lifecycle event hook.
+     * Trigger a lifecycle event method if it exists.
+     *
+     * @param string $event  e.g. 'saving', 'saved', 'deleting', 'deleted'
      */
     protected function fireEvent(string $event): void
     {
@@ -189,30 +248,39 @@ abstract class Model
     }
 
     /**
-     * Cast raw DB values to PHP types.
+     * Build an exception when attempting to lazy-load a relation.
+     *
+     * @param string $key  Relation method name
+     * @return RuntimeException
      */
-    protected function castAttribute(string $key, mixed $value): mixed
+    private function relationLazyLoadException(string $key): RuntimeException
     {
-        return match (static::$casts[$key] ?? null) {
-            'int'      => (int)$value,
-            'float'    => (float)$value,
-            'bool'     => (bool)$value,
-            'datetime' => new DateTime($value),
-            default    => $value,
-        };
+        $rel = $this->{$key}();
+        $snippet = $rel->type === 'hasMany'
+            ? static::class . "::query()->with('{$key}')->get();"
+            : static::class . "::query()->with('{$key}')->find(\$id);";
+
+        return new RuntimeException(
+            "Lazy loading of relation '{$key}' is disabled.\n" .
+            "Please eager-load via:\n    {$snippet}\n"
+        );
     }
 
     /**
-     * Helper for QueryBuilder eagerLoad:
-     * explicitly inject into relationsData.
+     * Used by QueryBuilder to inject eager-loaded data.
+     *
+     * @param string $name   Relation name
+     * @param mixed  $value  Loaded relation data
      */
     public function setRelation(string $name, mixed $value): void
     {
-        $this->relationsData[$name] = $value;
+        $this->relations[$name] = $value;
     }
 
     /**
-     * Build the full table name (with prefix/backticks).
+     * Resolve the full table name including prefix and backticks.
+     *
+     * @return string
      */
     protected static function tableName(): string
     {
@@ -220,10 +288,11 @@ abstract class Model
     }
 
     /**
-     * Define a hasMany relation.
+     * Define a one-to-many (hasMany) relation.
      *
-     * @param class-string<Model> $model
-     * @param string              $foreignKey child.table FK column
+     * @param class-string<Model> $model      Related model class
+     * @param string              $foreignKey FK column in the related table
+     * @return Relation
      */
     public function hasMany(string $model, string $foreignKey): Relation
     {
@@ -236,10 +305,11 @@ abstract class Model
     }
 
     /**
-     * Define a belongsTo relation.
+     * Define an inverse one-to-many (belongsTo) relation.
      *
-     * @param class-string<Model> $model
-     * @param string              $foreignKey this.table FK column
+     * @param class-string<Model> $model      Parent model class
+     * @param string              $foreignKey FK column in this table
+     * @return Relation
      */
     public function belongsTo(string $model, string $foreignKey): Relation
     {
