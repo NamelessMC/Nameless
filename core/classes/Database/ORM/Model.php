@@ -1,5 +1,7 @@
 <?php
 
+use Casting\Manager;
+
 /**
  * Base ActiveRecord-style Model.
  *
@@ -59,7 +61,7 @@ abstract class Model
     }
 
     /**
-     * @param  int         $id
+     * @param int $id
      * @return static|null
      */
     public static function find(int $id): ?static
@@ -68,7 +70,7 @@ abstract class Model
     }
 
     /**
-     * @param  int    $id
+     * @param int $id
      * @return static
      */
     public static function findOrFail(int $id): static
@@ -78,7 +80,7 @@ abstract class Model
     }
 
     /**
-     * @param  array  $attrs
+     * @param array $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -132,11 +134,21 @@ abstract class Model
         $this->fireEvent('saving');
 
         $pk = static::$primaryKey;
-        $data = CastManager::prepareForWrite(
-            $this->attributes,
-            static::$casts,
-            $pk
-        );
+        $data = [];
+
+        foreach ($this->attributes as $key => $value) {
+            if (array_key_exists($key, static::$casts)) {
+                $type = static::$casts[$key];
+                $data[$key] = Manager::write($type, $value);
+            } else {
+                $data[$key] = $value;
+            }
+        }
+
+        // We delete the primary key if we create a new entry
+        if (!isset($this->attributes[$pk])) {
+            unset($data[$pk]);
+        }
 
         if (isset($this->attributes[$pk])) {
             $ok = static::query()->update($data, $this->attributes[$pk]);
@@ -167,7 +179,7 @@ abstract class Model
      * 2) returns casted attribute
      * 3) throws if relation not eager‐loaded
      *
-     * @param  string $key
+     * @param string $key
      * @return mixed
      */
     public function __get(string $key): mixed
@@ -176,12 +188,16 @@ abstract class Model
             return $this->relations[$key];
         }
         if (array_key_exists($key, $this->attributes)) {
-            return CastManager::castForRead(
-                $key,
-                $this->attributes[$key],
-                static::$casts
-            );
+            $value = $this->attributes[$key];
+
+            if (array_key_exists($key, static::$casts)) {
+                $type = static::$casts[$key];
+                return Manager::read($type, $value);
+            }
+
+            return $value;
         }
+
         if (method_exists($this, $key)) {
             throw $this->relationLazyLoadException($key);
         }
@@ -198,7 +214,7 @@ abstract class Model
     /** @return $this */
     public function fill(array|object $attrs): static
     {
-        foreach ((array) $attrs as $k => $v) {
+        foreach ((array)$attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
 
@@ -251,22 +267,23 @@ abstract class Model
     /**
      * Define a many-to-many relationship via a pivot table.
      *
-     * @param  string      $model           Fully-qualified related model class
-     * @param  string      $pivotTable      Pivot table name (without prefix)
-     * @param  string      $foreignPivotKey Column in pivot table that refers to this model
-     * @param  string      $relatedPivotKey Column in pivot table that refers to the related model
-     * @param  string|null $parentKey       Primary key in this model's table (defaults to static::$primaryKey)
-     * @param  string|null $relatedKey      Primary key in related model's table (defaults to RelatedModel::$primaryKey)
+     * @param string $model Fully-qualified related model class
+     * @param string $pivotTable Pivot table name (without prefix)
+     * @param string $foreignPivotKey Column in pivot table that refers to this model
+     * @param string $relatedPivotKey Column in pivot table that refers to the related model
+     * @param string|null $parentKey Primary key in this model's table (defaults to static::$primaryKey)
+     * @param string|null $relatedKey Primary key in related model's table (defaults to RelatedModel::$primaryKey)
      * @return Relation
      */
     public function belongsToMany(
-        string $model,
-        string $pivotTable,
-        string $foreignPivotKey,
-        string $relatedPivotKey,
+        string  $model,
+        string  $pivotTable,
+        string  $foreignPivotKey,
+        string  $relatedPivotKey,
         ?string $parentKey = null,
         ?string $relatedKey = null
-    ): Relation {
+    ): Relation
+    {
         // Use default keys if none provided
         $parentKey = $parentKey ?? static::$primaryKey;
         $relatedKey = $relatedKey ?? $model::$primaryKey;
