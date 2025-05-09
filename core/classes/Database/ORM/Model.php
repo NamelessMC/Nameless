@@ -1,6 +1,8 @@
 <?php
 
 use Database\ORM\Casting\Manager;
+use Database\ORM\Traits\Models\Queryable;
+use Database\ORM\Traits\Models\Relations;
 
 /**
  * Base ActiveRecord-style Model.
@@ -13,6 +15,8 @@ use Database\ORM\Casting\Manager;
  */
 abstract class Model
 {
+    use Relations, Queryable;
+
     /** @var string Table name prefix (e.g. 'nl2_'). */
     public static string $prefix = 'nl2_';
 
@@ -24,7 +28,7 @@ abstract class Model
 
     /**
      * @var array<string,string|class-string>
-     *                                        Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
+     *  Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
      */
     protected static array $casts = [];
 
@@ -34,98 +38,12 @@ abstract class Model
     /** @var array<string,mixed> Eager‐loaded relations. */
     private array $relations = [];
 
-    /** @return DB */
-    public static function db(): DB
-    {
-        return DB::getInstance();
-    }
-
     /**
      * @param array|object $attrs
      */
     public function __construct(array|object $attrs = [])
     {
         $this->fill($attrs);
-    }
-
-    /**
-     * @return QueryBuilder<static>
-     */
-    public static function query(): QueryBuilder
-    {
-        return new QueryBuilder(
-            static::tableName(),
-            static::$primaryKey,
-            static::class
-        );
-    }
-
-    /**
-     * @param int $id
-     * @return static|null
-     */
-    public static function find(int $id): ?static
-    {
-        return static::query()->find($id);
-    }
-
-    /**
-     * @param int $id
-     * @return static
-     */
-    public static function findOrFail(int $id): static
-    {
-        return static::find($id)
-            ?? throw new RuntimeException("Model with ID {$id} not found.");
-    }
-
-    /**
-     * @param array $attrs
-     * @return static
-     */
-    public static function create(array $attrs): static
-    {
-        return static::query()->create($attrs);
-    }
-
-    /** @return static[] */
-    public static function all(): array
-    {
-        return static::query()->get();
-    }
-
-    /** @return static[] */
-    public static function get(): array
-    {
-        return static::query()->get();
-    }
-
-    /**
-     * @return QueryBuilder<static>
-     */
-    public static function where(string $column, string $op, mixed $val): QueryBuilder
-    {
-        return static::query()->where($column, $op, $val);
-    }
-
-    /** @return QueryBuilder<static> */
-    public static function whereIn(string $column, array $vals): QueryBuilder
-    {
-        return static::query()->whereIn($column, $vals);
-    }
-
-    /** @return array<int|string,mixed> */
-    public static function pluck(string $col, ?string $keyCol = null): array
-    {
-        return static::query()->pluck($col, $keyCol);
-    }
-
-    /**
-     * @return QueryBuilder<static>
-     */
-    public static function with(array|string $rels): QueryBuilder
-    {
-        return static::query()->with($rels);
     }
 
     /** @return bool */
@@ -239,55 +157,5 @@ abstract class Model
             "Lazy loading of relation '{$key}' is disabled.\n" .
             "Please eager‐load via:\n    {$snippet}\n"
         );
-    }
-
-    /** @internal Used by QueryBuilder */
-    public function setRelation(string $name, mixed $value): void
-    {
-        $this->relations[$name] = $value;
-    }
-
-    protected static function tableName(): string
-    {
-        return '`' . static::$prefix . static::$table . '`';
-    }
-
-    /** Define one‐to‐many */
-    public function hasMany(string $model, string $fk): Relation
-    {
-        return new Relation('hasMany', $model, $fk, static::$primaryKey);
-    }
-
-    /** Define inverse many‐to‐one */
-    public function belongsTo(string $model, string $fk): Relation
-    {
-        return new Relation('belongsTo', $model, static::$primaryKey, $fk);
-    }
-
-    /**
-     * Define a many-to-many relationship via a pivot table.
-     *
-     * @param string $model Fully-qualified related model class
-     * @param string $pivotTable Pivot table name (without prefix)
-     * @param string $foreignPivotKey Column in pivot table that refers to this model
-     * @param string $relatedPivotKey Column in pivot table that refers to the related model
-     * @param string|null $parentKey Primary key in this model's table (defaults to static::$primaryKey)
-     * @param string|null $relatedKey Primary key in related model's table (defaults to RelatedModel::$primaryKey)
-     * @return Relation
-     */
-    public function belongsToMany(
-        string  $model,
-        string  $pivotTable,
-        string  $foreignPivotKey,
-        string  $relatedPivotKey,
-        ?string $parentKey = null,
-        ?string $relatedKey = null
-    ): Relation
-    {
-        // Use default keys if none provided
-        $parentKey = $parentKey ?? static::$primaryKey;
-        $relatedKey = $relatedKey ?? $model::$primaryKey;
-
-        return new Relation('belongsToMany', $model, $pivotTable, $foreignPivotKey, $relatedPivotKey, $parentKey, $relatedKey);
     }
 }
