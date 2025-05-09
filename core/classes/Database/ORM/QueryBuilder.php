@@ -1,5 +1,8 @@
 <?php
 
+use Database\ORM\Traits\Query\Debuggable;
+use Database\ORM\Traits\Query\EagerLoads;
+
 /**
  * Builds & executes queries, now with nested ->with() support.
  *
@@ -7,6 +10,8 @@
  */
 class QueryBuilder
 {
+    use Debuggable, EagerLoads;
+
     protected string $table;
     protected string $primaryKey;
     /** @var class-string<TModel> */
@@ -25,8 +30,8 @@ class QueryBuilder
     protected ?int $limit = null;
 
     /**
-     * @param string               $table
-     * @param string               $primaryKey
+     * @param string $table
+     * @param string $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)
@@ -39,12 +44,12 @@ class QueryBuilder
     /**
      * Accepts dot notation, e.g. 'statistics.server'.
      *
-     * @param  array|string $relations
+     * @param array|string $relations
      * @return $this
      */
     public function with(array|string $relations): static
     {
-        foreach ((array) $relations as $r) {
+        foreach ((array)$relations as $r) {
             if (str_contains($r, '.')) {
                 [$root, $child] = explode('.', $r, 2);
                 $this->with[$root][] = $child;
@@ -86,8 +91,8 @@ class QueryBuilder
     /**
      * Retrieve a single column’s values from the result set.
      *
-     * @param  string                  $column
-     * @param  string|null             $keyColumn
+     * @param string $column
+     * @param string|null $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
@@ -147,25 +152,6 @@ class QueryBuilder
     }
 
     /**
-     * Compile the SELECT SQL.
-     */
-    protected function buildSelect(): string
-    {
-        $sql = "SELECT * FROM {$this->table}";
-        if ($this->wheres) {
-            $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
-        }
-        if ($this->orderBy) {
-            $sql .= " {$this->orderBy}";
-        }
-        if ($this->limit !== null) {
-            $sql .= " LIMIT {$this->limit}";
-        }
-
-        return $sql;
-    }
-
-    /**
      * @return TModel[]
      */
     public function get(): array
@@ -175,7 +161,7 @@ class QueryBuilder
             ->results();
 
         $models = array_map(
-            fn ($r) => new $this->modelClass((array) $r),
+            fn($r) => new $this->modelClass((array)$r),
             $rows
         );
 
@@ -228,7 +214,7 @@ class QueryBuilder
      */
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
 
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
@@ -266,135 +252,21 @@ class QueryBuilder
     }
 
     /**
-     * Return the raw SQL (with placeholders).
+     * Compile the SELECT SQL.
      */
-    public function toSql(): string
+    protected function buildSelect(): string
     {
-        return $this->buildSelect();
-    }
-
-    /**
-     * Return the array of bound parameters.
-     *
-     * @return array<int,mixed>
-     */
-    public function getBindings(): array
-    {
-        return $this->params;
-    }
-
-    /**
-     * Eagerly load all requested relations, including nested ones.
-     *
-     * @param  Model[] $models
-     * @return Model[]
-     */
-    protected function eagerLoad(array $models): array
-    {
-        foreach ($this->with as $relName => $nested) {
-            $prototype = new $this->modelClass();
-            $relDef = $prototype->{$relName}();
-            if (!$relDef instanceof Relation) {
-                continue;
-            }
-
-            // --- many-to-many handling ---
-            if ($relDef->type === 'belongsToMany') {
-                // 1) Collect unique parent IDs
-                $parentIds = array_unique(array_map(
-                    fn ($m) => $m->{$relDef->parentKey},
-                    $models
-                ));
-
-                // If no parents, assign empty arrays
-                if (!$parentIds) {
-                    foreach ($models as $m) {
-                        $m->setRelation($relName, []);
-                    }
-                    continue;
-                }
-
-                // 2) Query pivot for mappings
-                $phs = implode(',', array_fill(0, count($parentIds), '?'));
-                $sql = "SELECT `{$relDef->foreignPivotKey}` AS parent_id,
-                           `{$relDef->relatedPivotKey}` AS related_id
-                    FROM `{$relDef->pivotTable}`
-                    WHERE `{$relDef->foreignPivotKey}` IN ($phs)";
-
-                $rows = Model::db()->query($sql, $parentIds, true)->results();
-
-                // 3) Group related IDs by parent ID
-                $map = [];
-                $allRelated = [];
-                foreach ($rows as $r) {
-                    $map[$r->parent_id][] = $r->related_id;
-                    $allRelated[] = $r->related_id;
-                }
-                $allRelated = array_unique($allRelated);
-
-                // 4) Load related models in one go
-                $qb = $relDef->model::query()
-                    ->whereIn($relDef->relatedKey, $allRelated);
-                if ($nested) {
-                    $qb = $qb->with($nested);
-                }
-                $children = $qb->get();
-
-                // Index children by related key
-                $indexed = [];
-                foreach ($children as $c) {
-                    $indexed[$c->{$relDef->relatedKey}] = $c;
-                }
-
-                // 5) Assign each parent its related models
-                foreach ($models as $parent) {
-                    $pid = $parent->{$relDef->parentKey};
-                    $list = [];
-                    foreach ($map[$pid] ?? [] as $rid) {
-                        if (isset($indexed[$rid])) {
-                            $list[] = $indexed[$rid];
-                        }
-                    }
-                    $parent->setRelation($relName, $list);
-                }
-
-                continue;
-            }
-
-            // --- existing hasMany / belongsTo logic ---
-            $ids = array_unique(array_map(
-                fn ($m) => $m->{$relDef->localKey},
-                $models
-            ));
-
-            $qb = $relDef->model::query()
-                ->whereIn($relDef->foreignKey, $ids);
-
-            if ($nested) {
-                $qb = $qb->with($nested);
-            }
-
-            $children = $qb->get();
-            $grouped = [];
-
-            if ($relDef->type === 'hasMany') {
-                foreach ($children as $c) {
-                    $grouped[$c->{$relDef->foreignKey}][] = $c;
-                }
-            } else {
-                foreach ($children as $c) {
-                    $grouped[$c->{$relDef->foreignKey}] = $c;
-                }
-            }
-
-            foreach ($models as $parent) {
-                $value = $relDef->type === 'hasMany'
-                    ? ($grouped[$parent->{$relDef->localKey}] ?? [])
-                    : ($grouped[$parent->{$relDef->localKey}] ?? null);
-                $parent->setRelation($relName, $value);
-            }
+        $sql = "SELECT * FROM {$this->table}";
+        if ($this->wheres) {
+            $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
+        }
+        if ($this->orderBy) {
+            $sql .= " {$this->orderBy}";
+        }
+        if ($this->limit !== null) {
+            $sql .= " LIMIT {$this->limit}";
         }
 
-        return $models;
+        return $sql;
     }
 }
