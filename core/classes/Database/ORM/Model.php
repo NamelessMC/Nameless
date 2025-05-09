@@ -145,17 +145,4 @@ abstract class Model
             $this->{$e}();
         }
     }
-
-    private function relationLazyLoadException(string $key): RuntimeException
-    {
-        $rel = $this->{$key}();
-        $snippet = $rel->type === 'hasMany'
-            ? static::class . "::query()->with('{$key}')->get();"
-            : static::class . "::query()->with('{$key}')->find(\$id);";
-
-        return new RuntimeException(
-            "Lazy loading of relation '{$key}' is disabled.\n" .
-            "Please eager‐load via:\n    {$snippet}\n"
-        );
-    }
 }

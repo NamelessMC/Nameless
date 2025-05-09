@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
 
+use Database\ORM\Query;
 use DB;
-use QueryBuilder;
 use RuntimeException;
 
 /**
@@ -29,11 +29,11 @@ trait Queryable
     }
 
     /**
-     * @return QueryBuilder<static>
+     * @return Query<static>
      */
-    public static function query(): QueryBuilder
+    public static function query(): Query
     {
-        return new QueryBuilder(
+        return new Query(
             static::tableName(),
             static::$primaryKey,
             static::class
@@ -69,15 +69,15 @@ trait Queryable
     }
 
     /**
-     * @return QueryBuilder<static>
+     * @return Query<static>
      */
-    public static function where(string $column, string $op, mixed $val): QueryBuilder
+    public static function where(string $column, string $op, mixed $val): Query
     {
         return static::query()->where($column, $op, $val);
     }
 
-    /** @return QueryBuilder<static> */
-    public static function whereIn(string $column, array $vals): QueryBuilder
+    /** @return Query<static> */
+    public static function whereIn(string $column, array $vals): Query
     {
         return static::query()->whereIn($column, $vals);
     }
@@ -89,9 +89,9 @@ trait Queryable
     }
 
     /**
-     * @return QueryBuilder<static>
+     * @return Query<static>
      */
-    public static function with(array|string $rels): QueryBuilder
+    public static function with(array|string $rels): Query
     {
         return static::query()->with($rels);
     }

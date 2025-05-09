@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Database\ORM\Traits\Query;
 
+use Database\ORM\Relation;
 use Model;
-use Relation;
 
 /**
  * Trait EagerLoads

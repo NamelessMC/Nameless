@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
 
-use Relation;
+use Database\ORM\Relation;
 use RuntimeException;
 
 /**

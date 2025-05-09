@@ -1,14 +1,18 @@
 <?php
+declare(strict_types=1);
+
+namespace Database\ORM;
 
 use Database\ORM\Traits\Query\Debuggable;
 use Database\ORM\Traits\Query\EagerLoads;
+use Model;
 
 /**
  * Builds & executes queries, now with nested ->with() support.
  *
  * @template TModel of Model
  */
-class QueryBuilder
+class Query
 {
     use Debuggable, EagerLoads;
 

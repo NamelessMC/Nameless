@@ -1,4 +1,9 @@
 <?php
+declare(strict_types=1);
+
+namespace Database\ORM;
+
+use Model;
 
 /**
  * Encapsulates relationship metadata between two models.
@@ -23,22 +28,23 @@ class Relation
      * Constructor for relation metadata.
      *
      * @param 'hasMany'|'belongsTo'|'belongsToMany' $type
-     * @param class-string<Model>                   $model
-     * @param string                                $a     For belongsToMany: pivotTable; otherwise: foreignKey
-     * @param string                                $b     For belongsToMany: foreignPivotKey; otherwise: localKey
-     * @param string|null                           $c     For belongsToMany: relatedPivotKey
-     * @param string|null                           $d     For belongsToMany: parentKey
-     * @param string|null                           $e     For belongsToMany: relatedKey
+     * @param class-string<Model> $model
+     * @param string $a For belongsToMany: pivotTable; otherwise: foreignKey
+     * @param string $b For belongsToMany: foreignPivotKey; otherwise: localKey
+     * @param string|null $c For belongsToMany: relatedPivotKey
+     * @param string|null $d For belongsToMany: parentKey
+     * @param string|null $e For belongsToMany: relatedKey
      */
     public function __construct(
-        string $type,
-        string $model,
-        string $a,
-        string $b,
+        string  $type,
+        string  $model,
+        string  $a,
+        string  $b,
         ?string $c = null,
         ?string $d = null,
         ?string $e = null
-    ) {
+    )
+    {
         $this->type = $type;
         $this->model = $model;
 
@@ -69,7 +75,7 @@ class Relation
     /**
      * Eager-loads records matching any of the given keys.
      *
-     * @param  array<int|string> $ids
+     * @param array<int|string> $ids
      * @return Model[]
      */
     public function fetch(array $ids): array
