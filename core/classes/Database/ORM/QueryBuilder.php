@@ -293,7 +293,7 @@ class QueryBuilder
     {
         foreach ($this->with as $relName => $nested) {
             $prototype = new $this->modelClass();
-            $relDef    = $prototype->{$relName}();
+            $relDef = $prototype->{$relName}();
             if (!$relDef instanceof Relation) {
                 continue;
             }
@@ -302,7 +302,7 @@ class QueryBuilder
             if ($relDef->type === 'belongsToMany') {
                 // 1) Collect unique parent IDs
                 $parentIds = array_unique(array_map(
-                    fn($m) => $m->{$relDef->parentKey},
+                    fn ($m) => $m->{$relDef->parentKey},
                     $models
                 ));
 
@@ -324,7 +324,7 @@ class QueryBuilder
                 $rows = Model::db()->query($sql, $parentIds, true)->results();
 
                 // 3) Group related IDs by parent ID
-                $map        = [];
+                $map = [];
                 $allRelated = [];
                 foreach ($rows as $r) {
                     $map[$r->parent_id][] = $r->related_id;
@@ -348,7 +348,7 @@ class QueryBuilder
 
                 // 5) Assign each parent its related models
                 foreach ($models as $parent) {
-                    $pid  = $parent->{$relDef->parentKey};
+                    $pid = $parent->{$relDef->parentKey};
                     $list = [];
                     foreach ($map[$pid] ?? [] as $rid) {
                         if (isset($indexed[$rid])) {
@@ -363,7 +363,7 @@ class QueryBuilder
 
             // --- existing hasMany / belongsTo logic ---
             $ids = array_unique(array_map(
-                fn($m) => $m->{$relDef->localKey},
+                fn ($m) => $m->{$relDef->localKey},
                 $models
             ));
 
@@ -375,7 +375,7 @@ class QueryBuilder
             }
 
             $children = $qb->get();
-            $grouped  = [];
+            $grouped = [];
 
             if ($relDef->type === 'hasMany') {
                 foreach ($children as $c) {
