@@ -30,10 +30,10 @@ trait EagerLoads
         foreach ($this->with as $relName => $nested) {
             // Instantiate a prototype to get the Relation definition
             $prototype = new $this->modelClass();
-            $relDef    = $prototype->{$relName}();
+            $relDef = $prototype->{$relName}();
 
             // Skip if this isn't a Relation
-            if (! $relDef instanceof Relation) {
+            if (!$relDef instanceof Relation) {
                 continue;
             }
 
@@ -41,7 +41,7 @@ trait EagerLoads
             if ($relDef->type === 'belongsToMany') {
                 // 1) Collect unique parent IDs
                 $parentIds = array_unique(array_map(
-                    fn($m) => $m->{$relDef->parentKey},
+                    fn ($m) => $m->{$relDef->parentKey},
                     $models
                 ));
 
@@ -53,11 +53,11 @@ trait EagerLoads
                 $rows = Model::db()->query($sql, $parentIds, true)->results();
 
                 // 3) Group related IDs by parent ID and collect all related IDs
-                $map           = [];
+                $map = [];
                 $allRelatedIds = [];
                 foreach ($rows as $row) {
                     $map[$row->parent_id][] = $row->related_id;
-                    $allRelatedIds[]        = $row->related_id;
+                    $allRelatedIds[] = $row->related_id;
                 }
                 $allRelatedIds = array_unique($allRelatedIds);
 
@@ -72,7 +72,7 @@ trait EagerLoads
                 // 5) Load related models in one go
                 $qb = $relDef->model::query()
                     ->whereIn($relDef->relatedKey, $allRelatedIds);
-                if (! empty($nested)) {
+                if (!empty($nested)) {
                     $qb = $qb->with($nested);
                 }
                 $children = $qb->get();
@@ -85,7 +85,7 @@ trait EagerLoads
 
                 // 7) Assign each parent its related models
                 foreach ($models as $parent) {
-                    $pid     = $parent->{$relDef->parentKey};
+                    $pid = $parent->{$relDef->parentKey};
                     $related = [];
                     foreach ($map[$pid] ?? [] as $rid) {
                         if (isset($indexed[$rid])) {
@@ -101,14 +101,14 @@ trait EagerLoads
             // --- hasMany / belongsTo handling ---
             // 1) Collect unique local keys from parent models
             $keys = array_unique(array_map(
-                fn($m) => $m->{$relDef->localKey},
+                fn ($m) => $m->{$relDef->localKey},
                 $models
             ));
 
             // 2) Query related models based on the foreign key
             $qb = $relDef->model::query()
                 ->whereIn($relDef->foreignKey, $keys);
-            if (! empty($nested)) {
+            if (!empty($nested)) {
                 $qb = $qb->with($nested);
             }
             $children = $qb->get();
@@ -126,7 +126,7 @@ trait EagerLoads
 
             // 4) Assign grouped results to each parent
             foreach ($models as $parent) {
-                $key   = $parent->{$relDef->localKey};
+                $key = $parent->{$relDef->localKey};
                 $value = $relDef->type === 'hasMany'
                     ? ($grouped[$key] ?? [])
                     : ($grouped[$key] ?? null);
