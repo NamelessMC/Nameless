@@ -5,27 +5,73 @@
  */
 class Relation
 {
+    public string $type;
+    public string $model;
+
+    // used by hasMany / belongsTo
+    public ?string $foreignKey;
+    public ?string $localKey;
+
+    // used by belongsToMany
+    public ?string $pivotTable;
+    public ?string $foreignPivotKey;
+    public ?string $relatedPivotKey;
+    public ?string $parentKey;
+    public ?string $relatedKey;
+
     /**
-     * @param 'hasMany'|'belongsTo' $type       Type of relation.
-     * @param class-string<Model>   $model      Fully-qualified related model class.
-     * @param string                $foreignKey Column name in the related (child) table for hasMany,
-     *                                          or in this (child) table for belongsTo.
-     * @param string                $localKey   Column name in this (parent) table for hasMany,
-     *                                          or in the related (parent) table for belongsTo.
+     * Constructor for relation metadata.
+     *
+     * @param 'hasMany'|'belongsTo'|'belongsToMany' $type
+     * @param class-string<Model> $model
+     * @param string $a For belongsToMany: pivotTable; otherwise: foreignKey
+     * @param string $b For belongsToMany: foreignPivotKey; otherwise: localKey
+     * @param string|null $c For belongsToMany: relatedPivotKey
+     * @param string|null $d For belongsToMany: parentKey
+     * @param string|null $e For belongsToMany: relatedKey
      */
     public function __construct(
-        public string $type,
-        public string $model,
-        public string $foreignKey,
-        public string $localKey
-    ) {
+        string  $type,
+        string  $model,
+        string  $a,
+        string  $b,
+        ?string $c = null,
+        ?string $d = null,
+        ?string $e = null
+    )
+    {
+        $this->type = $type;
+        $this->model = $model;
+
+        if ($type === 'belongsToMany') {
+            // Configure pivot settings
+            $this->pivotTable = Model::$prefix . $a;
+            $this->foreignPivotKey = $b;
+            $this->relatedPivotKey = $c;
+            $this->parentKey = $d;
+            $this->relatedKey = $e;
+
+            // Clear single-relation fields
+            $this->foreignKey = null;
+            $this->localKey = null;
+        } else {
+            // Configure hasMany or belongsTo
+            $this->pivotTable =
+            $this->foreignPivotKey =
+            $this->relatedPivotKey =
+            $this->parentKey =
+            $this->relatedKey = null;
+
+            $this->foreignKey = $a;
+            $this->localKey = $b;
+        }
     }
 
     /**
-     * Eager-loads all related records matching any of the given keys.
+     * Eager-loads records matching any of the given keys.
      *
-     * @param  array<int|string> $ids List of key values to match against $foreignKey.
-     * @return Model[]           Array of related model instances.
+     * @param array<int|string> $ids
+     * @return Model[]
      */
     public function fetch(array $ids): array
     {
