@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Casting\Implementations;
@@ -15,10 +16,10 @@ class DateTimeCaster implements BuiltInCaster
     public function read(mixed $value): mixed
     {
         try {
-            return new DateTime((string)$value);
+            return new DateTime((string) $value);
         } catch (\Exception $e) {
             throw new \RuntimeException(
-                "Failed to cast attribute on read: " . $e->getMessage(),
+                'Failed to cast attribute on read: ' . $e->getMessage(),
                 0,
                 $e
             );
@@ -30,6 +31,7 @@ class DateTimeCaster implements BuiltInCaster
         if ($value instanceof DateTimeInterface) {
             return $value->format('Y-m-d H:i:s');
         }
-        return date('Y-m-d H:i:s', strtotime((string)$value));
+
+        return date('Y-m-d H:i:s', strtotime((string) $value));
     }
 }

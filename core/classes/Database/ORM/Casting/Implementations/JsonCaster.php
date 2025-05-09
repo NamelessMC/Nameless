@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Casting\Implementations;
@@ -12,7 +13,8 @@ class JsonCaster implements BuiltInCaster
 {
     public function read(mixed $value): mixed
     {
-        $decoded = json_decode((string)$value, true);
+        $decoded = json_decode((string) $value, true);
+
         return $decoded !== null ? $decoded : [];
     }
 

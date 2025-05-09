@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
@@ -7,7 +8,7 @@ use Database\ORM\Relation;
 use RuntimeException;
 
 /**
- * Trait Relations
+ * Trait Relations.
  *
  * Provides:
  *  - setRelation() for QueryBuilder
@@ -50,23 +51,22 @@ trait Relations
     /**
      * Define a many-to-many relationship via a pivot table.
      *
-     * @param string $model
-     * @param string $pivotTable
-     * @param string $foreignPivotKey
-     * @param string $relatedPivotKey
-     * @param string|null $parentKey
-     * @param string|null $relatedKey
+     * @param  string      $model
+     * @param  string      $pivotTable
+     * @param  string      $foreignPivotKey
+     * @param  string      $relatedPivotKey
+     * @param  string|null $parentKey
+     * @param  string|null $relatedKey
      * @return Relation
      */
     public function belongsToMany(
-        string  $model,
-        string  $pivotTable,
-        string  $foreignPivotKey,
-        string  $relatedPivotKey,
+        string $model,
+        string $pivotTable,
+        string $foreignPivotKey,
+        string $relatedPivotKey,
         ?string $parentKey = null,
         ?string $relatedKey = null
-    ): Relation
-    {
+    ): Relation {
         $parentKey = $parentKey ?? static::$primaryKey;
         $relatedKey = $relatedKey ?? $model::$primaryKey;
 

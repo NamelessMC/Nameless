@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Query;
@@ -7,7 +8,7 @@ use Database\ORM\Relation;
 use Model;
 
 /**
- * Trait EagerLoads
+ * Trait EagerLoads.
  *
  * Handles nested eager loading for belongsToMany, hasMany, belongsTo.
  */

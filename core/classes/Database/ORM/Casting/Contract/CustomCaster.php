@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Casting\Contract;
@@ -12,8 +13,8 @@ interface CustomCaster
     /**
      * Transform the value.
      *
-     * @param mixed $value
-     * @param bool  $forWrite  // false = reading from DB, true = writing
+     * @param  mixed $value
+     * @param  bool  $forWrite // false = reading from DB, true = writing
      * @return mixed
      */
     public function cast(mixed $value, bool $forWrite = false): mixed;

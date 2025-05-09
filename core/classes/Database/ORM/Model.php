@@ -15,7 +15,8 @@ use Database\ORM\Traits\Models\Relations;
  */
 abstract class Model
 {
-    use Relations, Queryable;
+    use Relations;
+    use Queryable;
 
     /** @var string Table name prefix (e.g. 'nl2_'). */
     public static string $prefix = 'nl2_';
@@ -28,7 +29,7 @@ abstract class Model
 
     /**
      * @var array<string,string|class-string>
-     *  Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
+     *                                        Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
      */
     protected static array $casts = [];
 
@@ -97,7 +98,7 @@ abstract class Model
      * 2) returns casted attribute
      * 3) throws if relation not eager‐loaded
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function __get(string $key): mixed
@@ -110,6 +111,7 @@ abstract class Model
 
             if (array_key_exists($key, static::$casts)) {
                 $type = static::$casts[$key];
+
                 return Manager::read($type, $value);
             }
 
@@ -132,7 +134,7 @@ abstract class Model
     /** @return $this */
     public function fill(array|object $attrs): static
     {
-        foreach ((array)$attrs as $k => $v) {
+        foreach ((array) $attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
 

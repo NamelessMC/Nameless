@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
@@ -8,7 +9,7 @@ use DB;
 use RuntimeException;
 
 /**
- * Trait Queryable
+ * Trait Queryable.
  *
  * Provides all the static query methods:
  *  - db(), tableName()

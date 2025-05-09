@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Query;
 
 /**
- * Trait Debuggable
+ * Trait Debuggable.
  *
  * Exposes the raw SQL and bound parameters.
  */

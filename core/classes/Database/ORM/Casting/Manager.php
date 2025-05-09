@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Casting;
 
 use Database\ORM\Casting\Contract\BuiltInCaster;
 use Database\ORM\Casting\Contract\CustomCaster;
-use Database\ORM\Casting\Implementations\JsonCaster;
 use Database\ORM\Casting\Implementations\DateTimeCaster;
+use Database\ORM\Casting\Implementations\JsonCaster;
 
 /**
  * Central manager for all attribute casts.
@@ -30,8 +31,8 @@ class Manager
     /**
      * Cast value when reading from DB.
      *
-     * @param string $type
-     * @param mixed $value
+     * @param  string $type
+     * @param  mixed  $value
      * @return mixed
      */
     public static function read(string $type, mixed $value): mixed
@@ -44,6 +45,7 @@ class Manager
         if (isset(self::$builtInMap[$type])) {
             /** @var BuiltInCaster $caster */
             $caster = new (self::$builtInMap[$type])();
+
             return $caster->read($value);
         }
 
@@ -51,17 +53,18 @@ class Manager
         if (is_subclass_of($type, CustomCaster::class)) {
             /** @var CustomCaster $caster */
             $caster = new $type();
+
             return $caster->cast($value, false);
         }
 
         // primitive fallback
         return match ($type) {
-            'int' => (int)$value,
-            'float' => (float)$value,
-            'bool' => (bool)$value,
-            'decimal' => number_format((float)$value, 2, '.', ''),
-            'uppercase' => strtoupper((string)$value),
-            'lowercase' => strtolower((string)$value),
+            'int' => (int) $value,
+            'float' => (float) $value,
+            'bool' => (bool) $value,
+            'decimal' => number_format((float) $value, 2, '.', ''),
+            'uppercase' => strtoupper((string) $value),
+            'lowercase' => strtolower((string) $value),
             default => $value,
         };
     }
@@ -69,8 +72,8 @@ class Manager
     /**
      * Prepare value when writing to DB.
      *
-     * @param string $type
-     * @param mixed $value
+     * @param  string $type
+     * @param  mixed  $value
      * @return mixed
      */
     public static function write(string $type, mixed $value): mixed
@@ -83,6 +86,7 @@ class Manager
         if (isset(self::$builtInMap[$type])) {
             /** @var BuiltInCaster $caster */
             $caster = new (self::$builtInMap[$type])();
+
             return $caster->write($value);
         }
 
@@ -90,17 +94,18 @@ class Manager
         if (is_subclass_of($type, CustomCaster::class)) {
             /** @var CustomCaster $caster */
             $caster = new $type();
+
             return $caster->cast($value, true);
         }
 
         // primitive fallback
         return match ($type) {
-            'int' => (int)$value,
-            'float' => (float)$value,
+            'int' => (int) $value,
+            'float' => (float) $value,
             'bool' => ($value ? 1 : 0),
-            'decimal' => number_format((float)$value, 2, '.', ''),
-            'uppercase' => strtoupper((string)$value),
-            'lowercase' => strtolower((string)$value),
+            'decimal' => number_format((float) $value, 2, '.', ''),
+            'uppercase' => strtoupper((string) $value),
+            'lowercase' => strtolower((string) $value),
             default => $value,
         };
     }

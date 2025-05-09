@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Casting\Contract;
@@ -12,7 +13,7 @@ interface BuiltInCaster
     /**
      * Cast value when reading from the database.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public function read(mixed $value): mixed;
@@ -20,7 +21,7 @@ interface BuiltInCaster
     /**
      * Prepare value when writing to the database.
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public function write(mixed $value): mixed;
