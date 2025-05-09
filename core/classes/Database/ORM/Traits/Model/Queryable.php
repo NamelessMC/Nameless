@@ -96,4 +96,48 @@ trait Queryable
     {
         return static::query()->with($rels);
     }
+
+    /**
+     * @param string $col
+     * @return int
+     */
+    public static function sum(string $col): int
+    {
+        return static::query()->sum($col);
+    }
+
+    /**
+     * @param string $col
+     * @return float
+     */
+    public static function avg(string $col): float
+    {
+        return static::query()->avg($col);
+    }
+
+    /**
+     * @param string $col
+     * @return int
+     */
+    public static function min(string $col): int
+    {
+        return static::query()->min($col);
+    }
+
+    /**
+     * @param string $col
+     * @return int
+     */
+    public static function max(string $col): int
+    {
+        return static::query()->max($col);
+    }
+
+    /**
+     * @return int
+     */
+    public static function count(): int
+    {
+        return static::query()->count();
+    }
 }
