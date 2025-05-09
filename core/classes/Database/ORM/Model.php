@@ -1,6 +1,6 @@
 <?php
 
-use Database\ORM\Casting\Manager;
+use Database\ORM\Casting\Caster;
 use Database\ORM\Traits\Models\Queryable;
 use Database\ORM\Traits\Models\Relations;
 
@@ -10,7 +10,7 @@ use Database\ORM\Traits\Models\Relations;
  * Provides:
  *  - automatic table name resolution with prefix
  *  - basic CRUD: find, create, update, delete
- *  - attribute casting via CastManager
+ *  - attribute casting via Caster
  *  - eager-only relation loading with hasMany/belongsTo
  */
 abstract class Model
@@ -58,7 +58,7 @@ abstract class Model
         foreach ($this->attributes as $key => $value) {
             if (array_key_exists($key, static::$casts)) {
                 $type = static::$casts[$key];
-                $data[$key] = Manager::write($type, $value);
+                $data[$key] = Caster::write($type, $value);
             } else {
                 $data[$key] = $value;
             }
@@ -112,7 +112,7 @@ abstract class Model
             if (array_key_exists($key, static::$casts)) {
                 $type = static::$casts[$key];
 
-                return Manager::read($type, $value);
+                return Caster::read($type, $value);
             }
 
             return $value;
