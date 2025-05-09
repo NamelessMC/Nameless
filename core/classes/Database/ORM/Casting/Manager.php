@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Casting;
+namespace Database\ORM\Casting;
 
-use Casting\Contract\BuiltInCaster;
-use Casting\Contract\CustomCaster;
-use Casting\Implementations\JsonCaster;
-use Casting\Implementations\DateTimeCaster;
+use Database\ORM\Casting\Contract\BuiltInCaster;
+use Database\ORM\Casting\Contract\CustomCaster;
+use Database\ORM\Casting\Implementations\JsonCaster;
+use Database\ORM\Casting\Implementations\DateTimeCaster;
 
 /**
  * Central manager for all attribute casts.

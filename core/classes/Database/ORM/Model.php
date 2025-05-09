@@ -1,6 +1,6 @@
 <?php
 
-use Casting\Manager;
+use Database\ORM\Casting\Manager;
 
 /**
  * Base ActiveRecord-style Model.

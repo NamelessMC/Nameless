@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Casting\Implementations;
+namespace Database\ORM\Casting\Implementations;
 
-use Casting\Contract\BuiltInCaster;
+use Database\ORM\Casting\Contract\BuiltInCaster;
 use DateTime;
 use DateTimeInterface;
 

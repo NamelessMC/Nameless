@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Casting\Contract;
+namespace Database\ORM\Casting\Contract;
 
 /**
  * Marker interface for your own domain casters.
