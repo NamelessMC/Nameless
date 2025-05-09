@@ -17,7 +17,7 @@ trait EagerLoads
     /**
      * Eagerly load all requested relations, including nested ones.
      *
-     * @param Model[] $models
+     * @param  Model[] $models
      * @return Model[]
      */
     protected function eagerLoad(array $models): array
@@ -41,7 +41,7 @@ trait EagerLoads
             if ($relDef->type === 'belongsToMany') {
                 // 1) Collect unique parent IDs
                 $parentIds = array_unique(array_map(
-                    fn($m) => $m->{$relDef->parentKey},
+                    fn ($m) => $m->{$relDef->parentKey},
                     $models
                 ));
 
@@ -109,7 +109,7 @@ trait EagerLoads
             // --- hasMany / belongsTo handling ---
             // 1) Collect unique local keys from parent models
             $keys = array_unique(array_map(
-                fn($m) => $m->{$relDef->localKey},
+                fn ($m) => $m->{$relDef->localKey},
                 $models
             ));
 
