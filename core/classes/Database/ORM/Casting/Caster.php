@@ -12,7 +12,7 @@ use Database\ORM\Casting\Implementations\JsonCaster;
 /**
  * Central manager for all attribute casts.
  */
-class Manager
+class Caster
 {
     /**
      * Map of built-in cast name → caster class.
