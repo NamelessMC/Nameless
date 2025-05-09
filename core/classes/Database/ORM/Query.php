@@ -36,8 +36,8 @@ class Query
     protected ?int $limit = null;
 
     /**
-     * @param string $table
-     * @param string $primaryKey
+     * @param string               $table
+     * @param string               $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)
@@ -50,12 +50,12 @@ class Query
     /**
      * Accepts dot notation, e.g. 'statistics.server'.
      *
-     * @param array|string $relations
+     * @param  array|string $relations
      * @return $this
      */
     public function with(array|string $relations): static
     {
-        foreach ((array)$relations as $r) {
+        foreach ((array) $relations as $r) {
             if (str_contains($r, '.')) {
                 [$root, $child] = explode('.', $r, 2);
                 $this->with[$root][] = $child;
@@ -97,8 +97,8 @@ class Query
     /**
      * Retrieve a single column’s values from the result set.
      *
-     * @param string $column
-     * @param string|null $keyColumn
+     * @param  string                  $column
+     * @param  string|null             $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
@@ -167,7 +167,7 @@ class Query
             ->results();
 
         $models = array_map(
-            fn($r) => new $this->modelClass((array)$r),
+            fn ($r) => new $this->modelClass((array) $r),
             $rows
         );
 
@@ -220,7 +220,7 @@ class Query
      */
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
 
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
@@ -268,7 +268,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (int)Model::db()->query($sql, $this->params)->first()->sum;
+        return (int) Model::db()->query($sql, $this->params)->first()->sum;
     }
 
     /**
@@ -282,7 +282,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (float)Model::db()->query($sql, $this->params)->first()->avg;
+        return (float) Model::db()->query($sql, $this->params)->first()->avg;
     }
 
     /**
@@ -296,7 +296,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (int)Model::db()->query($sql, $this->params)->first()->max;
+        return (int) Model::db()->query($sql, $this->params)->first()->max;
     }
 
     /**
@@ -310,7 +310,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (int)Model::db()->query($sql, $this->params)->first()->min;
+        return (int) Model::db()->query($sql, $this->params)->first()->min;
     }
 
     /**
@@ -332,9 +332,8 @@ class Query
             ->query($sql, $this->params)
             ->first();
 
-        return (int)($row->count ?? 0);
+        return (int) ($row->count ?? 0);
     }
-
 
     /**
      * Compile the SELECT SQL.

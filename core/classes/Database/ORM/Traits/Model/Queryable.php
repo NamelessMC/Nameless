@@ -98,7 +98,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return int
      */
     public static function sum(string $col): int
@@ -107,7 +107,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return float
      */
     public static function avg(string $col): float
@@ -116,7 +116,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return int
      */
     public static function min(string $col): int
@@ -125,7 +125,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return int
      */
     public static function max(string $col): int
