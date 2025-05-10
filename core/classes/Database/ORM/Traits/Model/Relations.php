@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
@@ -30,8 +31,8 @@ trait Relations
     {
         $rel = $this->{$key}();
         $hint = $rel->getType() === Relation::TYPE_HAS_MANY
-            ? "e.g. " . static::class . "::query()->with('{$key}')->get();"
-            : "e.g. " . static::class . "::query()->with('{$key}')->find(\$id);";
+            ? 'e.g. ' . static::class . "::query()->with('{$key}')->get();"
+            : 'e.g. ' . static::class . "::query()->with('{$key}')->find(\$id);";
 
         return new RuntimeException(
             "Lazy loading of relation '{$key}' is disabled.\n" . $hint
@@ -42,7 +43,7 @@ trait Relations
      * One-to-many.
      *
      * @param class-string<Model> $modelClass Related model class
-     * @param string $foreignKey Column on related table
+     * @param string              $foreignKey Column on related table
      */
     public function hasMany(string $modelClass, string $foreignKey): Relation
     {
@@ -57,7 +58,7 @@ trait Relations
      * Many-to-one (inverse).
      *
      * @param class-string<Model> $modelClass Related model class
-     * @param string $foreignKey Column on this table
+     * @param string              $foreignKey Column on this table
      */
     public function belongsTo(string $modelClass, string $foreignKey): Relation
     {
@@ -71,22 +72,21 @@ trait Relations
     /**
      * Many-to-many via pivot.
      *
-     * @param class-string<Model> $modelClass Related model class
-     * @param string $pivotTable **Full** pivot table name (including prefix)
-     * @param string $foreignPivotKey Column on pivot for this model
-     * @param string $relatedPivotKey Column on pivot for related model
-     * @param string|null $parentKey Local PK column (defaults to static::$primaryKey)
-     * @param string|null $relatedKey Related PK column (defaults to $modelClass::$primaryKey)
+     * @param class-string<Model> $modelClass      Related model class
+     * @param string              $pivotTable      **Full** pivot table name (including prefix)
+     * @param string              $foreignPivotKey Column on pivot for this model
+     * @param string              $relatedPivotKey Column on pivot for related model
+     * @param string|null         $parentKey       Local PK column (defaults to static::$primaryKey)
+     * @param string|null         $relatedKey      Related PK column (defaults to $modelClass::$primaryKey)
      */
     public function belongsToMany(
-        string  $modelClass,
-        string  $pivotTable,
-        string  $foreignPivotKey,
-        string  $relatedPivotKey,
+        string $modelClass,
+        string $pivotTable,
+        string $foreignPivotKey,
+        string $relatedPivotKey,
         ?string $parentKey = null,
         ?string $relatedKey = null
-    ): Relation
-    {
+    ): Relation {
         $parentKey = $parentKey ?? static::$primaryKey;
         $relatedKey = $relatedKey ?? $modelClass::$primaryKey;
 
