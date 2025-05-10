@@ -49,14 +49,6 @@ trait EagerLoads
                     fn ($m) => $m->{$parentKey},
                     $models
                 ));
-
-                if (empty($parentIds)) {
-                    foreach ($models as $m) {
-                        $m->setRelation($relName, []);
-                    }
-                    continue;
-                }
-
                 $ph = implode(',', array_fill(0, count($parentIds), '?'));
                 $sql = "SELECT `{$foreignPivotKey}` AS parent_id, `{$relatedPivotKey}` AS related_id
                          FROM `{$pivotTable}`
@@ -96,49 +88,37 @@ trait EagerLoads
                     }
                     $parent->setRelation($relName, $related);
                 }
+            } else {
+                // hasMany / belongsTo
+                $foreignKey = $relDef->getForeignKey();
+                $localKey = $relDef->getLocalKey();
+                $modelClass = $relDef->getModelClass();
 
-                continue;
-            }
+                $keys = array_unique(array_map(
+                    fn($m) => $m->{$localKey},
+                    $models
+                ));
 
-            // hasMany / belongsTo
-            $foreignKey = $relDef->getForeignKey();
-            $localKey = $relDef->getLocalKey();
-            $modelClass = $relDef->getModelClass();
+                $qb = $modelClass::query()->whereIn($foreignKey, $keys);
+                $children = !empty($nested) ? $qb->with($nested)->get() : $qb->get();
 
-            $keys = array_unique(array_map(
-                fn ($m) => $m->{$localKey},
-                $models
-            ));
-
-            if (empty($keys)) {
-                foreach ($models as $m) {
-                    $m->setRelation(
-                        $relName,
-                        $type === Relation::TYPE_HAS_MANY ? [] : null
-                    );
+                $grouped = [];
+                foreach ($children as $child) {
+                    $fk = $child->{$foreignKey};
+                    if ($type === Relation::TYPE_HAS_MANY) {
+                        $grouped[$fk][] = $child;
+                    } else {
+                        $grouped[$fk] = $child;
+                    }
                 }
-                continue;
-            }
 
-            $qb = $modelClass::query()->whereIn($foreignKey, $keys);
-            $children = !empty($nested) ? $qb->with($nested)->get() : $qb->get();
-
-            $grouped = [];
-            foreach ($children as $child) {
-                $fk = $child->{$foreignKey};
-                if ($type === Relation::TYPE_HAS_MANY) {
-                    $grouped[$fk][] = $child;
-                } else {
-                    $grouped[$fk] = $child;
+                foreach ($models as $parent) {
+                    $key = $parent->{$localKey};
+                    $value = $type === Relation::TYPE_HAS_MANY
+                        ? ($grouped[$key] ?? [])
+                        : ($grouped[$key] ?? null);
+                    $parent->setRelation($relName, $value);
                 }
-            }
-
-            foreach ($models as $parent) {
-                $key = $parent->{$localKey};
-                $value = $type === Relation::TYPE_HAS_MANY
-                    ? ($grouped[$key] ?? [])
-                    : ($grouped[$key] ?? null);
-                $parent->setRelation($relName, $value);
             }
         }
 
