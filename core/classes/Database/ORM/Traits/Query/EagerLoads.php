@@ -95,7 +95,7 @@ trait EagerLoads
                 $modelClass = $relDef->getModelClass();
 
                 $keys = array_unique(array_map(
-                    fn($m) => $m->{$localKey},
+                    fn ($m) => $m->{$localKey},
                     $models
                 ));
 
