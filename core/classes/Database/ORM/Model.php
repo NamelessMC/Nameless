@@ -18,9 +18,6 @@ abstract class Model
     use Relations;
     use Queryable;
 
-    /** @var string Table name prefix (e.g. 'nl2_'). */
-    public static string $prefix = 'nl2_';
-
     /** @var string Table name without prefix/backticks. */
     protected static string $table = '';
 
@@ -35,9 +32,6 @@ abstract class Model
 
     /** @var array<string,mixed> Raw DB attributes. */
     protected array $attributes = [];
-
-    /** @var array<string,mixed> Eager‐loaded relations. */
-    private array $relations = [];
 
     /**
      * @param array|object $attrs

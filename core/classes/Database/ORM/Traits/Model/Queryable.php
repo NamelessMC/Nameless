@@ -24,18 +24,13 @@ trait Queryable
         return DB::getInstance();
     }
 
-    protected static function tableName(): string
-    {
-        return '`' . static::$prefix . static::$table . '`';
-    }
-
     /**
      * @return Query<static>
      */
     public static function query(): Query
     {
         return new Query(
-            static::tableName(),
+            static::$table,
             static::$primaryKey,
             static::class
         );

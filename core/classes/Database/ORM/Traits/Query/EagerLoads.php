@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Query;
@@ -17,75 +16,77 @@ trait EagerLoads
     /**
      * Eagerly load all requested relations, including nested ones.
      *
-     * @param  Model[] $models
+     * @param Model[] $models
      * @return Model[]
      */
     protected function eagerLoad(array $models): array
     {
-        // If there are no models, nothing to do
         if (empty($models)) {
             return [];
         }
 
         foreach ($this->with as $relName => $nested) {
-            // Instantiate a prototype to get the Relation definition
             $prototype = new $this->modelClass();
-            $relDef = $prototype->{$relName}();
+            $relDef    = $prototype->{$relName}();
 
-            // Skip if this isn't a Relation
             if (!$relDef instanceof Relation) {
                 continue;
             }
 
-            // --- many-to-many handling ---
-            if ($relDef->type === 'belongsToMany') {
-                // 1) Collect unique parent IDs
+            $type = $relDef->getType();
+
+            if ($type === Relation::TYPE_BELONGS_TO_MANY) {
+                // many-to-many
+                $parentKey       = $relDef->getParentKey();
+                $foreignPivotKey = $relDef->getForeignPivotKey();
+                $relatedPivotKey = $relDef->getRelatedPivotKey();
+                $pivotTable      = $relDef->getPivotTable();
+                $relatedKey      = $relDef->getRelatedKey();
+                $relatedModel    = $relDef->getModelClass();
+
                 $parentIds = array_unique(array_map(
-                    fn ($m) => $m->{$relDef->parentKey},
+                    fn($m) => $m->{$parentKey},
                     $models
                 ));
 
-                // 2) Query pivot table for mappings
-                $placeholders = implode(',', array_fill(0, count($parentIds), '?'));
-                $sql = "SELECT `{$relDef->foreignPivotKey}` AS parent_id, `{$relDef->relatedPivotKey}` AS related_id
-                        FROM `{$relDef->pivotTable}`
-                        WHERE `{$relDef->foreignPivotKey}` IN ($placeholders)";
-                $rows = Model::db()->query($sql, $parentIds, true)->results();
-
-                // 3) Group related IDs by parent ID and collect all related IDs
-                $map = [];
-                $allRelatedIds = [];
-                foreach ($rows as $row) {
-                    $map[$row->parent_id][] = $row->related_id;
-                    $allRelatedIds[] = $row->related_id;
-                }
-                $allRelatedIds = array_unique($allRelatedIds);
-
-                // 4) If no related IDs, assign empty arrays
-                if (empty($allRelatedIds)) {
+                if (empty($parentIds)) {
                     foreach ($models as $m) {
                         $m->setRelation($relName, []);
                     }
                     continue;
                 }
 
-                // 5) Load related models in one go
-                $qb = $relDef->model::query()
-                    ->whereIn($relDef->relatedKey, $allRelatedIds);
-                if (!empty($nested)) {
-                    $qb = $qb->with($nested);
-                }
-                $children = $qb->get();
+                $ph   = implode(',', array_fill(0, count($parentIds), '?'));
+                $sql  = "SELECT `{$foreignPivotKey}` AS parent_id, `{$relatedPivotKey}` AS related_id
+                         FROM `{$pivotTable}`
+                         WHERE `{$foreignPivotKey}` IN ({$ph})";
+                $rows = Model::db()->query($sql, $parentIds, true)->results();
 
-                // 6) Index children by related key for quick lookup
+                $map = [];
+                $all = [];
+                foreach ($rows as $r) {
+                    $map[$r->parent_id][] = $r->related_id;
+                    $all[]                = $r->related_id;
+                }
+                $all = array_unique($all);
+
+                if (empty($all)) {
+                    foreach ($models as $m) {
+                        $m->setRelation($relName, []);
+                    }
+                    continue;
+                }
+
+                $qb       = $relatedModel::query()->whereIn($relatedKey, $all);
+                $children = !empty($nested) ? $qb->with($nested)->get() : $qb->get();
+
                 $indexed = [];
-                foreach ($children as $child) {
-                    $indexed[$child->{$relDef->relatedKey}] = $child;
+                foreach ($children as $c) {
+                    $indexed[$c->{$relatedKey}] = $c;
                 }
 
-                // 7) Assign each parent its related models
                 foreach ($models as $parent) {
-                    $pid = $parent->{$relDef->parentKey};
+                    $pid     = $parent->{$parentKey};
                     $related = [];
                     foreach ($map[$pid] ?? [] as $rid) {
                         if (isset($indexed[$rid])) {
@@ -98,36 +99,41 @@ trait EagerLoads
                 continue;
             }
 
-            // --- hasMany / belongsTo handling ---
-            // 1) Collect unique local keys from parent models
+            // hasMany / belongsTo
+            $foreignKey = $relDef->getForeignKey();
+            $localKey   = $relDef->getLocalKey();
+            $modelClass = $relDef->getModelClass();
+
             $keys = array_unique(array_map(
-                fn ($m) => $m->{$relDef->localKey},
+                fn($m) => $m->{$localKey},
                 $models
             ));
 
-            // 2) Query related models based on the foreign key
-            $qb = $relDef->model::query()
-                ->whereIn($relDef->foreignKey, $keys);
-            if (!empty($nested)) {
-                $qb = $qb->with($nested);
+            if (empty($keys)) {
+                foreach ($models as $m) {
+                    $m->setRelation($relName,
+                        $type === Relation::TYPE_HAS_MANY ? [] : null
+                    );
+                }
+                continue;
             }
-            $children = $qb->get();
 
-            // 3) Group children by foreign key (arrays for hasMany, single item for belongsTo)
+            $qb       = $modelClass::query()->whereIn($foreignKey, $keys);
+            $children = !empty($nested) ? $qb->with($nested)->get() : $qb->get();
+
             $grouped = [];
             foreach ($children as $child) {
-                $fk = $child->{$relDef->foreignKey};
-                if ($relDef->type === 'hasMany') {
+                $fk = $child->{$foreignKey};
+                if ($type === Relation::TYPE_HAS_MANY) {
                     $grouped[$fk][] = $child;
                 } else {
                     $grouped[$fk] = $child;
                 }
             }
 
-            // 4) Assign grouped results to each parent
             foreach ($models as $parent) {
-                $key = $parent->{$relDef->localKey};
-                $value = $relDef->type === 'hasMany'
+                $key   = $parent->{$localKey};
+                $value = $type === Relation::TYPE_HAS_MANY
                     ? ($grouped[$key] ?? [])
                     : ($grouped[$key] ?? null);
                 $parent->setRelation($relName, $value);
