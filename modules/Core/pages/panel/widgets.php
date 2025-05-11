@@ -157,37 +157,33 @@ if (!isset($_GET['action'])) {
 
         if (Input::exists()) {
             if (Token::check()) {
-                try {
-                    // Profile widgets cannot be on specific pages
-                    if (!$is_profile_widget) {
-                        // Updated pages list
-                        if (isset($_POST['pages']) && count($_POST['pages'])) {
-                            $active_pages = $_POST['pages'];
-                        } else {
-                            $active_pages = [];
-                        }
+                // Profile widgets cannot be on specific pages
+                if (!$is_profile_widget) {
+                    // Updated pages list
+                    if (isset($_POST['pages']) && count($_POST['pages'])) {
+                        $active_pages = $_POST['pages'];
+                    } else {
+                        $active_pages = [];
                     }
-
-                    $active_pages_string = json_encode($active_pages);
-                    $order = ($_POST['order'] ?? 10);
-
-                    $location = Input::get('location');
-                    if (!in_array($location, ['left', 'right', 'top', 'footer'])) {
-                        $location = 'right';
-                    }
-
-                    DB::getInstance()->update('widgets', $widget->id, [
-                        'pages' => $active_pages_string,
-                        'location' => $location,
-                        'order' => $order,
-                    ]);
-                    $widget_instance->clearCache();
-
-                    Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
-                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
-                } catch (Exception $e) {
-                    $errors = [$e->getMessage()];
                 }
+
+                $active_pages_string = json_encode($active_pages);
+                $order = ($_POST['order'] ?? 10);
+
+                $location = Input::get('location');
+                if (!in_array($location, ['left', 'right', 'top', 'footer'])) {
+                    $location = 'right';
+                }
+
+                DB::getInstance()->update('widgets', $widget->id, [
+                    'pages' => $active_pages_string,
+                    'location' => $location,
+                    'order' => $order,
+                ]);
+                $widget_instance->clearCache();
+
+                Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
+                Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
             } else {
                 $errors = [$language->get('general', 'invalid_token')];
             }

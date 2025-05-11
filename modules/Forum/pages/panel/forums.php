@@ -120,30 +120,26 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                             if ($validation->passed()) {
                                 // Create the forum
-                                try {
-                                    $description = Input::get('forumdesc');
+                                $description = Input::get('forumdesc');
 
-                                    $last_forum_order = DB::getInstance()->orderAll('forums', 'forum_order', 'DESC')->results();
-                                    if (count($last_forum_order)) {
-                                        $last_forum_order = $last_forum_order[0]->forum_order;
-                                    } else {
-                                        $last_forum_order = 0;
-                                    }
-
-                                    DB::getInstance()->insert('forums', [
-                                        'forum_title' => Input::get('forumname'),
-                                        'forum_description' => $description,
-                                        'forum_order' => $last_forum_order + 1,
-                                        'forum_type' => Input::get('forum_type'),
-                                        'icon' => Input::get('forum_icon')
-                                    ]);
-
-                                    $forum_id = DB::getInstance()->lastId();
-
-                                    Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum=' . $forum_id));
-                                } catch (Exception $e) {
-                                    $errors[] = $e->getMessage();
+                                $last_forum_order = DB::getInstance()->orderAll('forums', 'forum_order', 'DESC')->results();
+                                if (count($last_forum_order)) {
+                                    $last_forum_order = $last_forum_order[0]->forum_order;
+                                } else {
+                                    $last_forum_order = 0;
                                 }
+
+                                DB::getInstance()->insert('forums', [
+                                    'forum_title' => Input::get('forumname'),
+                                    'forum_description' => $description,
+                                    'forum_order' => $last_forum_order + 1,
+                                    'forum_type' => Input::get('forum_type'),
+                                    'icon' => Input::get('forum_icon')
+                                ]);
+
+                                $forum_id = DB::getInstance()->lastId();
+
+                                Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum=' . $forum_id));
                             } else {
                                 $errors = $validation->errors();
                             }
@@ -190,43 +186,39 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         $errors = [];
 
                         if (Token::check()) {
-                            try {
-                                if (isset($_POST['redirect']) && $_POST['redirect'] == 1) {
-                                    $redirect = 1;
-                                    if (isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512) {
-                                        $redirect_url = Output::getClean($_POST['redirect_url']);
-                                    } else {
-                                        $redirect_error = true;
-                                    }
+                            if (isset($_POST['redirect']) && $_POST['redirect'] == 1) {
+                                $redirect = 1;
+                                if (isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512) {
+                                    $redirect_url = Output::getClean($_POST['redirect_url']);
                                 } else {
-                                    $redirect = 0;
-                                    $redirect_url = null;
+                                    $redirect_error = true;
                                 }
-
-                                if (isset($_POST['hooks']) && count($_POST['hooks'])) {
-                                    $hooks = json_encode($_POST['hooks']);
-                                } else {
-                                    $hooks = null;
-                                }
-
-                                if (!isset($redirect_error)) {
-                                    $parent = $_POST['parent'] ?? 0;
-
-                                    DB::getInstance()->update('forums', $forum->id, [
-                                        'parent' => $parent,
-                                        'news' => Input::get('news_forum'),
-                                        'redirect_forum' => $redirect,
-                                        'redirect_url' => $redirect_url,
-                                        'hooks' => $hooks
-                                    ]);
-
-                                    Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
-                                }
-
-                                $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
+                            } else {
+                                $redirect = 0;
+                                $redirect_url = null;
                             }
+
+                            if (isset($_POST['hooks']) && count($_POST['hooks'])) {
+                                $hooks = json_encode($_POST['hooks']);
+                            } else {
+                                $hooks = null;
+                            }
+
+                            if (!isset($redirect_error)) {
+                                $parent = $_POST['parent'] ?? 0;
+
+                                DB::getInstance()->update('forums', $forum->id, [
+                                    'parent' => $parent,
+                                    'news' => Input::get('news_forum'),
+                                    'redirect_forum' => $redirect,
+                                    'redirect_url' => $redirect_url,
+                                    'hooks' => $hooks
+                                ]);
+
+                                Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
+                            }
+
+                            $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
                         } else {
                             $errors[] = $language->get('general', 'invalid_token');
                         }
@@ -322,17 +314,13 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             $n++;
                         }
 
-                        try {
-                            if (isset($previous_fid, $previous_f_order)) {
-                                DB::getInstance()->update('forums', $forum_id, [
-                                    'forum_order' => $previous_f_order
-                                ]);
-                                DB::getInstance()->update('forums', $previous_fid, [
-                                    'forum_order' => $previous_f_order + 1
-                                ]);
-                            }
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                        if (isset($previous_fid, $previous_f_order)) {
+                            DB::getInstance()->update('forums', $forum_id, [
+                                'forum_order' => $previous_f_order
+                            ]);
+                            DB::getInstance()->update('forums', $previous_fid, [
+                                'forum_order' => $previous_f_order + 1
+                            ]);
                         }
 
                         Redirect::to(URL::build('/panel/forums'));
@@ -348,17 +336,14 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
                             $n++;
                         }
-                        try {
-                            if (isset($previous_fid, $previous_f_order)) {
-                                DB::getInstance()->update('forums', $forum_id, [
-                                    'forum_order' => $previous_f_order
-                                ]);
-                                DB::getInstance()->update('forums', $previous_fid, [
-                                    'forum_order' => $previous_f_order - 1
-                                ]);
-                            }
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+
+                        if (isset($previous_fid, $previous_f_order)) {
+                            DB::getInstance()->update('forums', $forum_id, [
+                                'forum_order' => $previous_f_order
+                            ]);
+                            DB::getInstance()->update('forums', $previous_fid, [
+                                'forum_order' => $previous_f_order - 1
+                            ]);
                         }
 
                         Redirect::to(URL::build('/panel/forums'));
@@ -517,57 +502,53 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         ]);
 
                         if ($validation->passed()) {
-                            try {
-                                if (isset($_POST['redirect']) && $_POST['redirect'] == 1) {
-                                    $redirect = 1;
-                                    if (isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512) {
-                                        $redirect_url = Output::getClean($_POST['redirect_url']);
-                                    } else {
-                                        $redirect = 0;
-                                        $redirect_url = null;
-                                        $redirect_error = true;
-                                    }
+                            if (isset($_POST['redirect']) && $_POST['redirect'] == 1) {
+                                $redirect = 1;
+                                if (isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512) {
+                                    $redirect_url = Output::getClean($_POST['redirect_url']);
                                 } else {
                                     $redirect = 0;
                                     $redirect_url = null;
+                                    $redirect_error = true;
                                 }
-
-                                $parent = $_POST['parent_forum'] ?? 0;
-
-                                if (isset($_POST['hooks']) && count($_POST['hooks'])) {
-                                    $hooks = json_encode($_POST['hooks']);
-                                } else {
-                                    $hooks = null;
-                                }
-
-                                if (isset($_POST['default_labels']) && count($_POST['default_labels'])) {
-                                    $default_labels = implode(',', $_POST['default_labels']);
-                                } else {
-                                    $default_labels = null;
-                                }
-
-                                // Update the forum
-                                $to_update = [
-                                    'forum_title' => Input::get('title'),
-                                    'forum_description' => Input::get('description'),
-                                    'news' => Input::get('display'),
-                                    'parent' => $parent,
-                                    'redirect_forum' => $redirect,
-                                    'icon' => Input::get('icon'),
-                                    'forum_type' => Input::get('forum_type'),
-                                    'topic_placeholder' => Input::get('topic_placeholder'),
-                                    'hooks' => $hooks,
-                                    'default_labels' => $default_labels
-                                ];
-
-                                if (!isset($redirect_error)) {
-                                    $to_update['redirect_url'] = $redirect_url;
-                                }
-
-                                DB::getInstance()->update('forums', $_GET['forum'], $to_update);
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
+                            } else {
+                                $redirect = 0;
+                                $redirect_url = null;
                             }
+
+                            $parent = $_POST['parent_forum'] ?? 0;
+
+                            if (isset($_POST['hooks']) && count($_POST['hooks'])) {
+                                $hooks = json_encode($_POST['hooks']);
+                            } else {
+                                $hooks = null;
+                            }
+
+                            if (isset($_POST['default_labels']) && count($_POST['default_labels'])) {
+                                $default_labels = implode(',', $_POST['default_labels']);
+                            } else {
+                                $default_labels = null;
+                            }
+
+                            // Update the forum
+                            $to_update = [
+                                'forum_title' => Input::get('title'),
+                                'forum_description' => Input::get('description'),
+                                'news' => Input::get('display'),
+                                'parent' => $parent,
+                                'redirect_forum' => $redirect,
+                                'icon' => Input::get('icon'),
+                                'forum_type' => Input::get('forum_type'),
+                                'topic_placeholder' => Input::get('topic_placeholder'),
+                                'hooks' => $hooks,
+                                'default_labels' => $default_labels
+                            ];
+
+                            if (!isset($redirect_error)) {
+                                $to_update['redirect_url'] = $redirect_url;
+                            }
+
+                            DB::getInstance()->update('forums', $_GET['forum'], $to_update);
 
                             // Guest forum permissions
                             $view = Input::get('perm-view-0');
@@ -594,31 +575,27 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 }
                             }
 
-                            try {
-                                if ($forum_perm_exists != 0) { // Permission already exists, update
-                                    // Update the forum
-                                    DB::getInstance()->update('forums_permissions', $update_id, [
-                                        'view' => $view,
-                                        'create_topic' => $create,
-                                        'edit_topic' => $edit,
-                                        'create_post' => $post,
-                                        'view_other_topics' => $view_others,
-                                        'moderate' => $moderate
-                                    ]);
-                                } else { // Permission doesn't exist, create
-                                    DB::getInstance()->insert('forums_permissions', [
-                                        'group_id' => 0,
-                                        'forum_id' => $_GET['forum'],
-                                        'view' => $view,
-                                        'create_topic' => $create,
-                                        'edit_topic' => $edit,
-                                        'create_post' => $post,
-                                        'view_other_topics' => $view_others,
-                                        'moderate' => $moderate
-                                    ]);
-                                }
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
+                            if ($forum_perm_exists != 0) { // Permission already exists, update
+                                // Update the forum
+                                DB::getInstance()->update('forums_permissions', $update_id, [
+                                    'view' => $view,
+                                    'create_topic' => $create,
+                                    'edit_topic' => $edit,
+                                    'create_post' => $post,
+                                    'view_other_topics' => $view_others,
+                                    'moderate' => $moderate
+                                ]);
+                            } else { // Permission doesn't exist, create
+                                DB::getInstance()->insert('forums_permissions', [
+                                    'group_id' => 0,
+                                    'forum_id' => $_GET['forum'],
+                                    'view' => $view,
+                                    'create_topic' => $create,
+                                    'edit_topic' => $edit,
+                                    'create_post' => $post,
+                                    'view_other_topics' => $view_others,
+                                    'moderate' => $moderate
+                                ]);
                             }
 
                             // Group forum permissions
@@ -661,31 +638,27 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                     }
                                 }
 
-                                try {
-                                    if ($forum_perm_exists != 0) { // Permission already exists, update
-                                        // Update the forum
-                                        DB::getInstance()->update('forums_permissions', $update_id, [
-                                            'view' => $view,
-                                            'create_topic' => $create,
-                                            'edit_topic' => $edit,
-                                            'create_post' => $post,
-                                            'view_other_topics' => $view_others,
-                                            'moderate' => $moderate
-                                        ]);
-                                    } else { // Permission doesn't exist, create
-                                        DB::getInstance()->insert('forums_permissions', [
-                                            'group_id' => $group->id,
-                                            'forum_id' => $_GET['forum'],
-                                            'view' => $view,
-                                            'create_topic' => $create,
-                                            'edit_topic' => $edit,
-                                            'create_post' => $post,
-                                            'view_other_topics' => $view_others,
-                                            'moderate' => $moderate
-                                        ]);
-                                    }
-                                } catch (Exception $e) {
-                                    $errors[] = $e->getMessage();
+                                if ($forum_perm_exists != 0) { // Permission already exists, update
+                                    // Update the forum
+                                    DB::getInstance()->update('forums_permissions', $update_id, [
+                                        'view' => $view,
+                                        'create_topic' => $create,
+                                        'edit_topic' => $edit,
+                                        'create_post' => $post,
+                                        'view_other_topics' => $view_others,
+                                        'moderate' => $moderate
+                                    ]);
+                                } else { // Permission doesn't exist, create
+                                    DB::getInstance()->insert('forums_permissions', [
+                                        'group_id' => $group->id,
+                                        'forum_id' => $_GET['forum'],
+                                        'view' => $view,
+                                        'create_topic' => $create,
+                                        'edit_topic' => $edit,
+                                        'create_post' => $post,
+                                        'view_other_topics' => $view_others,
+                                        'moderate' => $moderate
+                                    ]);
                                 }
                             }
 

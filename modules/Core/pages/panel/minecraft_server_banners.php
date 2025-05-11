@@ -92,19 +92,13 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
             // Check token
             if (Token::check()) {
                 // Valid token
-                try {
-                    if (file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))) {
-                        DB::getInstance()->update('mc_servers', $_GET['edit'], [
-                            'banner_background' => Output::getClean(Input::get('banner'))
-                        ]);
+                if (file_exists(ROOT_PATH . '/uploads/banners/' . Input::get('banner'))) {
+                    DB::getInstance()->update('mc_servers', $_GET['edit'], [
+                        'banner_background' => Output::getClean(Input::get('banner'))
+                    ]);
 
-                        $success = $language->get('admin', 'banner_updated_successfully');
-                    }
-                } catch (Exception $e) {
-                    $errors = [$e->getMessage()];
+                    $success = $language->get('admin', 'banner_updated_successfully');
                 }
-
-
             } else {
                 // Invalid token
                 $errors = [$language->get('general', 'invalid_token')];

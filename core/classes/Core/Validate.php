@@ -112,30 +112,11 @@ class Validate
      */
     public const CUSTOM = 'custom';
 
-    private DB $_db;
-
     private ?string $_message = null;
     private array $_messages = [];
     private bool $_passed = false;
     private array $_to_convert = [];
     private array $_errors = [];
-
-    /**
-     * Create new `Validate` instance.
-     */
-    private function __construct()
-    {
-        // Connect to database for rules which need DB access
-        try {
-            $host = Config::get('mysql.host');
-        } catch (Exception $e) {
-            $host = null;
-        }
-
-        if (!empty($host)) {
-            $this->_db = DB::getInstance();
-        }
-    }
 
     /**
      * Validate an array of inputs.
@@ -265,10 +246,10 @@ class Validate
                                   AND $ignore_col <> ?
                                 SQL;
 
-                            $check = $validator->_db->query($sql, [$value, $ignore_val]);
+                            $check = DB::getInstance()->query($sql, [$value, $ignore_val]);
                         } else {
                             $table = $rule_value;
-                            $check = $validator->_db->get($table, [$item, $value]);
+                            $check = DB::getInstance()->get($table, [$item, $value]);
                         }
                         if ($check->count()) {
                             $validator->addError([
@@ -300,7 +281,7 @@ class Validate
                         break;
 
                     case self::IS_ACTIVE:
-                        $check = $validator->_db->query('SELECT * FROM nl2_users WHERE username = ? OR email = ?', [$value, $value]);
+                        $check = DB::getInstance()->query('SELECT * FROM nl2_users WHERE username = ? OR email = ?', [$value, $value]);
                         if (!$check->count()) {
                             break;
                         }
@@ -316,7 +297,7 @@ class Validate
                         break;
 
                     case self::IS_BANNED:
-                        $check = $validator->_db->get('users', [$item, $value]);
+                        $check = DB::getInstance()->get('users', [$item, $value]);
                         if (!$check->count()) {
                             break;
                         }

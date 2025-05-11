@@ -53,51 +53,47 @@ if (isset($_GET['action'])) {
 
                 if ($validation->passed()) {
                     // Input into database
-                    try {
-                        // Get whether required/public/editable/forum post options are enabled or not
-                        if (isset($_POST['required']) && $_POST['required'] == 'on') {
-                            $required = 1;
-                        } else {
-                            $required = 0;
-                        }
-
-                        if (isset($_POST['public']) && $_POST['public'] == 'on') {
-                            $public = 1;
-                        } else {
-                            $public = 0;
-                        }
-
-                        if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
-                            $forum_posts = 1;
-                        } else {
-                            $forum_posts = 0;
-                        }
-
-                        if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
-                            $editable = 1;
-                        } else {
-                            $editable = 0;
-                        }
-
-                        // Insert into database
-                        DB::getInstance()->insert('profile_fields', [
-                            'name' => Input::get('name'),
-                            'type' => Input::get('type'),
-                            'public' => $public,
-                            'required' => $required,
-                            'description' => Input::get('description'),
-                            'forum_posts' => $forum_posts,
-                            'editable' => $editable
-                        ]);
-
-                        //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
-
-                        // Redirect
-                        Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
-                        Redirect::to(URL::build('/panel/core/profile_fields'));
-                    } catch (Exception $e) {
-                        $errors[] = $e->getMessage();
+                    // Get whether required/public/editable/forum post options are enabled or not
+                    if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                        $required = 1;
+                    } else {
+                        $required = 0;
                     }
+
+                    if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                        $public = 1;
+                    } else {
+                        $public = 0;
+                    }
+
+                    if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                        $forum_posts = 1;
+                    } else {
+                        $forum_posts = 0;
+                    }
+
+                    if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                        $editable = 1;
+                    } else {
+                        $editable = 0;
+                    }
+
+                    // Insert into database
+                    DB::getInstance()->insert('profile_fields', [
+                        'name' => Input::get('name'),
+                        'type' => Input::get('type'),
+                        'public' => $public,
+                        'required' => $required,
+                        'description' => Input::get('description'),
+                        'forum_posts' => $forum_posts,
+                        'editable' => $editable
+                    ]);
+
+                    //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
+
+                    // Redirect
+                    Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
+                    Redirect::to(URL::build('/panel/core/profile_fields'));
                 } else {
                     // Display errors
                     $errors = $validation->errors();
@@ -167,51 +163,47 @@ if (isset($_GET['action'])) {
 
                         if ($validation->passed()) {
                             // Update database
-                            try {
-                                // Get whether required/public/editable/forum post options are enabled or not
-                                if (isset($_POST['required']) && $_POST['required'] == 'on') {
-                                    $required = 1;
-                                } else {
-                                    $required = 0;
-                                }
-
-                                if (isset($_POST['public']) && $_POST['public'] == 'on') {
-                                    $public = 1;
-                                } else {
-                                    $public = 0;
-                                }
-
-                                if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
-                                    $forum_posts = 1;
-                                } else {
-                                    $forum_posts = 0;
-                                }
-
-                                if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
-                                    $editable = 1;
-                                } else {
-                                    $editable = 0;
-                                }
-
-                                // Update database
-                                DB::getInstance()->update('profile_fields', $field->id, [
-                                    'name' => Output::getClean(Input::get('name')),
-                                    'type' => Input::get('type'),
-                                    'public' => $public,
-                                    'required' => $required,
-                                    'description' => Output::getClean(Input::get('description')),
-                                    'forum_posts' => $forum_posts,
-                                    'editable' => $editable
-                                ]);
-
-                                //Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
-
-                                // Redirect
-                                Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)));
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
+                            // Get whether required/public/editable/forum post options are enabled or not
+                            if (isset($_POST['required']) && $_POST['required'] == 'on') {
+                                $required = 1;
+                            } else {
+                                $required = 0;
                             }
+
+                            if (isset($_POST['public']) && $_POST['public'] == 'on') {
+                                $public = 1;
+                            } else {
+                                $public = 0;
+                            }
+
+                            if (isset($_POST['forum']) && $_POST['forum'] == 'on') {
+                                $forum_posts = 1;
+                            } else {
+                                $forum_posts = 0;
+                            }
+
+                            if (isset($_POST['editable']) && $_POST['editable'] == 'on') {
+                                $editable = 1;
+                            } else {
+                                $editable = 0;
+                            }
+
+                            // Update database
+                            DB::getInstance()->update('profile_fields', $field->id, [
+                                'name' => Output::getClean(Input::get('name')),
+                                'type' => Input::get('type'),
+                                'public' => $public,
+                                'required' => $required,
+                                'description' => Output::getClean(Input::get('description')),
+                                'forum_posts' => $forum_posts,
+                                'editable' => $editable
+                            ]);
+
+                            //Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
+
+                            // Redirect
+                            Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
+                            Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)));
                         } else {
                             // Error
                             $errors = $validation->errors();
