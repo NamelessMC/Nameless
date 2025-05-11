@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Database\ORM;
 
+use Closure;
 use Database\ORM\Traits\Query\Debuggable;
 use Database\ORM\Traits\Query\EagerLoads;
 use Model;
+use RuntimeException;
 
 /**
  * Builds & executes queries, now with nested ->with() support.
@@ -36,8 +38,8 @@ class Query
     protected ?int $limit = null;
 
     /**
-     * @param string               $table
-     * @param string               $primaryKey
+     * @param string $table
+     * @param string $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)
@@ -50,12 +52,12 @@ class Query
     /**
      * Accepts dot notation, e.g. 'statistics.server'.
      *
-     * @param  array|string $relations
+     * @param array|string $relations
      * @return $this
      */
     public function with(array|string $relations): static
     {
-        foreach ((array) $relations as $r) {
+        foreach ((array)$relations as $r) {
             if (str_contains($r, '.')) {
                 [$root, $child] = explode('.', $r, 2);
                 $this->with[$root][] = $child;
@@ -95,10 +97,81 @@ class Query
     }
 
     /**
+     * Filters the parent model by the presence of connected records.
+     *
+     * @param string $relation The name of the reaction method in the model
+     * @param Closure|null $callback Additional Terms of Non -request (gets Query for Related)
+     */
+    public function whereHas(string $relation, ?Closure $callback = null): static
+    {
+        $prototype = new $this->modelClass();
+        $rel = $prototype->{$relation}();
+
+        $parentTable = $this->table;
+        $parentKey = $this->primaryKey;
+        $relatedClass = $rel->getModelClass();
+        $relatedTable = $relatedClass::table();
+
+        if ($rel->getType() === Relation::TYPE_HAS_MANY) {
+            $fk = $rel->getForeignKey();
+            $subSql = "SELECT 1 FROM `{$relatedTable}` WHERE `{$relatedTable}`.`{$fk}` = `{$parentTable}`.`{$parentKey}`";
+            $params = [];
+            if ($callback) {
+                $subQuery = $relatedClass::query()->where("`{$fk}`", "=", 0);
+                $subQuery->wheres = [];
+                $subQuery->params = [];
+                $callback($subQuery);
+                if ($subQuery->wheres) {
+                    $subSql .= ' AND ' . implode(' AND ', $subQuery->wheres);
+                    $params = $subQuery->params;
+                }
+            }
+        } elseif ($rel->getType() === Relation::TYPE_BELONGS_TO_MANY) {
+            $pivot = $rel->getPivotTable();
+            $fpivot = $rel->getForeignPivotKey();
+            $rpivot = $rel->getRelatedPivotKey();
+            $relatedKey = $rel->getRelatedKey();
+            $subSql = "SELECT 1
+                        FROM `{$pivot}` AS p
+                        JOIN `{$relatedTable}` AS r
+                          ON p.`{$rpivot}` = r.`{$relatedKey}`
+                        WHERE p.`{$fpivot}` = `{$parentTable}`.`{$parentKey}`";
+            $params = [];
+            if ($callback) {
+                $subQuery = $relatedClass::query()->where("`{$relatedKey}`", "=", 0);
+                $subQuery->wheres = [];
+                $subQuery->params = [];
+                $callback($subQuery);
+                if ($subQuery->wheres) {
+                    $extra = array_map(fn($w) => preg_replace('/^`r`\./', 'r.', $w), $subQuery->wheres);
+                    $subSql .= ' AND ' . implode(' AND ', $extra);
+                    $params = $subQuery->params;
+                }
+            }
+        } else {
+            throw new RuntimeException("whereHas not supported for relation type {$rel->getType()}");
+        }
+        $this->whereRaw("EXISTS ({$subSql})", $params);
+        return $this;
+    }
+
+    /**
+     * Add a raw WHERE clause.
+     *
+     * @return $this
+     */
+    public function whereRaw(string $sql, array $params = []): static
+    {
+        $this->wheres[] = $sql;
+        $this->params = array_merge($this->params, $params);
+        return $this;
+    }
+
+    /**
      * Retrieve a single column’s values from the result set.
      *
-     * @param  string                  $column
-     * @param  string|null             $keyColumn
+     * @param string $column
+     * @param string|null $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
@@ -145,6 +218,12 @@ class Query
         return $this;
     }
 
+    public function orderByRaw(string $raw): static
+    {
+        $this->orderBy = "ORDER BY {$raw}";
+        return $this;
+    }
+
     /**
      * Set LIMIT clause.
      *
@@ -167,7 +246,7 @@ class Query
             ->results();
 
         $models = array_map(
-            fn ($r) => new $this->modelClass((array) $r),
+            fn($r) => new $this->modelClass((array)$r),
             $rows
         );
 
@@ -220,7 +299,7 @@ class Query
      */
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
 
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
@@ -268,7 +347,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (int) Model::db()->query($sql, $this->params)->first()->sum;
+        return (int)Model::db()->query($sql, $this->params)->first()->sum;
     }
 
     /**
@@ -282,7 +361,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (float) Model::db()->query($sql, $this->params)->first()->avg;
+        return (float)Model::db()->query($sql, $this->params)->first()->avg;
     }
 
     /**
@@ -296,7 +375,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (int) Model::db()->query($sql, $this->params)->first()->max;
+        return (int)Model::db()->query($sql, $this->params)->first()->max;
     }
 
     /**
@@ -310,7 +389,7 @@ class Query
             $sql .= ' WHERE ' . implode(' AND ', $this->wheres);
         }
 
-        return (int) Model::db()->query($sql, $this->params)->first()->min;
+        return (int)Model::db()->query($sql, $this->params)->first()->min;
     }
 
     /**
@@ -332,7 +411,7 @@ class Query
             ->query($sql, $this->params)
             ->first();
 
-        return (int) ($row->count ?? 0);
+        return (int)($row->count ?? 0);
     }
 
     /**

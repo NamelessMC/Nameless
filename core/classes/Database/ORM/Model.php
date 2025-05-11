@@ -135,6 +135,11 @@ abstract class Model
         return $this;
     }
 
+    public static function table(): string
+    {
+        return static::$table;
+    }
+
     protected function fireEvent(string $e): void
     {
         if (method_exists($this, $e)) {
