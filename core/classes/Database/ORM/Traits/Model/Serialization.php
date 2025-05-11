@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
 
+use Database\ORM\Support\Collection;
 use Model;
 
 /**
@@ -16,22 +17,30 @@ use Model;
 trait Serialization
 {
     /**
-     * Return attributes + eager -loaded ligaments as an array.
+     * Convert this model’s attributes and eager-loaded relations to an array.
+     *
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
         $result = $this->attributes;
-        foreach ($this->relations as $key => $value) {
-            $result[$key] = is_array($value)
-                ? array_map(fn ($m) => $m->toArray(), $value)
-                : ($value?->toArray());
+        foreach ($this->relations as $key => $relation) {
+            if ($relation instanceof Collection) {
+                $result[$key] = $relation->toArray();
+            } elseif ($relation instanceof Model) {
+                $result[$key] = $relation->toArray();
+            } else {
+                $result[$key] = $relation;
+            }
         }
 
         return $result;
     }
 
     /**
-     * Return the JSON-representation of the model.
+     * Convert this model to its JSON representation.
+     *
+     * @return string
      */
     public function toJson(): string
     {

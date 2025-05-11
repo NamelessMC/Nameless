@@ -62,24 +62,30 @@ abstract class Model
     }
 
     /**
+     * Magic getter:
+     * 1) returns eager‐loaded relation
+     * 2) returns casted attribute
+     * 3) throws if relation not eager‐loaded
+     *
      * @param  string $key
      * @return mixed
      */
     public function __get(string $key): mixed
     {
-        if (array_key_exists($key, $this->relations)) {
+        if (isset($this->relations[$key])) {
             return $this->relations[$key];
         }
+
         if (array_key_exists($key, $this->attributes)) {
             $value = $this->attributes[$key];
-            if (array_key_exists($key, static::$casts)) {
-                $type = static::$casts[$key];
 
-                return Caster::read($type, $value);
+            if (array_key_exists($key, static::$casts)) {
+                return Caster::read(static::$casts[$key], $value);
             }
 
             return $value;
         }
+
         if (method_exists($this, $key)) {
             throw $this->relationLazyLoadException($key);
         }

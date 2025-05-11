@@ -7,16 +7,17 @@ namespace Database\ORM\Traits\Models;
 use Database\ORM\Query;
 use Database\ORM\Support\Collection;
 use DB;
-use Model;
 use RuntimeException;
 
 /**
- * @mixin Model
+ * @mixin \Database\ORM\Model
  */
 trait Queryable
 {
     /**
-     * @return Collection
+     * Get all records.
+     *
+     * @return Collection<static>
      */
     public static function all(): Collection
     {
@@ -24,7 +25,9 @@ trait Queryable
     }
 
     /**
-     * @param  string $col
+     * Compute the average of a column.
+     *
+     * @param string $col
      * @return float
      */
     public static function avg(string $col): float
@@ -33,21 +36,30 @@ trait Queryable
     }
 
     /**
-     * Chunk-processing: Loading packs by $size.
+     * Chunk processing: load in batches of $size.
+     *
+     * @param int $size
+     * @param callable $cb Receives a Collection<static>
      */
     public static function chunk(int $size, callable $cb): void
     {
         static::query()->chunk($size, $cb);
     }
 
-    /** @return int */
+    /**
+     * Count rows.
+     *
+     * @return int
+     */
     public static function count(): int
     {
         return static::query()->count();
     }
 
     /**
-     * @param  array  $attrs
+     * Create a new record.
+     *
+     * @param array<string,mixed> $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -55,37 +67,48 @@ trait Queryable
         return static::query()->create($attrs);
     }
 
-    /** @return DB */
+    /**
+     * Get the DB instance.
+     */
     public static function db(): DB
     {
         return DB::getInstance();
     }
 
     /**
-     * @param  string $col
-     * @param  string $op
-     * @param  mixed  $val
+     * Determine if any record exists matching the condition.
+     *
+     * @param string $col
+     * @param string $op
+     * @param mixed $val
      * @return bool
      */
     public static function exists(string $col, string $op, mixed $val): bool
     {
-        return static::where($col, $op, $val)->exists();
+        return static::query()->where($col, $op, $val)->exists();
     }
 
     /**
-     * @param  array  $attrs
-     * @param  array  $values
+     * Find the first record matching the attributes, or create it.
+     *
+     * @param array<string,mixed> $attrs
+     * @param array<string,mixed> $values
      * @return static
      */
     public static function firstOrCreate(array $attrs, array $values = []): static
     {
-        $instance = static::where(...)->first();
+        $query = static::query();
+        $instance = $query->where($attrs)->first();
 
-        return $instance ?? static::create(array_merge($attrs, $values));
+        return $instance
+            ? $instance
+            : static::query()->create(array_merge($attrs, $values));
     }
 
     /**
-     * @param  int         $id
+     * Find a record by primary key.
+     *
+     * @param int $id
      * @return static|null
      */
     public static function find(int $id): ?static
@@ -94,7 +117,9 @@ trait Queryable
     }
 
     /**
-     * @param  int    $id
+     * Find a record by primary key or throw.
+     *
+     * @param int $id
      * @return static
      */
     public static function findOrFail(int $id): static
@@ -104,7 +129,9 @@ trait Queryable
     }
 
     /**
-     * @return Collection
+     * Get records (alias of all()).
+     *
+     * @return Collection<static>
      */
     public static function get(): Collection
     {
@@ -112,7 +139,9 @@ trait Queryable
     }
 
     /**
-     * @param  string $col
+     * Get the maximum value of a column.
+     *
+     * @param string $col
      * @return int
      */
     public static function max(string $col): int
@@ -121,7 +150,9 @@ trait Queryable
     }
 
     /**
-     * @param  string $col
+     * Get the minimum value of a column.
+     *
+     * @param string $col
      * @return int
      */
     public static function min(string $col): int
@@ -129,19 +160,33 @@ trait Queryable
         return static::query()->min($col);
     }
 
-    /** @return array<string,mixed> */
+    /**
+     * Paginate the query.
+     *
+     * @param int $perPage
+     * @param int $page Defaults to 1
+     * @return array{data:Collection<static>, total:int, per_page:int, current_page:int, last_page:int}
+     */
     public static function paginate(int $perPage, int $page = 1): array
     {
         return static::query()->paginate($perPage, $page);
     }
 
-    /** @return array<int|string,mixed> */
+    /**
+     * Pluck a single column’s values.
+     *
+     * @param string $col
+     * @param string|null $keyCol
+     * @return array<int|string,mixed>
+     */
     public static function pluck(string $col, ?string $keyCol = null): array
     {
         return static::query()->pluck($col, $keyCol);
     }
 
     /**
+     * Start a query.
+     *
      * @return Query<static>
      */
     public static function query(): Query
@@ -154,7 +199,9 @@ trait Queryable
     }
 
     /**
-     * @param  string $col
+     * Get the sum of a column.
+     *
+     * @param string $col
      * @return int
      */
     public static function sum(string $col): int
@@ -163,54 +210,84 @@ trait Queryable
     }
 
     /**
-     * @param  array  $conds
-     * @param  array  $values
+     * Update an existing record matching $conds or create it.
+     *
+     * @param array<string,mixed> $conds
+     * @param array<string,mixed> $values
      * @return static
      */
     public static function updateOrCreate(array $conds, array $values): static
     {
-        $instance = static::where(...)->first();
+        $query = static::query();
+        $instance = $query->where($conds)->first();
+
         if ($instance) {
             $instance->fill($values)->save();
-
             return $instance;
         }
 
-        return static::create(array_merge($conds, $values));
+        return static::query()->create(array_merge($conds, $values));
     }
 
-    /** @return Query<static> */
+    /**
+     * Conditionally apply a callback to the query.
+     *
+     * @param bool $condition
+     * @param callable $cb Receives Query<static>
+     * @return Query<static>
+     */
     public static function when(bool $condition, callable $cb): Query
     {
-        return $condition
-            ? $cb(static::query())
-            : static::query();
+        $q = static::query();
+        return $condition ? $cb($q) : $q;
     }
 
-    /** @return Query<static> */
+    /**
+     * Add a basic WHERE clause.
+     *
+     * @param string $col
+     * @param mixed $opOrVal Operator or value
+     * @param mixed|null $val Value if 3 args
+     * @return Query<static>
+     */
     public static function where(string $col, mixed $opOrVal, mixed $val = null): Query
     {
         return static::query()->where($col, $opOrVal, $val);
     }
 
-    /** @return Query<static> */
+    /**
+     * Add a WHERE IN (...) clause.
+     *
+     * @param string $col
+     * @param mixed[] $vals
+     * @return Query<static>
+     */
     public static function whereIn(string $col, array $vals): Query
     {
         return static::query()->whereIn($col, $vals);
     }
 
-    /** @return Query<static> */
+    /**
+     * Eager-load relations.
+     *
+     * @param string|string[] $rels
+     * @return Query<static>
+     */
     public static function with(array|string $rels): Query
     {
         return static::query()->with($rels);
     }
 
-    /** @return Query<static> */
+    /**
+     * Tap into the query for debugging or logging.
+     *
+     * @param callable $cb Receives Query<static>
+     * @return Query<static>
+     */
     public static function tap(callable $cb): Query
     {
         $q = static::query();
         $cb($q);
-
         return $q;
     }
 }

@@ -11,29 +11,28 @@ use Traversable;
 
 class Collection implements IteratorAggregate, Countable, ArrayAccess
 {
-    /** @var array<int,mixed> */
+    /** @var array<int, mixed> */
     protected array $items;
 
     /**
-     * @param array<int,mixed> $items
+     * @param array<int, mixed> $items
      */
     public function __construct(array $items = [])
     {
         $this->items = array_values($items);
     }
 
+    /** @return mixed[] */
     public function all(): array
     {
         return $this->items;
     }
 
-    /** @return Traversable */
     public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->items);
     }
 
-    /** @return int */
     public function count(): int
     {
         return count($this->items);
@@ -63,16 +62,28 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
         unset($this->items[$offset]);
     }
 
+    /**
+     * @param callable(mixed): mixed $cb
+     * @return $this
+     */
     public function map(callable $cb): self
     {
         return new self(array_map($cb, $this->items));
     }
 
+    /**
+     * @param callable(mixed): bool $cb
+     * @return $this
+     */
     public function filter(callable $cb): self
     {
         return new self(array_filter($this->items, $cb));
     }
 
+    /**
+     * @param callable(mixed, mixed): int $cb
+     * @return $this
+     */
     public function sort(callable $cb): self
     {
         $items = $this->items;
@@ -81,24 +92,48 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
         return new self($items);
     }
 
+    /**
+     * Convert each item via its toArray() if available.
+     *
+     * @return array<int, mixed>
+     */
     public function toArray(): array
     {
-        return array_map(fn ($m) => method_exists($m, 'toArray') ? $m->toArray() : $m, $this->items);
+        $result = [];
+        foreach ($this->items as $item) {
+            if (is_object($item) && method_exists($item, 'toArray')) {
+                $result[] = $item->toArray();
+            } else {
+                $result[] = $item;
+            }
+        }
+        return $result;
     }
 
+    /**
+     * Convert collection to JSON.
+     */
     public function toJson(): string
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * Push an item onto the end of the collection.
+     */
     public function push(mixed $item): self
     {
         $new = clone $this;
         $new->items[] = $item;
-
         return $new;
     }
 
+    /**
+     * Sum up the values of a given key.
+     *
+     * @param string $key
+     * @return int
+     */
     public function sum(string $key): int
     {
         $sum = 0;
@@ -106,14 +141,9 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
             if (is_array($item)) {
                 $sum += (int) ($item[$key] ?? 0);
             } elseif (is_object($item)) {
-                try {
-                    $sum += (int) $item->{$key};
-                } catch (\Error $e) {
-                    // We do not add anything
-                }
+                $sum += (int) ($item->{$key} ?? 0);
             }
         }
-
         return $sum;
     }
 }

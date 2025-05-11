@@ -15,9 +15,9 @@ use RuntimeException;
 trait Operations
 {
     /**
-     * Retrieve all records.
+     * Retrieve all records as a Collection of models.
      *
-     * @return Collection of Model
+     * @return Collection<Model>
      */
     public function get(): Collection
     {
@@ -25,22 +25,29 @@ trait Operations
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
-        $loaded = $this->with ? $this->eagerLoad($models) : $models;
+        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
+        $loaded = $this->with
+            ? $this->eagerLoad($models)
+            : $models;
 
         return new Collection($loaded);
     }
 
     /**
      * First model or null.
+     *
+     * @return Model|null
      */
     public function first(): mixed
     {
-        return $this->limit(1)->get()[0] ?? null;
+        return $this->limit(1)->get()->all()[0] ?? null;
     }
 
     /**
-     * As first(), But throws an exception if nothing is found.
+     * First model or throw.
+     *
+     * @return Model
+     * @throws RuntimeException
      */
     public function firstOrFail(): mixed
     {
@@ -48,12 +55,14 @@ trait Operations
         if ($result === null) {
             throw new RuntimeException('Record not found');
         }
-
         return $result;
     }
 
     /**
      * Find by primary key.
+     *
+     * @param int $id
+     * @return Model|null
      */
     public function find(int $id): mixed
     {
@@ -61,13 +70,18 @@ trait Operations
     }
 
     /**
-     * Chunk-processing: Loading packs by $size.
+     * Chunk processing: load in batches of $size.
+     *
+     * @param int $size
+     * @param callable $callback Receives Collection<Model>
      */
     public function chunk(int $size, callable $callback): void
     {
         $page = 1;
         do {
-            $batch = $this->limit($size)->offset(($page - 1) * $size)->get();
+            $batch = $this->limit($size)
+                ->offset(($page - 1) * $size)
+                ->get();
             $callback($batch);
             $page++;
         } while (count($batch) === $size);
@@ -75,6 +89,10 @@ trait Operations
 
     /**
      * Return array of values of one column.
+     *
+     * @param string $column
+     * @param string|null $keyColumn
+     * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
     {
@@ -85,7 +103,9 @@ trait Operations
             . ($this->limit !== null ? " LIMIT {$this->limit}" : '')
             . ($this->offset !== null ? " OFFSET {$this->offset}" : '');
 
-        $rows = Model::db()->query($sql, $this->params, true)->results();
+        $rows = Model::db()
+            ->query($sql, $this->params, true)
+            ->results();
 
         $result = [];
         foreach ($rows as $row) {
@@ -101,7 +121,9 @@ trait Operations
     }
 
     /**
-     * Is there a record that meets the conditions?
+     * Does any record meet the conditions?
+     *
+     * @return bool
      */
     public function exists(): bool
     {
@@ -109,7 +131,17 @@ trait Operations
     }
 
     /**
-     * Pagination: returns ['data'=>…, 'total'=>…, 'per_page'=>…, 'current_page'=>…, 'last_page'=>…].
+     * Paginate the query.
+     *
+     * @param int $perPage
+     * @param int $page
+     * @return array{
+     *     data: Collection<Model>,
+     *     total: int,
+     *     per_page: int,
+     *     current_page: int,
+     *     last_page: int
+     * }
      */
     public function paginate(int $perPage, int $page = 1): array
     {
@@ -123,22 +155,22 @@ trait Operations
             'total' => $total,
             'per_page' => $perPage,
             'current_page' => $page,
-            'last_page' => (int) ceil($total / $perPage),
+            'last_page' => (int)ceil($total / $perPage),
         ];
     }
 
     /**
-     * Return an array of attributes of all models.
+     * Return an array of each model’s attributes.
      *
-     * @return array<int,array<string,mixed>>
+     * @return array<int, array<string,mixed>>
      */
     public function toArray(): array
     {
-        return array_map(fn ($model) => $model->toArray(), (array) $this->get());
+        return $this->get()->toArray();
     }
 
     /**
-     * Return the JSON-representation of the Model array.
+     * Return JSON representation of the model array.
      */
     public function toJson(): string
     {
