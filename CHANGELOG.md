@@ -3,6 +3,20 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
 
+## [2.2.2](https://github.com/NamelessMC/Nameless/compare/v2.2.1...v2.2.2) - 2025-05-21
+### Added
+- Add methods to add to Smarty security policy functions and modifiers, and access to smarty append [#3643](https://github.com/NamelessMC/Nameless/pull/3643)
+
+### Changed
+- Add Group Sync logs to Debug link [#3650](https://github.com/NamelessMC/Nameless/pull/3650)
+- Make sure error reporting is disabled by default [#3649](https://github.com/NamelessMC/Nameless/pull/3649)
+- Hide profile if blocked, update mentions list, update messaging list [#3659](https://github.com/NamelessMC/Nameless/pull/3659)
+
+### Fixed
+- Fixed report event for report endpoint [#3648](https://github.com/NamelessMC/Nameless/pull/3648)
+- Fix being able to react to your own posts [#3653](https://github.com/NamelessMC/Nameless/pull/3653)
+- Fix table html purification [#3657](https://github.com/NamelessMC/Nameless/pull/3657)
+
 ## [2.2.1](https://github.com/NamelessMC/Nameless/compare/v2.2.0...v2.2.1) - 2025-04-21
 ### Added
 - No additions this release
