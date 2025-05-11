@@ -1,13 +1,15 @@
 ### Models
 
 ```php
-// Simple User model with all relation types and casts
+<?php
+
+// Simple User model with various relations and casts
 class User extends Model
 {
-    protected static string $table = 'users';
+    protected static string $table = 'nl2_users';
     protected static array $casts = [
-        'is_active' => 'bool',
-        'settings'  => 'array',
+        'is_active'  => 'bool',
+        'settings'   => 'array',
         'created_at' => 'datetime',
         'country_id' => 'int',
         'email'      => 'string',
@@ -19,12 +21,12 @@ class User extends Model
         return $this->hasMany(Post::class, 'user_id');
     }
 
-    // Many-to-many: User belongs to many Groups via pivot
+    // Many-to-many: User belongs to many Groups via pivot table
     public function groups(): \Relation
     {
         return $this->belongsToMany(
             Group::class,
-            'users_groups', // pivot table (without prefix)
+            'users_groups', // pivot table name
             'user_id',
             'group_id'
         );
@@ -37,25 +39,29 @@ class User extends Model
     }
 
     // Event: before saving
-    protected function saving() {
-        // e.g. hash password before save
+    protected function saving()
+    {
+        // e.g. hash the password automatically
         if (isset($this->attributes['password'])) {
-            $this->attributes['password'] = password_hash($this->attributes['password'], PASSWORD_DEFAULT);
+            $this->attributes['password'] = password_hash(
+                $this->attributes['password'],
+                PASSWORD_DEFAULT
+            );
         }
     }
 }
 
 class Post extends Model
 {
-    protected static string $table = 'posts';
+    protected static string $table = 'nl2_posts';
 
-    // Inverse: Post belongs to User
+    // Inverse: Post belongs to a User
     public function user(): \Relation
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Post has many Comments
+    // One-to-many: Post has many Comments
     public function comments(): \Relation
     {
         return $this->hasMany(Comment::class, 'post_id');
@@ -64,8 +70,9 @@ class Post extends Model
 
 class Comment extends Model
 {
-    protected static string $table = 'comments';
+    protected static string $table = 'nl2_comments';
 
+    // Inverse: Comment belongs to a Post
     public function post(): \Relation
     {
         return $this->belongsTo(Post::class, 'post_id');
@@ -74,9 +81,9 @@ class Comment extends Model
 
 class Group extends Model
 {
-    protected static string $table = 'groups';
+    protected static string $table = 'nl2_groups';
 
-    // Many-to-many: Group has many Users
+    // Many-to-many: Group belongs to many Users via pivot table
     public function users(): \Relation
     {
         return $this->belongsToMany(
@@ -90,9 +97,9 @@ class Group extends Model
 
 class Country extends Model
 {
-    protected static string $table = 'countries';
+    protected static string $table = 'nl2_countries';
 
-    // Country has many Users
+    // One-to-many: Country has many Users
     public function users(): \Relation
     {
         return $this->hasMany(User::class, 'country_id');
@@ -102,24 +109,24 @@ class Country extends Model
 
 ---
 
-### Using models
+### Usage Examples
 
-#### 1. Get all the records
+#### 1. Retrieve all records
 
 ```php
-$users = User::all();
-$groups = Group::get();
-$posts = Post::all();
+$users  = User::all();    // Collection of User
+$groups = Group::get();   // Collection of Group
+$posts  = Post::all();
 ```
 
-#### 2. Search by primary key
+#### 2. Find by primary key
 
 ```php
 $user = User::find(1);
 $post = Post::find(10);
 ```
 
-#### 3. Search or error
+#### 3. Find or throw
 
 ```php
 try {
@@ -129,43 +136,44 @@ try {
 }
 ```
 
-#### 4. Creating a new entry
+#### 4. Create a new record
 
 ```php
 $newUser = User::create([
-    'username' => 'ivan',
-    'email'    => 'ivan@example.com',
-    'is_active'=> true,
-    'settings' => ['theme' => 'dark'],
+    'username'  => 'ivan',
+    'email'     => 'ivan@example.com',
+    'is_active' => true,
+    'settings'  => ['theme' => 'dark'],
 ]);
 $newGroup = Group::create([
     'name' => 'Moderators',
 ]);
 ```
 
-#### 5. WHERE та WHERE IN
+#### 5. WHERE and WHERE IN
 
 ```php
-$activeUsers = User::where('is_active', '=', true)->get();
-$somePosts = Post::whereIn('id', [1,2,3])->get();
+$activeUsers = User::where('is_active', true)->get();    // "=" assumed
+$somePosts   = Post::whereIn('id', [1,2,3])->get();
 ```
 
 #### 6. Pluck
 
 ```php
-$usernames = User::pluck('username');
+$usernames  = User::pluck('username');
 $emailsById = User::pluck('email', 'id');
 ```
 
-#### 7. Low loading of connections (with)
+#### 7. Eager loading relations
 
 ```php
-$users = User::with('posts')->get();
-$posts = Post::with(['user', 'comments'])->get();
-$groups = Group::with('users')->get();
+$users     = User::with('posts')->get();
+$posts     = Post::with(['user', 'comments'])->get();
+$dataArray = User::with(['country', 'groups'])->toArray();
+$dataJson  = User::with('groups')->toJson();
 ```
 
-#### 8. Update record
+#### 8. Update a record
 
 ```php
 $user = User::findOrFail(1);
@@ -173,11 +181,13 @@ $user->is_active = false;
 $user->save();
 ```
 
-#### 9. Delete record
+#### 9. Delete a record
 
 ```php
 $post = Post::find(5);
-if ($post) $post->delete();
+if ($post) {
+    $post->delete();
+}
 ```
 
 #### 10. Insert related records
@@ -194,55 +204,74 @@ $comment->save();
 #### 11. Using casts
 
 ```php
-$user = User::find(1);
-$isActive = $user->is_active; // bool
-$settings = $user->settings;  // array (JsonCaster)
+$user     = User::find(1);
+$isActive = $user->is_active;   // bool
+$settings = $user->settings;    // array
 ```
 
-#### 12. Events
+#### 12. Events (saving, saved, deleting, deleted)
 
 ```php
 class Example extends Model {
     protected static string $table = 'examples';
-    protected function saving() {
-        // Called before preserving
-    }
-    protected function saved() {
-        // Called after storage
-    }
-    protected function deleting() {
-        // before removing
-    }
-    protected function deleted() {
-        // after removal
-    }
+
+    protected function saving()  { /* before save */ }
+    protected function saved()   { /* after save */ }
+    protected function deleting(){ /* before delete */ }
+    protected function deleted() { /* after delete */ }
 }
 ```
 
-#### 13. Many-to-many relationships
+#### 13. Many-to-many
 
 ```php
-$user = User::with('groups')->find(1);
+$user  = User::with('groups')->find(1);
 foreach ($user->groups as $group) {
     echo $group->name;
 }
-$group = Group::with('users')->find(2);
-foreach ($group->users as $user) {
-    echo $user->username;
-}
 ```
 
-#### 14. Inverse relationships
+#### 14. Deep nested eager loading
 
 ```php
 $users = User::with('posts.comments')->get();
-foreach ($users as $user) {
-    foreach ($user->posts as $post) {
-        foreach ($post->comments as $comment) {
-            echo $comment->text;
+foreach ($users as $u) {
+    foreach ($u->posts as $p) {
+        foreach ($p->comments as $c) {
+            echo $c->text;
         }
     }
 }
 ```
 
----
+#### 15. Existence check
+
+```php
+$exists = User::where('email', 'ivan@example.com')->exists();
+```
+
+#### 16. Pagination
+
+```php
+$page1 = Post::paginate(10);
+$page2 = Post::paginate(10, 2);
+```
+
+#### 17. Chunk processing
+
+```php
+User::chunk(100, function($batch) {
+    foreach ($batch as $user) {
+        // ...
+    }
+});
+```
+
+#### 18. Conditional queries
+
+```php
+$active = true;
+$users  = User::when($active, fn($q)=> $q->where('is_active', true))
+               ->orderBy('created_at', 'DESC')
+               ->get();
+```
