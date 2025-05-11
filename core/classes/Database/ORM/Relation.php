@@ -218,25 +218,31 @@ class Relation
         $fk = "`{$this->getForeignPivotKey()}`";
         $rk = "`{$this->getRelatedPivotKey()}`";
 
+        // If $ Items is an array, process it without a cycle
+        if (is_array($items[0])) {
+            $items = $items[0];
+        }
+
+        // For each item in an array
         foreach ($items as $item) {
+            // Check whether the entry is in the connection table
             $relatedVal = $item instanceof Model
                 ? $item->{$this->getRelatedKey()}
                 : (int)$item;
 
-            // Check whether there is an entry in the connection table
             $exists = $db->query(
                 "SELECT COUNT(*) as count
-               FROM {$table}
-              WHERE {$fk} = ? AND {$rk} = ?",
+             FROM {$table}
+             WHERE {$fk} = ? AND {$rk} = ?",
                 [$parentVal, $relatedVal]
             )->first();
 
             // If the entry already exists, we miss it
-            if ($exists['count'] > 0) {
+            if ($exists->count > 0) {
                 continue;
             }
 
-            // If there is no such entry, we add a new
+            // If there is no entry, we add new
             $db->query(
                 "INSERT INTO {$table} ({$fk}, {$rk})
              VALUES (?, ?)",
