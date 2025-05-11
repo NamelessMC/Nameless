@@ -25,7 +25,7 @@ trait Operations
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
+        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
         $loaded = $this->with ? $this->eagerLoad($models) : $models;
 
         return new Collection($loaded);
@@ -48,6 +48,7 @@ trait Operations
         if ($result === null) {
             throw new RuntimeException('Record not found');
         }
+
         return $result;
     }
 
@@ -122,7 +123,7 @@ trait Operations
             'total' => $total,
             'per_page' => $perPage,
             'current_page' => $page,
-            'last_page' => (int)ceil($total / $perPage),
+            'last_page' => (int) ceil($total / $perPage),
         ];
     }
 
@@ -133,7 +134,7 @@ trait Operations
      */
     public function toArray(): array
     {
-        return array_map(fn($model) => $model->toArray(), (array)$this->get());
+        return array_map(fn ($model) => $model->toArray(), (array) $this->get());
     }
 
     /**

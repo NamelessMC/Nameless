@@ -17,9 +17,9 @@ trait Wheres
     /**
      * Add a basic WHERE clause.
      *
-     * @param string $col Column name
-     * @param mixed $opOrVal Operator or value (if the second parameter is the value)
-     * @param mixed $val Value (if three parameters are transferred)
+     * @param  string $col     Column name
+     * @param  mixed  $opOrVal Operator or value (if the second parameter is the value)
+     * @param  mixed  $val     Value (if three parameters are transferred)
      * @return $this
      */
     public function where(string $col, mixed $opOrVal, mixed $val = null): static
@@ -32,6 +32,7 @@ trait Wheres
         }
         $this->wheres[] = "`{$col}` {$op} ?";
         $this->params[] = $val;
+
         return $this;
     }
 
@@ -52,7 +53,7 @@ trait Wheres
             $subSql = "SELECT 1 FROM `{$relatedTable}` WHERE `{$relatedTable}`.`{$fk}` = `{$parentTable}`.`{$parentKey}`";
             $params = [];
             if ($callback) {
-                $subQuery = $relatedClass::query()->where("`{$fk}`", "=", 0);
+                $subQuery = $relatedClass::query()->where("`{$fk}`", '=', 0);
                 $subQuery->wheres = [];
                 $subQuery->params = [];
                 $callback($subQuery);
@@ -73,12 +74,12 @@ trait Wheres
                        WHERE p.`{$fpivot}` = `{$parentTable}`.`{$parentKey}`";
             $params = [];
             if ($callback) {
-                $subQuery = $relatedClass::query()->where("`{$relatedKey}`", "=", 0);
+                $subQuery = $relatedClass::query()->where("`{$relatedKey}`", '=', 0);
                 $subQuery->wheres = [];
                 $subQuery->params = [];
                 $callback($subQuery);
                 if ($subQuery->wheres) {
-                    $extra = array_map(fn($w) => preg_replace('/^`r`\./', 'r.', $w), $subQuery->wheres);
+                    $extra = array_map(fn ($w) => preg_replace('/^`r`\./', 'r.', $w), $subQuery->wheres);
                     $subSql .= ' AND ' . implode(' AND ', $extra);
                     $params = $subQuery->params;
                 }
@@ -88,6 +89,7 @@ trait Wheres
         }
 
         $this->whereRaw("EXISTS ({$subSql})", $params);
+
         return $this;
     }
 

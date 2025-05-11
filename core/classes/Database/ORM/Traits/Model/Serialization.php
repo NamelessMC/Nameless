@@ -23,9 +23,10 @@ trait Serialization
         $result = $this->attributes;
         foreach ($this->relations as $key => $value) {
             $result[$key] = is_array($value)
-                ? array_map(fn($m) => $m->toArray(), $value)
+                ? array_map(fn ($m) => $m->toArray(), $value)
                 : ($value?->toArray());
         }
+
         return $result;
     }
 

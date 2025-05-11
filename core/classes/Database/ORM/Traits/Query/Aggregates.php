@@ -20,7 +20,7 @@ trait Aggregates
         $sql = "SELECT AVG(`{$col}`) AS `avg` FROM {$this->table}"
             . ($this->wheres ? ' WHERE ' . implode(' AND ', $this->wheres) : '');
 
-        return (float)Model::db()->query($sql, $this->params)->first()->avg;
+        return (float) Model::db()->query($sql, $this->params)->first()->avg;
     }
 
     /**
@@ -33,7 +33,8 @@ trait Aggregates
             . ($this->wheres ? ' WHERE ' . implode(' AND ', $this->wheres) : '');
 
         $row = Model::db()->query($sql, $this->params)->first();
-        return (int)($row->count ?? 0);
+
+        return (int) ($row->count ?? 0);
     }
 
     /**
@@ -44,7 +45,7 @@ trait Aggregates
         $sql = "SELECT MAX(`{$col}`) AS `max` FROM {$this->table}"
             . ($this->wheres ? ' WHERE ' . implode(' AND ', $this->wheres) : '');
 
-        return (int)Model::db()->query($sql, $this->params)->first()->max;
+        return (int) Model::db()->query($sql, $this->params)->first()->max;
     }
 
     /**
@@ -55,7 +56,7 @@ trait Aggregates
         $sql = "SELECT MIN(`{$col}`) AS `min` FROM {$this->table}"
             . ($this->wheres ? ' WHERE ' . implode(' AND ', $this->wheres) : '');
 
-        return (int)Model::db()->query($sql, $this->params)->first()->min;
+        return (int) Model::db()->query($sql, $this->params)->first()->min;
     }
 
     /**
@@ -66,6 +67,6 @@ trait Aggregates
         $sql = "SELECT SUM(`{$col}`) AS `sum` FROM {$this->table}"
             . ($this->wheres ? ' WHERE ' . implode(' AND ', $this->wheres) : '');
 
-        return (int)Model::db()->query($sql, $this->params)->first()->sum;
+        return (int) Model::db()->query($sql, $this->params)->first()->sum;
     }
 }

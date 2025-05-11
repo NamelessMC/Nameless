@@ -33,19 +33,20 @@ trait Debuggable
     }
 
     /**
-     * Returns the Explain implementation plan for request
+     * Returns the Explain implementation plan for request.
      *
      * @return object[]
      */
     public function explain(): array
     {
         $sql = 'EXPLAIN ' . $this->toSql();
+
         try {
             return Model::db()
                 ->query($sql, $this->getBindings(), true)
                 ->results();
         } catch (\Exception $e) {
-            throw new RuntimeException("Explain failed: " . $e->getMessage(), 0, $e);
+            throw new RuntimeException('Explain failed: ' . $e->getMessage(), 0, $e);
         }
     }
 }

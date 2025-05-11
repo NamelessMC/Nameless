@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
 
-use Database\ORM\Support\Collection;
-use Model;
 use Database\ORM\Query;
+use Database\ORM\Support\Collection;
 use DB;
+use Model;
 use RuntimeException;
 
 /**
@@ -24,7 +24,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return float
      */
     public static function avg(string $col): float
@@ -47,7 +47,7 @@ trait Queryable
     }
 
     /**
-     * @param array $attrs
+     * @param  array  $attrs
      * @return static
      */
     public static function create(array $attrs): static
@@ -62,9 +62,9 @@ trait Queryable
     }
 
     /**
-     * @param string $col
-     * @param string $op
-     * @param mixed $val
+     * @param  string $col
+     * @param  string $op
+     * @param  mixed  $val
      * @return bool
      */
     public static function exists(string $col, string $op, mixed $val): bool
@@ -73,18 +73,19 @@ trait Queryable
     }
 
     /**
-     * @param array $attrs
-     * @param array $values
+     * @param  array  $attrs
+     * @param  array  $values
      * @return static
      */
     public static function firstOrCreate(array $attrs, array $values = []): static
     {
         $instance = static::where(...)->first();
+
         return $instance ?? static::create(array_merge($attrs, $values));
     }
 
     /**
-     * @param int $id
+     * @param  int         $id
      * @return static|null
      */
     public static function find(int $id): ?static
@@ -93,7 +94,7 @@ trait Queryable
     }
 
     /**
-     * @param int $id
+     * @param  int    $id
      * @return static
      */
     public static function findOrFail(int $id): static
@@ -111,7 +112,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return int
      */
     public static function max(string $col): int
@@ -120,7 +121,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return int
      */
     public static function min(string $col): int
@@ -153,7 +154,7 @@ trait Queryable
     }
 
     /**
-     * @param string $col
+     * @param  string $col
      * @return int
      */
     public static function sum(string $col): int
@@ -162,8 +163,8 @@ trait Queryable
     }
 
     /**
-     * @param array $conds
-     * @param array $values
+     * @param  array  $conds
+     * @param  array  $values
      * @return static
      */
     public static function updateOrCreate(array $conds, array $values): static
@@ -171,8 +172,10 @@ trait Queryable
         $instance = static::where(...)->first();
         if ($instance) {
             $instance->fill($values)->save();
+
             return $instance;
         }
+
         return static::create(array_merge($conds, $values));
     }
 
@@ -207,6 +210,7 @@ trait Queryable
     {
         $q = static::query();
         $cb($q);
+
         return $q;
     }
 }

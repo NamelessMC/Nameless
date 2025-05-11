@@ -7,9 +7,9 @@ namespace Database\ORM;
 use Database\ORM\Traits\Query\Aggregates;
 use Database\ORM\Traits\Query\Crud;
 use Database\ORM\Traits\Query\Debuggable;
-use Database\ORM\Traits\Query\Relations;
 use Database\ORM\Traits\Query\Modifiers;
 use Database\ORM\Traits\Query\Operations;
+use Database\ORM\Traits\Query\Relations;
 use Database\ORM\Traits\Query\Wheres;
 use Model;
 
@@ -20,7 +20,13 @@ use Model;
  */
 class Query
 {
-    use Debuggable, Relations, Wheres, Modifiers, Aggregates, Crud, Operations;
+    use Debuggable;
+    use Relations;
+    use Wheres;
+    use Modifiers;
+    use Aggregates;
+    use Crud;
+    use Operations;
 
     protected string $table;
     protected string $primaryKey;
@@ -28,7 +34,7 @@ class Query
     protected string $modelClass;
 
     /**
-     * relationName => [ nested, relations ]
+     * relationName => [ nested, relations ].
      * @var array<string,string[]>
      */
     protected array $with = [];
@@ -40,8 +46,8 @@ class Query
     protected ?int $offset = null;
 
     /**
-     * @param string $table
-     * @param string $primaryKey
+     * @param string               $table
+     * @param string               $primaryKey
      * @param class-string<TModel> $modelClass
      */
     public function __construct(string $table, string $primaryKey, string $modelClass)

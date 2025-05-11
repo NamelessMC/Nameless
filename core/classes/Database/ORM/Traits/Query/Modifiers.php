@@ -17,6 +17,7 @@ trait Modifiers
     public function limit(int $l): static
     {
         $this->limit = $l;
+
         return $this;
     }
 
@@ -26,6 +27,7 @@ trait Modifiers
     public function offset(int $o): static
     {
         $this->offset = $o;
+
         return $this;
     }
 
@@ -35,6 +37,7 @@ trait Modifiers
     public function orderBy(string $col, string $dir = 'ASC'): static
     {
         $this->orderBy = "ORDER BY `{$col}` {$dir}";
+
         return $this;
     }
 
@@ -44,6 +47,7 @@ trait Modifiers
     public function orderByRaw(string $raw): static
     {
         $this->orderBy = "ORDER BY {$raw}";
+
         return $this;
     }
 }

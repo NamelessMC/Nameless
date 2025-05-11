@@ -9,7 +9,6 @@ use Model;
 
 /**
  * @mixin Model
- *
  */
 trait Crud
 {
@@ -23,6 +22,7 @@ trait Crud
         $this->fireEvent('deleting');
         $ok = static::query()->delete($this->{static::primaryKey()});
         $this->fireEvent('deleted');
+
         return $ok;
     }
 
@@ -53,6 +53,7 @@ trait Crud
             $ok = static::query()->update($data, $this->attributes[$pk]);
         }
         $this->fireEvent('saved');
+
         return $ok;
     }
 }

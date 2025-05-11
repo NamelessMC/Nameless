@@ -5,11 +5,12 @@ declare(strict_types=1);
 use Database\ORM\Casting\Caster;
 use Database\ORM\Traits\Models\Crud;
 use Database\ORM\Traits\Models\DirtyTracking;
-use Database\ORM\Traits\Models\Relations;
 use Database\ORM\Traits\Models\Queryable;
+use Database\ORM\Traits\Models\Relations;
 use Database\ORM\Traits\Models\Serialization;
+
 /**
- * Basic model
+ * Basic model.
  *
  * @property-read \Database\ORM\Support\Collection|Model[] $relations
  */
@@ -29,7 +30,7 @@ abstract class Model
 
     /**
      * @var array<string,string|class-string>
-     *   Matching attributes to the types.
+     *                                        Matching attributes to the types.
      */
     protected static array $casts = [];
 
@@ -61,7 +62,7 @@ abstract class Model
     }
 
     /**
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function __get(string $key): mixed
@@ -73,13 +74,16 @@ abstract class Model
             $value = $this->attributes[$key];
             if (array_key_exists($key, static::$casts)) {
                 $type = static::$casts[$key];
+
                 return Caster::read($type, $value);
             }
+
             return $value;
         }
         if (method_exists($this, $key)) {
             throw $this->relationLazyLoadException($key);
         }
+
         return null;
     }
 
@@ -87,7 +91,7 @@ abstract class Model
      * Magically sets the value of the attribute.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set(string $key, mixed $value): void
     {
@@ -97,14 +101,15 @@ abstract class Model
     /**
      * Massively fills the attributes from an array or object.
      *
-     * @param array|object $attrs
+     * @param  array|object $attrs
      * @return $this
      */
     public function fill(array|object $attrs): static
     {
-        foreach ((array)$attrs as $k => $v) {
+        foreach ((array) $attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
+
         return $this;
     }
 

@@ -40,17 +40,19 @@ trait DirtyTracking
                 $changes[$key] = $value;
             }
         }
+
         return $changes;
     }
 
     /**
      * Is there changes in the entire model or one attribute?
      */
-    public function isDirty(string $key = null): bool
+    public function isDirty(?string $key = null): bool
     {
         if ($key !== null) {
             return $this->getOriginal($key) !== ($this->attributes[$key] ?? null);
         }
+
         return !empty($this->getChanges());
     }
 
@@ -75,6 +77,7 @@ trait DirtyTracking
     {
         $copy = clone $this;
         unset($copy->attributes[static::primaryKey()]);
+
         return $copy;
     }
 

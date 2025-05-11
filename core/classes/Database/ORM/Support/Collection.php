@@ -77,12 +77,13 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
     {
         $items = $this->items;
         usort($items, $cb);
+
         return new self($items);
     }
 
     public function toArray(): array
     {
-        return array_map(fn($m) => method_exists($m, 'toArray') ? $m->toArray() : $m, $this->items);
+        return array_map(fn ($m) => method_exists($m, 'toArray') ? $m->toArray() : $m, $this->items);
     }
 
     public function toJson(): string
@@ -94,6 +95,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
     {
         $new = clone $this;
         $new->items[] = $item;
+
         return $new;
     }
 
@@ -102,15 +104,16 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
         $sum = 0;
         foreach ($this->items as $item) {
             if (is_array($item)) {
-                $sum += (int)($item[$key] ?? 0);
+                $sum += (int) ($item[$key] ?? 0);
             } elseif (is_object($item)) {
                 try {
-                    $sum += (int)$item->{$key};
+                    $sum += (int) $item->{$key};
                 } catch (\Error $e) {
                     // We do not add anything
                 }
             }
         }
+
         return $sum;
     }
 }

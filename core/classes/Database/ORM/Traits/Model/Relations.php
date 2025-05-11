@@ -20,7 +20,7 @@ trait Relations
     protected array $relations = [];
 
     /**
-     * Called Query->eagerLoad()
+     * Called Query->eagerLoad().
      * @internal
      */
     public function setRelation(string $name, mixed $value): void
@@ -37,6 +37,7 @@ trait Relations
         $hint = $rel->getType() === Relation::TYPE_HAS_MANY
             ? "Use ->with('{$key}')->get()"
             : "Use ->with('{$key}')->find(\$id)";
+
         return new RuntimeException(
             "Lazy loading of '{$key}' is disabled. {$hint}"
         );
@@ -52,16 +53,16 @@ trait Relations
     }
 
     public function belongsToMany(
-        string  $modelClass,
-        string  $pivotTable,
-        string  $foreignPivotKey,
-        string  $relatedPivotKey,
+        string $modelClass,
+        string $pivotTable,
+        string $foreignPivotKey,
+        string $relatedPivotKey,
         ?string $parentKey = null,
         ?string $relatedKey = null
-    ): Relation
-    {
+    ): Relation {
         $parentKey = $parentKey ?? static::primaryKey();
         $relatedKey = $relatedKey ?? $modelClass::primaryKey();
+
         return Relation::belongsToMany(
             $modelClass,
             $pivotTable,

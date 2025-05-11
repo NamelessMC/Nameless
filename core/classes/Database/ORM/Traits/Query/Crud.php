@@ -57,6 +57,7 @@ trait Crud
         $sql = "UPDATE {$this->table}
                 SET `{$col}` = `{$col}` + ?
                 WHERE `{$this->primaryKey}` = ?";
+
         return !Model::db()->query($sql, [$amt, $id])->error();
     }
 
@@ -65,8 +66,9 @@ trait Crud
      */
     public function update(array $data, mixed $id): bool
     {
-        $set = implode(',', array_map(fn($c) => "`{$c}` = ?", array_keys($data)));
+        $set = implode(',', array_map(fn ($c) => "`{$c}` = ?", array_keys($data)));
         $sql = "UPDATE {$this->table} SET {$set} WHERE `{$this->primaryKey}` = ?";
+
         return !Model::db()->query($sql, [...array_values($data), $id])->error();
     }
 }
