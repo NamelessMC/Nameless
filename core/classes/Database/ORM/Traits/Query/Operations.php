@@ -38,7 +38,7 @@ trait Operations
      *
      * @return Model|null
      */
-    public function first(): mixed
+    public function first(): Model|null
     {
         return $this->limit(1)->get()->all()[0] ?? null;
     }
