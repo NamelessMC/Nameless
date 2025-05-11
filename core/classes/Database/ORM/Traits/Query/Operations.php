@@ -49,7 +49,7 @@ trait Operations
      * @throws RuntimeException
      * @return Model
      */
-    public function firstOrFail(): mixed
+    public function firstOrFail(): Model
     {
         $result = $this->first();
         if ($result === null) {
@@ -65,7 +65,7 @@ trait Operations
      * @param  int        $id
      * @return Model|null
      */
-    public function find(int $id): mixed
+    public function find(int $id): Model|null
     {
         return $this->where($this->primaryKey, '=', $id)->first();
     }
