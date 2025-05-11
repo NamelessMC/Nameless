@@ -63,32 +63,35 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
     }
 
     /**
-     * @param callable(mixed): mixed $cb
+     * @param  callable(mixed): mixed $cb
      * @return $this
      */
     public function map(callable $cb): self
     {
         $this->items = array_map($cb, $this->items);
+
         return $this;
     }
 
     /**
-     * @param callable(mixed): bool $cb
+     * @param  callable(mixed): bool $cb
      * @return $this
      */
     public function filter(callable $cb): self
     {
         $this->items = array_filter($this->items, $cb);
+
         return $this;
     }
 
     /**
-     * @param callable(mixed, mixed): int $cb
+     * @param  callable(mixed, mixed): int $cb
      * @return $this
      */
     public function sort(callable $cb): self
     {
         usort($this->items, $cb);
+
         return $this;
     }
 
@@ -107,6 +110,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
                 $result[] = $item;
             }
         }
+
         return $result;
     }
 
@@ -125,13 +129,14 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
     {
         $new = clone $this;
         $new->items[] = $item;
+
         return $new;
     }
 
     /**
      * Sum up the values of a given key.
      *
-     * @param string $key
+     * @param  string $key
      * @return int
      */
     public function sum(string $key): int
@@ -144,6 +149,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
                 $sum += (int) ($item->{$key} ?? 0);
             }
         }
+
         return $sum;
     }
 }

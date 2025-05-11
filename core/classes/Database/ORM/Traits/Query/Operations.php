@@ -25,7 +25,7 @@ trait Operations
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
+        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
         $loaded = $this->with
             ? $this->eagerLoad($models)
             : $models;
@@ -46,8 +46,8 @@ trait Operations
     /**
      * First model or throw.
      *
-     * @return Model
      * @throws RuntimeException
+     * @return Model
      */
     public function firstOrFail(): mixed
     {
@@ -55,13 +55,14 @@ trait Operations
         if ($result === null) {
             throw new RuntimeException('Record not found');
         }
+
         return $result;
     }
 
     /**
      * Find by primary key.
      *
-     * @param int $id
+     * @param  int        $id
      * @return Model|null
      */
     public function find(int $id): mixed
@@ -72,7 +73,7 @@ trait Operations
     /**
      * Chunk processing: load in batches of $size.
      *
-     * @param int $size
+     * @param int      $size
      * @param callable $callback Receives Collection<Model>
      */
     public function chunk(int $size, callable $callback): void
@@ -90,8 +91,8 @@ trait Operations
     /**
      * Return array of values of one column.
      *
-     * @param string $column
-     * @param string|null $keyColumn
+     * @param  string                  $column
+     * @param  string|null             $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
@@ -155,7 +156,7 @@ trait Operations
             'total' => $total,
             'per_page' => $perPage,
             'current_page' => $page,
-            'last_page' => (int)ceil($total / $perPage),
+            'last_page' => (int) ceil($total / $perPage),
         ];
     }
 

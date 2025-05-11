@@ -61,7 +61,7 @@ trait DirtyTracking
      *
      * @return Model|null
      */
-    public function refresh(): Model|null
+    public function refresh(): ?Model
     {
         return static::query()
             ->find($this->{static::primaryKey()})

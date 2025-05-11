@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
 
-use Database\ORM\Support\Collection;
 use Model;
 
 /**
@@ -26,6 +26,7 @@ trait Serialization
         foreach ($this->relations as $key => $relation) {
             $result[$key] = $relation->toArray();
         }
+
         return $result;
     }
 
