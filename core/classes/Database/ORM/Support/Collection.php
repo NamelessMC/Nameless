@@ -22,7 +22,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
         $this->items = array_values($items);
     }
 
-    /** @return mixed[] */
+    /** @return array */
     public function all(): array
     {
         return $this->items;
@@ -68,7 +68,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
      */
     public function map(callable $cb): self
     {
-        return new self(array_map($cb, $this->items));
+        $this->items = array_map($cb, $this->items);
+        return $this;
     }
 
     /**
@@ -77,7 +78,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
      */
     public function filter(callable $cb): self
     {
-        return new self(array_filter($this->items, $cb));
+        $this->items = array_filter($this->items, $cb);
+        return $this;
     }
 
     /**
@@ -86,10 +88,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess
      */
     public function sort(callable $cb): self
     {
-        $items = $this->items;
-        usort($items, $cb);
-
-        return new self($items);
+        usort($this->items, $cb);
+        return $this;
     }
 
     /**

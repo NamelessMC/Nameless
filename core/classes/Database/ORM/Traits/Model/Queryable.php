@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
 
+use Model;
 use Database\ORM\Query;
 use Database\ORM\Support\Collection;
 use DB;
 use RuntimeException;
 
 /**
- * @mixin \Database\ORM\Model
+ * @mixin Model
  */
 trait Queryable
 {
     /**
      * Get all records.
      *
-     * @return Collection<static>
+     * @return Collection
      */
     public static function all(): Collection
     {
@@ -98,20 +99,20 @@ trait Queryable
     public static function firstOrCreate(array $attrs, array $values = []): static
     {
         $query = static::query();
-        $instance = $query->where($attrs)->first();
-
-        return $instance
-            ? $instance
-            : static::query()->create(array_merge($attrs, $values));
+        foreach ($attrs as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+        $instance = $query->first();
+        return $instance ? $instance : static::query()->create(array_merge($attrs, $values));
     }
 
     /**
      * Find a record by primary key.
      *
      * @param int $id
-     * @return static|null
+     * @return Model|null
      */
-    public static function find(int $id): ?static
+    public static function find(int $id): Model|null
     {
         return static::query()->find($id);
     }
@@ -120,9 +121,9 @@ trait Queryable
      * Find a record by primary key or throw.
      *
      * @param int $id
-     * @return static
+     * @return Model
      */
-    public static function findOrFail(int $id): static
+    public static function findOrFail(int $id): Model
     {
         return static::find($id)
             ?? throw new RuntimeException("Model with ID {$id} not found.");
@@ -131,7 +132,7 @@ trait Queryable
     /**
      * Get records (alias of all()).
      *
-     * @return Collection<static>
+     * @return Collection
      */
     public static function get(): Collection
     {
@@ -165,7 +166,7 @@ trait Queryable
      *
      * @param int $perPage
      * @param int $page Defaults to 1
-     * @return array{data:Collection<static>, total:int, per_page:int, current_page:int, last_page:int}
+     * @return array{data:Collection&iterable<Model>}
      */
     public static function paginate(int $perPage, int $page = 1): array
     {
@@ -214,19 +215,16 @@ trait Queryable
      *
      * @param array<string,mixed> $conds
      * @param array<string,mixed> $values
-     * @return static
+     * @return Model
      */
-    public static function updateOrCreate(array $conds, array $values): static
+    public static function updateOrCreate(array $conds, array $values): Model
     {
-        $query = static::query();
-        $instance = $query->where($conds)->first();
-
+        $instance = static::where(key($conds), '=', current($conds))->first();
         if ($instance) {
             $instance->fill($values)->save();
             return $instance;
         }
-
-        return static::query()->create(array_merge($conds, $values));
+        return static::create(array_merge($conds, $values));
     }
 
     /**
@@ -259,7 +257,7 @@ trait Queryable
      * Add a WHERE IN (...) clause.
      *
      * @param string $col
-     * @param mixed[] $vals
+     * @param array $vals
      * @return Query<static>
      */
     public static function whereIn(string $col, array $vals): Query

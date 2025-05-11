@@ -24,7 +24,7 @@ trait Wheres
      */
     public function where(string $col, mixed $opOrVal, mixed $val = null): static
     {
-        if (func_num_args() === 2) {
+        if ($val === null) {
             $op = '=';
             $val = $opOrVal;
         } else {
@@ -57,10 +57,6 @@ trait Wheres
                 $subQuery->wheres = [];
                 $subQuery->params = [];
                 $callback($subQuery);
-                if ($subQuery->wheres) {
-                    $subSql .= ' AND ' . implode(' AND ', $subQuery->wheres);
-                    $params = $subQuery->params;
-                }
             }
         } elseif ($rel->getType() === Relation::TYPE_BELONGS_TO_MANY) {
             $pivot = $rel->getPivotTable();
@@ -78,11 +74,6 @@ trait Wheres
                 $subQuery->wheres = [];
                 $subQuery->params = [];
                 $callback($subQuery);
-                if ($subQuery->wheres) {
-                    $extra = array_map(fn ($w) => preg_replace('/^`r`\./', 'r.', $w), $subQuery->wheres);
-                    $subSql .= ' AND ' . implode(' AND ', $extra);
-                    $params = $subQuery->params;
-                }
             }
         } else {
             throw new RuntimeException("whereHas not supported for relation type {$rel->getType()}");

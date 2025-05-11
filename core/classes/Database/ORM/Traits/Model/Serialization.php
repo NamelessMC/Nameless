@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Database\ORM\Traits\Models;
@@ -25,15 +24,8 @@ trait Serialization
     {
         $result = $this->attributes;
         foreach ($this->relations as $key => $relation) {
-            if ($relation instanceof Collection) {
-                $result[$key] = $relation->toArray();
-            } elseif ($relation instanceof Model) {
-                $result[$key] = $relation->toArray();
-            } else {
-                $result[$key] = $relation;
-            }
+            $result[$key] = $relation->toArray();
         }
-
         return $result;
     }
 

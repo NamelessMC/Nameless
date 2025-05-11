@@ -59,9 +59,9 @@ trait DirtyTracking
     /**
      * Restarts database attributes.
      *
-     * @return static|null
+     * @return Model|null
      */
-    public function refresh(): mixed
+    public function refresh(): Model|null
     {
         return static::query()
             ->find($this->{static::primaryKey()})
