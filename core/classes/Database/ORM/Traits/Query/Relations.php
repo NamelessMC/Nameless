@@ -12,12 +12,32 @@ use Model;
  *
  * Handles nested eager loading for belongsToMany, hasMany and belongsTo relations.
  */
-trait EagerLoads
+trait Relations
 {
+    /**
+     * Accepts dot notation, e.g. 'statistics.server'.
+     *
+     * @param array|string $relations
+     * @return $this
+     */
+    public function with(array|string $relations): static
+    {
+        foreach ((array)$relations as $r) {
+            if (str_contains($r, '.')) {
+                [$root, $child] = explode('.', $r, 2);
+                $this->with[$root][] = $child;
+            } else {
+                $this->with[$r] = $this->with[$r] ?? [];
+            }
+        }
+
+        return $this;
+    }
+
     /**
      * Eagerly load all requested relations, including nested ones.
      *
-     * @param  Model[] $models
+     * @param Model[] $models
      * @return Model[]
      */
     protected function eagerLoad(array $models): array
@@ -46,7 +66,7 @@ trait EagerLoads
                 $relatedModel = $relDef->getModelClass();
 
                 $parentIds = array_unique(array_map(
-                    fn ($m) => $m->{$parentKey},
+                    fn($m) => $m->{$parentKey},
                     $models
                 ));
                 $ph = implode(',', array_fill(0, count($parentIds), '?'));
@@ -95,7 +115,7 @@ trait EagerLoads
                 $modelClass = $relDef->getModelClass();
 
                 $keys = array_unique(array_map(
-                    fn ($m) => $m->{$localKey},
+                    fn($m) => $m->{$localKey},
                     $models
                 ));
 

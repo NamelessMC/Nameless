@@ -1,36 +1,39 @@
 <?php
 
-use Database\ORM\Casting\Caster;
-use Database\ORM\Traits\Models\Queryable;
-use Database\ORM\Traits\Models\Relations;
+declare(strict_types=1);
 
+use Database\ORM\Casting\Caster;
+use Database\ORM\Traits\Models\Crud;
+use Database\ORM\Traits\Models\DirtyTracking;
+use Database\ORM\Traits\Models\Relations;
+use Database\ORM\Traits\Models\Queryable;
+use Database\ORM\Traits\Models\Serialization;
 /**
- * Base ActiveRecord-style Model.
+ * Basic model
  *
- * Provides:
- *  - automatic table name resolution with prefix
- *  - basic CRUD: find, create, update, delete
- *  - attribute casting via Caster
- *  - eager-only relation loading with hasMany/belongsTo
+ * @property-read \Database\ORM\Support\Collection|Model[] $relations
  */
 abstract class Model
 {
+    use Crud;
+    use DirtyTracking;
     use Relations;
     use Queryable;
+    use Serialization;
 
-    /** @var string Table name without prefix/backticks. */
+    /** @var string Table name. */
     protected static string $table = '';
 
-    /** @var string Primary key column name. */
+    /** @var string Primary key name. */
     protected static string $primaryKey = 'id';
 
     /**
      * @var array<string,string|class-string>
-     *                                        Attribute casts, e.g. ['status'=>'bool','payload'=>JsonCaster::class].
+     *   Matching attributes to the types.
      */
     protected static array $casts = [];
 
-    /** @var array<string,mixed> Raw DB attributes. */
+    /** @var array<string,mixed> Raw materials attributes from the database. */
     protected array $attributes = [];
 
     /**
@@ -41,58 +44,24 @@ abstract class Model
         $this->fill($attrs);
     }
 
-    /** @return bool */
-    public function save(): bool
+    /**
+     * @return string The name of the table for queries.
+     */
+    public static function table(): string
     {
-        $this->fireEvent('saving');
-
-        $pk = static::$primaryKey;
-        $data = [];
-
-        foreach ($this->attributes as $key => $value) {
-            if (array_key_exists($key, static::$casts)) {
-                $type = static::$casts[$key];
-                $data[$key] = Caster::write($type, $value);
-            } else {
-                $data[$key] = $value;
-            }
-        }
-
-        // We delete the primary key if we create a new entry
-        if (!isset($this->attributes[$pk])) {
-            unset($data[$pk]);
-        }
-
-        if (isset($this->attributes[$pk])) {
-            $ok = static::query()->update($data, $this->attributes[$pk]);
-        } else {
-            $new = static::query()->create($data);
-            $this->attributes = $new->attributes;
-            $ok = true;
-        }
-
-        $this->fireEvent('saved');
-
-        return $ok;
-    }
-
-    /** @return bool */
-    public function delete(): bool
-    {
-        $this->fireEvent('deleting');
-        $ok = static::query()->delete($this->{static::$primaryKey});
-        $this->fireEvent('deleted');
-
-        return $ok;
+        return static::$table;
     }
 
     /**
-     * Magic getter:
-     * 1) returns eager‐loaded relation
-     * 2) returns casted attribute
-     * 3) throws if relation not eager‐loaded
-     *
-     * @param  string $key
+     * @return string Primary key name.
+     */
+    public static function primaryKey(): string
+    {
+        return static::$primaryKey;
+    }
+
+    /**
+     * @param string $key
      * @return mixed
      */
     public function __get(string $key): mixed
@@ -102,48 +71,52 @@ abstract class Model
         }
         if (array_key_exists($key, $this->attributes)) {
             $value = $this->attributes[$key];
-
             if (array_key_exists($key, static::$casts)) {
                 $type = static::$casts[$key];
-
                 return Caster::read($type, $value);
             }
-
             return $value;
         }
-
         if (method_exists($this, $key)) {
             throw $this->relationLazyLoadException($key);
         }
-
         return null;
     }
 
-    /** Magic setter for attributes. */
+    /**
+     * Magically sets the value of the attribute.
+     *
+     * @param string $key
+     * @param mixed $value
+     */
     public function __set(string $key, mixed $value): void
     {
         $this->attributes[$key] = $value;
     }
 
-    /** @return $this */
+    /**
+     * Massively fills the attributes from an array or object.
+     *
+     * @param array|object $attrs
+     * @return $this
+     */
     public function fill(array|object $attrs): static
     {
-        foreach ((array) $attrs as $k => $v) {
+        foreach ((array)$attrs as $k => $v) {
             $this->attributes[$k] = $v;
         }
-
         return $this;
     }
 
-    public static function table(): string
+    /**
+     * If the event method exists, it causes it.
+     *
+     * @param string $event
+     */
+    protected function fireEvent(string $event): void
     {
-        return static::$table;
-    }
-
-    protected function fireEvent(string $e): void
-    {
-        if (method_exists($this, $e)) {
-            $this->{$e}();
+        if (method_exists($this, $event)) {
+            $this->{$event}();
         }
     }
 }
