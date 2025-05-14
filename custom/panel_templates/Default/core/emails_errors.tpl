@@ -49,39 +49,35 @@
                             {include file='includes/alerts.tpl'}
 
                             {if isset($NO_ERRORS)}
-                            {$NO_ERRORS}
+                                {$NO_ERRORS}
                             {else}
-                            <div class="table-responsive">
-                                <table class="table table-borderless table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>{$TYPE}</th>
-                                            <th>{$DATE}</th>
-                                            <th>{$USERNAME}</th>
-                                            <th>{$ACTIONS}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$EMAIL_ERRORS_ARRAY item=item}
-                                        <tr>
-                                            <td>{$item.type}</td>
-                                            <td>{$item.date}</td>
-                                            <td>{$item.user}</td>
-                                            <td>
-                                                <a href="{$item.view_link}" class="btn btn-info btn-sm"><i
-                                                        class="fa fa-fw fa-search"></i></a>
-                                                <a href="#" onclick="showDeleteModal({$item.id})"
-                                                    class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
-                            {$PAGINATION}
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>{$MAILER}</th>
+                                                <th>{$DATE}</th>
+                                                <th>{$USERNAME}</th>
+                                                <th>{$ACTIONS}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach from=$EMAIL_ERRORS_ARRAY item=item}
+                                            <tr>
+                                                <td>{$item.mailer}</td>
+                                                <td>{$item.date}</td>
+                                                <td>{$item.user}</td>
+                                                <td>
+                                                    <a href="{$item.view_link}" class="btn btn-info btn-sm"><i class="fa fa-fw fa-search"></i></a>
+                                                    <a href="#" onclick="showDeleteModal({$item.id})" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {$PAGINATION}
                             {/if}
-
-
                         </div>
                     </div>
 

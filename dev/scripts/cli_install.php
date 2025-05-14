@@ -216,6 +216,20 @@ if ($profile !== null) {
     }
 }
 
+$defaultNotifications = array_filter(
+    Notification::getTypes(),
+    static fn ($type) => $type['defaultPreferences']['alert'] || $type['defaultPreferences']['email']
+);
+
+foreach ($defaultNotifications as $notificationType) {
+    DB::getInstance()->insert('users_notification_preferences', [
+        'user_id' => 1,
+        'type' => $notificationType['key'],
+        'alert' => $notificationType['defaultPreferences']['alert'] === true,
+        'email' => $notificationType['defaultPreferences']['email'] === true,
+    ]);
+}
+
 DatabaseInitialiser::runPostUser();
 
 Config::set('core.installed', true);

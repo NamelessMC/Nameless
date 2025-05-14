@@ -37,6 +37,9 @@ if (isset($_GET['do'])) {
 
                 DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
 
+                $cache->setCache('notices_cache');
+                $cache->store('email_errors', 0);
+
                 Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
                 Redirect::to(URL::build('/panel/core/emails/errors'));
             }
@@ -44,6 +47,9 @@ if (isset($_GET['do'])) {
             if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
 
                 DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
+
+                $cache->setCache('notices_cache');
+                $cache->erase('email_errors');
 
                 Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
                 Redirect::to(URL::build('/panel/core/emails/errors'));
@@ -62,27 +68,6 @@ if (isset($_GET['do'])) {
         }
         $error = $error[0];
 
-        switch ($error->type) {
-            case Email::REGISTRATION:
-                $type = $language->get('admin', 'registration_email');
-                break;
-            case Email::FORGOT_PASSWORD:
-                $type = $language->get('admin', 'forgot_password_email');
-                break;
-            case Email::API_REGISTRATION:
-                $type = $language->get('admin', 'api_registration_email');
-                break;
-            case Email::FORUM_TOPIC_REPLY:
-                $type = $language->get('admin', 'forum_topic_reply_email');
-                break;
-            case Email::MASS_MESSAGE:
-                $type = $language->get('admin', 'mass_message');
-                break;
-            default:
-                $type = $language->get('admin', 'unknown');
-                break;
-        }
-
         $template->getEngine()->addVariables([
             'BACK_LINK' => URL::build('/panel/core/emails/errors'),
             'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
@@ -90,9 +75,8 @@ if (isset($_GET['do'])) {
             'USERNAME_VALUE' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : $language->get('general', 'deleted_user'),
             'DATE' => $language->get('general', 'date'),
             'DATE_VALUE' => date(DATE_FORMAT, $error->at),
-            'TYPE' => $language->get('admin', 'type'),
-            'TYPE_ID' => $error->type,
-            'TYPE_VALUE' => $type,
+            'MAILER' => $language->get('admin', 'mailer'),
+            'MAILER_VALUE' => $error->mailer,
             'CONTENT' => $language->get('admin', 'content'),
             'CONTENT_VALUE' => Output::getPurified($error->content),
             'ACTIONS' => $language->get('general', 'actions'),
@@ -105,28 +89,13 @@ if (isset($_GET['do'])) {
             'CLOSE' => $language->get('general', 'close')
         ]);
 
-        if ($error->type == Email::REGISTRATION) {
-            $user_validated = DB::getInstance()->get('users', ['id', $error->user_id])->results();
-            if (count($user_validated)) {
-                $user_validated = $user_validated[0];
-                if ($user_validated->active == 0) {
-                    $template->getEngine()->addVariables([
-                        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($error->user_id) . '&amp;action=validate'),
-                        'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
-                    ]);
-                }
-            }
-        } else if ($error->type == Email::API_REGISTRATION) {
-            $user_error = DB::getInstance()->get('users', ['id', $error->user_id])->results();
-            if (count($user_error)) {
-                $user_error = $user_error[0];
-                if ($user_error->active == 0 && !is_null($user_error->reset_code)) {
-                    $template->getEngine()->addVariables([
-                        'REGISTRATION_LINK' => $language->get('admin', 'registration_link'),
-                        'SHOW_REGISTRATION_LINK' => $language->get('admin', 'show_registration_link'),
-                        'REGISTRATION_LINK_VALUE' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($user_error->reset_code))
-                    ]);
-                }
+        if ($error->mailer == 'Register') {
+            $user_validated = DB::getInstance()->get('users', $error->user_id)->first();
+            if ($user_validated && $user_validated->active == 0) {
+                $template->getEngine()->addVariables([
+                    'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($error->user_id) . '&amp;action=validate'),
+                    'VALIDATE_USER_TEXT' => $language->get('admin', 'validate_user')
+                ]);
             }
         }
 
@@ -161,7 +130,7 @@ if (isset($_GET['do'])) {
 
     $template->getEngine()->addVariables([
         'BACK_LINK' => URL::build('/panel/core/emails'),
-        'TYPE' => $language->get('admin', 'type'),
+        'MAILER' => $language->get('admin', 'mailer'),
         'DATE' => $language->get('general', 'date'),
         'USERNAME' => $language->get('user', 'username'),
         'ACTIONS' => $language->get('general', 'actions')
@@ -171,29 +140,8 @@ if (isset($_GET['do'])) {
         $template_errors = [];
 
         foreach ($results->data as $error) {
-            switch ($error->type) {
-                case Email::REGISTRATION:
-                    $type = $language->get('admin', 'registration_email');
-                    break;
-                case Email::FORGOT_PASSWORD:
-                    $type = $language->get('admin', 'forgot_password_email');
-                    break;
-                case Email::API_REGISTRATION:
-                    $type = $language->get('admin', 'api_registration_email');
-                    break;
-                case Email::FORUM_TOPIC_REPLY:
-                    $type = $language->get('admin', 'forum_topic_reply_email');
-                    break;
-                case Email::MASS_MESSAGE:
-                    $type = $language->get('admin', 'mass_message');
-                    break;
-                default:
-                    $type = $language->get('admin', 'unknown');
-                    break;
-            }
-
             $template_errors[] = [
-                'type' => $type,
+                'mailer' => $error->mailer,
                 'date' => date(DATE_FORMAT, $error->at),
                 'user' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : $language->get('general', 'deleted_user'),
                 'view_link' => URL::build('/panel/core/emails/errors/', 'do=view&id=' . $error->id),

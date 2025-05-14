@@ -70,6 +70,8 @@ class Alert
             'created' => date('U'),
             'bypass_purify' => $skipPurify,
         ]);
+
+        // TODO: AlertCreatedEvent for discord to listen to to DM the user on discord?
     }
 
     /**

@@ -16,41 +16,61 @@ class Email
 {
     public const EMAIL_MAX_LENGTH = 75000;
 
-    public const REGISTRATION = 1;
-    public const FORGOT_PASSWORD = 3;
-    public const API_REGISTRATION = 4;
-    public const FORUM_TOPIC_REPLY = 5;
-    public const MASS_MESSAGE = 6;
+    public const TEST_EMAIL = 'TestEmail';
+    public const MASS_MESSAGE = 'MassMessage';
+
+    public static function send(User $recipient, EmailTemplate $emailTemplate)
+    {
+        $languageCode = DB::getInstance()->get('languages', ['id', '=', $recipient->data()->language_id])->first()->short_code;
+
+        return self::sendInternal(
+            str_replace('EmailTemplate', '', $emailTemplate::class),
+            $recipient,
+            $emailTemplate->subject()->translate($languageCode),
+            $emailTemplate->renderContent($languageCode)
+        );
+    }
+
+    public static function sendRaw(string $mailer, User $recipient, string $subject, string $content)
+    {
+        return self::sendInternal($mailer, $recipient, $subject, $content);
+    }
 
     /**
-     * @var array<string, string> Placeholders for email templates
-     */
-    private static array $_message_placeholders = [];
-
-    /**
-     * Send an email.
+     * Internal helper method to handle common email sending logic.
      *
-     * @param  array      $recipient Array containing `'email'` and `'name'` strings for the recipient of the email.
-     * @param  string     $subject   Subject of the email.
-     * @param  string     $message   Message of the email.
-     * @param  array|null $reply_to  Array containing `'email'` and `'name'` strings for the reply-to address,
-     *                               if not provided the default setting will be used.
-     * @return bool|array Returns true if email sent, otherwise returns an array containing the error.
+     * @param  string     $mailer    Email mailer identifier
+     * @param  User       $recipient Recipient user object
+     * @param  string     $subject   Email subject
+     * @param  string     $content   Email content
+     * @return bool|array Returns true if email sent, otherwise returns an array containing the error
      */
-    public static function send(array $recipient, string $subject, string $message, ?array $reply_to = null)
+    private static function sendInternal(string $mailer, User $recipient, string $subject, string $content)
     {
         $email = [
-            'to' => $recipient,
-            'subject' => $subject,
-            'message' => $message,
-            'replyto' => $reply_to ?? self::getReplyTo(),
+            'to' => [
+                'email' => $recipient->data()->email,
+                'name' => $recipient->getDisplayname(),
+            ],
+            'subject' => SITE_NAME . ' - ' . $subject,
+            'message' => $content,
+            'replyto' => self::getReplyTo(),
         ];
 
-        if (Settings::get('phpmailer') == '1') {
-            return self::sendMailer($email);
+        $result = Settings::get('phpmailer') == '1'
+            ? self::sendMailer($email)
+            : self::sendPHP($email);
+
+        if (isset($result['error'])) {
+            DB::getInstance()->insert('email_errors', [
+                'mailer' => $mailer,
+                'content' => $result['error'],
+                'at' => date('U'),
+                'user_id' => $recipient->data()->id,
+            ]);
         }
 
-        return self::sendPHP($email);
+        return $result;
     }
 
     /**
@@ -108,12 +128,10 @@ class Email
     private static function sendMailer(array $email)
     {
         try {
-            // Initialise PHPMailer
             $mail = new PHPMailer(true);
 
             $mail->IsSMTP();
             $mail->SMTPDebug = SMTP::DEBUG_OFF;
-            $mail->Debugoutput = 'html';
             $mail->CharSet = PHPMailer::CHARSET_UTF8;
             $mail->Encoding = PHPMailer::ENCODING_BASE64;
             $mail->Timeout = 15;
@@ -155,43 +173,5 @@ class Email
                 'error' => $e->getMessage(),
             ];
         }
-    }
-
-    /**
-     * Add a custom placeholder/variable for email messages.
-     *
-     * @param string                                   $key   The key to use for the placeholder, should be enclosed in square brackets.
-     * @param string|Closure(Language, string): string $value The value to replace the placeholder with.
-     */
-    public static function addPlaceholder(string $key, $value): void
-    {
-        self::$_message_placeholders[$key] = $value;
-    }
-
-    /**
-     * Format an email template and replace placeholders.
-     *
-     * @param  string   $email            Name of email to format.
-     * @param  Language $viewing_language Instance of Language class to use for translations.
-     * @return string   Formatted email.
-     */
-    public static function formatEmail(string $email, Language $viewing_language): string
-    {
-        $placeholders = array_keys(self::$_message_placeholders);
-
-        $placeholder_values = [];
-        foreach (self::$_message_placeholders as $value) {
-            if (is_callable($value)) {
-                $placeholder_values[] = $value($viewing_language, $email);
-            } else {
-                $placeholder_values[] = $value;
-            }
-        }
-
-        return str_replace(
-            $placeholders,
-            $placeholder_values,
-            file_get_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', $email . '.html']))
-        );
     }
 }

@@ -36,18 +36,21 @@ class Report
 
         // Alert moderators
         $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id IN (SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.reports":1%\')')->results();
+        $link = rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id);
         $notification = new Notification(
             'report',
-            new LanguageKey('moderator', 'report_alert'),
-            new LanguageKey('moderator', 'report_email', [
-                'linkStart' => '<a href="' . rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id) . '">',
-                'linkEnd' => '</a>',
-            ]),
+            new AlertTemplate(
+                new LanguageKey('moderator', 'report_alert'),
+                null,
+                $link,
+            ),
+            new ReportCreatedEmailTemplate(
+                $link,
+                $reported_user,
+                $user_reporting,
+            ),
             array_map(fn ($moderator) => $moderator->id, $moderators),
             $user_reporting->data()->id,
-            null,
-            false,
-            rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id),
         );
         $notification->send();
 

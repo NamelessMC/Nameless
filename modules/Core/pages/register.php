@@ -207,6 +207,7 @@ if (Input::exists()) {
 
                 // Check if there was any integrations errors
                 if (!isset($integration_errors)) {
+                    DB::getInstance()->beginTransaction();
                     $user = new User();
 
                     $ip = HttpUtils::getRemoteAddress();
@@ -307,14 +308,17 @@ if (Input::exists()) {
 
                     if (!$auto_verify_oauth_email && Settings::get('email_verification') === '1') {
                         // Send registration email
-                        Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+                        Email::send(
+                            $user,
+                            new RegisterEmailTemplate($code),
+                        );
 
                         Session::flash('home', $language->get('user', 'registration_check_email'));
                     } else {
                         // Redirect straight to verification link
                         Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
                     }
-
+                    DB::getInstance()->commitTransaction();
                     Redirect::to(URL::build('/'));
                 } else {
                     // Integrations errors

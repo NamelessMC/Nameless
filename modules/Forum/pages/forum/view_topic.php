@@ -301,14 +301,24 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
+
+                $post_link = rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id);
                 $post_event = new PrePostCreateEvent(
                     $content,
                     $user,
-                    URL::build('/forum/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                     'forum_topic_mention',
-                    new LanguageKey('forum', 'user_tag_info', [
-                        'author' => $user->getDisplayname(),
-                    ], ROOT_PATH . '/modules/Forum/language')
+                    new AlertTemplate(
+                        new LanguageKey('user', 'user_tag_info', [
+                            'author' => $user->data()->username
+                        ]),
+                        null,
+                        $post_link,
+                    ),
+                    new ForumTopicMentionEmailTemplate(
+                        $user,
+                        $content,
+                        $post_link
+                    ),
                 );
                 EventHandler::executeEvent($post_event);
 
@@ -339,39 +349,31 @@ if (Input::exists()) {
                     $available_hooks,
                 ));
 
-                // Notifications
+                // Notifications - TODO: can this become a listener of TopicReplyCreatedEvent?
                 $users_following = DB::getInstance()->query('SELECT DISTINCT(user_id) FROM nl2_topics_following WHERE topic_id = ? AND user_id != ? AND existing_alerts = 0', [
                     $tid,
                     $user->data()->id
                 ])->results();
                 $users_following = array_map(fn ($row) => $row->user_id, $users_following);
 
-                $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
-                $html = file_get_contents($path);
-
-                // TODO: Use Email::formatEmail() instead of this?
-                $message = str_replace(
-                    ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
-                    [
-                        Output::getClean(SITE_NAME),
-                        $language->get('emails', 'forum_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
-                        $language->get('emails', 'greeting'),
-                        $language->get('emails', 'forum_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($original_content)]),
-                        rtrim(URL::getSelfURL(), '/') . URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
-                        $language->get('emails', 'thanks')
-                    ],
-                    $html
-                );
-
                 $notification = new Notification(
                     'forum_topic_reply',
-                    new LanguageKey('forum', 'new_reply_in_topic', ['author' => $user->data()->username, 'topic' => $topic->topic_title], ROOT_PATH . '/modules/Forum/language'),
-                    $message,
+                    new AlertTemplate(
+                        new LanguageKey('forum', 'new_reply_in_topic', [
+                            'author' => $user->data()->username, 'topic' => $topic->topic_title
+                        ], ROOT_PATH . '/modules/Forum/language'),
+                        null,
+                        $post_link,
+                    ),
+                    new ForumTopicReplyEmailTemplate(
+                        $user,
+                        $topic->topic_title,
+                        $original_content,
+                        $post_link,
+                    ),
                     $users_following,
                     $user->data()->id,
-                    null,
-                    false,
-                    URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+
                 );
                 $notification->send();
 

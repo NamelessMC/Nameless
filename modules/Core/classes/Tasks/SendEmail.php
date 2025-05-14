@@ -26,7 +26,7 @@ class SendEmail extends Task {
         $validate = Validate::check(
             $this->getData(),
             [
-                'title' => [
+                'subject' => [
                     Validate::REQUIRED => true,
                     Validate::MIN => 1,
                 ],
@@ -46,25 +46,14 @@ class SendEmail extends Task {
             return Task::STATUS_ERROR;
         }
 
-        $username = $user->getDisplayname();
-        $title = Output::getPurified($this->getData()['title']);
-
-        $content = $this->getData()['content'];
-
-        $sent = Email::send(
-            ['email' => $user->data()->email, 'name' => $username],
-            $title,
-            $content,
+        $sent = Email::sendRaw(
+            $this->getData()['mailer'],
+            $user,
+            $this->getData()['subject'],
+            $this->getData()['content'],
         );
 
         if (isset($sent['error'])) {
-            DB::getInstance()->insert('email_errors', [
-                'type' => Email::MASS_MESSAGE,
-                'content' => $sent['error'],
-                'at' => date('U'),
-                'user_id' => $this->getEntityId(),
-            ]);
-
             $this->setOutput([
                 'errors' => [$language->get('admin', 'email_task_error')],
                 'data' => $sent['error'],

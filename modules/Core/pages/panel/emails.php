@@ -29,20 +29,6 @@ const PANEL_PAGE = 'emails';
 $page_title = $language->get('admin', 'emails');
 require_once ROOT_PATH . '/core/templates/backend_init.php';
 
-// Since emails are sent in the user's language, they need to be able to pick which language's messages to edit
-if (Session::exists('editing_language')) {
-    $lang_short_code = Session::get('editing_language');
-} else {
-    $default_lang = DB::getInstance()->get('languages', ['is_default', true])->results();
-    $lang_short_code = $default_lang[0]->short_code;
-}
-$editing_language = new Language('core', $lang_short_code);
-$emails = [
-    ['register', $language->get('admin', 'registration'), ['subject' => $editing_language->get('emails', 'register_subject'), 'message' => $editing_language->get('emails', 'register_message')]],
-    ['change_password', $language->get('user', 'change_password'), ['subject' => str_replace('?', '', $editing_language->get('emails', 'change_password_subject')), 'message' => $editing_language->get('emails', 'change_password_message')]],
-    ['forum_topic_reply', $language->get('admin', 'forum_topic_reply_email'), ['subject' => $editing_language->get('emails', 'forum_topic_reply_subject'), 'message' => $editing_language->get('emails', 'forum_topic_reply_message')]]
-];
-
 if (isset($_GET['action'])) {
 
     if ($_GET['action'] == 'test') {
@@ -55,10 +41,11 @@ if (isset($_GET['action'])) {
         if (isset($_GET['do']) && $_GET['do'] == 'send') {
             $errors = [];
 
-            $sent = Email::send(
-                ['email' => $user->data()->email, 'name' => $user->data()->nickname],
-                Output::getClean(SITE_NAME) . ' - Test Email',
-                Output::getClean(SITE_NAME) . ' - Test email successful!',
+            $sent = Email::sendRaw(
+                Email::TEST_EMAIL,
+                $user,
+                'Test Email',
+                Output::getClean(SITE_NAME) . ' - Test email successful!'
             );
 
             if (isset($sent['error'])) {
@@ -90,54 +77,6 @@ if (isset($_GET['action'])) {
         }
 
         $template_file = 'core/emails_test';
-    } else {
-        if ($_GET['action'] == 'edit_messages') {
-
-            $available_languages = [];
-
-            $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
-            foreach ($languages as $language_db) {
-                $lang = new Language('core', $language_db->short_code);
-                $lang_file = $lang->getActiveLanguageFile();
-                if (file_exists($lang_file) && is_writable($lang_file)) {
-                    $available_languages[] = $language_db;
-                }
-            }
-
-            $template->getEngine()->addVariables([
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/emails'),
-                'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
-                'EDITING_MESSAGES' => $language->get('admin', 'editing_messages'),
-                'OPTIONS' => $language->get('admin', 'email_message_options'),
-                'SELECT_LANGUAGE' => $language->get('admin', 'editing_language'),
-                'EDITING_LANGUAGE' => $editing_language->getActiveLanguage(),
-                'LANGUAGES' => $available_languages,
-                'INFO' => $language->get('general', 'info'),
-                'LANGUAGE_INFO' => $language->get('admin', 'email_language_info'),
-                'GREETING' => $language->get('admin', 'email_message_greeting'),
-                'GREETING_VALUE' => $editing_language->get('emails', 'greeting'),
-                'THANKS' => $language->get('admin', 'email_message_thanks'),
-                'THANKS_VALUE' => $editing_language->get('emails', 'thanks'),
-                'EMAILS_LIST' => $emails,
-                'SUBJECT' => $language->get('admin', 'email_message_subject'),
-                'MESSAGE' => $language->get('admin', 'email_message_message'),
-                'PREVIEW' => $language->get('admin', 'email_preview_popup'),
-                'PREVIEW_INFO' => $language->get('admin', 'email_preview_popup_message'),
-                'SUBMIT' => $language->get('general', 'submit'),
-                'TOKEN' => Token::get()
-            ]);
-
-            $template_file = 'core/emails_edit_messages';
-        } else {
-            if ($_GET['action'] == 'preview') {
-                $viewing_language = new Language('core', Session::get('editing_language'));
-
-                $template->getEngine()->addVariable('MESSAGE', Email::formatEmail($_GET['email'], $viewing_language));
-
-                $template_file = 'core/emails_edit_messages_preview';
-            }
-        }
     }
 } else {
     // Handle input
@@ -145,47 +84,29 @@ if (isset($_GET['action'])) {
         $errors = [];
 
         if (Token::check()) {
+            Settings::set('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
 
-            // Handle email message updating
-            if (isset($_POST['greeting'])) {
-                $editing_lang = new Language('core', $lang_short_code);
+            if (!empty($_POST['email'])) {
+                Settings::set('outgoing_email', $_POST['email']);
+            }
 
-                Session::put('editing_language', Input::get('editing_language'));
+            if ($_POST['port'] && !is_numeric($_POST['port'])) {
+                $errors[] = $language->get('admin', 'email_port_invalid');
+            }
 
-                $editing_lang->set('emails', 'greeting', Output::getClean(Input::get('greeting')));
-                $editing_lang->set('emails', 'thanks', Output::getClean(Input::get('thanks')));
+            if (!count($errors)) {
+                // Update config
 
-                foreach ($emails as $email) {
-                    $editing_lang->set('emails', $email[0] . '_subject', Output::getClean(Input::get($email[0] . '_subject')));
-                    $editing_lang->set('emails', $email[0] . '_message', Output::getClean(Input::get($email[0] . '_message')));
-                }
+                Config::set('email.email', !empty($_POST['email']) ? $_POST['email'] : Config::get('email.email', ''));
+                Config::set('email.username', !empty($_POST['username']) ? $_POST['username'] : Config::get('email.username', ''));
+                Config::set('email.password', !empty($_POST['password']) ? $_POST['password'] : Config::get('email.password', ''));
+                Config::set('email.name', !empty($_POST['name']) ? $_POST['name'] : Config::get('email.name', ''));
+                Config::set('email.host', !empty($_POST['host']) ? $_POST['host'] : Config::get('email.host', ''));
+                Config::set('email.port', !empty($_POST['port']) ? (int) $_POST['port'] : Config::get('email.port', ''));
+
+                // Redirect to refresh config values
                 Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
-                Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
-            } else {
-                Settings::set('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
-
-                if (!empty($_POST['email'])) {
-                    Settings::set('outgoing_email', $_POST['email']);
-                }
-
-                if ($_POST['port'] && !is_numeric($_POST['port'])) {
-                    $errors[] = $language->get('admin', 'email_port_invalid');
-                }
-
-                if (!count($errors)) {
-                    // Update config
-
-                    Config::set('email.email', !empty($_POST['email']) ? $_POST['email'] : Config::get('email.email', ''));
-                    Config::set('email.username', !empty($_POST['username']) ? $_POST['username'] : Config::get('email.username', ''));
-                    Config::set('email.password', !empty($_POST['password']) ? $_POST['password'] : Config::get('email.password', ''));
-                    Config::set('email.name', !empty($_POST['name']) ? $_POST['name'] : Config::get('email.name', ''));
-                    Config::set('email.host', !empty($_POST['host']) ? $_POST['host'] : Config::get('email.host', ''));
-                    Config::set('email.port', !empty($_POST['port']) ? (int) $_POST['port'] : Config::get('email.port', ''));
-
-                    // Redirect to refresh config values
-                    Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
-                    Redirect::to(URL::build('/panel/core/emails'));
-                }
+                Redirect::to(URL::build('/panel/core/emails'));
             }
         } else {
             $errors[] = $language->get('general', 'invalid_token');
@@ -200,8 +121,6 @@ if (isset($_GET['action'])) {
     }
 
     $template->getEngine()->addVariables([
-        'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
-        'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/core/emails/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
         'SEND_TEST_EMAIL_LINK' => URL::build('/panel/core/emails/', 'action=test'),
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),

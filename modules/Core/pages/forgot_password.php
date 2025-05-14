@@ -54,26 +54,14 @@ if (empty($_GET['c'])) {
                     $code = SecureRandom::alphanumeric();
 
                     // Send an email
-                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
-
                     $sent = Email::send(
-                        ['email' => $target_user->data()->email, 'name' => $target_user->getDisplayname()],
-                        SITE_NAME . ' - ' . $language->get('emails', 'change_password_subject'),
-                        str_replace('[Link]', $link, Email::formatEmail('change_password', $language)),
+                        $target_user,
+                        new ForgotPasswordEmailTemplate($code),
                     );
 
                     if (isset($sent['error'])) {
-                        DB::getInstance()->insert('email_errors', [
-                            'type' => Email::FORGOT_PASSWORD,
-                            'content' => $sent['error'],
-                            'at' => date('U'),
-                            'user_id' => $target_user->data()->id
-                        ]);
-
                         $error = $language->get('user', 'unable_to_send_forgot_password_email');
-                    }
-
-                    if (!isset($error)) {
+                    } else {
                         $target_user->update([
                             'reset_code' => $code
                         ]);
@@ -124,7 +112,7 @@ if (empty($_GET['c'])) {
     // Check code exists
     $target_user = new User($_GET['c'], 'reset_code');
     if (!$target_user->exists()) {
-        Redirect::to('/forgot_password');
+        Redirect::to(URL::build('/forgot_password'));
     }
 
     if (Input::exists()) {

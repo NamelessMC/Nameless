@@ -304,7 +304,7 @@ class Core_Module extends Module {
 
         // -- Events
         EventHandler::registerEvent(AnnouncementCreatedEvent::class);
-        EventHandler::registerEvent(GenerateNotificationContentEvent::class);
+        EventHandler::registerEvent(GenerateMassMessageContentEvent::class);
         EventHandler::registerEvent(GroupClonedEvent::class);
         EventHandler::registerEvent(ReportCreatedEvent::class);
         EventHandler::registerEvent(UserBannedEvent::class);
@@ -453,9 +453,9 @@ class Core_Module extends Module {
 
         EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
 
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::purify');
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
+        EventHandler::registerListener(GenerateMassMessageContentEvent::class, 'ContentHook::purify');
+        EventHandler::registerListener(GenerateMassMessageContentEvent::class, 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener(GenerateMassMessageContentEvent::class, 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'purify']);
         EventHandler::registerListener(RenderContentEvent::class, [ContentHook::class, 'renderEmojis'], 10);
@@ -473,11 +473,6 @@ class Core_Module extends Module {
         EventHandler::registerListener(PreCustomPageEditEvent::class, [MentionsHook::class, 'preEdit']);
 
         EventHandler::registerListener(UserRegisteredEvent::class, DefaultUserNotificationPreferencesHook::class);
-
-        Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
-        Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
-        Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
-        Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
 
         if (Util::isModuleEnabled('Members')) {
             MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));

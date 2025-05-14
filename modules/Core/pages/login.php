@@ -308,7 +308,10 @@ if (Session::exists('oauth_error')) {
 }
 
 if (Session::exists('login_success')) {
-    $template->getEngine()->addVariable('SUCCESS', Session::flash('login_success'));
+    $template->getEngine()->addVariables([
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
+        'SUCCESS' => Session::flash('login_success')
+    ]);
 }
 
 if ($captcha) {

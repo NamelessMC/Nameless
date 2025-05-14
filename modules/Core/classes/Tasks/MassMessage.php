@@ -32,14 +32,27 @@ class MassMessage extends Task {
             $whereVars
         );
 
+        $content = $this->getData()['content'];
+        $title = $this->getData()['title'];
+        $skipPurify = $this->getData()['skip_purify'];
+
+        $event = new GenerateMassMessageContentEvent($content, $title, $skipPurify);
+        EventHandler::executeEvent($event);
+        $content = $event->content;
+
         $notification = new Notification(
-            $this->getData()['type'],
-            $this->getData()['title'],
-            $this->getData()['content'],
+            'mass_message',
+            new AlertTemplate(
+                $title,
+                $content,
+            ),
+            new MassMessageEmailTemplate(
+                $title,
+                $content,
+            ),
             array_map(static fn ($r) => $r->id, $recipients->results()),
             $this->getUserId(),
-            $this->getData()['callback'],
-            $this->getData()['skip_purify'] ?? false
+            (bool) $this->getData()['bypass_notification_settings'],
         );
         $notification->send();
 
@@ -47,13 +60,5 @@ class MassMessage extends Task {
         $this->setFragmentNext($end);
 
         return $nextStatus;
-    }
-
-    public static function parseContent(int $userId, string $title, string $content, bool $skipPurify = false): string {
-        $user = new User($userId);
-        $event = new GenerateNotificationContentEvent($content, $title, $user, $skipPurify);
-        EventHandler::executeEvent($event);
-
-        return $event->content;
     }
 }

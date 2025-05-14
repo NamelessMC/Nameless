@@ -196,14 +196,25 @@ if (Input::exists()) {
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
+
+                $topic_title = Input::get('title');
+                $topic_link = URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title')), 'pid=' . $last_post_id);
                 $topic_event = new PreTopicCreateEvent(
                     $content,
                     $user,
-                    URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                     'forum_topic_mention',
-                    new LanguageKey('forum', 'user_tag_info', [
-                        'author' => $user->getDisplayname(),
-                    ], ROOT_PATH . '/modules/Forum/language'),
+                    new AlertTemplate(
+                        new LanguageKey('user', 'user_tag_info', [
+                            'author' => $user->data()->username,
+                        ]),
+                        null,
+                        $topic_link,
+                    ),
+                    new ForumTopicMentionEmailTemplate(
+                        $user,
+                        $content,
+                        $topic_link
+                    ),
                 );
                 EventHandler::executeEvent($topic_event);
 

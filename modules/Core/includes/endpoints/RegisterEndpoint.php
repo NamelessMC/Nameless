@@ -184,7 +184,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      * @param string $username The username of the new user to create
      * @param string $email The email of the new user
      * @see Nameless2API::register()
-     *
      */
     private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
         // Generate random code
@@ -194,26 +193,15 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $user_id = $this->createUser($api, $username, $email, false, $code);
         $user_id = $user_id['user_id'];
 
-        // Get link + template
-        $link = URL::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
-
-        $sent = Email::send(
-            ['email' => $email, 'name' => $username],
-            SITE_NAME . ' - ' . $api->getLanguage()->get('emails', 'register_subject'),
-            str_replace('[Link]', $link, Email::formatEmail('register', $api->getLanguage())),
+        $email = Email::send(
+            new User($user_id),
+            new RegisterEmailTemplate($code),
         );
 
-        if (isset($sent['error'])) {
-            $api->getDb()->insert('email_errors', [
-                    'type' => Email::API_REGISTRATION,
-                    'content' => $sent['error'],
-                    'at' => date('U'),
-                    'user_id' => $user_id
-            ]);
-
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL, null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        if ($email === true) {
+            $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
         }
 
-        $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_email')]);
+        $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_SEND_REGISTRATION_EMAIL, null, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

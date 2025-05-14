@@ -37,7 +37,7 @@ class MentionsParser
      *
      * @return string Parsed post content.
      */
-    public static function parseAndNotify(int $author_id, string $content, string $url, string $notificationType, LanguageKey $notificationTitle): string
+    public static function parseAndNotify(int $author_id, string $content, string $notificationType, AlertTemplate $notificationAlertTemplate, EmailTemplate $notificationEmailTemplate): string
     {
         $receipients = self::getRecipients($content, $author_id);
 
@@ -46,14 +46,10 @@ class MentionsParser
 
         $notification = new Notification(
             $notificationType,
-            $notificationTitle,
-            // TODO: emails content - right now it will be plaintext and not use a template
-            $content,
+            $notificationAlertTemplate,
+            $notificationEmailTemplate,
             $notificationRecipients,
             $author_id,
-            null,
-            false,
-            $url,
         );
 
         $notification->send();

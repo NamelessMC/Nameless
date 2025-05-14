@@ -47,8 +47,8 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <tr>
-                                        <td>{$TYPE}</td>
-                                        <td>{$TYPE_VALUE}</td>
+                                        <td>{$MAILER}</td>
+                                        <td>{$MAILER_VALUE}</td>
                                     </tr>
                                     <tr>
                                         <td>{$DATE}</td>
@@ -67,15 +67,10 @@
 
                             <h5>{$ACTIONS}</h5>
 
-                            {if $TYPE_ID eq 1}
-                            {if isset($VALIDATE_USER_TEXT)}
-                            <a class="btn btn-secondary" href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER_TEXT}</a>
-                            {/if}
-                            {elseif $TYPE_ID eq 4}
-                            {if isset($SHOW_REGISTRATION_LINK)}
-                            <button class="btn btn-secondary" type="button"
-                                onclick="showRegistrationModal()">{$SHOW_REGISTRATION_LINK}</button>
-                            {/if}
+                            {if $MAILER_VALUE eq "Register"}
+                                {if isset($VALIDATE_USER_TEXT)}
+                                    <a class="btn btn-secondary" href="{$VALIDATE_USER_LINK}">{$VALIDATE_USER_TEXT}</a>
+                                {/if}
                             {/if}
 
                             <a class="btn btn-danger" href="#" onclick="showDeleteModal()">{$DELETE_ERROR}</a>

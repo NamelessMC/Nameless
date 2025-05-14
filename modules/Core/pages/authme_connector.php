@@ -199,7 +199,10 @@ if (Input::exists()) {
 
                     if (Settings::get('email_verification') === '1') {
                         // Send registration email
-                        Core_Emails::sendRegisterEmail($language, $email, $mcname, $user_id, $code);
+                        Email::send(
+                            $user,
+                            new RegisterEmailTemplate($code),
+                        );
 
                         Session::flash('home', $language->get('user', 'registration_check_email'));
                         Redirect::to(URL::build('/'));
