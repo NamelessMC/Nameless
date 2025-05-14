@@ -825,7 +825,8 @@ class User
      */
     public function listAllOtherUsers(): array
     {
-        $data = $this->_db->query('SELECT u.username FROM nl2_users u WHERE u.id <> ? AND u.id NOT IN (SELECT user_id FROM nl2_blocked_users bu WHERE bu.user_blocked_id = ?)',
+        $data = $this->_db->query(
+            'SELECT u.username FROM nl2_users u WHERE u.id <> ? AND u.id NOT IN (SELECT user_id FROM nl2_blocked_users bu WHERE bu.user_blocked_id = ?)',
             [$this->data()->id, $this->data()->id]
         )->results();
         $return = [];
