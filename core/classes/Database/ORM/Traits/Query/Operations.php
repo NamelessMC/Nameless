@@ -136,15 +136,7 @@ trait Operations
      *
      * @param int $perPage
      * @param int $page
-     * @return array{
-     *     data: Collection<Model>,
-     *     total: int,
-     *     per_page: int,
-     *     current_page: int,
-     *     last_page: int,
-     *     links: array<int, string>,
-     *     pages: array,
-     * }
+     * @return array
      */
     public function paginate(int $perPage, int $page = 1): array
     {
