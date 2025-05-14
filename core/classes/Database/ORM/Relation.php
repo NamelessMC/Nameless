@@ -40,8 +40,8 @@ class Relation
      * One-to-many relationship.
      *
      * @param class-string<Model> $modelClass Related model
-     * @param string $foreignKey FK column on related table
-     * @param string $localKey PK column on this model
+     * @param string              $foreignKey FK column on related table
+     * @param string              $localKey   PK column on this model
      */
     public static function hasMany(string $modelClass, string $foreignKey, string $localKey): self
     {
@@ -58,8 +58,8 @@ class Relation
      * Inverse of hasMany (many-to-one).
      *
      * @param class-string<Model> $modelClass Related model
-     * @param string $foreignKey FK column on this table
-     * @param string $ownerKey PK column on related table
+     * @param string              $foreignKey FK column on this table
+     * @param string              $ownerKey   PK column on related table
      */
     public static function belongsTo(string $modelClass, string $foreignKey, string $ownerKey): self
     {
@@ -77,12 +77,12 @@ class Relation
      *
      * Note: $pivotTable must be the full table name, including any prefix.
      *
-     * @param class-string<Model> $modelClass Related model
-     * @param string $pivotTable Full pivot table name (with prefix)
-     * @param string $foreignPivotKey Pivot column for this model
-     * @param string $relatedPivotKey Pivot column for related model
-     * @param string $parentKey PK column on this model
-     * @param string $relatedKey PK column on related model
+     * @param class-string<Model> $modelClass      Related model
+     * @param string              $pivotTable      Full pivot table name (with prefix)
+     * @param string              $foreignPivotKey Pivot column for this model
+     * @param string              $relatedPivotKey Pivot column for related model
+     * @param string              $parentKey       PK column on this model
+     * @param string              $relatedKey      PK column on related model
      */
     public static function belongsToMany(
         string $modelClass,
@@ -91,8 +91,7 @@ class Relation
         string $relatedPivotKey,
         string $parentKey,
         string $relatedKey
-    ): self
-    {
+    ): self {
         $rel = new self();
         $rel->type = self::TYPE_BELONGS_TO_MANY;
         $rel->modelClass = $modelClass;
@@ -190,9 +189,9 @@ class Relation
     /**
      * Fetch related records for hasMany / belongsTo.
      *
-     * @param int[] $ids
-     * @return Model[]
+     * @param  int[]            $ids
      * @throws RuntimeException
+     * @return Model[]
      */
     public function fetch(array $ids): array
     {
@@ -228,7 +227,7 @@ class Relation
             // Check whether the entry is in the connection table
             $relatedVal = $item instanceof Model
                 ? $item->{$this->getRelatedKey()}
-                : (int)$item;
+                : (int) $item;
 
             $exists = $db->query(
                 "SELECT COUNT(*) as count
@@ -275,9 +274,9 @@ class Relation
             return;
         }
 
-        $ids = array_map(fn($i) => $i instanceof Model
+        $ids = array_map(fn ($i) => $i instanceof Model
             ? $i->{$this->getRelatedKey()}
-            : (int)$i, $items);
+            : (int) $i, $items);
         $ph = implode(',', array_fill(0, count($ids), '?'));
 
         $db->query(
@@ -307,7 +306,7 @@ class Relation
             true
         )->results();
 
-        $current = array_map(fn($r) => (int)$r->id, $rows);
+        $current = array_map(fn ($r) => (int) $r->id, $rows);
         $toAdd = array_diff($wanted, $current);
         $toRemove = array_diff($current, $wanted);
 
@@ -328,18 +327,18 @@ class Relation
     {
         $id = $item instanceof Model
             ? $item->{$this->getRelatedKey()}
-            : (int)$item;
+            : (int) $item;
         $db = Model::db();
         $parentId = $this->parent->{$this->getParentKey()};
 
         $exists = $db->query(
-                "SELECT 1
+            "SELECT 1
                FROM `{$this->getPivotTable()}`
               WHERE `{$this->getForeignPivotKey()}` = ?
                 AND `{$this->getRelatedPivotKey()}` = ?
               LIMIT 1",
-                [$parentId, $id]
-            )->count() > 0;
+            [$parentId, $id]
+        )->count() > 0;
 
         $exists ? $this->detach($id) : $this->attach($id);
     }

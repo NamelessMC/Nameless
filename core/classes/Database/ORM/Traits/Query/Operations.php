@@ -25,7 +25,7 @@ trait Operations
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
+        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
         $loaded = $this->with
             ? $this->eagerLoad($models)
             : $models;
@@ -38,7 +38,7 @@ trait Operations
      *
      * @return Model|null
      */
-    public function first(): Model|null
+    public function first(): ?Model
     {
         return $this->limit(1)->get()->all()[0] ?? null;
     }
@@ -46,8 +46,8 @@ trait Operations
     /**
      * First model or throw.
      *
-     * @return Model
      * @throws RuntimeException
+     * @return Model
      */
     public function firstOrFail(): Model
     {
@@ -62,10 +62,10 @@ trait Operations
     /**
      * Find by primary key.
      *
-     * @param int $id
+     * @param  int        $id
      * @return Model|null
      */
-    public function find(int $id): Model|null
+    public function find(int $id): ?Model
     {
         return $this->where($this->primaryKey, '=', $id)->first();
     }
@@ -73,7 +73,7 @@ trait Operations
     /**
      * Chunk processing: load in batches of $size.
      *
-     * @param int $size
+     * @param int      $size
      * @param callable $callback Receives Collection<Model>
      */
     public function chunk(int $size, callable $callback): void
@@ -91,8 +91,8 @@ trait Operations
     /**
      * Return array of values of one column.
      *
-     * @param string $column
-     * @param string|null $keyColumn
+     * @param  string                  $column
+     * @param  string|null             $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
@@ -134,14 +134,14 @@ trait Operations
     /**
      * Paginate the query.
      *
-     * @param int $perPage
-     * @param int $page
+     * @param  int   $perPage
+     * @param  int   $page
      * @return array
      */
     public function paginate(int $perPage, int $page = 1): array
     {
         $total = $this->count();
-        $lastPage = (int)ceil($total / $perPage);
+        $lastPage = (int) ceil($total / $perPage);
         $data = $this->limit($perPage)
             ->offset(($page - 1) * $perPage)
             ->get();
@@ -150,20 +150,21 @@ trait Operations
         unset($baseParams['p'], $baseParams['route']);
 
         $buildUrl = function (int $p) use ($baseParams): string {
-            $query = '?p=' . urlencode((string)$p);
+            $query = '?p=' . urlencode((string) $p);
             if (!empty($baseParams)) {
                 foreach ($baseParams as $k => $v) {
-                    $query .= '&' . $k . '=' . urlencode((string)$v);
+                    $query .= '&' . $k . '=' . urlencode((string) $v);
                 }
                 $query .= '&';
             }
+
             return $query;
         };
 
         $links = array_map(function (int $i) use ($buildUrl, $page) {
             return [
                 'url' => $buildUrl($i),
-                'label' => (string)$i,
+                'label' => (string) $i,
                 'active' => $i === $page,
             ];
         }, range(1, $lastPage));
@@ -186,7 +187,6 @@ trait Operations
             'pages' => $pages,
         ];
     }
-
 
     /**
      * Return an array of each model’s attributes.
