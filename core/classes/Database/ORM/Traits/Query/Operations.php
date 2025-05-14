@@ -25,7 +25,7 @@ trait Operations
             ->query($this->buildSelect(), $this->params, true)
             ->results();
 
-        $models = array_map(fn ($r) => new $this->modelClass((array) $r), $rows);
+        $models = array_map(fn($r) => new $this->modelClass((array)$r), $rows);
         $loaded = $this->with
             ? $this->eagerLoad($models)
             : $models;
@@ -46,8 +46,8 @@ trait Operations
     /**
      * First model or throw.
      *
-     * @throws RuntimeException
      * @return Model
+     * @throws RuntimeException
      */
     public function firstOrFail(): Model
     {
@@ -62,7 +62,7 @@ trait Operations
     /**
      * Find by primary key.
      *
-     * @param  int        $id
+     * @param int $id
      * @return Model|null
      */
     public function find(int $id): Model|null
@@ -73,7 +73,7 @@ trait Operations
     /**
      * Chunk processing: load in batches of $size.
      *
-     * @param int      $size
+     * @param int $size
      * @param callable $callback Receives Collection<Model>
      */
     public function chunk(int $size, callable $callback): void
@@ -91,8 +91,8 @@ trait Operations
     /**
      * Return array of values of one column.
      *
-     * @param  string                  $column
-     * @param  string|null             $keyColumn
+     * @param string $column
+     * @param string|null $keyColumn
      * @return array<int|string,mixed>
      */
     public function pluck(string $column, ?string $keyColumn = null): array
@@ -141,24 +141,60 @@ trait Operations
      *     total: int,
      *     per_page: int,
      *     current_page: int,
-     *     last_page: int
+     *     last_page: int,
+     *     links: array<int, string>,
+     *     pages: array,
      * }
      */
     public function paginate(int $perPage, int $page = 1): array
     {
         $total = $this->count();
+        $lastPage = (int)ceil($total / $perPage);
         $data = $this->limit($perPage)
             ->offset(($page - 1) * $perPage)
             ->get();
 
+        $baseParams = $_GET;
+        unset($baseParams['p'], $baseParams['route']);
+
+        $buildUrl = function (int $p) use ($baseParams): string {
+            $query = '?p=' . urlencode((string)$p);
+            if (!empty($baseParams)) {
+                foreach ($baseParams as $k => $v) {
+                    $query .= '&' . $k . '=' . urlencode((string)$v);
+                }
+                $query .= '&';
+            }
+            return $query;
+        };
+
+        $links = array_map(function (int $i) use ($buildUrl, $page) {
+            return [
+                'url' => $buildUrl($i),
+                'label' => (string)$i,
+                'active' => $i === $page,
+            ];
+        }, range(1, $lastPage));
+
+        $pages = [
+            'first' => $buildUrl(1),
+            'prev' => $page > 1 ? $buildUrl($page - 1) : null,
+            'next' => $page < $lastPage ? $buildUrl($page + 1) : null,
+            'last' => $buildUrl($lastPage),
+        ];
+
         return [
+            'active' => $total > $perPage,
             'data' => $data,
             'total' => $total,
             'per_page' => $perPage,
             'current_page' => $page,
-            'last_page' => (int) ceil($total / $perPage),
+            'last_page' => $lastPage,
+            'links' => $links,
+            'pages' => $pages,
         ];
     }
+
 
     /**
      * Return an array of each model’s attributes.
