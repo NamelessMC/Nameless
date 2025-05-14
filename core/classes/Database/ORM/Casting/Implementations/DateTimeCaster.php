@@ -16,6 +16,10 @@ class DateTimeCaster implements BuiltInCaster
     public function read(mixed $value): mixed
     {
         try {
+            if (is_numeric($value)) {
+                return (new DateTime())->setTimestamp((int) $value);
+            }
+
             return new DateTime((string) $value);
         } catch (\Exception $e) {
             throw new \RuntimeException(
