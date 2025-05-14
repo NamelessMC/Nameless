@@ -14,7 +14,8 @@ $image = (new \Bulletproof\Image($_FILES))
     ->setStorage(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'post_images']))
     ->setSize(10, 10000000 /* 10MB */)
     ->setDimension(10000, 10000)
-    ->setName($user->data()->id . '-' . time());
+    ->setName($user->data()->id . '-' . time())
+    ->setMime(['gif', 'png', 'jpg', 'jpeg', 'webp']);
 
 if ($image['file']) {
     if (!$image->upload()) {

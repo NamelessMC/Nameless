@@ -161,8 +161,8 @@ if ($og_image == '') {
     $og_img = Output::getClean($og_image);
 }
 
-// Only display jpeg, png, jpg, gif
-$allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico'];
+// Only display jpeg, png, jpg, gif, webp
+$allowed_exts = ['gif', 'png', 'jpg', 'jpeg', 'ico', 'webp'];
 
 $image_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'template_banners']);
 $images = scandir($image_path);
