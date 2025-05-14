@@ -41,7 +41,7 @@ if (!Token::check()) {
     die('Invalid token');
 }
 
-$image_extensions = ['jpg', 'png', 'jpeg'];
+$image_extensions = ['jpg', 'png', 'jpeg', 'webp'];
 
 if ($user->hasPermission('usercp.gif_avatar')) {
     $image_extensions[] = 'gif';
@@ -51,10 +51,13 @@ if ($_POST['type'] === 'favicon') {
     $image_extensions[] = 'ico';
 }
 
+$name = explode('.', $_FILES['file']['name'])[0];
+
 $image = (new \Bulletproof\Image($_FILES))
         ->setSize(1, 2097152 /* 2MB */)
         ->setDimension(2000, 2000) // 2k x 2k pixel maximum
-        ->setMime($image_extensions);
+        ->setMime($image_extensions)
+        ->setName($name);
 
 $folder = null;
 
