@@ -165,6 +165,12 @@ if ($reaction_id = $reaction_context->hasReacted($user, $reaction, $reactable_id
 }
 
 $receiver = $reaction_context->determineReceiver($reactable);
+
+if ($receiver->data()->id === $user->data()->id) {
+    http_response_code(\Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+    die('You cannot react to your own content');
+}
+
 $reaction_context->giveReaction($user, $receiver, $reaction, $reactable_id);
 EventHandler::executeEvent(new UserReactionAddedEvent(
     $user,

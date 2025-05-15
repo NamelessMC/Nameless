@@ -108,7 +108,7 @@
                                     <div class="text forum_post">
                                         {$post.content}
                                     </div>
-                                    {if ((isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID) || count($post.reactions))}
+                                    {if ((isset($LOGGED_IN_USER) && $post.user_id != $USER_ID) || count($post.reactions))}
                                         <div class="ui mini message" id="reactions">
                                             {if count($post.reactions)}
                                                 <span class="left aligned">
@@ -122,7 +122,7 @@
                                                     {/foreach}
                                                 </span>
                                             {/if}
-                                            {if (isset($LOGGED_IN_USER) && $post.user_id !== $USER_ID)}
+                                            {if (isset($LOGGED_IN_USER) && $post.user_id != $USER_ID)}
                                                 <span class="right floated">
                                                     {foreach from=$REACTIONS item=reaction}
                                                         <span

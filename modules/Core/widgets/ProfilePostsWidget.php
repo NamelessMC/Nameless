@@ -74,13 +74,14 @@ class ProfilePostsWidget extends WidgetBase {
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
                 $post_user = new User($post->user_id);
+                $content = EventHandler::executeEvent(new RenderContentEvent($post->content))->content;
                 $link = rtrim($post_user->getProfileURL(), '/');
 
                 $posts_array[] = [
                     'avatar' => $post_author->getAvatar(),
                     'username' => $post_author->getDisplayname(),
                     'username_style' => $post_author->getGroupStyle(),
-                    'content' => Text::truncate(strip_tags($post->content), 20),
+                    'content' => Text::truncate(strip_tags($content), 20),
                     'link' => $link . '/#post-' . $post->id,
                     'date_ago' => date(DATE_FORMAT, $post->time),
                     'user_id' => $post->author_id,

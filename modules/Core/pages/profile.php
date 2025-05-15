@@ -363,13 +363,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
                                     if (isset($_POST['content']) && strlen($_POST['content']) < 10000 && strlen($_POST['content']) >= 1) {
-                                        try {
-                                            DB::getInstance()->update('user_profile_wall_posts', $_POST['post_id'], [
-                                                'content' => $_POST['content']
-                                            ]);
-                                        } catch (Exception $e) {
-                                            $error = $e->getMessage();
-                                        }
+                                        DB::getInstance()->update('user_profile_wall_posts', $_POST['post_id'], [
+                                            'content' => $_POST['content']
+                                        ]);
                                     } else {
                                         $error = $language->get('user', 'invalid_wall_post');
                                     }
@@ -389,12 +385,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
-                                    try {
-                                        DB::getInstance()->delete('user_profile_wall_posts', ['id', $_POST['post_id']]);
-                                        DB::getInstance()->delete('user_profile_wall_posts_replies', ['post_id', $_POST['post_id']]);
-                                    } catch (Exception $e) {
-                                        $error = $e->getMessage();
-                                    }
+                                    DB::getInstance()->delete('user_profile_wall_posts', ['id', $_POST['post_id']]);
+                                    DB::getInstance()->delete('user_profile_wall_posts_replies', ['post_id', $_POST['post_id']]);
                                 }
                             }
                         }
@@ -411,11 +403,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                             if (count($post)) {
                                 $post = $post[0];
                                 if ($user->canViewStaffCP() || $post->author_id == $user->data()->id) {
-                                    try {
-                                        DB::getInstance()->delete('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
-                                    } catch (Exception $e) {
-                                        $error = $e->getMessage();
-                                    }
+                                    DB::getInstance()->delete('user_profile_wall_posts_replies', ['id', $_POST['post_id']]);
                                 }
                             }
                         }
