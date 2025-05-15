@@ -484,6 +484,13 @@ class Core_Module extends Module {
             Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
+
+        Notification::addType(
+            'punishment',
+            $language->get('notification', 'punishments'),
+            Module::getIdFromName('Core'),
+            ['alert' => true, 'email' => true],
+        );
     }
 
     public static function getDashboardGraphs(): array {

@@ -56,6 +56,8 @@ class Notification {
             $recipients = [$recipients];
         }
 
+        $recipients = array_diff($recipients, [$authorId]);
+
         if (count($recipients) === 0) {
             return;
         }
