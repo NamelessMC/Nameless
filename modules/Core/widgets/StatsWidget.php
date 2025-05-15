@@ -65,13 +65,8 @@ class StatsWidget extends WidgetBase {
         }
 
         if (!$this->_cache->isCached('online_guests')) {
-            try {
-                $online_guests = DB::getInstance()->query('SELECT COUNT(*) as c FROM nl2_online_guests WHERE last_seen > ?', [strtotime('-5 minutes')])->first()->c;
-                $this->_cache->store('online_guests', $online_guests, 60);
-            } catch (Exception $e) {
-                // Upgrade script hasn't been run
-                $online_guests = 0;
-            }
+            $online_guests = DB::getInstance()->query('SELECT COUNT(*) as c FROM nl2_online_guests WHERE last_seen > ?', [strtotime('-5 minutes')])->first()->c;
+            $this->_cache->store('online_guests', $online_guests, 60);
         } else {
             $online_guests = $this->_cache->retrieve('online_guests');
         }

@@ -44,25 +44,21 @@ if (Input::exists()) {
         ]);
 
         if ($validation->passed()) {
-            try {
-                $cookie_id = DB::getInstance()->get('privacy_terms', ['name', 'cookies'])->results();
-                if (count($cookie_id)) {
-                    $cookie_id = $cookie_id[0]->id;
+            $cookie_id = DB::getInstance()->get('privacy_terms', ['name', 'cookies'])->results();
+            if (count($cookie_id)) {
+                $cookie_id = $cookie_id[0]->id;
 
-                    DB::getInstance()->update('privacy_terms', $cookie_id, [
-                        'value' => Input::get('cookies')
-                    ]);
-                } else {
-                    DB::getInstance()->insert('privacy_terms', [
-                        'name' => 'cookies',
-                        'value' => Input::get('cookies')
-                    ]);
-                }
-
-                $success = $cookie_language->get('cookie', 'cookie_notice_success');
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
+                DB::getInstance()->update('privacy_terms', $cookie_id, [
+                    'value' => Input::get('cookies')
+                ]);
+            } else {
+                DB::getInstance()->insert('privacy_terms', [
+                    'name' => 'cookies',
+                    'value' => Input::get('cookies')
+                ]);
             }
+
+            $success = $cookie_language->get('cookie', 'cookie_notice_success');
         } else {
             $errors = $validation->errors();
         }

@@ -230,118 +230,112 @@ if (isset($_GET['do'])) {
                 ]);
 
                 if ($validation->passed()) {
-                    try {
-                        // Update language, template and timezone
-                        $new_language_results = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
+                    // Update language, template and timezone
+                    $new_language_results = DB::getInstance()->get('languages', ['name', Input::get('language')])->results();
 
-                        if (count($new_language_results)) {
-                            $new_language = $new_language_results[0]->id;
-                            $language = new Language('core', $new_language_results[0]->short_code);
+                    if (count($new_language_results)) {
+                        $new_language = $new_language_results[0]->id;
+                        $language = new Language('core', $new_language_results[0]->short_code);
+                    } else {
+                        $new_language = $user->data()->language_id;
+                    }
+
+                    // Template
+                    if (Input::get('template') != 0) {
+                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+
+                        if (count($new_template)) {
+                            $new_template = $new_template[0]->id;
                         } else {
-                            $new_language = $user->data()->language_id;
+                            $new_template = $user_query->theme_id;
                         }
+                    } else {
+                        $new_template = null;
+                    }
 
-                        // Template
-                        if (Input::get('template') != 0) {
-                            $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+                    // Check permissions
+                    $available_templates = $user->getUserTemplates();
 
-                            if (count($new_template)) {
-                                $new_template = $new_template[0]->id;
-                            } else {
-                                $new_template = $user_query->theme_id;
-                            }
+                    foreach ($available_templates as $available_template) {
+                        if ($available_template->id == $new_template) {
+                            $can_update = true;
+                            break;
+                        }
+                    }
+
+                    if (!isset($can_update)) {
+                        $new_template = $user->data()->theme_id;
+                    }
+
+                    $timezone = Input::get('timezone');
+
+                    if ($user->hasPermission('usercp.signature')) {
+                        $signature = Input::get('signature');
+                    } else {
+                        $signature = '';
+                    }
+
+                    // Private profiles enabled?
+                    $private_profiles = Settings::get('private_profile');
+                    if ($private_profiles === '1') {
+                        if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
+                            $privateProfile = 1;
                         } else {
-                            $new_template = null;
+                            $privateProfile = 0;
+                        }
+                    } else {
+                        $privateProfile = $user->data()->private_profile;
+                    }
+
+                    $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
+
+                    $data = [
+                        'language_id' => $new_language,
+                        'timezone' => $timezone,
+                        'signature' => $signature,
+                        'nickname' => $displayname,
+                        'private_profile' => $privateProfile,
+                        'theme_id' => $new_template,
+                        'gravatar' => $gravatar,
+                    ];
+
+                    if ($user->data()->register_method === 'authme' && Settings::get('authme')) {
+                        $data['authme_sync_password'] = Input::get('authmeSync');
+                    }
+
+                    $user->update($data);
+
+                    Log::getInstance()->log(Log::Action('user/ucp/update'));
+
+                    foreach ($_POST['profile_fields'] as $field_id => $value) {
+                        // Check field exists
+                        $field = ProfileField::find($field_id);
+                        if (!$field) {
+                            continue;
                         }
 
-                        // Check permissions
-                        $available_templates = $user->getUserTemplates();
-
-                        foreach ($available_templates as $available_template) {
-                            if ($available_template->id == $new_template) {
-                                $can_update = true;
-                                break;
-                            }
-                        }
-
-                        if (!isset($can_update)) {
-                            $new_template = $user->data()->theme_id;
-                        }
-
-                        $timezone = Input::get('timezone');
-
-                        if ($user->hasPermission('usercp.signature')) {
-                            $signature = Input::get('signature');
-                        } else {
-                            $signature = '';
-                        }
-
-                        // Private profiles enabled?
-                        $private_profiles = Settings::get('private_profile');
-                        if ($private_profiles === '1') {
-                            if ($user->canPrivateProfile() && $_POST['privateProfile'] == 1) {
-                                $privateProfile = 1;
-                            } else {
-                                $privateProfile = 0;
-                            }
-                        } else {
-                            $privateProfile = $user->data()->private_profile;
-                        }
-
-                        $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
-
-                        $data = [
-                            'language_id' => $new_language,
-                            'timezone' => $timezone,
-                            'signature' => $signature,
-                            'nickname' => $displayname,
-                            'private_profile' => $privateProfile,
-                            'theme_id' => $new_template,
-                            'gravatar' => $gravatar,
-                        ];
-
-                        if ($user->data()->register_method === 'authme' && Settings::get('authme')) {
-                            $data['authme_sync_password'] = Input::get('authmeSync');
-                        }
-
-                        $user->update($data);
-
-                        Log::getInstance()->log(Log::Action('user/ucp/update'));
-
-                        foreach ($_POST['profile_fields'] as $field_id => $value) {
-                            // Check field exists
-                            $field = ProfileField::find($field_id);
-                            if (!$field) {
-                                continue;
-                            }
-
-                            $user_profile_fields = $user->getProfileFields(true);
-                            if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
-                                // Update field value if it has changed
-                                if ($value !== $user_profile_fields[$field->id]->value) {
-                                    DB::getInstance()->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
-                                        'value' => $value,
-                                        'updated' => date('U'),
-                                    ]);
-                                }
-                            } else {
-                                // Create new field value
-                                DB::getInstance()->insert('users_profile_fields', [
-                                    'user_id' => $user->data()->id,
-                                    'field_id' => $field->id,
+                        $user_profile_fields = $user->getProfileFields(true);
+                        if (array_key_exists($field->id, $user_profile_fields) && $user_profile_fields[$field->id]->value !== null) {
+                            // Update field value if it has changed
+                            if ($value !== $user_profile_fields[$field->id]->value) {
+                                DB::getInstance()->update('users_profile_fields', $user_profile_fields[$field->id]->upf_id, [
                                     'value' => $value,
                                     'updated' => date('U'),
                                 ]);
                             }
+                        } else {
+                            // Create new field value
+                            DB::getInstance()->insert('users_profile_fields', [
+                                'user_id' => $user->data()->id,
+                                'field_id' => $field->id,
+                                'value' => $value,
+                                'updated' => date('U'),
+                            ]);
                         }
-
-                        Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
-                        Redirect::to(URL::build('/user/settings'));
-
-                    } catch (Exception $e) {
-                        Session::flash('settings_error', $e->getMessage());
                     }
 
+                    Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
+                    Redirect::to(URL::build('/user/settings'));
                 } else {
                     $errors = $validation->errors();
                 }

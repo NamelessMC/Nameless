@@ -57,7 +57,7 @@ class Output
             $purifierConfig->set('URI.DisableExternalResources', false);
             $purifierConfig->set('URI.DisableResources', false);
             $purifierConfig->set('HTML.Allowed', 'u,a,p,p[style],b,i,small,blockquote,span[style],span[class],p,strong,em,li,ul,ol,div[align],br,img,figure,figcaption');
-            $purifierConfig->set('CSS.AllowedProperties', ['text-align', 'display', 'float', 'color', 'background-color', 'background', 'font-size', 'font-family', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'text-decoration', 'font-weight', 'font-style', 'font-size', 'vertical-align']);
+            $purifierConfig->set('CSS.AllowedProperties', ['text-align', 'display', 'float', 'color', 'background-color', 'background', 'font-size', 'font-family', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'text-decoration', 'font-weight', 'font-style', 'font-size', 'vertical-align', 'width', 'border-color', 'border-style']);
             $purifierConfig->set('CSS.AllowTricky', true);
             $purifierConfig->set('HTML.AllowedAttributes', 'target, rel, href, id, src, height, width, alt, class, *.style, dir');
             $purifierConfig->set('HTML.ForbiddenAttributes', 'iframe@width,iframe@height');

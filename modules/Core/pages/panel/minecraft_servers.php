@@ -81,103 +81,98 @@ if (isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         // Handle input
-                        try {
-                            // Bedrock selected?
-                            if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
-                                $bedrock = 1;
-                            } else {
-                                $bedrock = 0;
-                            }
-
-                            // BungeeCord selected?
-                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
-                                $bungee = 1;
-                            } else {
-                                $bungee = 0;
-                            }
-
-                            // Pre 1.7?
-                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
-                                $pre = 1;
-                            } else {
-                                $pre = 0;
-                            }
-
-                            // Status enabled?
-                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
-                                $status = 1;
-                            } else {
-                                $status = 0;
-                            }
-
-                            // Show IP enabled?
-                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
-                                $show_ip = 1;
-                            } else {
-                                $show_ip = 0;
-                            }
-
-                            // Player list enabled?
-                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
-                                $query = 1;
-                            } else {
-                                $query = 0;
-                            }
-
-                            // Parent server
-                            if ($_POST['parent_server'] == 'none') {
-                                $parent = 0;
-                            } else {
-                                $parent = $_POST['parent_server'];
-                            }
-
-                            // Validate server port
-                            if (is_numeric(Input::get('server_port'))) {
-                                $port = Input::get('server_port');
-                            } else {
-                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
-                                    $port = null;
-                                } else {
-                                    $port = 25565;
-                                }
-                            }
-
-                            // Validate server query port
-                            if (is_numeric(Input::get('query_port'))) {
-                                $query_port = Input::get('query_port');
-                            } else {
-                                $query_port = 25565;
-                            }
-
-                            $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
-                            if (count($last_server_order)) {
-                                $last_server_order = $last_server_order[0]->order;
-                            } else {
-                                $last_server_order = 0;
-                            }
-
-                            DB::getInstance()->insert('mc_servers', [
-                                'ip' => Input::get('server_address'),
-                                'query_ip' => Input::get('server_address'),
-                                'name' => Input::get('server_name'),
-                                'display' => $status,
-                                'pre' => $pre,
-                                'player_list' => $query,
-                                'parent_server' => $parent,
-                                'bungee' => $bungee,
-                                'bedrock' => $bedrock,
-                                'port' => $port,
-                                'query_port' => $query_port,
-                                'show_ip' => $show_ip,
-                                'order' => $last_server_order + 1
-                            ]);
-
-                            Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
-                            Redirect::to(URL::build('/panel/minecraft/servers'));
-
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                        // Bedrock selected?
+                        if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
+                            $bedrock = 1;
+                        } else {
+                            $bedrock = 0;
                         }
+
+                        // BungeeCord selected?
+                        if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
+                            $bungee = 1;
+                        } else {
+                            $bungee = 0;
+                        }
+
+                        // Pre 1.7?
+                        if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
+                            $pre = 1;
+                        } else {
+                            $pre = 0;
+                        }
+
+                        // Status enabled?
+                        if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
+                            $status = 1;
+                        } else {
+                            $status = 0;
+                        }
+
+                        // Show IP enabled?
+                        if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
+                            $show_ip = 1;
+                        } else {
+                            $show_ip = 0;
+                        }
+
+                        // Player list enabled?
+                        if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
+                            $query = 1;
+                        } else {
+                            $query = 0;
+                        }
+
+                        // Parent server
+                        if ($_POST['parent_server'] == 'none') {
+                            $parent = 0;
+                        } else {
+                            $parent = $_POST['parent_server'];
+                        }
+
+                        // Validate server port
+                        if (is_numeric(Input::get('server_port'))) {
+                            $port = Input::get('server_port');
+                        } else {
+                            if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
+                                $port = null;
+                            } else {
+                                $port = 25565;
+                            }
+                        }
+
+                        // Validate server query port
+                        if (is_numeric(Input::get('query_port'))) {
+                            $query_port = Input::get('query_port');
+                        } else {
+                            $query_port = 25565;
+                        }
+
+                        $last_server_order = DB::getInstance()->query('SELECT `order` FROM nl2_mc_servers ORDER BY `order` DESC LIMIT 1')->results();
+                        if (count($last_server_order)) {
+                            $last_server_order = $last_server_order[0]->order;
+                        } else {
+                            $last_server_order = 0;
+                        }
+
+                        DB::getInstance()->insert('mc_servers', [
+                            'ip' => Input::get('server_address'),
+                            'query_ip' => Input::get('server_address'),
+                            'name' => Input::get('server_name'),
+                            'display' => $status,
+                            'pre' => $pre,
+                            'player_list' => $query,
+                            'parent_server' => $parent,
+                            'bungee' => $bungee,
+                            'bedrock' => $bedrock,
+                            'port' => $port,
+                            'query_port' => $query_port,
+                            'show_ip' => $show_ip,
+                            'order' => $last_server_order + 1
+                        ]);
+
+                        Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
+                        Redirect::to(URL::build('/panel/minecraft/servers'));
                     } else {
                         // Validation failed
                         $errors = $validation->errors();
@@ -297,95 +292,90 @@ if (isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         // Handle input
-                        try {
-                            // Bedrock selected?
-                            if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
-                                $bedrock = 1;
-                            } else {
-                                $bedrock = 0;
-                            }
-
-                            // BungeeCord selected?
-                            if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
-                                $bungee = 1;
-                            } else {
-                                $bungee = 0;
-                            }
-
-                            // Pre 1.7?
-                            if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
-                                $pre = 1;
-                            } else {
-                                $pre = 0;
-                            }
-
-                            // Status enabled?
-                            if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
-                                $status = 1;
-                            } else {
-                                $status = 0;
-                            }
-
-                            // Show IP enabled?
-                            if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
-                                $show_ip = 1;
-                            } else {
-                                $show_ip = 0;
-                            }
-
-                            // Player list enabled?
-                            if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
-                                $query = 1;
-                            } else {
-                                $query = 0;
-                            }
-
-                            // Parent server
-                            if ($_POST['parent_server'] == 'none') {
-                                $parent = 0;
-                            } else {
-                                $parent = $_POST['parent_server'];
-                            }
-
-                            // Validate server port
-                            if (is_numeric(Input::get('server_port'))) {
-                                $port = Input::get('server_port');
-                            } else {
-                                if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
-                                    $port = null;
-                                } else {
-                                    $port = 25565;
-                                }
-                            }
-
-                            // Validate server query port
-                            if (is_numeric(Input::get('query_port'))) {
-                                $query_port = Input::get('query_port');
-                            } else {
-                                $query_port = 25565;
-                            }
-
-                            DB::getInstance()->update('mc_servers', $server_editing->id, [
-                                'ip' => Output::getClean(Input::get('server_address')),
-                                'query_ip' => Output::getClean(Input::get('server_address')),
-                                'name' => Output::getClean(Input::get('server_name')),
-                                'display' => $status,
-                                'pre' => $pre,
-                                'player_list' => $query,
-                                'parent_server' => $parent,
-                                'bungee' => $bungee,
-                                'bedrock' => $bedrock,
-                                'port' => $port,
-                                'query_port' => $query_port,
-                                'show_ip' => $show_ip
-                            ]);
-
-                            Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
-                            Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server_editing->id)));
-
-                        } catch (Exception $e) {
-                            $errors = [$e->getMessage()];
+                        // Bedrock selected?
+                        if (isset($_POST['bedrock']) && $_POST['bedrock'] == 1) {
+                            $bedrock = 1;
+                        } else {
+                            $bedrock = 0;
                         }
+
+                        // BungeeCord selected?
+                        if (isset($_POST['bungee_instance']) && $_POST['bungee_instance'] == 1) {
+                            $bungee = 1;
+                        } else {
+                            $bungee = 0;
+                        }
+
+                        // Pre 1.7?
+                        if (isset($_POST['pre_17']) && $_POST['pre_17'] == 1) {
+                            $pre = 1;
+                        } else {
+                            $pre = 0;
+                        }
+
+                        // Status enabled?
+                        if (isset($_POST['status_query_enabled']) && $_POST['status_query_enabled'] == 1) {
+                            $status = 1;
+                        } else {
+                            $status = 0;
+                        }
+
+                        // Show IP enabled?
+                        if (isset($_POST['show_ip_enabled']) && $_POST['show_ip_enabled'] == 1) {
+                            $show_ip = 1;
+                        } else {
+                            $show_ip = 0;
+                        }
+
+                        // Player list enabled?
+                        if (isset($_POST['query_enabled']) && $_POST['query_enabled'] == 1) {
+                            $query = 1;
+                        } else {
+                            $query = 0;
+                        }
+
+                        // Parent server
+                        if ($_POST['parent_server'] == 'none') {
+                            $parent = 0;
+                        } else {
+                            $parent = $_POST['parent_server'];
+                        }
+
+                        // Validate server port
+                        if (is_numeric(Input::get('server_port'))) {
+                            $port = Input::get('server_port');
+                        } else {
+                            if (!isset($_POST['server_port']) || empty($_POST['server_port'])) {
+                                $port = null;
+                            } else {
+                                $port = 25565;
+                            }
+                        }
+
+                        // Validate server query port
+                        if (is_numeric(Input::get('query_port'))) {
+                            $query_port = Input::get('query_port');
+                        } else {
+                            $query_port = 25565;
+                        }
+
+                        DB::getInstance()->update('mc_servers', $server_editing->id, [
+                            'ip' => Output::getClean(Input::get('server_address')),
+                            'query_ip' => Output::getClean(Input::get('server_address')),
+                            'name' => Output::getClean(Input::get('server_name')),
+                            'display' => $status,
+                            'pre' => $pre,
+                            'player_list' => $query,
+                            'parent_server' => $parent,
+                            'bungee' => $bungee,
+                            'bedrock' => $bedrock,
+                            'port' => $port,
+                            'query_port' => $query_port,
+                            'show_ip' => $show_ip
+                        ]);
+
+                        Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
+                        Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server_editing->id)));
                     } else {
                         // Validation failed
                         $errors = $validation->errors();
@@ -522,49 +512,42 @@ if (isset($_GET['action'])) {
             }
 
             // Update database and cache
-            try {
-                // Default server
-                if ($new_default > 0) {
-                    $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
-                    if (count($current_default) && $current_default[0]->id != $new_default) {
-                        DB::getInstance()->update('mc_servers', $current_default[0]->id, [
-                            'is_default' => false,
-                        ]);
-                    }
-
-                    if (!count($current_default) || $current_default[0]->id != $new_default) {
-                        DB::getInstance()->update('mc_servers', $new_default, [
-                            'is_default' => true,
-                        ]);
-                    }
+            // Default server
+            if ($new_default > 0) {
+                $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
+                if (count($current_default) && $current_default[0]->id != $new_default) {
+                    DB::getInstance()->update('mc_servers', $current_default[0]->id, [
+                        'is_default' => false,
+                    ]);
                 }
 
-                // Group sync server
-                Settings::set('group_sync_mc_server', $new_group_sync_server);
-
-                // Query type
-                Settings::set('query_type', $query_type);
-
-                // Player list limit
-                if ($player_list_limit != null) { // In case the field is hidden, we don't want to change this value
-                    Settings::set('player_list_limit', $player_list_limit);
+                if (!count($current_default) || $current_default[0]->id != $new_default) {
+                    DB::getInstance()->update('mc_servers', $new_default, [
+                        'is_default' => true,
+                    ]);
                 }
-
-                // Status page
-                Settings::set('status_page', $status);
-                // Query interval
-
-                if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
-                    Settings::set('minecraft_query_interval', $_POST['interval']);
-                }
-
-                $success = $language->get('admin', 'minecraft_settings_updated_successfully');
-
-            } catch (Exception $e) {
-                // Error
-                $errors[] = $e->getMessage();
             }
 
+            // Group sync server
+            Settings::set('group_sync_mc_server', $new_group_sync_server);
+
+            // Query type
+            Settings::set('query_type', $query_type);
+
+            // Player list limit
+            if ($player_list_limit != null) { // In case the field is hidden, we don't want to change this value
+                Settings::set('player_list_limit', $player_list_limit);
+            }
+
+            // Status page
+            Settings::set('status_page', $status);
+            // Query interval
+
+            if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
+                Settings::set('minecraft_query_interval', $_POST['interval']);
+            }
+
+            $success = $language->get('admin', 'minecraft_settings_updated_successfully');
         } else {
             $errors[] = $language->get('general', 'invalid_token');
         }

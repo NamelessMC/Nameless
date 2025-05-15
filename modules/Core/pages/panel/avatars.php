@@ -33,31 +33,21 @@ require_once ROOT_PATH . '/core/templates/backend_init.php';
 if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
-            try {
-                Settings::set('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
-                Settings::set('default_avatar_type', Input::get('default_avatar'));
-                Settings::set('avatar_site', Input::get('avatar_source'));
-                Settings::set('avatar_type', Input::get('avatar_perspective'));
+            Settings::set('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
+            Settings::set('default_avatar_type', Input::get('default_avatar'));
+            Settings::set('avatar_site', Input::get('avatar_source'));
+            Settings::set('avatar_type', Input::get('avatar_perspective'));
 
-                $cache->setCache('avatar_settings_cache');
-                $cache->store('custom_avatars', $custom_avatars);
-                $cache->store('default_avatar_type', Input::get('default_avatar'));
-                $cache->store('avatar_source', Input::get('avatar_source'));
-                $cache->store('avatar_perspective', Input::get('avatar_perspective'));
-            } catch (Exception $e) {
-                $errors = [$e->getMessage()];
-            }
-        } else {
-            if (isset($_POST['avatar'])) {
-                // Selecting a new default avatar
-                try {
-                    Settings::set('custom_default_avatar', Input::get('avatar'));
-                    $cache->setCache('avatar_settings_cache');
-                    $cache->store('default_avatar_image', Input::get('avatar'));
-                } catch (Exception $e) {
-                    $errors = [$e->getMessage()];
-                }
-            }
+            $cache->setCache('avatar_settings_cache');
+            $cache->store('custom_avatars', $custom_avatars);
+            $cache->store('default_avatar_type', Input::get('default_avatar'));
+            $cache->store('avatar_source', Input::get('avatar_source'));
+            $cache->store('avatar_perspective', Input::get('avatar_perspective'));
+        } else if (isset($_POST['avatar'])) {
+            // Selecting a new default avatar
+            Settings::set('custom_default_avatar', Input::get('avatar'));
+            $cache->setCache('avatar_settings_cache');
+            $cache->store('default_avatar_image', Input::get('avatar'));
         }
 
         //Log::getInstance()->log(Log::Action('admin/core/avatar'));

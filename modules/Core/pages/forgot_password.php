@@ -152,17 +152,13 @@ if (empty($_GET['c'])) {
             if ($validation->passed()) {
                 if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
                     $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
-                    try {
-                        $target_user->update([
-                            'password' => $new_password,
-                            'reset_code' => null
-                        ]);
+                    $target_user->update([
+                        'password' => $new_password,
+                        'reset_code' => null
+                    ]);
 
-                        Session::flash('login_success', $language->get('user', 'forgot_password_change_successful'));
-                        Redirect::to(URL::build('/login'));
-                    } catch (Exception $e) {
-                        $errors = [$e->getMessage()];
-                    }
+                    Session::flash('login_success', $language->get('user', 'forgot_password_change_successful'));
+                    Redirect::to(URL::build('/login'));
                 } else {
                     $errors = [$language->get('user', 'incorrect_email')];
                 }

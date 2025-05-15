@@ -22,7 +22,7 @@
 <div class="ui padded segment" id="new-topic">
     <div class="ui stackable grid">
         <div class="ui centered row">
-            <div class="ui sixteen wide tablet twelve wide computer column">
+            <div class="ui column">
                 <form class="ui form" action="" method="post" id="form-new-topic">
                     <div class="field">
                         <label for="title">{$TOPIC_TITLE}</label>
@@ -30,17 +30,16 @@
                             value="{$TOPIC_VALUE}">
                     </div>
                     {if count($LABELS)}
-                    <div class="inline fields labels">
-                        {foreach from=$LABELS item=label}
-                        <div class="field">
-                            <div class="ui checkbox">
-                                <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}" {if
-                                    $label.checked} checked{/if} hidden>
-                                <label for="{$label.id}">{$label.html}</label>
-                            </div>
+                        <div class="inline fields labels">
+                            {foreach from=$LABELS item=label}
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}" {if $label.checked} checked{/if} hidden>
+                                        <label for="{$label.id}">{$label.html}</label>
+                                    </div>
+                                </div>
+                            {/foreach}
                         </div>
-                        {/foreach}
-                    </div>
                     {/if}
                     <div class="field">
                         <label for="reply">{$CONTENT_LABEL}</label>

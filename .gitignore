@@ -8,8 +8,7 @@
 .valet-env.php
 /vendor
 /core/assets/vendor
-/uploads/avatars/**
-/uploads/logos/**
+/uploads/**
 /node_modules/
 composer.lock
 checksums.json

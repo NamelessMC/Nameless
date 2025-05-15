@@ -171,7 +171,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>{$GUEST}</td>
+                                                <td>{$GUESTS}</td>
                                                 <td><input type="hidden" name="perm-view-0" value="0" /><input
                                                         onclick="colourUpdate(this);" name="perm-view-0"
                                                         id="Input-view-0" value="1" type="checkbox" {if
