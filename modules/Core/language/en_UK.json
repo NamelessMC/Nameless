@@ -1302,6 +1302,7 @@
     "user/post_on_wall": "Post on {{user}}'s wall",
     "user/private_profile": "Private profile",
     "user/private_profile_page": "This is a private profile!",
+    "user/blocked_profile_page": "This user has blocked you",
     "user/profile": "Profile",
     "user/profile_banner": "Profile Banner",
     "user/profile_posts": "Profile Posts",

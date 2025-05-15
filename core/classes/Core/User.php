@@ -818,14 +818,17 @@ class User
     }
 
     /**
-     * Get a comma separated string of all other users.
+     * Get a comma separated string of all other users who have not blocked this user.
      * For the new private message dropdown.
      *
      * @return array Array of usernames.
      */
     public function listAllOtherUsers(): array
     {
-        $data = $this->_db->query('SELECT `username` FROM `nl2_users` WHERE `id` <> ?', [$this->data()->id])->results();
+        $data = $this->_db->query(
+            'SELECT u.username FROM nl2_users u WHERE u.id <> ? AND u.id NOT IN (SELECT user_id FROM nl2_blocked_users bu WHERE bu.user_blocked_id = ?)',
+            [$this->data()->id, $this->data()->id]
+        )->results();
         $return = [];
 
         foreach ($data as $item) {

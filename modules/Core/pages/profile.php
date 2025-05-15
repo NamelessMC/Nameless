@@ -473,7 +473,12 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
+    if ($profile_user->isBlocked($query->id, $user->data()->id)) {
+        $template->getEngine()->addVariables([
+            'BLOCKED' => $language->get('user', 'blocked_profile_page'),
+            'CAN_VIEW' => false
+        ]);
+    } else if ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
         $template->getEngine()->addVariables([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
             'CAN_VIEW' => false
