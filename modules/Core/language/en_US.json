@@ -1196,7 +1196,7 @@
     "user/like": "Like",
     "user/profile_post_reply": "Profile Post Reply",
     "api/webhook_added": "The webhook has been created",
-    "admin/user_banned_webhook": "{{punished}} has been banned from the website by {{punisher}}.",
+    "admin/user_banned_webhook": "{{punisher} is approved by {{punisher}}.",
     "admin/user_warned_webhook": "{{punished}} has been warned by {{punisher}}.",
     "admin/clone_group": "Clone group",
     "admin/auto_language_help": "If enabled, guests & logged out users will be able to let the website automatically detect their preferred language.",
