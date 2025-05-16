@@ -70,7 +70,13 @@ class Notification {
             $languageCodes = array_column($languageCodes, 'short_code', 'id');
         }
 
-        $this->_recipients = array_map(static function ($recipientId) use ($content, $contentCallback, $skipPurify, $title, $languageCodes) {
+        $notificationPreferences = DB::getInstance()->query(
+            'SELECT `user_id`, `alert`, `email` FROM nl2_users_notification_preferences WHERE `type` = ? AND `user_id` IN (1, 2, 3)',
+            array_merge([$this->_type], $recipients)
+        )->results();
+        $notificationPreferences = array_column($notificationPreferences, null, 'user_id');
+
+        $this->_recipients = array_map(static function ($recipientId) use ($content, $contentCallback, $skipPurify, $title, $languageCodes, $notificationPreferences) {
             $recipientLanguageCode = $languageCodes[$recipientId] ?? DEFAULT_LANGUAGE;
             if ($title instanceof LanguageKey) {
                 $title = $title->translate($recipientLanguageCode);
@@ -84,7 +90,9 @@ class Notification {
             return [
                 'id' => $recipientId,
                 'title' => $title,
-                'content' => $newContent
+                'content' => $newContent,
+                'send_alert' => $notificationPreferences[$recipientId]->alert ?? false,
+                'send_email' => $notificationPreferences[$recipientId]->email ?? false,
             ];
         }, $recipients);
     }
@@ -95,20 +103,13 @@ class Notification {
             $id = $recipient['id'];
             $title = $recipient['title'];
             $content = $recipient['content'];
+            $sendAlert = $recipient['send_alert'];
+            $sendEmail = $recipient['send_email'];
 
-            $preferences = DB::getInstance()->query(
-                <<<SQL
-                    SELECT `alert`, `email`
-                    FROM nl2_users_notification_preferences
-                    WHERE `type` = ? AND `user_id` = ?
-                SQL,
-                [$this->_type, $id]
-            )->first();
-
-            if ($preferences->alert) {
+            if ($sendAlert) {
                 $this->sendAlert($id, $title, $content);
             }
-            if ($preferences->email) {
+            if ($sendEmail) {
                 $this->sendEmail($id, $title, $content);
             }
         }
@@ -148,15 +149,13 @@ class Notification {
      * Register a custom notification type
      * @param string $type
      * @param string $value              Human-readable
-     * @param int    $moduleId
      * @param array  $defaultPreferences Set of default preferences in form preferenceKey => true/false
      * @return void
      */
-    public static function addType(string $type, string $value, int $moduleId, array $defaultPreferences = []): void {
+    public static function addType(string $type, string $value, array $defaultPreferences = []): void {
         self::$_types[] = [
             'key' => $type,
             'value' => $value,
-            'module' => $moduleId,
             'defaultPreferences' => $defaultPreferences
         ];
     }

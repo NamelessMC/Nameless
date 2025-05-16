@@ -474,21 +474,18 @@ class Core_Module extends Module {
         Notification::addType(
             'mass_message',
             $language->get('notification', 'mass_messages'),
-            Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
 
         Notification::addType(
             'report',
             $language->get('notification', 'reports'),
-            Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
 
         Notification::addType(
             'punishment',
             $language->get('notification', 'punishments'),
-            Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
     }

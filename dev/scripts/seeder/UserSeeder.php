@@ -6,6 +6,8 @@ class UserSeeder extends Seeder
         'nl2_users',
         'nl2_users_groups',
         'nl2_users_integrations',
+        'nl2_infractions',
+        'nl2_users_session',
     ];
 
     public function run(DB $db, \Faker\Generator $faker): void
@@ -18,7 +20,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'pass_method' => 'default',
             'joined' => date('U'),
-            'email' => 'admin@localhost',
+            'email' => 'admin@example.com',
             'lastip' => '127.0.0.1',
             'active' => true,
             'last_online' => date('U'),

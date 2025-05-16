@@ -19,6 +19,6 @@ final class InsertDefaultPunishmentUserNotificationPreferences extends AbstractM
      */
     public function change(): void
     {
-        DB::getInstance()->query('INSERT IGNORE INTO nl2_users_notification_preferences (user_id, `type`, email, alert) SELECT id, \'punishment\', 1, 1 FROM nl2_users WHERE id NOT IN (SELECT user_id FROM nl2_users_notification_preferences WHERE `type` = \'report\')');
+        DB::getInstance()->query('INSERT IGNORE INTO nl2_users_notification_preferences (user_id, `type`, email, alert) SELECT id, \'punishment\', 1, 1 FROM nl2_users WHERE id NOT IN (SELECT user_id FROM nl2_users_notification_preferences WHERE `type` = \'punishment\')');
     }
 }
