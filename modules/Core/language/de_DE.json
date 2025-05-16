@@ -1385,5 +1385,9 @@
     "admin/drag_and_drop": "Du kannst die Elemente mit drag and drop in die Liste ziehen.",
     "admin/edit_user_tfa_disabled": "Die Zwei-Faktor-Authentifizierung wurde für diesen Benutzer erfolgreich deaktiviert.",
     "admin/disable_tfa": "2FA deaktivieren",
-    "admin/homepage_news": "News"
+    "admin/homepage_news": "News",
+    "moderator/report_email": "Es wurde ein neuer Report erstellt. Klicke {{linkStart}}hier{{linkEnd}}, um ihn anzusehen.",
+    "notification/reports": "Reports",
+    "notification/mass_messages": "Massennachrichten",
+    "user/blocked_profile_page": "Dieser Benutzer hat dich blockiert"
 }

@@ -194,5 +194,7 @@
     "forum/spam_timer": "Spam Timer",
     "forum/spam_timer_min": "Der Spam-Timer muss mindestens {{min}} sein",
     "forum/spam_timer_numeric": "Spam-Timer muss numerisch sein",
-    "forum/spam_timer_required": "Spam-Timer muss vorhanden sein"
+    "forum/spam_timer_required": "Spam-Timer muss vorhanden sein",
+    "forum/forum_topic_replies": "Antworten zum Forumsthema",
+    "forum/forum_topic_mentions": "Forumsthema Erwähnungen"
 }
