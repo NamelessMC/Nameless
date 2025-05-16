@@ -1366,5 +1366,6 @@
     "admin/homepage_news": "Novinky",
     "notification/reports": "Hlášení",
     "moderator/report_email": "Bylo vytvořeno nové hlášení. Klikněte {{linkStart}}sem{{linkEnd}} pro jeho zobrazení.",
-    "notification/mass_messages": "Hromadné zprávy"
+    "notification/mass_messages": "Hromadné zprávy",
+    "user/blocked_profile_page": "Tento uživatel si vás zablokoval"
 }
