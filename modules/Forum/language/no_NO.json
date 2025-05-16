@@ -1,5 +1,4 @@
 {
-    "forum/available_hooks": "Tilgjengelig Hooks",
     "forum/average_posts": "Gjennomsnittlig antall innlegg",
     "forum/by": "Av",
     "forum/can_create_topic": "Kan opprette tråder?",
@@ -103,7 +102,6 @@
     "forum/no_topics": "Ingen tråder har blitt laget enda.",
     "forum/no_topics_short": "Ingen tråder",
     "forum/now_following_topic": "Du følger nå denne tråden, og vil bli varslet dersom noen svarer på den.",
-    "forum/online_users": "Brukere pålogget",
     "forum/overview": "Oversikt",
     "forum/parent_forum": "Overordnet forum",
     "forum/parent_forum_x": "Overordnet forum: {{forum}}",
@@ -152,7 +150,6 @@
     "forum/unstick_topic": "Ikke fest tråd",
     "forum/use_reactions": "Bruk reaksjoner?",
     "forum/user_no_posts": "Denne brukeren har ingen innlegg enda.",
-    "forum/user_tag": "Du har blitt omtalt.",
     "forum/user_tag_info": "Du har blitt omtalt av {{author}}.",
     "forum/views": "Visninger",
     "forum/x_posts": "{{count}} innlegg",

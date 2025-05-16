@@ -5,7 +5,6 @@
     "discord_integration/discord_id_length": "Bitte stelle sicher, dass deine Discord Server ID zwischen {{min}} und {{max}} Ziffern lang ist.",
     "discord_integration/discord_id_numeric": "Bitte stelle sicher, dass deine Discord Server ID numerisch ist (nur Zahlen)..",
     "discord_integration/discord_integration_not_setup": "Die Discord-Integration ist nicht eingerichtet",
-    "discord_integration/discord_role_id": "Discord Rollen ID",
     "discord_integration/discord_role_id_length": "Die Discord-Rollen-ID muss zwischen {{min}} und {{max}} Ziffern lang sein.",
     "discord_integration/discord_role_id_numeric": "Die ID der Discord Rolle muss numerisch sein.",
     "discord_integration/discord_settings_updated": "Discord Einstellungen erfolgreich aktualisiert",

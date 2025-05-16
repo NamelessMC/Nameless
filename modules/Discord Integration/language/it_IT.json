@@ -6,7 +6,6 @@
     "discord_integration/discord_id_help": "Per informazioni su dove trovare gli ID Discord, leggi {{linkStart}}questo.{{linkEnd}}",
     "discord_integration/discord_id_length": "Assicurati che la lunghezza del tuo ID Discord Server sia compresa tra {{min}} e {{max}} caratteri.",
     "discord_integration/discord_id_numeric": "Assicurati che l'ID del tuo server Discord sia numerico (solo numeri).",
-    "discord_integration/discord_role_id": "ID ruolo Discord",
     "discord_integration/discord_role_id_length": "L'ID del ruolo Discord deve contenere tra le {{min}} e le {{max}} cifre.",
     "discord_integration/discord_role_id_numeric": "L'ID ruolo Discord deve essere numerico.",
     "discord_integration/discord_settings_updated": "Impostazioni di Discord aggiornate con successo",
