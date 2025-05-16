@@ -194,5 +194,7 @@
     "forum/spam_timer": "Časovač spamu",
     "forum/spam_timer_min": "Časovač spamu musí být alespoň {{min}}",
     "forum/spam_timer_numeric": "Časovač spamu musí být číslo",
-    "forum/spam_timer_required": "Musíte zadat časovač spamu"
+    "forum/spam_timer_required": "Musíte zadat časovač spamu",
+    "forum/forum_topic_replies": "Odpovědi na téma na fóru",
+    "forum/forum_topic_mentions": "Zmínky o tématu na fóru"
 }
