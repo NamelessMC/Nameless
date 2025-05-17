@@ -106,24 +106,20 @@ class AvatarSource
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('avatar_validity');
 
-        if ($cache->isCached($url)) {
-            return $cache->retrieve($url);
-        }
+        return $cache->fetch($url, function () use ($url) {
+            $is_valid = false;
 
-        $is_valid = false;
-
-        try {
-            $response = HttpClient::createClient()->head($url);
-            $headers = $response->getHeaders();
-            if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
-                $is_valid = true;
+            try {
+                $response = HttpClient::createClient()->head($url);
+                $headers = $response->getHeaders();
+                if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
+                    $is_valid = true;
+                }
+            } catch (Exception $ignored) {
             }
-        } catch (Exception $ignored) {
-        }
 
-        $cache->store($url, $is_valid, 3600);
-
-        return $is_valid;
+            return $is_valid;
+        }, 3600);
     }
 
     /**

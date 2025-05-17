@@ -33,19 +33,8 @@ if (Input::exists()) {
 
 // Get values
 $cache->setCache('template_settings');
-if ($cache->isCached('darkMode')) {
-    $darkMode = $cache->retrieve('darkMode');
-} else {
-    $darkMode = '0';
-    $cache->store('darkMode', $darkMode);
-}
-
-if ($cache->isCached('navbarColour')) {
-    $navbarColour = $cache->retrieve('navbarColour');
-} else {
-    $navbarColour = 'white';
-    $cache->store('navbarColour', $navbarColour);
-}
+$darkMode = $cache->fetch('darkMode', '0');
+$navbarColour = $cache->fetch('navbarColour', 'white');
 
 $nav_colours = [
     [

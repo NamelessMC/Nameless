@@ -65,12 +65,7 @@ class CookieConsent_Module extends Module {
         if (defined('FRONT_END')) {
             // Add cookie page link
             $cache->setCache('cookie_consent_module_cache');
-            if (!$cache->isCached('options')) {
-                $options = ['type' => 'opt-in', 'position' => 'bottom-right'];
-                $cache->store('options', $options);
-            } else {
-                $options = $cache->retrieve('options');
-            }
+            $options = $cache->fetch('options', ['type' => 'opt-in', 'position' => 'bottom-right']);
 
             // Add JS script
             $template->addCSSFiles([
@@ -108,19 +103,8 @@ class CookieConsent_Module extends Module {
 
             // StaffCP link
             if ($user->hasPermission('admincp.cookies')) {
-                if (!$cache->isCached('cookie_order')) {
-                    $order = 10;
-                    $cache->store('cookie_order', 10);
-                } else {
-                    $order = $cache->retrieve('cookie_order');
-                }
-
-                if (!$cache->isCached('cookie_icon')) {
-                    $icon = '<i class="nav-icon fas fa-cookie-bite"></i>';
-                    $cache->store('cookie_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('cookie_icon');
-                }
+                $order = $cache->fetch('cookie_order', 10);
+                $icon = $cache->fetch('cookie_icon', '<i class="nav-icon fas fa-cookie-bite"></i>');
 
                 $navs[2]->add('cookie_divider', mb_strtoupper($this->_cookie_language->get('cookie', 'cookies'), 'UTF-8'), 'divider', 'top', null, $order, '');
                 $navs[2]->add('cookie_settings', $this->_cookie_language->get('cookie', 'cookies'), URL::build('/panel/cookies'), 'top', null, $order + 0.1, $icon);

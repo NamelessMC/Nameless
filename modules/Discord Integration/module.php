@@ -70,12 +70,7 @@ class Discord_Module extends Module {
             $cache->setCache('panel_sidebar');
 
             if ($user->hasPermission('admincp.discord')) {
-                if (!$cache->isCached('discord_icon')) {
-                    $icon = '<i class="nav-icon fab fa-discord"></i>';
-                    $cache->store('discord_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('discord_icon');
-                }
+                $icon = $cache->fetch('discord_icon', '<i class="nav-icon fab fa-discord"></i>');
 
                 $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, $icon, 1);
             }

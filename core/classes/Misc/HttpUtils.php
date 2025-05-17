@@ -266,22 +266,16 @@ class HttpUtils
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('ip_location');
 
-        if ($cache->isCached($ip)) {
-            return $cache->retrieve($ip);
-        }
+        return $cache->fetch($ip, function () use ($ip) {
+            $reader = self::$_geoIpReader ??= new Reader(ROOT_PATH . '/core/assets/GeoLite2-Country.mmdb');
 
-        $reader = self::$_geoIpReader ??= new Reader(ROOT_PATH . '/core/assets/GeoLite2-Country.mmdb');
+            try {
+                $record = $reader->country($ip);
+            } catch (GeoIp2Exception $e) {
+                return 'Unknown';
+            }
 
-        try {
-            $record = $reader->country($ip);
-        } catch (GeoIp2Exception $e) {
-            return 'Unknown';
-        }
-
-        $country = $record->country->name ?? 'Unknown';
-
-        $cache->store($ip, $country, 3600);
-
-        return $country;
+            return $record->country->name ?? 'Unknown';
+        }, 3600);
     }
 }

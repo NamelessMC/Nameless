@@ -55,27 +55,13 @@ class Members_Module extends Module {
         ]);
 
         $cache->setCache('navbar_order');
-        if (!$cache->isCached('members_order')) {
-            $members_order = 5;
-            $cache->store('members_order', 5);
-        } else {
-            $members_order = $cache->retrieve('members_order');
-        }
+        $members_order = $cache->fetch('members_order', 5);
 
         $cache->setCache('navbar_icons');
-        if (!$cache->isCached('members_icon')) {
-            $members_icon = '';
-        } else {
-            $members_icon = $cache->retrieve('members_icon');
-        }
+        $members_icon = $cache->fetch('members_icon', '');
 
         $cache->setCache('nav_location');
-        if (!$cache->isCached('members_location')) {
-            $link_location = 1;
-            $cache->store('members_location', 1);
-        } else {
-            $link_location = $cache->retrieve('members_location');
-        }
+        $link_location = $cache->fetch('members_location', 1);
 
         switch ($link_location) {
             case 1:
@@ -97,26 +83,10 @@ class Members_Module extends Module {
 
             // StaffCP link
             if ($user->hasPermission('admincp.members')) {
-                if (!$cache->isCached('members_order')) {
-                    $order = 13;
-                    $cache->store('members_order', 13);
-                } else {
-                    $order = $cache->retrieve('members_order');
-                }
+                $order = $cache->retrieve('members_order', 13);
 
-                if (!$cache->isCached('members_settings_icon')) {
-                    $members_settings_icon = '<i class="nav-icon fas fa-cogs"></i>';
-                    $cache->store('members_settings_icon', $members_settings_icon);
-                } else {
-                    $members_settings_icon = $cache->retrieve('members_settings_icon');
-                }
-
-                if (!$cache->isCached('member_lists_icon')) {
-                    $member_lists_icon = '<i class="nav-icon fas fa-list"></i>';
-                    $cache->store('member_lists_icon', $member_lists_icon);
-                } else {
-                    $member_lists_icon = $cache->retrieve('member_lists_icon');
-                }
+                $members_settings_icon = $cache->retrieve('members_settings_icon', '<i class="nav-icon fas fa-cogs"></i>');
+                $member_lists_icon = $cache->retrieve('member_lists_icon', '<i class="nav-icon fas fa-list"></i>');
 
                 $navs[2]->add('members_divider', mb_strtoupper($this->_members_language->get('members', 'members'), 'UTF-8'), 'divider', 'top', null, $order);
                 $navs[2]->add('members_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/members/settings'), 'top', null, $order + 0.1, $members_settings_icon);

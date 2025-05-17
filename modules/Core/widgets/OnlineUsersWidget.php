@@ -32,18 +32,8 @@ class OnlineUsersWidget extends WidgetBase {
             $online = $this->_cache->retrieve('users');
             $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
         } else {
-            if ($this->_cache->isCached('include_staff_in_users')) {
-                $include_staff = $this->_cache->retrieve('include_staff_in_users');
-            } else {
-                $include_staff = 0;
-                $this->_cache->store('include_staff_in_users', 0);
-            }
-            if ($this->_cache->isCached('show_nickname_instead')) {
-                $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
-            } else {
-                $use_nickname_show = 0;
-                $this->_cache->store('show_nickname_instead', 0);
-            }
+            $include_staff = $this->_cache->fetch('include_staff_in_users', 0);
+            $use_nickname_show = $this->_cache->fetch('show_nickname_instead', 0);
 
             if ($include_staff) {
                 $online = DB::getInstance()->query('SELECT id FROM nl2_users WHERE last_online > ?', [strtotime('-5 minutes')])->results();

@@ -12,9 +12,7 @@ if (!count($server)) {
 $server = $server[0];
 
 $cache->setCache('server_' . $server->id);
-if ($cache->isCached('result')) {
-    echo $cache->retrieve('result');
-} else {
+$result = $cache->fetch('result', function () use ($server, $language) {
     // Get query type
     $query_type = Settings::get('query_type', 'internal');
     $full_ip = [
@@ -23,9 +21,9 @@ if ($cache->isCached('result')) {
         'name' => $server->name
     ];
 
-    $result = json_encode($query_type === 'plugin' ? PluginQuery::singleQuery($server->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language), JSON_PRETTY_PRINT);
-    $cache->store('result', $result, 30);
-    echo $result;
-}
+    return json_encode($query_type === 'plugin' ? PluginQuery::singleQuery($server->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language), JSON_PRETTY_PRINT);
+}, 30);
+
+echo $result;
 
 die();
