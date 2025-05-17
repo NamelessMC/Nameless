@@ -127,18 +127,10 @@ class Core_Module extends Module {
 
         // "More" dropdown
         $cache->setCache('navbar_icons');
-        if ($cache->isCached('more_dropdown_icon')) {
-            $icon = $cache->retrieve('more_dropdown_icon');
-        } else {
-            $icon = '';
-        }
+        $icon = $cache->fetch('more_dropdown_icon', '');
 
         $cache->setCache('navbar_order');
-        if ($cache->isCached('more_dropdown_order')) {
-            $order = $cache->retrieve('more_dropdown_order');
-        } else {
-            $order = 2500;
-        }
+        $order = $cache->fetch('more_dropdown_order', 2500);
 
         $navigation->addDropdown('more_dropdown', $language->get('general', 'more'), 'top', $order, $icon);
 
@@ -169,13 +161,7 @@ class Core_Module extends Module {
                                 if ($permission->page_id == $custom_page->id) {
                                     if ($permission->view == 1) {
                                         // Check cache for order
-                                        if (!$cache->isCached($custom_page->id . '_order')) {
-                                            // Create cache entry now
-                                            $page_order = 200;
-                                            $cache->store($custom_page->id . '_order', 200);
-                                        } else {
-                                            $page_order = $cache->retrieve($custom_page->id . '_order');
-                                        }
+                                        $page_order = $cache->fetch($custom_page->id . '_order', 200);
 
                                         switch ($custom_page->link_location) {
                                             case 1:
@@ -239,13 +225,7 @@ class Core_Module extends Module {
                             if ($permission->page_id == $custom_page->id) {
                                 if ($permission->view == 1) {
                                     // Check cache for order
-                                    if (!$cache->isCached($custom_page->id . '_order')) {
-                                        // Create cache entry now
-                                        $page_order = 200;
-                                        $cache->store($custom_page->id . '_order', 200);
-                                    } else {
-                                        $page_order = $cache->retrieve($custom_page->id . '_order');
-                                    }
+                                    $page_order = $cache->fetch($custom_page->id . '_order', 200);
 
                                     switch ($custom_page->link_location) {
                                         case 1:
@@ -690,12 +670,7 @@ class Core_Module extends Module {
         if ($user->isLoggedIn()) {
             if (!(defined('PANEL_PAGE') && PANEL_PAGE === 'update') && $user->hasPermission('admincp.update')) {
                 $cache->setCache('update_check');
-                if ($cache->isCached('update_check')) {
-                    $update_check = $cache->retrieve('update_check');
-                } else {
-                    $update_check = Util::updateCheck();
-                    $cache->store('update_check', $update_check, 3600);
-                }
+                $update_check = $cache->fetch('update_check', fn () => Util::updateCheck(), 3600);
 
                 if (!is_string($update_check) && $update_check->updateAvailable()) {
                     $template->getEngine()->addVariables([
@@ -719,19 +694,10 @@ class Core_Module extends Module {
         if (Settings::get('mc_integration') && Settings::get('status_page')) {
             // Add status link to navbar
             $cache->setCache('navbar_order');
-            if (!$cache->isCached('status_order')) {
-                $status_order = 3;
-                $cache->store('status_order', 3);
-            } else {
-                $status_order = $cache->retrieve('status_order');
-            }
+            $status_order = $cache->fetch('status_order', 3);
 
             $cache->setCache('navbar_icons');
-            if (!$cache->isCached('status_icon')) {
-                $icon = '';
-            } else {
-                $icon = $cache->retrieve('status_icon');
-            }
+            $icon = $cache->fetch('status_icon', '');
 
             $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
         }
@@ -742,19 +708,10 @@ class Core_Module extends Module {
 
             if (count($leaderboard_placeholders)) {
                 $cache->setCache('navbar_order');
-                if (!$cache->isCached('leaderboards_order')) {
-                    $leaderboards_order = 4;
-                    $cache->store('leaderboards_order', 4);
-                } else {
-                    $leaderboards_order = $cache->retrieve('leaderboards_order');
-                }
+                $leaderboards_order = $cache->fetch('leaderboards_order', 4);
 
                 $cache->setCache('navbar_icons');
-                if (!$cache->isCached('leaderboards_icon')) {
-                    $leaderboards_icon = '';
-                } else {
-                    $leaderboards_icon = $cache->retrieve('leaderboards_icon');
-                }
+                $leaderboards_icon = $cache->fetch('leaderboards_icon', '');
 
                 $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
             }
@@ -919,209 +876,106 @@ class Core_Module extends Module {
         } else {
             // Navigation
             $cache->setCache('panel_sidebar');
-            if (!$cache->isCached('dashboard_order')) {
-                $order = 1;
-                $cache->store('dashboard_order', 1);
-            } else {
-                $order = $cache->retrieve('dashboard_order');
-            }
-
-            if (!$cache->isCached('dashboard_icon')) {
-                $icon = '<i class="nav-icon fas fa-home"></i>';
-                $cache->store('dashboard_icon', $icon);
-            } else {
-                $icon = $cache->retrieve('dashboard_icon');
-            }
+            $order = $cache->fetch('panel_sidebar', 1);
+            $icon = $cache->fetch('panel_sidebar_icon', '<i class="nav-icon fas fa-home"></i>');
 
             $navs[2]->add('core_divider', mb_strtoupper($language->get('admin', 'core')), 'divider', 'top', null, $order, '');
             $navs[2]->add('dashboard', $language->get('admin', 'dashboard'), URL::build('/panel'), 'top', null, $order, $icon);
 
             if ($user->hasPermission('admincp.core')) {
-                if (!$cache->isCached('configuration_order')) {
-                    $order = 2;
-                    $cache->store('configuration_order', 2);
-                } else {
-                    $order = $cache->retrieve('configuration_order');
-                }
-
-                if (!$cache->isCached('configuration_icon')) {
-                    $icon = '<i class="nav-icon fas fa-wrench"></i>';
-                    $cache->store('configuration_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('configuration_icon');
-                }
+                $order = $cache->fetch('core_sidebar', 2);
+                $icon = $cache->fetch('core_sidebar_icon', '<i class="nav-icon fas fa-wrench"></i>');
 
                 $navs[2]->addDropdown('core_configuration', $language->get('admin', 'configuration'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.core.general')) {
-                    if (!$cache->isCached('general_settings_icon')) {
-                        $icon = '<i class="nav-icon fas fa-cogs"></i>';
-                        $cache->store('general_settings_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('general_settings_icon');
-                    }
+                    $icon = $cache->fetch('general_settings_icon', '<i class="nav-icon fas fa-cogs"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/general_settings'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.api')) {
-                    if (!$cache->isCached('api_icon')) {
-                        $icon = '<i class="nav-icon fas fa-code"></i>';
-                        $cache->store('api_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('api_icon');
-                    }
+                    $icon = $cache->fetch('api_icon', '<i class="nav-icon fas fa-code"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.seo')) {
-                    if (!$cache->isCached('seo_icon')) {
-                        $icon = '<i class="nav-icon fas fa-globe"></i>';
-                        $cache->store('seo_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('seo_icon');
-                    }
+                    $icon = $cache->fetch('seo_icon', '<i class="nav-icon fas fa-globe"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/core/seo'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.avatars')) {
-                    if (!$cache->isCached('avatars_icon')) {
-                        $icon = '<i class="nav-icon fas fa-image"></i>';
-                        $cache->store('avatars_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('avatars_icon');
-                    }
+                    $icon = $cache->fetch('avatars_icon', '<i class="nav-icon fas fa-image"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.fields')) {
-                    if (!$cache->isCached('custom_profile_fields_icon')) {
-                        $icon = '<i class="nav-icon fas fa-id-card"></i>';
-                        $cache->store('custom_profile_fields_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('custom_profile_fields_icon');
-                    }
+                    $icon = $cache->fetch('custom_profile_fields_icon', '<i class="nav-icon fas fa-id-card"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.debugging')) {
-                    if (!$cache->isCached('debugging_icon')) {
-                        $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
-                        $cache->store('debugging_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('debugging_icon');
-                    }
+                    $icon = $cache->fetch('debugging_icon', '<i class="nav-icon fas fa-tachometer-alt"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.emails')) {
-                    if (!$cache->isCached('email_icon')) {
-                        $icon = '<i class="nav-icon fas fa-envelope"></i>';
-                        $cache->store('email_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('email_icon');
-                    }
+                    $icon = $cache->fetch('emails_icon', '<i class="nav-icon fas fa-envelope"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/core/emails'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.navigation')) {
-                    if (!$cache->isCached('navigation_icon')) {
-                        $icon = '<i class="nav-icon fas fa-bars"></i>';
-                        $cache->store('navigation_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('navigation_icon');
-                    }
+                    $icon = $cache->fetch('navigation_icon', '<i class="nav-icon fas fa-bars"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.terms')) {
-                    if (!$cache->isCached('privacy_and_terms_icon')) {
-                        $icon = '<i class="nav-icon fas fa-file-alt"></i>';
-                        $cache->store('privacy_and_terms_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('privacy_and_terms_icon');
-                    }
+                    $icon = $cache->fetch('privacy_and_terms_icon', '<i class="nav-icon fas fa-file-alt"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.queue')) {
-                    if (!$cache->isCached('queue_icon')) {
-                        $icon = '<i class="nav-icon fas fa-clock"></i>';
-                        $cache->store('queue_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('queue_icon');
-                    }
+                    $icon = $cache->fetch('queue_icon', '<i class="nav-icon fas fa-clock"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'queue', $language->get('admin', 'queue'), URL::build('/panel/core/queue'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.reactions')) {
-                    if (!$cache->isCached('reactions_icon')) {
-                        $icon = '<i class="nav-icon fas fa-smile"></i>';
-                        $cache->store('reactions_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('reactions_icon');
-                    }
+                    $icon = $cache->fetch('reactions_icon', '<i class="nav-icon fas fa-smile"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'reactions', $language->get('user', 'reactions'), URL::build('/panel/core/reactions'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
-                    if (!$cache->isCached('registration_icon')) {
-                        $icon = '<i class="nav-icon fas fa-user-plus"></i>';
-                        $cache->store('registration_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('registration_icon');
-                    }
+                    $icon = $cache->fetch('registration_icon', '<i class="nav-icon fas fa-user-plus"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/registration'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.social_media')) {
-                    if (!$cache->isCached('social_media_icon')) {
-                        $icon = '<i class="nav-icon fas fa-users"></i>';
-                        $cache->store('social_media_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('social_media_icon');
-                    }
+                    $icon = $cache->fetch('social_media_icon', '<i class="nav-icon fas fa-users"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.hooks')) {
-                    if (!$cache->isCached('hooks_icon')) {
-                        $icon = '<i class="nav-icon fas fa-link"></i>';
-                        $cache->store('hooks_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('hooks_icon');
-                    }
+                    $icon = $cache->fetch('hooks_icon', '<i class="nav-icon fas fa-link"></i>');
 
                     $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
                 }
             }
 
             if ($user->hasPermission('admincp.core.announcements') || $user->hasPermission('admincp.core.emails_mass_message')) {
-                if (!$cache->isCached('announcements_order')) {
-                    $order = 4;
-                    $cache->store('announcements_order', 4);
-                } else {
-                    $order = $cache->retrieve('announcements_order');
-                }
-
-                if (!$cache->isCached('announcements_icon')) {
-                    $icon = '<i class="nav-icon fas fa-bullhorn"></i>';
-                    $cache->store('announcements_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('announcements_icon');
-                }
+                $order = $cache->fetch('announcements_order', 4);
+                $icon = $cache->fetch('announcements_icon', '<i class="nav-icon fas fa-bullhorn"></i>');
 
                 $navs[2]->addDropdown('announcements', $language->get('admin', 'communications'), 'top', $order, $icon);
 
@@ -1130,265 +984,122 @@ class Core_Module extends Module {
                 }
 
                 if ($user->hasPermission('admincp.core.emails_mass_message')) {
-                    if (!$cache->isCached('mass_message_icon')) {
-                        $icon = '<i class="nav-icon fas fa-envelopes-bulk"></i>';
-                        $cache->store('mass_message_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('mass_message_icon');
-                    }
+                    $icon = $cache->fetch('mass_message_icon', '<i class="nav-icon fas fa-envelopes-bulk"></i>');
 
                     $navs[2]->addItemToDropdown('announcements', 'mass_message', $language->get('admin', 'mass_message'), URL::build('/panel/core/mass_message'), 'top', null, $icon, 1);
                 }
             }
 
             if ($user->hasPermission('admincp.integrations')) {
-                if (!$cache->isCached('integrations_order')) {
-                    $order = 5;
-                    $cache->store('integrations_order', 5);
-                } else {
-                    $order = $cache->retrieve('integrations_order');
-                }
-
-                if (!$cache->isCached('integrations_icon')) {
-                    $icon = '<i class="nav-icon fas fa-plug"></i>';
-                    $cache->store('integrations_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('integrations_icon');
-                }
+                $order = $cache->fetch('integrations_order', 5);
+                $icon = $cache->fetch('integrations_icon', '<i class="nav-icon fas fa-plug"></i>');
 
                 $navs[2]->addDropdown('integrations', $language->get('admin', 'integrations'), 'top', $order, $icon);
             }
 
             if ($user->hasPermission('admincp.integrations.edit')) {
-                if (!$cache->isCached('user_integrations_icon')) {
-                    $icon = '<i class="nav-icon fas fa-link"></i>';
-                    $cache->store('user_integrations_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('user_integrations_icon');
-                }
+                $icon = $cache->fetch('user_integrations_icon', '<i class="nav-icon fas fa-link"></i>');
 
                 $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/core/integrations'), 'top', null, $icon, 1);
             }
 
             if ($user->hasPermission('admincp.minecraft')) {
-                if (!$cache->isCached('minecraft_icon')) {
-                    $icon = '<i class="nav-icon fas fa-cubes"></i>';
-                    $cache->store('minecraft_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('minecraft_icon');
-                }
+                $icon = $cache->fetch('minecraft_icon', '<i class="nav-icon fas fa-cubes"></i>');
 
                 $navs[2]->addItemToDropdown('integrations', 'minecraft', $language->get('admin', 'minecraft'), URL::build('/panel/minecraft'), 'top', null, $icon, $order);
             }
 
             if ($user->hasPermission('admincp.styles') || $user->hasPermission('admincp.sitemap') || $user->hasPermission('admincp.widgets')) {
-                if (!$cache->isCached('layout_order')) {
-                    $order = 6;
-                    $cache->store('layout_order', 6);
-                } else {
-                    $order = $cache->retrieve('layout_order');
-                }
-
-                if (!$cache->isCached('layout_icon')) {
-                    $icon = '<i class="nav-icon fas fa-object-group"></i>';
-                    $cache->store('layout_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('layout_icon');
-                }
+                $order = $cache->fetch('layout_order', 6);
+                $icon = $cache->fetch('layout_icon', '<i class="nav-icon fas fa-object-group"></i>');
 
                 $navs[2]->addDropdown('layout', $language->get('admin', 'layout'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.styles.images')) {
-                    if (!$cache->isCached('images_icon')) {
-                        $icon = '<i class="nav-icon fas fa-images"></i>';
-                        $cache->store('images_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('images_icon');
-                    }
+                    $icon = $cache->fetch('images_icon', '<i class="nav-icon fas fa-images"></i>');
 
                     $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.styles.panel_templates')) {
-                    if (!$cache->isCached('panel_templates_icon')) {
-                        $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
-                        $cache->store('panel_templates_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('panel_templates_icon');
-                    }
+                    $icon = $cache->fetch('panel_templates_icon', '<i class="nav-icon fas fa-tachometer-alt"></i>');
 
                     $navs[2]->addItemToDropdown('layout', 'panel_templates', $language->get('admin', 'panel_templates'), URL::build('/panel/core/panel_templates'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.styles')) {
-                    if (!$cache->isCached('templates_icon')) {
-                        $icon = '<i class="nav-icon fas fa-paint-brush"></i>';
-                        $cache->store('templates_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('templates_icon');
-                    }
+                    $icon = $cache->fetch('templates_icon', '<i class="nav-icon fas fa-paint-brush"></i>');
 
                     $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.widgets')) {
-                    if (!$cache->isCached('widgets_icon')) {
-                        $icon = '<i class="nav-icon fas fa-th"></i>';
-                        $cache->store('widgets_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('widgets_icon');
-                    }
+                    $icon = $cache->fetch('widgets_icon', '<i class="nav-icon fas fa-th"></i>');
 
                     $navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', null, $icon, $order);
                 }
             }
 
             if ($user->hasPermission('admincp.modules')) {
-                if (!$cache->isCached('modules_order')) {
-                    $order = 7;
-                    $cache->store('modules_order', 7);
-                } else {
-                    $order = $cache->retrieve('modules_order');
-                }
-
-                if (!$cache->isCached('modules_icon')) {
-                    $icon = '<i class="nav-icon fas fa-puzzle-piece"></i>';
-                    $cache->store('modules_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('modules_icon');
-                }
+                $order = $cache->fetch('modules_order', 7);
+                $icon = $cache->fetch('modules_icon', '<i class="nav-icon fas fa-puzzle-piece"></i>');
 
                 $navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.pages')) {
-                if (!$cache->isCached('pages_order')) {
-                    $order = 8;
-                    $cache->store('pages_order', 8);
-                } else {
-                    $order = $cache->retrieve('pages_order');
-                }
-
-                if (!$cache->isCached('pages_icon')) {
-                    $icon = '<i class="nav-icon fas fa-file"></i>';
-                    $cache->store('pages_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('pages_icon');
-                }
+                $order = $cache->fetch('pages_order', 8);
+                $icon = $cache->fetch('pages_icon', '<i class="nav-icon fas fa-file"></i>');
 
                 $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.groups')) {
-                if (!$cache->isCached('groups_order')) {
-                    $order = 3;
-                    $cache->store('groups_order', 3);
-                } else {
-                    $order = $cache->retrieve('groups_order');
-                }
-
-                if (!$cache->isCached('groups_icon')) {
-                    $icon = '<i class="nav-icon fas fa-address-book"></i>';
-                    $cache->store('group_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('group_icon');
-                }
+                $order = $cache->fetch('groups_order', 3);
+                $icon = $cache->fetch('group_icon', '<i class="nav-icon fas fa-address-book"></i>');
 
                 $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.users')) {
-                if (!$cache->isCached('users_order')) {
-                    $order = 11;
-                    $cache->store('users_order', 11);
-                } else {
-                    $order = $cache->retrieve('users_order');
-                }
-
-                if (!$cache->isCached('users_icon')) {
-                    $icon = '<i class="nav-icon fas fa-user-circle"></i>';
-                    $cache->store('users_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('users_icon');
-                }
+                $order = $cache->fetch('users_order', 11);
+                $icon = $cache->fetch('users_icon', '<i class="nav-icon fas fa-user-circle"></i>');
 
                 $navs[2]->addDropdown('users', $language->get('admin', 'user_management'), 'top', $order, $icon);
 
-                if (!$cache->isCached('user_icon')) {
-                    $icon = '<i class="nav-icon fas fa-users"></i>';
-                    $cache->store('user_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('user_icon');
-                }
+                $icon = $cache->fetch('users_icon', '<i class="nav-icon fas fa-users"></i>');
 
                 $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
 
                 if ($user->hasPermission('modcp.ip_lookup')) {
-                    if (!$cache->isCached('ip_lookup_icon')) {
-                        $icon = '<i class="nav-icon fas fa-binoculars"></i>';
-                        $cache->store('ip_lookup_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('ip_lookup_icon');
-                    }
+                    $icon = $cache->fetch('ip_lookup_icon', '<i class="nav-icon fas fa-binoculars"></i>');
 
                     $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('modcp.punishments')) {
-                    if (!$cache->isCached('punishments_icon')) {
-                        $icon = '<i class="nav-icon fas fa-gavel"></i>';
-                        $cache->store('punishments_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('punishments_icon');
-                    }
+                    $icon = $cache->fetch('punishments_icon', '<i class="nav-icon fas fa-gavel"></i>');
 
                     $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
-                    if (!$cache->isCached('reports_icon')) {
-                        $icon = '<i class="nav-icon fas fa-exclamation-triangle"></i>';
-                        $cache->store('reports_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('reports_icon');
-                    }
+                    $icon = $cache->fetch('reports_icon', '<i class="nav-icon fas fa-exclamation-triangle"></i>');
 
                     $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
                 }
             }
 
             if ($user->hasPermission('admincp.security')) {
-                if (!$cache->isCached('security_order')) {
-                    $order = 9;
-                    $cache->store('security_order', 9);
-                } else {
-                    $order = $cache->retrieve('security_order');
-                }
-
-                if (!$cache->isCached('security_icon')) {
-                    $icon = '<i class="nav-icon fas fa-lock"></i>';
-                    $cache->store('security_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('security_icon');
-                }
+                $order = $cache->fetch('security_order', 9);
+                $icon = $cache->fetch('security_icon', '<i class="nav-icon fas fa-lock"></i>');
 
                 $navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.update')) {
-                if (!$cache->isCached('update_order')) {
-                    $order = 10;
-                    $cache->store('update_order', 10);
-                } else {
-                    $order = $cache->retrieve('update_order');
-                }
-
-                if (!$cache->isCached('update_icon')) {
-                    $icon = '<i class="nav-icon fas fa-download"></i>';
-                    $cache->store('update_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('update_icon');
-                }
+                $order = $cache->fetch('update_order', 10);
+                $icon = $cache->fetch('update_icon', '<i class="nav-icon fas fa-download"></i>');
 
                 $navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/update'), 'top', null, $order, $icon);
             }
@@ -1398,12 +1109,7 @@ class Core_Module extends Module {
 
             // Email errors?
             if ($user->hasPermission('admincp.core.emails')) {
-                if ($cache->isCached('email_errors')) {
-                    $email_errors = $cache->retrieve('email_errors');
-                } else {
-                    $email_errors = DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_email_errors')->first()->c;
-                    $cache->store('email_errors', $email_errors, 120);
-                }
+                $email_errors = $cache->fetch('email_orders', fn () => DB::getInstance()->query('SELECT COUNT(*) AS c FROM nl2_email_errors')->first()->c, 120);
 
                 if (intval($email_errors)) {
                     self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
