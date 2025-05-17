@@ -83,10 +83,10 @@ class Members_Module extends Module {
 
             // StaffCP link
             if ($user->hasPermission('admincp.members')) {
-                $order = $cache->retrieve('members_order', 13);
+                $order = $cache->fetch('members_order', 13);
 
-                $members_settings_icon = $cache->retrieve('members_settings_icon', '<i class="nav-icon fas fa-cogs"></i>');
-                $member_lists_icon = $cache->retrieve('member_lists_icon', '<i class="nav-icon fas fa-list"></i>');
+                $members_settings_icon = $cache->fetch('members_settings_icon', '<i class="nav-icon fas fa-cogs"></i>');
+                $member_lists_icon = $cache->fetch('member_lists_icon', '<i class="nav-icon fas fa-list"></i>');
 
                 $navs[2]->add('members_divider', mb_strtoupper($this->_members_language->get('members', 'members'), 'UTF-8'), 'divider', 'top', null, $order);
                 $navs[2]->add('members_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/members/settings'), 'top', null, $order + 0.1, $members_settings_icon);
