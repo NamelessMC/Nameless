@@ -15,7 +15,7 @@ class RecentPostsItem extends CollectionItemBase {
     private Language $_language;
     private int $_posts;
 
-    public function __construct(TemplateEngine $engine, Language $language, Cache $cache, int $posts) {
+    public function __construct(TemplateEngine $engine, Language $language, int $posts) {
         $order = 4;
         $enabled = 1;
 

@@ -280,10 +280,10 @@ class Forum_Module extends Module {
 
                     // Dashboard stats
                     require_once ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php';
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($template->getEngine(), $this->_forum_language, $cache, $latest_topics_count));
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($template->getEngine(), $this->_forum_language, $latest_topics_count));
 
                     require_once ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php';
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($template->getEngine(), $this->_forum_language, $cache, $latest_posts_count));
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($template->getEngine(), $this->_forum_language, $latest_posts_count));
 
                 }
             }

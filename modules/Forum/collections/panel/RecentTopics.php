@@ -16,7 +16,7 @@ class RecentTopicsItem extends CollectionItemBase {
     private Language $_language;
     private int $_topics;
 
-    public function __construct(TemplateEngine $engine, Language $language, Cache $cache, int $topics) {
+    public function __construct(TemplateEngine $engine, Language $language, int $topics) {
         $order = 3;
         $enabled = 1;
 

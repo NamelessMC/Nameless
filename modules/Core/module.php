@@ -1162,7 +1162,7 @@ class Core_Module extends Module {
                 CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($template->getEngine(), $language));
 
                 require_once ROOT_PATH . '/modules/Core/collections/panel/RecentUsers.php';
-                CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($template->getEngine(), $language, $cache));
+                CollectionManager::addItemToCollection('dashboard_stats', new RecentUsersItem($template->getEngine(), $language));
 
                 // Dashboard items
                 if ($user->hasPermission('modcp.punishments')) {
