@@ -16,16 +16,8 @@ class RecentPunishmentsItem extends CollectionItemBase {
     private Cache $_cache;
 
     public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_main_items_collection');
-        if ($cache->isCached('recent_punishments')) {
-            $from_cache = $cache->retrieve('recent_punishments');
-            $order = $from_cache['order'] ?? 1;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 1;
-            $enabled = 1;
-        }
+        $order = 1;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 

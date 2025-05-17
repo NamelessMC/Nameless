@@ -14,17 +14,9 @@ class TotalUsersItem extends CollectionItemBase {
     private TemplateEngine $_engine;
     private Language $_language;
 
-    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_stats_collection');
-        if ($cache->isCached('total_users')) {
-            $from_cache = $cache->retrieve('total_users');
-            $order = $from_cache['order'] ?? 1;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 1;
-            $enabled = 1;
-        }
+    public function __construct(TemplateEngine $engine, Language $language) {
+        $order = 1;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 

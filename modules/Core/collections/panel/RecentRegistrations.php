@@ -16,16 +16,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
     private Cache $_cache;
 
     public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_main_items_collection');
-        if ($cache->isCached('recent_registrations')) {
-            $from_cache = $cache->retrieve('recent_registrations');
-            $order = $from_cache['order'] ?? 2;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 2;
-            $enabled = 1;
-        }
+        $order = 2;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 
