@@ -141,6 +141,7 @@ abstract class AbstractWidget
             $row = DB::getInstance()->get('widgets', ['name', $this->getName()]);
             if ($row->count()) {
                 $data = new WidgetData($row->first());
+
                 return  $data;
             }
 

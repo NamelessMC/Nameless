@@ -202,6 +202,7 @@ if ($page != 'install') {
         if (count($default_language)) {
             return $default_language[0]->short_code;
         }
+
         return 'en_UK';
     });
 
