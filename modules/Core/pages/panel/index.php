@@ -81,10 +81,7 @@ if (count($dashboard_graphs)) {
 $dashboard_graphs = null;
 
 $cache->setCache('nameless_news');
-if ($cache->isCached('news')) {
-    $news = $cache->retrieve('news');
-
-} else {
+$news = $cache->fetch('news', function () use ($language) {
     $news_query = Util::getLatestNews();
     $news_query = json_decode($news_query);
 
@@ -110,8 +107,8 @@ if ($cache->isCached('news')) {
         }
     }
 
-    $cache->store('news', $news, 3600);
-}
+    return $news;
+}, 3600);
 
 if (!count($news)) {
     $template->getEngine()->addVariable('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));

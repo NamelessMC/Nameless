@@ -32,9 +32,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
-        if ($this->_cache->isCached('recent_punishments_data')) {
-            $data = $this->_cache->retrieve('recent_punishments_data');
-        } else {
+        $data = $this->_cache->fetch('recent_punishments_data', function () use ($timeago) {
             $query = DB::getInstance()->query('SELECT * FROM nl2_infractions ORDER BY `infraction_date` DESC LIMIT 5');
             $data = [];
 
@@ -102,9 +100,8 @@ class RecentPunishmentsItem extends CollectionItemBase {
                     ];
                 }
             }
-
-            $this->_cache->store('recent_punishments_data', $data, 60);
-        }
+            return $data;
+        }, 60);
 
         $this->_engine->addVariables([
             'RECENT_PUNISHMENTS' => $this->_language->get('moderator', 'recent_punishments'),

@@ -15,9 +15,7 @@
 
 $groups_key = implode('-', $user->getAllGroupIds());
 $cache->setCache('news_cache');
-if ($cache->isCached('news-' . $groups_key)) {
-    $news = $cache->retrieve('news-' . $groups_key);
-} else {
+$news = $cache->fetch('news-' . $groups_key, function () use ($user) {
     $forum = new Forum();
 
     $latest_news = $forum->getLatestNews(
@@ -54,8 +52,8 @@ if ($cache->isCached('news-' . $groups_key)) {
         ];
     }
 
-    $cache->store('news-' . $groups_key, $news, 60);
-}
+    return $news;
+}, 60);
 
 $timeAgo = new TimeAgo(TIMEZONE);
 foreach ($news as $key => $item) {

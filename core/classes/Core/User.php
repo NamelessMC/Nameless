@@ -625,7 +625,6 @@ class User
 
         if (!count($this->_groups)) {
             // Get default group
-            // TODO: Use PRE_VALIDATED_DEFAULT ?
             $default_group = Group::find(1, 'default_group');
             $default_group_id = $default_group->id ?? 1;
 

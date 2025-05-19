@@ -38,10 +38,7 @@ class ProfilePostsWidget extends WidgetBase {
 
         $this->_cache->setCache('profile_posts_widget');
 
-        $posts_array = [];
-        if ($this->_cache->isCached('profile_posts_' . $user_id)) {
-            $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
-        } else {
+        $posts_array = $this->_cache->fetch('profile_posts_' . $user_id, function () {
             if ($this->_user->isLoggedIn()) {
                 if ($this->_user->hasPermission('profile.private.bypass')) {
                     $posts = DB::getInstance()->query('SELECT * FROM nl2_user_profile_wall_posts ORDER BY `time` DESC LIMIT 5')->results();
@@ -71,6 +68,8 @@ class ProfilePostsWidget extends WidgetBase {
                 )->results();
             }
 
+            $posts_array = [];
+
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
                 $post_user = new User($post->user_id);
@@ -89,8 +88,10 @@ class ProfilePostsWidget extends WidgetBase {
                     'ago' => $this->_timeago->inWords($post->time, $this->_language)
                 ];
             }
-            $this->_cache->store('profile_posts_' . $user_id, $posts_array, 120);
-        }
+
+            return $posts_array;
+        }, 120);
+
         if (count($posts_array) >= 1) {
             $this->_engine->addVariables([
                 'PROFILE_POSTS_ARRAY' => $posts_array

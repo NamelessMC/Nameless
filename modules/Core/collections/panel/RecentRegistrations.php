@@ -32,9 +32,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
-        if ($this->_cache->isCached('recent_registrations_data')) {
-            $data = $this->_cache->retrieve('recent_registrations_data');
-        } else {
+        $data = $this->_cache->fetch('recent_registrations_data', function () use ($timeAgo) {
             $query = DB::getInstance()->orderAll('users', 'joined', 'DESC LIMIT 5')->results();
             $data = [];
 
@@ -60,8 +58,8 @@ class RecentRegistrationsItem extends CollectionItemBase {
                 }
             }
 
-            $this->_cache->store('recent_registrations_data', $data, 60);
-        }
+            return $data;
+        }, 60);
 
         $this->_engine->addVariables([
             'RECENT_REGISTRATIONS' => $this->_language->get('moderator', 'recent_registrations'),

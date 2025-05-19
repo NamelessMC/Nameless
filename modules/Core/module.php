@@ -1118,11 +1118,7 @@ class Core_Module extends Module {
 
             if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                 // Dashboard graph
-                $cache->setCache('dashboard_graph');
-                if ($cache->isCached('core_data')) {
-                    $data = $cache->retrieve('core_data');
-
-                } else {
+                $data = $cache->fetch('core_data', function () {
                     $users = DB::getInstance()->query(
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d') d, COUNT(*) c
@@ -1152,8 +1148,8 @@ class Core_Module extends Module {
                     // Sort by date
                     ksort($data);
 
-                    $cache->store('core_data', $data, 120);
-                }
+                    return $data;
+                }, 120);
 
                 self::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
 

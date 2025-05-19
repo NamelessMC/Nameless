@@ -240,10 +240,7 @@ class Forum_Module extends Module {
                     $latest_posts = $latest_posts->results();
 
                     $cache->setCache('dashboard_graph');
-                    if ($cache->isCached('forum_data')) {
-                        $data = $cache->retrieve('forum_data');
-
-                    } else {
+                    $data = $cache->fetch('forum_data', function () use ($latest_topics, $latest_posts) {
                         $data = [];
 
                         $data['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
@@ -273,8 +270,8 @@ class Forum_Module extends Module {
                         // Sort by date
                         ksort($data);
 
-                        $cache->store('forum_data', $data, 120);
-                    }
+                        return $data;
+                    }, 120);
 
                     Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
 
