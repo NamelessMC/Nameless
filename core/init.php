@@ -362,7 +362,7 @@ if ($page != 'install') {
     $home_order = $cache->fetch('index_order', 1);
 
     $cache->setCache('navbar_icons');
-    $home_icon = $cache->fetch('index_icon', '1');
+    $home_icon = $cache->fetch('index_icon', '');
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);
 
