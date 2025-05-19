@@ -25,6 +25,10 @@ if (Input::exists()) {
             $cache->store('show_nickname_instead', 0);
         }
 
+        if ($cache->isCached('users')) {
+            $cache->erase('users');
+        }
+
         $success = $language->get('admin', 'widget_updated');
     } else {
         $errors = [$language->get('general', 'invalid_token')];
