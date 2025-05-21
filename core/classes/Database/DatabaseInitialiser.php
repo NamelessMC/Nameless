@@ -217,8 +217,11 @@ class DatabaseInitialiser
         Settings::set('nameless_version', '2.2.1');
         Settings::set('version_checked', date('U'));
         Settings::set('phpmailer', '0');
-        Settings::set('user_avatars', '0');
-        Settings::set('avatar_site', 'cravatar');
+        Settings::set('custom_avatars', '0');
+        Settings::set('default_avatar_type', 'minecraft');
+        Settings::set('default_avatar_source', 'cravatar');
+        Settings::set('default_avatar_perspective', 'face');
+        Settings::set('default_avatar_image', '');
         Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
         Settings::set('discord_integration', '0');
         Settings::set('avatar_type', 'helmavatar');

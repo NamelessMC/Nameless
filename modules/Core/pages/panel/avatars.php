@@ -33,21 +33,13 @@ require_once ROOT_PATH . '/core/templates/backend_init.php';
 if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['avatar_source'])) {
-            Settings::set('user_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
+            Settings::set('custom_avatars', $custom_avatars = (isset($_POST['custom_avatars']) && $_POST['custom_avatars']) ? '1' : '0');
             Settings::set('default_avatar_type', Input::get('default_avatar'));
-            Settings::set('avatar_site', Input::get('avatar_source'));
-            Settings::set('avatar_type', Input::get('avatar_perspective'));
-
-            $cache->setCache('avatar_settings_cache');
-            $cache->store('custom_avatars', $custom_avatars);
-            $cache->store('default_avatar_type', Input::get('default_avatar'));
-            $cache->store('avatar_source', Input::get('avatar_source'));
-            $cache->store('avatar_perspective', Input::get('avatar_perspective'));
+            Settings::set('default_avatar_source', Input::get('avatar_source'));
+            Settings::set('default_avatar_perspective', Input::get('avatar_perspective'));
         } else if (isset($_POST['avatar'])) {
             // Selecting a new default avatar
-            Settings::set('custom_default_avatar', Input::get('avatar'));
-            $cache->setCache('avatar_settings_cache');
-            $cache->store('default_avatar_image', Input::get('avatar'));
+            Settings::set('default_avatar_image', Input::get('avatar'));
         }
 
         //Log::getInstance()->log(Log::Action('admin/core/avatar'));
@@ -128,7 +120,7 @@ $template->getEngine()->addVariables([
     'SELECT_DEFAULT_AVATAR' => $language->get('admin', 'select_default_avatar'),
     'IMAGES' => $template_images,
     'NO_AVATARS' => $language->get('admin', 'no_avatars_available'),
-    'DEFAULT_AVATAR_IMAGE' => Settings::get('custom_default_avatar'),
+    'DEFAULT_AVATAR_IMAGE' => Settings::get('default_avatar_image'),
     'UPLOAD_NEW_IMAGE' => $language->get('admin', 'upload_new_image'),
     'UPLOAD_FORM_ACTION' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'DRAG_FILES_HERE' => $language->get('admin', 'drag_files_here'),

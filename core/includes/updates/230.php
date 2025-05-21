@@ -21,7 +21,6 @@ return new class() extends UpgradeScript {
         Settings::set('default_avatar_image', $default_avatar_image);
         Settings::set('default_avatar_source', $default_avatar_source);
         Settings::set('default_avatar_perspective', $default_avatar_perspective);
-        Settings::set('user_avatars', $custom_avatars);
         $cache->eraseAll();
 
         $this->setVersion('2.3.0');
