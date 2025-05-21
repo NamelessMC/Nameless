@@ -237,7 +237,6 @@ class DatabaseInitialiser
         Settings::set('timezone', $_SESSION['install_timezone']);
         Settings::set('maintenance', '0');
         Settings::set('maintenance_message', 'This website is currently in maintenance mode.');
-        Settings::set('default_avatar_type', 'minecraft');
         Settings::set('private_profile', '1');
         Settings::set('validate_user_action', '{"action":"promote","group":1}');
         Settings::set('login_method', 'email');

@@ -12,7 +12,7 @@ return new class() extends UpgradeScript {
         $cache->setCache('avatar_settings_cache');
         $custom_avatars = $cache->retrieve('custom_avatars') ?? false;
         $default_avatar_type = $cache->retrieve('default_avatar_type') ?: 'minecraft';
-        $default_avatar_image = $default_avatar_type === 'custom' ? ($cache->retrieve('default_avatar_image') ?? '') : '';
+        $default_avatar_image = $cache->retrieve('default_avatar_image') ?: '';
         $default_avatar_source = $cache->retrieve('avatar_source') ?: 'cravatar';
         $default_avatar_perspective = $cache->retrieve('avatar_perspective') ?: 'face';
 

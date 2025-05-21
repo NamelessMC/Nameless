@@ -129,7 +129,7 @@ class AvatarSource
      */
     private static function getActiveSource(): AvatarSourceBase
     {
-        return self::getSourceByName(Settings::get('default_avatar_source', 'cravatar'));
+        return self::$_active_source ??= self::getSourceByName(Settings::get('default_avatar_source', 'cravatar'));
     }
 
     /**
@@ -175,13 +175,6 @@ class AvatarSource
      */
     public static function getUrlToFormat(): string
     {
-        // Default to Cravatar
-        if (!isset(self::$_active_source)) {
-            require_once(ROOT_PATH . '/modules/Core/classes/Avatars/CravatarAvatarSource.php');
-
-            return (new CravatarAvatarSource())->getUrlToFormat(self::getDefaultPerspective());
-        }
-
         return self::getActiveSource()->getUrlToFormat(self::getDefaultPerspective());
     }
 
