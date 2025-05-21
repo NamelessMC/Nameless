@@ -565,8 +565,7 @@ if ($page != 'install') {
     }
 
     // Dark mode
-    $cache->setCache('template_settings');
-    $darkMode = $cache->isCached('darkMode') ? $cache->retrieve('darkMode') : '0';
+    $darkMode = Settings::get('dark_mode', '0');
     if ($user->isLoggedIn()) {
         $darkMode = $user->data()->night_mode !== null ? $user->data()->night_mode : $darkMode;
     } else {

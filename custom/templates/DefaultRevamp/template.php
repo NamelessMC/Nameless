@@ -50,20 +50,13 @@ class DefaultRevamp_Template extends SmartyTemplateBase
         // Other variables
         $this->getEngine()->addVariable('FORUM_SPAM_WARNING_TITLE', $language->get('general', 'warning'));
 
-        $cache->setCache('template_settings');
-        $smartyDarkMode = false;
+        $smartyDarkMode = defined('DARK_MODE') && DARK_MODE == '1';
         $smartyNavbarColour = '';
 
-        if (defined('DARK_MODE') && DARK_MODE == '1') {
-            $smartyDarkMode = true;
-        }
+        $navbarColour = Settings::get('default_revamp_navbar_color', '');
 
-        if ($cache->isCached('navbarColour')) {
-            $navbarColour = $cache->retrieve('navbarColour');
-
-            if ($navbarColour != 'white') {
-                $smartyNavbarColour = $navbarColour . ' inverted';
-            }
+        if ($navbarColour != 'white') {
+            $smartyNavbarColour = $navbarColour . ' inverted';
         }
 
         $this->getEngine()->addVariables([
