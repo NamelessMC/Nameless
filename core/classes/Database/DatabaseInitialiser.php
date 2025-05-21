@@ -224,7 +224,6 @@ class DatabaseInitialiser
         Settings::set('default_avatar_image', '');
         Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
         Settings::set('discord_integration', '0');
-        Settings::set('avatar_type', 'helmavatar');
         Settings::set('home_type', 'news');
         Settings::set('forum_reactions', '1');
         Settings::set('error_reporting', '0');
