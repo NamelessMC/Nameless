@@ -14,6 +14,9 @@ return new class() extends UpgradeScript {
         $default_avatar_type = $cache->retrieve('default_avatar_type') ?: 'minecraft';
         $default_avatar_image = $cache->retrieve('default_avatar_image') ?: '';
         $default_avatar_source = $cache->retrieve('avatar_source') ?: 'cravatar';
+        if ($default_avatar_source === 'Nameless')  {
+            $default_avatar_source = 'cravatar';
+        }
         $default_avatar_perspective = $cache->retrieve('avatar_perspective') ?: 'face';
 
         Settings::set('custom_avatars', $custom_avatars);

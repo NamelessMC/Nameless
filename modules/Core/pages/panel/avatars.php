@@ -110,7 +110,7 @@ $template->getEngine()->addVariables([
     'CUSTOM_AVATAR' => $language->get('admin', 'custom_avatar'),
     'MINECRAFT_AVATAR_SOURCE' => $language->get('admin', 'minecraft_avatar_source'),
     'MINECRAFT_AVATAR_VALUES' => AvatarSource::getAllSourceNames(),
-    'MINECRAFT_AVATAR_VALUE' => Settings::get('avatar_site'),
+    'MINECRAFT_AVATAR_VALUE' => Settings::get('default_avatar_source'),
     'MINECRAFT_AVATAR_PERSPECTIVE' => $language->get('admin', 'minecraft_avatar_perspective'),
     'MINECRAFT_AVATAR_PERSPECTIVE_VALUE' => Settings::get('default_avatar_perspective'),
     'MINECRAFT_AVATAR_PERSPECTIVE_VALUES' => AvatarSource::getAllPerspectives(),

@@ -129,7 +129,13 @@ class AvatarSource
      */
     private static function getActiveSource(): AvatarSourceBase
     {
-        return self::$_active_source ??= self::getSourceByName(Settings::get('default_avatar_source', 'cravatar'));
+        // Compatibility with old built-in source, can be removed in 2.3.0
+        $setting = Settings::get('default_avatar_source', 'cravatar');
+        if ($setting === 'Nameless') {
+            $setting = 'cravatar';
+        }
+
+        return self::$_active_source ??= self::getSourceByName($setting);
     }
 
     /**
