@@ -682,7 +682,7 @@ class Core_Module extends Module {
                             'version' => Output::getClean(NAMELESS_VERSION)
                         ]),
                         'NEW_VERSION' => $language->get('admin', 'new_version_x', [
-                            'version' => Output::getClean($update_check->version())
+                            'version' => Output::getClean($update_check->versionTag())
                         ]),
                         'NAMELESS_UPDATE' => $language->get('admin', 'update'),
                         'NAMELESS_UPDATE_LINK' => URL::build('/panel/update')

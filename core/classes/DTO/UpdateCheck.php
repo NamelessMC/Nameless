@@ -48,9 +48,9 @@ class UpdateCheck
         return $this->_response['install_instructions'];
     }
 
-    public function version(): string
+    public function versionTag(): string
     {
-        return $this->_response['name'] . ' (' . $this->_response['version_tag'] . ')';
+        return $this->_response['version_tag'];
     }
 
     public function upgradeZipLink(): string
