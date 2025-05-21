@@ -57,7 +57,6 @@
     "admin/basic_page": "Basic page?",
     "admin/bedrock": "Bedrock?",
     "admin/bedrock_help": "Select this option if the server is a Bedrock server.",
-    "admin/built_in_avatars": "Built-in avatar service",
     "admin/bungee_instance": "BungeeCord Instance?",
     "admin/bungee_instance_help": "Select this option if the server is a BungeeCord instance.",
     "admin/bust": "Bust",
