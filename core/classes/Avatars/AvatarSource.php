@@ -110,7 +110,12 @@ class AvatarSource
             $is_valid = false;
 
             try {
-                $response = HttpClient::createClient()->head($url);
+                $response = HttpClient::createClient()->head($url, [
+                    // https://vzge.me requires a user agent
+                    'headers' => [
+                        'User-Agent' => 'NamelessMC/' . NAMELESS_VERSION . ' (https://namelessmc.com)',
+                    ],
+                ]);
                 $headers = $response->getHeaders();
                 if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
                     $is_valid = true;

@@ -11,7 +11,7 @@ class VisageAvatarSource extends AvatarSourceBase {
 
     public function __construct() {
         $this->_name = 'Visage';
-        $this->_base_url = 'https://visage.surgeplay.com/';
+        $this->_base_url = 'https://vzge.me/';
         $this->_perspectives_map = [
             'face' => 'face',
             'head' => 'head',
