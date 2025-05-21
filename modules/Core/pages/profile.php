@@ -473,7 +473,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($profile_user->isBlocked($query->id, $user->data()->id)) {
+    if ($user->isLoggedIn() && $profile_user->isBlocked($query->id, $user->data()->id)) {
         $template->getEngine()->addVariables([
             'BLOCKED' => $language->get('user', 'blocked_profile_page'),
             'CAN_VIEW' => false
