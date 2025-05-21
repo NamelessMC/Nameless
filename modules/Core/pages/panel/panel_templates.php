@@ -257,9 +257,7 @@ if (!isset($_GET['action'])) {
                     'is_default' => true,
                 ]);
 
-                // Cache
-                $cache->setCache('templatecache');
-                $cache->store('panel_default', $new_default_template);
+                Settings::set('default_panel_template', $new_default_template);
 
                 // Session
                 Session::flash('admin_templates', $language->get('admin', 'default_template_set', ['template' => Output::getClean($new_default_template)]));
