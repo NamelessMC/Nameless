@@ -161,6 +161,9 @@ if (isset($_GET['do'])) {
         if (Token::check()) {
             if (Input::get('action') == 'settings') {
                 $to_validate = [
+                    'user_title' => [
+                        Validate::MAX => 64,
+                    ],
                     'signature' => [
                         Validate::MAX => 900
                     ],
@@ -205,13 +208,14 @@ if (isset($_GET['do'])) {
                 $validation = Validate::check(
                     $_POST, $to_validate
                 )->messages([
-                    'signature' => $language->get('user', 'signature_max_900'),
                     'nickname' => [
                         Validate::REQUIRED => $language->get('user', 'nickname_required'),
                         Validate::UNIQUE => $language->get('user', 'nickname_already_exists'),
                         Validate::MIN => $language->get('user', 'nickname_minimum_3'),
                         Validate::MAX => $language->get('user', 'nickname_maximum_20')
                     ],
+                    'user_title' => $language->get('user', 'user_title_max_64'),
+                    'signature' => $language->get('user', 'signature_max_900'),
                     'timezone' => $language->get('general', 'invalid_timezone'),
                     // fallback message for required profile fields
                     '*' => static function ($field) use ($language) {
@@ -294,6 +298,7 @@ if (isset($_GET['do'])) {
                         'timezone' => $timezone,
                         'signature' => $signature,
                         'nickname' => $displayname,
+                        'user_title' => Input::get('user_title'),
                         'private_profile' => $privateProfile,
                         'theme_id' => $new_template,
                         'gravatar' => $gravatar,
@@ -517,6 +522,13 @@ if (isset($_GET['do'])) {
             ]
         ];
     }
+
+    $custom_fields_template['user_title'] = [
+        'name' => $language->get('user', 'user_title'),
+        'value' => Output::getClean($user->data()->user_title),
+        'id' => 'user_title',
+        'type' => 'text',
+    ];
 
     foreach ($user->getProfileFields(true) as $id => $field) {
         // Skip this field if it's not editable, and it is already set.

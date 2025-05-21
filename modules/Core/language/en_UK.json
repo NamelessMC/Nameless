@@ -1342,6 +1342,8 @@
     "user/user_unblocked": "User unblocked.",
     "user/user_x_has_registered": "{{user}} has joined {{siteName}}!",
     "user/user_x_has_validated": "{{user}} has validated their account!",
+    "user/user_title": "Title",
+    "user/user_title_max_64": "Your title must be a maximum of 64 characters.",
     "user/username": "Username",
     "user/username_already_exists": "Your chosen username already exists.",
     "user/username_maximum_20": "Your username must be a maximum of 20 characters.",
