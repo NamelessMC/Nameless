@@ -111,7 +111,7 @@ $template->getEngine()->addVariables([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CUSTOM_AVATARS' => $language->get('admin', 'allow_custom_avatars'),
-    'CUSTOM_AVATARS_VALUE' => defined('CUSTOM_AVATARS'),
+    'CUSTOM_AVATARS_VALUE' => Settings::get('custom_avatars'),
     'DEFAULT_AVATAR' => $language->get('admin', 'default_avatar'),
     'DEFAULT_AVATAR_VALUE' => Settings::get('default_avatar_type'),
     'MINECRAFT_AVATAR' => $language->get('admin', 'minecraft_avatar'),

@@ -615,7 +615,7 @@ if (isset($_GET['do'])) {
         'GRAVATAR_VALUE' => $user->data()->gravatar == '1' ? '1' : '0',
     ]);
 
-    if (defined('CUSTOM_AVATARS')) {
+    if (Settings::get('custom_avatars')) {
         $template->getEngine()->addVariables([
             'CUSTOM_AVATARS' => true,
             'CUSTOM_AVATARS_SCRIPT' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/includes/image_upload.php',
