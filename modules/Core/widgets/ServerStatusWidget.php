@@ -37,7 +37,9 @@ class ServerStatusWidget extends WidgetBase {
 
             if ($server->count()) {
                 $server = $server->first();
-                $server_array_request = HttpClient::get(rtrim(URL::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id));
+                $server_array_request = HttpClient::get(rtrim(URL::getSelfURL(), '/') . URL::build('/queries/server/', 'id=' . $server->id), [
+                    'verify' => false,
+                ]);
 
                 if (!$server_array_request->hasError()) {
                     $server_array = $server_array_request->json(true);
@@ -71,7 +73,7 @@ class ServerStatusWidget extends WidgetBase {
                     'ONLINE' => $this->_language->get('general', 'online'),
                     'OFFLINE' => $this->_language->get('general', 'offline'),
                     'IP' => $this->_language->get('general', 'ip'),
-                    'VERSION' => isset($server_array['version']) ? $this->_language->get('general', 'version', ['version' => $server_array['version']]) : null
+                    'VERSION' => $this->_language->get('general', 'version'),
                 ]
             );
         }

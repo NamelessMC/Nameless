@@ -50,8 +50,7 @@ class DiscordWidget extends WidgetBase {
 
             $result = $request->json();
 
-            // Cache for 60 seconds
-            $this->_cache->store('result', $result, 60);
+            $this->_cache->store('result', $result, 3600);
         }
 
         // Check if the widget is disabled.

@@ -43,7 +43,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/queue', 'queries/queue.php');
         $pages->add('Core', '/queries/queue_status', 'queries/queue_status.php');
         $pages->add('Core', '/queries/pms', 'queries/pms.php');
-        $pages->add('Core', '/queries/servers', 'queries/servers.php');
         $pages->add('Core', '/queries/server', 'queries/server.php');
         $pages->add('Core', '/queries/user', 'queries/user.php');
         $pages->add('Core', '/queries/users', 'queries/users.php');
@@ -119,8 +118,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
         // Ajax GET requests
-        $pages->addAjaxScript(URL::build('/queries/servers'));
-
         if (Settings::get('queue_runner', 'ajax') == 'ajax') {
             $pages->addAjaxScript(URL::build('/queries/queue'));
         }
