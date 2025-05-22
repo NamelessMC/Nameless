@@ -48,6 +48,7 @@ class Pages
     {
         $this->_pages[$url] = [
             'module' => $module,
+            'url' => $url,
             'file' => $file,
             'name' => $name,
             'widgets' => $widgets,
@@ -66,6 +67,7 @@ class Pages
     {
         $this->_pages[$url] = [
             'module' => 'Core',
+            'url' => $url,
             'file' => 'pages/custom.php',
             'name' => $name,
             'widgets' => $widgets,
@@ -126,8 +128,8 @@ class Pages
     /**
      * Get page by ID.
      *
-     * @param  int   $page_id ID of page to find.
-     * @return array Page information.
+     * @param int $page_id ID of page to find.
+     * @return array|null Page information.
      */
     public function getPageById(int $page_id): ?array
     {
@@ -145,8 +147,8 @@ class Pages
     /**
      * Get page by URL.
      *
-     * @param  string $url URL of page to find.
-     * @return array  Page information.
+     * @param string $url URL of page to find.
+     * @return array|null Page information.
      */
     public function getPageByURL(string $url): ?array
     {
@@ -159,6 +161,36 @@ class Pages
         }
 
         return null;
+    }
+
+    /**
+     * Get page by name.
+     *
+     * @param string $name
+     * @return array|null Page information.
+     */
+    public function getPageByName(string $name): ?array
+    {
+        foreach ($this->_pages as $key => $page) {
+            if ($page['name'] == $name) {
+                $page['key'] = $key;
+
+                return $page;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns all pages belonging to a particular module.
+     *
+     * @param string $module
+     * @return array
+     */
+    public function getPagesByModule(string $module): array
+    {
+        return array_filter($this->_pages, fn($page) => $page['module'] === $module);
     }
 
     /**
