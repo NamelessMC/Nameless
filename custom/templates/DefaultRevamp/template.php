@@ -122,9 +122,7 @@ class DefaultRevamp_Template extends SmartyTemplateBase
         ];
 
         // Logo
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
-        $cache->setCache('backgroundcache');
-        $logo_image = $cache->retrieve('logo_image');
+        $logo_image = Settings::get('logo_image_path');
         $JSVariables['logoImage'] = !empty($logo_image) ? $logo_image : null;
 
         if (str_contains($route, '/forum/topic/') || PAGE === 'profile') {

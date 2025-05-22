@@ -296,8 +296,7 @@ class DatabaseInitialiser
             $config_path = '/' . trim($config_path, '/');
         }
 
-        $this->_cache->setCache('backgroundcache');
-        $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
+        Settings::set('banner_image_path', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     }
 
     private function initialiseWidgets(): void

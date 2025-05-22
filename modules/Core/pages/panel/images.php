@@ -32,32 +32,28 @@ require_once ROOT_PATH . '/core/templates/backend_init.php';
 // Reset background
 if (isset($_GET['action'])) {
     if ($_GET['action'] === 'reset_banner') {
-        $cache->setCache('backgroundcache');
-        $cache->store('banner_image', '');
+        Settings::set('banner_image_path', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
     }
 
     if ($_GET['action'] === 'reset_logo') {
-        $cache->setCache('backgroundcache');
-        $cache->store('logo_image', '');
+        Settings::set('logo_image_path', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
     }
 
     if ($_GET['action'] === 'reset_favicon') {
-        $cache->setCache('backgroundcache');
-        $cache->store('favicon_image', '');
+        Settings::set('favicon_image_path', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
     }
 
     if ($_GET['action'] === 'reset_og_image') {
-        $cache->setCache('backgroundcache');
-        $cache->store('og_image', '');
+        Settings::set('og_image_path', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'og_image_reset_successfully'));
         Redirect::to(URL::build('/panel/core/images'));
@@ -69,25 +65,23 @@ if (Input::exists()) {
     // Check token
     if (Token::check()) {
         // Valid token
-        $cache->setCache('backgroundcache');
-
         if (isset($_POST['banner'])) {
-            $cache->store('banner_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
+            Settings::set('banner_image_path', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/template_banners/' . Input::get('banner'));
 
             Session::flash('panel_images_success', $language->get('admin', 'template_banner_updated_successfully'));
 
         } else {
             if (isset($_POST['logo'])) {
-                $cache->store('logo_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
+                Settings::set('logo_image_path', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/logos/' . Input::get('logo'));
 
                 Session::flash('panel_images_success', $language->get('admin', 'logo_updated_successfully'));
 
             } else if (isset($_POST['favicon'])) {
-                $cache->store('favicon_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
+                Settings::set('favicon_image_path', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/favicons/' . Input::get('favicon'));
 
                 Session::flash('panel_images_success', $language->get('admin', 'favicon_updated_successfully'));
             } else if (isset($_POST['og_image'])) {
-                $cache->store('og_image', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/og_images/' . Input::get('og_image'));
+                Settings::set('og_image_path', ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/og_images/' . Input::get('og_image'));
 
                 Session::flash('panel_images_success', $language->get('admin', 'og_image_updated_successfully'));
             }
@@ -119,37 +113,32 @@ if (isset($errors) && count($errors)) {
     $template->getEngine()->addVariable('ERRORS', $errors);
 }
 
-// Get banner from cache
-$cache->setCache('backgroundcache');
-$banner_image = $cache->fetch('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
-
+// Get banner
+$banner_image = Settings::get('banner_image_path');
 if ($banner_image == '') {
     $banner_img = $language->get('general', 'none');
 } else {
     $banner_img = Output::getClean($banner_image);
 }
 
-// Get logo from cache
-$logo_image = $cache->retrieve('logo_image');
-
+// Get logo
+$logo_image = Settings::get('logo_image_path');
 if ($logo_image == '') {
     $logo_img = $language->get('general', 'none');
 } else {
     $logo_img = Output::getClean($logo_image);
 }
 
-// Get favicon from cache
-$favicon_image = $cache->retrieve('favicon_image');
-
+// Get favicon
+$favicon_image = Settings::get('favicon_image_path');
 if ($favicon_image == '') {
     $favicon_img = $language->get('general', 'none');
 } else {
     $favicon_img = Output::getClean($favicon_image);
 }
 
-// Get OG image from cache
-$og_image = $cache->retrieve('og_image');
-
+// Get OG image
+$og_image = Settings::get('og_image_path');
 if ($og_image == '') {
     $og_img = $language->get('general', 'none');
 } else {
