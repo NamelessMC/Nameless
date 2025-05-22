@@ -193,7 +193,7 @@ class URL
      * Breaks any URI into segments (without a leading/closing “/”).
      *
      * @param  string|null $uri If null — takes $_SERVER['REQUEST_URI']
-     * @return string[] Array of segments
+     * @return string[]    Array of segments
      */
     public static function getSegments(?string $uri = null): array
     {
@@ -202,20 +202,22 @@ class URL
         }
         $path = parse_url($uri, PHP_URL_PATH) ?: '';
         // We remove the presenter and closing slash, break by "/"
-        $parts = array_filter(explode('/', trim($path, '/')), fn($s) => $s !== '');
+        $parts = array_filter(explode('/', trim($path, '/')), fn ($s) => $s !== '');
+
         return array_values($parts);
     }
 
     /**
      * Returns a specific index segment (0-Based) or $ default if absent.
      *
-     * @param  int         $index Segment index (0 - first)
+     * @param  int         $index   Segment index (0 - first)
      * @param  string|null $default The default value
      * @return string|null
      */
     public static function segment(int $index, ?string $default = null): ?string
     {
         $segments = self::getSegments();
+
         return $segments[$index] ?? $default;
     }
 }

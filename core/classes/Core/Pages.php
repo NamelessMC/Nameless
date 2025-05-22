@@ -128,7 +128,7 @@ class Pages
     /**
      * Get page by ID.
      *
-     * @param int $page_id ID of page to find.
+     * @param  int        $page_id ID of page to find.
      * @return array|null Page information.
      */
     public function getPageById(int $page_id): ?array
@@ -147,7 +147,7 @@ class Pages
     /**
      * Get page by URL.
      *
-     * @param string $url URL of page to find.
+     * @param  string     $url URL of page to find.
      * @return array|null Page information.
      */
     public function getPageByURL(string $url): ?array
@@ -166,7 +166,7 @@ class Pages
     /**
      * Get page by name.
      *
-     * @param string $name
+     * @param  string     $name
      * @return array|null Page information.
      */
     public function getPageByName(string $name): ?array
@@ -185,12 +185,12 @@ class Pages
     /**
      * Returns all pages belonging to a particular module.
      *
-     * @param string $module
+     * @param  string $module
      * @return array
      */
     public function getPagesByModule(string $module): array
     {
-        return array_filter($this->_pages, fn($page) => $page['module'] === $module);
+        return array_filter($this->_pages, fn ($page) => $page['module'] === $module);
     }
 
     /**
