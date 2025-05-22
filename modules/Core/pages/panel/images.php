@@ -121,12 +121,7 @@ if (isset($errors) && count($errors)) {
 
 // Get banner from cache
 $cache->setCache('backgroundcache');
-if (!$cache->isCached('banner_image')) {
-    $cache->store('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
-    $banner_image = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg';
-} else {
-    $banner_image = $cache->retrieve('banner_image');
-}
+$banner_image = $cache->fetch('banner_image', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/template_banners/homepage_bg_trimmed.jpg');
 
 if ($banner_image == '') {
     $banner_img = $language->get('general', 'none');

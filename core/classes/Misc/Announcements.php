@@ -61,19 +61,15 @@ class Announcements
     {
         $this->_cache->setCache('custom_announcements');
 
-        if ($this->_cache->isCached('custom_announcements')) {
-            return $this->_cache->retrieve('custom_announcements');
-        }
+        return $this->_cache->fetch('custom_announcements', function () {
+            $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
+            $announcements = [];
+            foreach ($rows as $row) {
+                $announcements[] = new Announcement($row);
+            }
 
-        $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
-        $announcements = [];
-        foreach ($rows as $row) {
-            $announcements[] = new Announcement($row);
-        }
-
-        $this->_cache->store('custom_announcements', $announcements);
-
-        return $this->_cache->retrieve('custom_announcements');
+            return $announcements;
+        });
     }
 
     /**
@@ -159,7 +155,7 @@ class Announcements
             $this->_cache->erase('custom_announcements');
         }
 
-        $this->_cache->store('custom_announcements', $this->getAll());
+        $this->getAll();
     }
 
     /**

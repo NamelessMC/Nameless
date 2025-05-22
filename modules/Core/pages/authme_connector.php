@@ -164,13 +164,7 @@ if (Input::exists()) {
 
                     // Get default group ID
                     $cache->setCache('default_group');
-                    if ($cache->isCached('default_group')) {
-                        $default_group = $cache->retrieve('default_group');
-                    } else {
-                        $default_group = Group::find(1, 'default_group')->id;
-
-                        $cache->store('default_group', $default_group);
-                    }
+                    $default_group = $cache->fetch('default_group', fn () => Group::find(1, 'default_group')->id);
 
                     $user = new User($user_id);
                     $user->addGroup($default_group);

@@ -11,7 +11,6 @@
     "discord_integration/discord_id_required": "Veuillez entrer votre ID de serveur Discord.",
     "discord_integration/discord_id_confirm": "Veuillez exécuter la commande \"/verify token:{{token}}\" dans Discord pour terminer la liaison de votre compte Discord.",
     "discord_integration/discord_id_length": "Veuillez vous assurer que votre ID de serveur Discord est compris entre {{min}} et {{max}} chiffres.",
-    "discord_integration/discord_role_id": "Discord Role ID",
     "discord_integration/discord": "Discord",
     "discord_integration/discord_id_numeric": "Veuillez vous assurer que votre ID de serveur Discord est numérique (uniquement des chiffres).",
     "discord_integration/discord_invite_info": "Pour inviter le bot Nameless Link sur votre serveur Discord, cliquez sur {{inviteLinkStart}} ici{{inviteLinkEnd}}. Ensuite, exécutez la commande {{command}} pour lier le robot à votre site Web. Vous pouvez également {{selfHostLinkStart}} héberger le robot vous-même{{selfHostLinkEnd}}.",

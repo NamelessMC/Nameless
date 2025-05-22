@@ -14,17 +14,9 @@ class RecentUsersItem extends CollectionItemBase {
     private TemplateEngine $_engine;
     private Language $_language;
 
-    public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_stats_collection');
-        if ($cache->isCached('recent_users')) {
-            $from_cache = $cache->retrieve('recent_users');
-            $order = $from_cache['order'] ?? 2;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 2;
-            $enabled = 1;
-        }
+    public function __construct(TemplateEngine $engine, Language $language) {
+        $order = 2;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 

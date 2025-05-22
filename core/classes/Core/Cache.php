@@ -96,6 +96,29 @@ class Cache
     }
 
     /**
+     * Retrieve the cache data or persist it if not found.
+     *
+     * @param  string $key        The key to retrieve
+     * @param  mixed  $data       The data to persist if not found
+     * @param  int    $expiration Expiration time in seconds
+     * @return mixed  The cached data or the persisted data
+     */
+    public function fetch(string $key, $data, int $expiration = 0)
+    {
+        if ($this->isCached($key)) {
+            return $this->retrieve($key);
+        }
+
+        if (is_callable($data)) {
+            $data = $data();
+        }
+
+        $this->store($key, $data, $expiration);
+
+        return $data;
+    }
+
+    /**
      * Load appointed cache.
      *
      * @return mixed

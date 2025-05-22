@@ -109,13 +109,9 @@ if ($user->isLoggedIn()) {
     // Does the account need verifying?
     // Get default group ID
     $cache->setCache('default_group');
-    if ($cache->isCached('default_group')) {
-        $default_group = $cache->retrieve('default_group');
-    } else {
-        $default_group = Group::find(1, 'default_group')->id;
-
-        $cache->store('default_group', $default_group);
-    }
+    $default_group = $cache->fetch('default_group', function () {
+        return Group::find(1, 'default_group')->id;
+    });
 }
 
 // Page metadata
