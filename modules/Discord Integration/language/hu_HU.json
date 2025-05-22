@@ -1,7 +1,6 @@
 {
     "discord_integration/discord": "Discord",
     "discord_integration/discord_bot_setup": "A Bot be van állítva?",
-    "discord_integration/discord_role_id": "Discord Rang ID",
     "discord_integration/discord_role_id_length": "A Discord Rang ID {{min}} és {{max}} számjegy hosszú lehet.",
     "discord_integration/discord_widget_error": "Hiba történt a Discord widget lekérdezésekor: {{error}}.",
     "discord_integration/discord_id_help": "Információért, hogy hol találod meg a Discord ID-ket, kérlek, olvasd el {{linkStart}}ezt.{{linkEnd}}",

@@ -4,7 +4,6 @@
     "discord_integration/discord_id_help": "Để biết thông tin về nơi tìm Discord ID, vui lòng đọc {{linkStart}}cái này.{{linkEnd}}",
     "discord_integration/discord_id_numeric": "Vui lòng đảm bảo ID máy chủ Discord của bạn là số.",
     "discord_integration/discord_id_required": "Vui lòng nhập ID máy chủ Discord của bạn.",
-    "discord_integration/discord_role_id": "Discord Role ID",
     "discord_integration/discord_role_id_length": "Discord Role ID phải dài từ {{min}} đến {{max}} chữ số.",
     "discord_integration/discord_role_id_numeric": "Discord Role ID phải là số.",
     "discord_integration/discord_settings_updated": "Đã cập nhật thành công cài đặt Discord",

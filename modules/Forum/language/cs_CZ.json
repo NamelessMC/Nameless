@@ -1,6 +1,5 @@
 {
     "forum/all_topics_unfollowed": "Bylo zrušeno sledování všech témat.",
-    "forum/available_hooks": "Dostupné webhooky",
     "forum/average_posts": "Průměrný počet příspěvků uživatele",
     "forum/by": "od",
     "forum/can_create_topic": "Může vytvářet témata?",
@@ -109,7 +108,6 @@
     "forum/no_topics_short": "Žádná témata",
     "forum/not_following_any_topics": "Nesledujete žádná témata.",
     "forum/now_following_topic": "Nyní sledujete toto téma a budete upozorněni na nové odpovědi.",
-    "forum/online_users": "Online uživatelé",
     "forum/overview": "Přehled",
     "forum/parent_forum": "Nadřazené fórum",
     "forum/parent_forum_x": "Nadřazené fórum: {{forum}}",
@@ -159,19 +157,11 @@
     "forum/unstick_topic": "Odepnout téma",
     "forum/use_reactions": "Použít reakce?",
     "forum/user_no_posts": "Tento uživatel dosud nevytvořil žádné příspěvky ve fóru.",
-    "forum/user_tag": "Byli jste označeni v příspěvku.",
     "forum/user_tag_info": "{{author}} vás označil v příspěvku.",
     "forum/views": "zobrazení",
     "forum/x_posts": "{{count}} příspěvků",
     "forum/x_topics": "{{count}} témat",
     "forum/your_posts": "Váš počet příspěvků",
-    "forum/post_id": "ID příspěvku",
-    "forum/pre_post_create_hook_info": "Předběžné vytvoření příspěvku",
-    "forum/pre_post_edit_hook_info": "Předběžná úprava příspěvku",
-    "forum/pre_topic_create_hook_info": "Předběžné vytvoření tématu",
-    "forum/pre_topic_edit_hook_info": "Předběžná úprava tématu",
-    "forum/topic_id": "ID tématu",
-    "forum/user_object": "Objekt uživatele",
     "forum/no_news": "Nejsou zde žádné novinky.",
     "forum/topic_reply": "Odpověď na téma",
     "forum/label_type_in_use": "Typ štítku je používán, nelze jej odstranit.",
@@ -194,5 +184,7 @@
     "forum/spam_timer": "Časovač spamu",
     "forum/spam_timer_min": "Časovač spamu musí být alespoň {{min}}",
     "forum/spam_timer_numeric": "Časovač spamu musí být číslo",
-    "forum/spam_timer_required": "Musíte zadat časovač spamu"
+    "forum/spam_timer_required": "Musíte zadat časovač spamu",
+    "forum/forum_topic_replies": "Odpovědi na téma na fóru",
+    "forum/forum_topic_mentions": "Zmínky o tématu na fóru"
 }

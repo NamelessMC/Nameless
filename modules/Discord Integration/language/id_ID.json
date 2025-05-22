@@ -7,7 +7,6 @@
     "discord_integration/discord_id_numeric": "Harap pastikan ID Server Discord Anda adalah numerik (hanya Angka).",
     "discord_integration/discord_id_required": "Silakan masukkan ID Server Discord Anda.",
     "discord_integration/discord_integration_not_setup": "Integrasi Discord tidak diatur",
-    "discord_integration/discord_role_id": "ID Role Discord",
     "discord_integration/discord_role_id_length": "ID Role Discord harus antara {{min}} dan {{max}} digit.",
     "discord_integration/discord_role_id_numeric": "ID Role Discord harus numerik.",
     "discord_integration/discord_settings_updated": "Pengaturan Discord berhasil diperbarui",
