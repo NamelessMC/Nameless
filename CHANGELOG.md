@@ -3,6 +3,16 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
 
+## [2.2.3](https://github.com/NamelessMC/Nameless/compare/v2.2.2...v2.2.3) - 2025-05-22
+### Added
+- No additions this releasse
+
+### Changed
+- No changes this release
+
+### Fixed
+- Fix 500 on guests visiting profile pages [#3665](https://github.com/NamelessMC/Nameless/pull/3665)
+
 ## [2.2.2](https://github.com/NamelessMC/Nameless/compare/v2.2.1...v2.2.2) - 2025-05-21
 ### Added
 - Add methods to add to Smarty security policy functions and modifiers, and access to smarty append [#3643](https://github.com/NamelessMC/Nameless/pull/3643)
