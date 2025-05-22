@@ -23,7 +23,7 @@ class DefaultRevamp_Template extends SmartyTemplateBase
     /** @var Pages */
     private Pages $_pages;
 
-    public function __construct(Cache $cache, Language $language, User $user, Pages $pages)
+    public function __construct(Language $language, User $user, Pages $pages)
     {
         $template = [
             'name' => 'DefaultRevamp',
@@ -148,10 +148,9 @@ class DefaultRevamp_Template extends SmartyTemplateBase
 }
 
 /**
- * @var Cache    $cache
  * @var Language $language
  * @var User     $user
  * @var Pages    $pages
  */
-$template = new DefaultRevamp_Template($cache, $language, $user, $pages);
+$template = new DefaultRevamp_Template($language, $user, $pages);
 $template_pagination = ['div' => 'ui mini pagination menu', 'a' => '{x}item'];
