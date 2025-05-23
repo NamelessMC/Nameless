@@ -7,7 +7,6 @@
     "discord_integration/discord_id_length": "请确保您的不和谐服务器 ID 介于 {{最小}} 和 {{最大}} 数字之间。",
     "discord_integration/discord_id_numeric": "请确保您的 Discord ID 只包含数字。",
     "discord_integration/discord_integration_not_setup": "Discord 集成尚未配置",
-    "discord_integration/discord_role_id": "Discord 身份组 ID",
     "discord_integration/discord_role_id_length": "Discord 身份组 ID 的位数必须在 {{min}}到{{max}} 之间。",
     "discord_integration/discord_role_id_numeric": "Discord 身份组 ID 必须为数字。",
     "discord_integration/discord_settings_updated": "Discord 设置更新成功",

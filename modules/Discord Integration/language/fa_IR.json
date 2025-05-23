@@ -5,7 +5,6 @@
     "discord_integration/discord_id_numeric": "لطفاً مطمئن شوید که آیدی سرور دیسکورد شما عددی است (فقط اعداد).",
     "discord_integration/discord_id_required": "لطفا آیدی سرور دیسکورد خود را وارد کنید.",
     "discord_integration/discord_integration_not_setup": "ادغام دیسکورد تنظیم نشده است",
-    "discord_integration/discord_role_id": "آیدی نقش دیسکورد",
     "discord_integration/discord_role_id_length": "آیدی نقش دیسکورد باید بین {{min}} و {{max}} رقم باشد.",
     "discord_integration/discord_role_id_numeric": "آیدی نقش دیسکورد باید عددی باشد.",
     "discord_integration/discord_widget_error": "هنگام دریافت ویجت دیسکورد خطایی روی داد: {{error}}.",

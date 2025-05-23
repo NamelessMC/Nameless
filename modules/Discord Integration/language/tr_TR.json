@@ -10,7 +10,6 @@
     "discord_integration/discord_role_id_numeric": "Discord Rol ID'si sayısal olmalıdır.",
     "discord_integration/discord": "Discord",
     "discord_integration/discord_id_numeric": "Lütfen Discord Sunucu ID'nizin sayısal olduğundan emin olun (yalnızca sayılar).",
-    "discord_integration/discord_role_id": "Discord Rol ID",
     "discord_integration/discord_settings_updated": "Discord ayarları başarıyla güncellendi",
     "discord_integration/discord_usernames_updated": "Discord kullanıcı adı başarıyla güncellendi",
     "discord_integration/discord_widget_error": "Discord widget'ı alınırken bir hata oluştu: {{error}}.",

@@ -104,7 +104,7 @@ switch ($_POST['type']) {
 
     default:
         // Default to normal avatar upload
-        if (!defined('CUSTOM_AVATARS')) {
+        if (!Settings::get('custom_avatars')) {
             die('Custom avatar uploading is disabled');
         }
 

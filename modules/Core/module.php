@@ -360,9 +360,7 @@ class Core_Module extends Module {
         AvatarSource::registerSource(new CravatarAvatarSource());
         AvatarSource::registerSource(new MCHeadsAvatarSource());
         AvatarSource::registerSource(new MinotarAvatarSource());
-        AvatarSource::registerSource(new NamelessMCAvatarSource($language));
         AvatarSource::registerSource(new VisageAvatarSource());
-        AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
@@ -619,7 +617,6 @@ class Core_Module extends Module {
         // Widgets - only load if on a widget staffcp page or the frontend
         if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
-            $cache->setCache('social_media');
             $fb_url = Settings::get('fb_url');
             if ($fb_url) {
                 $widgets->add(new FacebookWidget($template->getEngine(), $fb_url));
@@ -627,7 +624,6 @@ class Core_Module extends Module {
 
             // Twitter
             $twitter = Settings::get('twitter_url');
-
             if ($twitter) {
                 $theme = Settings::get('twitter_style');
                 $widgets->add(new TwitterWidget($template->getEngine(), $twitter, $theme));

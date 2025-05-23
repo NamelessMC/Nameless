@@ -1,6 +1,5 @@
 {
     "forum/all_topics_unfollowed": "Todos los temas se han dejado de seguir.",
-    "forum/available_hooks": "WebHook disponibles",
     "forum/average_posts": "Publicaciones Promedio",
     "forum/by": "por",
     "forum/can_create_topic": "¿Puede crear temas?",
@@ -109,7 +108,6 @@
     "forum/no_topics_short": "No hay Temas",
     "forum/not_following_any_topics": "No estás siguiendo ningún tema.",
     "forum/now_following_topic": "Ahora está siguiendo este tema y se le notificará cualquier nueva respuesta.",
-    "forum/online_users": "Usuarios Conectados",
     "forum/overview": "Vista General",
     "forum/parent_forum": "Foro Principal",
     "forum/parent_forum_x": "Foro Principal: {{forum}}",
@@ -159,7 +157,6 @@
     "forum/unstick_topic": "Quitar el primer tema (no es borrarlo)",
     "forum/use_reactions": "¿Usar reacciones?",
     "forum/user_no_posts": "Este usuario, todavía no ha hecho ningun post/tema",
-    "forum/user_tag": "Has sido etiquetado en una publicación.",
     "forum/user_tag_info": "Has sido etiquetado en una publicación por {{author}}.",
     "forum/views": "vistas",
     "forum/x_posts": "{{count}} publicaciones",

@@ -82,7 +82,6 @@
     "forum/no_labels_defined": "Aucune étiquettes n'ont été définie.",
     "forum/no_topics": "Aucun sujets n'ont été créés.",
     "forum/no_topics_short": "Aucun sujets",
-    "forum/online_users": "Utilisateurs en ligne",
     "forum/overview": "Vue d'ensemble",
     "forum/parent_forum": "Forum parent",
     "forum/parent_forum_x": "Parent Forum: {{forum}}",
@@ -115,7 +114,6 @@
     "forum/unstick_topic": "Désépingler le sujet",
     "forum/use_reactions": "Utiliser les réactions ?",
     "forum/user_no_posts": "Cet utilisateur n'a fait aucun posts.",
-    "forum/user_tag": "Tu as été tagger dans un message.",
     "forum/user_tag_info": "Tu as été tagger dans un message par {{author}}.",
     "forum/views": "Vues"
 }

@@ -3,7 +3,6 @@
     "discord_integration/discord_id_help": "Voor informatie over waar je de Discord IDs kunt vinden, lees alsjeblieft {{linkStart}}dit.{{linkEnd}}",
     "discord_integration/discord_id_length": "Zorg ervoor dat je Discord server ID tussen {{min}} en {{max}} tekens lang is.",
     "discord_integration/discord_id_numeric": "Zorg ervoor dat uw Discord server ID numeriek is (alleen cijfers).",
-    "discord_integration/discord_role_id": "Discord Rol ID",
     "discord_integration/discord_role_id_length": "Discord Rol ID moet tussen {{min}} en {{max}} tekens lang zijn.",
     "discord_integration/discord_role_id_numeric": "Discord Rol ID moet numeriek zijn.",
     "discord_integration/discord_widget_theme": "Discord Widget Thema",
