@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var FakeSmarty $smarty
@@ -301,15 +301,17 @@ if (Input::exists()) {
 
                     if (!$auto_verify_oauth_email && Settings::get('email_verification') === '1') {
                         // Send registration email
-                        Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+                        if (!Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code)) {
+                            Session::flash('validate_error', $language->get('user', 'validate_email_failure'));
+                        }
 
-                        Session::flash('home', $language->get('user', 'registration_check_email'));
+                        Session::put('validate_email', Output::getClean(Input::get('email')));
+                        Redirect::to(URL::build('/validate'));
                     } else {
                         // Redirect straight to verification link
                         Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
                     }
 
-                    Redirect::to(URL::build('/'));
                 } else {
                     // Integrations errors
                     $errors = $integration_errors;

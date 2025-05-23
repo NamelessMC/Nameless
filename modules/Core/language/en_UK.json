@@ -1296,7 +1296,6 @@
     "user/received": "Received",
     "user/registered": "Registered:",
     "user/registered_x": "Registered: {{registeredAt}}",
-    "user/registration_check_email": "Thanks for registering! Please check your emails for a validation link in order to complete your registration. If you are unable to find the email, check your junk folder.",
     "user/remembered": "Remembered",
     "user/remember_me": "Remember me",
     "user/replies": "Replies",
@@ -1367,5 +1366,10 @@
     "user/banned_from_registering": "Your IP has been banned, you cannot register.",
     "user/you_have_received_a_warning": "You have received a warning!",
     "user/group_has_been_added": "Group {{group}} has been added to user {{user}}",
-    "user/group_has_been_removed": "Group {{group}} has been removed from user {{user}}"
+    "user/group_has_been_removed": "Group {{group}} has been removed from user {{user}}",
+    "user/validate_email": "Validate Email",
+    "user/change_or_resend_email": "Change or resend email",
+    "user/validate_email_info": "Thanks for registering! An email has been sent to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder.",
+    "user/validate_email_resent": "Email resent to <strong>{{email}}</strong> with a link to activate your account. If you are unable to find the email, check your junk folder.",
+    "user/validate_email_failure": "Could not send verification email, please contact a site administrator"
 }

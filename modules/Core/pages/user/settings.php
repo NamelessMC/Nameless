@@ -408,7 +408,7 @@ if (isset($_GET['do'])) {
                     ],
                     'email' => [
                         Validate::REQUIRED => $language->get('user', 'email_required') . '<br />',
-                        Validate::EMAIL => $language->get('general', 'contact_message_email') . '<br />'
+                        Validate::EMAIL => $language->get('user', 'invalid_email') . '<br />'
                     ]
                 ]);
 

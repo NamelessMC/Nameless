@@ -69,7 +69,6 @@ if (Input::exists()) {
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true,
                         Validate::RATE_LIMIT => $rate_limit,
                     ],
                     'password' => [
@@ -81,7 +80,6 @@ if (Input::exists()) {
                     'username' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
-                        Validate::IS_ACTIVE => true,
                         Validate::RATE_LIMIT => $rate_limit,
                     ],
                     'password' => [
@@ -122,9 +120,17 @@ if (Input::exists()) {
 
                 $user_query = new User($username, $method_field);
                 if ($user_query->exists()) {
-                    if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
-                        // Verify password first
-                        if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
+                    // Verify password first
+                    if ($user->checkCredentials($username, Input::get('password'), $method_field)) {
+
+                        // Ensure a user is active
+                        if (!$user->data()->active) {
+                            Session::put('validate_email', Output::getClean($user->data()->email));
+                            Redirect::to('/validate');
+                        }
+
+                        // Handle 2FA if enabled
+                        if ($user_query->data()->tfa_enabled == 1 && $user_query->data()->tfa_complete == 1) {
                             if (!isset($_POST['tfa_code'])) {
                                 if ($user_query->data()->tfa_type == 0) {
                                     // Emails
@@ -151,9 +157,9 @@ if (Input::exists()) {
                                     // TODO
                                 }
                             }
-                        } else {
-                            $return_error = [$language->get('user', 'incorrect_details')];
                         }
+                    } else {
+                        $return_error = [$language->get('user', 'incorrect_details')];
                     }
 
                     if (!isset($return_error)) {
@@ -308,7 +314,10 @@ if (Session::exists('oauth_error')) {
 }
 
 if (Session::exists('login_success')) {
-    $template->getEngine()->addVariable('SUCCESS', Session::flash('login_success'));
+    $template->getEngine()->addVariables([
+        'SUCCESS' => Session::flash('login_success'),
+        'SUCCESS_TITLE' => $language->get('general', 'success'),
+    ]);
 }
 
 if ($captcha) {
