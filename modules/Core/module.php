@@ -617,7 +617,6 @@ class Core_Module extends Module {
         // Widgets - only load if on a widget staffcp page or the frontend
         if ($pages->getActivePage()['widgets'] || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
-            $cache->setCache('social_media');
             $fb_url = Settings::get('fb_url');
             if ($fb_url) {
                 $widgets->add(new FacebookWidget($template->getEngine(), $fb_url));
@@ -625,7 +624,6 @@ class Core_Module extends Module {
 
             // Twitter
             $twitter = Settings::get('twitter_url');
-
             if ($twitter) {
                 $theme = Settings::get('twitter_style');
                 $widgets->add(new TwitterWidget($template->getEngine(), $twitter, $theme));
@@ -680,7 +678,7 @@ class Core_Module extends Module {
                             'version' => Output::getClean(NAMELESS_VERSION)
                         ]),
                         'NEW_VERSION' => $language->get('admin', 'new_version_x', [
-                            'version' => Output::getClean($update_check->version())
+                            'version' => Output::getClean($update_check->versionTag())
                         ]),
                         'NAMELESS_UPDATE' => $language->get('admin', 'update'),
                         'NAMELESS_UPDATE_LINK' => URL::build('/panel/update')

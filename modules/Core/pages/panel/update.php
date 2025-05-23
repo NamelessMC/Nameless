@@ -69,7 +69,7 @@ if (!is_string($update_check)) {
                 'version' => Output::getClean(NAMELESS_VERSION)
             ]),
             'NEW_VERSION' => $language->get('admin', 'new_version_x', [
-                'version' => Output::getClean($update_check->version())
+                'version' => Output::getClean($update_check->versionTag())
             ]),
             'INSTRUCTIONS' => $language->get('admin', 'instructions'),
             'INSTRUCTIONS_VALUE' => Output::getDecoded($update_check->instructions()),

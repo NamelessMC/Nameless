@@ -7,7 +7,6 @@
     "discord_integration/discord_id_length": "Ujistěte se, že ID vašeho Discord serveru má délku {{min}} až {{max}} znaků.",
     "discord_integration/discord_id_numeric": "Ujistěte se, že ID vašeho Discord serveru obsahuje pouze čísla.",
     "discord_integration/discord_integration_not_setup": "Integrace Discordu nenastavena",
-    "discord_integration/discord_role_id": "ID Discord role",
     "discord_integration/discord_role_id_length": "ID Discord role musí mít délku {{min}} až {{max}} znaků.",
     "discord_integration/discord_role_id_numeric": "ID Discord role může obsahovat pouze čísla.",
     "discord_integration/discord_settings_updated": "Nastavení Discordu úspěšně aktualizována",

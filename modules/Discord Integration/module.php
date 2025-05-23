@@ -15,7 +15,7 @@ class Discord_Module extends Module {
         $this->_language = $language;
 
         $name = 'Discord Integration';
-        $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
+        $author = '<a href="https://github.com/tadhgboyle" target="_blank" rel="nofollow noopener">Aberdeener</a>';
         $module_version = '2.2.1';
         $nameless_version = '2.2.1';
 

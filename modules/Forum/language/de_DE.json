@@ -1,6 +1,5 @@
 {
     "forum/all_topics_unfollowed": "Alle Themen werden nicht mehr verfolgt.",
-    "forum/available_hooks": "Verfügbare Haken",
     "forum/average_posts": "Durchschnittliche Anzahl von Benutzerbeiträgen",
     "forum/by": "von",
     "forum/can_create_topic": "Können Themen erstellt werden?",
@@ -106,7 +105,6 @@
     "forum/no_topics_short": "Keine Themen",
     "forum/not_following_any_topics": "Du folgst keinen Themen.",
     "forum/now_following_topic": "Du folgst diesem Thema jetzt und wirst über neue Antworten informiert.",
-    "forum/online_users": "Benutzer Online",
     "forum/overview": "Überblick",
     "forum/parent_forum": "Übergeordnetes Forum",
     "forum/parent_forum_x": "Übergeordnetes Forum: {{forum}}",
@@ -155,7 +153,6 @@
     "forum/unstick_topic": "Thema abheften",
     "forum/use_reactions": "\"Reaktionen\" Funktion verwenden?",
     "forum/user_no_posts": "Dieser Benutzer hat noch keine Foren-Beiträge erstellt.",
-    "forum/user_tag": "Du wurdest in einem Beitrag erwähnt.",
     "forum/user_tag_info": "Du wurdest in einem Beitrag von {{author}} erwähnt.",
     "forum/views": "Aufrufe",
     "forum/x_posts": "{{count}} Beiträge",
@@ -163,15 +160,8 @@
     "forum/your_posts": "Deine Beitragsanzahl",
     "forum/default_labels": "Default Labels",
     "forum/default_labels_info": "Diese werden einem neuen Thema im Forum zugewiesen, sofern sie nicht bei der Themenerstellung überschrieben werden. Strg+Klick zum Auswählen mehrerer",
-    "forum/topic_id": "Topic-ID",
     "forum/label_type_deleted_successfully": "Label Typ erfolgreich gelöscht.",
-    "forum/post_id": "Post-ID",
-    "forum/pre_post_create_hook_info": "Pre Post erstellen",
-    "forum/pre_post_edit_hook_info": "Pre Post bearbeiten",
-    "forum/pre_topic_create_hook_info": "Pre Thema erstellen",
-    "forum/pre_topic_edit_hook_info": "Pre Topic bearbeiten",
     "forum/topic_placeholder": "Topic Platzhalter",
-    "forum/user_object": "Benutzerobjekt",
     "forum/no_news": "Es gibt keine Nachrichten.",
     "forum/topic_reply": "Antwort zum Thema",
     "forum/label_type_in_use": "Der Etikettentyp wird verwendet und kann nicht gelöscht werden.",
@@ -194,5 +184,7 @@
     "forum/spam_timer": "Spam Timer",
     "forum/spam_timer_min": "Der Spam-Timer muss mindestens {{min}} sein",
     "forum/spam_timer_numeric": "Spam-Timer muss numerisch sein",
-    "forum/spam_timer_required": "Spam-Timer muss vorhanden sein"
+    "forum/spam_timer_required": "Spam-Timer muss vorhanden sein",
+    "forum/forum_topic_replies": "Antworten zum Forumsthema",
+    "forum/forum_topic_mentions": "Forumsthema Erwähnungen"
 }

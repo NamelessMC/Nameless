@@ -1,6 +1,5 @@
 {
     "forum/all_topics_unfollowed": "Alla ämnen har slutat följas.",
-    "forum/available_hooks": "Tillgängliga hooks",
     "forum/average_posts": "Genomsnittligt antal användarinlägg",
     "forum/by": "av",
     "forum/can_create_topic": "Kan skapa ämnen?",
@@ -108,7 +107,6 @@
     "forum/no_topics_short": "Inga ämnen",
     "forum/not_following_any_topics": "Du följer inga ämnen.",
     "forum/now_following_topic": "Du följer nu detta ämne och kommer att meddelas om nya svar.",
-    "forum/online_users": "Onlineanvändare",
     "forum/overview": "Översikt",
     "forum/parent_forum": "Föräldraforum",
     "forum/parent_forum_x": "Föräldraforum: {{forum}}",
@@ -158,7 +156,6 @@
     "forum/unstick_topic": "Ta bort ämne",
     "forum/use_reactions": "Använder du reaktioner?",
     "forum/user_no_posts": "Den här användaren har inte gjort några foruminlägg ännu.",
-    "forum/user_tag": "Du har taggats i ett inlägg.",
     "forum/user_tag_info": "Du har taggats i ett inlägg av {{author}}.",
     "forum/views": "visningar",
     "forum/x_posts": "{{count}} posts",

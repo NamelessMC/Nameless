@@ -7,7 +7,6 @@
     "discord_integration/discord_id_numeric": "Переконайся, що ID Discord серверу складається з цифр.",
     "discord_integration/discord_id_required": "Введи ID Discord серверу.",
     "discord_integration/discord_integration_not_setup": "Discord інтеграція не налаштована",
-    "discord_integration/discord_role_id": "ID ролі",
     "discord_integration/discord_role_id_length": "ID ролі повинно мати довжину між {{min}} і {{max}} символами.",
     "discord_integration/discord_role_id_numeric": "ID ролі повинно мати тільки цифри.",
     "discord_integration/discord_settings_updated": "Налаштування в Discord оновлені",

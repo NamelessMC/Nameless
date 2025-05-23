@@ -35,9 +35,9 @@ class DiscordWidget extends WidgetBase {
         }
 
         // First, check to see if the Discord server has the widget enabled.
-        $this->_cache->setCache('social_media');
-        if ($this->_cache->isCached('discord_widget_check')) {
-            $result = $this->_cache->retrieve('discord_widget_check');
+        $this->_cache->setCache('discord_widget_check');
+        if ($this->_cache->isCached('result')) {
+            $result = $this->_cache->retrieve('result');
 
         } else {
             $request = HttpClient::get('https://discord.com/api/guilds/' . urlencode($this->_guild_id) . '/widget.json');
@@ -51,7 +51,7 @@ class DiscordWidget extends WidgetBase {
             $result = $request->json();
 
             // Cache for 60 seconds
-            $this->_cache->store('discord_widget_check', $result, 60);
+            $this->_cache->store('result', $result, 60);
         }
 
         // Check if the widget is disabled.
@@ -62,10 +62,7 @@ class DiscordWidget extends WidgetBase {
         } else {
             // No, it isn't: display the widget
             // Check cache for theme
-            $theme = 'dark';
-            if ($this->_cache->isCached('discord_widget_theme')) {
-                $theme = $this->_cache->retrieve('discord_widget_theme');
-            }
+            $theme = Settings::get('discord_widget_theme', 'dark', 'Discord Integration');
 
             $this->_content = '<iframe src="https://discord.com/widget?id=' . urlencode($this->_guild_id) . '&theme=' . urlencode($theme) . '" width="100%" height="500" allowtransparency="true" frameborder="0"></iframe><br />';
         }

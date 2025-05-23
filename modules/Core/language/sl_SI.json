@@ -61,7 +61,6 @@
     "admin/confirm_purge_errors": "Ali ste prepričani, da želite počistiti vse napake?",
     "admin/confirm_query_error_deletion": "Ali ste prepričani, da želite izbrisati to napako poizvedbe?",
     "admin/confirm_user_deletion": "Ali ste prepričani, da želite izbrisati uporabnika {{user}}?",
-    "admin/contact_email": "Kontaktni e-poštni naslov",
     "admin/contact_email_address": "Kontaktni e-naslov",
     "admin/content": "Vsebina",
     "admin/copy": "Kopirati",
