@@ -9,14 +9,14 @@ return new class() extends UpgradeScript {
 
         // Convert avatar_settings_cache to use settings table
         $this->_cache->setCache('avatar_settings_cache');
-        $custom_avatars = $cache->retrieve('custom_avatars') ?? false;
-        $default_avatar_type = $cache->retrieve('default_avatar_type') ?: 'minecraft';
-        $default_avatar_image = $cache->retrieve('default_avatar_image') ?: '';
-        $default_avatar_source = $cache->retrieve('avatar_source') ?: 'cravatar';
+        $custom_avatars = $this->_cache->retrieve('custom_avatars') ?? false;
+        $default_avatar_type = $this->_cache->retrieve('default_avatar_type') ?: 'minecraft';
+        $default_avatar_image = $this->_cache->retrieve('default_avatar_image') ?: '';
+        $default_avatar_source = $this->_cache->retrieve('avatar_source') ?: 'cravatar';
         if ($default_avatar_source === 'Nameless') {
             $default_avatar_source = 'cravatar';
         }
-        $default_avatar_perspective = $cache->retrieve('avatar_perspective') ?: 'face';
+        $default_avatar_perspective = $this->_cache->retrieve('avatar_perspective') ?: 'face';
         Settings::set('custom_avatars', $custom_avatars);
         Settings::set('default_avatar_type', $default_avatar_type);
         Settings::set('default_avatar_image', $default_avatar_image);
