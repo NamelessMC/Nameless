@@ -12,7 +12,6 @@
     "discord_integration/discord_id_length": "Sørg for, at dit Discord Server ID er på 18 tegn.",
     "discord_integration/discord_id_numeric": "Sørg for, at dit Discord-server-id er numerisk (Kun Numre).",
     "discord_integration/discord_invite_info": "For at invitere Nameless Link-botten til din Discord-server skal du klikke {{inviteLinkStart}}her{{inviteLinkEnd}}. Brug derefter kommandoen {{command}} for at linke botten til din hjemmeside. Alternativt kan du selv {{selfHostLinkStart}}hoste botten {{selfHostLinkEnd}.",
-    "discord_integration/discord_role_id": "Discord Rolle ID",
     "discord_integration/discord_role_id_length": "Discord Rolle ID skal være på 18 cifre.",
     "discord_integration/discord_role_id_numeric": "Discord Rolle ID skal være numerisk.",
     "discord_integration/discord_widget_error": "Der opstod en fejl ved indlæsning af Discord widget: {{error}}.",

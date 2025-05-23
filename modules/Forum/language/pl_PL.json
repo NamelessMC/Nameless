@@ -1,5 +1,4 @@
 {
-    "forum/available_hooks": "Dostępne Moduły",
     "forum/average_posts": "Średnia liczba postów użytkowników",
     "forum/by": "przez",
     "forum/can_create_topic": "Może tworzyć tematy?",
@@ -102,7 +101,6 @@
     "forum/no_topics": "Na tym forum nie stworzono jeszcze żadnych tematów.",
     "forum/no_topics_short": "Brak tematów",
     "forum/now_following_topic": "Obserwujesz teraz ten temat, będziesz dostawać powiadomienia o każdej nowej odpowiedzi w nim zamieszczonej.",
-    "forum/online_users": "Użytkownicy online",
     "forum/overview": "Przegląd",
     "forum/parent_forum": "Forum nadrzędne",
     "forum/parent_forum_x": "Parent Forum: {{forum}}",
@@ -151,7 +149,6 @@
     "forum/unstick_topic": "Odepnij temat",
     "forum/use_reactions": "Używać reakcji?",
     "forum/user_no_posts": "Użytkownik nie napisał jeszcze żadnych postów na forum.",
-    "forum/user_tag": "Zostałeś oznaczony w poście .",
     "forum/user_tag_info": "Zostałeś oznaczony w poście przez {{author}}.",
     "forum/views": "wyświetlenia",
     "forum/x_posts": "{{count}} postów",
