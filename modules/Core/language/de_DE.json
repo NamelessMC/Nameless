@@ -1365,5 +1365,10 @@
     "moderator/report_email": "Es wurde ein neuer Report erstellt. Klicke {{linkStart}}hier{{linkEnd}}, um ihn anzusehen.",
     "notification/reports": "Reports",
     "notification/mass_messages": "Massennachrichten",
-    "user/blocked_profile_page": "Dieser Benutzer hat dich blockiert"
+    "user/blocked_profile_page": "Dieser Benutzer hat dich blockiert",
+    "user/validate_email": "E-Mail bestätigen",
+    "user/change_or_resend_email": "E-Mail ändern oder erneut senden",
+    "user/validate_email_info": "Vielen Dank für deine Registrierung! Eine E-Mail mit einem Link zur Aktivierung deines Kontos wurde an <strong>{{email}}</strong> gesendet. Solltest du die E-Mail nicht finden können, überprüfe bitte deinen Spam-Ordner.",
+    "user/validate_email_resent": "E-Mail erneut gesendet an <strong>{{email}}</strong> mit einem Link zur Aktivierung deines Kontos. Wenn du die E-Mail nicht finden kannst, überprüfe deinen Spam-Ordner.",
+    "user/validate_email_failure": "Verifizierungs-E-Mail konnte nicht gesendet werden, bitte kontaktiere einen Website-Administrator"
 }
