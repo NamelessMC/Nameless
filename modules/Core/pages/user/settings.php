@@ -161,9 +161,6 @@ if (isset($_GET['do'])) {
         if (Token::check()) {
             if (Input::get('action') == 'settings') {
                 $to_validate = [
-                    'user_title' => [
-                        Validate::MAX => 64,
-                    ],
                     'signature' => [
                         Validate::MAX => 900
                     ],
@@ -187,6 +184,13 @@ if (isset($_GET['do'])) {
                     $displayname = Output::getClean(Input::get('nickname'));
                 } else {
                     $displayname = $user->data()->username;
+                }
+
+                // Permission to use title?
+                if ($user->hasPermission('usercp.title')) {
+                    $to_validate['user_title'] = [
+                        Validate::MAX => 64
+                    ];
                 }
 
                 // Get a list of required profile fields
@@ -293,12 +297,14 @@ if (isset($_GET['do'])) {
 
                     $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
 
+                    $user_title = $user->hasPermission('usercp.title') ? Input::get('user_title') : null;
+
                     $data = [
                         'language_id' => $new_language,
                         'timezone' => $timezone,
                         'signature' => $signature,
                         'nickname' => $displayname,
-                        'user_title' => Input::get('user_title'),
+                        'user_title' => $user_title,
                         'private_profile' => $privateProfile,
                         'theme_id' => $new_template,
                         'gravatar' => $gravatar,
@@ -523,12 +529,14 @@ if (isset($_GET['do'])) {
         ];
     }
 
-    $custom_fields_template['user_title'] = [
-        'name' => $language->get('user', 'user_title'),
-        'value' => Output::getClean($user->data()->user_title),
-        'id' => 'user_title',
-        'type' => 'text',
-    ];
+    if ($user->hasPermission('usercp.title')) {
+        $custom_fields_template['user_title'] = [
+            'name' => $language->get('user', 'user_title'),
+            'value' => Output::getClean($user->data()->user_title),
+            'id' => 'user_title',
+            'type' => 'text',
+        ];
+    }
 
     foreach ($user->getProfileFields(true) as $id => $field) {
         // Skip this field if it's not editable, and it is already set.

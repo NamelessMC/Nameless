@@ -1317,6 +1317,7 @@
     "user/tfa_successful": "Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.",
     "user/this_device": "This device",
     "user/timezone": "Timezone",
+    "user/title": "Title",
     "user/title_max_64": "The title must be a maximum of 64 characters",
     "user/title_min_2": "The title must be a minimum of 2 characters",
     "user/title_required": "Please input a title",
