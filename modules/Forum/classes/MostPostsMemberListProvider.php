@@ -19,7 +19,7 @@ class MostPostsMemberListProvider extends MemberListProvider {
 
     protected function generator(): array {
         return [
-            'SELECT post_creator, COUNT(post_content) AS `count` FROM nl2_posts GROUP BY post_creator ORDER BY `count` DESC',
+            'SELECT post_creator, COUNT(post_content) AS `count` FROM nl2_posts WHERE deleted = 0 GROUP BY post_creator ORDER BY `count` DESC',
             'post_creator',
             'count'
         ];
