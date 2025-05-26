@@ -360,9 +360,7 @@ class Core_Module extends Module {
         AvatarSource::registerSource(new CravatarAvatarSource());
         AvatarSource::registerSource(new MCHeadsAvatarSource());
         AvatarSource::registerSource(new MinotarAvatarSource());
-        AvatarSource::registerSource(new NamelessMCAvatarSource($language));
         AvatarSource::registerSource(new VisageAvatarSource());
-        AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');

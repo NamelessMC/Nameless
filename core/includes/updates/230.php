@@ -7,6 +7,23 @@ return new class() extends UpgradeScript {
 
         ConvertProfilePosts::schedule();
 
+        // Convert avatar_settings_cache to use settings table
+        $this->_cache->setCache('avatar_settings_cache');
+        $custom_avatars = $this->_cache->retrieve('custom_avatars') ?? false;
+        $default_avatar_type = $this->_cache->retrieve('default_avatar_type') ?: 'minecraft';
+        $default_avatar_image = $this->_cache->retrieve('default_avatar_image') ?: '';
+        $default_avatar_source = $this->_cache->retrieve('avatar_source') ?: 'cravatar';
+        if ($default_avatar_source === 'Nameless') {
+            $default_avatar_source = 'cravatar';
+        }
+        $default_avatar_perspective = $this->_cache->retrieve('avatar_perspective') ?: 'face';
+        Settings::set('custom_avatars', $custom_avatars);
+        Settings::set('default_avatar_type', $default_avatar_type);
+        Settings::set('default_avatar_image', $default_avatar_image);
+        Settings::set('default_avatar_source', $default_avatar_source);
+        Settings::set('default_avatar_perspective', $default_avatar_perspective);
+        $this->_cache->eraseAll();
+
         // Convert OnlineUsersWidget to use settings table
         $this->_cache->setCache('online_members');
         $use_nickname_show = $this->_cache->fetch('show_nickname_instead', 0);

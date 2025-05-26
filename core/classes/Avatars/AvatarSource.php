@@ -42,7 +42,7 @@ class AvatarSource
     public static function getAvatarFromUserData(object $data, bool $allow_gifs = false, int $size = 128, bool $full = false): string
     {
         // If custom avatars are enabled, first check if they have gravatar enabled, and then fallback to normal image
-        if (defined('CUSTOM_AVATARS')) {
+        if (Settings::get('custom_avatars')) {
             if ($data->gravatar) {
                 return 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($data->email))) . '?s=' . $size;
             }
@@ -64,10 +64,10 @@ class AvatarSource
         }
 
         // Fallback to default avatar image if it is set and the avatar type is custom
-        if (defined('DEFAULT_AVATAR_TYPE') && DEFAULT_AVATAR_TYPE == 'custom' && DEFAULT_AVATAR_IMAGE !== '') {
-            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE)) {
+        if (Settings::get('default_avatar_type') === 'custom' && Settings::get('default_avatar_image') !== '') {
+            if (file_exists(ROOT_PATH . '/uploads/avatars/defaults/' . Settings::get('default_avatar_image'))) {
                 // We don't check the validity here since we know the file exists for sure
-                return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . DEFAULT_AVATAR_IMAGE;
+                return ($full ? rtrim(URL::getSelfURL(), '/') : '') . ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/avatars/defaults/' . Settings::get('default_avatar_image');
             }
         }
 
@@ -110,7 +110,12 @@ class AvatarSource
             $is_valid = false;
 
             try {
-                $response = HttpClient::createClient()->head($url);
+                $response = HttpClient::createClient()->head($url, [
+                    // https://vzge.me requires a user agent
+                    'headers' => [
+                        'User-Agent' => 'NamelessMC/' . NAMELESS_VERSION . ' (https://namelessmc.com)',
+                    ],
+                ]);
                 $headers = $response->getHeaders();
                 if (isset($headers['Content-Type']) && $headers['Content-Type'][0] === 'image/png') {
                     $is_valid = true;
@@ -127,25 +132,15 @@ class AvatarSource
      *
      * @return AvatarSourceBase The active source.
      */
-    public static function getActiveSource(): AvatarSourceBase
+    private static function getActiveSource(): AvatarSourceBase
     {
-        return self::$_active_source;
-    }
-
-    /**
-     * Set the active source to the source by name.
-     * Fallsback to Cravatar if name was not found.
-     *
-     * @param string $name Name of source to set as active.
-     */
-    public static function setActiveSource(string $name): void
-    {
-        $source = self::getSourceByName($name);
-        if ($source === null) {
-            $source = self::getSourceByName('cravatar');
+        // Compatibility with old built-in source, can be removed in 2.3.0
+        $setting = Settings::get('default_avatar_source', 'cravatar');
+        if ($setting === 'Nameless') {
+            $setting = 'cravatar';
         }
 
-        self::$_active_source = $source;
+        return self::$_active_source ??= self::getSourceByName($setting);
     }
 
     /**
@@ -155,11 +150,7 @@ class AvatarSource
      */
     private static function getDefaultPerspective(): string
     {
-        if (defined('DEFAULT_AVATAR_PERSPECTIVE')) {
-            return DEFAULT_AVATAR_PERSPECTIVE;
-        }
-
-        return 'face';
+        return Settings::get('default_avatar_perspective', 'face');
     }
 
     /**
@@ -195,13 +186,6 @@ class AvatarSource
      */
     public static function getUrlToFormat(): string
     {
-        // Default to Cravatar
-        if (!isset(self::$_active_source)) {
-            require_once(ROOT_PATH . '/modules/Core/classes/Avatars/CravatarAvatarSource.php');
-
-            return (new CravatarAvatarSource())->getUrlToFormat(self::getDefaultPerspective());
-        }
-
         return self::getActiveSource()->getUrlToFormat(self::getDefaultPerspective());
     }
 
