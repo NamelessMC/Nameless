@@ -47,7 +47,6 @@
     "admin/basic_page": "Základní stránka?",
     "admin/bedrock": "Bedrock?",
     "admin/bedrock_help": "Tuto možnost vyberte, pokud je server Bedrock serverem.",
-    "admin/built_in_avatars": "Vestavěná služba avatarů",
     "admin/bungee_instance": "Bungee server?",
     "admin/bungee_instance_help": "Povolte tuto možnost, pokud je server typu Bungee.",
     "admin/bust": "Poprsí",
@@ -977,7 +976,6 @@
     "user/reactions": "Reakce",
     "user/registered": "Zaregistrován:",
     "user/registered_x": "Zaregistrován: {{registeredAt}}",
-    "user/registration_check_email": "Děkujeme za registraci! Pro dokončení registrace se podívejte do vaší e-mailové schránky. Pokud nemůžete nalézt e-mail, zkontrolujte spam a hromadné.",
     "user/remember_me": "Pamatovat si mě",
     "user/replies": "Odpovědi",
     "user/reply": "Odpovědět",
@@ -1367,5 +1365,10 @@
     "notification/reports": "Hlášení",
     "moderator/report_email": "Bylo vytvořeno nové hlášení. Klikněte {{linkStart}}sem{{linkEnd}} pro jeho zobrazení.",
     "notification/mass_messages": "Hromadné zprávy",
-    "user/blocked_profile_page": "Tento uživatel si vás zablokoval"
+    "user/blocked_profile_page": "Tento uživatel si vás zablokoval",
+    "user/validate_email": "Ověřit e-mail",
+    "user/change_or_resend_email": "Změnit nebo znovu odeslat e-mail",
+    "user/validate_email_info": "Děkujeme za registraci! Na adresu <strong>{{email}}</strong> vám byl odeslán e-mail s odkazem pro aktivaci vašeho účtu. Pokud nemůžete e-mail najít, zkontrolujte složku s nevyžádanou poštou.",
+    "user/validate_email_resent": "Na adresu <strong>{{email}}</strong> byl znovu odeslán e-mail s odkazem pro aktivaci vašeho účtu. Pokud e-mail nemůžete najít, zkontrolujte složku s nevyžádanou poštou.",
+    "user/validate_email_failure": "Nepodařilo se odeslat ověřovací e-mail, kontaktujte prosím správce webu"
 }
