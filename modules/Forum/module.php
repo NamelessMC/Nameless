@@ -79,7 +79,7 @@ class Forum_Module extends Module {
                 return [
                     $forum_language->get('forum', 'posts_title') =>
                         DB::getInstance()->query(
-                            'SELECT COUNT(post_content) AS `count` FROM nl2_posts WHERE post_creator = ?',
+                            'SELECT COUNT(post_content) AS `count` FROM nl2_posts WHERE post_creator = ? AND deleted = 0',
                             [$member->data()->id]
                         )->first()->count,
                 ];

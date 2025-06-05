@@ -23,6 +23,18 @@ return new class() extends UpgradeScript {
         Settings::set('default_revamp_navbar_color', $navbarColour);
         $this->_cache->eraseAll();
 
+        // Convert backgroundcache to use settings table
+        $this->_cache->setCache('backgroundcache');
+        $logo_image = $this->_cache->retrieve('logo_image') ?: '';
+        $banner_image = $this->_cache->retrieve('banner_image') ?: '';
+        $og_image = $this->_cache->retrieve('og_image') ?: '';
+        $favicon_image = $this->_cache->retrieve('favicon_image') ?: '';
+        Settings::set('logo_image_path', $logo_image);
+        Settings::set('banner_image_path', $banner_image);
+        Settings::set('og_image_path', $og_image);
+        Settings::set('favicon_image_path', $favicon_image);
+        $this->_cache->eraseAll();
+
         // Convert avatar_settings_cache to use settings table
         $this->_cache->setCache('avatar_settings_cache');
         $custom_avatars = $this->_cache->retrieve('custom_avatars') ?? false;

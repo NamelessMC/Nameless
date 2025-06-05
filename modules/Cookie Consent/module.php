@@ -64,9 +64,6 @@ class CookieConsent_Module extends Module {
 
         if (defined('FRONT_END')) {
             // Add cookie page link
-            $cache->setCache('cookie_consent_module_cache');
-            $options = $cache->fetch('options', ['type' => 'opt-in', 'position' => 'bottom-right']);
-
             // Add JS script
             $template->addCSSFiles([
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
@@ -75,16 +72,16 @@ class CookieConsent_Module extends Module {
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
             ]);
             $template->addJSScript(
-                CookieConsent::generateScript(
-                    array_merge($options, [
-                        'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
-                        'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
-                        'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
-                        'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
-                        'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
-                        'href' => $cookie_url,
-                    ])
-                )
+                CookieConsent::generateScript([
+                    'type' => 'opt-in',
+                    'position' => 'bottom-right',
+                    'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
+                    'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
+                    'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
+                    'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
+                    'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
+                    'href' => $cookie_url,
+                ])
             );
         }
 
