@@ -297,7 +297,7 @@ if (isset($_GET['do'])) {
 
                     $gravatar = $_POST['gravatar'] == '1' ? 1 : 0;
 
-                    $user_title = $user->hasPermission('usercp.title') ? Input::get('user_title') : null;
+                    $user_title = $user->hasPermission('usercp.title') ? Input::get('user_title') : $user->data()->user_title;
 
                     $data = [
                         'language_id' => $new_language,
