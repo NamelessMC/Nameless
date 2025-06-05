@@ -53,7 +53,7 @@ class DefaultRevamp_Template extends SmartyTemplateBase
         $smartyDarkMode = defined('DARK_MODE') && DARK_MODE == '1';
         $smartyNavbarColour = '';
 
-        $navbarColour = Settings::get('default_revamp_navbar_color', '');
+        $navbarColour = Settings::get('default_revamp_navbar_color', 'white');
 
         if ($navbarColour != 'white') {
             $smartyNavbarColour = $navbarColour . ' inverted';
