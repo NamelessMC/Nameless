@@ -28,6 +28,43 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             Settings::set('minecraft_verify_command', $_POST['verify_command']);
         }
 
+        try {
+            $api->getDb()->insert('query_results', [
+                'server_id' => $_POST['server-id'],
+                'queried_at' => date('U'),
+                'players_online' => count($_POST['players']),
+                'groups' => isset($_POST['groups']) ? json_encode($_POST['groups']) : '[]'
+            ]);
+
+            if (file_exists(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache')) {
+                $query_cache = file_get_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache');
+                $query_cache = json_decode($query_cache);
+                if (isset($query_cache->query_interval)) {
+                    $query_interval = unserialize($query_cache->query_interval->data);
+                } else {
+                    $query_interval = 10;
+                }
+
+                $to_cache = [
+                    'query_interval' => [
+                        'time' => date('U'),
+                        'expire' => 0,
+                        'data' => serialize($query_interval)
+                    ],
+                    'last_query' => [
+                        'time' => date('U'),
+                        'expire' => 0,
+                        'data' => serialize(date('U'))
+                    ]
+                ];
+
+                // Store in cache file
+                file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('server_query_cache') . '.cache', json_encode($to_cache));
+            }
+        } catch (Exception $e) {
+            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
         $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
         if (Settings::get('mc_integration')) {
