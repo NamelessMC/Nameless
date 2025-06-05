@@ -279,7 +279,6 @@ class DatabaseInitialiser
         $this->_db->insert('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
-            'is_default' => true,
         ]);
 
         Settings::set('default_template', 'DefaultRevamp');
@@ -287,7 +286,6 @@ class DatabaseInitialiser
         $this->_db->insert('panel_templates', [
             'name' => 'Default',
             'enabled' => true,
-            'is_default' => true,
         ]);
 
         Settings::set('default_panel_template', 'Default');
