@@ -207,7 +207,7 @@ if (isset($_GET['user'])) {
                             // Send alerts
                             $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id IN (SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\')')->results();
                             $notification = new Notification(
-                                'punishement',
+                                'punishment',
                                 new LanguageKey('moderator', 'user_punished_alert', [
                                     'staffUser' => Output::getClean($user->data()->nickname),
                                     'user' => Output::getClean($query->nickname),

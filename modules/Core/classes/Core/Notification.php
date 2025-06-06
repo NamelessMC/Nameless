@@ -71,7 +71,7 @@ class Notification {
         }
 
         $notificationPreferences = DB::getInstance()->query(
-            'SELECT `user_id`, `alert`, `email` FROM nl2_users_notification_preferences WHERE `type` = ? AND `user_id` IN (1, 2, 3)',
+            'SELECT `user_id`, `alert`, `email` FROM nl2_users_notification_preferences WHERE `type` = ? AND `user_id` IN (' . implode(',', array_map(static fn ($_) => '?', $recipients)) . ')',
             array_merge([$this->_type], $recipients)
         )->results();
         $notificationPreferences = array_column($notificationPreferences, null, 'user_id');
@@ -91,8 +91,8 @@ class Notification {
                 'id' => $recipientId,
                 'title' => $title,
                 'content' => $newContent,
-                'send_alert' => $notificationPreferences[$recipientId]->alert ?? false,
-                'send_email' => $notificationPreferences[$recipientId]->email ?? false,
+                'send_alert' => $notificationPreferences[$recipientId]->alert ?? true,
+                'send_email' => $notificationPreferences[$recipientId]->email ?? true,
             ];
         }, $recipients);
     }
