@@ -216,8 +216,6 @@ if ($profile !== null) {
     }
 }
 
-DefaultUserNotificationPreferencesHook::subscribeUserToDefaultNotifications(1);
-
 DatabaseInitialiser::runPostUser();
 
 Config::set('core.installed', true);
