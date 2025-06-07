@@ -1398,9 +1398,14 @@ body.dark .ui.form input[type=url] {
 body.dark .ui.mini.message,
 body.dark .ui.mini.info.message,
 body.dark .ui.info.message {
+    color: rgba(255, 255, 255, 0.6) !important;
     background-color: #282828;
     box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
     -webkit-box-shadow: 0 0 0 1px #282828 inset, 0 0 0 0 transparent;
+}
+
+body.dark .ui.info.message .header {
+    color: rgba(255, 255, 255, 0.8) !important;
 }
 
 body.dark .ui.pagination {
