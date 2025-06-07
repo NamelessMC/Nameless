@@ -96,15 +96,10 @@ class CookieConsent_Module extends Module {
         $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
 
         if (defined('BACK_END')) {
-            $cache->setCache('panel_sidebar');
-
             // StaffCP link
             if ($user->hasPermission('admincp.cookies')) {
-                $order = $cache->fetch('cookie_order', 10);
-                $icon = $cache->fetch('cookie_icon', '<i class="nav-icon fas fa-cookie-bite"></i>');
-
-                $navs[2]->add('cookie_divider', mb_strtoupper($this->_cookie_language->get('cookie', 'cookies'), 'UTF-8'), 'divider', 'top', null, $order, '');
-                $navs[2]->add('cookie_settings', $this->_cookie_language->get('cookie', 'cookies'), URL::build('/panel/cookies'), 'top', null, $order + 0.1, $icon);
+                $navs[2]->add('cookie_divider', mb_strtoupper($this->_cookie_language->get('cookie', 'cookies'), 'UTF-8'), 'divider', 'top', null, 10, '');
+                $navs[2]->add('cookie_settings', $this->_cookie_language->get('cookie', 'cookies'), URL::build('/panel/cookies'), 'top', null, 10.1, '<i class="nav-icon fas fa-cookie-bite"></i>');
             }
         }
     }
