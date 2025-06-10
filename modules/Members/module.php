@@ -24,7 +24,7 @@ class Members_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
         // Define URLs which belong to this module
-        $pages->add('Members', '/members', 'pages/members.php');
+        $pages->add('Members', '/members', 'pages/members.php', 'members');
         $pages->add('Members', '/queries/member_list', 'queries/member_list.php');
         $pages->add('Members', '/panel/members/member_lists', 'pages/panel/member_lists.php');
         $pages->add('Members', '/panel/members/settings', 'pages/panel/settings.php');

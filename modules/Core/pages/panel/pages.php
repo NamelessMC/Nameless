@@ -368,7 +368,7 @@ if (!isset($_GET['action'])) {
                                 }
                             }
                         }
-                        $announcement_query = DB::getInstance()->get('custom_announcements', ['id', '<>', 0])->results();
+                        $announcement_query = DB::getInstance()->get('announcements', ['id', '<>', 0])->results();
                         if (count($announcement_query)) {
                             foreach ($announcement_query as $announcement_row) {
                                 $pages = json_decode($announcement_row->pages, true);
@@ -381,7 +381,7 @@ if (!isset($_GET['action'])) {
                                             $new_pages[] = $announcement_page;
                                         }
                                     }
-                                    DB::getInstance()->update('custom_announcements', $announcement_row->id, [
+                                    DB::getInstance()->update('announcements', $announcement_row->id, [
                                         'pages' => json_encode($new_pages)
                                     ]);
                                 }

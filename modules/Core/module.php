@@ -474,14 +474,18 @@ class Core_Module extends Module {
         Notification::addType(
             'mass_message',
             $language->get('notification', 'mass_messages'),
-            Module::getIdFromName('Core'),
             ['alert' => true, 'email' => true],
         );
 
         Notification::addType(
             'report',
             $language->get('notification', 'reports'),
-            Module::getIdFromName('Core'),
+            ['alert' => true, 'email' => true],
+        );
+
+        Notification::addType(
+            'punishment',
+            $language->get('notification', 'punishments'),
             ['alert' => true, 'email' => true],
         );
     }
@@ -601,6 +605,7 @@ class Core_Module extends Module {
             'usercp.signature' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'signature'),
             'usercp.private_profile' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'private_profile'),
             'usercp.nickname' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'nickname'),
+            'usercp.title' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'user_title'),
             'usercp.profile_banner' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'upload_profile_banner'),
             'usercp.gif_avatar' => $language->get('user', 'profile_settings') . ' &raquo; ' . $language->get('user', 'gif_avatar')
         ]);

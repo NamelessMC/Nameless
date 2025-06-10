@@ -82,10 +82,10 @@ $template->getEngine()->addVariables([
     'GUEST' => $language->get('user', 'guest'),
 ]);
 
-$cache->setCache('backgroundcache');
-if ($cache->isCached('og_image')) {
+$og_image = Settings::get('og_image_path');
+if (!empty($og_image)) {
     // Assign the image value now, some pages may override it (via Page Metadata config)
-    $template->getEngine()->addVariable('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $cache->retrieve('og_image'));
+    $template->getEngine()->addVariable('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . Output::getClean($og_image));
 }
 
 // User related actions
@@ -149,22 +149,17 @@ if (!defined('PAGE_DESCRIPTION')) {
 
 $template->getEngine()->addVariable('TITLE', $page_title);
 
-$cache->setCache('backgroundcache');
-
-$banner_image = $cache->retrieve('banner_image');
-
+$banner_image = Settings::get('banner_image_path');
 if (!empty($banner_image)) {
     $template->getEngine()->addVariable('BANNER_IMAGE', Output::getClean($banner_image));
 }
 
-$logo_image = $cache->retrieve('logo_image');
-
+$logo_image = Settings::get('logo_image_path');
 if (!empty($logo_image)) {
     $template->getEngine()->addVariable('LOGO_IMAGE', Output::getClean($logo_image));
 }
 
-$favicon_image = $cache->retrieve('favicon_image');
-
+$favicon_image = Settings::get('favicon_image_path');
 if (!empty($favicon_image)) {
     $template->getEngine()->addVariable('FAVICON', Output::getClean($favicon_image));
 }

@@ -60,6 +60,8 @@ if (!isset($_GET['action'])) {
             continue;
         }
 
+        $is_default = Settings::get('default_template') == $item->name;
+
         $templates_template[] = [
             'name' => Output::getClean($item->name),
             'version' => Output::getClean($template->getVersion()),
@@ -73,9 +75,9 @@ if (!isset($_GET['action'])) {
             'default_warning' => (Output::getClean($item->name) == 'Default') ? $language->get('admin', 'template_not_supported') : null,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/templates/', 'action=activate&template=' . urlencode($item->id))),
             'delete_link' => ((!$user->hasPermission('admincp.styles.templates.edit') || $item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/templates/', 'action=delete&template=' . urlencode($item->id))),
-            'default' => $item->is_default,
-            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
-            'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=make_default&template=' . urlencode($item->id)) : null),
+            'default' => $is_default,
+            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$is_default) ? URL::build('/panel/core/templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
+            'default_link' => (($item->enabled && !$is_default) ? URL::build('/panel/core/templates/', 'action=make_default&template=' . urlencode($item->id)) : null),
             'edit_link' => ($user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($item->id)) : null),
             'settings_link' => ($template->getSettings() && $user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=settings&template=' . urlencode($item->id)) : null)
         ];
@@ -266,7 +268,7 @@ if (!isset($_GET['action'])) {
                 $template = DB::getInstance()->get('templates', ['id', $item])->results();
                 if (count($template)) {
                     $template = $template[0];
-                    if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
+                    if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || Settings::get('default_template') == $template->name) {
                         Redirect::to(URL::build('/panel/core/templates'));
                     }
 
@@ -300,26 +302,8 @@ if (!isset($_GET['action'])) {
                 }
 
                 $new_default_template = $new_default[0]->name;
-                $new_default = $new_default[0]->id;
 
-                // Get current default template
-                $current_default = DB::getInstance()->get('templates', ['is_default', true])->results();
-                if (count($current_default)) {
-                    $current_default = $current_default[0]->id;
-                    // No longer default
-                    DB::getInstance()->update('templates', $current_default, [
-                        'is_default' => false,
-                    ]);
-                }
-
-                // Make selected template default
-                DB::getInstance()->update('templates', $new_default, [
-                    'is_default' => true,
-                ]);
-
-                // Cache
-                $cache->setCache('templatecache');
-                $cache->store('default', $new_default_template);
+                Settings::set('default_template', $new_default_template);
 
                 // Session
                 Session::flash('admin_templates', $language->get('admin', 'default_template_set', ['template' => Output::getClean($new_default_template)]));

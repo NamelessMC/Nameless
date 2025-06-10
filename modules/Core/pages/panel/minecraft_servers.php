@@ -526,6 +526,9 @@ if (isset($_GET['action'])) {
                         'is_default' => true,
                     ]);
                 }
+
+                $cache->setCache('server_status_widget');
+                $cache->erase('server_status');
             }
 
             // Group sync server

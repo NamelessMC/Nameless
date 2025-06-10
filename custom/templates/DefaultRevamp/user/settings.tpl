@@ -48,7 +48,7 @@
                             </super>
                             {/if}</label>
                         {if $field.type == "text"}
-                        <input type="text" name="{if $name == 'nickname'}nickname{else}profile_fields[{$field.id}]{/if}"
+                        <input type="text" name="{if $name == 'nickname'}nickname{elseif $name == 'user_title'}user_title{else}profile_fields[{$field.id}]{/if}"
                             id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
                         {elseif $field.type == "textarea"}
                         <textarea name="profile_fields[{$field.id}]" id="input{$field.id}"

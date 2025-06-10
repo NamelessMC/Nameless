@@ -249,7 +249,7 @@ if (!isset($_GET['action'])) {
             if (Input::exists()) {
                 if (Token::check(Input::get('token'))) {
                     if (isset($_POST['id'])) {
-                        DB::getInstance()->delete('custom_announcements', ['id', $_POST['id']]);
+                        DB::getInstance()->delete('announcements', ['id', $_POST['id']]);
 
                         $announcements->resetCache();
                         Session::flash('announcement_success', $language->get('admin', 'deleted_announcement_success'));
@@ -271,7 +271,7 @@ if (!isset($_GET['action'])) {
 
                 $i = 1;
                 foreach ($announcements_list as $item) {
-                    DB::getInstance()->update('custom_announcements', $item, [
+                    DB::getInstance()->update('announcements', $item, [
                         'order' => $i
                     ]);
                     $i++;

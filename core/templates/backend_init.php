@@ -24,14 +24,13 @@ if (file_exists(ROOT_PATH . '/custom/panel_templates/' . PANEL_TEMPLATE . '/temp
     require(ROOT_PATH . '/custom/panel_templates/Default/template.php');
 }
 
-$cache->setCache('backgroundcache');
-$logo_image = $cache->retrieve('logo_image');
+$logo_image = Settings::get('logo_image_path');
 
 if (!empty($logo_image)) {
     $template->getEngine()->addVariable('PANEL_LOGO_IMAGE', Output::getClean($logo_image));
 }
 
-$favicon_image = $cache->retrieve('favicon_image');
+$favicon_image = Settings::get('favicon_image_path');
 
 if (!empty($favicon_image)) {
     $template->getEngine()->addVariable('FAVICON', Output::getClean($favicon_image));

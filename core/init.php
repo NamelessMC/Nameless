@@ -246,27 +246,13 @@ if ($page != 'install') {
     // Template
     if (!$user->isLoggedIn() || !$user->data()->theme_id) {
         // Default template for guests
-        $cache->setCache('templatecache');
-        $template = $cache->retrieve('default');
-
-        if (!$template) {
-            define('TEMPLATE', 'DefaultRevamp');
-        } else {
-            define('TEMPLATE', $template);
-        }
+        define('TEMPLATE', Settings::get('default_template', 'DefaultRevamp'));
     } else {
         // User selected template
         $template = DB::getInstance()->get('templates', ['id', $user->data()->theme_id])->results();
         if (!count($template)) {
             // Get default template
-            $cache->setCache('templatecache');
-            $template = $cache->retrieve('default');
-
-            if (!$template) {
-                define('TEMPLATE', 'DefaultRevamp');
-            } else {
-                define('TEMPLATE', $template);
-            }
+            define('TEMPLATE', Settings::get('default_template', 'DefaultRevamp'));
         } else {
             // Check permissions
             $template = $template[0];
@@ -286,27 +272,13 @@ if ($page != 'install') {
 
             if (!$hasPermission) {
                 // Get default template
-                $cache->setCache('templatecache');
-                $template = $cache->retrieve('default');
-
-                if (!$template) {
-                    define('TEMPLATE', 'DefaultRevamp');
-                } else {
-                    define('TEMPLATE', $template);
-                }
+                define('TEMPLATE', Settings::get('default_template', 'DefaultRevamp'));
             }
         }
     }
 
     // Panel template
-    $cache->setCache('templatecache');
-    $template = $cache->retrieve('panel_default');
-
-    if (!$template) {
-        define('PANEL_TEMPLATE', 'Default');
-    } else {
-        define('PANEL_TEMPLATE', $template);
-    }
+    define('PANEL_TEMPLATE', Settings::get('default_panel_template', 'Default'));
 
     // Navbar links
     $navigation = new Navigation();
@@ -564,8 +536,7 @@ if ($page != 'install') {
     }
 
     // Dark mode
-    $cache->setCache('template_settings');
-    $darkMode = $cache->isCached('darkMode') ? $cache->retrieve('darkMode') : '0';
+    $darkMode = Settings::get('dark_mode', '0');
     if ($user->isLoggedIn()) {
         $darkMode = $user->data()->night_mode !== null ? $user->data()->night_mode : $darkMode;
     } else {

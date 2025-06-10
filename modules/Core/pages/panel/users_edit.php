@@ -331,10 +331,14 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
         'NEW_PASSWORD' => $language->get('user', 'new_password'),
         'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
         'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
-
-        'DISABLE_TFA' => $language->get('admin', 'disable_tfa'),
-        'DISABLE_TFA_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=disable_tfa')
     ]);
+
+    if ($view_user->data()->tfa_complete) {
+        $template->getEngine()->addVariables([
+            'DISABLE_TFA' => $language->get('admin', 'disable_tfa'),
+            'DISABLE_TFA_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=disable_tfa')
+        ]);
+    }
 }
 
 $limit_groups = false;
