@@ -79,18 +79,11 @@ class Members_Module extends Module {
         }
 
         if (defined('BACK_END')) {
-            $cache->setCache('panel_sidebar');
-
             // StaffCP link
             if ($user->hasPermission('admincp.members')) {
-                $order = $cache->fetch('members_order', 13);
-
-                $members_settings_icon = $cache->fetch('members_settings_icon', '<i class="nav-icon fas fa-cogs"></i>');
-                $member_lists_icon = $cache->fetch('member_lists_icon', '<i class="nav-icon fas fa-list"></i>');
-
-                $navs[2]->add('members_divider', mb_strtoupper($this->_members_language->get('members', 'members'), 'UTF-8'), 'divider', 'top', null, $order);
-                $navs[2]->add('members_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/members/settings'), 'top', null, $order + 0.1, $members_settings_icon);
-                $navs[2]->add('member_lists_settings', $this->_members_language->get('members', 'member_lists'), URL::build('/panel/members/member_lists'), 'top', null, $order + 0.2, $member_lists_icon);
+                $navs[2]->add('members_divider', mb_strtoupper($this->_members_language->get('members', 'members'), 'UTF-8'), 'divider', 'top', null, 13);
+                $navs[2]->add('members_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/members/settings'), 'top', null, 13.1, '<i class="nav-icon fas fa-cogs"></i>');
+                $navs[2]->add('member_lists_settings', $this->_members_language->get('members', 'member_lists'), URL::build('/panel/members/member_lists'), 'top', null, 13.2, '<i class="nav-icon fas fa-list"></i>');
             }
         }
     }

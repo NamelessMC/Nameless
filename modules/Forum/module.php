@@ -192,18 +192,10 @@ class Forum_Module extends Module {
         } else {
             if (defined('BACK_END')) {
                 if ($user->hasPermission('admincp.forums')) {
-                    $cache->setCache('panel_sidebar');
-                    $order = $cache->fetch('forum_order', 12);
-
-                    $icon = $cache->fetch('forum_settings_icon', '<i class="nav-icon fas fa-cogs"></i>');
-                    $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
-                    $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
-
-                    $icon = $cache->fetch('forum_icon', '<i class="nav-icon fas fa-comments"></i>');
-                    $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.2, $icon);
-
-                    $icon = $cache->fetch('forum_label_icon', '<i class="nav-icon fas fa-tags"></i>');
-                    $navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.3, $icon);
+                    $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, 12, '');
+                    $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, 12.1, '<i class="nav-icon fas fa-cogs"></i>');
+                    $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, 12.2, '<i class="nav-icon fas fa-comments"></i>');
+                    $navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, 12.3, '<i class="nav-icon fas fa-tags"></i>');
                 }
 
                 if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {

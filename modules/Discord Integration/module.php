@@ -67,12 +67,8 @@ class Discord_Module extends Module {
         }
 
         if (!defined('FRONT_END')) {
-            $cache->setCache('panel_sidebar');
-
             if ($user->hasPermission('admincp.discord')) {
-                $icon = $cache->fetch('discord_icon', '<i class="nav-icon fab fa-discord"></i>');
-
-                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, $icon, 1);
+                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, '<i class="nav-icon fab fa-discord"></i>', 1);
             }
         }
     }
