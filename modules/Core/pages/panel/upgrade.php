@@ -16,21 +16,14 @@ if (!$update_needed || ($update_needed->value !== 'true' && $update_needed->valu
     Redirect::to(URL::build('/panel/update'));
 }
 
-$cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+// Enqueue the update
+$task = (new Upgrade())->fromNew(
+    Module::getIdFromName('Core'),
+    'Upgrade NamelessMC',
+    null,
+    date('U'),
+);
 
-$version = DB::getInstance()->query('SELECT `value` FROM nl2_settings WHERE `name` = \'nameless_version\'')->first();
+Queue::schedule($task);
 
-if ($version) {
-    // Perform the update
-    $upgradeScript = UpgradeScript::get($version->value);
-    if ($upgradeScript instanceof UpgradeScript) {
-        $upgradeScript->run();
-    }
-
-    $cache->setCache('update_check');
-    if ($cache->isCached('update_check')) {
-        $cache->erase('update_check');
-    }
-}
-
-Redirect::to(URL::build('/panel/update'));
+Redirect::to(URL::build('/panel/core/queue/&view=task&id=' . DB::getInstance()->lastId()));

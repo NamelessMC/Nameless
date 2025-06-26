@@ -50,7 +50,6 @@
                                     <h4>{$INSTRUCTIONS}</h4>
                                     <p>{$INSTRUCTIONS_VALUE}</p>
                                     <hr />
-                                    <a href="{$DOWNLOAD_LINK}" class="btn btn-primary">{$DOWNLOAD}</a>
                                     <button class="btn btn-primary" type="button" onclick="showConfirmModal()">{$UPDATE}</button>
                                 {elseif isset($UPDATE_CHECK_ERROR)}
                                     <div class="alert bg-danger text-white">

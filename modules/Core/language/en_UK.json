@@ -313,7 +313,7 @@
     "admin/include_staff_in_user_widget": "Include staff members in user widget?",
     "admin/ingame_group_maximum": "Please ensure your group name is a maximum of 64 characters long.",
     "admin/install": "Install",
-    "admin/install_confirm": "Please ensure you have downloaded the package and uploaded the contained files first!",
+    "admin/install_confirm": "This will enable redirect you to a page to view the progress of the update. Are you sure you want to continue?",
     "admin/install_language": "Install Language",
     "admin/installed_languages": "Any new languages have been installed successfully.",
     "admin/instructions": "Instructions",

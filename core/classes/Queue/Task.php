@@ -236,7 +236,11 @@ abstract class Task
      */
     public function setOutput(array $output = [])
     {
-        $this->_output = $output;
+        if (isset($this->_output)) {
+            $this->_output = array_merge($this->_output, $output);
+        } else {
+            $this->_output = $output;
+        }
     }
 
     /**
