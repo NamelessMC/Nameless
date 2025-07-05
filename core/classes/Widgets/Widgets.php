@@ -48,6 +48,7 @@ class Widgets
             foreach ($widgets as $widget) {
                 $enabled[$widget->name] = true;
             }
+
             return $enabled;
         });
     }
