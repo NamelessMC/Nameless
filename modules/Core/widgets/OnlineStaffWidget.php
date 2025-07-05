@@ -29,7 +29,28 @@ class OnlineStaffWidget extends WidgetBase {
         $this->_cache->setCache('online_staff_widget');
 
         $online_staff = $this->_cache->fetch('staff', function () {
-            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1 LIMIT 10')->results();
+            $online = DB::getInstance()->query(
+                <<<SQL
+                    SELECT
+                        u.id
+                    FROM nl2_users AS u
+                    JOIN nl2_users_groups AS ug ON u.id = ug.user_id
+                    JOIN nl2_groups AS g ON ug.group_id = g.id
+                    WHERE g.order = (
+                        SELECT MIN(iG.order)
+                        FROM nl2_users_groups AS iug
+                        JOIN nl2_groups AS ig ON iug.group_id = ig.id
+                        WHERE iug.user_id = u.id
+                        GROUP BY iug.user_id
+                        ORDER BY NULL
+                    )
+                    AND u.last_online > ?
+                    AND g.staff = 1
+                    ORDER BY g.order ASC
+                    LIMIT 10
+                SQL,
+                [strtotime('-5 minutes')]
+            )->results();
 
             foreach ($online as $staff) {
                 $staff_user = new User($staff->id);
@@ -51,7 +72,26 @@ class OnlineStaffWidget extends WidgetBase {
 
         // Count total online staff
         $total_online_staff = $this->_cache->fetch('total_staff', function () {
-            return DB::getInstance()->query('SELECT COUNT(U.id) AS count FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ? AND G.staff = 1', [strtotime('-5 minutes')])->first()->count;
+            return DB::getInstance()->query(
+                <<<SQL
+                    SELECT
+                        COUNT(u.id) AS count
+                    FROM nl2_users AS u
+                    JOIN nl2_users_groups AS ug ON u.id = ug.user_id
+                    JOIN nl2_groups AS g ON ug.group_id = g.id
+                    WHERE g.order = (
+                        SELECT MIN(iG.order)
+                        FROM nl2_users_groups AS iug
+                        JOIN nl2_groups AS ig ON iug.group_id = ig.id
+                        WHERE iug.user_id = u.id
+                        GROUP BY iug.user_id
+                        ORDER BY NULL
+                    )
+                    AND u.last_online > ?
+                    AND g.staff = 1
+                SQL,
+                [strtotime('-5 minutes')]
+            )->first()->count;
         }, 120);
 
         // Generate HTML code for widget
