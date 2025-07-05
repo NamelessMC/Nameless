@@ -26,21 +26,12 @@ class OnlineStaffWidget extends WidgetBase {
     }
 
     public function initialise(): void {
-        $this->_cache->setCache('online_members');
+        $this->_cache->setCache('online_staff_widget');
 
-        $online = $this->_cache->fetch('staff', function () {
-            return DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1')->results();
-        }, 120);
-
-        // Generate HTML code for widget
-        if (count($online)) {
-            $staff_members = [];
+        $online_staff = $this->_cache->fetch('staff', function () {
+            $online = DB::getInstance()->query('SELECT U.id FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ' . strtotime('-5 minutes') . ' AND G.staff = 1 LIMIT 10')->results();
 
             foreach ($online as $staff) {
-                if (count($staff_members) === 10) {
-                    break;
-                }
-
                 $staff_user = new User($staff->id);
                 if ($staff_user->exists()) {
                     $staff_members[] = [
@@ -51,15 +42,24 @@ class OnlineStaffWidget extends WidgetBase {
                         'avatar' => $staff_user->getAvatar(),
                         'id' => Output::getClean($staff_user->data()->id),
                         'group' => $staff_user->getMainGroup()->group_html,
-                        'group_order' => $staff_user->getMainGroup()->order
                     ];
                 }
             }
 
+            return $staff_members;
+        }, 120);
+
+        // Count total online staff
+        $total_online_staff = $this->_cache->fetch('total_staff', function () {
+            return DB::getInstance()->query('SELECT COUNT(U.id) AS count FROM nl2_users AS U JOIN nl2_users_groups AS UG ON (U.id = UG.user_id) JOIN nl2_groups AS G ON (UG.group_id = G.id) WHERE G.order = (SELECT min(iG.`order`) FROM nl2_users_groups AS iUG JOIN nl2_groups AS iG ON (iUG.group_id = iG.id) WHERE iUG.user_id = U.id GROUP BY iUG.user_id ORDER BY NULL) AND U.last_online > ? AND G.staff = 1', [strtotime('-5 minutes')])->first()->count;
+        }, 120);
+
+        // Generate HTML code for widget
+        if (count($online_staff)) {
             $this->_engine->addVariables([
                 'ONLINE_STAFF' => $this->_language->get('general', 'online_staff'),
-                'ONLINE_STAFF_LIST' => $staff_members,
-                'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => count($online)]),
+                'ONLINE_STAFF_LIST' => $online_staff,
+                'TOTAL_ONLINE_STAFF' => $this->_language->get('general', 'total_online_staff', ['count' => $total_online_staff]),
             ]);
 
         } else {

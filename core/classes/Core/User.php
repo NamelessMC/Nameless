@@ -650,7 +650,7 @@ class User
         if (isset(self::$_integration_cache[$this->data()->id])) {
             $integrations_query = self::$_integration_cache[$this->data()->id];
         } else {
-            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
+            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id = nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
             } else {
