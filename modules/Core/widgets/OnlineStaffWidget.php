@@ -37,7 +37,7 @@ class OnlineStaffWidget extends WidgetBase {
                     JOIN nl2_users_groups AS ug ON u.id = ug.user_id
                     JOIN nl2_groups AS g ON ug.group_id = g.id
                     WHERE g.order = (
-                        SELECT MIN(iG.order)
+                        SELECT MIN(ig.order)
                         FROM nl2_users_groups AS iug
                         JOIN nl2_groups AS ig ON iug.group_id = ig.id
                         WHERE iug.user_id = u.id
@@ -52,6 +52,7 @@ class OnlineStaffWidget extends WidgetBase {
                 [strtotime('-5 minutes')]
             )->results();
 
+            $staff_members = [];
             foreach ($online as $staff) {
                 $staff_user = new User($staff->id);
                 if ($staff_user->exists()) {
@@ -80,7 +81,7 @@ class OnlineStaffWidget extends WidgetBase {
                     JOIN nl2_users_groups AS ug ON u.id = ug.user_id
                     JOIN nl2_groups AS g ON ug.group_id = g.id
                     WHERE g.order = (
-                        SELECT MIN(iG.order)
+                        SELECT MIN(ig.order)
                         FROM nl2_users_groups AS iug
                         JOIN nl2_groups AS ig ON iug.group_id = ig.id
                         WHERE iug.user_id = u.id

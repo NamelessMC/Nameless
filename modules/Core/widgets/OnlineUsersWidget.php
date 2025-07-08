@@ -76,6 +76,7 @@ class OnlineUsersWidget extends WidgetBase {
                 )->results();
             }
 
+            $users = [];
             foreach ($online as $item) {
                 $online_user = new User($item->id);
                 if ($online_user->exists()) {
