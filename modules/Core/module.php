@@ -51,6 +51,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
         $pages->add('Core', '/queries/reactions', 'queries/reactions.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
+        $pages->add('Core', '/maintenance', 'pages/maintenance.php');
         $pages->add('Core', '/terms', 'pages/terms.php');
         $pages->add('Core', '/privacy', 'pages/privacy.php');
         $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
@@ -451,6 +452,13 @@ class Core_Module extends Module {
         EventHandler::registerListener(PreCustomPageEditEvent::class, [MentionsHook::class, 'preEdit']);
 
         EventHandler::registerListener(UserRegisteredEvent::class, DefaultUserNotificationPreferencesHook::class);
+
+        // -- Register middleware
+        MiddlewareHandler::getInstance()->register(MaintenanceModeMiddleware::class);
+        MiddlewareHandler::getInstance()->register(BannedUserMiddleware::class);
+        MiddlewareHandler::getInstance()->register(TFAMiddleware::class);
+        MiddlewareHandler::getInstance()->register(EnsureUserIntegrationsLinkedMiddleware::class);
+        MiddlewareHandler::getInstance()->register(GlobalWarningsMiddleware::class);
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));

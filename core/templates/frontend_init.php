@@ -40,19 +40,6 @@ if (
     }
 }
 
-// Check if any integrations is required before user can continue
-if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections' && PAGE != 'oauth' && !(PAGE == 'cc_settings' && $_GET['do'] == 'enable_tfa')) {
-    foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
-        if ($integration->data()->required && $integration->allowLinking()) {
-            $integrationUser = $user->getIntegration($integration->getName());
-            if ($integrationUser === null || !$integrationUser->isVerified()) {
-                Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
-                Redirect::to(URL::build('/user/connections'));
-            }
-        }
-    }
-}
-
 if (defined('PAGE') && PAGE != 404) {
     // Auto unset signin tfa variables if set
     if (
@@ -72,6 +59,10 @@ if (file_exists(ROOT_PATH . '/custom/templates/' . TEMPLATE . '/template.php')) 
     require(ROOT_PATH . '/custom/templates/DefaultRevamp/template.php');
 }
 
+$container->set(TemplateBase::class, $template);
+
+MiddlewareHandler::getInstance()->call(MiddlewareType::Frontend, $container);
+
 // Basic template variables
 $template->getEngine()->addVariables([
     'CONFIG_PATH' => defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/',
@@ -86,32 +77,6 @@ $og_image = Settings::get('og_image_path');
 if (!empty($og_image)) {
     // Assign the image value now, some pages may override it (via Page Metadata config)
     $template->getEngine()->addVariable('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . Output::getClean($og_image));
-}
-
-// User related actions
-if ($user->isLoggedIn()) {
-    // Warnings
-    $warnings = DB::getInstance()->get('infractions', ['punished', $user->data()->id])->results();
-    if (count($warnings)) {
-        foreach ($warnings as $warning) {
-            if ($warning->revoked == 0 && $warning->acknowledged == 0) {
-                $template->getEngine()->addVariables([
-                    'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
-                    'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
-                    'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . urlencode($warning->id)),
-                ]);
-                break;
-            }
-        }
-    }
-
-    // Does the account need verifying?
-    // Get default group ID
-    $cache->setCache('default_group');
-    $default_group = $cache->fetch('default_group', function () {
-        return Group::find(1, 'default_group')->id;
-    });
 }
 
 // Page metadata

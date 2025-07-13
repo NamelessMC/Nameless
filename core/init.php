@@ -82,6 +82,11 @@ if ($page != 'install') {
      */
 
     $container = new \DI\Container();
+
+    $container->set(\Symfony\Component\HttpFoundation\Request::class, function () {
+        return \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+    });
+
     $container->set(Cache::class, function () {
         return new Cache([
             'name' => 'nameless',
@@ -158,6 +163,8 @@ if ($page != 'install') {
             $user->login(null, $hash, true, 'hash');
         }
     }
+
+    $container->set(User::class, $user);
 
     // Check if we're in a subdirectory
     if (isset($directories)) {
@@ -357,30 +364,8 @@ if ($page != 'install') {
         }
     }
 
-    // Maintenance mode?
-    if (Settings::get('maintenance') === '1') {
-        // Enabled
-        // Admins only beyond this point
-        if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
-            // Maintenance mode
-            if (isset($_GET['route']) && (
-                rtrim($_GET['route'], '/') === '/login'
-                || rtrim($_GET['route'], '/') === '/forgot_password'
-                || str_contains($_GET['route'], '/api/')
-                || str_contains($_GET['route'], 'queries')
-                || str_contains($_GET['route'], 'oauth/')
-                || str_contains($_GET['route'], 'store/listener')
-            )) {
-                // Can continue as normal
-            } else {
-                require(ROOT_PATH . '/core/includes/maintenance.php');
-                die;
-            }
-        } else {
-            // Display notice to admin stating maintenance mode is enabled
-            define('BYPASS_MAINTENANCE', true);
-        }
-    }
+    // Execute middleware events
+    MiddlewareHandler::getInstance()->call(MiddlewareType::Global, $container);
 
     // Webhooks
     $hook_array = [];
@@ -423,21 +408,6 @@ if ($page != 'install') {
     if ($user->isLoggedIn()) {
         Debugging::setCanViewDetailedError($user->hasPermission('admincp.errors'));
         Debugging::setCanGenerateDebugLink($user->hasPermission('admincp.core.debugging'));
-
-        // Ensure a user is not banned
-        if ($user->data()->isbanned == 1) {
-            $user->logout();
-            Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
-            Redirect::to(URL::build('/'));
-        }
-
-        // Is the IP address banned?
-        $ip_bans = DB::getInstance()->get('ip_bans', ['ip', $ip])->results();
-        if (count($ip_bans)) {
-            $user->logout();
-            Session::flash('home_error', $language->get('user', 'you_have_been_banned'));
-            Redirect::to(URL::build('/'));
-        }
 
         // Update user last IP and last online
         if (filter_var($ip, FILTER_VALIDATE_IP)) {
@@ -484,24 +454,6 @@ if ($page != 'install') {
                         'user_id' => $user->data()->id,
                         'ip' => $ip,
                     ]);
-                }
-            }
-        }
-
-        // Does their group have TFA forced?
-        foreach ($user->getGroups() as $group) {
-            if ($group->force_tfa) {
-                $forced = true;
-                break;
-            }
-        }
-
-        if (isset($forced) && $forced) {
-            // Do they have TFA configured?
-            if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
-                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa') && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-                    Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
-                    Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
                 }
             }
         }
