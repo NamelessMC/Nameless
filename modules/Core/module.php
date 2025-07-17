@@ -96,6 +96,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/announcements', 'pages/panel/announcements.php');
         $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
+        $pages->add('Core', '/panel/core/resources', 'pages/panel/resources.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/queue', 'pages/panel/queue.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
