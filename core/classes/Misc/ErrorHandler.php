@@ -79,6 +79,11 @@ class ErrorHandler
 
         // If this is an API request, print the error in plaintext and dont render the whole error trace page
         if (self::shouldUsePlainText()) {
+            if (!Debugging::canViewDetailedError()) {
+                // If we can't view the full error (i.e. not authenticated), show a simple message
+                die('Fatal error during request');
+            }
+
             die($error_string . ' in ' . $error_file . ' on line ' . $error_line . (!is_null($exception) ? PHP_EOL . $exception->getTraceAsString() : ''));
         }
 
