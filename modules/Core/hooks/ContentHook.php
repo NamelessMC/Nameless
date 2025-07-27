@@ -64,7 +64,7 @@ class ContentHook extends HookBase {
 
     public static function purify(array $params = []): array {
         if (parent::validateParams($params, ['content']) && empty($params['skip_purify'])) {
-            $params['content'] = Output::getPurified($params['content'], true);
+            $params['content'] = Output::getPurified($params['content'], true, false);
         }
 
         return $params;
