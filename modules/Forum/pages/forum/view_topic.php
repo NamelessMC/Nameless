@@ -739,7 +739,7 @@ foreach ($results->data as $n => $nValue) {
         'post_date' => $post_date,
         'buttons' => $buttons,
         'content' => $render_event->content,
-        'signature' => Output::getPurified(Text::renderEmojis($signature)),
+        'signature' => Output::getPurified(Text::renderEmojis($signature), false, false),
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => is_null($nValue->last_edited)
             ? null

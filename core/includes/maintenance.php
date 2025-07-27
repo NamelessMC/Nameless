@@ -39,7 +39,7 @@ if (!$user->isLoggedIn()) {
 $template->getEngine()->addVariables(
     [
         'MAINTENANCE_TITLE' => $language->get('errors', 'maintenance_title'),
-        'MAINTENANCE_MESSAGE' => Output::getPurified(Settings::get('maintenance_message', 'Maintenance mode is enabled.')),
+        'MAINTENANCE_MESSAGE' => Output::getPurified(Settings::get('maintenance_message', 'Maintenance mode is enabled.'), false, false),
         'RETRY' => $language->get('errors', 'maintenance_retry'),
     ]
 );
