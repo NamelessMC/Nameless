@@ -114,9 +114,9 @@ if (!isset($_GET['metadata'])) {
 
     $template->getEngine()->addVariables([
         'DEFAULT_DESCRIPTION' => $language->get('admin', 'default_description'),
-        'DEFAULT_DESCRIPTION_VALUE' => Settings::get('default_meta_description'),
+        'DEFAULT_DESCRIPTION_VALUE' => Output::getClean(Settings::get('default_meta_description')),
         'DEFAULT_KEYWORDS' => $language->get('admin', 'default_keywords'),
-        'DEFAULT_KEYWORDS_VALUE' => Settings::get('default_meta_keywords'),
+        'DEFAULT_KEYWORDS_VALUE' => Output::getClean(Settings::get('default_meta_keywords')),
     ]);
 
     $template_file = 'core/seo';
