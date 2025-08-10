@@ -3,6 +3,17 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
 
+## [2.2.4](https://github.com/NamelessMC/Nameless/compare/v2.2.3...v2.2.4) - 2025-08-10
+### Added
+- No additions this releasse
+
+### Changed
+- Hide error in API requests if the user has no permission
+- Clean default SEO values in staff panel
+
+### Fixed
+- Double escape entities before passing into editor
+
 ## [2.2.3](https://github.com/NamelessMC/Nameless/compare/v2.2.2...v2.2.3) - 2025-05-22
 ### Added
 - No additions this releasse
