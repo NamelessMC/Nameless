@@ -135,7 +135,7 @@ class Widgets
                 continue;
             }
 
-            if ((defined('CUSTOM_PAGE') && !in_array(CUSTOM_PAGE, $item->getPages())) || !in_array(PAGE, $item->getPages())) {
+            if (!((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages())) || in_array(PAGE, $item->getPages()))) {
                 continue;
             }
 
