@@ -11,7 +11,7 @@ class ContentHook extends HookBase
 {
     public static function purify(AbstractEvent $event): void {
         if (isset($event->content) && empty($event->skip_purify)) {
-            $event->content = Output::getPurified($event->content, true);
+            $event->content = Output::getPurified($event->content, true, false);
         }
     }
 

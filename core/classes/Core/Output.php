@@ -44,10 +44,11 @@ class Output
      *
      * @param string|null $input          String which will be purified.
      * @param bool        $escape_invalid Should invalid HTML be escaped instead of fully removed?
+     * @param bool        $for_editor     Whether the purification is for use in the WYSIWYG editor or not, default true
      *
      * @return string Purified string.
      */
-    public static function getPurified(?string $input, bool $escape_invalid = false): string
+    public static function getPurified(?string $input, bool $escape_invalid = false, bool $for_editor = true): string
     {
         if (!isset(self::$_purifier)) {
             $purifierConfig = HTMLPurifier_Config::createDefault();
@@ -80,8 +81,14 @@ class Output
             self::$_purifier = new HTMLPurifier($purifierConfig);
         }
 
-        // Purify the string
-        return self::$_purifier->purify($input);
+        $purified = self::$_purifier->purify($input);
+
+        if ($for_editor) {
+            // Double encode &lt; and &gt; to prevent editor from parsing them
+            return str_replace(['&lt;', '&gt;'], ['&amp;lt;', '&amp;gt;'], $purified);
+        }
+
+        return $purified;
     }
 
     /**
