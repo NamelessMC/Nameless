@@ -26,7 +26,7 @@ class PurgeExpiredSessions extends Task
 
         if ($count) {
             DB::getInstance()->query(
-                'DELETE FROM `nl2_users_session` WHERE `last_seen` < ? OR (`last_seen` < ? AND `active` = 0 AND `expires_at` IS NULL)',
+                'DELETE FROM `nl2_users_session` WHERE `last_seen` < ? OR (`last_seen` IS NULL AND `active` = 0 AND `expires_at` IS NULL)',
                 [
                     $cutoff,
                 ]
