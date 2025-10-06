@@ -97,6 +97,7 @@
                     {/if}
                     {/if}
                     {/foreach}
+                    <a class="ui small default icon button" id="toggle-dark-mode" data-mode="dark" onclick="toggleDarkLightMode()"></a>
                 </div>
             </div>
         </div>
