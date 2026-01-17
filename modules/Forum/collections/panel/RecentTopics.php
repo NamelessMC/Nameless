@@ -16,17 +16,9 @@ class RecentTopicsItem extends CollectionItemBase {
     private Language $_language;
     private int $_topics;
 
-    public function __construct(TemplateEngine $engine, Language $language, Cache $cache, int $topics) {
-        $cache->setCache('dashboard_stats_collection');
-        if ($cache->isCached('recent_topics')) {
-            $from_cache = $cache->retrieve('recent_topics');
-            $order = $from_cache['order'] ?? 3;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 3;
-            $enabled = 1;
-        }
+    public function __construct(TemplateEngine $engine, Language $language, int $topics) {
+        $order = 3;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 

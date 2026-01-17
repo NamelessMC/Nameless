@@ -64,14 +64,6 @@ class CookieConsent_Module extends Module {
 
         if (defined('FRONT_END')) {
             // Add cookie page link
-            $cache->setCache('cookie_consent_module_cache');
-            if (!$cache->isCached('options')) {
-                $options = ['type' => 'opt-in', 'position' => 'bottom-right'];
-                $cache->store('options', $options);
-            } else {
-                $options = $cache->retrieve('options');
-            }
-
             // Add JS script
             $template->addCSSFiles([
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/css/cookieconsent.min.css' => [],
@@ -80,16 +72,16 @@ class CookieConsent_Module extends Module {
                 (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/modules/Cookie Consent/assets/js/cookieconsent.min.js' => [],
             ]);
             $template->addJSScript(
-                CookieConsent::generateScript(
-                    array_merge($options, [
-                        'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
-                        'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
-                        'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
-                        'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
-                        'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
-                        'href' => $cookie_url,
-                    ])
-                )
+                CookieConsent::generateScript([
+                    'type' => 'opt-in',
+                    'position' => 'bottom-right',
+                    'cookies' => $this->_cookie_language->get('cookie', 'cookies'),
+                    'message' => $this->_cookie_language->get('cookie', 'cookie_popup'),
+                    'dismiss' => $this->_cookie_language->get('cookie', 'cookie_popup_disallow'),
+                    'allow' => $this->_cookie_language->get('cookie', 'cookie_popup_allow'),
+                    'link' => $this->_cookie_language->get('cookie', 'cookie_popup_more_info'),
+                    'href' => $cookie_url,
+                ])
             );
         }
 
@@ -104,26 +96,10 @@ class CookieConsent_Module extends Module {
         $navs[0]->add('cookies', $this->_cookie_language->get('cookie', 'cookie_notice'), $cookie_url, 'footer');
 
         if (defined('BACK_END')) {
-            $cache->setCache('panel_sidebar');
-
             // StaffCP link
             if ($user->hasPermission('admincp.cookies')) {
-                if (!$cache->isCached('cookie_order')) {
-                    $order = 10;
-                    $cache->store('cookie_order', 10);
-                } else {
-                    $order = $cache->retrieve('cookie_order');
-                }
-
-                if (!$cache->isCached('cookie_icon')) {
-                    $icon = '<i class="nav-icon fas fa-cookie-bite"></i>';
-                    $cache->store('cookie_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('cookie_icon');
-                }
-
-                $navs[2]->add('cookie_divider', mb_strtoupper($this->_cookie_language->get('cookie', 'cookies'), 'UTF-8'), 'divider', 'top', null, $order, '');
-                $navs[2]->add('cookie_settings', $this->_cookie_language->get('cookie', 'cookies'), URL::build('/panel/cookies'), 'top', null, $order + 0.1, $icon);
+                $navs[2]->add('cookie_divider', mb_strtoupper($this->_cookie_language->get('cookie', 'cookies'), 'UTF-8'), 'divider', 'top', null, 10, '');
+                $navs[2]->add('cookie_settings', $this->_cookie_language->get('cookie', 'cookies'), URL::build('/panel/cookies'), 'top', null, 10.1, '<i class="nav-icon fas fa-cookie-bite"></i>');
             }
         }
     }

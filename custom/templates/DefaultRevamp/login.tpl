@@ -5,6 +5,16 @@
     {$SIGN_IN}
 </h2>
 
+{if isset($SUCCESS)}
+    <div class="ui success icon message">
+        <i class="check icon"></i>
+        <div class="content">
+            <div class="header">{$SUCCESS_TITLE}</div>
+            {$SUCCESS}
+        </div>
+    </div>
+{/if}
+
 {if count($ERROR)}
 <div class="ui error icon message">
     <i class="x icon"></i>

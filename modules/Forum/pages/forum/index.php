@@ -66,10 +66,7 @@ $template->getEngine()->addVariables([
 // Get forums
 $cache_name = 'forum_forums_' . rtrim(implode('-', $groups), '-');
 $cache->setCache($cache_name);
-
-if ($cache->isCached('forums')) {
-    $forums = $cache->retrieve('forums');
-} else {
+$forums = $cache->fetch('forums', function () use ($forum, $groups, $user, $timeAgo, $forum_language, $language) {
     $forums = $forum->listAllForums($groups, ($user->isLoggedIn() ? $user->data()->id : 0));
 
     // Loop through to get last poster avatars and to format a date
@@ -105,8 +102,8 @@ if ($cache->isCached('forums')) {
         $forums = [];
     }
 
-    $cache->store('forums', $forums, 60);
-}
+    return $forums;
+}, 60);
 
 $template->getEngine()->addVariables([
     'FORUMS' => $forums,

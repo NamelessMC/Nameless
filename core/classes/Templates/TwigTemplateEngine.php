@@ -26,6 +26,7 @@ class TwigTemplateEngine extends TemplateEngine
         $loader = new FilesystemLoader($dir);
         $twig = new Environment($loader, [
             'cache' => ROOT_PATH . '/cache/twig',
+            'auto_reload' => true,
         ]);
 
         $policy = new SecurityPolicy();

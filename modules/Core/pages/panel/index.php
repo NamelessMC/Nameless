@@ -81,10 +81,7 @@ if (count($dashboard_graphs)) {
 $dashboard_graphs = null;
 
 $cache->setCache('nameless_news');
-if ($cache->isCached('news')) {
-    $news = $cache->retrieve('news');
-
-} else {
+$news = $cache->fetch('news', function () use ($language) {
     $news_query = Util::getLatestNews();
     $news_query = json_decode($news_query);
 
@@ -110,8 +107,8 @@ if ($cache->isCached('news')) {
         }
     }
 
-    $cache->store('news', $news, 3600);
-}
+    return $news;
+}, 3600);
 
 if (!count($news)) {
     $template->getEngine()->addVariable('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
@@ -128,7 +125,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
 
     if (PHP_VERSION_ID < 80200) {
         $compat_warnings[] = 'PHP ' . PHP_VERSION;
-        $compat_warnings_help[] = $language->get('admin', 'compat_php_version_info', ['php' => '8.0+']);
+        $compat_warnings_help[] = $language->get('admin', 'compat_php_version_info', ['php' => '8.2+']);
     } else {
         $compat_success[] = 'PHP ' . PHP_VERSION;
     }
@@ -194,11 +191,9 @@ if ($user->hasPermission('admincp.core.debugging')) {
     } else if (($pdo_driver === 'MySQL' && version_compare($pdo_server_version, '5.7', '>=')) ||
         ($pdo_driver === 'MariaDB' && version_compare($pdo_server_version, '10.3', '>='))) {
         $compat_warnings[] = $pdo_driver . ' Server ' . $pdo_server_version;
-        $compat_warnings_help[] = $language->get(
-            'admin',
-            'compat_pdo_version_info',
-            ['mysql' => '8.0+', 'mariadb' => '10.5+']
-        );
+        $compat_warnings_help[] = $language->get('admin', 'compat_pdo_version_info', [
+            'mysql' => '8.0+', 'mariadb' => '10.5+',
+        ]);
 
     } else {
         $compat_errors[] = $pdo_driver . ' Server ' . $pdo_server_version;

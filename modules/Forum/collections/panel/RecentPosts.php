@@ -15,17 +15,9 @@ class RecentPostsItem extends CollectionItemBase {
     private Language $_language;
     private int $_posts;
 
-    public function __construct(TemplateEngine $engine, Language $language, Cache $cache, int $posts) {
-        $cache->setCache('dashboard_stats_collection');
-        if ($cache->isCached('recent_posts')) {
-            $from_cache = $cache->retrieve('recent_posts');
-            $order = $from_cache['order'] ?? 4;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 4;
-            $enabled = 1;
-        }
+    public function __construct(TemplateEngine $engine, Language $language, int $posts) {
+        $order = 4;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 

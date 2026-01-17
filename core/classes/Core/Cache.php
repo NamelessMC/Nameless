@@ -26,6 +26,11 @@ class Cache
     private string $_extension = '.cache';
 
     /**
+     * Whether to collect cache data.
+     */
+    private bool $_record_collector;
+
+    /**
      * Create a new Cache instance.
      *
      * @param  string|array $config (optional)
@@ -42,6 +47,11 @@ class Cache
                 $this->setExtension($config['extension']);
             }
         }
+    }
+
+    private function recordCollector(): bool
+    {
+        return $this->_record_collector ??= defined('PHPDEBUGBAR') && PHPDEBUGBAR && class_exists('DebugBar\DebugBar');
     }
 
     /**
@@ -70,14 +80,45 @@ class Cache
             if (isset($cachedData[$key])) {
                 $entry = $cachedData[$key];
                 if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
-                    return false;
+                    $is_cached = false;
+                } else {
+                    $is_cached = isset($cachedData[$key]['data']);
                 }
-
-                return isset($cachedData[$key]['data']);
             }
         }
 
-        return false;
+        if (!isset($is_cached)) {
+            $is_cached = false;
+        }
+
+        if ($this->recordCollector()) {
+            CacheCollector::getInstance()->recordCheck("{$this->_cachename}:{$key}", $is_cached);
+        }
+
+        return $is_cached;
+    }
+
+    /**
+     * Retrieve the cache data or persist it if not found.
+     *
+     * @param  string $key        The key to retrieve
+     * @param  mixed  $data       The data to persist if not found
+     * @param  int    $expiration Expiration time in seconds
+     * @return mixed  The cached data or the persisted data
+     */
+    public function fetch(string $key, $data, int $expiration = 0)
+    {
+        if ($this->isCached($key)) {
+            return $this->retrieve($key);
+        }
+
+        if (is_callable($data)) {
+            $data = $data();
+        }
+
+        $this->store($key, $data, $expiration);
+
+        return $data;
     }
 
     /**
@@ -243,6 +284,10 @@ class Cache
         $cacheData = json_encode($dataArray);
         file_put_contents($this->getCacheDir(), $cacheData);
 
+        if ($this->recordCollector()) {
+            CacheCollector::getInstance()->recordSet("{$this->_cachename}:{$key}", $data, $expiration);
+        }
+
         return $this;
     }
 
@@ -260,17 +305,31 @@ class Cache
         $type = $timestamp ? 'time' : 'data';
 
         if (!isset($cachedData[$key][$type])) {
+            if ($this->recordCollector()) {
+                CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
+            }
+
             return null;
         }
 
         if (!$timestamp) {
             $entry = $cachedData[$key];
             if ($entry && $this->_checkExpired($entry['time'], $entry['expire'])) {
+                if ($this->recordCollector()) {
+                    CacheCollector::getInstance()->recordMiss("{$this->_cachename}:{$key}");
+                }
+
                 return null;
             }
         }
 
-        return unserialize($cachedData[$key][$type]);
+        $data = unserialize($cachedData[$key][$type]);
+
+        if ($this->recordCollector()) {
+            CacheCollector::getInstance()->recordHit("{$this->_cachename}:{$key}", $data);
+        }
+
+        return $data;
     }
 
     /**

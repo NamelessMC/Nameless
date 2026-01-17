@@ -625,7 +625,6 @@ class User
 
         if (!count($this->_groups)) {
             // Get default group
-            // TODO: Use PRE_VALIDATED_DEFAULT ?
             $default_group = Group::find(1, 'default_group');
             $default_group_id = $default_group->id ?? 1;
 
@@ -651,7 +650,7 @@ class User
         if (isset(self::$_integration_cache[$this->data()->id])) {
             $integrations_query = self::$_integration_cache[$this->data()->id];
         } else {
-            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id=nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
+            $integrations_query = $this->_db->query('SELECT nl2_users_integrations.*, nl2_integrations.name as integration_name FROM nl2_users_integrations LEFT JOIN nl2_integrations ON integration_id = nl2_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
             } else {
@@ -1069,20 +1068,10 @@ class User
      */
     public function isBlocked(int $user, int $blocked): bool
     {
-        if ($user && $blocked) {
-            $possible_users = $this->_db->get('blocked_users', ['user_id', $user]);
-            if ($possible_users->count()) {
-                $possible_users = $possible_users->results();
-
-                foreach ($possible_users as $possible_user) {
-                    if ($possible_user->user_blocked_id == $blocked) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
+        return DB::getInstance()->query(
+            'SELECT 1 FROM nl2_blocked_users WHERE user_id = ? AND user_blocked_id = ?',
+            [$user, $blocked]
+        )->exists();
     }
 
     /**

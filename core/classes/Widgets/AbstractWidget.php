@@ -80,17 +80,6 @@ abstract class AbstractWidget
     }
 
     /**
-     * Get Smarty instance in use by this widget. Removed in 2.3.0.
-     *
-     * @return Smarty Instance in use.
-     * @deprecated
-     */
-    public function getSmarty(): ?Smarty
-    {
-        return $this->_smarty;
-    }
-
-    /**
      * Get template engine in use by this widget.
      *
      * @return TemplateEngine Engine in use.
@@ -148,33 +137,25 @@ abstract class AbstractWidget
             return $this->_data;
         }
 
-        $cache = $this->cache();
+        return $this->_data = $this->cache()->fetch($this->getName(), function () {
+            $row = DB::getInstance()->get('widgets', ['name', $this->getName()]);
+            if ($row->count()) {
+                $data = new WidgetData($row->first());
 
-        if ($cache->isCached($this->getName())) {
-            return $this->_data = new WidgetData($cache->retrieve($this->getName()));
-        }
+                return  $data;
+            }
 
-        $row = DB::getInstance()->get('widgets', ['name', $this->getName()]);
-        if ($row->count()) {
-            $data = new WidgetData($row->first());
-            $cache->store($this->getName(), $data);
+            // Widget not found in database, create it
+            DB::getInstance()->insert('widgets', $data = [
+                'name' => $this->getName(),
+                'enabled' => true,
+                'location' => 'right',
+                'order' => 10,
+                'pages' => '["index","forum"]',
+            ]);
 
-            return $this->_data = $data;
-        }
-
-        // Widget not found in database, create it
-        DB::getInstance()->insert('widgets', $data = [
-            'name' => $this->getName(),
-            'enabled' => true,
-            'location' => 'right',
-            'order' => 10,
-            'pages' => '["index","forum"]',
-        ]);
-
-        $data = new WidgetData((object) $data);
-        $cache->store($this->getName(), $data);
-
-        return $this->_data = $data;
+            return new WidgetData((object) $data);
+        }, 3600);
     }
 
     private function cache(): Cache

@@ -20,7 +20,6 @@
 
 $page_title = $language->get('general', 'register');
 require_once ROOT_PATH . '/core/templates/frontend_init.php';
-require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Use recaptcha?
 $captcha = CaptchaBase::isCaptchaEnabled();
@@ -165,13 +164,7 @@ if (Input::exists()) {
 
                     // Get default group ID
                     $cache->setCache('default_group');
-                    if ($cache->isCached('default_group')) {
-                        $default_group = $cache->retrieve('default_group');
-                    } else {
-                        $default_group = Group::find(1, 'default_group')->id;
-
-                        $cache->store('default_group', $default_group);
-                    }
+                    $default_group = $cache->fetch('default_group', fn () => Group::find(1, 'default_group')->id);
 
                     $user = new User($user_id);
                     $user->addGroup($default_group);
@@ -200,7 +193,7 @@ if (Input::exists()) {
 
                     if (Settings::get('email_verification') === '1') {
                         // Send registration email
-                        sendRegisterEmail($language, $email, $mcname, $user_id, $code);
+                        Core_Emails::sendRegisterEmail($language, $email, $mcname, $user_id, $code);
 
                         Session::flash('home', $language->get('user', 'registration_check_email'));
                         Redirect::to(URL::build('/'));

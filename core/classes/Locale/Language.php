@@ -3,7 +3,7 @@
 /**
  * Provides utilities for retrieving/handling language strings.
  *
- * @package NamelessMC\Core
+ * @package NamelessMC\Locale
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -239,18 +239,14 @@ class Language
     /**
      * Return a term in the currently active language.
      *
-     * @param  string  $section   Section name.
-     * @param  ?string $term      The term to translate.
-     * @param  array   $variables Any variables to pass through to the translation.
-     * @return string  Translated phrase.
+     * @param  string $section   Section name.
+     * @param  string $term      The term to translate.
+     * @param  array  $variables Any variables to pass through to the translation.
+     * @return string Translated phrase.
      */
-    public function get(string $section, ?string $term = null, array $variables = []): string
+    public function get(string $section, string $term, array $variables = []): string
     {
-        if ($term) {
-            $section .= '/' . $term;
-        }
-
-        return $this->_i18n->getTranslation($section, $variables);
+        return $this->_i18n->getTranslation($section . '/' . $term, $variables);
     }
 
     /**

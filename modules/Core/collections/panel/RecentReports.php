@@ -16,16 +16,8 @@ class RecentReportsItem extends CollectionItemBase {
     private Cache $_cache;
 
     public function __construct(TemplateEngine $engine, Language $language, Cache $cache) {
-        $cache->setCache('dashboard_main_items_collection');
-        if ($cache->isCached('recent_reports')) {
-            $from_cache = $cache->retrieve('recent_reports');
-            $order = $from_cache['order'] ?? 3;
-
-            $enabled = $from_cache['enabled'] ?? 1;
-        } else {
-            $order = 3;
-            $enabled = 1;
-        }
+        $order = 3;
+        $enabled = 1;
 
         parent::__construct($order, $enabled);
 
@@ -40,9 +32,7 @@ class RecentReportsItem extends CollectionItemBase {
 
         $this->_cache->setCache('dashboard_main_items_collection');
 
-        if ($this->_cache->isCached('recent_reports_data')) {
-            $data = $this->_cache->retrieve('recent_reports_data');
-        } else {
+        $data = $this->_cache->fetch('recent_reports_data', function () use ($timeago) {
             $query = DB::getInstance()->query('SELECT * FROM nl2_reports WHERE `status` = 0 ORDER BY `date_reported` DESC LIMIT 5');
             $data = [];
 
@@ -93,8 +83,8 @@ class RecentReportsItem extends CollectionItemBase {
                 }
             }
 
-            $this->_cache->store('recent_reports_data', $data, 60);
-        }
+            return $data;
+        }, 60);
 
         $this->_engine->addVariables([
             'RECENT_REPORTS' => $this->_language->get('moderator', 'recent_reports'),

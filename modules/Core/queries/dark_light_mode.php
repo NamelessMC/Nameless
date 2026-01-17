@@ -3,8 +3,7 @@
 header('Content-type: application/json;charset=utf-8');
 
 // Get website dark mode setting value
-$cache->setCache('template_settings');
-$darkMode = $cache->isCached('darkMode') ? $cache->retrieve('darkMode') : '0';
+$darkMode = Settings::get('dark_mode', '0');
 
 if (!$user->isLoggedIn()) {
     if (Cookie::exists('night_mode')) {

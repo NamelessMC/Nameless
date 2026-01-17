@@ -313,7 +313,7 @@ class DB
      */
     private function action(string $action, string $table, array $where = [])
     {
-        [$where, $where_params] = $this->makeWhere($where);
+        [$where, $where_params] = self::makeWhere($where);
 
         $table = $this->_prefix . $table;
         $sql = "{$action} FROM {$table} {$where}";
@@ -378,7 +378,7 @@ class DB
             $where = ['id', '=', $where];
         }
 
-        [$where, $where_params] = $this->makeWhere($where);
+        [$where, $where_params] = self::makeWhere($where);
         $table = $this->_prefix . $table;
 
         $sql = "UPDATE {$table} SET {$set} $where";

@@ -61,8 +61,7 @@ if (isset($_GET['action'])) {
             }
         }
     } else if ($_GET['action'] == 'resend_email' && $user_query->active == 0) {
-        require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-        if (sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
+        if (Core_Emails::sendRegisterEmail($language, $user_query->email, $user_query->username, $user_query->id, $user_query->reset_code)) {
             Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
         } else {
             Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));
@@ -158,81 +157,83 @@ if (Input::exists()) {
             }
 
             if ($validation->passed() && $passed) {
-                try {
-                    $private_profile_active = Settings::get('private_profile');
-                    $private_profile = 0;
+                $private_profile_active = Settings::get('private_profile');
+                $private_profile = 0;
 
-                    if ($private_profile_active) {
-                        $private_profile = Input::get('privateProfile');
-                    }
-
-                    // Template
-                    if (Input::get('template') != 0) {
-                        $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
-
-                        if (count($new_template)) {
-                            $new_template = $new_template[0]->id;
-                        } else {
-                            $new_template = $user_query->theme_id;
-                        }
-                    } else {
-                        $new_template = null;
-                    }
-
-                    // Nicknames?
-                    $username = Input::get('username');
-                    if (Settings::get('displaynames') === '1') {
-                        $nickname = Input::get('nickname');
-                    } else {
-                        $nickname = Input::get('username');
-                    }
-
-                    $view_user->update([
-                        'nickname' => Output::getClean($nickname),
-                        'email' => Output::getClean(Input::get('email')),
-                        'username' => Output::getClean($username),
-                        'user_title' => Output::getClean(Input::get('title')),
-                        'signature' => $signature,
-                        'private_profile' => $private_profile,
-                        'language_id' => Output::getClean(Input::get('language')),
-                        'timezone' => Output::getClean(Input::get('timezone')),
-                        'theme_id' => $new_template
-                    ]);
-
-                    $group_sync_log = [];
-                    if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-                        if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                            $user_group_ids = $view_user->getAllGroupIds();
-                            $form_groups = $_POST['groups'] ?? [];
-
-                            // Check for new groups to give them which they don't already have
-                            foreach ($form_groups as $group_id) {
-                                if (!in_array($group_id, $user_group_ids)) {
-                                    $view_user->addGroup($group_id);
-                                }
-                            }
-
-                            // Check for groups they had, but weren't in the $_POST groups
-                            foreach ($user_group_ids as $group_id) {
-                                if (!in_array($group_id, $form_groups)) {
-                                    $view_user->removeGroup($group_id);
-                                }
-                            }
-
-                            // Dispatch groupsync with all of their groups
-                            GroupSyncManager::getInstance()->broadcastChange(
-                                $view_user,
-                                NamelessMCGroupSyncInjector::class,
-                                $view_user->getAllGroupIds(),
-                            );
-                        }
-                    }
-
-                    Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
+                if ($private_profile_active) {
+                    $private_profile = Input::get('privateProfile');
                 }
+
+                // Template
+                if (Input::get('template') != 0) {
+                    $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
+
+                    if (count($new_template)) {
+                        $new_template = $new_template[0]->id;
+                    } else {
+                        $new_template = $user_query->theme_id;
+                    }
+                } else {
+                    $new_template = null;
+                }
+
+                // Nicknames?
+                $username = Input::get('username');
+                if (Settings::get('displaynames') === '1') {
+                    $nickname = Input::get('nickname');
+                } else {
+                    $nickname = Input::get('username');
+                }
+
+                $view_user->update([
+                    'nickname' => Output::getClean($nickname),
+                    'email' => Output::getClean(Input::get('email')),
+                    'username' => Output::getClean($username),
+                    'user_title' => Output::getClean(Input::get('title')),
+                    'signature' => $signature,
+                    'private_profile' => $private_profile,
+                    'language_id' => Output::getClean(Input::get('language')),
+                    'timezone' => Output::getClean(Input::get('timezone')),
+                    'theme_id' => $new_template
+                ]);
+
+                $group_sync_log = [];
+                if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
+                    if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+                        $groups_added = [];
+                        $groups_removed = [];
+
+                        $user_group_ids = $view_user->getAllGroupIds();
+                        $form_groups = $_POST['groups'] ?? [];
+
+                        // Check for new groups to give them which they don't already have
+                        foreach ($form_groups as $group_id) {
+                            if (!in_array($group_id, $user_group_ids)) {
+                                $groups_added[] = $group_id;
+                                $view_user->addGroup($group_id);
+                            }
+                        }
+
+                        // Check for groups they had, but weren't in the $_POST groups
+                        foreach ($user_group_ids as $group_id) {
+                            if (!in_array($group_id, $form_groups)) {
+                                $groups_removed[] = $group_id;
+                                $view_user->removeGroup($group_id);
+                            }
+                        }
+
+                        // Dispatch groupsync with all of their groups
+                        GroupSyncManager::getInstance()->broadcastGroupChange(
+                            $view_user,
+                            NamelessMCGroupSyncInjector::class,
+                            $groups_added,
+                            $groups_removed,
+                        );
+                    }
+                }
+
+                Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
+                Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
             } else {
                 $errors = $validation->errors();
                 if (!$passed) {
@@ -330,10 +331,14 @@ if ($user_query->id != 1 && !$view_user->canViewStaffCP()) {
         'NEW_PASSWORD' => $language->get('user', 'new_password'),
         'CONFIRM_NEW_PASSWORD' => $language->get('user', 'confirm_new_password'),
         'CHANGE_PASSWORD' => $language->get('user', 'change_password'),
-
-        'DISABLE_TFA' => $language->get('admin', 'disable_tfa'),
-        'DISABLE_TFA_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=disable_tfa')
     ]);
+
+    if ($view_user->data()->tfa_complete) {
+        $template->getEngine()->addVariables([
+            'DISABLE_TFA' => $language->get('admin', 'disable_tfa'),
+            'DISABLE_TFA_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=disable_tfa')
+        ]);
+    }
 }
 
 $limit_groups = false;

@@ -36,7 +36,7 @@ class DatabaseInitialiser
         $this->_db->insert('groups', [
             'name' => 'Member',
             'group_html' => '<span class="badge badge-success">Member</span>',
-            'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1,"profile.post":1}',
+            'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.title":1,"usercp.private_profile":1,"usercp.profile_banner":1,"profile.post":1}',
             'order' => 3,
         ]);
 
@@ -46,7 +46,7 @@ class DatabaseInitialiser
             'group_username_color' => '#ff0000',
             'group_username_css' => '',
             'admin_cp' => true,
-            'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.queue":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.members":1,"admincp.integrations":1,"admincp.integrations.edit":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1,"profile.post":1}',
+            'permissions' => '{"administrator":1,"admincp.core":1,"admincp.core.api":1,"admincp.core.seo":1,"admincp.core.general":1,"admincp.core.avatars":1,"admincp.core.fields":1,"admincp.core.debugging":1,"admincp.core.emails":1,"admincp.core.queue":1,"admincp.core.navigation":1,"admincp.core.announcements":1,"admincp.core.reactions":1,"admincp.core.registration":1,"admincp.core.social_media":1,"admincp.core.terms":1,"admincp.errors":1,"admincp.core.placeholders":1,"admincp.members":1,"admincp.integrations":1,"admincp.integrations.edit":1,"admincp.discord":1,"admincp.minecraft":1,"admincp.minecraft.authme":1,"admincp.minecraft.servers":1,"admincp.minecraft.query_errors":1,"admincp.minecraft.banners":1,"admincp.modules":1,"admincp.pages":1,"admincp.security":1,"admincp.security.acp_logins":1,"admincp.security.template":1,"admincp.styles":1,"admincp.styles.panel_templates":1,"admincp.styles.templates":1,"admincp.styles.templates.edit":1,"admincp.styles.images":1,"admincp.update":1,"admincp.users":1,"admincp.users.edit":1,"admincp.groups":1,"admincp.groups.self":1,"admincp.widgets":1,"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"admincp.forums":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.title":1,"usercp.profile_banner":1,"profile.private.bypass":1, "admincp.security.all":1,"admincp.core.hooks":1,"admincp.security.group_sync":1,"admincp.core.emails_mass_message":1,"modcp.punishments.reset_avatar":1,"usercp.gif_avatar":1,"profile.post":1}',
             'order' => 1,
             'staff' => true,
         ]);
@@ -55,7 +55,7 @@ class DatabaseInitialiser
             'name' => 'Moderator',
             'group_html' => '<span class="badge badge-primary">Moderator</span>',
             'admin_cp' => true,
-            'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.profile_banner":1,"profile.private.bypass":1,"profile.post":1}',
+            'permissions' => '{"modcp.ip_lookup":1,"modcp.punishments":1,"modcp.punishments.warn":1,"modcp.punishments.ban":1,"modcp.punishments.banip":1,"modcp.punishments.revoke":1,"modcp.reports":1,"admincp.users":1,"modcp.profile_banner_reset":1,"usercp.messaging":1,"usercp.signature":1,"usercp.private_profile":1,"usercp.nickname":1,"usercp.title":1,"usercp.profile_banner":1,"profile.private.bypass":1,"profile.post":1}',
             'order' => 2,
             'staff' => true,
         ]);
@@ -217,11 +217,13 @@ class DatabaseInitialiser
         Settings::set('nameless_version', '2.2.4');
         Settings::set('version_checked', date('U'));
         Settings::set('phpmailer', '0');
-        Settings::set('user_avatars', '0');
-        Settings::set('avatar_site', 'cravatar');
+        Settings::set('custom_avatars', '0');
+        Settings::set('default_avatar_type', 'minecraft');
+        Settings::set('default_avatar_source', 'cravatar');
+        Settings::set('default_avatar_perspective', 'face');
+        Settings::set('default_avatar_image', '');
         Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
         Settings::set('discord_integration', '0');
-        Settings::set('avatar_type', 'helmavatar');
         Settings::set('home_type', 'news');
         Settings::set('forum_reactions', '1');
         Settings::set('error_reporting', '0');
@@ -234,7 +236,6 @@ class DatabaseInitialiser
         Settings::set('timezone', $_SESSION['install_timezone']);
         Settings::set('maintenance', '0');
         Settings::set('maintenance_message', 'This website is currently in maintenance mode.');
-        Settings::set('default_avatar_type', 'minecraft');
         Settings::set('private_profile', '1');
         Settings::set('validate_user_action', '{"action":"promote","group":1}');
         Settings::set('login_method', 'email');
@@ -278,26 +279,23 @@ class DatabaseInitialiser
         $this->_db->insert('templates', [
             'name' => 'DefaultRevamp',
             'enabled' => true,
-            'is_default' => true,
         ]);
 
-        $this->_cache->setCache('templatecache');
-        $this->_cache->store('default', 'DefaultRevamp');
+        Settings::set('default_template', 'DefaultRevamp');
 
         $this->_db->insert('panel_templates', [
             'name' => 'Default',
             'enabled' => true,
-            'is_default' => true,
         ]);
-        $this->_cache->store('panel_default', 'Default');
+
+        Settings::set('default_panel_template', 'Default');
 
         $config_path = Config::get('core.path');
         if (!empty($config_path)) {
             $config_path = '/' . trim($config_path, '/');
         }
 
-        $this->_cache->setCache('backgroundcache');
-        $this->_cache->store('banner_image', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
+        Settings::set('banner_image_path', $config_path . '/uploads/template_banners/homepage_bg_trimmed.jpg');
     }
 
     private function initialiseWidgets(): void
@@ -369,7 +367,6 @@ class DatabaseInitialiser
                 POST,
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U'),
-            'last_edited' => date('U'),
         ]);
 
         // Must be updated afterwards due to foreign key

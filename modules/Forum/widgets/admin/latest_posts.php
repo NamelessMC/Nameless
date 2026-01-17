@@ -23,7 +23,7 @@ if (Input::exists()) {
     }
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'LATEST_POSTS_LIMIT' => $forum_language->get('forum', 'latest_posts_limit'),
     'LATEST_POSTS_LIMIT_VALUE' => Settings::get('latest_posts_limit', 5, 'Forum'),
     'INFO' => $language->get('general', 'info'),

@@ -50,6 +50,8 @@ if (!isset($_GET['action'])) {
             continue;
         }
 
+        $is_default = Settings::get('default_panel_template') === $item->name;
+
         $templates_template[] = [
             'name' => Output::getClean($item->name),
             'version' => Output::getClean($template->getVersion()),
@@ -65,9 +67,9 @@ if (!isset($_GET['action'])) {
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
             'delete_link' => (($item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=delete&template=' . urlencode($item->id))),
-            'default' => $item->is_default,
-            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
-            'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' .urlencode($item->id)) : null)
+            'default' => $is_default,
+            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$is_default) ? URL::build('/panel/core/panel_templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
+            'default_link' => (($item->enabled && !$is_default) ? URL::build('/panel/core/panel_templates/', 'action=make_default&template=' .urlencode($item->id)) : null)
         ];
     }
 
@@ -202,31 +204,27 @@ if (!isset($_GET['action'])) {
             if (Token::check()) {
                 $item = $_GET['template'];
 
-                try {
-                    // Ensure template is not default or active
-                    $template = DB::getInstance()->get('panel_templates', ['id', $item])->results();
-                    if (count($template)) {
-                        $template = $template[0];
-                        if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
-                            Redirect::to(URL::build('/panel/core/panel_templates'));
-                        }
-
-                        $item = $template->name;
-                    } else {
+                // Ensure template is not default or active
+                $template = DB::getInstance()->get('panel_templates', ['id', $item])->results();
+                if (count($template)) {
+                    $template = $template[0];
+                    if ($template->name == 'Default' || $template->id == 1 || $template->enabled == 1 || Settings::get('default_panel_template') === $template->name) {
                         Redirect::to(URL::build('/panel/core/panel_templates'));
                     }
 
-                    if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
-                        Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
-                    } else {
-                        Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
-                    }
-
-                    // Delete from database
-                    DB::getInstance()->delete('templates', ['name', $item]);
-                } catch (Exception $e) {
-                    Session::flash('admin_templates_error', $e->getMessage());
+                    $item = $template->name;
+                } else {
+                    Redirect::to(URL::build('/panel/core/panel_templates'));
                 }
+
+                if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/panel_templates/' . $item)) {
+                    Session::flash('admin_templates_error', $language->get('admin', 'unable_to_delete_template'));
+                } else {
+                    Session::flash('admin_templates', $language->get('admin', 'template_deleted_successfully'));
+                }
+
+                // Delete from database
+                DB::getInstance()->delete('templates', ['name', $item]);
             } else {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
@@ -244,26 +242,8 @@ if (!isset($_GET['action'])) {
                 }
 
                 $new_default_template = $new_default[0]->name;
-                $new_default = $new_default[0]->id;
 
-                // Get current default template
-                $current_default = DB::getInstance()->get('panel_templates', ['is_default', true])->results();
-                if (count($current_default)) {
-                    $current_default = $current_default[0]->id;
-                    // No longer default
-                    DB::getInstance()->update('panel_templates', $current_default, [
-                        'is_default' => false,
-                    ]);
-                }
-
-                // Make selected template default
-                DB::getInstance()->update('panel_templates', $new_default, [
-                    'is_default' => true,
-                ]);
-
-                // Cache
-                $cache->setCache('templatecache');
-                $cache->store('panel_default', $new_default_template);
+                Settings::set('default_panel_template', $new_default_template);
 
                 // Session
                 Session::flash('admin_templates', $language->get('admin', 'default_template_set', ['template' => Output::getClean($new_default_template)]));

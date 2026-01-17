@@ -178,7 +178,7 @@ class Text
         $content = html_entity_decode($content);
 
         // Also strip any mentions
-        $content = MentionsHook::stripPost(['content' => $content])['content'];
+        $content = MentionsHook::stripContent($content);
 
         return self::truncate($content, 512, [
             'html' => true,

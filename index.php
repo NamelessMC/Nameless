@@ -23,9 +23,9 @@ if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || is
 ini_set('display_startup_errors', 0);
 ini_set('display_errors', 0);
 
-// Ensure PHP version >= 7.4
-if (PHP_VERSION_ID < 70400) {
-    die('NamelessMC is not compatible with PHP versions older than 7.4, you are running PHP ' . PHP_VERSION);
+// Ensure PHP version >= 8.2
+if (PHP_VERSION_ID < 80200) {
+    die('NamelessMC is not compatible with PHP versions older than 8.2, you are running PHP ' . PHP_VERSION);
 }
 
 // Start page load timer

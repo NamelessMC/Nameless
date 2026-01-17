@@ -41,10 +41,16 @@ class Widgets
         $this->_language = $language;
         $this->_template = $template;
 
-        $enabled = $this->_cache->retrieve('enabled');
-        if ($enabled !== null && count($enabled)) {
-            $this->_enabled = $enabled;
-        }
+        $this->_enabled = $this->_cache->fetch('enabled', function () {
+            // Fetch enabled widgets from database
+            $widgets = $this->_db->query('SELECT * FROM nl2_widgets WHERE enabled = 1')->results();
+            $enabled = [];
+            foreach ($widgets as $widget) {
+                $enabled[$widget->name] = true;
+            }
+
+            return $enabled;
+        });
     }
 
     /**
@@ -129,7 +135,7 @@ class Widgets
                 continue;
             }
 
-            if ((defined('CUSTOM_PAGE') && !in_array(CUSTOM_PAGE, $item->getPages())) || !in_array(PAGE, $item->getPages())) {
+            if (!((defined('CUSTOM_PAGE') && in_array(CUSTOM_PAGE, $item->getPages())) || in_array(PAGE, $item->getPages()))) {
                 continue;
             }
 

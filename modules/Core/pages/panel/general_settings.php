@@ -113,11 +113,7 @@ if (Input::exists()) {
             $cache->store('language', $language_short_code);
 
             // Timezone
-            try {
-                Settings::set('timezone', $_POST['timezone']);
-            } catch (Exception $e) {
-                $errors = [$e->getMessage()];
-            }
+            Settings::set('timezone', $_POST['timezone']);
 
             // Default Homepage
             Settings::set('home_type', $_POST['homepage']);

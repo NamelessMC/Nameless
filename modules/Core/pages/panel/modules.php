@@ -59,16 +59,16 @@ if (!isset($_GET['action'])) {
                 /** @var Module $module */
                 require_once ROOT_PATH . '/modules/' . $item->name . '/init.php';
             } catch (Exception $e) {
-                $term = 'unable_to_load_module';
-
-                if ($e->getMessage() === 'Translation file not found') {
-                    $term = 'unable_to_load_outdated_module';
-                }
-
-                $errors[] = $language->get('admin', $term, [
+                $variables = [
                     'message' => $e->getMessage(),
                     'module' => Output::getClean($item->name),
-                ]);
+                ];
+
+                if ($e->getMessage() === 'Translation file not found') {
+                    $errors[] = $language->get('admin', 'unable_to_load_outdated_module', $variables);
+                } else {
+                    $errors[] = $language->get('admin', 'unable_to_load_module', $variables);
+                }
                 continue;
             }
         }
@@ -319,16 +319,16 @@ if (!isset($_GET['action'])) {
                                 $module->onInstall();
                             }
                         } catch (Exception $e) {
-                            $term = 'unable_to_load_module';
-
-                            if ($e->getMessage() == 'Translation file not found') {
-                                $term = 'unable_to_load_outdated_module';
-                            }
-
-                            $errors[] = $language->get('admin', $term, [
+                            $variables = [
                                 'message' => $e->getMessage(),
                                 'module' => Output::getClean($folders[count($folders) - 1]),
-                            ]);
+                            ];
+
+                            if ($e->getMessage() == 'Translation file not found') {
+                                $errors[] = $language->get('admin', 'unable_to_load_outdated_module', $variables);
+                            } else {
+                                $errors[] = $language->get('admin', 'unable_to_load_module', $variables);
+                            }
                         }
                     }
                 }

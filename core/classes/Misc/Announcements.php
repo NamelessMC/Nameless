@@ -59,21 +59,17 @@ class Announcements
      */
     public function getAll(): iterable
     {
-        $this->_cache->setCache('custom_announcements');
+        $this->_cache->setCache('announcements');
 
-        if ($this->_cache->isCached('custom_announcements')) {
-            return $this->_cache->retrieve('custom_announcements');
-        }
+        return $this->_cache->fetch('announcements', function () {
+            $rows = DB::getInstance()->query('SELECT * FROM nl2_announcements ORDER BY `order`')->results();
+            $announcements = [];
+            foreach ($rows as $row) {
+                $announcements[] = new Announcement($row);
+            }
 
-        $rows = DB::getInstance()->query('SELECT * FROM nl2_custom_announcements ORDER BY `order`')->results();
-        $announcements = [];
-        foreach ($rows as $row) {
-            $announcements[] = new Announcement($row);
-        }
-
-        $this->_cache->store('custom_announcements', $announcements);
-
-        return $this->_cache->retrieve('custom_announcements');
+            return $announcements;
+        });
     }
 
     /**
@@ -130,7 +126,7 @@ class Announcements
      */
     public function edit(int $id, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool
     {
-        DB::getInstance()->update('custom_announcements', $id, [
+        DB::getInstance()->update('announcements', $id, [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
             'text_colour' => $text_colour,
@@ -153,13 +149,13 @@ class Announcements
      */
     public function resetCache(): void
     {
-        $this->_cache->setCache('custom_announcements');
+        $this->_cache->setCache('announcements');
 
-        if ($this->_cache->isCached('custom_announcements')) {
-            $this->_cache->erase('custom_announcements');
+        if ($this->_cache->isCached('announcements')) {
+            $this->_cache->erase('announcements');
         }
 
-        $this->_cache->store('custom_announcements', $this->getAll());
+        $this->getAll();
     }
 
     /**
@@ -178,7 +174,7 @@ class Announcements
      */
     public function create(User $user, array $pages, array $groups, string $text_colour, string $background_colour, string $icon, bool $closable, string $header, string $message, int $order): bool
     {
-        DB::getInstance()->insert('custom_announcements', [
+        DB::getInstance()->insert('announcements', [
             'pages' => json_encode($pages),
             'groups' => json_encode($groups),
             'text_colour' => $text_colour,

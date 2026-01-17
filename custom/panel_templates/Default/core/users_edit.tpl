@@ -262,10 +262,12 @@
     <form style="display:none" action="{$VALIDATE_USER_LINK}" method="post" id="validateUserForm">
         <input type="hidden" name="token" value="{$TOKEN}" />
     </form>
-    <form style="display:none" action="{$DISABLE_TFA_LINK}" method="post" id="disableTfaForm">
-        <input type="hidden" name="token" value="{$TOKEN}" />
-    </form>
 
+    {if isset($DISABLE_TFA_LINK)}
+        <form style="display:none" action="{$DISABLE_TFA_LINK}" method="post" id="disableTfaForm">
+            <input type="hidden" name="token" value="{$TOKEN}" />
+        </form>
+    {/if}
 
     {include file='scripts.tpl'}
 

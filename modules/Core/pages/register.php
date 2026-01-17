@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var FakeSmarty $smarty
@@ -29,7 +29,6 @@ const PAGE = 'register';
 $page_title = $language->get('general', 'register');
 
 require_once ROOT_PATH . '/core/templates/frontend_init.php';
-require_once ROOT_PATH . '/modules/Core/includes/emails/register.php';
 
 // Check if registration is enabled
 if (!Settings::get('registration_enabled')) {
@@ -233,13 +232,7 @@ if (Input::exists()) {
 
                     // Get default group ID
                     $cache->setCache('default_group');
-                    if ($cache->isCached('default_group')) {
-                        $default_group = $cache->retrieve('default_group');
-                    } else {
-                        $default_group = Group::find(1, 'default_group')->id;
-
-                        $cache->store('default_group', $default_group);
-                    }
+                    $default_group = $cache->fetch('default_group', fn () => Group::find(1, 'default_group')->id);
 
                     $timezone = TIMEZONE;
                     $auto_timezone = Input::get('timezone');
@@ -308,15 +301,17 @@ if (Input::exists()) {
 
                     if (!$auto_verify_oauth_email && Settings::get('email_verification') === '1') {
                         // Send registration email
-                        sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
+                        if (!Core_Emails::sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code)) {
+                            Session::flash('validate_error', $language->get('user', 'validate_email_failure'));
+                        }
 
-                        Session::flash('home', $language->get('user', 'registration_check_email'));
+                        Session::put('validate_email', Output::getClean(Input::get('email')));
+                        Redirect::to(URL::build('/validate'));
                     } else {
                         // Redirect straight to verification link
                         Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
                     }
 
-                    Redirect::to(URL::build('/'));
                 } else {
                     // Integrations errors
                     $errors = $integration_errors;

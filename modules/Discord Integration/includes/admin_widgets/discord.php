@@ -10,15 +10,11 @@
  */
 
 // Check input
-$cache->setCache('social_media');
-
 if (Input::exists()) {
     if (Token::check()) {
         if (isset($_POST['theme'])) {
-            $cache->store('discord_widget_theme', $_POST['theme']);
+            Settings::set('discord_widget_theme', $_POST['theme'], 'Discord Integration');
         }
-
-        $cache->store('discord', $guild_id);
 
         $success = $language->get('admin', 'widget_updated');
 
@@ -27,19 +23,13 @@ if (Input::exists()) {
     }
 }
 
-if ($cache->isCached('discord_widget_theme')) {
-    $discord_theme = $cache->retrieve('discord_widget_theme');
-} else {
-    $discord_theme = 'dark';
-}
+$discord_theme = Settings::get('discord_widget_theme', 'dark', 'Discord Integration');
 
 if (isset($errors) && count($errors)) {
-    $smarty->assign([
-        'ERRORS' => $errors,
-    ]);
+    $template->getEngine()->addVariable('ERRORS', $errors);
 }
 
-$smarty->assign([
+$template->getEngine()->addVariables([
     'DISCORD_THEME' => Discord::getLanguageTerm('discord_widget_theme'),
     'DISCORD_THEME_VALUE' => $discord_theme,
     'SETTINGS_TEMPLATE' => 'discord_integration/widgets/discord.tpl',

@@ -6,6 +6,8 @@ class UserSeeder extends Seeder
         'nl2_users',
         'nl2_users_groups',
         'nl2_users_integrations',
+        'nl2_infractions',
+        'nl2_users_session',
     ];
 
     public function run(DB $db, \Faker\Generator $faker): void
@@ -18,7 +20,7 @@ class UserSeeder extends Seeder
             'password' => $password,
             'pass_method' => 'default',
             'joined' => date('U'),
-            'email' => 'admin@localhost',
+            'email' => 'admin@example.com',
             'lastip' => '127.0.0.1',
             'active' => true,
             'last_online' => date('U'),
@@ -62,7 +64,6 @@ class UserSeeder extends Seeder
                 'signature' => $faker->boolean ? $faker->text(500) : null,
                 'profile_views' => $faker->numberBetween(0, 500),
                 'gravatar' => $faker->boolean(20) ? 1 : 0,
-                'topic_updates' => $faker->boolean(40) ? 1 : 0,
                 'private_profile' => $faker->boolean(40) ? 1 : 0,
                 'last_online' => $this->since($joined, $faker)->format('U'),
                 'joined' => $joined,

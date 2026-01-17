@@ -48,7 +48,7 @@
                             </super>
                             {/if}</label>
                         {if $field.type == "text"}
-                        <input type="text" name="{if $name == 'nickname'}nickname{else}profile_fields[{$field.id}]{/if}"
+                        <input type="text" name="{if $name == 'nickname'}nickname{elseif $name == 'user_title'}user_title{else}profile_fields[{$field.id}]{/if}"
                             id="input{$field.id}" value="{$field.value}" placeholder="{$field.description}">
                         {elseif $field.type == "textarea"}
                         <textarea name="profile_fields[{$field.id}]" id="input{$field.id}"
@@ -60,15 +60,6 @@
                         {/if}
                     </div>
                     {/foreach}
-                    {if isset($TOPIC_UPDATES)}
-                    <div class="field">
-                        <label for="inputTopicUpdates">{$TOPIC_UPDATES}</label>
-                        <select class="ui fluid dropdown" name="topicUpdates" id="inputTopicUpdates">
-                            <option value="1" {if ($TOPIC_UPDATES_ENABLED==true)} selected {/if}>{$ENABLED}</option>
-                            <option value="0" {if ($TOPIC_UPDATES_ENABLED==false)} selected {/if}>{$DISABLED}</option>
-                        </select>
-                    </div>
-                    {/if}
                     {if isset($AUTHME_SYNC_PASSWORD)}
                         <div class="field">
                             <label for="inputAuthmeSync">

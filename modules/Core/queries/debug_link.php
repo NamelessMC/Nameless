@@ -53,7 +53,7 @@ foreach ($templates_query as $fe_template) {
     $namelessmc_fe_templates[$fe_template->name] = [
         'name' => $fe_template->name,
         'enabled' => (bool)$fe_template->enabled,
-        'is_default' => (bool)$fe_template->is_default,
+        'is_default' => (bool)Settings::get('default_template') === $fe_template->name,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),
@@ -72,7 +72,7 @@ foreach ($panel_templates_query as $panel_template) {
     $namelessmc_panel_templates[$panel_template->name] = [
         'name' => $panel_template->name,
         'enabled' => (bool)$panel_template->enabled,
-        'is_default' => (bool)$panel_template->is_default,
+        'is_default' => (bool)Settings::get('default_panel_template') === $panel_template->name,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
         'namelessmc_version' => $template->getNamelessVersion(),

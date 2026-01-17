@@ -4,7 +4,7 @@
  *
  * @author Samerton
  * @license MIT
- * @version 2.2.0
+ * @version 2.3.0
  *
  * @var Cache $cache
  * @var FakeSmarty $smarty
@@ -85,15 +85,16 @@ $template->assets()->include([
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-$content = EventHandler::executeEvent('renderCustomPage', [
-    'content' => $custom_page->content,
-    'skip_purify' => $custom_page->all_html ?? false
-])['content'];
+$event = new RenderContentEvent(
+    $custom_page->content,
+    $custom_page->all_html ?? false
+);
+EventHandler::executeEvent($event);
 
 $template->getEngine()->addVariables([
     'WIDGETS_LEFT' => $widgets->getWidgets('left'),
     'WIDGETS_RIGHT' => $widgets->getWidgets('right'),
-    'CONTENT' => $content,
+    'CONTENT' => $event->content,
 ]);
 
 $template->onPageLoad();
