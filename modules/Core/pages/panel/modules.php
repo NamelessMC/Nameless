@@ -186,8 +186,6 @@ if (!isset($_GET['action'])) {
 
             /** @phpstan-ignore-next-line */
             if ($module instanceof Module) {
-                // Cache
-                $cache->setCache('modulescache');
                 $modules = [];
 
                 $order = Module::determineModuleOrder();
@@ -203,6 +201,9 @@ if (!isset($_GET['action'])) {
                     // OK to enable
                     $module->onEnable();
 
+                    // Cache
+                    $cache->setCache('modulescache');
+                    
                     // Store
                     $cache->store('enabled_modules', $modules);
 
