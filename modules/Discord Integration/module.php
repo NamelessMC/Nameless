@@ -16,8 +16,8 @@ class Discord_Module extends Module {
 
         $name = 'Discord Integration';
         $author = '<a href="https://github.com/tadhgboyle" target="_blank" rel="nofollow noopener">Aberdeener</a>';
-        $module_version = '2.2.1';
-        $nameless_version = '2.2.1';
+        $module_version = '2.2.4';
+        $nameless_version = '2.2.4';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
@@ -67,12 +67,8 @@ class Discord_Module extends Module {
         }
 
         if (!defined('FRONT_END')) {
-            $cache->setCache('panel_sidebar');
-
             if ($user->hasPermission('admincp.discord')) {
-                $icon = $cache->fetch('discord_icon', '<i class="nav-icon fab fa-discord"></i>');
-
-                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, $icon, 1);
+                $navs[2]->addItemToDropdown('integrations', 'discord', Discord::getLanguageTerm('discord'), URL::build('/panel/discord'), 'top', null, '<i class="nav-icon fab fa-discord"></i>', 1);
             }
         }
     }

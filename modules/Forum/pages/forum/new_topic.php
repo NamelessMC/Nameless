@@ -231,6 +231,12 @@ if (Input::exists()) {
                     $available_hooks,
                 ));
 
+                DB::getInstance()->insert('topics_following', [
+                    'topic_id' => $topic_id,
+                    'user_id' => $user->data()->id,
+                    'existing_alerts' => 0
+                ]);
+
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
                 Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))));

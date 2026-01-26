@@ -30,7 +30,7 @@ if (!$site_terms->count()) {
 } else {
     $site_terms = $site_terms->first()->value;
 }
-$site_terms = Output::getPurified($site_terms);
+$site_terms = Output::getPurified($site_terms, false, false);
 
 $nameless_terms = Output::getPurified(Settings::get('t_and_c'));
 

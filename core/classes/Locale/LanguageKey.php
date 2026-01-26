@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Represents a valid language key that exists in Nameless.
+ * Represents a language key.
  *
  * @package NamelessMC\Locale
  * @author Aberdeener
@@ -17,13 +17,6 @@ class LanguageKey
 
     public function __construct(string $section, string $term, array $variables = [], ?string $modulePath = 'core')
     {
-        $language = new Language($modulePath, 'en_UK');
-
-        $translation = $language->get($section, $term);
-        if ($translation === $section . '/' . $term) {
-            throw new InvalidArgumentException('Invalid language key: ' . $section . '/' . $term);
-        }
-
         $this->section = $section;
         $this->term = $term;
         $this->variables = $variables;

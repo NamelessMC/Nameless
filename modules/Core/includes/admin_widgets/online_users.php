@@ -10,7 +10,7 @@
  */
 
 // Check input
-$cache->setCache('online_members');
+$cache->setCache('online_members_widget');
 
 if (Input::exists()) {
     if (Token::check()) {
@@ -19,6 +19,10 @@ if (Input::exists()) {
 
         if ($cache->isCached('users')) {
             $cache->erase('users');
+        }
+
+        if ($cache->isCached('total')) {
+            $cache->erase('total');
         }
 
         $success = $language->get('admin', 'widget_updated');

@@ -23,7 +23,7 @@ class Announcement
         $this->icon = $row->icon;
         $this->closable = $row->closable;
         $this->header = Output::getClean($row->header);
-        $this->message = Output::getPurified($row->message);
+        $this->message = Output::getPurified($row->message, false, false);
         $this->order = $row->order;
     }
 

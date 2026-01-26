@@ -41,7 +41,7 @@
                                 required{/if}>
                             {else if $field.type eq 2}
                                 <textarea name="{$field_key}" id="{$field_key}" placeholder="{$field.placeholder}"
-                                          tabindex="{$counter++}"></textarea>
+                                          tabindex="{$counter++}">{$field.value}</textarea>
                             {else if $field.type eq 3}
                                 <input type="date" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                                        tabindex="{$counter++}">

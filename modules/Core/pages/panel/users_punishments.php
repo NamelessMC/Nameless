@@ -205,58 +205,27 @@ if (isset($_GET['user'])) {
                             }
 
                             // Send alerts
-                            $groups_query = DB::getInstance()->query('SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\'');
-                            if ($groups_query->count()) {
-                                $groups_query = $groups_query->results();
+                            $moderators = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id IN (SELECT id FROM nl2_groups WHERE permissions LIKE \'%"modcp.punishments":1%\')')->results();
+                            $notification = new Notification(
+                                'punishment',
+                                new LanguageKey('moderator', 'user_punished_alert', [
+                                    'staffUser' => Output::getClean($user->data()->nickname),
+                                    'user' => Output::getClean($query->nickname),
+                                ]),
+                                new LanguageKey('moderator', 'user_punished_email', [
+                                    'staffUser' => Output::getClean($user->data()->nickname),
+                                    'user' => Output::getClean($query->nickname),
+                                    'linkStart' => '<a href="' . rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)) . '">',
+                                    'linkEnd' => '</a>',
+                                ]),
+                                array_map(fn ($moderator) => $moderator->id, $moderators),
+                                $user->data()->id,
+                                null,
+                                false,
+                                URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)),
+                            );
+                            $notification->send();
 
-                                $groups = '(';
-                                foreach ($groups_query as $group) {
-                                    if (is_numeric($group->id)) {
-                                        $groups .= ((int)$group->id) . ',';
-                                    }
-                                }
-                                $groups = rtrim($groups, ',') . ')';
-
-                                // Get users in this group
-                                $users = DB::getInstance()->query('SELECT DISTINCT(nl2_users.id) AS id FROM nl2_users LEFT JOIN nl2_users_groups ON nl2_users.id = nl2_users_groups.user_id WHERE group_id in ' . $groups);
-
-                                if ($users->count()) {
-                                    $users = $users->results();
-
-                                    foreach ($users as $item) {
-                                        if ($user->data()->id == $item->id) {
-                                            continue;
-                                        }
-
-                                        // Send alert
-                                        Alert::create(
-                                            $item->id,
-                                            'punishment',
-                                            [
-                                                'path' => 'core',
-                                                'file' => 'moderator',
-                                                'term' => 'user_punished_alert',
-                                                'replace' => ['{{staffUser}}', '{{user}}'],
-                                                'replace_with' => [
-                                                    Output::getClean($user->data()->nickname),
-                                                    Output::getClean($query->nickname),
-                                                ],
-                                            ],
-                                            [
-                                                'path' => 'core',
-                                                'file' => 'moderator',
-                                                'term' => 'user_punished_alert',
-                                                'replace' => ['{{staffUser}}', '{{user}}'],
-                                                'replace_with' => [
-                                                    Output::getClean($user->data()->nickname),
-                                                    Output::getClean($query->nickname)
-                                                ],
-                                            ],
-                                            URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id))
-                                        );
-                                    }
-                                }
-                            }
                             Redirect::to(URL::build('/panel/users/punishments/', 'user=' . urlencode($query->id)));
                         } else {
                             $errors[] = $language->get('moderator', 'cant_punish_admin');
