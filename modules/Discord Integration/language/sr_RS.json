@@ -10,6 +10,7 @@
     "discord_integration/discord_id_required": "Molimo unesite vaš Discord Server ID.",
     "discord_integration/discord_integration_not_setup": "Discord integracija nije podešena",
     "discord_integration/discord_invite_info": "Da biste pozvali Nameless Link bot na vaš Discord server, kliknite {{inviteLinkStart}}ovde{{inviteLinkEnd}}. Zatim, pokrenite {{command}} komandu da povežete bot sa vašom veb stranicom. Alternativno, možete {{selfHostLinkStart}}hostovati bot sami{{selfHostLinkEnd}}.",
+    "discord_integration/discord_role_id": "Discord Role ID",
     "discord_integration/discord_role_id_length": "Discord Role ID mora biti između {{min}} i {{max}} cifara dugačak.",
     "discord_integration/discord_role_id_numeric": "Discord Role ID mora biti numerički.",
     "discord_integration/discord_settings_updated": "Discord podešavanja uspešno ažurirana",
