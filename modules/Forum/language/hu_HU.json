@@ -177,5 +177,14 @@
     "forum/forum_score": "Fórum pontszáma",
     "forum/banned_terms": "Tiltott Kifejezések",
     "forum/banned_terms_info": "Soronként egy kifejezés",
-    "forum/content_contains_banned_term": "A bejegyzésed tartalma tiltott kifejezést tartalmaz"
+    "forum/content_contains_banned_term": "A bejegyzésed tartalma tiltott kifejezést tartalmaz",
+    "forum/news_items_numeric": "A hírek számának numerikusnak kell lennie",
+    "forum/news_items_required": "Meg kell adni a hírek számát",
+    "forum/spam_timer": "Spam Időzítő",
+    "forum/spam_timer_info": "Az az időtartam másodpercben, amennyit a felhasználónak várnia kell egy új bejegyzés vagy téma létrehozása után, mielőtt létrehozhatna egy másikat",
+    "forum/spam_timer_min": "A spam időzítőjének legalább {{min}} kell lennie",
+    "forum/spam_timer_numeric": "A spam időzítőjének számnak kell lennie",
+    "forum/spam_timer_required": "Meg kell adni a spam időzítőt",
+    "forum/forum_topic_replies": "Válaszok a fórumtémához",
+    "forum/forum_topic_mentions": "Fórum téma említések"
 }
