@@ -174,5 +174,7 @@
     "forum/latest_posts_widget_cached": "En son gönderiler bir dakikalığına ön belleğe alındı, yaptığınız değişikler hemen yürürlüğe girmeyebilir.",
     "forum/latest_posts_limit": "Son gönderi limitleri",
     "forum/forum_score": "Forum skoru",
-    "forum/unfollow_all_topics": "Tüm konuların takibini bırak"
+    "forum/unfollow_all_topics": "Tüm konuların takibini bırak",
+    "forum/banned_terms": "Yasaklanmış Terimler",
+    "forum/banned_terms_info": "Her satıra yalnızca bir terim yazın; büyük ve küçük harf fark etmez."
 }
