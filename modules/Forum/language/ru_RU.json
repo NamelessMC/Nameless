@@ -176,5 +176,15 @@
     "forum/news_items_min": "Количество новостей должно быть не менее {{min}}",
     "forum/banned_terms": "Запрещённые выражения",
     "forum/banned_terms_info": "Одно выражение в строке, без учета регистра",
-    "forum/content_contains_banned_term": "Содержание вашего поста содержит запрещенное выражение"
+    "forum/content_contains_banned_term": "Содержание вашего поста содержит запрещенное выражение",
+    "forum/forum_topic_replies": "Ответы в темах форума",
+    "forum/forum_topic_mentions": "Упоминания в темах форума",
+    "forum/forum_score": "Рейтинг форума",
+    "forum/news_items_numeric": "Количество новостных элементов должно быть числом",
+    "forum/news_items_required": "Необходимо указать количество новостей",
+    "forum/spam_timer": "Таймер спама",
+    "forum/spam_timer_info": "Количество секунд, которое пользователь должен подождать после создания нового сообщения или темы, прежде чем он сможет создать ещё одно",
+    "forum/spam_timer_min": "Таймер защиты от спама должен быть не менее {{min}}",
+    "forum/spam_timer_numeric": "Таймер спама должен быть числом",
+    "forum/spam_timer_required": "Необходимо указать таймер спама"
 }
