@@ -280,7 +280,7 @@
     "admin/logo_updated_successfully": "Logo úspěšně aktualizováno.",
     "admin/main_group": "Hlavní skupina",
     "admin/maintenance": "Údržba",
-    "admin/maintenance_enabled": "Je zapnut režim údržby.",
+    "admin/maintenance_enabled": "Je zapnutý režim údržby.",
     "admin/maintenance_message_max_1024": "Ujistěte se, že zpráva režimu údržby obsahuje maximálně 1024 znaků.",
     "admin/maintenance_mode_message": "Zpráva režimu údržby",
     "admin/make_default": "Nastavit jako výchozí",
@@ -695,7 +695,7 @@
     "general/unlink": "Odpojit",
     "general/url": "Adresa URL",
     "general/users_registered": "Zaregistrovaní uživatelé",
-    "general/version": "Verze: {{version}}",
+    "general/version": "Verze",
     "general/view": "Zobrazit",
     "general/view_report": "Zobrazit nahlášení",
     "general/warning": "Varování",
@@ -826,7 +826,7 @@
     "moderator/type": "Typ",
     "moderator/updated_by": "Aktualizoval",
     "moderator/user_marked_as_spam": "Uživatel úspěšně označen za spam.",
-    "moderator/user_punished_alert": "{{staffUser}} potrestal uživatele {{user}}",
+    "moderator/user_punished_alert": "Uživatel {{staffUser}} potrestal uživatele {{user}}",
     "moderator/user_reported": "Nahlášený uživatel",
     "moderator/view_closed": "Zobrazit uzavřené",
     "moderator/view_content": "Prohlížení nahlášeného obsahu",
@@ -1370,5 +1370,9 @@
     "user/change_or_resend_email": "Změnit nebo znovu odeslat e-mail",
     "user/validate_email_info": "Děkujeme za registraci! Na adresu <strong>{{email}}</strong> vám byl odeslán e-mail s odkazem pro aktivaci vašeho účtu. Pokud nemůžete e-mail najít, zkontrolujte složku s nevyžádanou poštou.",
     "user/validate_email_resent": "Na adresu <strong>{{email}}</strong> byl znovu odeslán e-mail s odkazem pro aktivaci vašeho účtu. Pokud e-mail nemůžete najít, zkontrolujte složku s nevyžádanou poštou.",
-    "user/validate_email_failure": "Nepodařilo se odeslat ověřovací e-mail, kontaktujte prosím správce webu"
+    "user/validate_email_failure": "Nepodařilo se odeslat ověřovací e-mail, kontaktujte prosím správce webu",
+    "user/user_title_max_64": "Název může obsahovat maximálně 64 znaků.",
+    "user/user_title": "Název",
+    "moderator/user_punished_email": "Uživatel {{staffUser}} potrestal uživatele {{user}}. Klikněte {{linkStart}}sem{{linkEnd}} pro zobrazení.",
+    "notification/punishments": "Tresty"
 }
