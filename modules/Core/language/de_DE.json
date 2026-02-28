@@ -667,7 +667,7 @@
     "general/unlink": "Verknüpfung aufheben",
     "general/url": "URL",
     "general/users_registered": "Benutzer registriert",
-    "general/version": "Version: {{version}}",
+    "general/version": "Version",
     "general/view": "Ansehen",
     "general/view_report": "Meldung ansehen",
     "general/warning": "Warnung",
@@ -798,7 +798,7 @@
     "moderator/type": "Typ",
     "moderator/updated_by": "Geändert von",
     "moderator/user_marked_as_spam": "Der Benutzer wurde als Spammer markiert.",
-    "moderator/user_punished_alert": "{{staffUser}} hat den Benutzer {{user}} bestraft",
+    "moderator/user_punished_alert": "{{staffUser}} hat {{user}} bestraft",
     "moderator/user_reported": "Benutzer wurde gemeldet",
     "moderator/view_closed": "Geschlossene ansehen",
     "moderator/view_content": "Sehe den gemeldeten Content an",
@@ -1370,5 +1370,9 @@
     "user/change_or_resend_email": "E-Mail ändern oder erneut senden",
     "user/validate_email_info": "Vielen Dank für deine Registrierung! Eine E-Mail mit einem Link zur Aktivierung deines Kontos wurde an <strong>{{email}}</strong> gesendet. Solltest du die E-Mail nicht finden können, überprüfe bitte deinen Spam-Ordner.",
     "user/validate_email_resent": "E-Mail erneut gesendet an <strong>{{email}}</strong> mit einem Link zur Aktivierung deines Kontos. Wenn du die E-Mail nicht finden kannst, überprüfe deinen Spam-Ordner.",
-    "user/validate_email_failure": "Verifizierungs-E-Mail konnte nicht gesendet werden, bitte kontaktiere einen Website-Administrator"
+    "user/validate_email_failure": "Verifizierungs-E-Mail konnte nicht gesendet werden, bitte kontaktiere einen Website-Administrator",
+    "user/user_title": "Titel",
+    "user/user_title_max_64": "Dein Titel darf maximal 64 Zeichen lang sein.",
+    "moderator/user_punished_email": "{{staffUser}} hat {{user}} bestraft. Klicke {{linkStart}}hier{{linkEnd}}, um es zu sehen.",
+    "notification/punishments": "Bestrafungen"
 }
