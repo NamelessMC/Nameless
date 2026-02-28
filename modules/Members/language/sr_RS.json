@@ -1,3 +1,19 @@
 {
-    "members/members": "Članovi"
+    "members/members": "Članovi",
+    "members/new_members": "Novi članovi",
+    "members/no_members": "Nema pronađenih članova.",
+    "members/member_lists": "Liste članova",
+    "members/member_list_hide_banned_users": "Sakrij banovane korisnike?",
+    "members/member_list_toggled_enabled": "Uspešno omogućena {{list}} lista.",
+    "members/member_list_toggled_disabled": "Uspešno onemogućena {{list}} lista.",
+    "members/view_all": "Pogledaj sve",
+    "members/find_member": "Pronađi člana",
+    "members/name": "Ime...",
+    "members/view_group": "Pogledaj grupu",
+    "members/group": "Grupa...",
+    "members/viewable_groups": "Vidljive grupe",
+    "members/no_results_header": "Nisu pronađeni rezultati",
+    "members/no_results_text": "Vaša pretraga nije vratila rezultate",
+    "members/no_overview_lists_enabled": "Nijedna lista pregleda nije omogućena.",
+    "members/settings_updated_successfully": "Podešavanja uspešno ažurirana."
 }

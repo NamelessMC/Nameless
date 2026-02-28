@@ -1,3 +1,13 @@
 {
-    "cookie/configure_cookies": "Upravalje Kolačićima"
+    "cookie/configure_cookies": "Upravalje Kolačićima",
+    "cookie/cookie_notice": "Obaveštenje o kolačićima",
+    "cookie/cookie_notice_error": "Molimo unesite obaveštenje o kolačićima od najviše 10.000 karaktera.",
+    "cookie/cookie_notice_info": "Ovaj vidžet zahteva kolačiće",
+    "cookie/cookie_notice_success": "Obaveštenje o kolačićima uspešno ažurirano.",
+    "cookie/cookie_popup": "Ovaj sajt koristi kolačiće kako bi poboljšao vaše iskustvo pretraživanja.",
+    "cookie/cookie_popup_allow": "Dozvoli kolačiće",
+    "cookie/cookie_popup_disallow": "Zabrani kolačiće",
+    "cookie/cookie_popup_more_info": "Više informacija",
+    "cookie/cookies": "Kolačići",
+    "cookie/update_settings": "Prikaži iskačući prozor za kolačiće"
 }

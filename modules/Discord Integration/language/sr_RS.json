@@ -1,3 +1,23 @@
 {
-    "discord_integration/discord": "Diskord"
+    "discord_integration/discord": "Diskord",
+    "discord_integration/discord_bot_must_be_setup": "Ne može se omogućiti Discord integracija dok ne podesite bot. Za informacije, molimo kliknite {{linkStart}}ovde{{linkEnd}}.",
+    "discord_integration/discord_bot_setup": "Bot podešen?",
+    "discord_integration/discord_guild_id": "Discord Server ID",
+    "discord_integration/discord_id_confirm": "Molimo pokrenite komandu \"/verify token:{{token}}\" u Discord-u da biste završili povezivanje vašeg Discord naloga.",
+    "discord_integration/discord_id_help": "Za informacije o tome gde da pronađete Discord ID-jeve, molimo pročitajte {{linkStart}}ovo{{linkEnd}}.",
+    "discord_integration/discord_id_length": "Molimo osigurajte da je vaš Discord Server ID između {{min}} i {{max}} cifara dugačak.",
+    "discord_integration/discord_id_numeric": "Molimo osigurajte da je vaš Discord Server ID numerički (samo brojevi).",
+    "discord_integration/discord_id_required": "Molimo unesite vaš Discord Server ID.",
+    "discord_integration/discord_integration_not_setup": "Discord integracija nije podešena",
+    "discord_integration/discord_invite_info": "Da biste pozvali Nameless Link bot na vaš Discord server, kliknite {{inviteLinkStart}}ovde{{inviteLinkEnd}}. Zatim, pokrenite {{command}} komandu da povežete bot sa vašom veb stranicom. Alternativno, možete {{selfHostLinkStart}}hostovati bot sami{{selfHostLinkEnd}}.",
+    "discord_integration/discord_role_id_length": "Discord Role ID mora biti između {{min}} i {{max}} cifara dugačak.",
+    "discord_integration/discord_role_id_numeric": "Discord Role ID mora biti numerički.",
+    "discord_integration/discord_settings_updated": "Discord podešavanja uspešno ažurirana",
+    "discord_integration/discord_usernames_updated": "Discord korisnička imena uspešno ažurirana",
+    "discord_integration/discord_widget_disabled": "Vidžet je onemogućen za navedeni Discord server. Molimo idite na karticu 'Widget' u podešavanjima vašeg Discord server-a i osigurajte da je Discord vidžet omogućen i da je ID tačan.",
+    "discord_integration/discord_widget_error": "Došlo je do greške prilikom dobijanja Discord vidžeta: {{error}}.",
+    "discord_integration/discord_widget_theme": "Discord vidžet tema",
+    "discord_integration/enable_discord_integration": "Omogući Discord integraciju?",
+    "discord_integration/discord_bot": "Discord Bot",
+    "discord_integration/link_method": "Metod povezivanja"
 }
