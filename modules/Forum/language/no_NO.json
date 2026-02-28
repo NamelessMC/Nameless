@@ -154,5 +154,9 @@
     "forum/views": "Visninger",
     "forum/x_posts": "{{count}} innlegg",
     "forum/x_topics": "{{count}} tråder",
-    "forum/your_posts": "Dine innlegg"
+    "forum/your_posts": "Dine innlegg",
+    "forum/all_topics_unfollowed": "Alle emner har blitt sluttet å følge.",
+    "forum/topic_reply": "Svar på emnet",
+    "forum/banned_terms": "Forbudte ord",
+    "forum/banned_terms_info": "Ett ord per linje, uten skille mellom store og små bokstaver"
 }
