@@ -1,1 +1,7 @@
-{}
+{
+    "members/members": "Medlemmer",
+    "members/new_members": "Nye medlemmer",
+    "members/no_members": "Ingen medlemmer funnet.",
+    "members/member_lists": "Medlemslister",
+    "members/member_list_hide_banned_users": "Skjule utestengte brukere?"
+}
