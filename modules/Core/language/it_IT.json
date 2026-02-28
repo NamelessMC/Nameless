@@ -1,5 +1,5 @@
 {
-    "admin/acp_logins": "Login Pannello Staff",
+    "admin/acp_logins": "Login StaffCP",
     "admin/action": "Azione",
     "admin/action_info": "Informazioni sull'azione",
     "admin/activate": "Attiva",
@@ -13,7 +13,7 @@
     "admin/announcements": "Annunci",
     "admin/api": "API",
     "admin/api_endpoints": "API Endpoints",
-    "admin/api_endpoints_info": "API Endpoints consentono ai moduli di creare modi per applicazioni esterne (come Minecraft e Discord) per interagire con il tuo sito NamelessMC. {{docLinkStart}}Check out the API documentation here{{docLinkEnd}}",
+    "admin/api_endpoints_info": "API Endpoints consentono ai moduli di creare modi per applicazioni esterne (come Minecraft e Discord) per interagire con il tuo sito NamelessMC. {{docLinkStart}}Prova la documentazione API here{{docLinkEnd}}",
     "admin/api_info": "L'API consente ai plugin e ad altri servizi di interagire con il tuo sito web, come il {{pluginLinkStart}}plugin Nameless ufficiale{{pluginLinkEnd}} e il {{botLinkStart}}Bot Discord{{botLinkEnd}}.",
     "admin/api_key": "Chiave API",
     "admin/api_key_regenerated": "La chiave API è stata rigenerata con successo.",
@@ -33,9 +33,9 @@
     "admin/author": "Autore:",
     "admin/author_x": "Autore: {{author}}",
     "admin/avatar_settings_updated_successfully": "Impostazioni avatar aggiornate con successo.",
-    "admin/avatars": "Avatar",
+    "admin/avatars": "Avatars",
     "admin/background_colour": "Colore di sfondo",
-    "admin/background_colour_required": "Il colore di sfondo è obbligatorio",
+    "admin/background_colour_required": "Il colore dello sfondo è obbligatorio",
     "admin/ban_hook_info": "Utente bannato",
     "admin/banner_background": "Sfondo banner",
     "admin/banner_image_x": "Immagine banner: {{imageName}}",
@@ -1181,7 +1181,7 @@
     "user/username_already_exists": "Il nome utente selezionato esiste già.",
     "admin/unable_to_load_module": "Errore {{message}} nel modulo {{module}}.",
     "admin/unable_to_load_outdated_module": "Impossibile caricare il modulo {{module}} in quanto obsoleto.",
-    "admin/user_banned_webhook": "{{punished}} è stato bannato da {{punisher}}.",
+    "admin/user_banned_webhook": "{{punished}} è stato bannato dal sito da {{punisher}}.",
     "admin/user_warned_webhook": "{{punished}} è stato ammonito da {{punisher}}.",
     "admin/clone_group": "Clona gruppo",
     "admin/query_type_help": "Se la query di default non funziona, prova un'altra opzione.",
@@ -1286,5 +1286,7 @@
     "admin/mass_message_exclusions_override_inclusions": "Gruppi/utenti esclusi sostituiscono gruppi/utenti inclusi",
     "admin/mass_message_ignore_opt_in": "Ignorare e-mail opt-in?",
     "admin/custom_score": "Punteggio personalizzato",
-    "admin/admin_logged_in": "Admin entrato dentro"
+    "admin/admin_logged_in": "Admin si è loggato",
+    "admin/compat_php_version_info": "La verione {{php}} è raccomandata.",
+    "admin/compat_pdo_version_info": "La versione MySQL {{mysql}} o la versione di MariaDB {{mariadb}} è raccomandata."
 }
