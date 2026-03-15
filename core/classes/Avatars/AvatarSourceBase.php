@@ -80,7 +80,7 @@ abstract class AvatarSourceBase
     {
         return str_replace(
             ['{identifier}', '{size}'],
-            [$uuid, $size],
+            [urlencode($uuid), $size],
             $url_to_format
         );
     }
