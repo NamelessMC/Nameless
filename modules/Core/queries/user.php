@@ -23,14 +23,15 @@ if (!isset($_GET['id'])) {
 
 const PAGE = 'user_query';
 $page_title = 'user_query';
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
 if (!is_numeric($_GET['id'])) {
-    // Username
-    $username = Output::getClean($_GET['id']);
+    $username = preg_replace('/[^a-zA-Z0-9_]/', '', $_GET['id']);
     $nickname = $username;
     $profile = URL::build('/profile/' . $username);
-    $avatar = (isset($_GET['uuid']) ? AvatarSource::getAvatarFromUUID(Output::getClean($_GET['uuid'])) : AvatarSource::getAvatarFromUUID($username));
+    $avatar = (isset($_GET['uuid']) ? AvatarSource::getAvatarFromUUID(
+        preg_replace('/[^a-zA-Z0-9\-]/', '', $_GET['uuid'])
+    ) : AvatarSource::getAvatarFromUUID($username));
     $style = '';
     $groups = [];
     $id = 0;
