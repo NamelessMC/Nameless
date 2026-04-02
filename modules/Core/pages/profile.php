@@ -64,6 +64,27 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
     $query = $profile_user->data();
 
+    // Set Can view
+    $canView = true;
+
+    if ($user->isLoggedIn() && $profile_user->isBlocked($query->id, $user->data()->id)) {
+        $canView = false;
+
+        $template->getEngine()->addVariables([
+            'BLOCKED' => $language->get('user', 'blocked_profile_page'),
+        ]);
+    } elseif ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
+        $canView = false;
+
+        $template->getEngine()->addVariables([
+            'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
+        ]);
+    }
+
+    $template->getEngine()->addVariables([
+        'CAN_VIEW' => $canView,
+    ]);
+
     // Deal with input
     if (Input::exists() && $user->isLoggedIn()) {
         if (isset($_POST['action'])) {
@@ -95,7 +116,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     break;
 
                 case 'new_post':
-                    if (Token::check()) {
+                    if ($canView && Token::check()) {
                         if ($user->hasPermission('profile.post')) {
                             $validation = Validate::check($_POST, [
                                 'post' => [
@@ -173,7 +194,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     break;
 
                 case 'reply':
-                    if (Token::check()) {
+                    if ($canView && Token::check()) {
                         if ($user->hasPermission('profile.post')) {
                             $validation = Validate::check($_POST, [
                                 'reply' => [
@@ -472,23 +493,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         }
     }
 
-    // Set Can view
-    if ($user->isLoggedIn() && $profile_user->isBlocked($query->id, $user->data()->id)) {
-        $template->getEngine()->addVariables([
-            'BLOCKED' => $language->get('user', 'blocked_profile_page'),
-            'CAN_VIEW' => false
-        ]);
-    } else if ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
-        $template->getEngine()->addVariables([
-            'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
-            'CAN_VIEW' => false
-        ]);
-    } else {
-        $template->getEngine()->addVariables([
-            'CAN_VIEW' => true
-        ]);
-    }
-
     // Generate Smarty variables to pass to template
     if ($user->isLoggedIn()) {
         // Form token
@@ -499,12 +503,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             'CANCEL' => $language->get('general', 'cancel'),
             'CAN_MODERATE' => $user->canViewStaffCP()
         ]);
-
-        if ($user->hasPermission('profile.private.bypass')) {
-            $template->getEngine()->addVariables([
-                'CAN_VIEW' => true
-            ]);
-        }
 
         if ($user->data()->id == $query->id) {
             // Custom profile banners
