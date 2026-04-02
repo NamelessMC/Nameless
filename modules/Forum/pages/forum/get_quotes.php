@@ -25,6 +25,17 @@ if (empty($_GET)) {
 }
 
 $post = $forum->getIndividualPost($_GET['post']);
+$user_groups = $user->getAllGroupIds();
+
+if (
+    $post === false ||
+    !$forum->canViewForum($post['forum_id'], $user_groups) ||
+    !(
+        $forum->canViewOtherTopics($post['forum_id'], $user_groups) || $post['topic_sticky']
+    )
+) {
+    die(json_encode(['error' => 'Post not found']));
+}
 
 $content = $post['content'];
 
