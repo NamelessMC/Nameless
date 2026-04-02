@@ -44,8 +44,14 @@ class ForumPostReactionContext extends ReactionContext {
         }
 
         $post = $result->first();
+        $topic = DB::getInstance()->get('topics', $post->topic_id);
 
-        if (!(new Forum())->forumExist($post->forum_id, $user->getAllGroupIds())) {
+        if (!$topic->exists()) {
+            return false;
+        }
+        $topic = $topic->first();
+
+        if (!(new Forum())->canViewTopicInForum($post->forum_id, $post->post_creator, $topic->sticky === 1, $user)) {
             return false;
         }
 

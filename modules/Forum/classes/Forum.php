@@ -368,6 +368,29 @@ class Forum {
     }
 
     /**
+     * Determine if the user can view a topic in a forum
+     *
+     * @param int   $forum_id        The forum ID for the topic
+     * @param int   $author_id       The topic author ID
+     * @param bool  $is_topic_sticky Whether the topic is sticky or not
+     * @param ?User $user            The user
+     * @return bool Whether the user can view the topic
+     */
+    public function canViewTopicInForum(int $forum_id, int $author_id, bool $is_topic_sticky, ?User $user): bool {
+        if ($user) {
+            $groups = $user->getAllGroupIds();
+            $userId = $user->data()->id;
+        } else {
+            $groups = [0];
+            $userId = 0;
+        }
+
+        return
+            $this->canViewForum($forum_id, $groups) &&
+            ($is_topic_sticky || $this->canViewOtherTopics($forum_id, $groups) || $author_id === $userId);
+    }
+
+    /**
      * Determine if the groups can post replies in the forum or not.
      *
      * @param int $forum_id The forum ID
