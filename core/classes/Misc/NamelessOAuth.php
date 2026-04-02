@@ -76,12 +76,7 @@ class NamelessOAuth extends Instanceable
             $provider = $this->getProviderInstance($provider_name);
 
             $providers[$provider_name] = [
-                'url' => $provider->getAuthorizationUrl([
-                    'scope' => $provider_data['scopes'] ?? [
-                        $provider_data['scope_id_name'],
-                        'email',
-                    ],
-                ]),
+                'url' => URL::build('/oauth', 'action=init&provider=' . urlencode($provider_name), 'non-friendly'),
                 'display_name' => $provider_data['display_name'] ?? ucfirst($provider_name),
                 'icon' => $provider_data['icon'] ?? null,
                 'logo_url' => $provider_data['logo_url'] ?? null,
