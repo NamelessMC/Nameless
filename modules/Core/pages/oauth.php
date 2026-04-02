@@ -8,8 +8,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'cancel_registration') {
     Redirect::to(URL::build('/register'));
 }
 
-if (!isset($_GET['provider'], $_GET['code'])) {
-    ErrorHandler::logWarning('No provider or code set when accessing OAuth');
+if (!isset($_GET['provider'])) {
+    ErrorHandler::logWarning('No provider set when accessing OAuth');
     Session::flash('home_error', $language->get('general', 'oauth_no_data'));
     Redirect::to(URL::build('/'));
 }
@@ -25,6 +25,38 @@ if (!Session::exists('oauth_method')) {
     Session::flash('home_error', $language->get('general', 'oauth_failed'));
     Redirect::to(URL::build('/'));
 }
+
+if (isset($_GET['action']) && $_GET['action'] == 'init') {
+    try {
+        $provider_data = NamelessOAuth::getInstance()->getProvider($_GET['provider']);
+        $provider = NamelessOAuth::getInstance()->getProviderInstance($_GET['provider']);
+
+        $url = $provider->getAuthorizationUrl([
+            'scope' => $provider_data['scopes'] ?? [
+                    $provider_data['scope_id_name'],
+                    'email',
+                ],
+        ]);
+
+        Session::put('oauth_state', $provider->getState());
+        Redirect::to($url);
+    } catch (Exception $e) {
+        ErrorHandler::logWarning('An error occurred while handling an OAuth ' . Session::get('oauth_method') . ' request: ' . $e->getMessage());
+    }
+}
+
+if (!isset($_GET['code'])) {
+    ErrorHandler::logWarning('No code set when accessing OAuth');
+    Session::flash('home_error', $language->get('general', 'oauth_no_data'));
+    Redirect::to(URL::build('/'));
+}
+
+if (!isset($_GET['state']) || !Session::exists('oauth_state') || $_GET['state'] !== Session::get('oauth_state')) {
+    ErrorHandler::logWarning('OAuth state validation failed');
+    Session::flash('home_error', $language->get('general', 'oauth_failed'));
+    Redirect::to(URL::build('/'));
+}
+Session::delete('oauth_state');
 
 // If they are filling in 2FA. We've already retrieved their user. We can skip the other steps in this case
 if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
