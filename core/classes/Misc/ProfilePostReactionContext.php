@@ -35,14 +35,50 @@ class ProfilePostReactionContext extends ReactionContext
 
     public function validateReactable(int $reactable_id, User $user)
     {
-        // TODO check blocked?
         $result = DB::getInstance()->get('user_profile_wall_posts', ['id', $reactable_id]);
 
-        if ($result->exists()) {
-            return $result->first();
+        if (!$result->exists()) {
+            return false;
         }
 
-        return false;
+        $result = $result->first();
+
+        // Get profile post wall owner
+        $owner = DB::getInstance()->get('users', ['id', $result->user_id]);
+
+        if (!$owner->exists()) {
+            return false;
+        }
+
+        $owner = $owner->first();
+
+        // Is it a private profile?
+        if ($owner->private_profile === 1) {
+            if (!$user->canBypassPrivateProfile()) {
+                return false;
+            }
+        }
+
+        // Have they blocked the current user (or vice versa)?
+        if ($user->isBlocked($owner->id, $user->data()->id) || $user->isBlocked($user->data()->id, $owner->id)) {
+            return false;
+        }
+
+        // Get profile post author
+        $author = DB::getInstance()->get('users', ['id', $result->author_id]);
+
+        if (!$author->exists()) {
+            return false;
+        }
+
+        $author = $author->first();
+
+        // Has the author blocked the current user?
+        if ($user->isBlocked($author->id, $user->data()->id) || $user->isBlocked($user->data()->id, $author->id)) {
+            return false;
+        }
+
+        return $result;
     }
 
     public function hasReacted(User $user, Reaction $reaction, int $reactable_id)
