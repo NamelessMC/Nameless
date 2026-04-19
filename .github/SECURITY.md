@@ -8,8 +8,8 @@ The following NamelessMC releases are supported by the development team
 
 | Version   | Supported          |
 |-----------|--------------------|
-| 2.2.4     | :white_check_mark: |
-| <= 2.2.3  | :x:                |
+| 2.2.5     | :white_check_mark: |
+| <= 2.2.4  | :x:                |
 | <= 1.0.22 | :x:                |
 
 ## Reporting a Vulnerability
