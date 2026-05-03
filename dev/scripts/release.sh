@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
-docker build -t nameless-release dev/scripts/release
-docker run --rm -u $(id -u) -v "$(pwd):/data" nameless-release
+podman build -t nameless-release dev/scripts/release
+podman run --rm -v "$(pwd):/data:z" nameless-release
