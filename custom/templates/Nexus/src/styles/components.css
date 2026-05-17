@@ -1,0 +1,656 @@
+/* ================================================================
+ * Nexus · Component layer
+ * Reusable component classes prefixed with .nx-
+ * These compile via @apply so Tailwind utilities are the building blocks.
+ * ================================================================ */
+
+@layer components {
+
+  /* ============ Container ============ */
+  .nx-container {
+    @apply mx-auto w-full max-w-[var(--content-max)] px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ============ Surfaces ============ */
+  .nx-surface {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm), var(--shadow-inset);
+  }
+
+  .nx-surface-elevated {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-md), var(--shadow-inset);
+  }
+
+  /* ============ Card ============ */
+  .nx-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm), var(--shadow-inset);
+    transition: transform var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out);
+    overflow: hidden;
+  }
+  .nx-card--interactive { cursor: pointer; }
+  .nx-card--interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--shadow-inset);
+    border-color: var(--border-strong);
+  }
+  .nx-card--glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .nx-card__header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .nx-card__body { padding: 1.5rem; }
+  .nx-card__footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-inset);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .nx-card__title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+  .nx-card__meta { color: var(--text-muted); font-size: .8125rem; }
+
+  /* ============ Button ============ */
+  .nx-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 38px;
+    padding: 0 0.875rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    border-radius: var(--r-sm);
+    border: 1px solid transparent;
+    color: var(--text-primary);
+    background: var(--bg-elevated);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out);
+    white-space: nowrap;
+  }
+  .nx-btn:hover { background: color-mix(in oklab, var(--bg-elevated) 70%, var(--text-primary) 4%); }
+  .nx-btn:active { transform: scale(.98); }
+  .nx-btn:disabled, .nx-btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; }
+
+  .nx-btn--primary {
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-color: color-mix(in oklab, var(--accent) 70%, white 10%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 1px 2px rgba(0,0,0,.4);
+  }
+  .nx-btn--primary:hover { background: var(--accent-hover); }
+  .nx-btn--primary:focus-visible { box-shadow: 0 0 0 3px var(--accent-glow); }
+
+  .nx-btn--ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border-color: transparent;
+  }
+  .nx-btn--ghost:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+
+  .nx-btn--outline {
+    background: transparent;
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+  .nx-btn--outline:hover {
+    background: var(--bg-elevated);
+    border-color: var(--accent);
+  }
+
+  .nx-btn--danger {
+    background: var(--danger);
+    color: white;
+    border-color: color-mix(in oklab, var(--danger) 70%, white 5%);
+  }
+  .nx-btn--danger:hover { background: color-mix(in oklab, var(--danger) 90%, black 10%); }
+
+  .nx-btn--success {
+    background: var(--success);
+    color: var(--text-inverse);
+    border-color: color-mix(in oklab, var(--success) 70%, black 5%);
+  }
+
+  .nx-btn--sm { height: 30px; padding: 0 0.625rem; font-size: 0.8125rem; }
+  .nx-btn--lg { height: 44px; padding: 0 1.125rem; font-size: 0.9375rem; }
+  .nx-btn--icon { width: 38px; padding: 0; }
+  .nx-btn--icon.nx-btn--sm { width: 30px; }
+  .nx-btn--icon.nx-btn--lg { width: 44px; }
+  .nx-btn--block { width: 100%; }
+
+  /* ============ Input / Form ============ */
+  .nx-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .nx-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+  }
+  .nx-required { color: var(--danger); margin-left: 0.125rem; }
+
+  .nx-input,
+  .nx-textarea,
+  .nx-select {
+    width: 100%;
+    height: 40px;
+    background: var(--bg-inset);
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-sm);
+    padding: 0 0.875rem;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .nx-input::placeholder,
+  .nx-textarea::placeholder { color: var(--text-muted); }
+
+  .nx-input:hover, .nx-textarea:hover, .nx-select:hover { border-color: var(--border-strong); }
+
+  .nx-input:focus, .nx-textarea:focus, .nx-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: var(--bg-base);
+  }
+
+  .nx-textarea {
+    height: auto;
+    min-height: 120px;
+    padding: 0.75rem 0.875rem;
+    line-height: 1.6;
+    resize: vertical;
+  }
+
+  .nx-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%23A8ADB8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.25rem;
+  }
+
+  .nx-checkbox,
+  .nx-radio {
+    appearance: none;
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-inset);
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+    transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+    flex-shrink: 0;
+  }
+  .nx-radio { border-radius: 50%; }
+  .nx-checkbox:checked,
+  .nx-radio:checked { background: var(--accent); border-color: var(--accent); }
+  .nx-checkbox:checked::after {
+    content: "";
+    width: .6rem; height: .6rem;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;
+  }
+  .nx-radio:checked::after {
+    content: "";
+    width: .42rem; height: .42rem;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .nx-help-text { font-size: 0.8125rem; color: var(--text-muted); }
+  .nx-error-text { font-size: 0.8125rem; color: var(--danger); }
+
+  .nx-input--error,
+  .nx-textarea--error,
+  .nx-select--error {
+    border-color: var(--danger);
+  }
+
+  .nx-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .nx-input-group .nx-input { padding-left: 2.5rem; }
+  .nx-input-group__icon {
+    position: absolute;
+    left: 0.875rem;
+    color: var(--text-muted);
+    pointer-events: none;
+    display: inline-flex;
+    width: 1rem; height: 1rem;
+  }
+
+  /* ============ Badge ============ */
+  .nx-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    border-radius: var(--r-full, 9999px);
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+  }
+  .nx-badge--accent  { background: var(--accent-subtle); color: var(--accent); border-color: color-mix(in oklab, var(--accent) 25%, transparent); }
+  .nx-badge--success { background: var(--success-bg); color: var(--success); border-color: color-mix(in oklab, var(--success) 25%, transparent); }
+  .nx-badge--warning { background: var(--warning-bg); color: var(--warning); border-color: color-mix(in oklab, var(--warning) 25%, transparent); }
+  .nx-badge--danger  { background: var(--danger-bg);  color: var(--danger);  border-color: color-mix(in oklab, var(--danger) 25%, transparent); }
+  .nx-badge--info    { background: var(--info-bg);    color: var(--info);    border-color: color-mix(in oklab, var(--info) 25%, transparent); }
+  .nx-badge--dot::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* ============ Avatar ============ */
+  .nx-avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    flex-shrink: 0;
+  }
+  .nx-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .nx-avatar--xs { width: 24px; height: 24px; }
+  .nx-avatar--sm { width: 32px; height: 32px; }
+  .nx-avatar--lg { width: 56px; height: 56px; }
+  .nx-avatar--xl { width: 80px; height: 80px; }
+  .nx-avatar--2xl { width: 120px; height: 120px; border-width: 3px; }
+
+  .nx-avatar__status {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-surface);
+  }
+  .nx-avatar__status--online  { background: var(--success); }
+  .nx-avatar__status--idle    { background: var(--warning); }
+  .nx-avatar__status--offline { background: var(--text-muted); }
+
+  /* ============ Alert / Message ============ */
+  .nx-alert {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-default);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+  .nx-alert__icon { flex-shrink: 0; width: 1.25rem; height: 1.25rem; margin-top: 0.05rem; }
+  .nx-alert__title { font-weight: 600; margin-bottom: 0.15rem; }
+  .nx-alert__body { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; }
+
+  .nx-alert--success { background: var(--success-bg); border-color: color-mix(in oklab, var(--success) 30%, transparent); color: var(--success); }
+  .nx-alert--warning { background: var(--warning-bg); border-color: color-mix(in oklab, var(--warning) 30%, transparent); color: var(--warning); }
+  .nx-alert--danger  { background: var(--danger-bg);  border-color: color-mix(in oklab, var(--danger) 30%, transparent);  color: var(--danger); }
+  .nx-alert--info    { background: var(--info-bg);    border-color: color-mix(in oklab, var(--info) 30%, transparent);    color: var(--info); }
+  .nx-alert--success .nx-alert__body,
+  .nx-alert--warning .nx-alert__body,
+  .nx-alert--danger  .nx-alert__body,
+  .nx-alert--info    .nx-alert__body { color: var(--text-secondary); }
+
+  /* ============ Modal ============ */
+  .nx-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px) saturate(120%);
+    z-index: 80;
+  }
+  .nx-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .nx-modal__panel {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-xl);
+    max-width: 32rem;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .nx-modal__header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .nx-modal__title { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; }
+  .nx-modal__body { padding: 1.5rem; overflow-y: auto; color: var(--text-secondary); line-height: 1.6; }
+  .nx-modal__footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    background: var(--bg-inset);
+  }
+
+  /* ============ Dropdown / Popover ============ */
+  .nx-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .nx-dropdown__panel {
+    position: absolute;
+    z-index: 50;
+    min-width: 14rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.375rem;
+    margin-top: 0.5rem;
+  }
+  .nx-dropdown__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--r-xs);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out);
+    text-align: left;
+    background: transparent;
+    border: 0;
+  }
+  .nx-dropdown__item:hover { background: var(--bg-surface); }
+  .nx-dropdown__item--danger { color: var(--danger); }
+  .nx-dropdown__item--danger:hover { background: var(--danger-bg); }
+  .nx-dropdown__divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 0.375rem -0.375rem;
+  }
+  .nx-dropdown__header {
+    padding: 0.5rem 0.625rem 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .nx-dropdown__shortcut {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+  }
+
+  /* ============ Tabs ============ */
+  .nx-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nx-tabs::-webkit-scrollbar { display: none; }
+  .nx-tab {
+    position: relative;
+    padding: 0.65rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .nx-tab::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0.5rem; right: 0.5rem;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px 2px 0 0;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .nx-tab:hover { color: var(--text-primary); }
+  .nx-tab[aria-selected="true"],
+  .nx-tab.is-active {
+    color: var(--text-primary);
+  }
+  .nx-tab[aria-selected="true"]::after,
+  .nx-tab.is-active::after {
+    transform: scaleX(1);
+  }
+
+  /* ============ Skeleton ============ */
+  .nx-skeleton {
+    position: relative;
+    background: var(--bg-elevated);
+    border-radius: var(--r-sm);
+    overflow: hidden;
+  }
+  .nx-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.6s linear infinite;
+  }
+
+  /* ============ Tooltip ============ */
+  .nx-tooltip {
+    position: absolute;
+    z-index: 70;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: var(--r-xs);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-lg);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* ============ Pagination ============ */
+  .nx-pagination {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: var(--bg-surface);
+    padding: 0.25rem;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--border-default);
+  }
+  .nx-pagination__link,
+  .nx-pagination__link.item,
+  .nx-pagination > a,
+  .nx-pagination > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 0.5rem;
+    border-radius: var(--r-xs);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+    background: transparent;
+  }
+  .nx-pagination__link:hover,
+  .nx-pagination > a:hover { background: var(--bg-elevated); color: var(--text-primary); }
+  .nx-pagination .active,
+  .nx-pagination__link.active {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  /* ============ Table ============ */
+  .nx-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+  }
+  .nx-table thead th {
+    position: sticky; top: 0;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    padding: 0.65rem 1rem;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-default);
+  }
+  .nx-table tbody td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+  }
+  .nx-table tbody tr:hover td {
+    background: var(--bg-elevated);
+  }
+  .nx-table tbody tr:last-child td { border-bottom: 0; }
+
+  /* ============ Toast ============ */
+  .nx-toast-container {
+    position: fixed;
+    bottom: 1rem; right: 1rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+  .nx-toast {
+    pointer-events: auto;
+    min-width: 18rem;
+    max-width: 24rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.75rem 1rem;
+    display: flex;
+    gap: 0.625rem;
+    align-items: flex-start;
+  }
+
+  /* ============ Kbd shortcut hint ============ */
+  .nx-kbd {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 0.4rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-xs);
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+
+  /* ============ Spinner ============ */
+  .nx-spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border-strong);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: nx-spin 0.7s linear infinite;
+  }
+  @keyframes nx-spin { to { transform: rotate(360deg); } }
+
+  /* ============ Divider with label ============ */
+  .nx-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    margin: 1.25rem 0;
+  }
+  .nx-divider::before,
+  .nx-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-default);
+  }
+}

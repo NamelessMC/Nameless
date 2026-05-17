@@ -1,0 +1,181 @@
+/* ================================================================
+ * Nexus · Base layer
+ * Resets, type, focus, scrollbar, body background.
+ * Intentionally LIGHT — Tailwind preflight handles the heavy reset.
+ * ================================================================ */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11", "calt";
+    line-height: 1.5;
+    min-height: 100dvh;
+  }
+
+  /* Ambient gradient mesh on body — extremely subtle, dark mode only */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 50% at 50% 0%, var(--accent-subtle) 0%, transparent 70%),
+      radial-gradient(40% 30% at 90% 10%, color-mix(in oklab, var(--info) 18%, transparent) 0%, transparent 70%),
+      radial-gradient(40% 30% at 5% 60%, color-mix(in oklab, var(--accent) 14%, transparent) 0%, transparent 70%);
+    opacity: .7;
+  }
+
+  [data-theme="light"] body::before {
+    opacity: .35;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.03em; font-weight: 700; }
+  h2 { font-size: clamp(1.625rem, 2.6vw, 2.125rem); letter-spacing: -0.02em; }
+  h3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); }
+  h4 { font-size: 1.125rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: .875rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-secondary); }
+
+  /* Links */
+  a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  a:hover { color: var(--accent-hover); }
+
+  /* Universal focus ring */
+  :where(a, button, [role="button"], input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--r-xs);
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  /* Scrollbar (WebKit + Firefox) */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background: var(--border-default);
+    border-radius: var(--r-full, 9999px);
+    border: 2px solid var(--bg-base);
+  }
+  *::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+  /* Code */
+  code, pre, kbd, samp {
+    font-family: var(--font-mono);
+    font-size: .9em;
+  }
+
+  code {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    padding: 0.1em 0.4em;
+    border-radius: var(--r-xs);
+  }
+
+  pre {
+    background: var(--bg-inset);
+    border: 1px solid var(--border-default);
+    padding: 1rem 1.25rem;
+    border-radius: var(--r-md);
+    overflow-x: auto;
+  }
+
+  pre code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+
+  kbd {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    border-radius: var(--r-xs);
+    padding: 0.1em 0.4em;
+    font-size: .8em;
+    color: var(--text-secondary);
+  }
+
+  /* HR */
+  hr {
+    border: 0;
+    border-top: 1px solid var(--border-default);
+    margin: 1.5rem 0;
+  }
+
+  /* Tables (fallback when not using nx-table component) */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  th {
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-surface);
+  }
+
+  /* Images don't ruin layout */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Skip link for a11y */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 9999;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: var(--accent-fg);
+    border-radius: var(--r-sm);
+  }
+}

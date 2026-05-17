@@ -1,0 +1,7 @@
+node_modules/
+assets/css/*.css
+assets/js/*.js
+!assets/css/.gitkeep
+!assets/js/.gitkeep
+.DS_Store
+*.log

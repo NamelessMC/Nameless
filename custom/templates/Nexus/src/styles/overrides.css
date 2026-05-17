@@ -1,0 +1,361 @@
+/* ================================================================
+ * Nexus · Legacy Compatibility Overrides
+ *
+ * Many NamelessMC modules emit Fomantic UI / Bootstrap classes
+ * inside their own templates and HTML strings (e.g. widgets,
+ * announcement components, captcha, oauth provider styling).
+ *
+ * We don't ship the upstream Fomantic CSS in Nexus, so any
+ * leftover `ui ... segment`, `ui ... button`, `ui ... message`
+ * markup would otherwise look unstyled. This layer renders those
+ * legacy class hooks consistent with the Nexus design system.
+ *
+ * Order: loaded AFTER components.css so it can refine.
+ * ================================================================ */
+
+@layer components {
+
+  /* === Generic Fomantic "ui ... segment" containers === */
+  .ui.segment,
+  .ui.segments {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow-sm), var(--shadow-inset);
+    color: var(--text-primary);
+  }
+  .ui.padded.segment { padding: 1.5rem 1.75rem; }
+
+  /* === Fomantic message/alert === */
+  .ui.message {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-md);
+    padding: 0.875rem 1rem;
+    color: var(--text-primary);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .ui.message > .header { font-weight: 600; margin-bottom: 0.15rem; color: inherit; }
+  .ui.message > .content { color: var(--text-secondary); font-size: 0.9rem; }
+  .ui.message .list { margin: 0.35rem 0 0; padding-left: 1.1rem; }
+  .ui.error.message,   .ui.negative.message { background: var(--danger-bg);  border-color: color-mix(in oklab, var(--danger) 30%, transparent);  color: var(--danger); }
+  .ui.success.message, .ui.positive.message { background: var(--success-bg); border-color: color-mix(in oklab, var(--success) 30%, transparent); color: var(--success); }
+  .ui.warning.message                         { background: var(--warning-bg); border-color: color-mix(in oklab, var(--warning) 30%, transparent); color: var(--warning); }
+  .ui.info.message                            { background: var(--info-bg);    border-color: color-mix(in oklab, var(--info) 30%, transparent);    color: var(--info); }
+
+  /* === Fomantic buttons → Nexus buttons === */
+  .ui.button {
+    @apply nx-btn;
+  }
+  .ui.primary.button    { @apply nx-btn--primary; }
+  .ui.positive.button   { @apply nx-btn--success; }
+  .ui.negative.button   { @apply nx-btn--danger; }
+  .ui.basic.button,
+  .ui.default.button    { @apply nx-btn--outline; }
+  .ui.small.button      { @apply nx-btn--sm; }
+  .ui.large.button      { @apply nx-btn--lg; }
+  .ui.fluid.button      { @apply nx-btn--block; }
+  .ui.icon.button       { @apply nx-btn--icon; }
+
+  /* === Fomantic forms === */
+  .ui.form .field { margin-bottom: 1rem; }
+  .ui.form .field > label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .ui.form input[type="text"],
+  .ui.form input[type="email"],
+  .ui.form input[type="password"],
+  .ui.form input[type="number"],
+  .ui.form input[type="date"],
+  .ui.form input[type="search"],
+  .ui.form input[type="tel"],
+  .ui.form input[type="url"],
+  .ui.form textarea,
+  .ui.form select {
+    @apply nx-input;
+  }
+  .ui.form textarea { @apply nx-textarea; }
+  .ui.form select  { @apply nx-select; }
+
+  .ui.form .ui.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+  }
+  .ui.form .ui.checkbox input[type="checkbox"] { @apply nx-checkbox; }
+  .ui.form .ui.checkbox input[type="radio"]    { @apply nx-radio; }
+  .ui.form .ui.radio.checkbox input[type="radio"] { @apply nx-radio; }
+  .ui.form .ui.dropdown,
+  .ui.form .ui.fluid.dropdown {
+    @apply nx-select;
+  }
+
+  /* === Fomantic header === */
+  .ui.header {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.75rem;
+  }
+  .ui.header > .sub.header,
+  .ui.header .sub.header {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.85em;
+    margin-top: 0.2rem;
+  }
+  .ui.header.inverted { color: var(--text-primary); }
+
+  /* === Fomantic dividers === */
+  .ui.divider,
+  .ui.horizontal.divider {
+    border: 0;
+    border-top: 1px solid var(--border-default);
+    margin: 1rem 0;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .ui.horizontal.divider {
+    display: flex; align-items: center; gap: 0.75rem; border-top: 0;
+  }
+  .ui.horizontal.divider::before,
+  .ui.horizontal.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border-default);
+  }
+
+  /* === Fomantic labels (small inline tags) === */
+  .ui.label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.55rem;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-full, 9999px);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* === Fomantic cards (used by news on home) === */
+  .ui.card,
+  .ui.cards > .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm), var(--shadow-inset);
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    overflow: hidden;
+  }
+  .ui.card > .content,
+  .ui.cards > .card > .content { padding: 1.25rem 1.5rem; border: 0; }
+  .ui.card > .content > .header { font-family: var(--font-display); font-weight: 600; margin-bottom: 0.35rem; }
+  .ui.card > .content > .meta { color: var(--text-muted); font-size: 0.8125rem; margin-bottom: 0.5rem; }
+  .ui.card > .content > .description { color: var(--text-secondary); line-height: 1.6; }
+  .ui.card > .extra.content {
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-inset);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  /* === Fomantic grids → CSS-grid-ish behaviour but preserve auth/login markup === */
+  .ui.grid,
+  .ui.stackable.grid {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 1rem;
+  }
+  .ui.grid > .row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 1rem;
+  }
+  .ui.grid > .column,
+  .ui.grid > .row > .column { grid-column: span 16; }
+
+  /* Width helpers used heavily */
+  .ui.grid .one.wide.column     { grid-column: span 1; }
+  .ui.grid .two.wide.column     { grid-column: span 2; }
+  .ui.grid .three.wide.column   { grid-column: span 3; }
+  .ui.grid .four.wide.column    { grid-column: span 4; }
+  .ui.grid .five.wide.column    { grid-column: span 5; }
+  .ui.grid .six.wide.column     { grid-column: span 6; }
+  .ui.grid .seven.wide.column   { grid-column: span 7; }
+  .ui.grid .eight.wide.column   { grid-column: span 8; }
+  .ui.grid .nine.wide.column    { grid-column: span 9; }
+  .ui.grid .ten.wide.column     { grid-column: span 10; }
+  .ui.grid .eleven.wide.column  { grid-column: span 11; }
+  .ui.grid .twelve.wide.column  { grid-column: span 12; }
+  .ui.grid .thirteen.wide.column{ grid-column: span 13; }
+  .ui.grid .fourteen.wide.column{ grid-column: span 14; }
+  .ui.grid .fifteen.wide.column { grid-column: span 15; }
+  .ui.grid .sixteen.wide.column { grid-column: span 16; }
+  .ui.grid .ui.centered.row     { justify-content: center; }
+
+  /* Below md, stack columns on mobile */
+  @media (max-width: 767px) {
+    .ui.stackable.grid > .row > .column,
+    .ui.stackable.grid > .column,
+    .ui.grid > .column,
+    .ui.grid > .row > .column {
+      grid-column: 1 / -1 !important;
+    }
+  }
+  /* Tablet/computer responsive class hooks */
+  @media (min-width: 768px) and (max-width: 991px) {
+    .ui.grid .sixteen.wide.tablet     { grid-column: span 16; }
+    .ui.grid .ten.wide.tablet         { grid-column: span 10; }
+    .ui.grid .eight.wide.tablet       { grid-column: span 8; }
+    .ui.grid .six.wide.tablet         { grid-column: span 6; }
+    .ui.grid .four.wide.tablet        { grid-column: span 4; }
+  }
+  @media (min-width: 992px) {
+    .ui.grid .twelve.wide.computer    { grid-column: span 12; }
+    .ui.grid .ten.wide.computer       { grid-column: span 10; }
+    .ui.grid .eight.wide.computer     { grid-column: span 8; }
+    .ui.grid .four.wide.computer      { grid-column: span 4; }
+  }
+
+  /* === Fomantic container === */
+  .ui.container { @apply nx-container; }
+
+  /* === Fomantic list === */
+  .ui.list { padding: 0; margin: 0; list-style: none; }
+  .ui.list > .item,
+  .ui.list .item { padding: 0.35rem 0; color: var(--text-secondary); }
+  .ui.relaxed.list > .item { padding: 0.55rem 0; }
+  .ui.link.list > .item,
+  .ui.link.list a.item { color: var(--text-secondary); }
+  .ui.link.list > .item:hover,
+  .ui.link.list a.item:hover { color: var(--text-primary); }
+
+  /* === Fomantic icon (Font Awesome inside) === */
+  .ui.icon { line-height: 1; }
+  i.icon { font-style: normal; }
+
+  /* === Fomantic modal — overlay base for legacy modals (cookies, etc.) === */
+  .ui.modal {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-xl);
+    color: var(--text-primary);
+  }
+  .ui.modal > .header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+  .ui.modal > .content { padding: 1.5rem; color: var(--text-secondary); line-height: 1.6; }
+  .ui.modal > .actions {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-inset);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  /* === Fomantic forum_post (rich text) === */
+  .forum_post {
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .forum_post img { border-radius: var(--r-sm); }
+  .forum_post blockquote {
+    margin: 0.75rem 0;
+    padding: 0.65rem 1rem;
+    background: var(--bg-elevated);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    color: var(--text-primary);
+  }
+
+  /* === Inverted footer segment === */
+  .ui.inverted.vertical.footer.segment {
+    background: var(--bg-inset);
+    border-top: 1px solid var(--border-default);
+    color: var(--text-secondary);
+    padding: 2rem 0 2.5rem;
+    margin-top: 4rem;
+  }
+  .ui.inverted.vertical.footer.segment .ui.inverted.header { color: var(--text-primary); }
+  .ui.inverted.vertical.footer.segment a { color: var(--text-secondary); }
+  .ui.inverted.vertical.footer.segment a:hover { color: var(--text-primary); }
+
+  /* === DataTables (Bootstrap-themed by AssetTree) === */
+  table.dataTable {
+    width: 100% !important;
+    background: var(--bg-surface);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  table.dataTable thead th {
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border-default) !important;
+  }
+  table.dataTable tbody td { border-top: 1px solid var(--border-subtle) !important; color: var(--text-primary); }
+  .dataTables_wrapper .dataTables_filter input,
+  .dataTables_wrapper .dataTables_length select { @apply nx-input; }
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: var(--text-secondary) !important;
+    border-radius: var(--r-xs) !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: var(--accent) !important;
+    color: var(--accent-fg) !important;
+  }
+
+  /* === Select2 in Nexus dress === */
+  .select2-container .select2-selection--single {
+    height: 40px !important;
+    background: var(--bg-inset) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--r-sm) !important;
+    color: var(--text-primary) !important;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px !important;
+    color: var(--text-primary) !important;
+    padding-left: 0.875rem !important;
+  }
+  .select2-dropdown {
+    background: var(--bg-elevated) !important;
+    border: 1px solid var(--border-default) !important;
+    border-radius: var(--r-md) !important;
+    color: var(--text-primary) !important;
+  }
+  .select2-results__option--highlighted[aria-selected] {
+    background: var(--accent) !important;
+    color: var(--accent-fg) !important;
+  }
+}

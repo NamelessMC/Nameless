@@ -1,0 +1,128 @@
+/* ================================================================
+ * Nexus · Design Tokens
+ * Source of truth for color, spacing, radius, shadow, motion.
+ * Tailwind reads these via tailwind.config.js extend.
+ * Override the same custom properties under [data-theme="light"]
+ * to opt into light mode.
+ * ================================================================ */
+
+:root,
+[data-theme="dark"] {
+  /* === Surface · Dark (default) === */
+  --bg-base:       #07080B;
+  --bg-surface:    #0E1014;
+  --bg-elevated:   #14171D;
+  --bg-inset:      #050609;
+  --bg-overlay:    rgba(7, 8, 11, 0.72);
+
+  /* === Border === */
+  --border-subtle:  rgba(255, 255, 255, 0.04);
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-strong:  rgba(255, 255, 255, 0.14);
+
+  /* === Text === */
+  --text-primary:   #F2F3F5;
+  --text-secondary: #A8ADB8;
+  --text-muted:     #6B7180;
+  --text-inverse:   #07080B;
+
+  /* === Accent · Nexus violet === */
+  --accent:        #7C5CFF;
+  --accent-hover:  #8E72FF;
+  --accent-subtle: rgba(124, 92, 255, 0.14);
+  --accent-fg:     #FFFFFF;
+  --accent-glow:   rgba(124, 92, 255, 0.35);
+
+  /* === Semantic === */
+  --success: #34D399;
+  --warning: #FBBF24;
+  --danger:  #F87171;
+  --info:    #60A5FA;
+
+  --success-bg: rgba(52, 211, 153, 0.12);
+  --warning-bg: rgba(251, 191, 36, 0.12);
+  --danger-bg:  rgba(248, 113, 113, 0.12);
+  --info-bg:    rgba(96, 165, 250, 0.12);
+
+  /* === Radius === */
+  --r-xs:  6px;
+  --r-sm:  10px;
+  --r-md:  14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --r-2xl: 36px;
+
+  /* === Shadow (layered for depth hierarchy) === */
+  --shadow-xs:   0 1px 0 rgba(0, 0, 0, 0.4);
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-lg:   0 16px 40px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.5);
+  --shadow-xl:   0 32px 64px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 0 1px var(--border-strong), 0 0 24px var(--accent-glow);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* === Type === */
+  --font-sans:    "Inter", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Geist", "Inter", -apple-system, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* === Motion === */
+  --ease-out:    cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --dur-fast:    120ms;
+  --dur-base:    200ms;
+  --dur-slow:    320ms;
+
+  /* === Component sizing === */
+  --header-h:  64px;
+  --content-max: 1280px;
+}
+
+/* === Light mode override ===
+ * Activated when <html data-theme="light">.
+ * Same token names, different values — components don't care.
+ */
+[data-theme="light"] {
+  --bg-base:       #FAFAFB;
+  --bg-surface:    #FFFFFF;
+  --bg-elevated:   #FFFFFF;
+  --bg-inset:      #F4F4F6;
+  --bg-overlay:    rgba(255, 255, 255, 0.78);
+
+  --border-subtle:  rgba(0, 0, 0, 0.04);
+  --border-default: rgba(0, 0, 0, 0.08);
+  --border-strong:  rgba(0, 0, 0, 0.14);
+
+  --text-primary:   #0B0C10;
+  --text-secondary: #4B5160;
+  --text-muted:     #7A8194;
+  --text-inverse:   #FFFFFF;
+
+  --accent:        #6A4DFF;
+  --accent-hover:  #5A3FFF;
+  --accent-subtle: rgba(106, 77, 255, 0.10);
+  --accent-fg:     #FFFFFF;
+  --accent-glow:   rgba(106, 77, 255, 0.22);
+
+  --success-bg: rgba(16, 161, 105, 0.10);
+  --warning-bg: rgba(217, 119, 6, 0.10);
+  --danger-bg:  rgba(220, 38, 38, 0.10);
+  --info-bg:    rgba(37, 99, 235, 0.10);
+
+  --shadow-xs:   0 1px 0 rgba(0, 0, 0, 0.04);
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg:   0 16px 40px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-xl:   0 32px 64px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-inset: inset 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}

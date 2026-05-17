@@ -1,0 +1,24 @@
+/* ================================================================
+ * Nexus · Stylesheet entry point
+ *
+ *   tokens   → base CSS custom properties (color, radius, type, motion)
+ *   tailwind → preflight + utility classes
+ *   base     → element-level resets and headings
+ *   components → reusable .nx-* classes
+ *   overrides → legacy Fomantic/Bootstrap selector compatibility
+ *
+ * Compile:
+ *   npm run build       (production, minified)
+ *   npm run dev         (watch mode)
+ * Output: ./assets/css/nexus.css
+ * ================================================================ */
+
+@import "./tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./base.css";
+@import "./components.css";
+@import "./overrides.css";
