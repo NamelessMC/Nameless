@@ -119,7 +119,9 @@ if (Input::exists()) {
                         $glue = 'AND';
                     }
 
-                    $clause = "AND $clause";
+                    if ($clause) {
+                        $clause = "AND $clause";
+                    }
 
                     $ids = array_merge($filterGroups ?? [], $filterUsers ?? []);
                     $users = DB::getInstance()->query(
