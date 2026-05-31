@@ -513,21 +513,21 @@ if (isset($_GET['action'])) {
 
             // Update database and cache
             // Default server
-            if ($new_default > 0) {
-                $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
-                if (count($current_default) && $current_default[0]->id != $new_default) {
-                    DB::getInstance()->update('mc_servers', $current_default[0]->id, [
-                        'is_default' => false,
-                    ]);
-                }
+            $current_default = DB::getInstance()->get('mc_servers', ['is_default', true])->results();
+            if (count($current_default) && $current_default[0]->id != $new_default) {
+                DB::getInstance()->update('mc_servers', $current_default[0]->id, [
+                    'is_default' => false,
+                ]);
+            }
 
-                if (!count($current_default) || $current_default[0]->id != $new_default) {
-                    DB::getInstance()->update('mc_servers', $new_default, [
-                        'is_default' => true,
-                    ]);
-                }
+            if ($new_default > 0 && (!count($current_default) || $current_default[0]->id != $new_default)) {
+                DB::getInstance()->update('mc_servers', $new_default, [
+                    'is_default' => true,
+                ]);
+            }
 
-                $cache->setCache('server_status_widget');
+            $cache->setCache('server_status_widget');
+            if ($cache->isCached('server_status')) {
                 $cache->erase('server_status');
             }
 
