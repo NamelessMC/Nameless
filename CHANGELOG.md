@@ -3,6 +3,24 @@
 ## [Unreleased](https://github.com/NamelessMC/Nameless/compare/v2.2.0...develop)
 > [Milestone](https://github.com/NamelessMC/Nameless/milestone/23)
 
+## [2.2.5](https://github.com/NamelessMC/Nameless/compare/v2.2.4...v2.2.5) - 2026-05-31
+### Added
+- No additions this release
+
+### Changed
+- Update release script for php 8.2 [#3726](https://github.com/NamelessMC/Nameless/pull/3726)
+- Adapt release script for podman [#3636](https://github.com/NamelessMC/Nameless/pull/3636)
+
+### Fixed
+- Better UUID sanitisation in avatar URLs
+- Respect permissions when getting a forum quote
+- Respect can view other topic permissions when reacting
+- Respect profile post permissions when reacting
+- Respect profile post permissions when posting
+- Validate OAuth state
+- Fix mass message failing with falsy clause [#3730](https://github.com/NamelessMC/Nameless/pull/3730)
+- Fix option to disable default server [#3727](https://github.com/NamelessMC/Nameless/pull/3727)
+
 ## [2.2.4](https://github.com/NamelessMC/Nameless/compare/v2.2.3...v2.2.4) - 2025-08-10
 ### Added
 - No additions this releasse
