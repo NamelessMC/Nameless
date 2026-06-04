@@ -109,39 +109,46 @@ $route = rtrim(strtok($_GET['route'], '?'), '/');
 
 $all_pages = $pages->returnPages();
 
-if (array_key_exists($route, $all_pages)) {
-    $pages->setActivePage($all_pages[$route]);
-    if (isset($all_pages[$route]['custom'])) {
-        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'custom.php']));
-        die;
-    }
+foreach ($all_pages as $page_route => $page) {
+    $regex = preg_replace(
+        '/\{([a-zA-Z0-9_]+)\}/',
+        '(?P<$1>[^/]+)',
+        $page_route
+    );
 
-    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $all_pages[$route]['module'], $all_pages[$route]['file']]);
+    $regex = '#^' . rtrim($regex, '/') . '$#';
 
-    if (file_exists($path)) {
-        require($path);
-        die;
-    }
-} else {
-    // Use recursion to check - might have URL parameters in path
-    $path_array = explode('/', $route);
-
-    for ($i = count($path_array) - 2; $i > 0; $i--) {
-        $new_path = '/';
-        for ($n = 1; $n <= $i; $n++) {
-            $new_path .= $path_array[$n] . '/';
+    if (preg_match($regex, $route, $matches)) {
+        $route_params = [];
+        foreach ($matches as $key => $value) {
+            if (!is_int($key)) {
+                $route_params[$key] = $value;
+            }
         }
 
-        $new_path = rtrim($new_path, '/');
+        $pages->setActivePage($page);
 
-        if (array_key_exists($new_path, $all_pages)) {
-            $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', $all_pages[$new_path]['module'], $all_pages[$new_path]['file']]);
+        if (isset($page['custom'])) {
+            require implode(DIRECTORY_SEPARATOR, [
+                ROOT_PATH,
+                'modules',
+                'Core',
+                'pages',
+                'custom.php'
+            ]);
+            die;
+        }
 
-            if (file_exists($path)) {
-                $pages->setActivePage($all_pages[$new_path]);
-                require($path);
-                die;
-            }
+        $path = implode(DIRECTORY_SEPARATOR, [
+            ROOT_PATH,
+            'modules',
+            $page['module'],
+            $page['file']
+        ]);
+
+        if (file_exists($path)) {
+            require $path;
+            die;
         }
     }
 }

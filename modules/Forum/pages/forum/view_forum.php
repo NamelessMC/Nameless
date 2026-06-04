@@ -15,6 +15,7 @@
  * @var Navigation $staffcp_nav
  * @var Pages $pages
  * @var string $route
+ * @var array $route_params
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -27,15 +28,7 @@ $forum = new Forum();
 $timeago = new TimeAgo(TIMEZONE);
 
 // Get forum ID
-$fid = explode('/', $route);
-$fid = $fid[count($fid) - 1];
-
-if (!strlen($fid)) {
-    require_once(ROOT_PATH . '/404.php');
-    die();
-}
-
-$fid = explode('-', $fid);
+$fid = explode('-', $route_params['forum']);
 if (!is_numeric($fid[0])) {
     require_once(ROOT_PATH . '/404.php');
     die();

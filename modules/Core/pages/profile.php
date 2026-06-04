@@ -23,10 +23,9 @@ const PAGE = 'profile';
 
 $timeago = new TimeAgo(TIMEZONE);
 
-$profile = explode('/', rtrim($_GET['route'], '/'));
-if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
+if (isset($route_params['username'])) {
     // User specified
-    $md_profile = $profile[count($profile) - 1];
+    $md_profile = $route_params['username'];
 
     $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profile'])->results();
     if (count($page_metadata)) {
@@ -54,9 +53,9 @@ $template->addCSSStyle('
     }
 ');
 
-if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
+if (isset($route_params['username'])) {
     // User specified
-    $profile = $profile[count($profile) - 1];
+    $profile = $route_params['username'];
 
     $profile_user = new User($profile, 'username');
     if (!$profile_user->exists()) {
