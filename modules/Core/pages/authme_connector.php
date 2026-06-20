@@ -109,6 +109,14 @@ if (Input::exists()) {
                 },
             ]);
 
+            $pre_registration_event = EventHandler::executeEvent(new PreUserRegistrationEvent(
+                $_POST,
+            ));
+
+            if ($pre_registration_event->isCancelled()) {
+                $validation->addCustomError('custom', $pre_registration_event->getCancelledReason());
+            }
+
             if ($validation->passed()) {
                 // Get default language ID before creating user
                 $language_id = DB::getInstance()->get('languages', ['short_code', LANGUAGE]);

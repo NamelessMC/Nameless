@@ -301,6 +301,7 @@ class Core_Module extends Module {
         EventHandler::registerEvent(UserWarnedEvent::class);
 
         // -- Pipelines
+        EventHandler::registerEvent(PreUserRegistrationEvent::class);
         EventHandler::registerEvent(PreCustomPageCreateEvent::class);
         EventHandler::registerEvent(PreCustomPageEditEvent::class);
         EventHandler::registerEvent(RenderContentEvent::class);

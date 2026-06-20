@@ -38,6 +38,13 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_USERNAME_ALREADY_EXISTS);
         }
 
+        $pre_registration_event = EventHandler::executeEvent(new PreUserRegistrationEvent(
+            $_POST,
+        ));
+        if ($pre_registration_event->isCancelled()) {
+            $api->throwError(CoreApiErrors::ERROR_EVENT_CANCELLED, $pre_registration_event->getCancelledReason());
+        }
+
         // Integrations
         if (isset($_POST['integrations'])) {
             $integrations = Integrations::getInstance();

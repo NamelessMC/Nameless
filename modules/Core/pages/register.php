@@ -189,6 +189,14 @@ if (Input::exists()) {
                 Redirect::to(URL::build('/'));
             }
 
+            $pre_registration_event = EventHandler::executeEvent(new PreUserRegistrationEvent(
+                $_POST,
+            ));
+
+            if ($pre_registration_event->isCancelled()) {
+                $validation->addCustomError('custom', $pre_registration_event->getCancelledReason());
+            }
+
             // Check if any integrations wanna modify the validation
             foreach ($integrations->getEnabledIntegrations() as $integration) {
                 $integration->beforeRegistrationValidation($validation);

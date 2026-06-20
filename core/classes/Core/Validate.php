@@ -613,6 +613,6 @@ class Validate
      */
     public function passed(): bool
     {
-        return $this->_passed;
+        return $this->_passed && !count($this->errors());
     }
 }

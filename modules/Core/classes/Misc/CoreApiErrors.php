@@ -44,4 +44,5 @@ class CoreApiErrors {
     public const ERROR_WEBHOOK_URL_INCORRECT_LENGTH = 'core:webhook_url_incorrect_length';
     public const ERROR_WEBHOOK_INVALID_TYPE = 'core:webhook_type_invalid';
     public const ERROR_WEBHOOK_INVALID_EVENT = 'core:webhook_event_invalid';
+    public const ERROR_EVENT_CANCELLED = 'core:event_cancelled';
 }
