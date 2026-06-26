@@ -84,8 +84,9 @@ if (!isset($_GET['action'])) {
                 'actualVersion' => Text::bold(NAMELESS_VERSION)
             ]) : false,
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
-            'uninstall_link' => ($module->getName() != 'Core' ? URL::build('/panel/core/modules/', 'action=uninstall&m=' . urlencode($item->id)) : null),
+            'uninstall_link' => (($module->getName() != 'Core' && $user->data()->id == 1) ? URL::build('/panel/core/modules/', 'action=uninstall&m=' . urlencode($item->id)) : null),
             'confirm_uninstall' => $language->get('admin', 'uninstall_confirm', ['item' => Output::getClean($module->getName())]),
+            'confirm_uninstall_type_help' => $language->get('admin', 'uninstall_confirm_type_help', ['module' => Output::getClean($module->getName())]),
             'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
             'enabled' => $item->enabled
         ];
@@ -156,7 +157,10 @@ if (!isset($_GET['action'])) {
         'MODULE' => $language->get('admin', 'module'),
         'STATS' => $language->get('admin', 'stats'),
         'ACTIONS' => $language->get('general', 'actions'),
-        'WARNING' => $language->get('general', 'warning')
+        'WARNING' => $language->get('general', 'warning'),
+        'UNINSTALL_CONFIRM_DESCRIPTION' => $language->get('admin', 'uninstall_confirm_description'),
+        'UNINSTALL_CONFIRM_TYPE_LABEL' => $language->get('admin', 'uninstall_confirm_type_label'),
+        'UNINSTALL_CONFIRM_MISMATCH' => $language->get('admin', 'uninstall_confirm_mismatch')
     ]);
 
 } else {
@@ -354,13 +358,26 @@ if (!isset($_GET['action'])) {
             die('Invalid module!');
         }
 
+        if ($user->data()->id != 1) {
+            Session::flash('admin_modules_error', $language->get('admin', 'root_only_module_uninstall'));
+            Redirect::to(URL::build('/panel/core/modules'));
+        }
+
         if (Token::check($_POST['token'])) {
-            // Get module name
-            $name = DB::getInstance()->get('modules', ['id', $_GET['m']])->results();
-            $name = Output::getClean($name[0]->name);
+            $module_query = DB::getInstance()->get('modules', ['id', $_GET['m']]);
+            if (!$module_query->count()) {
+                Redirect::to(URL::build('/panel/core/modules'));
+            }
+
+            $module_name = $module_query->first()->name;
+
+            if (Input::get('confirm_module_name') !== $module_name) {
+                Session::flash('admin_modules_error', $language->get('admin', 'uninstall_confirm_mismatch'));
+                Redirect::to(URL::build('/panel/core/modules'));
+            }
 
             foreach (Module::getModules() as $item) {
-                if (in_array($name, $item->getLoadAfter())) {
+                if (in_array($module_name, $item->getLoadAfter())) {
                     // Unable to disable module
                     Session::flash('admin_modules_error', $language->get('admin', 'unable_to_uninstall_module', ['module' => Output::getClean($item->getName())]));
                     Redirect::to(URL::build('/panel/core/modules'));
@@ -376,7 +393,7 @@ if (!isset($_GET['action'])) {
             $order = Module::determineModuleOrder();
 
             foreach ($order['modules'] as $key => $item) {
-                if ($item != $name) {
+                if ($item != $module_name) {
                     $modules[] = [
                         'name' => $item,
                         'priority' => $key
@@ -387,17 +404,17 @@ if (!isset($_GET['action'])) {
             // Store
             $cache->store('enabled_modules', $modules);
 
-            if (file_exists(ROOT_PATH . '/modules/' . $name . '/init.php')) {
+            if (file_exists(ROOT_PATH . '/modules/' . $module_name . '/init.php')) {
                 /** @var Module $module */
-                require_once(ROOT_PATH . '/modules/' . $name . '/init.php');
+                require_once(ROOT_PATH . '/modules/' . $module_name . '/init.php');
                 $module->onUninstall();
             }
 
-            if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/modules/' . $name)) {
+            if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/modules/' . $module_name)) {
                 Session::flash('admin_modules_error', $language->get('admin', 'unable_to_delete_module_files'));
             }
 
-            Session::flash('admin_modules', $language->get('admin', 'module_uninstalled'));
+            Session::flash('admin_modules', $language->get('admin', 'module_uninstalled', ['module' => Output::getClean($module_name)]));
             Redirect::to(URL::build('/panel/core/modules'));
 
         } else {
