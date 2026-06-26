@@ -265,9 +265,10 @@ if (Input::exists()) {
 
             if ($validation->passed()) {
                 $password = Input::get('password');
-                $encrypted_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]);
+                $encrypted_password = Password::hash($password);
                 $view_user->update([
-                    'password' => $encrypted_password
+                    'password' => $encrypted_password,
+                    'pass_method' => Password::DEFAULT_METHOD,
                 ]);
                 Session::flash('edit_user_success', $language->get('admin', 'user_password_changed_successfully'));
             } else {
