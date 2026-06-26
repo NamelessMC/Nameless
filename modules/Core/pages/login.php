@@ -182,20 +182,7 @@ if (Input::exists()) {
                                 $result = $authme_conn->query("SELECT password FROM {$authme_db['table']} WHERE email = ? OR realname = ?", [$username, $username]);
                                 if ($result->count()) {
                                     $password = $result->first()->password;
-                                    // Strip prefixes from password that authme adds
-                                    switch ($authme_db['hash']) {
-                                        case 'sha256':
-                                            // $SHA$<salt>$<password hash>
-                                            [, , $salt, $pass] = explode('$', $password);
-                                            $password = $salt . '$' . $pass;
-                                            break;
-
-                                        case 'pbkdf2':
-                                            // pbkdf2_sha256$<iterations>$<salt>$<password hash>
-                                            [, $iterations, $salt, $pass] = explode('$', $password);
-                                            $password = $iterations . '$' . $salt . '$' . $pass;
-                                            break;
-                                    }
+                                    $password = Password::rehash($password, $authme_db['hash'], $authme_db['hash']);
 
                                     // Update password
                                     if (!is_null($password)) {
@@ -207,7 +194,7 @@ if (Input::exists()) {
                                         $synced_password = true;
                                     }
                                 }
-                            } catch (PDOException $exception) {
+                            } catch (InvalidArgumentException | PDOException $exception) {
                                 // Error, continue as we can use the already stored password
                             }
                         }
