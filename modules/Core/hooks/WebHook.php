@@ -25,6 +25,7 @@ class WebHook implements WebhookDispatcher {
             'headers' => [
                 'Content-Type' => 'application/json',
             ],
+            'allow_redirects' => false,
         ]);
 
         if ($httpClient->hasError()) {
