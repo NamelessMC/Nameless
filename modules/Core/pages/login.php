@@ -126,7 +126,7 @@ if (Input::exists()) {
                         // Ensure a user is active
                         if (!$user->data()->active) {
                             Session::put('validate_email', Output::getClean($user->data()->email));
-                            Redirect::to('/validate');
+                            Redirect::to(URL::build('/validate'));
                         }
 
                         // Handle 2FA if enabled
