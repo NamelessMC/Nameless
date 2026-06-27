@@ -47,6 +47,22 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         $name = $_POST['name'];
         $url = $_POST['url'];
         $type = $_POST['type'];
+
+        // Validate URL to prevent SSRF
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_URL);
+        }
+
+        $scheme = parse_url($url, PHP_URL_SCHEME);
+        if (!in_array($scheme, ['http', 'https'], true)) {
+            $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_URL);
+        }
+
+        $host = parse_url($url, PHP_URL_HOST);
+        $ip = filter_var($host, FILTER_VALIDATE_IP) ? $host : gethostbyname($host);
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+            $api->throwError(CoreApiErrors::ERROR_WEBHOOK_INVALID_URL);
+        }
         $events = $_POST['events'];
 
         if (!in_array($type, ['1', '2'])) {
