@@ -199,6 +199,7 @@ class HttpClient
         return new Client(array_merge([
             'timeout' => 5.0,
             'handler' => $stack,
+            'http_errors' => false,
         ], $options));
     }
 
@@ -209,6 +210,10 @@ class HttpClient
      */
     public function contents(): string
     {
+        if ($this->_response === null) {
+            return '';
+        }
+
         return $this->_response->getBody()->getContents();
     }
 
@@ -220,17 +225,26 @@ class HttpClient
      */
     public function json(bool $assoc = false)
     {
-        return json_decode($this->contents(), $assoc);
+        $contents = $this->contents();
+
+        if ($contents === '') {
+            return null;
+        }
+
+        return json_decode($contents, $assoc);
     }
 
     /**
      * Get the response HTTP status code.
      *
-     * @return int The response code
+     * Returns null when no HTTP response was received, such as for a
+     * connection failure, DNS failure, or timeout.
+     *
+     * @return int|null The response code
      */
-    public function getStatus(): int
+    public function getStatus(): ?int
     {
-        return $this->_response->getStatusCode();
+        return $this->_response?->getStatusCode();
     }
 
     /**
@@ -240,7 +254,15 @@ class HttpClient
      */
     public function hasError(): bool
     {
-        return $this->getError() !== '';
+        if ($this->_error !== '') {
+            return true;
+        }
+
+        if ($this->_response === null) {
+            return true;
+        }
+
+        return $this->_response->getStatusCode() >= 400;
     }
 
     /**
@@ -256,6 +278,10 @@ class HttpClient
 
         if ($this->_response === null) {
             return '$this->_response is null';
+        }
+
+        if ($this->_response->getStatusCode() >= 400) {
+            return (string) $this->_response->getBody();
         }
 
         return '';
