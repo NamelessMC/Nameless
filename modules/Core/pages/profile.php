@@ -225,11 +225,17 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 // Validation successful
 
                                 // Ensure post exists
-                                $post = DB::getInstance()->get('user_profile_wall_posts', ['id', $_POST['post']]
-                                )->results();
-                                if (!count($post)) {
+                                $post = DB::getInstance()->query(
+                                    'SELECT author_id FROM nl2_user_profile_wall_posts WHERE id = ? AND user_id = ?',
+                                    [$_POST['post'], $profile_user->data()->id]
+                                );
+
+                                if (!$post->count()) {
+                                    Session::flash('profile_wall_error', $language->get('user', 'invalid_wall_post_unable_to_find'));
                                     Redirect::to($profile_user->getProfileURL());
                                 }
+
+                                $post = $post->first();
 
                                 $event = new ContentCreateEvent(Input::get('reply'), $user);
                                 EventHandler::executeEvent($event);
@@ -253,7 +259,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                     )
                                 );
 
-                                if ($post[0]->author_id != $query->id && $query->id != $user->data()->id) {
+                                if ($post->author_id != $query->id && $query->id != $user->data()->id) {
                                     Alert::create(
                                         $query->id,
                                         'profile_post',
@@ -278,9 +284,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         )
                                     );
                                 } else {
-                                    if ($post[0]->author_id != $user->data()->id) {
+                                    if ($post->author_id != $user->data()->id) {
                                         // Alert post author
-                                        if ($post[0]->author_id == $query->id) {
+                                        if ($post->author_id == $query->id) {
                                             Alert::create(
                                                 $query->id,
                                                 'profile_post_reply',
@@ -306,7 +312,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                             );
                                         } else {
                                             Alert::create(
-                                                $post[0]->author_id,
+                                                $post->author_id,
                                                 'profile_post_reply',
                                                 [
                                                     'path' => 'core',
@@ -846,6 +852,10 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         $template->assets()->include([
             AssetTree::IMAGE_PICKER,
         ]);
+    }
+
+    if (Session::exists('profile_wall_error')) {
+        $template->getEngine()->addVariable('ERROR', Session::flash('profile_wall_error'));
     }
 
     if (Session::exists('profile_banner_error')) {
