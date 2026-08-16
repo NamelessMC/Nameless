@@ -85,10 +85,20 @@ class Alert
         $db = DB::getInstance();
 
         if ($all == true) {
-            return $db->get('alerts', ['user_id', $user_id])->results();
+            $alerts = $db->get('alerts', ['user_id', $user_id])->results();
+        } else {
+            $alerts = $db->query('SELECT * FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user_id])->results();
         }
 
-        return $db->query('SELECT * FROM nl2_alerts WHERE user_id = ? AND `read` = 0', [$user_id])->results();
+        return array_map(
+            static fn($alert) => [
+                ...(array) $alert,
+                'content' => Output::getClean($alert->content),
+                'content_short' => Output::getClean($alert->content_short),
+                'content_rich' => $alert->bypass_purify ? $alert->content_rich :  Output::getPurified($alert->content_rich, false, false),
+            ],
+            $alerts
+        );
     }
 
     /**
