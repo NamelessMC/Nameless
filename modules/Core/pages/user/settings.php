@@ -383,12 +383,12 @@ if (isset($_GET['do'])) {
                     if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
 
                         // Hash new password
-                        $new_password = password_hash(Input::get('new_password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                        $new_password = Password::hash(Input::get('new_password'));
 
                         // Update password
                         $user->update([
                             'password' => $new_password,
-                            'pass_method' => 'default'
+                            'pass_method' => Password::DEFAULT_METHOD
                         ]);
 
                         // Logout all other sessions for this user

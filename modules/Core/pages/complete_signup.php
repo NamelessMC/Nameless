@@ -67,10 +67,11 @@ if (!$user->isLoggedIn()) {
                 if ($validation->passed()) {
                     // Complete registration
                     // Hash password
-                    $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                    $password = Password::hash(Input::get('password'));
 
                     $target_user->update([
                         'password' => $password,
+                        'pass_method' => Password::DEFAULT_METHOD,
                         'reset_code' => null,
                         'last_online' => date('U'),
                         'active' => true,

@@ -181,8 +181,8 @@ $user = new User();
 $user->create([
     'username' => $username,
     'nickname' => $username,
-    'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]),
-    'pass_method' => 'default',
+    'password' => Password::hash($password),
+    'pass_method' => Password::DEFAULT_METHOD,
     'joined' => date('U'),
     'email' => $email,
     'lastip' => '127.0.0.1',

@@ -12,13 +12,13 @@ class UserSeeder extends Seeder
 
     public function run(DB $db, \Faker\Generator $faker): void
     {
-        $password = password_hash('password', PASSWORD_BCRYPT, ['cost' => 13]);
+        $password = Password::hash('password');
 
         $db->insert('users', [
             'username' => 'admin',
             'nickname' => 'admin',
             'password' => $password,
-            'pass_method' => 'default',
+            'pass_method' => Password::DEFAULT_METHOD,
             'joined' => date('U'),
             'email' => 'admin@example.com',
             'lastip' => '127.0.0.1',
@@ -57,6 +57,7 @@ class UserSeeder extends Seeder
                 'username' => $username,
                 'nickname' => $faker->boolean ? $username : $full_name,
                 'password' => $password,
+                'pass_method' => Password::DEFAULT_METHOD,
                 'email' => $faker->email,
                 'isbanned' => $faker->boolean(20) ? 1 : 0,
                 'lastip' => $faker->ipv4,
