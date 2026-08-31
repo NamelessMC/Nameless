@@ -29,6 +29,48 @@
                         </ol>
                     </div>
 
+                    <!-- Backup Recommendation Card -->
+                    {if isset($NEW_UPDATE) && isset($BACKUP_RECOMMENDATION)}
+                        <div class="card shadow mb-4 border-left-warning">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-warning">
+                                    <i class="fas fa-exclamation-triangle"></i> {$BACKUP_RECOMMENDATION}
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-3">{$BACKUP_BEFORE_UPDATE}</p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="font-weight-bold">{$MOST_RECENT_BACKUP}</h6>
+                                        {if isset($LATEST_BACKUP)}
+                                            <div class="alert alert-success">
+                                                <i class="fas fa-check-circle"></i>
+                                                <strong>{$LATEST_BACKUP.filename}</strong><br>
+                                                <small>{$LATEST_BACKUP.date_formatted}</small>
+                                            </div>
+                                        {else}
+                                            <div class="alert alert-warning">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                {$NO_RECENT_BACKUP}
+                                            </div>
+                                        {/if}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex flex-column h-100 justify-content-center">
+                                            <a href="{$CREATE_BACKUP_LINK}" class="btn btn-success mb-2">
+                                                <i class="fas fa-plus"></i> {$CREATE_BACKUP}
+                                            </a>
+                                            <a href="{$BACKUPS_PAGE_LINK}" class="btn btn-outline-primary">
+                                                <i class="fas fa-archive"></i> {$MANAGE_BACKUPS}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {/if}
+
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <!-- Success and Error Alerts -->

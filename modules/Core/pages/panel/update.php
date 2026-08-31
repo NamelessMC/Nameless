@@ -78,6 +78,42 @@ if (!is_string($update_check)) {
             'DOWNLOAD' => $language->get('admin', 'download'),
             'INSTALL_CONFIRM' => $language->get('admin', 'install_confirm'),
         ]);
+
+        // Get backup information
+        if ($user->hasPermission('admincp.core.backups')) {
+            $latest_backup = null;
+            $backups_dir = ROOT_PATH . '/backups/';
+            if (is_dir($backups_dir)) {
+                $backup_files = glob($backups_dir . '*.zip');
+                if ($backup_files) {
+                    // Sort by modification time (newest first)
+                    usort($backup_files, function($a, $b) {
+                        return filemtime($b) - filemtime($a);
+                    });
+
+                    $latest_backup = [
+                        'filename' => basename($backup_files[0]),
+                        'date' => date(DATE_FORMAT, filemtime($backup_files[0])),
+                        'date_formatted' => $language->get('admin', 'backup_created', [
+                            'ago' => (new TimeAgo(TIMEZONE))->inWords(date(DATE_FORMAT, filemtime($backup_files[0])), $language)
+                        ]),
+                        'timestamp' => filemtime($backup_files[0])
+                    ];
+                }
+            }
+
+            $template->getEngine()->addVariables([
+                'BACKUP_RECOMMENDATION' => $language->get('admin', 'backup_recommendation'),
+                'BACKUP_BEFORE_UPDATE' => $language->get('admin', 'backup_before_update'),
+                'MOST_RECENT_BACKUP' => $language->get('admin', 'most_recent_backup'),
+                'NO_RECENT_BACKUP' => $language->get('admin', 'no_recent_backup'),
+                'CREATE_BACKUP' => $language->get('admin', 'create_backup'),
+                'MANAGE_BACKUPS' => $language->get('admin', 'manage_backups'),
+                'CREATE_BACKUP_LINK' => URL::build('/panel/core/backups', 'action=create&token=' . Token::get()),
+                'BACKUPS_PAGE_LINK' => URL::build('/panel/core/backups'),
+                'LATEST_BACKUP' => $latest_backup,
+            ]);
+        }
     }
 } else {
     $template->getEngine()->addVariable('UPDATE_CHECK_ERROR', $update_check);

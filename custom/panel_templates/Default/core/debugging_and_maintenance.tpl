@@ -36,7 +36,11 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             {if isset($ERROR_LOGS)}
-                            <a href="{$ERROR_LOGS_LINK}" class="btn btn-primary">{$ERROR_LOGS}</a>
+                                <a href="{$ERROR_LOGS_LINK}" class="btn btn-primary">{$ERROR_LOGS}</a>
+                            {/if}
+
+                            {if isset($BACKUPS_LINK)}
+                                <a href="{$BACKUPS_LINK}" class="btn btn-primary">{$BACKUPS}</a>
                             {/if}
 
                             <button class="float-right btn btn-info d-flex align-items-center" id="show_debug_modal" onclick="showDebugModal()">
