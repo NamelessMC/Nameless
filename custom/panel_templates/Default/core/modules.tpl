@@ -152,9 +152,9 @@
                                 <div class="alert alert-warning">{$UNABLE_TO_RETRIEVE_MODULES}</div>
                             {/if}
 
-                            <a href="{$VIEW_ALL_MODULES_LINK}" class="btn btn-primary"
-                                target="_blank">{$VIEW_ALL_MODULES}
-                                &raquo;</a>
+                            <a href="{$VIEW_ALL_MODULES_LINK}" class="btn btn-primary">
+                                {$VIEW_ALL_MODULES} &raquo;
+                            </a>
 
                         </div>
                     </div>
