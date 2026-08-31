@@ -30,8 +30,8 @@ class Forum_Module extends Module {
 
         $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
         $pages->add('Forum', '/forum/error', 'pages/forum/error.php');
-        $pages->add('Forum', '/forum/view', 'pages/forum/view_forum.php');
-        $pages->add('Forum', '/forum/topic', 'pages/forum/view_topic.php');
+        $pages->add('Forum', '/forum/view/{forum}', 'pages/forum/view_forum.php');
+        $pages->add('Forum', '/forum/topic/{topic}', 'pages/forum/view_topic.php');
         $pages->add('Forum', '/forum/new', 'pages/forum/new_topic.php');
         $pages->add('Forum', '/forum/spam', 'pages/forum/spam.php');
         $pages->add('Forum', '/forum/report', 'pages/forum/report.php');
