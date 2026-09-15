@@ -3,7 +3,7 @@
     "cookie/configure_cookies": "配置 Cookies",
     "cookie/cookie_notice": "Cookie 提示",
     "cookie/cookie_notice_error": "请输入最多 10,000 字的 Cookie 提示。",
-    "cookie/cookie_notice_info": "本组件 (widget) 需要使用 Cookies",
+    "cookie/cookie_notice_info": "此小部件需要使用 Cookies",
     "cookie/cookie_notice_success": "Cookie 提示更新成功。",
     "cookie/cookie_popup_allow": "允许 Cookies",
     "cookie/cookie_popup_disallow": "不允许",
