@@ -214,7 +214,7 @@ if (Input::exists()) {
                         // TODO: Invalid IP, do something
                     }
 
-                    $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                    $password = Password::hash(Input::get('password'));
 
                     // Generate validation code
                     $code = SecureRandom::alphanumeric();
@@ -251,7 +251,7 @@ if (Input::exists()) {
                         'username' => $username,
                         'nickname' => $nickname,
                         'password' => $password,
-                        'pass_method' => 'default',
+                        'pass_method' => Password::DEFAULT_METHOD,
                         'joined' => date('U'),
                         'email' => Input::get('email'),
                         'reset_code' => $code,

@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } else {
         $user = new User();
-        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+        $password = Password::hash(Input::get('password'));
 
         try {
             $default_language = DB::getInstance()->get('languages', ['is_default', true])->results();
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'username' => Input::get('username'),
                 'nickname' => Input::get('username'),
                 'password' => $password,
-                'pass_method' => 'default',
+                'pass_method' => Password::DEFAULT_METHOD,
                 'joined' => date('U'),
                 'email' => Input::get('email'),
                 'lastip' => $ip,

@@ -254,67 +254,15 @@ if (Input::exists()) {
                             if (is_null($result->password)) {
                                 $errors[] = $language->get('user', 'authme_no_password');
                             } else {
-                                // Validate inputted password against actual password
-                                $valid = false;
+                                $valid = Password::check($_POST['password'], $result->password, $authme_db['hash']);
 
-                                switch ($authme_db['hash']) {
-                                    case 'bcrypt':
-                                        if (password_verify($_POST['password'], $result->password)) {
-                                            $valid = true;
-                                            $_SESSION['authme'] = [
-                                                'username' => Input::get('username'),
-                                                'pass' => $result->password,
-                                                'ip' => $result->ip,
-                                                'hash' => 'bcrypt',
-                                            ];
-                                        }
-
-                                        break;
-
-                                    case 'sha1':
-                                        if (sha1($_POST['password']) == $result->password) {
-                                            $valid = true;
-                                            $_SESSION['authme'] = [
-                                                'username' => Input::get('username'),
-                                                'pass' => $result->password,
-                                                'ip' => $result->ip,
-                                                'hash' => 'sha1',
-                                            ];
-                                        }
-
-                                        break;
-
-                                    // Strip prefixes from password that authme adds
-                                    case 'sha256':
-                                        // $SHA$<salt>$<password hash>
-                                        [, , $salt, $password_hash] = explode('$', $result->password);
-
-                                        if ($salt . hash('sha256', hash('sha256', $_POST['password']) . $salt) == $salt . $password_hash) {
-                                            $valid = true;
-                                            $_SESSION['authme'] = [
-                                                'username' => Input::get('username'),
-                                                'pass' => $salt . '$' . $password_hash,
-                                                'ip' => $result->ip,
-                                                'hash' => 'sha256',
-                                            ];
-                                        }
-                                        break;
-
-                                    case 'pbkdf2':
-                                        // pbkdf2_sha256$<iterations>$<salt>$<password hash>
-                                        [, $iterations, $salt, $pass] = explode('$', $result->password);
-                                        $hashed = hash_pbkdf2('sha256', $_POST['password'], $salt, $iterations, 64, true);
-
-                                        if ($hashed == hex2bin($pass)) {
-                                            $valid = true;
-                                            $_SESSION['authme'] = [
-                                                'username' => Input::get('username'),
-                                                'pass' => $iterations . '$' . $salt . '$' . $pass,
-                                                'ip' => $result->ip,
-                                                'hash' => 'pbkdf2',
-                                            ];
-                                        }
-                                        break;
+                                if ($valid) {
+                                    $_SESSION['authme'] = [
+                                        'username' => Input::get('username'),
+                                        'pass' => Password::rehash($result->password, $authme_db['hash'], $authme_db['hash']),
+                                        'ip' => $result->ip,
+                                        'hash' => $authme_db['hash'],
+                                    ];
                                 }
 
                                 if ($valid === true) {

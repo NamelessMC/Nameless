@@ -151,9 +151,10 @@ if (empty($_GET['c'])) {
 
             if ($validation->passed()) {
                 if (strcasecmp($target_user->data()->email, $_POST['email']) == 0) {
-                    $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+                    $new_password = Password::hash(Input::get('password'));
                     $target_user->update([
                         'password' => $new_password,
+                        'pass_method' => Password::DEFAULT_METHOD,
                         'reset_code' => null
                     ]);
 
