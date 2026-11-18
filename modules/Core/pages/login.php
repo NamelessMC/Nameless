@@ -179,7 +179,7 @@ if (Input::exists()) {
                             try {
                                 // Check user exists in database and validate password
                                 $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
-                                $result = $authme_conn->query("SELECT password FROM {$authme_db['table']} WHERE email = ? OR realname = ?", [$username, $username]);
+                                $result = $authme_conn->query("SELECT password FROM `{$authme_db['table']}` WHERE email = ? OR realname = ?", [$username, $username]);
                                 if ($result->count()) {
                                     $password = $result->first()->password;
                                     // Strip prefixes from password that authme adds

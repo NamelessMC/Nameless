@@ -60,6 +60,7 @@ if (Input::exists()) {
                 ],
                 'db_table' => [
                     Validate::REQUIRED => true,
+                    Validate::REGEX => '/^[A-Za-z0-9_]+$/',
                 ],
             ])->message($language->get('admin', 'enter_authme_db_details'));
 

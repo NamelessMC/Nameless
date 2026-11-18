@@ -248,7 +248,7 @@ if (Input::exists()) {
                         $authme_conn = DB::getCustomInstance($authme_db['address'], $authme_db['db'], $authme_db['user'], $authme_db['pass'], $authme_db['port']);
 
                         // Success, check user exists in database and validate password
-                        $result = $authme_conn->query("SELECT password, ip FROM {$authme_db['table']} WHERE realname = ?", [Input::get('username')]);
+                        $result = $authme_conn->query("SELECT password, ip FROM `{$authme_db['table']}` WHERE realname = ?", [Input::get('username')]);
                         if ($result->count() > 0) {
                             $result = $result->first();
                             if (is_null($result->password)) {
