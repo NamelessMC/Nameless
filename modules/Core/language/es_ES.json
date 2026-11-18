@@ -1359,5 +1359,20 @@
     "user/remembered": "Recordado",
     "admin/edit_user_tfa_disabled": "La autenticación de dos factores se ha desactivado correctamente para este usuario.",
     "admin/disable_tfa": "Desactivar 2FA",
-    "admin/top": "Arriba"
+    "admin/top": "Arriba",
+    "admin/admin_logged_in": "El administrador ha iniciado sesión",
+    "admin/user_sessions": "Sesiones de inicio de sesión de usuario",
+    "moderator/report_email": "Se ha creado un nuevo informe. Haga clic {{linkStart}}aquí{{linkEnd}} para verlo.",
+    "moderator/user_punished_email": "{{staffUser}} ha castigado a {{user}}. Haz clic {{linkStart}}aquí{{linkEnd}} para verlo.",
+    "notification/mass_messages": "Mensajes masivos",
+    "notification/reports": "Reportes",
+    "notification/punishments": "Sanciones",
+    "user/blocked_profile_page": "Este usuario te ha bloqueado",
+    "user/user_title": "Titulo",
+    "user/user_title_max_64": "El título debe tener un máximo de 64 caracteres.",
+    "user/validate_email": "Validar correo electrónico",
+    "user/change_or_resend_email": "Cambiar o reenviar correo electrónico",
+    "user/validate_email_info": "¡Gracias por registrarte! Se ha enviado un correo electrónico a <strong>{{email}}</strong> con un enlace para activar tu cuenta. Si no encuentras el correo, revisa tu carpeta de correo no deseado.",
+    "user/validate_email_resent": "Se ha reenviado un correo electrónico a <strong>{{email}}</strong> con un enlace para activar tu cuenta. Si no encuentras el correo, revisa tu carpeta de correo no deseado.",
+    "user/validate_email_failure": "No se pudo enviar el correo electrónico de verificación. Comuníquese con un administrador del sitio"
 }
