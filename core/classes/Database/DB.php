@@ -387,33 +387,67 @@ class DB
     }
 
     /**
-     * Increment a numeric column value by 1.
+     * Increment a numeric column value by 1 or array of data in "column => value" format to increment.
      *
-     * @param  string $table The table to use.
-     * @param  int    $id    The id of the row to increment a column in.
-     * @param  string $field The field to increment.
-     * @return bool   Whether an error occurred or not.
+     * @param  string       $table  The table to use.
+     * @param  int          $id     The id of the row to increment a column in.
+     * @param  string|array $fields Array of data to in "column => value" format to increment.
+     * @return bool         Whether an error occurred or not.
      */
-    public function increment(string $table, int $id, string $field): bool
+    public function increment(string $table, int $id, $fields): bool
     {
         $table = $this->_prefix . $table;
 
-        return !$this->query("UPDATE {$table} SET {$field} = {$field} + 1 WHERE id = ?", [$id])->error();
+        if (!is_array($fields)) {
+            return !$this->query("UPDATE {$table} SET {$fields} = {$fields} + 1 WHERE id = ?", [$id])->error();
+        } else {
+            $set = '';
+            $x = 1;
+
+            foreach (array_keys($fields) as $column) {
+                $set .= "`{$column}` = `{$column}` + ?";
+                if ($x < count($fields)) {
+                    $set .= ', ';
+                }
+                $x++;
+            }
+        }
+
+        $sql = "UPDATE {$table} SET {$set} WHERE id = ?";
+
+        return !$this->query($sql, array_merge($fields, [$id]))->error();
     }
 
     /**
-     * Decrement a numeric column value by 1.
+     * Decrement a numeric column value by 1 or array of data in "column => value" format to decrement.
      *
-     * @param  string $table The table to use.
-     * @param  int    $id    The id of the row to decrement a column in.
-     * @param  string $field The field to increment.
-     * @return bool   Whether an error occurred or not.
+     * @param  string       $table  The table to use.
+     * @param  int          $id     The id of the row to decrement a column in.
+     * @param  string|array $fields Array of data to in "column => value" format to decrement.
+     * @return bool         Whether an error occurred or not.
      */
-    public function decrement(string $table, int $id, string $field): bool
+    public function decrement(string $table, int $id, $fields): bool
     {
         $table = $this->_prefix . $table;
 
-        return !$this->query("UPDATE {$table} SET {$field} = {$field} - 1 WHERE id = ?", [$id])->error();
+        if (!is_array($fields)) {
+            return !$this->query("UPDATE {$table} SET {$fields} = {$fields} - 1 WHERE id = ?", [$id])->error();
+        } else {
+            $set = '';
+            $x = 1;
+
+            foreach (array_keys($fields) as $column) {
+                $set .= "`{$column}` = `{$column}` - ?";
+                if ($x < count($fields)) {
+                    $set .= ', ';
+                }
+                $x++;
+            }
+        }
+
+        $sql = "UPDATE {$table} SET {$set} WHERE id = ?";
+
+        return !$this->query($sql, array_merge($fields, [$id]))->error();
     }
 
     /**
