@@ -31,7 +31,8 @@ class Core_Module extends Module {
 
         $pages->add('Core', '/login', 'pages/login.php');
         $pages->add('Core', '/logout', 'pages/logout.php');
-        $pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
+        $pages->add('Core', '/profile', 'pages/profile.php');
+        $pages->add('Core', '/profile/{username}', 'pages/profile.php', 'profile', true);
         $pages->add('Core', '/register', 'pages/register.php');
         $pages->add('Core', '/register/oauth', 'pages/register.php');
         $pages->add('Core', '/validate', 'pages/validate.php');
@@ -116,7 +117,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
         $pages->add('Core', '/panel/users/sessions', 'pages/panel/users_sessions.php');
-        $pages->add('Core', '/panel/user', 'pages/panel/user.php');
+        $pages->add('Core', '/panel/user/{user}', 'pages/panel/user.php');
 
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/queries/servers'));

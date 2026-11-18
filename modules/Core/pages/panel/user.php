@@ -14,6 +14,7 @@
  * @var Navigation $staffcp_nav
  * @var Pages $pages
  * @var string $route
+ * @var array $route_params
  * @var TemplateBase $template
  * @var User $user
  * @var Widgets $widgets
@@ -24,14 +25,7 @@ if (!$user->handlePanelPageLoad()) {
     die();
 }
 
-$uid = explode('/', $route);
-$uid = $uid[count($uid) - 1];
-
-if (!strlen($uid)) {
-    Redirect::to(URL::build('/panel'));
-}
-
-$uid = explode('-', $uid);
+$uid = explode('-', $route_params['user']);
 if (!is_numeric($uid[0])) {
     Redirect::to(URL::build('/panel'));
 }
