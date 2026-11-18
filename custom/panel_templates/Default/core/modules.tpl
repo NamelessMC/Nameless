@@ -84,7 +84,15 @@
                                                 </form>
                                                 {/if}
                                                 {if $module.uninstall_link}
-                                                    <button class="btn btn-danger btn-sm" onclick="uninstallModule('{$module.uninstall_link}', '{$module.confirm_uninstall}')" style="display:inline">
+                                                    <button
+                                                        class="btn btn-danger btn-sm"
+                                                        data-action="{$module.uninstall_link}"
+                                                        data-confirm-text="{$module.confirm_uninstall}"
+                                                        data-confirm-help="{$module.confirm_uninstall_type_help}"
+                                                        data-module-name="{$module.name}"
+                                                        onclick="uninstallModule(this)"
+                                                        style="display:inline"
+                                                    >
                                                         {$UNINSTALL}
                                                     </button>
                                                 {/if}
@@ -182,14 +190,20 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="" method="post" id="uninstallModuleForm">
+                    <form action="" method="post" id="uninstallModuleForm" data-mismatch-text="{$UNINSTALL_CONFIRM_MISMATCH|escape:'html'}">
                         <div class="modal-body">
                             <p id="confirmUninstallModule"></p>
+                            <p class="text-danger mb-3">{$UNINSTALL_CONFIRM_DESCRIPTION}</p>
+                            <div class="form-group mb-0">
+                                <label for="confirmModuleName">{$UNINSTALL_CONFIRM_TYPE_LABEL}</label>
+                                <input type="text" class="form-control" id="confirmModuleName" name="confirm_module_name" autocomplete="off" required>
+                                <small class="form-text text-muted" id="confirmModuleNameHelp"></small>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
-                            <input type="submit" class="btn btn-primary" value="{$UNINSTALL}">
+                            <input type="submit" class="btn btn-primary" id="uninstallModuleSubmit" value="{$UNINSTALL}" disabled>
                         </div>
                     </form>
                 </div>
@@ -220,11 +234,45 @@
     </script>
 
     <script type="text/javascript">
-        function uninstallModule(action, confirmationText) {
-          $('#uninstallModuleForm').attr('action', action);
-          $('#confirmUninstallModule').html(confirmationText);
-          $('#uninstallModuleModal').modal().show();
+        function updateUninstallSubmit() {
+          const expectedModuleName = $('#confirmModuleName').attr('placeholder');
+          const typedModuleName = $('#confirmModuleName').val();
+          const matches = typedModuleName === expectedModuleName;
+          const uninstallMismatchText = $('#uninstallModuleForm').data('mismatchText');
+
+          $('#uninstallModuleSubmit').prop('disabled', !matches);
+          $('#confirmModuleName')[0].setCustomValidity(matches || typedModuleName.length === 0 ? '' : uninstallMismatchText);
         }
+
+        function uninstallModule(button) {
+          const action = $(button).data('action');
+          const confirmationText = $(button).data('confirmText');
+          const confirmationHelp = $(button).data('confirmHelp');
+          const moduleName = $(button).data('moduleName');
+
+          $('#uninstallModuleForm').attr('action', action);
+          $('#confirmUninstallModule').text(confirmationText);
+          $('#confirmModuleName').val('').attr('placeholder', moduleName);
+          $('#confirmModuleNameHelp').text(confirmationHelp);
+          $('#uninstallModuleSubmit').prop('disabled', true);
+          $('#uninstallModuleModal').modal().show();
+          $('#confirmModuleName').trigger('focus');
+        }
+
+        $('#confirmModuleName').on('input', function () {
+          updateUninstallSubmit();
+        });
+
+        $('#uninstallModuleForm').on('submit', function () {
+          updateUninstallSubmit();
+        });
+
+        $('#uninstallModuleModal').on('hidden.bs.modal', function () {
+          $('#uninstallModuleForm').attr('action', '');
+          $('#confirmUninstallModule').text('');
+          $('#confirmModuleName').val('').attr('placeholder', '').trigger('input');
+          $('#confirmModuleNameHelp').text('');
+        });
     </script>
 
 </body>
