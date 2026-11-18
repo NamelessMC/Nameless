@@ -91,11 +91,11 @@ class Alert
         }
 
         return array_map(
-            static fn($alert) => [
+            static fn ($alert) => [
                 ...(array) $alert,
                 'content' => Output::getClean($alert->content),
                 'content_short' => Output::getClean($alert->content_short),
-                'content_rich' => $alert->bypass_purify ? $alert->content_rich :  Output::getPurified($alert->content_rich, false, false),
+                'content_rich' => $alert->bypass_purify ? $alert->content_rich : Output::getPurified($alert->content_rich, false, false),
             ],
             $alerts
         );

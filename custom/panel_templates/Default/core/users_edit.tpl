@@ -167,12 +167,19 @@
                                         </div>
                                     </div>
                                     <br />
-                                    <select class="form-control" name="groups[]" id="inputGroups" multiple>
-                                        {foreach from=$ALL_GROUPS item=item}
-                                        <option value="{$item->id}" {if in_array($item->id, $GROUPS_VALUE)}
-                                            selected{/if}>{$item->name|escape}</option>
-                                        {/foreach}
-                                    </select>
+                                    {if $CAN_EDIT_GROUPS eq true}
+                                        <select class="form-control" name="groups[]" id="inputGroups" multiple>
+                                            {foreach from=$ALL_GROUPS item=item}
+                                                <option value="{$item->id}" {if in_array($item->id, $GROUPS_VALUE)}
+                                                    selected{/if}{if !in_array($item->id, $ASSIGNABLE_GROUPS)} disabled{/if}>
+                                                    {$item->name|escape}{if !in_array($item->id, $ASSIGNABLE_GROUPS)} ({$GROUP_RANKED_ABOVE_YOU}){/if}
+                                                </option>
+                                            {/foreach}
+                                        </select>
+                                        {if isset($GROUPS_RANK_INFO)}
+                                            <small class="form-text text-muted">{$GROUPS_RANK_INFO}</small>
+                                        {/if}
+                                    {/if}
                                 </div>
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="hidden" name="action" value="update">

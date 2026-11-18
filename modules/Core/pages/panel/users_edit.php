@@ -43,6 +43,27 @@ require_once ROOT_PATH . '/core/templates/backend_init.php';
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
+// Can the logged in user edit this user's groups?
+$can_update_groups =
+    (
+        $view_user->data()->id !== $user->data()->id &&
+        $user->hasPermission('admincp.users.edit.groups')
+    ) ||
+    (
+        $view_user->data()->id === $user->data()->id &&
+        $user->hasPermission('admincp.groups.self')
+    );
+
+// Which groups can the logged in user assign? Administrators can assign any group, other staff can only assign groups ranked below their main group
+$can_assign_any_group = $user->hasPermission('administrator');
+$groups = DB::getInstance()->orderAll('groups', '`order`', 'ASC')->results();
+$assignable_group_ids = [];
+foreach ($groups as $group) {
+    if ($can_assign_any_group || $group->order > $user->getMainGroup()->order) {
+        $assignable_group_ids[] = $group->id;
+    }
+}
+
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'validate') {
         if (Token::check()) {
@@ -150,9 +171,13 @@ if (Input::exists()) {
                 'timezone' => $language->get('general', 'invalid_timezone'),
             ]);
 
-            // Does user have any groups selected
+            // Only groups the logged in user can assign are added or removed, any other groups the user has are kept
+            $form_groups = array_filter($_POST['groups'] ?? [], static fn ($group_id) => in_array($group_id, $assignable_group_ids));
+            $kept_groups = array_filter($view_user->getAllGroupIds(), static fn ($group_id) => !in_array($group_id, $assignable_group_ids));
+
+            // Will the user have any groups after saving
             $passed = false;
-            if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
+            if (!$can_update_groups || $view_user->data()->id == 1 || count($form_groups) || count($kept_groups)) {
                 $passed = true;
             }
 
@@ -198,38 +223,33 @@ if (Input::exists()) {
                 ]);
 
                 $group_sync_log = [];
-                if ($view_user->data()->id != $user->data()->id || $user->hasPermission('admincp.groups.self')) {
-                    if ($view_user->data()->id == 1 || (isset($_POST['groups']) && count($_POST['groups']))) {
-                        $groups_added = [];
-                        $groups_removed = [];
+                if ($can_update_groups) {
+                    $groups_added = [];
+                    $groups_removed = [];
 
-                        $user_group_ids = $view_user->getAllGroupIds();
-                        $form_groups = $_POST['groups'] ?? [];
+                    $user_group_ids = $view_user->getAllGroupIds();
 
-                        // Check for new groups to give them which they don't already have
-                        foreach ($form_groups as $group_id) {
-                            if (!in_array($group_id, $user_group_ids)) {
-                                $groups_added[] = $group_id;
-                                $view_user->addGroup($group_id);
-                            }
+                    // Check for new groups to give them which they don't already have
+                    foreach ($form_groups as $group_id) {
+                        if (!in_array($group_id, $user_group_ids) && $view_user->addGroup($group_id)) {
+                            $groups_added[] = $group_id;
                         }
-
-                        // Check for groups they had, but weren't in the $_POST groups
-                        foreach ($user_group_ids as $group_id) {
-                            if (!in_array($group_id, $form_groups)) {
-                                $groups_removed[] = $group_id;
-                                $view_user->removeGroup($group_id);
-                            }
-                        }
-
-                        // Dispatch groupsync with all of their groups
-                        GroupSyncManager::getInstance()->broadcastGroupChange(
-                            $view_user,
-                            NamelessMCGroupSyncInjector::class,
-                            $groups_added,
-                            $groups_removed,
-                        );
                     }
+
+                    // Check for assignable groups they had, but weren't in the $_POST groups
+                    foreach ($user_group_ids as $group_id) {
+                        if (in_array($group_id, $assignable_group_ids) && !in_array($group_id, $form_groups) && $view_user->removeGroup($group_id)) {
+                            $groups_removed[] = $group_id;
+                        }
+                    }
+
+                    // Dispatch groupsync with all of their groups
+                    GroupSyncManager::getInstance()->broadcastGroupChange(
+                        $view_user,
+                        NamelessMCGroupSyncInjector::class,
+                        $groups_added,
+                        $groups_removed,
+                    );
                 }
 
                 Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
@@ -242,10 +262,10 @@ if (Input::exists()) {
             }
 
         } else if ((Input::get('action') == 'delete') && $user_query->id > 1) {
-                EventHandler::executeEvent(new UserDeletedEvent($view_user));
+            EventHandler::executeEvent(new UserDeletedEvent($view_user));
 
-                Session::flash('users_session', $language->get('admin', 'user_deleted'));
-                Redirect::to(URL::build('/panel/users'));
+            Session::flash('users_session', $language->get('admin', 'user_deleted'));
+            Redirect::to(URL::build('/panel/users'));
         } else if ((Input::get('action') == 'change_password') && $user_query->id > 1 && !$view_user->canViewStaffCP()) {
             $validation = Validate::check($_POST, [
                 'password' => [
@@ -345,6 +365,8 @@ $limit_groups = false;
 if ($user_query->id == 1 || ($user_query->id == $user->data()->id && !$user->hasPermission('admincp.groups.self'))) {
     $template->getEngine()->addVariable('CANT_EDIT_GROUP', $language->get('admin', 'cant_modify_root_user'));
     $limit_groups = true;
+} else if (!$can_update_groups) {
+    $template->getEngine()->addVariable('CANT_EDIT_GROUP', $language->get('admin', 'cant_modify_user_groups'));
 }
 
 $private_profile = Settings::get('private_profile');
@@ -365,7 +387,6 @@ foreach ($templates_query as $item) {
     ];
 }
 
-$groups = DB::getInstance()->orderAll('groups', '`order`', 'ASC')->results();
 $filtered_groups = [];
 foreach ($groups as $group) {
     // Only show groups whose ID is not their main group and whose order is HIGHER than their main group. A main group simply means this $user's group with LOWEST order
@@ -435,6 +456,12 @@ $template->getEngine()->addVariables([
     'GROUPS' => $language->get('admin', 'groups'),
     'GROUPS_INFO' => $language->get('admin', 'secondary_groups_info'),
     'GROUPS_VALUE' => $user_groups,
+    'CAN_EDIT_GROUPS' => $can_update_groups,
+    'ASSIGNABLE_GROUPS' => $assignable_group_ids,
+    'GROUP_RANKED_ABOVE_YOU' => $language->get('admin', 'group_ranked_above_you'),
+    'GROUPS_RANK_INFO' => $can_assign_any_group ? null : $language->get('admin', 'can_only_assign_groups_below', [
+        'group' => Output::getClean($user->getMainGroup()->name),
+    ]),
     'MAIN_GROUP' => $view_user->getMainGroup(),
     'MAIN_GROUP_INFO' => $language->get('admin', 'main_group'),
     'INFO' => $language->get('general', 'info'),
