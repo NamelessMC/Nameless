@@ -31,6 +31,10 @@ require_once ROOT_PATH . '/core/templates/backend_init.php';
 
 if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
     if (Token::check()) {
+        if (!in_array($_GET['log'], ['fatal', 'notice', 'warning', 'other'], true)) {
+            Redirect::to(URL::build('/panel/core/errors'));
+        }
+
         file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
         Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
         Redirect::to(URL::build('/panel/core/errors'));
@@ -76,7 +80,7 @@ if (isset($_GET['log'])) {
             break;
     }
 
-    if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']))) {
+    if (file_exists(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log']))) {
         $template->getEngine()->addVariable('LOG', nl2br(Output::getClean(Util::readFileEnd(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $type . '-log.log'])))));
     } else {
         $template->getEngine()->addVariable('NO_LOG_FOUND', $language->get('admin', 'log_file_not_found'));
