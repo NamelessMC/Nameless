@@ -96,6 +96,7 @@ if (!isset($_GET['action'])) {
     }
 
     // Get modules from Nameless website
+    // TODO: Use ExternalResources class
     $cache->setCache('all_templates');
     if ($cache->isCached('all_modules')) {
         $all_modules = $cache->retrieve('all_modules');
@@ -150,7 +151,7 @@ if (!isset($_GET['action'])) {
         'FIND_MODULES' => $language->get('admin', 'find_modules'),
         'WEBSITE_MODULES' => $all_modules,
         'VIEW_ALL_MODULES' => $language->get('admin', 'view_all_modules'),
-        'VIEW_ALL_MODULES_LINK' => 'https://namelessmc.com/resources/category/1-namelessmc-modules/',
+        'VIEW_ALL_MODULES_LINK' => URL::build('/panel/core/resources'),
         'UNABLE_TO_RETRIEVE_MODULES' => $all_modules_error ?? $language->get('admin', 'unable_to_retrieve_modules'),
         'VIEW' => $language->get('general', 'view'),
         'MODULE' => $language->get('admin', 'module'),
