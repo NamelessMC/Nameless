@@ -34,6 +34,7 @@ $writable_check_paths = [
     ROOT_PATH . '/cache/logs',
     ROOT_PATH . '/cache/sitemaps',
     ROOT_PATH . '/cache/templates_c',
+    ROOT_PATH . '/cache/backups',
     ROOT_PATH . '/uploads',
     ROOT_PATH . '/core/config.php',
 ];

@@ -92,6 +92,13 @@ if ($user->hasPermission('admincp.errors')) {
     ]);
 }
 
+if ($user->hasPermission('admincp.backups')) {
+    $template->getEngine()->addVariables([
+        'BACKUPS' => $language->get('admin', 'backups'),
+        'BACKUPS_LINK' => URL::build('/panel/core/backups'),
+    ]);
+}
+
 $template->getEngine()->addVariables([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),

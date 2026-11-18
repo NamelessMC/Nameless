@@ -14,3 +14,4 @@ composer.lock
 checksums.json
 /.node_cache/
 /release/
+/backups/

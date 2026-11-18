@@ -303,4 +303,18 @@ class Util
 
         return $major == $nameless_major && $minor == $nameless_minor;
     }
+
+    /**
+     * Format bytes into a human-readable string.
+     *
+     * @param  int    $bytes Number of bytes to format.
+     * @return string Formatted string.
+     */
+    public static function formatBytes(int $bytes): string
+    {
+        $sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+
+        return sprintf('%.2f', $bytes / pow(1024, $factor)) . $sizes[$factor];
+    }
 }

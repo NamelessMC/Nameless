@@ -80,6 +80,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/avatars', 'pages/panel/avatars.php');
         $pages->add('Core', '/panel/core/profile_fields', 'pages/panel/profile_fields.php');
         $pages->add('Core', '/panel/core/debugging_and_maintenance', 'pages/panel/debugging_and_maintenance.php');
+        $pages->add('Core', '/panel/core/backups', 'pages/panel/backups.php');
         $pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
         $pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
@@ -550,6 +551,7 @@ class Core_Module extends Module {
             'admincp.core.fields' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'custom_fields'),
             'admincp.core.debugging' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance'),
             'admincp.errors' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance') . ' &raquo; ' . $language->get('admin', 'error_logs'),
+            'admincp.core.backups' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'debugging_and_maintenance') . ' &raquo; ' . $language->get('admin', 'backups'),
             'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
             'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'mass_message'),
             'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),

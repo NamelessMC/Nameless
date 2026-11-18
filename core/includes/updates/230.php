@@ -60,6 +60,16 @@ return new class() extends UpgradeScript {
         $discord_widget_theme = $this->_cache->retrieve('discord_widget_theme') ?: 'dark';
         Settings::set('discord_widget_theme', $discord_widget_theme, 'Discord Integration');
 
+        // Add admincp.core.backups permission to Admin group
+        $admin_group = Group::find(1);
+        $permissions = json_decode($admin_group->permissions, true);
+        if (!isset($permissions['admincp.core.backups'])) {
+            $permissions['admincp.core.backups'] = 1;
+            DB::getInstance()->update('groups', $admin_group->id, [
+                'permissions' => json_encode($permissions),
+            ]);
+        }
+
         $this->setVersion('2.3.0');
     }
 };
