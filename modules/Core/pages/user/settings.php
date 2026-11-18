@@ -78,6 +78,10 @@ if (isset($_GET['do'])) {
                 $template->getEngine()->addVariable('ERRORS', $errors);
             }
         } else {
+            if ($user->data()->tfa_secret === null) {
+                Redirect::to(URL::build('/user/settings/', 'do=enable_tfa'));
+            }
+
             // Validate code to see if it matches the secret
             if (Input::exists()) {
                 if (Token::check()) {
@@ -127,29 +131,52 @@ if (isset($_GET['do'])) {
     } else {
         if ($_GET['do'] == 'disable_tfa') {
             // Disable TFA
-            // TODO - https://github.com/NamelessMC/Nameless/issues/3017
-            if (Input::exists()) {
-                if (Token::check()) {
-                    $user->update([
-                        'tfa_enabled' => false,
-                        'tfa_type' => 0,
-                        'tfa_secret' => null,
-                        'tfa_complete' => false
-                    ]);
-
-                    Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
-                    Redirect::to(URL::build('/user/settings'));
-                }
-
-                echo $language->get('general', 'invalid_token') . '<hr />';
+            if ((int) $user->data()->tfa_enabled !== 1 || (int) $user->data()->tfa_type !== 1 || $user->data()->tfa_secret === null) {
+                Redirect::to(URL::build('/user/settings'));
             }
 
-            echo '
-            <form method="post" action="" id="tfa_disable">
-              <input type="hidden" name="token" value="' . Token::get() . '">
-            </form>
-            <a href="javascript:void(0)" onclick="document.getElementById(\'tfa_disable\').submit();">' . $language->get('user', 'tfa_disable_click') . '</a>
-            ';
+            $tfa = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\QRServerProvider(), Output::getClean(SITE_NAME));
+
+            if (Input::exists()) {
+                if (Token::check()) {
+                    if (isset($_POST['tfa_code']) && $tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) === true) {
+                        $user->update([
+                            'tfa_enabled' => false,
+                            'tfa_type' => 0,
+                            'tfa_secret' => null,
+                            'tfa_complete' => false
+                        ]);
+
+                        Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
+                        Redirect::to(URL::build('/user/settings'));
+                    }
+
+                    $error = $language->get('user', 'invalid_tfa');
+                } else {
+                    $error = $language->get('general', 'invalid_token');
+                }
+            }
+
+            if (isset($error)) {
+                $template->getEngine()->addVariable('ERROR', $error);
+            }
+
+            $template->getEngine()->addVariables([
+                'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
+                'TFA_ENTER_CODE' => $language->get('user', 'tfa_enter_code'),
+                'SUBMIT' => $language->get('general', 'submit'),
+                'TOKEN' => Token::get(),
+                'CANCEL' => $language->get('general', 'cancel'),
+                'CANCEL_LINK' => URL::build('/user/settings'),
+                'ERROR_TITLE' => $language->get('general', 'error')
+            ]);
+
+            Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+            require ROOT_PATH . '/core/templates/cc_navbar.php';
+            $template->onPageLoad();
+            require ROOT_PATH . '/core/templates/navbar.php';
+            require ROOT_PATH . '/core/templates/footer.php';
+            $template->displayTemplate('user/tfa');
 
             return;
         }
